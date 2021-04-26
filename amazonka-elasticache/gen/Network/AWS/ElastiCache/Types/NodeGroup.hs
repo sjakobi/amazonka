@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +21,116 @@ module Network.AWS.ElastiCache.Types.NodeGroup where
 
 import Network.AWS.ElastiCache.Types.Endpoint
 import Network.AWS.ElastiCache.Types.NodeGroupMember
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a collection of cache nodes in a replication group. One node in the node group is the read/write primary node. All the other nodes are read-only Replica nodes.
+-- | Represents a collection of cache nodes in a replication group. One node
+-- in the node group is the read\/write primary node. All the other nodes
+-- are read-only Replica nodes.
 --
---
---
--- /See:/ 'nodeGroup' smart constructor.
+-- /See:/ 'newNodeGroup' smart constructor.
 data NodeGroup = NodeGroup'
-  { _ngStatus ::
-      !(Maybe Text),
-    _ngReaderEndpoint :: !(Maybe Endpoint),
-    _ngNodeGroupId :: !(Maybe Text),
-    _ngPrimaryEndpoint :: !(Maybe Endpoint),
-    _ngSlots :: !(Maybe Text),
-    _ngNodeGroupMembers :: !(Maybe [NodeGroupMember])
+  { -- | The current state of this replication group - @creating@, @available@,
+    -- @modifying@, @deleting@.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The endpoint of the replica nodes in this node group (shard).
+    readerEndpoint :: Prelude.Maybe Endpoint,
+    -- | The identifier for the node group (shard). A Redis (cluster mode
+    -- disabled) replication group contains only 1 node group; therefore, the
+    -- node group ID is 0001. A Redis (cluster mode enabled) replication group
+    -- contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user
+    -- can provide the id for a node group.
+    nodeGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The endpoint of the primary node in this node group (shard).
+    primaryEndpoint :: Prelude.Maybe Endpoint,
+    -- | The keyspace for this node group (shard).
+    slots :: Prelude.Maybe Prelude.Text,
+    -- | A list containing information about individual nodes within the node
+    -- group (shard).
+    nodeGroupMembers :: Prelude.Maybe [NodeGroupMember]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ngStatus' - The current state of this replication group - @creating@ , @available@ , @modifying@ , @deleting@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ngReaderEndpoint' - The endpoint of the replica nodes in this node group (shard).
+-- 'status', 'nodeGroup_status' - The current state of this replication group - @creating@, @available@,
+-- @modifying@, @deleting@.
 --
--- * 'ngNodeGroupId' - The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
+-- 'readerEndpoint', 'nodeGroup_readerEndpoint' - The endpoint of the replica nodes in this node group (shard).
 --
--- * 'ngPrimaryEndpoint' - The endpoint of the primary node in this node group (shard).
+-- 'nodeGroupId', 'nodeGroup_nodeGroupId' - The identifier for the node group (shard). A Redis (cluster mode
+-- disabled) replication group contains only 1 node group; therefore, the
+-- node group ID is 0001. A Redis (cluster mode enabled) replication group
+-- contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user
+-- can provide the id for a node group.
 --
--- * 'ngSlots' - The keyspace for this node group (shard).
+-- 'primaryEndpoint', 'nodeGroup_primaryEndpoint' - The endpoint of the primary node in this node group (shard).
 --
--- * 'ngNodeGroupMembers' - A list containing information about individual nodes within the node group (shard).
-nodeGroup ::
+-- 'slots', 'nodeGroup_slots' - The keyspace for this node group (shard).
+--
+-- 'nodeGroupMembers', 'nodeGroup_nodeGroupMembers' - A list containing information about individual nodes within the node
+-- group (shard).
+newNodeGroup ::
   NodeGroup
-nodeGroup =
+newNodeGroup =
   NodeGroup'
-    { _ngStatus = Nothing,
-      _ngReaderEndpoint = Nothing,
-      _ngNodeGroupId = Nothing,
-      _ngPrimaryEndpoint = Nothing,
-      _ngSlots = Nothing,
-      _ngNodeGroupMembers = Nothing
+    { status = Prelude.Nothing,
+      readerEndpoint = Prelude.Nothing,
+      nodeGroupId = Prelude.Nothing,
+      primaryEndpoint = Prelude.Nothing,
+      slots = Prelude.Nothing,
+      nodeGroupMembers = Prelude.Nothing
     }
 
--- | The current state of this replication group - @creating@ , @available@ , @modifying@ , @deleting@ .
-ngStatus :: Lens' NodeGroup (Maybe Text)
-ngStatus = lens _ngStatus (\s a -> s {_ngStatus = a})
+-- | The current state of this replication group - @creating@, @available@,
+-- @modifying@, @deleting@.
+nodeGroup_status :: Lens.Lens' NodeGroup (Prelude.Maybe Prelude.Text)
+nodeGroup_status = Lens.lens (\NodeGroup' {status} -> status) (\s@NodeGroup' {} a -> s {status = a} :: NodeGroup)
 
 -- | The endpoint of the replica nodes in this node group (shard).
-ngReaderEndpoint :: Lens' NodeGroup (Maybe Endpoint)
-ngReaderEndpoint = lens _ngReaderEndpoint (\s a -> s {_ngReaderEndpoint = a})
+nodeGroup_readerEndpoint :: Lens.Lens' NodeGroup (Prelude.Maybe Endpoint)
+nodeGroup_readerEndpoint = Lens.lens (\NodeGroup' {readerEndpoint} -> readerEndpoint) (\s@NodeGroup' {} a -> s {readerEndpoint = a} :: NodeGroup)
 
--- | The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.
-ngNodeGroupId :: Lens' NodeGroup (Maybe Text)
-ngNodeGroupId = lens _ngNodeGroupId (\s a -> s {_ngNodeGroupId = a})
+-- | The identifier for the node group (shard). A Redis (cluster mode
+-- disabled) replication group contains only 1 node group; therefore, the
+-- node group ID is 0001. A Redis (cluster mode enabled) replication group
+-- contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user
+-- can provide the id for a node group.
+nodeGroup_nodeGroupId :: Lens.Lens' NodeGroup (Prelude.Maybe Prelude.Text)
+nodeGroup_nodeGroupId = Lens.lens (\NodeGroup' {nodeGroupId} -> nodeGroupId) (\s@NodeGroup' {} a -> s {nodeGroupId = a} :: NodeGroup)
 
 -- | The endpoint of the primary node in this node group (shard).
-ngPrimaryEndpoint :: Lens' NodeGroup (Maybe Endpoint)
-ngPrimaryEndpoint = lens _ngPrimaryEndpoint (\s a -> s {_ngPrimaryEndpoint = a})
+nodeGroup_primaryEndpoint :: Lens.Lens' NodeGroup (Prelude.Maybe Endpoint)
+nodeGroup_primaryEndpoint = Lens.lens (\NodeGroup' {primaryEndpoint} -> primaryEndpoint) (\s@NodeGroup' {} a -> s {primaryEndpoint = a} :: NodeGroup)
 
 -- | The keyspace for this node group (shard).
-ngSlots :: Lens' NodeGroup (Maybe Text)
-ngSlots = lens _ngSlots (\s a -> s {_ngSlots = a})
+nodeGroup_slots :: Lens.Lens' NodeGroup (Prelude.Maybe Prelude.Text)
+nodeGroup_slots = Lens.lens (\NodeGroup' {slots} -> slots) (\s@NodeGroup' {} a -> s {slots = a} :: NodeGroup)
 
--- | A list containing information about individual nodes within the node group (shard).
-ngNodeGroupMembers :: Lens' NodeGroup [NodeGroupMember]
-ngNodeGroupMembers = lens _ngNodeGroupMembers (\s a -> s {_ngNodeGroupMembers = a}) . _Default . _Coerce
+-- | A list containing information about individual nodes within the node
+-- group (shard).
+nodeGroup_nodeGroupMembers :: Lens.Lens' NodeGroup (Prelude.Maybe [NodeGroupMember])
+nodeGroup_nodeGroupMembers = Lens.lens (\NodeGroup' {nodeGroupMembers} -> nodeGroupMembers) (\s@NodeGroup' {} a -> s {nodeGroupMembers = a} :: NodeGroup) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML NodeGroup where
+instance Prelude.FromXML NodeGroup where
   parseXML x =
     NodeGroup'
-      <$> (x .@? "Status")
-      <*> (x .@? "ReaderEndpoint")
-      <*> (x .@? "NodeGroupId")
-      <*> (x .@? "PrimaryEndpoint")
-      <*> (x .@? "Slots")
-      <*> ( x .@? "NodeGroupMembers" .!@ mempty
-              >>= may (parseXMLList "NodeGroupMember")
-          )
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "ReaderEndpoint")
+      Prelude.<*> (x Prelude..@? "NodeGroupId")
+      Prelude.<*> (x Prelude..@? "PrimaryEndpoint")
+      Prelude.<*> (x Prelude..@? "Slots")
+      Prelude.<*> ( x Prelude..@? "NodeGroupMembers"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "NodeGroupMember")
+                  )
 
-instance Hashable NodeGroup
+instance Prelude.Hashable NodeGroup
 
-instance NFData NodeGroup
+instance Prelude.NFData NodeGroup

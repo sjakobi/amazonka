@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.CacheParameterGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the output of a @CreateCacheParameterGroup@ operation.
 --
---
---
--- /See:/ 'cacheParameterGroup' smart constructor.
+-- /See:/ 'newCacheParameterGroup' smart constructor.
 data CacheParameterGroup = CacheParameterGroup'
-  { _cpgIsGlobal ::
-      !(Maybe Bool),
-    _cpgARN :: !(Maybe Text),
-    _cpgCacheParameterGroupName ::
-      !(Maybe Text),
-    _cpgCacheParameterGroupFamily ::
-      !(Maybe Text),
-    _cpgDescription ::
-      !(Maybe Text)
+  { -- | Indicates whether the parameter group is associated with a Global
+    -- Datastore
+    isGlobal :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN (Amazon Resource Name) of the cache parameter group.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cache parameter group.
+    cacheParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cache parameter group family that this cache parameter
+    -- group is compatible with.
+    --
+    -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
+    -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
+    -- @redis6.x@ |
+    cacheParameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | The description for this cache parameter group.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgIsGlobal' - Indicates whether the parameter group is associated with a Global Datastore
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgARN' - The ARN (Amazon Resource Name) of the cache parameter group.
+-- 'isGlobal', 'cacheParameterGroup_isGlobal' - Indicates whether the parameter group is associated with a Global
+-- Datastore
 --
--- * 'cpgCacheParameterGroupName' - The name of the cache parameter group.
+-- 'aRN', 'cacheParameterGroup_aRN' - The ARN (Amazon Resource Name) of the cache parameter group.
 --
--- * 'cpgCacheParameterGroupFamily' - The name of the cache parameter group family that this cache parameter group is compatible with. Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ | @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ | @redis6.x@ |
+-- 'cacheParameterGroupName', 'cacheParameterGroup_cacheParameterGroupName' - The name of the cache parameter group.
 --
--- * 'cpgDescription' - The description for this cache parameter group.
-cacheParameterGroup ::
+-- 'cacheParameterGroupFamily', 'cacheParameterGroup_cacheParameterGroupFamily' - The name of the cache parameter group family that this cache parameter
+-- group is compatible with.
+--
+-- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
+-- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
+-- @redis6.x@ |
+--
+-- 'description', 'cacheParameterGroup_description' - The description for this cache parameter group.
+newCacheParameterGroup ::
   CacheParameterGroup
-cacheParameterGroup =
+newCacheParameterGroup =
   CacheParameterGroup'
-    { _cpgIsGlobal = Nothing,
-      _cpgARN = Nothing,
-      _cpgCacheParameterGroupName = Nothing,
-      _cpgCacheParameterGroupFamily = Nothing,
-      _cpgDescription = Nothing
+    { isGlobal = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      cacheParameterGroupName = Prelude.Nothing,
+      cacheParameterGroupFamily = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | Indicates whether the parameter group is associated with a Global Datastore
-cpgIsGlobal :: Lens' CacheParameterGroup (Maybe Bool)
-cpgIsGlobal = lens _cpgIsGlobal (\s a -> s {_cpgIsGlobal = a})
+-- | Indicates whether the parameter group is associated with a Global
+-- Datastore
+cacheParameterGroup_isGlobal :: Lens.Lens' CacheParameterGroup (Prelude.Maybe Prelude.Bool)
+cacheParameterGroup_isGlobal = Lens.lens (\CacheParameterGroup' {isGlobal} -> isGlobal) (\s@CacheParameterGroup' {} a -> s {isGlobal = a} :: CacheParameterGroup)
 
 -- | The ARN (Amazon Resource Name) of the cache parameter group.
-cpgARN :: Lens' CacheParameterGroup (Maybe Text)
-cpgARN = lens _cpgARN (\s a -> s {_cpgARN = a})
+cacheParameterGroup_aRN :: Lens.Lens' CacheParameterGroup (Prelude.Maybe Prelude.Text)
+cacheParameterGroup_aRN = Lens.lens (\CacheParameterGroup' {aRN} -> aRN) (\s@CacheParameterGroup' {} a -> s {aRN = a} :: CacheParameterGroup)
 
 -- | The name of the cache parameter group.
-cpgCacheParameterGroupName :: Lens' CacheParameterGroup (Maybe Text)
-cpgCacheParameterGroupName = lens _cpgCacheParameterGroupName (\s a -> s {_cpgCacheParameterGroupName = a})
+cacheParameterGroup_cacheParameterGroupName :: Lens.Lens' CacheParameterGroup (Prelude.Maybe Prelude.Text)
+cacheParameterGroup_cacheParameterGroupName = Lens.lens (\CacheParameterGroup' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@CacheParameterGroup' {} a -> s {cacheParameterGroupName = a} :: CacheParameterGroup)
 
--- | The name of the cache parameter group family that this cache parameter group is compatible with. Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ | @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ | @redis6.x@ |
-cpgCacheParameterGroupFamily :: Lens' CacheParameterGroup (Maybe Text)
-cpgCacheParameterGroupFamily = lens _cpgCacheParameterGroupFamily (\s a -> s {_cpgCacheParameterGroupFamily = a})
+-- | The name of the cache parameter group family that this cache parameter
+-- group is compatible with.
+--
+-- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
+-- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
+-- @redis6.x@ |
+cacheParameterGroup_cacheParameterGroupFamily :: Lens.Lens' CacheParameterGroup (Prelude.Maybe Prelude.Text)
+cacheParameterGroup_cacheParameterGroupFamily = Lens.lens (\CacheParameterGroup' {cacheParameterGroupFamily} -> cacheParameterGroupFamily) (\s@CacheParameterGroup' {} a -> s {cacheParameterGroupFamily = a} :: CacheParameterGroup)
 
 -- | The description for this cache parameter group.
-cpgDescription :: Lens' CacheParameterGroup (Maybe Text)
-cpgDescription = lens _cpgDescription (\s a -> s {_cpgDescription = a})
+cacheParameterGroup_description :: Lens.Lens' CacheParameterGroup (Prelude.Maybe Prelude.Text)
+cacheParameterGroup_description = Lens.lens (\CacheParameterGroup' {description} -> description) (\s@CacheParameterGroup' {} a -> s {description = a} :: CacheParameterGroup)
 
-instance FromXML CacheParameterGroup where
+instance Prelude.FromXML CacheParameterGroup where
   parseXML x =
     CacheParameterGroup'
-      <$> (x .@? "IsGlobal")
-      <*> (x .@? "ARN")
-      <*> (x .@? "CacheParameterGroupName")
-      <*> (x .@? "CacheParameterGroupFamily")
-      <*> (x .@? "Description")
+      Prelude.<$> (x Prelude..@? "IsGlobal")
+      Prelude.<*> (x Prelude..@? "ARN")
+      Prelude.<*> (x Prelude..@? "CacheParameterGroupName")
+      Prelude.<*> (x Prelude..@? "CacheParameterGroupFamily")
+      Prelude.<*> (x Prelude..@? "Description")
 
-instance Hashable CacheParameterGroup
+instance Prelude.Hashable CacheParameterGroup
 
-instance NFData CacheParameterGroup
+instance Prelude.NFData CacheParameterGroup

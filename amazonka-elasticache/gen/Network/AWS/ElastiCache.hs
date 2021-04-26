@@ -11,16 +11,23 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon ElastiCache__
+-- Amazon ElastiCache
 --
--- Amazon ElastiCache is a web service that makes it easier to set up, operate, and scale a distributed cache in the cloud.
+-- Amazon ElastiCache is a web service that makes it easier to set up,
+-- operate, and scale a distributed cache in the cloud.
 --
--- With ElastiCache, customers get all of the benefits of a high-performance, in-memory cache with less of the administrative burden involved in launching and managing a distributed cache. The service makes setup, scaling, and cluster failure handling much simpler than in a self-managed cache deployment.
+-- With ElastiCache, customers get all of the benefits of a
+-- high-performance, in-memory cache with less of the administrative burden
+-- involved in launching and managing a distributed cache. The service
+-- makes setup, scaling, and cluster failure handling much simpler than in
+-- a self-managed cache deployment.
 --
--- In addition, through integration with Amazon CloudWatch, customers get enhanced visibility into the key performance statistics associated with their cache and can receive alarms if a part of their cache runs hot.
+-- In addition, through integration with Amazon CloudWatch, customers get
+-- enhanced visibility into the key performance statistics associated with
+-- their cache and can receive alarms if a part of their cache runs hot.
 module Network.AWS.ElastiCache
   ( -- * Service Configuration
-    elastiCache,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -230,214 +237,409 @@ module Network.AWS.ElastiCache
     -- $waiters
 
     -- ** ReplicationGroupDeleted
-    replicationGroupDeleted,
+    newReplicationGroupDeleted,
 
     -- ** ReplicationGroupAvailable
-    replicationGroupAvailable,
+    newReplicationGroupAvailable,
 
     -- ** CacheClusterAvailable
-    cacheClusterAvailable,
+    newCacheClusterAvailable,
 
     -- ** CacheClusterDeleted
-    cacheClusterDeleted,
+    newCacheClusterDeleted,
 
     -- * Operations
     -- $operations
 
     -- ** CreateReplicationGroup
-    module Network.AWS.ElastiCache.CreateReplicationGroup,
+    CreateReplicationGroup (CreateReplicationGroup'),
+    newCreateReplicationGroup,
+    CreateReplicationGroupResponse (CreateReplicationGroupResponse'),
+    newCreateReplicationGroupResponse,
 
     -- ** DeleteCacheCluster
-    module Network.AWS.ElastiCache.DeleteCacheCluster,
+    DeleteCacheCluster (DeleteCacheCluster'),
+    newDeleteCacheCluster,
+    DeleteCacheClusterResponse (DeleteCacheClusterResponse'),
+    newDeleteCacheClusterResponse,
 
     -- ** RebootCacheCluster
-    module Network.AWS.ElastiCache.RebootCacheCluster,
+    RebootCacheCluster (RebootCacheCluster'),
+    newRebootCacheCluster,
+    RebootCacheClusterResponse (RebootCacheClusterResponse'),
+    newRebootCacheClusterResponse,
 
     -- ** IncreaseNodeGroupsInGlobalReplicationGroup
-    module Network.AWS.ElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup,
+    IncreaseNodeGroupsInGlobalReplicationGroup (IncreaseNodeGroupsInGlobalReplicationGroup'),
+    newIncreaseNodeGroupsInGlobalReplicationGroup,
+    IncreaseNodeGroupsInGlobalReplicationGroupResponse (IncreaseNodeGroupsInGlobalReplicationGroupResponse'),
+    newIncreaseNodeGroupsInGlobalReplicationGroupResponse,
 
     -- ** DeleteUserGroup
-    module Network.AWS.ElastiCache.DeleteUserGroup,
+    DeleteUserGroup (DeleteUserGroup'),
+    newDeleteUserGroup,
+    UserGroup (UserGroup'),
+    newUserGroup,
 
     -- ** DeleteCacheSecurityGroup
-    module Network.AWS.ElastiCache.DeleteCacheSecurityGroup,
+    DeleteCacheSecurityGroup (DeleteCacheSecurityGroup'),
+    newDeleteCacheSecurityGroup,
+    DeleteCacheSecurityGroupResponse (DeleteCacheSecurityGroupResponse'),
+    newDeleteCacheSecurityGroupResponse,
 
     -- ** StartMigration
-    module Network.AWS.ElastiCache.StartMigration,
+    StartMigration (StartMigration'),
+    newStartMigration,
+    StartMigrationResponse (StartMigrationResponse'),
+    newStartMigrationResponse,
 
     -- ** AuthorizeCacheSecurityGroupIngress
-    module Network.AWS.ElastiCache.AuthorizeCacheSecurityGroupIngress,
+    AuthorizeCacheSecurityGroupIngress (AuthorizeCacheSecurityGroupIngress'),
+    newAuthorizeCacheSecurityGroupIngress,
+    AuthorizeCacheSecurityGroupIngressResponse (AuthorizeCacheSecurityGroupIngressResponse'),
+    newAuthorizeCacheSecurityGroupIngressResponse,
 
     -- ** CopySnapshot
-    module Network.AWS.ElastiCache.CopySnapshot,
+    CopySnapshot (CopySnapshot'),
+    newCopySnapshot,
+    CopySnapshotResponse (CopySnapshotResponse'),
+    newCopySnapshotResponse,
 
     -- ** DecreaseReplicaCount
-    module Network.AWS.ElastiCache.DecreaseReplicaCount,
+    DecreaseReplicaCount (DecreaseReplicaCount'),
+    newDecreaseReplicaCount,
+    DecreaseReplicaCountResponse (DecreaseReplicaCountResponse'),
+    newDecreaseReplicaCountResponse,
 
     -- ** RebalanceSlotsInGlobalReplicationGroup
-    module Network.AWS.ElastiCache.RebalanceSlotsInGlobalReplicationGroup,
+    RebalanceSlotsInGlobalReplicationGroup (RebalanceSlotsInGlobalReplicationGroup'),
+    newRebalanceSlotsInGlobalReplicationGroup,
+    RebalanceSlotsInGlobalReplicationGroupResponse (RebalanceSlotsInGlobalReplicationGroupResponse'),
+    newRebalanceSlotsInGlobalReplicationGroupResponse,
 
     -- ** CreateCacheSecurityGroup
-    module Network.AWS.ElastiCache.CreateCacheSecurityGroup,
+    CreateCacheSecurityGroup (CreateCacheSecurityGroup'),
+    newCreateCacheSecurityGroup,
+    CreateCacheSecurityGroupResponse (CreateCacheSecurityGroupResponse'),
+    newCreateCacheSecurityGroupResponse,
 
     -- ** DescribeCacheSubnetGroups (Paginated)
-    module Network.AWS.ElastiCache.DescribeCacheSubnetGroups,
+    DescribeCacheSubnetGroups (DescribeCacheSubnetGroups'),
+    newDescribeCacheSubnetGroups,
+    DescribeCacheSubnetGroupsResponse (DescribeCacheSubnetGroupsResponse'),
+    newDescribeCacheSubnetGroupsResponse,
 
     -- ** DescribeGlobalReplicationGroups (Paginated)
-    module Network.AWS.ElastiCache.DescribeGlobalReplicationGroups,
+    DescribeGlobalReplicationGroups (DescribeGlobalReplicationGroups'),
+    newDescribeGlobalReplicationGroups,
+    DescribeGlobalReplicationGroupsResponse (DescribeGlobalReplicationGroupsResponse'),
+    newDescribeGlobalReplicationGroupsResponse,
 
     -- ** ModifyCacheCluster
-    module Network.AWS.ElastiCache.ModifyCacheCluster,
+    ModifyCacheCluster (ModifyCacheCluster'),
+    newModifyCacheCluster,
+    ModifyCacheClusterResponse (ModifyCacheClusterResponse'),
+    newModifyCacheClusterResponse,
 
     -- ** DescribeReservedCacheNodes (Paginated)
-    module Network.AWS.ElastiCache.DescribeReservedCacheNodes,
+    DescribeReservedCacheNodes (DescribeReservedCacheNodes'),
+    newDescribeReservedCacheNodes,
+    DescribeReservedCacheNodesResponse (DescribeReservedCacheNodesResponse'),
+    newDescribeReservedCacheNodesResponse,
 
     -- ** DeleteCacheParameterGroup
-    module Network.AWS.ElastiCache.DeleteCacheParameterGroup,
+    DeleteCacheParameterGroup (DeleteCacheParameterGroup'),
+    newDeleteCacheParameterGroup,
+    DeleteCacheParameterGroupResponse (DeleteCacheParameterGroupResponse'),
+    newDeleteCacheParameterGroupResponse,
 
     -- ** RemoveTagsFromResource
-    module Network.AWS.ElastiCache.RemoveTagsFromResource,
+    RemoveTagsFromResource (RemoveTagsFromResource'),
+    newRemoveTagsFromResource,
+    TagListMessage (TagListMessage'),
+    newTagListMessage,
 
     -- ** DescribeCacheSecurityGroups (Paginated)
-    module Network.AWS.ElastiCache.DescribeCacheSecurityGroups,
+    DescribeCacheSecurityGroups (DescribeCacheSecurityGroups'),
+    newDescribeCacheSecurityGroups,
+    DescribeCacheSecurityGroupsResponse (DescribeCacheSecurityGroupsResponse'),
+    newDescribeCacheSecurityGroupsResponse,
 
     -- ** BatchStopUpdateAction
-    module Network.AWS.ElastiCache.BatchStopUpdateAction,
+    BatchStopUpdateAction (BatchStopUpdateAction'),
+    newBatchStopUpdateAction,
+    UpdateActionResultsMessage (UpdateActionResultsMessage'),
+    newUpdateActionResultsMessage,
 
     -- ** ModifyReplicationGroup
-    module Network.AWS.ElastiCache.ModifyReplicationGroup,
+    ModifyReplicationGroup (ModifyReplicationGroup'),
+    newModifyReplicationGroup,
+    ModifyReplicationGroupResponse (ModifyReplicationGroupResponse'),
+    newModifyReplicationGroupResponse,
 
     -- ** PurchaseReservedCacheNodesOffering
-    module Network.AWS.ElastiCache.PurchaseReservedCacheNodesOffering,
+    PurchaseReservedCacheNodesOffering (PurchaseReservedCacheNodesOffering'),
+    newPurchaseReservedCacheNodesOffering,
+    PurchaseReservedCacheNodesOfferingResponse (PurchaseReservedCacheNodesOfferingResponse'),
+    newPurchaseReservedCacheNodesOfferingResponse,
 
     -- ** CreateUser
-    module Network.AWS.ElastiCache.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    User (User'),
+    newUser,
 
     -- ** DeleteSnapshot
-    module Network.AWS.ElastiCache.DeleteSnapshot,
+    DeleteSnapshot (DeleteSnapshot'),
+    newDeleteSnapshot,
+    DeleteSnapshotResponse (DeleteSnapshotResponse'),
+    newDeleteSnapshotResponse,
 
     -- ** CompleteMigration
-    module Network.AWS.ElastiCache.CompleteMigration,
+    CompleteMigration (CompleteMigration'),
+    newCompleteMigration,
+    CompleteMigrationResponse (CompleteMigrationResponse'),
+    newCompleteMigrationResponse,
 
     -- ** CreateCacheCluster
-    module Network.AWS.ElastiCache.CreateCacheCluster,
+    CreateCacheCluster (CreateCacheCluster'),
+    newCreateCacheCluster,
+    CreateCacheClusterResponse (CreateCacheClusterResponse'),
+    newCreateCacheClusterResponse,
 
     -- ** DisassociateGlobalReplicationGroup
-    module Network.AWS.ElastiCache.DisassociateGlobalReplicationGroup,
+    DisassociateGlobalReplicationGroup (DisassociateGlobalReplicationGroup'),
+    newDisassociateGlobalReplicationGroup,
+    DisassociateGlobalReplicationGroupResponse (DisassociateGlobalReplicationGroupResponse'),
+    newDisassociateGlobalReplicationGroupResponse,
 
     -- ** DescribeEvents (Paginated)
-    module Network.AWS.ElastiCache.DescribeEvents,
+    DescribeEvents (DescribeEvents'),
+    newDescribeEvents,
+    DescribeEventsResponse (DescribeEventsResponse'),
+    newDescribeEventsResponse,
 
     -- ** DeleteReplicationGroup
-    module Network.AWS.ElastiCache.DeleteReplicationGroup,
+    DeleteReplicationGroup (DeleteReplicationGroup'),
+    newDeleteReplicationGroup,
+    DeleteReplicationGroupResponse (DeleteReplicationGroupResponse'),
+    newDeleteReplicationGroupResponse,
 
     -- ** DescribeSnapshots (Paginated)
-    module Network.AWS.ElastiCache.DescribeSnapshots,
+    DescribeSnapshots (DescribeSnapshots'),
+    newDescribeSnapshots,
+    DescribeSnapshotsResponse (DescribeSnapshotsResponse'),
+    newDescribeSnapshotsResponse,
 
     -- ** TestFailover
-    module Network.AWS.ElastiCache.TestFailover,
+    TestFailover (TestFailover'),
+    newTestFailover,
+    TestFailoverResponse (TestFailoverResponse'),
+    newTestFailoverResponse,
 
     -- ** BatchApplyUpdateAction
-    module Network.AWS.ElastiCache.BatchApplyUpdateAction,
+    BatchApplyUpdateAction (BatchApplyUpdateAction'),
+    newBatchApplyUpdateAction,
+    UpdateActionResultsMessage (UpdateActionResultsMessage'),
+    newUpdateActionResultsMessage,
 
     -- ** IncreaseReplicaCount
-    module Network.AWS.ElastiCache.IncreaseReplicaCount,
+    IncreaseReplicaCount (IncreaseReplicaCount'),
+    newIncreaseReplicaCount,
+    IncreaseReplicaCountResponse (IncreaseReplicaCountResponse'),
+    newIncreaseReplicaCountResponse,
 
     -- ** ModifyReplicationGroupShardConfiguration
-    module Network.AWS.ElastiCache.ModifyReplicationGroupShardConfiguration,
+    ModifyReplicationGroupShardConfiguration (ModifyReplicationGroupShardConfiguration'),
+    newModifyReplicationGroupShardConfiguration,
+    ModifyReplicationGroupShardConfigurationResponse (ModifyReplicationGroupShardConfigurationResponse'),
+    newModifyReplicationGroupShardConfigurationResponse,
 
     -- ** DescribeUsers (Paginated)
-    module Network.AWS.ElastiCache.DescribeUsers,
+    DescribeUsers (DescribeUsers'),
+    newDescribeUsers,
+    DescribeUsersResponse (DescribeUsersResponse'),
+    newDescribeUsersResponse,
 
     -- ** ListAllowedNodeTypeModifications
-    module Network.AWS.ElastiCache.ListAllowedNodeTypeModifications,
+    ListAllowedNodeTypeModifications (ListAllowedNodeTypeModifications'),
+    newListAllowedNodeTypeModifications,
+    ListAllowedNodeTypeModificationsResponse (ListAllowedNodeTypeModificationsResponse'),
+    newListAllowedNodeTypeModificationsResponse,
 
     -- ** ResetCacheParameterGroup
-    module Network.AWS.ElastiCache.ResetCacheParameterGroup,
+    ResetCacheParameterGroup (ResetCacheParameterGroup'),
+    newResetCacheParameterGroup,
+    CacheParameterGroupNameMessage (CacheParameterGroupNameMessage'),
+    newCacheParameterGroupNameMessage,
 
     -- ** CreateCacheSubnetGroup
-    module Network.AWS.ElastiCache.CreateCacheSubnetGroup,
+    CreateCacheSubnetGroup (CreateCacheSubnetGroup'),
+    newCreateCacheSubnetGroup,
+    CreateCacheSubnetGroupResponse (CreateCacheSubnetGroupResponse'),
+    newCreateCacheSubnetGroupResponse,
 
     -- ** CreateGlobalReplicationGroup
-    module Network.AWS.ElastiCache.CreateGlobalReplicationGroup,
+    CreateGlobalReplicationGroup (CreateGlobalReplicationGroup'),
+    newCreateGlobalReplicationGroup,
+    CreateGlobalReplicationGroupResponse (CreateGlobalReplicationGroupResponse'),
+    newCreateGlobalReplicationGroupResponse,
 
     -- ** DescribeCacheParameterGroups (Paginated)
-    module Network.AWS.ElastiCache.DescribeCacheParameterGroups,
+    DescribeCacheParameterGroups (DescribeCacheParameterGroups'),
+    newDescribeCacheParameterGroups,
+    DescribeCacheParameterGroupsResponse (DescribeCacheParameterGroupsResponse'),
+    newDescribeCacheParameterGroupsResponse,
 
     -- ** FailoverGlobalReplicationGroup
-    module Network.AWS.ElastiCache.FailoverGlobalReplicationGroup,
+    FailoverGlobalReplicationGroup (FailoverGlobalReplicationGroup'),
+    newFailoverGlobalReplicationGroup,
+    FailoverGlobalReplicationGroupResponse (FailoverGlobalReplicationGroupResponse'),
+    newFailoverGlobalReplicationGroupResponse,
 
     -- ** AddTagsToResource
-    module Network.AWS.ElastiCache.AddTagsToResource,
+    AddTagsToResource (AddTagsToResource'),
+    newAddTagsToResource,
+    TagListMessage (TagListMessage'),
+    newTagListMessage,
 
     -- ** DecreaseNodeGroupsInGlobalReplicationGroup
-    module Network.AWS.ElastiCache.DecreaseNodeGroupsInGlobalReplicationGroup,
+    DecreaseNodeGroupsInGlobalReplicationGroup (DecreaseNodeGroupsInGlobalReplicationGroup'),
+    newDecreaseNodeGroupsInGlobalReplicationGroup,
+    DecreaseNodeGroupsInGlobalReplicationGroupResponse (DecreaseNodeGroupsInGlobalReplicationGroupResponse'),
+    newDecreaseNodeGroupsInGlobalReplicationGroupResponse,
 
     -- ** DescribeUpdateActions (Paginated)
-    module Network.AWS.ElastiCache.DescribeUpdateActions,
+    DescribeUpdateActions (DescribeUpdateActions'),
+    newDescribeUpdateActions,
+    DescribeUpdateActionsResponse (DescribeUpdateActionsResponse'),
+    newDescribeUpdateActionsResponse,
 
     -- ** ModifyUser
-    module Network.AWS.ElastiCache.ModifyUser,
+    ModifyUser (ModifyUser'),
+    newModifyUser,
+    User (User'),
+    newUser,
 
     -- ** DeleteCacheSubnetGroup
-    module Network.AWS.ElastiCache.DeleteCacheSubnetGroup,
+    DeleteCacheSubnetGroup (DeleteCacheSubnetGroup'),
+    newDeleteCacheSubnetGroup,
+    DeleteCacheSubnetGroupResponse (DeleteCacheSubnetGroupResponse'),
+    newDeleteCacheSubnetGroupResponse,
 
     -- ** DeleteGlobalReplicationGroup
-    module Network.AWS.ElastiCache.DeleteGlobalReplicationGroup,
+    DeleteGlobalReplicationGroup (DeleteGlobalReplicationGroup'),
+    newDeleteGlobalReplicationGroup,
+    DeleteGlobalReplicationGroupResponse (DeleteGlobalReplicationGroupResponse'),
+    newDeleteGlobalReplicationGroupResponse,
 
     -- ** CreateCacheParameterGroup
-    module Network.AWS.ElastiCache.CreateCacheParameterGroup,
+    CreateCacheParameterGroup (CreateCacheParameterGroup'),
+    newCreateCacheParameterGroup,
+    CreateCacheParameterGroupResponse (CreateCacheParameterGroupResponse'),
+    newCreateCacheParameterGroupResponse,
 
     -- ** DescribeCacheEngineVersions (Paginated)
-    module Network.AWS.ElastiCache.DescribeCacheEngineVersions,
+    DescribeCacheEngineVersions (DescribeCacheEngineVersions'),
+    newDescribeCacheEngineVersions,
+    DescribeCacheEngineVersionsResponse (DescribeCacheEngineVersionsResponse'),
+    newDescribeCacheEngineVersionsResponse,
 
     -- ** ModifyUserGroup
-    module Network.AWS.ElastiCache.ModifyUserGroup,
+    ModifyUserGroup (ModifyUserGroup'),
+    newModifyUserGroup,
+    UserGroup (UserGroup'),
+    newUserGroup,
 
     -- ** DescribeCacheParameters (Paginated)
-    module Network.AWS.ElastiCache.DescribeCacheParameters,
+    DescribeCacheParameters (DescribeCacheParameters'),
+    newDescribeCacheParameters,
+    DescribeCacheParametersResponse (DescribeCacheParametersResponse'),
+    newDescribeCacheParametersResponse,
 
     -- ** ModifyGlobalReplicationGroup
-    module Network.AWS.ElastiCache.ModifyGlobalReplicationGroup,
+    ModifyGlobalReplicationGroup (ModifyGlobalReplicationGroup'),
+    newModifyGlobalReplicationGroup,
+    ModifyGlobalReplicationGroupResponse (ModifyGlobalReplicationGroupResponse'),
+    newModifyGlobalReplicationGroupResponse,
 
     -- ** ModifyCacheSubnetGroup
-    module Network.AWS.ElastiCache.ModifyCacheSubnetGroup,
+    ModifyCacheSubnetGroup (ModifyCacheSubnetGroup'),
+    newModifyCacheSubnetGroup,
+    ModifyCacheSubnetGroupResponse (ModifyCacheSubnetGroupResponse'),
+    newModifyCacheSubnetGroupResponse,
 
     -- ** DeleteUser
-    module Network.AWS.ElastiCache.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    User (User'),
+    newUser,
 
     -- ** DescribeUserGroups (Paginated)
-    module Network.AWS.ElastiCache.DescribeUserGroups,
+    DescribeUserGroups (DescribeUserGroups'),
+    newDescribeUserGroups,
+    DescribeUserGroupsResponse (DescribeUserGroupsResponse'),
+    newDescribeUserGroupsResponse,
 
     -- ** CreateSnapshot
-    module Network.AWS.ElastiCache.CreateSnapshot,
+    CreateSnapshot (CreateSnapshot'),
+    newCreateSnapshot,
+    CreateSnapshotResponse (CreateSnapshotResponse'),
+    newCreateSnapshotResponse,
 
     -- ** DescribeCacheClusters (Paginated)
-    module Network.AWS.ElastiCache.DescribeCacheClusters,
+    DescribeCacheClusters (DescribeCacheClusters'),
+    newDescribeCacheClusters,
+    DescribeCacheClustersResponse (DescribeCacheClustersResponse'),
+    newDescribeCacheClustersResponse,
 
     -- ** DescribeReservedCacheNodesOfferings (Paginated)
-    module Network.AWS.ElastiCache.DescribeReservedCacheNodesOfferings,
+    DescribeReservedCacheNodesOfferings (DescribeReservedCacheNodesOfferings'),
+    newDescribeReservedCacheNodesOfferings,
+    DescribeReservedCacheNodesOfferingsResponse (DescribeReservedCacheNodesOfferingsResponse'),
+    newDescribeReservedCacheNodesOfferingsResponse,
 
     -- ** DescribeReplicationGroups (Paginated)
-    module Network.AWS.ElastiCache.DescribeReplicationGroups,
+    DescribeReplicationGroups (DescribeReplicationGroups'),
+    newDescribeReplicationGroups,
+    DescribeReplicationGroupsResponse (DescribeReplicationGroupsResponse'),
+    newDescribeReplicationGroupsResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.ElastiCache.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    TagListMessage (TagListMessage'),
+    newTagListMessage,
 
     -- ** ModifyCacheParameterGroup
-    module Network.AWS.ElastiCache.ModifyCacheParameterGroup,
+    ModifyCacheParameterGroup (ModifyCacheParameterGroup'),
+    newModifyCacheParameterGroup,
+    CacheParameterGroupNameMessage (CacheParameterGroupNameMessage'),
+    newCacheParameterGroupNameMessage,
 
     -- ** DescribeServiceUpdates (Paginated)
-    module Network.AWS.ElastiCache.DescribeServiceUpdates,
+    DescribeServiceUpdates (DescribeServiceUpdates'),
+    newDescribeServiceUpdates,
+    DescribeServiceUpdatesResponse (DescribeServiceUpdatesResponse'),
+    newDescribeServiceUpdatesResponse,
 
     -- ** DescribeEngineDefaultParameters (Paginated)
-    module Network.AWS.ElastiCache.DescribeEngineDefaultParameters,
+    DescribeEngineDefaultParameters (DescribeEngineDefaultParameters'),
+    newDescribeEngineDefaultParameters,
+    DescribeEngineDefaultParametersResponse (DescribeEngineDefaultParametersResponse'),
+    newDescribeEngineDefaultParametersResponse,
 
     -- ** CreateUserGroup
-    module Network.AWS.ElastiCache.CreateUserGroup,
+    CreateUserGroup (CreateUserGroup'),
+    newCreateUserGroup,
+    UserGroup (UserGroup'),
+    newUserGroup,
 
     -- ** RevokeCacheSecurityGroupIngress
-    module Network.AWS.ElastiCache.RevokeCacheSecurityGroupIngress,
+    RevokeCacheSecurityGroupIngress (RevokeCacheSecurityGroupIngress'),
+    newRevokeCacheSecurityGroupIngress,
+    RevokeCacheSecurityGroupIngressResponse (RevokeCacheSecurityGroupIngressResponse'),
+    newRevokeCacheSecurityGroupIngressResponse,
 
     -- * Types
 
@@ -493,581 +695,244 @@ module Network.AWS.ElastiCache
     UpdateActionStatus (..),
 
     -- ** Authentication
-    Authentication,
-    authentication,
-    aPasswordCount,
-    aType,
+    Authentication (Authentication'),
+    newAuthentication,
 
     -- ** AvailabilityZone
-    AvailabilityZone,
-    availabilityZone,
-    azName,
+    AvailabilityZone (AvailabilityZone'),
+    newAvailabilityZone,
 
     -- ** CacheCluster
-    CacheCluster,
-    cacheCluster,
-    ccCacheNodes,
-    ccCacheClusterCreateTime,
-    ccNumCacheNodes,
-    ccCacheSecurityGroups,
-    ccReplicationGroupId,
-    ccCacheClusterId,
-    ccSnapshotWindow,
-    ccARN,
-    ccNotificationConfiguration,
-    ccSnapshotRetentionLimit,
-    ccCacheParameterGroup,
-    ccSecurityGroups,
-    ccPreferredAvailabilityZone,
-    ccAtRestEncryptionEnabled,
-    ccCacheSubnetGroupName,
-    ccEngineVersion,
-    ccPreferredMaintenanceWindow,
-    ccCacheNodeType,
-    ccAuthTokenLastModifiedDate,
-    ccClientDownloadLandingPage,
-    ccEngine,
-    ccPreferredOutpostARN,
-    ccAuthTokenEnabled,
-    ccPendingModifiedValues,
-    ccConfigurationEndpoint,
-    ccTransitEncryptionEnabled,
-    ccAutoMinorVersionUpgrade,
-    ccCacheClusterStatus,
+    CacheCluster (CacheCluster'),
+    newCacheCluster,
 
     -- ** CacheEngineVersion
-    CacheEngineVersion,
-    cacheEngineVersion,
-    cevCacheEngineDescription,
-    cevCacheEngineVersionDescription,
-    cevEngineVersion,
-    cevCacheParameterGroupFamily,
-    cevEngine,
+    CacheEngineVersion (CacheEngineVersion'),
+    newCacheEngineVersion,
 
     -- ** CacheNode
-    CacheNode,
-    cacheNode,
-    cnCustomerAvailabilityZone,
-    cnCacheNodeStatus,
-    cnCacheNodeCreateTime,
-    cnParameterGroupStatus,
-    cnCustomerOutpostARN,
-    cnSourceCacheNodeId,
-    cnCacheNodeId,
-    cnEndpoint,
+    CacheNode (CacheNode'),
+    newCacheNode,
 
     -- ** CacheNodeTypeSpecificParameter
-    CacheNodeTypeSpecificParameter,
-    cacheNodeTypeSpecificParameter,
-    cntspChangeType,
-    cntspAllowedValues,
-    cntspSource,
-    cntspCacheNodeTypeSpecificValues,
-    cntspParameterName,
-    cntspDescription,
-    cntspDataType,
-    cntspIsModifiable,
-    cntspMinimumEngineVersion,
+    CacheNodeTypeSpecificParameter (CacheNodeTypeSpecificParameter'),
+    newCacheNodeTypeSpecificParameter,
 
     -- ** CacheNodeTypeSpecificValue
-    CacheNodeTypeSpecificValue,
-    cacheNodeTypeSpecificValue,
-    cntsvCacheNodeType,
-    cntsvValue,
+    CacheNodeTypeSpecificValue (CacheNodeTypeSpecificValue'),
+    newCacheNodeTypeSpecificValue,
 
     -- ** CacheNodeUpdateStatus
-    CacheNodeUpdateStatus,
-    cacheNodeUpdateStatus,
-    cnusNodeUpdateStatusModifiedDate,
-    cnusNodeUpdateStatus,
-    cnusNodeUpdateInitiatedBy,
-    cnusNodeUpdateInitiatedDate,
-    cnusCacheNodeId,
-    cnusNodeDeletionDate,
-    cnusNodeUpdateStartDate,
-    cnusNodeUpdateEndDate,
+    CacheNodeUpdateStatus (CacheNodeUpdateStatus'),
+    newCacheNodeUpdateStatus,
 
     -- ** CacheParameterGroup
-    CacheParameterGroup,
-    cacheParameterGroup,
-    cpgIsGlobal,
-    cpgARN,
-    cpgCacheParameterGroupName,
-    cpgCacheParameterGroupFamily,
-    cpgDescription,
+    CacheParameterGroup (CacheParameterGroup'),
+    newCacheParameterGroup,
 
     -- ** CacheParameterGroupNameMessage
-    CacheParameterGroupNameMessage,
-    cacheParameterGroupNameMessage,
-    cpgnmCacheParameterGroupName,
+    CacheParameterGroupNameMessage (CacheParameterGroupNameMessage'),
+    newCacheParameterGroupNameMessage,
 
     -- ** CacheParameterGroupStatus
-    CacheParameterGroupStatus,
-    cacheParameterGroupStatus,
-    cpgsCacheParameterGroupName,
-    cpgsParameterApplyStatus,
-    cpgsCacheNodeIdsToReboot,
+    CacheParameterGroupStatus (CacheParameterGroupStatus'),
+    newCacheParameterGroupStatus,
 
     -- ** CacheSecurityGroup
-    CacheSecurityGroup,
-    cacheSecurityGroup,
-    csgOwnerId,
-    csgARN,
-    csgCacheSecurityGroupName,
-    csgEC2SecurityGroups,
-    csgDescription,
+    CacheSecurityGroup (CacheSecurityGroup'),
+    newCacheSecurityGroup,
 
     -- ** CacheSecurityGroupMembership
-    CacheSecurityGroupMembership,
-    cacheSecurityGroupMembership,
-    csgmStatus,
-    csgmCacheSecurityGroupName,
+    CacheSecurityGroupMembership (CacheSecurityGroupMembership'),
+    newCacheSecurityGroupMembership,
 
     -- ** CacheSubnetGroup
-    CacheSubnetGroup,
-    cacheSubnetGroup,
-    cARN,
-    cCacheSubnetGroupName,
-    cCacheSubnetGroupDescription,
-    cSubnets,
-    cVPCId,
+    CacheSubnetGroup (CacheSubnetGroup'),
+    newCacheSubnetGroup,
 
     -- ** ConfigureShard
-    ConfigureShard,
-    configureShard,
-    csPreferredAvailabilityZones,
-    csPreferredOutpostARNs,
-    csNodeGroupId,
-    csNewReplicaCount,
+    ConfigureShard (ConfigureShard'),
+    newConfigureShard,
 
     -- ** CustomerNodeEndpoint
-    CustomerNodeEndpoint,
-    customerNodeEndpoint,
-    cneAddress,
-    cnePort,
+    CustomerNodeEndpoint (CustomerNodeEndpoint'),
+    newCustomerNodeEndpoint,
 
     -- ** EC2SecurityGroup
-    EC2SecurityGroup,
-    ec2SecurityGroup,
-    esgStatus,
-    esgEC2SecurityGroupOwnerId,
-    esgEC2SecurityGroupName,
+    EC2SecurityGroup (EC2SecurityGroup'),
+    newEC2SecurityGroup,
 
     -- ** Endpoint
-    Endpoint,
-    endpoint,
-    eAddress,
-    ePort,
+    Endpoint (Endpoint'),
+    newEndpoint,
 
     -- ** EngineDefaults
-    EngineDefaults,
-    engineDefaults,
-    edCacheNodeTypeSpecificParameters,
-    edCacheParameterGroupFamily,
-    edParameters,
-    edMarker,
+    EngineDefaults (EngineDefaults'),
+    newEngineDefaults,
 
     -- ** Event
-    Event,
-    event,
-    eMessage,
-    eDate,
-    eSourceIdentifier,
-    eSourceType,
+    Event (Event'),
+    newEvent,
 
     -- ** Filter
-    Filter,
-    filter',
-    fName,
-    fValues,
+    Filter (Filter'),
+    newFilter,
 
     -- ** GlobalNodeGroup
-    GlobalNodeGroup,
-    globalNodeGroup,
-    gngGlobalNodeGroupId,
-    gngSlots,
+    GlobalNodeGroup (GlobalNodeGroup'),
+    newGlobalNodeGroup,
 
     -- ** GlobalReplicationGroup
-    GlobalReplicationGroup,
-    globalReplicationGroup,
-    grgClusterEnabled,
-    grgStatus,
-    grgARN,
-    grgGlobalReplicationGroupId,
-    grgAtRestEncryptionEnabled,
-    grgGlobalNodeGroups,
-    grgEngineVersion,
-    grgCacheNodeType,
-    grgGlobalReplicationGroupDescription,
-    grgEngine,
-    grgAuthTokenEnabled,
-    grgMembers,
-    grgTransitEncryptionEnabled,
+    GlobalReplicationGroup (GlobalReplicationGroup'),
+    newGlobalReplicationGroup,
 
     -- ** GlobalReplicationGroupInfo
-    GlobalReplicationGroupInfo,
-    globalReplicationGroupInfo,
-    grgiGlobalReplicationGroupMemberRole,
-    grgiGlobalReplicationGroupId,
+    GlobalReplicationGroupInfo (GlobalReplicationGroupInfo'),
+    newGlobalReplicationGroupInfo,
 
     -- ** GlobalReplicationGroupMember
-    GlobalReplicationGroupMember,
-    globalReplicationGroupMember,
-    grgmStatus,
-    grgmAutomaticFailover,
-    grgmReplicationGroupId,
-    grgmReplicationGroupRegion,
-    grgmRole,
+    GlobalReplicationGroupMember (GlobalReplicationGroupMember'),
+    newGlobalReplicationGroupMember,
 
     -- ** NodeGroup
-    NodeGroup,
-    nodeGroup,
-    ngStatus,
-    ngReaderEndpoint,
-    ngNodeGroupId,
-    ngPrimaryEndpoint,
-    ngSlots,
-    ngNodeGroupMembers,
+    NodeGroup (NodeGroup'),
+    newNodeGroup,
 
     -- ** NodeGroupConfiguration
-    NodeGroupConfiguration,
-    nodeGroupConfiguration,
-    ngcPrimaryOutpostARN,
-    ngcReplicaCount,
-    ngcReplicaOutpostARNs,
-    ngcNodeGroupId,
-    ngcSlots,
-    ngcReplicaAvailabilityZones,
-    ngcPrimaryAvailabilityZone,
+    NodeGroupConfiguration (NodeGroupConfiguration'),
+    newNodeGroupConfiguration,
 
     -- ** NodeGroupMember
-    NodeGroupMember,
-    nodeGroupMember,
-    ngmCacheClusterId,
-    ngmPreferredAvailabilityZone,
-    ngmReadEndpoint,
-    ngmCacheNodeId,
-    ngmPreferredOutpostARN,
-    ngmCurrentRole,
+    NodeGroupMember (NodeGroupMember'),
+    newNodeGroupMember,
 
     -- ** NodeGroupMemberUpdateStatus
-    NodeGroupMemberUpdateStatus,
-    nodeGroupMemberUpdateStatus,
-    ngmusCacheClusterId,
-    ngmusNodeUpdateStatusModifiedDate,
-    ngmusNodeUpdateStatus,
-    ngmusNodeUpdateInitiatedBy,
-    ngmusNodeUpdateInitiatedDate,
-    ngmusCacheNodeId,
-    ngmusNodeDeletionDate,
-    ngmusNodeUpdateStartDate,
-    ngmusNodeUpdateEndDate,
+    NodeGroupMemberUpdateStatus (NodeGroupMemberUpdateStatus'),
+    newNodeGroupMemberUpdateStatus,
 
     -- ** NodeGroupUpdateStatus
-    NodeGroupUpdateStatus,
-    nodeGroupUpdateStatus,
-    ngusNodeGroupId,
-    ngusNodeGroupMemberUpdateStatus,
+    NodeGroupUpdateStatus (NodeGroupUpdateStatus'),
+    newNodeGroupUpdateStatus,
 
     -- ** NodeSnapshot
-    NodeSnapshot,
-    nodeSnapshot,
-    nsNodeGroupConfiguration,
-    nsCacheSize,
-    nsCacheClusterId,
-    nsSnapshotCreateTime,
-    nsCacheNodeCreateTime,
-    nsNodeGroupId,
-    nsCacheNodeId,
+    NodeSnapshot (NodeSnapshot'),
+    newNodeSnapshot,
 
     -- ** NotificationConfiguration
-    NotificationConfiguration,
-    notificationConfiguration,
-    ncTopicStatus,
-    ncTopicARN,
+    NotificationConfiguration (NotificationConfiguration'),
+    newNotificationConfiguration,
 
     -- ** Parameter
-    Parameter,
-    parameter,
-    pChangeType,
-    pAllowedValues,
-    pSource,
-    pParameterValue,
-    pParameterName,
-    pDescription,
-    pDataType,
-    pIsModifiable,
-    pMinimumEngineVersion,
+    Parameter (Parameter'),
+    newParameter,
 
     -- ** ParameterNameValue
-    ParameterNameValue,
-    parameterNameValue,
-    pnvParameterValue,
-    pnvParameterName,
+    ParameterNameValue (ParameterNameValue'),
+    newParameterNameValue,
 
     -- ** PendingModifiedValues
-    PendingModifiedValues,
-    pendingModifiedValues,
-    pmvNumCacheNodes,
-    pmvCacheNodeIdsToRemove,
-    pmvAuthTokenStatus,
-    pmvEngineVersion,
-    pmvCacheNodeType,
+    PendingModifiedValues (PendingModifiedValues'),
+    newPendingModifiedValues,
 
     -- ** ProcessedUpdateAction
-    ProcessedUpdateAction,
-    processedUpdateAction,
-    puaReplicationGroupId,
-    puaUpdateActionStatus,
-    puaCacheClusterId,
-    puaServiceUpdateName,
+    ProcessedUpdateAction (ProcessedUpdateAction'),
+    newProcessedUpdateAction,
 
     -- ** RecurringCharge
-    RecurringCharge,
-    recurringCharge,
-    rcRecurringChargeFrequency,
-    rcRecurringChargeAmount,
+    RecurringCharge (RecurringCharge'),
+    newRecurringCharge,
 
     -- ** RegionalConfiguration
-    RegionalConfiguration,
-    regionalConfiguration,
-    rcReplicationGroupId,
-    rcReplicationGroupRegion,
-    rcReshardingConfiguration,
+    RegionalConfiguration (RegionalConfiguration'),
+    newRegionalConfiguration,
 
     -- ** ReplicationGroup
-    ReplicationGroup,
-    replicationGroup,
-    rgClusterEnabled,
-    rgStatus,
-    rgNodeGroups,
-    rgAutomaticFailover,
-    rgMemberClustersOutpostARNs,
-    rgMemberClusters,
-    rgGlobalReplicationGroupInfo,
-    rgReplicationGroupId,
-    rgUserGroupIds,
-    rgSnapshotWindow,
-    rgARN,
-    rgSnapshotRetentionLimit,
-    rgMultiAZ,
-    rgAtRestEncryptionEnabled,
-    rgKMSKeyId,
-    rgSnapshottingClusterId,
-    rgCacheNodeType,
-    rgAuthTokenLastModifiedDate,
-    rgAuthTokenEnabled,
-    rgDescription,
-    rgPendingModifiedValues,
-    rgConfigurationEndpoint,
-    rgTransitEncryptionEnabled,
+    ReplicationGroup (ReplicationGroup'),
+    newReplicationGroup,
 
     -- ** ReplicationGroupPendingModifiedValues
-    ReplicationGroupPendingModifiedValues,
-    replicationGroupPendingModifiedValues,
-    rgpmvResharding,
-    rgpmvPrimaryClusterId,
-    rgpmvAuthTokenStatus,
-    rgpmvUserGroups,
-    rgpmvAutomaticFailoverStatus,
+    ReplicationGroupPendingModifiedValues (ReplicationGroupPendingModifiedValues'),
+    newReplicationGroupPendingModifiedValues,
 
     -- ** ReservedCacheNode
-    ReservedCacheNode,
-    reservedCacheNode,
-    rcnReservedCacheNodesOfferingId,
-    rcnDuration,
-    rcnStartTime,
-    rcnState,
-    rcnCacheNodeCount,
-    rcnCacheNodeType,
-    rcnFixedPrice,
-    rcnUsagePrice,
-    rcnOfferingType,
-    rcnRecurringCharges,
-    rcnProductDescription,
-    rcnReservedCacheNodeId,
-    rcnReservationARN,
+    ReservedCacheNode (ReservedCacheNode'),
+    newReservedCacheNode,
 
     -- ** ReservedCacheNodesOffering
-    ReservedCacheNodesOffering,
-    reservedCacheNodesOffering,
-    rcnoReservedCacheNodesOfferingId,
-    rcnoDuration,
-    rcnoCacheNodeType,
-    rcnoFixedPrice,
-    rcnoUsagePrice,
-    rcnoOfferingType,
-    rcnoRecurringCharges,
-    rcnoProductDescription,
+    ReservedCacheNodesOffering (ReservedCacheNodesOffering'),
+    newReservedCacheNodesOffering,
 
     -- ** ReshardingConfiguration
-    ReshardingConfiguration,
-    reshardingConfiguration,
-    rcPreferredAvailabilityZones,
-    rcNodeGroupId,
+    ReshardingConfiguration (ReshardingConfiguration'),
+    newReshardingConfiguration,
 
     -- ** ReshardingStatus
-    ReshardingStatus,
-    reshardingStatus,
-    rsSlotMigration,
+    ReshardingStatus (ReshardingStatus'),
+    newReshardingStatus,
 
     -- ** SecurityGroupMembership
-    SecurityGroupMembership,
-    securityGroupMembership,
-    sgmStatus,
-    sgmSecurityGroupId,
+    SecurityGroupMembership (SecurityGroupMembership'),
+    newSecurityGroupMembership,
 
     -- ** ServiceUpdate
-    ServiceUpdate,
-    serviceUpdate,
-    suServiceUpdateSeverity,
-    suAutoUpdateAfterRecommendedApplyByDate,
-    suServiceUpdateReleaseDate,
-    suServiceUpdateStatus,
-    suServiceUpdateRecommendedApplyByDate,
-    suServiceUpdateEndDate,
-    suEngineVersion,
-    suServiceUpdateType,
-    suEstimatedUpdateTime,
-    suEngine,
-    suServiceUpdateName,
-    suServiceUpdateDescription,
+    ServiceUpdate (ServiceUpdate'),
+    newServiceUpdate,
 
     -- ** SlotMigration
-    SlotMigration,
-    slotMigration,
-    smProgressPercentage,
+    SlotMigration (SlotMigration'),
+    newSlotMigration,
 
     -- ** Snapshot
-    Snapshot,
-    snapshot,
-    sCacheClusterCreateTime,
-    sNodeSnapshots,
-    sAutomaticFailover,
-    sNumCacheNodes,
-    sReplicationGroupId,
-    sCacheClusterId,
-    sSnapshotWindow,
-    sSnapshotStatus,
-    sARN,
-    sReplicationGroupDescription,
-    sCacheParameterGroupName,
-    sSnapshotRetentionLimit,
-    sNumNodeGroups,
-    sPreferredAvailabilityZone,
-    sKMSKeyId,
-    sCacheSubnetGroupName,
-    sEngineVersion,
-    sPreferredMaintenanceWindow,
-    sCacheNodeType,
-    sTopicARN,
-    sPort,
-    sSnapshotSource,
-    sEngine,
-    sPreferredOutpostARN,
-    sSnapshotName,
-    sVPCId,
-    sAutoMinorVersionUpgrade,
+    Snapshot (Snapshot'),
+    newSnapshot,
 
     -- ** Subnet
-    Subnet,
-    subnet,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
-    sSubnetOutpost,
+    Subnet (Subnet'),
+    newSubnet,
 
     -- ** SubnetOutpost
-    SubnetOutpost,
-    subnetOutpost,
-    soSubnetOutpostARN,
+    SubnetOutpost (SubnetOutpost'),
+    newSubnetOutpost,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TagListMessage
-    TagListMessage,
-    tagListMessage,
-    tlmTagList,
+    TagListMessage (TagListMessage'),
+    newTagListMessage,
 
     -- ** TimeRangeFilter
-    TimeRangeFilter,
-    timeRangeFilter,
-    trfStartTime,
-    trfEndTime,
+    TimeRangeFilter (TimeRangeFilter'),
+    newTimeRangeFilter,
 
     -- ** UnprocessedUpdateAction
-    UnprocessedUpdateAction,
-    unprocessedUpdateAction,
-    uuaReplicationGroupId,
-    uuaCacheClusterId,
-    uuaErrorType,
-    uuaErrorMessage,
-    uuaServiceUpdateName,
+    UnprocessedUpdateAction (UnprocessedUpdateAction'),
+    newUnprocessedUpdateAction,
 
     -- ** UpdateAction
-    UpdateAction,
-    updateAction,
-    uaServiceUpdateSeverity,
-    uaServiceUpdateReleaseDate,
-    uaReplicationGroupId,
-    uaUpdateActionStatus,
-    uaCacheClusterId,
-    uaServiceUpdateStatus,
-    uaSlaMet,
-    uaUpdateActionAvailableDate,
-    uaNodeGroupUpdateStatus,
-    uaServiceUpdateRecommendedApplyByDate,
-    uaServiceUpdateType,
-    uaCacheNodeUpdateStatus,
-    uaNodesUpdated,
-    uaEstimatedUpdateTime,
-    uaUpdateActionStatusModifiedDate,
-    uaEngine,
-    uaServiceUpdateName,
+    UpdateAction (UpdateAction'),
+    newUpdateAction,
 
     -- ** UpdateActionResultsMessage
-    UpdateActionResultsMessage,
-    updateActionResultsMessage,
-    uarmProcessedUpdateActions,
-    uarmUnprocessedUpdateActions,
+    UpdateActionResultsMessage (UpdateActionResultsMessage'),
+    newUpdateActionResultsMessage,
 
     -- ** User
-    User,
-    user,
-    uStatus,
-    uAccessString,
-    uUserGroupIds,
-    uAuthentication,
-    uARN,
-    uUserId,
-    uEngine,
-    uUserName,
+    User (User'),
+    newUser,
 
     -- ** UserGroup
-    UserGroup,
-    userGroup,
-    ugStatus,
-    ugReplicationGroups,
-    ugARN,
-    ugUserIds,
-    ugEngine,
-    ugUserGroupId,
-    ugPendingChanges,
+    UserGroup (UserGroup'),
+    newUserGroup,
 
     -- ** UserGroupPendingChanges
-    UserGroupPendingChanges,
-    userGroupPendingChanges,
-    ugpcUserIdsToRemove,
-    ugpcUserIdsToAdd,
+    UserGroupPendingChanges (UserGroupPendingChanges'),
+    newUserGroupPendingChanges,
 
     -- ** UserGroupsUpdateStatus
-    UserGroupsUpdateStatus,
-    userGroupsUpdateStatus,
-    ugusUserGroupIdsToRemove,
-    ugusUserGroupIdsToAdd,
+    UserGroupsUpdateStatus (UserGroupsUpdateStatus'),
+    newUserGroupsUpdateStatus,
   )
 where
 
@@ -1118,6 +983,7 @@ import Network.AWS.ElastiCache.DisassociateGlobalReplicationGroup
 import Network.AWS.ElastiCache.FailoverGlobalReplicationGroup
 import Network.AWS.ElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup
 import Network.AWS.ElastiCache.IncreaseReplicaCount
+import Network.AWS.ElastiCache.Lens
 import Network.AWS.ElastiCache.ListAllowedNodeTypeModifications
 import Network.AWS.ElastiCache.ListTagsForResource
 import Network.AWS.ElastiCache.ModifyCacheCluster

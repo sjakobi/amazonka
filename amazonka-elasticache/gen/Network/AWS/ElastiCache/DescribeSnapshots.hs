@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,219 +21,304 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about cluster or replication group snapshots. By default, @DescribeSnapshots@ lists all of your snapshots; it can optionally describe a single snapshot, or just the snapshots associated with a particular cache cluster.
+-- Returns information about cluster or replication group snapshots. By
+-- default, @DescribeSnapshots@ lists all of your snapshots; it can
+-- optionally describe a single snapshot, or just the snapshots associated
+-- with a particular cache cluster.
 --
---
+-- This operation is valid for Redis only.
 --
 -- This operation returns paginated results.
 module Network.AWS.ElastiCache.DescribeSnapshots
   ( -- * Creating a Request
-    describeSnapshots,
-    DescribeSnapshots,
+    DescribeSnapshots (..),
+    newDescribeSnapshots,
 
     -- * Request Lenses
-    dssReplicationGroupId,
-    dssCacheClusterId,
-    dssSnapshotSource,
-    dssShowNodeGroupConfig,
-    dssSnapshotName,
-    dssMarker,
-    dssMaxRecords,
+    describeSnapshots_replicationGroupId,
+    describeSnapshots_cacheClusterId,
+    describeSnapshots_snapshotSource,
+    describeSnapshots_showNodeGroupConfig,
+    describeSnapshots_snapshotName,
+    describeSnapshots_marker,
+    describeSnapshots_maxRecords,
 
     -- * Destructuring the Response
-    describeSnapshotsResponse,
-    DescribeSnapshotsResponse,
+    DescribeSnapshotsResponse (..),
+    newDescribeSnapshotsResponse,
 
     -- * Response Lenses
-    dsrrsSnapshots,
-    dsrrsMarker,
-    dsrrsResponseStatus,
+    describeSnapshotsResponse_snapshots,
+    describeSnapshotsResponse_marker,
+    describeSnapshotsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Snapshot
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @DescribeSnapshotsMessage@ operation.
 --
---
---
--- /See:/ 'describeSnapshots' smart constructor.
+-- /See:/ 'newDescribeSnapshots' smart constructor.
 data DescribeSnapshots = DescribeSnapshots'
-  { _dssReplicationGroupId ::
-      !(Maybe Text),
-    _dssCacheClusterId :: !(Maybe Text),
-    _dssSnapshotSource :: !(Maybe Text),
-    _dssShowNodeGroupConfig ::
-      !(Maybe Bool),
-    _dssSnapshotName :: !(Maybe Text),
-    _dssMarker :: !(Maybe Text),
-    _dssMaxRecords :: !(Maybe Int)
+  { -- | A user-supplied replication group identifier. If this parameter is
+    -- specified, only snapshots associated with that specific replication
+    -- group are described.
+    replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | A user-supplied cluster identifier. If this parameter is specified, only
+    -- snapshots associated with that specific cluster are described.
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | If set to @system@, the output shows snapshots that were automatically
+    -- created by ElastiCache. If set to @user@ the output shows snapshots that
+    -- were manually created. If omitted, the output shows both automatically
+    -- and manually created snapshots.
+    snapshotSource :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value which if true, the node group (shard) configuration is
+    -- included in the snapshot description.
+    showNodeGroupConfig :: Prelude.Maybe Prelude.Bool,
+    -- | A user-supplied name of the snapshot. If this parameter is specified,
+    -- only this snapshot are described.
+    snapshotName :: Prelude.Maybe Prelude.Text,
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a marker is
+    -- included in the response so that the remaining results can be retrieved.
+    --
+    -- Default: 50
+    --
+    -- Constraints: minimum 20; maximum 50.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSnapshots' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSnapshots' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssReplicationGroupId' - A user-supplied replication group identifier. If this parameter is specified, only snapshots associated with that specific replication group are described.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssCacheClusterId' - A user-supplied cluster identifier. If this parameter is specified, only snapshots associated with that specific cluster are described.
+-- 'replicationGroupId', 'describeSnapshots_replicationGroupId' - A user-supplied replication group identifier. If this parameter is
+-- specified, only snapshots associated with that specific replication
+-- group are described.
 --
--- * 'dssSnapshotSource' - If set to @system@ , the output shows snapshots that were automatically created by ElastiCache. If set to @user@ the output shows snapshots that were manually created. If omitted, the output shows both automatically and manually created snapshots.
+-- 'cacheClusterId', 'describeSnapshots_cacheClusterId' - A user-supplied cluster identifier. If this parameter is specified, only
+-- snapshots associated with that specific cluster are described.
 --
--- * 'dssShowNodeGroupConfig' - A Boolean value which if true, the node group (shard) configuration is included in the snapshot description.
+-- 'snapshotSource', 'describeSnapshots_snapshotSource' - If set to @system@, the output shows snapshots that were automatically
+-- created by ElastiCache. If set to @user@ the output shows snapshots that
+-- were manually created. If omitted, the output shows both automatically
+-- and manually created snapshots.
 --
--- * 'dssSnapshotName' - A user-supplied name of the snapshot. If this parameter is specified, only this snapshot are described.
+-- 'showNodeGroupConfig', 'describeSnapshots_showNodeGroupConfig' - A Boolean value which if true, the node group (shard) configuration is
+-- included in the snapshot description.
 --
--- * 'dssMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'snapshotName', 'describeSnapshots_snapshotName' - A user-supplied name of the snapshot. If this parameter is specified,
+-- only this snapshot are described.
 --
--- * 'dssMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a marker is included in the response so that the remaining results can be retrieved. Default: 50 Constraints: minimum 20; maximum 50.
-describeSnapshots ::
+-- 'marker', 'describeSnapshots_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeSnapshots_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a marker is
+-- included in the response so that the remaining results can be retrieved.
+--
+-- Default: 50
+--
+-- Constraints: minimum 20; maximum 50.
+newDescribeSnapshots ::
   DescribeSnapshots
-describeSnapshots =
+newDescribeSnapshots =
   DescribeSnapshots'
-    { _dssReplicationGroupId =
-        Nothing,
-      _dssCacheClusterId = Nothing,
-      _dssSnapshotSource = Nothing,
-      _dssShowNodeGroupConfig = Nothing,
-      _dssSnapshotName = Nothing,
-      _dssMarker = Nothing,
-      _dssMaxRecords = Nothing
+    { replicationGroupId =
+        Prelude.Nothing,
+      cacheClusterId = Prelude.Nothing,
+      snapshotSource = Prelude.Nothing,
+      showNodeGroupConfig = Prelude.Nothing,
+      snapshotName = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | A user-supplied replication group identifier. If this parameter is specified, only snapshots associated with that specific replication group are described.
-dssReplicationGroupId :: Lens' DescribeSnapshots (Maybe Text)
-dssReplicationGroupId = lens _dssReplicationGroupId (\s a -> s {_dssReplicationGroupId = a})
+-- | A user-supplied replication group identifier. If this parameter is
+-- specified, only snapshots associated with that specific replication
+-- group are described.
+describeSnapshots_replicationGroupId :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_replicationGroupId = Lens.lens (\DescribeSnapshots' {replicationGroupId} -> replicationGroupId) (\s@DescribeSnapshots' {} a -> s {replicationGroupId = a} :: DescribeSnapshots)
 
--- | A user-supplied cluster identifier. If this parameter is specified, only snapshots associated with that specific cluster are described.
-dssCacheClusterId :: Lens' DescribeSnapshots (Maybe Text)
-dssCacheClusterId = lens _dssCacheClusterId (\s a -> s {_dssCacheClusterId = a})
+-- | A user-supplied cluster identifier. If this parameter is specified, only
+-- snapshots associated with that specific cluster are described.
+describeSnapshots_cacheClusterId :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_cacheClusterId = Lens.lens (\DescribeSnapshots' {cacheClusterId} -> cacheClusterId) (\s@DescribeSnapshots' {} a -> s {cacheClusterId = a} :: DescribeSnapshots)
 
--- | If set to @system@ , the output shows snapshots that were automatically created by ElastiCache. If set to @user@ the output shows snapshots that were manually created. If omitted, the output shows both automatically and manually created snapshots.
-dssSnapshotSource :: Lens' DescribeSnapshots (Maybe Text)
-dssSnapshotSource = lens _dssSnapshotSource (\s a -> s {_dssSnapshotSource = a})
+-- | If set to @system@, the output shows snapshots that were automatically
+-- created by ElastiCache. If set to @user@ the output shows snapshots that
+-- were manually created. If omitted, the output shows both automatically
+-- and manually created snapshots.
+describeSnapshots_snapshotSource :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_snapshotSource = Lens.lens (\DescribeSnapshots' {snapshotSource} -> snapshotSource) (\s@DescribeSnapshots' {} a -> s {snapshotSource = a} :: DescribeSnapshots)
 
--- | A Boolean value which if true, the node group (shard) configuration is included in the snapshot description.
-dssShowNodeGroupConfig :: Lens' DescribeSnapshots (Maybe Bool)
-dssShowNodeGroupConfig = lens _dssShowNodeGroupConfig (\s a -> s {_dssShowNodeGroupConfig = a})
+-- | A Boolean value which if true, the node group (shard) configuration is
+-- included in the snapshot description.
+describeSnapshots_showNodeGroupConfig :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Bool)
+describeSnapshots_showNodeGroupConfig = Lens.lens (\DescribeSnapshots' {showNodeGroupConfig} -> showNodeGroupConfig) (\s@DescribeSnapshots' {} a -> s {showNodeGroupConfig = a} :: DescribeSnapshots)
 
--- | A user-supplied name of the snapshot. If this parameter is specified, only this snapshot are described.
-dssSnapshotName :: Lens' DescribeSnapshots (Maybe Text)
-dssSnapshotName = lens _dssSnapshotName (\s a -> s {_dssSnapshotName = a})
+-- | A user-supplied name of the snapshot. If this parameter is specified,
+-- only this snapshot are described.
+describeSnapshots_snapshotName :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_snapshotName = Lens.lens (\DescribeSnapshots' {snapshotName} -> snapshotName) (\s@DescribeSnapshots' {} a -> s {snapshotName = a} :: DescribeSnapshots)
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dssMarker :: Lens' DescribeSnapshots (Maybe Text)
-dssMarker = lens _dssMarker (\s a -> s {_dssMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeSnapshots_marker :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_marker = Lens.lens (\DescribeSnapshots' {marker} -> marker) (\s@DescribeSnapshots' {} a -> s {marker = a} :: DescribeSnapshots)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a marker is included in the response so that the remaining results can be retrieved. Default: 50 Constraints: minimum 20; maximum 50.
-dssMaxRecords :: Lens' DescribeSnapshots (Maybe Int)
-dssMaxRecords = lens _dssMaxRecords (\s a -> s {_dssMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a marker is
+-- included in the response so that the remaining results can be retrieved.
+--
+-- Default: 50
+--
+-- Constraints: minimum 20; maximum 50.
+describeSnapshots_maxRecords :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Int)
+describeSnapshots_maxRecords = Lens.lens (\DescribeSnapshots' {maxRecords} -> maxRecords) (\s@DescribeSnapshots' {} a -> s {maxRecords = a} :: DescribeSnapshots)
 
-instance AWSPager DescribeSnapshots where
+instance Pager.AWSPager DescribeSnapshots where
   page rq rs
-    | stop (rs ^. dsrrsMarker) = Nothing
-    | stop (rs ^. dsrrsSnapshots) = Nothing
-    | otherwise =
-      Just $ rq & dssMarker .~ rs ^. dsrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeSnapshotsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSnapshotsResponse_snapshots
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSnapshots_marker
+          Lens..~ rs
+          Lens.^? describeSnapshotsResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest DescribeSnapshots where
+instance Prelude.AWSRequest DescribeSnapshots where
   type Rs DescribeSnapshots = DescribeSnapshotsResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeSnapshotsResult"
       ( \s h x ->
           DescribeSnapshotsResponse'
-            <$> ( x .@? "Snapshots" .!@ mempty
-                    >>= may (parseXMLList "Snapshot")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Snapshots" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "Snapshot")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSnapshots
+instance Prelude.Hashable DescribeSnapshots
 
-instance NFData DescribeSnapshots
+instance Prelude.NFData DescribeSnapshots
 
-instance ToHeaders DescribeSnapshots where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSnapshots where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeSnapshots where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSnapshots where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSnapshots where
+instance Prelude.ToQuery DescribeSnapshots where
   toQuery DescribeSnapshots' {..} =
-    mconcat
-      [ "Action" =: ("DescribeSnapshots" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "ReplicationGroupId" =: _dssReplicationGroupId,
-        "CacheClusterId" =: _dssCacheClusterId,
-        "SnapshotSource" =: _dssSnapshotSource,
-        "ShowNodeGroupConfig" =: _dssShowNodeGroupConfig,
-        "SnapshotName" =: _dssSnapshotName,
-        "Marker" =: _dssMarker,
-        "MaxRecords" =: _dssMaxRecords
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeSnapshots" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "ReplicationGroupId" Prelude.=: replicationGroupId,
+        "CacheClusterId" Prelude.=: cacheClusterId,
+        "SnapshotSource" Prelude.=: snapshotSource,
+        "ShowNodeGroupConfig" Prelude.=: showNodeGroupConfig,
+        "SnapshotName" Prelude.=: snapshotName,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
 -- | Represents the output of a @DescribeSnapshots@ operation.
 --
---
---
--- /See:/ 'describeSnapshotsResponse' smart constructor.
+-- /See:/ 'newDescribeSnapshotsResponse' smart constructor.
 data DescribeSnapshotsResponse = DescribeSnapshotsResponse'
-  { _dsrrsSnapshots ::
-      !(Maybe [Snapshot]),
-    _dsrrsMarker ::
-      !(Maybe Text),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | A list of snapshots. Each item in the list contains detailed information
+    -- about one snapshot.
+    snapshots :: Prelude.Maybe [Snapshot],
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSnapshotsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSnapshotsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsSnapshots' - A list of snapshots. Each item in the list contains detailed information about one snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'snapshots', 'describeSnapshotsResponse_snapshots' - A list of snapshots. Each item in the list contains detailed information
+-- about one snapshot.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-describeSnapshotsResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeSnapshotsResponse_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeSnapshotsResponse_httpStatus' - The response's http status code.
+newDescribeSnapshotsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSnapshotsResponse
-describeSnapshotsResponse pResponseStatus_ =
+newDescribeSnapshotsResponse pHttpStatus_ =
   DescribeSnapshotsResponse'
-    { _dsrrsSnapshots =
-        Nothing,
-      _dsrrsMarker = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { snapshots =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of snapshots. Each item in the list contains detailed information about one snapshot.
-dsrrsSnapshots :: Lens' DescribeSnapshotsResponse [Snapshot]
-dsrrsSnapshots = lens _dsrrsSnapshots (\s a -> s {_dsrrsSnapshots = a}) . _Default . _Coerce
+-- | A list of snapshots. Each item in the list contains detailed information
+-- about one snapshot.
+describeSnapshotsResponse_snapshots :: Lens.Lens' DescribeSnapshotsResponse (Prelude.Maybe [Snapshot])
+describeSnapshotsResponse_snapshots = Lens.lens (\DescribeSnapshotsResponse' {snapshots} -> snapshots) (\s@DescribeSnapshotsResponse' {} a -> s {snapshots = a} :: DescribeSnapshotsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dsrrsMarker :: Lens' DescribeSnapshotsResponse (Maybe Text)
-dsrrsMarker = lens _dsrrsMarker (\s a -> s {_dsrrsMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeSnapshotsResponse_marker :: Lens.Lens' DescribeSnapshotsResponse (Prelude.Maybe Prelude.Text)
+describeSnapshotsResponse_marker = Lens.lens (\DescribeSnapshotsResponse' {marker} -> marker) (\s@DescribeSnapshotsResponse' {} a -> s {marker = a} :: DescribeSnapshotsResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DescribeSnapshotsResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+describeSnapshotsResponse_httpStatus :: Lens.Lens' DescribeSnapshotsResponse Prelude.Int
+describeSnapshotsResponse_httpStatus = Lens.lens (\DescribeSnapshotsResponse' {httpStatus} -> httpStatus) (\s@DescribeSnapshotsResponse' {} a -> s {httpStatus = a} :: DescribeSnapshotsResponse)
 
-instance NFData DescribeSnapshotsResponse
+instance Prelude.NFData DescribeSnapshotsResponse

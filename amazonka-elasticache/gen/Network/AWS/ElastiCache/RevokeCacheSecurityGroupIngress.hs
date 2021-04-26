@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,197 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Revokes ingress from a cache security group. Use this operation to disallow access from an Amazon EC2 security group that had been previously authorized.
+-- Revokes ingress from a cache security group. Use this operation to
+-- disallow access from an Amazon EC2 security group that had been
+-- previously authorized.
 module Network.AWS.ElastiCache.RevokeCacheSecurityGroupIngress
   ( -- * Creating a Request
-    revokeCacheSecurityGroupIngress,
-    RevokeCacheSecurityGroupIngress,
+    RevokeCacheSecurityGroupIngress (..),
+    newRevokeCacheSecurityGroupIngress,
 
     -- * Request Lenses
-    rcsgiCacheSecurityGroupName,
-    rcsgiEC2SecurityGroupName,
-    rcsgiEC2SecurityGroupOwnerId,
+    revokeCacheSecurityGroupIngress_cacheSecurityGroupName,
+    revokeCacheSecurityGroupIngress_eC2SecurityGroupName,
+    revokeCacheSecurityGroupIngress_eC2SecurityGroupOwnerId,
 
     -- * Destructuring the Response
-    revokeCacheSecurityGroupIngressResponse,
-    RevokeCacheSecurityGroupIngressResponse,
+    RevokeCacheSecurityGroupIngressResponse (..),
+    newRevokeCacheSecurityGroupIngressResponse,
 
     -- * Response Lenses
-    rcsgirrsCacheSecurityGroup,
-    rcsgirrsResponseStatus,
+    revokeCacheSecurityGroupIngressResponse_cacheSecurityGroup,
+    revokeCacheSecurityGroupIngressResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.CacheSecurityGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @RevokeCacheSecurityGroupIngress@ operation.
 --
---
---
--- /See:/ 'revokeCacheSecurityGroupIngress' smart constructor.
+-- /See:/ 'newRevokeCacheSecurityGroupIngress' smart constructor.
 data RevokeCacheSecurityGroupIngress = RevokeCacheSecurityGroupIngress'
-  { _rcsgiCacheSecurityGroupName ::
-      !Text,
-    _rcsgiEC2SecurityGroupName ::
-      !Text,
-    _rcsgiEC2SecurityGroupOwnerId ::
-      !Text
+  { -- | The name of the cache security group to revoke ingress from.
+    cacheSecurityGroupName :: Prelude.Text,
+    -- | The name of the Amazon EC2 security group to revoke access from.
+    eC2SecurityGroupName :: Prelude.Text,
+    -- | The AWS account number of the Amazon EC2 security group owner. Note that
+    -- this is not the same thing as an AWS access key ID - you must provide a
+    -- valid AWS account number for this parameter.
+    eC2SecurityGroupOwnerId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevokeCacheSecurityGroupIngress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RevokeCacheSecurityGroupIngress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcsgiCacheSecurityGroupName' - The name of the cache security group to revoke ingress from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcsgiEC2SecurityGroupName' - The name of the Amazon EC2 security group to revoke access from.
+-- 'cacheSecurityGroupName', 'revokeCacheSecurityGroupIngress_cacheSecurityGroupName' - The name of the cache security group to revoke ingress from.
 --
--- * 'rcsgiEC2SecurityGroupOwnerId' - The AWS account number of the Amazon EC2 security group owner. Note that this is not the same thing as an AWS access key ID - you must provide a valid AWS account number for this parameter.
-revokeCacheSecurityGroupIngress ::
-  -- | 'rcsgiCacheSecurityGroupName'
-  Text ->
-  -- | 'rcsgiEC2SecurityGroupName'
-  Text ->
-  -- | 'rcsgiEC2SecurityGroupOwnerId'
-  Text ->
+-- 'eC2SecurityGroupName', 'revokeCacheSecurityGroupIngress_eC2SecurityGroupName' - The name of the Amazon EC2 security group to revoke access from.
+--
+-- 'eC2SecurityGroupOwnerId', 'revokeCacheSecurityGroupIngress_eC2SecurityGroupOwnerId' - The AWS account number of the Amazon EC2 security group owner. Note that
+-- this is not the same thing as an AWS access key ID - you must provide a
+-- valid AWS account number for this parameter.
+newRevokeCacheSecurityGroupIngress ::
+  -- | 'cacheSecurityGroupName'
+  Prelude.Text ->
+  -- | 'eC2SecurityGroupName'
+  Prelude.Text ->
+  -- | 'eC2SecurityGroupOwnerId'
+  Prelude.Text ->
   RevokeCacheSecurityGroupIngress
-revokeCacheSecurityGroupIngress
+newRevokeCacheSecurityGroupIngress
   pCacheSecurityGroupName_
   pEC2SecurityGroupName_
   pEC2SecurityGroupOwnerId_ =
     RevokeCacheSecurityGroupIngress'
-      { _rcsgiCacheSecurityGroupName =
+      { cacheSecurityGroupName =
           pCacheSecurityGroupName_,
-        _rcsgiEC2SecurityGroupName =
+        eC2SecurityGroupName =
           pEC2SecurityGroupName_,
-        _rcsgiEC2SecurityGroupOwnerId =
+        eC2SecurityGroupOwnerId =
           pEC2SecurityGroupOwnerId_
       }
 
 -- | The name of the cache security group to revoke ingress from.
-rcsgiCacheSecurityGroupName :: Lens' RevokeCacheSecurityGroupIngress Text
-rcsgiCacheSecurityGroupName = lens _rcsgiCacheSecurityGroupName (\s a -> s {_rcsgiCacheSecurityGroupName = a})
+revokeCacheSecurityGroupIngress_cacheSecurityGroupName :: Lens.Lens' RevokeCacheSecurityGroupIngress Prelude.Text
+revokeCacheSecurityGroupIngress_cacheSecurityGroupName = Lens.lens (\RevokeCacheSecurityGroupIngress' {cacheSecurityGroupName} -> cacheSecurityGroupName) (\s@RevokeCacheSecurityGroupIngress' {} a -> s {cacheSecurityGroupName = a} :: RevokeCacheSecurityGroupIngress)
 
 -- | The name of the Amazon EC2 security group to revoke access from.
-rcsgiEC2SecurityGroupName :: Lens' RevokeCacheSecurityGroupIngress Text
-rcsgiEC2SecurityGroupName = lens _rcsgiEC2SecurityGroupName (\s a -> s {_rcsgiEC2SecurityGroupName = a})
+revokeCacheSecurityGroupIngress_eC2SecurityGroupName :: Lens.Lens' RevokeCacheSecurityGroupIngress Prelude.Text
+revokeCacheSecurityGroupIngress_eC2SecurityGroupName = Lens.lens (\RevokeCacheSecurityGroupIngress' {eC2SecurityGroupName} -> eC2SecurityGroupName) (\s@RevokeCacheSecurityGroupIngress' {} a -> s {eC2SecurityGroupName = a} :: RevokeCacheSecurityGroupIngress)
 
--- | The AWS account number of the Amazon EC2 security group owner. Note that this is not the same thing as an AWS access key ID - you must provide a valid AWS account number for this parameter.
-rcsgiEC2SecurityGroupOwnerId :: Lens' RevokeCacheSecurityGroupIngress Text
-rcsgiEC2SecurityGroupOwnerId = lens _rcsgiEC2SecurityGroupOwnerId (\s a -> s {_rcsgiEC2SecurityGroupOwnerId = a})
+-- | The AWS account number of the Amazon EC2 security group owner. Note that
+-- this is not the same thing as an AWS access key ID - you must provide a
+-- valid AWS account number for this parameter.
+revokeCacheSecurityGroupIngress_eC2SecurityGroupOwnerId :: Lens.Lens' RevokeCacheSecurityGroupIngress Prelude.Text
+revokeCacheSecurityGroupIngress_eC2SecurityGroupOwnerId = Lens.lens (\RevokeCacheSecurityGroupIngress' {eC2SecurityGroupOwnerId} -> eC2SecurityGroupOwnerId) (\s@RevokeCacheSecurityGroupIngress' {} a -> s {eC2SecurityGroupOwnerId = a} :: RevokeCacheSecurityGroupIngress)
 
-instance AWSRequest RevokeCacheSecurityGroupIngress where
+instance
+  Prelude.AWSRequest
+    RevokeCacheSecurityGroupIngress
+  where
   type
     Rs RevokeCacheSecurityGroupIngress =
       RevokeCacheSecurityGroupIngressResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RevokeCacheSecurityGroupIngressResult"
       ( \s h x ->
           RevokeCacheSecurityGroupIngressResponse'
-            <$> (x .@? "CacheSecurityGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "CacheSecurityGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RevokeCacheSecurityGroupIngress
+instance
+  Prelude.Hashable
+    RevokeCacheSecurityGroupIngress
 
-instance NFData RevokeCacheSecurityGroupIngress
+instance
+  Prelude.NFData
+    RevokeCacheSecurityGroupIngress
 
-instance ToHeaders RevokeCacheSecurityGroupIngress where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    RevokeCacheSecurityGroupIngress
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RevokeCacheSecurityGroupIngress where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    RevokeCacheSecurityGroupIngress
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery RevokeCacheSecurityGroupIngress where
+instance
+  Prelude.ToQuery
+    RevokeCacheSecurityGroupIngress
+  where
   toQuery RevokeCacheSecurityGroupIngress' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RevokeCacheSecurityGroupIngress" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ( "RevokeCacheSecurityGroupIngress" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheSecurityGroupName"
-          =: _rcsgiCacheSecurityGroupName,
-        "EC2SecurityGroupName" =: _rcsgiEC2SecurityGroupName,
+          Prelude.=: cacheSecurityGroupName,
+        "EC2SecurityGroupName"
+          Prelude.=: eC2SecurityGroupName,
         "EC2SecurityGroupOwnerId"
-          =: _rcsgiEC2SecurityGroupOwnerId
+          Prelude.=: eC2SecurityGroupOwnerId
       ]
 
--- | /See:/ 'revokeCacheSecurityGroupIngressResponse' smart constructor.
+-- | /See:/ 'newRevokeCacheSecurityGroupIngressResponse' smart constructor.
 data RevokeCacheSecurityGroupIngressResponse = RevokeCacheSecurityGroupIngressResponse'
-  { _rcsgirrsCacheSecurityGroup ::
-      !( Maybe
-           CacheSecurityGroup
-       ),
-    _rcsgirrsResponseStatus ::
-      !Int
+  { cacheSecurityGroup :: Prelude.Maybe CacheSecurityGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevokeCacheSecurityGroupIngressResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RevokeCacheSecurityGroupIngressResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcsgirrsCacheSecurityGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcsgirrsResponseStatus' - -- | The response status code.
-revokeCacheSecurityGroupIngressResponse ::
-  -- | 'rcsgirrsResponseStatus'
-  Int ->
+-- 'cacheSecurityGroup', 'revokeCacheSecurityGroupIngressResponse_cacheSecurityGroup' - Undocumented member.
+--
+-- 'httpStatus', 'revokeCacheSecurityGroupIngressResponse_httpStatus' - The response's http status code.
+newRevokeCacheSecurityGroupIngressResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RevokeCacheSecurityGroupIngressResponse
-revokeCacheSecurityGroupIngressResponse
-  pResponseStatus_ =
+newRevokeCacheSecurityGroupIngressResponse
+  pHttpStatus_ =
     RevokeCacheSecurityGroupIngressResponse'
-      { _rcsgirrsCacheSecurityGroup =
-          Nothing,
-        _rcsgirrsResponseStatus =
-          pResponseStatus_
+      { cacheSecurityGroup =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-rcsgirrsCacheSecurityGroup :: Lens' RevokeCacheSecurityGroupIngressResponse (Maybe CacheSecurityGroup)
-rcsgirrsCacheSecurityGroup = lens _rcsgirrsCacheSecurityGroup (\s a -> s {_rcsgirrsCacheSecurityGroup = a})
+revokeCacheSecurityGroupIngressResponse_cacheSecurityGroup :: Lens.Lens' RevokeCacheSecurityGroupIngressResponse (Prelude.Maybe CacheSecurityGroup)
+revokeCacheSecurityGroupIngressResponse_cacheSecurityGroup = Lens.lens (\RevokeCacheSecurityGroupIngressResponse' {cacheSecurityGroup} -> cacheSecurityGroup) (\s@RevokeCacheSecurityGroupIngressResponse' {} a -> s {cacheSecurityGroup = a} :: RevokeCacheSecurityGroupIngressResponse)
 
--- | -- | The response status code.
-rcsgirrsResponseStatus :: Lens' RevokeCacheSecurityGroupIngressResponse Int
-rcsgirrsResponseStatus = lens _rcsgirrsResponseStatus (\s a -> s {_rcsgirrsResponseStatus = a})
+-- | The response's http status code.
+revokeCacheSecurityGroupIngressResponse_httpStatus :: Lens.Lens' RevokeCacheSecurityGroupIngressResponse Prelude.Int
+revokeCacheSecurityGroupIngressResponse_httpStatus = Lens.lens (\RevokeCacheSecurityGroupIngressResponse' {httpStatus} -> httpStatus) (\s@RevokeCacheSecurityGroupIngressResponse' {} a -> s {httpStatus = a} :: RevokeCacheSecurityGroupIngressResponse)
 
 instance
-  NFData
+  Prelude.NFData
     RevokeCacheSecurityGroupIngressResponse

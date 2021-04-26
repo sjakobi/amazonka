@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.GlobalReplicationGroupInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The name of the Global Datastore and role of this replication group in the Global Datastore.
+-- | The name of the Global Datastore and role of this replication group in
+-- the Global Datastore.
 --
---
---
--- /See:/ 'globalReplicationGroupInfo' smart constructor.
+-- /See:/ 'newGlobalReplicationGroupInfo' smart constructor.
 data GlobalReplicationGroupInfo = GlobalReplicationGroupInfo'
-  { _grgiGlobalReplicationGroupMemberRole ::
-      !(Maybe Text),
-    _grgiGlobalReplicationGroupId ::
-      !(Maybe Text)
+  { -- | The role of the replication group in a Global Datastore. Can be primary
+    -- or secondary.
+    globalReplicationGroupMemberRole :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlobalReplicationGroupInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlobalReplicationGroupInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grgiGlobalReplicationGroupMemberRole' - The role of the replication group in a Global Datastore. Can be primary or secondary.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grgiGlobalReplicationGroupId' - The name of the Global Datastore
-globalReplicationGroupInfo ::
+-- 'globalReplicationGroupMemberRole', 'globalReplicationGroupInfo_globalReplicationGroupMemberRole' - The role of the replication group in a Global Datastore. Can be primary
+-- or secondary.
+--
+-- 'globalReplicationGroupId', 'globalReplicationGroupInfo_globalReplicationGroupId' - The name of the Global Datastore
+newGlobalReplicationGroupInfo ::
   GlobalReplicationGroupInfo
-globalReplicationGroupInfo =
+newGlobalReplicationGroupInfo =
   GlobalReplicationGroupInfo'
-    { _grgiGlobalReplicationGroupMemberRole =
-        Nothing,
-      _grgiGlobalReplicationGroupId = Nothing
+    { globalReplicationGroupMemberRole =
+        Prelude.Nothing,
+      globalReplicationGroupId = Prelude.Nothing
     }
 
--- | The role of the replication group in a Global Datastore. Can be primary or secondary.
-grgiGlobalReplicationGroupMemberRole :: Lens' GlobalReplicationGroupInfo (Maybe Text)
-grgiGlobalReplicationGroupMemberRole = lens _grgiGlobalReplicationGroupMemberRole (\s a -> s {_grgiGlobalReplicationGroupMemberRole = a})
+-- | The role of the replication group in a Global Datastore. Can be primary
+-- or secondary.
+globalReplicationGroupInfo_globalReplicationGroupMemberRole :: Lens.Lens' GlobalReplicationGroupInfo (Prelude.Maybe Prelude.Text)
+globalReplicationGroupInfo_globalReplicationGroupMemberRole = Lens.lens (\GlobalReplicationGroupInfo' {globalReplicationGroupMemberRole} -> globalReplicationGroupMemberRole) (\s@GlobalReplicationGroupInfo' {} a -> s {globalReplicationGroupMemberRole = a} :: GlobalReplicationGroupInfo)
 
 -- | The name of the Global Datastore
-grgiGlobalReplicationGroupId :: Lens' GlobalReplicationGroupInfo (Maybe Text)
-grgiGlobalReplicationGroupId = lens _grgiGlobalReplicationGroupId (\s a -> s {_grgiGlobalReplicationGroupId = a})
+globalReplicationGroupInfo_globalReplicationGroupId :: Lens.Lens' GlobalReplicationGroupInfo (Prelude.Maybe Prelude.Text)
+globalReplicationGroupInfo_globalReplicationGroupId = Lens.lens (\GlobalReplicationGroupInfo' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@GlobalReplicationGroupInfo' {} a -> s {globalReplicationGroupId = a} :: GlobalReplicationGroupInfo)
 
-instance FromXML GlobalReplicationGroupInfo where
+instance Prelude.FromXML GlobalReplicationGroupInfo where
   parseXML x =
     GlobalReplicationGroupInfo'
-      <$> (x .@? "GlobalReplicationGroupMemberRole")
-      <*> (x .@? "GlobalReplicationGroupId")
+      Prelude.<$> (x Prelude..@? "GlobalReplicationGroupMemberRole")
+      Prelude.<*> (x Prelude..@? "GlobalReplicationGroupId")
 
-instance Hashable GlobalReplicationGroupInfo
+instance Prelude.Hashable GlobalReplicationGroupInfo
 
-instance NFData GlobalReplicationGroupInfo
+instance Prelude.NFData GlobalReplicationGroupInfo

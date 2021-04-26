@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,105 +23,102 @@ import Network.AWS.ElastiCache.Types.AuthTokenUpdateStatus
 import Network.AWS.ElastiCache.Types.PendingAutomaticFailoverStatus
 import Network.AWS.ElastiCache.Types.ReshardingStatus
 import Network.AWS.ElastiCache.Types.UserGroupsUpdateStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The settings to be applied to the Redis replication group, either immediately or during the next maintenance window.
+-- | The settings to be applied to the Redis replication group, either
+-- immediately or during the next maintenance window.
 --
---
---
--- /See:/ 'replicationGroupPendingModifiedValues' smart constructor.
+-- /See:/ 'newReplicationGroupPendingModifiedValues' smart constructor.
 data ReplicationGroupPendingModifiedValues = ReplicationGroupPendingModifiedValues'
-  { _rgpmvResharding ::
-      !( Maybe
-           ReshardingStatus
-       ),
-    _rgpmvPrimaryClusterId ::
-      !( Maybe
-           Text
-       ),
-    _rgpmvAuthTokenStatus ::
-      !( Maybe
-           AuthTokenUpdateStatus
-       ),
-    _rgpmvUserGroups ::
-      !( Maybe
-           UserGroupsUpdateStatus
-       ),
-    _rgpmvAutomaticFailoverStatus ::
-      !( Maybe
-           PendingAutomaticFailoverStatus
-       )
+  { -- | The status of an online resharding operation.
+    resharding :: Prelude.Maybe ReshardingStatus,
+    -- | The primary cluster ID that is applied immediately (if
+    -- @--apply-immediately@ was specified), or during the next maintenance
+    -- window.
+    primaryClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The auth token status
+    authTokenStatus :: Prelude.Maybe AuthTokenUpdateStatus,
+    -- | The user groups being modified.
+    userGroups :: Prelude.Maybe UserGroupsUpdateStatus,
+    -- | Indicates the status of automatic failover for this Redis replication
+    -- group.
+    automaticFailoverStatus :: Prelude.Maybe PendingAutomaticFailoverStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationGroupPendingModifiedValues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationGroupPendingModifiedValues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgpmvResharding' - The status of an online resharding operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgpmvPrimaryClusterId' - The primary cluster ID that is applied immediately (if @--apply-immediately@ was specified), or during the next maintenance window.
+-- 'resharding', 'replicationGroupPendingModifiedValues_resharding' - The status of an online resharding operation.
 --
--- * 'rgpmvAuthTokenStatus' - The auth token status
+-- 'primaryClusterId', 'replicationGroupPendingModifiedValues_primaryClusterId' - The primary cluster ID that is applied immediately (if
+-- @--apply-immediately@ was specified), or during the next maintenance
+-- window.
 --
--- * 'rgpmvUserGroups' - The user groups being modified.
+-- 'authTokenStatus', 'replicationGroupPendingModifiedValues_authTokenStatus' - The auth token status
 --
--- * 'rgpmvAutomaticFailoverStatus' - Indicates the status of automatic failover for this Redis replication group.
-replicationGroupPendingModifiedValues ::
+-- 'userGroups', 'replicationGroupPendingModifiedValues_userGroups' - The user groups being modified.
+--
+-- 'automaticFailoverStatus', 'replicationGroupPendingModifiedValues_automaticFailoverStatus' - Indicates the status of automatic failover for this Redis replication
+-- group.
+newReplicationGroupPendingModifiedValues ::
   ReplicationGroupPendingModifiedValues
-replicationGroupPendingModifiedValues =
+newReplicationGroupPendingModifiedValues =
   ReplicationGroupPendingModifiedValues'
-    { _rgpmvResharding =
-        Nothing,
-      _rgpmvPrimaryClusterId = Nothing,
-      _rgpmvAuthTokenStatus = Nothing,
-      _rgpmvUserGroups = Nothing,
-      _rgpmvAutomaticFailoverStatus =
-        Nothing
+    { resharding =
+        Prelude.Nothing,
+      primaryClusterId = Prelude.Nothing,
+      authTokenStatus = Prelude.Nothing,
+      userGroups = Prelude.Nothing,
+      automaticFailoverStatus =
+        Prelude.Nothing
     }
 
 -- | The status of an online resharding operation.
-rgpmvResharding :: Lens' ReplicationGroupPendingModifiedValues (Maybe ReshardingStatus)
-rgpmvResharding = lens _rgpmvResharding (\s a -> s {_rgpmvResharding = a})
+replicationGroupPendingModifiedValues_resharding :: Lens.Lens' ReplicationGroupPendingModifiedValues (Prelude.Maybe ReshardingStatus)
+replicationGroupPendingModifiedValues_resharding = Lens.lens (\ReplicationGroupPendingModifiedValues' {resharding} -> resharding) (\s@ReplicationGroupPendingModifiedValues' {} a -> s {resharding = a} :: ReplicationGroupPendingModifiedValues)
 
--- | The primary cluster ID that is applied immediately (if @--apply-immediately@ was specified), or during the next maintenance window.
-rgpmvPrimaryClusterId :: Lens' ReplicationGroupPendingModifiedValues (Maybe Text)
-rgpmvPrimaryClusterId = lens _rgpmvPrimaryClusterId (\s a -> s {_rgpmvPrimaryClusterId = a})
+-- | The primary cluster ID that is applied immediately (if
+-- @--apply-immediately@ was specified), or during the next maintenance
+-- window.
+replicationGroupPendingModifiedValues_primaryClusterId :: Lens.Lens' ReplicationGroupPendingModifiedValues (Prelude.Maybe Prelude.Text)
+replicationGroupPendingModifiedValues_primaryClusterId = Lens.lens (\ReplicationGroupPendingModifiedValues' {primaryClusterId} -> primaryClusterId) (\s@ReplicationGroupPendingModifiedValues' {} a -> s {primaryClusterId = a} :: ReplicationGroupPendingModifiedValues)
 
 -- | The auth token status
-rgpmvAuthTokenStatus :: Lens' ReplicationGroupPendingModifiedValues (Maybe AuthTokenUpdateStatus)
-rgpmvAuthTokenStatus = lens _rgpmvAuthTokenStatus (\s a -> s {_rgpmvAuthTokenStatus = a})
+replicationGroupPendingModifiedValues_authTokenStatus :: Lens.Lens' ReplicationGroupPendingModifiedValues (Prelude.Maybe AuthTokenUpdateStatus)
+replicationGroupPendingModifiedValues_authTokenStatus = Lens.lens (\ReplicationGroupPendingModifiedValues' {authTokenStatus} -> authTokenStatus) (\s@ReplicationGroupPendingModifiedValues' {} a -> s {authTokenStatus = a} :: ReplicationGroupPendingModifiedValues)
 
 -- | The user groups being modified.
-rgpmvUserGroups :: Lens' ReplicationGroupPendingModifiedValues (Maybe UserGroupsUpdateStatus)
-rgpmvUserGroups = lens _rgpmvUserGroups (\s a -> s {_rgpmvUserGroups = a})
+replicationGroupPendingModifiedValues_userGroups :: Lens.Lens' ReplicationGroupPendingModifiedValues (Prelude.Maybe UserGroupsUpdateStatus)
+replicationGroupPendingModifiedValues_userGroups = Lens.lens (\ReplicationGroupPendingModifiedValues' {userGroups} -> userGroups) (\s@ReplicationGroupPendingModifiedValues' {} a -> s {userGroups = a} :: ReplicationGroupPendingModifiedValues)
 
--- | Indicates the status of automatic failover for this Redis replication group.
-rgpmvAutomaticFailoverStatus :: Lens' ReplicationGroupPendingModifiedValues (Maybe PendingAutomaticFailoverStatus)
-rgpmvAutomaticFailoverStatus = lens _rgpmvAutomaticFailoverStatus (\s a -> s {_rgpmvAutomaticFailoverStatus = a})
+-- | Indicates the status of automatic failover for this Redis replication
+-- group.
+replicationGroupPendingModifiedValues_automaticFailoverStatus :: Lens.Lens' ReplicationGroupPendingModifiedValues (Prelude.Maybe PendingAutomaticFailoverStatus)
+replicationGroupPendingModifiedValues_automaticFailoverStatus = Lens.lens (\ReplicationGroupPendingModifiedValues' {automaticFailoverStatus} -> automaticFailoverStatus) (\s@ReplicationGroupPendingModifiedValues' {} a -> s {automaticFailoverStatus = a} :: ReplicationGroupPendingModifiedValues)
 
 instance
-  FromXML
+  Prelude.FromXML
     ReplicationGroupPendingModifiedValues
   where
   parseXML x =
     ReplicationGroupPendingModifiedValues'
-      <$> (x .@? "Resharding")
-      <*> (x .@? "PrimaryClusterId")
-      <*> (x .@? "AuthTokenStatus")
-      <*> (x .@? "UserGroups")
-      <*> (x .@? "AutomaticFailoverStatus")
+      Prelude.<$> (x Prelude..@? "Resharding")
+      Prelude.<*> (x Prelude..@? "PrimaryClusterId")
+      Prelude.<*> (x Prelude..@? "AuthTokenStatus")
+      Prelude.<*> (x Prelude..@? "UserGroups")
+      Prelude.<*> (x Prelude..@? "AutomaticFailoverStatus")
 
 instance
-  Hashable
+  Prelude.Hashable
     ReplicationGroupPendingModifiedValues
 
-instance NFData ReplicationGroupPendingModifiedValues
+instance
+  Prelude.NFData
+    ReplicationGroupPendingModifiedValues

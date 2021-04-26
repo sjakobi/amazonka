@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,211 +21,258 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a particular global replication group. If no identifier is specified, returns information about all Global Datastores.
---
---
+-- Returns information about a particular global replication group. If no
+-- identifier is specified, returns information about all Global
+-- Datastores.
 --
 -- This operation returns paginated results.
 module Network.AWS.ElastiCache.DescribeGlobalReplicationGroups
   ( -- * Creating a Request
-    describeGlobalReplicationGroups,
-    DescribeGlobalReplicationGroups,
+    DescribeGlobalReplicationGroups (..),
+    newDescribeGlobalReplicationGroups,
 
     -- * Request Lenses
-    dgrgGlobalReplicationGroupId,
-    dgrgShowMemberInfo,
-    dgrgMarker,
-    dgrgMaxRecords,
+    describeGlobalReplicationGroups_globalReplicationGroupId,
+    describeGlobalReplicationGroups_showMemberInfo,
+    describeGlobalReplicationGroups_marker,
+    describeGlobalReplicationGroups_maxRecords,
 
     -- * Destructuring the Response
-    describeGlobalReplicationGroupsResponse,
-    DescribeGlobalReplicationGroupsResponse,
+    DescribeGlobalReplicationGroupsResponse (..),
+    newDescribeGlobalReplicationGroupsResponse,
 
     -- * Response Lenses
-    dgrgrgrsGlobalReplicationGroups,
-    dgrgrgrsMarker,
-    dgrgrgrsResponseStatus,
+    describeGlobalReplicationGroupsResponse_globalReplicationGroups,
+    describeGlobalReplicationGroupsResponse_marker,
+    describeGlobalReplicationGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.GlobalReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeGlobalReplicationGroups' smart constructor.
+-- | /See:/ 'newDescribeGlobalReplicationGroups' smart constructor.
 data DescribeGlobalReplicationGroups = DescribeGlobalReplicationGroups'
-  { _dgrgGlobalReplicationGroupId ::
-      !( Maybe
-           Text
-       ),
-    _dgrgShowMemberInfo ::
-      !( Maybe
-           Bool
-       ),
-    _dgrgMarker ::
-      !( Maybe
-           Text
-       ),
-    _dgrgMaxRecords ::
-      !( Maybe
-           Int
-       )
+  { -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Returns the list of members that comprise the Global Datastore.
+    showMemberInfo :: Prelude.Maybe Prelude.Bool,
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified MaxRecords value, a marker is included
+    -- in the response so that the remaining results can be retrieved.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGlobalReplicationGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGlobalReplicationGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgrgGlobalReplicationGroupId' - The name of the Global Datastore
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgrgShowMemberInfo' - Returns the list of members that comprise the Global Datastore.
+-- 'globalReplicationGroupId', 'describeGlobalReplicationGroups_globalReplicationGroupId' - The name of the Global Datastore
 --
--- * 'dgrgMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'showMemberInfo', 'describeGlobalReplicationGroups_showMemberInfo' - Returns the list of members that comprise the Global Datastore.
 --
--- * 'dgrgMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.
-describeGlobalReplicationGroups ::
+-- 'marker', 'describeGlobalReplicationGroups_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeGlobalReplicationGroups_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified MaxRecords value, a marker is included
+-- in the response so that the remaining results can be retrieved.
+newDescribeGlobalReplicationGroups ::
   DescribeGlobalReplicationGroups
-describeGlobalReplicationGroups =
+newDescribeGlobalReplicationGroups =
   DescribeGlobalReplicationGroups'
-    { _dgrgGlobalReplicationGroupId =
-        Nothing,
-      _dgrgShowMemberInfo = Nothing,
-      _dgrgMarker = Nothing,
-      _dgrgMaxRecords = Nothing
+    { globalReplicationGroupId =
+        Prelude.Nothing,
+      showMemberInfo = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The name of the Global Datastore
-dgrgGlobalReplicationGroupId :: Lens' DescribeGlobalReplicationGroups (Maybe Text)
-dgrgGlobalReplicationGroupId = lens _dgrgGlobalReplicationGroupId (\s a -> s {_dgrgGlobalReplicationGroupId = a})
+describeGlobalReplicationGroups_globalReplicationGroupId :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Text)
+describeGlobalReplicationGroups_globalReplicationGroupId = Lens.lens (\DescribeGlobalReplicationGroups' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@DescribeGlobalReplicationGroups' {} a -> s {globalReplicationGroupId = a} :: DescribeGlobalReplicationGroups)
 
 -- | Returns the list of members that comprise the Global Datastore.
-dgrgShowMemberInfo :: Lens' DescribeGlobalReplicationGroups (Maybe Bool)
-dgrgShowMemberInfo = lens _dgrgShowMemberInfo (\s a -> s {_dgrgShowMemberInfo = a})
+describeGlobalReplicationGroups_showMemberInfo :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Bool)
+describeGlobalReplicationGroups_showMemberInfo = Lens.lens (\DescribeGlobalReplicationGroups' {showMemberInfo} -> showMemberInfo) (\s@DescribeGlobalReplicationGroups' {} a -> s {showMemberInfo = a} :: DescribeGlobalReplicationGroups)
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dgrgMarker :: Lens' DescribeGlobalReplicationGroups (Maybe Text)
-dgrgMarker = lens _dgrgMarker (\s a -> s {_dgrgMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeGlobalReplicationGroups_marker :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Text)
+describeGlobalReplicationGroups_marker = Lens.lens (\DescribeGlobalReplicationGroups' {marker} -> marker) (\s@DescribeGlobalReplicationGroups' {} a -> s {marker = a} :: DescribeGlobalReplicationGroups)
 
--- | The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.
-dgrgMaxRecords :: Lens' DescribeGlobalReplicationGroups (Maybe Int)
-dgrgMaxRecords = lens _dgrgMaxRecords (\s a -> s {_dgrgMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified MaxRecords value, a marker is included
+-- in the response so that the remaining results can be retrieved.
+describeGlobalReplicationGroups_maxRecords :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Int)
+describeGlobalReplicationGroups_maxRecords = Lens.lens (\DescribeGlobalReplicationGroups' {maxRecords} -> maxRecords) (\s@DescribeGlobalReplicationGroups' {} a -> s {maxRecords = a} :: DescribeGlobalReplicationGroups)
 
-instance AWSPager DescribeGlobalReplicationGroups where
+instance
+  Pager.AWSPager
+    DescribeGlobalReplicationGroups
+  where
   page rq rs
-    | stop (rs ^. dgrgrgrsMarker) = Nothing
-    | stop (rs ^. dgrgrgrsGlobalReplicationGroups) =
-      Nothing
-    | otherwise =
-      Just $ rq & dgrgMarker .~ rs ^. dgrgrgrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeGlobalReplicationGroupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeGlobalReplicationGroupsResponse_globalReplicationGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeGlobalReplicationGroups_marker
+          Lens..~ rs
+          Lens.^? describeGlobalReplicationGroupsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeGlobalReplicationGroups where
+instance
+  Prelude.AWSRequest
+    DescribeGlobalReplicationGroups
+  where
   type
     Rs DescribeGlobalReplicationGroups =
       DescribeGlobalReplicationGroupsResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeGlobalReplicationGroupsResult"
       ( \s h x ->
           DescribeGlobalReplicationGroupsResponse'
-            <$> ( x .@? "GlobalReplicationGroups" .!@ mempty
-                    >>= may (parseXMLList "GlobalReplicationGroup")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "GlobalReplicationGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "GlobalReplicationGroup")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeGlobalReplicationGroups
-
-instance NFData DescribeGlobalReplicationGroups
-
-instance ToHeaders DescribeGlobalReplicationGroups where
-  toHeaders = const mempty
-
-instance ToPath DescribeGlobalReplicationGroups where
-  toPath = const "/"
-
-instance ToQuery DescribeGlobalReplicationGroups where
-  toQuery DescribeGlobalReplicationGroups' {..} =
-    mconcat
-      [ "Action"
-          =: ("DescribeGlobalReplicationGroups" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "GlobalReplicationGroupId"
-          =: _dgrgGlobalReplicationGroupId,
-        "ShowMemberInfo" =: _dgrgShowMemberInfo,
-        "Marker" =: _dgrgMarker,
-        "MaxRecords" =: _dgrgMaxRecords
-      ]
-
--- | /See:/ 'describeGlobalReplicationGroupsResponse' smart constructor.
-data DescribeGlobalReplicationGroupsResponse = DescribeGlobalReplicationGroupsResponse'
-  { _dgrgrgrsGlobalReplicationGroups ::
-      !( Maybe
-           [GlobalReplicationGroup]
-       ),
-    _dgrgrgrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dgrgrgrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeGlobalReplicationGroupsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dgrgrgrsGlobalReplicationGroups' - Indicates the slot configuration and global identifier for each slice group.
---
--- * 'dgrgrgrsMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords. >
---
--- * 'dgrgrgrsResponseStatus' - -- | The response status code.
-describeGlobalReplicationGroupsResponse ::
-  -- | 'dgrgrgrsResponseStatus'
-  Int ->
-  DescribeGlobalReplicationGroupsResponse
-describeGlobalReplicationGroupsResponse
-  pResponseStatus_ =
-    DescribeGlobalReplicationGroupsResponse'
-      { _dgrgrgrsGlobalReplicationGroups =
-          Nothing,
-        _dgrgrgrsMarker = Nothing,
-        _dgrgrgrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | Indicates the slot configuration and global identifier for each slice group.
-dgrgrgrsGlobalReplicationGroups :: Lens' DescribeGlobalReplicationGroupsResponse [GlobalReplicationGroup]
-dgrgrgrsGlobalReplicationGroups = lens _dgrgrgrsGlobalReplicationGroups (\s a -> s {_dgrgrgrsGlobalReplicationGroups = a}) . _Default . _Coerce
-
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords. >
-dgrgrgrsMarker :: Lens' DescribeGlobalReplicationGroupsResponse (Maybe Text)
-dgrgrgrsMarker = lens _dgrgrgrsMarker (\s a -> s {_dgrgrgrsMarker = a})
-
--- | -- | The response status code.
-dgrgrgrsResponseStatus :: Lens' DescribeGlobalReplicationGroupsResponse Int
-dgrgrgrsResponseStatus = lens _dgrgrgrsResponseStatus (\s a -> s {_dgrgrgrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    DescribeGlobalReplicationGroups
 
 instance
-  NFData
+  Prelude.NFData
+    DescribeGlobalReplicationGroups
+
+instance
+  Prelude.ToHeaders
+    DescribeGlobalReplicationGroups
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    DescribeGlobalReplicationGroups
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeGlobalReplicationGroups
+  where
+  toQuery DescribeGlobalReplicationGroups' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "DescribeGlobalReplicationGroups" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "GlobalReplicationGroupId"
+          Prelude.=: globalReplicationGroupId,
+        "ShowMemberInfo" Prelude.=: showMemberInfo,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
+      ]
+
+-- | /See:/ 'newDescribeGlobalReplicationGroupsResponse' smart constructor.
+data DescribeGlobalReplicationGroupsResponse = DescribeGlobalReplicationGroupsResponse'
+  { -- | Indicates the slot configuration and global identifier for each slice
+    -- group.
+    globalReplicationGroups :: Prelude.Maybe [GlobalReplicationGroup],
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by MaxRecords. >
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeGlobalReplicationGroupsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'globalReplicationGroups', 'describeGlobalReplicationGroupsResponse_globalReplicationGroups' - Indicates the slot configuration and global identifier for each slice
+-- group.
+--
+-- 'marker', 'describeGlobalReplicationGroupsResponse_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by MaxRecords. >
+--
+-- 'httpStatus', 'describeGlobalReplicationGroupsResponse_httpStatus' - The response's http status code.
+newDescribeGlobalReplicationGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeGlobalReplicationGroupsResponse
+newDescribeGlobalReplicationGroupsResponse
+  pHttpStatus_ =
+    DescribeGlobalReplicationGroupsResponse'
+      { globalReplicationGroups =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | Indicates the slot configuration and global identifier for each slice
+-- group.
+describeGlobalReplicationGroupsResponse_globalReplicationGroups :: Lens.Lens' DescribeGlobalReplicationGroupsResponse (Prelude.Maybe [GlobalReplicationGroup])
+describeGlobalReplicationGroupsResponse_globalReplicationGroups = Lens.lens (\DescribeGlobalReplicationGroupsResponse' {globalReplicationGroups} -> globalReplicationGroups) (\s@DescribeGlobalReplicationGroupsResponse' {} a -> s {globalReplicationGroups = a} :: DescribeGlobalReplicationGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by MaxRecords. >
+describeGlobalReplicationGroupsResponse_marker :: Lens.Lens' DescribeGlobalReplicationGroupsResponse (Prelude.Maybe Prelude.Text)
+describeGlobalReplicationGroupsResponse_marker = Lens.lens (\DescribeGlobalReplicationGroupsResponse' {marker} -> marker) (\s@DescribeGlobalReplicationGroupsResponse' {} a -> s {marker = a} :: DescribeGlobalReplicationGroupsResponse)
+
+-- | The response's http status code.
+describeGlobalReplicationGroupsResponse_httpStatus :: Lens.Lens' DescribeGlobalReplicationGroupsResponse Prelude.Int
+describeGlobalReplicationGroupsResponse_httpStatus = Lens.lens (\DescribeGlobalReplicationGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeGlobalReplicationGroupsResponse' {} a -> s {httpStatus = a} :: DescribeGlobalReplicationGroupsResponse)
+
+instance
+  Prelude.NFData
     DescribeGlobalReplicationGroupsResponse

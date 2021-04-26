@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.ElastiCache.Types.UpdateActionStatus
   ( UpdateActionStatus
       ( ..,
-        Complete,
-        InProgress,
-        NotApplicable,
-        NotApplied,
-        Scheduled,
-        Scheduling,
-        Stopped,
-        Stopping,
-        WaitingToStart
+        UpdateActionStatusComplete,
+        UpdateActionStatusInProgress,
+        UpdateActionStatusNotApplicable,
+        UpdateActionStatusNotApplied,
+        UpdateActionStatusScheduled,
+        UpdateActionStatusScheduling,
+        UpdateActionStatusStopped,
+        UpdateActionStatusStopping,
+        UpdateActionStatusWaitingToStart
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UpdateActionStatus
-  = UpdateActionStatus'
-      ( CI
-          Text
-      )
+newtype UpdateActionStatus = UpdateActionStatus'
+  { fromUpdateActionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Complete :: UpdateActionStatus
-pattern Complete = UpdateActionStatus' "complete"
+pattern UpdateActionStatusComplete :: UpdateActionStatus
+pattern UpdateActionStatusComplete = UpdateActionStatus' "complete"
 
-pattern InProgress :: UpdateActionStatus
-pattern InProgress = UpdateActionStatus' "in-progress"
+pattern UpdateActionStatusInProgress :: UpdateActionStatus
+pattern UpdateActionStatusInProgress = UpdateActionStatus' "in-progress"
 
-pattern NotApplicable :: UpdateActionStatus
-pattern NotApplicable = UpdateActionStatus' "not-applicable"
+pattern UpdateActionStatusNotApplicable :: UpdateActionStatus
+pattern UpdateActionStatusNotApplicable = UpdateActionStatus' "not-applicable"
 
-pattern NotApplied :: UpdateActionStatus
-pattern NotApplied = UpdateActionStatus' "not-applied"
+pattern UpdateActionStatusNotApplied :: UpdateActionStatus
+pattern UpdateActionStatusNotApplied = UpdateActionStatus' "not-applied"
 
-pattern Scheduled :: UpdateActionStatus
-pattern Scheduled = UpdateActionStatus' "scheduled"
+pattern UpdateActionStatusScheduled :: UpdateActionStatus
+pattern UpdateActionStatusScheduled = UpdateActionStatus' "scheduled"
 
-pattern Scheduling :: UpdateActionStatus
-pattern Scheduling = UpdateActionStatus' "scheduling"
+pattern UpdateActionStatusScheduling :: UpdateActionStatus
+pattern UpdateActionStatusScheduling = UpdateActionStatus' "scheduling"
 
-pattern Stopped :: UpdateActionStatus
-pattern Stopped = UpdateActionStatus' "stopped"
+pattern UpdateActionStatusStopped :: UpdateActionStatus
+pattern UpdateActionStatusStopped = UpdateActionStatus' "stopped"
 
-pattern Stopping :: UpdateActionStatus
-pattern Stopping = UpdateActionStatus' "stopping"
+pattern UpdateActionStatusStopping :: UpdateActionStatus
+pattern UpdateActionStatusStopping = UpdateActionStatus' "stopping"
 
-pattern WaitingToStart :: UpdateActionStatus
-pattern WaitingToStart = UpdateActionStatus' "waiting-to-start"
+pattern UpdateActionStatusWaitingToStart :: UpdateActionStatus
+pattern UpdateActionStatusWaitingToStart = UpdateActionStatus' "waiting-to-start"
 
 {-# COMPLETE
-  Complete,
-  InProgress,
-  NotApplicable,
-  NotApplied,
-  Scheduled,
-  Scheduling,
-  Stopped,
-  Stopping,
-  WaitingToStart,
+  UpdateActionStatusComplete,
+  UpdateActionStatusInProgress,
+  UpdateActionStatusNotApplicable,
+  UpdateActionStatusNotApplied,
+  UpdateActionStatusScheduled,
+  UpdateActionStatusScheduling,
+  UpdateActionStatusStopped,
+  UpdateActionStatusStopping,
+  UpdateActionStatusWaitingToStart,
   UpdateActionStatus'
   #-}
 
-instance FromText UpdateActionStatus where
-  parser = (UpdateActionStatus' . mk) <$> takeText
+instance Prelude.FromText UpdateActionStatus where
+  parser = UpdateActionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText UpdateActionStatus where
-  toText (UpdateActionStatus' ci) = original ci
+instance Prelude.ToText UpdateActionStatus where
+  toText (UpdateActionStatus' x) = x
 
-instance Hashable UpdateActionStatus
+instance Prelude.Hashable UpdateActionStatus
 
-instance NFData UpdateActionStatus
+instance Prelude.NFData UpdateActionStatus
 
-instance ToByteString UpdateActionStatus
+instance Prelude.ToByteString UpdateActionStatus
 
-instance ToQuery UpdateActionStatus
+instance Prelude.ToQuery UpdateActionStatus
 
-instance ToHeader UpdateActionStatus
+instance Prelude.ToHeader UpdateActionStatus
 
-instance FromXML UpdateActionStatus where
-  parseXML = parseXMLText "UpdateActionStatus"
+instance Prelude.FromXML UpdateActionStatus where
+  parseXML = Prelude.parseXMLText "UpdateActionStatus"

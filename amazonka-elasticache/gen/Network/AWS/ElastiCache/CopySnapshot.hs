@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,191 +23,279 @@
 --
 -- Makes a copy of an existing snapshot.
 --
+-- This operation is valid for Redis only.
 --
--- /Important:/ Users or groups that have permissions to use the @CopySnapshot@ operation can create their own Amazon S3 buckets and copy snapshots to it. To control access to your snapshots, use an IAM policy to control who has the ability to use the @CopySnapshot@ operation. For more information about using IAM to control the use of ElastiCache operations, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html Exporting Snapshots> and <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.html Authentication & Access Control> .
+-- Users or groups that have permissions to use the @CopySnapshot@
+-- operation can create their own Amazon S3 buckets and copy snapshots to
+-- it. To control access to your snapshots, use an IAM policy to control
+-- who has the ability to use the @CopySnapshot@ operation. For more
+-- information about using IAM to control the use of ElastiCache
+-- operations, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html Exporting Snapshots>
+-- and
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.html Authentication & Access Control>.
 --
 -- You could receive the following error messages.
 --
 -- __Error Messages__
 --
---     * __Error Message:__ The S3 bucket %s is outside of the region.
+-- -   __Error Message:__ The S3 bucket %s is outside of the region.
 --
--- __Solution:__ Create an Amazon S3 bucket in the same region as your snapshot. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket Step 1: Create an Amazon S3 Bucket> in the ElastiCache User Guide.
+--     __Solution:__ Create an Amazon S3 bucket in the same region as your
+--     snapshot. For more information, see
+--     <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket Step 1: Create an Amazon S3 Bucket>
+--     in the ElastiCache User Guide.
 --
---     * __Error Message:__ The S3 bucket %s does not exist.
+-- -   __Error Message:__ The S3 bucket %s does not exist.
 --
--- __Solution:__ Create an Amazon S3 bucket in the same region as your snapshot. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket Step 1: Create an Amazon S3 Bucket> in the ElastiCache User Guide.
+--     __Solution:__ Create an Amazon S3 bucket in the same region as your
+--     snapshot. For more information, see
+--     <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket Step 1: Create an Amazon S3 Bucket>
+--     in the ElastiCache User Guide.
 --
---     * __Error Message:__ The S3 bucket %s is not owned by the authenticated user.
+-- -   __Error Message:__ The S3 bucket %s is not owned by the
+--     authenticated user.
 --
--- __Solution:__ Create an Amazon S3 bucket in the same region as your snapshot. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket Step 1: Create an Amazon S3 Bucket> in the ElastiCache User Guide.
+--     __Solution:__ Create an Amazon S3 bucket in the same region as your
+--     snapshot. For more information, see
+--     <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket Step 1: Create an Amazon S3 Bucket>
+--     in the ElastiCache User Guide.
 --
---     * __Error Message:__ The authenticated user does not have sufficient permissions to perform the desired activity.
+-- -   __Error Message:__ The authenticated user does not have sufficient
+--     permissions to perform the desired activity.
 --
--- __Solution:__ Contact your system administrator to get the needed permissions.
+--     __Solution:__ Contact your system administrator to get the needed
+--     permissions.
 --
---     * __Error Message:__ The S3 bucket %s already contains an object with key %s.
+-- -   __Error Message:__ The S3 bucket %s already contains an object with
+--     key %s.
 --
--- __Solution:__ Give the @TargetSnapshotName@ a new and unique value. If exporting a snapshot, you could alternatively create a new Amazon S3 bucket and use this same value for @TargetSnapshotName@ .
+--     __Solution:__ Give the @TargetSnapshotName@ a new and unique value.
+--     If exporting a snapshot, you could alternatively create a new Amazon
+--     S3 bucket and use this same value for @TargetSnapshotName@.
 --
---     * __Error Message: __ ElastiCache has not been granted READ permissions %s on the S3 Bucket.
+-- -   __Error Message:__ ElastiCache has not been granted READ permissions
+--     %s on the S3 Bucket.
 --
--- __Solution:__ Add List and Read permissions on the bucket. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket> in the ElastiCache User Guide.
+--     __Solution:__ Add List and Read permissions on the bucket. For more
+--     information, see
+--     <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket>
+--     in the ElastiCache User Guide.
 --
---     * __Error Message: __ ElastiCache has not been granted WRITE permissions %s on the S3 Bucket.
+-- -   __Error Message:__ ElastiCache has not been granted WRITE
+--     permissions %s on the S3 Bucket.
 --
--- __Solution:__ Add Upload/Delete permissions on the bucket. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket> in the ElastiCache User Guide.
+--     __Solution:__ Add Upload\/Delete permissions on the bucket. For more
+--     information, see
+--     <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket>
+--     in the ElastiCache User Guide.
 --
---     * __Error Message: __ ElastiCache has not been granted READ_ACP permissions %s on the S3 Bucket.
+-- -   __Error Message:__ ElastiCache has not been granted READ_ACP
+--     permissions %s on the S3 Bucket.
 --
--- __Solution:__ Add View Permissions on the bucket. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket> in the ElastiCache User Guide.
+--     __Solution:__ Add View Permissions on the bucket. For more
+--     information, see
+--     <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket>
+--     in the ElastiCache User Guide.
 module Network.AWS.ElastiCache.CopySnapshot
   ( -- * Creating a Request
-    copySnapshot,
-    CopySnapshot,
+    CopySnapshot (..),
+    newCopySnapshot,
 
     -- * Request Lenses
-    csTargetBucket,
-    csKMSKeyId,
-    csSourceSnapshotName,
-    csTargetSnapshotName,
+    copySnapshot_targetBucket,
+    copySnapshot_kmsKeyId,
+    copySnapshot_sourceSnapshotName,
+    copySnapshot_targetSnapshotName,
 
     -- * Destructuring the Response
-    copySnapshotResponse,
-    CopySnapshotResponse,
+    CopySnapshotResponse (..),
+    newCopySnapshotResponse,
 
     -- * Response Lenses
-    csrrsSnapshot,
-    csrrsResponseStatus,
+    copySnapshotResponse_snapshot,
+    copySnapshotResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Snapshot
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @CopySnapshotMessage@ operation.
 --
---
---
--- /See:/ 'copySnapshot' smart constructor.
+-- /See:/ 'newCopySnapshot' smart constructor.
 data CopySnapshot = CopySnapshot'
-  { _csTargetBucket ::
-      !(Maybe Text),
-    _csKMSKeyId :: !(Maybe Text),
-    _csSourceSnapshotName :: !Text,
-    _csTargetSnapshotName :: !Text
+  { -- | The Amazon S3 bucket to which the snapshot is exported. This parameter
+    -- is used only when exporting a snapshot for external access.
+    --
+    -- When using this parameter to export a snapshot, be sure Amazon
+    -- ElastiCache has the needed permissions to this S3 bucket. For more
+    -- information, see
+    -- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket>
+    -- in the /Amazon ElastiCache User Guide/.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html Exporting a Snapshot>
+    -- in the /Amazon ElastiCache User Guide/.
+    targetBucket :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the KMS key used to encrypt the target snapshot.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of an existing snapshot from which to make a copy.
+    sourceSnapshotName :: Prelude.Text,
+    -- | A name for the snapshot copy. ElastiCache does not permit overwriting a
+    -- snapshot, therefore this name must be unique within its context -
+    -- ElastiCache or an Amazon S3 bucket if exporting.
+    targetSnapshotName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopySnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopySnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csTargetBucket' - The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure Amazon ElastiCache has the needed permissions to this S3 bucket. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket> in the /Amazon ElastiCache User Guide/ . For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html Exporting a Snapshot> in the /Amazon ElastiCache User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csKMSKeyId' - The ID of the KMS key used to encrypt the target snapshot.
+-- 'targetBucket', 'copySnapshot_targetBucket' - The Amazon S3 bucket to which the snapshot is exported. This parameter
+-- is used only when exporting a snapshot for external access.
 --
--- * 'csSourceSnapshotName' - The name of an existing snapshot from which to make a copy.
+-- When using this parameter to export a snapshot, be sure Amazon
+-- ElastiCache has the needed permissions to this S3 bucket. For more
+-- information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket>
+-- in the /Amazon ElastiCache User Guide/.
 --
--- * 'csTargetSnapshotName' - A name for the snapshot copy. ElastiCache does not permit overwriting a snapshot, therefore this name must be unique within its context - ElastiCache or an Amazon S3 bucket if exporting.
-copySnapshot ::
-  -- | 'csSourceSnapshotName'
-  Text ->
-  -- | 'csTargetSnapshotName'
-  Text ->
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html Exporting a Snapshot>
+-- in the /Amazon ElastiCache User Guide/.
+--
+-- 'kmsKeyId', 'copySnapshot_kmsKeyId' - The ID of the KMS key used to encrypt the target snapshot.
+--
+-- 'sourceSnapshotName', 'copySnapshot_sourceSnapshotName' - The name of an existing snapshot from which to make a copy.
+--
+-- 'targetSnapshotName', 'copySnapshot_targetSnapshotName' - A name for the snapshot copy. ElastiCache does not permit overwriting a
+-- snapshot, therefore this name must be unique within its context -
+-- ElastiCache or an Amazon S3 bucket if exporting.
+newCopySnapshot ::
+  -- | 'sourceSnapshotName'
+  Prelude.Text ->
+  -- | 'targetSnapshotName'
+  Prelude.Text ->
   CopySnapshot
-copySnapshot
+newCopySnapshot
   pSourceSnapshotName_
   pTargetSnapshotName_ =
     CopySnapshot'
-      { _csTargetBucket = Nothing,
-        _csKMSKeyId = Nothing,
-        _csSourceSnapshotName = pSourceSnapshotName_,
-        _csTargetSnapshotName = pTargetSnapshotName_
+      { targetBucket = Prelude.Nothing,
+        kmsKeyId = Prelude.Nothing,
+        sourceSnapshotName = pSourceSnapshotName_,
+        targetSnapshotName = pTargetSnapshotName_
       }
 
--- | The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure Amazon ElastiCache has the needed permissions to this S3 bucket. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket> in the /Amazon ElastiCache User Guide/ . For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html Exporting a Snapshot> in the /Amazon ElastiCache User Guide/ .
-csTargetBucket :: Lens' CopySnapshot (Maybe Text)
-csTargetBucket = lens _csTargetBucket (\s a -> s {_csTargetBucket = a})
+-- | The Amazon S3 bucket to which the snapshot is exported. This parameter
+-- is used only when exporting a snapshot for external access.
+--
+-- When using this parameter to export a snapshot, be sure Amazon
+-- ElastiCache has the needed permissions to this S3 bucket. For more
+-- information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket>
+-- in the /Amazon ElastiCache User Guide/.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html Exporting a Snapshot>
+-- in the /Amazon ElastiCache User Guide/.
+copySnapshot_targetBucket :: Lens.Lens' CopySnapshot (Prelude.Maybe Prelude.Text)
+copySnapshot_targetBucket = Lens.lens (\CopySnapshot' {targetBucket} -> targetBucket) (\s@CopySnapshot' {} a -> s {targetBucket = a} :: CopySnapshot)
 
 -- | The ID of the KMS key used to encrypt the target snapshot.
-csKMSKeyId :: Lens' CopySnapshot (Maybe Text)
-csKMSKeyId = lens _csKMSKeyId (\s a -> s {_csKMSKeyId = a})
+copySnapshot_kmsKeyId :: Lens.Lens' CopySnapshot (Prelude.Maybe Prelude.Text)
+copySnapshot_kmsKeyId = Lens.lens (\CopySnapshot' {kmsKeyId} -> kmsKeyId) (\s@CopySnapshot' {} a -> s {kmsKeyId = a} :: CopySnapshot)
 
 -- | The name of an existing snapshot from which to make a copy.
-csSourceSnapshotName :: Lens' CopySnapshot Text
-csSourceSnapshotName = lens _csSourceSnapshotName (\s a -> s {_csSourceSnapshotName = a})
+copySnapshot_sourceSnapshotName :: Lens.Lens' CopySnapshot Prelude.Text
+copySnapshot_sourceSnapshotName = Lens.lens (\CopySnapshot' {sourceSnapshotName} -> sourceSnapshotName) (\s@CopySnapshot' {} a -> s {sourceSnapshotName = a} :: CopySnapshot)
 
--- | A name for the snapshot copy. ElastiCache does not permit overwriting a snapshot, therefore this name must be unique within its context - ElastiCache or an Amazon S3 bucket if exporting.
-csTargetSnapshotName :: Lens' CopySnapshot Text
-csTargetSnapshotName = lens _csTargetSnapshotName (\s a -> s {_csTargetSnapshotName = a})
+-- | A name for the snapshot copy. ElastiCache does not permit overwriting a
+-- snapshot, therefore this name must be unique within its context -
+-- ElastiCache or an Amazon S3 bucket if exporting.
+copySnapshot_targetSnapshotName :: Lens.Lens' CopySnapshot Prelude.Text
+copySnapshot_targetSnapshotName = Lens.lens (\CopySnapshot' {targetSnapshotName} -> targetSnapshotName) (\s@CopySnapshot' {} a -> s {targetSnapshotName = a} :: CopySnapshot)
 
-instance AWSRequest CopySnapshot where
+instance Prelude.AWSRequest CopySnapshot where
   type Rs CopySnapshot = CopySnapshotResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CopySnapshotResult"
       ( \s h x ->
           CopySnapshotResponse'
-            <$> (x .@? "Snapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Snapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CopySnapshot
+instance Prelude.Hashable CopySnapshot
 
-instance NFData CopySnapshot
+instance Prelude.NFData CopySnapshot
 
-instance ToHeaders CopySnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CopySnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CopySnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CopySnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CopySnapshot where
+instance Prelude.ToQuery CopySnapshot where
   toQuery CopySnapshot' {..} =
-    mconcat
-      [ "Action" =: ("CopySnapshot" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "TargetBucket" =: _csTargetBucket,
-        "KmsKeyId" =: _csKMSKeyId,
-        "SourceSnapshotName" =: _csSourceSnapshotName,
-        "TargetSnapshotName" =: _csTargetSnapshotName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CopySnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "TargetBucket" Prelude.=: targetBucket,
+        "KmsKeyId" Prelude.=: kmsKeyId,
+        "SourceSnapshotName" Prelude.=: sourceSnapshotName,
+        "TargetSnapshotName" Prelude.=: targetSnapshotName
       ]
 
--- | /See:/ 'copySnapshotResponse' smart constructor.
+-- | /See:/ 'newCopySnapshotResponse' smart constructor.
 data CopySnapshotResponse = CopySnapshotResponse'
-  { _csrrsSnapshot ::
-      !(Maybe Snapshot),
-    _csrrsResponseStatus :: !Int
+  { snapshot :: Prelude.Maybe Snapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopySnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopySnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-copySnapshotResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- 'snapshot', 'copySnapshotResponse_snapshot' - Undocumented member.
+--
+-- 'httpStatus', 'copySnapshotResponse_httpStatus' - The response's http status code.
+newCopySnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CopySnapshotResponse
-copySnapshotResponse pResponseStatus_ =
+newCopySnapshotResponse pHttpStatus_ =
   CopySnapshotResponse'
-    { _csrrsSnapshot = Nothing,
-      _csrrsResponseStatus = pResponseStatus_
+    { snapshot = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-csrrsSnapshot :: Lens' CopySnapshotResponse (Maybe Snapshot)
-csrrsSnapshot = lens _csrrsSnapshot (\s a -> s {_csrrsSnapshot = a})
+copySnapshotResponse_snapshot :: Lens.Lens' CopySnapshotResponse (Prelude.Maybe Snapshot)
+copySnapshotResponse_snapshot = Lens.lens (\CopySnapshotResponse' {snapshot} -> snapshot) (\s@CopySnapshotResponse' {} a -> s {snapshot = a} :: CopySnapshotResponse)
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CopySnapshotResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+copySnapshotResponse_httpStatus :: Lens.Lens' CopySnapshotResponse Prelude.Int
+copySnapshotResponse_httpStatus = Lens.lens (\CopySnapshotResponse' {httpStatus} -> httpStatus) (\s@CopySnapshotResponse' {} a -> s {httpStatus = a} :: CopySnapshotResponse)
 
-instance NFData CopySnapshotResponse
+instance Prelude.NFData CopySnapshotResponse

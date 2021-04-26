@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,272 +23,309 @@
 --
 -- Returns details of the update actions
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.ElastiCache.DescribeUpdateActions
   ( -- * Creating a Request
-    describeUpdateActions,
-    DescribeUpdateActions,
+    DescribeUpdateActions (..),
+    newDescribeUpdateActions,
 
     -- * Request Lenses
-    duaUpdateActionStatus,
-    duaShowNodeLevelUpdateStatus,
-    duaServiceUpdateStatus,
-    duaEngine,
-    duaServiceUpdateTimeRange,
-    duaServiceUpdateName,
-    duaCacheClusterIds,
-    duaReplicationGroupIds,
-    duaMarker,
-    duaMaxRecords,
+    describeUpdateActions_updateActionStatus,
+    describeUpdateActions_showNodeLevelUpdateStatus,
+    describeUpdateActions_serviceUpdateStatus,
+    describeUpdateActions_engine,
+    describeUpdateActions_serviceUpdateTimeRange,
+    describeUpdateActions_serviceUpdateName,
+    describeUpdateActions_cacheClusterIds,
+    describeUpdateActions_replicationGroupIds,
+    describeUpdateActions_marker,
+    describeUpdateActions_maxRecords,
 
     -- * Destructuring the Response
-    describeUpdateActionsResponse,
-    DescribeUpdateActionsResponse,
+    DescribeUpdateActionsResponse (..),
+    newDescribeUpdateActionsResponse,
 
     -- * Response Lenses
-    duarrsUpdateActions,
-    duarrsMarker,
-    duarrsResponseStatus,
+    describeUpdateActionsResponse_updateActions,
+    describeUpdateActionsResponse_marker,
+    describeUpdateActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.UpdateAction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUpdateActions' smart constructor.
+-- | /See:/ 'newDescribeUpdateActions' smart constructor.
 data DescribeUpdateActions = DescribeUpdateActions'
-  { _duaUpdateActionStatus ::
-      !( Maybe
-           [UpdateActionStatus]
-       ),
-    _duaShowNodeLevelUpdateStatus ::
-      !(Maybe Bool),
-    _duaServiceUpdateStatus ::
-      !( Maybe
-           [ServiceUpdateStatus]
-       ),
-    _duaEngine :: !(Maybe Text),
-    _duaServiceUpdateTimeRange ::
-      !(Maybe TimeRangeFilter),
-    _duaServiceUpdateName ::
-      !(Maybe Text),
-    _duaCacheClusterIds ::
-      !(Maybe [Text]),
-    _duaReplicationGroupIds ::
-      !(Maybe [Text]),
-    _duaMarker :: !(Maybe Text),
-    _duaMaxRecords ::
-      !(Maybe Int)
+  { -- | The status of the update action.
+    updateActionStatus :: Prelude.Maybe [UpdateActionStatus],
+    -- | Dictates whether to include node level update status in the response
+    showNodeLevelUpdateStatus :: Prelude.Maybe Prelude.Bool,
+    -- | The status of the service update
+    serviceUpdateStatus :: Prelude.Maybe [ServiceUpdateStatus],
+    -- | The Elasticache engine to which the update applies. Either Redis or
+    -- Memcached
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The range of time specified to search for service updates that are in
+    -- available status
+    serviceUpdateTimeRange :: Prelude.Maybe TimeRangeFilter,
+    -- | The unique ID of the service update
+    serviceUpdateName :: Prelude.Maybe Prelude.Text,
+    -- | The cache cluster IDs
+    cacheClusterIds :: Prelude.Maybe [Prelude.Text],
+    -- | The replication group IDs
+    replicationGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUpdateActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUpdateActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duaUpdateActionStatus' - The status of the update action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duaShowNodeLevelUpdateStatus' - Dictates whether to include node level update status in the response
+-- 'updateActionStatus', 'describeUpdateActions_updateActionStatus' - The status of the update action.
 --
--- * 'duaServiceUpdateStatus' - The status of the service update
+-- 'showNodeLevelUpdateStatus', 'describeUpdateActions_showNodeLevelUpdateStatus' - Dictates whether to include node level update status in the response
 --
--- * 'duaEngine' - The Elasticache engine to which the update applies. Either Redis or Memcached
+-- 'serviceUpdateStatus', 'describeUpdateActions_serviceUpdateStatus' - The status of the service update
 --
--- * 'duaServiceUpdateTimeRange' - The range of time specified to search for service updates that are in available status
+-- 'engine', 'describeUpdateActions_engine' - The Elasticache engine to which the update applies. Either Redis or
+-- Memcached
 --
--- * 'duaServiceUpdateName' - The unique ID of the service update
+-- 'serviceUpdateTimeRange', 'describeUpdateActions_serviceUpdateTimeRange' - The range of time specified to search for service updates that are in
+-- available status
 --
--- * 'duaCacheClusterIds' - The cache cluster IDs
+-- 'serviceUpdateName', 'describeUpdateActions_serviceUpdateName' - The unique ID of the service update
 --
--- * 'duaReplicationGroupIds' - The replication group IDs
+-- 'cacheClusterIds', 'describeUpdateActions_cacheClusterIds' - The cache cluster IDs
 --
--- * 'duaMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'replicationGroupIds', 'describeUpdateActions_replicationGroupIds' - The replication group IDs
 --
--- * 'duaMaxRecords' - The maximum number of records to include in the response
-describeUpdateActions ::
+-- 'marker', 'describeUpdateActions_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeUpdateActions_maxRecords' - The maximum number of records to include in the response
+newDescribeUpdateActions ::
   DescribeUpdateActions
-describeUpdateActions =
+newDescribeUpdateActions =
   DescribeUpdateActions'
-    { _duaUpdateActionStatus =
-        Nothing,
-      _duaShowNodeLevelUpdateStatus = Nothing,
-      _duaServiceUpdateStatus = Nothing,
-      _duaEngine = Nothing,
-      _duaServiceUpdateTimeRange = Nothing,
-      _duaServiceUpdateName = Nothing,
-      _duaCacheClusterIds = Nothing,
-      _duaReplicationGroupIds = Nothing,
-      _duaMarker = Nothing,
-      _duaMaxRecords = Nothing
+    { updateActionStatus =
+        Prelude.Nothing,
+      showNodeLevelUpdateStatus = Prelude.Nothing,
+      serviceUpdateStatus = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      serviceUpdateTimeRange = Prelude.Nothing,
+      serviceUpdateName = Prelude.Nothing,
+      cacheClusterIds = Prelude.Nothing,
+      replicationGroupIds = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The status of the update action.
-duaUpdateActionStatus :: Lens' DescribeUpdateActions [UpdateActionStatus]
-duaUpdateActionStatus = lens _duaUpdateActionStatus (\s a -> s {_duaUpdateActionStatus = a}) . _Default . _Coerce
+describeUpdateActions_updateActionStatus :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe [UpdateActionStatus])
+describeUpdateActions_updateActionStatus = Lens.lens (\DescribeUpdateActions' {updateActionStatus} -> updateActionStatus) (\s@DescribeUpdateActions' {} a -> s {updateActionStatus = a} :: DescribeUpdateActions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Dictates whether to include node level update status in the response
-duaShowNodeLevelUpdateStatus :: Lens' DescribeUpdateActions (Maybe Bool)
-duaShowNodeLevelUpdateStatus = lens _duaShowNodeLevelUpdateStatus (\s a -> s {_duaShowNodeLevelUpdateStatus = a})
+describeUpdateActions_showNodeLevelUpdateStatus :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe Prelude.Bool)
+describeUpdateActions_showNodeLevelUpdateStatus = Lens.lens (\DescribeUpdateActions' {showNodeLevelUpdateStatus} -> showNodeLevelUpdateStatus) (\s@DescribeUpdateActions' {} a -> s {showNodeLevelUpdateStatus = a} :: DescribeUpdateActions)
 
 -- | The status of the service update
-duaServiceUpdateStatus :: Lens' DescribeUpdateActions [ServiceUpdateStatus]
-duaServiceUpdateStatus = lens _duaServiceUpdateStatus (\s a -> s {_duaServiceUpdateStatus = a}) . _Default . _Coerce
+describeUpdateActions_serviceUpdateStatus :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe [ServiceUpdateStatus])
+describeUpdateActions_serviceUpdateStatus = Lens.lens (\DescribeUpdateActions' {serviceUpdateStatus} -> serviceUpdateStatus) (\s@DescribeUpdateActions' {} a -> s {serviceUpdateStatus = a} :: DescribeUpdateActions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Elasticache engine to which the update applies. Either Redis or Memcached
-duaEngine :: Lens' DescribeUpdateActions (Maybe Text)
-duaEngine = lens _duaEngine (\s a -> s {_duaEngine = a})
+-- | The Elasticache engine to which the update applies. Either Redis or
+-- Memcached
+describeUpdateActions_engine :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe Prelude.Text)
+describeUpdateActions_engine = Lens.lens (\DescribeUpdateActions' {engine} -> engine) (\s@DescribeUpdateActions' {} a -> s {engine = a} :: DescribeUpdateActions)
 
--- | The range of time specified to search for service updates that are in available status
-duaServiceUpdateTimeRange :: Lens' DescribeUpdateActions (Maybe TimeRangeFilter)
-duaServiceUpdateTimeRange = lens _duaServiceUpdateTimeRange (\s a -> s {_duaServiceUpdateTimeRange = a})
+-- | The range of time specified to search for service updates that are in
+-- available status
+describeUpdateActions_serviceUpdateTimeRange :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe TimeRangeFilter)
+describeUpdateActions_serviceUpdateTimeRange = Lens.lens (\DescribeUpdateActions' {serviceUpdateTimeRange} -> serviceUpdateTimeRange) (\s@DescribeUpdateActions' {} a -> s {serviceUpdateTimeRange = a} :: DescribeUpdateActions)
 
 -- | The unique ID of the service update
-duaServiceUpdateName :: Lens' DescribeUpdateActions (Maybe Text)
-duaServiceUpdateName = lens _duaServiceUpdateName (\s a -> s {_duaServiceUpdateName = a})
+describeUpdateActions_serviceUpdateName :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe Prelude.Text)
+describeUpdateActions_serviceUpdateName = Lens.lens (\DescribeUpdateActions' {serviceUpdateName} -> serviceUpdateName) (\s@DescribeUpdateActions' {} a -> s {serviceUpdateName = a} :: DescribeUpdateActions)
 
 -- | The cache cluster IDs
-duaCacheClusterIds :: Lens' DescribeUpdateActions [Text]
-duaCacheClusterIds = lens _duaCacheClusterIds (\s a -> s {_duaCacheClusterIds = a}) . _Default . _Coerce
+describeUpdateActions_cacheClusterIds :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe [Prelude.Text])
+describeUpdateActions_cacheClusterIds = Lens.lens (\DescribeUpdateActions' {cacheClusterIds} -> cacheClusterIds) (\s@DescribeUpdateActions' {} a -> s {cacheClusterIds = a} :: DescribeUpdateActions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The replication group IDs
-duaReplicationGroupIds :: Lens' DescribeUpdateActions [Text]
-duaReplicationGroupIds = lens _duaReplicationGroupIds (\s a -> s {_duaReplicationGroupIds = a}) . _Default . _Coerce
+describeUpdateActions_replicationGroupIds :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe [Prelude.Text])
+describeUpdateActions_replicationGroupIds = Lens.lens (\DescribeUpdateActions' {replicationGroupIds} -> replicationGroupIds) (\s@DescribeUpdateActions' {} a -> s {replicationGroupIds = a} :: DescribeUpdateActions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-duaMarker :: Lens' DescribeUpdateActions (Maybe Text)
-duaMarker = lens _duaMarker (\s a -> s {_duaMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeUpdateActions_marker :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe Prelude.Text)
+describeUpdateActions_marker = Lens.lens (\DescribeUpdateActions' {marker} -> marker) (\s@DescribeUpdateActions' {} a -> s {marker = a} :: DescribeUpdateActions)
 
 -- | The maximum number of records to include in the response
-duaMaxRecords :: Lens' DescribeUpdateActions (Maybe Int)
-duaMaxRecords = lens _duaMaxRecords (\s a -> s {_duaMaxRecords = a})
+describeUpdateActions_maxRecords :: Lens.Lens' DescribeUpdateActions (Prelude.Maybe Prelude.Int)
+describeUpdateActions_maxRecords = Lens.lens (\DescribeUpdateActions' {maxRecords} -> maxRecords) (\s@DescribeUpdateActions' {} a -> s {maxRecords = a} :: DescribeUpdateActions)
 
-instance AWSPager DescribeUpdateActions where
+instance Pager.AWSPager DescribeUpdateActions where
   page rq rs
-    | stop (rs ^. duarrsMarker) = Nothing
-    | stop (rs ^. duarrsUpdateActions) = Nothing
-    | otherwise =
-      Just $ rq & duaMarker .~ rs ^. duarrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeUpdateActionsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeUpdateActionsResponse_updateActions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeUpdateActions_marker
+          Lens..~ rs
+          Lens.^? describeUpdateActionsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeUpdateActions where
+instance Prelude.AWSRequest DescribeUpdateActions where
   type
     Rs DescribeUpdateActions =
       DescribeUpdateActionsResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeUpdateActionsResult"
       ( \s h x ->
           DescribeUpdateActionsResponse'
-            <$> ( x .@? "UpdateActions" .!@ mempty
-                    >>= may (parseXMLList "UpdateAction")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "UpdateActions"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "UpdateAction")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUpdateActions
+instance Prelude.Hashable DescribeUpdateActions
 
-instance NFData DescribeUpdateActions
+instance Prelude.NFData DescribeUpdateActions
 
-instance ToHeaders DescribeUpdateActions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeUpdateActions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeUpdateActions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeUpdateActions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeUpdateActions where
+instance Prelude.ToQuery DescribeUpdateActions where
   toQuery DescribeUpdateActions' {..} =
-    mconcat
-      [ "Action" =: ("DescribeUpdateActions" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeUpdateActions" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "UpdateActionStatus"
-          =: toQuery
-            (toQueryList "member" <$> _duaUpdateActionStatus),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> updateActionStatus
+            ),
         "ShowNodeLevelUpdateStatus"
-          =: _duaShowNodeLevelUpdateStatus,
+          Prelude.=: showNodeLevelUpdateStatus,
         "ServiceUpdateStatus"
-          =: toQuery
-            (toQueryList "member" <$> _duaServiceUpdateStatus),
-        "Engine" =: _duaEngine,
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> serviceUpdateStatus
+            ),
+        "Engine" Prelude.=: engine,
         "ServiceUpdateTimeRange"
-          =: _duaServiceUpdateTimeRange,
-        "ServiceUpdateName" =: _duaServiceUpdateName,
+          Prelude.=: serviceUpdateTimeRange,
+        "ServiceUpdateName" Prelude.=: serviceUpdateName,
         "CacheClusterIds"
-          =: toQuery
-            (toQueryList "member" <$> _duaCacheClusterIds),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> cacheClusterIds
+            ),
         "ReplicationGroupIds"
-          =: toQuery
-            (toQueryList "member" <$> _duaReplicationGroupIds),
-        "Marker" =: _duaMarker,
-        "MaxRecords" =: _duaMaxRecords
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> replicationGroupIds
+            ),
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeUpdateActionsResponse' smart constructor.
+-- | /See:/ 'newDescribeUpdateActionsResponse' smart constructor.
 data DescribeUpdateActionsResponse = DescribeUpdateActionsResponse'
-  { _duarrsUpdateActions ::
-      !( Maybe
-           [UpdateAction]
-       ),
-    _duarrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _duarrsResponseStatus ::
-      !Int
+  { -- | Returns a list of update actions
+    updateActions :: Prelude.Maybe [UpdateAction],
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUpdateActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUpdateActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duarrsUpdateActions' - Returns a list of update actions
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duarrsMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'updateActions', 'describeUpdateActionsResponse_updateActions' - Returns a list of update actions
 --
--- * 'duarrsResponseStatus' - -- | The response status code.
-describeUpdateActionsResponse ::
-  -- | 'duarrsResponseStatus'
-  Int ->
+-- 'marker', 'describeUpdateActionsResponse_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeUpdateActionsResponse_httpStatus' - The response's http status code.
+newDescribeUpdateActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUpdateActionsResponse
-describeUpdateActionsResponse pResponseStatus_ =
+newDescribeUpdateActionsResponse pHttpStatus_ =
   DescribeUpdateActionsResponse'
-    { _duarrsUpdateActions =
-        Nothing,
-      _duarrsMarker = Nothing,
-      _duarrsResponseStatus = pResponseStatus_
+    { updateActions =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns a list of update actions
-duarrsUpdateActions :: Lens' DescribeUpdateActionsResponse [UpdateAction]
-duarrsUpdateActions = lens _duarrsUpdateActions (\s a -> s {_duarrsUpdateActions = a}) . _Default . _Coerce
+describeUpdateActionsResponse_updateActions :: Lens.Lens' DescribeUpdateActionsResponse (Prelude.Maybe [UpdateAction])
+describeUpdateActionsResponse_updateActions = Lens.lens (\DescribeUpdateActionsResponse' {updateActions} -> updateActions) (\s@DescribeUpdateActionsResponse' {} a -> s {updateActions = a} :: DescribeUpdateActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-duarrsMarker :: Lens' DescribeUpdateActionsResponse (Maybe Text)
-duarrsMarker = lens _duarrsMarker (\s a -> s {_duarrsMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeUpdateActionsResponse_marker :: Lens.Lens' DescribeUpdateActionsResponse (Prelude.Maybe Prelude.Text)
+describeUpdateActionsResponse_marker = Lens.lens (\DescribeUpdateActionsResponse' {marker} -> marker) (\s@DescribeUpdateActionsResponse' {} a -> s {marker = a} :: DescribeUpdateActionsResponse)
 
--- | -- | The response status code.
-duarrsResponseStatus :: Lens' DescribeUpdateActionsResponse Int
-duarrsResponseStatus = lens _duarrsResponseStatus (\s a -> s {_duarrsResponseStatus = a})
+-- | The response's http status code.
+describeUpdateActionsResponse_httpStatus :: Lens.Lens' DescribeUpdateActionsResponse Prelude.Int
+describeUpdateActionsResponse_httpStatus = Lens.lens (\DescribeUpdateActionsResponse' {httpStatus} -> httpStatus) (\s@DescribeUpdateActionsResponse' {} a -> s {httpStatus = a} :: DescribeUpdateActionsResponse)
 
-instance NFData DescribeUpdateActionsResponse
+instance Prelude.NFData DescribeUpdateActionsResponse

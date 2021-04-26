@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElastiCache.Types.AuthTokenUpdateStatus
   ( AuthTokenUpdateStatus
       ( ..,
-        Rotating,
-        Setting
+        AuthTokenUpdateStatusROTATING,
+        AuthTokenUpdateStatusSETTING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthTokenUpdateStatus
-  = AuthTokenUpdateStatus'
-      ( CI
-          Text
-      )
+newtype AuthTokenUpdateStatus = AuthTokenUpdateStatus'
+  { fromAuthTokenUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Rotating :: AuthTokenUpdateStatus
-pattern Rotating = AuthTokenUpdateStatus' "ROTATING"
+pattern AuthTokenUpdateStatusROTATING :: AuthTokenUpdateStatus
+pattern AuthTokenUpdateStatusROTATING = AuthTokenUpdateStatus' "ROTATING"
 
-pattern Setting :: AuthTokenUpdateStatus
-pattern Setting = AuthTokenUpdateStatus' "SETTING"
+pattern AuthTokenUpdateStatusSETTING :: AuthTokenUpdateStatus
+pattern AuthTokenUpdateStatusSETTING = AuthTokenUpdateStatus' "SETTING"
 
 {-# COMPLETE
-  Rotating,
-  Setting,
+  AuthTokenUpdateStatusROTATING,
+  AuthTokenUpdateStatusSETTING,
   AuthTokenUpdateStatus'
   #-}
 
-instance FromText AuthTokenUpdateStatus where
-  parser = (AuthTokenUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText AuthTokenUpdateStatus where
+  parser = AuthTokenUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuthTokenUpdateStatus where
-  toText (AuthTokenUpdateStatus' ci) = original ci
+instance Prelude.ToText AuthTokenUpdateStatus where
+  toText (AuthTokenUpdateStatus' x) = x
 
-instance Hashable AuthTokenUpdateStatus
+instance Prelude.Hashable AuthTokenUpdateStatus
 
-instance NFData AuthTokenUpdateStatus
+instance Prelude.NFData AuthTokenUpdateStatus
 
-instance ToByteString AuthTokenUpdateStatus
+instance Prelude.ToByteString AuthTokenUpdateStatus
 
-instance ToQuery AuthTokenUpdateStatus
+instance Prelude.ToQuery AuthTokenUpdateStatus
 
-instance ToHeader AuthTokenUpdateStatus
+instance Prelude.ToHeader AuthTokenUpdateStatus
 
-instance FromXML AuthTokenUpdateStatus where
-  parseXML = parseXMLText "AuthTokenUpdateStatus"
+instance Prelude.FromXML AuthTokenUpdateStatus where
+  parseXML = Prelude.parseXMLText "AuthTokenUpdateStatus"

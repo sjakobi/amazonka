@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,104 +24,118 @@
 -- Changes the list of users that belong to the user group.
 module Network.AWS.ElastiCache.ModifyUserGroup
   ( -- * Creating a Request
-    modifyUserGroup,
-    ModifyUserGroup,
+    ModifyUserGroup (..),
+    newModifyUserGroup,
 
     -- * Request Lenses
-    mugUserIdsToRemove,
-    mugUserIdsToAdd,
-    mugUserGroupId,
+    modifyUserGroup_userIdsToRemove,
+    modifyUserGroup_userIdsToAdd,
+    modifyUserGroup_userGroupId,
 
     -- * Destructuring the Response
-    userGroup,
-    UserGroup,
+    UserGroup (..),
+    newUserGroup,
 
     -- * Response Lenses
-    ugStatus,
-    ugReplicationGroups,
-    ugARN,
-    ugUserIds,
-    ugEngine,
-    ugUserGroupId,
-    ugPendingChanges,
+    userGroup_status,
+    userGroup_replicationGroups,
+    userGroup_aRN,
+    userGroup_userIds,
+    userGroup_engine,
+    userGroup_userGroupId,
+    userGroup_pendingChanges,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.UserGroup
+import Network.AWS.ElastiCache.Types.UserGroupPendingChanges
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyUserGroup' smart constructor.
+-- | /See:/ 'newModifyUserGroup' smart constructor.
 data ModifyUserGroup = ModifyUserGroup'
-  { _mugUserIdsToRemove ::
-      !(Maybe (List1 Text)),
-    _mugUserIdsToAdd ::
-      !(Maybe (List1 Text)),
-    _mugUserGroupId :: !Text
+  { -- | The list of user IDs to remove from the user group.
+    userIdsToRemove :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The list of user IDs to add to the user group.
+    userIdsToAdd :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The ID of the user group.
+    userGroupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyUserGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyUserGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mugUserIdsToRemove' - The list of user IDs to remove from the user group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mugUserIdsToAdd' - The list of user IDs to add to the user group.
+-- 'userIdsToRemove', 'modifyUserGroup_userIdsToRemove' - The list of user IDs to remove from the user group.
 --
--- * 'mugUserGroupId' - The ID of the user group.
-modifyUserGroup ::
-  -- | 'mugUserGroupId'
-  Text ->
+-- 'userIdsToAdd', 'modifyUserGroup_userIdsToAdd' - The list of user IDs to add to the user group.
+--
+-- 'userGroupId', 'modifyUserGroup_userGroupId' - The ID of the user group.
+newModifyUserGroup ::
+  -- | 'userGroupId'
+  Prelude.Text ->
   ModifyUserGroup
-modifyUserGroup pUserGroupId_ =
+newModifyUserGroup pUserGroupId_ =
   ModifyUserGroup'
-    { _mugUserIdsToRemove = Nothing,
-      _mugUserIdsToAdd = Nothing,
-      _mugUserGroupId = pUserGroupId_
+    { userIdsToRemove = Prelude.Nothing,
+      userIdsToAdd = Prelude.Nothing,
+      userGroupId = pUserGroupId_
     }
 
 -- | The list of user IDs to remove from the user group.
-mugUserIdsToRemove :: Lens' ModifyUserGroup (Maybe (NonEmpty Text))
-mugUserIdsToRemove = lens _mugUserIdsToRemove (\s a -> s {_mugUserIdsToRemove = a}) . mapping _List1
+modifyUserGroup_userIdsToRemove :: Lens.Lens' ModifyUserGroup (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+modifyUserGroup_userIdsToRemove = Lens.lens (\ModifyUserGroup' {userIdsToRemove} -> userIdsToRemove) (\s@ModifyUserGroup' {} a -> s {userIdsToRemove = a} :: ModifyUserGroup) Prelude.. Lens.mapping Prelude._List1
 
 -- | The list of user IDs to add to the user group.
-mugUserIdsToAdd :: Lens' ModifyUserGroup (Maybe (NonEmpty Text))
-mugUserIdsToAdd = lens _mugUserIdsToAdd (\s a -> s {_mugUserIdsToAdd = a}) . mapping _List1
+modifyUserGroup_userIdsToAdd :: Lens.Lens' ModifyUserGroup (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+modifyUserGroup_userIdsToAdd = Lens.lens (\ModifyUserGroup' {userIdsToAdd} -> userIdsToAdd) (\s@ModifyUserGroup' {} a -> s {userIdsToAdd = a} :: ModifyUserGroup) Prelude.. Lens.mapping Prelude._List1
 
 -- | The ID of the user group.
-mugUserGroupId :: Lens' ModifyUserGroup Text
-mugUserGroupId = lens _mugUserGroupId (\s a -> s {_mugUserGroupId = a})
+modifyUserGroup_userGroupId :: Lens.Lens' ModifyUserGroup Prelude.Text
+modifyUserGroup_userGroupId = Lens.lens (\ModifyUserGroup' {userGroupId} -> userGroupId) (\s@ModifyUserGroup' {} a -> s {userGroupId = a} :: ModifyUserGroup)
 
-instance AWSRequest ModifyUserGroup where
+instance Prelude.AWSRequest ModifyUserGroup where
   type Rs ModifyUserGroup = UserGroup
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyUserGroupResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ModifyUserGroup
+instance Prelude.Hashable ModifyUserGroup
 
-instance NFData ModifyUserGroup
+instance Prelude.NFData ModifyUserGroup
 
-instance ToHeaders ModifyUserGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyUserGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyUserGroup where
-  toPath = const "/"
+instance Prelude.ToPath ModifyUserGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyUserGroup where
+instance Prelude.ToQuery ModifyUserGroup where
   toQuery ModifyUserGroup' {..} =
-    mconcat
-      [ "Action" =: ("ModifyUserGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyUserGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "UserIdsToRemove"
-          =: toQuery
-            (toQueryList "member" <$> _mugUserIdsToRemove),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> userIdsToRemove
+            ),
         "UserIdsToAdd"
-          =: toQuery (toQueryList "member" <$> _mugUserIdsToAdd),
-        "UserGroupId" =: _mugUserGroupId
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> userIdsToAdd
+            ),
+        "UserGroupId" Prelude.=: userGroupId
       ]

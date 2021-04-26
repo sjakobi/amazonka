@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,88 +20,108 @@
 module Network.AWS.ElastiCache.Types.NodeGroupMember where
 
 import Network.AWS.ElastiCache.Types.Endpoint
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a single node within a node group (shard).
 --
---
---
--- /See:/ 'nodeGroupMember' smart constructor.
+-- /See:/ 'newNodeGroupMember' smart constructor.
 data NodeGroupMember = NodeGroupMember'
-  { _ngmCacheClusterId ::
-      !(Maybe Text),
-    _ngmPreferredAvailabilityZone ::
-      !(Maybe Text),
-    _ngmReadEndpoint :: !(Maybe Endpoint),
-    _ngmCacheNodeId :: !(Maybe Text),
-    _ngmPreferredOutpostARN ::
-      !(Maybe Text),
-    _ngmCurrentRole :: !(Maybe Text)
+  { -- | The ID of the cluster to which the node belongs.
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Availability Zone in which the node is located.
+    preferredAvailabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The information required for client programs to connect to a node for
+    -- read operations. The read endpoint is only applicable on Redis (cluster
+    -- mode disabled) clusters.
+    readEndpoint :: Prelude.Maybe Endpoint,
+    -- | The ID of the node within its cluster. A node ID is a numeric identifier
+    -- (0001, 0002, etc.).
+    cacheNodeId :: Prelude.Maybe Prelude.Text,
+    -- | The outpost ARN of the node group member.
+    preferredOutpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The role that is currently assigned to the node - @primary@ or
+    -- @replica@. This member is only applicable for Redis (cluster mode
+    -- disabled) replication groups.
+    currentRole :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeGroupMember' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeGroupMember' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ngmCacheClusterId' - The ID of the cluster to which the node belongs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ngmPreferredAvailabilityZone' - The name of the Availability Zone in which the node is located.
+-- 'cacheClusterId', 'nodeGroupMember_cacheClusterId' - The ID of the cluster to which the node belongs.
 --
--- * 'ngmReadEndpoint' - The information required for client programs to connect to a node for read operations. The read endpoint is only applicable on Redis (cluster mode disabled) clusters.
+-- 'preferredAvailabilityZone', 'nodeGroupMember_preferredAvailabilityZone' - The name of the Availability Zone in which the node is located.
 --
--- * 'ngmCacheNodeId' - The ID of the node within its cluster. A node ID is a numeric identifier (0001, 0002, etc.).
+-- 'readEndpoint', 'nodeGroupMember_readEndpoint' - The information required for client programs to connect to a node for
+-- read operations. The read endpoint is only applicable on Redis (cluster
+-- mode disabled) clusters.
 --
--- * 'ngmPreferredOutpostARN' - The outpost ARN of the node group member.
+-- 'cacheNodeId', 'nodeGroupMember_cacheNodeId' - The ID of the node within its cluster. A node ID is a numeric identifier
+-- (0001, 0002, etc.).
 --
--- * 'ngmCurrentRole' - The role that is currently assigned to the node - @primary@ or @replica@ . This member is only applicable for Redis (cluster mode disabled) replication groups.
-nodeGroupMember ::
+-- 'preferredOutpostArn', 'nodeGroupMember_preferredOutpostArn' - The outpost ARN of the node group member.
+--
+-- 'currentRole', 'nodeGroupMember_currentRole' - The role that is currently assigned to the node - @primary@ or
+-- @replica@. This member is only applicable for Redis (cluster mode
+-- disabled) replication groups.
+newNodeGroupMember ::
   NodeGroupMember
-nodeGroupMember =
+newNodeGroupMember =
   NodeGroupMember'
-    { _ngmCacheClusterId = Nothing,
-      _ngmPreferredAvailabilityZone = Nothing,
-      _ngmReadEndpoint = Nothing,
-      _ngmCacheNodeId = Nothing,
-      _ngmPreferredOutpostARN = Nothing,
-      _ngmCurrentRole = Nothing
+    { cacheClusterId = Prelude.Nothing,
+      preferredAvailabilityZone = Prelude.Nothing,
+      readEndpoint = Prelude.Nothing,
+      cacheNodeId = Prelude.Nothing,
+      preferredOutpostArn = Prelude.Nothing,
+      currentRole = Prelude.Nothing
     }
 
 -- | The ID of the cluster to which the node belongs.
-ngmCacheClusterId :: Lens' NodeGroupMember (Maybe Text)
-ngmCacheClusterId = lens _ngmCacheClusterId (\s a -> s {_ngmCacheClusterId = a})
+nodeGroupMember_cacheClusterId :: Lens.Lens' NodeGroupMember (Prelude.Maybe Prelude.Text)
+nodeGroupMember_cacheClusterId = Lens.lens (\NodeGroupMember' {cacheClusterId} -> cacheClusterId) (\s@NodeGroupMember' {} a -> s {cacheClusterId = a} :: NodeGroupMember)
 
 -- | The name of the Availability Zone in which the node is located.
-ngmPreferredAvailabilityZone :: Lens' NodeGroupMember (Maybe Text)
-ngmPreferredAvailabilityZone = lens _ngmPreferredAvailabilityZone (\s a -> s {_ngmPreferredAvailabilityZone = a})
+nodeGroupMember_preferredAvailabilityZone :: Lens.Lens' NodeGroupMember (Prelude.Maybe Prelude.Text)
+nodeGroupMember_preferredAvailabilityZone = Lens.lens (\NodeGroupMember' {preferredAvailabilityZone} -> preferredAvailabilityZone) (\s@NodeGroupMember' {} a -> s {preferredAvailabilityZone = a} :: NodeGroupMember)
 
--- | The information required for client programs to connect to a node for read operations. The read endpoint is only applicable on Redis (cluster mode disabled) clusters.
-ngmReadEndpoint :: Lens' NodeGroupMember (Maybe Endpoint)
-ngmReadEndpoint = lens _ngmReadEndpoint (\s a -> s {_ngmReadEndpoint = a})
+-- | The information required for client programs to connect to a node for
+-- read operations. The read endpoint is only applicable on Redis (cluster
+-- mode disabled) clusters.
+nodeGroupMember_readEndpoint :: Lens.Lens' NodeGroupMember (Prelude.Maybe Endpoint)
+nodeGroupMember_readEndpoint = Lens.lens (\NodeGroupMember' {readEndpoint} -> readEndpoint) (\s@NodeGroupMember' {} a -> s {readEndpoint = a} :: NodeGroupMember)
 
--- | The ID of the node within its cluster. A node ID is a numeric identifier (0001, 0002, etc.).
-ngmCacheNodeId :: Lens' NodeGroupMember (Maybe Text)
-ngmCacheNodeId = lens _ngmCacheNodeId (\s a -> s {_ngmCacheNodeId = a})
+-- | The ID of the node within its cluster. A node ID is a numeric identifier
+-- (0001, 0002, etc.).
+nodeGroupMember_cacheNodeId :: Lens.Lens' NodeGroupMember (Prelude.Maybe Prelude.Text)
+nodeGroupMember_cacheNodeId = Lens.lens (\NodeGroupMember' {cacheNodeId} -> cacheNodeId) (\s@NodeGroupMember' {} a -> s {cacheNodeId = a} :: NodeGroupMember)
 
 -- | The outpost ARN of the node group member.
-ngmPreferredOutpostARN :: Lens' NodeGroupMember (Maybe Text)
-ngmPreferredOutpostARN = lens _ngmPreferredOutpostARN (\s a -> s {_ngmPreferredOutpostARN = a})
+nodeGroupMember_preferredOutpostArn :: Lens.Lens' NodeGroupMember (Prelude.Maybe Prelude.Text)
+nodeGroupMember_preferredOutpostArn = Lens.lens (\NodeGroupMember' {preferredOutpostArn} -> preferredOutpostArn) (\s@NodeGroupMember' {} a -> s {preferredOutpostArn = a} :: NodeGroupMember)
 
--- | The role that is currently assigned to the node - @primary@ or @replica@ . This member is only applicable for Redis (cluster mode disabled) replication groups.
-ngmCurrentRole :: Lens' NodeGroupMember (Maybe Text)
-ngmCurrentRole = lens _ngmCurrentRole (\s a -> s {_ngmCurrentRole = a})
+-- | The role that is currently assigned to the node - @primary@ or
+-- @replica@. This member is only applicable for Redis (cluster mode
+-- disabled) replication groups.
+nodeGroupMember_currentRole :: Lens.Lens' NodeGroupMember (Prelude.Maybe Prelude.Text)
+nodeGroupMember_currentRole = Lens.lens (\NodeGroupMember' {currentRole} -> currentRole) (\s@NodeGroupMember' {} a -> s {currentRole = a} :: NodeGroupMember)
 
-instance FromXML NodeGroupMember where
+instance Prelude.FromXML NodeGroupMember where
   parseXML x =
     NodeGroupMember'
-      <$> (x .@? "CacheClusterId")
-      <*> (x .@? "PreferredAvailabilityZone")
-      <*> (x .@? "ReadEndpoint")
-      <*> (x .@? "CacheNodeId")
-      <*> (x .@? "PreferredOutpostArn")
-      <*> (x .@? "CurrentRole")
+      Prelude.<$> (x Prelude..@? "CacheClusterId")
+      Prelude.<*> (x Prelude..@? "PreferredAvailabilityZone")
+      Prelude.<*> (x Prelude..@? "ReadEndpoint")
+      Prelude.<*> (x Prelude..@? "CacheNodeId")
+      Prelude.<*> (x Prelude..@? "PreferredOutpostArn")
+      Prelude.<*> (x Prelude..@? "CurrentRole")
 
-instance Hashable NodeGroupMember
+instance Prelude.Hashable NodeGroupMember
 
-instance NFData NodeGroupMember
+instance Prelude.NFData NodeGroupMember

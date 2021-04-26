@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,242 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of cache parameter group descriptions. If a cache parameter group name is specified, the list contains only the descriptions for that group.
---
---
+-- Returns a list of cache parameter group descriptions. If a cache
+-- parameter group name is specified, the list contains only the
+-- descriptions for that group.
 --
 -- This operation returns paginated results.
 module Network.AWS.ElastiCache.DescribeCacheParameterGroups
   ( -- * Creating a Request
-    describeCacheParameterGroups,
-    DescribeCacheParameterGroups,
+    DescribeCacheParameterGroups (..),
+    newDescribeCacheParameterGroups,
 
     -- * Request Lenses
-    dcpgsCacheParameterGroupName,
-    dcpgsMarker,
-    dcpgsMaxRecords,
+    describeCacheParameterGroups_cacheParameterGroupName,
+    describeCacheParameterGroups_marker,
+    describeCacheParameterGroups_maxRecords,
 
     -- * Destructuring the Response
-    describeCacheParameterGroupsResponse,
-    DescribeCacheParameterGroupsResponse,
+    DescribeCacheParameterGroupsResponse (..),
+    newDescribeCacheParameterGroupsResponse,
 
     -- * Response Lenses
-    dcpgrrsCacheParameterGroups,
-    dcpgrrsMarker,
-    dcpgrrsResponseStatus,
+    describeCacheParameterGroupsResponse_cacheParameterGroups,
+    describeCacheParameterGroupsResponse_marker,
+    describeCacheParameterGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.CacheParameterGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @DescribeCacheParameterGroups@ operation.
 --
---
---
--- /See:/ 'describeCacheParameterGroups' smart constructor.
+-- /See:/ 'newDescribeCacheParameterGroups' smart constructor.
 data DescribeCacheParameterGroups = DescribeCacheParameterGroups'
-  { _dcpgsCacheParameterGroupName ::
-      !(Maybe Text),
-    _dcpgsMarker ::
-      !(Maybe Text),
-    _dcpgsMaxRecords ::
-      !(Maybe Int)
+  { -- | The name of a specific cache parameter group to return details for.
+    cacheParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a marker is
+    -- included in the response so that the remaining results can be retrieved.
+    --
+    -- Default: 100
+    --
+    -- Constraints: minimum 20; maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCacheParameterGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCacheParameterGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpgsCacheParameterGroupName' - The name of a specific cache parameter group to return details for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpgsMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'cacheParameterGroupName', 'describeCacheParameterGroups_cacheParameterGroupName' - The name of a specific cache parameter group to return details for.
 --
--- * 'dcpgsMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a marker is included in the response so that the remaining results can be retrieved. Default: 100 Constraints: minimum 20; maximum 100.
-describeCacheParameterGroups ::
+-- 'marker', 'describeCacheParameterGroups_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeCacheParameterGroups_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a marker is
+-- included in the response so that the remaining results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: minimum 20; maximum 100.
+newDescribeCacheParameterGroups ::
   DescribeCacheParameterGroups
-describeCacheParameterGroups =
+newDescribeCacheParameterGroups =
   DescribeCacheParameterGroups'
-    { _dcpgsCacheParameterGroupName =
-        Nothing,
-      _dcpgsMarker = Nothing,
-      _dcpgsMaxRecords = Nothing
+    { cacheParameterGroupName =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The name of a specific cache parameter group to return details for.
-dcpgsCacheParameterGroupName :: Lens' DescribeCacheParameterGroups (Maybe Text)
-dcpgsCacheParameterGroupName = lens _dcpgsCacheParameterGroupName (\s a -> s {_dcpgsCacheParameterGroupName = a})
+describeCacheParameterGroups_cacheParameterGroupName :: Lens.Lens' DescribeCacheParameterGroups (Prelude.Maybe Prelude.Text)
+describeCacheParameterGroups_cacheParameterGroupName = Lens.lens (\DescribeCacheParameterGroups' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@DescribeCacheParameterGroups' {} a -> s {cacheParameterGroupName = a} :: DescribeCacheParameterGroups)
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dcpgsMarker :: Lens' DescribeCacheParameterGroups (Maybe Text)
-dcpgsMarker = lens _dcpgsMarker (\s a -> s {_dcpgsMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by @MaxRecords@.
+describeCacheParameterGroups_marker :: Lens.Lens' DescribeCacheParameterGroups (Prelude.Maybe Prelude.Text)
+describeCacheParameterGroups_marker = Lens.lens (\DescribeCacheParameterGroups' {marker} -> marker) (\s@DescribeCacheParameterGroups' {} a -> s {marker = a} :: DescribeCacheParameterGroups)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a marker is included in the response so that the remaining results can be retrieved. Default: 100 Constraints: minimum 20; maximum 100.
-dcpgsMaxRecords :: Lens' DescribeCacheParameterGroups (Maybe Int)
-dcpgsMaxRecords = lens _dcpgsMaxRecords (\s a -> s {_dcpgsMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a marker is
+-- included in the response so that the remaining results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: minimum 20; maximum 100.
+describeCacheParameterGroups_maxRecords :: Lens.Lens' DescribeCacheParameterGroups (Prelude.Maybe Prelude.Int)
+describeCacheParameterGroups_maxRecords = Lens.lens (\DescribeCacheParameterGroups' {maxRecords} -> maxRecords) (\s@DescribeCacheParameterGroups' {} a -> s {maxRecords = a} :: DescribeCacheParameterGroups)
 
-instance AWSPager DescribeCacheParameterGroups where
+instance Pager.AWSPager DescribeCacheParameterGroups where
   page rq rs
-    | stop (rs ^. dcpgrrsMarker) = Nothing
-    | stop (rs ^. dcpgrrsCacheParameterGroups) = Nothing
-    | otherwise =
-      Just $ rq & dcpgsMarker .~ rs ^. dcpgrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeCacheParameterGroupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeCacheParameterGroupsResponse_cacheParameterGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeCacheParameterGroups_marker
+          Lens..~ rs
+          Lens.^? describeCacheParameterGroupsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeCacheParameterGroups where
+instance
+  Prelude.AWSRequest
+    DescribeCacheParameterGroups
+  where
   type
     Rs DescribeCacheParameterGroups =
       DescribeCacheParameterGroupsResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeCacheParameterGroupsResult"
       ( \s h x ->
           DescribeCacheParameterGroupsResponse'
-            <$> ( x .@? "CacheParameterGroups" .!@ mempty
-                    >>= may (parseXMLList "CacheParameterGroup")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "CacheParameterGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLList "CacheParameterGroup")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCacheParameterGroups
+instance
+  Prelude.Hashable
+    DescribeCacheParameterGroups
 
-instance NFData DescribeCacheParameterGroups
+instance Prelude.NFData DescribeCacheParameterGroups
 
-instance ToHeaders DescribeCacheParameterGroups where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeCacheParameterGroups
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeCacheParameterGroups where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCacheParameterGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCacheParameterGroups where
+instance Prelude.ToQuery DescribeCacheParameterGroups where
   toQuery DescribeCacheParameterGroups' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeCacheParameterGroups" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ( "DescribeCacheParameterGroups" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheParameterGroupName"
-          =: _dcpgsCacheParameterGroupName,
-        "Marker" =: _dcpgsMarker,
-        "MaxRecords" =: _dcpgsMaxRecords
+          Prelude.=: cacheParameterGroupName,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
 -- | Represents the output of a @DescribeCacheParameterGroups@ operation.
 --
---
---
--- /See:/ 'describeCacheParameterGroupsResponse' smart constructor.
+-- /See:/ 'newDescribeCacheParameterGroupsResponse' smart constructor.
 data DescribeCacheParameterGroupsResponse = DescribeCacheParameterGroupsResponse'
-  { _dcpgrrsCacheParameterGroups ::
-      !( Maybe
-           [CacheParameterGroup]
-       ),
-    _dcpgrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dcpgrrsResponseStatus ::
-      !Int
+  { -- | A list of cache parameter groups. Each element in the list contains
+    -- detailed information about one cache parameter group.
+    cacheParameterGroups :: Prelude.Maybe [CacheParameterGroup],
+    -- | Provides an identifier to allow retrieval of paginated results.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCacheParameterGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCacheParameterGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpgrrsCacheParameterGroups' - A list of cache parameter groups. Each element in the list contains detailed information about one cache parameter group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcpgrrsMarker' - Provides an identifier to allow retrieval of paginated results.
+-- 'cacheParameterGroups', 'describeCacheParameterGroupsResponse_cacheParameterGroups' - A list of cache parameter groups. Each element in the list contains
+-- detailed information about one cache parameter group.
 --
--- * 'dcpgrrsResponseStatus' - -- | The response status code.
-describeCacheParameterGroupsResponse ::
-  -- | 'dcpgrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeCacheParameterGroupsResponse_marker' - Provides an identifier to allow retrieval of paginated results.
+--
+-- 'httpStatus', 'describeCacheParameterGroupsResponse_httpStatus' - The response's http status code.
+newDescribeCacheParameterGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCacheParameterGroupsResponse
-describeCacheParameterGroupsResponse pResponseStatus_ =
+newDescribeCacheParameterGroupsResponse pHttpStatus_ =
   DescribeCacheParameterGroupsResponse'
-    { _dcpgrrsCacheParameterGroups =
-        Nothing,
-      _dcpgrrsMarker = Nothing,
-      _dcpgrrsResponseStatus =
-        pResponseStatus_
+    { cacheParameterGroups =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of cache parameter groups. Each element in the list contains detailed information about one cache parameter group.
-dcpgrrsCacheParameterGroups :: Lens' DescribeCacheParameterGroupsResponse [CacheParameterGroup]
-dcpgrrsCacheParameterGroups = lens _dcpgrrsCacheParameterGroups (\s a -> s {_dcpgrrsCacheParameterGroups = a}) . _Default . _Coerce
+-- | A list of cache parameter groups. Each element in the list contains
+-- detailed information about one cache parameter group.
+describeCacheParameterGroupsResponse_cacheParameterGroups :: Lens.Lens' DescribeCacheParameterGroupsResponse (Prelude.Maybe [CacheParameterGroup])
+describeCacheParameterGroupsResponse_cacheParameterGroups = Lens.lens (\DescribeCacheParameterGroupsResponse' {cacheParameterGroups} -> cacheParameterGroups) (\s@DescribeCacheParameterGroupsResponse' {} a -> s {cacheParameterGroups = a} :: DescribeCacheParameterGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Provides an identifier to allow retrieval of paginated results.
-dcpgrrsMarker :: Lens' DescribeCacheParameterGroupsResponse (Maybe Text)
-dcpgrrsMarker = lens _dcpgrrsMarker (\s a -> s {_dcpgrrsMarker = a})
+describeCacheParameterGroupsResponse_marker :: Lens.Lens' DescribeCacheParameterGroupsResponse (Prelude.Maybe Prelude.Text)
+describeCacheParameterGroupsResponse_marker = Lens.lens (\DescribeCacheParameterGroupsResponse' {marker} -> marker) (\s@DescribeCacheParameterGroupsResponse' {} a -> s {marker = a} :: DescribeCacheParameterGroupsResponse)
 
--- | -- | The response status code.
-dcpgrrsResponseStatus :: Lens' DescribeCacheParameterGroupsResponse Int
-dcpgrrsResponseStatus = lens _dcpgrrsResponseStatus (\s a -> s {_dcpgrrsResponseStatus = a})
+-- | The response's http status code.
+describeCacheParameterGroupsResponse_httpStatus :: Lens.Lens' DescribeCacheParameterGroupsResponse Prelude.Int
+describeCacheParameterGroupsResponse_httpStatus = Lens.lens (\DescribeCacheParameterGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeCacheParameterGroupsResponse' {} a -> s {httpStatus = a} :: DescribeCacheParameterGroupsResponse)
 
-instance NFData DescribeCacheParameterGroupsResponse
+instance
+  Prelude.NFData
+    DescribeCacheParameterGroupsResponse

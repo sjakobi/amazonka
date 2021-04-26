@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,209 +24,209 @@
 -- Increase the number of node groups in the Global Datastore
 module Network.AWS.ElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup
   ( -- * Creating a Request
-    increaseNodeGroupsInGlobalReplicationGroup,
-    IncreaseNodeGroupsInGlobalReplicationGroup,
+    IncreaseNodeGroupsInGlobalReplicationGroup (..),
+    newIncreaseNodeGroupsInGlobalReplicationGroup,
 
     -- * Request Lenses
-    ingigrgRegionalConfigurations,
-    ingigrgGlobalReplicationGroupId,
-    ingigrgNodeGroupCount,
-    ingigrgApplyImmediately,
+    increaseNodeGroupsInGlobalReplicationGroup_regionalConfigurations,
+    increaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId,
+    increaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount,
+    increaseNodeGroupsInGlobalReplicationGroup_applyImmediately,
 
     -- * Destructuring the Response
-    increaseNodeGroupsInGlobalReplicationGroupResponse,
-    IncreaseNodeGroupsInGlobalReplicationGroupResponse,
+    IncreaseNodeGroupsInGlobalReplicationGroupResponse (..),
+    newIncreaseNodeGroupsInGlobalReplicationGroupResponse,
 
     -- * Response Lenses
-    ingigrgrrsGlobalReplicationGroup,
-    ingigrgrrsResponseStatus,
+    increaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup,
+    increaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.GlobalReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'increaseNodeGroupsInGlobalReplicationGroup' smart constructor.
+-- | /See:/ 'newIncreaseNodeGroupsInGlobalReplicationGroup' smart constructor.
 data IncreaseNodeGroupsInGlobalReplicationGroup = IncreaseNodeGroupsInGlobalReplicationGroup'
-  { _ingigrgRegionalConfigurations ::
-      !( Maybe
-           [RegionalConfiguration]
-       ),
-    _ingigrgGlobalReplicationGroupId ::
-      !Text,
-    _ingigrgNodeGroupCount ::
-      !Int,
-    _ingigrgApplyImmediately ::
-      !Bool
+  { -- | Describes the replication group IDs, the AWS regions where they are
+    -- stored and the shard configuration for each that comprise the Global
+    -- Datastore
+    regionalConfigurations :: Prelude.Maybe [RegionalConfiguration],
+    -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Text,
+    -- | The number of node groups you wish to add
+    nodeGroupCount :: Prelude.Int,
+    -- | Indicates that the process begins immediately. At present, the only
+    -- permitted value for this parameter is true.
+    applyImmediately :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IncreaseNodeGroupsInGlobalReplicationGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IncreaseNodeGroupsInGlobalReplicationGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ingigrgRegionalConfigurations' - Describes the replication group IDs, the AWS regions where they are stored and the shard configuration for each that comprise the Global Datastore
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ingigrgGlobalReplicationGroupId' - The name of the Global Datastore
+-- 'regionalConfigurations', 'increaseNodeGroupsInGlobalReplicationGroup_regionalConfigurations' - Describes the replication group IDs, the AWS regions where they are
+-- stored and the shard configuration for each that comprise the Global
+-- Datastore
 --
--- * 'ingigrgNodeGroupCount' - The number of node groups you wish to add
+-- 'globalReplicationGroupId', 'increaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId' - The name of the Global Datastore
 --
--- * 'ingigrgApplyImmediately' - Indicates that the process begins immediately. At present, the only permitted value for this parameter is true.
-increaseNodeGroupsInGlobalReplicationGroup ::
-  -- | 'ingigrgGlobalReplicationGroupId'
-  Text ->
-  -- | 'ingigrgNodeGroupCount'
-  Int ->
-  -- | 'ingigrgApplyImmediately'
-  Bool ->
+-- 'nodeGroupCount', 'increaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount' - The number of node groups you wish to add
+--
+-- 'applyImmediately', 'increaseNodeGroupsInGlobalReplicationGroup_applyImmediately' - Indicates that the process begins immediately. At present, the only
+-- permitted value for this parameter is true.
+newIncreaseNodeGroupsInGlobalReplicationGroup ::
+  -- | 'globalReplicationGroupId'
+  Prelude.Text ->
+  -- | 'nodeGroupCount'
+  Prelude.Int ->
+  -- | 'applyImmediately'
+  Prelude.Bool ->
   IncreaseNodeGroupsInGlobalReplicationGroup
-increaseNodeGroupsInGlobalReplicationGroup
+newIncreaseNodeGroupsInGlobalReplicationGroup
   pGlobalReplicationGroupId_
   pNodeGroupCount_
   pApplyImmediately_ =
     IncreaseNodeGroupsInGlobalReplicationGroup'
-      { _ingigrgRegionalConfigurations =
-          Nothing,
-        _ingigrgGlobalReplicationGroupId =
+      { regionalConfigurations =
+          Prelude.Nothing,
+        globalReplicationGroupId =
           pGlobalReplicationGroupId_,
-        _ingigrgNodeGroupCount =
+        nodeGroupCount =
           pNodeGroupCount_,
-        _ingigrgApplyImmediately =
+        applyImmediately =
           pApplyImmediately_
       }
 
--- | Describes the replication group IDs, the AWS regions where they are stored and the shard configuration for each that comprise the Global Datastore
-ingigrgRegionalConfigurations :: Lens' IncreaseNodeGroupsInGlobalReplicationGroup [RegionalConfiguration]
-ingigrgRegionalConfigurations = lens _ingigrgRegionalConfigurations (\s a -> s {_ingigrgRegionalConfigurations = a}) . _Default . _Coerce
+-- | Describes the replication group IDs, the AWS regions where they are
+-- stored and the shard configuration for each that comprise the Global
+-- Datastore
+increaseNodeGroupsInGlobalReplicationGroup_regionalConfigurations :: Lens.Lens' IncreaseNodeGroupsInGlobalReplicationGroup (Prelude.Maybe [RegionalConfiguration])
+increaseNodeGroupsInGlobalReplicationGroup_regionalConfigurations = Lens.lens (\IncreaseNodeGroupsInGlobalReplicationGroup' {regionalConfigurations} -> regionalConfigurations) (\s@IncreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {regionalConfigurations = a} :: IncreaseNodeGroupsInGlobalReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Global Datastore
-ingigrgGlobalReplicationGroupId :: Lens' IncreaseNodeGroupsInGlobalReplicationGroup Text
-ingigrgGlobalReplicationGroupId = lens _ingigrgGlobalReplicationGroupId (\s a -> s {_ingigrgGlobalReplicationGroupId = a})
+increaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId :: Lens.Lens' IncreaseNodeGroupsInGlobalReplicationGroup Prelude.Text
+increaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId = Lens.lens (\IncreaseNodeGroupsInGlobalReplicationGroup' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@IncreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {globalReplicationGroupId = a} :: IncreaseNodeGroupsInGlobalReplicationGroup)
 
 -- | The number of node groups you wish to add
-ingigrgNodeGroupCount :: Lens' IncreaseNodeGroupsInGlobalReplicationGroup Int
-ingigrgNodeGroupCount = lens _ingigrgNodeGroupCount (\s a -> s {_ingigrgNodeGroupCount = a})
+increaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount :: Lens.Lens' IncreaseNodeGroupsInGlobalReplicationGroup Prelude.Int
+increaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount = Lens.lens (\IncreaseNodeGroupsInGlobalReplicationGroup' {nodeGroupCount} -> nodeGroupCount) (\s@IncreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {nodeGroupCount = a} :: IncreaseNodeGroupsInGlobalReplicationGroup)
 
--- | Indicates that the process begins immediately. At present, the only permitted value for this parameter is true.
-ingigrgApplyImmediately :: Lens' IncreaseNodeGroupsInGlobalReplicationGroup Bool
-ingigrgApplyImmediately = lens _ingigrgApplyImmediately (\s a -> s {_ingigrgApplyImmediately = a})
+-- | Indicates that the process begins immediately. At present, the only
+-- permitted value for this parameter is true.
+increaseNodeGroupsInGlobalReplicationGroup_applyImmediately :: Lens.Lens' IncreaseNodeGroupsInGlobalReplicationGroup Prelude.Bool
+increaseNodeGroupsInGlobalReplicationGroup_applyImmediately = Lens.lens (\IncreaseNodeGroupsInGlobalReplicationGroup' {applyImmediately} -> applyImmediately) (\s@IncreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {applyImmediately = a} :: IncreaseNodeGroupsInGlobalReplicationGroup)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     IncreaseNodeGroupsInGlobalReplicationGroup
   where
   type
     Rs IncreaseNodeGroupsInGlobalReplicationGroup =
       IncreaseNodeGroupsInGlobalReplicationGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "IncreaseNodeGroupsInGlobalReplicationGroupResult"
       ( \s h x ->
           IncreaseNodeGroupsInGlobalReplicationGroupResponse'
-            <$> (x .@? "GlobalReplicationGroup")
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalReplicationGroup")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     IncreaseNodeGroupsInGlobalReplicationGroup
 
 instance
-  NFData
+  Prelude.NFData
     IncreaseNodeGroupsInGlobalReplicationGroup
 
 instance
-  ToHeaders
-    IncreaseNodeGroupsInGlobalReplicationGroup
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     IncreaseNodeGroupsInGlobalReplicationGroup
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    IncreaseNodeGroupsInGlobalReplicationGroup
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     IncreaseNodeGroupsInGlobalReplicationGroup
   where
   toQuery
     IncreaseNodeGroupsInGlobalReplicationGroup' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "IncreaseNodeGroupsInGlobalReplicationGroup" ::
-                   ByteString
-               ),
-          "Version" =: ("2015-02-02" :: ByteString),
+            Prelude.=: ( "IncreaseNodeGroupsInGlobalReplicationGroup" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2015-02-02" :: Prelude.ByteString),
           "RegionalConfigurations"
-            =: toQuery
-              ( toQueryList "RegionalConfiguration"
-                  <$> _ingigrgRegionalConfigurations
+            Prelude.=: Prelude.toQuery
+              ( Prelude.toQueryList "RegionalConfiguration"
+                  Prelude.<$> regionalConfigurations
               ),
           "GlobalReplicationGroupId"
-            =: _ingigrgGlobalReplicationGroupId,
-          "NodeGroupCount" =: _ingigrgNodeGroupCount,
-          "ApplyImmediately" =: _ingigrgApplyImmediately
+            Prelude.=: globalReplicationGroupId,
+          "NodeGroupCount" Prelude.=: nodeGroupCount,
+          "ApplyImmediately" Prelude.=: applyImmediately
         ]
 
--- | /See:/ 'increaseNodeGroupsInGlobalReplicationGroupResponse' smart constructor.
+-- | /See:/ 'newIncreaseNodeGroupsInGlobalReplicationGroupResponse' smart constructor.
 data IncreaseNodeGroupsInGlobalReplicationGroupResponse = IncreaseNodeGroupsInGlobalReplicationGroupResponse'
-  { _ingigrgrrsGlobalReplicationGroup ::
-      !( Maybe
-           GlobalReplicationGroup
-       ),
-    _ingigrgrrsResponseStatus ::
-      !Int
+  { globalReplicationGroup :: Prelude.Maybe GlobalReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IncreaseNodeGroupsInGlobalReplicationGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IncreaseNodeGroupsInGlobalReplicationGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ingigrgrrsGlobalReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ingigrgrrsResponseStatus' - -- | The response status code.
-increaseNodeGroupsInGlobalReplicationGroupResponse ::
-  -- | 'ingigrgrrsResponseStatus'
-  Int ->
+-- 'globalReplicationGroup', 'increaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'increaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus' - The response's http status code.
+newIncreaseNodeGroupsInGlobalReplicationGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   IncreaseNodeGroupsInGlobalReplicationGroupResponse
-increaseNodeGroupsInGlobalReplicationGroupResponse
-  pResponseStatus_ =
+newIncreaseNodeGroupsInGlobalReplicationGroupResponse
+  pHttpStatus_ =
     IncreaseNodeGroupsInGlobalReplicationGroupResponse'
-      { _ingigrgrrsGlobalReplicationGroup =
-          Nothing,
-        _ingigrgrrsResponseStatus =
-          pResponseStatus_
+      { globalReplicationGroup =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Undocumented member.
-ingigrgrrsGlobalReplicationGroup :: Lens' IncreaseNodeGroupsInGlobalReplicationGroupResponse (Maybe GlobalReplicationGroup)
-ingigrgrrsGlobalReplicationGroup = lens _ingigrgrrsGlobalReplicationGroup (\s a -> s {_ingigrgrrsGlobalReplicationGroup = a})
+increaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup :: Lens.Lens' IncreaseNodeGroupsInGlobalReplicationGroupResponse (Prelude.Maybe GlobalReplicationGroup)
+increaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup = Lens.lens (\IncreaseNodeGroupsInGlobalReplicationGroupResponse' {globalReplicationGroup} -> globalReplicationGroup) (\s@IncreaseNodeGroupsInGlobalReplicationGroupResponse' {} a -> s {globalReplicationGroup = a} :: IncreaseNodeGroupsInGlobalReplicationGroupResponse)
 
--- | -- | The response status code.
-ingigrgrrsResponseStatus :: Lens' IncreaseNodeGroupsInGlobalReplicationGroupResponse Int
-ingigrgrrsResponseStatus = lens _ingigrgrrsResponseStatus (\s a -> s {_ingigrgrrsResponseStatus = a})
+-- | The response's http status code.
+increaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus :: Lens.Lens' IncreaseNodeGroupsInGlobalReplicationGroupResponse Prelude.Int
+increaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus = Lens.lens (\IncreaseNodeGroupsInGlobalReplicationGroupResponse' {httpStatus} -> httpStatus) (\s@IncreaseNodeGroupsInGlobalReplicationGroupResponse' {} a -> s {httpStatus = a} :: IncreaseNodeGroupsInGlobalReplicationGroupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     IncreaseNodeGroupsInGlobalReplicationGroupResponse

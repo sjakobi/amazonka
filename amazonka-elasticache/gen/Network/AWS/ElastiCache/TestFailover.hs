@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Represents the input of a @TestFailover@ operation which test automatic failover on a specified node group (called shard in the console) in a replication group (called cluster in the console).
---
+-- Represents the input of a @TestFailover@ operation which test automatic
+-- failover on a specified node group (called shard in the console) in a
+-- replication group (called cluster in the console).
 --
 -- __Note the following__
 --
---     * A customer can use this operation to test automatic failover on up to 5 shards (called node groups in the ElastiCache API and AWS CLI) in any rolling 24-hour period.
+-- -   A customer can use this operation to test automatic failover on up
+--     to 5 shards (called node groups in the ElastiCache API and AWS CLI)
+--     in any rolling 24-hour period.
 --
---     * If calling this operation on shards in different clusters (called replication groups in the API and CLI), the calls can be made concurrently.
+-- -   If calling this operation on shards in different clusters (called
+--     replication groups in the API and CLI), the calls can be made
+--     concurrently.
 --
+-- -   If calling this operation multiple times on different shards in the
+--     same Redis (cluster mode enabled) replication group, the first node
+--     replacement must complete before a subsequent call can be made.
 --
+-- -   To determine whether the node replacement is complete you can check
+--     Events using the Amazon ElastiCache console, the AWS CLI, or the
+--     ElastiCache API. Look for the following automatic failover related
+--     events, listed here in order of occurrance:
 --
---     * If calling this operation multiple times on different shards in the same Redis (cluster mode enabled) replication group, the first node replacement must complete before a subsequent call can be made.
+--     1.  Replication group message:
+--         @Test Failover API called for node group \<node-group-id>@
 --
---     * To determine whether the node replacement is complete you can check Events using the Amazon ElastiCache console, the AWS CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in order of occurrance:
+--     2.  Cache cluster message:
+--         @Failover from primary node \<primary-node-id> to replica node \<node-id> completed@
 --
---     * Replication group message: @Test Failover API called for node group <node-group-id>@
+--     3.  Replication group message:
+--         @Failover from primary node \<primary-node-id> to replica node \<node-id> completed@
 --
---     * Cache cluster message: @Failover from primary node <primary-node-id> to replica node <node-id> completed@
+--     4.  Cache cluster message: @Recovering cache nodes \<node-id>@
 --
---     * Replication group message: @Failover from primary node <primary-node-id> to replica node <node-id> completed@
+--     5.  Cache cluster message:
+--         @Finished recovery for cache nodes \<node-id>@
 --
---     * Cache cluster message: @Recovering cache nodes <node-id>@
+--     For more information see:
 --
---     * Cache cluster message: @Finished recovery for cache nodes <node-id>@
+--     -   <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ECEvents.Viewing.html Viewing ElastiCache Events>
+--         in the /ElastiCache User Guide/
 --
+--     -   <https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_DescribeEvents.html DescribeEvents>
+--         in the ElastiCache API Reference
 --
---
--- For more information see:
---
---     * <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ECEvents.Viewing.html Viewing ElastiCache Events> in the /ElastiCache User Guide/
---
---     * <https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_DescribeEvents.html DescribeEvents> in the ElastiCache API Reference
---
---
---
---
---
--- Also see, <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test Testing Multi-AZ > in the /ElastiCache User Guide/ .
+-- Also see,
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test Testing Multi-AZ>
+-- in the /ElastiCache User Guide/.
 module Network.AWS.ElastiCache.TestFailover
   ( -- * Creating a Request
-    testFailover,
-    TestFailover,
+    TestFailover (..),
+    newTestFailover,
 
     -- * Request Lenses
-    tfReplicationGroupId,
-    tfNodeGroupId,
+    testFailover_replicationGroupId,
+    testFailover_nodeGroupId,
 
     -- * Destructuring the Response
-    testFailoverResponse,
-    TestFailoverResponse,
+    TestFailoverResponse (..),
+    newTestFailoverResponse,
 
     -- * Response Lenses
-    tfrrsReplicationGroup,
-    tfrrsResponseStatus,
+    testFailoverResponse_replicationGroup,
+    testFailoverResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.ReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'testFailover' smart constructor.
+-- | /See:/ 'newTestFailover' smart constructor.
 data TestFailover = TestFailover'
-  { _tfReplicationGroupId ::
-      !Text,
-    _tfNodeGroupId :: !Text
+  { -- | The name of the replication group (console: cluster) whose automatic
+    -- failover is being tested by this operation.
+    replicationGroupId :: Prelude.Text,
+    -- | The name of the node group (called shard in the console) in this
+    -- replication group on which automatic failover is to be tested. You may
+    -- test automatic failover on up to 5 node groups in any rolling 24-hour
+    -- period.
+    nodeGroupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestFailover' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestFailover' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tfReplicationGroupId' - The name of the replication group (console: cluster) whose automatic failover is being tested by this operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tfNodeGroupId' - The name of the node group (called shard in the console) in this replication group on which automatic failover is to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour period.
-testFailover ::
-  -- | 'tfReplicationGroupId'
-  Text ->
-  -- | 'tfNodeGroupId'
-  Text ->
+-- 'replicationGroupId', 'testFailover_replicationGroupId' - The name of the replication group (console: cluster) whose automatic
+-- failover is being tested by this operation.
+--
+-- 'nodeGroupId', 'testFailover_nodeGroupId' - The name of the node group (called shard in the console) in this
+-- replication group on which automatic failover is to be tested. You may
+-- test automatic failover on up to 5 node groups in any rolling 24-hour
+-- period.
+newTestFailover ::
+  -- | 'replicationGroupId'
+  Prelude.Text ->
+  -- | 'nodeGroupId'
+  Prelude.Text ->
   TestFailover
-testFailover pReplicationGroupId_ pNodeGroupId_ =
+newTestFailover pReplicationGroupId_ pNodeGroupId_ =
   TestFailover'
-    { _tfReplicationGroupId =
+    { replicationGroupId =
         pReplicationGroupId_,
-      _tfNodeGroupId = pNodeGroupId_
+      nodeGroupId = pNodeGroupId_
     }
 
--- | The name of the replication group (console: cluster) whose automatic failover is being tested by this operation.
-tfReplicationGroupId :: Lens' TestFailover Text
-tfReplicationGroupId = lens _tfReplicationGroupId (\s a -> s {_tfReplicationGroupId = a})
+-- | The name of the replication group (console: cluster) whose automatic
+-- failover is being tested by this operation.
+testFailover_replicationGroupId :: Lens.Lens' TestFailover Prelude.Text
+testFailover_replicationGroupId = Lens.lens (\TestFailover' {replicationGroupId} -> replicationGroupId) (\s@TestFailover' {} a -> s {replicationGroupId = a} :: TestFailover)
 
--- | The name of the node group (called shard in the console) in this replication group on which automatic failover is to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour period.
-tfNodeGroupId :: Lens' TestFailover Text
-tfNodeGroupId = lens _tfNodeGroupId (\s a -> s {_tfNodeGroupId = a})
+-- | The name of the node group (called shard in the console) in this
+-- replication group on which automatic failover is to be tested. You may
+-- test automatic failover on up to 5 node groups in any rolling 24-hour
+-- period.
+testFailover_nodeGroupId :: Lens.Lens' TestFailover Prelude.Text
+testFailover_nodeGroupId = Lens.lens (\TestFailover' {nodeGroupId} -> nodeGroupId) (\s@TestFailover' {} a -> s {nodeGroupId = a} :: TestFailover)
 
-instance AWSRequest TestFailover where
+instance Prelude.AWSRequest TestFailover where
   type Rs TestFailover = TestFailoverResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "TestFailoverResult"
       ( \s h x ->
           TestFailoverResponse'
-            <$> (x .@? "ReplicationGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ReplicationGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestFailover
+instance Prelude.Hashable TestFailover
 
-instance NFData TestFailover
+instance Prelude.NFData TestFailover
 
-instance ToHeaders TestFailover where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TestFailover where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath TestFailover where
-  toPath = const "/"
+instance Prelude.ToPath TestFailover where
+  toPath = Prelude.const "/"
 
-instance ToQuery TestFailover where
+instance Prelude.ToQuery TestFailover where
   toQuery TestFailover' {..} =
-    mconcat
-      [ "Action" =: ("TestFailover" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "ReplicationGroupId" =: _tfReplicationGroupId,
-        "NodeGroupId" =: _tfNodeGroupId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("TestFailover" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "ReplicationGroupId" Prelude.=: replicationGroupId,
+        "NodeGroupId" Prelude.=: nodeGroupId
       ]
 
--- | /See:/ 'testFailoverResponse' smart constructor.
+-- | /See:/ 'newTestFailoverResponse' smart constructor.
 data TestFailoverResponse = TestFailoverResponse'
-  { _tfrrsReplicationGroup ::
-      !(Maybe ReplicationGroup),
-    _tfrrsResponseStatus :: !Int
+  { replicationGroup :: Prelude.Maybe ReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestFailoverResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestFailoverResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tfrrsReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tfrrsResponseStatus' - -- | The response status code.
-testFailoverResponse ::
-  -- | 'tfrrsResponseStatus'
-  Int ->
+-- 'replicationGroup', 'testFailoverResponse_replicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'testFailoverResponse_httpStatus' - The response's http status code.
+newTestFailoverResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestFailoverResponse
-testFailoverResponse pResponseStatus_ =
+newTestFailoverResponse pHttpStatus_ =
   TestFailoverResponse'
-    { _tfrrsReplicationGroup =
-        Nothing,
-      _tfrrsResponseStatus = pResponseStatus_
+    { replicationGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-tfrrsReplicationGroup :: Lens' TestFailoverResponse (Maybe ReplicationGroup)
-tfrrsReplicationGroup = lens _tfrrsReplicationGroup (\s a -> s {_tfrrsReplicationGroup = a})
+testFailoverResponse_replicationGroup :: Lens.Lens' TestFailoverResponse (Prelude.Maybe ReplicationGroup)
+testFailoverResponse_replicationGroup = Lens.lens (\TestFailoverResponse' {replicationGroup} -> replicationGroup) (\s@TestFailoverResponse' {} a -> s {replicationGroup = a} :: TestFailoverResponse)
 
--- | -- | The response status code.
-tfrrsResponseStatus :: Lens' TestFailoverResponse Int
-tfrrsResponseStatus = lens _tfrrsResponseStatus (\s a -> s {_tfrrsResponseStatus = a})
+-- | The response's http status code.
+testFailoverResponse_httpStatus :: Lens.Lens' TestFailoverResponse Prelude.Int
+testFailoverResponse_httpStatus = Lens.lens (\TestFailoverResponse' {httpStatus} -> httpStatus) (\s@TestFailoverResponse' {} a -> s {httpStatus = a} :: TestFailoverResponse)
 
-instance NFData TestFailoverResponse
+instance Prelude.NFData TestFailoverResponse

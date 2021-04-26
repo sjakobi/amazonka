@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,119 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Creates a Redis user group. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>
+-- For Redis engine version 6.x onwards: Creates a Redis user group. For
+-- more information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>
 module Network.AWS.ElastiCache.CreateUserGroup
   ( -- * Creating a Request
-    createUserGroup,
-    CreateUserGroup,
+    CreateUserGroup (..),
+    newCreateUserGroup,
 
     -- * Request Lenses
-    cugUserIds,
-    cugUserGroupId,
-    cugEngine,
+    createUserGroup_userIds,
+    createUserGroup_userGroupId,
+    createUserGroup_engine,
 
     -- * Destructuring the Response
-    userGroup,
-    UserGroup,
+    UserGroup (..),
+    newUserGroup,
 
     -- * Response Lenses
-    ugStatus,
-    ugReplicationGroups,
-    ugARN,
-    ugUserIds,
-    ugEngine,
-    ugUserGroupId,
-    ugPendingChanges,
+    userGroup_status,
+    userGroup_replicationGroups,
+    userGroup_aRN,
+    userGroup_userIds,
+    userGroup_engine,
+    userGroup_userGroupId,
+    userGroup_pendingChanges,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.UserGroup
+import Network.AWS.ElastiCache.Types.UserGroupPendingChanges
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUserGroup' smart constructor.
+-- | /See:/ 'newCreateUserGroup' smart constructor.
 data CreateUserGroup = CreateUserGroup'
-  { _cugUserIds ::
-      !(Maybe (List1 Text)),
-    _cugUserGroupId :: !Text,
-    _cugEngine :: !Text
+  { -- | The list of user IDs that belong to the user group.
+    userIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The ID of the user group.
+    userGroupId :: Prelude.Text,
+    -- | The current supported value is Redis.
+    engine :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cugUserIds' - The list of user IDs that belong to the user group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cugUserGroupId' - The ID of the user group.
+-- 'userIds', 'createUserGroup_userIds' - The list of user IDs that belong to the user group.
 --
--- * 'cugEngine' - The current supported value is Redis.
-createUserGroup ::
-  -- | 'cugUserGroupId'
-  Text ->
-  -- | 'cugEngine'
-  Text ->
+-- 'userGroupId', 'createUserGroup_userGroupId' - The ID of the user group.
+--
+-- 'engine', 'createUserGroup_engine' - The current supported value is Redis.
+newCreateUserGroup ::
+  -- | 'userGroupId'
+  Prelude.Text ->
+  -- | 'engine'
+  Prelude.Text ->
   CreateUserGroup
-createUserGroup pUserGroupId_ pEngine_ =
+newCreateUserGroup pUserGroupId_ pEngine_ =
   CreateUserGroup'
-    { _cugUserIds = Nothing,
-      _cugUserGroupId = pUserGroupId_,
-      _cugEngine = pEngine_
+    { userIds = Prelude.Nothing,
+      userGroupId = pUserGroupId_,
+      engine = pEngine_
     }
 
 -- | The list of user IDs that belong to the user group.
-cugUserIds :: Lens' CreateUserGroup (Maybe (NonEmpty Text))
-cugUserIds = lens _cugUserIds (\s a -> s {_cugUserIds = a}) . mapping _List1
+createUserGroup_userIds :: Lens.Lens' CreateUserGroup (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+createUserGroup_userIds = Lens.lens (\CreateUserGroup' {userIds} -> userIds) (\s@CreateUserGroup' {} a -> s {userIds = a} :: CreateUserGroup) Prelude.. Lens.mapping Prelude._List1
 
 -- | The ID of the user group.
-cugUserGroupId :: Lens' CreateUserGroup Text
-cugUserGroupId = lens _cugUserGroupId (\s a -> s {_cugUserGroupId = a})
+createUserGroup_userGroupId :: Lens.Lens' CreateUserGroup Prelude.Text
+createUserGroup_userGroupId = Lens.lens (\CreateUserGroup' {userGroupId} -> userGroupId) (\s@CreateUserGroup' {} a -> s {userGroupId = a} :: CreateUserGroup)
 
 -- | The current supported value is Redis.
-cugEngine :: Lens' CreateUserGroup Text
-cugEngine = lens _cugEngine (\s a -> s {_cugEngine = a})
+createUserGroup_engine :: Lens.Lens' CreateUserGroup Prelude.Text
+createUserGroup_engine = Lens.lens (\CreateUserGroup' {engine} -> engine) (\s@CreateUserGroup' {} a -> s {engine = a} :: CreateUserGroup)
 
-instance AWSRequest CreateUserGroup where
+instance Prelude.AWSRequest CreateUserGroup where
   type Rs CreateUserGroup = UserGroup
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateUserGroupResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable CreateUserGroup
+instance Prelude.Hashable CreateUserGroup
 
-instance NFData CreateUserGroup
+instance Prelude.NFData CreateUserGroup
 
-instance ToHeaders CreateUserGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateUserGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateUserGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateUserGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUserGroup where
+instance Prelude.ToQuery CreateUserGroup where
   toQuery CreateUserGroup' {..} =
-    mconcat
-      [ "Action" =: ("CreateUserGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateUserGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "UserIds"
-          =: toQuery (toQueryList "member" <$> _cugUserIds),
-        "UserGroupId" =: _cugUserGroupId,
-        "Engine" =: _cugEngine
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> userIds),
+        "UserGroupId" Prelude.=: userGroupId,
+        "Engine" Prelude.=: engine
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,144 @@
 -- Start the migration of data.
 module Network.AWS.ElastiCache.StartMigration
   ( -- * Creating a Request
-    startMigration,
-    StartMigration,
+    StartMigration (..),
+    newStartMigration,
 
     -- * Request Lenses
-    smReplicationGroupId,
-    smCustomerNodeEndpointList,
+    startMigration_replicationGroupId,
+    startMigration_customerNodeEndpointList,
 
     -- * Destructuring the Response
-    startMigrationResponse,
-    StartMigrationResponse,
+    StartMigrationResponse (..),
+    newStartMigrationResponse,
 
     -- * Response Lenses
-    smrrsReplicationGroup,
-    smrrsResponseStatus,
+    startMigrationResponse_replicationGroup,
+    startMigrationResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.ReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startMigration' smart constructor.
+-- | /See:/ 'newStartMigration' smart constructor.
 data StartMigration = StartMigration'
-  { _smReplicationGroupId ::
-      !Text,
-    _smCustomerNodeEndpointList ::
-      ![CustomerNodeEndpoint]
+  { -- | The ID of the replication group to which data should be migrated.
+    replicationGroupId :: Prelude.Text,
+    -- | List of endpoints from which data should be migrated. For Redis (cluster
+    -- mode disabled), list should have only one element.
+    customerNodeEndpointList :: [CustomerNodeEndpoint]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMigration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMigration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smReplicationGroupId' - The ID of the replication group to which data should be migrated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smCustomerNodeEndpointList' - List of endpoints from which data should be migrated. For Redis (cluster mode disabled), list should have only one element.
-startMigration ::
-  -- | 'smReplicationGroupId'
-  Text ->
+-- 'replicationGroupId', 'startMigration_replicationGroupId' - The ID of the replication group to which data should be migrated.
+--
+-- 'customerNodeEndpointList', 'startMigration_customerNodeEndpointList' - List of endpoints from which data should be migrated. For Redis (cluster
+-- mode disabled), list should have only one element.
+newStartMigration ::
+  -- | 'replicationGroupId'
+  Prelude.Text ->
   StartMigration
-startMigration pReplicationGroupId_ =
+newStartMigration pReplicationGroupId_ =
   StartMigration'
-    { _smReplicationGroupId =
+    { replicationGroupId =
         pReplicationGroupId_,
-      _smCustomerNodeEndpointList = mempty
+      customerNodeEndpointList = Prelude.mempty
     }
 
 -- | The ID of the replication group to which data should be migrated.
-smReplicationGroupId :: Lens' StartMigration Text
-smReplicationGroupId = lens _smReplicationGroupId (\s a -> s {_smReplicationGroupId = a})
+startMigration_replicationGroupId :: Lens.Lens' StartMigration Prelude.Text
+startMigration_replicationGroupId = Lens.lens (\StartMigration' {replicationGroupId} -> replicationGroupId) (\s@StartMigration' {} a -> s {replicationGroupId = a} :: StartMigration)
 
--- | List of endpoints from which data should be migrated. For Redis (cluster mode disabled), list should have only one element.
-smCustomerNodeEndpointList :: Lens' StartMigration [CustomerNodeEndpoint]
-smCustomerNodeEndpointList = lens _smCustomerNodeEndpointList (\s a -> s {_smCustomerNodeEndpointList = a}) . _Coerce
+-- | List of endpoints from which data should be migrated. For Redis (cluster
+-- mode disabled), list should have only one element.
+startMigration_customerNodeEndpointList :: Lens.Lens' StartMigration [CustomerNodeEndpoint]
+startMigration_customerNodeEndpointList = Lens.lens (\StartMigration' {customerNodeEndpointList} -> customerNodeEndpointList) (\s@StartMigration' {} a -> s {customerNodeEndpointList = a} :: StartMigration) Prelude.. Prelude._Coerce
 
-instance AWSRequest StartMigration where
+instance Prelude.AWSRequest StartMigration where
   type Rs StartMigration = StartMigrationResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "StartMigrationResult"
       ( \s h x ->
           StartMigrationResponse'
-            <$> (x .@? "ReplicationGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ReplicationGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartMigration
+instance Prelude.Hashable StartMigration
 
-instance NFData StartMigration
+instance Prelude.NFData StartMigration
 
-instance ToHeaders StartMigration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartMigration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath StartMigration where
-  toPath = const "/"
+instance Prelude.ToPath StartMigration where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartMigration where
+instance Prelude.ToQuery StartMigration where
   toQuery StartMigration' {..} =
-    mconcat
-      [ "Action" =: ("StartMigration" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "ReplicationGroupId" =: _smReplicationGroupId,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("StartMigration" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "ReplicationGroupId" Prelude.=: replicationGroupId,
         "CustomerNodeEndpointList"
-          =: toQueryList "member" _smCustomerNodeEndpointList
+          Prelude.=: Prelude.toQueryList
+            "member"
+            customerNodeEndpointList
       ]
 
--- | /See:/ 'startMigrationResponse' smart constructor.
+-- | /See:/ 'newStartMigrationResponse' smart constructor.
 data StartMigrationResponse = StartMigrationResponse'
-  { _smrrsReplicationGroup ::
-      !(Maybe ReplicationGroup),
-    _smrrsResponseStatus ::
-      !Int
+  { replicationGroup :: Prelude.Maybe ReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMigrationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMigrationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smrrsReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smrrsResponseStatus' - -- | The response status code.
-startMigrationResponse ::
-  -- | 'smrrsResponseStatus'
-  Int ->
+-- 'replicationGroup', 'startMigrationResponse_replicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'startMigrationResponse_httpStatus' - The response's http status code.
+newStartMigrationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartMigrationResponse
-startMigrationResponse pResponseStatus_ =
+newStartMigrationResponse pHttpStatus_ =
   StartMigrationResponse'
-    { _smrrsReplicationGroup =
-        Nothing,
-      _smrrsResponseStatus = pResponseStatus_
+    { replicationGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-smrrsReplicationGroup :: Lens' StartMigrationResponse (Maybe ReplicationGroup)
-smrrsReplicationGroup = lens _smrrsReplicationGroup (\s a -> s {_smrrsReplicationGroup = a})
+startMigrationResponse_replicationGroup :: Lens.Lens' StartMigrationResponse (Prelude.Maybe ReplicationGroup)
+startMigrationResponse_replicationGroup = Lens.lens (\StartMigrationResponse' {replicationGroup} -> replicationGroup) (\s@StartMigrationResponse' {} a -> s {replicationGroup = a} :: StartMigrationResponse)
 
--- | -- | The response status code.
-smrrsResponseStatus :: Lens' StartMigrationResponse Int
-smrrsResponseStatus = lens _smrrsResponseStatus (\s a -> s {_smrrsResponseStatus = a})
+-- | The response's http status code.
+startMigrationResponse_httpStatus :: Lens.Lens' StartMigrationResponse Prelude.Int
+startMigrationResponse_httpStatus = Lens.lens (\StartMigrationResponse' {httpStatus} -> httpStatus) (\s@StartMigrationResponse' {} a -> s {httpStatus = a} :: StartMigrationResponse)
 
-instance NFData StartMigrationResponse
+instance Prelude.NFData StartMigrationResponse

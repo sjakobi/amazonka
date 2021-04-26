@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.CacheParameterGroupStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Status of the cache parameter group.
 --
---
---
--- /See:/ 'cacheParameterGroupStatus' smart constructor.
+-- /See:/ 'newCacheParameterGroupStatus' smart constructor.
 data CacheParameterGroupStatus = CacheParameterGroupStatus'
-  { _cpgsCacheParameterGroupName ::
-      !(Maybe Text),
-    _cpgsParameterApplyStatus ::
-      !(Maybe Text),
-    _cpgsCacheNodeIdsToReboot ::
-      !(Maybe [Text])
+  { -- | The name of the cache parameter group.
+    cacheParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The status of parameter updates.
+    parameterApplyStatus :: Prelude.Maybe Prelude.Text,
+    -- | A list of the cache node IDs which need to be rebooted for parameter
+    -- changes to be applied. A node ID is a numeric identifier (0001, 0002,
+    -- etc.).
+    cacheNodeIdsToReboot :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheParameterGroupStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheParameterGroupStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgsCacheParameterGroupName' - The name of the cache parameter group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpgsParameterApplyStatus' - The status of parameter updates.
+-- 'cacheParameterGroupName', 'cacheParameterGroupStatus_cacheParameterGroupName' - The name of the cache parameter group.
 --
--- * 'cpgsCacheNodeIdsToReboot' - A list of the cache node IDs which need to be rebooted for parameter changes to be applied. A node ID is a numeric identifier (0001, 0002, etc.).
-cacheParameterGroupStatus ::
+-- 'parameterApplyStatus', 'cacheParameterGroupStatus_parameterApplyStatus' - The status of parameter updates.
+--
+-- 'cacheNodeIdsToReboot', 'cacheParameterGroupStatus_cacheNodeIdsToReboot' - A list of the cache node IDs which need to be rebooted for parameter
+-- changes to be applied. A node ID is a numeric identifier (0001, 0002,
+-- etc.).
+newCacheParameterGroupStatus ::
   CacheParameterGroupStatus
-cacheParameterGroupStatus =
+newCacheParameterGroupStatus =
   CacheParameterGroupStatus'
-    { _cpgsCacheParameterGroupName =
-        Nothing,
-      _cpgsParameterApplyStatus = Nothing,
-      _cpgsCacheNodeIdsToReboot = Nothing
+    { cacheParameterGroupName =
+        Prelude.Nothing,
+      parameterApplyStatus = Prelude.Nothing,
+      cacheNodeIdsToReboot = Prelude.Nothing
     }
 
 -- | The name of the cache parameter group.
-cpgsCacheParameterGroupName :: Lens' CacheParameterGroupStatus (Maybe Text)
-cpgsCacheParameterGroupName = lens _cpgsCacheParameterGroupName (\s a -> s {_cpgsCacheParameterGroupName = a})
+cacheParameterGroupStatus_cacheParameterGroupName :: Lens.Lens' CacheParameterGroupStatus (Prelude.Maybe Prelude.Text)
+cacheParameterGroupStatus_cacheParameterGroupName = Lens.lens (\CacheParameterGroupStatus' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@CacheParameterGroupStatus' {} a -> s {cacheParameterGroupName = a} :: CacheParameterGroupStatus)
 
 -- | The status of parameter updates.
-cpgsParameterApplyStatus :: Lens' CacheParameterGroupStatus (Maybe Text)
-cpgsParameterApplyStatus = lens _cpgsParameterApplyStatus (\s a -> s {_cpgsParameterApplyStatus = a})
+cacheParameterGroupStatus_parameterApplyStatus :: Lens.Lens' CacheParameterGroupStatus (Prelude.Maybe Prelude.Text)
+cacheParameterGroupStatus_parameterApplyStatus = Lens.lens (\CacheParameterGroupStatus' {parameterApplyStatus} -> parameterApplyStatus) (\s@CacheParameterGroupStatus' {} a -> s {parameterApplyStatus = a} :: CacheParameterGroupStatus)
 
--- | A list of the cache node IDs which need to be rebooted for parameter changes to be applied. A node ID is a numeric identifier (0001, 0002, etc.).
-cpgsCacheNodeIdsToReboot :: Lens' CacheParameterGroupStatus [Text]
-cpgsCacheNodeIdsToReboot = lens _cpgsCacheNodeIdsToReboot (\s a -> s {_cpgsCacheNodeIdsToReboot = a}) . _Default . _Coerce
+-- | A list of the cache node IDs which need to be rebooted for parameter
+-- changes to be applied. A node ID is a numeric identifier (0001, 0002,
+-- etc.).
+cacheParameterGroupStatus_cacheNodeIdsToReboot :: Lens.Lens' CacheParameterGroupStatus (Prelude.Maybe [Prelude.Text])
+cacheParameterGroupStatus_cacheNodeIdsToReboot = Lens.lens (\CacheParameterGroupStatus' {cacheNodeIdsToReboot} -> cacheNodeIdsToReboot) (\s@CacheParameterGroupStatus' {} a -> s {cacheNodeIdsToReboot = a} :: CacheParameterGroupStatus) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML CacheParameterGroupStatus where
+instance Prelude.FromXML CacheParameterGroupStatus where
   parseXML x =
     CacheParameterGroupStatus'
-      <$> (x .@? "CacheParameterGroupName")
-      <*> (x .@? "ParameterApplyStatus")
-      <*> ( x .@? "CacheNodeIdsToReboot" .!@ mempty
-              >>= may (parseXMLList "CacheNodeId")
-          )
+      Prelude.<$> (x Prelude..@? "CacheParameterGroupName")
+      Prelude.<*> (x Prelude..@? "ParameterApplyStatus")
+      Prelude.<*> ( x Prelude..@? "CacheNodeIdsToReboot"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "CacheNodeId")
+                  )
 
-instance Hashable CacheParameterGroupStatus
+instance Prelude.Hashable CacheParameterGroupStatus
 
-instance NFData CacheParameterGroupStatus
+instance Prelude.NFData CacheParameterGroupStatus

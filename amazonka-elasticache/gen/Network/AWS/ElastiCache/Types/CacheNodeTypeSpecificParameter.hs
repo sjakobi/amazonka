@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,149 +21,160 @@ module Network.AWS.ElastiCache.Types.CacheNodeTypeSpecificParameter where
 
 import Network.AWS.ElastiCache.Types.CacheNodeTypeSpecificValue
 import Network.AWS.ElastiCache.Types.ChangeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A parameter that has a different value for each cache node type it is applied to. For example, in a Redis cluster, a @cache.m1.large@ cache node type would have a larger @maxmemory@ value than a @cache.m1.small@ type.
+-- | A parameter that has a different value for each cache node type it is
+-- applied to. For example, in a Redis cluster, a @cache.m1.large@ cache
+-- node type would have a larger @maxmemory@ value than a @cache.m1.small@
+-- type.
 --
---
---
--- /See:/ 'cacheNodeTypeSpecificParameter' smart constructor.
+-- /See:/ 'newCacheNodeTypeSpecificParameter' smart constructor.
 data CacheNodeTypeSpecificParameter = CacheNodeTypeSpecificParameter'
-  { _cntspChangeType ::
-      !( Maybe
-           ChangeType
-       ),
-    _cntspAllowedValues ::
-      !( Maybe
-           Text
-       ),
-    _cntspSource ::
-      !( Maybe
-           Text
-       ),
-    _cntspCacheNodeTypeSpecificValues ::
-      !( Maybe
-           [CacheNodeTypeSpecificValue]
-       ),
-    _cntspParameterName ::
-      !( Maybe
-           Text
-       ),
-    _cntspDescription ::
-      !( Maybe
-           Text
-       ),
-    _cntspDataType ::
-      !( Maybe
-           Text
-       ),
-    _cntspIsModifiable ::
-      !( Maybe
-           Bool
-       ),
-    _cntspMinimumEngineVersion ::
-      !( Maybe
-           Text
-       )
+  { -- | Indicates whether a change to the parameter is applied immediately or
+    -- requires a reboot for the change to be applied. You can force a reboot
+    -- or wait until the next maintenance window\'s reboot. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster>.
+    changeType :: Prelude.Maybe ChangeType,
+    -- | The valid range of values for the parameter.
+    allowedValues :: Prelude.Maybe Prelude.Text,
+    -- | The source of the parameter value.
+    source :: Prelude.Maybe Prelude.Text,
+    -- | A list of cache node types and their corresponding values for this
+    -- parameter.
+    cacheNodeTypeSpecificValues :: Prelude.Maybe [CacheNodeTypeSpecificValue],
+    -- | The name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the parameter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The valid data type for the parameter.
+    dataType :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether (@true@) or not (@false@) the parameter can be
+    -- modified. Some parameters have security or operational implications that
+    -- prevent them from being changed.
+    isModifiable :: Prelude.Maybe Prelude.Bool,
+    -- | The earliest cache engine version to which the parameter can apply.
+    minimumEngineVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheNodeTypeSpecificParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheNodeTypeSpecificParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cntspChangeType' - Indicates whether a change to the parameter is applied immediately or requires a reboot for the change to be applied. You can force a reboot or wait until the next maintenance window's reboot. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cntspAllowedValues' - The valid range of values for the parameter.
+-- 'changeType', 'cacheNodeTypeSpecificParameter_changeType' - Indicates whether a change to the parameter is applied immediately or
+-- requires a reboot for the change to be applied. You can force a reboot
+-- or wait until the next maintenance window\'s reboot. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster>.
 --
--- * 'cntspSource' - The source of the parameter value.
+-- 'allowedValues', 'cacheNodeTypeSpecificParameter_allowedValues' - The valid range of values for the parameter.
 --
--- * 'cntspCacheNodeTypeSpecificValues' - A list of cache node types and their corresponding values for this parameter.
+-- 'source', 'cacheNodeTypeSpecificParameter_source' - The source of the parameter value.
 --
--- * 'cntspParameterName' - The name of the parameter.
+-- 'cacheNodeTypeSpecificValues', 'cacheNodeTypeSpecificParameter_cacheNodeTypeSpecificValues' - A list of cache node types and their corresponding values for this
+-- parameter.
 --
--- * 'cntspDescription' - A description of the parameter.
+-- 'parameterName', 'cacheNodeTypeSpecificParameter_parameterName' - The name of the parameter.
 --
--- * 'cntspDataType' - The valid data type for the parameter.
+-- 'description', 'cacheNodeTypeSpecificParameter_description' - A description of the parameter.
 --
--- * 'cntspIsModifiable' - Indicates whether (@true@ ) or not (@false@ ) the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed.
+-- 'dataType', 'cacheNodeTypeSpecificParameter_dataType' - The valid data type for the parameter.
 --
--- * 'cntspMinimumEngineVersion' - The earliest cache engine version to which the parameter can apply.
-cacheNodeTypeSpecificParameter ::
+-- 'isModifiable', 'cacheNodeTypeSpecificParameter_isModifiable' - Indicates whether (@true@) or not (@false@) the parameter can be
+-- modified. Some parameters have security or operational implications that
+-- prevent them from being changed.
+--
+-- 'minimumEngineVersion', 'cacheNodeTypeSpecificParameter_minimumEngineVersion' - The earliest cache engine version to which the parameter can apply.
+newCacheNodeTypeSpecificParameter ::
   CacheNodeTypeSpecificParameter
-cacheNodeTypeSpecificParameter =
+newCacheNodeTypeSpecificParameter =
   CacheNodeTypeSpecificParameter'
-    { _cntspChangeType =
-        Nothing,
-      _cntspAllowedValues = Nothing,
-      _cntspSource = Nothing,
-      _cntspCacheNodeTypeSpecificValues = Nothing,
-      _cntspParameterName = Nothing,
-      _cntspDescription = Nothing,
-      _cntspDataType = Nothing,
-      _cntspIsModifiable = Nothing,
-      _cntspMinimumEngineVersion = Nothing
+    { changeType =
+        Prelude.Nothing,
+      allowedValues = Prelude.Nothing,
+      source = Prelude.Nothing,
+      cacheNodeTypeSpecificValues =
+        Prelude.Nothing,
+      parameterName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      dataType = Prelude.Nothing,
+      isModifiable = Prelude.Nothing,
+      minimumEngineVersion = Prelude.Nothing
     }
 
--- | Indicates whether a change to the parameter is applied immediately or requires a reboot for the change to be applied. You can force a reboot or wait until the next maintenance window's reboot. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster> .
-cntspChangeType :: Lens' CacheNodeTypeSpecificParameter (Maybe ChangeType)
-cntspChangeType = lens _cntspChangeType (\s a -> s {_cntspChangeType = a})
+-- | Indicates whether a change to the parameter is applied immediately or
+-- requires a reboot for the change to be applied. You can force a reboot
+-- or wait until the next maintenance window\'s reboot. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster>.
+cacheNodeTypeSpecificParameter_changeType :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe ChangeType)
+cacheNodeTypeSpecificParameter_changeType = Lens.lens (\CacheNodeTypeSpecificParameter' {changeType} -> changeType) (\s@CacheNodeTypeSpecificParameter' {} a -> s {changeType = a} :: CacheNodeTypeSpecificParameter)
 
 -- | The valid range of values for the parameter.
-cntspAllowedValues :: Lens' CacheNodeTypeSpecificParameter (Maybe Text)
-cntspAllowedValues = lens _cntspAllowedValues (\s a -> s {_cntspAllowedValues = a})
+cacheNodeTypeSpecificParameter_allowedValues :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Text)
+cacheNodeTypeSpecificParameter_allowedValues = Lens.lens (\CacheNodeTypeSpecificParameter' {allowedValues} -> allowedValues) (\s@CacheNodeTypeSpecificParameter' {} a -> s {allowedValues = a} :: CacheNodeTypeSpecificParameter)
 
 -- | The source of the parameter value.
-cntspSource :: Lens' CacheNodeTypeSpecificParameter (Maybe Text)
-cntspSource = lens _cntspSource (\s a -> s {_cntspSource = a})
+cacheNodeTypeSpecificParameter_source :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Text)
+cacheNodeTypeSpecificParameter_source = Lens.lens (\CacheNodeTypeSpecificParameter' {source} -> source) (\s@CacheNodeTypeSpecificParameter' {} a -> s {source = a} :: CacheNodeTypeSpecificParameter)
 
--- | A list of cache node types and their corresponding values for this parameter.
-cntspCacheNodeTypeSpecificValues :: Lens' CacheNodeTypeSpecificParameter [CacheNodeTypeSpecificValue]
-cntspCacheNodeTypeSpecificValues = lens _cntspCacheNodeTypeSpecificValues (\s a -> s {_cntspCacheNodeTypeSpecificValues = a}) . _Default . _Coerce
+-- | A list of cache node types and their corresponding values for this
+-- parameter.
+cacheNodeTypeSpecificParameter_cacheNodeTypeSpecificValues :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe [CacheNodeTypeSpecificValue])
+cacheNodeTypeSpecificParameter_cacheNodeTypeSpecificValues = Lens.lens (\CacheNodeTypeSpecificParameter' {cacheNodeTypeSpecificValues} -> cacheNodeTypeSpecificValues) (\s@CacheNodeTypeSpecificParameter' {} a -> s {cacheNodeTypeSpecificValues = a} :: CacheNodeTypeSpecificParameter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the parameter.
-cntspParameterName :: Lens' CacheNodeTypeSpecificParameter (Maybe Text)
-cntspParameterName = lens _cntspParameterName (\s a -> s {_cntspParameterName = a})
+cacheNodeTypeSpecificParameter_parameterName :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Text)
+cacheNodeTypeSpecificParameter_parameterName = Lens.lens (\CacheNodeTypeSpecificParameter' {parameterName} -> parameterName) (\s@CacheNodeTypeSpecificParameter' {} a -> s {parameterName = a} :: CacheNodeTypeSpecificParameter)
 
 -- | A description of the parameter.
-cntspDescription :: Lens' CacheNodeTypeSpecificParameter (Maybe Text)
-cntspDescription = lens _cntspDescription (\s a -> s {_cntspDescription = a})
+cacheNodeTypeSpecificParameter_description :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Text)
+cacheNodeTypeSpecificParameter_description = Lens.lens (\CacheNodeTypeSpecificParameter' {description} -> description) (\s@CacheNodeTypeSpecificParameter' {} a -> s {description = a} :: CacheNodeTypeSpecificParameter)
 
 -- | The valid data type for the parameter.
-cntspDataType :: Lens' CacheNodeTypeSpecificParameter (Maybe Text)
-cntspDataType = lens _cntspDataType (\s a -> s {_cntspDataType = a})
+cacheNodeTypeSpecificParameter_dataType :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Text)
+cacheNodeTypeSpecificParameter_dataType = Lens.lens (\CacheNodeTypeSpecificParameter' {dataType} -> dataType) (\s@CacheNodeTypeSpecificParameter' {} a -> s {dataType = a} :: CacheNodeTypeSpecificParameter)
 
--- | Indicates whether (@true@ ) or not (@false@ ) the parameter can be modified. Some parameters have security or operational implications that prevent them from being changed.
-cntspIsModifiable :: Lens' CacheNodeTypeSpecificParameter (Maybe Bool)
-cntspIsModifiable = lens _cntspIsModifiable (\s a -> s {_cntspIsModifiable = a})
+-- | Indicates whether (@true@) or not (@false@) the parameter can be
+-- modified. Some parameters have security or operational implications that
+-- prevent them from being changed.
+cacheNodeTypeSpecificParameter_isModifiable :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Bool)
+cacheNodeTypeSpecificParameter_isModifiable = Lens.lens (\CacheNodeTypeSpecificParameter' {isModifiable} -> isModifiable) (\s@CacheNodeTypeSpecificParameter' {} a -> s {isModifiable = a} :: CacheNodeTypeSpecificParameter)
 
 -- | The earliest cache engine version to which the parameter can apply.
-cntspMinimumEngineVersion :: Lens' CacheNodeTypeSpecificParameter (Maybe Text)
-cntspMinimumEngineVersion = lens _cntspMinimumEngineVersion (\s a -> s {_cntspMinimumEngineVersion = a})
+cacheNodeTypeSpecificParameter_minimumEngineVersion :: Lens.Lens' CacheNodeTypeSpecificParameter (Prelude.Maybe Prelude.Text)
+cacheNodeTypeSpecificParameter_minimumEngineVersion = Lens.lens (\CacheNodeTypeSpecificParameter' {minimumEngineVersion} -> minimumEngineVersion) (\s@CacheNodeTypeSpecificParameter' {} a -> s {minimumEngineVersion = a} :: CacheNodeTypeSpecificParameter)
 
-instance FromXML CacheNodeTypeSpecificParameter where
+instance
+  Prelude.FromXML
+    CacheNodeTypeSpecificParameter
+  where
   parseXML x =
     CacheNodeTypeSpecificParameter'
-      <$> (x .@? "ChangeType")
-      <*> (x .@? "AllowedValues")
-      <*> (x .@? "Source")
-      <*> ( x .@? "CacheNodeTypeSpecificValues" .!@ mempty
-              >>= may (parseXMLList "CacheNodeTypeSpecificValue")
-          )
-      <*> (x .@? "ParameterName")
-      <*> (x .@? "Description")
-      <*> (x .@? "DataType")
-      <*> (x .@? "IsModifiable")
-      <*> (x .@? "MinimumEngineVersion")
+      Prelude.<$> (x Prelude..@? "ChangeType")
+      Prelude.<*> (x Prelude..@? "AllowedValues")
+      Prelude.<*> (x Prelude..@? "Source")
+      Prelude.<*> ( x Prelude..@? "CacheNodeTypeSpecificValues"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "CacheNodeTypeSpecificValue")
+                  )
+      Prelude.<*> (x Prelude..@? "ParameterName")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "DataType")
+      Prelude.<*> (x Prelude..@? "IsModifiable")
+      Prelude.<*> (x Prelude..@? "MinimumEngineVersion")
 
-instance Hashable CacheNodeTypeSpecificParameter
+instance
+  Prelude.Hashable
+    CacheNodeTypeSpecificParameter
 
-instance NFData CacheNodeTypeSpecificParameter
+instance
+  Prelude.NFData
+    CacheNodeTypeSpecificParameter

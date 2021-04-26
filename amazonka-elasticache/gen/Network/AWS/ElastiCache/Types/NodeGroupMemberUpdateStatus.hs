@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,143 +21,127 @@ module Network.AWS.ElastiCache.Types.NodeGroupMemberUpdateStatus where
 
 import Network.AWS.ElastiCache.Types.NodeUpdateInitiatedBy
 import Network.AWS.ElastiCache.Types.NodeUpdateStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of the service update on the node group member
 --
---
---
--- /See:/ 'nodeGroupMemberUpdateStatus' smart constructor.
+-- /See:/ 'newNodeGroupMemberUpdateStatus' smart constructor.
 data NodeGroupMemberUpdateStatus = NodeGroupMemberUpdateStatus'
-  { _ngmusCacheClusterId ::
-      !(Maybe Text),
-    _ngmusNodeUpdateStatusModifiedDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _ngmusNodeUpdateStatus ::
-      !( Maybe
-           NodeUpdateStatus
-       ),
-    _ngmusNodeUpdateInitiatedBy ::
-      !( Maybe
-           NodeUpdateInitiatedBy
-       ),
-    _ngmusNodeUpdateInitiatedDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _ngmusCacheNodeId ::
-      !(Maybe Text),
-    _ngmusNodeDeletionDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _ngmusNodeUpdateStartDate ::
-      !( Maybe
-           ISO8601
-       ),
-    _ngmusNodeUpdateEndDate ::
-      !( Maybe
-           ISO8601
-       )
+  { -- | The cache cluster ID
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The date when the NodeUpdateStatus was last modified
+    nodeUpdateStatusModifiedDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The update status of the node
+    nodeUpdateStatus :: Prelude.Maybe NodeUpdateStatus,
+    -- | Reflects whether the update was initiated by the customer or
+    -- automatically applied
+    nodeUpdateInitiatedBy :: Prelude.Maybe NodeUpdateInitiatedBy,
+    -- | The date when the update is triggered
+    nodeUpdateInitiatedDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The node ID of the cache cluster
+    cacheNodeId :: Prelude.Maybe Prelude.Text,
+    -- | The deletion date of the node
+    nodeDeletionDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The start date of the update for a node
+    nodeUpdateStartDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The end date of the update for a node
+    nodeUpdateEndDate :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeGroupMemberUpdateStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeGroupMemberUpdateStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ngmusCacheClusterId' - The cache cluster ID
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ngmusNodeUpdateStatusModifiedDate' - The date when the NodeUpdateStatus was last modified
+-- 'cacheClusterId', 'nodeGroupMemberUpdateStatus_cacheClusterId' - The cache cluster ID
 --
--- * 'ngmusNodeUpdateStatus' - The update status of the node
+-- 'nodeUpdateStatusModifiedDate', 'nodeGroupMemberUpdateStatus_nodeUpdateStatusModifiedDate' - The date when the NodeUpdateStatus was last modified
 --
--- * 'ngmusNodeUpdateInitiatedBy' - Reflects whether the update was initiated by the customer or automatically applied
+-- 'nodeUpdateStatus', 'nodeGroupMemberUpdateStatus_nodeUpdateStatus' - The update status of the node
 --
--- * 'ngmusNodeUpdateInitiatedDate' - The date when the update is triggered
+-- 'nodeUpdateInitiatedBy', 'nodeGroupMemberUpdateStatus_nodeUpdateInitiatedBy' - Reflects whether the update was initiated by the customer or
+-- automatically applied
 --
--- * 'ngmusCacheNodeId' - The node ID of the cache cluster
+-- 'nodeUpdateInitiatedDate', 'nodeGroupMemberUpdateStatus_nodeUpdateInitiatedDate' - The date when the update is triggered
 --
--- * 'ngmusNodeDeletionDate' - The deletion date of the node
+-- 'cacheNodeId', 'nodeGroupMemberUpdateStatus_cacheNodeId' - The node ID of the cache cluster
 --
--- * 'ngmusNodeUpdateStartDate' - The start date of the update for a node
+-- 'nodeDeletionDate', 'nodeGroupMemberUpdateStatus_nodeDeletionDate' - The deletion date of the node
 --
--- * 'ngmusNodeUpdateEndDate' - The end date of the update for a node
-nodeGroupMemberUpdateStatus ::
+-- 'nodeUpdateStartDate', 'nodeGroupMemberUpdateStatus_nodeUpdateStartDate' - The start date of the update for a node
+--
+-- 'nodeUpdateEndDate', 'nodeGroupMemberUpdateStatus_nodeUpdateEndDate' - The end date of the update for a node
+newNodeGroupMemberUpdateStatus ::
   NodeGroupMemberUpdateStatus
-nodeGroupMemberUpdateStatus =
+newNodeGroupMemberUpdateStatus =
   NodeGroupMemberUpdateStatus'
-    { _ngmusCacheClusterId =
-        Nothing,
-      _ngmusNodeUpdateStatusModifiedDate = Nothing,
-      _ngmusNodeUpdateStatus = Nothing,
-      _ngmusNodeUpdateInitiatedBy = Nothing,
-      _ngmusNodeUpdateInitiatedDate = Nothing,
-      _ngmusCacheNodeId = Nothing,
-      _ngmusNodeDeletionDate = Nothing,
-      _ngmusNodeUpdateStartDate = Nothing,
-      _ngmusNodeUpdateEndDate = Nothing
+    { cacheClusterId =
+        Prelude.Nothing,
+      nodeUpdateStatusModifiedDate = Prelude.Nothing,
+      nodeUpdateStatus = Prelude.Nothing,
+      nodeUpdateInitiatedBy = Prelude.Nothing,
+      nodeUpdateInitiatedDate = Prelude.Nothing,
+      cacheNodeId = Prelude.Nothing,
+      nodeDeletionDate = Prelude.Nothing,
+      nodeUpdateStartDate = Prelude.Nothing,
+      nodeUpdateEndDate = Prelude.Nothing
     }
 
 -- | The cache cluster ID
-ngmusCacheClusterId :: Lens' NodeGroupMemberUpdateStatus (Maybe Text)
-ngmusCacheClusterId = lens _ngmusCacheClusterId (\s a -> s {_ngmusCacheClusterId = a})
+nodeGroupMemberUpdateStatus_cacheClusterId :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.Text)
+nodeGroupMemberUpdateStatus_cacheClusterId = Lens.lens (\NodeGroupMemberUpdateStatus' {cacheClusterId} -> cacheClusterId) (\s@NodeGroupMemberUpdateStatus' {} a -> s {cacheClusterId = a} :: NodeGroupMemberUpdateStatus)
 
 -- | The date when the NodeUpdateStatus was last modified
-ngmusNodeUpdateStatusModifiedDate :: Lens' NodeGroupMemberUpdateStatus (Maybe UTCTime)
-ngmusNodeUpdateStatusModifiedDate = lens _ngmusNodeUpdateStatusModifiedDate (\s a -> s {_ngmusNodeUpdateStatusModifiedDate = a}) . mapping _Time
+nodeGroupMemberUpdateStatus_nodeUpdateStatusModifiedDate :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.UTCTime)
+nodeGroupMemberUpdateStatus_nodeUpdateStatusModifiedDate = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeUpdateStatusModifiedDate} -> nodeUpdateStatusModifiedDate) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeUpdateStatusModifiedDate = a} :: NodeGroupMemberUpdateStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The update status of the node
-ngmusNodeUpdateStatus :: Lens' NodeGroupMemberUpdateStatus (Maybe NodeUpdateStatus)
-ngmusNodeUpdateStatus = lens _ngmusNodeUpdateStatus (\s a -> s {_ngmusNodeUpdateStatus = a})
+nodeGroupMemberUpdateStatus_nodeUpdateStatus :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe NodeUpdateStatus)
+nodeGroupMemberUpdateStatus_nodeUpdateStatus = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeUpdateStatus} -> nodeUpdateStatus) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeUpdateStatus = a} :: NodeGroupMemberUpdateStatus)
 
--- | Reflects whether the update was initiated by the customer or automatically applied
-ngmusNodeUpdateInitiatedBy :: Lens' NodeGroupMemberUpdateStatus (Maybe NodeUpdateInitiatedBy)
-ngmusNodeUpdateInitiatedBy = lens _ngmusNodeUpdateInitiatedBy (\s a -> s {_ngmusNodeUpdateInitiatedBy = a})
+-- | Reflects whether the update was initiated by the customer or
+-- automatically applied
+nodeGroupMemberUpdateStatus_nodeUpdateInitiatedBy :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe NodeUpdateInitiatedBy)
+nodeGroupMemberUpdateStatus_nodeUpdateInitiatedBy = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeUpdateInitiatedBy} -> nodeUpdateInitiatedBy) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeUpdateInitiatedBy = a} :: NodeGroupMemberUpdateStatus)
 
 -- | The date when the update is triggered
-ngmusNodeUpdateInitiatedDate :: Lens' NodeGroupMemberUpdateStatus (Maybe UTCTime)
-ngmusNodeUpdateInitiatedDate = lens _ngmusNodeUpdateInitiatedDate (\s a -> s {_ngmusNodeUpdateInitiatedDate = a}) . mapping _Time
+nodeGroupMemberUpdateStatus_nodeUpdateInitiatedDate :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.UTCTime)
+nodeGroupMemberUpdateStatus_nodeUpdateInitiatedDate = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeUpdateInitiatedDate} -> nodeUpdateInitiatedDate) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeUpdateInitiatedDate = a} :: NodeGroupMemberUpdateStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The node ID of the cache cluster
-ngmusCacheNodeId :: Lens' NodeGroupMemberUpdateStatus (Maybe Text)
-ngmusCacheNodeId = lens _ngmusCacheNodeId (\s a -> s {_ngmusCacheNodeId = a})
+nodeGroupMemberUpdateStatus_cacheNodeId :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.Text)
+nodeGroupMemberUpdateStatus_cacheNodeId = Lens.lens (\NodeGroupMemberUpdateStatus' {cacheNodeId} -> cacheNodeId) (\s@NodeGroupMemberUpdateStatus' {} a -> s {cacheNodeId = a} :: NodeGroupMemberUpdateStatus)
 
 -- | The deletion date of the node
-ngmusNodeDeletionDate :: Lens' NodeGroupMemberUpdateStatus (Maybe UTCTime)
-ngmusNodeDeletionDate = lens _ngmusNodeDeletionDate (\s a -> s {_ngmusNodeDeletionDate = a}) . mapping _Time
+nodeGroupMemberUpdateStatus_nodeDeletionDate :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.UTCTime)
+nodeGroupMemberUpdateStatus_nodeDeletionDate = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeDeletionDate} -> nodeDeletionDate) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeDeletionDate = a} :: NodeGroupMemberUpdateStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The start date of the update for a node
-ngmusNodeUpdateStartDate :: Lens' NodeGroupMemberUpdateStatus (Maybe UTCTime)
-ngmusNodeUpdateStartDate = lens _ngmusNodeUpdateStartDate (\s a -> s {_ngmusNodeUpdateStartDate = a}) . mapping _Time
+nodeGroupMemberUpdateStatus_nodeUpdateStartDate :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.UTCTime)
+nodeGroupMemberUpdateStatus_nodeUpdateStartDate = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeUpdateStartDate} -> nodeUpdateStartDate) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeUpdateStartDate = a} :: NodeGroupMemberUpdateStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The end date of the update for a node
-ngmusNodeUpdateEndDate :: Lens' NodeGroupMemberUpdateStatus (Maybe UTCTime)
-ngmusNodeUpdateEndDate = lens _ngmusNodeUpdateEndDate (\s a -> s {_ngmusNodeUpdateEndDate = a}) . mapping _Time
+nodeGroupMemberUpdateStatus_nodeUpdateEndDate :: Lens.Lens' NodeGroupMemberUpdateStatus (Prelude.Maybe Prelude.UTCTime)
+nodeGroupMemberUpdateStatus_nodeUpdateEndDate = Lens.lens (\NodeGroupMemberUpdateStatus' {nodeUpdateEndDate} -> nodeUpdateEndDate) (\s@NodeGroupMemberUpdateStatus' {} a -> s {nodeUpdateEndDate = a} :: NodeGroupMemberUpdateStatus) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML NodeGroupMemberUpdateStatus where
+instance Prelude.FromXML NodeGroupMemberUpdateStatus where
   parseXML x =
     NodeGroupMemberUpdateStatus'
-      <$> (x .@? "CacheClusterId")
-      <*> (x .@? "NodeUpdateStatusModifiedDate")
-      <*> (x .@? "NodeUpdateStatus")
-      <*> (x .@? "NodeUpdateInitiatedBy")
-      <*> (x .@? "NodeUpdateInitiatedDate")
-      <*> (x .@? "CacheNodeId")
-      <*> (x .@? "NodeDeletionDate")
-      <*> (x .@? "NodeUpdateStartDate")
-      <*> (x .@? "NodeUpdateEndDate")
+      Prelude.<$> (x Prelude..@? "CacheClusterId")
+      Prelude.<*> (x Prelude..@? "NodeUpdateStatusModifiedDate")
+      Prelude.<*> (x Prelude..@? "NodeUpdateStatus")
+      Prelude.<*> (x Prelude..@? "NodeUpdateInitiatedBy")
+      Prelude.<*> (x Prelude..@? "NodeUpdateInitiatedDate")
+      Prelude.<*> (x Prelude..@? "CacheNodeId")
+      Prelude.<*> (x Prelude..@? "NodeDeletionDate")
+      Prelude.<*> (x Prelude..@? "NodeUpdateStartDate")
+      Prelude.<*> (x Prelude..@? "NodeUpdateEndDate")
 
-instance Hashable NodeGroupMemberUpdateStatus
+instance Prelude.Hashable NodeGroupMemberUpdateStatus
 
-instance NFData NodeGroupMemberUpdateStatus
+instance Prelude.NFData NodeGroupMemberUpdateStatus

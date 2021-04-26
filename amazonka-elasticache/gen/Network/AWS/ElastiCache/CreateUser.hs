@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Creates a Redis user. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)> .
+-- For Redis engine version 6.x onwards: Creates a Redis user. For more
+-- information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>.
 module Network.AWS.ElastiCache.CreateUser
   ( -- * Creating a Request
-    createUser,
-    CreateUser,
+    CreateUser (..),
+    newCreateUser,
 
     -- * Request Lenses
-    cuPasswords,
-    cuNoPasswordRequired,
-    cuUserId,
-    cuUserName,
-    cuEngine,
-    cuAccessString,
+    createUser_passwords,
+    createUser_noPasswordRequired,
+    createUser_userId,
+    createUser_userName,
+    createUser_engine,
+    createUser_accessString,
 
     -- * Destructuring the Response
-    user,
-    User,
+    User (..),
+    newUser,
 
     -- * Response Lenses
-    uStatus,
-    uAccessString,
-    uUserGroupIds,
-    uAuthentication,
-    uARN,
-    uUserId,
-    uEngine,
-    uUserName,
+    user_status,
+    user_accessString,
+    user_userGroupIds,
+    user_authentication,
+    user_aRN,
+    user_userId,
+    user_engine,
+    user_userName,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Authentication
+import Network.AWS.ElastiCache.Types.User
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUser' smart constructor.
+-- | /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { _cuPasswords ::
-      !(Maybe (List1 Text)),
-    _cuNoPasswordRequired :: !(Maybe Bool),
-    _cuUserId :: !Text,
-    _cuUserName :: !Text,
-    _cuEngine :: !Text,
-    _cuAccessString :: !Text
+  { -- | Passwords used for this user. You can create up to two passwords for
+    -- each user.
+    passwords :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Indicates a password is not required for this user.
+    noPasswordRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the user.
+    userId :: Prelude.Text,
+    -- | The username of the user.
+    userName :: Prelude.Text,
+    -- | The current supported value is Redis.
+    engine :: Prelude.Text,
+    -- | Access permissions string used for this user.
+    accessString :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuPasswords' - Passwords used for this user. You can create up to two passwords for each user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuNoPasswordRequired' - Indicates a password is not required for this user.
+-- 'passwords', 'createUser_passwords' - Passwords used for this user. You can create up to two passwords for
+-- each user.
 --
--- * 'cuUserId' - The ID of the user.
+-- 'noPasswordRequired', 'createUser_noPasswordRequired' - Indicates a password is not required for this user.
 --
--- * 'cuUserName' - The username of the user.
+-- 'userId', 'createUser_userId' - The ID of the user.
 --
--- * 'cuEngine' - The current supported value is Redis.
+-- 'userName', 'createUser_userName' - The username of the user.
 --
--- * 'cuAccessString' - Access permissions string used for this user.
-createUser ::
-  -- | 'cuUserId'
-  Text ->
-  -- | 'cuUserName'
-  Text ->
-  -- | 'cuEngine'
-  Text ->
-  -- | 'cuAccessString'
-  Text ->
+-- 'engine', 'createUser_engine' - The current supported value is Redis.
+--
+-- 'accessString', 'createUser_accessString' - Access permissions string used for this user.
+newCreateUser ::
+  -- | 'userId'
+  Prelude.Text ->
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'engine'
+  Prelude.Text ->
+  -- | 'accessString'
+  Prelude.Text ->
   CreateUser
-createUser
+newCreateUser
   pUserId_
   pUserName_
   pEngine_
   pAccessString_ =
     CreateUser'
-      { _cuPasswords = Nothing,
-        _cuNoPasswordRequired = Nothing,
-        _cuUserId = pUserId_,
-        _cuUserName = pUserName_,
-        _cuEngine = pEngine_,
-        _cuAccessString = pAccessString_
+      { passwords = Prelude.Nothing,
+        noPasswordRequired = Prelude.Nothing,
+        userId = pUserId_,
+        userName = pUserName_,
+        engine = pEngine_,
+        accessString = pAccessString_
       }
 
--- | Passwords used for this user. You can create up to two passwords for each user.
-cuPasswords :: Lens' CreateUser (Maybe (NonEmpty Text))
-cuPasswords = lens _cuPasswords (\s a -> s {_cuPasswords = a}) . mapping _List1
+-- | Passwords used for this user. You can create up to two passwords for
+-- each user.
+createUser_passwords :: Lens.Lens' CreateUser (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+createUser_passwords = Lens.lens (\CreateUser' {passwords} -> passwords) (\s@CreateUser' {} a -> s {passwords = a} :: CreateUser) Prelude.. Lens.mapping Prelude._List1
 
 -- | Indicates a password is not required for this user.
-cuNoPasswordRequired :: Lens' CreateUser (Maybe Bool)
-cuNoPasswordRequired = lens _cuNoPasswordRequired (\s a -> s {_cuNoPasswordRequired = a})
+createUser_noPasswordRequired :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Bool)
+createUser_noPasswordRequired = Lens.lens (\CreateUser' {noPasswordRequired} -> noPasswordRequired) (\s@CreateUser' {} a -> s {noPasswordRequired = a} :: CreateUser)
 
 -- | The ID of the user.
-cuUserId :: Lens' CreateUser Text
-cuUserId = lens _cuUserId (\s a -> s {_cuUserId = a})
+createUser_userId :: Lens.Lens' CreateUser Prelude.Text
+createUser_userId = Lens.lens (\CreateUser' {userId} -> userId) (\s@CreateUser' {} a -> s {userId = a} :: CreateUser)
 
 -- | The username of the user.
-cuUserName :: Lens' CreateUser Text
-cuUserName = lens _cuUserName (\s a -> s {_cuUserName = a})
+createUser_userName :: Lens.Lens' CreateUser Prelude.Text
+createUser_userName = Lens.lens (\CreateUser' {userName} -> userName) (\s@CreateUser' {} a -> s {userName = a} :: CreateUser)
 
 -- | The current supported value is Redis.
-cuEngine :: Lens' CreateUser Text
-cuEngine = lens _cuEngine (\s a -> s {_cuEngine = a})
+createUser_engine :: Lens.Lens' CreateUser Prelude.Text
+createUser_engine = Lens.lens (\CreateUser' {engine} -> engine) (\s@CreateUser' {} a -> s {engine = a} :: CreateUser)
 
 -- | Access permissions string used for this user.
-cuAccessString :: Lens' CreateUser Text
-cuAccessString = lens _cuAccessString (\s a -> s {_cuAccessString = a})
+createUser_accessString :: Lens.Lens' CreateUser Prelude.Text
+createUser_accessString = Lens.lens (\CreateUser' {accessString} -> accessString) (\s@CreateUser' {} a -> s {accessString = a} :: CreateUser)
 
-instance AWSRequest CreateUser where
+instance Prelude.AWSRequest CreateUser where
   type Rs CreateUser = User
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateUserResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable CreateUser
+instance Prelude.Hashable CreateUser
 
-instance NFData CreateUser
+instance Prelude.NFData CreateUser
 
-instance ToHeaders CreateUser where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateUser where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateUser where
-  toPath = const "/"
+instance Prelude.ToPath CreateUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUser where
+instance Prelude.ToQuery CreateUser where
   toQuery CreateUser' {..} =
-    mconcat
-      [ "Action" =: ("CreateUser" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateUser" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "Passwords"
-          =: toQuery (toQueryList "member" <$> _cuPasswords),
-        "NoPasswordRequired" =: _cuNoPasswordRequired,
-        "UserId" =: _cuUserId,
-        "UserName" =: _cuUserName,
-        "Engine" =: _cuEngine,
-        "AccessString" =: _cuAccessString
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> passwords),
+        "NoPasswordRequired" Prelude.=: noPasswordRequired,
+        "UserId" Prelude.=: userId,
+        "UserName" Prelude.=: userName,
+        "Engine" Prelude.=: engine,
+        "AccessString" Prelude.=: accessString
       ]

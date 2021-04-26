@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElastiCache.Types.AuthenticationType
   ( AuthenticationType
       ( ..,
-        NoPassword,
-        Password
+        AuthenticationTypeNoPassword,
+        AuthenticationTypePassword
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthenticationType
-  = AuthenticationType'
-      ( CI
-          Text
-      )
+newtype AuthenticationType = AuthenticationType'
+  { fromAuthenticationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoPassword :: AuthenticationType
-pattern NoPassword = AuthenticationType' "no-password"
+pattern AuthenticationTypeNoPassword :: AuthenticationType
+pattern AuthenticationTypeNoPassword = AuthenticationType' "no-password"
 
-pattern Password :: AuthenticationType
-pattern Password = AuthenticationType' "password"
+pattern AuthenticationTypePassword :: AuthenticationType
+pattern AuthenticationTypePassword = AuthenticationType' "password"
 
 {-# COMPLETE
-  NoPassword,
-  Password,
+  AuthenticationTypeNoPassword,
+  AuthenticationTypePassword,
   AuthenticationType'
   #-}
 
-instance FromText AuthenticationType where
-  parser = (AuthenticationType' . mk) <$> takeText
+instance Prelude.FromText AuthenticationType where
+  parser = AuthenticationType' Prelude.<$> Prelude.takeText
 
-instance ToText AuthenticationType where
-  toText (AuthenticationType' ci) = original ci
+instance Prelude.ToText AuthenticationType where
+  toText (AuthenticationType' x) = x
 
-instance Hashable AuthenticationType
+instance Prelude.Hashable AuthenticationType
 
-instance NFData AuthenticationType
+instance Prelude.NFData AuthenticationType
 
-instance ToByteString AuthenticationType
+instance Prelude.ToByteString AuthenticationType
 
-instance ToQuery AuthenticationType
+instance Prelude.ToQuery AuthenticationType
 
-instance ToHeader AuthenticationType
+instance Prelude.ToHeader AuthenticationType
 
-instance FromXML AuthenticationType where
-  parseXML = parseXMLText "AuthenticationType"
+instance Prelude.FromXML AuthenticationType where
+  parseXML = Prelude.parseXMLText "AuthenticationType"

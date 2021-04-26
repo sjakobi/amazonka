@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ElastiCache.Types.MultiAZStatus
   ( MultiAZStatus
       ( ..,
-        MAZSDisabled,
-        MAZSEnabled
+        MultiAZStatusDisabled,
+        MultiAZStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MultiAZStatus = MultiAZStatus' (CI Text)
+newtype MultiAZStatus = MultiAZStatus'
+  { fromMultiAZStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MAZSDisabled :: MultiAZStatus
-pattern MAZSDisabled = MultiAZStatus' "disabled"
+pattern MultiAZStatusDisabled :: MultiAZStatus
+pattern MultiAZStatusDisabled = MultiAZStatus' "disabled"
 
-pattern MAZSEnabled :: MultiAZStatus
-pattern MAZSEnabled = MultiAZStatus' "enabled"
+pattern MultiAZStatusEnabled :: MultiAZStatus
+pattern MultiAZStatusEnabled = MultiAZStatus' "enabled"
 
 {-# COMPLETE
-  MAZSDisabled,
-  MAZSEnabled,
+  MultiAZStatusDisabled,
+  MultiAZStatusEnabled,
   MultiAZStatus'
   #-}
 
-instance FromText MultiAZStatus where
-  parser = (MultiAZStatus' . mk) <$> takeText
+instance Prelude.FromText MultiAZStatus where
+  parser = MultiAZStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MultiAZStatus where
-  toText (MultiAZStatus' ci) = original ci
+instance Prelude.ToText MultiAZStatus where
+  toText (MultiAZStatus' x) = x
 
-instance Hashable MultiAZStatus
+instance Prelude.Hashable MultiAZStatus
 
-instance NFData MultiAZStatus
+instance Prelude.NFData MultiAZStatus
 
-instance ToByteString MultiAZStatus
+instance Prelude.ToByteString MultiAZStatus
 
-instance ToQuery MultiAZStatus
+instance Prelude.ToQuery MultiAZStatus
 
-instance ToHeader MultiAZStatus
+instance Prelude.ToHeader MultiAZStatus
 
-instance FromXML MultiAZStatus where
-  parseXML = parseXMLText "MultiAZStatus"
+instance Prelude.FromXML MultiAZStatus where
+  parseXML = Prelude.parseXMLText "MultiAZStatus"

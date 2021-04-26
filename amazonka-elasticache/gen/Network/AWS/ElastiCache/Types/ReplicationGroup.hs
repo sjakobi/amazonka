@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,260 +25,432 @@ import Network.AWS.ElastiCache.Types.GlobalReplicationGroupInfo
 import Network.AWS.ElastiCache.Types.MultiAZStatus
 import Network.AWS.ElastiCache.Types.NodeGroup
 import Network.AWS.ElastiCache.Types.ReplicationGroupPendingModifiedValues
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains all of the attributes of a specific Redis replication group.
 --
---
---
--- /See:/ 'replicationGroup' smart constructor.
+-- /See:/ 'newReplicationGroup' smart constructor.
 data ReplicationGroup = ReplicationGroup'
-  { _rgClusterEnabled ::
-      !(Maybe Bool),
-    _rgStatus :: !(Maybe Text),
-    _rgNodeGroups :: !(Maybe [NodeGroup]),
-    _rgAutomaticFailover ::
-      !(Maybe AutomaticFailoverStatus),
-    _rgMemberClustersOutpostARNs ::
-      !(Maybe [Text]),
-    _rgMemberClusters :: !(Maybe [Text]),
-    _rgGlobalReplicationGroupInfo ::
-      !(Maybe GlobalReplicationGroupInfo),
-    _rgReplicationGroupId ::
-      !(Maybe Text),
-    _rgUserGroupIds :: !(Maybe [Text]),
-    _rgSnapshotWindow :: !(Maybe Text),
-    _rgARN :: !(Maybe Text),
-    _rgSnapshotRetentionLimit ::
-      !(Maybe Int),
-    _rgMultiAZ :: !(Maybe MultiAZStatus),
-    _rgAtRestEncryptionEnabled ::
-      !(Maybe Bool),
-    _rgKMSKeyId :: !(Maybe Text),
-    _rgSnapshottingClusterId ::
-      !(Maybe Text),
-    _rgCacheNodeType :: !(Maybe Text),
-    _rgAuthTokenLastModifiedDate ::
-      !(Maybe ISO8601),
-    _rgAuthTokenEnabled :: !(Maybe Bool),
-    _rgDescription :: !(Maybe Text),
-    _rgPendingModifiedValues ::
-      !( Maybe
-           ReplicationGroupPendingModifiedValues
-       ),
-    _rgConfigurationEndpoint ::
-      !(Maybe Endpoint),
-    _rgTransitEncryptionEnabled ::
-      !(Maybe Bool)
+  { -- | A flag indicating whether or not this replication group is cluster
+    -- enabled; i.e., whether its data can be partitioned across multiple
+    -- shards (API\/CLI: node groups).
+    --
+    -- Valid values: @true@ | @false@
+    clusterEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The current state of this replication group - @creating@, @available@,
+    -- @modifying@, @deleting@, @create-failed@, @snapshotting@.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | A list of node groups in this replication group. For Redis (cluster mode
+    -- disabled) replication groups, this is a single-element list. For Redis
+    -- (cluster mode enabled) replication groups, the list contains an entry
+    -- for each node group (shard).
+    nodeGroups :: Prelude.Maybe [NodeGroup],
+    -- | Indicates the status of automatic failover for this Redis replication
+    -- group.
+    automaticFailover :: Prelude.Maybe AutomaticFailoverStatus,
+    -- | The outpost ARNs of the replication group\'s member clusters.
+    memberClustersOutpostArns :: Prelude.Maybe [Prelude.Text],
+    -- | The names of all the cache clusters that are part of this replication
+    -- group.
+    memberClusters :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Global Datastore and role of this replication group in
+    -- the Global Datastore.
+    globalReplicationGroupInfo :: Prelude.Maybe GlobalReplicationGroupInfo,
+    -- | The identifier for the replication group.
+    replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The list of user group IDs that have access to the replication group.
+    userGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The daily time range (in UTC) during which ElastiCache begins taking a
+    -- daily snapshot of your node group (shard).
+    --
+    -- Example: @05:00-09:00@
+    --
+    -- If you do not specify this parameter, ElastiCache automatically chooses
+    -- an appropriate time range.
+    --
+    -- This parameter is only valid if the @Engine@ parameter is @redis@.
+    snapshotWindow :: Prelude.Maybe Prelude.Text,
+    -- | The ARN (Amazon Resource Name) of the replication group.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The number of days for which ElastiCache retains automatic cluster
+    -- snapshots before deleting them. For example, if you set
+    -- @SnapshotRetentionLimit@ to 5, a snapshot that was taken today is
+    -- retained for 5 days before being deleted.
+    --
+    -- If the value of @SnapshotRetentionLimit@ is set to zero (0), backups are
+    -- turned off.
+    snapshotRetentionLimit :: Prelude.Maybe Prelude.Int,
+    -- | A flag indicating if you have Multi-AZ enabled to enhance fault
+    -- tolerance. For more information, see
+    -- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html Minimizing Downtime: Multi-AZ>
+    multiAZ :: Prelude.Maybe MultiAZStatus,
+    -- | A flag that enables encryption at-rest when set to @true@.
+    --
+    -- You cannot modify the value of @AtRestEncryptionEnabled@ after the
+    -- cluster is created. To enable encryption at-rest on a cluster you must
+    -- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
+    --
+    -- __Required:__ Only available when creating a replication group in an
+    -- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+    --
+    -- Default: @false@
+    atRestEncryptionEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the KMS key used to encrypt the disk in the cluster.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The cluster ID that is used as the daily snapshot source for the
+    -- replication group.
+    snapshottingClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the compute and memory capacity node type for each node in
+    -- the replication group.
+    cacheNodeType :: Prelude.Maybe Prelude.Text,
+    -- | The date the auth token was last modified
+    authTokenLastModifiedDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | A flag that enables using an @AuthToken@ (password) when issuing Redis
+    -- commands.
+    --
+    -- Default: @false@
+    authTokenEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The user supplied description of the replication group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A group of settings to be applied to the replication group, either
+    -- immediately or during the next maintenance window.
+    pendingModifiedValues :: Prelude.Maybe ReplicationGroupPendingModifiedValues,
+    -- | The configuration endpoint for this replication group. Use the
+    -- configuration endpoint to connect to this replication group.
+    configurationEndpoint :: Prelude.Maybe Endpoint,
+    -- | A flag that enables in-transit encryption when set to @true@.
+    --
+    -- You cannot modify the value of @TransitEncryptionEnabled@ after the
+    -- cluster is created. To enable in-transit encryption on a cluster you
+    -- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
+    --
+    -- __Required:__ Only available when creating a replication group in an
+    -- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+    --
+    -- Default: @false@
+    transitEncryptionEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgClusterEnabled' - A flag indicating whether or not this replication group is cluster enabled; i.e., whether its data can be partitioned across multiple shards (API/CLI: node groups). Valid values: @true@ | @false@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgStatus' - The current state of this replication group - @creating@ , @available@ , @modifying@ , @deleting@ , @create-failed@ , @snapshotting@ .
+-- 'clusterEnabled', 'replicationGroup_clusterEnabled' - A flag indicating whether or not this replication group is cluster
+-- enabled; i.e., whether its data can be partitioned across multiple
+-- shards (API\/CLI: node groups).
 --
--- * 'rgNodeGroups' - A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each node group (shard).
+-- Valid values: @true@ | @false@
 --
--- * 'rgAutomaticFailover' - Indicates the status of automatic failover for this Redis replication group.
+-- 'status', 'replicationGroup_status' - The current state of this replication group - @creating@, @available@,
+-- @modifying@, @deleting@, @create-failed@, @snapshotting@.
 --
--- * 'rgMemberClustersOutpostARNs' - The outpost ARNs of the replication group's member clusters.
+-- 'nodeGroups', 'replicationGroup_nodeGroups' - A list of node groups in this replication group. For Redis (cluster mode
+-- disabled) replication groups, this is a single-element list. For Redis
+-- (cluster mode enabled) replication groups, the list contains an entry
+-- for each node group (shard).
 --
--- * 'rgMemberClusters' - The names of all the cache clusters that are part of this replication group.
+-- 'automaticFailover', 'replicationGroup_automaticFailover' - Indicates the status of automatic failover for this Redis replication
+-- group.
 --
--- * 'rgGlobalReplicationGroupInfo' - The name of the Global Datastore and role of this replication group in the Global Datastore.
+-- 'memberClustersOutpostArns', 'replicationGroup_memberClustersOutpostArns' - The outpost ARNs of the replication group\'s member clusters.
 --
--- * 'rgReplicationGroupId' - The identifier for the replication group.
+-- 'memberClusters', 'replicationGroup_memberClusters' - The names of all the cache clusters that are part of this replication
+-- group.
 --
--- * 'rgUserGroupIds' - The list of user group IDs that have access to the replication group.
+-- 'globalReplicationGroupInfo', 'replicationGroup_globalReplicationGroupInfo' - The name of the Global Datastore and role of this replication group in
+-- the Global Datastore.
 --
--- * 'rgSnapshotWindow' - The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group (shard). Example: @05:00-09:00@  If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
+-- 'replicationGroupId', 'replicationGroup_replicationGroupId' - The identifier for the replication group.
 --
--- * 'rgARN' - The ARN (Amazon Resource Name) of the replication group.
+-- 'userGroupIds', 'replicationGroup_userGroupIds' - The list of user group IDs that have access to the replication group.
 --
--- * 'rgSnapshotRetentionLimit' - The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example, if you set @SnapshotRetentionLimit@ to 5, a snapshot that was taken today is retained for 5 days before being deleted. /Important:/ If the value of @SnapshotRetentionLimit@ is set to zero (0), backups are turned off.
+-- 'snapshotWindow', 'replicationGroup_snapshotWindow' - The daily time range (in UTC) during which ElastiCache begins taking a
+-- daily snapshot of your node group (shard).
 --
--- * 'rgMultiAZ' - A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html Minimizing Downtime: Multi-AZ>
+-- Example: @05:00-09:00@
 --
--- * 'rgAtRestEncryptionEnabled' - A flag that enables encryption at-rest when set to @true@ . You cannot modify the value of @AtRestEncryptionEnabled@ after the cluster is created. To enable encryption at-rest on a cluster you must set @AtRestEncryptionEnabled@ to @true@ when you create a cluster. __Required:__ Only available when creating a replication group in an Amazon VPC using redis version @3.2.6@ , @4.x@ or later. Default: @false@
+-- If you do not specify this parameter, ElastiCache automatically chooses
+-- an appropriate time range.
 --
--- * 'rgKMSKeyId' - The ID of the KMS key used to encrypt the disk in the cluster.
+-- This parameter is only valid if the @Engine@ parameter is @redis@.
 --
--- * 'rgSnapshottingClusterId' - The cluster ID that is used as the daily snapshot source for the replication group.
+-- 'aRN', 'replicationGroup_aRN' - The ARN (Amazon Resource Name) of the replication group.
 --
--- * 'rgCacheNodeType' - The name of the compute and memory capacity node type for each node in the replication group.
+-- 'snapshotRetentionLimit', 'replicationGroup_snapshotRetentionLimit' - The number of days for which ElastiCache retains automatic cluster
+-- snapshots before deleting them. For example, if you set
+-- @SnapshotRetentionLimit@ to 5, a snapshot that was taken today is
+-- retained for 5 days before being deleted.
 --
--- * 'rgAuthTokenLastModifiedDate' - The date the auth token was last modified
+-- If the value of @SnapshotRetentionLimit@ is set to zero (0), backups are
+-- turned off.
 --
--- * 'rgAuthTokenEnabled' - A flag that enables using an @AuthToken@ (password) when issuing Redis commands. Default: @false@
+-- 'multiAZ', 'replicationGroup_multiAZ' - A flag indicating if you have Multi-AZ enabled to enhance fault
+-- tolerance. For more information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html Minimizing Downtime: Multi-AZ>
 --
--- * 'rgDescription' - The user supplied description of the replication group.
+-- 'atRestEncryptionEnabled', 'replicationGroup_atRestEncryptionEnabled' - A flag that enables encryption at-rest when set to @true@.
 --
--- * 'rgPendingModifiedValues' - A group of settings to be applied to the replication group, either immediately or during the next maintenance window.
+-- You cannot modify the value of @AtRestEncryptionEnabled@ after the
+-- cluster is created. To enable encryption at-rest on a cluster you must
+-- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
 --
--- * 'rgConfigurationEndpoint' - The configuration endpoint for this replication group. Use the configuration endpoint to connect to this replication group.
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
 --
--- * 'rgTransitEncryptionEnabled' - A flag that enables in-transit encryption when set to @true@ . You cannot modify the value of @TransitEncryptionEnabled@ after the cluster is created. To enable in-transit encryption on a cluster you must set @TransitEncryptionEnabled@ to @true@ when you create a cluster. __Required:__ Only available when creating a replication group in an Amazon VPC using redis version @3.2.6@ , @4.x@ or later. Default: @false@
-replicationGroup ::
+-- Default: @false@
+--
+-- 'kmsKeyId', 'replicationGroup_kmsKeyId' - The ID of the KMS key used to encrypt the disk in the cluster.
+--
+-- 'snapshottingClusterId', 'replicationGroup_snapshottingClusterId' - The cluster ID that is used as the daily snapshot source for the
+-- replication group.
+--
+-- 'cacheNodeType', 'replicationGroup_cacheNodeType' - The name of the compute and memory capacity node type for each node in
+-- the replication group.
+--
+-- 'authTokenLastModifiedDate', 'replicationGroup_authTokenLastModifiedDate' - The date the auth token was last modified
+--
+-- 'authTokenEnabled', 'replicationGroup_authTokenEnabled' - A flag that enables using an @AuthToken@ (password) when issuing Redis
+-- commands.
+--
+-- Default: @false@
+--
+-- 'description', 'replicationGroup_description' - The user supplied description of the replication group.
+--
+-- 'pendingModifiedValues', 'replicationGroup_pendingModifiedValues' - A group of settings to be applied to the replication group, either
+-- immediately or during the next maintenance window.
+--
+-- 'configurationEndpoint', 'replicationGroup_configurationEndpoint' - The configuration endpoint for this replication group. Use the
+-- configuration endpoint to connect to this replication group.
+--
+-- 'transitEncryptionEnabled', 'replicationGroup_transitEncryptionEnabled' - A flag that enables in-transit encryption when set to @true@.
+--
+-- You cannot modify the value of @TransitEncryptionEnabled@ after the
+-- cluster is created. To enable in-transit encryption on a cluster you
+-- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
+--
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
+newReplicationGroup ::
   ReplicationGroup
-replicationGroup =
+newReplicationGroup =
   ReplicationGroup'
-    { _rgClusterEnabled = Nothing,
-      _rgStatus = Nothing,
-      _rgNodeGroups = Nothing,
-      _rgAutomaticFailover = Nothing,
-      _rgMemberClustersOutpostARNs = Nothing,
-      _rgMemberClusters = Nothing,
-      _rgGlobalReplicationGroupInfo = Nothing,
-      _rgReplicationGroupId = Nothing,
-      _rgUserGroupIds = Nothing,
-      _rgSnapshotWindow = Nothing,
-      _rgARN = Nothing,
-      _rgSnapshotRetentionLimit = Nothing,
-      _rgMultiAZ = Nothing,
-      _rgAtRestEncryptionEnabled = Nothing,
-      _rgKMSKeyId = Nothing,
-      _rgSnapshottingClusterId = Nothing,
-      _rgCacheNodeType = Nothing,
-      _rgAuthTokenLastModifiedDate = Nothing,
-      _rgAuthTokenEnabled = Nothing,
-      _rgDescription = Nothing,
-      _rgPendingModifiedValues = Nothing,
-      _rgConfigurationEndpoint = Nothing,
-      _rgTransitEncryptionEnabled = Nothing
+    { clusterEnabled = Prelude.Nothing,
+      status = Prelude.Nothing,
+      nodeGroups = Prelude.Nothing,
+      automaticFailover = Prelude.Nothing,
+      memberClustersOutpostArns = Prelude.Nothing,
+      memberClusters = Prelude.Nothing,
+      globalReplicationGroupInfo = Prelude.Nothing,
+      replicationGroupId = Prelude.Nothing,
+      userGroupIds = Prelude.Nothing,
+      snapshotWindow = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      snapshotRetentionLimit = Prelude.Nothing,
+      multiAZ = Prelude.Nothing,
+      atRestEncryptionEnabled = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      snapshottingClusterId = Prelude.Nothing,
+      cacheNodeType = Prelude.Nothing,
+      authTokenLastModifiedDate = Prelude.Nothing,
+      authTokenEnabled = Prelude.Nothing,
+      description = Prelude.Nothing,
+      pendingModifiedValues = Prelude.Nothing,
+      configurationEndpoint = Prelude.Nothing,
+      transitEncryptionEnabled = Prelude.Nothing
     }
 
--- | A flag indicating whether or not this replication group is cluster enabled; i.e., whether its data can be partitioned across multiple shards (API/CLI: node groups). Valid values: @true@ | @false@
-rgClusterEnabled :: Lens' ReplicationGroup (Maybe Bool)
-rgClusterEnabled = lens _rgClusterEnabled (\s a -> s {_rgClusterEnabled = a})
+-- | A flag indicating whether or not this replication group is cluster
+-- enabled; i.e., whether its data can be partitioned across multiple
+-- shards (API\/CLI: node groups).
+--
+-- Valid values: @true@ | @false@
+replicationGroup_clusterEnabled :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Bool)
+replicationGroup_clusterEnabled = Lens.lens (\ReplicationGroup' {clusterEnabled} -> clusterEnabled) (\s@ReplicationGroup' {} a -> s {clusterEnabled = a} :: ReplicationGroup)
 
--- | The current state of this replication group - @creating@ , @available@ , @modifying@ , @deleting@ , @create-failed@ , @snapshotting@ .
-rgStatus :: Lens' ReplicationGroup (Maybe Text)
-rgStatus = lens _rgStatus (\s a -> s {_rgStatus = a})
+-- | The current state of this replication group - @creating@, @available@,
+-- @modifying@, @deleting@, @create-failed@, @snapshotting@.
+replicationGroup_status :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_status = Lens.lens (\ReplicationGroup' {status} -> status) (\s@ReplicationGroup' {} a -> s {status = a} :: ReplicationGroup)
 
--- | A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each node group (shard).
-rgNodeGroups :: Lens' ReplicationGroup [NodeGroup]
-rgNodeGroups = lens _rgNodeGroups (\s a -> s {_rgNodeGroups = a}) . _Default . _Coerce
+-- | A list of node groups in this replication group. For Redis (cluster mode
+-- disabled) replication groups, this is a single-element list. For Redis
+-- (cluster mode enabled) replication groups, the list contains an entry
+-- for each node group (shard).
+replicationGroup_nodeGroups :: Lens.Lens' ReplicationGroup (Prelude.Maybe [NodeGroup])
+replicationGroup_nodeGroups = Lens.lens (\ReplicationGroup' {nodeGroups} -> nodeGroups) (\s@ReplicationGroup' {} a -> s {nodeGroups = a} :: ReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates the status of automatic failover for this Redis replication group.
-rgAutomaticFailover :: Lens' ReplicationGroup (Maybe AutomaticFailoverStatus)
-rgAutomaticFailover = lens _rgAutomaticFailover (\s a -> s {_rgAutomaticFailover = a})
+-- | Indicates the status of automatic failover for this Redis replication
+-- group.
+replicationGroup_automaticFailover :: Lens.Lens' ReplicationGroup (Prelude.Maybe AutomaticFailoverStatus)
+replicationGroup_automaticFailover = Lens.lens (\ReplicationGroup' {automaticFailover} -> automaticFailover) (\s@ReplicationGroup' {} a -> s {automaticFailover = a} :: ReplicationGroup)
 
--- | The outpost ARNs of the replication group's member clusters.
-rgMemberClustersOutpostARNs :: Lens' ReplicationGroup [Text]
-rgMemberClustersOutpostARNs = lens _rgMemberClustersOutpostARNs (\s a -> s {_rgMemberClustersOutpostARNs = a}) . _Default . _Coerce
+-- | The outpost ARNs of the replication group\'s member clusters.
+replicationGroup_memberClustersOutpostArns :: Lens.Lens' ReplicationGroup (Prelude.Maybe [Prelude.Text])
+replicationGroup_memberClustersOutpostArns = Lens.lens (\ReplicationGroup' {memberClustersOutpostArns} -> memberClustersOutpostArns) (\s@ReplicationGroup' {} a -> s {memberClustersOutpostArns = a} :: ReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The names of all the cache clusters that are part of this replication group.
-rgMemberClusters :: Lens' ReplicationGroup [Text]
-rgMemberClusters = lens _rgMemberClusters (\s a -> s {_rgMemberClusters = a}) . _Default . _Coerce
+-- | The names of all the cache clusters that are part of this replication
+-- group.
+replicationGroup_memberClusters :: Lens.Lens' ReplicationGroup (Prelude.Maybe [Prelude.Text])
+replicationGroup_memberClusters = Lens.lens (\ReplicationGroup' {memberClusters} -> memberClusters) (\s@ReplicationGroup' {} a -> s {memberClusters = a} :: ReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the Global Datastore and role of this replication group in the Global Datastore.
-rgGlobalReplicationGroupInfo :: Lens' ReplicationGroup (Maybe GlobalReplicationGroupInfo)
-rgGlobalReplicationGroupInfo = lens _rgGlobalReplicationGroupInfo (\s a -> s {_rgGlobalReplicationGroupInfo = a})
+-- | The name of the Global Datastore and role of this replication group in
+-- the Global Datastore.
+replicationGroup_globalReplicationGroupInfo :: Lens.Lens' ReplicationGroup (Prelude.Maybe GlobalReplicationGroupInfo)
+replicationGroup_globalReplicationGroupInfo = Lens.lens (\ReplicationGroup' {globalReplicationGroupInfo} -> globalReplicationGroupInfo) (\s@ReplicationGroup' {} a -> s {globalReplicationGroupInfo = a} :: ReplicationGroup)
 
 -- | The identifier for the replication group.
-rgReplicationGroupId :: Lens' ReplicationGroup (Maybe Text)
-rgReplicationGroupId = lens _rgReplicationGroupId (\s a -> s {_rgReplicationGroupId = a})
+replicationGroup_replicationGroupId :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_replicationGroupId = Lens.lens (\ReplicationGroup' {replicationGroupId} -> replicationGroupId) (\s@ReplicationGroup' {} a -> s {replicationGroupId = a} :: ReplicationGroup)
 
 -- | The list of user group IDs that have access to the replication group.
-rgUserGroupIds :: Lens' ReplicationGroup [Text]
-rgUserGroupIds = lens _rgUserGroupIds (\s a -> s {_rgUserGroupIds = a}) . _Default . _Coerce
+replicationGroup_userGroupIds :: Lens.Lens' ReplicationGroup (Prelude.Maybe [Prelude.Text])
+replicationGroup_userGroupIds = Lens.lens (\ReplicationGroup' {userGroupIds} -> userGroupIds) (\s@ReplicationGroup' {} a -> s {userGroupIds = a} :: ReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group (shard). Example: @05:00-09:00@  If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
-rgSnapshotWindow :: Lens' ReplicationGroup (Maybe Text)
-rgSnapshotWindow = lens _rgSnapshotWindow (\s a -> s {_rgSnapshotWindow = a})
+-- | The daily time range (in UTC) during which ElastiCache begins taking a
+-- daily snapshot of your node group (shard).
+--
+-- Example: @05:00-09:00@
+--
+-- If you do not specify this parameter, ElastiCache automatically chooses
+-- an appropriate time range.
+--
+-- This parameter is only valid if the @Engine@ parameter is @redis@.
+replicationGroup_snapshotWindow :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_snapshotWindow = Lens.lens (\ReplicationGroup' {snapshotWindow} -> snapshotWindow) (\s@ReplicationGroup' {} a -> s {snapshotWindow = a} :: ReplicationGroup)
 
 -- | The ARN (Amazon Resource Name) of the replication group.
-rgARN :: Lens' ReplicationGroup (Maybe Text)
-rgARN = lens _rgARN (\s a -> s {_rgARN = a})
+replicationGroup_aRN :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_aRN = Lens.lens (\ReplicationGroup' {aRN} -> aRN) (\s@ReplicationGroup' {} a -> s {aRN = a} :: ReplicationGroup)
 
--- | The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example, if you set @SnapshotRetentionLimit@ to 5, a snapshot that was taken today is retained for 5 days before being deleted. /Important:/ If the value of @SnapshotRetentionLimit@ is set to zero (0), backups are turned off.
-rgSnapshotRetentionLimit :: Lens' ReplicationGroup (Maybe Int)
-rgSnapshotRetentionLimit = lens _rgSnapshotRetentionLimit (\s a -> s {_rgSnapshotRetentionLimit = a})
+-- | The number of days for which ElastiCache retains automatic cluster
+-- snapshots before deleting them. For example, if you set
+-- @SnapshotRetentionLimit@ to 5, a snapshot that was taken today is
+-- retained for 5 days before being deleted.
+--
+-- If the value of @SnapshotRetentionLimit@ is set to zero (0), backups are
+-- turned off.
+replicationGroup_snapshotRetentionLimit :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Int)
+replicationGroup_snapshotRetentionLimit = Lens.lens (\ReplicationGroup' {snapshotRetentionLimit} -> snapshotRetentionLimit) (\s@ReplicationGroup' {} a -> s {snapshotRetentionLimit = a} :: ReplicationGroup)
 
--- | A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html Minimizing Downtime: Multi-AZ>
-rgMultiAZ :: Lens' ReplicationGroup (Maybe MultiAZStatus)
-rgMultiAZ = lens _rgMultiAZ (\s a -> s {_rgMultiAZ = a})
+-- | A flag indicating if you have Multi-AZ enabled to enhance fault
+-- tolerance. For more information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html Minimizing Downtime: Multi-AZ>
+replicationGroup_multiAZ :: Lens.Lens' ReplicationGroup (Prelude.Maybe MultiAZStatus)
+replicationGroup_multiAZ = Lens.lens (\ReplicationGroup' {multiAZ} -> multiAZ) (\s@ReplicationGroup' {} a -> s {multiAZ = a} :: ReplicationGroup)
 
--- | A flag that enables encryption at-rest when set to @true@ . You cannot modify the value of @AtRestEncryptionEnabled@ after the cluster is created. To enable encryption at-rest on a cluster you must set @AtRestEncryptionEnabled@ to @true@ when you create a cluster. __Required:__ Only available when creating a replication group in an Amazon VPC using redis version @3.2.6@ , @4.x@ or later. Default: @false@
-rgAtRestEncryptionEnabled :: Lens' ReplicationGroup (Maybe Bool)
-rgAtRestEncryptionEnabled = lens _rgAtRestEncryptionEnabled (\s a -> s {_rgAtRestEncryptionEnabled = a})
+-- | A flag that enables encryption at-rest when set to @true@.
+--
+-- You cannot modify the value of @AtRestEncryptionEnabled@ after the
+-- cluster is created. To enable encryption at-rest on a cluster you must
+-- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
+--
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
+replicationGroup_atRestEncryptionEnabled :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Bool)
+replicationGroup_atRestEncryptionEnabled = Lens.lens (\ReplicationGroup' {atRestEncryptionEnabled} -> atRestEncryptionEnabled) (\s@ReplicationGroup' {} a -> s {atRestEncryptionEnabled = a} :: ReplicationGroup)
 
 -- | The ID of the KMS key used to encrypt the disk in the cluster.
-rgKMSKeyId :: Lens' ReplicationGroup (Maybe Text)
-rgKMSKeyId = lens _rgKMSKeyId (\s a -> s {_rgKMSKeyId = a})
+replicationGroup_kmsKeyId :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_kmsKeyId = Lens.lens (\ReplicationGroup' {kmsKeyId} -> kmsKeyId) (\s@ReplicationGroup' {} a -> s {kmsKeyId = a} :: ReplicationGroup)
 
--- | The cluster ID that is used as the daily snapshot source for the replication group.
-rgSnapshottingClusterId :: Lens' ReplicationGroup (Maybe Text)
-rgSnapshottingClusterId = lens _rgSnapshottingClusterId (\s a -> s {_rgSnapshottingClusterId = a})
+-- | The cluster ID that is used as the daily snapshot source for the
+-- replication group.
+replicationGroup_snapshottingClusterId :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_snapshottingClusterId = Lens.lens (\ReplicationGroup' {snapshottingClusterId} -> snapshottingClusterId) (\s@ReplicationGroup' {} a -> s {snapshottingClusterId = a} :: ReplicationGroup)
 
--- | The name of the compute and memory capacity node type for each node in the replication group.
-rgCacheNodeType :: Lens' ReplicationGroup (Maybe Text)
-rgCacheNodeType = lens _rgCacheNodeType (\s a -> s {_rgCacheNodeType = a})
+-- | The name of the compute and memory capacity node type for each node in
+-- the replication group.
+replicationGroup_cacheNodeType :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_cacheNodeType = Lens.lens (\ReplicationGroup' {cacheNodeType} -> cacheNodeType) (\s@ReplicationGroup' {} a -> s {cacheNodeType = a} :: ReplicationGroup)
 
 -- | The date the auth token was last modified
-rgAuthTokenLastModifiedDate :: Lens' ReplicationGroup (Maybe UTCTime)
-rgAuthTokenLastModifiedDate = lens _rgAuthTokenLastModifiedDate (\s a -> s {_rgAuthTokenLastModifiedDate = a}) . mapping _Time
+replicationGroup_authTokenLastModifiedDate :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.UTCTime)
+replicationGroup_authTokenLastModifiedDate = Lens.lens (\ReplicationGroup' {authTokenLastModifiedDate} -> authTokenLastModifiedDate) (\s@ReplicationGroup' {} a -> s {authTokenLastModifiedDate = a} :: ReplicationGroup) Prelude.. Lens.mapping Prelude._Time
 
--- | A flag that enables using an @AuthToken@ (password) when issuing Redis commands. Default: @false@
-rgAuthTokenEnabled :: Lens' ReplicationGroup (Maybe Bool)
-rgAuthTokenEnabled = lens _rgAuthTokenEnabled (\s a -> s {_rgAuthTokenEnabled = a})
+-- | A flag that enables using an @AuthToken@ (password) when issuing Redis
+-- commands.
+--
+-- Default: @false@
+replicationGroup_authTokenEnabled :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Bool)
+replicationGroup_authTokenEnabled = Lens.lens (\ReplicationGroup' {authTokenEnabled} -> authTokenEnabled) (\s@ReplicationGroup' {} a -> s {authTokenEnabled = a} :: ReplicationGroup)
 
 -- | The user supplied description of the replication group.
-rgDescription :: Lens' ReplicationGroup (Maybe Text)
-rgDescription = lens _rgDescription (\s a -> s {_rgDescription = a})
+replicationGroup_description :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Text)
+replicationGroup_description = Lens.lens (\ReplicationGroup' {description} -> description) (\s@ReplicationGroup' {} a -> s {description = a} :: ReplicationGroup)
 
--- | A group of settings to be applied to the replication group, either immediately or during the next maintenance window.
-rgPendingModifiedValues :: Lens' ReplicationGroup (Maybe ReplicationGroupPendingModifiedValues)
-rgPendingModifiedValues = lens _rgPendingModifiedValues (\s a -> s {_rgPendingModifiedValues = a})
+-- | A group of settings to be applied to the replication group, either
+-- immediately or during the next maintenance window.
+replicationGroup_pendingModifiedValues :: Lens.Lens' ReplicationGroup (Prelude.Maybe ReplicationGroupPendingModifiedValues)
+replicationGroup_pendingModifiedValues = Lens.lens (\ReplicationGroup' {pendingModifiedValues} -> pendingModifiedValues) (\s@ReplicationGroup' {} a -> s {pendingModifiedValues = a} :: ReplicationGroup)
 
--- | The configuration endpoint for this replication group. Use the configuration endpoint to connect to this replication group.
-rgConfigurationEndpoint :: Lens' ReplicationGroup (Maybe Endpoint)
-rgConfigurationEndpoint = lens _rgConfigurationEndpoint (\s a -> s {_rgConfigurationEndpoint = a})
+-- | The configuration endpoint for this replication group. Use the
+-- configuration endpoint to connect to this replication group.
+replicationGroup_configurationEndpoint :: Lens.Lens' ReplicationGroup (Prelude.Maybe Endpoint)
+replicationGroup_configurationEndpoint = Lens.lens (\ReplicationGroup' {configurationEndpoint} -> configurationEndpoint) (\s@ReplicationGroup' {} a -> s {configurationEndpoint = a} :: ReplicationGroup)
 
--- | A flag that enables in-transit encryption when set to @true@ . You cannot modify the value of @TransitEncryptionEnabled@ after the cluster is created. To enable in-transit encryption on a cluster you must set @TransitEncryptionEnabled@ to @true@ when you create a cluster. __Required:__ Only available when creating a replication group in an Amazon VPC using redis version @3.2.6@ , @4.x@ or later. Default: @false@
-rgTransitEncryptionEnabled :: Lens' ReplicationGroup (Maybe Bool)
-rgTransitEncryptionEnabled = lens _rgTransitEncryptionEnabled (\s a -> s {_rgTransitEncryptionEnabled = a})
+-- | A flag that enables in-transit encryption when set to @true@.
+--
+-- You cannot modify the value of @TransitEncryptionEnabled@ after the
+-- cluster is created. To enable in-transit encryption on a cluster you
+-- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
+--
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
+replicationGroup_transitEncryptionEnabled :: Lens.Lens' ReplicationGroup (Prelude.Maybe Prelude.Bool)
+replicationGroup_transitEncryptionEnabled = Lens.lens (\ReplicationGroup' {transitEncryptionEnabled} -> transitEncryptionEnabled) (\s@ReplicationGroup' {} a -> s {transitEncryptionEnabled = a} :: ReplicationGroup)
 
-instance FromXML ReplicationGroup where
+instance Prelude.FromXML ReplicationGroup where
   parseXML x =
     ReplicationGroup'
-      <$> (x .@? "ClusterEnabled")
-      <*> (x .@? "Status")
-      <*> ( x .@? "NodeGroups" .!@ mempty
-              >>= may (parseXMLList "NodeGroup")
-          )
-      <*> (x .@? "AutomaticFailover")
-      <*> ( x .@? "MemberClustersOutpostArns" .!@ mempty
-              >>= may (parseXMLList "ReplicationGroupOutpostArn")
-          )
-      <*> ( x .@? "MemberClusters" .!@ mempty
-              >>= may (parseXMLList "ClusterId")
-          )
-      <*> (x .@? "GlobalReplicationGroupInfo")
-      <*> (x .@? "ReplicationGroupId")
-      <*> ( x .@? "UserGroupIds" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "SnapshotWindow")
-      <*> (x .@? "ARN")
-      <*> (x .@? "SnapshotRetentionLimit")
-      <*> (x .@? "MultiAZ")
-      <*> (x .@? "AtRestEncryptionEnabled")
-      <*> (x .@? "KmsKeyId")
-      <*> (x .@? "SnapshottingClusterId")
-      <*> (x .@? "CacheNodeType")
-      <*> (x .@? "AuthTokenLastModifiedDate")
-      <*> (x .@? "AuthTokenEnabled")
-      <*> (x .@? "Description")
-      <*> (x .@? "PendingModifiedValues")
-      <*> (x .@? "ConfigurationEndpoint")
-      <*> (x .@? "TransitEncryptionEnabled")
+      Prelude.<$> (x Prelude..@? "ClusterEnabled")
+      Prelude.<*> (x Prelude..@? "Status")
+      Prelude.<*> ( x Prelude..@? "NodeGroups"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "NodeGroup")
+                  )
+      Prelude.<*> (x Prelude..@? "AutomaticFailover")
+      Prelude.<*> ( x Prelude..@? "MemberClustersOutpostArns"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "ReplicationGroupOutpostArn")
+                  )
+      Prelude.<*> ( x Prelude..@? "MemberClusters"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "ClusterId")
+                  )
+      Prelude.<*> (x Prelude..@? "GlobalReplicationGroupInfo")
+      Prelude.<*> (x Prelude..@? "ReplicationGroupId")
+      Prelude.<*> ( x Prelude..@? "UserGroupIds"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "SnapshotWindow")
+      Prelude.<*> (x Prelude..@? "ARN")
+      Prelude.<*> (x Prelude..@? "SnapshotRetentionLimit")
+      Prelude.<*> (x Prelude..@? "MultiAZ")
+      Prelude.<*> (x Prelude..@? "AtRestEncryptionEnabled")
+      Prelude.<*> (x Prelude..@? "KmsKeyId")
+      Prelude.<*> (x Prelude..@? "SnapshottingClusterId")
+      Prelude.<*> (x Prelude..@? "CacheNodeType")
+      Prelude.<*> (x Prelude..@? "AuthTokenLastModifiedDate")
+      Prelude.<*> (x Prelude..@? "AuthTokenEnabled")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "PendingModifiedValues")
+      Prelude.<*> (x Prelude..@? "ConfigurationEndpoint")
+      Prelude.<*> (x Prelude..@? "TransitEncryptionEnabled")
 
-instance Hashable ReplicationGroup
+instance Prelude.Hashable ReplicationGroup
 
-instance NFData ReplicationGroup
+instance Prelude.NFData ReplicationGroup

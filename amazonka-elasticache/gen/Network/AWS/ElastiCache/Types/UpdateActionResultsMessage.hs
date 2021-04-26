@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +21,60 @@ module Network.AWS.ElastiCache.Types.UpdateActionResultsMessage where
 
 import Network.AWS.ElastiCache.Types.ProcessedUpdateAction
 import Network.AWS.ElastiCache.Types.UnprocessedUpdateAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'updateActionResultsMessage' smart constructor.
+-- | /See:/ 'newUpdateActionResultsMessage' smart constructor.
 data UpdateActionResultsMessage = UpdateActionResultsMessage'
-  { _uarmProcessedUpdateActions ::
-      !( Maybe
-           [ProcessedUpdateAction]
-       ),
-    _uarmUnprocessedUpdateActions ::
-      !( Maybe
-           [UnprocessedUpdateAction]
-       )
+  { -- | Update actions that have been processed successfully
+    processedUpdateActions :: Prelude.Maybe [ProcessedUpdateAction],
+    -- | Update actions that haven\'t been processed successfully
+    unprocessedUpdateActions :: Prelude.Maybe [UnprocessedUpdateAction]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateActionResultsMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateActionResultsMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarmProcessedUpdateActions' - Update actions that have been processed successfully
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uarmUnprocessedUpdateActions' - Update actions that haven't been processed successfully
-updateActionResultsMessage ::
+-- 'processedUpdateActions', 'updateActionResultsMessage_processedUpdateActions' - Update actions that have been processed successfully
+--
+-- 'unprocessedUpdateActions', 'updateActionResultsMessage_unprocessedUpdateActions' - Update actions that haven\'t been processed successfully
+newUpdateActionResultsMessage ::
   UpdateActionResultsMessage
-updateActionResultsMessage =
+newUpdateActionResultsMessage =
   UpdateActionResultsMessage'
-    { _uarmProcessedUpdateActions =
-        Nothing,
-      _uarmUnprocessedUpdateActions = Nothing
+    { processedUpdateActions =
+        Prelude.Nothing,
+      unprocessedUpdateActions = Prelude.Nothing
     }
 
 -- | Update actions that have been processed successfully
-uarmProcessedUpdateActions :: Lens' UpdateActionResultsMessage [ProcessedUpdateAction]
-uarmProcessedUpdateActions = lens _uarmProcessedUpdateActions (\s a -> s {_uarmProcessedUpdateActions = a}) . _Default . _Coerce
+updateActionResultsMessage_processedUpdateActions :: Lens.Lens' UpdateActionResultsMessage (Prelude.Maybe [ProcessedUpdateAction])
+updateActionResultsMessage_processedUpdateActions = Lens.lens (\UpdateActionResultsMessage' {processedUpdateActions} -> processedUpdateActions) (\s@UpdateActionResultsMessage' {} a -> s {processedUpdateActions = a} :: UpdateActionResultsMessage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Update actions that haven't been processed successfully
-uarmUnprocessedUpdateActions :: Lens' UpdateActionResultsMessage [UnprocessedUpdateAction]
-uarmUnprocessedUpdateActions = lens _uarmUnprocessedUpdateActions (\s a -> s {_uarmUnprocessedUpdateActions = a}) . _Default . _Coerce
+-- | Update actions that haven\'t been processed successfully
+updateActionResultsMessage_unprocessedUpdateActions :: Lens.Lens' UpdateActionResultsMessage (Prelude.Maybe [UnprocessedUpdateAction])
+updateActionResultsMessage_unprocessedUpdateActions = Lens.lens (\UpdateActionResultsMessage' {unprocessedUpdateActions} -> unprocessedUpdateActions) (\s@UpdateActionResultsMessage' {} a -> s {unprocessedUpdateActions = a} :: UpdateActionResultsMessage) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML UpdateActionResultsMessage where
+instance Prelude.FromXML UpdateActionResultsMessage where
   parseXML x =
     UpdateActionResultsMessage'
-      <$> ( x .@? "ProcessedUpdateActions" .!@ mempty
-              >>= may (parseXMLList "ProcessedUpdateAction")
-          )
-      <*> ( x .@? "UnprocessedUpdateActions" .!@ mempty
-              >>= may (parseXMLList "UnprocessedUpdateAction")
-          )
+      Prelude.<$> ( x Prelude..@? "ProcessedUpdateActions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "ProcessedUpdateAction")
+                  )
+      Prelude.<*> ( x Prelude..@? "UnprocessedUpdateActions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "UnprocessedUpdateAction")
+                  )
 
-instance Hashable UpdateActionResultsMessage
+instance Prelude.Hashable UpdateActionResultsMessage
 
-instance NFData UpdateActionResultsMessage
+instance Prelude.NFData UpdateActionResultsMessage

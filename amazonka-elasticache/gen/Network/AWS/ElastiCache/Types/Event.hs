@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,84 @@
 module Network.AWS.ElastiCache.Types.Event where
 
 import Network.AWS.ElastiCache.Types.SourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a single occurrence of something interesting within the system. Some examples of events are creating a cluster, adding or removing a cache node, or rebooting a node.
+-- | Represents a single occurrence of something interesting within the
+-- system. Some examples of events are creating a cluster, adding or
+-- removing a cache node, or rebooting a node.
 --
---
---
--- /See:/ 'event' smart constructor.
+-- /See:/ 'newEvent' smart constructor.
 data Event = Event'
-  { _eMessage :: !(Maybe Text),
-    _eDate :: !(Maybe ISO8601),
-    _eSourceIdentifier :: !(Maybe Text),
-    _eSourceType :: !(Maybe SourceType)
+  { -- | The text of the event.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The date and time when the event occurred.
+    date :: Prelude.Maybe Prelude.ISO8601,
+    -- | The identifier for the source of the event. For example, if the event
+    -- occurred at the cluster level, the identifier would be the name of the
+    -- cluster.
+    sourceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the origin of this event - a cluster, a parameter group, a
+    -- security group, etc.
+    sourceType :: Prelude.Maybe SourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Event' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Event' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eMessage' - The text of the event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eDate' - The date and time when the event occurred.
+-- 'message', 'event_message' - The text of the event.
 --
--- * 'eSourceIdentifier' - The identifier for the source of the event. For example, if the event occurred at the cluster level, the identifier would be the name of the cluster.
+-- 'date', 'event_date' - The date and time when the event occurred.
 --
--- * 'eSourceType' - Specifies the origin of this event - a cluster, a parameter group, a security group, etc.
-event ::
+-- 'sourceIdentifier', 'event_sourceIdentifier' - The identifier for the source of the event. For example, if the event
+-- occurred at the cluster level, the identifier would be the name of the
+-- cluster.
+--
+-- 'sourceType', 'event_sourceType' - Specifies the origin of this event - a cluster, a parameter group, a
+-- security group, etc.
+newEvent ::
   Event
-event =
+newEvent =
   Event'
-    { _eMessage = Nothing,
-      _eDate = Nothing,
-      _eSourceIdentifier = Nothing,
-      _eSourceType = Nothing
+    { message = Prelude.Nothing,
+      date = Prelude.Nothing,
+      sourceIdentifier = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
 
 -- | The text of the event.
-eMessage :: Lens' Event (Maybe Text)
-eMessage = lens _eMessage (\s a -> s {_eMessage = a})
+event_message :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_message = Lens.lens (\Event' {message} -> message) (\s@Event' {} a -> s {message = a} :: Event)
 
 -- | The date and time when the event occurred.
-eDate :: Lens' Event (Maybe UTCTime)
-eDate = lens _eDate (\s a -> s {_eDate = a}) . mapping _Time
+event_date :: Lens.Lens' Event (Prelude.Maybe Prelude.UTCTime)
+event_date = Lens.lens (\Event' {date} -> date) (\s@Event' {} a -> s {date = a} :: Event) Prelude.. Lens.mapping Prelude._Time
 
--- | The identifier for the source of the event. For example, if the event occurred at the cluster level, the identifier would be the name of the cluster.
-eSourceIdentifier :: Lens' Event (Maybe Text)
-eSourceIdentifier = lens _eSourceIdentifier (\s a -> s {_eSourceIdentifier = a})
+-- | The identifier for the source of the event. For example, if the event
+-- occurred at the cluster level, the identifier would be the name of the
+-- cluster.
+event_sourceIdentifier :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_sourceIdentifier = Lens.lens (\Event' {sourceIdentifier} -> sourceIdentifier) (\s@Event' {} a -> s {sourceIdentifier = a} :: Event)
 
--- | Specifies the origin of this event - a cluster, a parameter group, a security group, etc.
-eSourceType :: Lens' Event (Maybe SourceType)
-eSourceType = lens _eSourceType (\s a -> s {_eSourceType = a})
+-- | Specifies the origin of this event - a cluster, a parameter group, a
+-- security group, etc.
+event_sourceType :: Lens.Lens' Event (Prelude.Maybe SourceType)
+event_sourceType = Lens.lens (\Event' {sourceType} -> sourceType) (\s@Event' {} a -> s {sourceType = a} :: Event)
 
-instance FromXML Event where
+instance Prelude.FromXML Event where
   parseXML x =
     Event'
-      <$> (x .@? "Message")
-      <*> (x .@? "Date")
-      <*> (x .@? "SourceIdentifier")
-      <*> (x .@? "SourceType")
+      Prelude.<$> (x Prelude..@? "Message")
+      Prelude.<*> (x Prelude..@? "Date")
+      Prelude.<*> (x Prelude..@? "SourceIdentifier")
+      Prelude.<*> (x Prelude..@? "SourceType")
 
-instance Hashable Event
+instance Prelude.Hashable Event
 
-instance NFData Event
+instance Prelude.NFData Event

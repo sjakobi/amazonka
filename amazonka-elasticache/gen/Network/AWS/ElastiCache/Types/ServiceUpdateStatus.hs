@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ElastiCache.Types.ServiceUpdateStatus
   ( ServiceUpdateStatus
       ( ..,
-        Available,
-        Cancelled,
-        Expired
+        ServiceUpdateStatusAvailable,
+        ServiceUpdateStatusCancelled,
+        ServiceUpdateStatusExpired
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceUpdateStatus
-  = ServiceUpdateStatus'
-      ( CI
-          Text
-      )
+newtype ServiceUpdateStatus = ServiceUpdateStatus'
+  { fromServiceUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: ServiceUpdateStatus
-pattern Available = ServiceUpdateStatus' "available"
+pattern ServiceUpdateStatusAvailable :: ServiceUpdateStatus
+pattern ServiceUpdateStatusAvailable = ServiceUpdateStatus' "available"
 
-pattern Cancelled :: ServiceUpdateStatus
-pattern Cancelled = ServiceUpdateStatus' "cancelled"
+pattern ServiceUpdateStatusCancelled :: ServiceUpdateStatus
+pattern ServiceUpdateStatusCancelled = ServiceUpdateStatus' "cancelled"
 
-pattern Expired :: ServiceUpdateStatus
-pattern Expired = ServiceUpdateStatus' "expired"
+pattern ServiceUpdateStatusExpired :: ServiceUpdateStatus
+pattern ServiceUpdateStatusExpired = ServiceUpdateStatus' "expired"
 
 {-# COMPLETE
-  Available,
-  Cancelled,
-  Expired,
+  ServiceUpdateStatusAvailable,
+  ServiceUpdateStatusCancelled,
+  ServiceUpdateStatusExpired,
   ServiceUpdateStatus'
   #-}
 
-instance FromText ServiceUpdateStatus where
-  parser = (ServiceUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText ServiceUpdateStatus where
+  parser = ServiceUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceUpdateStatus where
-  toText (ServiceUpdateStatus' ci) = original ci
+instance Prelude.ToText ServiceUpdateStatus where
+  toText (ServiceUpdateStatus' x) = x
 
-instance Hashable ServiceUpdateStatus
+instance Prelude.Hashable ServiceUpdateStatus
 
-instance NFData ServiceUpdateStatus
+instance Prelude.NFData ServiceUpdateStatus
 
-instance ToByteString ServiceUpdateStatus
+instance Prelude.ToByteString ServiceUpdateStatus
 
-instance ToQuery ServiceUpdateStatus
+instance Prelude.ToQuery ServiceUpdateStatus
 
-instance ToHeader ServiceUpdateStatus
+instance Prelude.ToHeader ServiceUpdateStatus
 
-instance FromXML ServiceUpdateStatus where
-  parseXML = parseXMLText "ServiceUpdateStatus"
+instance Prelude.FromXML ServiceUpdateStatus where
+  parseXML = Prelude.parseXMLText "ServiceUpdateStatus"

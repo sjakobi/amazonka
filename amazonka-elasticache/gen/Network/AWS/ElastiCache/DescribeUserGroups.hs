@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,171 +23,213 @@
 --
 -- Returns a list of user groups.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.ElastiCache.DescribeUserGroups
   ( -- * Creating a Request
-    describeUserGroups,
-    DescribeUserGroups,
+    DescribeUserGroups (..),
+    newDescribeUserGroups,
 
     -- * Request Lenses
-    dugsUserGroupId,
-    dugsMarker,
-    dugsMaxRecords,
+    describeUserGroups_userGroupId,
+    describeUserGroups_marker,
+    describeUserGroups_maxRecords,
 
     -- * Destructuring the Response
-    describeUserGroupsResponse,
-    DescribeUserGroupsResponse,
+    DescribeUserGroupsResponse (..),
+    newDescribeUserGroupsResponse,
 
     -- * Response Lenses
-    dugrrsUserGroups,
-    dugrrsMarker,
-    dugrrsResponseStatus,
+    describeUserGroupsResponse_userGroups,
+    describeUserGroupsResponse_marker,
+    describeUserGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.UserGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUserGroups' smart constructor.
+-- | /See:/ 'newDescribeUserGroups' smart constructor.
 data DescribeUserGroups = DescribeUserGroups'
-  { _dugsUserGroupId ::
-      !(Maybe Text),
-    _dugsMarker :: !(Maybe Text),
-    _dugsMaxRecords :: !(Maybe Int)
+  { -- | The ID of the user group.
+    userGroupId :: Prelude.Maybe Prelude.Text,
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by MaxRecords. >
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified MaxRecords value, a marker is included
+    -- in the response so that the remaining results can be retrieved.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dugsUserGroupId' - The ID of the user group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dugsMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords. >
+-- 'userGroupId', 'describeUserGroups_userGroupId' - The ID of the user group.
 --
--- * 'dugsMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.
-describeUserGroups ::
+-- 'marker', 'describeUserGroups_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by MaxRecords. >
+--
+-- 'maxRecords', 'describeUserGroups_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified MaxRecords value, a marker is included
+-- in the response so that the remaining results can be retrieved.
+newDescribeUserGroups ::
   DescribeUserGroups
-describeUserGroups =
+newDescribeUserGroups =
   DescribeUserGroups'
-    { _dugsUserGroupId = Nothing,
-      _dugsMarker = Nothing,
-      _dugsMaxRecords = Nothing
+    { userGroupId = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- | The ID of the user group.
-dugsUserGroupId :: Lens' DescribeUserGroups (Maybe Text)
-dugsUserGroupId = lens _dugsUserGroupId (\s a -> s {_dugsUserGroupId = a})
+describeUserGroups_userGroupId :: Lens.Lens' DescribeUserGroups (Prelude.Maybe Prelude.Text)
+describeUserGroups_userGroupId = Lens.lens (\DescribeUserGroups' {userGroupId} -> userGroupId) (\s@DescribeUserGroups' {} a -> s {userGroupId = a} :: DescribeUserGroups)
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords. >
-dugsMarker :: Lens' DescribeUserGroups (Maybe Text)
-dugsMarker = lens _dugsMarker (\s a -> s {_dugsMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by MaxRecords. >
+describeUserGroups_marker :: Lens.Lens' DescribeUserGroups (Prelude.Maybe Prelude.Text)
+describeUserGroups_marker = Lens.lens (\DescribeUserGroups' {marker} -> marker) (\s@DescribeUserGroups' {} a -> s {marker = a} :: DescribeUserGroups)
 
--- | The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved.
-dugsMaxRecords :: Lens' DescribeUserGroups (Maybe Int)
-dugsMaxRecords = lens _dugsMaxRecords (\s a -> s {_dugsMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified MaxRecords value, a marker is included
+-- in the response so that the remaining results can be retrieved.
+describeUserGroups_maxRecords :: Lens.Lens' DescribeUserGroups (Prelude.Maybe Prelude.Int)
+describeUserGroups_maxRecords = Lens.lens (\DescribeUserGroups' {maxRecords} -> maxRecords) (\s@DescribeUserGroups' {} a -> s {maxRecords = a} :: DescribeUserGroups)
 
-instance AWSPager DescribeUserGroups where
+instance Pager.AWSPager DescribeUserGroups where
   page rq rs
-    | stop (rs ^. dugrrsMarker) = Nothing
-    | stop (rs ^. dugrrsUserGroups) = Nothing
-    | otherwise =
-      Just $ rq & dugsMarker .~ rs ^. dugrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeUserGroupsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeUserGroupsResponse_userGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeUserGroups_marker
+          Lens..~ rs
+          Lens.^? describeUserGroupsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeUserGroups where
+instance Prelude.AWSRequest DescribeUserGroups where
   type
     Rs DescribeUserGroups =
       DescribeUserGroupsResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeUserGroupsResult"
       ( \s h x ->
           DescribeUserGroupsResponse'
-            <$> ( x .@? "UserGroups" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "UserGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeUserGroups
+instance Prelude.Hashable DescribeUserGroups
 
-instance NFData DescribeUserGroups
+instance Prelude.NFData DescribeUserGroups
 
-instance ToHeaders DescribeUserGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeUserGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeUserGroups where
-  toPath = const "/"
+instance Prelude.ToPath DescribeUserGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeUserGroups where
+instance Prelude.ToQuery DescribeUserGroups where
   toQuery DescribeUserGroups' {..} =
-    mconcat
-      [ "Action" =: ("DescribeUserGroups" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "UserGroupId" =: _dugsUserGroupId,
-        "Marker" =: _dugsMarker,
-        "MaxRecords" =: _dugsMaxRecords
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DescribeUserGroups" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "UserGroupId" Prelude.=: userGroupId,
+        "Marker" Prelude.=: marker,
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'describeUserGroupsResponse' smart constructor.
+-- | /See:/ 'newDescribeUserGroupsResponse' smart constructor.
 data DescribeUserGroupsResponse = DescribeUserGroupsResponse'
-  { _dugrrsUserGroups ::
-      !( Maybe
-           [UserGroup]
-       ),
-    _dugrrsMarker ::
-      !(Maybe Text),
-    _dugrrsResponseStatus ::
-      !Int
+  { -- | Returns a list of user groups.
+    userGroups :: Prelude.Maybe [UserGroup],
+    -- | An optional marker returned from a prior request. Use this marker for
+    -- pagination of results from this operation. If this parameter is
+    -- specified, the response includes only records beyond the marker, up to
+    -- the value specified by MaxRecords. >
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dugrrsUserGroups' - Returns a list of user groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dugrrsMarker' - An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords. >
+-- 'userGroups', 'describeUserGroupsResponse_userGroups' - Returns a list of user groups.
 --
--- * 'dugrrsResponseStatus' - -- | The response status code.
-describeUserGroupsResponse ::
-  -- | 'dugrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeUserGroupsResponse_marker' - An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by MaxRecords. >
+--
+-- 'httpStatus', 'describeUserGroupsResponse_httpStatus' - The response's http status code.
+newDescribeUserGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeUserGroupsResponse
-describeUserGroupsResponse pResponseStatus_ =
+newDescribeUserGroupsResponse pHttpStatus_ =
   DescribeUserGroupsResponse'
-    { _dugrrsUserGroups =
-        Nothing,
-      _dugrrsMarker = Nothing,
-      _dugrrsResponseStatus = pResponseStatus_
+    { userGroups =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Returns a list of user groups.
-dugrrsUserGroups :: Lens' DescribeUserGroupsResponse [UserGroup]
-dugrrsUserGroups = lens _dugrrsUserGroups (\s a -> s {_dugrrsUserGroups = a}) . _Default . _Coerce
+describeUserGroupsResponse_userGroups :: Lens.Lens' DescribeUserGroupsResponse (Prelude.Maybe [UserGroup])
+describeUserGroupsResponse_userGroups = Lens.lens (\DescribeUserGroupsResponse' {userGroups} -> userGroups) (\s@DescribeUserGroupsResponse' {} a -> s {userGroups = a} :: DescribeUserGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional marker returned from a prior request. Use this marker for pagination of results from this operation. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords. >
-dugrrsMarker :: Lens' DescribeUserGroupsResponse (Maybe Text)
-dugrrsMarker = lens _dugrrsMarker (\s a -> s {_dugrrsMarker = a})
+-- | An optional marker returned from a prior request. Use this marker for
+-- pagination of results from this operation. If this parameter is
+-- specified, the response includes only records beyond the marker, up to
+-- the value specified by MaxRecords. >
+describeUserGroupsResponse_marker :: Lens.Lens' DescribeUserGroupsResponse (Prelude.Maybe Prelude.Text)
+describeUserGroupsResponse_marker = Lens.lens (\DescribeUserGroupsResponse' {marker} -> marker) (\s@DescribeUserGroupsResponse' {} a -> s {marker = a} :: DescribeUserGroupsResponse)
 
--- | -- | The response status code.
-dugrrsResponseStatus :: Lens' DescribeUserGroupsResponse Int
-dugrrsResponseStatus = lens _dugrrsResponseStatus (\s a -> s {_dugrrsResponseStatus = a})
+-- | The response's http status code.
+describeUserGroupsResponse_httpStatus :: Lens.Lens' DescribeUserGroupsResponse Prelude.Int
+describeUserGroupsResponse_httpStatus = Lens.lens (\DescribeUserGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeUserGroupsResponse' {} a -> s {httpStatus = a} :: DescribeUserGroupsResponse)
 
-instance NFData DescribeUserGroupsResponse
+instance Prelude.NFData DescribeUserGroupsResponse

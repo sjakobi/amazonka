@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,138 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes user password(s) and/or access string.
+-- Changes user password(s) and\/or access string.
 module Network.AWS.ElastiCache.ModifyUser
   ( -- * Creating a Request
-    modifyUser,
-    ModifyUser,
+    ModifyUser (..),
+    newModifyUser,
 
     -- * Request Lenses
-    muAppendAccessString,
-    muPasswords,
-    muAccessString,
-    muNoPasswordRequired,
-    muUserId,
+    modifyUser_appendAccessString,
+    modifyUser_passwords,
+    modifyUser_accessString,
+    modifyUser_noPasswordRequired,
+    modifyUser_userId,
 
     -- * Destructuring the Response
-    user,
-    User,
+    User (..),
+    newUser,
 
     -- * Response Lenses
-    uStatus,
-    uAccessString,
-    uUserGroupIds,
-    uAuthentication,
-    uARN,
-    uUserId,
-    uEngine,
-    uUserName,
+    user_status,
+    user_accessString,
+    user_userGroupIds,
+    user_authentication,
+    user_aRN,
+    user_userId,
+    user_engine,
+    user_userName,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Authentication
+import Network.AWS.ElastiCache.Types.User
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyUser' smart constructor.
+-- | /See:/ 'newModifyUser' smart constructor.
 data ModifyUser = ModifyUser'
-  { _muAppendAccessString ::
-      !(Maybe Text),
-    _muPasswords :: !(Maybe (List1 Text)),
-    _muAccessString :: !(Maybe Text),
-    _muNoPasswordRequired :: !(Maybe Bool),
-    _muUserId :: !Text
+  { -- | Adds additional user permissions to the access string.
+    appendAccessString :: Prelude.Maybe Prelude.Text,
+    -- | The passwords belonging to the user. You are allowed up to two.
+    passwords :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Access permissions string used for this user.
+    accessString :: Prelude.Maybe Prelude.Text,
+    -- | Indicates no password is required for the user.
+    noPasswordRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the user.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'muAppendAccessString' - Adds additional user permissions to the access string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'muPasswords' - The passwords belonging to the user. You are allowed up to two.
+-- 'appendAccessString', 'modifyUser_appendAccessString' - Adds additional user permissions to the access string.
 --
--- * 'muAccessString' - Access permissions string used for this user.
+-- 'passwords', 'modifyUser_passwords' - The passwords belonging to the user. You are allowed up to two.
 --
--- * 'muNoPasswordRequired' - Indicates no password is required for the user.
+-- 'accessString', 'modifyUser_accessString' - Access permissions string used for this user.
 --
--- * 'muUserId' - The ID of the user.
-modifyUser ::
-  -- | 'muUserId'
-  Text ->
+-- 'noPasswordRequired', 'modifyUser_noPasswordRequired' - Indicates no password is required for the user.
+--
+-- 'userId', 'modifyUser_userId' - The ID of the user.
+newModifyUser ::
+  -- | 'userId'
+  Prelude.Text ->
   ModifyUser
-modifyUser pUserId_ =
+newModifyUser pUserId_ =
   ModifyUser'
-    { _muAppendAccessString = Nothing,
-      _muPasswords = Nothing,
-      _muAccessString = Nothing,
-      _muNoPasswordRequired = Nothing,
-      _muUserId = pUserId_
+    { appendAccessString = Prelude.Nothing,
+      passwords = Prelude.Nothing,
+      accessString = Prelude.Nothing,
+      noPasswordRequired = Prelude.Nothing,
+      userId = pUserId_
     }
 
 -- | Adds additional user permissions to the access string.
-muAppendAccessString :: Lens' ModifyUser (Maybe Text)
-muAppendAccessString = lens _muAppendAccessString (\s a -> s {_muAppendAccessString = a})
+modifyUser_appendAccessString :: Lens.Lens' ModifyUser (Prelude.Maybe Prelude.Text)
+modifyUser_appendAccessString = Lens.lens (\ModifyUser' {appendAccessString} -> appendAccessString) (\s@ModifyUser' {} a -> s {appendAccessString = a} :: ModifyUser)
 
 -- | The passwords belonging to the user. You are allowed up to two.
-muPasswords :: Lens' ModifyUser (Maybe (NonEmpty Text))
-muPasswords = lens _muPasswords (\s a -> s {_muPasswords = a}) . mapping _List1
+modifyUser_passwords :: Lens.Lens' ModifyUser (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+modifyUser_passwords = Lens.lens (\ModifyUser' {passwords} -> passwords) (\s@ModifyUser' {} a -> s {passwords = a} :: ModifyUser) Prelude.. Lens.mapping Prelude._List1
 
 -- | Access permissions string used for this user.
-muAccessString :: Lens' ModifyUser (Maybe Text)
-muAccessString = lens _muAccessString (\s a -> s {_muAccessString = a})
+modifyUser_accessString :: Lens.Lens' ModifyUser (Prelude.Maybe Prelude.Text)
+modifyUser_accessString = Lens.lens (\ModifyUser' {accessString} -> accessString) (\s@ModifyUser' {} a -> s {accessString = a} :: ModifyUser)
 
 -- | Indicates no password is required for the user.
-muNoPasswordRequired :: Lens' ModifyUser (Maybe Bool)
-muNoPasswordRequired = lens _muNoPasswordRequired (\s a -> s {_muNoPasswordRequired = a})
+modifyUser_noPasswordRequired :: Lens.Lens' ModifyUser (Prelude.Maybe Prelude.Bool)
+modifyUser_noPasswordRequired = Lens.lens (\ModifyUser' {noPasswordRequired} -> noPasswordRequired) (\s@ModifyUser' {} a -> s {noPasswordRequired = a} :: ModifyUser)
 
 -- | The ID of the user.
-muUserId :: Lens' ModifyUser Text
-muUserId = lens _muUserId (\s a -> s {_muUserId = a})
+modifyUser_userId :: Lens.Lens' ModifyUser Prelude.Text
+modifyUser_userId = Lens.lens (\ModifyUser' {userId} -> userId) (\s@ModifyUser' {} a -> s {userId = a} :: ModifyUser)
 
-instance AWSRequest ModifyUser where
+instance Prelude.AWSRequest ModifyUser where
   type Rs ModifyUser = User
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyUserResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable ModifyUser
+instance Prelude.Hashable ModifyUser
 
-instance NFData ModifyUser
+instance Prelude.NFData ModifyUser
 
-instance ToHeaders ModifyUser where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ModifyUser where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyUser where
-  toPath = const "/"
+instance Prelude.ToPath ModifyUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyUser where
+instance Prelude.ToQuery ModifyUser where
   toQuery ModifyUser' {..} =
-    mconcat
-      [ "Action" =: ("ModifyUser" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "AppendAccessString" =: _muAppendAccessString,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ModifyUser" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "AppendAccessString" Prelude.=: appendAccessString,
         "Passwords"
-          =: toQuery (toQueryList "member" <$> _muPasswords),
-        "AccessString" =: _muAccessString,
-        "NoPasswordRequired" =: _muNoPasswordRequired,
-        "UserId" =: _muUserId
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> passwords),
+        "AccessString" Prelude.=: accessString,
+        "NoPasswordRequired" Prelude.=: noPasswordRequired,
+        "UserId" Prelude.=: userId
       ]

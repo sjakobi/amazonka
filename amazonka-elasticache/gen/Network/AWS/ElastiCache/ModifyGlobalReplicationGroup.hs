@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,213 +24,238 @@
 -- Modifies the settings for a Global Datastore.
 module Network.AWS.ElastiCache.ModifyGlobalReplicationGroup
   ( -- * Creating a Request
-    modifyGlobalReplicationGroup,
-    ModifyGlobalReplicationGroup,
+    ModifyGlobalReplicationGroup (..),
+    newModifyGlobalReplicationGroup,
 
     -- * Request Lenses
-    mgrgAutomaticFailoverEnabled,
-    mgrgCacheParameterGroupName,
-    mgrgEngineVersion,
-    mgrgCacheNodeType,
-    mgrgGlobalReplicationGroupDescription,
-    mgrgGlobalReplicationGroupId,
-    mgrgApplyImmediately,
+    modifyGlobalReplicationGroup_automaticFailoverEnabled,
+    modifyGlobalReplicationGroup_cacheParameterGroupName,
+    modifyGlobalReplicationGroup_engineVersion,
+    modifyGlobalReplicationGroup_cacheNodeType,
+    modifyGlobalReplicationGroup_globalReplicationGroupDescription,
+    modifyGlobalReplicationGroup_globalReplicationGroupId,
+    modifyGlobalReplicationGroup_applyImmediately,
 
     -- * Destructuring the Response
-    modifyGlobalReplicationGroupResponse,
-    ModifyGlobalReplicationGroupResponse,
+    ModifyGlobalReplicationGroupResponse (..),
+    newModifyGlobalReplicationGroupResponse,
 
     -- * Response Lenses
-    mgrgrrsGlobalReplicationGroup,
-    mgrgrrsResponseStatus,
+    modifyGlobalReplicationGroupResponse_globalReplicationGroup,
+    modifyGlobalReplicationGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.GlobalReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyGlobalReplicationGroup' smart constructor.
+-- | /See:/ 'newModifyGlobalReplicationGroup' smart constructor.
 data ModifyGlobalReplicationGroup = ModifyGlobalReplicationGroup'
-  { _mgrgAutomaticFailoverEnabled ::
-      !(Maybe Bool),
-    _mgrgCacheParameterGroupName ::
-      !(Maybe Text),
-    _mgrgEngineVersion ::
-      !(Maybe Text),
-    _mgrgCacheNodeType ::
-      !(Maybe Text),
-    _mgrgGlobalReplicationGroupDescription ::
-      !(Maybe Text),
-    _mgrgGlobalReplicationGroupId ::
-      !Text,
-    _mgrgApplyImmediately ::
-      !Bool
+  { -- | Determines whether a read replica is automatically promoted to
+    -- read\/write primary if the existing primary encounters a failure.
+    automaticFailoverEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the cache parameter group to use with the Global datastore.
+    -- It must be compatible with the major engine version used by the Global
+    -- datastore.
+    cacheParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The upgraded version of the cache engine to be run on the clusters in
+    -- the Global Datastore.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | A valid cache node type that you want to scale this Global Datastore to.
+    cacheNodeType :: Prelude.Maybe Prelude.Text,
+    -- | A description of the Global Datastore
+    globalReplicationGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Text,
+    -- | This parameter causes the modifications in this request and any pending
+    -- modifications to be applied, asynchronously and as soon as possible.
+    -- Modifications to Global Replication Groups cannot be requested to be
+    -- applied in PreferredMaintenceWindow.
+    applyImmediately :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyGlobalReplicationGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyGlobalReplicationGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mgrgAutomaticFailoverEnabled' - Determines whether a read replica is automatically promoted to read/write primary if the existing primary encounters a failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mgrgCacheParameterGroupName' - The name of the cache parameter group to use with the Global datastore. It must be compatible with the major engine version used by the Global datastore.
+-- 'automaticFailoverEnabled', 'modifyGlobalReplicationGroup_automaticFailoverEnabled' - Determines whether a read replica is automatically promoted to
+-- read\/write primary if the existing primary encounters a failure.
 --
--- * 'mgrgEngineVersion' - The upgraded version of the cache engine to be run on the clusters in the Global Datastore.
+-- 'cacheParameterGroupName', 'modifyGlobalReplicationGroup_cacheParameterGroupName' - The name of the cache parameter group to use with the Global datastore.
+-- It must be compatible with the major engine version used by the Global
+-- datastore.
 --
--- * 'mgrgCacheNodeType' - A valid cache node type that you want to scale this Global Datastore to.
+-- 'engineVersion', 'modifyGlobalReplicationGroup_engineVersion' - The upgraded version of the cache engine to be run on the clusters in
+-- the Global Datastore.
 --
--- * 'mgrgGlobalReplicationGroupDescription' - A description of the Global Datastore
+-- 'cacheNodeType', 'modifyGlobalReplicationGroup_cacheNodeType' - A valid cache node type that you want to scale this Global Datastore to.
 --
--- * 'mgrgGlobalReplicationGroupId' - The name of the Global Datastore
+-- 'globalReplicationGroupDescription', 'modifyGlobalReplicationGroup_globalReplicationGroupDescription' - A description of the Global Datastore
 --
--- * 'mgrgApplyImmediately' - This parameter causes the modifications in this request and any pending modifications to be applied, asynchronously and as soon as possible. Modifications to Global Replication Groups cannot be requested to be applied in PreferredMaintenceWindow.
-modifyGlobalReplicationGroup ::
-  -- | 'mgrgGlobalReplicationGroupId'
-  Text ->
-  -- | 'mgrgApplyImmediately'
-  Bool ->
+-- 'globalReplicationGroupId', 'modifyGlobalReplicationGroup_globalReplicationGroupId' - The name of the Global Datastore
+--
+-- 'applyImmediately', 'modifyGlobalReplicationGroup_applyImmediately' - This parameter causes the modifications in this request and any pending
+-- modifications to be applied, asynchronously and as soon as possible.
+-- Modifications to Global Replication Groups cannot be requested to be
+-- applied in PreferredMaintenceWindow.
+newModifyGlobalReplicationGroup ::
+  -- | 'globalReplicationGroupId'
+  Prelude.Text ->
+  -- | 'applyImmediately'
+  Prelude.Bool ->
   ModifyGlobalReplicationGroup
-modifyGlobalReplicationGroup
+newModifyGlobalReplicationGroup
   pGlobalReplicationGroupId_
   pApplyImmediately_ =
     ModifyGlobalReplicationGroup'
-      { _mgrgAutomaticFailoverEnabled =
-          Nothing,
-        _mgrgCacheParameterGroupName = Nothing,
-        _mgrgEngineVersion = Nothing,
-        _mgrgCacheNodeType = Nothing,
-        _mgrgGlobalReplicationGroupDescription =
-          Nothing,
-        _mgrgGlobalReplicationGroupId =
+      { automaticFailoverEnabled =
+          Prelude.Nothing,
+        cacheParameterGroupName = Prelude.Nothing,
+        engineVersion = Prelude.Nothing,
+        cacheNodeType = Prelude.Nothing,
+        globalReplicationGroupDescription =
+          Prelude.Nothing,
+        globalReplicationGroupId =
           pGlobalReplicationGroupId_,
-        _mgrgApplyImmediately = pApplyImmediately_
+        applyImmediately = pApplyImmediately_
       }
 
--- | Determines whether a read replica is automatically promoted to read/write primary if the existing primary encounters a failure.
-mgrgAutomaticFailoverEnabled :: Lens' ModifyGlobalReplicationGroup (Maybe Bool)
-mgrgAutomaticFailoverEnabled = lens _mgrgAutomaticFailoverEnabled (\s a -> s {_mgrgAutomaticFailoverEnabled = a})
+-- | Determines whether a read replica is automatically promoted to
+-- read\/write primary if the existing primary encounters a failure.
+modifyGlobalReplicationGroup_automaticFailoverEnabled :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Bool)
+modifyGlobalReplicationGroup_automaticFailoverEnabled = Lens.lens (\ModifyGlobalReplicationGroup' {automaticFailoverEnabled} -> automaticFailoverEnabled) (\s@ModifyGlobalReplicationGroup' {} a -> s {automaticFailoverEnabled = a} :: ModifyGlobalReplicationGroup)
 
--- | The name of the cache parameter group to use with the Global datastore. It must be compatible with the major engine version used by the Global datastore.
-mgrgCacheParameterGroupName :: Lens' ModifyGlobalReplicationGroup (Maybe Text)
-mgrgCacheParameterGroupName = lens _mgrgCacheParameterGroupName (\s a -> s {_mgrgCacheParameterGroupName = a})
+-- | The name of the cache parameter group to use with the Global datastore.
+-- It must be compatible with the major engine version used by the Global
+-- datastore.
+modifyGlobalReplicationGroup_cacheParameterGroupName :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
+modifyGlobalReplicationGroup_cacheParameterGroupName = Lens.lens (\ModifyGlobalReplicationGroup' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@ModifyGlobalReplicationGroup' {} a -> s {cacheParameterGroupName = a} :: ModifyGlobalReplicationGroup)
 
--- | The upgraded version of the cache engine to be run on the clusters in the Global Datastore.
-mgrgEngineVersion :: Lens' ModifyGlobalReplicationGroup (Maybe Text)
-mgrgEngineVersion = lens _mgrgEngineVersion (\s a -> s {_mgrgEngineVersion = a})
+-- | The upgraded version of the cache engine to be run on the clusters in
+-- the Global Datastore.
+modifyGlobalReplicationGroup_engineVersion :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
+modifyGlobalReplicationGroup_engineVersion = Lens.lens (\ModifyGlobalReplicationGroup' {engineVersion} -> engineVersion) (\s@ModifyGlobalReplicationGroup' {} a -> s {engineVersion = a} :: ModifyGlobalReplicationGroup)
 
 -- | A valid cache node type that you want to scale this Global Datastore to.
-mgrgCacheNodeType :: Lens' ModifyGlobalReplicationGroup (Maybe Text)
-mgrgCacheNodeType = lens _mgrgCacheNodeType (\s a -> s {_mgrgCacheNodeType = a})
+modifyGlobalReplicationGroup_cacheNodeType :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
+modifyGlobalReplicationGroup_cacheNodeType = Lens.lens (\ModifyGlobalReplicationGroup' {cacheNodeType} -> cacheNodeType) (\s@ModifyGlobalReplicationGroup' {} a -> s {cacheNodeType = a} :: ModifyGlobalReplicationGroup)
 
 -- | A description of the Global Datastore
-mgrgGlobalReplicationGroupDescription :: Lens' ModifyGlobalReplicationGroup (Maybe Text)
-mgrgGlobalReplicationGroupDescription = lens _mgrgGlobalReplicationGroupDescription (\s a -> s {_mgrgGlobalReplicationGroupDescription = a})
+modifyGlobalReplicationGroup_globalReplicationGroupDescription :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
+modifyGlobalReplicationGroup_globalReplicationGroupDescription = Lens.lens (\ModifyGlobalReplicationGroup' {globalReplicationGroupDescription} -> globalReplicationGroupDescription) (\s@ModifyGlobalReplicationGroup' {} a -> s {globalReplicationGroupDescription = a} :: ModifyGlobalReplicationGroup)
 
 -- | The name of the Global Datastore
-mgrgGlobalReplicationGroupId :: Lens' ModifyGlobalReplicationGroup Text
-mgrgGlobalReplicationGroupId = lens _mgrgGlobalReplicationGroupId (\s a -> s {_mgrgGlobalReplicationGroupId = a})
+modifyGlobalReplicationGroup_globalReplicationGroupId :: Lens.Lens' ModifyGlobalReplicationGroup Prelude.Text
+modifyGlobalReplicationGroup_globalReplicationGroupId = Lens.lens (\ModifyGlobalReplicationGroup' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@ModifyGlobalReplicationGroup' {} a -> s {globalReplicationGroupId = a} :: ModifyGlobalReplicationGroup)
 
--- | This parameter causes the modifications in this request and any pending modifications to be applied, asynchronously and as soon as possible. Modifications to Global Replication Groups cannot be requested to be applied in PreferredMaintenceWindow.
-mgrgApplyImmediately :: Lens' ModifyGlobalReplicationGroup Bool
-mgrgApplyImmediately = lens _mgrgApplyImmediately (\s a -> s {_mgrgApplyImmediately = a})
+-- | This parameter causes the modifications in this request and any pending
+-- modifications to be applied, asynchronously and as soon as possible.
+-- Modifications to Global Replication Groups cannot be requested to be
+-- applied in PreferredMaintenceWindow.
+modifyGlobalReplicationGroup_applyImmediately :: Lens.Lens' ModifyGlobalReplicationGroup Prelude.Bool
+modifyGlobalReplicationGroup_applyImmediately = Lens.lens (\ModifyGlobalReplicationGroup' {applyImmediately} -> applyImmediately) (\s@ModifyGlobalReplicationGroup' {} a -> s {applyImmediately = a} :: ModifyGlobalReplicationGroup)
 
-instance AWSRequest ModifyGlobalReplicationGroup where
+instance
+  Prelude.AWSRequest
+    ModifyGlobalReplicationGroup
+  where
   type
     Rs ModifyGlobalReplicationGroup =
       ModifyGlobalReplicationGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ModifyGlobalReplicationGroupResult"
       ( \s h x ->
           ModifyGlobalReplicationGroupResponse'
-            <$> (x .@? "GlobalReplicationGroup")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalReplicationGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyGlobalReplicationGroup
+instance
+  Prelude.Hashable
+    ModifyGlobalReplicationGroup
 
-instance NFData ModifyGlobalReplicationGroup
+instance Prelude.NFData ModifyGlobalReplicationGroup
 
-instance ToHeaders ModifyGlobalReplicationGroup where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ModifyGlobalReplicationGroup
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ModifyGlobalReplicationGroup where
-  toPath = const "/"
+instance Prelude.ToPath ModifyGlobalReplicationGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyGlobalReplicationGroup where
+instance Prelude.ToQuery ModifyGlobalReplicationGroup where
   toQuery ModifyGlobalReplicationGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ModifyGlobalReplicationGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ( "ModifyGlobalReplicationGroup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "AutomaticFailoverEnabled"
-          =: _mgrgAutomaticFailoverEnabled,
+          Prelude.=: automaticFailoverEnabled,
         "CacheParameterGroupName"
-          =: _mgrgCacheParameterGroupName,
-        "EngineVersion" =: _mgrgEngineVersion,
-        "CacheNodeType" =: _mgrgCacheNodeType,
+          Prelude.=: cacheParameterGroupName,
+        "EngineVersion" Prelude.=: engineVersion,
+        "CacheNodeType" Prelude.=: cacheNodeType,
         "GlobalReplicationGroupDescription"
-          =: _mgrgGlobalReplicationGroupDescription,
+          Prelude.=: globalReplicationGroupDescription,
         "GlobalReplicationGroupId"
-          =: _mgrgGlobalReplicationGroupId,
-        "ApplyImmediately" =: _mgrgApplyImmediately
+          Prelude.=: globalReplicationGroupId,
+        "ApplyImmediately" Prelude.=: applyImmediately
       ]
 
--- | /See:/ 'modifyGlobalReplicationGroupResponse' smart constructor.
+-- | /See:/ 'newModifyGlobalReplicationGroupResponse' smart constructor.
 data ModifyGlobalReplicationGroupResponse = ModifyGlobalReplicationGroupResponse'
-  { _mgrgrrsGlobalReplicationGroup ::
-      !( Maybe
-           GlobalReplicationGroup
-       ),
-    _mgrgrrsResponseStatus ::
-      !Int
+  { globalReplicationGroup :: Prelude.Maybe GlobalReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyGlobalReplicationGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyGlobalReplicationGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mgrgrrsGlobalReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mgrgrrsResponseStatus' - -- | The response status code.
-modifyGlobalReplicationGroupResponse ::
-  -- | 'mgrgrrsResponseStatus'
-  Int ->
+-- 'globalReplicationGroup', 'modifyGlobalReplicationGroupResponse_globalReplicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'modifyGlobalReplicationGroupResponse_httpStatus' - The response's http status code.
+newModifyGlobalReplicationGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyGlobalReplicationGroupResponse
-modifyGlobalReplicationGroupResponse pResponseStatus_ =
+newModifyGlobalReplicationGroupResponse pHttpStatus_ =
   ModifyGlobalReplicationGroupResponse'
-    { _mgrgrrsGlobalReplicationGroup =
-        Nothing,
-      _mgrgrrsResponseStatus =
-        pResponseStatus_
+    { globalReplicationGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-mgrgrrsGlobalReplicationGroup :: Lens' ModifyGlobalReplicationGroupResponse (Maybe GlobalReplicationGroup)
-mgrgrrsGlobalReplicationGroup = lens _mgrgrrsGlobalReplicationGroup (\s a -> s {_mgrgrrsGlobalReplicationGroup = a})
+modifyGlobalReplicationGroupResponse_globalReplicationGroup :: Lens.Lens' ModifyGlobalReplicationGroupResponse (Prelude.Maybe GlobalReplicationGroup)
+modifyGlobalReplicationGroupResponse_globalReplicationGroup = Lens.lens (\ModifyGlobalReplicationGroupResponse' {globalReplicationGroup} -> globalReplicationGroup) (\s@ModifyGlobalReplicationGroupResponse' {} a -> s {globalReplicationGroup = a} :: ModifyGlobalReplicationGroupResponse)
 
--- | -- | The response status code.
-mgrgrrsResponseStatus :: Lens' ModifyGlobalReplicationGroupResponse Int
-mgrgrrsResponseStatus = lens _mgrgrrsResponseStatus (\s a -> s {_mgrgrrsResponseStatus = a})
+-- | The response's http status code.
+modifyGlobalReplicationGroupResponse_httpStatus :: Lens.Lens' ModifyGlobalReplicationGroupResponse Prelude.Int
+modifyGlobalReplicationGroupResponse_httpStatus = Lens.lens (\ModifyGlobalReplicationGroupResponse' {httpStatus} -> httpStatus) (\s@ModifyGlobalReplicationGroupResponse' {} a -> s {httpStatus = a} :: ModifyGlobalReplicationGroupResponse)
 
-instance NFData ModifyGlobalReplicationGroupResponse
+instance
+  Prelude.NFData
+    ModifyGlobalReplicationGroupResponse

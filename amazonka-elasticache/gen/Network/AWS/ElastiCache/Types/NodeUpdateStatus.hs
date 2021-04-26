@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.ElastiCache.Types.NodeUpdateStatus
   ( NodeUpdateStatus
       ( ..,
-        NUSComplete,
-        NUSInProgress,
-        NUSNotApplied,
-        NUSStopped,
-        NUSStopping,
-        NUSWaitingToStart
+        NodeUpdateStatusComplete,
+        NodeUpdateStatusInProgress,
+        NodeUpdateStatusNotApplied,
+        NodeUpdateStatusStopped,
+        NodeUpdateStatusStopping,
+        NodeUpdateStatusWaitingToStart
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NodeUpdateStatus = NodeUpdateStatus' (CI Text)
+newtype NodeUpdateStatus = NodeUpdateStatus'
+  { fromNodeUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NUSComplete :: NodeUpdateStatus
-pattern NUSComplete = NodeUpdateStatus' "complete"
+pattern NodeUpdateStatusComplete :: NodeUpdateStatus
+pattern NodeUpdateStatusComplete = NodeUpdateStatus' "complete"
 
-pattern NUSInProgress :: NodeUpdateStatus
-pattern NUSInProgress = NodeUpdateStatus' "in-progress"
+pattern NodeUpdateStatusInProgress :: NodeUpdateStatus
+pattern NodeUpdateStatusInProgress = NodeUpdateStatus' "in-progress"
 
-pattern NUSNotApplied :: NodeUpdateStatus
-pattern NUSNotApplied = NodeUpdateStatus' "not-applied"
+pattern NodeUpdateStatusNotApplied :: NodeUpdateStatus
+pattern NodeUpdateStatusNotApplied = NodeUpdateStatus' "not-applied"
 
-pattern NUSStopped :: NodeUpdateStatus
-pattern NUSStopped = NodeUpdateStatus' "stopped"
+pattern NodeUpdateStatusStopped :: NodeUpdateStatus
+pattern NodeUpdateStatusStopped = NodeUpdateStatus' "stopped"
 
-pattern NUSStopping :: NodeUpdateStatus
-pattern NUSStopping = NodeUpdateStatus' "stopping"
+pattern NodeUpdateStatusStopping :: NodeUpdateStatus
+pattern NodeUpdateStatusStopping = NodeUpdateStatus' "stopping"
 
-pattern NUSWaitingToStart :: NodeUpdateStatus
-pattern NUSWaitingToStart = NodeUpdateStatus' "waiting-to-start"
+pattern NodeUpdateStatusWaitingToStart :: NodeUpdateStatus
+pattern NodeUpdateStatusWaitingToStart = NodeUpdateStatus' "waiting-to-start"
 
 {-# COMPLETE
-  NUSComplete,
-  NUSInProgress,
-  NUSNotApplied,
-  NUSStopped,
-  NUSStopping,
-  NUSWaitingToStart,
+  NodeUpdateStatusComplete,
+  NodeUpdateStatusInProgress,
+  NodeUpdateStatusNotApplied,
+  NodeUpdateStatusStopped,
+  NodeUpdateStatusStopping,
+  NodeUpdateStatusWaitingToStart,
   NodeUpdateStatus'
   #-}
 
-instance FromText NodeUpdateStatus where
-  parser = (NodeUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText NodeUpdateStatus where
+  parser = NodeUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText NodeUpdateStatus where
-  toText (NodeUpdateStatus' ci) = original ci
+instance Prelude.ToText NodeUpdateStatus where
+  toText (NodeUpdateStatus' x) = x
 
-instance Hashable NodeUpdateStatus
+instance Prelude.Hashable NodeUpdateStatus
 
-instance NFData NodeUpdateStatus
+instance Prelude.NFData NodeUpdateStatus
 
-instance ToByteString NodeUpdateStatus
+instance Prelude.ToByteString NodeUpdateStatus
 
-instance ToQuery NodeUpdateStatus
+instance Prelude.ToQuery NodeUpdateStatus
 
-instance ToHeader NodeUpdateStatus
+instance Prelude.ToHeader NodeUpdateStatus
 
-instance FromXML NodeUpdateStatus where
-  parseXML = parseXMLText "NodeUpdateStatus"
+instance Prelude.FromXML NodeUpdateStatus where
+  parseXML = Prelude.parseXMLText "NodeUpdateStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.Filter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Used to streamline results of a search based on the property being filtered.
+-- | Used to streamline results of a search based on the property being
+-- filtered.
 --
---
---
--- /See:/ 'filter'' smart constructor.
+-- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { _fName :: !Text,
-    _fValues :: !(List1 Text)
+  { -- | The property being filtered. For example, UserId.
+    name :: Prelude.Text,
+    -- | The property values to filter on. For example, \"user-123\".
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Filter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Filter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fName' - The property being filtered. For example, UserId.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fValues' - The property values to filter on. For example, "user-123".
-filter' ::
-  -- | 'fName'
-  Text ->
-  -- | 'fValues'
-  NonEmpty Text ->
+-- 'name', 'filter_name' - The property being filtered. For example, UserId.
+--
+-- 'values', 'filter_values' - The property values to filter on. For example, \"user-123\".
+newFilter ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   Filter
-filter' pName_ pValues_ =
+newFilter pName_ pValues_ =
   Filter'
-    { _fName = pName_,
-      _fValues = _List1 # pValues_
+    { name = pName_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
 -- | The property being filtered. For example, UserId.
-fName :: Lens' Filter Text
-fName = lens _fName (\s a -> s {_fName = a})
+filter_name :: Lens.Lens' Filter Prelude.Text
+filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
--- | The property values to filter on. For example, "user-123".
-fValues :: Lens' Filter (NonEmpty Text)
-fValues = lens _fValues (\s a -> s {_fValues = a}) . _List1
+-- | The property values to filter on. For example, \"user-123\".
+filter_values :: Lens.Lens' Filter (Prelude.NonEmpty Prelude.Text)
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Prelude._List1
 
-instance Hashable Filter
+instance Prelude.Hashable Filter
 
-instance NFData Filter
+instance Prelude.NFData Filter
 
-instance ToQuery Filter where
+instance Prelude.ToQuery Filter where
   toQuery Filter' {..} =
-    mconcat
-      [ "Name" =: _fName,
-        "Values" =: toQueryList "member" _fValues
+    Prelude.mconcat
+      [ "Name" Prelude.=: name,
+        "Values"
+          Prelude.=: Prelude.toQueryList "member" values
       ]

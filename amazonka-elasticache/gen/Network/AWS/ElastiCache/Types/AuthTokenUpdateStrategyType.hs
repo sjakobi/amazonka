@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,57 @@
 module Network.AWS.ElastiCache.Types.AuthTokenUpdateStrategyType
   ( AuthTokenUpdateStrategyType
       ( ..,
-        Delete,
-        Rotate,
-        Set
+        AuthTokenUpdateStrategyTypeDELETE,
+        AuthTokenUpdateStrategyTypeROTATE,
+        AuthTokenUpdateStrategyTypeSET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthTokenUpdateStrategyType
-  = AuthTokenUpdateStrategyType'
-      ( CI
-          Text
-      )
+newtype AuthTokenUpdateStrategyType = AuthTokenUpdateStrategyType'
+  { fromAuthTokenUpdateStrategyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Delete :: AuthTokenUpdateStrategyType
-pattern Delete = AuthTokenUpdateStrategyType' "DELETE"
+pattern AuthTokenUpdateStrategyTypeDELETE :: AuthTokenUpdateStrategyType
+pattern AuthTokenUpdateStrategyTypeDELETE = AuthTokenUpdateStrategyType' "DELETE"
 
-pattern Rotate :: AuthTokenUpdateStrategyType
-pattern Rotate = AuthTokenUpdateStrategyType' "ROTATE"
+pattern AuthTokenUpdateStrategyTypeROTATE :: AuthTokenUpdateStrategyType
+pattern AuthTokenUpdateStrategyTypeROTATE = AuthTokenUpdateStrategyType' "ROTATE"
 
-pattern Set :: AuthTokenUpdateStrategyType
-pattern Set = AuthTokenUpdateStrategyType' "SET"
+pattern AuthTokenUpdateStrategyTypeSET :: AuthTokenUpdateStrategyType
+pattern AuthTokenUpdateStrategyTypeSET = AuthTokenUpdateStrategyType' "SET"
 
 {-# COMPLETE
-  Delete,
-  Rotate,
-  Set,
+  AuthTokenUpdateStrategyTypeDELETE,
+  AuthTokenUpdateStrategyTypeROTATE,
+  AuthTokenUpdateStrategyTypeSET,
   AuthTokenUpdateStrategyType'
   #-}
 
-instance FromText AuthTokenUpdateStrategyType where
-  parser = (AuthTokenUpdateStrategyType' . mk) <$> takeText
+instance Prelude.FromText AuthTokenUpdateStrategyType where
+  parser = AuthTokenUpdateStrategyType' Prelude.<$> Prelude.takeText
 
-instance ToText AuthTokenUpdateStrategyType where
-  toText (AuthTokenUpdateStrategyType' ci) = original ci
+instance Prelude.ToText AuthTokenUpdateStrategyType where
+  toText (AuthTokenUpdateStrategyType' x) = x
 
-instance Hashable AuthTokenUpdateStrategyType
+instance Prelude.Hashable AuthTokenUpdateStrategyType
 
-instance NFData AuthTokenUpdateStrategyType
+instance Prelude.NFData AuthTokenUpdateStrategyType
 
-instance ToByteString AuthTokenUpdateStrategyType
+instance Prelude.ToByteString AuthTokenUpdateStrategyType
 
-instance ToQuery AuthTokenUpdateStrategyType
+instance Prelude.ToQuery AuthTokenUpdateStrategyType
 
-instance ToHeader AuthTokenUpdateStrategyType
+instance Prelude.ToHeader AuthTokenUpdateStrategyType

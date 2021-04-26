@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.NotificationConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a notification topic and its status. Notification topics are used for publishing ElastiCache events to subscribers using Amazon Simple Notification Service (SNS).
+-- | Describes a notification topic and its status. Notification topics are
+-- used for publishing ElastiCache events to subscribers using Amazon
+-- Simple Notification Service (SNS).
 --
---
---
--- /See:/ 'notificationConfiguration' smart constructor.
+-- /See:/ 'newNotificationConfiguration' smart constructor.
 data NotificationConfiguration = NotificationConfiguration'
-  { _ncTopicStatus ::
-      !(Maybe Text),
-    _ncTopicARN ::
-      !(Maybe Text)
+  { -- | The current state of the topic.
+    topicStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that identifies the topic.
+    topicArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncTopicStatus' - The current state of the topic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncTopicARN' - The Amazon Resource Name (ARN) that identifies the topic.
-notificationConfiguration ::
+-- 'topicStatus', 'notificationConfiguration_topicStatus' - The current state of the topic.
+--
+-- 'topicArn', 'notificationConfiguration_topicArn' - The Amazon Resource Name (ARN) that identifies the topic.
+newNotificationConfiguration ::
   NotificationConfiguration
-notificationConfiguration =
+newNotificationConfiguration =
   NotificationConfiguration'
-    { _ncTopicStatus =
-        Nothing,
-      _ncTopicARN = Nothing
+    { topicStatus =
+        Prelude.Nothing,
+      topicArn = Prelude.Nothing
     }
 
 -- | The current state of the topic.
-ncTopicStatus :: Lens' NotificationConfiguration (Maybe Text)
-ncTopicStatus = lens _ncTopicStatus (\s a -> s {_ncTopicStatus = a})
+notificationConfiguration_topicStatus :: Lens.Lens' NotificationConfiguration (Prelude.Maybe Prelude.Text)
+notificationConfiguration_topicStatus = Lens.lens (\NotificationConfiguration' {topicStatus} -> topicStatus) (\s@NotificationConfiguration' {} a -> s {topicStatus = a} :: NotificationConfiguration)
 
 -- | The Amazon Resource Name (ARN) that identifies the topic.
-ncTopicARN :: Lens' NotificationConfiguration (Maybe Text)
-ncTopicARN = lens _ncTopicARN (\s a -> s {_ncTopicARN = a})
+notificationConfiguration_topicArn :: Lens.Lens' NotificationConfiguration (Prelude.Maybe Prelude.Text)
+notificationConfiguration_topicArn = Lens.lens (\NotificationConfiguration' {topicArn} -> topicArn) (\s@NotificationConfiguration' {} a -> s {topicArn = a} :: NotificationConfiguration)
 
-instance FromXML NotificationConfiguration where
+instance Prelude.FromXML NotificationConfiguration where
   parseXML x =
     NotificationConfiguration'
-      <$> (x .@? "TopicStatus") <*> (x .@? "TopicArn")
+      Prelude.<$> (x Prelude..@? "TopicStatus")
+      Prelude.<*> (x Prelude..@? "TopicArn")
 
-instance Hashable NotificationConfiguration
+instance Prelude.Hashable NotificationConfiguration
 
-instance NFData NotificationConfiguration
+instance Prelude.NFData NotificationConfiguration

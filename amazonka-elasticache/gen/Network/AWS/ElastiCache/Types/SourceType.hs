@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.ElastiCache.Types.SourceType
   ( SourceType
       ( ..,
-        CacheCluster,
-        CacheParameterGroup,
-        CacheSecurityGroup,
-        CacheSubnetGroup,
-        ReplicationGroup,
-        User,
-        UserGroup
+        SourceTypeCacheCluster,
+        SourceTypeCacheParameterGroup,
+        SourceTypeCacheSecurityGroup,
+        SourceTypeCacheSubnetGroup,
+        SourceTypeReplicationGroup,
+        SourceTypeUser,
+        SourceTypeUserGroup
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceType = SourceType' (CI Text)
+newtype SourceType = SourceType'
+  { fromSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CacheCluster :: SourceType
-pattern CacheCluster = SourceType' "cache-cluster"
+pattern SourceTypeCacheCluster :: SourceType
+pattern SourceTypeCacheCluster = SourceType' "cache-cluster"
 
-pattern CacheParameterGroup :: SourceType
-pattern CacheParameterGroup = SourceType' "cache-parameter-group"
+pattern SourceTypeCacheParameterGroup :: SourceType
+pattern SourceTypeCacheParameterGroup = SourceType' "cache-parameter-group"
 
-pattern CacheSecurityGroup :: SourceType
-pattern CacheSecurityGroup = SourceType' "cache-security-group"
+pattern SourceTypeCacheSecurityGroup :: SourceType
+pattern SourceTypeCacheSecurityGroup = SourceType' "cache-security-group"
 
-pattern CacheSubnetGroup :: SourceType
-pattern CacheSubnetGroup = SourceType' "cache-subnet-group"
+pattern SourceTypeCacheSubnetGroup :: SourceType
+pattern SourceTypeCacheSubnetGroup = SourceType' "cache-subnet-group"
 
-pattern ReplicationGroup :: SourceType
-pattern ReplicationGroup = SourceType' "replication-group"
+pattern SourceTypeReplicationGroup :: SourceType
+pattern SourceTypeReplicationGroup = SourceType' "replication-group"
 
-pattern User :: SourceType
-pattern User = SourceType' "user"
+pattern SourceTypeUser :: SourceType
+pattern SourceTypeUser = SourceType' "user"
 
-pattern UserGroup :: SourceType
-pattern UserGroup = SourceType' "user-group"
+pattern SourceTypeUserGroup :: SourceType
+pattern SourceTypeUserGroup = SourceType' "user-group"
 
 {-# COMPLETE
-  CacheCluster,
-  CacheParameterGroup,
-  CacheSecurityGroup,
-  CacheSubnetGroup,
-  ReplicationGroup,
-  User,
-  UserGroup,
+  SourceTypeCacheCluster,
+  SourceTypeCacheParameterGroup,
+  SourceTypeCacheSecurityGroup,
+  SourceTypeCacheSubnetGroup,
+  SourceTypeReplicationGroup,
+  SourceTypeUser,
+  SourceTypeUserGroup,
   SourceType'
   #-}
 
-instance FromText SourceType where
-  parser = (SourceType' . mk) <$> takeText
+instance Prelude.FromText SourceType where
+  parser = SourceType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceType where
-  toText (SourceType' ci) = original ci
+instance Prelude.ToText SourceType where
+  toText (SourceType' x) = x
 
-instance Hashable SourceType
+instance Prelude.Hashable SourceType
 
-instance NFData SourceType
+instance Prelude.NFData SourceType
 
-instance ToByteString SourceType
+instance Prelude.ToByteString SourceType
 
-instance ToQuery SourceType
+instance Prelude.ToQuery SourceType
 
-instance ToHeader SourceType
+instance Prelude.ToHeader SourceType
 
-instance FromXML SourceType where
-  parseXML = parseXMLText "SourceType"
+instance Prelude.FromXML SourceType where
+  parseXML = Prelude.parseXMLText "SourceType"

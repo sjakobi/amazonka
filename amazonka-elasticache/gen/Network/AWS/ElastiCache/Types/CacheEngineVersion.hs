@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.CacheEngineVersion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides all of the details about a particular cache engine version.
 --
---
---
--- /See:/ 'cacheEngineVersion' smart constructor.
+-- /See:/ 'newCacheEngineVersion' smart constructor.
 data CacheEngineVersion = CacheEngineVersion'
-  { _cevCacheEngineDescription ::
-      !(Maybe Text),
-    _cevCacheEngineVersionDescription ::
-      !(Maybe Text),
-    _cevEngineVersion ::
-      !(Maybe Text),
-    _cevCacheParameterGroupFamily ::
-      !(Maybe Text),
-    _cevEngine :: !(Maybe Text)
+  { -- | The description of the cache engine.
+    cacheEngineDescription :: Prelude.Maybe Prelude.Text,
+    -- | The description of the cache engine version.
+    cacheEngineVersionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The version number of the cache engine.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cache parameter group family associated with this cache
+    -- engine.
+    --
+    -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
+    -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
+    -- @redis6.x@ |
+    cacheParameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cache engine.
+    engine :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheEngineVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheEngineVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cevCacheEngineDescription' - The description of the cache engine.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cevCacheEngineVersionDescription' - The description of the cache engine version.
+-- 'cacheEngineDescription', 'cacheEngineVersion_cacheEngineDescription' - The description of the cache engine.
 --
--- * 'cevEngineVersion' - The version number of the cache engine.
+-- 'cacheEngineVersionDescription', 'cacheEngineVersion_cacheEngineVersionDescription' - The description of the cache engine version.
 --
--- * 'cevCacheParameterGroupFamily' - The name of the cache parameter group family associated with this cache engine. Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ | @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ | @redis6.x@ |
+-- 'engineVersion', 'cacheEngineVersion_engineVersion' - The version number of the cache engine.
 --
--- * 'cevEngine' - The name of the cache engine.
-cacheEngineVersion ::
+-- 'cacheParameterGroupFamily', 'cacheEngineVersion_cacheParameterGroupFamily' - The name of the cache parameter group family associated with this cache
+-- engine.
+--
+-- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
+-- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
+-- @redis6.x@ |
+--
+-- 'engine', 'cacheEngineVersion_engine' - The name of the cache engine.
+newCacheEngineVersion ::
   CacheEngineVersion
-cacheEngineVersion =
+newCacheEngineVersion =
   CacheEngineVersion'
-    { _cevCacheEngineDescription =
-        Nothing,
-      _cevCacheEngineVersionDescription = Nothing,
-      _cevEngineVersion = Nothing,
-      _cevCacheParameterGroupFamily = Nothing,
-      _cevEngine = Nothing
+    { cacheEngineDescription =
+        Prelude.Nothing,
+      cacheEngineVersionDescription = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      cacheParameterGroupFamily = Prelude.Nothing,
+      engine = Prelude.Nothing
     }
 
 -- | The description of the cache engine.
-cevCacheEngineDescription :: Lens' CacheEngineVersion (Maybe Text)
-cevCacheEngineDescription = lens _cevCacheEngineDescription (\s a -> s {_cevCacheEngineDescription = a})
+cacheEngineVersion_cacheEngineDescription :: Lens.Lens' CacheEngineVersion (Prelude.Maybe Prelude.Text)
+cacheEngineVersion_cacheEngineDescription = Lens.lens (\CacheEngineVersion' {cacheEngineDescription} -> cacheEngineDescription) (\s@CacheEngineVersion' {} a -> s {cacheEngineDescription = a} :: CacheEngineVersion)
 
 -- | The description of the cache engine version.
-cevCacheEngineVersionDescription :: Lens' CacheEngineVersion (Maybe Text)
-cevCacheEngineVersionDescription = lens _cevCacheEngineVersionDescription (\s a -> s {_cevCacheEngineVersionDescription = a})
+cacheEngineVersion_cacheEngineVersionDescription :: Lens.Lens' CacheEngineVersion (Prelude.Maybe Prelude.Text)
+cacheEngineVersion_cacheEngineVersionDescription = Lens.lens (\CacheEngineVersion' {cacheEngineVersionDescription} -> cacheEngineVersionDescription) (\s@CacheEngineVersion' {} a -> s {cacheEngineVersionDescription = a} :: CacheEngineVersion)
 
 -- | The version number of the cache engine.
-cevEngineVersion :: Lens' CacheEngineVersion (Maybe Text)
-cevEngineVersion = lens _cevEngineVersion (\s a -> s {_cevEngineVersion = a})
+cacheEngineVersion_engineVersion :: Lens.Lens' CacheEngineVersion (Prelude.Maybe Prelude.Text)
+cacheEngineVersion_engineVersion = Lens.lens (\CacheEngineVersion' {engineVersion} -> engineVersion) (\s@CacheEngineVersion' {} a -> s {engineVersion = a} :: CacheEngineVersion)
 
--- | The name of the cache parameter group family associated with this cache engine. Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ | @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ | @redis6.x@ |
-cevCacheParameterGroupFamily :: Lens' CacheEngineVersion (Maybe Text)
-cevCacheParameterGroupFamily = lens _cevCacheParameterGroupFamily (\s a -> s {_cevCacheParameterGroupFamily = a})
+-- | The name of the cache parameter group family associated with this cache
+-- engine.
+--
+-- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
+-- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
+-- @redis6.x@ |
+cacheEngineVersion_cacheParameterGroupFamily :: Lens.Lens' CacheEngineVersion (Prelude.Maybe Prelude.Text)
+cacheEngineVersion_cacheParameterGroupFamily = Lens.lens (\CacheEngineVersion' {cacheParameterGroupFamily} -> cacheParameterGroupFamily) (\s@CacheEngineVersion' {} a -> s {cacheParameterGroupFamily = a} :: CacheEngineVersion)
 
 -- | The name of the cache engine.
-cevEngine :: Lens' CacheEngineVersion (Maybe Text)
-cevEngine = lens _cevEngine (\s a -> s {_cevEngine = a})
+cacheEngineVersion_engine :: Lens.Lens' CacheEngineVersion (Prelude.Maybe Prelude.Text)
+cacheEngineVersion_engine = Lens.lens (\CacheEngineVersion' {engine} -> engine) (\s@CacheEngineVersion' {} a -> s {engine = a} :: CacheEngineVersion)
 
-instance FromXML CacheEngineVersion where
+instance Prelude.FromXML CacheEngineVersion where
   parseXML x =
     CacheEngineVersion'
-      <$> (x .@? "CacheEngineDescription")
-      <*> (x .@? "CacheEngineVersionDescription")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "CacheParameterGroupFamily")
-      <*> (x .@? "Engine")
+      Prelude.<$> (x Prelude..@? "CacheEngineDescription")
+      Prelude.<*> (x Prelude..@? "CacheEngineVersionDescription")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "CacheParameterGroupFamily")
+      Prelude.<*> (x Prelude..@? "Engine")
 
-instance Hashable CacheEngineVersion
+instance Prelude.Hashable CacheEngineVersion
 
-instance NFData CacheEngineVersion
+instance Prelude.NFData CacheEngineVersion

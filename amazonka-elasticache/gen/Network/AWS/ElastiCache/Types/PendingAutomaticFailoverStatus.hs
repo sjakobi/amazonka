@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElastiCache.Types.PendingAutomaticFailoverStatus
   ( PendingAutomaticFailoverStatus
       ( ..,
-        PAFSDisabled,
-        PAFSEnabled
+        PendingAutomaticFailoverStatusDisabled,
+        PendingAutomaticFailoverStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PendingAutomaticFailoverStatus
-  = PendingAutomaticFailoverStatus'
-      ( CI
-          Text
-      )
+newtype PendingAutomaticFailoverStatus = PendingAutomaticFailoverStatus'
+  { fromPendingAutomaticFailoverStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PAFSDisabled :: PendingAutomaticFailoverStatus
-pattern PAFSDisabled = PendingAutomaticFailoverStatus' "disabled"
+pattern PendingAutomaticFailoverStatusDisabled :: PendingAutomaticFailoverStatus
+pattern PendingAutomaticFailoverStatusDisabled = PendingAutomaticFailoverStatus' "disabled"
 
-pattern PAFSEnabled :: PendingAutomaticFailoverStatus
-pattern PAFSEnabled = PendingAutomaticFailoverStatus' "enabled"
+pattern PendingAutomaticFailoverStatusEnabled :: PendingAutomaticFailoverStatus
+pattern PendingAutomaticFailoverStatusEnabled = PendingAutomaticFailoverStatus' "enabled"
 
 {-# COMPLETE
-  PAFSDisabled,
-  PAFSEnabled,
+  PendingAutomaticFailoverStatusDisabled,
+  PendingAutomaticFailoverStatusEnabled,
   PendingAutomaticFailoverStatus'
   #-}
 
-instance FromText PendingAutomaticFailoverStatus where
-  parser = (PendingAutomaticFailoverStatus' . mk) <$> takeText
+instance Prelude.FromText PendingAutomaticFailoverStatus where
+  parser = PendingAutomaticFailoverStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PendingAutomaticFailoverStatus where
-  toText (PendingAutomaticFailoverStatus' ci) = original ci
+instance Prelude.ToText PendingAutomaticFailoverStatus where
+  toText (PendingAutomaticFailoverStatus' x) = x
 
-instance Hashable PendingAutomaticFailoverStatus
+instance Prelude.Hashable PendingAutomaticFailoverStatus
 
-instance NFData PendingAutomaticFailoverStatus
+instance Prelude.NFData PendingAutomaticFailoverStatus
 
-instance ToByteString PendingAutomaticFailoverStatus
+instance Prelude.ToByteString PendingAutomaticFailoverStatus
 
-instance ToQuery PendingAutomaticFailoverStatus
+instance Prelude.ToQuery PendingAutomaticFailoverStatus
 
-instance ToHeader PendingAutomaticFailoverStatus
+instance Prelude.ToHeader PendingAutomaticFailoverStatus
 
-instance FromXML PendingAutomaticFailoverStatus where
-  parseXML = parseXMLText "PendingAutomaticFailoverStatus"
+instance Prelude.FromXML PendingAutomaticFailoverStatus where
+  parseXML = Prelude.parseXMLText "PendingAutomaticFailoverStatus"

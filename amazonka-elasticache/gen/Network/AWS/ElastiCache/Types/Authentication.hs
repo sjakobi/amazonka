@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,49 +20,53 @@
 module Network.AWS.ElastiCache.Types.Authentication where
 
 import Network.AWS.ElastiCache.Types.AuthenticationType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Indicates whether the user requires a password to authenticate.
 --
---
---
--- /See:/ 'authentication' smart constructor.
+-- /See:/ 'newAuthentication' smart constructor.
 data Authentication = Authentication'
-  { _aPasswordCount ::
-      !(Maybe Int),
-    _aType :: !(Maybe AuthenticationType)
+  { -- | The number of passwords belonging to the user. The maximum is two.
+    passwordCount :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether the user requires a password to authenticate.
+    type' :: Prelude.Maybe AuthenticationType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Authentication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Authentication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aPasswordCount' - The number of passwords belonging to the user. The maximum is two.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aType' - Indicates whether the user requires a password to authenticate.
-authentication ::
+-- 'passwordCount', 'authentication_passwordCount' - The number of passwords belonging to the user. The maximum is two.
+--
+-- 'type'', 'authentication_type' - Indicates whether the user requires a password to authenticate.
+newAuthentication ::
   Authentication
-authentication =
+newAuthentication =
   Authentication'
-    { _aPasswordCount = Nothing,
-      _aType = Nothing
+    { passwordCount = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The number of passwords belonging to the user. The maximum is two.
-aPasswordCount :: Lens' Authentication (Maybe Int)
-aPasswordCount = lens _aPasswordCount (\s a -> s {_aPasswordCount = a})
+authentication_passwordCount :: Lens.Lens' Authentication (Prelude.Maybe Prelude.Int)
+authentication_passwordCount = Lens.lens (\Authentication' {passwordCount} -> passwordCount) (\s@Authentication' {} a -> s {passwordCount = a} :: Authentication)
 
 -- | Indicates whether the user requires a password to authenticate.
-aType :: Lens' Authentication (Maybe AuthenticationType)
-aType = lens _aType (\s a -> s {_aType = a})
+authentication_type :: Lens.Lens' Authentication (Prelude.Maybe AuthenticationType)
+authentication_type = Lens.lens (\Authentication' {type'} -> type') (\s@Authentication' {} a -> s {type' = a} :: Authentication)
 
-instance FromXML Authentication where
+instance Prelude.FromXML Authentication where
   parseXML x =
     Authentication'
-      <$> (x .@? "PasswordCount") <*> (x .@? "Type")
+      Prelude.<$> (x Prelude..@? "PasswordCount")
+      Prelude.<*> (x Prelude..@? "Type")
 
-instance Hashable Authentication
+instance Prelude.Hashable Authentication
 
-instance NFData Authentication
+instance Prelude.NFData Authentication

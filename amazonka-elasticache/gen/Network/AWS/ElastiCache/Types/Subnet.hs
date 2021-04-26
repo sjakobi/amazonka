@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +21,65 @@ module Network.AWS.ElastiCache.Types.Subnet where
 
 import Network.AWS.ElastiCache.Types.AvailabilityZone
 import Network.AWS.ElastiCache.Types.SubnetOutpost
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the subnet associated with a cluster. This parameter refers to subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used with ElastiCache.
+-- | Represents the subnet associated with a cluster. This parameter refers
+-- to subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used
+-- with ElastiCache.
 --
---
---
--- /See:/ 'subnet' smart constructor.
+-- /See:/ 'newSubnet' smart constructor.
 data Subnet = Subnet'
-  { _sSubnetIdentifier ::
-      !(Maybe Text),
-    _sSubnetAvailabilityZone ::
-      !(Maybe AvailabilityZone),
-    _sSubnetOutpost :: !(Maybe SubnetOutpost)
+  { -- | The unique identifier for the subnet.
+    subnetIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The Availability Zone associated with the subnet.
+    subnetAvailabilityZone :: Prelude.Maybe AvailabilityZone,
+    -- | The outpost ARN of the subnet.
+    subnetOutpost :: Prelude.Maybe SubnetOutpost
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subnet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subnet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sSubnetIdentifier' - The unique identifier for the subnet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sSubnetAvailabilityZone' - The Availability Zone associated with the subnet.
+-- 'subnetIdentifier', 'subnet_subnetIdentifier' - The unique identifier for the subnet.
 --
--- * 'sSubnetOutpost' - The outpost ARN of the subnet.
-subnet ::
+-- 'subnetAvailabilityZone', 'subnet_subnetAvailabilityZone' - The Availability Zone associated with the subnet.
+--
+-- 'subnetOutpost', 'subnet_subnetOutpost' - The outpost ARN of the subnet.
+newSubnet ::
   Subnet
-subnet =
+newSubnet =
   Subnet'
-    { _sSubnetIdentifier = Nothing,
-      _sSubnetAvailabilityZone = Nothing,
-      _sSubnetOutpost = Nothing
+    { subnetIdentifier = Prelude.Nothing,
+      subnetAvailabilityZone = Prelude.Nothing,
+      subnetOutpost = Prelude.Nothing
     }
 
 -- | The unique identifier for the subnet.
-sSubnetIdentifier :: Lens' Subnet (Maybe Text)
-sSubnetIdentifier = lens _sSubnetIdentifier (\s a -> s {_sSubnetIdentifier = a})
+subnet_subnetIdentifier :: Lens.Lens' Subnet (Prelude.Maybe Prelude.Text)
+subnet_subnetIdentifier = Lens.lens (\Subnet' {subnetIdentifier} -> subnetIdentifier) (\s@Subnet' {} a -> s {subnetIdentifier = a} :: Subnet)
 
 -- | The Availability Zone associated with the subnet.
-sSubnetAvailabilityZone :: Lens' Subnet (Maybe AvailabilityZone)
-sSubnetAvailabilityZone = lens _sSubnetAvailabilityZone (\s a -> s {_sSubnetAvailabilityZone = a})
+subnet_subnetAvailabilityZone :: Lens.Lens' Subnet (Prelude.Maybe AvailabilityZone)
+subnet_subnetAvailabilityZone = Lens.lens (\Subnet' {subnetAvailabilityZone} -> subnetAvailabilityZone) (\s@Subnet' {} a -> s {subnetAvailabilityZone = a} :: Subnet)
 
 -- | The outpost ARN of the subnet.
-sSubnetOutpost :: Lens' Subnet (Maybe SubnetOutpost)
-sSubnetOutpost = lens _sSubnetOutpost (\s a -> s {_sSubnetOutpost = a})
+subnet_subnetOutpost :: Lens.Lens' Subnet (Prelude.Maybe SubnetOutpost)
+subnet_subnetOutpost = Lens.lens (\Subnet' {subnetOutpost} -> subnetOutpost) (\s@Subnet' {} a -> s {subnetOutpost = a} :: Subnet)
 
-instance FromXML Subnet where
+instance Prelude.FromXML Subnet where
   parseXML x =
     Subnet'
-      <$> (x .@? "SubnetIdentifier")
-      <*> (x .@? "SubnetAvailabilityZone")
-      <*> (x .@? "SubnetOutpost")
+      Prelude.<$> (x Prelude..@? "SubnetIdentifier")
+      Prelude.<*> (x Prelude..@? "SubnetAvailabilityZone")
+      Prelude.<*> (x Prelude..@? "SubnetOutpost")
 
-instance Hashable Subnet
+instance Prelude.Hashable Subnet
 
-instance NFData Subnet
+instance Prelude.NFData Subnet

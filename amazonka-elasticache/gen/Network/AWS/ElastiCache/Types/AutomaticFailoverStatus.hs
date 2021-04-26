@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.ElastiCache.Types.AutomaticFailoverStatus
   ( AutomaticFailoverStatus
       ( ..,
-        Disabled,
-        Disabling,
-        Enabled,
-        Enabling
+        AutomaticFailoverStatusDisabled,
+        AutomaticFailoverStatusDisabling,
+        AutomaticFailoverStatusEnabled,
+        AutomaticFailoverStatusEnabling
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutomaticFailoverStatus
-  = AutomaticFailoverStatus'
-      ( CI
-          Text
-      )
+newtype AutomaticFailoverStatus = AutomaticFailoverStatus'
+  { fromAutomaticFailoverStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: AutomaticFailoverStatus
-pattern Disabled = AutomaticFailoverStatus' "disabled"
+pattern AutomaticFailoverStatusDisabled :: AutomaticFailoverStatus
+pattern AutomaticFailoverStatusDisabled = AutomaticFailoverStatus' "disabled"
 
-pattern Disabling :: AutomaticFailoverStatus
-pattern Disabling = AutomaticFailoverStatus' "disabling"
+pattern AutomaticFailoverStatusDisabling :: AutomaticFailoverStatus
+pattern AutomaticFailoverStatusDisabling = AutomaticFailoverStatus' "disabling"
 
-pattern Enabled :: AutomaticFailoverStatus
-pattern Enabled = AutomaticFailoverStatus' "enabled"
+pattern AutomaticFailoverStatusEnabled :: AutomaticFailoverStatus
+pattern AutomaticFailoverStatusEnabled = AutomaticFailoverStatus' "enabled"
 
-pattern Enabling :: AutomaticFailoverStatus
-pattern Enabling = AutomaticFailoverStatus' "enabling"
+pattern AutomaticFailoverStatusEnabling :: AutomaticFailoverStatus
+pattern AutomaticFailoverStatusEnabling = AutomaticFailoverStatus' "enabling"
 
 {-# COMPLETE
-  Disabled,
-  Disabling,
-  Enabled,
-  Enabling,
+  AutomaticFailoverStatusDisabled,
+  AutomaticFailoverStatusDisabling,
+  AutomaticFailoverStatusEnabled,
+  AutomaticFailoverStatusEnabling,
   AutomaticFailoverStatus'
   #-}
 
-instance FromText AutomaticFailoverStatus where
-  parser = (AutomaticFailoverStatus' . mk) <$> takeText
+instance Prelude.FromText AutomaticFailoverStatus where
+  parser = AutomaticFailoverStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AutomaticFailoverStatus where
-  toText (AutomaticFailoverStatus' ci) = original ci
+instance Prelude.ToText AutomaticFailoverStatus where
+  toText (AutomaticFailoverStatus' x) = x
 
-instance Hashable AutomaticFailoverStatus
+instance Prelude.Hashable AutomaticFailoverStatus
 
-instance NFData AutomaticFailoverStatus
+instance Prelude.NFData AutomaticFailoverStatus
 
-instance ToByteString AutomaticFailoverStatus
+instance Prelude.ToByteString AutomaticFailoverStatus
 
-instance ToQuery AutomaticFailoverStatus
+instance Prelude.ToQuery AutomaticFailoverStatus
 
-instance ToHeader AutomaticFailoverStatus
+instance Prelude.ToHeader AutomaticFailoverStatus
 
-instance FromXML AutomaticFailoverStatus where
-  parseXML = parseXMLText "AutomaticFailoverStatus"
+instance Prelude.FromXML AutomaticFailoverStatus where
+  parseXML = Prelude.parseXMLText "AutomaticFailoverStatus"

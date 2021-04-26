@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.CacheParameterGroupNameMessage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the output of one of the following operations:
 --
+-- -   @ModifyCacheParameterGroup@
 --
---     * @ModifyCacheParameterGroup@
+-- -   @ResetCacheParameterGroup@
 --
---     * @ResetCacheParameterGroup@
---
---
---
---
--- /See:/ 'cacheParameterGroupNameMessage' smart constructor.
-newtype CacheParameterGroupNameMessage = CacheParameterGroupNameMessage'
-  { _cpgnmCacheParameterGroupName ::
-      Maybe
-        Text
+-- /See:/ 'newCacheParameterGroupNameMessage' smart constructor.
+data CacheParameterGroupNameMessage = CacheParameterGroupNameMessage'
+  { -- | The name of the cache parameter group.
+    cacheParameterGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheParameterGroupNameMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheParameterGroupNameMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpgnmCacheParameterGroupName' - The name of the cache parameter group.
-cacheParameterGroupNameMessage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cacheParameterGroupName', 'cacheParameterGroupNameMessage_cacheParameterGroupName' - The name of the cache parameter group.
+newCacheParameterGroupNameMessage ::
   CacheParameterGroupNameMessage
-cacheParameterGroupNameMessage =
+newCacheParameterGroupNameMessage =
   CacheParameterGroupNameMessage'
-    { _cpgnmCacheParameterGroupName =
-        Nothing
+    { cacheParameterGroupName =
+        Prelude.Nothing
     }
 
 -- | The name of the cache parameter group.
-cpgnmCacheParameterGroupName :: Lens' CacheParameterGroupNameMessage (Maybe Text)
-cpgnmCacheParameterGroupName = lens _cpgnmCacheParameterGroupName (\s a -> s {_cpgnmCacheParameterGroupName = a})
+cacheParameterGroupNameMessage_cacheParameterGroupName :: Lens.Lens' CacheParameterGroupNameMessage (Prelude.Maybe Prelude.Text)
+cacheParameterGroupNameMessage_cacheParameterGroupName = Lens.lens (\CacheParameterGroupNameMessage' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@CacheParameterGroupNameMessage' {} a -> s {cacheParameterGroupName = a} :: CacheParameterGroupNameMessage)
 
-instance FromXML CacheParameterGroupNameMessage where
+instance
+  Prelude.FromXML
+    CacheParameterGroupNameMessage
+  where
   parseXML x =
     CacheParameterGroupNameMessage'
-      <$> (x .@? "CacheParameterGroupName")
+      Prelude.<$> (x Prelude..@? "CacheParameterGroupName")
 
-instance Hashable CacheParameterGroupNameMessage
+instance
+  Prelude.Hashable
+    CacheParameterGroupNameMessage
 
-instance NFData CacheParameterGroupNameMessage
+instance
+  Prelude.NFData
+    CacheParameterGroupNameMessage

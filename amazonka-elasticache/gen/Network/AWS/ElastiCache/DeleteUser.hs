@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,79 +21,93 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Deletes a user. The user will be removed from all user groups and in turn removed from all replication groups. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)> .
+-- For Redis engine version 6.x onwards: Deletes a user. The user will be
+-- removed from all user groups and in turn removed from all replication
+-- groups. For more information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>.
 module Network.AWS.ElastiCache.DeleteUser
   ( -- * Creating a Request
-    deleteUser,
-    DeleteUser,
+    DeleteUser (..),
+    newDeleteUser,
 
     -- * Request Lenses
-    dUserId,
+    deleteUser_userId,
 
     -- * Destructuring the Response
-    user,
-    User,
+    User (..),
+    newUser,
 
     -- * Response Lenses
-    uStatus,
-    uAccessString,
-    uUserGroupIds,
-    uAuthentication,
-    uARN,
-    uUserId,
-    uEngine,
-    uUserName,
+    user_status,
+    user_accessString,
+    user_userGroupIds,
+    user_authentication,
+    user_aRN,
+    user_userId,
+    user_engine,
+    user_userName,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Authentication
+import Network.AWS.ElastiCache.Types.User
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUser' smart constructor.
-newtype DeleteUser = DeleteUser' {_dUserId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteUser' smart constructor.
+data DeleteUser = DeleteUser'
+  { -- | The ID of the user.
+    userId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dUserId' - The ID of the user.
-deleteUser ::
-  -- | 'dUserId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userId', 'deleteUser_userId' - The ID of the user.
+newDeleteUser ::
+  -- | 'userId'
+  Prelude.Text ->
   DeleteUser
-deleteUser pUserId_ =
-  DeleteUser' {_dUserId = pUserId_}
+newDeleteUser pUserId_ =
+  DeleteUser' {userId = pUserId_}
 
 -- | The ID of the user.
-dUserId :: Lens' DeleteUser Text
-dUserId = lens _dUserId (\s a -> s {_dUserId = a})
+deleteUser_userId :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_userId = Lens.lens (\DeleteUser' {userId} -> userId) (\s@DeleteUser' {} a -> s {userId = a} :: DeleteUser)
 
-instance AWSRequest DeleteUser where
+instance Prelude.AWSRequest DeleteUser where
   type Rs DeleteUser = User
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteUserResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable DeleteUser
+instance Prelude.Hashable DeleteUser
 
-instance NFData DeleteUser
+instance Prelude.NFData DeleteUser
 
-instance ToHeaders DeleteUser where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteUser where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteUser where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUser where
+instance Prelude.ToQuery DeleteUser where
   toQuery DeleteUser' {..} =
-    mconcat
-      [ "Action" =: ("DeleteUser" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "UserId" =: _dUserId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteUser" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "UserId" Prelude.=: userId
       ]

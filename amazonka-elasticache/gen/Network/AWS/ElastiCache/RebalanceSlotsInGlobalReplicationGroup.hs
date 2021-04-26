@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Redistribute slots to ensure uniform distribution across existing shards in the cluster.
+-- Redistribute slots to ensure uniform distribution across existing shards
+-- in the cluster.
 module Network.AWS.ElastiCache.RebalanceSlotsInGlobalReplicationGroup
   ( -- * Creating a Request
-    rebalanceSlotsInGlobalReplicationGroup,
-    RebalanceSlotsInGlobalReplicationGroup,
+    RebalanceSlotsInGlobalReplicationGroup (..),
+    newRebalanceSlotsInGlobalReplicationGroup,
 
     -- * Request Lenses
-    rsigrgGlobalReplicationGroupId,
-    rsigrgApplyImmediately,
+    rebalanceSlotsInGlobalReplicationGroup_globalReplicationGroupId,
+    rebalanceSlotsInGlobalReplicationGroup_applyImmediately,
 
     -- * Destructuring the Response
-    rebalanceSlotsInGlobalReplicationGroupResponse,
-    RebalanceSlotsInGlobalReplicationGroupResponse,
+    RebalanceSlotsInGlobalReplicationGroupResponse (..),
+    newRebalanceSlotsInGlobalReplicationGroupResponse,
 
     -- * Response Lenses
-    rsigrgrrsGlobalReplicationGroup,
-    rsigrgrrsResponseStatus,
+    rebalanceSlotsInGlobalReplicationGroupResponse_globalReplicationGroup,
+    rebalanceSlotsInGlobalReplicationGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.GlobalReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rebalanceSlotsInGlobalReplicationGroup' smart constructor.
+-- | /See:/ 'newRebalanceSlotsInGlobalReplicationGroup' smart constructor.
 data RebalanceSlotsInGlobalReplicationGroup = RebalanceSlotsInGlobalReplicationGroup'
-  { _rsigrgGlobalReplicationGroupId ::
-      !Text,
-    _rsigrgApplyImmediately ::
-      !Bool
+  { -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Text,
+    -- | If @True@, redistribution is applied immediately.
+    applyImmediately :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebalanceSlotsInGlobalReplicationGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebalanceSlotsInGlobalReplicationGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsigrgGlobalReplicationGroupId' - The name of the Global Datastore
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsigrgApplyImmediately' - If @True@ , redistribution is applied immediately.
-rebalanceSlotsInGlobalReplicationGroup ::
-  -- | 'rsigrgGlobalReplicationGroupId'
-  Text ->
-  -- | 'rsigrgApplyImmediately'
-  Bool ->
+-- 'globalReplicationGroupId', 'rebalanceSlotsInGlobalReplicationGroup_globalReplicationGroupId' - The name of the Global Datastore
+--
+-- 'applyImmediately', 'rebalanceSlotsInGlobalReplicationGroup_applyImmediately' - If @True@, redistribution is applied immediately.
+newRebalanceSlotsInGlobalReplicationGroup ::
+  -- | 'globalReplicationGroupId'
+  Prelude.Text ->
+  -- | 'applyImmediately'
+  Prelude.Bool ->
   RebalanceSlotsInGlobalReplicationGroup
-rebalanceSlotsInGlobalReplicationGroup
+newRebalanceSlotsInGlobalReplicationGroup
   pGlobalReplicationGroupId_
   pApplyImmediately_ =
     RebalanceSlotsInGlobalReplicationGroup'
-      { _rsigrgGlobalReplicationGroupId =
+      { globalReplicationGroupId =
           pGlobalReplicationGroupId_,
-        _rsigrgApplyImmediately =
+        applyImmediately =
           pApplyImmediately_
       }
 
 -- | The name of the Global Datastore
-rsigrgGlobalReplicationGroupId :: Lens' RebalanceSlotsInGlobalReplicationGroup Text
-rsigrgGlobalReplicationGroupId = lens _rsigrgGlobalReplicationGroupId (\s a -> s {_rsigrgGlobalReplicationGroupId = a})
+rebalanceSlotsInGlobalReplicationGroup_globalReplicationGroupId :: Lens.Lens' RebalanceSlotsInGlobalReplicationGroup Prelude.Text
+rebalanceSlotsInGlobalReplicationGroup_globalReplicationGroupId = Lens.lens (\RebalanceSlotsInGlobalReplicationGroup' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@RebalanceSlotsInGlobalReplicationGroup' {} a -> s {globalReplicationGroupId = a} :: RebalanceSlotsInGlobalReplicationGroup)
 
--- | If @True@ , redistribution is applied immediately.
-rsigrgApplyImmediately :: Lens' RebalanceSlotsInGlobalReplicationGroup Bool
-rsigrgApplyImmediately = lens _rsigrgApplyImmediately (\s a -> s {_rsigrgApplyImmediately = a})
+-- | If @True@, redistribution is applied immediately.
+rebalanceSlotsInGlobalReplicationGroup_applyImmediately :: Lens.Lens' RebalanceSlotsInGlobalReplicationGroup Prelude.Bool
+rebalanceSlotsInGlobalReplicationGroup_applyImmediately = Lens.lens (\RebalanceSlotsInGlobalReplicationGroup' {applyImmediately} -> applyImmediately) (\s@RebalanceSlotsInGlobalReplicationGroup' {} a -> s {applyImmediately = a} :: RebalanceSlotsInGlobalReplicationGroup)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     RebalanceSlotsInGlobalReplicationGroup
   where
   type
     Rs RebalanceSlotsInGlobalReplicationGroup =
       RebalanceSlotsInGlobalReplicationGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RebalanceSlotsInGlobalReplicationGroupResult"
       ( \s h x ->
           RebalanceSlotsInGlobalReplicationGroupResponse'
-            <$> (x .@? "GlobalReplicationGroup")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalReplicationGroup")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     RebalanceSlotsInGlobalReplicationGroup
 
 instance
-  NFData
+  Prelude.NFData
     RebalanceSlotsInGlobalReplicationGroup
 
 instance
-  ToHeaders
-    RebalanceSlotsInGlobalReplicationGroup
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     RebalanceSlotsInGlobalReplicationGroup
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    RebalanceSlotsInGlobalReplicationGroup
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     RebalanceSlotsInGlobalReplicationGroup
   where
   toQuery RebalanceSlotsInGlobalReplicationGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "RebalanceSlotsInGlobalReplicationGroup" ::
-                 ByteString
-             ),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ( "RebalanceSlotsInGlobalReplicationGroup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "GlobalReplicationGroupId"
-          =: _rsigrgGlobalReplicationGroupId,
-        "ApplyImmediately" =: _rsigrgApplyImmediately
+          Prelude.=: globalReplicationGroupId,
+        "ApplyImmediately" Prelude.=: applyImmediately
       ]
 
--- | /See:/ 'rebalanceSlotsInGlobalReplicationGroupResponse' smart constructor.
+-- | /See:/ 'newRebalanceSlotsInGlobalReplicationGroupResponse' smart constructor.
 data RebalanceSlotsInGlobalReplicationGroupResponse = RebalanceSlotsInGlobalReplicationGroupResponse'
-  { _rsigrgrrsGlobalReplicationGroup ::
-      !( Maybe
-           GlobalReplicationGroup
-       ),
-    _rsigrgrrsResponseStatus ::
-      !Int
+  { globalReplicationGroup :: Prelude.Maybe GlobalReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebalanceSlotsInGlobalReplicationGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebalanceSlotsInGlobalReplicationGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsigrgrrsGlobalReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsigrgrrsResponseStatus' - -- | The response status code.
-rebalanceSlotsInGlobalReplicationGroupResponse ::
-  -- | 'rsigrgrrsResponseStatus'
-  Int ->
+-- 'globalReplicationGroup', 'rebalanceSlotsInGlobalReplicationGroupResponse_globalReplicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'rebalanceSlotsInGlobalReplicationGroupResponse_httpStatus' - The response's http status code.
+newRebalanceSlotsInGlobalReplicationGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RebalanceSlotsInGlobalReplicationGroupResponse
-rebalanceSlotsInGlobalReplicationGroupResponse
-  pResponseStatus_ =
+newRebalanceSlotsInGlobalReplicationGroupResponse
+  pHttpStatus_ =
     RebalanceSlotsInGlobalReplicationGroupResponse'
-      { _rsigrgrrsGlobalReplicationGroup =
-          Nothing,
-        _rsigrgrrsResponseStatus =
-          pResponseStatus_
+      { globalReplicationGroup =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-rsigrgrrsGlobalReplicationGroup :: Lens' RebalanceSlotsInGlobalReplicationGroupResponse (Maybe GlobalReplicationGroup)
-rsigrgrrsGlobalReplicationGroup = lens _rsigrgrrsGlobalReplicationGroup (\s a -> s {_rsigrgrrsGlobalReplicationGroup = a})
+rebalanceSlotsInGlobalReplicationGroupResponse_globalReplicationGroup :: Lens.Lens' RebalanceSlotsInGlobalReplicationGroupResponse (Prelude.Maybe GlobalReplicationGroup)
+rebalanceSlotsInGlobalReplicationGroupResponse_globalReplicationGroup = Lens.lens (\RebalanceSlotsInGlobalReplicationGroupResponse' {globalReplicationGroup} -> globalReplicationGroup) (\s@RebalanceSlotsInGlobalReplicationGroupResponse' {} a -> s {globalReplicationGroup = a} :: RebalanceSlotsInGlobalReplicationGroupResponse)
 
--- | -- | The response status code.
-rsigrgrrsResponseStatus :: Lens' RebalanceSlotsInGlobalReplicationGroupResponse Int
-rsigrgrrsResponseStatus = lens _rsigrgrrsResponseStatus (\s a -> s {_rsigrgrrsResponseStatus = a})
+-- | The response's http status code.
+rebalanceSlotsInGlobalReplicationGroupResponse_httpStatus :: Lens.Lens' RebalanceSlotsInGlobalReplicationGroupResponse Prelude.Int
+rebalanceSlotsInGlobalReplicationGroupResponse_httpStatus = Lens.lens (\RebalanceSlotsInGlobalReplicationGroupResponse' {httpStatus} -> httpStatus) (\s@RebalanceSlotsInGlobalReplicationGroupResponse' {} a -> s {httpStatus = a} :: RebalanceSlotsInGlobalReplicationGroupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     RebalanceSlotsInGlobalReplicationGroupResponse

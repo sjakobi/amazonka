@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a copy of an entire cluster or replication group at a specific moment in time.
+-- Creates a copy of an entire cluster or replication group at a specific
+-- moment in time.
+--
+-- This operation is valid for Redis only.
 module Network.AWS.ElastiCache.CreateSnapshot
   ( -- * Creating a Request
-    createSnapshot,
-    CreateSnapshot,
+    CreateSnapshot (..),
+    newCreateSnapshot,
 
     -- * Request Lenses
-    cReplicationGroupId,
-    cCacheClusterId,
-    cKMSKeyId,
-    cSnapshotName,
+    createSnapshot_replicationGroupId,
+    createSnapshot_cacheClusterId,
+    createSnapshot_kmsKeyId,
+    createSnapshot_snapshotName,
 
     -- * Destructuring the Response
-    createSnapshotResponse,
-    CreateSnapshotResponse,
+    CreateSnapshotResponse (..),
+    newCreateSnapshotResponse,
 
     -- * Response Lenses
-    crersSnapshot,
-    crersResponseStatus,
+    createSnapshotResponse_snapshot,
+    createSnapshotResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Snapshot
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @CreateSnapshot@ operation.
 --
---
---
--- /See:/ 'createSnapshot' smart constructor.
+-- /See:/ 'newCreateSnapshot' smart constructor.
 data CreateSnapshot = CreateSnapshot'
-  { _cReplicationGroupId ::
-      !(Maybe Text),
-    _cCacheClusterId :: !(Maybe Text),
-    _cKMSKeyId :: !(Maybe Text),
-    _cSnapshotName :: !Text
+  { -- | The identifier of an existing replication group. The snapshot is created
+    -- from this replication group.
+    replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of an existing cluster. The snapshot is created from this
+    -- cluster.
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the KMS key used to encrypt the snapshot.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | A name for the snapshot being created.
+    snapshotName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cReplicationGroupId' - The identifier of an existing replication group. The snapshot is created from this replication group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCacheClusterId' - The identifier of an existing cluster. The snapshot is created from this cluster.
+-- 'replicationGroupId', 'createSnapshot_replicationGroupId' - The identifier of an existing replication group. The snapshot is created
+-- from this replication group.
 --
--- * 'cKMSKeyId' - The ID of the KMS key used to encrypt the snapshot.
+-- 'cacheClusterId', 'createSnapshot_cacheClusterId' - The identifier of an existing cluster. The snapshot is created from this
+-- cluster.
 --
--- * 'cSnapshotName' - A name for the snapshot being created.
-createSnapshot ::
-  -- | 'cSnapshotName'
-  Text ->
+-- 'kmsKeyId', 'createSnapshot_kmsKeyId' - The ID of the KMS key used to encrypt the snapshot.
+--
+-- 'snapshotName', 'createSnapshot_snapshotName' - A name for the snapshot being created.
+newCreateSnapshot ::
+  -- | 'snapshotName'
+  Prelude.Text ->
   CreateSnapshot
-createSnapshot pSnapshotName_ =
+newCreateSnapshot pSnapshotName_ =
   CreateSnapshot'
-    { _cReplicationGroupId = Nothing,
-      _cCacheClusterId = Nothing,
-      _cKMSKeyId = Nothing,
-      _cSnapshotName = pSnapshotName_
+    { replicationGroupId =
+        Prelude.Nothing,
+      cacheClusterId = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      snapshotName = pSnapshotName_
     }
 
--- | The identifier of an existing replication group. The snapshot is created from this replication group.
-cReplicationGroupId :: Lens' CreateSnapshot (Maybe Text)
-cReplicationGroupId = lens _cReplicationGroupId (\s a -> s {_cReplicationGroupId = a})
+-- | The identifier of an existing replication group. The snapshot is created
+-- from this replication group.
+createSnapshot_replicationGroupId :: Lens.Lens' CreateSnapshot (Prelude.Maybe Prelude.Text)
+createSnapshot_replicationGroupId = Lens.lens (\CreateSnapshot' {replicationGroupId} -> replicationGroupId) (\s@CreateSnapshot' {} a -> s {replicationGroupId = a} :: CreateSnapshot)
 
--- | The identifier of an existing cluster. The snapshot is created from this cluster.
-cCacheClusterId :: Lens' CreateSnapshot (Maybe Text)
-cCacheClusterId = lens _cCacheClusterId (\s a -> s {_cCacheClusterId = a})
+-- | The identifier of an existing cluster. The snapshot is created from this
+-- cluster.
+createSnapshot_cacheClusterId :: Lens.Lens' CreateSnapshot (Prelude.Maybe Prelude.Text)
+createSnapshot_cacheClusterId = Lens.lens (\CreateSnapshot' {cacheClusterId} -> cacheClusterId) (\s@CreateSnapshot' {} a -> s {cacheClusterId = a} :: CreateSnapshot)
 
 -- | The ID of the KMS key used to encrypt the snapshot.
-cKMSKeyId :: Lens' CreateSnapshot (Maybe Text)
-cKMSKeyId = lens _cKMSKeyId (\s a -> s {_cKMSKeyId = a})
+createSnapshot_kmsKeyId :: Lens.Lens' CreateSnapshot (Prelude.Maybe Prelude.Text)
+createSnapshot_kmsKeyId = Lens.lens (\CreateSnapshot' {kmsKeyId} -> kmsKeyId) (\s@CreateSnapshot' {} a -> s {kmsKeyId = a} :: CreateSnapshot)
 
 -- | A name for the snapshot being created.
-cSnapshotName :: Lens' CreateSnapshot Text
-cSnapshotName = lens _cSnapshotName (\s a -> s {_cSnapshotName = a})
+createSnapshot_snapshotName :: Lens.Lens' CreateSnapshot Prelude.Text
+createSnapshot_snapshotName = Lens.lens (\CreateSnapshot' {snapshotName} -> snapshotName) (\s@CreateSnapshot' {} a -> s {snapshotName = a} :: CreateSnapshot)
 
-instance AWSRequest CreateSnapshot where
+instance Prelude.AWSRequest CreateSnapshot where
   type Rs CreateSnapshot = CreateSnapshotResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateSnapshotResult"
       ( \s h x ->
           CreateSnapshotResponse'
-            <$> (x .@? "Snapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Snapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSnapshot
+instance Prelude.Hashable CreateSnapshot
 
-instance NFData CreateSnapshot
+instance Prelude.NFData CreateSnapshot
 
-instance ToHeaders CreateSnapshot where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateSnapshot where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSnapshot where
+instance Prelude.ToQuery CreateSnapshot where
   toQuery CreateSnapshot' {..} =
-    mconcat
-      [ "Action" =: ("CreateSnapshot" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "ReplicationGroupId" =: _cReplicationGroupId,
-        "CacheClusterId" =: _cCacheClusterId,
-        "KmsKeyId" =: _cKMSKeyId,
-        "SnapshotName" =: _cSnapshotName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateSnapshot" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "ReplicationGroupId" Prelude.=: replicationGroupId,
+        "CacheClusterId" Prelude.=: cacheClusterId,
+        "KmsKeyId" Prelude.=: kmsKeyId,
+        "SnapshotName" Prelude.=: snapshotName
       ]
 
--- | /See:/ 'createSnapshotResponse' smart constructor.
+-- | /See:/ 'newCreateSnapshotResponse' smart constructor.
 data CreateSnapshotResponse = CreateSnapshotResponse'
-  { _crersSnapshot ::
-      !(Maybe Snapshot),
-    _crersResponseStatus ::
-      !Int
+  { snapshot :: Prelude.Maybe Snapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crersSnapshot' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crersResponseStatus' - -- | The response status code.
-createSnapshotResponse ::
-  -- | 'crersResponseStatus'
-  Int ->
+-- 'snapshot', 'createSnapshotResponse_snapshot' - Undocumented member.
+--
+-- 'httpStatus', 'createSnapshotResponse_httpStatus' - The response's http status code.
+newCreateSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSnapshotResponse
-createSnapshotResponse pResponseStatus_ =
+newCreateSnapshotResponse pHttpStatus_ =
   CreateSnapshotResponse'
-    { _crersSnapshot = Nothing,
-      _crersResponseStatus = pResponseStatus_
+    { snapshot = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-crersSnapshot :: Lens' CreateSnapshotResponse (Maybe Snapshot)
-crersSnapshot = lens _crersSnapshot (\s a -> s {_crersSnapshot = a})
+createSnapshotResponse_snapshot :: Lens.Lens' CreateSnapshotResponse (Prelude.Maybe Snapshot)
+createSnapshotResponse_snapshot = Lens.lens (\CreateSnapshotResponse' {snapshot} -> snapshot) (\s@CreateSnapshotResponse' {} a -> s {snapshot = a} :: CreateSnapshotResponse)
 
--- | -- | The response status code.
-crersResponseStatus :: Lens' CreateSnapshotResponse Int
-crersResponseStatus = lens _crersResponseStatus (\s a -> s {_crersResponseStatus = a})
+-- | The response's http status code.
+createSnapshotResponse_httpStatus :: Lens.Lens' CreateSnapshotResponse Prelude.Int
+createSnapshotResponse_httpStatus = Lens.lens (\CreateSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateSnapshotResponse' {} a -> s {httpStatus = a} :: CreateSnapshotResponse)
 
-instance NFData CreateSnapshotResponse
+instance Prelude.NFData CreateSnapshotResponse

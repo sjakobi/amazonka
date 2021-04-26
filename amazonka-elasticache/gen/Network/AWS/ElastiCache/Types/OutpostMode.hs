@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,52 @@
 module Network.AWS.ElastiCache.Types.OutpostMode
   ( OutpostMode
       ( ..,
-        CrossOutpost,
-        SingleOutpost
+        OutpostModeCrossOutpost,
+        OutpostModeSingleOutpost
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OutpostMode = OutpostMode' (CI Text)
+newtype OutpostMode = OutpostMode'
+  { fromOutpostMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CrossOutpost :: OutpostMode
-pattern CrossOutpost = OutpostMode' "cross-outpost"
+pattern OutpostModeCrossOutpost :: OutpostMode
+pattern OutpostModeCrossOutpost = OutpostMode' "cross-outpost"
 
-pattern SingleOutpost :: OutpostMode
-pattern SingleOutpost = OutpostMode' "single-outpost"
+pattern OutpostModeSingleOutpost :: OutpostMode
+pattern OutpostModeSingleOutpost = OutpostMode' "single-outpost"
 
 {-# COMPLETE
-  CrossOutpost,
-  SingleOutpost,
+  OutpostModeCrossOutpost,
+  OutpostModeSingleOutpost,
   OutpostMode'
   #-}
 
-instance FromText OutpostMode where
-  parser = (OutpostMode' . mk) <$> takeText
+instance Prelude.FromText OutpostMode where
+  parser = OutpostMode' Prelude.<$> Prelude.takeText
 
-instance ToText OutpostMode where
-  toText (OutpostMode' ci) = original ci
+instance Prelude.ToText OutpostMode where
+  toText (OutpostMode' x) = x
 
-instance Hashable OutpostMode
+instance Prelude.Hashable OutpostMode
 
-instance NFData OutpostMode
+instance Prelude.NFData OutpostMode
 
-instance ToByteString OutpostMode
+instance Prelude.ToByteString OutpostMode
 
-instance ToQuery OutpostMode
+instance Prelude.ToQuery OutpostMode
 
-instance ToHeader OutpostMode
+instance Prelude.ToHeader OutpostMode

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Reboots some, or all, of the cache nodes within a provisioned cluster. This operation applies any modified cache parameter groups to the cluster. The reboot operation takes place as soon as possible, and results in a momentary outage to the cluster. During the reboot, the cluster status is set to REBOOTING.
+-- Reboots some, or all, of the cache nodes within a provisioned cluster.
+-- This operation applies any modified cache parameter groups to the
+-- cluster. The reboot operation takes place as soon as possible, and
+-- results in a momentary outage to the cluster. During the reboot, the
+-- cluster status is set to REBOOTING.
 --
---
--- The reboot causes the contents of the cache (for each cache node being rebooted) to be lost.
+-- The reboot causes the contents of the cache (for each cache node being
+-- rebooted) to be lost.
 --
 -- When the reboot is complete, a cluster event is created.
 --
--- Rebooting a cluster is currently supported on Memcached and Redis (cluster mode disabled) clusters. Rebooting is not supported on Redis (cluster mode enabled) clusters.
+-- Rebooting a cluster is currently supported on Memcached and Redis
+-- (cluster mode disabled) clusters. Rebooting is not supported on Redis
+-- (cluster mode enabled) clusters.
 --
--- If you make changes to parameters that require a Redis (cluster mode enabled) cluster reboot for the changes to be applied, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster> for an alternate process.
+-- If you make changes to parameters that require a Redis (cluster mode
+-- enabled) cluster reboot for the changes to be applied, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster>
+-- for an alternate process.
 module Network.AWS.ElastiCache.RebootCacheCluster
   ( -- * Creating a Request
-    rebootCacheCluster,
-    RebootCacheCluster,
+    RebootCacheCluster (..),
+    newRebootCacheCluster,
 
     -- * Request Lenses
-    rccCacheClusterId,
-    rccCacheNodeIdsToReboot,
+    rebootCacheCluster_cacheClusterId,
+    rebootCacheCluster_cacheNodeIdsToReboot,
 
     -- * Destructuring the Response
-    rebootCacheClusterResponse,
-    RebootCacheClusterResponse,
+    RebootCacheClusterResponse (..),
+    newRebootCacheClusterResponse,
 
     -- * Response Lenses
-    rccrrsCacheCluster,
-    rccrrsResponseStatus,
+    rebootCacheClusterResponse_cacheCluster,
+    rebootCacheClusterResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.CacheCluster
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @RebootCacheCluster@ operation.
 --
---
---
--- /See:/ 'rebootCacheCluster' smart constructor.
+-- /See:/ 'newRebootCacheCluster' smart constructor.
 data RebootCacheCluster = RebootCacheCluster'
-  { _rccCacheClusterId ::
-      !Text,
-    _rccCacheNodeIdsToReboot ::
-      ![Text]
+  { -- | The cluster identifier. This parameter is stored as a lowercase string.
+    cacheClusterId :: Prelude.Text,
+    -- | A list of cache node IDs to reboot. A node ID is a numeric identifier
+    -- (0001, 0002, etc.). To reboot an entire cluster, specify all of the
+    -- cache node IDs.
+    cacheNodeIdsToReboot :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootCacheCluster' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootCacheCluster' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rccCacheClusterId' - The cluster identifier. This parameter is stored as a lowercase string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rccCacheNodeIdsToReboot' - A list of cache node IDs to reboot. A node ID is a numeric identifier (0001, 0002, etc.). To reboot an entire cluster, specify all of the cache node IDs.
-rebootCacheCluster ::
-  -- | 'rccCacheClusterId'
-  Text ->
+-- 'cacheClusterId', 'rebootCacheCluster_cacheClusterId' - The cluster identifier. This parameter is stored as a lowercase string.
+--
+-- 'cacheNodeIdsToReboot', 'rebootCacheCluster_cacheNodeIdsToReboot' - A list of cache node IDs to reboot. A node ID is a numeric identifier
+-- (0001, 0002, etc.). To reboot an entire cluster, specify all of the
+-- cache node IDs.
+newRebootCacheCluster ::
+  -- | 'cacheClusterId'
+  Prelude.Text ->
   RebootCacheCluster
-rebootCacheCluster pCacheClusterId_ =
+newRebootCacheCluster pCacheClusterId_ =
   RebootCacheCluster'
-    { _rccCacheClusterId =
+    { cacheClusterId =
         pCacheClusterId_,
-      _rccCacheNodeIdsToReboot = mempty
+      cacheNodeIdsToReboot = Prelude.mempty
     }
 
 -- | The cluster identifier. This parameter is stored as a lowercase string.
-rccCacheClusterId :: Lens' RebootCacheCluster Text
-rccCacheClusterId = lens _rccCacheClusterId (\s a -> s {_rccCacheClusterId = a})
+rebootCacheCluster_cacheClusterId :: Lens.Lens' RebootCacheCluster Prelude.Text
+rebootCacheCluster_cacheClusterId = Lens.lens (\RebootCacheCluster' {cacheClusterId} -> cacheClusterId) (\s@RebootCacheCluster' {} a -> s {cacheClusterId = a} :: RebootCacheCluster)
 
--- | A list of cache node IDs to reboot. A node ID is a numeric identifier (0001, 0002, etc.). To reboot an entire cluster, specify all of the cache node IDs.
-rccCacheNodeIdsToReboot :: Lens' RebootCacheCluster [Text]
-rccCacheNodeIdsToReboot = lens _rccCacheNodeIdsToReboot (\s a -> s {_rccCacheNodeIdsToReboot = a}) . _Coerce
+-- | A list of cache node IDs to reboot. A node ID is a numeric identifier
+-- (0001, 0002, etc.). To reboot an entire cluster, specify all of the
+-- cache node IDs.
+rebootCacheCluster_cacheNodeIdsToReboot :: Lens.Lens' RebootCacheCluster [Prelude.Text]
+rebootCacheCluster_cacheNodeIdsToReboot = Lens.lens (\RebootCacheCluster' {cacheNodeIdsToReboot} -> cacheNodeIdsToReboot) (\s@RebootCacheCluster' {} a -> s {cacheNodeIdsToReboot = a} :: RebootCacheCluster) Prelude.. Prelude._Coerce
 
-instance AWSRequest RebootCacheCluster where
+instance Prelude.AWSRequest RebootCacheCluster where
   type
     Rs RebootCacheCluster =
       RebootCacheClusterResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RebootCacheClusterResult"
       ( \s h x ->
           RebootCacheClusterResponse'
-            <$> (x .@? "CacheCluster") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "CacheCluster")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RebootCacheCluster
+instance Prelude.Hashable RebootCacheCluster
 
-instance NFData RebootCacheCluster
+instance Prelude.NFData RebootCacheCluster
 
-instance ToHeaders RebootCacheCluster where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RebootCacheCluster where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RebootCacheCluster where
-  toPath = const "/"
+instance Prelude.ToPath RebootCacheCluster where
+  toPath = Prelude.const "/"
 
-instance ToQuery RebootCacheCluster where
+instance Prelude.ToQuery RebootCacheCluster where
   toQuery RebootCacheCluster' {..} =
-    mconcat
-      [ "Action" =: ("RebootCacheCluster" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "CacheClusterId" =: _rccCacheClusterId,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("RebootCacheCluster" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheClusterId" Prelude.=: cacheClusterId,
         "CacheNodeIdsToReboot"
-          =: toQueryList "CacheNodeId" _rccCacheNodeIdsToReboot
+          Prelude.=: Prelude.toQueryList
+            "CacheNodeId"
+            cacheNodeIdsToReboot
       ]
 
--- | /See:/ 'rebootCacheClusterResponse' smart constructor.
+-- | /See:/ 'newRebootCacheClusterResponse' smart constructor.
 data RebootCacheClusterResponse = RebootCacheClusterResponse'
-  { _rccrrsCacheCluster ::
-      !( Maybe
-           CacheCluster
-       ),
-    _rccrrsResponseStatus ::
-      !Int
+  { cacheCluster :: Prelude.Maybe CacheCluster,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootCacheClusterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootCacheClusterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rccrrsCacheCluster' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rccrrsResponseStatus' - -- | The response status code.
-rebootCacheClusterResponse ::
-  -- | 'rccrrsResponseStatus'
-  Int ->
+-- 'cacheCluster', 'rebootCacheClusterResponse_cacheCluster' - Undocumented member.
+--
+-- 'httpStatus', 'rebootCacheClusterResponse_httpStatus' - The response's http status code.
+newRebootCacheClusterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RebootCacheClusterResponse
-rebootCacheClusterResponse pResponseStatus_ =
+newRebootCacheClusterResponse pHttpStatus_ =
   RebootCacheClusterResponse'
-    { _rccrrsCacheCluster =
-        Nothing,
-      _rccrrsResponseStatus = pResponseStatus_
+    { cacheCluster =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rccrrsCacheCluster :: Lens' RebootCacheClusterResponse (Maybe CacheCluster)
-rccrrsCacheCluster = lens _rccrrsCacheCluster (\s a -> s {_rccrrsCacheCluster = a})
+rebootCacheClusterResponse_cacheCluster :: Lens.Lens' RebootCacheClusterResponse (Prelude.Maybe CacheCluster)
+rebootCacheClusterResponse_cacheCluster = Lens.lens (\RebootCacheClusterResponse' {cacheCluster} -> cacheCluster) (\s@RebootCacheClusterResponse' {} a -> s {cacheCluster = a} :: RebootCacheClusterResponse)
 
--- | -- | The response status code.
-rccrrsResponseStatus :: Lens' RebootCacheClusterResponse Int
-rccrrsResponseStatus = lens _rccrrsResponseStatus (\s a -> s {_rccrrsResponseStatus = a})
+-- | The response's http status code.
+rebootCacheClusterResponse_httpStatus :: Lens.Lens' RebootCacheClusterResponse Prelude.Int
+rebootCacheClusterResponse_httpStatus = Lens.lens (\RebootCacheClusterResponse' {httpStatus} -> httpStatus) (\s@RebootCacheClusterResponse' {} a -> s {httpStatus = a} :: RebootCacheClusterResponse)
 
-instance NFData RebootCacheClusterResponse
+instance Prelude.NFData RebootCacheClusterResponse

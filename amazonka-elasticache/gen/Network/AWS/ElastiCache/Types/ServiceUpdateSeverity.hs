@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.ElastiCache.Types.ServiceUpdateSeverity
   ( ServiceUpdateSeverity
       ( ..,
-        Critical,
-        Important,
-        Low,
-        Medium
+        ServiceUpdateSeverityCritical,
+        ServiceUpdateSeverityImportant,
+        ServiceUpdateSeverityLow,
+        ServiceUpdateSeverityMedium
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceUpdateSeverity
-  = ServiceUpdateSeverity'
-      ( CI
-          Text
-      )
+newtype ServiceUpdateSeverity = ServiceUpdateSeverity'
+  { fromServiceUpdateSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Critical :: ServiceUpdateSeverity
-pattern Critical = ServiceUpdateSeverity' "critical"
+pattern ServiceUpdateSeverityCritical :: ServiceUpdateSeverity
+pattern ServiceUpdateSeverityCritical = ServiceUpdateSeverity' "critical"
 
-pattern Important :: ServiceUpdateSeverity
-pattern Important = ServiceUpdateSeverity' "important"
+pattern ServiceUpdateSeverityImportant :: ServiceUpdateSeverity
+pattern ServiceUpdateSeverityImportant = ServiceUpdateSeverity' "important"
 
-pattern Low :: ServiceUpdateSeverity
-pattern Low = ServiceUpdateSeverity' "low"
+pattern ServiceUpdateSeverityLow :: ServiceUpdateSeverity
+pattern ServiceUpdateSeverityLow = ServiceUpdateSeverity' "low"
 
-pattern Medium :: ServiceUpdateSeverity
-pattern Medium = ServiceUpdateSeverity' "medium"
+pattern ServiceUpdateSeverityMedium :: ServiceUpdateSeverity
+pattern ServiceUpdateSeverityMedium = ServiceUpdateSeverity' "medium"
 
 {-# COMPLETE
-  Critical,
-  Important,
-  Low,
-  Medium,
+  ServiceUpdateSeverityCritical,
+  ServiceUpdateSeverityImportant,
+  ServiceUpdateSeverityLow,
+  ServiceUpdateSeverityMedium,
   ServiceUpdateSeverity'
   #-}
 
-instance FromText ServiceUpdateSeverity where
-  parser = (ServiceUpdateSeverity' . mk) <$> takeText
+instance Prelude.FromText ServiceUpdateSeverity where
+  parser = ServiceUpdateSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceUpdateSeverity where
-  toText (ServiceUpdateSeverity' ci) = original ci
+instance Prelude.ToText ServiceUpdateSeverity where
+  toText (ServiceUpdateSeverity' x) = x
 
-instance Hashable ServiceUpdateSeverity
+instance Prelude.Hashable ServiceUpdateSeverity
 
-instance NFData ServiceUpdateSeverity
+instance Prelude.NFData ServiceUpdateSeverity
 
-instance ToByteString ServiceUpdateSeverity
+instance Prelude.ToByteString ServiceUpdateSeverity
 
-instance ToQuery ServiceUpdateSeverity
+instance Prelude.ToQuery ServiceUpdateSeverity
 
-instance ToHeader ServiceUpdateSeverity
+instance Prelude.ToHeader ServiceUpdateSeverity
 
-instance FromXML ServiceUpdateSeverity where
-  parseXML = parseXMLText "ServiceUpdateSeverity"
+instance Prelude.FromXML ServiceUpdateSeverity where
+  parseXML = Prelude.parseXMLText "ServiceUpdateSeverity"

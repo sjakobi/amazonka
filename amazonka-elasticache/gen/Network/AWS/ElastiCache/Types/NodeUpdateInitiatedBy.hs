@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElastiCache.Types.NodeUpdateInitiatedBy
   ( NodeUpdateInitiatedBy
       ( ..,
-        Customer,
-        System
+        NodeUpdateInitiatedByCustomer,
+        NodeUpdateInitiatedBySystem
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NodeUpdateInitiatedBy
-  = NodeUpdateInitiatedBy'
-      ( CI
-          Text
-      )
+newtype NodeUpdateInitiatedBy = NodeUpdateInitiatedBy'
+  { fromNodeUpdateInitiatedBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Customer :: NodeUpdateInitiatedBy
-pattern Customer = NodeUpdateInitiatedBy' "customer"
+pattern NodeUpdateInitiatedByCustomer :: NodeUpdateInitiatedBy
+pattern NodeUpdateInitiatedByCustomer = NodeUpdateInitiatedBy' "customer"
 
-pattern System :: NodeUpdateInitiatedBy
-pattern System = NodeUpdateInitiatedBy' "system"
+pattern NodeUpdateInitiatedBySystem :: NodeUpdateInitiatedBy
+pattern NodeUpdateInitiatedBySystem = NodeUpdateInitiatedBy' "system"
 
 {-# COMPLETE
-  Customer,
-  System,
+  NodeUpdateInitiatedByCustomer,
+  NodeUpdateInitiatedBySystem,
   NodeUpdateInitiatedBy'
   #-}
 
-instance FromText NodeUpdateInitiatedBy where
-  parser = (NodeUpdateInitiatedBy' . mk) <$> takeText
+instance Prelude.FromText NodeUpdateInitiatedBy where
+  parser = NodeUpdateInitiatedBy' Prelude.<$> Prelude.takeText
 
-instance ToText NodeUpdateInitiatedBy where
-  toText (NodeUpdateInitiatedBy' ci) = original ci
+instance Prelude.ToText NodeUpdateInitiatedBy where
+  toText (NodeUpdateInitiatedBy' x) = x
 
-instance Hashable NodeUpdateInitiatedBy
+instance Prelude.Hashable NodeUpdateInitiatedBy
 
-instance NFData NodeUpdateInitiatedBy
+instance Prelude.NFData NodeUpdateInitiatedBy
 
-instance ToByteString NodeUpdateInitiatedBy
+instance Prelude.ToByteString NodeUpdateInitiatedBy
 
-instance ToQuery NodeUpdateInitiatedBy
+instance Prelude.ToQuery NodeUpdateInitiatedBy
 
-instance ToHeader NodeUpdateInitiatedBy
+instance Prelude.ToHeader NodeUpdateInitiatedBy
 
-instance FromXML NodeUpdateInitiatedBy where
-  parseXML = parseXMLText "NodeUpdateInitiatedBy"
+instance Prelude.FromXML NodeUpdateInitiatedBy where
+  parseXML = Prelude.parseXMLText "NodeUpdateInitiatedBy"

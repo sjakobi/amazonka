@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.CacheSecurityGroupMembership where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a cluster's status within a particular cache security group.
+-- | Represents a cluster\'s status within a particular cache security group.
 --
---
---
--- /See:/ 'cacheSecurityGroupMembership' smart constructor.
+-- /See:/ 'newCacheSecurityGroupMembership' smart constructor.
 data CacheSecurityGroupMembership = CacheSecurityGroupMembership'
-  { _csgmStatus ::
-      !(Maybe Text),
-    _csgmCacheSecurityGroupName ::
-      !(Maybe Text)
+  { -- | The membership status in the cache security group. The status changes
+    -- when a cache security group is modified, or when the cache security
+    -- groups assigned to a cluster are modified.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cache security group.
+    cacheSecurityGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheSecurityGroupMembership' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheSecurityGroupMembership' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgmStatus' - The membership status in the cache security group. The status changes when a cache security group is modified, or when the cache security groups assigned to a cluster are modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgmCacheSecurityGroupName' - The name of the cache security group.
-cacheSecurityGroupMembership ::
+-- 'status', 'cacheSecurityGroupMembership_status' - The membership status in the cache security group. The status changes
+-- when a cache security group is modified, or when the cache security
+-- groups assigned to a cluster are modified.
+--
+-- 'cacheSecurityGroupName', 'cacheSecurityGroupMembership_cacheSecurityGroupName' - The name of the cache security group.
+newCacheSecurityGroupMembership ::
   CacheSecurityGroupMembership
-cacheSecurityGroupMembership =
+newCacheSecurityGroupMembership =
   CacheSecurityGroupMembership'
-    { _csgmStatus =
-        Nothing,
-      _csgmCacheSecurityGroupName = Nothing
+    { status =
+        Prelude.Nothing,
+      cacheSecurityGroupName = Prelude.Nothing
     }
 
--- | The membership status in the cache security group. The status changes when a cache security group is modified, or when the cache security groups assigned to a cluster are modified.
-csgmStatus :: Lens' CacheSecurityGroupMembership (Maybe Text)
-csgmStatus = lens _csgmStatus (\s a -> s {_csgmStatus = a})
+-- | The membership status in the cache security group. The status changes
+-- when a cache security group is modified, or when the cache security
+-- groups assigned to a cluster are modified.
+cacheSecurityGroupMembership_status :: Lens.Lens' CacheSecurityGroupMembership (Prelude.Maybe Prelude.Text)
+cacheSecurityGroupMembership_status = Lens.lens (\CacheSecurityGroupMembership' {status} -> status) (\s@CacheSecurityGroupMembership' {} a -> s {status = a} :: CacheSecurityGroupMembership)
 
 -- | The name of the cache security group.
-csgmCacheSecurityGroupName :: Lens' CacheSecurityGroupMembership (Maybe Text)
-csgmCacheSecurityGroupName = lens _csgmCacheSecurityGroupName (\s a -> s {_csgmCacheSecurityGroupName = a})
+cacheSecurityGroupMembership_cacheSecurityGroupName :: Lens.Lens' CacheSecurityGroupMembership (Prelude.Maybe Prelude.Text)
+cacheSecurityGroupMembership_cacheSecurityGroupName = Lens.lens (\CacheSecurityGroupMembership' {cacheSecurityGroupName} -> cacheSecurityGroupName) (\s@CacheSecurityGroupMembership' {} a -> s {cacheSecurityGroupName = a} :: CacheSecurityGroupMembership)
 
-instance FromXML CacheSecurityGroupMembership where
+instance Prelude.FromXML CacheSecurityGroupMembership where
   parseXML x =
     CacheSecurityGroupMembership'
-      <$> (x .@? "Status") <*> (x .@? "CacheSecurityGroupName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "CacheSecurityGroupName")
 
-instance Hashable CacheSecurityGroupMembership
+instance
+  Prelude.Hashable
+    CacheSecurityGroupMembership
 
-instance NFData CacheSecurityGroupMembership
+instance Prelude.NFData CacheSecurityGroupMembership

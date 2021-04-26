@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new cache security group. Use a cache security group to control access to one or more clusters.
+-- Creates a new cache security group. Use a cache security group to
+-- control access to one or more clusters.
 --
---
--- Cache security groups are only used when you are creating a cluster outside of an Amazon Virtual Private Cloud (Amazon VPC). If you are creating a cluster inside of a VPC, use a cache subnet group instead. For more information, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_CreateCacheSubnetGroup.html CreateCacheSubnetGroup> .
+-- Cache security groups are only used when you are creating a cluster
+-- outside of an Amazon Virtual Private Cloud (Amazon VPC). If you are
+-- creating a cluster inside of a VPC, use a cache subnet group instead.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_CreateCacheSubnetGroup.html CreateCacheSubnetGroup>.
 module Network.AWS.ElastiCache.CreateCacheSecurityGroup
   ( -- * Creating a Request
-    createCacheSecurityGroup,
-    CreateCacheSecurityGroup,
+    CreateCacheSecurityGroup (..),
+    newCreateCacheSecurityGroup,
 
     -- * Request Lenses
-    ccsgCacheSecurityGroupName,
-    ccsgDescription,
+    createCacheSecurityGroup_cacheSecurityGroupName,
+    createCacheSecurityGroup_description,
 
     -- * Destructuring the Response
-    createCacheSecurityGroupResponse,
-    CreateCacheSecurityGroupResponse,
+    CreateCacheSecurityGroupResponse (..),
+    newCreateCacheSecurityGroupResponse,
 
     -- * Response Lenses
-    ccsgrrsCacheSecurityGroup,
-    ccsgrrsResponseStatus,
+    createCacheSecurityGroupResponse_cacheSecurityGroup,
+    createCacheSecurityGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.CacheSecurityGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @CreateCacheSecurityGroup@ operation.
 --
---
---
--- /See:/ 'createCacheSecurityGroup' smart constructor.
+-- /See:/ 'newCreateCacheSecurityGroup' smart constructor.
 data CreateCacheSecurityGroup = CreateCacheSecurityGroup'
-  { _ccsgCacheSecurityGroupName ::
-      !Text,
-    _ccsgDescription ::
-      !Text
+  { -- | A name for the cache security group. This value is stored as a lowercase
+    -- string.
+    --
+    -- Constraints: Must contain no more than 255 alphanumeric characters.
+    -- Cannot be the word \"Default\".
+    --
+    -- Example: @mysecuritygroup@
+    cacheSecurityGroupName :: Prelude.Text,
+    -- | A description for the cache security group.
+    description :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCacheSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCacheSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsgCacheSecurityGroupName' - A name for the cache security group. This value is stored as a lowercase string. Constraints: Must contain no more than 255 alphanumeric characters. Cannot be the word "Default". Example: @mysecuritygroup@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccsgDescription' - A description for the cache security group.
-createCacheSecurityGroup ::
-  -- | 'ccsgCacheSecurityGroupName'
-  Text ->
-  -- | 'ccsgDescription'
-  Text ->
+-- 'cacheSecurityGroupName', 'createCacheSecurityGroup_cacheSecurityGroupName' - A name for the cache security group. This value is stored as a lowercase
+-- string.
+--
+-- Constraints: Must contain no more than 255 alphanumeric characters.
+-- Cannot be the word \"Default\".
+--
+-- Example: @mysecuritygroup@
+--
+-- 'description', 'createCacheSecurityGroup_description' - A description for the cache security group.
+newCreateCacheSecurityGroup ::
+  -- | 'cacheSecurityGroupName'
+  Prelude.Text ->
+  -- | 'description'
+  Prelude.Text ->
   CreateCacheSecurityGroup
-createCacheSecurityGroup
+newCreateCacheSecurityGroup
   pCacheSecurityGroupName_
   pDescription_ =
     CreateCacheSecurityGroup'
-      { _ccsgCacheSecurityGroupName =
+      { cacheSecurityGroupName =
           pCacheSecurityGroupName_,
-        _ccsgDescription = pDescription_
+        description = pDescription_
       }
 
--- | A name for the cache security group. This value is stored as a lowercase string. Constraints: Must contain no more than 255 alphanumeric characters. Cannot be the word "Default". Example: @mysecuritygroup@
-ccsgCacheSecurityGroupName :: Lens' CreateCacheSecurityGroup Text
-ccsgCacheSecurityGroupName = lens _ccsgCacheSecurityGroupName (\s a -> s {_ccsgCacheSecurityGroupName = a})
+-- | A name for the cache security group. This value is stored as a lowercase
+-- string.
+--
+-- Constraints: Must contain no more than 255 alphanumeric characters.
+-- Cannot be the word \"Default\".
+--
+-- Example: @mysecuritygroup@
+createCacheSecurityGroup_cacheSecurityGroupName :: Lens.Lens' CreateCacheSecurityGroup Prelude.Text
+createCacheSecurityGroup_cacheSecurityGroupName = Lens.lens (\CreateCacheSecurityGroup' {cacheSecurityGroupName} -> cacheSecurityGroupName) (\s@CreateCacheSecurityGroup' {} a -> s {cacheSecurityGroupName = a} :: CreateCacheSecurityGroup)
 
 -- | A description for the cache security group.
-ccsgDescription :: Lens' CreateCacheSecurityGroup Text
-ccsgDescription = lens _ccsgDescription (\s a -> s {_ccsgDescription = a})
+createCacheSecurityGroup_description :: Lens.Lens' CreateCacheSecurityGroup Prelude.Text
+createCacheSecurityGroup_description = Lens.lens (\CreateCacheSecurityGroup' {description} -> description) (\s@CreateCacheSecurityGroup' {} a -> s {description = a} :: CreateCacheSecurityGroup)
 
-instance AWSRequest CreateCacheSecurityGroup where
+instance Prelude.AWSRequest CreateCacheSecurityGroup where
   type
     Rs CreateCacheSecurityGroup =
       CreateCacheSecurityGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateCacheSecurityGroupResult"
       ( \s h x ->
           CreateCacheSecurityGroupResponse'
-            <$> (x .@? "CacheSecurityGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "CacheSecurityGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCacheSecurityGroup
+instance Prelude.Hashable CreateCacheSecurityGroup
 
-instance NFData CreateCacheSecurityGroup
+instance Prelude.NFData CreateCacheSecurityGroup
 
-instance ToHeaders CreateCacheSecurityGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateCacheSecurityGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateCacheSecurityGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateCacheSecurityGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateCacheSecurityGroup where
+instance Prelude.ToQuery CreateCacheSecurityGroup where
   toQuery CreateCacheSecurityGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateCacheSecurityGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ("CreateCacheSecurityGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheSecurityGroupName"
-          =: _ccsgCacheSecurityGroupName,
-        "Description" =: _ccsgDescription
+          Prelude.=: cacheSecurityGroupName,
+        "Description" Prelude.=: description
       ]
 
--- | /See:/ 'createCacheSecurityGroupResponse' smart constructor.
+-- | /See:/ 'newCreateCacheSecurityGroupResponse' smart constructor.
 data CreateCacheSecurityGroupResponse = CreateCacheSecurityGroupResponse'
-  { _ccsgrrsCacheSecurityGroup ::
-      !( Maybe
-           CacheSecurityGroup
-       ),
-    _ccsgrrsResponseStatus ::
-      !Int
+  { cacheSecurityGroup :: Prelude.Maybe CacheSecurityGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCacheSecurityGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCacheSecurityGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsgrrsCacheSecurityGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccsgrrsResponseStatus' - -- | The response status code.
-createCacheSecurityGroupResponse ::
-  -- | 'ccsgrrsResponseStatus'
-  Int ->
+-- 'cacheSecurityGroup', 'createCacheSecurityGroupResponse_cacheSecurityGroup' - Undocumented member.
+--
+-- 'httpStatus', 'createCacheSecurityGroupResponse_httpStatus' - The response's http status code.
+newCreateCacheSecurityGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCacheSecurityGroupResponse
-createCacheSecurityGroupResponse pResponseStatus_ =
+newCreateCacheSecurityGroupResponse pHttpStatus_ =
   CreateCacheSecurityGroupResponse'
-    { _ccsgrrsCacheSecurityGroup =
-        Nothing,
-      _ccsgrrsResponseStatus = pResponseStatus_
+    { cacheSecurityGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ccsgrrsCacheSecurityGroup :: Lens' CreateCacheSecurityGroupResponse (Maybe CacheSecurityGroup)
-ccsgrrsCacheSecurityGroup = lens _ccsgrrsCacheSecurityGroup (\s a -> s {_ccsgrrsCacheSecurityGroup = a})
+createCacheSecurityGroupResponse_cacheSecurityGroup :: Lens.Lens' CreateCacheSecurityGroupResponse (Prelude.Maybe CacheSecurityGroup)
+createCacheSecurityGroupResponse_cacheSecurityGroup = Lens.lens (\CreateCacheSecurityGroupResponse' {cacheSecurityGroup} -> cacheSecurityGroup) (\s@CreateCacheSecurityGroupResponse' {} a -> s {cacheSecurityGroup = a} :: CreateCacheSecurityGroupResponse)
 
--- | -- | The response status code.
-ccsgrrsResponseStatus :: Lens' CreateCacheSecurityGroupResponse Int
-ccsgrrsResponseStatus = lens _ccsgrrsResponseStatus (\s a -> s {_ccsgrrsResponseStatus = a})
+-- | The response's http status code.
+createCacheSecurityGroupResponse_httpStatus :: Lens.Lens' CreateCacheSecurityGroupResponse Prelude.Int
+createCacheSecurityGroupResponse_httpStatus = Lens.lens (\CreateCacheSecurityGroupResponse' {httpStatus} -> httpStatus) (\s@CreateCacheSecurityGroupResponse' {} a -> s {httpStatus = a} :: CreateCacheSecurityGroupResponse)
 
-instance NFData CreateCacheSecurityGroupResponse
+instance
+  Prelude.NFData
+    CreateCacheSecurityGroupResponse

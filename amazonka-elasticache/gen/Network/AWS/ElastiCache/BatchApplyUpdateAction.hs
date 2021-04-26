@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,122 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Apply the service update. For more information on service updates and applying them, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/applying-updates.html Applying Service Updates> .
+-- Apply the service update. For more information on service updates and
+-- applying them, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/applying-updates.html Applying Service Updates>.
 module Network.AWS.ElastiCache.BatchApplyUpdateAction
   ( -- * Creating a Request
-    batchApplyUpdateAction,
-    BatchApplyUpdateAction,
+    BatchApplyUpdateAction (..),
+    newBatchApplyUpdateAction,
 
     -- * Request Lenses
-    bauaCacheClusterIds,
-    bauaReplicationGroupIds,
-    bauaServiceUpdateName,
+    batchApplyUpdateAction_cacheClusterIds,
+    batchApplyUpdateAction_replicationGroupIds,
+    batchApplyUpdateAction_serviceUpdateName,
 
     -- * Destructuring the Response
-    updateActionResultsMessage,
-    UpdateActionResultsMessage,
+    UpdateActionResultsMessage (..),
+    newUpdateActionResultsMessage,
 
     -- * Response Lenses
-    uarmProcessedUpdateActions,
-    uarmUnprocessedUpdateActions,
+    updateActionResultsMessage_processedUpdateActions,
+    updateActionResultsMessage_unprocessedUpdateActions,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.ProcessedUpdateAction
+import Network.AWS.ElastiCache.Types.UnprocessedUpdateAction
+import Network.AWS.ElastiCache.Types.UpdateActionResultsMessage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchApplyUpdateAction' smart constructor.
+-- | /See:/ 'newBatchApplyUpdateAction' smart constructor.
 data BatchApplyUpdateAction = BatchApplyUpdateAction'
-  { _bauaCacheClusterIds ::
-      !(Maybe [Text]),
-    _bauaReplicationGroupIds ::
-      !(Maybe [Text]),
-    _bauaServiceUpdateName ::
-      !Text
+  { -- | The cache cluster IDs
+    cacheClusterIds :: Prelude.Maybe [Prelude.Text],
+    -- | The replication group IDs
+    replicationGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The unique ID of the service update
+    serviceUpdateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchApplyUpdateAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchApplyUpdateAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bauaCacheClusterIds' - The cache cluster IDs
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bauaReplicationGroupIds' - The replication group IDs
+-- 'cacheClusterIds', 'batchApplyUpdateAction_cacheClusterIds' - The cache cluster IDs
 --
--- * 'bauaServiceUpdateName' - The unique ID of the service update
-batchApplyUpdateAction ::
-  -- | 'bauaServiceUpdateName'
-  Text ->
+-- 'replicationGroupIds', 'batchApplyUpdateAction_replicationGroupIds' - The replication group IDs
+--
+-- 'serviceUpdateName', 'batchApplyUpdateAction_serviceUpdateName' - The unique ID of the service update
+newBatchApplyUpdateAction ::
+  -- | 'serviceUpdateName'
+  Prelude.Text ->
   BatchApplyUpdateAction
-batchApplyUpdateAction pServiceUpdateName_ =
+newBatchApplyUpdateAction pServiceUpdateName_ =
   BatchApplyUpdateAction'
-    { _bauaCacheClusterIds =
-        Nothing,
-      _bauaReplicationGroupIds = Nothing,
-      _bauaServiceUpdateName = pServiceUpdateName_
+    { cacheClusterIds =
+        Prelude.Nothing,
+      replicationGroupIds = Prelude.Nothing,
+      serviceUpdateName = pServiceUpdateName_
     }
 
 -- | The cache cluster IDs
-bauaCacheClusterIds :: Lens' BatchApplyUpdateAction [Text]
-bauaCacheClusterIds = lens _bauaCacheClusterIds (\s a -> s {_bauaCacheClusterIds = a}) . _Default . _Coerce
+batchApplyUpdateAction_cacheClusterIds :: Lens.Lens' BatchApplyUpdateAction (Prelude.Maybe [Prelude.Text])
+batchApplyUpdateAction_cacheClusterIds = Lens.lens (\BatchApplyUpdateAction' {cacheClusterIds} -> cacheClusterIds) (\s@BatchApplyUpdateAction' {} a -> s {cacheClusterIds = a} :: BatchApplyUpdateAction) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The replication group IDs
-bauaReplicationGroupIds :: Lens' BatchApplyUpdateAction [Text]
-bauaReplicationGroupIds = lens _bauaReplicationGroupIds (\s a -> s {_bauaReplicationGroupIds = a}) . _Default . _Coerce
+batchApplyUpdateAction_replicationGroupIds :: Lens.Lens' BatchApplyUpdateAction (Prelude.Maybe [Prelude.Text])
+batchApplyUpdateAction_replicationGroupIds = Lens.lens (\BatchApplyUpdateAction' {replicationGroupIds} -> replicationGroupIds) (\s@BatchApplyUpdateAction' {} a -> s {replicationGroupIds = a} :: BatchApplyUpdateAction) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique ID of the service update
-bauaServiceUpdateName :: Lens' BatchApplyUpdateAction Text
-bauaServiceUpdateName = lens _bauaServiceUpdateName (\s a -> s {_bauaServiceUpdateName = a})
+batchApplyUpdateAction_serviceUpdateName :: Lens.Lens' BatchApplyUpdateAction Prelude.Text
+batchApplyUpdateAction_serviceUpdateName = Lens.lens (\BatchApplyUpdateAction' {serviceUpdateName} -> serviceUpdateName) (\s@BatchApplyUpdateAction' {} a -> s {serviceUpdateName = a} :: BatchApplyUpdateAction)
 
-instance AWSRequest BatchApplyUpdateAction where
+instance Prelude.AWSRequest BatchApplyUpdateAction where
   type
     Rs BatchApplyUpdateAction =
       UpdateActionResultsMessage
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "BatchApplyUpdateActionResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable BatchApplyUpdateAction
+instance Prelude.Hashable BatchApplyUpdateAction
 
-instance NFData BatchApplyUpdateAction
+instance Prelude.NFData BatchApplyUpdateAction
 
-instance ToHeaders BatchApplyUpdateAction where
-  toHeaders = const mempty
+instance Prelude.ToHeaders BatchApplyUpdateAction where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath BatchApplyUpdateAction where
-  toPath = const "/"
+instance Prelude.ToPath BatchApplyUpdateAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchApplyUpdateAction where
+instance Prelude.ToQuery BatchApplyUpdateAction where
   toQuery BatchApplyUpdateAction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("BatchApplyUpdateAction" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ("BatchApplyUpdateAction" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheClusterIds"
-          =: toQuery
-            (toQueryList "member" <$> _bauaCacheClusterIds),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> cacheClusterIds
+            ),
         "ReplicationGroupIds"
-          =: toQuery
-            (toQueryList "member" <$> _bauaReplicationGroupIds),
-        "ServiceUpdateName" =: _bauaServiceUpdateName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> replicationGroupIds
+            ),
+        "ServiceUpdateName" Prelude.=: serviceUpdateName
       ]

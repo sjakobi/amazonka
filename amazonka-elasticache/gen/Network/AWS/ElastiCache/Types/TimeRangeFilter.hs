@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.TimeRangeFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Filters update actions from the service updates that are in available status during the time range.
+-- | Filters update actions from the service updates that are in available
+-- status during the time range.
 --
---
---
--- /See:/ 'timeRangeFilter' smart constructor.
+-- /See:/ 'newTimeRangeFilter' smart constructor.
 data TimeRangeFilter = TimeRangeFilter'
-  { _trfStartTime ::
-      !(Maybe ISO8601),
-    _trfEndTime :: !(Maybe ISO8601)
+  { -- | The start time of the time range filter
+    startTime :: Prelude.Maybe Prelude.ISO8601,
+    -- | The end time of the time range filter
+    endTime :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimeRangeFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimeRangeFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trfStartTime' - The start time of the time range filter
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trfEndTime' - The end time of the time range filter
-timeRangeFilter ::
+-- 'startTime', 'timeRangeFilter_startTime' - The start time of the time range filter
+--
+-- 'endTime', 'timeRangeFilter_endTime' - The end time of the time range filter
+newTimeRangeFilter ::
   TimeRangeFilter
-timeRangeFilter =
+newTimeRangeFilter =
   TimeRangeFilter'
-    { _trfStartTime = Nothing,
-      _trfEndTime = Nothing
+    { startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing
     }
 
 -- | The start time of the time range filter
-trfStartTime :: Lens' TimeRangeFilter (Maybe UTCTime)
-trfStartTime = lens _trfStartTime (\s a -> s {_trfStartTime = a}) . mapping _Time
+timeRangeFilter_startTime :: Lens.Lens' TimeRangeFilter (Prelude.Maybe Prelude.UTCTime)
+timeRangeFilter_startTime = Lens.lens (\TimeRangeFilter' {startTime} -> startTime) (\s@TimeRangeFilter' {} a -> s {startTime = a} :: TimeRangeFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | The end time of the time range filter
-trfEndTime :: Lens' TimeRangeFilter (Maybe UTCTime)
-trfEndTime = lens _trfEndTime (\s a -> s {_trfEndTime = a}) . mapping _Time
+timeRangeFilter_endTime :: Lens.Lens' TimeRangeFilter (Prelude.Maybe Prelude.UTCTime)
+timeRangeFilter_endTime = Lens.lens (\TimeRangeFilter' {endTime} -> endTime) (\s@TimeRangeFilter' {} a -> s {endTime = a} :: TimeRangeFilter) Prelude.. Lens.mapping Prelude._Time
 
-instance Hashable TimeRangeFilter
+instance Prelude.Hashable TimeRangeFilter
 
-instance NFData TimeRangeFilter
+instance Prelude.NFData TimeRangeFilter
 
-instance ToQuery TimeRangeFilter where
+instance Prelude.ToQuery TimeRangeFilter where
   toQuery TimeRangeFilter' {..} =
-    mconcat
-      [ "StartTime" =: _trfStartTime,
-        "EndTime" =: _trfEndTime
+    Prelude.mconcat
+      [ "StartTime" Prelude.=: startTime,
+        "EndTime" Prelude.=: endTime
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,38 +19,41 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.SubnetOutpost where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The ID of the outpost subnet.
 --
---
---
--- /See:/ 'subnetOutpost' smart constructor.
-newtype SubnetOutpost = SubnetOutpost'
-  { _soSubnetOutpostARN ::
-      Maybe Text
+-- /See:/ 'newSubnetOutpost' smart constructor.
+data SubnetOutpost = SubnetOutpost'
+  { -- | The outpost ARN of the subnet.
+    subnetOutpostArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubnetOutpost' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubnetOutpost' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'soSubnetOutpostARN' - The outpost ARN of the subnet.
-subnetOutpost ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subnetOutpostArn', 'subnetOutpost_subnetOutpostArn' - The outpost ARN of the subnet.
+newSubnetOutpost ::
   SubnetOutpost
-subnetOutpost =
-  SubnetOutpost' {_soSubnetOutpostARN = Nothing}
+newSubnetOutpost =
+  SubnetOutpost' {subnetOutpostArn = Prelude.Nothing}
 
 -- | The outpost ARN of the subnet.
-soSubnetOutpostARN :: Lens' SubnetOutpost (Maybe Text)
-soSubnetOutpostARN = lens _soSubnetOutpostARN (\s a -> s {_soSubnetOutpostARN = a})
+subnetOutpost_subnetOutpostArn :: Lens.Lens' SubnetOutpost (Prelude.Maybe Prelude.Text)
+subnetOutpost_subnetOutpostArn = Lens.lens (\SubnetOutpost' {subnetOutpostArn} -> subnetOutpostArn) (\s@SubnetOutpost' {} a -> s {subnetOutpostArn = a} :: SubnetOutpost)
 
-instance FromXML SubnetOutpost where
+instance Prelude.FromXML SubnetOutpost where
   parseXML x =
-    SubnetOutpost' <$> (x .@? "SubnetOutpostArn")
+    SubnetOutpost'
+      Prelude.<$> (x Prelude..@? "SubnetOutpostArn")
 
-instance Hashable SubnetOutpost
+instance Prelude.Hashable SubnetOutpost
 
-instance NFData SubnetOutpost
+instance Prelude.NFData SubnetOutpost

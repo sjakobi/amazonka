@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -22,198 +26,231 @@ import Network.AWS.ElastiCache.Types.ServiceUpdateStatus
 import Network.AWS.ElastiCache.Types.ServiceUpdateType
 import Network.AWS.ElastiCache.Types.SlaMet
 import Network.AWS.ElastiCache.Types.UpdateActionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of the service update for a specific replication group
 --
---
---
--- /See:/ 'updateAction' smart constructor.
+-- /See:/ 'newUpdateAction' smart constructor.
 data UpdateAction = UpdateAction'
-  { _uaServiceUpdateSeverity ::
-      !(Maybe ServiceUpdateSeverity),
-    _uaServiceUpdateReleaseDate ::
-      !(Maybe ISO8601),
-    _uaReplicationGroupId :: !(Maybe Text),
-    _uaUpdateActionStatus ::
-      !(Maybe UpdateActionStatus),
-    _uaCacheClusterId :: !(Maybe Text),
-    _uaServiceUpdateStatus ::
-      !(Maybe ServiceUpdateStatus),
-    _uaSlaMet :: !(Maybe SlaMet),
-    _uaUpdateActionAvailableDate ::
-      !(Maybe ISO8601),
-    _uaNodeGroupUpdateStatus ::
-      !(Maybe [NodeGroupUpdateStatus]),
-    _uaServiceUpdateRecommendedApplyByDate ::
-      !(Maybe ISO8601),
-    _uaServiceUpdateType ::
-      !(Maybe ServiceUpdateType),
-    _uaCacheNodeUpdateStatus ::
-      !(Maybe [CacheNodeUpdateStatus]),
-    _uaNodesUpdated :: !(Maybe Text),
-    _uaEstimatedUpdateTime :: !(Maybe Text),
-    _uaUpdateActionStatusModifiedDate ::
-      !(Maybe ISO8601),
-    _uaEngine :: !(Maybe Text),
-    _uaServiceUpdateName :: !(Maybe Text)
+  { -- | The severity of the service update
+    serviceUpdateSeverity :: Prelude.Maybe ServiceUpdateSeverity,
+    -- | The date the update is first available
+    serviceUpdateReleaseDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The ID of the replication group
+    replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the update action
+    updateActionStatus :: Prelude.Maybe UpdateActionStatus,
+    -- | The ID of the cache cluster
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the service update
+    serviceUpdateStatus :: Prelude.Maybe ServiceUpdateStatus,
+    -- | If yes, all nodes in the replication group have been updated by the
+    -- recommended apply-by date. If no, at least one node in the replication
+    -- group have not been updated by the recommended apply-by date. If N\/A,
+    -- the replication group was created after the recommended apply-by date.
+    slaMet :: Prelude.Maybe SlaMet,
+    -- | The date that the service update is available to a replication group
+    updateActionAvailableDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The status of the service update on the node group
+    nodeGroupUpdateStatus :: Prelude.Maybe [NodeGroupUpdateStatus],
+    -- | The recommended date to apply the service update to ensure compliance.
+    -- For information on compliance, see
+    -- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance>.
+    serviceUpdateRecommendedApplyByDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | Reflects the nature of the service update
+    serviceUpdateType :: Prelude.Maybe ServiceUpdateType,
+    -- | The status of the service update on the cache node
+    cacheNodeUpdateStatus :: Prelude.Maybe [CacheNodeUpdateStatus],
+    -- | The progress of the service update on the replication group
+    nodesUpdated :: Prelude.Maybe Prelude.Text,
+    -- | The estimated length of time for the update to complete
+    estimatedUpdateTime :: Prelude.Maybe Prelude.Text,
+    -- | The date when the UpdateActionStatus was last modified
+    updateActionStatusModifiedDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Elasticache engine to which the update applies. Either Redis or
+    -- Memcached
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the service update
+    serviceUpdateName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaServiceUpdateSeverity' - The severity of the service update
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaServiceUpdateReleaseDate' - The date the update is first available
+-- 'serviceUpdateSeverity', 'updateAction_serviceUpdateSeverity' - The severity of the service update
 --
--- * 'uaReplicationGroupId' - The ID of the replication group
+-- 'serviceUpdateReleaseDate', 'updateAction_serviceUpdateReleaseDate' - The date the update is first available
 --
--- * 'uaUpdateActionStatus' - The status of the update action
+-- 'replicationGroupId', 'updateAction_replicationGroupId' - The ID of the replication group
 --
--- * 'uaCacheClusterId' - The ID of the cache cluster
+-- 'updateActionStatus', 'updateAction_updateActionStatus' - The status of the update action
 --
--- * 'uaServiceUpdateStatus' - The status of the service update
+-- 'cacheClusterId', 'updateAction_cacheClusterId' - The ID of the cache cluster
 --
--- * 'uaSlaMet' - If yes, all nodes in the replication group have been updated by the recommended apply-by date. If no, at least one node in the replication group have not been updated by the recommended apply-by date. If N/A, the replication group was created after the recommended apply-by date.
+-- 'serviceUpdateStatus', 'updateAction_serviceUpdateStatus' - The status of the service update
 --
--- * 'uaUpdateActionAvailableDate' - The date that the service update is available to a replication group
+-- 'slaMet', 'updateAction_slaMet' - If yes, all nodes in the replication group have been updated by the
+-- recommended apply-by date. If no, at least one node in the replication
+-- group have not been updated by the recommended apply-by date. If N\/A,
+-- the replication group was created after the recommended apply-by date.
 --
--- * 'uaNodeGroupUpdateStatus' - The status of the service update on the node group
+-- 'updateActionAvailableDate', 'updateAction_updateActionAvailableDate' - The date that the service update is available to a replication group
 --
--- * 'uaServiceUpdateRecommendedApplyByDate' - The recommended date to apply the service update to ensure compliance. For information on compliance, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance> .
+-- 'nodeGroupUpdateStatus', 'updateAction_nodeGroupUpdateStatus' - The status of the service update on the node group
 --
--- * 'uaServiceUpdateType' - Reflects the nature of the service update
+-- 'serviceUpdateRecommendedApplyByDate', 'updateAction_serviceUpdateRecommendedApplyByDate' - The recommended date to apply the service update to ensure compliance.
+-- For information on compliance, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance>.
 --
--- * 'uaCacheNodeUpdateStatus' - The status of the service update on the cache node
+-- 'serviceUpdateType', 'updateAction_serviceUpdateType' - Reflects the nature of the service update
 --
--- * 'uaNodesUpdated' - The progress of the service update on the replication group
+-- 'cacheNodeUpdateStatus', 'updateAction_cacheNodeUpdateStatus' - The status of the service update on the cache node
 --
--- * 'uaEstimatedUpdateTime' - The estimated length of time for the update to complete
+-- 'nodesUpdated', 'updateAction_nodesUpdated' - The progress of the service update on the replication group
 --
--- * 'uaUpdateActionStatusModifiedDate' - The date when the UpdateActionStatus was last modified
+-- 'estimatedUpdateTime', 'updateAction_estimatedUpdateTime' - The estimated length of time for the update to complete
 --
--- * 'uaEngine' - The Elasticache engine to which the update applies. Either Redis or Memcached
+-- 'updateActionStatusModifiedDate', 'updateAction_updateActionStatusModifiedDate' - The date when the UpdateActionStatus was last modified
 --
--- * 'uaServiceUpdateName' - The unique ID of the service update
-updateAction ::
+-- 'engine', 'updateAction_engine' - The Elasticache engine to which the update applies. Either Redis or
+-- Memcached
+--
+-- 'serviceUpdateName', 'updateAction_serviceUpdateName' - The unique ID of the service update
+newUpdateAction ::
   UpdateAction
-updateAction =
+newUpdateAction =
   UpdateAction'
-    { _uaServiceUpdateSeverity = Nothing,
-      _uaServiceUpdateReleaseDate = Nothing,
-      _uaReplicationGroupId = Nothing,
-      _uaUpdateActionStatus = Nothing,
-      _uaCacheClusterId = Nothing,
-      _uaServiceUpdateStatus = Nothing,
-      _uaSlaMet = Nothing,
-      _uaUpdateActionAvailableDate = Nothing,
-      _uaNodeGroupUpdateStatus = Nothing,
-      _uaServiceUpdateRecommendedApplyByDate = Nothing,
-      _uaServiceUpdateType = Nothing,
-      _uaCacheNodeUpdateStatus = Nothing,
-      _uaNodesUpdated = Nothing,
-      _uaEstimatedUpdateTime = Nothing,
-      _uaUpdateActionStatusModifiedDate = Nothing,
-      _uaEngine = Nothing,
-      _uaServiceUpdateName = Nothing
+    { serviceUpdateSeverity =
+        Prelude.Nothing,
+      serviceUpdateReleaseDate = Prelude.Nothing,
+      replicationGroupId = Prelude.Nothing,
+      updateActionStatus = Prelude.Nothing,
+      cacheClusterId = Prelude.Nothing,
+      serviceUpdateStatus = Prelude.Nothing,
+      slaMet = Prelude.Nothing,
+      updateActionAvailableDate = Prelude.Nothing,
+      nodeGroupUpdateStatus = Prelude.Nothing,
+      serviceUpdateRecommendedApplyByDate =
+        Prelude.Nothing,
+      serviceUpdateType = Prelude.Nothing,
+      cacheNodeUpdateStatus = Prelude.Nothing,
+      nodesUpdated = Prelude.Nothing,
+      estimatedUpdateTime = Prelude.Nothing,
+      updateActionStatusModifiedDate = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      serviceUpdateName = Prelude.Nothing
     }
 
 -- | The severity of the service update
-uaServiceUpdateSeverity :: Lens' UpdateAction (Maybe ServiceUpdateSeverity)
-uaServiceUpdateSeverity = lens _uaServiceUpdateSeverity (\s a -> s {_uaServiceUpdateSeverity = a})
+updateAction_serviceUpdateSeverity :: Lens.Lens' UpdateAction (Prelude.Maybe ServiceUpdateSeverity)
+updateAction_serviceUpdateSeverity = Lens.lens (\UpdateAction' {serviceUpdateSeverity} -> serviceUpdateSeverity) (\s@UpdateAction' {} a -> s {serviceUpdateSeverity = a} :: UpdateAction)
 
 -- | The date the update is first available
-uaServiceUpdateReleaseDate :: Lens' UpdateAction (Maybe UTCTime)
-uaServiceUpdateReleaseDate = lens _uaServiceUpdateReleaseDate (\s a -> s {_uaServiceUpdateReleaseDate = a}) . mapping _Time
+updateAction_serviceUpdateReleaseDate :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.UTCTime)
+updateAction_serviceUpdateReleaseDate = Lens.lens (\UpdateAction' {serviceUpdateReleaseDate} -> serviceUpdateReleaseDate) (\s@UpdateAction' {} a -> s {serviceUpdateReleaseDate = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the replication group
-uaReplicationGroupId :: Lens' UpdateAction (Maybe Text)
-uaReplicationGroupId = lens _uaReplicationGroupId (\s a -> s {_uaReplicationGroupId = a})
+updateAction_replicationGroupId :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_replicationGroupId = Lens.lens (\UpdateAction' {replicationGroupId} -> replicationGroupId) (\s@UpdateAction' {} a -> s {replicationGroupId = a} :: UpdateAction)
 
 -- | The status of the update action
-uaUpdateActionStatus :: Lens' UpdateAction (Maybe UpdateActionStatus)
-uaUpdateActionStatus = lens _uaUpdateActionStatus (\s a -> s {_uaUpdateActionStatus = a})
+updateAction_updateActionStatus :: Lens.Lens' UpdateAction (Prelude.Maybe UpdateActionStatus)
+updateAction_updateActionStatus = Lens.lens (\UpdateAction' {updateActionStatus} -> updateActionStatus) (\s@UpdateAction' {} a -> s {updateActionStatus = a} :: UpdateAction)
 
 -- | The ID of the cache cluster
-uaCacheClusterId :: Lens' UpdateAction (Maybe Text)
-uaCacheClusterId = lens _uaCacheClusterId (\s a -> s {_uaCacheClusterId = a})
+updateAction_cacheClusterId :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_cacheClusterId = Lens.lens (\UpdateAction' {cacheClusterId} -> cacheClusterId) (\s@UpdateAction' {} a -> s {cacheClusterId = a} :: UpdateAction)
 
 -- | The status of the service update
-uaServiceUpdateStatus :: Lens' UpdateAction (Maybe ServiceUpdateStatus)
-uaServiceUpdateStatus = lens _uaServiceUpdateStatus (\s a -> s {_uaServiceUpdateStatus = a})
+updateAction_serviceUpdateStatus :: Lens.Lens' UpdateAction (Prelude.Maybe ServiceUpdateStatus)
+updateAction_serviceUpdateStatus = Lens.lens (\UpdateAction' {serviceUpdateStatus} -> serviceUpdateStatus) (\s@UpdateAction' {} a -> s {serviceUpdateStatus = a} :: UpdateAction)
 
--- | If yes, all nodes in the replication group have been updated by the recommended apply-by date. If no, at least one node in the replication group have not been updated by the recommended apply-by date. If N/A, the replication group was created after the recommended apply-by date.
-uaSlaMet :: Lens' UpdateAction (Maybe SlaMet)
-uaSlaMet = lens _uaSlaMet (\s a -> s {_uaSlaMet = a})
+-- | If yes, all nodes in the replication group have been updated by the
+-- recommended apply-by date. If no, at least one node in the replication
+-- group have not been updated by the recommended apply-by date. If N\/A,
+-- the replication group was created after the recommended apply-by date.
+updateAction_slaMet :: Lens.Lens' UpdateAction (Prelude.Maybe SlaMet)
+updateAction_slaMet = Lens.lens (\UpdateAction' {slaMet} -> slaMet) (\s@UpdateAction' {} a -> s {slaMet = a} :: UpdateAction)
 
 -- | The date that the service update is available to a replication group
-uaUpdateActionAvailableDate :: Lens' UpdateAction (Maybe UTCTime)
-uaUpdateActionAvailableDate = lens _uaUpdateActionAvailableDate (\s a -> s {_uaUpdateActionAvailableDate = a}) . mapping _Time
+updateAction_updateActionAvailableDate :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.UTCTime)
+updateAction_updateActionAvailableDate = Lens.lens (\UpdateAction' {updateActionAvailableDate} -> updateActionAvailableDate) (\s@UpdateAction' {} a -> s {updateActionAvailableDate = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the service update on the node group
-uaNodeGroupUpdateStatus :: Lens' UpdateAction [NodeGroupUpdateStatus]
-uaNodeGroupUpdateStatus = lens _uaNodeGroupUpdateStatus (\s a -> s {_uaNodeGroupUpdateStatus = a}) . _Default . _Coerce
+updateAction_nodeGroupUpdateStatus :: Lens.Lens' UpdateAction (Prelude.Maybe [NodeGroupUpdateStatus])
+updateAction_nodeGroupUpdateStatus = Lens.lens (\UpdateAction' {nodeGroupUpdateStatus} -> nodeGroupUpdateStatus) (\s@UpdateAction' {} a -> s {nodeGroupUpdateStatus = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The recommended date to apply the service update to ensure compliance. For information on compliance, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance> .
-uaServiceUpdateRecommendedApplyByDate :: Lens' UpdateAction (Maybe UTCTime)
-uaServiceUpdateRecommendedApplyByDate = lens _uaServiceUpdateRecommendedApplyByDate (\s a -> s {_uaServiceUpdateRecommendedApplyByDate = a}) . mapping _Time
+-- | The recommended date to apply the service update to ensure compliance.
+-- For information on compliance, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance>.
+updateAction_serviceUpdateRecommendedApplyByDate :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.UTCTime)
+updateAction_serviceUpdateRecommendedApplyByDate = Lens.lens (\UpdateAction' {serviceUpdateRecommendedApplyByDate} -> serviceUpdateRecommendedApplyByDate) (\s@UpdateAction' {} a -> s {serviceUpdateRecommendedApplyByDate = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Time
 
 -- | Reflects the nature of the service update
-uaServiceUpdateType :: Lens' UpdateAction (Maybe ServiceUpdateType)
-uaServiceUpdateType = lens _uaServiceUpdateType (\s a -> s {_uaServiceUpdateType = a})
+updateAction_serviceUpdateType :: Lens.Lens' UpdateAction (Prelude.Maybe ServiceUpdateType)
+updateAction_serviceUpdateType = Lens.lens (\UpdateAction' {serviceUpdateType} -> serviceUpdateType) (\s@UpdateAction' {} a -> s {serviceUpdateType = a} :: UpdateAction)
 
 -- | The status of the service update on the cache node
-uaCacheNodeUpdateStatus :: Lens' UpdateAction [CacheNodeUpdateStatus]
-uaCacheNodeUpdateStatus = lens _uaCacheNodeUpdateStatus (\s a -> s {_uaCacheNodeUpdateStatus = a}) . _Default . _Coerce
+updateAction_cacheNodeUpdateStatus :: Lens.Lens' UpdateAction (Prelude.Maybe [CacheNodeUpdateStatus])
+updateAction_cacheNodeUpdateStatus = Lens.lens (\UpdateAction' {cacheNodeUpdateStatus} -> cacheNodeUpdateStatus) (\s@UpdateAction' {} a -> s {cacheNodeUpdateStatus = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The progress of the service update on the replication group
-uaNodesUpdated :: Lens' UpdateAction (Maybe Text)
-uaNodesUpdated = lens _uaNodesUpdated (\s a -> s {_uaNodesUpdated = a})
+updateAction_nodesUpdated :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_nodesUpdated = Lens.lens (\UpdateAction' {nodesUpdated} -> nodesUpdated) (\s@UpdateAction' {} a -> s {nodesUpdated = a} :: UpdateAction)
 
 -- | The estimated length of time for the update to complete
-uaEstimatedUpdateTime :: Lens' UpdateAction (Maybe Text)
-uaEstimatedUpdateTime = lens _uaEstimatedUpdateTime (\s a -> s {_uaEstimatedUpdateTime = a})
+updateAction_estimatedUpdateTime :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_estimatedUpdateTime = Lens.lens (\UpdateAction' {estimatedUpdateTime} -> estimatedUpdateTime) (\s@UpdateAction' {} a -> s {estimatedUpdateTime = a} :: UpdateAction)
 
 -- | The date when the UpdateActionStatus was last modified
-uaUpdateActionStatusModifiedDate :: Lens' UpdateAction (Maybe UTCTime)
-uaUpdateActionStatusModifiedDate = lens _uaUpdateActionStatusModifiedDate (\s a -> s {_uaUpdateActionStatusModifiedDate = a}) . mapping _Time
+updateAction_updateActionStatusModifiedDate :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.UTCTime)
+updateAction_updateActionStatusModifiedDate = Lens.lens (\UpdateAction' {updateActionStatusModifiedDate} -> updateActionStatusModifiedDate) (\s@UpdateAction' {} a -> s {updateActionStatusModifiedDate = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The Elasticache engine to which the update applies. Either Redis or Memcached
-uaEngine :: Lens' UpdateAction (Maybe Text)
-uaEngine = lens _uaEngine (\s a -> s {_uaEngine = a})
+-- | The Elasticache engine to which the update applies. Either Redis or
+-- Memcached
+updateAction_engine :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_engine = Lens.lens (\UpdateAction' {engine} -> engine) (\s@UpdateAction' {} a -> s {engine = a} :: UpdateAction)
 
 -- | The unique ID of the service update
-uaServiceUpdateName :: Lens' UpdateAction (Maybe Text)
-uaServiceUpdateName = lens _uaServiceUpdateName (\s a -> s {_uaServiceUpdateName = a})
+updateAction_serviceUpdateName :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_serviceUpdateName = Lens.lens (\UpdateAction' {serviceUpdateName} -> serviceUpdateName) (\s@UpdateAction' {} a -> s {serviceUpdateName = a} :: UpdateAction)
 
-instance FromXML UpdateAction where
+instance Prelude.FromXML UpdateAction where
   parseXML x =
     UpdateAction'
-      <$> (x .@? "ServiceUpdateSeverity")
-      <*> (x .@? "ServiceUpdateReleaseDate")
-      <*> (x .@? "ReplicationGroupId")
-      <*> (x .@? "UpdateActionStatus")
-      <*> (x .@? "CacheClusterId")
-      <*> (x .@? "ServiceUpdateStatus")
-      <*> (x .@? "SlaMet")
-      <*> (x .@? "UpdateActionAvailableDate")
-      <*> ( x .@? "NodeGroupUpdateStatus" .!@ mempty
-              >>= may (parseXMLList "NodeGroupUpdateStatus")
-          )
-      <*> (x .@? "ServiceUpdateRecommendedApplyByDate")
-      <*> (x .@? "ServiceUpdateType")
-      <*> ( x .@? "CacheNodeUpdateStatus" .!@ mempty
-              >>= may (parseXMLList "CacheNodeUpdateStatus")
-          )
-      <*> (x .@? "NodesUpdated")
-      <*> (x .@? "EstimatedUpdateTime")
-      <*> (x .@? "UpdateActionStatusModifiedDate")
-      <*> (x .@? "Engine")
-      <*> (x .@? "ServiceUpdateName")
+      Prelude.<$> (x Prelude..@? "ServiceUpdateSeverity")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateReleaseDate")
+      Prelude.<*> (x Prelude..@? "ReplicationGroupId")
+      Prelude.<*> (x Prelude..@? "UpdateActionStatus")
+      Prelude.<*> (x Prelude..@? "CacheClusterId")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateStatus")
+      Prelude.<*> (x Prelude..@? "SlaMet")
+      Prelude.<*> (x Prelude..@? "UpdateActionAvailableDate")
+      Prelude.<*> ( x Prelude..@? "NodeGroupUpdateStatus"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "NodeGroupUpdateStatus")
+                  )
+      Prelude.<*> (x Prelude..@? "ServiceUpdateRecommendedApplyByDate")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateType")
+      Prelude.<*> ( x Prelude..@? "CacheNodeUpdateStatus"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "CacheNodeUpdateStatus")
+                  )
+      Prelude.<*> (x Prelude..@? "NodesUpdated")
+      Prelude.<*> (x Prelude..@? "EstimatedUpdateTime")
+      Prelude.<*> (x Prelude..@? "UpdateActionStatusModifiedDate")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateName")
 
-instance Hashable UpdateAction
+instance Prelude.Hashable UpdateAction
 
-instance NFData UpdateAction
+instance Prelude.NFData UpdateAction

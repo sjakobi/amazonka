@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,89 +20,96 @@
 module Network.AWS.ElastiCache.Types.CacheSecurityGroup where
 
 import Network.AWS.ElastiCache.Types.EC2SecurityGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the output of one of the following operations:
 --
+-- -   @AuthorizeCacheSecurityGroupIngress@
 --
---     * @AuthorizeCacheSecurityGroupIngress@
+-- -   @CreateCacheSecurityGroup@
 --
---     * @CreateCacheSecurityGroup@
+-- -   @RevokeCacheSecurityGroupIngress@
 --
---     * @RevokeCacheSecurityGroupIngress@
---
---
---
---
--- /See:/ 'cacheSecurityGroup' smart constructor.
+-- /See:/ 'newCacheSecurityGroup' smart constructor.
 data CacheSecurityGroup = CacheSecurityGroup'
-  { _csgOwnerId ::
-      !(Maybe Text),
-    _csgARN :: !(Maybe Text),
-    _csgCacheSecurityGroupName ::
-      !(Maybe Text),
-    _csgEC2SecurityGroups ::
-      !(Maybe [EC2SecurityGroup]),
-    _csgDescription :: !(Maybe Text)
+  { -- | The AWS account ID of the cache security group owner.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the cache security group,
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cache security group.
+    cacheSecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A list of Amazon EC2 security groups that are associated with this cache
+    -- security group.
+    eC2SecurityGroups :: Prelude.Maybe [EC2SecurityGroup],
+    -- | The description of the cache security group.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CacheSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CacheSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csgOwnerId' - The AWS account ID of the cache security group owner.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csgARN' - The ARN of the cache security group,
+-- 'ownerId', 'cacheSecurityGroup_ownerId' - The AWS account ID of the cache security group owner.
 --
--- * 'csgCacheSecurityGroupName' - The name of the cache security group.
+-- 'aRN', 'cacheSecurityGroup_aRN' - The ARN of the cache security group,
 --
--- * 'csgEC2SecurityGroups' - A list of Amazon EC2 security groups that are associated with this cache security group.
+-- 'cacheSecurityGroupName', 'cacheSecurityGroup_cacheSecurityGroupName' - The name of the cache security group.
 --
--- * 'csgDescription' - The description of the cache security group.
-cacheSecurityGroup ::
+-- 'eC2SecurityGroups', 'cacheSecurityGroup_eC2SecurityGroups' - A list of Amazon EC2 security groups that are associated with this cache
+-- security group.
+--
+-- 'description', 'cacheSecurityGroup_description' - The description of the cache security group.
+newCacheSecurityGroup ::
   CacheSecurityGroup
-cacheSecurityGroup =
+newCacheSecurityGroup =
   CacheSecurityGroup'
-    { _csgOwnerId = Nothing,
-      _csgARN = Nothing,
-      _csgCacheSecurityGroupName = Nothing,
-      _csgEC2SecurityGroups = Nothing,
-      _csgDescription = Nothing
+    { ownerId = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      cacheSecurityGroupName = Prelude.Nothing,
+      eC2SecurityGroups = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The AWS account ID of the cache security group owner.
-csgOwnerId :: Lens' CacheSecurityGroup (Maybe Text)
-csgOwnerId = lens _csgOwnerId (\s a -> s {_csgOwnerId = a})
+cacheSecurityGroup_ownerId :: Lens.Lens' CacheSecurityGroup (Prelude.Maybe Prelude.Text)
+cacheSecurityGroup_ownerId = Lens.lens (\CacheSecurityGroup' {ownerId} -> ownerId) (\s@CacheSecurityGroup' {} a -> s {ownerId = a} :: CacheSecurityGroup)
 
 -- | The ARN of the cache security group,
-csgARN :: Lens' CacheSecurityGroup (Maybe Text)
-csgARN = lens _csgARN (\s a -> s {_csgARN = a})
+cacheSecurityGroup_aRN :: Lens.Lens' CacheSecurityGroup (Prelude.Maybe Prelude.Text)
+cacheSecurityGroup_aRN = Lens.lens (\CacheSecurityGroup' {aRN} -> aRN) (\s@CacheSecurityGroup' {} a -> s {aRN = a} :: CacheSecurityGroup)
 
 -- | The name of the cache security group.
-csgCacheSecurityGroupName :: Lens' CacheSecurityGroup (Maybe Text)
-csgCacheSecurityGroupName = lens _csgCacheSecurityGroupName (\s a -> s {_csgCacheSecurityGroupName = a})
+cacheSecurityGroup_cacheSecurityGroupName :: Lens.Lens' CacheSecurityGroup (Prelude.Maybe Prelude.Text)
+cacheSecurityGroup_cacheSecurityGroupName = Lens.lens (\CacheSecurityGroup' {cacheSecurityGroupName} -> cacheSecurityGroupName) (\s@CacheSecurityGroup' {} a -> s {cacheSecurityGroupName = a} :: CacheSecurityGroup)
 
--- | A list of Amazon EC2 security groups that are associated with this cache security group.
-csgEC2SecurityGroups :: Lens' CacheSecurityGroup [EC2SecurityGroup]
-csgEC2SecurityGroups = lens _csgEC2SecurityGroups (\s a -> s {_csgEC2SecurityGroups = a}) . _Default . _Coerce
+-- | A list of Amazon EC2 security groups that are associated with this cache
+-- security group.
+cacheSecurityGroup_eC2SecurityGroups :: Lens.Lens' CacheSecurityGroup (Prelude.Maybe [EC2SecurityGroup])
+cacheSecurityGroup_eC2SecurityGroups = Lens.lens (\CacheSecurityGroup' {eC2SecurityGroups} -> eC2SecurityGroups) (\s@CacheSecurityGroup' {} a -> s {eC2SecurityGroups = a} :: CacheSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the cache security group.
-csgDescription :: Lens' CacheSecurityGroup (Maybe Text)
-csgDescription = lens _csgDescription (\s a -> s {_csgDescription = a})
+cacheSecurityGroup_description :: Lens.Lens' CacheSecurityGroup (Prelude.Maybe Prelude.Text)
+cacheSecurityGroup_description = Lens.lens (\CacheSecurityGroup' {description} -> description) (\s@CacheSecurityGroup' {} a -> s {description = a} :: CacheSecurityGroup)
 
-instance FromXML CacheSecurityGroup where
+instance Prelude.FromXML CacheSecurityGroup where
   parseXML x =
     CacheSecurityGroup'
-      <$> (x .@? "OwnerId")
-      <*> (x .@? "ARN")
-      <*> (x .@? "CacheSecurityGroupName")
-      <*> ( x .@? "EC2SecurityGroups" .!@ mempty
-              >>= may (parseXMLList "EC2SecurityGroup")
-          )
-      <*> (x .@? "Description")
+      Prelude.<$> (x Prelude..@? "OwnerId")
+      Prelude.<*> (x Prelude..@? "ARN")
+      Prelude.<*> (x Prelude..@? "CacheSecurityGroupName")
+      Prelude.<*> ( x Prelude..@? "EC2SecurityGroups"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "EC2SecurityGroup")
+                  )
+      Prelude.<*> (x Prelude..@? "Description")
 
-instance Hashable CacheSecurityGroup
+instance Prelude.Hashable CacheSecurityGroup
 
-instance NFData CacheSecurityGroup
+instance Prelude.NFData CacheSecurityGroup

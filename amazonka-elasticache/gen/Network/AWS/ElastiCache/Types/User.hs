@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,101 +20,117 @@
 module Network.AWS.ElastiCache.Types.User where
 
 import Network.AWS.ElastiCache.Types.Authentication
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'user' smart constructor.
+-- | /See:/ 'newUser' smart constructor.
 data User = User'
-  { _uStatus :: !(Maybe Text),
-    _uAccessString :: !(Maybe Text),
-    _uUserGroupIds :: !(Maybe [Text]),
-    _uAuthentication :: !(Maybe Authentication),
-    _uARN :: !(Maybe Text),
-    _uUserId :: !(Maybe Text),
-    _uEngine :: !(Maybe Text),
-    _uUserName :: !(Maybe Text)
+  { -- | Indicates the user status. Can be \"active\", \"modifying\" or
+    -- \"deleting\".
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Access permissions string used for this user.
+    accessString :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list of the user group IDs the user belongs to.
+    userGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | Denotes whether the user requires a password to authenticate.
+    authentication :: Prelude.Maybe Authentication,
+    -- | The Amazon Resource Name (ARN) of the user.
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the user.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The current supported value is Redis.
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The username of the user.
+    userName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'User' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'User' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uStatus' - Indicates the user status. Can be "active", "modifying" or "deleting".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uAccessString' - Access permissions string used for this user.
+-- 'status', 'user_status' - Indicates the user status. Can be \"active\", \"modifying\" or
+-- \"deleting\".
 --
--- * 'uUserGroupIds' - Returns a list of the user group IDs the user belongs to.
+-- 'accessString', 'user_accessString' - Access permissions string used for this user.
 --
--- * 'uAuthentication' - Denotes whether the user requires a password to authenticate.
+-- 'userGroupIds', 'user_userGroupIds' - Returns a list of the user group IDs the user belongs to.
 --
--- * 'uARN' - The Amazon Resource Name (ARN) of the user.
+-- 'authentication', 'user_authentication' - Denotes whether the user requires a password to authenticate.
 --
--- * 'uUserId' - The ID of the user.
+-- 'aRN', 'user_aRN' - The Amazon Resource Name (ARN) of the user.
 --
--- * 'uEngine' - The current supported value is Redis.
+-- 'userId', 'user_userId' - The ID of the user.
 --
--- * 'uUserName' - The username of the user.
-user ::
+-- 'engine', 'user_engine' - The current supported value is Redis.
+--
+-- 'userName', 'user_userName' - The username of the user.
+newUser ::
   User
-user =
+newUser =
   User'
-    { _uStatus = Nothing,
-      _uAccessString = Nothing,
-      _uUserGroupIds = Nothing,
-      _uAuthentication = Nothing,
-      _uARN = Nothing,
-      _uUserId = Nothing,
-      _uEngine = Nothing,
-      _uUserName = Nothing
+    { status = Prelude.Nothing,
+      accessString = Prelude.Nothing,
+      userGroupIds = Prelude.Nothing,
+      authentication = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
 
--- | Indicates the user status. Can be "active", "modifying" or "deleting".
-uStatus :: Lens' User (Maybe Text)
-uStatus = lens _uStatus (\s a -> s {_uStatus = a})
+-- | Indicates the user status. Can be \"active\", \"modifying\" or
+-- \"deleting\".
+user_status :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_status = Lens.lens (\User' {status} -> status) (\s@User' {} a -> s {status = a} :: User)
 
 -- | Access permissions string used for this user.
-uAccessString :: Lens' User (Maybe Text)
-uAccessString = lens _uAccessString (\s a -> s {_uAccessString = a})
+user_accessString :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_accessString = Lens.lens (\User' {accessString} -> accessString) (\s@User' {} a -> s {accessString = a} :: User)
 
 -- | Returns a list of the user group IDs the user belongs to.
-uUserGroupIds :: Lens' User [Text]
-uUserGroupIds = lens _uUserGroupIds (\s a -> s {_uUserGroupIds = a}) . _Default . _Coerce
+user_userGroupIds :: Lens.Lens' User (Prelude.Maybe [Prelude.Text])
+user_userGroupIds = Lens.lens (\User' {userGroupIds} -> userGroupIds) (\s@User' {} a -> s {userGroupIds = a} :: User) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Denotes whether the user requires a password to authenticate.
-uAuthentication :: Lens' User (Maybe Authentication)
-uAuthentication = lens _uAuthentication (\s a -> s {_uAuthentication = a})
+user_authentication :: Lens.Lens' User (Prelude.Maybe Authentication)
+user_authentication = Lens.lens (\User' {authentication} -> authentication) (\s@User' {} a -> s {authentication = a} :: User)
 
 -- | The Amazon Resource Name (ARN) of the user.
-uARN :: Lens' User (Maybe Text)
-uARN = lens _uARN (\s a -> s {_uARN = a})
+user_aRN :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_aRN = Lens.lens (\User' {aRN} -> aRN) (\s@User' {} a -> s {aRN = a} :: User)
 
 -- | The ID of the user.
-uUserId :: Lens' User (Maybe Text)
-uUserId = lens _uUserId (\s a -> s {_uUserId = a})
+user_userId :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_userId = Lens.lens (\User' {userId} -> userId) (\s@User' {} a -> s {userId = a} :: User)
 
 -- | The current supported value is Redis.
-uEngine :: Lens' User (Maybe Text)
-uEngine = lens _uEngine (\s a -> s {_uEngine = a})
+user_engine :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_engine = Lens.lens (\User' {engine} -> engine) (\s@User' {} a -> s {engine = a} :: User)
 
 -- | The username of the user.
-uUserName :: Lens' User (Maybe Text)
-uUserName = lens _uUserName (\s a -> s {_uUserName = a})
+user_userName :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_userName = Lens.lens (\User' {userName} -> userName) (\s@User' {} a -> s {userName = a} :: User)
 
-instance FromXML User where
+instance Prelude.FromXML User where
   parseXML x =
     User'
-      <$> (x .@? "Status")
-      <*> (x .@? "AccessString")
-      <*> ( x .@? "UserGroupIds" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Authentication")
-      <*> (x .@? "ARN")
-      <*> (x .@? "UserId")
-      <*> (x .@? "Engine")
-      <*> (x .@? "UserName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "AccessString")
+      Prelude.<*> ( x Prelude..@? "UserGroupIds"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Authentication")
+      Prelude.<*> (x Prelude..@? "ARN")
+      Prelude.<*> (x Prelude..@? "UserId")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "UserName")
 
-instance Hashable User
+instance Prelude.Hashable User
 
-instance NFData User
+instance Prelude.NFData User

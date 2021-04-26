@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,81 +21,92 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Deletes a user group. The user group must first be disassociated from the replication group before it can be deleted. For more information, see <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)> .
+-- For Redis engine version 6.x onwards: Deletes a user group. The user
+-- group must first be disassociated from the replication group before it
+-- can be deleted. For more information, see
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>.
 module Network.AWS.ElastiCache.DeleteUserGroup
   ( -- * Creating a Request
-    deleteUserGroup,
-    DeleteUserGroup,
+    DeleteUserGroup (..),
+    newDeleteUserGroup,
 
     -- * Request Lenses
-    dugUserGroupId,
+    deleteUserGroup_userGroupId,
 
     -- * Destructuring the Response
-    userGroup,
-    UserGroup,
+    UserGroup (..),
+    newUserGroup,
 
     -- * Response Lenses
-    ugStatus,
-    ugReplicationGroups,
-    ugARN,
-    ugUserIds,
-    ugEngine,
-    ugUserGroupId,
-    ugPendingChanges,
+    userGroup_status,
+    userGroup_replicationGroups,
+    userGroup_aRN,
+    userGroup_userIds,
+    userGroup_engine,
+    userGroup_userGroupId,
+    userGroup_pendingChanges,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.UserGroup
+import Network.AWS.ElastiCache.Types.UserGroupPendingChanges
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUserGroup' smart constructor.
-newtype DeleteUserGroup = DeleteUserGroup'
-  { _dugUserGroupId ::
-      Text
+-- | /See:/ 'newDeleteUserGroup' smart constructor.
+data DeleteUserGroup = DeleteUserGroup'
+  { -- | The ID of the user group.
+    userGroupId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dugUserGroupId' - The ID of the user group.
-deleteUserGroup ::
-  -- | 'dugUserGroupId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userGroupId', 'deleteUserGroup_userGroupId' - The ID of the user group.
+newDeleteUserGroup ::
+  -- | 'userGroupId'
+  Prelude.Text ->
   DeleteUserGroup
-deleteUserGroup pUserGroupId_ =
-  DeleteUserGroup' {_dugUserGroupId = pUserGroupId_}
+newDeleteUserGroup pUserGroupId_ =
+  DeleteUserGroup' {userGroupId = pUserGroupId_}
 
 -- | The ID of the user group.
-dugUserGroupId :: Lens' DeleteUserGroup Text
-dugUserGroupId = lens _dugUserGroupId (\s a -> s {_dugUserGroupId = a})
+deleteUserGroup_userGroupId :: Lens.Lens' DeleteUserGroup Prelude.Text
+deleteUserGroup_userGroupId = Lens.lens (\DeleteUserGroup' {userGroupId} -> userGroupId) (\s@DeleteUserGroup' {} a -> s {userGroupId = a} :: DeleteUserGroup)
 
-instance AWSRequest DeleteUserGroup where
+instance Prelude.AWSRequest DeleteUserGroup where
   type Rs DeleteUserGroup = UserGroup
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteUserGroupResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable DeleteUserGroup
+instance Prelude.Hashable DeleteUserGroup
 
-instance NFData DeleteUserGroup
+instance Prelude.NFData DeleteUserGroup
 
-instance ToHeaders DeleteUserGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteUserGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteUserGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserGroup where
+instance Prelude.ToQuery DeleteUserGroup where
   toQuery DeleteUserGroup' {..} =
-    mconcat
-      [ "Action" =: ("DeleteUserGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "UserGroupId" =: _dugUserGroupId
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteUserGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "UserGroupId" Prelude.=: userGroupId
       ]

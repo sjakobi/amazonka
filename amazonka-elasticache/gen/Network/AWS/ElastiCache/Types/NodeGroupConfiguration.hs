@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,134 +19,158 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.NodeGroupConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Node group (shard) configuration options. Each node group (shard) configuration has the following: @Slots@ , @PrimaryAvailabilityZone@ , @ReplicaAvailabilityZones@ , @ReplicaCount@ .
+-- | Node group (shard) configuration options. Each node group (shard)
+-- configuration has the following: @Slots@, @PrimaryAvailabilityZone@,
+-- @ReplicaAvailabilityZones@, @ReplicaCount@.
 --
---
---
--- /See:/ 'nodeGroupConfiguration' smart constructor.
+-- /See:/ 'newNodeGroupConfiguration' smart constructor.
 data NodeGroupConfiguration = NodeGroupConfiguration'
-  { _ngcPrimaryOutpostARN ::
-      !(Maybe Text),
-    _ngcReplicaCount ::
-      !(Maybe Int),
-    _ngcReplicaOutpostARNs ::
-      !(Maybe [Text]),
-    _ngcNodeGroupId ::
-      !(Maybe Text),
-    _ngcSlots ::
-      !(Maybe Text),
-    _ngcReplicaAvailabilityZones ::
-      !(Maybe [Text]),
-    _ngcPrimaryAvailabilityZone ::
-      !(Maybe Text)
+  { -- | The outpost ARN of the primary node.
+    primaryOutpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The number of read replica nodes in this node group (shard).
+    replicaCount :: Prelude.Maybe Prelude.Int,
+    -- | The outpost ARN of the node replicas.
+    replicaOutpostArns :: Prelude.Maybe [Prelude.Text],
+    -- | Either the ElastiCache for Redis supplied 4-digit id or a user supplied
+    -- id for the node group these configuration values apply to.
+    nodeGroupId :: Prelude.Maybe Prelude.Text,
+    -- | A string that specifies the keyspace for a particular node group.
+    -- Keyspaces range from 0 to 16,383. The string is in the format
+    -- @startkey-endkey@.
+    --
+    -- Example: @\"0-3999\"@
+    slots :: Prelude.Maybe Prelude.Text,
+    -- | A list of Availability Zones to be used for the read replicas. The
+    -- number of Availability Zones in this list must match the value of
+    -- @ReplicaCount@ or @ReplicasPerNodeGroup@ if not specified.
+    replicaAvailabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | The Availability Zone where the primary node of this node group (shard)
+    -- is launched.
+    primaryAvailabilityZone :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeGroupConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeGroupConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ngcPrimaryOutpostARN' - The outpost ARN of the primary node.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ngcReplicaCount' - The number of read replica nodes in this node group (shard).
+-- 'primaryOutpostArn', 'nodeGroupConfiguration_primaryOutpostArn' - The outpost ARN of the primary node.
 --
--- * 'ngcReplicaOutpostARNs' - The outpost ARN of the node replicas.
+-- 'replicaCount', 'nodeGroupConfiguration_replicaCount' - The number of read replica nodes in this node group (shard).
 --
--- * 'ngcNodeGroupId' - Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these configuration values apply to.
+-- 'replicaOutpostArns', 'nodeGroupConfiguration_replicaOutpostArns' - The outpost ARN of the node replicas.
 --
--- * 'ngcSlots' - A string that specifies the keyspace for a particular node group. Keyspaces range from 0 to 16,383. The string is in the format @startkey-endkey@ . Example: @"0-3999"@
+-- 'nodeGroupId', 'nodeGroupConfiguration_nodeGroupId' - Either the ElastiCache for Redis supplied 4-digit id or a user supplied
+-- id for the node group these configuration values apply to.
 --
--- * 'ngcReplicaAvailabilityZones' - A list of Availability Zones to be used for the read replicas. The number of Availability Zones in this list must match the value of @ReplicaCount@ or @ReplicasPerNodeGroup@ if not specified.
+-- 'slots', 'nodeGroupConfiguration_slots' - A string that specifies the keyspace for a particular node group.
+-- Keyspaces range from 0 to 16,383. The string is in the format
+-- @startkey-endkey@.
 --
--- * 'ngcPrimaryAvailabilityZone' - The Availability Zone where the primary node of this node group (shard) is launched.
-nodeGroupConfiguration ::
+-- Example: @\"0-3999\"@
+--
+-- 'replicaAvailabilityZones', 'nodeGroupConfiguration_replicaAvailabilityZones' - A list of Availability Zones to be used for the read replicas. The
+-- number of Availability Zones in this list must match the value of
+-- @ReplicaCount@ or @ReplicasPerNodeGroup@ if not specified.
+--
+-- 'primaryAvailabilityZone', 'nodeGroupConfiguration_primaryAvailabilityZone' - The Availability Zone where the primary node of this node group (shard)
+-- is launched.
+newNodeGroupConfiguration ::
   NodeGroupConfiguration
-nodeGroupConfiguration =
+newNodeGroupConfiguration =
   NodeGroupConfiguration'
-    { _ngcPrimaryOutpostARN =
-        Nothing,
-      _ngcReplicaCount = Nothing,
-      _ngcReplicaOutpostARNs = Nothing,
-      _ngcNodeGroupId = Nothing,
-      _ngcSlots = Nothing,
-      _ngcReplicaAvailabilityZones = Nothing,
-      _ngcPrimaryAvailabilityZone = Nothing
+    { primaryOutpostArn =
+        Prelude.Nothing,
+      replicaCount = Prelude.Nothing,
+      replicaOutpostArns = Prelude.Nothing,
+      nodeGroupId = Prelude.Nothing,
+      slots = Prelude.Nothing,
+      replicaAvailabilityZones = Prelude.Nothing,
+      primaryAvailabilityZone = Prelude.Nothing
     }
 
 -- | The outpost ARN of the primary node.
-ngcPrimaryOutpostARN :: Lens' NodeGroupConfiguration (Maybe Text)
-ngcPrimaryOutpostARN = lens _ngcPrimaryOutpostARN (\s a -> s {_ngcPrimaryOutpostARN = a})
+nodeGroupConfiguration_primaryOutpostArn :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe Prelude.Text)
+nodeGroupConfiguration_primaryOutpostArn = Lens.lens (\NodeGroupConfiguration' {primaryOutpostArn} -> primaryOutpostArn) (\s@NodeGroupConfiguration' {} a -> s {primaryOutpostArn = a} :: NodeGroupConfiguration)
 
 -- | The number of read replica nodes in this node group (shard).
-ngcReplicaCount :: Lens' NodeGroupConfiguration (Maybe Int)
-ngcReplicaCount = lens _ngcReplicaCount (\s a -> s {_ngcReplicaCount = a})
+nodeGroupConfiguration_replicaCount :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe Prelude.Int)
+nodeGroupConfiguration_replicaCount = Lens.lens (\NodeGroupConfiguration' {replicaCount} -> replicaCount) (\s@NodeGroupConfiguration' {} a -> s {replicaCount = a} :: NodeGroupConfiguration)
 
 -- | The outpost ARN of the node replicas.
-ngcReplicaOutpostARNs :: Lens' NodeGroupConfiguration [Text]
-ngcReplicaOutpostARNs = lens _ngcReplicaOutpostARNs (\s a -> s {_ngcReplicaOutpostARNs = a}) . _Default . _Coerce
+nodeGroupConfiguration_replicaOutpostArns :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe [Prelude.Text])
+nodeGroupConfiguration_replicaOutpostArns = Lens.lens (\NodeGroupConfiguration' {replicaOutpostArns} -> replicaOutpostArns) (\s@NodeGroupConfiguration' {} a -> s {replicaOutpostArns = a} :: NodeGroupConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Either the ElastiCache for Redis supplied 4-digit id or a user supplied id for the node group these configuration values apply to.
-ngcNodeGroupId :: Lens' NodeGroupConfiguration (Maybe Text)
-ngcNodeGroupId = lens _ngcNodeGroupId (\s a -> s {_ngcNodeGroupId = a})
+-- | Either the ElastiCache for Redis supplied 4-digit id or a user supplied
+-- id for the node group these configuration values apply to.
+nodeGroupConfiguration_nodeGroupId :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe Prelude.Text)
+nodeGroupConfiguration_nodeGroupId = Lens.lens (\NodeGroupConfiguration' {nodeGroupId} -> nodeGroupId) (\s@NodeGroupConfiguration' {} a -> s {nodeGroupId = a} :: NodeGroupConfiguration)
 
--- | A string that specifies the keyspace for a particular node group. Keyspaces range from 0 to 16,383. The string is in the format @startkey-endkey@ . Example: @"0-3999"@
-ngcSlots :: Lens' NodeGroupConfiguration (Maybe Text)
-ngcSlots = lens _ngcSlots (\s a -> s {_ngcSlots = a})
+-- | A string that specifies the keyspace for a particular node group.
+-- Keyspaces range from 0 to 16,383. The string is in the format
+-- @startkey-endkey@.
+--
+-- Example: @\"0-3999\"@
+nodeGroupConfiguration_slots :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe Prelude.Text)
+nodeGroupConfiguration_slots = Lens.lens (\NodeGroupConfiguration' {slots} -> slots) (\s@NodeGroupConfiguration' {} a -> s {slots = a} :: NodeGroupConfiguration)
 
--- | A list of Availability Zones to be used for the read replicas. The number of Availability Zones in this list must match the value of @ReplicaCount@ or @ReplicasPerNodeGroup@ if not specified.
-ngcReplicaAvailabilityZones :: Lens' NodeGroupConfiguration [Text]
-ngcReplicaAvailabilityZones = lens _ngcReplicaAvailabilityZones (\s a -> s {_ngcReplicaAvailabilityZones = a}) . _Default . _Coerce
+-- | A list of Availability Zones to be used for the read replicas. The
+-- number of Availability Zones in this list must match the value of
+-- @ReplicaCount@ or @ReplicasPerNodeGroup@ if not specified.
+nodeGroupConfiguration_replicaAvailabilityZones :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe [Prelude.Text])
+nodeGroupConfiguration_replicaAvailabilityZones = Lens.lens (\NodeGroupConfiguration' {replicaAvailabilityZones} -> replicaAvailabilityZones) (\s@NodeGroupConfiguration' {} a -> s {replicaAvailabilityZones = a} :: NodeGroupConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Availability Zone where the primary node of this node group (shard) is launched.
-ngcPrimaryAvailabilityZone :: Lens' NodeGroupConfiguration (Maybe Text)
-ngcPrimaryAvailabilityZone = lens _ngcPrimaryAvailabilityZone (\s a -> s {_ngcPrimaryAvailabilityZone = a})
+-- | The Availability Zone where the primary node of this node group (shard)
+-- is launched.
+nodeGroupConfiguration_primaryAvailabilityZone :: Lens.Lens' NodeGroupConfiguration (Prelude.Maybe Prelude.Text)
+nodeGroupConfiguration_primaryAvailabilityZone = Lens.lens (\NodeGroupConfiguration' {primaryAvailabilityZone} -> primaryAvailabilityZone) (\s@NodeGroupConfiguration' {} a -> s {primaryAvailabilityZone = a} :: NodeGroupConfiguration)
 
-instance FromXML NodeGroupConfiguration where
+instance Prelude.FromXML NodeGroupConfiguration where
   parseXML x =
     NodeGroupConfiguration'
-      <$> (x .@? "PrimaryOutpostArn")
-      <*> (x .@? "ReplicaCount")
-      <*> ( x .@? "ReplicaOutpostArns" .!@ mempty
-              >>= may (parseXMLList "OutpostArn")
-          )
-      <*> (x .@? "NodeGroupId")
-      <*> (x .@? "Slots")
-      <*> ( x .@? "ReplicaAvailabilityZones" .!@ mempty
-              >>= may (parseXMLList "AvailabilityZone")
-          )
-      <*> (x .@? "PrimaryAvailabilityZone")
+      Prelude.<$> (x Prelude..@? "PrimaryOutpostArn")
+      Prelude.<*> (x Prelude..@? "ReplicaCount")
+      Prelude.<*> ( x Prelude..@? "ReplicaOutpostArns"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "OutpostArn")
+                  )
+      Prelude.<*> (x Prelude..@? "NodeGroupId")
+      Prelude.<*> (x Prelude..@? "Slots")
+      Prelude.<*> ( x Prelude..@? "ReplicaAvailabilityZones"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLList "AvailabilityZone")
+                  )
+      Prelude.<*> (x Prelude..@? "PrimaryAvailabilityZone")
 
-instance Hashable NodeGroupConfiguration
+instance Prelude.Hashable NodeGroupConfiguration
 
-instance NFData NodeGroupConfiguration
+instance Prelude.NFData NodeGroupConfiguration
 
-instance ToQuery NodeGroupConfiguration where
+instance Prelude.ToQuery NodeGroupConfiguration where
   toQuery NodeGroupConfiguration' {..} =
-    mconcat
-      [ "PrimaryOutpostArn" =: _ngcPrimaryOutpostARN,
-        "ReplicaCount" =: _ngcReplicaCount,
+    Prelude.mconcat
+      [ "PrimaryOutpostArn" Prelude.=: primaryOutpostArn,
+        "ReplicaCount" Prelude.=: replicaCount,
         "ReplicaOutpostArns"
-          =: toQuery
-            ( toQueryList "OutpostArn"
-                <$> _ngcReplicaOutpostARNs
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "OutpostArn"
+                Prelude.<$> replicaOutpostArns
             ),
-        "NodeGroupId" =: _ngcNodeGroupId,
-        "Slots" =: _ngcSlots,
+        "NodeGroupId" Prelude.=: nodeGroupId,
+        "Slots" Prelude.=: slots,
         "ReplicaAvailabilityZones"
-          =: toQuery
-            ( toQueryList "AvailabilityZone"
-                <$> _ngcReplicaAvailabilityZones
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "AvailabilityZone"
+                Prelude.<$> replicaAvailabilityZones
             ),
         "PrimaryAvailabilityZone"
-          =: _ngcPrimaryAvailabilityZone
+          Prelude.=: primaryAvailabilityZone
       ]

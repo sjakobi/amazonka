@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,100 +21,122 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the tags identified by the @TagKeys@ list from the named resource.
+-- Removes the tags identified by the @TagKeys@ list from the named
+-- resource.
 module Network.AWS.ElastiCache.RemoveTagsFromResource
   ( -- * Creating a Request
-    removeTagsFromResource,
-    RemoveTagsFromResource,
+    RemoveTagsFromResource (..),
+    newRemoveTagsFromResource,
 
     -- * Request Lenses
-    rtfrResourceName,
-    rtfrTagKeys,
+    removeTagsFromResource_resourceName,
+    removeTagsFromResource_tagKeys,
 
     -- * Destructuring the Response
-    tagListMessage,
-    TagListMessage,
+    TagListMessage (..),
+    newTagListMessage,
 
     -- * Response Lenses
-    tlmTagList,
+    tagListMessage_tagList,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.Tag
+import Network.AWS.ElastiCache.Types.TagListMessage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @RemoveTagsFromResource@ operation.
 --
---
---
--- /See:/ 'removeTagsFromResource' smart constructor.
+-- /See:/ 'newRemoveTagsFromResource' smart constructor.
 data RemoveTagsFromResource = RemoveTagsFromResource'
-  { _rtfrResourceName ::
-      !Text,
-    _rtfrTagKeys :: ![Text]
+  { -- | The Amazon Resource Name (ARN) of the resource from which you want the
+    -- tags removed, for example
+    -- @arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster@ or
+    -- @arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot@.
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    resourceName :: Prelude.Text,
+    -- | A list of @TagKeys@ identifying the tags you want removed from the named
+    -- resource.
+    tagKeys :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsFromResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTagsFromResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtfrResourceName' - The Amazon Resource Name (ARN) of the resource from which you want the tags removed, for example @arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster@ or @arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot@ . For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtfrTagKeys' - A list of @TagKeys@ identifying the tags you want removed from the named resource.
-removeTagsFromResource ::
-  -- | 'rtfrResourceName'
-  Text ->
+-- 'resourceName', 'removeTagsFromResource_resourceName' - The Amazon Resource Name (ARN) of the resource from which you want the
+-- tags removed, for example
+-- @arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster@ or
+-- @arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot@.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+--
+-- 'tagKeys', 'removeTagsFromResource_tagKeys' - A list of @TagKeys@ identifying the tags you want removed from the named
+-- resource.
+newRemoveTagsFromResource ::
+  -- | 'resourceName'
+  Prelude.Text ->
   RemoveTagsFromResource
-removeTagsFromResource pResourceName_ =
+newRemoveTagsFromResource pResourceName_ =
   RemoveTagsFromResource'
-    { _rtfrResourceName =
+    { resourceName =
         pResourceName_,
-      _rtfrTagKeys = mempty
+      tagKeys = Prelude.mempty
     }
 
--- | The Amazon Resource Name (ARN) of the resource from which you want the tags removed, for example @arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster@ or @arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot@ . For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-rtfrResourceName :: Lens' RemoveTagsFromResource Text
-rtfrResourceName = lens _rtfrResourceName (\s a -> s {_rtfrResourceName = a})
+-- | The Amazon Resource Name (ARN) of the resource from which you want the
+-- tags removed, for example
+-- @arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster@ or
+-- @arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot@.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+removeTagsFromResource_resourceName :: Lens.Lens' RemoveTagsFromResource Prelude.Text
+removeTagsFromResource_resourceName = Lens.lens (\RemoveTagsFromResource' {resourceName} -> resourceName) (\s@RemoveTagsFromResource' {} a -> s {resourceName = a} :: RemoveTagsFromResource)
 
--- | A list of @TagKeys@ identifying the tags you want removed from the named resource.
-rtfrTagKeys :: Lens' RemoveTagsFromResource [Text]
-rtfrTagKeys = lens _rtfrTagKeys (\s a -> s {_rtfrTagKeys = a}) . _Coerce
+-- | A list of @TagKeys@ identifying the tags you want removed from the named
+-- resource.
+removeTagsFromResource_tagKeys :: Lens.Lens' RemoveTagsFromResource [Prelude.Text]
+removeTagsFromResource_tagKeys = Lens.lens (\RemoveTagsFromResource' {tagKeys} -> tagKeys) (\s@RemoveTagsFromResource' {} a -> s {tagKeys = a} :: RemoveTagsFromResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest RemoveTagsFromResource where
+instance Prelude.AWSRequest RemoveTagsFromResource where
   type Rs RemoveTagsFromResource = TagListMessage
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "RemoveTagsFromResourceResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable RemoveTagsFromResource
+instance Prelude.Hashable RemoveTagsFromResource
 
-instance NFData RemoveTagsFromResource
+instance Prelude.NFData RemoveTagsFromResource
 
-instance ToHeaders RemoveTagsFromResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RemoveTagsFromResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RemoveTagsFromResource where
-  toPath = const "/"
+instance Prelude.ToPath RemoveTagsFromResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveTagsFromResource where
+instance Prelude.ToQuery RemoveTagsFromResource where
   toQuery RemoveTagsFromResource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RemoveTagsFromResource" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "ResourceName" =: _rtfrResourceName,
-        "TagKeys" =: toQueryList "member" _rtfrTagKeys
+          Prelude.=: ("RemoveTagsFromResource" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "ResourceName" Prelude.=: resourceName,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]

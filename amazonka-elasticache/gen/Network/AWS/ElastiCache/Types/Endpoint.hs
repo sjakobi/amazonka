@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElastiCache.Types.Endpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the information required for client programs to connect to a cache node.
+-- | Represents the information required for client programs to connect to a
+-- cache node.
 --
---
---
--- /See:/ 'endpoint' smart constructor.
+-- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { _eAddress :: !(Maybe Text),
-    _ePort :: !(Maybe Int)
+  { -- | The DNS hostname of the cache node.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | The port number that the cache engine is listening on.
+    port :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eAddress' - The DNS hostname of the cache node.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ePort' - The port number that the cache engine is listening on.
-endpoint ::
+-- 'address', 'endpoint_address' - The DNS hostname of the cache node.
+--
+-- 'port', 'endpoint_port' - The port number that the cache engine is listening on.
+newEndpoint ::
   Endpoint
-endpoint =
-  Endpoint' {_eAddress = Nothing, _ePort = Nothing}
+newEndpoint =
+  Endpoint'
+    { address = Prelude.Nothing,
+      port = Prelude.Nothing
+    }
 
 -- | The DNS hostname of the cache node.
-eAddress :: Lens' Endpoint (Maybe Text)
-eAddress = lens _eAddress (\s a -> s {_eAddress = a})
+endpoint_address :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_address = Lens.lens (\Endpoint' {address} -> address) (\s@Endpoint' {} a -> s {address = a} :: Endpoint)
 
 -- | The port number that the cache engine is listening on.
-ePort :: Lens' Endpoint (Maybe Int)
-ePort = lens _ePort (\s a -> s {_ePort = a})
+endpoint_port :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Int)
+endpoint_port = Lens.lens (\Endpoint' {port} -> port) (\s@Endpoint' {} a -> s {port = a} :: Endpoint)
 
-instance FromXML Endpoint where
+instance Prelude.FromXML Endpoint where
   parseXML x =
-    Endpoint' <$> (x .@? "Address") <*> (x .@? "Port")
+    Endpoint'
+      Prelude.<$> (x Prelude..@? "Address")
+      Prelude.<*> (x Prelude..@? "Port")
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,227 +24,246 @@
 -- Decreases the number of node groups in a Global Datastore
 module Network.AWS.ElastiCache.DecreaseNodeGroupsInGlobalReplicationGroup
   ( -- * Creating a Request
-    decreaseNodeGroupsInGlobalReplicationGroup,
-    DecreaseNodeGroupsInGlobalReplicationGroup,
+    DecreaseNodeGroupsInGlobalReplicationGroup (..),
+    newDecreaseNodeGroupsInGlobalReplicationGroup,
 
     -- * Request Lenses
-    dngigrgGlobalNodeGroupsToRemove,
-    dngigrgGlobalNodeGroupsToRetain,
-    dngigrgGlobalReplicationGroupId,
-    dngigrgNodeGroupCount,
-    dngigrgApplyImmediately,
+    decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRemove,
+    decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRetain,
+    decreaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId,
+    decreaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount,
+    decreaseNodeGroupsInGlobalReplicationGroup_applyImmediately,
 
     -- * Destructuring the Response
-    decreaseNodeGroupsInGlobalReplicationGroupResponse,
-    DecreaseNodeGroupsInGlobalReplicationGroupResponse,
+    DecreaseNodeGroupsInGlobalReplicationGroupResponse (..),
+    newDecreaseNodeGroupsInGlobalReplicationGroupResponse,
 
     -- * Response Lenses
-    dngigrgrrsGlobalReplicationGroup,
-    dngigrgrrsResponseStatus,
+    decreaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup,
+    decreaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.GlobalReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'decreaseNodeGroupsInGlobalReplicationGroup' smart constructor.
+-- | /See:/ 'newDecreaseNodeGroupsInGlobalReplicationGroup' smart constructor.
 data DecreaseNodeGroupsInGlobalReplicationGroup = DecreaseNodeGroupsInGlobalReplicationGroup'
-  { _dngigrgGlobalNodeGroupsToRemove ::
-      !( Maybe
-           [Text]
-       ),
-    _dngigrgGlobalNodeGroupsToRetain ::
-      !( Maybe
-           [Text]
-       ),
-    _dngigrgGlobalReplicationGroupId ::
-      !Text,
-    _dngigrgNodeGroupCount ::
-      !Int,
-    _dngigrgApplyImmediately ::
-      !Bool
+  { -- | If the value of NodeGroupCount is less than the current number of node
+    -- groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is
+    -- required. NodeGroupsToRemove is a list of NodeGroupIds to remove from
+    -- the cluster. ElastiCache for Redis will attempt to remove all node
+    -- groups listed by NodeGroupsToRemove from the cluster.
+    globalNodeGroupsToRemove :: Prelude.Maybe [Prelude.Text],
+    -- | If the value of NodeGroupCount is less than the current number of node
+    -- groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is
+    -- required. NodeGroupsToRemove is a list of NodeGroupIds to remove from
+    -- the cluster. ElastiCache for Redis will attempt to remove all node
+    -- groups listed by NodeGroupsToRemove from the cluster.
+    globalNodeGroupsToRetain :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Text,
+    -- | The number of node groups (shards) that results from the modification of
+    -- the shard configuration
+    nodeGroupCount :: Prelude.Int,
+    -- | Indicates that the shard reconfiguration process begins immediately. At
+    -- present, the only permitted value for this parameter is true.
+    applyImmediately :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecreaseNodeGroupsInGlobalReplicationGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecreaseNodeGroupsInGlobalReplicationGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dngigrgGlobalNodeGroupsToRemove' - If the value of NodeGroupCount is less than the current number of node groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is required. NodeGroupsToRemove is a list of NodeGroupIds to remove from the cluster. ElastiCache for Redis will attempt to remove all node groups listed by NodeGroupsToRemove from the cluster.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dngigrgGlobalNodeGroupsToRetain' - If the value of NodeGroupCount is less than the current number of node groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is required. NodeGroupsToRemove is a list of NodeGroupIds to remove from the cluster. ElastiCache for Redis will attempt to remove all node groups listed by NodeGroupsToRemove from the cluster.
+-- 'globalNodeGroupsToRemove', 'decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRemove' - If the value of NodeGroupCount is less than the current number of node
+-- groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is
+-- required. NodeGroupsToRemove is a list of NodeGroupIds to remove from
+-- the cluster. ElastiCache for Redis will attempt to remove all node
+-- groups listed by NodeGroupsToRemove from the cluster.
 --
--- * 'dngigrgGlobalReplicationGroupId' - The name of the Global Datastore
+-- 'globalNodeGroupsToRetain', 'decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRetain' - If the value of NodeGroupCount is less than the current number of node
+-- groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is
+-- required. NodeGroupsToRemove is a list of NodeGroupIds to remove from
+-- the cluster. ElastiCache for Redis will attempt to remove all node
+-- groups listed by NodeGroupsToRemove from the cluster.
 --
--- * 'dngigrgNodeGroupCount' - The number of node groups (shards) that results from the modification of the shard configuration
+-- 'globalReplicationGroupId', 'decreaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId' - The name of the Global Datastore
 --
--- * 'dngigrgApplyImmediately' - Indicates that the shard reconfiguration process begins immediately. At present, the only permitted value for this parameter is true.
-decreaseNodeGroupsInGlobalReplicationGroup ::
-  -- | 'dngigrgGlobalReplicationGroupId'
-  Text ->
-  -- | 'dngigrgNodeGroupCount'
-  Int ->
-  -- | 'dngigrgApplyImmediately'
-  Bool ->
+-- 'nodeGroupCount', 'decreaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount' - The number of node groups (shards) that results from the modification of
+-- the shard configuration
+--
+-- 'applyImmediately', 'decreaseNodeGroupsInGlobalReplicationGroup_applyImmediately' - Indicates that the shard reconfiguration process begins immediately. At
+-- present, the only permitted value for this parameter is true.
+newDecreaseNodeGroupsInGlobalReplicationGroup ::
+  -- | 'globalReplicationGroupId'
+  Prelude.Text ->
+  -- | 'nodeGroupCount'
+  Prelude.Int ->
+  -- | 'applyImmediately'
+  Prelude.Bool ->
   DecreaseNodeGroupsInGlobalReplicationGroup
-decreaseNodeGroupsInGlobalReplicationGroup
+newDecreaseNodeGroupsInGlobalReplicationGroup
   pGlobalReplicationGroupId_
   pNodeGroupCount_
   pApplyImmediately_ =
     DecreaseNodeGroupsInGlobalReplicationGroup'
-      { _dngigrgGlobalNodeGroupsToRemove =
-          Nothing,
-        _dngigrgGlobalNodeGroupsToRetain =
-          Nothing,
-        _dngigrgGlobalReplicationGroupId =
+      { globalNodeGroupsToRemove =
+          Prelude.Nothing,
+        globalNodeGroupsToRetain =
+          Prelude.Nothing,
+        globalReplicationGroupId =
           pGlobalReplicationGroupId_,
-        _dngigrgNodeGroupCount =
+        nodeGroupCount =
           pNodeGroupCount_,
-        _dngigrgApplyImmediately =
+        applyImmediately =
           pApplyImmediately_
       }
 
--- | If the value of NodeGroupCount is less than the current number of node groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is required. NodeGroupsToRemove is a list of NodeGroupIds to remove from the cluster. ElastiCache for Redis will attempt to remove all node groups listed by NodeGroupsToRemove from the cluster.
-dngigrgGlobalNodeGroupsToRemove :: Lens' DecreaseNodeGroupsInGlobalReplicationGroup [Text]
-dngigrgGlobalNodeGroupsToRemove = lens _dngigrgGlobalNodeGroupsToRemove (\s a -> s {_dngigrgGlobalNodeGroupsToRemove = a}) . _Default . _Coerce
+-- | If the value of NodeGroupCount is less than the current number of node
+-- groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is
+-- required. NodeGroupsToRemove is a list of NodeGroupIds to remove from
+-- the cluster. ElastiCache for Redis will attempt to remove all node
+-- groups listed by NodeGroupsToRemove from the cluster.
+decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRemove :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroup (Prelude.Maybe [Prelude.Text])
+decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRemove = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroup' {globalNodeGroupsToRemove} -> globalNodeGroupsToRemove) (\s@DecreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {globalNodeGroupsToRemove = a} :: DecreaseNodeGroupsInGlobalReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the value of NodeGroupCount is less than the current number of node groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is required. NodeGroupsToRemove is a list of NodeGroupIds to remove from the cluster. ElastiCache for Redis will attempt to remove all node groups listed by NodeGroupsToRemove from the cluster.
-dngigrgGlobalNodeGroupsToRetain :: Lens' DecreaseNodeGroupsInGlobalReplicationGroup [Text]
-dngigrgGlobalNodeGroupsToRetain = lens _dngigrgGlobalNodeGroupsToRetain (\s a -> s {_dngigrgGlobalNodeGroupsToRetain = a}) . _Default . _Coerce
+-- | If the value of NodeGroupCount is less than the current number of node
+-- groups (shards), then either NodeGroupsToRemove or NodeGroupsToRetain is
+-- required. NodeGroupsToRemove is a list of NodeGroupIds to remove from
+-- the cluster. ElastiCache for Redis will attempt to remove all node
+-- groups listed by NodeGroupsToRemove from the cluster.
+decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRetain :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroup (Prelude.Maybe [Prelude.Text])
+decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRetain = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroup' {globalNodeGroupsToRetain} -> globalNodeGroupsToRetain) (\s@DecreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {globalNodeGroupsToRetain = a} :: DecreaseNodeGroupsInGlobalReplicationGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Global Datastore
-dngigrgGlobalReplicationGroupId :: Lens' DecreaseNodeGroupsInGlobalReplicationGroup Text
-dngigrgGlobalReplicationGroupId = lens _dngigrgGlobalReplicationGroupId (\s a -> s {_dngigrgGlobalReplicationGroupId = a})
+decreaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroup Prelude.Text
+decreaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroup' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@DecreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {globalReplicationGroupId = a} :: DecreaseNodeGroupsInGlobalReplicationGroup)
 
--- | The number of node groups (shards) that results from the modification of the shard configuration
-dngigrgNodeGroupCount :: Lens' DecreaseNodeGroupsInGlobalReplicationGroup Int
-dngigrgNodeGroupCount = lens _dngigrgNodeGroupCount (\s a -> s {_dngigrgNodeGroupCount = a})
+-- | The number of node groups (shards) that results from the modification of
+-- the shard configuration
+decreaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroup Prelude.Int
+decreaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroup' {nodeGroupCount} -> nodeGroupCount) (\s@DecreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {nodeGroupCount = a} :: DecreaseNodeGroupsInGlobalReplicationGroup)
 
--- | Indicates that the shard reconfiguration process begins immediately. At present, the only permitted value for this parameter is true.
-dngigrgApplyImmediately :: Lens' DecreaseNodeGroupsInGlobalReplicationGroup Bool
-dngigrgApplyImmediately = lens _dngigrgApplyImmediately (\s a -> s {_dngigrgApplyImmediately = a})
+-- | Indicates that the shard reconfiguration process begins immediately. At
+-- present, the only permitted value for this parameter is true.
+decreaseNodeGroupsInGlobalReplicationGroup_applyImmediately :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroup Prelude.Bool
+decreaseNodeGroupsInGlobalReplicationGroup_applyImmediately = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroup' {applyImmediately} -> applyImmediately) (\s@DecreaseNodeGroupsInGlobalReplicationGroup' {} a -> s {applyImmediately = a} :: DecreaseNodeGroupsInGlobalReplicationGroup)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DecreaseNodeGroupsInGlobalReplicationGroup
   where
   type
     Rs DecreaseNodeGroupsInGlobalReplicationGroup =
       DecreaseNodeGroupsInGlobalReplicationGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DecreaseNodeGroupsInGlobalReplicationGroupResult"
       ( \s h x ->
           DecreaseNodeGroupsInGlobalReplicationGroupResponse'
-            <$> (x .@? "GlobalReplicationGroup")
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalReplicationGroup")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DecreaseNodeGroupsInGlobalReplicationGroup
 
 instance
-  NFData
+  Prelude.NFData
     DecreaseNodeGroupsInGlobalReplicationGroup
 
 instance
-  ToHeaders
-    DecreaseNodeGroupsInGlobalReplicationGroup
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     DecreaseNodeGroupsInGlobalReplicationGroup
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DecreaseNodeGroupsInGlobalReplicationGroup
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DecreaseNodeGroupsInGlobalReplicationGroup
   where
   toQuery
     DecreaseNodeGroupsInGlobalReplicationGroup' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "DecreaseNodeGroupsInGlobalReplicationGroup" ::
-                   ByteString
-               ),
-          "Version" =: ("2015-02-02" :: ByteString),
+            Prelude.=: ( "DecreaseNodeGroupsInGlobalReplicationGroup" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2015-02-02" :: Prelude.ByteString),
           "GlobalNodeGroupsToRemove"
-            =: toQuery
-              ( toQueryList "GlobalNodeGroupId"
-                  <$> _dngigrgGlobalNodeGroupsToRemove
+            Prelude.=: Prelude.toQuery
+              ( Prelude.toQueryList "GlobalNodeGroupId"
+                  Prelude.<$> globalNodeGroupsToRemove
               ),
           "GlobalNodeGroupsToRetain"
-            =: toQuery
-              ( toQueryList "GlobalNodeGroupId"
-                  <$> _dngigrgGlobalNodeGroupsToRetain
+            Prelude.=: Prelude.toQuery
+              ( Prelude.toQueryList "GlobalNodeGroupId"
+                  Prelude.<$> globalNodeGroupsToRetain
               ),
           "GlobalReplicationGroupId"
-            =: _dngigrgGlobalReplicationGroupId,
-          "NodeGroupCount" =: _dngigrgNodeGroupCount,
-          "ApplyImmediately" =: _dngigrgApplyImmediately
+            Prelude.=: globalReplicationGroupId,
+          "NodeGroupCount" Prelude.=: nodeGroupCount,
+          "ApplyImmediately" Prelude.=: applyImmediately
         ]
 
--- | /See:/ 'decreaseNodeGroupsInGlobalReplicationGroupResponse' smart constructor.
+-- | /See:/ 'newDecreaseNodeGroupsInGlobalReplicationGroupResponse' smart constructor.
 data DecreaseNodeGroupsInGlobalReplicationGroupResponse = DecreaseNodeGroupsInGlobalReplicationGroupResponse'
-  { _dngigrgrrsGlobalReplicationGroup ::
-      !( Maybe
-           GlobalReplicationGroup
-       ),
-    _dngigrgrrsResponseStatus ::
-      !Int
+  { globalReplicationGroup :: Prelude.Maybe GlobalReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecreaseNodeGroupsInGlobalReplicationGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecreaseNodeGroupsInGlobalReplicationGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dngigrgrrsGlobalReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dngigrgrrsResponseStatus' - -- | The response status code.
-decreaseNodeGroupsInGlobalReplicationGroupResponse ::
-  -- | 'dngigrgrrsResponseStatus'
-  Int ->
+-- 'globalReplicationGroup', 'decreaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'decreaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus' - The response's http status code.
+newDecreaseNodeGroupsInGlobalReplicationGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DecreaseNodeGroupsInGlobalReplicationGroupResponse
-decreaseNodeGroupsInGlobalReplicationGroupResponse
-  pResponseStatus_ =
+newDecreaseNodeGroupsInGlobalReplicationGroupResponse
+  pHttpStatus_ =
     DecreaseNodeGroupsInGlobalReplicationGroupResponse'
-      { _dngigrgrrsGlobalReplicationGroup =
-          Nothing,
-        _dngigrgrrsResponseStatus =
-          pResponseStatus_
+      { globalReplicationGroup =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Undocumented member.
-dngigrgrrsGlobalReplicationGroup :: Lens' DecreaseNodeGroupsInGlobalReplicationGroupResponse (Maybe GlobalReplicationGroup)
-dngigrgrrsGlobalReplicationGroup = lens _dngigrgrrsGlobalReplicationGroup (\s a -> s {_dngigrgrrsGlobalReplicationGroup = a})
+decreaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroupResponse (Prelude.Maybe GlobalReplicationGroup)
+decreaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroupResponse' {globalReplicationGroup} -> globalReplicationGroup) (\s@DecreaseNodeGroupsInGlobalReplicationGroupResponse' {} a -> s {globalReplicationGroup = a} :: DecreaseNodeGroupsInGlobalReplicationGroupResponse)
 
--- | -- | The response status code.
-dngigrgrrsResponseStatus :: Lens' DecreaseNodeGroupsInGlobalReplicationGroupResponse Int
-dngigrgrrsResponseStatus = lens _dngigrgrrsResponseStatus (\s a -> s {_dngigrgrrsResponseStatus = a})
+-- | The response's http status code.
+decreaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus :: Lens.Lens' DecreaseNodeGroupsInGlobalReplicationGroupResponse Prelude.Int
+decreaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus = Lens.lens (\DecreaseNodeGroupsInGlobalReplicationGroupResponse' {httpStatus} -> httpStatus) (\s@DecreaseNodeGroupsInGlobalReplicationGroupResponse' {} a -> s {httpStatus = a} :: DecreaseNodeGroupsInGlobalReplicationGroupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DecreaseNodeGroupsInGlobalReplicationGroupResponse

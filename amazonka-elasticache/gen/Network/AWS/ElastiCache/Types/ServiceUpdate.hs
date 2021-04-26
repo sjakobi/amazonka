@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,146 +22,173 @@ module Network.AWS.ElastiCache.Types.ServiceUpdate where
 import Network.AWS.ElastiCache.Types.ServiceUpdateSeverity
 import Network.AWS.ElastiCache.Types.ServiceUpdateStatus
 import Network.AWS.ElastiCache.Types.ServiceUpdateType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An update that you can apply to your Redis clusters.
 --
---
---
--- /See:/ 'serviceUpdate' smart constructor.
+-- /See:/ 'newServiceUpdate' smart constructor.
 data ServiceUpdate = ServiceUpdate'
-  { _suServiceUpdateSeverity ::
-      !(Maybe ServiceUpdateSeverity),
-    _suAutoUpdateAfterRecommendedApplyByDate ::
-      !(Maybe Bool),
-    _suServiceUpdateReleaseDate ::
-      !(Maybe ISO8601),
-    _suServiceUpdateStatus ::
-      !(Maybe ServiceUpdateStatus),
-    _suServiceUpdateRecommendedApplyByDate ::
-      !(Maybe ISO8601),
-    _suServiceUpdateEndDate :: !(Maybe ISO8601),
-    _suEngineVersion :: !(Maybe Text),
-    _suServiceUpdateType ::
-      !(Maybe ServiceUpdateType),
-    _suEstimatedUpdateTime :: !(Maybe Text),
-    _suEngine :: !(Maybe Text),
-    _suServiceUpdateName :: !(Maybe Text),
-    _suServiceUpdateDescription ::
-      !(Maybe Text)
+  { -- | The severity of the service update
+    serviceUpdateSeverity :: Prelude.Maybe ServiceUpdateSeverity,
+    -- | Indicates whether the service update will be automatically applied once
+    -- the recommended apply-by date has expired.
+    autoUpdateAfterRecommendedApplyByDate :: Prelude.Maybe Prelude.Bool,
+    -- | The date when the service update is initially available
+    serviceUpdateReleaseDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The status of the service update
+    serviceUpdateStatus :: Prelude.Maybe ServiceUpdateStatus,
+    -- | The recommendend date to apply the service update in order to ensure
+    -- compliance. For information on compliance, see
+    -- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance>.
+    serviceUpdateRecommendedApplyByDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The date after which the service update is no longer available
+    serviceUpdateEndDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The Elasticache engine version to which the update applies. Either Redis
+    -- or Memcached engine version
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | Reflects the nature of the service update
+    serviceUpdateType :: Prelude.Maybe ServiceUpdateType,
+    -- | The estimated length of time the service update will take
+    estimatedUpdateTime :: Prelude.Maybe Prelude.Text,
+    -- | The Elasticache engine to which the update applies. Either Redis or
+    -- Memcached
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the service update
+    serviceUpdateName :: Prelude.Maybe Prelude.Text,
+    -- | Provides details of the service update
+    serviceUpdateDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'suServiceUpdateSeverity' - The severity of the service update
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'suAutoUpdateAfterRecommendedApplyByDate' - Indicates whether the service update will be automatically applied once the recommended apply-by date has expired.
+-- 'serviceUpdateSeverity', 'serviceUpdate_serviceUpdateSeverity' - The severity of the service update
 --
--- * 'suServiceUpdateReleaseDate' - The date when the service update is initially available
+-- 'autoUpdateAfterRecommendedApplyByDate', 'serviceUpdate_autoUpdateAfterRecommendedApplyByDate' - Indicates whether the service update will be automatically applied once
+-- the recommended apply-by date has expired.
 --
--- * 'suServiceUpdateStatus' - The status of the service update
+-- 'serviceUpdateReleaseDate', 'serviceUpdate_serviceUpdateReleaseDate' - The date when the service update is initially available
 --
--- * 'suServiceUpdateRecommendedApplyByDate' - The recommendend date to apply the service update in order to ensure compliance. For information on compliance, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance> .
+-- 'serviceUpdateStatus', 'serviceUpdate_serviceUpdateStatus' - The status of the service update
 --
--- * 'suServiceUpdateEndDate' - The date after which the service update is no longer available
+-- 'serviceUpdateRecommendedApplyByDate', 'serviceUpdate_serviceUpdateRecommendedApplyByDate' - The recommendend date to apply the service update in order to ensure
+-- compliance. For information on compliance, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance>.
 --
--- * 'suEngineVersion' - The Elasticache engine version to which the update applies. Either Redis or Memcached engine version
+-- 'serviceUpdateEndDate', 'serviceUpdate_serviceUpdateEndDate' - The date after which the service update is no longer available
 --
--- * 'suServiceUpdateType' - Reflects the nature of the service update
+-- 'engineVersion', 'serviceUpdate_engineVersion' - The Elasticache engine version to which the update applies. Either Redis
+-- or Memcached engine version
 --
--- * 'suEstimatedUpdateTime' - The estimated length of time the service update will take
+-- 'serviceUpdateType', 'serviceUpdate_serviceUpdateType' - Reflects the nature of the service update
 --
--- * 'suEngine' - The Elasticache engine to which the update applies. Either Redis or Memcached
+-- 'estimatedUpdateTime', 'serviceUpdate_estimatedUpdateTime' - The estimated length of time the service update will take
 --
--- * 'suServiceUpdateName' - The unique ID of the service update
+-- 'engine', 'serviceUpdate_engine' - The Elasticache engine to which the update applies. Either Redis or
+-- Memcached
 --
--- * 'suServiceUpdateDescription' - Provides details of the service update
-serviceUpdate ::
+-- 'serviceUpdateName', 'serviceUpdate_serviceUpdateName' - The unique ID of the service update
+--
+-- 'serviceUpdateDescription', 'serviceUpdate_serviceUpdateDescription' - Provides details of the service update
+newServiceUpdate ::
   ServiceUpdate
-serviceUpdate =
+newServiceUpdate =
   ServiceUpdate'
-    { _suServiceUpdateSeverity = Nothing,
-      _suAutoUpdateAfterRecommendedApplyByDate = Nothing,
-      _suServiceUpdateReleaseDate = Nothing,
-      _suServiceUpdateStatus = Nothing,
-      _suServiceUpdateRecommendedApplyByDate = Nothing,
-      _suServiceUpdateEndDate = Nothing,
-      _suEngineVersion = Nothing,
-      _suServiceUpdateType = Nothing,
-      _suEstimatedUpdateTime = Nothing,
-      _suEngine = Nothing,
-      _suServiceUpdateName = Nothing,
-      _suServiceUpdateDescription = Nothing
+    { serviceUpdateSeverity =
+        Prelude.Nothing,
+      autoUpdateAfterRecommendedApplyByDate =
+        Prelude.Nothing,
+      serviceUpdateReleaseDate = Prelude.Nothing,
+      serviceUpdateStatus = Prelude.Nothing,
+      serviceUpdateRecommendedApplyByDate =
+        Prelude.Nothing,
+      serviceUpdateEndDate = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      serviceUpdateType = Prelude.Nothing,
+      estimatedUpdateTime = Prelude.Nothing,
+      engine = Prelude.Nothing,
+      serviceUpdateName = Prelude.Nothing,
+      serviceUpdateDescription = Prelude.Nothing
     }
 
 -- | The severity of the service update
-suServiceUpdateSeverity :: Lens' ServiceUpdate (Maybe ServiceUpdateSeverity)
-suServiceUpdateSeverity = lens _suServiceUpdateSeverity (\s a -> s {_suServiceUpdateSeverity = a})
+serviceUpdate_serviceUpdateSeverity :: Lens.Lens' ServiceUpdate (Prelude.Maybe ServiceUpdateSeverity)
+serviceUpdate_serviceUpdateSeverity = Lens.lens (\ServiceUpdate' {serviceUpdateSeverity} -> serviceUpdateSeverity) (\s@ServiceUpdate' {} a -> s {serviceUpdateSeverity = a} :: ServiceUpdate)
 
--- | Indicates whether the service update will be automatically applied once the recommended apply-by date has expired.
-suAutoUpdateAfterRecommendedApplyByDate :: Lens' ServiceUpdate (Maybe Bool)
-suAutoUpdateAfterRecommendedApplyByDate = lens _suAutoUpdateAfterRecommendedApplyByDate (\s a -> s {_suAutoUpdateAfterRecommendedApplyByDate = a})
+-- | Indicates whether the service update will be automatically applied once
+-- the recommended apply-by date has expired.
+serviceUpdate_autoUpdateAfterRecommendedApplyByDate :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.Bool)
+serviceUpdate_autoUpdateAfterRecommendedApplyByDate = Lens.lens (\ServiceUpdate' {autoUpdateAfterRecommendedApplyByDate} -> autoUpdateAfterRecommendedApplyByDate) (\s@ServiceUpdate' {} a -> s {autoUpdateAfterRecommendedApplyByDate = a} :: ServiceUpdate)
 
 -- | The date when the service update is initially available
-suServiceUpdateReleaseDate :: Lens' ServiceUpdate (Maybe UTCTime)
-suServiceUpdateReleaseDate = lens _suServiceUpdateReleaseDate (\s a -> s {_suServiceUpdateReleaseDate = a}) . mapping _Time
+serviceUpdate_serviceUpdateReleaseDate :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.UTCTime)
+serviceUpdate_serviceUpdateReleaseDate = Lens.lens (\ServiceUpdate' {serviceUpdateReleaseDate} -> serviceUpdateReleaseDate) (\s@ServiceUpdate' {} a -> s {serviceUpdateReleaseDate = a} :: ServiceUpdate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the service update
-suServiceUpdateStatus :: Lens' ServiceUpdate (Maybe ServiceUpdateStatus)
-suServiceUpdateStatus = lens _suServiceUpdateStatus (\s a -> s {_suServiceUpdateStatus = a})
+serviceUpdate_serviceUpdateStatus :: Lens.Lens' ServiceUpdate (Prelude.Maybe ServiceUpdateStatus)
+serviceUpdate_serviceUpdateStatus = Lens.lens (\ServiceUpdate' {serviceUpdateStatus} -> serviceUpdateStatus) (\s@ServiceUpdate' {} a -> s {serviceUpdateStatus = a} :: ServiceUpdate)
 
--- | The recommendend date to apply the service update in order to ensure compliance. For information on compliance, see <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance> .
-suServiceUpdateRecommendedApplyByDate :: Lens' ServiceUpdate (Maybe UTCTime)
-suServiceUpdateRecommendedApplyByDate = lens _suServiceUpdateRecommendedApplyByDate (\s a -> s {_suServiceUpdateRecommendedApplyByDate = a}) . mapping _Time
+-- | The recommendend date to apply the service update in order to ensure
+-- compliance. For information on compliance, see
+-- <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service Self-Service Security Updates for Compliance>.
+serviceUpdate_serviceUpdateRecommendedApplyByDate :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.UTCTime)
+serviceUpdate_serviceUpdateRecommendedApplyByDate = Lens.lens (\ServiceUpdate' {serviceUpdateRecommendedApplyByDate} -> serviceUpdateRecommendedApplyByDate) (\s@ServiceUpdate' {} a -> s {serviceUpdateRecommendedApplyByDate = a} :: ServiceUpdate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date after which the service update is no longer available
-suServiceUpdateEndDate :: Lens' ServiceUpdate (Maybe UTCTime)
-suServiceUpdateEndDate = lens _suServiceUpdateEndDate (\s a -> s {_suServiceUpdateEndDate = a}) . mapping _Time
+serviceUpdate_serviceUpdateEndDate :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.UTCTime)
+serviceUpdate_serviceUpdateEndDate = Lens.lens (\ServiceUpdate' {serviceUpdateEndDate} -> serviceUpdateEndDate) (\s@ServiceUpdate' {} a -> s {serviceUpdateEndDate = a} :: ServiceUpdate) Prelude.. Lens.mapping Prelude._Time
 
--- | The Elasticache engine version to which the update applies. Either Redis or Memcached engine version
-suEngineVersion :: Lens' ServiceUpdate (Maybe Text)
-suEngineVersion = lens _suEngineVersion (\s a -> s {_suEngineVersion = a})
+-- | The Elasticache engine version to which the update applies. Either Redis
+-- or Memcached engine version
+serviceUpdate_engineVersion :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.Text)
+serviceUpdate_engineVersion = Lens.lens (\ServiceUpdate' {engineVersion} -> engineVersion) (\s@ServiceUpdate' {} a -> s {engineVersion = a} :: ServiceUpdate)
 
 -- | Reflects the nature of the service update
-suServiceUpdateType :: Lens' ServiceUpdate (Maybe ServiceUpdateType)
-suServiceUpdateType = lens _suServiceUpdateType (\s a -> s {_suServiceUpdateType = a})
+serviceUpdate_serviceUpdateType :: Lens.Lens' ServiceUpdate (Prelude.Maybe ServiceUpdateType)
+serviceUpdate_serviceUpdateType = Lens.lens (\ServiceUpdate' {serviceUpdateType} -> serviceUpdateType) (\s@ServiceUpdate' {} a -> s {serviceUpdateType = a} :: ServiceUpdate)
 
 -- | The estimated length of time the service update will take
-suEstimatedUpdateTime :: Lens' ServiceUpdate (Maybe Text)
-suEstimatedUpdateTime = lens _suEstimatedUpdateTime (\s a -> s {_suEstimatedUpdateTime = a})
+serviceUpdate_estimatedUpdateTime :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.Text)
+serviceUpdate_estimatedUpdateTime = Lens.lens (\ServiceUpdate' {estimatedUpdateTime} -> estimatedUpdateTime) (\s@ServiceUpdate' {} a -> s {estimatedUpdateTime = a} :: ServiceUpdate)
 
--- | The Elasticache engine to which the update applies. Either Redis or Memcached
-suEngine :: Lens' ServiceUpdate (Maybe Text)
-suEngine = lens _suEngine (\s a -> s {_suEngine = a})
+-- | The Elasticache engine to which the update applies. Either Redis or
+-- Memcached
+serviceUpdate_engine :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.Text)
+serviceUpdate_engine = Lens.lens (\ServiceUpdate' {engine} -> engine) (\s@ServiceUpdate' {} a -> s {engine = a} :: ServiceUpdate)
 
 -- | The unique ID of the service update
-suServiceUpdateName :: Lens' ServiceUpdate (Maybe Text)
-suServiceUpdateName = lens _suServiceUpdateName (\s a -> s {_suServiceUpdateName = a})
+serviceUpdate_serviceUpdateName :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.Text)
+serviceUpdate_serviceUpdateName = Lens.lens (\ServiceUpdate' {serviceUpdateName} -> serviceUpdateName) (\s@ServiceUpdate' {} a -> s {serviceUpdateName = a} :: ServiceUpdate)
 
 -- | Provides details of the service update
-suServiceUpdateDescription :: Lens' ServiceUpdate (Maybe Text)
-suServiceUpdateDescription = lens _suServiceUpdateDescription (\s a -> s {_suServiceUpdateDescription = a})
+serviceUpdate_serviceUpdateDescription :: Lens.Lens' ServiceUpdate (Prelude.Maybe Prelude.Text)
+serviceUpdate_serviceUpdateDescription = Lens.lens (\ServiceUpdate' {serviceUpdateDescription} -> serviceUpdateDescription) (\s@ServiceUpdate' {} a -> s {serviceUpdateDescription = a} :: ServiceUpdate)
 
-instance FromXML ServiceUpdate where
+instance Prelude.FromXML ServiceUpdate where
   parseXML x =
     ServiceUpdate'
-      <$> (x .@? "ServiceUpdateSeverity")
-      <*> (x .@? "AutoUpdateAfterRecommendedApplyByDate")
-      <*> (x .@? "ServiceUpdateReleaseDate")
-      <*> (x .@? "ServiceUpdateStatus")
-      <*> (x .@? "ServiceUpdateRecommendedApplyByDate")
-      <*> (x .@? "ServiceUpdateEndDate")
-      <*> (x .@? "EngineVersion")
-      <*> (x .@? "ServiceUpdateType")
-      <*> (x .@? "EstimatedUpdateTime")
-      <*> (x .@? "Engine")
-      <*> (x .@? "ServiceUpdateName")
-      <*> (x .@? "ServiceUpdateDescription")
+      Prelude.<$> (x Prelude..@? "ServiceUpdateSeverity")
+      Prelude.<*> ( x
+                      Prelude..@? "AutoUpdateAfterRecommendedApplyByDate"
+                  )
+      Prelude.<*> (x Prelude..@? "ServiceUpdateReleaseDate")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateStatus")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateRecommendedApplyByDate")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateEndDate")
+      Prelude.<*> (x Prelude..@? "EngineVersion")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateType")
+      Prelude.<*> (x Prelude..@? "EstimatedUpdateTime")
+      Prelude.<*> (x Prelude..@? "Engine")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateName")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateDescription")
 
-instance Hashable ServiceUpdate
+instance Prelude.Hashable ServiceUpdate
 
-instance NFData ServiceUpdate
+instance Prelude.NFData ServiceUpdate

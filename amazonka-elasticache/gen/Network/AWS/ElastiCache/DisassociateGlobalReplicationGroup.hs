@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Remove a secondary cluster from the Global Datastore using the Global Datastore name. The secondary cluster will no longer receive updates from the primary cluster, but will remain as a standalone cluster in that AWS region.
+-- Remove a secondary cluster from the Global Datastore using the Global
+-- Datastore name. The secondary cluster will no longer receive updates
+-- from the primary cluster, but will remain as a standalone cluster in
+-- that AWS region.
 module Network.AWS.ElastiCache.DisassociateGlobalReplicationGroup
   ( -- * Creating a Request
-    disassociateGlobalReplicationGroup,
-    DisassociateGlobalReplicationGroup,
+    DisassociateGlobalReplicationGroup (..),
+    newDisassociateGlobalReplicationGroup,
 
     -- * Request Lenses
-    dGlobalReplicationGroupId,
-    dReplicationGroupId,
-    dReplicationGroupRegion,
+    disassociateGlobalReplicationGroup_globalReplicationGroupId,
+    disassociateGlobalReplicationGroup_replicationGroupId,
+    disassociateGlobalReplicationGroup_replicationGroupRegion,
 
     -- * Destructuring the Response
-    disassociateGlobalReplicationGroupResponse,
-    DisassociateGlobalReplicationGroupResponse,
+    DisassociateGlobalReplicationGroupResponse (..),
+    newDisassociateGlobalReplicationGroupResponse,
 
     -- * Response Lenses
-    dgrgrrsGlobalReplicationGroup,
-    dgrgrrsResponseStatus,
+    disassociateGlobalReplicationGroupResponse_globalReplicationGroup,
+    disassociateGlobalReplicationGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.GlobalReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateGlobalReplicationGroup' smart constructor.
+-- | /See:/ 'newDisassociateGlobalReplicationGroup' smart constructor.
 data DisassociateGlobalReplicationGroup = DisassociateGlobalReplicationGroup'
-  { _dGlobalReplicationGroupId ::
-      !Text,
-    _dReplicationGroupId ::
-      !Text,
-    _dReplicationGroupRegion ::
-      !Text
+  { -- | The name of the Global Datastore
+    globalReplicationGroupId :: Prelude.Text,
+    -- | The name of the secondary cluster you wish to remove from the Global
+    -- Datastore
+    replicationGroupId :: Prelude.Text,
+    -- | The AWS region of secondary cluster you wish to remove from the Global
+    -- Datastore
+    replicationGroupRegion :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateGlobalReplicationGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateGlobalReplicationGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dGlobalReplicationGroupId' - The name of the Global Datastore
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dReplicationGroupId' - The name of the secondary cluster you wish to remove from the Global Datastore
+-- 'globalReplicationGroupId', 'disassociateGlobalReplicationGroup_globalReplicationGroupId' - The name of the Global Datastore
 --
--- * 'dReplicationGroupRegion' - The AWS region of secondary cluster you wish to remove from the Global Datastore
-disassociateGlobalReplicationGroup ::
-  -- | 'dGlobalReplicationGroupId'
-  Text ->
-  -- | 'dReplicationGroupId'
-  Text ->
-  -- | 'dReplicationGroupRegion'
-  Text ->
+-- 'replicationGroupId', 'disassociateGlobalReplicationGroup_replicationGroupId' - The name of the secondary cluster you wish to remove from the Global
+-- Datastore
+--
+-- 'replicationGroupRegion', 'disassociateGlobalReplicationGroup_replicationGroupRegion' - The AWS region of secondary cluster you wish to remove from the Global
+-- Datastore
+newDisassociateGlobalReplicationGroup ::
+  -- | 'globalReplicationGroupId'
+  Prelude.Text ->
+  -- | 'replicationGroupId'
+  Prelude.Text ->
+  -- | 'replicationGroupRegion'
+  Prelude.Text ->
   DisassociateGlobalReplicationGroup
-disassociateGlobalReplicationGroup
+newDisassociateGlobalReplicationGroup
   pGlobalReplicationGroupId_
   pReplicationGroupId_
   pReplicationGroupRegion_ =
     DisassociateGlobalReplicationGroup'
-      { _dGlobalReplicationGroupId =
+      { globalReplicationGroupId =
           pGlobalReplicationGroupId_,
-        _dReplicationGroupId =
+        replicationGroupId =
           pReplicationGroupId_,
-        _dReplicationGroupRegion =
+        replicationGroupRegion =
           pReplicationGroupRegion_
       }
 
 -- | The name of the Global Datastore
-dGlobalReplicationGroupId :: Lens' DisassociateGlobalReplicationGroup Text
-dGlobalReplicationGroupId = lens _dGlobalReplicationGroupId (\s a -> s {_dGlobalReplicationGroupId = a})
+disassociateGlobalReplicationGroup_globalReplicationGroupId :: Lens.Lens' DisassociateGlobalReplicationGroup Prelude.Text
+disassociateGlobalReplicationGroup_globalReplicationGroupId = Lens.lens (\DisassociateGlobalReplicationGroup' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@DisassociateGlobalReplicationGroup' {} a -> s {globalReplicationGroupId = a} :: DisassociateGlobalReplicationGroup)
 
--- | The name of the secondary cluster you wish to remove from the Global Datastore
-dReplicationGroupId :: Lens' DisassociateGlobalReplicationGroup Text
-dReplicationGroupId = lens _dReplicationGroupId (\s a -> s {_dReplicationGroupId = a})
+-- | The name of the secondary cluster you wish to remove from the Global
+-- Datastore
+disassociateGlobalReplicationGroup_replicationGroupId :: Lens.Lens' DisassociateGlobalReplicationGroup Prelude.Text
+disassociateGlobalReplicationGroup_replicationGroupId = Lens.lens (\DisassociateGlobalReplicationGroup' {replicationGroupId} -> replicationGroupId) (\s@DisassociateGlobalReplicationGroup' {} a -> s {replicationGroupId = a} :: DisassociateGlobalReplicationGroup)
 
--- | The AWS region of secondary cluster you wish to remove from the Global Datastore
-dReplicationGroupRegion :: Lens' DisassociateGlobalReplicationGroup Text
-dReplicationGroupRegion = lens _dReplicationGroupRegion (\s a -> s {_dReplicationGroupRegion = a})
+-- | The AWS region of secondary cluster you wish to remove from the Global
+-- Datastore
+disassociateGlobalReplicationGroup_replicationGroupRegion :: Lens.Lens' DisassociateGlobalReplicationGroup Prelude.Text
+disassociateGlobalReplicationGroup_replicationGroupRegion = Lens.lens (\DisassociateGlobalReplicationGroup' {replicationGroupRegion} -> replicationGroupRegion) (\s@DisassociateGlobalReplicationGroup' {} a -> s {replicationGroupRegion = a} :: DisassociateGlobalReplicationGroup)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DisassociateGlobalReplicationGroup
   where
   type
     Rs DisassociateGlobalReplicationGroup =
       DisassociateGlobalReplicationGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DisassociateGlobalReplicationGroupResult"
       ( \s h x ->
           DisassociateGlobalReplicationGroupResponse'
-            <$> (x .@? "GlobalReplicationGroup")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "GlobalReplicationGroup")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateGlobalReplicationGroup
+instance
+  Prelude.Hashable
+    DisassociateGlobalReplicationGroup
 
-instance NFData DisassociateGlobalReplicationGroup
+instance
+  Prelude.NFData
+    DisassociateGlobalReplicationGroup
 
-instance ToHeaders DisassociateGlobalReplicationGroup where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DisassociateGlobalReplicationGroup
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DisassociateGlobalReplicationGroup where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DisassociateGlobalReplicationGroup
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateGlobalReplicationGroup where
+instance
+  Prelude.ToQuery
+    DisassociateGlobalReplicationGroup
+  where
   toQuery DisassociateGlobalReplicationGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DisassociateGlobalReplicationGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ( "DisassociateGlobalReplicationGroup" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "GlobalReplicationGroupId"
-          =: _dGlobalReplicationGroupId,
-        "ReplicationGroupId" =: _dReplicationGroupId,
-        "ReplicationGroupRegion" =: _dReplicationGroupRegion
+          Prelude.=: globalReplicationGroupId,
+        "ReplicationGroupId" Prelude.=: replicationGroupId,
+        "ReplicationGroupRegion"
+          Prelude.=: replicationGroupRegion
       ]
 
--- | /See:/ 'disassociateGlobalReplicationGroupResponse' smart constructor.
+-- | /See:/ 'newDisassociateGlobalReplicationGroupResponse' smart constructor.
 data DisassociateGlobalReplicationGroupResponse = DisassociateGlobalReplicationGroupResponse'
-  { _dgrgrrsGlobalReplicationGroup ::
-      !( Maybe
-           GlobalReplicationGroup
-       ),
-    _dgrgrrsResponseStatus ::
-      !Int
+  { globalReplicationGroup :: Prelude.Maybe GlobalReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateGlobalReplicationGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateGlobalReplicationGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgrgrrsGlobalReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgrgrrsResponseStatus' - -- | The response status code.
-disassociateGlobalReplicationGroupResponse ::
-  -- | 'dgrgrrsResponseStatus'
-  Int ->
+-- 'globalReplicationGroup', 'disassociateGlobalReplicationGroupResponse_globalReplicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'disassociateGlobalReplicationGroupResponse_httpStatus' - The response's http status code.
+newDisassociateGlobalReplicationGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateGlobalReplicationGroupResponse
-disassociateGlobalReplicationGroupResponse
-  pResponseStatus_ =
+newDisassociateGlobalReplicationGroupResponse
+  pHttpStatus_ =
     DisassociateGlobalReplicationGroupResponse'
-      { _dgrgrrsGlobalReplicationGroup =
-          Nothing,
-        _dgrgrrsResponseStatus =
-          pResponseStatus_
+      { globalReplicationGroup =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-dgrgrrsGlobalReplicationGroup :: Lens' DisassociateGlobalReplicationGroupResponse (Maybe GlobalReplicationGroup)
-dgrgrrsGlobalReplicationGroup = lens _dgrgrrsGlobalReplicationGroup (\s a -> s {_dgrgrrsGlobalReplicationGroup = a})
+disassociateGlobalReplicationGroupResponse_globalReplicationGroup :: Lens.Lens' DisassociateGlobalReplicationGroupResponse (Prelude.Maybe GlobalReplicationGroup)
+disassociateGlobalReplicationGroupResponse_globalReplicationGroup = Lens.lens (\DisassociateGlobalReplicationGroupResponse' {globalReplicationGroup} -> globalReplicationGroup) (\s@DisassociateGlobalReplicationGroupResponse' {} a -> s {globalReplicationGroup = a} :: DisassociateGlobalReplicationGroupResponse)
 
--- | -- | The response status code.
-dgrgrrsResponseStatus :: Lens' DisassociateGlobalReplicationGroupResponse Int
-dgrgrrsResponseStatus = lens _dgrgrrsResponseStatus (\s a -> s {_dgrgrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateGlobalReplicationGroupResponse_httpStatus :: Lens.Lens' DisassociateGlobalReplicationGroupResponse Prelude.Int
+disassociateGlobalReplicationGroupResponse_httpStatus = Lens.lens (\DisassociateGlobalReplicationGroupResponse' {httpStatus} -> httpStatus) (\s@DisassociateGlobalReplicationGroupResponse' {} a -> s {httpStatus = a} :: DisassociateGlobalReplicationGroupResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DisassociateGlobalReplicationGroupResponse

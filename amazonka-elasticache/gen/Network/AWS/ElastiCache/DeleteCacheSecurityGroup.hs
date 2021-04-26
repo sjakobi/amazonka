@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,106 +22,112 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a cache security group.
+--
+-- You cannot delete a cache security group if it is associated with any
+-- clusters.
 module Network.AWS.ElastiCache.DeleteCacheSecurityGroup
   ( -- * Creating a Request
-    deleteCacheSecurityGroup,
-    DeleteCacheSecurityGroup,
+    DeleteCacheSecurityGroup (..),
+    newDeleteCacheSecurityGroup,
 
     -- * Request Lenses
-    dcsgCacheSecurityGroupName,
+    deleteCacheSecurityGroup_cacheSecurityGroupName,
 
     -- * Destructuring the Response
-    deleteCacheSecurityGroupResponse,
-    DeleteCacheSecurityGroupResponse,
+    DeleteCacheSecurityGroupResponse (..),
+    newDeleteCacheSecurityGroupResponse,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @DeleteCacheSecurityGroup@ operation.
 --
---
---
--- /See:/ 'deleteCacheSecurityGroup' smart constructor.
-newtype DeleteCacheSecurityGroup = DeleteCacheSecurityGroup'
-  { _dcsgCacheSecurityGroupName ::
-      Text
+-- /See:/ 'newDeleteCacheSecurityGroup' smart constructor.
+data DeleteCacheSecurityGroup = DeleteCacheSecurityGroup'
+  { -- | The name of the cache security group to delete.
+    --
+    -- You cannot delete the default security group.
+    cacheSecurityGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCacheSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCacheSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsgCacheSecurityGroupName' - The name of the cache security group to delete.
-deleteCacheSecurityGroup ::
-  -- | 'dcsgCacheSecurityGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cacheSecurityGroupName', 'deleteCacheSecurityGroup_cacheSecurityGroupName' - The name of the cache security group to delete.
+--
+-- You cannot delete the default security group.
+newDeleteCacheSecurityGroup ::
+  -- | 'cacheSecurityGroupName'
+  Prelude.Text ->
   DeleteCacheSecurityGroup
-deleteCacheSecurityGroup pCacheSecurityGroupName_ =
+newDeleteCacheSecurityGroup pCacheSecurityGroupName_ =
   DeleteCacheSecurityGroup'
-    { _dcsgCacheSecurityGroupName =
+    { cacheSecurityGroupName =
         pCacheSecurityGroupName_
     }
 
 -- | The name of the cache security group to delete.
-dcsgCacheSecurityGroupName :: Lens' DeleteCacheSecurityGroup Text
-dcsgCacheSecurityGroupName = lens _dcsgCacheSecurityGroupName (\s a -> s {_dcsgCacheSecurityGroupName = a})
+--
+-- You cannot delete the default security group.
+deleteCacheSecurityGroup_cacheSecurityGroupName :: Lens.Lens' DeleteCacheSecurityGroup Prelude.Text
+deleteCacheSecurityGroup_cacheSecurityGroupName = Lens.lens (\DeleteCacheSecurityGroup' {cacheSecurityGroupName} -> cacheSecurityGroupName) (\s@DeleteCacheSecurityGroup' {} a -> s {cacheSecurityGroupName = a} :: DeleteCacheSecurityGroup)
 
-instance AWSRequest DeleteCacheSecurityGroup where
+instance Prelude.AWSRequest DeleteCacheSecurityGroup where
   type
     Rs DeleteCacheSecurityGroup =
       DeleteCacheSecurityGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteCacheSecurityGroupResponse'
+    Response.receiveNull
+      DeleteCacheSecurityGroupResponse'
 
-instance Hashable DeleteCacheSecurityGroup
+instance Prelude.Hashable DeleteCacheSecurityGroup
 
-instance NFData DeleteCacheSecurityGroup
+instance Prelude.NFData DeleteCacheSecurityGroup
 
-instance ToHeaders DeleteCacheSecurityGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCacheSecurityGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCacheSecurityGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCacheSecurityGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCacheSecurityGroup where
+instance Prelude.ToQuery DeleteCacheSecurityGroup where
   toQuery DeleteCacheSecurityGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteCacheSecurityGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ("DeleteCacheSecurityGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheSecurityGroupName"
-          =: _dcsgCacheSecurityGroupName
+          Prelude.=: cacheSecurityGroupName
       ]
 
--- | /See:/ 'deleteCacheSecurityGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteCacheSecurityGroupResponse' smart constructor.
 data DeleteCacheSecurityGroupResponse = DeleteCacheSecurityGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCacheSecurityGroupResponse' with the minimum fields required to make a request.
-deleteCacheSecurityGroupResponse ::
+-- |
+-- Create a value of 'DeleteCacheSecurityGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteCacheSecurityGroupResponse ::
   DeleteCacheSecurityGroupResponse
-deleteCacheSecurityGroupResponse =
+newDeleteCacheSecurityGroupResponse =
   DeleteCacheSecurityGroupResponse'
 
-instance NFData DeleteCacheSecurityGroupResponse
+instance
+  Prelude.NFData
+    DeleteCacheSecurityGroupResponse

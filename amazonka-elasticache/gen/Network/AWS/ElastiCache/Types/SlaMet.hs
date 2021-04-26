@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,57 @@
 module Network.AWS.ElastiCache.Types.SlaMet
   ( SlaMet
       ( ..,
-        NO,
-        Na,
-        Yes
+        SlaMetNO,
+        SlaMetNa,
+        SlaMetYes
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SlaMet = SlaMet' (CI Text)
+newtype SlaMet = SlaMet' {fromSlaMet :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NO :: SlaMet
-pattern NO = SlaMet' "no"
+pattern SlaMetNO :: SlaMet
+pattern SlaMetNO = SlaMet' "no"
 
-pattern Na :: SlaMet
-pattern Na = SlaMet' "n/a"
+pattern SlaMetNa :: SlaMet
+pattern SlaMetNa = SlaMet' "n/a"
 
-pattern Yes :: SlaMet
-pattern Yes = SlaMet' "yes"
+pattern SlaMetYes :: SlaMet
+pattern SlaMetYes = SlaMet' "yes"
 
 {-# COMPLETE
-  NO,
-  Na,
-  Yes,
+  SlaMetNO,
+  SlaMetNa,
+  SlaMetYes,
   SlaMet'
   #-}
 
-instance FromText SlaMet where
-  parser = (SlaMet' . mk) <$> takeText
+instance Prelude.FromText SlaMet where
+  parser = SlaMet' Prelude.<$> Prelude.takeText
 
-instance ToText SlaMet where
-  toText (SlaMet' ci) = original ci
+instance Prelude.ToText SlaMet where
+  toText (SlaMet' x) = x
 
-instance Hashable SlaMet
+instance Prelude.Hashable SlaMet
 
-instance NFData SlaMet
+instance Prelude.NFData SlaMet
 
-instance ToByteString SlaMet
+instance Prelude.ToByteString SlaMet
 
-instance ToQuery SlaMet
+instance Prelude.ToQuery SlaMet
 
-instance ToHeader SlaMet
+instance Prelude.ToHeader SlaMet
 
-instance FromXML SlaMet where
-  parseXML = parseXMLText "SlaMet"
+instance Prelude.FromXML SlaMet where
+  parseXML = Prelude.parseXMLText "SlaMet"

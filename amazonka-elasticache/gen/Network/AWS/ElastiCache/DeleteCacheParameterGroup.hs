@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,107 +21,116 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified cache parameter group. You cannot delete a cache parameter group if it is associated with any cache clusters. You cannot delete the default cache parameter groups in your account.
+-- Deletes the specified cache parameter group. You cannot delete a cache
+-- parameter group if it is associated with any cache clusters. You cannot
+-- delete the default cache parameter groups in your account.
 module Network.AWS.ElastiCache.DeleteCacheParameterGroup
   ( -- * Creating a Request
-    deleteCacheParameterGroup,
-    DeleteCacheParameterGroup,
+    DeleteCacheParameterGroup (..),
+    newDeleteCacheParameterGroup,
 
     -- * Request Lenses
-    dcpgCacheParameterGroupName,
+    deleteCacheParameterGroup_cacheParameterGroupName,
 
     -- * Destructuring the Response
-    deleteCacheParameterGroupResponse,
-    DeleteCacheParameterGroupResponse,
+    DeleteCacheParameterGroupResponse (..),
+    newDeleteCacheParameterGroupResponse,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @DeleteCacheParameterGroup@ operation.
 --
---
---
--- /See:/ 'deleteCacheParameterGroup' smart constructor.
-newtype DeleteCacheParameterGroup = DeleteCacheParameterGroup'
-  { _dcpgCacheParameterGroupName ::
-      Text
+-- /See:/ 'newDeleteCacheParameterGroup' smart constructor.
+data DeleteCacheParameterGroup = DeleteCacheParameterGroup'
+  { -- | The name of the cache parameter group to delete.
+    --
+    -- The specified cache security group must not be associated with any
+    -- clusters.
+    cacheParameterGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCacheParameterGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCacheParameterGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpgCacheParameterGroupName' - The name of the cache parameter group to delete.
-deleteCacheParameterGroup ::
-  -- | 'dcpgCacheParameterGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cacheParameterGroupName', 'deleteCacheParameterGroup_cacheParameterGroupName' - The name of the cache parameter group to delete.
+--
+-- The specified cache security group must not be associated with any
+-- clusters.
+newDeleteCacheParameterGroup ::
+  -- | 'cacheParameterGroupName'
+  Prelude.Text ->
   DeleteCacheParameterGroup
-deleteCacheParameterGroup pCacheParameterGroupName_ =
-  DeleteCacheParameterGroup'
-    { _dcpgCacheParameterGroupName =
-        pCacheParameterGroupName_
-    }
+newDeleteCacheParameterGroup
+  pCacheParameterGroupName_ =
+    DeleteCacheParameterGroup'
+      { cacheParameterGroupName =
+          pCacheParameterGroupName_
+      }
 
 -- | The name of the cache parameter group to delete.
-dcpgCacheParameterGroupName :: Lens' DeleteCacheParameterGroup Text
-dcpgCacheParameterGroupName = lens _dcpgCacheParameterGroupName (\s a -> s {_dcpgCacheParameterGroupName = a})
+--
+-- The specified cache security group must not be associated with any
+-- clusters.
+deleteCacheParameterGroup_cacheParameterGroupName :: Lens.Lens' DeleteCacheParameterGroup Prelude.Text
+deleteCacheParameterGroup_cacheParameterGroupName = Lens.lens (\DeleteCacheParameterGroup' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@DeleteCacheParameterGroup' {} a -> s {cacheParameterGroupName = a} :: DeleteCacheParameterGroup)
 
-instance AWSRequest DeleteCacheParameterGroup where
+instance Prelude.AWSRequest DeleteCacheParameterGroup where
   type
     Rs DeleteCacheParameterGroup =
       DeleteCacheParameterGroupResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteCacheParameterGroupResponse'
+    Response.receiveNull
+      DeleteCacheParameterGroupResponse'
 
-instance Hashable DeleteCacheParameterGroup
+instance Prelude.Hashable DeleteCacheParameterGroup
 
-instance NFData DeleteCacheParameterGroup
+instance Prelude.NFData DeleteCacheParameterGroup
 
-instance ToHeaders DeleteCacheParameterGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteCacheParameterGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteCacheParameterGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCacheParameterGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCacheParameterGroup where
+instance Prelude.ToQuery DeleteCacheParameterGroup where
   toQuery DeleteCacheParameterGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteCacheParameterGroup" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
+          Prelude.=: ("DeleteCacheParameterGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheParameterGroupName"
-          =: _dcpgCacheParameterGroupName
+          Prelude.=: cacheParameterGroupName
       ]
 
--- | /See:/ 'deleteCacheParameterGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteCacheParameterGroupResponse' smart constructor.
 data DeleteCacheParameterGroupResponse = DeleteCacheParameterGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCacheParameterGroupResponse' with the minimum fields required to make a request.
-deleteCacheParameterGroupResponse ::
+-- |
+-- Create a value of 'DeleteCacheParameterGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteCacheParameterGroupResponse ::
   DeleteCacheParameterGroupResponse
-deleteCacheParameterGroupResponse =
+newDeleteCacheParameterGroupResponse =
   DeleteCacheParameterGroupResponse'
 
-instance NFData DeleteCacheParameterGroupResponse
+instance
+  Prelude.NFData
+    DeleteCacheParameterGroupResponse

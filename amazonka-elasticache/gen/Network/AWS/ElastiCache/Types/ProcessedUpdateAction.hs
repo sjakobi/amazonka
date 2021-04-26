@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,75 @@
 module Network.AWS.ElastiCache.Types.ProcessedUpdateAction where
 
 import Network.AWS.ElastiCache.Types.UpdateActionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Update action that has been processed for the corresponding apply/stop request
+-- | Update action that has been processed for the corresponding apply\/stop
+-- request
 --
---
---
--- /See:/ 'processedUpdateAction' smart constructor.
+-- /See:/ 'newProcessedUpdateAction' smart constructor.
 data ProcessedUpdateAction = ProcessedUpdateAction'
-  { _puaReplicationGroupId ::
-      !(Maybe Text),
-    _puaUpdateActionStatus ::
-      !(Maybe UpdateActionStatus),
-    _puaCacheClusterId ::
-      !(Maybe Text),
-    _puaServiceUpdateName ::
-      !(Maybe Text)
+  { -- | The ID of the replication group
+    replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the update action on the Redis cluster
+    updateActionStatus :: Prelude.Maybe UpdateActionStatus,
+    -- | The ID of the cache cluster
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the service update
+    serviceUpdateName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessedUpdateAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessedUpdateAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'puaReplicationGroupId' - The ID of the replication group
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'puaUpdateActionStatus' - The status of the update action on the Redis cluster
+-- 'replicationGroupId', 'processedUpdateAction_replicationGroupId' - The ID of the replication group
 --
--- * 'puaCacheClusterId' - The ID of the cache cluster
+-- 'updateActionStatus', 'processedUpdateAction_updateActionStatus' - The status of the update action on the Redis cluster
 --
--- * 'puaServiceUpdateName' - The unique ID of the service update
-processedUpdateAction ::
+-- 'cacheClusterId', 'processedUpdateAction_cacheClusterId' - The ID of the cache cluster
+--
+-- 'serviceUpdateName', 'processedUpdateAction_serviceUpdateName' - The unique ID of the service update
+newProcessedUpdateAction ::
   ProcessedUpdateAction
-processedUpdateAction =
+newProcessedUpdateAction =
   ProcessedUpdateAction'
-    { _puaReplicationGroupId =
-        Nothing,
-      _puaUpdateActionStatus = Nothing,
-      _puaCacheClusterId = Nothing,
-      _puaServiceUpdateName = Nothing
+    { replicationGroupId =
+        Prelude.Nothing,
+      updateActionStatus = Prelude.Nothing,
+      cacheClusterId = Prelude.Nothing,
+      serviceUpdateName = Prelude.Nothing
     }
 
 -- | The ID of the replication group
-puaReplicationGroupId :: Lens' ProcessedUpdateAction (Maybe Text)
-puaReplicationGroupId = lens _puaReplicationGroupId (\s a -> s {_puaReplicationGroupId = a})
+processedUpdateAction_replicationGroupId :: Lens.Lens' ProcessedUpdateAction (Prelude.Maybe Prelude.Text)
+processedUpdateAction_replicationGroupId = Lens.lens (\ProcessedUpdateAction' {replicationGroupId} -> replicationGroupId) (\s@ProcessedUpdateAction' {} a -> s {replicationGroupId = a} :: ProcessedUpdateAction)
 
 -- | The status of the update action on the Redis cluster
-puaUpdateActionStatus :: Lens' ProcessedUpdateAction (Maybe UpdateActionStatus)
-puaUpdateActionStatus = lens _puaUpdateActionStatus (\s a -> s {_puaUpdateActionStatus = a})
+processedUpdateAction_updateActionStatus :: Lens.Lens' ProcessedUpdateAction (Prelude.Maybe UpdateActionStatus)
+processedUpdateAction_updateActionStatus = Lens.lens (\ProcessedUpdateAction' {updateActionStatus} -> updateActionStatus) (\s@ProcessedUpdateAction' {} a -> s {updateActionStatus = a} :: ProcessedUpdateAction)
 
 -- | The ID of the cache cluster
-puaCacheClusterId :: Lens' ProcessedUpdateAction (Maybe Text)
-puaCacheClusterId = lens _puaCacheClusterId (\s a -> s {_puaCacheClusterId = a})
+processedUpdateAction_cacheClusterId :: Lens.Lens' ProcessedUpdateAction (Prelude.Maybe Prelude.Text)
+processedUpdateAction_cacheClusterId = Lens.lens (\ProcessedUpdateAction' {cacheClusterId} -> cacheClusterId) (\s@ProcessedUpdateAction' {} a -> s {cacheClusterId = a} :: ProcessedUpdateAction)
 
 -- | The unique ID of the service update
-puaServiceUpdateName :: Lens' ProcessedUpdateAction (Maybe Text)
-puaServiceUpdateName = lens _puaServiceUpdateName (\s a -> s {_puaServiceUpdateName = a})
+processedUpdateAction_serviceUpdateName :: Lens.Lens' ProcessedUpdateAction (Prelude.Maybe Prelude.Text)
+processedUpdateAction_serviceUpdateName = Lens.lens (\ProcessedUpdateAction' {serviceUpdateName} -> serviceUpdateName) (\s@ProcessedUpdateAction' {} a -> s {serviceUpdateName = a} :: ProcessedUpdateAction)
 
-instance FromXML ProcessedUpdateAction where
+instance Prelude.FromXML ProcessedUpdateAction where
   parseXML x =
     ProcessedUpdateAction'
-      <$> (x .@? "ReplicationGroupId")
-      <*> (x .@? "UpdateActionStatus")
-      <*> (x .@? "CacheClusterId")
-      <*> (x .@? "ServiceUpdateName")
+      Prelude.<$> (x Prelude..@? "ReplicationGroupId")
+      Prelude.<*> (x Prelude..@? "UpdateActionStatus")
+      Prelude.<*> (x Prelude..@? "CacheClusterId")
+      Prelude.<*> (x Prelude..@? "ServiceUpdateName")
 
-instance Hashable ProcessedUpdateAction
+instance Prelude.Hashable ProcessedUpdateAction
 
-instance NFData ProcessedUpdateAction
+instance Prelude.NFData ProcessedUpdateAction

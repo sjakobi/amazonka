@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Dynamically increases the number of replicas in a Redis (cluster mode disabled) replication group or the number of replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This operation is performed with no cluster down time.
+-- Dynamically increases the number of replicas in a Redis (cluster mode
+-- disabled) replication group or the number of replica nodes in one or
+-- more node groups (shards) of a Redis (cluster mode enabled) replication
+-- group. This operation is performed with no cluster down time.
 module Network.AWS.ElastiCache.IncreaseReplicaCount
   ( -- * Creating a Request
-    increaseReplicaCount,
-    IncreaseReplicaCount,
+    IncreaseReplicaCount (..),
+    newIncreaseReplicaCount,
 
     -- * Request Lenses
-    ircNewReplicaCount,
-    ircReplicaConfiguration,
-    ircReplicationGroupId,
-    ircApplyImmediately,
+    increaseReplicaCount_newReplicaCount,
+    increaseReplicaCount_replicaConfiguration,
+    increaseReplicaCount_replicationGroupId,
+    increaseReplicaCount_applyImmediately,
 
     -- * Destructuring the Response
-    increaseReplicaCountResponse,
-    IncreaseReplicaCountResponse,
+    IncreaseReplicaCountResponse (..),
+    newIncreaseReplicaCountResponse,
 
     -- * Response Lenses
-    ircrrsReplicationGroup,
-    ircrrsResponseStatus,
+    increaseReplicaCountResponse_replicationGroup,
+    increaseReplicaCountResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElastiCache.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElastiCache.Types.ReplicationGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'increaseReplicaCount' smart constructor.
+-- | /See:/ 'newIncreaseReplicaCount' smart constructor.
 data IncreaseReplicaCount = IncreaseReplicaCount'
-  { _ircNewReplicaCount ::
-      !(Maybe Int),
-    _ircReplicaConfiguration ::
-      !(Maybe [ConfigureShard]),
-    _ircReplicationGroupId ::
-      !Text,
-    _ircApplyImmediately :: !Bool
+  { -- | The number of read replica nodes you want at the completion of this
+    -- operation. For Redis (cluster mode disabled) replication groups, this is
+    -- the number of replica nodes in the replication group. For Redis (cluster
+    -- mode enabled) replication groups, this is the number of replica nodes in
+    -- each of the replication group\'s node groups.
+    newReplicaCount' :: Prelude.Maybe Prelude.Int,
+    -- | A list of @ConfigureShard@ objects that can be used to configure each
+    -- shard in a Redis (cluster mode enabled) replication group. The
+    -- @ConfigureShard@ has three members: @NewReplicaCount@, @NodeGroupId@,
+    -- and @PreferredAvailabilityZones@.
+    replicaConfiguration :: Prelude.Maybe [ConfigureShard],
+    -- | The id of the replication group to which you want to add replica nodes.
+    replicationGroupId :: Prelude.Text,
+    -- | If @True@, the number of replica nodes is increased immediately.
+    -- @ApplyImmediately=False@ is not currently supported.
+    applyImmediately :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IncreaseReplicaCount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IncreaseReplicaCount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ircNewReplicaCount' - The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode disabled) replication groups, this is the number of replica nodes in the replication group. For Redis (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication group's node groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ircReplicaConfiguration' - A list of @ConfigureShard@ objects that can be used to configure each shard in a Redis (cluster mode enabled) replication group. The @ConfigureShard@ has three members: @NewReplicaCount@ , @NodeGroupId@ , and @PreferredAvailabilityZones@ .
+-- 'newReplicaCount'', 'increaseReplicaCount_newReplicaCount' - The number of read replica nodes you want at the completion of this
+-- operation. For Redis (cluster mode disabled) replication groups, this is
+-- the number of replica nodes in the replication group. For Redis (cluster
+-- mode enabled) replication groups, this is the number of replica nodes in
+-- each of the replication group\'s node groups.
 --
--- * 'ircReplicationGroupId' - The id of the replication group to which you want to add replica nodes.
+-- 'replicaConfiguration', 'increaseReplicaCount_replicaConfiguration' - A list of @ConfigureShard@ objects that can be used to configure each
+-- shard in a Redis (cluster mode enabled) replication group. The
+-- @ConfigureShard@ has three members: @NewReplicaCount@, @NodeGroupId@,
+-- and @PreferredAvailabilityZones@.
 --
--- * 'ircApplyImmediately' - If @True@ , the number of replica nodes is increased immediately. @ApplyImmediately=False@ is not currently supported.
-increaseReplicaCount ::
-  -- | 'ircReplicationGroupId'
-  Text ->
-  -- | 'ircApplyImmediately'
-  Bool ->
+-- 'replicationGroupId', 'increaseReplicaCount_replicationGroupId' - The id of the replication group to which you want to add replica nodes.
+--
+-- 'applyImmediately', 'increaseReplicaCount_applyImmediately' - If @True@, the number of replica nodes is increased immediately.
+-- @ApplyImmediately=False@ is not currently supported.
+newIncreaseReplicaCount ::
+  -- | 'replicationGroupId'
+  Prelude.Text ->
+  -- | 'applyImmediately'
+  Prelude.Bool ->
   IncreaseReplicaCount
-increaseReplicaCount
+newIncreaseReplicaCount
   pReplicationGroupId_
   pApplyImmediately_ =
     IncreaseReplicaCount'
-      { _ircNewReplicaCount =
-          Nothing,
-        _ircReplicaConfiguration = Nothing,
-        _ircReplicationGroupId = pReplicationGroupId_,
-        _ircApplyImmediately = pApplyImmediately_
+      { newReplicaCount' =
+          Prelude.Nothing,
+        replicaConfiguration = Prelude.Nothing,
+        replicationGroupId = pReplicationGroupId_,
+        applyImmediately = pApplyImmediately_
       }
 
--- | The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode disabled) replication groups, this is the number of replica nodes in the replication group. For Redis (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication group's node groups.
-ircNewReplicaCount :: Lens' IncreaseReplicaCount (Maybe Int)
-ircNewReplicaCount = lens _ircNewReplicaCount (\s a -> s {_ircNewReplicaCount = a})
+-- | The number of read replica nodes you want at the completion of this
+-- operation. For Redis (cluster mode disabled) replication groups, this is
+-- the number of replica nodes in the replication group. For Redis (cluster
+-- mode enabled) replication groups, this is the number of replica nodes in
+-- each of the replication group\'s node groups.
+increaseReplicaCount_newReplicaCount :: Lens.Lens' IncreaseReplicaCount (Prelude.Maybe Prelude.Int)
+increaseReplicaCount_newReplicaCount = Lens.lens (\IncreaseReplicaCount' {newReplicaCount'} -> newReplicaCount') (\s@IncreaseReplicaCount' {} a -> s {newReplicaCount' = a} :: IncreaseReplicaCount)
 
--- | A list of @ConfigureShard@ objects that can be used to configure each shard in a Redis (cluster mode enabled) replication group. The @ConfigureShard@ has three members: @NewReplicaCount@ , @NodeGroupId@ , and @PreferredAvailabilityZones@ .
-ircReplicaConfiguration :: Lens' IncreaseReplicaCount [ConfigureShard]
-ircReplicaConfiguration = lens _ircReplicaConfiguration (\s a -> s {_ircReplicaConfiguration = a}) . _Default . _Coerce
+-- | A list of @ConfigureShard@ objects that can be used to configure each
+-- shard in a Redis (cluster mode enabled) replication group. The
+-- @ConfigureShard@ has three members: @NewReplicaCount@, @NodeGroupId@,
+-- and @PreferredAvailabilityZones@.
+increaseReplicaCount_replicaConfiguration :: Lens.Lens' IncreaseReplicaCount (Prelude.Maybe [ConfigureShard])
+increaseReplicaCount_replicaConfiguration = Lens.lens (\IncreaseReplicaCount' {replicaConfiguration} -> replicaConfiguration) (\s@IncreaseReplicaCount' {} a -> s {replicaConfiguration = a} :: IncreaseReplicaCount) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The id of the replication group to which you want to add replica nodes.
-ircReplicationGroupId :: Lens' IncreaseReplicaCount Text
-ircReplicationGroupId = lens _ircReplicationGroupId (\s a -> s {_ircReplicationGroupId = a})
+increaseReplicaCount_replicationGroupId :: Lens.Lens' IncreaseReplicaCount Prelude.Text
+increaseReplicaCount_replicationGroupId = Lens.lens (\IncreaseReplicaCount' {replicationGroupId} -> replicationGroupId) (\s@IncreaseReplicaCount' {} a -> s {replicationGroupId = a} :: IncreaseReplicaCount)
 
--- | If @True@ , the number of replica nodes is increased immediately. @ApplyImmediately=False@ is not currently supported.
-ircApplyImmediately :: Lens' IncreaseReplicaCount Bool
-ircApplyImmediately = lens _ircApplyImmediately (\s a -> s {_ircApplyImmediately = a})
+-- | If @True@, the number of replica nodes is increased immediately.
+-- @ApplyImmediately=False@ is not currently supported.
+increaseReplicaCount_applyImmediately :: Lens.Lens' IncreaseReplicaCount Prelude.Bool
+increaseReplicaCount_applyImmediately = Lens.lens (\IncreaseReplicaCount' {applyImmediately} -> applyImmediately) (\s@IncreaseReplicaCount' {} a -> s {applyImmediately = a} :: IncreaseReplicaCount)
 
-instance AWSRequest IncreaseReplicaCount where
+instance Prelude.AWSRequest IncreaseReplicaCount where
   type
     Rs IncreaseReplicaCount =
       IncreaseReplicaCountResponse
-  request = postQuery elastiCache
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "IncreaseReplicaCountResult"
       ( \s h x ->
           IncreaseReplicaCountResponse'
-            <$> (x .@? "ReplicationGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ReplicationGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable IncreaseReplicaCount
+instance Prelude.Hashable IncreaseReplicaCount
 
-instance NFData IncreaseReplicaCount
+instance Prelude.NFData IncreaseReplicaCount
 
-instance ToHeaders IncreaseReplicaCount where
-  toHeaders = const mempty
+instance Prelude.ToHeaders IncreaseReplicaCount where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath IncreaseReplicaCount where
-  toPath = const "/"
+instance Prelude.ToPath IncreaseReplicaCount where
+  toPath = Prelude.const "/"
 
-instance ToQuery IncreaseReplicaCount where
+instance Prelude.ToQuery IncreaseReplicaCount where
   toQuery IncreaseReplicaCount' {..} =
-    mconcat
-      [ "Action" =: ("IncreaseReplicaCount" :: ByteString),
-        "Version" =: ("2015-02-02" :: ByteString),
-        "NewReplicaCount" =: _ircNewReplicaCount,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("IncreaseReplicaCount" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2015-02-02" :: Prelude.ByteString),
+        "NewReplicaCount" Prelude.=: newReplicaCount',
         "ReplicaConfiguration"
-          =: toQuery
-            ( toQueryList "ConfigureShard"
-                <$> _ircReplicaConfiguration
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "ConfigureShard"
+                Prelude.<$> replicaConfiguration
             ),
-        "ReplicationGroupId" =: _ircReplicationGroupId,
-        "ApplyImmediately" =: _ircApplyImmediately
+        "ReplicationGroupId" Prelude.=: replicationGroupId,
+        "ApplyImmediately" Prelude.=: applyImmediately
       ]
 
--- | /See:/ 'increaseReplicaCountResponse' smart constructor.
+-- | /See:/ 'newIncreaseReplicaCountResponse' smart constructor.
 data IncreaseReplicaCountResponse = IncreaseReplicaCountResponse'
-  { _ircrrsReplicationGroup ::
-      !( Maybe
-           ReplicationGroup
-       ),
-    _ircrrsResponseStatus ::
-      !Int
+  { replicationGroup :: Prelude.Maybe ReplicationGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IncreaseReplicaCountResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IncreaseReplicaCountResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ircrrsReplicationGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ircrrsResponseStatus' - -- | The response status code.
-increaseReplicaCountResponse ::
-  -- | 'ircrrsResponseStatus'
-  Int ->
+-- 'replicationGroup', 'increaseReplicaCountResponse_replicationGroup' - Undocumented member.
+--
+-- 'httpStatus', 'increaseReplicaCountResponse_httpStatus' - The response's http status code.
+newIncreaseReplicaCountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   IncreaseReplicaCountResponse
-increaseReplicaCountResponse pResponseStatus_ =
+newIncreaseReplicaCountResponse pHttpStatus_ =
   IncreaseReplicaCountResponse'
-    { _ircrrsReplicationGroup =
-        Nothing,
-      _ircrrsResponseStatus = pResponseStatus_
+    { replicationGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ircrrsReplicationGroup :: Lens' IncreaseReplicaCountResponse (Maybe ReplicationGroup)
-ircrrsReplicationGroup = lens _ircrrsReplicationGroup (\s a -> s {_ircrrsReplicationGroup = a})
+increaseReplicaCountResponse_replicationGroup :: Lens.Lens' IncreaseReplicaCountResponse (Prelude.Maybe ReplicationGroup)
+increaseReplicaCountResponse_replicationGroup = Lens.lens (\IncreaseReplicaCountResponse' {replicationGroup} -> replicationGroup) (\s@IncreaseReplicaCountResponse' {} a -> s {replicationGroup = a} :: IncreaseReplicaCountResponse)
 
--- | -- | The response status code.
-ircrrsResponseStatus :: Lens' IncreaseReplicaCountResponse Int
-ircrrsResponseStatus = lens _ircrrsResponseStatus (\s a -> s {_ircrrsResponseStatus = a})
+-- | The response's http status code.
+increaseReplicaCountResponse_httpStatus :: Lens.Lens' IncreaseReplicaCountResponse Prelude.Int
+increaseReplicaCountResponse_httpStatus = Lens.lens (\IncreaseReplicaCountResponse' {httpStatus} -> httpStatus) (\s@IncreaseReplicaCountResponse' {} a -> s {httpStatus = a} :: IncreaseReplicaCountResponse)
 
-instance NFData IncreaseReplicaCountResponse
+instance Prelude.NFData IncreaseReplicaCountResponse
