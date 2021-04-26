@@ -14,7 +14,7 @@
 -- The Amazon SageMaker runtime API.
 module Network.AWS.SageMakerRuntime
   ( -- * Service Configuration
-    sageMakerRuntime,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -38,13 +38,17 @@ module Network.AWS.SageMakerRuntime
     -- $operations
 
     -- ** InvokeEndpoint
-    module Network.AWS.SageMakerRuntime.InvokeEndpoint,
+    InvokeEndpoint (InvokeEndpoint'),
+    newInvokeEndpoint,
+    InvokeEndpointResponse (InvokeEndpointResponse'),
+    newInvokeEndpointResponse,
 
     -- * Types
   )
 where
 
 import Network.AWS.SageMakerRuntime.InvokeEndpoint
+import Network.AWS.SageMakerRuntime.Lens
 import Network.AWS.SageMakerRuntime.Types
 import Network.AWS.SageMakerRuntime.Waiters
 

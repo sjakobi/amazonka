@@ -28,13 +28,13 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestInvokeEndpoint $
---             invokeEndpoint
+--             newInvokeEndpoint
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseInvokeEndpoint $
---             invokeEndpointResponse
+--             newInvokeEndpointResponse
 --
 --           ]
 --     ]
@@ -54,5 +54,5 @@ responseInvokeEndpoint =
   res
     "InvokeEndpointResponse"
     "fixture/InvokeEndpointResponse.proto"
-    sageMakerRuntime
+    defaultService
     (Proxy :: Proxy InvokeEndpoint)
