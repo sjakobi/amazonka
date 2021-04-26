@@ -11,10 +11,11 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS X-Ray provides APIs for managing debug traces and retrieving service maps and other data created by processing those traces.
+-- AWS X-Ray provides APIs for managing debug traces and retrieving service
+-- maps and other data created by processing those traces.
 module Network.AWS.XRay
   ( -- * Service Configuration
-    xRay,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -41,85 +42,166 @@ module Network.AWS.XRay
     -- $operations
 
     -- ** GetSamplingTargets
-    module Network.AWS.XRay.GetSamplingTargets,
+    GetSamplingTargets (GetSamplingTargets'),
+    newGetSamplingTargets,
+    GetSamplingTargetsResponse (GetSamplingTargetsResponse'),
+    newGetSamplingTargetsResponse,
 
     -- ** GetSamplingStatisticSummaries (Paginated)
-    module Network.AWS.XRay.GetSamplingStatisticSummaries,
+    GetSamplingStatisticSummaries (GetSamplingStatisticSummaries'),
+    newGetSamplingStatisticSummaries,
+    GetSamplingStatisticSummariesResponse (GetSamplingStatisticSummariesResponse'),
+    newGetSamplingStatisticSummariesResponse,
 
     -- ** GetInsightImpactGraph
-    module Network.AWS.XRay.GetInsightImpactGraph,
+    GetInsightImpactGraph (GetInsightImpactGraph'),
+    newGetInsightImpactGraph,
+    GetInsightImpactGraphResponse (GetInsightImpactGraphResponse'),
+    newGetInsightImpactGraphResponse,
 
     -- ** GetTraceGraph (Paginated)
-    module Network.AWS.XRay.GetTraceGraph,
+    GetTraceGraph (GetTraceGraph'),
+    newGetTraceGraph,
+    GetTraceGraphResponse (GetTraceGraphResponse'),
+    newGetTraceGraphResponse,
 
     -- ** UntagResource
-    module Network.AWS.XRay.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** CreateGroup
-    module Network.AWS.XRay.CreateGroup,
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
 
     -- ** GetInsight
-    module Network.AWS.XRay.GetInsight,
+    GetInsight (GetInsight'),
+    newGetInsight,
+    GetInsightResponse (GetInsightResponse'),
+    newGetInsightResponse,
 
     -- ** PutTraceSegments
-    module Network.AWS.XRay.PutTraceSegments,
+    PutTraceSegments (PutTraceSegments'),
+    newPutTraceSegments,
+    PutTraceSegmentsResponse (PutTraceSegmentsResponse'),
+    newPutTraceSegmentsResponse,
 
     -- ** GetTimeSeriesServiceStatistics (Paginated)
-    module Network.AWS.XRay.GetTimeSeriesServiceStatistics,
+    GetTimeSeriesServiceStatistics (GetTimeSeriesServiceStatistics'),
+    newGetTimeSeriesServiceStatistics,
+    GetTimeSeriesServiceStatisticsResponse (GetTimeSeriesServiceStatisticsResponse'),
+    newGetTimeSeriesServiceStatisticsResponse,
 
     -- ** TagResource
-    module Network.AWS.XRay.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** PutTelemetryRecords
-    module Network.AWS.XRay.PutTelemetryRecords,
+    PutTelemetryRecords (PutTelemetryRecords'),
+    newPutTelemetryRecords,
+    PutTelemetryRecordsResponse (PutTelemetryRecordsResponse'),
+    newPutTelemetryRecordsResponse,
 
     -- ** BatchGetTraces (Paginated)
-    module Network.AWS.XRay.BatchGetTraces,
+    BatchGetTraces (BatchGetTraces'),
+    newBatchGetTraces,
+    BatchGetTracesResponse (BatchGetTracesResponse'),
+    newBatchGetTracesResponse,
 
     -- ** GetTraceSummaries (Paginated)
-    module Network.AWS.XRay.GetTraceSummaries,
+    GetTraceSummaries (GetTraceSummaries'),
+    newGetTraceSummaries,
+    GetTraceSummariesResponse (GetTraceSummariesResponse'),
+    newGetTraceSummariesResponse,
 
     -- ** GetInsightSummaries
-    module Network.AWS.XRay.GetInsightSummaries,
+    GetInsightSummaries (GetInsightSummaries'),
+    newGetInsightSummaries,
+    GetInsightSummariesResponse (GetInsightSummariesResponse'),
+    newGetInsightSummariesResponse,
 
     -- ** GetGroups (Paginated)
-    module Network.AWS.XRay.GetGroups,
+    GetGroups (GetGroups'),
+    newGetGroups,
+    GetGroupsResponse (GetGroupsResponse'),
+    newGetGroupsResponse,
 
     -- ** GetInsightEvents
-    module Network.AWS.XRay.GetInsightEvents,
+    GetInsightEvents (GetInsightEvents'),
+    newGetInsightEvents,
+    GetInsightEventsResponse (GetInsightEventsResponse'),
+    newGetInsightEventsResponse,
 
     -- ** GetServiceGraph (Paginated)
-    module Network.AWS.XRay.GetServiceGraph,
+    GetServiceGraph (GetServiceGraph'),
+    newGetServiceGraph,
+    GetServiceGraphResponse (GetServiceGraphResponse'),
+    newGetServiceGraphResponse,
 
     -- ** PutEncryptionConfig
-    module Network.AWS.XRay.PutEncryptionConfig,
+    PutEncryptionConfig (PutEncryptionConfig'),
+    newPutEncryptionConfig,
+    PutEncryptionConfigResponse (PutEncryptionConfigResponse'),
+    newPutEncryptionConfigResponse,
 
     -- ** DeleteSamplingRule
-    module Network.AWS.XRay.DeleteSamplingRule,
+    DeleteSamplingRule (DeleteSamplingRule'),
+    newDeleteSamplingRule,
+    DeleteSamplingRuleResponse (DeleteSamplingRuleResponse'),
+    newDeleteSamplingRuleResponse,
 
     -- ** UpdateSamplingRule
-    module Network.AWS.XRay.UpdateSamplingRule,
+    UpdateSamplingRule (UpdateSamplingRule'),
+    newUpdateSamplingRule,
+    UpdateSamplingRuleResponse (UpdateSamplingRuleResponse'),
+    newUpdateSamplingRuleResponse,
 
     -- ** GetGroup
-    module Network.AWS.XRay.GetGroup,
+    GetGroup (GetGroup'),
+    newGetGroup,
+    GetGroupResponse (GetGroupResponse'),
+    newGetGroupResponse,
 
     -- ** CreateSamplingRule
-    module Network.AWS.XRay.CreateSamplingRule,
+    CreateSamplingRule (CreateSamplingRule'),
+    newCreateSamplingRule,
+    CreateSamplingRuleResponse (CreateSamplingRuleResponse'),
+    newCreateSamplingRuleResponse,
 
     -- ** UpdateGroup
-    module Network.AWS.XRay.UpdateGroup,
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
 
     -- ** DeleteGroup
-    module Network.AWS.XRay.DeleteGroup,
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
 
     -- ** GetEncryptionConfig
-    module Network.AWS.XRay.GetEncryptionConfig,
+    GetEncryptionConfig (GetEncryptionConfig'),
+    newGetEncryptionConfig,
+    GetEncryptionConfigResponse (GetEncryptionConfigResponse'),
+    newGetEncryptionConfigResponse,
 
     -- ** GetSamplingRules (Paginated)
-    module Network.AWS.XRay.GetSamplingRules,
+    GetSamplingRules (GetSamplingRules'),
+    newGetSamplingRules,
+    GetSamplingRulesResponse (GetSamplingRulesResponse'),
+    newGetSamplingRulesResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.XRay.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
@@ -142,466 +224,220 @@ module Network.AWS.XRay
     TimeRangeType (..),
 
     -- ** Alias
-    Alias,
-    alias,
-    aNames,
-    aName,
-    aType,
+    Alias (Alias'),
+    newAlias,
 
     -- ** AnnotationValue
-    AnnotationValue,
-    annotationValue,
-    avStringValue,
-    avBooleanValue,
-    avNumberValue,
+    AnnotationValue (AnnotationValue'),
+    newAnnotationValue,
 
     -- ** AnomalousService
-    AnomalousService,
-    anomalousService,
-    asServiceId,
+    AnomalousService (AnomalousService'),
+    newAnomalousService,
 
     -- ** AvailabilityZoneDetail
-    AvailabilityZoneDetail,
-    availabilityZoneDetail,
-    azdName,
+    AvailabilityZoneDetail (AvailabilityZoneDetail'),
+    newAvailabilityZoneDetail,
 
     -- ** BackendConnectionErrors
-    BackendConnectionErrors,
-    backendConnectionErrors,
-    bceOtherCount,
-    bceConnectionRefusedCount,
-    bceHTTPCode5XXCount,
-    bceTimeoutCount,
-    bceUnknownHostCount,
-    bceHTTPCode4XXCount,
+    BackendConnectionErrors (BackendConnectionErrors'),
+    newBackendConnectionErrors,
 
     -- ** Edge
-    Edge,
-    edge,
-    eSummaryStatistics,
-    eResponseTimeHistogram,
-    eReferenceId,
-    eStartTime,
-    eEndTime,
-    eAliases,
+    Edge (Edge'),
+    newEdge,
 
     -- ** EdgeStatistics
-    EdgeStatistics,
-    edgeStatistics,
-    eTotalResponseTime,
-    eOKCount,
-    eFaultStatistics,
-    eTotalCount,
-    eErrorStatistics,
+    EdgeStatistics (EdgeStatistics'),
+    newEdgeStatistics,
 
     -- ** EncryptionConfig
-    EncryptionConfig,
-    encryptionConfig,
-    ecStatus,
-    ecType,
-    ecKeyId,
+    EncryptionConfig (EncryptionConfig'),
+    newEncryptionConfig,
 
     -- ** ErrorRootCause
-    ErrorRootCause,
-    errorRootCause,
-    ercServices,
-    ercClientImpacting,
+    ErrorRootCause (ErrorRootCause'),
+    newErrorRootCause,
 
     -- ** ErrorRootCauseEntity
-    ErrorRootCauseEntity,
-    errorRootCauseEntity,
-    erceExceptions,
-    erceRemote,
-    erceName,
+    ErrorRootCauseEntity (ErrorRootCauseEntity'),
+    newErrorRootCauseEntity,
 
     -- ** ErrorRootCauseService
-    ErrorRootCauseService,
-    errorRootCauseService,
-    ercsNames,
-    ercsAccountId,
-    ercsInferred,
-    ercsName,
-    ercsEntityPath,
-    ercsType,
+    ErrorRootCauseService (ErrorRootCauseService'),
+    newErrorRootCauseService,
 
     -- ** ErrorStatistics
-    ErrorStatistics,
-    errorStatistics,
-    esOtherCount,
-    esThrottleCount,
-    esTotalCount,
+    ErrorStatistics (ErrorStatistics'),
+    newErrorStatistics,
 
     -- ** FaultRootCause
-    FaultRootCause,
-    faultRootCause,
-    frcServices,
-    frcClientImpacting,
+    FaultRootCause (FaultRootCause'),
+    newFaultRootCause,
 
     -- ** FaultRootCauseEntity
-    FaultRootCauseEntity,
-    faultRootCauseEntity,
-    frceExceptions,
-    frceRemote,
-    frceName,
+    FaultRootCauseEntity (FaultRootCauseEntity'),
+    newFaultRootCauseEntity,
 
     -- ** FaultRootCauseService
-    FaultRootCauseService,
-    faultRootCauseService,
-    frcsNames,
-    frcsAccountId,
-    frcsInferred,
-    frcsName,
-    frcsEntityPath,
-    frcsType,
+    FaultRootCauseService (FaultRootCauseService'),
+    newFaultRootCauseService,
 
     -- ** FaultStatistics
-    FaultStatistics,
-    faultStatistics,
-    fsOtherCount,
-    fsTotalCount,
+    FaultStatistics (FaultStatistics'),
+    newFaultStatistics,
 
     -- ** ForecastStatistics
-    ForecastStatistics,
-    forecastStatistics,
-    fsFaultCountLow,
-    fsFaultCountHigh,
+    ForecastStatistics (ForecastStatistics'),
+    newForecastStatistics,
 
     -- ** Group
-    Group,
-    group',
-    gGroupName,
-    gInsightsConfiguration,
-    gFilterExpression,
-    gGroupARN,
+    Group (Group'),
+    newGroup,
 
     -- ** GroupSummary
-    GroupSummary,
-    groupSummary,
-    gsGroupName,
-    gsInsightsConfiguration,
-    gsFilterExpression,
-    gsGroupARN,
-
-    -- ** HTTP
-    HTTP,
-    hTTP,
-    httpHTTPMethod,
-    httpHTTPURL,
-    httpUserAgent,
-    httpHTTPStatus,
-    httpClientIP,
+    GroupSummary (GroupSummary'),
+    newGroupSummary,
 
     -- ** HistogramEntry
-    HistogramEntry,
-    histogramEntry,
-    heValue,
-    heCount,
+    HistogramEntry (HistogramEntry'),
+    newHistogramEntry,
+
+    -- ** Http
+    Http (Http'),
+    newHttp,
 
     -- ** Insight
-    Insight,
-    insight,
-    iClientRequestImpactStatistics,
-    iRootCauseServiceRequestImpactStatistics,
-    iGroupName,
-    iStartTime,
-    iEndTime,
-    iRootCauseServiceId,
-    iState,
-    iSummary,
-    iTopAnomalousServices,
-    iCategories,
-    iInsightId,
-    iGroupARN,
+    Insight (Insight'),
+    newInsight,
 
     -- ** InsightEvent
-    InsightEvent,
-    insightEvent,
-    ieClientRequestImpactStatistics,
-    ieRootCauseServiceRequestImpactStatistics,
-    ieSummary,
-    ieTopAnomalousServices,
-    ieEventTime,
+    InsightEvent (InsightEvent'),
+    newInsightEvent,
 
     -- ** InsightImpactGraphEdge
-    InsightImpactGraphEdge,
-    insightImpactGraphEdge,
-    iigeReferenceId,
+    InsightImpactGraphEdge (InsightImpactGraphEdge'),
+    newInsightImpactGraphEdge,
 
     -- ** InsightImpactGraphService
-    InsightImpactGraphService,
-    insightImpactGraphService,
-    iigsNames,
-    iigsAccountId,
-    iigsReferenceId,
-    iigsEdges,
-    iigsName,
-    iigsType,
+    InsightImpactGraphService (InsightImpactGraphService'),
+    newInsightImpactGraphService,
 
     -- ** InsightSummary
-    InsightSummary,
-    insightSummary,
-    isClientRequestImpactStatistics,
-    isRootCauseServiceRequestImpactStatistics,
-    isLastUpdateTime,
-    isGroupName,
-    isStartTime,
-    isEndTime,
-    isRootCauseServiceId,
-    isState,
-    isSummary,
-    isTopAnomalousServices,
-    isCategories,
-    isInsightId,
-    isGroupARN,
+    InsightSummary (InsightSummary'),
+    newInsightSummary,
 
     -- ** InsightsConfiguration
-    InsightsConfiguration,
-    insightsConfiguration,
-    icNotificationsEnabled,
-    icInsightsEnabled,
+    InsightsConfiguration (InsightsConfiguration'),
+    newInsightsConfiguration,
 
     -- ** InstanceIdDetail
-    InstanceIdDetail,
-    instanceIdDetail,
-    iidId,
+    InstanceIdDetail (InstanceIdDetail'),
+    newInstanceIdDetail,
 
     -- ** RequestImpactStatistics
-    RequestImpactStatistics,
-    requestImpactStatistics,
-    risOKCount,
-    risFaultCount,
-    risTotalCount,
+    RequestImpactStatistics (RequestImpactStatistics'),
+    newRequestImpactStatistics,
 
     -- ** ResourceARNDetail
-    ResourceARNDetail,
-    resourceARNDetail,
-    radARN,
+    ResourceARNDetail (ResourceARNDetail'),
+    newResourceARNDetail,
 
     -- ** ResponseTimeRootCause
-    ResponseTimeRootCause,
-    responseTimeRootCause,
-    rtrcServices,
-    rtrcClientImpacting,
+    ResponseTimeRootCause (ResponseTimeRootCause'),
+    newResponseTimeRootCause,
 
     -- ** ResponseTimeRootCauseEntity
-    ResponseTimeRootCauseEntity,
-    responseTimeRootCauseEntity,
-    rtrceRemote,
-    rtrceName,
-    rtrceCoverage,
+    ResponseTimeRootCauseEntity (ResponseTimeRootCauseEntity'),
+    newResponseTimeRootCauseEntity,
 
     -- ** ResponseTimeRootCauseService
-    ResponseTimeRootCauseService,
-    responseTimeRootCauseService,
-    rtrcsNames,
-    rtrcsAccountId,
-    rtrcsInferred,
-    rtrcsName,
-    rtrcsEntityPath,
-    rtrcsType,
+    ResponseTimeRootCauseService (ResponseTimeRootCauseService'),
+    newResponseTimeRootCauseService,
 
     -- ** RootCauseException
-    RootCauseException,
-    rootCauseException,
-    rceMessage,
-    rceName,
+    RootCauseException (RootCauseException'),
+    newRootCauseException,
 
     -- ** SamplingRule
-    SamplingRule,
-    samplingRule,
-    srRuleName,
-    srRuleARN,
-    srAttributes,
-    srResourceARN,
-    srPriority,
-    srFixedRate,
-    srReservoirSize,
-    srServiceName,
-    srServiceType,
-    srHost,
-    srHTTPMethod,
-    srURLPath,
-    srVersion,
+    SamplingRule (SamplingRule'),
+    newSamplingRule,
 
     -- ** SamplingRuleRecord
-    SamplingRuleRecord,
-    samplingRuleRecord,
-    srrModifiedAt,
-    srrCreatedAt,
-    srrSamplingRule,
+    SamplingRuleRecord (SamplingRuleRecord'),
+    newSamplingRuleRecord,
 
     -- ** SamplingRuleUpdate
-    SamplingRuleUpdate,
-    samplingRuleUpdate,
-    sruResourceARN,
-    sruHTTPMethod,
-    sruReservoirSize,
-    sruFixedRate,
-    sruRuleName,
-    sruRuleARN,
-    sruServiceName,
-    sruPriority,
-    sruAttributes,
-    sruURLPath,
-    sruHost,
-    sruServiceType,
+    SamplingRuleUpdate (SamplingRuleUpdate'),
+    newSamplingRuleUpdate,
 
     -- ** SamplingStatisticSummary
-    SamplingStatisticSummary,
-    samplingStatisticSummary,
-    sssRuleName,
-    sssBorrowCount,
-    sssRequestCount,
-    sssSampledCount,
-    sssTimestamp,
+    SamplingStatisticSummary (SamplingStatisticSummary'),
+    newSamplingStatisticSummary,
 
     -- ** SamplingStatisticsDocument
-    SamplingStatisticsDocument,
-    samplingStatisticsDocument,
-    ssdBorrowCount,
-    ssdRuleName,
-    ssdClientId,
-    ssdTimestamp,
-    ssdRequestCount,
-    ssdSampledCount,
+    SamplingStatisticsDocument (SamplingStatisticsDocument'),
+    newSamplingStatisticsDocument,
 
     -- ** SamplingStrategy
-    SamplingStrategy,
-    samplingStrategy,
-    ssName,
-    ssValue,
+    SamplingStrategy (SamplingStrategy'),
+    newSamplingStrategy,
 
     -- ** SamplingTargetDocument
-    SamplingTargetDocument,
-    samplingTargetDocument,
-    stdReservoirQuota,
-    stdFixedRate,
-    stdRuleName,
-    stdReservoirQuotaTTL,
-    stdInterval,
+    SamplingTargetDocument (SamplingTargetDocument'),
+    newSamplingTargetDocument,
 
     -- ** Segment
-    Segment,
-    segment,
-    sId,
-    sDocument,
+    Segment (Segment'),
+    newSegment,
 
     -- ** ServiceId
-    ServiceId,
-    serviceId,
-    siNames,
-    siAccountId,
-    siName,
-    siType,
+    ServiceId (ServiceId'),
+    newServiceId,
 
     -- ** ServiceInfo
-    ServiceInfo,
-    serviceInfo,
-    sNames,
-    sAccountId,
-    sSummaryStatistics,
-    sResponseTimeHistogram,
-    sReferenceId,
-    sDurationHistogram,
-    sEdges,
-    sStartTime,
-    sEndTime,
-    sState,
-    sName,
-    sRoot,
-    sType,
+    ServiceInfo (ServiceInfo'),
+    newServiceInfo,
 
     -- ** ServiceStatistics
-    ServiceStatistics,
-    serviceStatistics,
-    ssTotalResponseTime,
-    ssOKCount,
-    ssFaultStatistics,
-    ssTotalCount,
-    ssErrorStatistics,
+    ServiceStatistics (ServiceStatistics'),
+    newServiceStatistics,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TelemetryRecord
-    TelemetryRecord,
-    telemetryRecord,
-    trSegmentsSpilloverCount,
-    trBackendConnectionErrors,
-    trSegmentsRejectedCount,
-    trSegmentsSentCount,
-    trSegmentsReceivedCount,
-    trTimestamp,
+    TelemetryRecord (TelemetryRecord'),
+    newTelemetryRecord,
 
     -- ** TimeSeriesServiceStatistics
-    TimeSeriesServiceStatistics,
-    timeSeriesServiceStatistics,
-    tsssServiceSummaryStatistics,
-    tsssResponseTimeHistogram,
-    tsssServiceForecastStatistics,
-    tsssEdgeSummaryStatistics,
-    tsssTimestamp,
+    TimeSeriesServiceStatistics (TimeSeriesServiceStatistics'),
+    newTimeSeriesServiceStatistics,
 
     -- ** Trace
-    Trace,
-    trace,
-    tLimitExceeded,
-    tDuration,
-    tId,
-    tSegments,
+    Trace (Trace'),
+    newTrace,
 
     -- ** TraceSummary
-    TraceSummary,
-    traceSummary,
-    tsInstanceIds,
-    tsErrorRootCauses,
-    tsAvailabilityZones,
-    tsResponseTime,
-    tsDuration,
-    tsMatchedEventTime,
-    tsServiceIds,
-    tsHasFault,
-    tsEntryPoint,
-    tsId,
-    tsAnnotations,
-    tsResourceARNs,
-    tsIsPartial,
-    tsFaultRootCauses,
-    tsRevision,
-    tsHTTP,
-    tsHasError,
-    tsUsers,
-    tsHasThrottle,
-    tsResponseTimeRootCauses,
+    TraceSummary (TraceSummary'),
+    newTraceSummary,
 
     -- ** TraceUser
-    TraceUser,
-    traceUser,
-    tuServiceIds,
-    tuUserName,
+    TraceUser (TraceUser'),
+    newTraceUser,
 
     -- ** UnprocessedStatistics
-    UnprocessedStatistics,
-    unprocessedStatistics,
-    usRuleName,
-    usMessage,
-    usErrorCode,
+    UnprocessedStatistics (UnprocessedStatistics'),
+    newUnprocessedStatistics,
 
     -- ** UnprocessedTraceSegment
-    UnprocessedTraceSegment,
-    unprocessedTraceSegment,
-    utsMessage,
-    utsId,
-    utsErrorCode,
+    UnprocessedTraceSegment (UnprocessedTraceSegment'),
+    newUnprocessedTraceSegment,
 
     -- ** ValueWithServiceIds
-    ValueWithServiceIds,
-    valueWithServiceIds,
-    vwsiAnnotationValue,
-    vwsiServiceIds,
+    ValueWithServiceIds (ValueWithServiceIds'),
+    newValueWithServiceIds,
   )
 where
 
@@ -624,6 +460,7 @@ import Network.AWS.XRay.GetServiceGraph
 import Network.AWS.XRay.GetTimeSeriesServiceStatistics
 import Network.AWS.XRay.GetTraceGraph
 import Network.AWS.XRay.GetTraceSummaries
+import Network.AWS.XRay.Lens
 import Network.AWS.XRay.ListTagsForResource
 import Network.AWS.XRay.PutEncryptionConfig
 import Network.AWS.XRay.PutTelemetryRecords

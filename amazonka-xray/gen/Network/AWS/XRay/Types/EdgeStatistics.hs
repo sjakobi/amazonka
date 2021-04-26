@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.EdgeStatistics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.ErrorStatistics
 import Network.AWS.XRay.Types.FaultStatistics
 
 -- | Response statistics for an edge.
 --
---
---
--- /See:/ 'edgeStatistics' smart constructor.
+-- /See:/ 'newEdgeStatistics' smart constructor.
 data EdgeStatistics = EdgeStatistics'
-  { _eTotalResponseTime ::
-      !(Maybe Double),
-    _eOKCount :: !(Maybe Integer),
-    _eFaultStatistics ::
-      !(Maybe FaultStatistics),
-    _eTotalCount :: !(Maybe Integer),
-    _eErrorStatistics ::
-      !(Maybe ErrorStatistics)
+  { -- | The aggregate response time of completed requests.
+    totalResponseTime :: Prelude.Maybe Prelude.Double,
+    -- | The number of requests that completed with a 2xx Success status code.
+    okCount :: Prelude.Maybe Prelude.Integer,
+    -- | Information about requests that failed with a 5xx Server Error status
+    -- code.
+    faultStatistics :: Prelude.Maybe FaultStatistics,
+    -- | The total number of completed requests.
+    totalCount :: Prelude.Maybe Prelude.Integer,
+    -- | Information about requests that failed with a 4xx Client Error status
+    -- code.
+    errorStatistics :: Prelude.Maybe ErrorStatistics
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EdgeStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EdgeStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eTotalResponseTime' - The aggregate response time of completed requests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eOKCount' - The number of requests that completed with a 2xx Success status code.
+-- 'totalResponseTime', 'edgeStatistics_totalResponseTime' - The aggregate response time of completed requests.
 --
--- * 'eFaultStatistics' - Information about requests that failed with a 5xx Server Error status code.
+-- 'okCount', 'edgeStatistics_okCount' - The number of requests that completed with a 2xx Success status code.
 --
--- * 'eTotalCount' - The total number of completed requests.
+-- 'faultStatistics', 'edgeStatistics_faultStatistics' - Information about requests that failed with a 5xx Server Error status
+-- code.
 --
--- * 'eErrorStatistics' - Information about requests that failed with a 4xx Client Error status code.
-edgeStatistics ::
+-- 'totalCount', 'edgeStatistics_totalCount' - The total number of completed requests.
+--
+-- 'errorStatistics', 'edgeStatistics_errorStatistics' - Information about requests that failed with a 4xx Client Error status
+-- code.
+newEdgeStatistics ::
   EdgeStatistics
-edgeStatistics =
+newEdgeStatistics =
   EdgeStatistics'
-    { _eTotalResponseTime = Nothing,
-      _eOKCount = Nothing,
-      _eFaultStatistics = Nothing,
-      _eTotalCount = Nothing,
-      _eErrorStatistics = Nothing
+    { totalResponseTime =
+        Prelude.Nothing,
+      okCount = Prelude.Nothing,
+      faultStatistics = Prelude.Nothing,
+      totalCount = Prelude.Nothing,
+      errorStatistics = Prelude.Nothing
     }
 
 -- | The aggregate response time of completed requests.
-eTotalResponseTime :: Lens' EdgeStatistics (Maybe Double)
-eTotalResponseTime = lens _eTotalResponseTime (\s a -> s {_eTotalResponseTime = a})
+edgeStatistics_totalResponseTime :: Lens.Lens' EdgeStatistics (Prelude.Maybe Prelude.Double)
+edgeStatistics_totalResponseTime = Lens.lens (\EdgeStatistics' {totalResponseTime} -> totalResponseTime) (\s@EdgeStatistics' {} a -> s {totalResponseTime = a} :: EdgeStatistics)
 
 -- | The number of requests that completed with a 2xx Success status code.
-eOKCount :: Lens' EdgeStatistics (Maybe Integer)
-eOKCount = lens _eOKCount (\s a -> s {_eOKCount = a})
+edgeStatistics_okCount :: Lens.Lens' EdgeStatistics (Prelude.Maybe Prelude.Integer)
+edgeStatistics_okCount = Lens.lens (\EdgeStatistics' {okCount} -> okCount) (\s@EdgeStatistics' {} a -> s {okCount = a} :: EdgeStatistics)
 
--- | Information about requests that failed with a 5xx Server Error status code.
-eFaultStatistics :: Lens' EdgeStatistics (Maybe FaultStatistics)
-eFaultStatistics = lens _eFaultStatistics (\s a -> s {_eFaultStatistics = a})
+-- | Information about requests that failed with a 5xx Server Error status
+-- code.
+edgeStatistics_faultStatistics :: Lens.Lens' EdgeStatistics (Prelude.Maybe FaultStatistics)
+edgeStatistics_faultStatistics = Lens.lens (\EdgeStatistics' {faultStatistics} -> faultStatistics) (\s@EdgeStatistics' {} a -> s {faultStatistics = a} :: EdgeStatistics)
 
 -- | The total number of completed requests.
-eTotalCount :: Lens' EdgeStatistics (Maybe Integer)
-eTotalCount = lens _eTotalCount (\s a -> s {_eTotalCount = a})
+edgeStatistics_totalCount :: Lens.Lens' EdgeStatistics (Prelude.Maybe Prelude.Integer)
+edgeStatistics_totalCount = Lens.lens (\EdgeStatistics' {totalCount} -> totalCount) (\s@EdgeStatistics' {} a -> s {totalCount = a} :: EdgeStatistics)
 
--- | Information about requests that failed with a 4xx Client Error status code.
-eErrorStatistics :: Lens' EdgeStatistics (Maybe ErrorStatistics)
-eErrorStatistics = lens _eErrorStatistics (\s a -> s {_eErrorStatistics = a})
+-- | Information about requests that failed with a 4xx Client Error status
+-- code.
+edgeStatistics_errorStatistics :: Lens.Lens' EdgeStatistics (Prelude.Maybe ErrorStatistics)
+edgeStatistics_errorStatistics = Lens.lens (\EdgeStatistics' {errorStatistics} -> errorStatistics) (\s@EdgeStatistics' {} a -> s {errorStatistics = a} :: EdgeStatistics)
 
-instance FromJSON EdgeStatistics where
+instance Prelude.FromJSON EdgeStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EdgeStatistics"
       ( \x ->
           EdgeStatistics'
-            <$> (x .:? "TotalResponseTime")
-            <*> (x .:? "OkCount")
-            <*> (x .:? "FaultStatistics")
-            <*> (x .:? "TotalCount")
-            <*> (x .:? "ErrorStatistics")
+            Prelude.<$> (x Prelude..:? "TotalResponseTime")
+            Prelude.<*> (x Prelude..:? "OkCount")
+            Prelude.<*> (x Prelude..:? "FaultStatistics")
+            Prelude.<*> (x Prelude..:? "TotalCount")
+            Prelude.<*> (x Prelude..:? "ErrorStatistics")
       )
 
-instance Hashable EdgeStatistics
+instance Prelude.Hashable EdgeStatistics
 
-instance NFData EdgeStatistics
+instance Prelude.NFData EdgeStatistics

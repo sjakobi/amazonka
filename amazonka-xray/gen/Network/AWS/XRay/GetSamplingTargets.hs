@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests a sampling quota for rules that the service is using to sample requests.
+-- Requests a sampling quota for rules that the service is using to sample
+-- requests.
 module Network.AWS.XRay.GetSamplingTargets
   ( -- * Creating a Request
-    getSamplingTargets,
-    GetSamplingTargets,
+    GetSamplingTargets (..),
+    newGetSamplingTargets,
 
     -- * Request Lenses
-    gstSamplingStatisticsDocuments,
+    getSamplingTargets_samplingStatisticsDocuments,
 
     -- * Destructuring the Response
-    getSamplingTargetsResponse,
-    GetSamplingTargetsResponse,
+    GetSamplingTargetsResponse (..),
+    newGetSamplingTargetsResponse,
 
     -- * Response Lenses
-    gstrrsSamplingTargetDocuments,
-    gstrrsLastRuleModification,
-    gstrrsUnprocessedStatistics,
-    gstrrsResponseStatus,
+    getSamplingTargetsResponse_samplingTargetDocuments,
+    getSamplingTargetsResponse_lastRuleModification,
+    getSamplingTargetsResponse_unprocessedStatistics,
+    getSamplingTargetsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.SamplingTargetDocument
+import Network.AWS.XRay.Types.UnprocessedStatistics
 
--- | /See:/ 'getSamplingTargets' smart constructor.
-newtype GetSamplingTargets = GetSamplingTargets'
-  { _gstSamplingStatisticsDocuments ::
-      [SamplingStatisticsDocument]
+-- | /See:/ 'newGetSamplingTargets' smart constructor.
+data GetSamplingTargets = GetSamplingTargets'
+  { -- | Information about rules that the service is using to sample requests.
+    samplingStatisticsDocuments :: [SamplingStatisticsDocument]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSamplingTargets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSamplingTargets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gstSamplingStatisticsDocuments' - Information about rules that the service is using to sample requests.
-getSamplingTargets ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'samplingStatisticsDocuments', 'getSamplingTargets_samplingStatisticsDocuments' - Information about rules that the service is using to sample requests.
+newGetSamplingTargets ::
   GetSamplingTargets
-getSamplingTargets =
+newGetSamplingTargets =
   GetSamplingTargets'
-    { _gstSamplingStatisticsDocuments =
-        mempty
+    { samplingStatisticsDocuments =
+        Prelude.mempty
     }
 
 -- | Information about rules that the service is using to sample requests.
-gstSamplingStatisticsDocuments :: Lens' GetSamplingTargets [SamplingStatisticsDocument]
-gstSamplingStatisticsDocuments = lens _gstSamplingStatisticsDocuments (\s a -> s {_gstSamplingStatisticsDocuments = a}) . _Coerce
+getSamplingTargets_samplingStatisticsDocuments :: Lens.Lens' GetSamplingTargets [SamplingStatisticsDocument]
+getSamplingTargets_samplingStatisticsDocuments = Lens.lens (\GetSamplingTargets' {samplingStatisticsDocuments} -> samplingStatisticsDocuments) (\s@GetSamplingTargets' {} a -> s {samplingStatisticsDocuments = a} :: GetSamplingTargets) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetSamplingTargets where
+instance Prelude.AWSRequest GetSamplingTargets where
   type
     Rs GetSamplingTargets =
       GetSamplingTargetsResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSamplingTargetsResponse'
-            <$> (x .?> "SamplingTargetDocuments" .!@ mempty)
-            <*> (x .?> "LastRuleModification")
-            <*> (x .?> "UnprocessedStatistics" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SamplingTargetDocuments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "LastRuleModification")
+            Prelude.<*> ( x Prelude..?> "UnprocessedStatistics"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSamplingTargets
+instance Prelude.Hashable GetSamplingTargets
 
-instance NFData GetSamplingTargets
+instance Prelude.NFData GetSamplingTargets
 
-instance ToHeaders GetSamplingTargets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetSamplingTargets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetSamplingTargets where
+instance Prelude.ToJSON GetSamplingTargets where
   toJSON GetSamplingTargets' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "SamplingStatisticsDocuments"
-                  .= _gstSamplingStatisticsDocuments
+                  Prelude..= samplingStatisticsDocuments
               )
           ]
       )
 
-instance ToPath GetSamplingTargets where
-  toPath = const "/SamplingTargets"
+instance Prelude.ToPath GetSamplingTargets where
+  toPath = Prelude.const "/SamplingTargets"
 
-instance ToQuery GetSamplingTargets where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSamplingTargets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSamplingTargetsResponse' smart constructor.
+-- | /See:/ 'newGetSamplingTargetsResponse' smart constructor.
 data GetSamplingTargetsResponse = GetSamplingTargetsResponse'
-  { _gstrrsSamplingTargetDocuments ::
-      !( Maybe
-           [SamplingTargetDocument]
-       ),
-    _gstrrsLastRuleModification ::
-      !(Maybe POSIX),
-    _gstrrsUnprocessedStatistics ::
-      !( Maybe
-           [UnprocessedStatistics]
-       ),
-    _gstrrsResponseStatus ::
-      !Int
+  { -- | Updated rules that the service should use to sample requests.
+    samplingTargetDocuments :: Prelude.Maybe [SamplingTargetDocument],
+    -- | The last time a user changed the sampling rule configuration. If the
+    -- sampling rule configuration changed since the service last retrieved it,
+    -- the service should call GetSamplingRules to get the latest version.
+    lastRuleModification :: Prelude.Maybe Prelude.POSIX,
+    -- | Information about SamplingStatisticsDocument that X-Ray could not
+    -- process.
+    unprocessedStatistics :: Prelude.Maybe [UnprocessedStatistics],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSamplingTargetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSamplingTargetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gstrrsSamplingTargetDocuments' - Updated rules that the service should use to sample requests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gstrrsLastRuleModification' - The last time a user changed the sampling rule configuration. If the sampling rule configuration changed since the service last retrieved it, the service should call 'GetSamplingRules' to get the latest version.
+-- 'samplingTargetDocuments', 'getSamplingTargetsResponse_samplingTargetDocuments' - Updated rules that the service should use to sample requests.
 --
--- * 'gstrrsUnprocessedStatistics' - Information about 'SamplingStatisticsDocument' that X-Ray could not process.
+-- 'lastRuleModification', 'getSamplingTargetsResponse_lastRuleModification' - The last time a user changed the sampling rule configuration. If the
+-- sampling rule configuration changed since the service last retrieved it,
+-- the service should call GetSamplingRules to get the latest version.
 --
--- * 'gstrrsResponseStatus' - -- | The response status code.
-getSamplingTargetsResponse ::
-  -- | 'gstrrsResponseStatus'
-  Int ->
+-- 'unprocessedStatistics', 'getSamplingTargetsResponse_unprocessedStatistics' - Information about SamplingStatisticsDocument that X-Ray could not
+-- process.
+--
+-- 'httpStatus', 'getSamplingTargetsResponse_httpStatus' - The response's http status code.
+newGetSamplingTargetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSamplingTargetsResponse
-getSamplingTargetsResponse pResponseStatus_ =
+newGetSamplingTargetsResponse pHttpStatus_ =
   GetSamplingTargetsResponse'
-    { _gstrrsSamplingTargetDocuments =
-        Nothing,
-      _gstrrsLastRuleModification = Nothing,
-      _gstrrsUnprocessedStatistics = Nothing,
-      _gstrrsResponseStatus = pResponseStatus_
+    { samplingTargetDocuments =
+        Prelude.Nothing,
+      lastRuleModification = Prelude.Nothing,
+      unprocessedStatistics = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Updated rules that the service should use to sample requests.
-gstrrsSamplingTargetDocuments :: Lens' GetSamplingTargetsResponse [SamplingTargetDocument]
-gstrrsSamplingTargetDocuments = lens _gstrrsSamplingTargetDocuments (\s a -> s {_gstrrsSamplingTargetDocuments = a}) . _Default . _Coerce
+getSamplingTargetsResponse_samplingTargetDocuments :: Lens.Lens' GetSamplingTargetsResponse (Prelude.Maybe [SamplingTargetDocument])
+getSamplingTargetsResponse_samplingTargetDocuments = Lens.lens (\GetSamplingTargetsResponse' {samplingTargetDocuments} -> samplingTargetDocuments) (\s@GetSamplingTargetsResponse' {} a -> s {samplingTargetDocuments = a} :: GetSamplingTargetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The last time a user changed the sampling rule configuration. If the sampling rule configuration changed since the service last retrieved it, the service should call 'GetSamplingRules' to get the latest version.
-gstrrsLastRuleModification :: Lens' GetSamplingTargetsResponse (Maybe UTCTime)
-gstrrsLastRuleModification = lens _gstrrsLastRuleModification (\s a -> s {_gstrrsLastRuleModification = a}) . mapping _Time
+-- | The last time a user changed the sampling rule configuration. If the
+-- sampling rule configuration changed since the service last retrieved it,
+-- the service should call GetSamplingRules to get the latest version.
+getSamplingTargetsResponse_lastRuleModification :: Lens.Lens' GetSamplingTargetsResponse (Prelude.Maybe Prelude.UTCTime)
+getSamplingTargetsResponse_lastRuleModification = Lens.lens (\GetSamplingTargetsResponse' {lastRuleModification} -> lastRuleModification) (\s@GetSamplingTargetsResponse' {} a -> s {lastRuleModification = a} :: GetSamplingTargetsResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | Information about 'SamplingStatisticsDocument' that X-Ray could not process.
-gstrrsUnprocessedStatistics :: Lens' GetSamplingTargetsResponse [UnprocessedStatistics]
-gstrrsUnprocessedStatistics = lens _gstrrsUnprocessedStatistics (\s a -> s {_gstrrsUnprocessedStatistics = a}) . _Default . _Coerce
+-- | Information about SamplingStatisticsDocument that X-Ray could not
+-- process.
+getSamplingTargetsResponse_unprocessedStatistics :: Lens.Lens' GetSamplingTargetsResponse (Prelude.Maybe [UnprocessedStatistics])
+getSamplingTargetsResponse_unprocessedStatistics = Lens.lens (\GetSamplingTargetsResponse' {unprocessedStatistics} -> unprocessedStatistics) (\s@GetSamplingTargetsResponse' {} a -> s {unprocessedStatistics = a} :: GetSamplingTargetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gstrrsResponseStatus :: Lens' GetSamplingTargetsResponse Int
-gstrrsResponseStatus = lens _gstrrsResponseStatus (\s a -> s {_gstrrsResponseStatus = a})
+-- | The response's http status code.
+getSamplingTargetsResponse_httpStatus :: Lens.Lens' GetSamplingTargetsResponse Prelude.Int
+getSamplingTargetsResponse_httpStatus = Lens.lens (\GetSamplingTargetsResponse' {httpStatus} -> httpStatus) (\s@GetSamplingTargetsResponse' {} a -> s {httpStatus = a} :: GetSamplingTargetsResponse)
 
-instance NFData GetSamplingTargetsResponse
+instance Prelude.NFData GetSamplingTargetsResponse

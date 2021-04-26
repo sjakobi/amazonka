@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,278 +21,312 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get an aggregation of service statistics defined by a specific time range.
---
---
+-- Get an aggregation of service statistics defined by a specific time
+-- range.
 --
 -- This operation returns paginated results.
 module Network.AWS.XRay.GetTimeSeriesServiceStatistics
   ( -- * Creating a Request
-    getTimeSeriesServiceStatistics,
-    GetTimeSeriesServiceStatistics,
+    GetTimeSeriesServiceStatistics (..),
+    newGetTimeSeriesServiceStatistics,
 
     -- * Request Lenses
-    gtsssNextToken,
-    gtsssEntitySelectorExpression,
-    gtsssGroupName,
-    gtsssForecastStatistics,
-    gtsssPeriod,
-    gtsssGroupARN,
-    gtsssStartTime,
-    gtsssEndTime,
+    getTimeSeriesServiceStatistics_nextToken,
+    getTimeSeriesServiceStatistics_entitySelectorExpression,
+    getTimeSeriesServiceStatistics_groupName,
+    getTimeSeriesServiceStatistics_forecastStatistics,
+    getTimeSeriesServiceStatistics_period,
+    getTimeSeriesServiceStatistics_groupARN,
+    getTimeSeriesServiceStatistics_startTime,
+    getTimeSeriesServiceStatistics_endTime,
 
     -- * Destructuring the Response
-    getTimeSeriesServiceStatisticsResponse,
-    GetTimeSeriesServiceStatisticsResponse,
+    GetTimeSeriesServiceStatisticsResponse (..),
+    newGetTimeSeriesServiceStatisticsResponse,
 
     -- * Response Lenses
-    gtsssrrsNextToken,
-    gtsssrrsTimeSeriesServiceStatistics,
-    gtsssrrsContainsOldGroupVersions,
-    gtsssrrsResponseStatus,
+    getTimeSeriesServiceStatisticsResponse_nextToken,
+    getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics,
+    getTimeSeriesServiceStatisticsResponse_containsOldGroupVersions,
+    getTimeSeriesServiceStatisticsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.TimeSeriesServiceStatistics
 
--- | /See:/ 'getTimeSeriesServiceStatistics' smart constructor.
+-- | /See:/ 'newGetTimeSeriesServiceStatistics' smart constructor.
 data GetTimeSeriesServiceStatistics = GetTimeSeriesServiceStatistics'
-  { _gtsssNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gtsssEntitySelectorExpression ::
-      !( Maybe
-           Text
-       ),
-    _gtsssGroupName ::
-      !( Maybe
-           Text
-       ),
-    _gtsssForecastStatistics ::
-      !( Maybe
-           Bool
-       ),
-    _gtsssPeriod ::
-      !( Maybe
-           Int
-       ),
-    _gtsssGroupARN ::
-      !( Maybe
-           Text
-       ),
-    _gtsssStartTime ::
-      !POSIX,
-    _gtsssEndTime ::
-      !POSIX
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter expression defining entities that will be aggregated for
+    -- statistics. Supports ID, service, and edge functions. If no selector
+    -- expression is specified, edge statistics are returned.
+    entitySelectorExpression :: Prelude.Maybe Prelude.Text,
+    -- | The case-sensitive name of the group for which to pull statistics from.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The forecasted high and low fault count values. Forecast enabled
+    -- requests require the EntitySelectorExpression ID be provided.
+    forecastStatistics :: Prelude.Maybe Prelude.Bool,
+    -- | Aggregation period in seconds.
+    period :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the group for which to pull statistics
+    -- from.
+    groupARN :: Prelude.Maybe Prelude.Text,
+    -- | The start of the time frame for which to aggregate statistics.
+    startTime :: Prelude.POSIX,
+    -- | The end of the time frame for which to aggregate statistics.
+    endTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTimeSeriesServiceStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTimeSeriesServiceStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtsssNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtsssEntitySelectorExpression' - A filter expression defining entities that will be aggregated for statistics. Supports ID, service, and edge functions. If no selector expression is specified, edge statistics are returned.
+-- 'nextToken', 'getTimeSeriesServiceStatistics_nextToken' - Pagination token.
 --
--- * 'gtsssGroupName' - The case-sensitive name of the group for which to pull statistics from.
+-- 'entitySelectorExpression', 'getTimeSeriesServiceStatistics_entitySelectorExpression' - A filter expression defining entities that will be aggregated for
+-- statistics. Supports ID, service, and edge functions. If no selector
+-- expression is specified, edge statistics are returned.
 --
--- * 'gtsssForecastStatistics' - The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID be provided.
+-- 'groupName', 'getTimeSeriesServiceStatistics_groupName' - The case-sensitive name of the group for which to pull statistics from.
 --
--- * 'gtsssPeriod' - Aggregation period in seconds.
+-- 'forecastStatistics', 'getTimeSeriesServiceStatistics_forecastStatistics' - The forecasted high and low fault count values. Forecast enabled
+-- requests require the EntitySelectorExpression ID be provided.
 --
--- * 'gtsssGroupARN' - The Amazon Resource Name (ARN) of the group for which to pull statistics from.
+-- 'period', 'getTimeSeriesServiceStatistics_period' - Aggregation period in seconds.
 --
--- * 'gtsssStartTime' - The start of the time frame for which to aggregate statistics.
+-- 'groupARN', 'getTimeSeriesServiceStatistics_groupARN' - The Amazon Resource Name (ARN) of the group for which to pull statistics
+-- from.
 --
--- * 'gtsssEndTime' - The end of the time frame for which to aggregate statistics.
-getTimeSeriesServiceStatistics ::
-  -- | 'gtsssStartTime'
-  UTCTime ->
-  -- | 'gtsssEndTime'
-  UTCTime ->
+-- 'startTime', 'getTimeSeriesServiceStatistics_startTime' - The start of the time frame for which to aggregate statistics.
+--
+-- 'endTime', 'getTimeSeriesServiceStatistics_endTime' - The end of the time frame for which to aggregate statistics.
+newGetTimeSeriesServiceStatistics ::
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   GetTimeSeriesServiceStatistics
-getTimeSeriesServiceStatistics pStartTime_ pEndTime_ =
-  GetTimeSeriesServiceStatistics'
-    { _gtsssNextToken =
-        Nothing,
-      _gtsssEntitySelectorExpression = Nothing,
-      _gtsssGroupName = Nothing,
-      _gtsssForecastStatistics = Nothing,
-      _gtsssPeriod = Nothing,
-      _gtsssGroupARN = Nothing,
-      _gtsssStartTime = _Time # pStartTime_,
-      _gtsssEndTime = _Time # pEndTime_
-    }
-
--- | Pagination token.
-gtsssNextToken :: Lens' GetTimeSeriesServiceStatistics (Maybe Text)
-gtsssNextToken = lens _gtsssNextToken (\s a -> s {_gtsssNextToken = a})
-
--- | A filter expression defining entities that will be aggregated for statistics. Supports ID, service, and edge functions. If no selector expression is specified, edge statistics are returned.
-gtsssEntitySelectorExpression :: Lens' GetTimeSeriesServiceStatistics (Maybe Text)
-gtsssEntitySelectorExpression = lens _gtsssEntitySelectorExpression (\s a -> s {_gtsssEntitySelectorExpression = a})
-
--- | The case-sensitive name of the group for which to pull statistics from.
-gtsssGroupName :: Lens' GetTimeSeriesServiceStatistics (Maybe Text)
-gtsssGroupName = lens _gtsssGroupName (\s a -> s {_gtsssGroupName = a})
-
--- | The forecasted high and low fault count values. Forecast enabled requests require the EntitySelectorExpression ID be provided.
-gtsssForecastStatistics :: Lens' GetTimeSeriesServiceStatistics (Maybe Bool)
-gtsssForecastStatistics = lens _gtsssForecastStatistics (\s a -> s {_gtsssForecastStatistics = a})
-
--- | Aggregation period in seconds.
-gtsssPeriod :: Lens' GetTimeSeriesServiceStatistics (Maybe Int)
-gtsssPeriod = lens _gtsssPeriod (\s a -> s {_gtsssPeriod = a})
-
--- | The Amazon Resource Name (ARN) of the group for which to pull statistics from.
-gtsssGroupARN :: Lens' GetTimeSeriesServiceStatistics (Maybe Text)
-gtsssGroupARN = lens _gtsssGroupARN (\s a -> s {_gtsssGroupARN = a})
-
--- | The start of the time frame for which to aggregate statistics.
-gtsssStartTime :: Lens' GetTimeSeriesServiceStatistics UTCTime
-gtsssStartTime = lens _gtsssStartTime (\s a -> s {_gtsssStartTime = a}) . _Time
-
--- | The end of the time frame for which to aggregate statistics.
-gtsssEndTime :: Lens' GetTimeSeriesServiceStatistics UTCTime
-gtsssEndTime = lens _gtsssEndTime (\s a -> s {_gtsssEndTime = a}) . _Time
-
-instance AWSPager GetTimeSeriesServiceStatistics where
-  page rq rs
-    | stop (rs ^. gtsssrrsNextToken) = Nothing
-    | stop (rs ^. gtsssrrsTimeSeriesServiceStatistics) =
-      Nothing
-    | otherwise =
-      Just $ rq & gtsssNextToken .~ rs ^. gtsssrrsNextToken
-
-instance AWSRequest GetTimeSeriesServiceStatistics where
-  type
-    Rs GetTimeSeriesServiceStatistics =
-      GetTimeSeriesServiceStatisticsResponse
-  request = postJSON xRay
-  response =
-    receiveJSON
-      ( \s h x ->
-          GetTimeSeriesServiceStatisticsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "TimeSeriesServiceStatistics" .!@ mempty)
-            <*> (x .?> "ContainsOldGroupVersions")
-            <*> (pure (fromEnum s))
-      )
-
-instance Hashable GetTimeSeriesServiceStatistics
-
-instance NFData GetTimeSeriesServiceStatistics
-
-instance ToHeaders GetTimeSeriesServiceStatistics where
-  toHeaders = const mempty
-
-instance ToJSON GetTimeSeriesServiceStatistics where
-  toJSON GetTimeSeriesServiceStatistics' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gtsssNextToken,
-            ("EntitySelectorExpression" .=)
-              <$> _gtsssEntitySelectorExpression,
-            ("GroupName" .=) <$> _gtsssGroupName,
-            ("ForecastStatistics" .=)
-              <$> _gtsssForecastStatistics,
-            ("Period" .=) <$> _gtsssPeriod,
-            ("GroupARN" .=) <$> _gtsssGroupARN,
-            Just ("StartTime" .= _gtsssStartTime),
-            Just ("EndTime" .= _gtsssEndTime)
-          ]
-      )
-
-instance ToPath GetTimeSeriesServiceStatistics where
-  toPath = const "/TimeSeriesServiceStatistics"
-
-instance ToQuery GetTimeSeriesServiceStatistics where
-  toQuery = const mempty
-
--- | /See:/ 'getTimeSeriesServiceStatisticsResponse' smart constructor.
-data GetTimeSeriesServiceStatisticsResponse = GetTimeSeriesServiceStatisticsResponse'
-  { _gtsssrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gtsssrrsTimeSeriesServiceStatistics ::
-      !( Maybe
-           [TimeSeriesServiceStatistics]
-       ),
-    _gtsssrrsContainsOldGroupVersions ::
-      !( Maybe
-           Bool
-       ),
-    _gtsssrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetTimeSeriesServiceStatisticsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'gtsssrrsNextToken' - Pagination token.
---
--- * 'gtsssrrsTimeSeriesServiceStatistics' - The collection of statistics.
---
--- * 'gtsssrrsContainsOldGroupVersions' - A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation might show statistics from an older version of the group's filter expression.
---
--- * 'gtsssrrsResponseStatus' - -- | The response status code.
-getTimeSeriesServiceStatisticsResponse ::
-  -- | 'gtsssrrsResponseStatus'
-  Int ->
-  GetTimeSeriesServiceStatisticsResponse
-getTimeSeriesServiceStatisticsResponse
-  pResponseStatus_ =
-    GetTimeSeriesServiceStatisticsResponse'
-      { _gtsssrrsNextToken =
-          Nothing,
-        _gtsssrrsTimeSeriesServiceStatistics =
-          Nothing,
-        _gtsssrrsContainsOldGroupVersions =
-          Nothing,
-        _gtsssrrsResponseStatus =
-          pResponseStatus_
+newGetTimeSeriesServiceStatistics
+  pStartTime_
+  pEndTime_ =
+    GetTimeSeriesServiceStatistics'
+      { nextToken =
+          Prelude.Nothing,
+        entitySelectorExpression = Prelude.Nothing,
+        groupName = Prelude.Nothing,
+        forecastStatistics = Prelude.Nothing,
+        period = Prelude.Nothing,
+        groupARN = Prelude.Nothing,
+        startTime =
+          Prelude._Time Lens.# pStartTime_,
+        endTime = Prelude._Time Lens.# pEndTime_
       }
 
 -- | Pagination token.
-gtsssrrsNextToken :: Lens' GetTimeSeriesServiceStatisticsResponse (Maybe Text)
-gtsssrrsNextToken = lens _gtsssrrsNextToken (\s a -> s {_gtsssrrsNextToken = a})
+getTimeSeriesServiceStatistics_nextToken :: Lens.Lens' GetTimeSeriesServiceStatistics (Prelude.Maybe Prelude.Text)
+getTimeSeriesServiceStatistics_nextToken = Lens.lens (\GetTimeSeriesServiceStatistics' {nextToken} -> nextToken) (\s@GetTimeSeriesServiceStatistics' {} a -> s {nextToken = a} :: GetTimeSeriesServiceStatistics)
 
--- | The collection of statistics.
-gtsssrrsTimeSeriesServiceStatistics :: Lens' GetTimeSeriesServiceStatisticsResponse [TimeSeriesServiceStatistics]
-gtsssrrsTimeSeriesServiceStatistics = lens _gtsssrrsTimeSeriesServiceStatistics (\s a -> s {_gtsssrrsTimeSeriesServiceStatistics = a}) . _Default . _Coerce
+-- | A filter expression defining entities that will be aggregated for
+-- statistics. Supports ID, service, and edge functions. If no selector
+-- expression is specified, edge statistics are returned.
+getTimeSeriesServiceStatistics_entitySelectorExpression :: Lens.Lens' GetTimeSeriesServiceStatistics (Prelude.Maybe Prelude.Text)
+getTimeSeriesServiceStatistics_entitySelectorExpression = Lens.lens (\GetTimeSeriesServiceStatistics' {entitySelectorExpression} -> entitySelectorExpression) (\s@GetTimeSeriesServiceStatistics' {} a -> s {entitySelectorExpression = a} :: GetTimeSeriesServiceStatistics)
 
--- | A flag indicating whether or not a group's filter expression has been consistent, or if a returned aggregation might show statistics from an older version of the group's filter expression.
-gtsssrrsContainsOldGroupVersions :: Lens' GetTimeSeriesServiceStatisticsResponse (Maybe Bool)
-gtsssrrsContainsOldGroupVersions = lens _gtsssrrsContainsOldGroupVersions (\s a -> s {_gtsssrrsContainsOldGroupVersions = a})
+-- | The case-sensitive name of the group for which to pull statistics from.
+getTimeSeriesServiceStatistics_groupName :: Lens.Lens' GetTimeSeriesServiceStatistics (Prelude.Maybe Prelude.Text)
+getTimeSeriesServiceStatistics_groupName = Lens.lens (\GetTimeSeriesServiceStatistics' {groupName} -> groupName) (\s@GetTimeSeriesServiceStatistics' {} a -> s {groupName = a} :: GetTimeSeriesServiceStatistics)
 
--- | -- | The response status code.
-gtsssrrsResponseStatus :: Lens' GetTimeSeriesServiceStatisticsResponse Int
-gtsssrrsResponseStatus = lens _gtsssrrsResponseStatus (\s a -> s {_gtsssrrsResponseStatus = a})
+-- | The forecasted high and low fault count values. Forecast enabled
+-- requests require the EntitySelectorExpression ID be provided.
+getTimeSeriesServiceStatistics_forecastStatistics :: Lens.Lens' GetTimeSeriesServiceStatistics (Prelude.Maybe Prelude.Bool)
+getTimeSeriesServiceStatistics_forecastStatistics = Lens.lens (\GetTimeSeriesServiceStatistics' {forecastStatistics} -> forecastStatistics) (\s@GetTimeSeriesServiceStatistics' {} a -> s {forecastStatistics = a} :: GetTimeSeriesServiceStatistics)
+
+-- | Aggregation period in seconds.
+getTimeSeriesServiceStatistics_period :: Lens.Lens' GetTimeSeriesServiceStatistics (Prelude.Maybe Prelude.Int)
+getTimeSeriesServiceStatistics_period = Lens.lens (\GetTimeSeriesServiceStatistics' {period} -> period) (\s@GetTimeSeriesServiceStatistics' {} a -> s {period = a} :: GetTimeSeriesServiceStatistics)
+
+-- | The Amazon Resource Name (ARN) of the group for which to pull statistics
+-- from.
+getTimeSeriesServiceStatistics_groupARN :: Lens.Lens' GetTimeSeriesServiceStatistics (Prelude.Maybe Prelude.Text)
+getTimeSeriesServiceStatistics_groupARN = Lens.lens (\GetTimeSeriesServiceStatistics' {groupARN} -> groupARN) (\s@GetTimeSeriesServiceStatistics' {} a -> s {groupARN = a} :: GetTimeSeriesServiceStatistics)
+
+-- | The start of the time frame for which to aggregate statistics.
+getTimeSeriesServiceStatistics_startTime :: Lens.Lens' GetTimeSeriesServiceStatistics Prelude.UTCTime
+getTimeSeriesServiceStatistics_startTime = Lens.lens (\GetTimeSeriesServiceStatistics' {startTime} -> startTime) (\s@GetTimeSeriesServiceStatistics' {} a -> s {startTime = a} :: GetTimeSeriesServiceStatistics) Prelude.. Prelude._Time
+
+-- | The end of the time frame for which to aggregate statistics.
+getTimeSeriesServiceStatistics_endTime :: Lens.Lens' GetTimeSeriesServiceStatistics Prelude.UTCTime
+getTimeSeriesServiceStatistics_endTime = Lens.lens (\GetTimeSeriesServiceStatistics' {endTime} -> endTime) (\s@GetTimeSeriesServiceStatistics' {} a -> s {endTime = a} :: GetTimeSeriesServiceStatistics) Prelude.. Prelude._Time
 
 instance
-  NFData
+  Pager.AWSPager
+    GetTimeSeriesServiceStatistics
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? getTimeSeriesServiceStatisticsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getTimeSeriesServiceStatistics_nextToken
+          Lens..~ rs
+          Lens.^? getTimeSeriesServiceStatisticsResponse_nextToken
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
+    GetTimeSeriesServiceStatistics
+  where
+  type
+    Rs GetTimeSeriesServiceStatistics =
+      GetTimeSeriesServiceStatisticsResponse
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      ( \s h x ->
+          GetTimeSeriesServiceStatisticsResponse'
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "TimeSeriesServiceStatistics"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "ContainsOldGroupVersions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+      )
+
+instance
+  Prelude.Hashable
+    GetTimeSeriesServiceStatistics
+
+instance
+  Prelude.NFData
+    GetTimeSeriesServiceStatistics
+
+instance
+  Prelude.ToHeaders
+    GetTimeSeriesServiceStatistics
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToJSON
+    GetTimeSeriesServiceStatistics
+  where
+  toJSON GetTimeSeriesServiceStatistics' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("EntitySelectorExpression" Prelude..=)
+              Prelude.<$> entitySelectorExpression,
+            ("GroupName" Prelude..=) Prelude.<$> groupName,
+            ("ForecastStatistics" Prelude..=)
+              Prelude.<$> forecastStatistics,
+            ("Period" Prelude..=) Prelude.<$> period,
+            ("GroupARN" Prelude..=) Prelude.<$> groupARN,
+            Prelude.Just ("StartTime" Prelude..= startTime),
+            Prelude.Just ("EndTime" Prelude..= endTime)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    GetTimeSeriesServiceStatistics
+  where
+  toPath = Prelude.const "/TimeSeriesServiceStatistics"
+
+instance
+  Prelude.ToQuery
+    GetTimeSeriesServiceStatistics
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newGetTimeSeriesServiceStatisticsResponse' smart constructor.
+data GetTimeSeriesServiceStatisticsResponse = GetTimeSeriesServiceStatisticsResponse'
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The collection of statistics.
+    timeSeriesServiceStatistics :: Prelude.Maybe [TimeSeriesServiceStatistics],
+    -- | A flag indicating whether or not a group\'s filter expression has been
+    -- consistent, or if a returned aggregation might show statistics from an
+    -- older version of the group\'s filter expression.
+    containsOldGroupVersions :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetTimeSeriesServiceStatisticsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'getTimeSeriesServiceStatisticsResponse_nextToken' - Pagination token.
+--
+-- 'timeSeriesServiceStatistics', 'getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics' - The collection of statistics.
+--
+-- 'containsOldGroupVersions', 'getTimeSeriesServiceStatisticsResponse_containsOldGroupVersions' - A flag indicating whether or not a group\'s filter expression has been
+-- consistent, or if a returned aggregation might show statistics from an
+-- older version of the group\'s filter expression.
+--
+-- 'httpStatus', 'getTimeSeriesServiceStatisticsResponse_httpStatus' - The response's http status code.
+newGetTimeSeriesServiceStatisticsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetTimeSeriesServiceStatisticsResponse
+newGetTimeSeriesServiceStatisticsResponse
+  pHttpStatus_ =
+    GetTimeSeriesServiceStatisticsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        timeSeriesServiceStatistics =
+          Prelude.Nothing,
+        containsOldGroupVersions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | Pagination token.
+getTimeSeriesServiceStatisticsResponse_nextToken :: Lens.Lens' GetTimeSeriesServiceStatisticsResponse (Prelude.Maybe Prelude.Text)
+getTimeSeriesServiceStatisticsResponse_nextToken = Lens.lens (\GetTimeSeriesServiceStatisticsResponse' {nextToken} -> nextToken) (\s@GetTimeSeriesServiceStatisticsResponse' {} a -> s {nextToken = a} :: GetTimeSeriesServiceStatisticsResponse)
+
+-- | The collection of statistics.
+getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics :: Lens.Lens' GetTimeSeriesServiceStatisticsResponse (Prelude.Maybe [TimeSeriesServiceStatistics])
+getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics = Lens.lens (\GetTimeSeriesServiceStatisticsResponse' {timeSeriesServiceStatistics} -> timeSeriesServiceStatistics) (\s@GetTimeSeriesServiceStatisticsResponse' {} a -> s {timeSeriesServiceStatistics = a} :: GetTimeSeriesServiceStatisticsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | A flag indicating whether or not a group\'s filter expression has been
+-- consistent, or if a returned aggregation might show statistics from an
+-- older version of the group\'s filter expression.
+getTimeSeriesServiceStatisticsResponse_containsOldGroupVersions :: Lens.Lens' GetTimeSeriesServiceStatisticsResponse (Prelude.Maybe Prelude.Bool)
+getTimeSeriesServiceStatisticsResponse_containsOldGroupVersions = Lens.lens (\GetTimeSeriesServiceStatisticsResponse' {containsOldGroupVersions} -> containsOldGroupVersions) (\s@GetTimeSeriesServiceStatisticsResponse' {} a -> s {containsOldGroupVersions = a} :: GetTimeSeriesServiceStatisticsResponse)
+
+-- | The response's http status code.
+getTimeSeriesServiceStatisticsResponse_httpStatus :: Lens.Lens' GetTimeSeriesServiceStatisticsResponse Prelude.Int
+getTimeSeriesServiceStatisticsResponse_httpStatus = Lens.lens (\GetTimeSeriesServiceStatisticsResponse' {httpStatus} -> httpStatus) (\s@GetTimeSeriesServiceStatisticsResponse' {} a -> s {httpStatus = a} :: GetTimeSeriesServiceStatisticsResponse)
+
+instance
+  Prelude.NFData
     GetTimeSeriesServiceStatisticsResponse

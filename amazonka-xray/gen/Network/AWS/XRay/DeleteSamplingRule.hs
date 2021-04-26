@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,136 +24,144 @@
 -- Deletes a sampling rule.
 module Network.AWS.XRay.DeleteSamplingRule
   ( -- * Creating a Request
-    deleteSamplingRule,
-    DeleteSamplingRule,
+    DeleteSamplingRule (..),
+    newDeleteSamplingRule,
 
     -- * Request Lenses
-    dsrRuleName,
-    dsrRuleARN,
+    deleteSamplingRule_ruleName,
+    deleteSamplingRule_ruleARN,
 
     -- * Destructuring the Response
-    deleteSamplingRuleResponse,
-    DeleteSamplingRuleResponse,
+    DeleteSamplingRuleResponse (..),
+    newDeleteSamplingRuleResponse,
 
     -- * Response Lenses
-    dsrrrsSamplingRuleRecord,
-    dsrrrsResponseStatus,
+    deleteSamplingRuleResponse_samplingRuleRecord,
+    deleteSamplingRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.SamplingRuleRecord
 
--- | /See:/ 'deleteSamplingRule' smart constructor.
+-- | /See:/ 'newDeleteSamplingRule' smart constructor.
 data DeleteSamplingRule = DeleteSamplingRule'
-  { _dsrRuleName ::
-      !(Maybe Text),
-    _dsrRuleARN :: !(Maybe Text)
+  { -- | The name of the sampling rule. Specify a rule by either name or ARN, but
+    -- not both.
+    ruleName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the sampling rule. Specify a rule by either name or ARN, but
+    -- not both.
+    ruleARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSamplingRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSamplingRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrRuleName' - The name of the sampling rule. Specify a rule by either name or ARN, but not both.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrRuleARN' - The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.
-deleteSamplingRule ::
+-- 'ruleName', 'deleteSamplingRule_ruleName' - The name of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+--
+-- 'ruleARN', 'deleteSamplingRule_ruleARN' - The ARN of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+newDeleteSamplingRule ::
   DeleteSamplingRule
-deleteSamplingRule =
+newDeleteSamplingRule =
   DeleteSamplingRule'
-    { _dsrRuleName = Nothing,
-      _dsrRuleARN = Nothing
+    { ruleName = Prelude.Nothing,
+      ruleARN = Prelude.Nothing
     }
 
--- | The name of the sampling rule. Specify a rule by either name or ARN, but not both.
-dsrRuleName :: Lens' DeleteSamplingRule (Maybe Text)
-dsrRuleName = lens _dsrRuleName (\s a -> s {_dsrRuleName = a})
+-- | The name of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+deleteSamplingRule_ruleName :: Lens.Lens' DeleteSamplingRule (Prelude.Maybe Prelude.Text)
+deleteSamplingRule_ruleName = Lens.lens (\DeleteSamplingRule' {ruleName} -> ruleName) (\s@DeleteSamplingRule' {} a -> s {ruleName = a} :: DeleteSamplingRule)
 
--- | The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.
-dsrRuleARN :: Lens' DeleteSamplingRule (Maybe Text)
-dsrRuleARN = lens _dsrRuleARN (\s a -> s {_dsrRuleARN = a})
+-- | The ARN of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+deleteSamplingRule_ruleARN :: Lens.Lens' DeleteSamplingRule (Prelude.Maybe Prelude.Text)
+deleteSamplingRule_ruleARN = Lens.lens (\DeleteSamplingRule' {ruleARN} -> ruleARN) (\s@DeleteSamplingRule' {} a -> s {ruleARN = a} :: DeleteSamplingRule)
 
-instance AWSRequest DeleteSamplingRule where
+instance Prelude.AWSRequest DeleteSamplingRule where
   type
     Rs DeleteSamplingRule =
       DeleteSamplingRuleResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSamplingRuleResponse'
-            <$> (x .?> "SamplingRuleRecord") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SamplingRuleRecord")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSamplingRule
+instance Prelude.Hashable DeleteSamplingRule
 
-instance NFData DeleteSamplingRule
+instance Prelude.NFData DeleteSamplingRule
 
-instance ToHeaders DeleteSamplingRule where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteSamplingRule where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON DeleteSamplingRule where
+instance Prelude.ToJSON DeleteSamplingRule where
   toJSON DeleteSamplingRule' {..} =
-    object
-      ( catMaybes
-          [ ("RuleName" .=) <$> _dsrRuleName,
-            ("RuleARN" .=) <$> _dsrRuleARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RuleName" Prelude..=) Prelude.<$> ruleName,
+            ("RuleARN" Prelude..=) Prelude.<$> ruleARN
           ]
       )
 
-instance ToPath DeleteSamplingRule where
-  toPath = const "/DeleteSamplingRule"
+instance Prelude.ToPath DeleteSamplingRule where
+  toPath = Prelude.const "/DeleteSamplingRule"
 
-instance ToQuery DeleteSamplingRule where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSamplingRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSamplingRuleResponse' smart constructor.
+-- | /See:/ 'newDeleteSamplingRuleResponse' smart constructor.
 data DeleteSamplingRuleResponse = DeleteSamplingRuleResponse'
-  { _dsrrrsSamplingRuleRecord ::
-      !( Maybe
-           SamplingRuleRecord
-       ),
-    _dsrrrsResponseStatus ::
-      !Int
+  { -- | The deleted rule definition and metadata.
+    samplingRuleRecord :: Prelude.Maybe SamplingRuleRecord,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSamplingRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSamplingRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrrsSamplingRuleRecord' - The deleted rule definition and metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrrsResponseStatus' - -- | The response status code.
-deleteSamplingRuleResponse ::
-  -- | 'dsrrrsResponseStatus'
-  Int ->
+-- 'samplingRuleRecord', 'deleteSamplingRuleResponse_samplingRuleRecord' - The deleted rule definition and metadata.
+--
+-- 'httpStatus', 'deleteSamplingRuleResponse_httpStatus' - The response's http status code.
+newDeleteSamplingRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSamplingRuleResponse
-deleteSamplingRuleResponse pResponseStatus_ =
+newDeleteSamplingRuleResponse pHttpStatus_ =
   DeleteSamplingRuleResponse'
-    { _dsrrrsSamplingRuleRecord =
-        Nothing,
-      _dsrrrsResponseStatus = pResponseStatus_
+    { samplingRuleRecord =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The deleted rule definition and metadata.
-dsrrrsSamplingRuleRecord :: Lens' DeleteSamplingRuleResponse (Maybe SamplingRuleRecord)
-dsrrrsSamplingRuleRecord = lens _dsrrrsSamplingRuleRecord (\s a -> s {_dsrrrsSamplingRuleRecord = a})
+deleteSamplingRuleResponse_samplingRuleRecord :: Lens.Lens' DeleteSamplingRuleResponse (Prelude.Maybe SamplingRuleRecord)
+deleteSamplingRuleResponse_samplingRuleRecord = Lens.lens (\DeleteSamplingRuleResponse' {samplingRuleRecord} -> samplingRuleRecord) (\s@DeleteSamplingRuleResponse' {} a -> s {samplingRuleRecord = a} :: DeleteSamplingRuleResponse)
 
--- | -- | The response status code.
-dsrrrsResponseStatus :: Lens' DeleteSamplingRuleResponse Int
-dsrrrsResponseStatus = lens _dsrrrsResponseStatus (\s a -> s {_dsrrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSamplingRuleResponse_httpStatus :: Lens.Lens' DeleteSamplingRuleResponse Prelude.Int
+deleteSamplingRuleResponse_httpStatus = Lens.lens (\DeleteSamplingRuleResponse' {httpStatus} -> httpStatus) (\s@DeleteSamplingRuleResponse' {} a -> s {httpStatus = a} :: DeleteSamplingRuleResponse)
 
-instance NFData DeleteSamplingRuleResponse
+instance Prelude.NFData DeleteSamplingRuleResponse

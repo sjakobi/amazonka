@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,232 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the summaries of all insights in the specified group matching the provided filter values.
+-- Retrieves the summaries of all insights in the specified group matching
+-- the provided filter values.
 module Network.AWS.XRay.GetInsightSummaries
   ( -- * Creating a Request
-    getInsightSummaries,
-    GetInsightSummaries,
+    GetInsightSummaries (..),
+    newGetInsightSummaries,
 
     -- * Request Lenses
-    gisNextToken,
-    gisStates,
-    gisMaxResults,
-    gisGroupName,
-    gisGroupARN,
-    gisStartTime,
-    gisEndTime,
+    getInsightSummaries_nextToken,
+    getInsightSummaries_states,
+    getInsightSummaries_maxResults,
+    getInsightSummaries_groupName,
+    getInsightSummaries_groupARN,
+    getInsightSummaries_startTime,
+    getInsightSummaries_endTime,
 
     -- * Destructuring the Response
-    getInsightSummariesResponse,
-    GetInsightSummariesResponse,
+    GetInsightSummariesResponse (..),
+    newGetInsightSummariesResponse,
 
     -- * Response Lenses
-    gisrrsInsightSummaries,
-    gisrrsNextToken,
-    gisrrsResponseStatus,
+    getInsightSummariesResponse_insightSummaries,
+    getInsightSummariesResponse_nextToken,
+    getInsightSummariesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.InsightSummary
 
--- | /See:/ 'getInsightSummaries' smart constructor.
+-- | /See:/ 'newGetInsightSummaries' smart constructor.
 data GetInsightSummaries = GetInsightSummaries'
-  { _gisNextToken ::
-      !(Maybe Text),
-    _gisStates ::
-      !(Maybe [InsightState]),
-    _gisMaxResults :: !(Maybe Nat),
-    _gisGroupName :: !(Maybe Text),
-    _gisGroupARN :: !(Maybe Text),
-    _gisStartTime :: !POSIX,
-    _gisEndTime :: !POSIX
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of insight states.
+    states :: Prelude.Maybe [InsightState],
+    -- | The maximum number of results to display.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the group. Required if the GroupARN isn\'t provided.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the group. Required if the GroupName
+    -- isn\'t provided.
+    groupARN :: Prelude.Maybe Prelude.Text,
+    -- | The beginning of the time frame in which the insights started. The start
+    -- time can\'t be more than 30 days old.
+    startTime :: Prelude.POSIX,
+    -- | The end of the time frame in which the insights ended. The end time
+    -- can\'t be more than 30 days old.
+    endTime :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightSummaries' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightSummaries' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gisStates' - The list of insight states.
+-- 'nextToken', 'getInsightSummaries_nextToken' - Pagination token.
 --
--- * 'gisMaxResults' - The maximum number of results to display.
+-- 'states', 'getInsightSummaries_states' - The list of insight states.
 --
--- * 'gisGroupName' - The name of the group. Required if the GroupARN isn't provided.
+-- 'maxResults', 'getInsightSummaries_maxResults' - The maximum number of results to display.
 --
--- * 'gisGroupARN' - The Amazon Resource Name (ARN) of the group. Required if the GroupName isn't provided.
+-- 'groupName', 'getInsightSummaries_groupName' - The name of the group. Required if the GroupARN isn\'t provided.
 --
--- * 'gisStartTime' - The beginning of the time frame in which the insights started. The start time can't be more than 30 days old.
+-- 'groupARN', 'getInsightSummaries_groupARN' - The Amazon Resource Name (ARN) of the group. Required if the GroupName
+-- isn\'t provided.
 --
--- * 'gisEndTime' - The end of the time frame in which the insights ended. The end time can't be more than 30 days old.
-getInsightSummaries ::
-  -- | 'gisStartTime'
-  UTCTime ->
-  -- | 'gisEndTime'
-  UTCTime ->
+-- 'startTime', 'getInsightSummaries_startTime' - The beginning of the time frame in which the insights started. The start
+-- time can\'t be more than 30 days old.
+--
+-- 'endTime', 'getInsightSummaries_endTime' - The end of the time frame in which the insights ended. The end time
+-- can\'t be more than 30 days old.
+newGetInsightSummaries ::
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   GetInsightSummaries
-getInsightSummaries pStartTime_ pEndTime_ =
+newGetInsightSummaries pStartTime_ pEndTime_ =
   GetInsightSummaries'
-    { _gisNextToken = Nothing,
-      _gisStates = Nothing,
-      _gisMaxResults = Nothing,
-      _gisGroupName = Nothing,
-      _gisGroupARN = Nothing,
-      _gisStartTime = _Time # pStartTime_,
-      _gisEndTime = _Time # pEndTime_
+    { nextToken = Prelude.Nothing,
+      states = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      groupARN = Prelude.Nothing,
+      startTime = Prelude._Time Lens.# pStartTime_,
+      endTime = Prelude._Time Lens.# pEndTime_
     }
 
 -- | Pagination token.
-gisNextToken :: Lens' GetInsightSummaries (Maybe Text)
-gisNextToken = lens _gisNextToken (\s a -> s {_gisNextToken = a})
+getInsightSummaries_nextToken :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Text)
+getInsightSummaries_nextToken = Lens.lens (\GetInsightSummaries' {nextToken} -> nextToken) (\s@GetInsightSummaries' {} a -> s {nextToken = a} :: GetInsightSummaries)
 
 -- | The list of insight states.
-gisStates :: Lens' GetInsightSummaries [InsightState]
-gisStates = lens _gisStates (\s a -> s {_gisStates = a}) . _Default . _Coerce
+getInsightSummaries_states :: Lens.Lens' GetInsightSummaries (Prelude.Maybe [InsightState])
+getInsightSummaries_states = Lens.lens (\GetInsightSummaries' {states} -> states) (\s@GetInsightSummaries' {} a -> s {states = a} :: GetInsightSummaries) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of results to display.
-gisMaxResults :: Lens' GetInsightSummaries (Maybe Natural)
-gisMaxResults = lens _gisMaxResults (\s a -> s {_gisMaxResults = a}) . mapping _Nat
+getInsightSummaries_maxResults :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Natural)
+getInsightSummaries_maxResults = Lens.lens (\GetInsightSummaries' {maxResults} -> maxResults) (\s@GetInsightSummaries' {} a -> s {maxResults = a} :: GetInsightSummaries) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the group. Required if the GroupARN isn't provided.
-gisGroupName :: Lens' GetInsightSummaries (Maybe Text)
-gisGroupName = lens _gisGroupName (\s a -> s {_gisGroupName = a})
+-- | The name of the group. Required if the GroupARN isn\'t provided.
+getInsightSummaries_groupName :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Text)
+getInsightSummaries_groupName = Lens.lens (\GetInsightSummaries' {groupName} -> groupName) (\s@GetInsightSummaries' {} a -> s {groupName = a} :: GetInsightSummaries)
 
--- | The Amazon Resource Name (ARN) of the group. Required if the GroupName isn't provided.
-gisGroupARN :: Lens' GetInsightSummaries (Maybe Text)
-gisGroupARN = lens _gisGroupARN (\s a -> s {_gisGroupARN = a})
+-- | The Amazon Resource Name (ARN) of the group. Required if the GroupName
+-- isn\'t provided.
+getInsightSummaries_groupARN :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Text)
+getInsightSummaries_groupARN = Lens.lens (\GetInsightSummaries' {groupARN} -> groupARN) (\s@GetInsightSummaries' {} a -> s {groupARN = a} :: GetInsightSummaries)
 
--- | The beginning of the time frame in which the insights started. The start time can't be more than 30 days old.
-gisStartTime :: Lens' GetInsightSummaries UTCTime
-gisStartTime = lens _gisStartTime (\s a -> s {_gisStartTime = a}) . _Time
+-- | The beginning of the time frame in which the insights started. The start
+-- time can\'t be more than 30 days old.
+getInsightSummaries_startTime :: Lens.Lens' GetInsightSummaries Prelude.UTCTime
+getInsightSummaries_startTime = Lens.lens (\GetInsightSummaries' {startTime} -> startTime) (\s@GetInsightSummaries' {} a -> s {startTime = a} :: GetInsightSummaries) Prelude.. Prelude._Time
 
--- | The end of the time frame in which the insights ended. The end time can't be more than 30 days old.
-gisEndTime :: Lens' GetInsightSummaries UTCTime
-gisEndTime = lens _gisEndTime (\s a -> s {_gisEndTime = a}) . _Time
+-- | The end of the time frame in which the insights ended. The end time
+-- can\'t be more than 30 days old.
+getInsightSummaries_endTime :: Lens.Lens' GetInsightSummaries Prelude.UTCTime
+getInsightSummaries_endTime = Lens.lens (\GetInsightSummaries' {endTime} -> endTime) (\s@GetInsightSummaries' {} a -> s {endTime = a} :: GetInsightSummaries) Prelude.. Prelude._Time
 
-instance AWSRequest GetInsightSummaries where
+instance Prelude.AWSRequest GetInsightSummaries where
   type
     Rs GetInsightSummaries =
       GetInsightSummariesResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInsightSummariesResponse'
-            <$> (x .?> "InsightSummaries" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "InsightSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInsightSummaries
+instance Prelude.Hashable GetInsightSummaries
 
-instance NFData GetInsightSummaries
+instance Prelude.NFData GetInsightSummaries
 
-instance ToHeaders GetInsightSummaries where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetInsightSummaries where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetInsightSummaries where
+instance Prelude.ToJSON GetInsightSummaries where
   toJSON GetInsightSummaries' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gisNextToken,
-            ("States" .=) <$> _gisStates,
-            ("MaxResults" .=) <$> _gisMaxResults,
-            ("GroupName" .=) <$> _gisGroupName,
-            ("GroupARN" .=) <$> _gisGroupARN,
-            Just ("StartTime" .= _gisStartTime),
-            Just ("EndTime" .= _gisEndTime)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("States" Prelude..=) Prelude.<$> states,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("GroupName" Prelude..=) Prelude.<$> groupName,
+            ("GroupARN" Prelude..=) Prelude.<$> groupARN,
+            Prelude.Just ("StartTime" Prelude..= startTime),
+            Prelude.Just ("EndTime" Prelude..= endTime)
           ]
       )
 
-instance ToPath GetInsightSummaries where
-  toPath = const "/InsightSummaries"
+instance Prelude.ToPath GetInsightSummaries where
+  toPath = Prelude.const "/InsightSummaries"
 
-instance ToQuery GetInsightSummaries where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInsightSummaries where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInsightSummariesResponse' smart constructor.
+-- | /See:/ 'newGetInsightSummariesResponse' smart constructor.
 data GetInsightSummariesResponse = GetInsightSummariesResponse'
-  { _gisrrsInsightSummaries ::
-      !( Maybe
-           [InsightSummary]
-       ),
-    _gisrrsNextToken ::
-      !(Maybe Text),
-    _gisrrsResponseStatus ::
-      !Int
+  { -- | The summary of each insight within the group matching the provided
+    -- filters. The summary contains the InsightID, start and end time, the
+    -- root cause service, the root cause and client impact statistics, the top
+    -- anomalous services, and the status of the insight.
+    insightSummaries :: Prelude.Maybe [InsightSummary],
+    -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightSummariesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightSummariesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisrrsInsightSummaries' - The summary of each insight within the group matching the provided filters. The summary contains the InsightID, start and end time, the root cause service, the root cause and client impact statistics, the top anomalous services, and the status of the insight.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gisrrsNextToken' - Pagination token.
+-- 'insightSummaries', 'getInsightSummariesResponse_insightSummaries' - The summary of each insight within the group matching the provided
+-- filters. The summary contains the InsightID, start and end time, the
+-- root cause service, the root cause and client impact statistics, the top
+-- anomalous services, and the status of the insight.
 --
--- * 'gisrrsResponseStatus' - -- | The response status code.
-getInsightSummariesResponse ::
-  -- | 'gisrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'getInsightSummariesResponse_nextToken' - Pagination token.
+--
+-- 'httpStatus', 'getInsightSummariesResponse_httpStatus' - The response's http status code.
+newGetInsightSummariesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInsightSummariesResponse
-getInsightSummariesResponse pResponseStatus_ =
+newGetInsightSummariesResponse pHttpStatus_ =
   GetInsightSummariesResponse'
-    { _gisrrsInsightSummaries =
-        Nothing,
-      _gisrrsNextToken = Nothing,
-      _gisrrsResponseStatus = pResponseStatus_
+    { insightSummaries =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The summary of each insight within the group matching the provided filters. The summary contains the InsightID, start and end time, the root cause service, the root cause and client impact statistics, the top anomalous services, and the status of the insight.
-gisrrsInsightSummaries :: Lens' GetInsightSummariesResponse [InsightSummary]
-gisrrsInsightSummaries = lens _gisrrsInsightSummaries (\s a -> s {_gisrrsInsightSummaries = a}) . _Default . _Coerce
+-- | The summary of each insight within the group matching the provided
+-- filters. The summary contains the InsightID, start and end time, the
+-- root cause service, the root cause and client impact statistics, the top
+-- anomalous services, and the status of the insight.
+getInsightSummariesResponse_insightSummaries :: Lens.Lens' GetInsightSummariesResponse (Prelude.Maybe [InsightSummary])
+getInsightSummariesResponse_insightSummaries = Lens.lens (\GetInsightSummariesResponse' {insightSummaries} -> insightSummaries) (\s@GetInsightSummariesResponse' {} a -> s {insightSummaries = a} :: GetInsightSummariesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Pagination token.
-gisrrsNextToken :: Lens' GetInsightSummariesResponse (Maybe Text)
-gisrrsNextToken = lens _gisrrsNextToken (\s a -> s {_gisrrsNextToken = a})
+getInsightSummariesResponse_nextToken :: Lens.Lens' GetInsightSummariesResponse (Prelude.Maybe Prelude.Text)
+getInsightSummariesResponse_nextToken = Lens.lens (\GetInsightSummariesResponse' {nextToken} -> nextToken) (\s@GetInsightSummariesResponse' {} a -> s {nextToken = a} :: GetInsightSummariesResponse)
 
--- | -- | The response status code.
-gisrrsResponseStatus :: Lens' GetInsightSummariesResponse Int
-gisrrsResponseStatus = lens _gisrrsResponseStatus (\s a -> s {_gisrrsResponseStatus = a})
+-- | The response's http status code.
+getInsightSummariesResponse_httpStatus :: Lens.Lens' GetInsightSummariesResponse Prelude.Int
+getInsightSummariesResponse_httpStatus = Lens.lens (\GetInsightSummariesResponse' {httpStatus} -> httpStatus) (\s@GetInsightSummariesResponse' {} a -> s {httpStatus = a} :: GetInsightSummariesResponse)
 
-instance NFData GetInsightSummariesResponse
+instance Prelude.NFData GetInsightSummariesResponse

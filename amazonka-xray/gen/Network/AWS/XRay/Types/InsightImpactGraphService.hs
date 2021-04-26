@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,105 +19,145 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.InsightImpactGraphService where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.InsightImpactGraphEdge
 
--- | Information about an application that processed requests, users that made requests, or downstream services, resources, and applications that an application used.
+-- | Information about an application that processed requests, users that
+-- made requests, or downstream services, resources, and applications that
+-- an application used.
 --
---
---
--- /See:/ 'insightImpactGraphService' smart constructor.
+-- /See:/ 'newInsightImpactGraphService' smart constructor.
 data InsightImpactGraphService = InsightImpactGraphService'
-  { _iigsNames ::
-      !(Maybe [Text]),
-    _iigsAccountId ::
-      !(Maybe Text),
-    _iigsReferenceId ::
-      !(Maybe Int),
-    _iigsEdges ::
-      !( Maybe
-           [InsightImpactGraphEdge]
-       ),
-    _iigsName ::
-      !(Maybe Text),
-    _iigsType ::
-      !(Maybe Text)
+  { -- | A list of names for the service, including the canonical name.
+    names :: Prelude.Maybe [Prelude.Text],
+    -- | Identifier of the AWS account in which the service runs.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | Identifier for the service. Unique within the service map.
+    referenceId :: Prelude.Maybe Prelude.Int,
+    -- | Connections to downstream services.
+    edges :: Prelude.Maybe [InsightImpactGraphEdge],
+    -- | The canonical name of the service.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Identifier for the service. Unique within the service map.
+    --
+    -- -   AWS Resource - The type of an AWS resource. For example,
+    --     AWS::EC2::Instance for an application running on Amazon EC2 or
+    --     AWS::DynamoDB::Table for an Amazon DynamoDB table that the
+    --     application used.
+    --
+    -- -   AWS Service - The type of an AWS service. For example, AWS::DynamoDB
+    --     for downstream calls to Amazon DynamoDB that didn\'t target a
+    --     specific table.
+    --
+    -- -   AWS Service - The type of an AWS service. For example, AWS::DynamoDB
+    --     for downstream calls to Amazon DynamoDB that didn\'t target a
+    --     specific table.
+    --
+    -- -   remote - A downstream service of indeterminate type.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InsightImpactGraphService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InsightImpactGraphService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iigsNames' - A list of names for the service, including the canonical name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iigsAccountId' - Identifier of the AWS account in which the service runs.
+-- 'names', 'insightImpactGraphService_names' - A list of names for the service, including the canonical name.
 --
--- * 'iigsReferenceId' - Identifier for the service. Unique within the service map.
+-- 'accountId', 'insightImpactGraphService_accountId' - Identifier of the AWS account in which the service runs.
 --
--- * 'iigsEdges' - Connections to downstream services.
+-- 'referenceId', 'insightImpactGraphService_referenceId' - Identifier for the service. Unique within the service map.
 --
--- * 'iigsName' - The canonical name of the service.
+-- 'edges', 'insightImpactGraphService_edges' - Connections to downstream services.
 --
--- * 'iigsType' - Identifier for the service. Unique within the service map.     * AWS Resource - The type of an AWS resource. For example, AWS::EC2::Instance for an application running on Amazon EC2 or AWS::DynamoDB::Table for an Amazon DynamoDB table that the application used.      * AWS Service - The type of an AWS service. For example, AWS::DynamoDB for downstream calls to Amazon DynamoDB that didn't target a specific table.      * AWS Service - The type of an AWS service. For example, AWS::DynamoDB for downstream calls to Amazon DynamoDB that didn't target a specific table.      * remote - A downstream service of indeterminate type.
-insightImpactGraphService ::
+-- 'name', 'insightImpactGraphService_name' - The canonical name of the service.
+--
+-- 'type'', 'insightImpactGraphService_type' - Identifier for the service. Unique within the service map.
+--
+-- -   AWS Resource - The type of an AWS resource. For example,
+--     AWS::EC2::Instance for an application running on Amazon EC2 or
+--     AWS::DynamoDB::Table for an Amazon DynamoDB table that the
+--     application used.
+--
+-- -   AWS Service - The type of an AWS service. For example, AWS::DynamoDB
+--     for downstream calls to Amazon DynamoDB that didn\'t target a
+--     specific table.
+--
+-- -   AWS Service - The type of an AWS service. For example, AWS::DynamoDB
+--     for downstream calls to Amazon DynamoDB that didn\'t target a
+--     specific table.
+--
+-- -   remote - A downstream service of indeterminate type.
+newInsightImpactGraphService ::
   InsightImpactGraphService
-insightImpactGraphService =
+newInsightImpactGraphService =
   InsightImpactGraphService'
-    { _iigsNames = Nothing,
-      _iigsAccountId = Nothing,
-      _iigsReferenceId = Nothing,
-      _iigsEdges = Nothing,
-      _iigsName = Nothing,
-      _iigsType = Nothing
+    { names = Prelude.Nothing,
+      accountId = Prelude.Nothing,
+      referenceId = Prelude.Nothing,
+      edges = Prelude.Nothing,
+      name = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | A list of names for the service, including the canonical name.
-iigsNames :: Lens' InsightImpactGraphService [Text]
-iigsNames = lens _iigsNames (\s a -> s {_iigsNames = a}) . _Default . _Coerce
+insightImpactGraphService_names :: Lens.Lens' InsightImpactGraphService (Prelude.Maybe [Prelude.Text])
+insightImpactGraphService_names = Lens.lens (\InsightImpactGraphService' {names} -> names) (\s@InsightImpactGraphService' {} a -> s {names = a} :: InsightImpactGraphService) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Identifier of the AWS account in which the service runs.
-iigsAccountId :: Lens' InsightImpactGraphService (Maybe Text)
-iigsAccountId = lens _iigsAccountId (\s a -> s {_iigsAccountId = a})
+insightImpactGraphService_accountId :: Lens.Lens' InsightImpactGraphService (Prelude.Maybe Prelude.Text)
+insightImpactGraphService_accountId = Lens.lens (\InsightImpactGraphService' {accountId} -> accountId) (\s@InsightImpactGraphService' {} a -> s {accountId = a} :: InsightImpactGraphService)
 
 -- | Identifier for the service. Unique within the service map.
-iigsReferenceId :: Lens' InsightImpactGraphService (Maybe Int)
-iigsReferenceId = lens _iigsReferenceId (\s a -> s {_iigsReferenceId = a})
+insightImpactGraphService_referenceId :: Lens.Lens' InsightImpactGraphService (Prelude.Maybe Prelude.Int)
+insightImpactGraphService_referenceId = Lens.lens (\InsightImpactGraphService' {referenceId} -> referenceId) (\s@InsightImpactGraphService' {} a -> s {referenceId = a} :: InsightImpactGraphService)
 
 -- | Connections to downstream services.
-iigsEdges :: Lens' InsightImpactGraphService [InsightImpactGraphEdge]
-iigsEdges = lens _iigsEdges (\s a -> s {_iigsEdges = a}) . _Default . _Coerce
+insightImpactGraphService_edges :: Lens.Lens' InsightImpactGraphService (Prelude.Maybe [InsightImpactGraphEdge])
+insightImpactGraphService_edges = Lens.lens (\InsightImpactGraphService' {edges} -> edges) (\s@InsightImpactGraphService' {} a -> s {edges = a} :: InsightImpactGraphService) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The canonical name of the service.
-iigsName :: Lens' InsightImpactGraphService (Maybe Text)
-iigsName = lens _iigsName (\s a -> s {_iigsName = a})
+insightImpactGraphService_name :: Lens.Lens' InsightImpactGraphService (Prelude.Maybe Prelude.Text)
+insightImpactGraphService_name = Lens.lens (\InsightImpactGraphService' {name} -> name) (\s@InsightImpactGraphService' {} a -> s {name = a} :: InsightImpactGraphService)
 
--- | Identifier for the service. Unique within the service map.     * AWS Resource - The type of an AWS resource. For example, AWS::EC2::Instance for an application running on Amazon EC2 or AWS::DynamoDB::Table for an Amazon DynamoDB table that the application used.      * AWS Service - The type of an AWS service. For example, AWS::DynamoDB for downstream calls to Amazon DynamoDB that didn't target a specific table.      * AWS Service - The type of an AWS service. For example, AWS::DynamoDB for downstream calls to Amazon DynamoDB that didn't target a specific table.      * remote - A downstream service of indeterminate type.
-iigsType :: Lens' InsightImpactGraphService (Maybe Text)
-iigsType = lens _iigsType (\s a -> s {_iigsType = a})
+-- | Identifier for the service. Unique within the service map.
+--
+-- -   AWS Resource - The type of an AWS resource. For example,
+--     AWS::EC2::Instance for an application running on Amazon EC2 or
+--     AWS::DynamoDB::Table for an Amazon DynamoDB table that the
+--     application used.
+--
+-- -   AWS Service - The type of an AWS service. For example, AWS::DynamoDB
+--     for downstream calls to Amazon DynamoDB that didn\'t target a
+--     specific table.
+--
+-- -   AWS Service - The type of an AWS service. For example, AWS::DynamoDB
+--     for downstream calls to Amazon DynamoDB that didn\'t target a
+--     specific table.
+--
+-- -   remote - A downstream service of indeterminate type.
+insightImpactGraphService_type :: Lens.Lens' InsightImpactGraphService (Prelude.Maybe Prelude.Text)
+insightImpactGraphService_type = Lens.lens (\InsightImpactGraphService' {type'} -> type') (\s@InsightImpactGraphService' {} a -> s {type' = a} :: InsightImpactGraphService)
 
-instance FromJSON InsightImpactGraphService where
+instance Prelude.FromJSON InsightImpactGraphService where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InsightImpactGraphService"
       ( \x ->
           InsightImpactGraphService'
-            <$> (x .:? "Names" .!= mempty)
-            <*> (x .:? "AccountId")
-            <*> (x .:? "ReferenceId")
-            <*> (x .:? "Edges" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Names" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "ReferenceId")
+            Prelude.<*> (x Prelude..:? "Edges" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable InsightImpactGraphService
+instance Prelude.Hashable InsightImpactGraphService
 
-instance NFData InsightImpactGraphService
+instance Prelude.NFData InsightImpactGraphService

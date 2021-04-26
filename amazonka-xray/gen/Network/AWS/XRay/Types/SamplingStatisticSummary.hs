@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.SamplingStatisticSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Aggregated request sampling data for a sampling rule across all services for a 10-second window.
+-- | Aggregated request sampling data for a sampling rule across all services
+-- for a 10-second window.
 --
---
---
--- /See:/ 'samplingStatisticSummary' smart constructor.
+-- /See:/ 'newSamplingStatisticSummary' smart constructor.
 data SamplingStatisticSummary = SamplingStatisticSummary'
-  { _sssRuleName ::
-      !(Maybe Text),
-    _sssBorrowCount ::
-      !(Maybe Int),
-    _sssRequestCount ::
-      !(Maybe Int),
-    _sssSampledCount ::
-      !(Maybe Int),
-    _sssTimestamp ::
-      !(Maybe POSIX)
+  { -- | The name of the sampling rule.
+    ruleName :: Prelude.Maybe Prelude.Text,
+    -- | The number of requests recorded with borrowed reservoir quota.
+    borrowCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of requests that matched the rule.
+    requestCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of requests recorded.
+    sampledCount :: Prelude.Maybe Prelude.Int,
+    -- | The start time of the reporting window.
+    timestamp :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SamplingStatisticSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SamplingStatisticSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sssRuleName' - The name of the sampling rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sssBorrowCount' - The number of requests recorded with borrowed reservoir quota.
+-- 'ruleName', 'samplingStatisticSummary_ruleName' - The name of the sampling rule.
 --
--- * 'sssRequestCount' - The number of requests that matched the rule.
+-- 'borrowCount', 'samplingStatisticSummary_borrowCount' - The number of requests recorded with borrowed reservoir quota.
 --
--- * 'sssSampledCount' - The number of requests recorded.
+-- 'requestCount', 'samplingStatisticSummary_requestCount' - The number of requests that matched the rule.
 --
--- * 'sssTimestamp' - The start time of the reporting window.
-samplingStatisticSummary ::
+-- 'sampledCount', 'samplingStatisticSummary_sampledCount' - The number of requests recorded.
+--
+-- 'timestamp', 'samplingStatisticSummary_timestamp' - The start time of the reporting window.
+newSamplingStatisticSummary ::
   SamplingStatisticSummary
-samplingStatisticSummary =
+newSamplingStatisticSummary =
   SamplingStatisticSummary'
-    { _sssRuleName = Nothing,
-      _sssBorrowCount = Nothing,
-      _sssRequestCount = Nothing,
-      _sssSampledCount = Nothing,
-      _sssTimestamp = Nothing
+    { ruleName =
+        Prelude.Nothing,
+      borrowCount = Prelude.Nothing,
+      requestCount = Prelude.Nothing,
+      sampledCount = Prelude.Nothing,
+      timestamp = Prelude.Nothing
     }
 
 -- | The name of the sampling rule.
-sssRuleName :: Lens' SamplingStatisticSummary (Maybe Text)
-sssRuleName = lens _sssRuleName (\s a -> s {_sssRuleName = a})
+samplingStatisticSummary_ruleName :: Lens.Lens' SamplingStatisticSummary (Prelude.Maybe Prelude.Text)
+samplingStatisticSummary_ruleName = Lens.lens (\SamplingStatisticSummary' {ruleName} -> ruleName) (\s@SamplingStatisticSummary' {} a -> s {ruleName = a} :: SamplingStatisticSummary)
 
 -- | The number of requests recorded with borrowed reservoir quota.
-sssBorrowCount :: Lens' SamplingStatisticSummary (Maybe Int)
-sssBorrowCount = lens _sssBorrowCount (\s a -> s {_sssBorrowCount = a})
+samplingStatisticSummary_borrowCount :: Lens.Lens' SamplingStatisticSummary (Prelude.Maybe Prelude.Int)
+samplingStatisticSummary_borrowCount = Lens.lens (\SamplingStatisticSummary' {borrowCount} -> borrowCount) (\s@SamplingStatisticSummary' {} a -> s {borrowCount = a} :: SamplingStatisticSummary)
 
 -- | The number of requests that matched the rule.
-sssRequestCount :: Lens' SamplingStatisticSummary (Maybe Int)
-sssRequestCount = lens _sssRequestCount (\s a -> s {_sssRequestCount = a})
+samplingStatisticSummary_requestCount :: Lens.Lens' SamplingStatisticSummary (Prelude.Maybe Prelude.Int)
+samplingStatisticSummary_requestCount = Lens.lens (\SamplingStatisticSummary' {requestCount} -> requestCount) (\s@SamplingStatisticSummary' {} a -> s {requestCount = a} :: SamplingStatisticSummary)
 
 -- | The number of requests recorded.
-sssSampledCount :: Lens' SamplingStatisticSummary (Maybe Int)
-sssSampledCount = lens _sssSampledCount (\s a -> s {_sssSampledCount = a})
+samplingStatisticSummary_sampledCount :: Lens.Lens' SamplingStatisticSummary (Prelude.Maybe Prelude.Int)
+samplingStatisticSummary_sampledCount = Lens.lens (\SamplingStatisticSummary' {sampledCount} -> sampledCount) (\s@SamplingStatisticSummary' {} a -> s {sampledCount = a} :: SamplingStatisticSummary)
 
 -- | The start time of the reporting window.
-sssTimestamp :: Lens' SamplingStatisticSummary (Maybe UTCTime)
-sssTimestamp = lens _sssTimestamp (\s a -> s {_sssTimestamp = a}) . mapping _Time
+samplingStatisticSummary_timestamp :: Lens.Lens' SamplingStatisticSummary (Prelude.Maybe Prelude.UTCTime)
+samplingStatisticSummary_timestamp = Lens.lens (\SamplingStatisticSummary' {timestamp} -> timestamp) (\s@SamplingStatisticSummary' {} a -> s {timestamp = a} :: SamplingStatisticSummary) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON SamplingStatisticSummary where
+instance Prelude.FromJSON SamplingStatisticSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SamplingStatisticSummary"
       ( \x ->
           SamplingStatisticSummary'
-            <$> (x .:? "RuleName")
-            <*> (x .:? "BorrowCount")
-            <*> (x .:? "RequestCount")
-            <*> (x .:? "SampledCount")
-            <*> (x .:? "Timestamp")
+            Prelude.<$> (x Prelude..:? "RuleName")
+            Prelude.<*> (x Prelude..:? "BorrowCount")
+            Prelude.<*> (x Prelude..:? "RequestCount")
+            Prelude.<*> (x Prelude..:? "SampledCount")
+            Prelude.<*> (x Prelude..:? "Timestamp")
       )
 
-instance Hashable SamplingStatisticSummary
+instance Prelude.Hashable SamplingStatisticSummary
 
-instance NFData SamplingStatisticSummary
+instance Prelude.NFData SamplingStatisticSummary

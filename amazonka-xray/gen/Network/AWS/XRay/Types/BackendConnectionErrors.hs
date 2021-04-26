@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.BackendConnectionErrors where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- |
 --
---
---
--- /See:/ 'backendConnectionErrors' smart constructor.
+-- /See:/ 'newBackendConnectionErrors' smart constructor.
 data BackendConnectionErrors = BackendConnectionErrors'
-  { _bceOtherCount ::
-      !(Maybe Int),
-    _bceConnectionRefusedCount ::
-      !(Maybe Int),
-    _bceHTTPCode5XXCount ::
-      !(Maybe Int),
-    _bceTimeoutCount ::
-      !(Maybe Int),
-    _bceUnknownHostCount ::
-      !(Maybe Int),
-    _bceHTTPCode4XXCount ::
-      !(Maybe Int)
+  { otherCount :: Prelude.Maybe Prelude.Int,
+    connectionRefusedCount :: Prelude.Maybe Prelude.Int,
+    hTTPCode5XXCount :: Prelude.Maybe Prelude.Int,
+    timeoutCount :: Prelude.Maybe Prelude.Int,
+    unknownHostCount :: Prelude.Maybe Prelude.Int,
+    hTTPCode4XXCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BackendConnectionErrors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BackendConnectionErrors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bceOtherCount' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bceConnectionRefusedCount' -
+-- 'otherCount', 'backendConnectionErrors_otherCount' -
 --
--- * 'bceHTTPCode5XXCount' -
+-- 'connectionRefusedCount', 'backendConnectionErrors_connectionRefusedCount' -
 --
--- * 'bceTimeoutCount' -
+-- 'hTTPCode5XXCount', 'backendConnectionErrors_hTTPCode5XXCount' -
 --
--- * 'bceUnknownHostCount' -
+-- 'timeoutCount', 'backendConnectionErrors_timeoutCount' -
 --
--- * 'bceHTTPCode4XXCount' -
-backendConnectionErrors ::
+-- 'unknownHostCount', 'backendConnectionErrors_unknownHostCount' -
+--
+-- 'hTTPCode4XXCount', 'backendConnectionErrors_hTTPCode4XXCount' -
+newBackendConnectionErrors ::
   BackendConnectionErrors
-backendConnectionErrors =
+newBackendConnectionErrors =
   BackendConnectionErrors'
-    { _bceOtherCount = Nothing,
-      _bceConnectionRefusedCount = Nothing,
-      _bceHTTPCode5XXCount = Nothing,
-      _bceTimeoutCount = Nothing,
-      _bceUnknownHostCount = Nothing,
-      _bceHTTPCode4XXCount = Nothing
+    { otherCount =
+        Prelude.Nothing,
+      connectionRefusedCount = Prelude.Nothing,
+      hTTPCode5XXCount = Prelude.Nothing,
+      timeoutCount = Prelude.Nothing,
+      unknownHostCount = Prelude.Nothing,
+      hTTPCode4XXCount = Prelude.Nothing
     }
 
 -- |
-bceOtherCount :: Lens' BackendConnectionErrors (Maybe Int)
-bceOtherCount = lens _bceOtherCount (\s a -> s {_bceOtherCount = a})
+backendConnectionErrors_otherCount :: Lens.Lens' BackendConnectionErrors (Prelude.Maybe Prelude.Int)
+backendConnectionErrors_otherCount = Lens.lens (\BackendConnectionErrors' {otherCount} -> otherCount) (\s@BackendConnectionErrors' {} a -> s {otherCount = a} :: BackendConnectionErrors)
 
 -- |
-bceConnectionRefusedCount :: Lens' BackendConnectionErrors (Maybe Int)
-bceConnectionRefusedCount = lens _bceConnectionRefusedCount (\s a -> s {_bceConnectionRefusedCount = a})
+backendConnectionErrors_connectionRefusedCount :: Lens.Lens' BackendConnectionErrors (Prelude.Maybe Prelude.Int)
+backendConnectionErrors_connectionRefusedCount = Lens.lens (\BackendConnectionErrors' {connectionRefusedCount} -> connectionRefusedCount) (\s@BackendConnectionErrors' {} a -> s {connectionRefusedCount = a} :: BackendConnectionErrors)
 
 -- |
-bceHTTPCode5XXCount :: Lens' BackendConnectionErrors (Maybe Int)
-bceHTTPCode5XXCount = lens _bceHTTPCode5XXCount (\s a -> s {_bceHTTPCode5XXCount = a})
+backendConnectionErrors_hTTPCode5XXCount :: Lens.Lens' BackendConnectionErrors (Prelude.Maybe Prelude.Int)
+backendConnectionErrors_hTTPCode5XXCount = Lens.lens (\BackendConnectionErrors' {hTTPCode5XXCount} -> hTTPCode5XXCount) (\s@BackendConnectionErrors' {} a -> s {hTTPCode5XXCount = a} :: BackendConnectionErrors)
 
 -- |
-bceTimeoutCount :: Lens' BackendConnectionErrors (Maybe Int)
-bceTimeoutCount = lens _bceTimeoutCount (\s a -> s {_bceTimeoutCount = a})
+backendConnectionErrors_timeoutCount :: Lens.Lens' BackendConnectionErrors (Prelude.Maybe Prelude.Int)
+backendConnectionErrors_timeoutCount = Lens.lens (\BackendConnectionErrors' {timeoutCount} -> timeoutCount) (\s@BackendConnectionErrors' {} a -> s {timeoutCount = a} :: BackendConnectionErrors)
 
 -- |
-bceUnknownHostCount :: Lens' BackendConnectionErrors (Maybe Int)
-bceUnknownHostCount = lens _bceUnknownHostCount (\s a -> s {_bceUnknownHostCount = a})
+backendConnectionErrors_unknownHostCount :: Lens.Lens' BackendConnectionErrors (Prelude.Maybe Prelude.Int)
+backendConnectionErrors_unknownHostCount = Lens.lens (\BackendConnectionErrors' {unknownHostCount} -> unknownHostCount) (\s@BackendConnectionErrors' {} a -> s {unknownHostCount = a} :: BackendConnectionErrors)
 
 -- |
-bceHTTPCode4XXCount :: Lens' BackendConnectionErrors (Maybe Int)
-bceHTTPCode4XXCount = lens _bceHTTPCode4XXCount (\s a -> s {_bceHTTPCode4XXCount = a})
+backendConnectionErrors_hTTPCode4XXCount :: Lens.Lens' BackendConnectionErrors (Prelude.Maybe Prelude.Int)
+backendConnectionErrors_hTTPCode4XXCount = Lens.lens (\BackendConnectionErrors' {hTTPCode4XXCount} -> hTTPCode4XXCount) (\s@BackendConnectionErrors' {} a -> s {hTTPCode4XXCount = a} :: BackendConnectionErrors)
 
-instance Hashable BackendConnectionErrors
+instance Prelude.Hashable BackendConnectionErrors
 
-instance NFData BackendConnectionErrors
+instance Prelude.NFData BackendConnectionErrors
 
-instance ToJSON BackendConnectionErrors where
+instance Prelude.ToJSON BackendConnectionErrors where
   toJSON BackendConnectionErrors' {..} =
-    object
-      ( catMaybes
-          [ ("OtherCount" .=) <$> _bceOtherCount,
-            ("ConnectionRefusedCount" .=)
-              <$> _bceConnectionRefusedCount,
-            ("HTTPCode5XXCount" .=) <$> _bceHTTPCode5XXCount,
-            ("TimeoutCount" .=) <$> _bceTimeoutCount,
-            ("UnknownHostCount" .=) <$> _bceUnknownHostCount,
-            ("HTTPCode4XXCount" .=) <$> _bceHTTPCode4XXCount
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OtherCount" Prelude..=) Prelude.<$> otherCount,
+            ("ConnectionRefusedCount" Prelude..=)
+              Prelude.<$> connectionRefusedCount,
+            ("HTTPCode5XXCount" Prelude..=)
+              Prelude.<$> hTTPCode5XXCount,
+            ("TimeoutCount" Prelude..=) Prelude.<$> timeoutCount,
+            ("UnknownHostCount" Prelude..=)
+              Prelude.<$> unknownHostCount,
+            ("HTTPCode4XXCount" Prelude..=)
+              Prelude.<$> hTTPCode4XXCount
           ]
       )

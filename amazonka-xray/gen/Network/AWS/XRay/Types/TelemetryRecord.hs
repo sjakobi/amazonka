@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.TelemetryRecord where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.BackendConnectionErrors
 
 -- |
 --
---
---
--- /See:/ 'telemetryRecord' smart constructor.
+-- /See:/ 'newTelemetryRecord' smart constructor.
 data TelemetryRecord = TelemetryRecord'
-  { _trSegmentsSpilloverCount ::
-      !(Maybe Int),
-    _trBackendConnectionErrors ::
-      !(Maybe BackendConnectionErrors),
-    _trSegmentsRejectedCount ::
-      !(Maybe Int),
-    _trSegmentsSentCount :: !(Maybe Int),
-    _trSegmentsReceivedCount ::
-      !(Maybe Int),
-    _trTimestamp :: !POSIX
+  { segmentsSpilloverCount :: Prelude.Maybe Prelude.Int,
+    backendConnectionErrors :: Prelude.Maybe BackendConnectionErrors,
+    segmentsRejectedCount :: Prelude.Maybe Prelude.Int,
+    segmentsSentCount :: Prelude.Maybe Prelude.Int,
+    segmentsReceivedCount :: Prelude.Maybe Prelude.Int,
+    timestamp :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TelemetryRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TelemetryRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trSegmentsSpilloverCount' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trBackendConnectionErrors' -
+-- 'segmentsSpilloverCount', 'telemetryRecord_segmentsSpilloverCount' -
 --
--- * 'trSegmentsRejectedCount' -
+-- 'backendConnectionErrors', 'telemetryRecord_backendConnectionErrors' -
 --
--- * 'trSegmentsSentCount' -
+-- 'segmentsRejectedCount', 'telemetryRecord_segmentsRejectedCount' -
 --
--- * 'trSegmentsReceivedCount' -
+-- 'segmentsSentCount', 'telemetryRecord_segmentsSentCount' -
 --
--- * 'trTimestamp' -
-telemetryRecord ::
-  -- | 'trTimestamp'
-  UTCTime ->
+-- 'segmentsReceivedCount', 'telemetryRecord_segmentsReceivedCount' -
+--
+-- 'timestamp', 'telemetryRecord_timestamp' -
+newTelemetryRecord ::
+  -- | 'timestamp'
+  Prelude.UTCTime ->
   TelemetryRecord
-telemetryRecord pTimestamp_ =
+newTelemetryRecord pTimestamp_ =
   TelemetryRecord'
-    { _trSegmentsSpilloverCount =
-        Nothing,
-      _trBackendConnectionErrors = Nothing,
-      _trSegmentsRejectedCount = Nothing,
-      _trSegmentsSentCount = Nothing,
-      _trSegmentsReceivedCount = Nothing,
-      _trTimestamp = _Time # pTimestamp_
+    { segmentsSpilloverCount =
+        Prelude.Nothing,
+      backendConnectionErrors = Prelude.Nothing,
+      segmentsRejectedCount = Prelude.Nothing,
+      segmentsSentCount = Prelude.Nothing,
+      segmentsReceivedCount = Prelude.Nothing,
+      timestamp = Prelude._Time Lens.# pTimestamp_
     }
 
 -- |
-trSegmentsSpilloverCount :: Lens' TelemetryRecord (Maybe Int)
-trSegmentsSpilloverCount = lens _trSegmentsSpilloverCount (\s a -> s {_trSegmentsSpilloverCount = a})
+telemetryRecord_segmentsSpilloverCount :: Lens.Lens' TelemetryRecord (Prelude.Maybe Prelude.Int)
+telemetryRecord_segmentsSpilloverCount = Lens.lens (\TelemetryRecord' {segmentsSpilloverCount} -> segmentsSpilloverCount) (\s@TelemetryRecord' {} a -> s {segmentsSpilloverCount = a} :: TelemetryRecord)
 
 -- |
-trBackendConnectionErrors :: Lens' TelemetryRecord (Maybe BackendConnectionErrors)
-trBackendConnectionErrors = lens _trBackendConnectionErrors (\s a -> s {_trBackendConnectionErrors = a})
+telemetryRecord_backendConnectionErrors :: Lens.Lens' TelemetryRecord (Prelude.Maybe BackendConnectionErrors)
+telemetryRecord_backendConnectionErrors = Lens.lens (\TelemetryRecord' {backendConnectionErrors} -> backendConnectionErrors) (\s@TelemetryRecord' {} a -> s {backendConnectionErrors = a} :: TelemetryRecord)
 
 -- |
-trSegmentsRejectedCount :: Lens' TelemetryRecord (Maybe Int)
-trSegmentsRejectedCount = lens _trSegmentsRejectedCount (\s a -> s {_trSegmentsRejectedCount = a})
+telemetryRecord_segmentsRejectedCount :: Lens.Lens' TelemetryRecord (Prelude.Maybe Prelude.Int)
+telemetryRecord_segmentsRejectedCount = Lens.lens (\TelemetryRecord' {segmentsRejectedCount} -> segmentsRejectedCount) (\s@TelemetryRecord' {} a -> s {segmentsRejectedCount = a} :: TelemetryRecord)
 
 -- |
-trSegmentsSentCount :: Lens' TelemetryRecord (Maybe Int)
-trSegmentsSentCount = lens _trSegmentsSentCount (\s a -> s {_trSegmentsSentCount = a})
+telemetryRecord_segmentsSentCount :: Lens.Lens' TelemetryRecord (Prelude.Maybe Prelude.Int)
+telemetryRecord_segmentsSentCount = Lens.lens (\TelemetryRecord' {segmentsSentCount} -> segmentsSentCount) (\s@TelemetryRecord' {} a -> s {segmentsSentCount = a} :: TelemetryRecord)
 
 -- |
-trSegmentsReceivedCount :: Lens' TelemetryRecord (Maybe Int)
-trSegmentsReceivedCount = lens _trSegmentsReceivedCount (\s a -> s {_trSegmentsReceivedCount = a})
+telemetryRecord_segmentsReceivedCount :: Lens.Lens' TelemetryRecord (Prelude.Maybe Prelude.Int)
+telemetryRecord_segmentsReceivedCount = Lens.lens (\TelemetryRecord' {segmentsReceivedCount} -> segmentsReceivedCount) (\s@TelemetryRecord' {} a -> s {segmentsReceivedCount = a} :: TelemetryRecord)
 
 -- |
-trTimestamp :: Lens' TelemetryRecord UTCTime
-trTimestamp = lens _trTimestamp (\s a -> s {_trTimestamp = a}) . _Time
+telemetryRecord_timestamp :: Lens.Lens' TelemetryRecord Prelude.UTCTime
+telemetryRecord_timestamp = Lens.lens (\TelemetryRecord' {timestamp} -> timestamp) (\s@TelemetryRecord' {} a -> s {timestamp = a} :: TelemetryRecord) Prelude.. Prelude._Time
 
-instance Hashable TelemetryRecord
+instance Prelude.Hashable TelemetryRecord
 
-instance NFData TelemetryRecord
+instance Prelude.NFData TelemetryRecord
 
-instance ToJSON TelemetryRecord where
+instance Prelude.ToJSON TelemetryRecord where
   toJSON TelemetryRecord' {..} =
-    object
-      ( catMaybes
-          [ ("SegmentsSpilloverCount" .=)
-              <$> _trSegmentsSpilloverCount,
-            ("BackendConnectionErrors" .=)
-              <$> _trBackendConnectionErrors,
-            ("SegmentsRejectedCount" .=)
-              <$> _trSegmentsRejectedCount,
-            ("SegmentsSentCount" .=) <$> _trSegmentsSentCount,
-            ("SegmentsReceivedCount" .=)
-              <$> _trSegmentsReceivedCount,
-            Just ("Timestamp" .= _trTimestamp)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SegmentsSpilloverCount" Prelude..=)
+              Prelude.<$> segmentsSpilloverCount,
+            ("BackendConnectionErrors" Prelude..=)
+              Prelude.<$> backendConnectionErrors,
+            ("SegmentsRejectedCount" Prelude..=)
+              Prelude.<$> segmentsRejectedCount,
+            ("SegmentsSentCount" Prelude..=)
+              Prelude.<$> segmentsSentCount,
+            ("SegmentsReceivedCount" Prelude..=)
+              Prelude.<$> segmentsReceivedCount,
+            Prelude.Just ("Timestamp" Prelude..= timestamp)
           ]
       )

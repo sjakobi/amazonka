@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,141 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a rule to control sampling behavior for instrumented applications. Services retrieve rules with 'GetSamplingRules' , and evaluate each rule in ascending order of /priority/ for each request. If a rule matches, the service records a trace, borrowing it from the reservoir size. After 10 seconds, the service reports back to X-Ray with 'GetSamplingTargets' to get updated versions of each in-use rule. The updated rule contains a trace quota that the service can use instead of borrowing from the reservoir.
+-- Creates a rule to control sampling behavior for instrumented
+-- applications. Services retrieve rules with GetSamplingRules, and
+-- evaluate each rule in ascending order of /priority/ for each request. If
+-- a rule matches, the service records a trace, borrowing it from the
+-- reservoir size. After 10 seconds, the service reports back to X-Ray with
+-- GetSamplingTargets to get updated versions of each in-use rule. The
+-- updated rule contains a trace quota that the service can use instead of
+-- borrowing from the reservoir.
 module Network.AWS.XRay.CreateSamplingRule
   ( -- * Creating a Request
-    createSamplingRule,
-    CreateSamplingRule,
+    CreateSamplingRule (..),
+    newCreateSamplingRule,
 
     -- * Request Lenses
-    csrTags,
-    csrSamplingRule,
+    createSamplingRule_tags,
+    createSamplingRule_samplingRule,
 
     -- * Destructuring the Response
-    createSamplingRuleResponse,
-    CreateSamplingRuleResponse,
+    CreateSamplingRuleResponse (..),
+    newCreateSamplingRuleResponse,
 
     -- * Response Lenses
-    csrrrsSamplingRuleRecord,
-    csrrrsResponseStatus,
+    createSamplingRuleResponse_samplingRuleRecord,
+    createSamplingRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.SamplingRuleRecord
 
--- | /See:/ 'createSamplingRule' smart constructor.
+-- | /See:/ 'newCreateSamplingRule' smart constructor.
 data CreateSamplingRule = CreateSamplingRule'
-  { _csrTags ::
-      !(Maybe [Tag]),
-    _csrSamplingRule :: !SamplingRule
+  { -- | A map that contains one or more tag keys and tag values to attach to an
+    -- X-Ray sampling rule. For more information about ways to use tags, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+    -- in the /AWS General Reference/.
+    --
+    -- The following restrictions apply to tags:
+    --
+    -- -   Maximum number of user-applied tags per resource: 50
+    --
+    -- -   Maximum tag key length: 128 Unicode characters
+    --
+    -- -   Maximum tag value length: 256 Unicode characters
+    --
+    -- -   Valid values for key and value: a-z, A-Z, 0-9, space, and the
+    --     following characters: _ . : \/ = + - and \@
+    --
+    -- -   Tag keys and values are case sensitive.
+    --
+    -- -   Don\'t use @aws:@ as a prefix for keys; it\'s reserved for AWS use.
+    tags :: Prelude.Maybe [Tag],
+    -- | The rule definition.
+    samplingRule :: SamplingRule
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSamplingRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSamplingRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrTags' - A map that contains one or more tag keys and tag values to attach to an X-Ray sampling rule. For more information about ways to use tags, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference/ . The following restrictions apply to tags:     * Maximum number of user-applied tags per resource: 50     * Maximum tag key length: 128 Unicode characters     * Maximum tag value length: 256 Unicode characters     * Valid values for key and value: a-z, A-Z, 0-9, space, and the following characters: _ . : / = + - and @     * Tag keys and values are case sensitive.     * Don't use @aws:@ as a prefix for keys; it's reserved for AWS use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrSamplingRule' - The rule definition.
-createSamplingRule ::
-  -- | 'csrSamplingRule'
+-- 'tags', 'createSamplingRule_tags' - A map that contains one or more tag keys and tag values to attach to an
+-- X-Ray sampling rule. For more information about ways to use tags, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference/.
+--
+-- The following restrictions apply to tags:
+--
+-- -   Maximum number of user-applied tags per resource: 50
+--
+-- -   Maximum tag key length: 128 Unicode characters
+--
+-- -   Maximum tag value length: 256 Unicode characters
+--
+-- -   Valid values for key and value: a-z, A-Z, 0-9, space, and the
+--     following characters: _ . : \/ = + - and \@
+--
+-- -   Tag keys and values are case sensitive.
+--
+-- -   Don\'t use @aws:@ as a prefix for keys; it\'s reserved for AWS use.
+--
+-- 'samplingRule', 'createSamplingRule_samplingRule' - The rule definition.
+newCreateSamplingRule ::
+  -- | 'samplingRule'
   SamplingRule ->
   CreateSamplingRule
-createSamplingRule pSamplingRule_ =
+newCreateSamplingRule pSamplingRule_ =
   CreateSamplingRule'
-    { _csrTags = Nothing,
-      _csrSamplingRule = pSamplingRule_
+    { tags = Prelude.Nothing,
+      samplingRule = pSamplingRule_
     }
 
--- | A map that contains one or more tag keys and tag values to attach to an X-Ray sampling rule. For more information about ways to use tags, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference/ . The following restrictions apply to tags:     * Maximum number of user-applied tags per resource: 50     * Maximum tag key length: 128 Unicode characters     * Maximum tag value length: 256 Unicode characters     * Valid values for key and value: a-z, A-Z, 0-9, space, and the following characters: _ . : / = + - and @     * Tag keys and values are case sensitive.     * Don't use @aws:@ as a prefix for keys; it's reserved for AWS use.
-csrTags :: Lens' CreateSamplingRule [Tag]
-csrTags = lens _csrTags (\s a -> s {_csrTags = a}) . _Default . _Coerce
+-- | A map that contains one or more tag keys and tag values to attach to an
+-- X-Ray sampling rule. For more information about ways to use tags, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference/.
+--
+-- The following restrictions apply to tags:
+--
+-- -   Maximum number of user-applied tags per resource: 50
+--
+-- -   Maximum tag key length: 128 Unicode characters
+--
+-- -   Maximum tag value length: 256 Unicode characters
+--
+-- -   Valid values for key and value: a-z, A-Z, 0-9, space, and the
+--     following characters: _ . : \/ = + - and \@
+--
+-- -   Tag keys and values are case sensitive.
+--
+-- -   Don\'t use @aws:@ as a prefix for keys; it\'s reserved for AWS use.
+createSamplingRule_tags :: Lens.Lens' CreateSamplingRule (Prelude.Maybe [Tag])
+createSamplingRule_tags = Lens.lens (\CreateSamplingRule' {tags} -> tags) (\s@CreateSamplingRule' {} a -> s {tags = a} :: CreateSamplingRule) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The rule definition.
-csrSamplingRule :: Lens' CreateSamplingRule SamplingRule
-csrSamplingRule = lens _csrSamplingRule (\s a -> s {_csrSamplingRule = a})
+createSamplingRule_samplingRule :: Lens.Lens' CreateSamplingRule SamplingRule
+createSamplingRule_samplingRule = Lens.lens (\CreateSamplingRule' {samplingRule} -> samplingRule) (\s@CreateSamplingRule' {} a -> s {samplingRule = a} :: CreateSamplingRule)
 
-instance AWSRequest CreateSamplingRule where
+instance Prelude.AWSRequest CreateSamplingRule where
   type
     Rs CreateSamplingRule =
       CreateSamplingRuleResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSamplingRuleResponse'
-            <$> (x .?> "SamplingRuleRecord") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SamplingRuleRecord")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSamplingRule
+instance Prelude.Hashable CreateSamplingRule
 
-instance NFData CreateSamplingRule
+instance Prelude.NFData CreateSamplingRule
 
-instance ToHeaders CreateSamplingRule where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateSamplingRule where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateSamplingRule where
+instance Prelude.ToJSON CreateSamplingRule where
   toJSON CreateSamplingRule' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _csrTags,
-            Just ("SamplingRule" .= _csrSamplingRule)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("SamplingRule" Prelude..= samplingRule)
           ]
       )
 
-instance ToPath CreateSamplingRule where
-  toPath = const "/CreateSamplingRule"
+instance Prelude.ToPath CreateSamplingRule where
+  toPath = Prelude.const "/CreateSamplingRule"
 
-instance ToQuery CreateSamplingRule where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSamplingRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createSamplingRuleResponse' smart constructor.
+-- | /See:/ 'newCreateSamplingRuleResponse' smart constructor.
 data CreateSamplingRuleResponse = CreateSamplingRuleResponse'
-  { _csrrrsSamplingRuleRecord ::
-      !( Maybe
-           SamplingRuleRecord
-       ),
-    _csrrrsResponseStatus ::
-      !Int
+  { -- | The saved rule definition and metadata.
+    samplingRuleRecord :: Prelude.Maybe SamplingRuleRecord,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSamplingRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSamplingRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrrsSamplingRuleRecord' - The saved rule definition and metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrrsResponseStatus' - -- | The response status code.
-createSamplingRuleResponse ::
-  -- | 'csrrrsResponseStatus'
-  Int ->
+-- 'samplingRuleRecord', 'createSamplingRuleResponse_samplingRuleRecord' - The saved rule definition and metadata.
+--
+-- 'httpStatus', 'createSamplingRuleResponse_httpStatus' - The response's http status code.
+newCreateSamplingRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSamplingRuleResponse
-createSamplingRuleResponse pResponseStatus_ =
+newCreateSamplingRuleResponse pHttpStatus_ =
   CreateSamplingRuleResponse'
-    { _csrrrsSamplingRuleRecord =
-        Nothing,
-      _csrrrsResponseStatus = pResponseStatus_
+    { samplingRuleRecord =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The saved rule definition and metadata.
-csrrrsSamplingRuleRecord :: Lens' CreateSamplingRuleResponse (Maybe SamplingRuleRecord)
-csrrrsSamplingRuleRecord = lens _csrrrsSamplingRuleRecord (\s a -> s {_csrrrsSamplingRuleRecord = a})
+createSamplingRuleResponse_samplingRuleRecord :: Lens.Lens' CreateSamplingRuleResponse (Prelude.Maybe SamplingRuleRecord)
+createSamplingRuleResponse_samplingRuleRecord = Lens.lens (\CreateSamplingRuleResponse' {samplingRuleRecord} -> samplingRuleRecord) (\s@CreateSamplingRuleResponse' {} a -> s {samplingRuleRecord = a} :: CreateSamplingRuleResponse)
 
--- | -- | The response status code.
-csrrrsResponseStatus :: Lens' CreateSamplingRuleResponse Int
-csrrrsResponseStatus = lens _csrrrsResponseStatus (\s a -> s {_csrrrsResponseStatus = a})
+-- | The response's http status code.
+createSamplingRuleResponse_httpStatus :: Lens.Lens' CreateSamplingRuleResponse Prelude.Int
+createSamplingRuleResponse_httpStatus = Lens.lens (\CreateSamplingRuleResponse' {httpStatus} -> httpStatus) (\s@CreateSamplingRuleResponse' {} a -> s {httpStatus = a} :: CreateSamplingRuleResponse)
 
-instance NFData CreateSamplingRuleResponse
+instance Prelude.NFData CreateSamplingRuleResponse

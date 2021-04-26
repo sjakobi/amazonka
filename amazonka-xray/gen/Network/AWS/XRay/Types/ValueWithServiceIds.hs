@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ValueWithServiceIds where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.AnnotationValue
 import Network.AWS.XRay.Types.ServiceId
 
 -- | Information about a segment annotation.
 --
---
---
--- /See:/ 'valueWithServiceIds' smart constructor.
+-- /See:/ 'newValueWithServiceIds' smart constructor.
 data ValueWithServiceIds = ValueWithServiceIds'
-  { _vwsiAnnotationValue ::
-      !(Maybe AnnotationValue),
-    _vwsiServiceIds ::
-      !(Maybe [ServiceId])
+  { -- | Values of the annotation.
+    annotationValue :: Prelude.Maybe AnnotationValue,
+    -- | Services to which the annotation applies.
+    serviceIds :: Prelude.Maybe [ServiceId]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValueWithServiceIds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValueWithServiceIds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vwsiAnnotationValue' - Values of the annotation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vwsiServiceIds' - Services to which the annotation applies.
-valueWithServiceIds ::
+-- 'annotationValue', 'valueWithServiceIds_annotationValue' - Values of the annotation.
+--
+-- 'serviceIds', 'valueWithServiceIds_serviceIds' - Services to which the annotation applies.
+newValueWithServiceIds ::
   ValueWithServiceIds
-valueWithServiceIds =
+newValueWithServiceIds =
   ValueWithServiceIds'
-    { _vwsiAnnotationValue =
-        Nothing,
-      _vwsiServiceIds = Nothing
+    { annotationValue =
+        Prelude.Nothing,
+      serviceIds = Prelude.Nothing
     }
 
 -- | Values of the annotation.
-vwsiAnnotationValue :: Lens' ValueWithServiceIds (Maybe AnnotationValue)
-vwsiAnnotationValue = lens _vwsiAnnotationValue (\s a -> s {_vwsiAnnotationValue = a})
+valueWithServiceIds_annotationValue :: Lens.Lens' ValueWithServiceIds (Prelude.Maybe AnnotationValue)
+valueWithServiceIds_annotationValue = Lens.lens (\ValueWithServiceIds' {annotationValue} -> annotationValue) (\s@ValueWithServiceIds' {} a -> s {annotationValue = a} :: ValueWithServiceIds)
 
 -- | Services to which the annotation applies.
-vwsiServiceIds :: Lens' ValueWithServiceIds [ServiceId]
-vwsiServiceIds = lens _vwsiServiceIds (\s a -> s {_vwsiServiceIds = a}) . _Default . _Coerce
+valueWithServiceIds_serviceIds :: Lens.Lens' ValueWithServiceIds (Prelude.Maybe [ServiceId])
+valueWithServiceIds_serviceIds = Lens.lens (\ValueWithServiceIds' {serviceIds} -> serviceIds) (\s@ValueWithServiceIds' {} a -> s {serviceIds = a} :: ValueWithServiceIds) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ValueWithServiceIds where
+instance Prelude.FromJSON ValueWithServiceIds where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ValueWithServiceIds"
       ( \x ->
           ValueWithServiceIds'
-            <$> (x .:? "AnnotationValue")
-            <*> (x .:? "ServiceIds" .!= mempty)
+            Prelude.<$> (x Prelude..:? "AnnotationValue")
+            Prelude.<*> ( x Prelude..:? "ServiceIds"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ValueWithServiceIds
+instance Prelude.Hashable ValueWithServiceIds
 
-instance NFData ValueWithServiceIds
+instance Prelude.NFData ValueWithServiceIds

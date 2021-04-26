@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.XRay.Types.InsightState
   ( InsightState
       ( ..,
-        Active,
-        Closed
+        InsightStateACTIVE,
+        InsightStateCLOSED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InsightState = InsightState' (CI Text)
+newtype InsightState = InsightState'
+  { fromInsightState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: InsightState
-pattern Active = InsightState' "ACTIVE"
+pattern InsightStateACTIVE :: InsightState
+pattern InsightStateACTIVE = InsightState' "ACTIVE"
 
-pattern Closed :: InsightState
-pattern Closed = InsightState' "CLOSED"
+pattern InsightStateCLOSED :: InsightState
+pattern InsightStateCLOSED = InsightState' "CLOSED"
 
 {-# COMPLETE
-  Active,
-  Closed,
+  InsightStateACTIVE,
+  InsightStateCLOSED,
   InsightState'
   #-}
 
-instance FromText InsightState where
-  parser = (InsightState' . mk) <$> takeText
+instance Prelude.FromText InsightState where
+  parser = InsightState' Prelude.<$> Prelude.takeText
 
-instance ToText InsightState where
-  toText (InsightState' ci) = original ci
+instance Prelude.ToText InsightState where
+  toText (InsightState' x) = x
 
-instance Hashable InsightState
+instance Prelude.Hashable InsightState
 
-instance NFData InsightState
+instance Prelude.NFData InsightState
 
-instance ToByteString InsightState
+instance Prelude.ToByteString InsightState
 
-instance ToQuery InsightState
+instance Prelude.ToQuery InsightState
 
-instance ToHeader InsightState
+instance Prelude.ToHeader InsightState
 
-instance ToJSON InsightState where
-  toJSON = toJSONText
+instance Prelude.ToJSON InsightState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InsightState where
-  parseJSON = parseJSONText "InsightState"
+instance Prelude.FromJSON InsightState where
+  parseJSON = Prelude.parseJSONText "InsightState"

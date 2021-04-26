@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.XRay.Types.TimeRangeType
   ( TimeRangeType
       ( ..,
-        Event,
-        TraceId
+        TimeRangeTypeEvent,
+        TimeRangeTypeTraceId
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TimeRangeType = TimeRangeType' (CI Text)
+newtype TimeRangeType = TimeRangeType'
+  { fromTimeRangeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Event :: TimeRangeType
-pattern Event = TimeRangeType' "Event"
+pattern TimeRangeTypeEvent :: TimeRangeType
+pattern TimeRangeTypeEvent = TimeRangeType' "Event"
 
-pattern TraceId :: TimeRangeType
-pattern TraceId = TimeRangeType' "TraceId"
+pattern TimeRangeTypeTraceId :: TimeRangeType
+pattern TimeRangeTypeTraceId = TimeRangeType' "TraceId"
 
 {-# COMPLETE
-  Event,
-  TraceId,
+  TimeRangeTypeEvent,
+  TimeRangeTypeTraceId,
   TimeRangeType'
   #-}
 
-instance FromText TimeRangeType where
-  parser = (TimeRangeType' . mk) <$> takeText
+instance Prelude.FromText TimeRangeType where
+  parser = TimeRangeType' Prelude.<$> Prelude.takeText
 
-instance ToText TimeRangeType where
-  toText (TimeRangeType' ci) = original ci
+instance Prelude.ToText TimeRangeType where
+  toText (TimeRangeType' x) = x
 
-instance Hashable TimeRangeType
+instance Prelude.Hashable TimeRangeType
 
-instance NFData TimeRangeType
+instance Prelude.NFData TimeRangeType
 
-instance ToByteString TimeRangeType
+instance Prelude.ToByteString TimeRangeType
 
-instance ToQuery TimeRangeType
+instance Prelude.ToQuery TimeRangeType
 
-instance ToHeader TimeRangeType
+instance Prelude.ToHeader TimeRangeType
 
-instance ToJSON TimeRangeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TimeRangeType where
+  toJSON = Prelude.toJSONText

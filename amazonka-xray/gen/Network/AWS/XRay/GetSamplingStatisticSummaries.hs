@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about recent sampling results for all sampling rules.
---
---
+-- Retrieves information about recent sampling results for all sampling
+-- rules.
 --
 -- This operation returns paginated results.
 module Network.AWS.XRay.GetSamplingStatisticSummaries
   ( -- * Creating a Request
-    getSamplingStatisticSummaries,
-    GetSamplingStatisticSummaries,
+    GetSamplingStatisticSummaries (..),
+    newGetSamplingStatisticSummaries,
 
     -- * Request Lenses
-    gsssNextToken,
+    getSamplingStatisticSummaries_nextToken,
 
     -- * Destructuring the Response
-    getSamplingStatisticSummariesResponse,
-    GetSamplingStatisticSummariesResponse,
+    GetSamplingStatisticSummariesResponse (..),
+    newGetSamplingStatisticSummariesResponse,
 
     -- * Response Lenses
-    gsssrrsSamplingStatisticSummaries,
-    gsssrrsNextToken,
-    gsssrrsResponseStatus,
+    getSamplingStatisticSummariesResponse_samplingStatisticSummaries,
+    getSamplingStatisticSummariesResponse_nextToken,
+    getSamplingStatisticSummariesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.SamplingStatisticSummary
 
--- | /See:/ 'getSamplingStatisticSummaries' smart constructor.
-newtype GetSamplingStatisticSummaries = GetSamplingStatisticSummaries'
-  { _gsssNextToken ::
-      Maybe
-        Text
+-- | /See:/ 'newGetSamplingStatisticSummaries' smart constructor.
+data GetSamplingStatisticSummaries = GetSamplingStatisticSummaries'
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSamplingStatisticSummaries' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSamplingStatisticSummaries' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsssNextToken' - Pagination token.
-getSamplingStatisticSummaries ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'getSamplingStatisticSummaries_nextToken' - Pagination token.
+newGetSamplingStatisticSummaries ::
   GetSamplingStatisticSummaries
-getSamplingStatisticSummaries =
+newGetSamplingStatisticSummaries =
   GetSamplingStatisticSummaries'
-    { _gsssNextToken =
-        Nothing
+    { nextToken =
+        Prelude.Nothing
     }
 
 -- | Pagination token.
-gsssNextToken :: Lens' GetSamplingStatisticSummaries (Maybe Text)
-gsssNextToken = lens _gsssNextToken (\s a -> s {_gsssNextToken = a})
+getSamplingStatisticSummaries_nextToken :: Lens.Lens' GetSamplingStatisticSummaries (Prelude.Maybe Prelude.Text)
+getSamplingStatisticSummaries_nextToken = Lens.lens (\GetSamplingStatisticSummaries' {nextToken} -> nextToken) (\s@GetSamplingStatisticSummaries' {} a -> s {nextToken = a} :: GetSamplingStatisticSummaries)
 
-instance AWSPager GetSamplingStatisticSummaries where
+instance Pager.AWSPager GetSamplingStatisticSummaries where
   page rq rs
-    | stop (rs ^. gsssrrsNextToken) = Nothing
-    | stop (rs ^. gsssrrsSamplingStatisticSummaries) =
-      Nothing
-    | otherwise =
-      Just $ rq & gsssNextToken .~ rs ^. gsssrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getSamplingStatisticSummariesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getSamplingStatisticSummariesResponse_samplingStatisticSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getSamplingStatisticSummaries_nextToken
+          Lens..~ rs
+          Lens.^? getSamplingStatisticSummariesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetSamplingStatisticSummaries where
+instance
+  Prelude.AWSRequest
+    GetSamplingStatisticSummaries
+  where
   type
     Rs GetSamplingStatisticSummaries =
       GetSamplingStatisticSummariesResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSamplingStatisticSummariesResponse'
-            <$> (x .?> "SamplingStatisticSummaries" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SamplingStatisticSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSamplingStatisticSummaries
+instance
+  Prelude.Hashable
+    GetSamplingStatisticSummaries
 
-instance NFData GetSamplingStatisticSummaries
+instance Prelude.NFData GetSamplingStatisticSummaries
 
-instance ToHeaders GetSamplingStatisticSummaries where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetSamplingStatisticSummaries
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetSamplingStatisticSummaries where
+instance Prelude.ToJSON GetSamplingStatisticSummaries where
   toJSON GetSamplingStatisticSummaries' {..} =
-    object
-      (catMaybes [("NextToken" .=) <$> _gsssNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("NextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath GetSamplingStatisticSummaries where
-  toPath = const "/SamplingStatisticSummaries"
+instance Prelude.ToPath GetSamplingStatisticSummaries where
+  toPath = Prelude.const "/SamplingStatisticSummaries"
 
-instance ToQuery GetSamplingStatisticSummaries where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetSamplingStatisticSummaries
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSamplingStatisticSummariesResponse' smart constructor.
+-- | /See:/ 'newGetSamplingStatisticSummariesResponse' smart constructor.
 data GetSamplingStatisticSummariesResponse = GetSamplingStatisticSummariesResponse'
-  { _gsssrrsSamplingStatisticSummaries ::
-      !( Maybe
-           [SamplingStatisticSummary]
-       ),
-    _gsssrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _gsssrrsResponseStatus ::
-      !Int
+  { -- | Information about the number of requests instrumented for each sampling
+    -- rule.
+    samplingStatisticSummaries :: Prelude.Maybe [SamplingStatisticSummary],
+    -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSamplingStatisticSummariesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSamplingStatisticSummariesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsssrrsSamplingStatisticSummaries' - Information about the number of requests instrumented for each sampling rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsssrrsNextToken' - Pagination token.
+-- 'samplingStatisticSummaries', 'getSamplingStatisticSummariesResponse_samplingStatisticSummaries' - Information about the number of requests instrumented for each sampling
+-- rule.
 --
--- * 'gsssrrsResponseStatus' - -- | The response status code.
-getSamplingStatisticSummariesResponse ::
-  -- | 'gsssrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'getSamplingStatisticSummariesResponse_nextToken' - Pagination token.
+--
+-- 'httpStatus', 'getSamplingStatisticSummariesResponse_httpStatus' - The response's http status code.
+newGetSamplingStatisticSummariesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSamplingStatisticSummariesResponse
-getSamplingStatisticSummariesResponse
-  pResponseStatus_ =
-    GetSamplingStatisticSummariesResponse'
-      { _gsssrrsSamplingStatisticSummaries =
-          Nothing,
-        _gsssrrsNextToken = Nothing,
-        _gsssrrsResponseStatus =
-          pResponseStatus_
-      }
+newGetSamplingStatisticSummariesResponse pHttpStatus_ =
+  GetSamplingStatisticSummariesResponse'
+    { samplingStatisticSummaries =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | Information about the number of requests instrumented for each sampling rule.
-gsssrrsSamplingStatisticSummaries :: Lens' GetSamplingStatisticSummariesResponse [SamplingStatisticSummary]
-gsssrrsSamplingStatisticSummaries = lens _gsssrrsSamplingStatisticSummaries (\s a -> s {_gsssrrsSamplingStatisticSummaries = a}) . _Default . _Coerce
+-- | Information about the number of requests instrumented for each sampling
+-- rule.
+getSamplingStatisticSummariesResponse_samplingStatisticSummaries :: Lens.Lens' GetSamplingStatisticSummariesResponse (Prelude.Maybe [SamplingStatisticSummary])
+getSamplingStatisticSummariesResponse_samplingStatisticSummaries = Lens.lens (\GetSamplingStatisticSummariesResponse' {samplingStatisticSummaries} -> samplingStatisticSummaries) (\s@GetSamplingStatisticSummariesResponse' {} a -> s {samplingStatisticSummaries = a} :: GetSamplingStatisticSummariesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Pagination token.
-gsssrrsNextToken :: Lens' GetSamplingStatisticSummariesResponse (Maybe Text)
-gsssrrsNextToken = lens _gsssrrsNextToken (\s a -> s {_gsssrrsNextToken = a})
+getSamplingStatisticSummariesResponse_nextToken :: Lens.Lens' GetSamplingStatisticSummariesResponse (Prelude.Maybe Prelude.Text)
+getSamplingStatisticSummariesResponse_nextToken = Lens.lens (\GetSamplingStatisticSummariesResponse' {nextToken} -> nextToken) (\s@GetSamplingStatisticSummariesResponse' {} a -> s {nextToken = a} :: GetSamplingStatisticSummariesResponse)
 
--- | -- | The response status code.
-gsssrrsResponseStatus :: Lens' GetSamplingStatisticSummariesResponse Int
-gsssrrsResponseStatus = lens _gsssrrsResponseStatus (\s a -> s {_gsssrrsResponseStatus = a})
+-- | The response's http status code.
+getSamplingStatisticSummariesResponse_httpStatus :: Lens.Lens' GetSamplingStatisticSummariesResponse Prelude.Int
+getSamplingStatisticSummariesResponse_httpStatus = Lens.lens (\GetSamplingStatisticSummariesResponse' {httpStatus} -> httpStatus) (\s@GetSamplingStatisticSummariesResponse' {} a -> s {httpStatus = a} :: GetSamplingStatisticSummariesResponse)
 
-instance NFData GetSamplingStatisticSummariesResponse
+instance
+  Prelude.NFData
+    GetSamplingStatisticSummariesResponse

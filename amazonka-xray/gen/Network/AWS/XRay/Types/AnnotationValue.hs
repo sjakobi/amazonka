@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.AnnotationValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Value of a segment annotation. Has one of three value types: Number, Boolean, or String.
+-- | Value of a segment annotation. Has one of three value types: Number,
+-- Boolean, or String.
 --
---
---
--- /See:/ 'annotationValue' smart constructor.
+-- /See:/ 'newAnnotationValue' smart constructor.
 data AnnotationValue = AnnotationValue'
-  { _avStringValue ::
-      !(Maybe Text),
-    _avBooleanValue :: !(Maybe Bool),
-    _avNumberValue :: !(Maybe Double)
+  { -- | Value for a String annotation.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | Value for a Boolean annotation.
+    booleanValue :: Prelude.Maybe Prelude.Bool,
+    -- | Value for a Number annotation.
+    numberValue :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnnotationValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnnotationValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avStringValue' - Value for a String annotation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avBooleanValue' - Value for a Boolean annotation.
+-- 'stringValue', 'annotationValue_stringValue' - Value for a String annotation.
 --
--- * 'avNumberValue' - Value for a Number annotation.
-annotationValue ::
+-- 'booleanValue', 'annotationValue_booleanValue' - Value for a Boolean annotation.
+--
+-- 'numberValue', 'annotationValue_numberValue' - Value for a Number annotation.
+newAnnotationValue ::
   AnnotationValue
-annotationValue =
+newAnnotationValue =
   AnnotationValue'
-    { _avStringValue = Nothing,
-      _avBooleanValue = Nothing,
-      _avNumberValue = Nothing
+    { stringValue = Prelude.Nothing,
+      booleanValue = Prelude.Nothing,
+      numberValue = Prelude.Nothing
     }
 
 -- | Value for a String annotation.
-avStringValue :: Lens' AnnotationValue (Maybe Text)
-avStringValue = lens _avStringValue (\s a -> s {_avStringValue = a})
+annotationValue_stringValue :: Lens.Lens' AnnotationValue (Prelude.Maybe Prelude.Text)
+annotationValue_stringValue = Lens.lens (\AnnotationValue' {stringValue} -> stringValue) (\s@AnnotationValue' {} a -> s {stringValue = a} :: AnnotationValue)
 
 -- | Value for a Boolean annotation.
-avBooleanValue :: Lens' AnnotationValue (Maybe Bool)
-avBooleanValue = lens _avBooleanValue (\s a -> s {_avBooleanValue = a})
+annotationValue_booleanValue :: Lens.Lens' AnnotationValue (Prelude.Maybe Prelude.Bool)
+annotationValue_booleanValue = Lens.lens (\AnnotationValue' {booleanValue} -> booleanValue) (\s@AnnotationValue' {} a -> s {booleanValue = a} :: AnnotationValue)
 
 -- | Value for a Number annotation.
-avNumberValue :: Lens' AnnotationValue (Maybe Double)
-avNumberValue = lens _avNumberValue (\s a -> s {_avNumberValue = a})
+annotationValue_numberValue :: Lens.Lens' AnnotationValue (Prelude.Maybe Prelude.Double)
+annotationValue_numberValue = Lens.lens (\AnnotationValue' {numberValue} -> numberValue) (\s@AnnotationValue' {} a -> s {numberValue = a} :: AnnotationValue)
 
-instance FromJSON AnnotationValue where
+instance Prelude.FromJSON AnnotationValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AnnotationValue"
       ( \x ->
           AnnotationValue'
-            <$> (x .:? "StringValue")
-            <*> (x .:? "BooleanValue")
-            <*> (x .:? "NumberValue")
+            Prelude.<$> (x Prelude..:? "StringValue")
+            Prelude.<*> (x Prelude..:? "BooleanValue")
+            Prelude.<*> (x Prelude..:? "NumberValue")
       )
 
-instance Hashable AnnotationValue
+instance Prelude.Hashable AnnotationValue
 
-instance NFData AnnotationValue
+instance Prelude.NFData AnnotationValue

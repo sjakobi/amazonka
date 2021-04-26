@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the summary information of an insight. This includes impact to clients and root cause services, the top anomalous services, the category, the state of the insight, and the start and end time of the insight.
+-- Retrieves the summary information of an insight. This includes impact to
+-- clients and root cause services, the top anomalous services, the
+-- category, the state of the insight, and the start and end time of the
+-- insight.
 module Network.AWS.XRay.GetInsight
   ( -- * Creating a Request
-    getInsight,
-    GetInsight,
+    GetInsight (..),
+    newGetInsight,
 
     -- * Request Lenses
-    giInsightId,
+    getInsight_insightId,
 
     -- * Destructuring the Response
-    getInsightResponse,
-    GetInsightResponse,
+    GetInsightResponse (..),
+    newGetInsightResponse,
 
     -- * Response Lenses
-    girrsInsight,
-    girrsResponseStatus,
+    getInsightResponse_insight,
+    getInsightResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.Insight
 
--- | /See:/ 'getInsight' smart constructor.
-newtype GetInsight = GetInsight'
-  { _giInsightId ::
-      Text
+-- | /See:/ 'newGetInsight' smart constructor.
+data GetInsight = GetInsight'
+  { -- | The insight\'s unique identifier. Use the GetInsightSummaries action to
+    -- retrieve an InsightId.
+    insightId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsight' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsight' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giInsightId' - The insight's unique identifier. Use the GetInsightSummaries action to retrieve an InsightId.
-getInsight ::
-  -- | 'giInsightId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'insightId', 'getInsight_insightId' - The insight\'s unique identifier. Use the GetInsightSummaries action to
+-- retrieve an InsightId.
+newGetInsight ::
+  -- | 'insightId'
+  Prelude.Text ->
   GetInsight
-getInsight pInsightId_ =
-  GetInsight' {_giInsightId = pInsightId_}
+newGetInsight pInsightId_ =
+  GetInsight' {insightId = pInsightId_}
 
--- | The insight's unique identifier. Use the GetInsightSummaries action to retrieve an InsightId.
-giInsightId :: Lens' GetInsight Text
-giInsightId = lens _giInsightId (\s a -> s {_giInsightId = a})
+-- | The insight\'s unique identifier. Use the GetInsightSummaries action to
+-- retrieve an InsightId.
+getInsight_insightId :: Lens.Lens' GetInsight Prelude.Text
+getInsight_insightId = Lens.lens (\GetInsight' {insightId} -> insightId) (\s@GetInsight' {} a -> s {insightId = a} :: GetInsight)
 
-instance AWSRequest GetInsight where
+instance Prelude.AWSRequest GetInsight where
   type Rs GetInsight = GetInsightResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInsightResponse'
-            <$> (x .?> "Insight") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Insight")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInsight
+instance Prelude.Hashable GetInsight
 
-instance NFData GetInsight
+instance Prelude.NFData GetInsight
 
-instance ToHeaders GetInsight where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetInsight where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetInsight where
+instance Prelude.ToJSON GetInsight where
   toJSON GetInsight' {..} =
-    object
-      (catMaybes [Just ("InsightId" .= _giInsightId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("InsightId" Prelude..= insightId)]
+      )
 
-instance ToPath GetInsight where
-  toPath = const "/Insight"
+instance Prelude.ToPath GetInsight where
+  toPath = Prelude.const "/Insight"
 
-instance ToQuery GetInsight where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInsight where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInsightResponse' smart constructor.
+-- | /See:/ 'newGetInsightResponse' smart constructor.
 data GetInsightResponse = GetInsightResponse'
-  { _girrsInsight ::
-      !(Maybe Insight),
-    _girrsResponseStatus :: !Int
+  { -- | The summary information of an insight.
+    insight :: Prelude.Maybe Insight,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'girrsInsight' - The summary information of an insight.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'girrsResponseStatus' - -- | The response status code.
-getInsightResponse ::
-  -- | 'girrsResponseStatus'
-  Int ->
+-- 'insight', 'getInsightResponse_insight' - The summary information of an insight.
+--
+-- 'httpStatus', 'getInsightResponse_httpStatus' - The response's http status code.
+newGetInsightResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInsightResponse
-getInsightResponse pResponseStatus_ =
+newGetInsightResponse pHttpStatus_ =
   GetInsightResponse'
-    { _girrsInsight = Nothing,
-      _girrsResponseStatus = pResponseStatus_
+    { insight = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The summary information of an insight.
-girrsInsight :: Lens' GetInsightResponse (Maybe Insight)
-girrsInsight = lens _girrsInsight (\s a -> s {_girrsInsight = a})
+getInsightResponse_insight :: Lens.Lens' GetInsightResponse (Prelude.Maybe Insight)
+getInsightResponse_insight = Lens.lens (\GetInsightResponse' {insight} -> insight) (\s@GetInsightResponse' {} a -> s {insight = a} :: GetInsightResponse)
 
--- | -- | The response status code.
-girrsResponseStatus :: Lens' GetInsightResponse Int
-girrsResponseStatus = lens _girrsResponseStatus (\s a -> s {_girrsResponseStatus = a})
+-- | The response's http status code.
+getInsightResponse_httpStatus :: Lens.Lens' GetInsightResponse Prelude.Int
+getInsightResponse_httpStatus = Lens.lens (\GetInsightResponse' {httpStatus} -> httpStatus) (\s@GetInsightResponse' {} a -> s {httpStatus = a} :: GetInsightResponse)
 
-instance NFData GetInsightResponse
+instance Prelude.NFData GetInsightResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,93 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.SamplingTargetDocument where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Temporary changes to a sampling rule configuration. To meet the global sampling target for a rule, X-Ray calculates a new reservoir for each service based on the recent sampling results of all services that called 'GetSamplingTargets' .
+-- | Temporary changes to a sampling rule configuration. To meet the global
+-- sampling target for a rule, X-Ray calculates a new reservoir for each
+-- service based on the recent sampling results of all services that called
+-- GetSamplingTargets.
 --
---
---
--- /See:/ 'samplingTargetDocument' smart constructor.
+-- /See:/ 'newSamplingTargetDocument' smart constructor.
 data SamplingTargetDocument = SamplingTargetDocument'
-  { _stdReservoirQuota ::
-      !(Maybe Int),
-    _stdFixedRate ::
-      !(Maybe Double),
-    _stdRuleName ::
-      !(Maybe Text),
-    _stdReservoirQuotaTTL ::
-      !(Maybe POSIX),
-    _stdInterval ::
-      !(Maybe Int)
+  { -- | The number of requests per second that X-Ray allocated for this service.
+    reservoirQuota :: Prelude.Maybe Prelude.Int,
+    -- | The percentage of matching requests to instrument, after the reservoir
+    -- is exhausted.
+    fixedRate :: Prelude.Maybe Prelude.Double,
+    -- | The name of the sampling rule.
+    ruleName :: Prelude.Maybe Prelude.Text,
+    -- | When the reservoir quota expires.
+    reservoirQuotaTTL :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of seconds for the service to wait before getting sampling
+    -- targets again.
+    interval :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SamplingTargetDocument' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SamplingTargetDocument' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdReservoirQuota' - The number of requests per second that X-Ray allocated for this service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stdFixedRate' - The percentage of matching requests to instrument, after the reservoir is exhausted.
+-- 'reservoirQuota', 'samplingTargetDocument_reservoirQuota' - The number of requests per second that X-Ray allocated for this service.
 --
--- * 'stdRuleName' - The name of the sampling rule.
+-- 'fixedRate', 'samplingTargetDocument_fixedRate' - The percentage of matching requests to instrument, after the reservoir
+-- is exhausted.
 --
--- * 'stdReservoirQuotaTTL' - When the reservoir quota expires.
+-- 'ruleName', 'samplingTargetDocument_ruleName' - The name of the sampling rule.
 --
--- * 'stdInterval' - The number of seconds for the service to wait before getting sampling targets again.
-samplingTargetDocument ::
+-- 'reservoirQuotaTTL', 'samplingTargetDocument_reservoirQuotaTTL' - When the reservoir quota expires.
+--
+-- 'interval', 'samplingTargetDocument_interval' - The number of seconds for the service to wait before getting sampling
+-- targets again.
+newSamplingTargetDocument ::
   SamplingTargetDocument
-samplingTargetDocument =
+newSamplingTargetDocument =
   SamplingTargetDocument'
-    { _stdReservoirQuota =
-        Nothing,
-      _stdFixedRate = Nothing,
-      _stdRuleName = Nothing,
-      _stdReservoirQuotaTTL = Nothing,
-      _stdInterval = Nothing
+    { reservoirQuota =
+        Prelude.Nothing,
+      fixedRate = Prelude.Nothing,
+      ruleName = Prelude.Nothing,
+      reservoirQuotaTTL = Prelude.Nothing,
+      interval = Prelude.Nothing
     }
 
 -- | The number of requests per second that X-Ray allocated for this service.
-stdReservoirQuota :: Lens' SamplingTargetDocument (Maybe Int)
-stdReservoirQuota = lens _stdReservoirQuota (\s a -> s {_stdReservoirQuota = a})
+samplingTargetDocument_reservoirQuota :: Lens.Lens' SamplingTargetDocument (Prelude.Maybe Prelude.Int)
+samplingTargetDocument_reservoirQuota = Lens.lens (\SamplingTargetDocument' {reservoirQuota} -> reservoirQuota) (\s@SamplingTargetDocument' {} a -> s {reservoirQuota = a} :: SamplingTargetDocument)
 
--- | The percentage of matching requests to instrument, after the reservoir is exhausted.
-stdFixedRate :: Lens' SamplingTargetDocument (Maybe Double)
-stdFixedRate = lens _stdFixedRate (\s a -> s {_stdFixedRate = a})
+-- | The percentage of matching requests to instrument, after the reservoir
+-- is exhausted.
+samplingTargetDocument_fixedRate :: Lens.Lens' SamplingTargetDocument (Prelude.Maybe Prelude.Double)
+samplingTargetDocument_fixedRate = Lens.lens (\SamplingTargetDocument' {fixedRate} -> fixedRate) (\s@SamplingTargetDocument' {} a -> s {fixedRate = a} :: SamplingTargetDocument)
 
 -- | The name of the sampling rule.
-stdRuleName :: Lens' SamplingTargetDocument (Maybe Text)
-stdRuleName = lens _stdRuleName (\s a -> s {_stdRuleName = a})
+samplingTargetDocument_ruleName :: Lens.Lens' SamplingTargetDocument (Prelude.Maybe Prelude.Text)
+samplingTargetDocument_ruleName = Lens.lens (\SamplingTargetDocument' {ruleName} -> ruleName) (\s@SamplingTargetDocument' {} a -> s {ruleName = a} :: SamplingTargetDocument)
 
 -- | When the reservoir quota expires.
-stdReservoirQuotaTTL :: Lens' SamplingTargetDocument (Maybe UTCTime)
-stdReservoirQuotaTTL = lens _stdReservoirQuotaTTL (\s a -> s {_stdReservoirQuotaTTL = a}) . mapping _Time
+samplingTargetDocument_reservoirQuotaTTL :: Lens.Lens' SamplingTargetDocument (Prelude.Maybe Prelude.UTCTime)
+samplingTargetDocument_reservoirQuotaTTL = Lens.lens (\SamplingTargetDocument' {reservoirQuotaTTL} -> reservoirQuotaTTL) (\s@SamplingTargetDocument' {} a -> s {reservoirQuotaTTL = a} :: SamplingTargetDocument) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of seconds for the service to wait before getting sampling targets again.
-stdInterval :: Lens' SamplingTargetDocument (Maybe Int)
-stdInterval = lens _stdInterval (\s a -> s {_stdInterval = a})
+-- | The number of seconds for the service to wait before getting sampling
+-- targets again.
+samplingTargetDocument_interval :: Lens.Lens' SamplingTargetDocument (Prelude.Maybe Prelude.Int)
+samplingTargetDocument_interval = Lens.lens (\SamplingTargetDocument' {interval} -> interval) (\s@SamplingTargetDocument' {} a -> s {interval = a} :: SamplingTargetDocument)
 
-instance FromJSON SamplingTargetDocument where
+instance Prelude.FromJSON SamplingTargetDocument where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SamplingTargetDocument"
       ( \x ->
           SamplingTargetDocument'
-            <$> (x .:? "ReservoirQuota")
-            <*> (x .:? "FixedRate")
-            <*> (x .:? "RuleName")
-            <*> (x .:? "ReservoirQuotaTTL")
-            <*> (x .:? "Interval")
+            Prelude.<$> (x Prelude..:? "ReservoirQuota")
+            Prelude.<*> (x Prelude..:? "FixedRate")
+            Prelude.<*> (x Prelude..:? "RuleName")
+            Prelude.<*> (x Prelude..:? "ReservoirQuotaTTL")
+            Prelude.<*> (x Prelude..:? "Interval")
       )
 
-instance Hashable SamplingTargetDocument
+instance Prelude.Hashable SamplingTargetDocument
 
-instance NFData SamplingTargetDocument
+instance Prelude.NFData SamplingTargetDocument

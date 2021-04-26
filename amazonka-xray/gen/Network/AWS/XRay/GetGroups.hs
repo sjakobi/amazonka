@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,131 +23,155 @@
 --
 -- Retrieves all active group details.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.XRay.GetGroups
   ( -- * Creating a Request
-    getGroups,
-    GetGroups,
+    GetGroups (..),
+    newGetGroups,
 
     -- * Request Lenses
-    ggNextToken,
+    getGroups_nextToken,
 
     -- * Destructuring the Response
-    getGroupsResponse,
-    GetGroupsResponse,
+    GetGroupsResponse (..),
+    newGetGroupsResponse,
 
     -- * Response Lenses
-    ggrrsGroups,
-    ggrrsNextToken,
-    ggrrsResponseStatus,
+    getGroupsResponse_groups,
+    getGroupsResponse_nextToken,
+    getGroupsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.GroupSummary
 
--- | /See:/ 'getGroups' smart constructor.
-newtype GetGroups = GetGroups'
-  { _ggNextToken ::
-      Maybe Text
+-- | /See:/ 'newGetGroups' smart constructor.
+data GetGroups = GetGroups'
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggNextToken' - Pagination token.
-getGroups ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'getGroups_nextToken' - Pagination token.
+newGetGroups ::
   GetGroups
-getGroups = GetGroups' {_ggNextToken = Nothing}
+newGetGroups =
+  GetGroups' {nextToken = Prelude.Nothing}
 
 -- | Pagination token.
-ggNextToken :: Lens' GetGroups (Maybe Text)
-ggNextToken = lens _ggNextToken (\s a -> s {_ggNextToken = a})
+getGroups_nextToken :: Lens.Lens' GetGroups (Prelude.Maybe Prelude.Text)
+getGroups_nextToken = Lens.lens (\GetGroups' {nextToken} -> nextToken) (\s@GetGroups' {} a -> s {nextToken = a} :: GetGroups)
 
-instance AWSPager GetGroups where
+instance Pager.AWSPager GetGroups where
   page rq rs
-    | stop (rs ^. ggrrsNextToken) = Nothing
-    | stop (rs ^. ggrrsGroups) = Nothing
-    | otherwise =
-      Just $ rq & ggNextToken .~ rs ^. ggrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getGroupsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getGroupsResponse_groups Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getGroups_nextToken
+          Lens..~ rs
+          Lens.^? getGroupsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest GetGroups where
+instance Prelude.AWSRequest GetGroups where
   type Rs GetGroups = GetGroupsResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGroupsResponse'
-            <$> (x .?> "Groups" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Groups" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroups
+instance Prelude.Hashable GetGroups
 
-instance NFData GetGroups
+instance Prelude.NFData GetGroups
 
-instance ToHeaders GetGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetGroups where
+instance Prelude.ToJSON GetGroups where
   toJSON GetGroups' {..} =
-    object
-      (catMaybes [("NextToken" .=) <$> _ggNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("NextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath GetGroups where
-  toPath = const "/Groups"
+instance Prelude.ToPath GetGroups where
+  toPath = Prelude.const "/Groups"
 
-instance ToQuery GetGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGroupsResponse' smart constructor.
+-- | /See:/ 'newGetGroupsResponse' smart constructor.
 data GetGroupsResponse = GetGroupsResponse'
-  { _ggrrsGroups ::
-      !(Maybe [GroupSummary]),
-    _ggrrsNextToken :: !(Maybe Text),
-    _ggrrsResponseStatus :: !Int
+  { -- | The collection of all active groups.
+    groups :: Prelude.Maybe [GroupSummary],
+    -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggrrsGroups' - The collection of all active groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggrrsNextToken' - Pagination token.
+-- 'groups', 'getGroupsResponse_groups' - The collection of all active groups.
 --
--- * 'ggrrsResponseStatus' - -- | The response status code.
-getGroupsResponse ::
-  -- | 'ggrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'getGroupsResponse_nextToken' - Pagination token.
+--
+-- 'httpStatus', 'getGroupsResponse_httpStatus' - The response's http status code.
+newGetGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGroupsResponse
-getGroupsResponse pResponseStatus_ =
+newGetGroupsResponse pHttpStatus_ =
   GetGroupsResponse'
-    { _ggrrsGroups = Nothing,
-      _ggrrsNextToken = Nothing,
-      _ggrrsResponseStatus = pResponseStatus_
+    { groups = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The collection of all active groups.
-ggrrsGroups :: Lens' GetGroupsResponse [GroupSummary]
-ggrrsGroups = lens _ggrrsGroups (\s a -> s {_ggrrsGroups = a}) . _Default . _Coerce
+getGroupsResponse_groups :: Lens.Lens' GetGroupsResponse (Prelude.Maybe [GroupSummary])
+getGroupsResponse_groups = Lens.lens (\GetGroupsResponse' {groups} -> groups) (\s@GetGroupsResponse' {} a -> s {groups = a} :: GetGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Pagination token.
-ggrrsNextToken :: Lens' GetGroupsResponse (Maybe Text)
-ggrrsNextToken = lens _ggrrsNextToken (\s a -> s {_ggrrsNextToken = a})
+getGroupsResponse_nextToken :: Lens.Lens' GetGroupsResponse (Prelude.Maybe Prelude.Text)
+getGroupsResponse_nextToken = Lens.lens (\GetGroupsResponse' {nextToken} -> nextToken) (\s@GetGroupsResponse' {} a -> s {nextToken = a} :: GetGroupsResponse)
 
--- | -- | The response status code.
-ggrrsResponseStatus :: Lens' GetGroupsResponse Int
-ggrrsResponseStatus = lens _ggrrsResponseStatus (\s a -> s {_ggrrsResponseStatus = a})
+-- | The response's http status code.
+getGroupsResponse_httpStatus :: Lens.Lens' GetGroupsResponse Prelude.Int
+getGroupsResponse_httpStatus = Lens.lens (\GetGroupsResponse' {httpStatus} -> httpStatus) (\s@GetGroupsResponse' {} a -> s {httpStatus = a} :: GetGroupsResponse)
 
-instance NFData GetGroupsResponse
+instance Prelude.NFData GetGroupsResponse

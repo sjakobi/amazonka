@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,121 @@
 -- Deletes a group resource.
 module Network.AWS.XRay.DeleteGroup
   ( -- * Creating a Request
-    deleteGroup,
-    DeleteGroup,
+    DeleteGroup (..),
+    newDeleteGroup,
 
     -- * Request Lenses
-    dgGroupName,
-    dgGroupARN,
+    deleteGroup_groupName,
+    deleteGroup_groupARN,
 
     -- * Destructuring the Response
-    deleteGroupResponse,
-    DeleteGroupResponse,
+    DeleteGroupResponse (..),
+    newDeleteGroupResponse,
 
     -- * Response Lenses
-    dgrrsResponseStatus,
+    deleteGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
 
--- | /See:/ 'deleteGroup' smart constructor.
+-- | /See:/ 'newDeleteGroup' smart constructor.
 data DeleteGroup = DeleteGroup'
-  { _dgGroupName ::
-      !(Maybe Text),
-    _dgGroupARN :: !(Maybe Text)
+  { -- | The case-sensitive name of the group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the group that was generated on creation.
+    groupARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgGroupName' - The case-sensitive name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgGroupARN' - The ARN of the group that was generated on creation.
-deleteGroup ::
+-- 'groupName', 'deleteGroup_groupName' - The case-sensitive name of the group.
+--
+-- 'groupARN', 'deleteGroup_groupARN' - The ARN of the group that was generated on creation.
+newDeleteGroup ::
   DeleteGroup
-deleteGroup =
+newDeleteGroup =
   DeleteGroup'
-    { _dgGroupName = Nothing,
-      _dgGroupARN = Nothing
+    { groupName = Prelude.Nothing,
+      groupARN = Prelude.Nothing
     }
 
 -- | The case-sensitive name of the group.
-dgGroupName :: Lens' DeleteGroup (Maybe Text)
-dgGroupName = lens _dgGroupName (\s a -> s {_dgGroupName = a})
+deleteGroup_groupName :: Lens.Lens' DeleteGroup (Prelude.Maybe Prelude.Text)
+deleteGroup_groupName = Lens.lens (\DeleteGroup' {groupName} -> groupName) (\s@DeleteGroup' {} a -> s {groupName = a} :: DeleteGroup)
 
 -- | The ARN of the group that was generated on creation.
-dgGroupARN :: Lens' DeleteGroup (Maybe Text)
-dgGroupARN = lens _dgGroupARN (\s a -> s {_dgGroupARN = a})
+deleteGroup_groupARN :: Lens.Lens' DeleteGroup (Prelude.Maybe Prelude.Text)
+deleteGroup_groupARN = Lens.lens (\DeleteGroup' {groupARN} -> groupARN) (\s@DeleteGroup' {} a -> s {groupARN = a} :: DeleteGroup)
 
-instance AWSRequest DeleteGroup where
+instance Prelude.AWSRequest DeleteGroup where
   type Rs DeleteGroup = DeleteGroupResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteGroupResponse' <$> (pure (fromEnum s))
+          DeleteGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteGroup
+instance Prelude.Hashable DeleteGroup
 
-instance NFData DeleteGroup
+instance Prelude.NFData DeleteGroup
 
-instance ToHeaders DeleteGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON DeleteGroup where
+instance Prelude.ToJSON DeleteGroup where
   toJSON DeleteGroup' {..} =
-    object
-      ( catMaybes
-          [ ("GroupName" .=) <$> _dgGroupName,
-            ("GroupARN" .=) <$> _dgGroupARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GroupName" Prelude..=) Prelude.<$> groupName,
+            ("GroupARN" Prelude..=) Prelude.<$> groupARN
           ]
       )
 
-instance ToPath DeleteGroup where
-  toPath = const "/DeleteGroup"
+instance Prelude.ToPath DeleteGroup where
+  toPath = Prelude.const "/DeleteGroup"
 
-instance ToQuery DeleteGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGroupResponse' smart constructor.
-newtype DeleteGroupResponse = DeleteGroupResponse'
-  { _dgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteGroupResponse' smart constructor.
+data DeleteGroupResponse = DeleteGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgrrsResponseStatus' - -- | The response status code.
-deleteGroupResponse ::
-  -- | 'dgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteGroupResponse_httpStatus' - The response's http status code.
+newDeleteGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteGroupResponse
-deleteGroupResponse pResponseStatus_ =
-  DeleteGroupResponse'
-    { _dgrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteGroupResponse pHttpStatus_ =
+  DeleteGroupResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dgrrsResponseStatus :: Lens' DeleteGroupResponse Int
-dgrrsResponseStatus = lens _dgrrsResponseStatus (\s a -> s {_dgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteGroupResponse_httpStatus :: Lens.Lens' DeleteGroupResponse Prelude.Int
+deleteGroupResponse_httpStatus = Lens.lens (\DeleteGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteGroupResponse' {} a -> s {httpStatus = a} :: DeleteGroupResponse)
 
-instance NFData DeleteGroupResponse
+instance Prelude.NFData DeleteGroupResponse

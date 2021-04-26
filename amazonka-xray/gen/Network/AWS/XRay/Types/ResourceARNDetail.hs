@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,40 +19,44 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ResourceARNDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of resources ARNs corresponding to the segments in a trace.
 --
---
---
--- /See:/ 'resourceARNDetail' smart constructor.
-newtype ResourceARNDetail = ResourceARNDetail'
-  { _radARN ::
-      Maybe Text
+-- /See:/ 'newResourceARNDetail' smart constructor.
+data ResourceARNDetail = ResourceARNDetail'
+  { -- | The ARN of a corresponding resource.
+    aRN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceARNDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceARNDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'radARN' - The ARN of a corresponding resource.
-resourceARNDetail ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'aRN', 'resourceARNDetail_aRN' - The ARN of a corresponding resource.
+newResourceARNDetail ::
   ResourceARNDetail
-resourceARNDetail =
-  ResourceARNDetail' {_radARN = Nothing}
+newResourceARNDetail =
+  ResourceARNDetail' {aRN = Prelude.Nothing}
 
 -- | The ARN of a corresponding resource.
-radARN :: Lens' ResourceARNDetail (Maybe Text)
-radARN = lens _radARN (\s a -> s {_radARN = a})
+resourceARNDetail_aRN :: Lens.Lens' ResourceARNDetail (Prelude.Maybe Prelude.Text)
+resourceARNDetail_aRN = Lens.lens (\ResourceARNDetail' {aRN} -> aRN) (\s@ResourceARNDetail' {} a -> s {aRN = a} :: ResourceARNDetail)
 
-instance FromJSON ResourceARNDetail where
+instance Prelude.FromJSON ResourceARNDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceARNDetail"
-      (\x -> ResourceARNDetail' <$> (x .:? "ARN"))
+      ( \x ->
+          ResourceARNDetail' Prelude.<$> (x Prelude..:? "ARN")
+      )
 
-instance Hashable ResourceARNDetail
+instance Prelude.Hashable ResourceARNDetail
 
-instance NFData ResourceARNDetail
+instance Prelude.NFData ResourceARNDetail

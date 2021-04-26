@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ErrorRootCause where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.ErrorRootCauseService
 
 -- | The root cause of a trace summary error.
 --
---
---
--- /See:/ 'errorRootCause' smart constructor.
+-- /See:/ 'newErrorRootCause' smart constructor.
 data ErrorRootCause = ErrorRootCause'
-  { _ercServices ::
-      !(Maybe [ErrorRootCauseService]),
-    _ercClientImpacting :: !(Maybe Bool)
+  { -- | A list of services corresponding to an error. A service identifies a
+    -- segment and it contains a name, account ID, type, and inferred flag.
+    services :: Prelude.Maybe [ErrorRootCauseService],
+    -- | A flag that denotes that the root cause impacts the trace client.
+    clientImpacting :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ErrorRootCause' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ErrorRootCause' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ercServices' - A list of services corresponding to an error. A service identifies a segment and it contains a name, account ID, type, and inferred flag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ercClientImpacting' - A flag that denotes that the root cause impacts the trace client.
-errorRootCause ::
+-- 'services', 'errorRootCause_services' - A list of services corresponding to an error. A service identifies a
+-- segment and it contains a name, account ID, type, and inferred flag.
+--
+-- 'clientImpacting', 'errorRootCause_clientImpacting' - A flag that denotes that the root cause impacts the trace client.
+newErrorRootCause ::
   ErrorRootCause
-errorRootCause =
+newErrorRootCause =
   ErrorRootCause'
-    { _ercServices = Nothing,
-      _ercClientImpacting = Nothing
+    { services = Prelude.Nothing,
+      clientImpacting = Prelude.Nothing
     }
 
--- | A list of services corresponding to an error. A service identifies a segment and it contains a name, account ID, type, and inferred flag.
-ercServices :: Lens' ErrorRootCause [ErrorRootCauseService]
-ercServices = lens _ercServices (\s a -> s {_ercServices = a}) . _Default . _Coerce
+-- | A list of services corresponding to an error. A service identifies a
+-- segment and it contains a name, account ID, type, and inferred flag.
+errorRootCause_services :: Lens.Lens' ErrorRootCause (Prelude.Maybe [ErrorRootCauseService])
+errorRootCause_services = Lens.lens (\ErrorRootCause' {services} -> services) (\s@ErrorRootCause' {} a -> s {services = a} :: ErrorRootCause) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A flag that denotes that the root cause impacts the trace client.
-ercClientImpacting :: Lens' ErrorRootCause (Maybe Bool)
-ercClientImpacting = lens _ercClientImpacting (\s a -> s {_ercClientImpacting = a})
+errorRootCause_clientImpacting :: Lens.Lens' ErrorRootCause (Prelude.Maybe Prelude.Bool)
+errorRootCause_clientImpacting = Lens.lens (\ErrorRootCause' {clientImpacting} -> clientImpacting) (\s@ErrorRootCause' {} a -> s {clientImpacting = a} :: ErrorRootCause)
 
-instance FromJSON ErrorRootCause where
+instance Prelude.FromJSON ErrorRootCause where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ErrorRootCause"
       ( \x ->
           ErrorRootCause'
-            <$> (x .:? "Services" .!= mempty)
-            <*> (x .:? "ClientImpacting")
+            Prelude.<$> (x Prelude..:? "Services" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ClientImpacting")
       )
 
-instance Hashable ErrorRootCause
+instance Prelude.Hashable ErrorRootCause
 
-instance NFData ErrorRootCause
+instance Prelude.NFData ErrorRootCause

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of traces specified by ID. Each trace is a collection of segment documents that originates from a single request. Use @GetTraceSummaries@ to get a list of trace IDs.
---
---
+-- Retrieves a list of traces specified by ID. Each trace is a collection
+-- of segment documents that originates from a single request. Use
+-- @GetTraceSummaries@ to get a list of trace IDs.
 --
 -- This operation returns paginated results.
 module Network.AWS.XRay.BatchGetTraces
   ( -- * Creating a Request
-    batchGetTraces,
-    BatchGetTraces,
+    BatchGetTraces (..),
+    newBatchGetTraces,
 
     -- * Request Lenses
-    bgtNextToken,
-    bgtTraceIds,
+    batchGetTraces_nextToken,
+    batchGetTraces_traceIds,
 
     -- * Destructuring the Response
-    batchGetTracesResponse,
-    BatchGetTracesResponse,
+    BatchGetTracesResponse (..),
+    newBatchGetTracesResponse,
 
     -- * Response Lenses
-    bgtrrsNextToken,
-    bgtrrsUnprocessedTraceIds,
-    bgtrrsTraces,
-    bgtrrsResponseStatus,
+    batchGetTracesResponse_nextToken,
+    batchGetTracesResponse_unprocessedTraceIds,
+    batchGetTracesResponse_traces,
+    batchGetTracesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.Trace
 
--- | /See:/ 'batchGetTraces' smart constructor.
+-- | /See:/ 'newBatchGetTraces' smart constructor.
 data BatchGetTraces = BatchGetTraces'
-  { _bgtNextToken ::
-      !(Maybe Text),
-    _bgtTraceIds :: ![Text]
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specify the trace IDs of requests for which to retrieve segments.
+    traceIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetTraces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetTraces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgtNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgtTraceIds' - Specify the trace IDs of requests for which to retrieve segments.
-batchGetTraces ::
+-- 'nextToken', 'batchGetTraces_nextToken' - Pagination token.
+--
+-- 'traceIds', 'batchGetTraces_traceIds' - Specify the trace IDs of requests for which to retrieve segments.
+newBatchGetTraces ::
   BatchGetTraces
-batchGetTraces =
+newBatchGetTraces =
   BatchGetTraces'
-    { _bgtNextToken = Nothing,
-      _bgtTraceIds = mempty
+    { nextToken = Prelude.Nothing,
+      traceIds = Prelude.mempty
     }
 
 -- | Pagination token.
-bgtNextToken :: Lens' BatchGetTraces (Maybe Text)
-bgtNextToken = lens _bgtNextToken (\s a -> s {_bgtNextToken = a})
+batchGetTraces_nextToken :: Lens.Lens' BatchGetTraces (Prelude.Maybe Prelude.Text)
+batchGetTraces_nextToken = Lens.lens (\BatchGetTraces' {nextToken} -> nextToken) (\s@BatchGetTraces' {} a -> s {nextToken = a} :: BatchGetTraces)
 
 -- | Specify the trace IDs of requests for which to retrieve segments.
-bgtTraceIds :: Lens' BatchGetTraces [Text]
-bgtTraceIds = lens _bgtTraceIds (\s a -> s {_bgtTraceIds = a}) . _Coerce
+batchGetTraces_traceIds :: Lens.Lens' BatchGetTraces [Prelude.Text]
+batchGetTraces_traceIds = Lens.lens (\BatchGetTraces' {traceIds} -> traceIds) (\s@BatchGetTraces' {} a -> s {traceIds = a} :: BatchGetTraces) Prelude.. Prelude._Coerce
 
-instance AWSPager BatchGetTraces where
+instance Pager.AWSPager BatchGetTraces where
   page rq rs
-    | stop (rs ^. bgtrrsNextToken) = Nothing
-    | stop (rs ^. bgtrrsTraces) = Nothing
-    | otherwise =
-      Just $ rq & bgtNextToken .~ rs ^. bgtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? batchGetTracesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? batchGetTracesResponse_traces Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& batchGetTraces_nextToken
+          Lens..~ rs
+          Lens.^? batchGetTracesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest BatchGetTraces where
+instance Prelude.AWSRequest BatchGetTraces where
   type Rs BatchGetTraces = BatchGetTracesResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetTracesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "UnprocessedTraceIds" .!@ mempty)
-            <*> (x .?> "Traces" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "UnprocessedTraceIds"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Traces" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetTraces
+instance Prelude.Hashable BatchGetTraces
 
-instance NFData BatchGetTraces
+instance Prelude.NFData BatchGetTraces
 
-instance ToHeaders BatchGetTraces where
-  toHeaders = const mempty
+instance Prelude.ToHeaders BatchGetTraces where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON BatchGetTraces where
+instance Prelude.ToJSON BatchGetTraces where
   toJSON BatchGetTraces' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _bgtNextToken,
-            Just ("TraceIds" .= _bgtTraceIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("TraceIds" Prelude..= traceIds)
           ]
       )
 
-instance ToPath BatchGetTraces where
-  toPath = const "/Traces"
+instance Prelude.ToPath BatchGetTraces where
+  toPath = Prelude.const "/Traces"
 
-instance ToQuery BatchGetTraces where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetTraces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchGetTracesResponse' smart constructor.
+-- | /See:/ 'newBatchGetTracesResponse' smart constructor.
 data BatchGetTracesResponse = BatchGetTracesResponse'
-  { _bgtrrsNextToken ::
-      !(Maybe Text),
-    _bgtrrsUnprocessedTraceIds ::
-      !(Maybe [Text]),
-    _bgtrrsTraces ::
-      !(Maybe [Trace]),
-    _bgtrrsResponseStatus ::
-      !Int
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Trace IDs of requests that haven\'t been processed.
+    unprocessedTraceIds :: Prelude.Maybe [Prelude.Text],
+    -- | Full traces for the specified requests.
+    traces :: Prelude.Maybe [Trace],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetTracesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetTracesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgtrrsNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgtrrsUnprocessedTraceIds' - Trace IDs of requests that haven't been processed.
+-- 'nextToken', 'batchGetTracesResponse_nextToken' - Pagination token.
 --
--- * 'bgtrrsTraces' - Full traces for the specified requests.
+-- 'unprocessedTraceIds', 'batchGetTracesResponse_unprocessedTraceIds' - Trace IDs of requests that haven\'t been processed.
 --
--- * 'bgtrrsResponseStatus' - -- | The response status code.
-batchGetTracesResponse ::
-  -- | 'bgtrrsResponseStatus'
-  Int ->
+-- 'traces', 'batchGetTracesResponse_traces' - Full traces for the specified requests.
+--
+-- 'httpStatus', 'batchGetTracesResponse_httpStatus' - The response's http status code.
+newBatchGetTracesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetTracesResponse
-batchGetTracesResponse pResponseStatus_ =
+newBatchGetTracesResponse pHttpStatus_ =
   BatchGetTracesResponse'
-    { _bgtrrsNextToken = Nothing,
-      _bgtrrsUnprocessedTraceIds = Nothing,
-      _bgtrrsTraces = Nothing,
-      _bgtrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      unprocessedTraceIds = Prelude.Nothing,
+      traces = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Pagination token.
-bgtrrsNextToken :: Lens' BatchGetTracesResponse (Maybe Text)
-bgtrrsNextToken = lens _bgtrrsNextToken (\s a -> s {_bgtrrsNextToken = a})
+batchGetTracesResponse_nextToken :: Lens.Lens' BatchGetTracesResponse (Prelude.Maybe Prelude.Text)
+batchGetTracesResponse_nextToken = Lens.lens (\BatchGetTracesResponse' {nextToken} -> nextToken) (\s@BatchGetTracesResponse' {} a -> s {nextToken = a} :: BatchGetTracesResponse)
 
--- | Trace IDs of requests that haven't been processed.
-bgtrrsUnprocessedTraceIds :: Lens' BatchGetTracesResponse [Text]
-bgtrrsUnprocessedTraceIds = lens _bgtrrsUnprocessedTraceIds (\s a -> s {_bgtrrsUnprocessedTraceIds = a}) . _Default . _Coerce
+-- | Trace IDs of requests that haven\'t been processed.
+batchGetTracesResponse_unprocessedTraceIds :: Lens.Lens' BatchGetTracesResponse (Prelude.Maybe [Prelude.Text])
+batchGetTracesResponse_unprocessedTraceIds = Lens.lens (\BatchGetTracesResponse' {unprocessedTraceIds} -> unprocessedTraceIds) (\s@BatchGetTracesResponse' {} a -> s {unprocessedTraceIds = a} :: BatchGetTracesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Full traces for the specified requests.
-bgtrrsTraces :: Lens' BatchGetTracesResponse [Trace]
-bgtrrsTraces = lens _bgtrrsTraces (\s a -> s {_bgtrrsTraces = a}) . _Default . _Coerce
+batchGetTracesResponse_traces :: Lens.Lens' BatchGetTracesResponse (Prelude.Maybe [Trace])
+batchGetTracesResponse_traces = Lens.lens (\BatchGetTracesResponse' {traces} -> traces) (\s@BatchGetTracesResponse' {} a -> s {traces = a} :: BatchGetTracesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgtrrsResponseStatus :: Lens' BatchGetTracesResponse Int
-bgtrrsResponseStatus = lens _bgtrrsResponseStatus (\s a -> s {_bgtrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetTracesResponse_httpStatus :: Lens.Lens' BatchGetTracesResponse Prelude.Int
+batchGetTracesResponse_httpStatus = Lens.lens (\BatchGetTracesResponse' {httpStatus} -> httpStatus) (\s@BatchGetTracesResponse' {} a -> s {httpStatus = a} :: BatchGetTracesResponse)
 
-instance NFData BatchGetTracesResponse
+instance Prelude.NFData BatchGetTracesResponse

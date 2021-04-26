@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.EncryptionConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.EncryptionStatus
 import Network.AWS.XRay.Types.EncryptionType
 
--- | A configuration document that specifies encryption configuration settings.
+-- | A configuration document that specifies encryption configuration
+-- settings.
 --
---
---
--- /See:/ 'encryptionConfig' smart constructor.
+-- /See:/ 'newEncryptionConfig' smart constructor.
 data EncryptionConfig = EncryptionConfig'
-  { _ecStatus ::
-      !(Maybe EncryptionStatus),
-    _ecType :: !(Maybe EncryptionType),
-    _ecKeyId :: !(Maybe Text)
+  { -- | The encryption status. While the status is @UPDATING@, X-Ray may encrypt
+    -- data with a combination of the new and old settings.
+    status :: Prelude.Maybe EncryptionStatus,
+    -- | The type of encryption. Set to @KMS@ for encryption with CMKs. Set to
+    -- @NONE@ for default encryption.
+    type' :: Prelude.Maybe EncryptionType,
+    -- | The ID of the customer master key (CMK) used for encryption, if
+    -- applicable.
+    keyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecStatus' - The encryption status. While the status is @UPDATING@ , X-Ray may encrypt data with a combination of the new and old settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecType' - The type of encryption. Set to @KMS@ for encryption with CMKs. Set to @NONE@ for default encryption.
+-- 'status', 'encryptionConfig_status' - The encryption status. While the status is @UPDATING@, X-Ray may encrypt
+-- data with a combination of the new and old settings.
 --
--- * 'ecKeyId' - The ID of the customer master key (CMK) used for encryption, if applicable.
-encryptionConfig ::
+-- 'type'', 'encryptionConfig_type' - The type of encryption. Set to @KMS@ for encryption with CMKs. Set to
+-- @NONE@ for default encryption.
+--
+-- 'keyId', 'encryptionConfig_keyId' - The ID of the customer master key (CMK) used for encryption, if
+-- applicable.
+newEncryptionConfig ::
   EncryptionConfig
-encryptionConfig =
+newEncryptionConfig =
   EncryptionConfig'
-    { _ecStatus = Nothing,
-      _ecType = Nothing,
-      _ecKeyId = Nothing
+    { status = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      keyId = Prelude.Nothing
     }
 
--- | The encryption status. While the status is @UPDATING@ , X-Ray may encrypt data with a combination of the new and old settings.
-ecStatus :: Lens' EncryptionConfig (Maybe EncryptionStatus)
-ecStatus = lens _ecStatus (\s a -> s {_ecStatus = a})
+-- | The encryption status. While the status is @UPDATING@, X-Ray may encrypt
+-- data with a combination of the new and old settings.
+encryptionConfig_status :: Lens.Lens' EncryptionConfig (Prelude.Maybe EncryptionStatus)
+encryptionConfig_status = Lens.lens (\EncryptionConfig' {status} -> status) (\s@EncryptionConfig' {} a -> s {status = a} :: EncryptionConfig)
 
--- | The type of encryption. Set to @KMS@ for encryption with CMKs. Set to @NONE@ for default encryption.
-ecType :: Lens' EncryptionConfig (Maybe EncryptionType)
-ecType = lens _ecType (\s a -> s {_ecType = a})
+-- | The type of encryption. Set to @KMS@ for encryption with CMKs. Set to
+-- @NONE@ for default encryption.
+encryptionConfig_type :: Lens.Lens' EncryptionConfig (Prelude.Maybe EncryptionType)
+encryptionConfig_type = Lens.lens (\EncryptionConfig' {type'} -> type') (\s@EncryptionConfig' {} a -> s {type' = a} :: EncryptionConfig)
 
--- | The ID of the customer master key (CMK) used for encryption, if applicable.
-ecKeyId :: Lens' EncryptionConfig (Maybe Text)
-ecKeyId = lens _ecKeyId (\s a -> s {_ecKeyId = a})
+-- | The ID of the customer master key (CMK) used for encryption, if
+-- applicable.
+encryptionConfig_keyId :: Lens.Lens' EncryptionConfig (Prelude.Maybe Prelude.Text)
+encryptionConfig_keyId = Lens.lens (\EncryptionConfig' {keyId} -> keyId) (\s@EncryptionConfig' {} a -> s {keyId = a} :: EncryptionConfig)
 
-instance FromJSON EncryptionConfig where
+instance Prelude.FromJSON EncryptionConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionConfig"
       ( \x ->
           EncryptionConfig'
-            <$> (x .:? "Status")
-            <*> (x .:? "Type")
-            <*> (x .:? "KeyId")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "KeyId")
       )
 
-instance Hashable EncryptionConfig
+instance Prelude.Hashable EncryptionConfig
 
-instance NFData EncryptionConfig
+instance Prelude.NFData EncryptionConfig

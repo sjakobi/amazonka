@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,123 +24,141 @@
 -- Retrieves group resource details.
 module Network.AWS.XRay.GetGroup
   ( -- * Creating a Request
-    getGroup,
-    GetGroup,
+    GetGroup (..),
+    newGetGroup,
 
     -- * Request Lenses
-    ggGroupName,
-    ggGroupARN,
+    getGroup_groupName,
+    getGroup_groupARN,
 
     -- * Destructuring the Response
-    getGroupResponse,
-    GetGroupResponse,
+    GetGroupResponse (..),
+    newGetGroupResponse,
 
     -- * Response Lenses
-    grsGroup,
-    grsResponseStatus,
+    getGroupResponse_group,
+    getGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.Group
 
--- | /See:/ 'getGroup' smart constructor.
+-- | /See:/ 'newGetGroup' smart constructor.
 data GetGroup = GetGroup'
-  { _ggGroupName ::
-      !(Maybe Text),
-    _ggGroupARN :: !(Maybe Text)
+  { -- | The case-sensitive name of the group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the group that was generated on creation.
+    groupARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggGroupName' - The case-sensitive name of the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggGroupARN' - The ARN of the group that was generated on creation.
-getGroup ::
+-- 'groupName', 'getGroup_groupName' - The case-sensitive name of the group.
+--
+-- 'groupARN', 'getGroup_groupARN' - The ARN of the group that was generated on creation.
+newGetGroup ::
   GetGroup
-getGroup =
+newGetGroup =
   GetGroup'
-    { _ggGroupName = Nothing,
-      _ggGroupARN = Nothing
+    { groupName = Prelude.Nothing,
+      groupARN = Prelude.Nothing
     }
 
 -- | The case-sensitive name of the group.
-ggGroupName :: Lens' GetGroup (Maybe Text)
-ggGroupName = lens _ggGroupName (\s a -> s {_ggGroupName = a})
+getGroup_groupName :: Lens.Lens' GetGroup (Prelude.Maybe Prelude.Text)
+getGroup_groupName = Lens.lens (\GetGroup' {groupName} -> groupName) (\s@GetGroup' {} a -> s {groupName = a} :: GetGroup)
 
 -- | The ARN of the group that was generated on creation.
-ggGroupARN :: Lens' GetGroup (Maybe Text)
-ggGroupARN = lens _ggGroupARN (\s a -> s {_ggGroupARN = a})
+getGroup_groupARN :: Lens.Lens' GetGroup (Prelude.Maybe Prelude.Text)
+getGroup_groupARN = Lens.lens (\GetGroup' {groupARN} -> groupARN) (\s@GetGroup' {} a -> s {groupARN = a} :: GetGroup)
 
-instance AWSRequest GetGroup where
+instance Prelude.AWSRequest GetGroup where
   type Rs GetGroup = GetGroupResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGroupResponse'
-            <$> (x .?> "Group") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Group")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroup
+instance Prelude.Hashable GetGroup
 
-instance NFData GetGroup
+instance Prelude.NFData GetGroup
 
-instance ToHeaders GetGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetGroup where
+instance Prelude.ToJSON GetGroup where
   toJSON GetGroup' {..} =
-    object
-      ( catMaybes
-          [ ("GroupName" .=) <$> _ggGroupName,
-            ("GroupARN" .=) <$> _ggGroupARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GroupName" Prelude..=) Prelude.<$> groupName,
+            ("GroupARN" Prelude..=) Prelude.<$> groupARN
           ]
       )
 
-instance ToPath GetGroup where
-  toPath = const "/GetGroup"
+instance Prelude.ToPath GetGroup where
+  toPath = Prelude.const "/GetGroup"
 
-instance ToQuery GetGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGroupResponse' smart constructor.
+-- | /See:/ 'newGetGroupResponse' smart constructor.
 data GetGroupResponse = GetGroupResponse'
-  { _grsGroup ::
-      !(Maybe Group),
-    _grsResponseStatus :: !Int
+  { -- | The group that was requested. Contains the name of the group, the ARN of
+    -- the group, the filter expression, and the insight configuration assigned
+    -- to the group.
+    group' :: Prelude.Maybe Group,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grsGroup' - The group that was requested. Contains the name of the group, the ARN of the group, the filter expression, and the insight configuration assigned to the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grsResponseStatus' - -- | The response status code.
-getGroupResponse ::
-  -- | 'grsResponseStatus'
-  Int ->
+-- 'group'', 'getGroupResponse_group' - The group that was requested. Contains the name of the group, the ARN of
+-- the group, the filter expression, and the insight configuration assigned
+-- to the group.
+--
+-- 'httpStatus', 'getGroupResponse_httpStatus' - The response's http status code.
+newGetGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGroupResponse
-getGroupResponse pResponseStatus_ =
+newGetGroupResponse pHttpStatus_ =
   GetGroupResponse'
-    { _grsGroup = Nothing,
-      _grsResponseStatus = pResponseStatus_
+    { group' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The group that was requested. Contains the name of the group, the ARN of the group, the filter expression, and the insight configuration assigned to the group.
-grsGroup :: Lens' GetGroupResponse (Maybe Group)
-grsGroup = lens _grsGroup (\s a -> s {_grsGroup = a})
+-- | The group that was requested. Contains the name of the group, the ARN of
+-- the group, the filter expression, and the insight configuration assigned
+-- to the group.
+getGroupResponse_group :: Lens.Lens' GetGroupResponse (Prelude.Maybe Group)
+getGroupResponse_group = Lens.lens (\GetGroupResponse' {group'} -> group') (\s@GetGroupResponse' {} a -> s {group' = a} :: GetGroupResponse)
 
--- | -- | The response status code.
-grsResponseStatus :: Lens' GetGroupResponse Int
-grsResponseStatus = lens _grsResponseStatus (\s a -> s {_grsResponseStatus = a})
+-- | The response's http status code.
+getGroupResponse_httpStatus :: Lens.Lens' GetGroupResponse Prelude.Int
+getGroupResponse_httpStatus = Lens.lens (\GetGroupResponse' {httpStatus} -> httpStatus) (\s@GetGroupResponse' {} a -> s {httpStatus = a} :: GetGroupResponse)
 
-instance NFData GetGroupResponse
+instance Prelude.NFData GetGroupResponse

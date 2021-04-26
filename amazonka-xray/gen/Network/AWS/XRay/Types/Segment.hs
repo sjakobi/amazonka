@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.Segment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A segment from a trace that has been ingested by the X-Ray service. The segment can be compiled from documents uploaded with 'PutTraceSegments' , or an @inferred@ segment for a downstream service, generated from a subsegment sent by the service that called it.
+-- | A segment from a trace that has been ingested by the X-Ray service. The
+-- segment can be compiled from documents uploaded with PutTraceSegments,
+-- or an @inferred@ segment for a downstream service, generated from a
+-- subsegment sent by the service that called it.
 --
+-- For the full segment document schema, see
+-- <https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html AWS X-Ray Segment Documents>
+-- in the /AWS X-Ray Developer Guide/.
 --
--- For the full segment document schema, see <https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html AWS X-Ray Segment Documents> in the /AWS X-Ray Developer Guide/ .
---
---
--- /See:/ 'segment' smart constructor.
+-- /See:/ 'newSegment' smart constructor.
 data Segment = Segment'
-  { _sId :: !(Maybe Text),
-    _sDocument :: !(Maybe Text)
+  { -- | The segment\'s ID.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The segment document.
+    document :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Segment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Segment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sId' - The segment's ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sDocument' - The segment document.
-segment ::
+-- 'id', 'segment_id' - The segment\'s ID.
+--
+-- 'document', 'segment_document' - The segment document.
+newSegment ::
   Segment
-segment =
-  Segment' {_sId = Nothing, _sDocument = Nothing}
+newSegment =
+  Segment'
+    { id = Prelude.Nothing,
+      document = Prelude.Nothing
+    }
 
--- | The segment's ID.
-sId :: Lens' Segment (Maybe Text)
-sId = lens _sId (\s a -> s {_sId = a})
+-- | The segment\'s ID.
+segment_id :: Lens.Lens' Segment (Prelude.Maybe Prelude.Text)
+segment_id = Lens.lens (\Segment' {id} -> id) (\s@Segment' {} a -> s {id = a} :: Segment)
 
 -- | The segment document.
-sDocument :: Lens' Segment (Maybe Text)
-sDocument = lens _sDocument (\s a -> s {_sDocument = a})
+segment_document :: Lens.Lens' Segment (Prelude.Maybe Prelude.Text)
+segment_document = Lens.lens (\Segment' {document} -> document) (\s@Segment' {} a -> s {document = a} :: Segment)
 
-instance FromJSON Segment where
+instance Prelude.FromJSON Segment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Segment"
       ( \x ->
-          Segment' <$> (x .:? "Id") <*> (x .:? "Document")
+          Segment'
+            Prelude.<$> (x Prelude..:? "Id")
+            Prelude.<*> (x Prelude..:? "Document")
       )
 
-instance Hashable Segment
+instance Prelude.Hashable Segment
 
-instance NFData Segment
+instance Prelude.NFData Segment

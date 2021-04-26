@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.HistogramEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An entry in a histogram for a statistic. A histogram maps the range of observed values on the X axis, and the prevalence of each value on the Y axis.
+-- | An entry in a histogram for a statistic. A histogram maps the range of
+-- observed values on the X axis, and the prevalence of each value on the Y
+-- axis.
 --
---
---
--- /See:/ 'histogramEntry' smart constructor.
+-- /See:/ 'newHistogramEntry' smart constructor.
 data HistogramEntry = HistogramEntry'
-  { _heValue ::
-      !(Maybe Double),
-    _heCount :: !(Maybe Int)
+  { -- | The value of the entry.
+    value :: Prelude.Maybe Prelude.Double,
+    -- | The prevalence of the entry.
+    count :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HistogramEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HistogramEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'heValue' - The value of the entry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'heCount' - The prevalence of the entry.
-histogramEntry ::
+-- 'value', 'histogramEntry_value' - The value of the entry.
+--
+-- 'count', 'histogramEntry_count' - The prevalence of the entry.
+newHistogramEntry ::
   HistogramEntry
-histogramEntry =
+newHistogramEntry =
   HistogramEntry'
-    { _heValue = Nothing,
-      _heCount = Nothing
+    { value = Prelude.Nothing,
+      count = Prelude.Nothing
     }
 
 -- | The value of the entry.
-heValue :: Lens' HistogramEntry (Maybe Double)
-heValue = lens _heValue (\s a -> s {_heValue = a})
+histogramEntry_value :: Lens.Lens' HistogramEntry (Prelude.Maybe Prelude.Double)
+histogramEntry_value = Lens.lens (\HistogramEntry' {value} -> value) (\s@HistogramEntry' {} a -> s {value = a} :: HistogramEntry)
 
 -- | The prevalence of the entry.
-heCount :: Lens' HistogramEntry (Maybe Int)
-heCount = lens _heCount (\s a -> s {_heCount = a})
+histogramEntry_count :: Lens.Lens' HistogramEntry (Prelude.Maybe Prelude.Int)
+histogramEntry_count = Lens.lens (\HistogramEntry' {count} -> count) (\s@HistogramEntry' {} a -> s {count = a} :: HistogramEntry)
 
-instance FromJSON HistogramEntry where
+instance Prelude.FromJSON HistogramEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HistogramEntry"
       ( \x ->
           HistogramEntry'
-            <$> (x .:? "Value") <*> (x .:? "Count")
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Count")
       )
 
-instance Hashable HistogramEntry
+instance Prelude.Hashable HistogramEntry
 
-instance NFData HistogramEntry
+instance Prelude.NFData HistogramEntry

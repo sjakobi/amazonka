@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ResponseTimeRootCause where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.ResponseTimeRootCauseService
 
 -- | The root cause information for a response time warning.
 --
---
---
--- /See:/ 'responseTimeRootCause' smart constructor.
+-- /See:/ 'newResponseTimeRootCause' smart constructor.
 data ResponseTimeRootCause = ResponseTimeRootCause'
-  { _rtrcServices ::
-      !( Maybe
-           [ResponseTimeRootCauseService]
-       ),
-    _rtrcClientImpacting ::
-      !(Maybe Bool)
+  { -- | A list of corresponding services. A service identifies a segment and
+    -- contains a name, account ID, type, and inferred flag.
+    services :: Prelude.Maybe [ResponseTimeRootCauseService],
+    -- | A flag that denotes that the root cause impacts the trace client.
+    clientImpacting :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResponseTimeRootCause' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResponseTimeRootCause' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrcServices' - A list of corresponding services. A service identifies a segment and contains a name, account ID, type, and inferred flag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtrcClientImpacting' - A flag that denotes that the root cause impacts the trace client.
-responseTimeRootCause ::
+-- 'services', 'responseTimeRootCause_services' - A list of corresponding services. A service identifies a segment and
+-- contains a name, account ID, type, and inferred flag.
+--
+-- 'clientImpacting', 'responseTimeRootCause_clientImpacting' - A flag that denotes that the root cause impacts the trace client.
+newResponseTimeRootCause ::
   ResponseTimeRootCause
-responseTimeRootCause =
+newResponseTimeRootCause =
   ResponseTimeRootCause'
-    { _rtrcServices = Nothing,
-      _rtrcClientImpacting = Nothing
+    { services = Prelude.Nothing,
+      clientImpacting = Prelude.Nothing
     }
 
--- | A list of corresponding services. A service identifies a segment and contains a name, account ID, type, and inferred flag.
-rtrcServices :: Lens' ResponseTimeRootCause [ResponseTimeRootCauseService]
-rtrcServices = lens _rtrcServices (\s a -> s {_rtrcServices = a}) . _Default . _Coerce
+-- | A list of corresponding services. A service identifies a segment and
+-- contains a name, account ID, type, and inferred flag.
+responseTimeRootCause_services :: Lens.Lens' ResponseTimeRootCause (Prelude.Maybe [ResponseTimeRootCauseService])
+responseTimeRootCause_services = Lens.lens (\ResponseTimeRootCause' {services} -> services) (\s@ResponseTimeRootCause' {} a -> s {services = a} :: ResponseTimeRootCause) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A flag that denotes that the root cause impacts the trace client.
-rtrcClientImpacting :: Lens' ResponseTimeRootCause (Maybe Bool)
-rtrcClientImpacting = lens _rtrcClientImpacting (\s a -> s {_rtrcClientImpacting = a})
+responseTimeRootCause_clientImpacting :: Lens.Lens' ResponseTimeRootCause (Prelude.Maybe Prelude.Bool)
+responseTimeRootCause_clientImpacting = Lens.lens (\ResponseTimeRootCause' {clientImpacting} -> clientImpacting) (\s@ResponseTimeRootCause' {} a -> s {clientImpacting = a} :: ResponseTimeRootCause)
 
-instance FromJSON ResponseTimeRootCause where
+instance Prelude.FromJSON ResponseTimeRootCause where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResponseTimeRootCause"
       ( \x ->
           ResponseTimeRootCause'
-            <$> (x .:? "Services" .!= mempty)
-            <*> (x .:? "ClientImpacting")
+            Prelude.<$> (x Prelude..:? "Services" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "ClientImpacting")
       )
 
-instance Hashable ResponseTimeRootCause
+instance Prelude.Hashable ResponseTimeRootCause
 
-instance NFData ResponseTimeRootCause
+instance Prelude.NFData ResponseTimeRootCause

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,46 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.AnomalousService where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.ServiceId
 
--- | The service within the service graph that has anomalously high fault rates.
+-- | The service within the service graph that has anomalously high fault
+-- rates.
 --
---
---
--- /See:/ 'anomalousService' smart constructor.
-newtype AnomalousService = AnomalousService'
-  { _asServiceId ::
-      Maybe ServiceId
+-- /See:/ 'newAnomalousService' smart constructor.
+data AnomalousService = AnomalousService'
+  { serviceId :: Prelude.Maybe ServiceId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnomalousService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnomalousService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asServiceId' - Undocumented member.
-anomalousService ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'serviceId', 'anomalousService_serviceId' - Undocumented member.
+newAnomalousService ::
   AnomalousService
-anomalousService =
-  AnomalousService' {_asServiceId = Nothing}
+newAnomalousService =
+  AnomalousService' {serviceId = Prelude.Nothing}
 
 -- | Undocumented member.
-asServiceId :: Lens' AnomalousService (Maybe ServiceId)
-asServiceId = lens _asServiceId (\s a -> s {_asServiceId = a})
+anomalousService_serviceId :: Lens.Lens' AnomalousService (Prelude.Maybe ServiceId)
+anomalousService_serviceId = Lens.lens (\AnomalousService' {serviceId} -> serviceId) (\s@AnomalousService' {} a -> s {serviceId = a} :: AnomalousService)
 
-instance FromJSON AnomalousService where
+instance Prelude.FromJSON AnomalousService where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AnomalousService"
-      (\x -> AnomalousService' <$> (x .:? "ServiceId"))
+      ( \x ->
+          AnomalousService'
+            Prelude.<$> (x Prelude..:? "ServiceId")
+      )
 
-instance Hashable AnomalousService
+instance Prelude.Hashable AnomalousService
 
-instance NFData AnomalousService
+instance Prelude.NFData AnomalousService

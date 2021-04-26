@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies a sampling rule's configuration.
+-- Modifies a sampling rule\'s configuration.
 module Network.AWS.XRay.UpdateSamplingRule
   ( -- * Creating a Request
-    updateSamplingRule,
-    UpdateSamplingRule,
+    UpdateSamplingRule (..),
+    newUpdateSamplingRule,
 
     -- * Request Lenses
-    usrSamplingRuleUpdate,
+    updateSamplingRule_samplingRuleUpdate,
 
     -- * Destructuring the Response
-    updateSamplingRuleResponse,
-    UpdateSamplingRuleResponse,
+    UpdateSamplingRuleResponse (..),
+    newUpdateSamplingRuleResponse,
 
     -- * Response Lenses
-    usrrrsSamplingRuleRecord,
-    usrrrsResponseStatus,
+    updateSamplingRuleResponse_samplingRuleRecord,
+    updateSamplingRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.SamplingRuleRecord
 
--- | /See:/ 'updateSamplingRule' smart constructor.
-newtype UpdateSamplingRule = UpdateSamplingRule'
-  { _usrSamplingRuleUpdate ::
-      SamplingRuleUpdate
+-- | /See:/ 'newUpdateSamplingRule' smart constructor.
+data UpdateSamplingRule = UpdateSamplingRule'
+  { -- | The rule and fields to change.
+    samplingRuleUpdate :: SamplingRuleUpdate
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSamplingRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSamplingRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrSamplingRuleUpdate' - The rule and fields to change.
-updateSamplingRule ::
-  -- | 'usrSamplingRuleUpdate'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'samplingRuleUpdate', 'updateSamplingRule_samplingRuleUpdate' - The rule and fields to change.
+newUpdateSamplingRule ::
+  -- | 'samplingRuleUpdate'
   SamplingRuleUpdate ->
   UpdateSamplingRule
-updateSamplingRule pSamplingRuleUpdate_ =
+newUpdateSamplingRule pSamplingRuleUpdate_ =
   UpdateSamplingRule'
-    { _usrSamplingRuleUpdate =
+    { samplingRuleUpdate =
         pSamplingRuleUpdate_
     }
 
 -- | The rule and fields to change.
-usrSamplingRuleUpdate :: Lens' UpdateSamplingRule SamplingRuleUpdate
-usrSamplingRuleUpdate = lens _usrSamplingRuleUpdate (\s a -> s {_usrSamplingRuleUpdate = a})
+updateSamplingRule_samplingRuleUpdate :: Lens.Lens' UpdateSamplingRule SamplingRuleUpdate
+updateSamplingRule_samplingRuleUpdate = Lens.lens (\UpdateSamplingRule' {samplingRuleUpdate} -> samplingRuleUpdate) (\s@UpdateSamplingRule' {} a -> s {samplingRuleUpdate = a} :: UpdateSamplingRule)
 
-instance AWSRequest UpdateSamplingRule where
+instance Prelude.AWSRequest UpdateSamplingRule where
   type
     Rs UpdateSamplingRule =
       UpdateSamplingRuleResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateSamplingRuleResponse'
-            <$> (x .?> "SamplingRuleRecord") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SamplingRuleRecord")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSamplingRule
+instance Prelude.Hashable UpdateSamplingRule
 
-instance NFData UpdateSamplingRule
+instance Prelude.NFData UpdateSamplingRule
 
-instance ToHeaders UpdateSamplingRule where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateSamplingRule where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateSamplingRule where
+instance Prelude.ToJSON UpdateSamplingRule where
   toJSON UpdateSamplingRule' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("SamplingRuleUpdate" .= _usrSamplingRuleUpdate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "SamplingRuleUpdate"
+                  Prelude..= samplingRuleUpdate
+              )
           ]
       )
 
-instance ToPath UpdateSamplingRule where
-  toPath = const "/UpdateSamplingRule"
+instance Prelude.ToPath UpdateSamplingRule where
+  toPath = Prelude.const "/UpdateSamplingRule"
 
-instance ToQuery UpdateSamplingRule where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSamplingRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateSamplingRuleResponse' smart constructor.
+-- | /See:/ 'newUpdateSamplingRuleResponse' smart constructor.
 data UpdateSamplingRuleResponse = UpdateSamplingRuleResponse'
-  { _usrrrsSamplingRuleRecord ::
-      !( Maybe
-           SamplingRuleRecord
-       ),
-    _usrrrsResponseStatus ::
-      !Int
+  { -- | The updated rule definition and metadata.
+    samplingRuleRecord :: Prelude.Maybe SamplingRuleRecord,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSamplingRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSamplingRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrrsSamplingRuleRecord' - The updated rule definition and metadata.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usrrrsResponseStatus' - -- | The response status code.
-updateSamplingRuleResponse ::
-  -- | 'usrrrsResponseStatus'
-  Int ->
+-- 'samplingRuleRecord', 'updateSamplingRuleResponse_samplingRuleRecord' - The updated rule definition and metadata.
+--
+-- 'httpStatus', 'updateSamplingRuleResponse_httpStatus' - The response's http status code.
+newUpdateSamplingRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSamplingRuleResponse
-updateSamplingRuleResponse pResponseStatus_ =
+newUpdateSamplingRuleResponse pHttpStatus_ =
   UpdateSamplingRuleResponse'
-    { _usrrrsSamplingRuleRecord =
-        Nothing,
-      _usrrrsResponseStatus = pResponseStatus_
+    { samplingRuleRecord =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated rule definition and metadata.
-usrrrsSamplingRuleRecord :: Lens' UpdateSamplingRuleResponse (Maybe SamplingRuleRecord)
-usrrrsSamplingRuleRecord = lens _usrrrsSamplingRuleRecord (\s a -> s {_usrrrsSamplingRuleRecord = a})
+updateSamplingRuleResponse_samplingRuleRecord :: Lens.Lens' UpdateSamplingRuleResponse (Prelude.Maybe SamplingRuleRecord)
+updateSamplingRuleResponse_samplingRuleRecord = Lens.lens (\UpdateSamplingRuleResponse' {samplingRuleRecord} -> samplingRuleRecord) (\s@UpdateSamplingRuleResponse' {} a -> s {samplingRuleRecord = a} :: UpdateSamplingRuleResponse)
 
--- | -- | The response status code.
-usrrrsResponseStatus :: Lens' UpdateSamplingRuleResponse Int
-usrrrsResponseStatus = lens _usrrrsResponseStatus (\s a -> s {_usrrrsResponseStatus = a})
+-- | The response's http status code.
+updateSamplingRuleResponse_httpStatus :: Lens.Lens' UpdateSamplingRuleResponse Prelude.Int
+updateSamplingRuleResponse_httpStatus = Lens.lens (\UpdateSamplingRuleResponse' {httpStatus} -> httpStatus) (\s@UpdateSamplingRuleResponse' {} a -> s {httpStatus = a} :: UpdateSamplingRuleResponse)
 
-instance NFData UpdateSamplingRuleResponse
+instance Prelude.NFData UpdateSamplingRuleResponse

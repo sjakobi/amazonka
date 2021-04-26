@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.Trace where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.Segment
 
 -- | A collection of segment documents with matching trace IDs.
 --
---
---
--- /See:/ 'trace' smart constructor.
+-- /See:/ 'newTrace' smart constructor.
 data Trace = Trace'
-  { _tLimitExceeded :: !(Maybe Bool),
-    _tDuration :: !(Maybe Double),
-    _tId :: !(Maybe Text),
-    _tSegments :: !(Maybe [Segment])
+  { -- | LimitExceeded is set to true when the trace has exceeded one of the
+    -- defined quotas. For more information about quotas, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/xray.html AWS X-Ray endpoints and quotas>.
+    limitExceeded :: Prelude.Maybe Prelude.Bool,
+    -- | The length of time in seconds between the start time of the root segment
+    -- and the end time of the last segment that completed.
+    duration :: Prelude.Maybe Prelude.Double,
+    -- | The unique identifier for the request that generated the trace\'s
+    -- segments and subsegments.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Segment documents for the segments and subsegments that comprise the
+    -- trace.
+    segments :: Prelude.Maybe [Segment]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Trace' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Trace' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tLimitExceeded' - LimitExceeded is set to true when the trace has exceeded one of the defined quotas. For more information about quotas, see <https://docs.aws.amazon.com/general/latest/gr/xray.html AWS X-Ray endpoints and quotas> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tDuration' - The length of time in seconds between the start time of the root segment and the end time of the last segment that completed.
+-- 'limitExceeded', 'trace_limitExceeded' - LimitExceeded is set to true when the trace has exceeded one of the
+-- defined quotas. For more information about quotas, see
+-- <https://docs.aws.amazon.com/general/latest/gr/xray.html AWS X-Ray endpoints and quotas>.
 --
--- * 'tId' - The unique identifier for the request that generated the trace's segments and subsegments.
+-- 'duration', 'trace_duration' - The length of time in seconds between the start time of the root segment
+-- and the end time of the last segment that completed.
 --
--- * 'tSegments' - Segment documents for the segments and subsegments that comprise the trace.
-trace ::
+-- 'id', 'trace_id' - The unique identifier for the request that generated the trace\'s
+-- segments and subsegments.
+--
+-- 'segments', 'trace_segments' - Segment documents for the segments and subsegments that comprise the
+-- trace.
+newTrace ::
   Trace
-trace =
+newTrace =
   Trace'
-    { _tLimitExceeded = Nothing,
-      _tDuration = Nothing,
-      _tId = Nothing,
-      _tSegments = Nothing
+    { limitExceeded = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      id = Prelude.Nothing,
+      segments = Prelude.Nothing
     }
 
--- | LimitExceeded is set to true when the trace has exceeded one of the defined quotas. For more information about quotas, see <https://docs.aws.amazon.com/general/latest/gr/xray.html AWS X-Ray endpoints and quotas> .
-tLimitExceeded :: Lens' Trace (Maybe Bool)
-tLimitExceeded = lens _tLimitExceeded (\s a -> s {_tLimitExceeded = a})
+-- | LimitExceeded is set to true when the trace has exceeded one of the
+-- defined quotas. For more information about quotas, see
+-- <https://docs.aws.amazon.com/general/latest/gr/xray.html AWS X-Ray endpoints and quotas>.
+trace_limitExceeded :: Lens.Lens' Trace (Prelude.Maybe Prelude.Bool)
+trace_limitExceeded = Lens.lens (\Trace' {limitExceeded} -> limitExceeded) (\s@Trace' {} a -> s {limitExceeded = a} :: Trace)
 
--- | The length of time in seconds between the start time of the root segment and the end time of the last segment that completed.
-tDuration :: Lens' Trace (Maybe Double)
-tDuration = lens _tDuration (\s a -> s {_tDuration = a})
+-- | The length of time in seconds between the start time of the root segment
+-- and the end time of the last segment that completed.
+trace_duration :: Lens.Lens' Trace (Prelude.Maybe Prelude.Double)
+trace_duration = Lens.lens (\Trace' {duration} -> duration) (\s@Trace' {} a -> s {duration = a} :: Trace)
 
--- | The unique identifier for the request that generated the trace's segments and subsegments.
-tId :: Lens' Trace (Maybe Text)
-tId = lens _tId (\s a -> s {_tId = a})
+-- | The unique identifier for the request that generated the trace\'s
+-- segments and subsegments.
+trace_id :: Lens.Lens' Trace (Prelude.Maybe Prelude.Text)
+trace_id = Lens.lens (\Trace' {id} -> id) (\s@Trace' {} a -> s {id = a} :: Trace)
 
--- | Segment documents for the segments and subsegments that comprise the trace.
-tSegments :: Lens' Trace [Segment]
-tSegments = lens _tSegments (\s a -> s {_tSegments = a}) . _Default . _Coerce
+-- | Segment documents for the segments and subsegments that comprise the
+-- trace.
+trace_segments :: Lens.Lens' Trace (Prelude.Maybe [Segment])
+trace_segments = Lens.lens (\Trace' {segments} -> segments) (\s@Trace' {} a -> s {segments = a} :: Trace) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Trace where
+instance Prelude.FromJSON Trace where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Trace"
       ( \x ->
           Trace'
-            <$> (x .:? "LimitExceeded")
-            <*> (x .:? "Duration")
-            <*> (x .:? "Id")
-            <*> (x .:? "Segments" .!= mempty)
+            Prelude.<$> (x Prelude..:? "LimitExceeded")
+            Prelude.<*> (x Prelude..:? "Duration")
+            Prelude.<*> (x Prelude..:? "Id")
+            Prelude.<*> ( x Prelude..:? "Segments"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Trace
+instance Prelude.Hashable Trace
 
-instance NFData Trace
+instance Prelude.NFData Trace

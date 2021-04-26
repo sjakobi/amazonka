@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.InsightsConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The structure containing configurations related to insights.
 --
---
---
--- /See:/ 'insightsConfiguration' smart constructor.
+-- /See:/ 'newInsightsConfiguration' smart constructor.
 data InsightsConfiguration = InsightsConfiguration'
-  { _icNotificationsEnabled ::
-      !(Maybe Bool),
-    _icInsightsEnabled ::
-      !(Maybe Bool)
+  { -- | Set the NotificationsEnabled value to true to enable insights
+    -- notifications. Notifications can only be enabled on a group with
+    -- InsightsEnabled set to true.
+    notificationsEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Set the InsightsEnabled value to true to enable insights or false to
+    -- disable insights.
+    insightsEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InsightsConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InsightsConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icNotificationsEnabled' - Set the NotificationsEnabled value to true to enable insights notifications. Notifications can only be enabled on a group with InsightsEnabled set to true.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icInsightsEnabled' - Set the InsightsEnabled value to true to enable insights or false to disable insights.
-insightsConfiguration ::
+-- 'notificationsEnabled', 'insightsConfiguration_notificationsEnabled' - Set the NotificationsEnabled value to true to enable insights
+-- notifications. Notifications can only be enabled on a group with
+-- InsightsEnabled set to true.
+--
+-- 'insightsEnabled', 'insightsConfiguration_insightsEnabled' - Set the InsightsEnabled value to true to enable insights or false to
+-- disable insights.
+newInsightsConfiguration ::
   InsightsConfiguration
-insightsConfiguration =
+newInsightsConfiguration =
   InsightsConfiguration'
-    { _icNotificationsEnabled =
-        Nothing,
-      _icInsightsEnabled = Nothing
+    { notificationsEnabled =
+        Prelude.Nothing,
+      insightsEnabled = Prelude.Nothing
     }
 
--- | Set the NotificationsEnabled value to true to enable insights notifications. Notifications can only be enabled on a group with InsightsEnabled set to true.
-icNotificationsEnabled :: Lens' InsightsConfiguration (Maybe Bool)
-icNotificationsEnabled = lens _icNotificationsEnabled (\s a -> s {_icNotificationsEnabled = a})
+-- | Set the NotificationsEnabled value to true to enable insights
+-- notifications. Notifications can only be enabled on a group with
+-- InsightsEnabled set to true.
+insightsConfiguration_notificationsEnabled :: Lens.Lens' InsightsConfiguration (Prelude.Maybe Prelude.Bool)
+insightsConfiguration_notificationsEnabled = Lens.lens (\InsightsConfiguration' {notificationsEnabled} -> notificationsEnabled) (\s@InsightsConfiguration' {} a -> s {notificationsEnabled = a} :: InsightsConfiguration)
 
--- | Set the InsightsEnabled value to true to enable insights or false to disable insights.
-icInsightsEnabled :: Lens' InsightsConfiguration (Maybe Bool)
-icInsightsEnabled = lens _icInsightsEnabled (\s a -> s {_icInsightsEnabled = a})
+-- | Set the InsightsEnabled value to true to enable insights or false to
+-- disable insights.
+insightsConfiguration_insightsEnabled :: Lens.Lens' InsightsConfiguration (Prelude.Maybe Prelude.Bool)
+insightsConfiguration_insightsEnabled = Lens.lens (\InsightsConfiguration' {insightsEnabled} -> insightsEnabled) (\s@InsightsConfiguration' {} a -> s {insightsEnabled = a} :: InsightsConfiguration)
 
-instance FromJSON InsightsConfiguration where
+instance Prelude.FromJSON InsightsConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InsightsConfiguration"
       ( \x ->
           InsightsConfiguration'
-            <$> (x .:? "NotificationsEnabled")
-            <*> (x .:? "InsightsEnabled")
+            Prelude.<$> (x Prelude..:? "NotificationsEnabled")
+            Prelude.<*> (x Prelude..:? "InsightsEnabled")
       )
 
-instance Hashable InsightsConfiguration
+instance Prelude.Hashable InsightsConfiguration
 
-instance NFData InsightsConfiguration
+instance Prelude.NFData InsightsConfiguration
 
-instance ToJSON InsightsConfiguration where
+instance Prelude.ToJSON InsightsConfiguration where
   toJSON InsightsConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("NotificationsEnabled" .=)
-              <$> _icNotificationsEnabled,
-            ("InsightsEnabled" .=) <$> _icInsightsEnabled
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NotificationsEnabled" Prelude..=)
+              Prelude.<$> notificationsEnabled,
+            ("InsightsEnabled" Prelude..=)
+              Prelude.<$> insightsEnabled
           ]
       )

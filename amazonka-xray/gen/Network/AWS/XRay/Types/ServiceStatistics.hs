@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ServiceStatistics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.ErrorStatistics
 import Network.AWS.XRay.Types.FaultStatistics
 
 -- | Response statistics for a service.
 --
---
---
--- /See:/ 'serviceStatistics' smart constructor.
+-- /See:/ 'newServiceStatistics' smart constructor.
 data ServiceStatistics = ServiceStatistics'
-  { _ssTotalResponseTime ::
-      !(Maybe Double),
-    _ssOKCount :: !(Maybe Integer),
-    _ssFaultStatistics ::
-      !(Maybe FaultStatistics),
-    _ssTotalCount :: !(Maybe Integer),
-    _ssErrorStatistics ::
-      !(Maybe ErrorStatistics)
+  { -- | The aggregate response time of completed requests.
+    totalResponseTime :: Prelude.Maybe Prelude.Double,
+    -- | The number of requests that completed with a 2xx Success status code.
+    okCount :: Prelude.Maybe Prelude.Integer,
+    -- | Information about requests that failed with a 5xx Server Error status
+    -- code.
+    faultStatistics :: Prelude.Maybe FaultStatistics,
+    -- | The total number of completed requests.
+    totalCount :: Prelude.Maybe Prelude.Integer,
+    -- | Information about requests that failed with a 4xx Client Error status
+    -- code.
+    errorStatistics :: Prelude.Maybe ErrorStatistics
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssTotalResponseTime' - The aggregate response time of completed requests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssOKCount' - The number of requests that completed with a 2xx Success status code.
+-- 'totalResponseTime', 'serviceStatistics_totalResponseTime' - The aggregate response time of completed requests.
 --
--- * 'ssFaultStatistics' - Information about requests that failed with a 5xx Server Error status code.
+-- 'okCount', 'serviceStatistics_okCount' - The number of requests that completed with a 2xx Success status code.
 --
--- * 'ssTotalCount' - The total number of completed requests.
+-- 'faultStatistics', 'serviceStatistics_faultStatistics' - Information about requests that failed with a 5xx Server Error status
+-- code.
 --
--- * 'ssErrorStatistics' - Information about requests that failed with a 4xx Client Error status code.
-serviceStatistics ::
+-- 'totalCount', 'serviceStatistics_totalCount' - The total number of completed requests.
+--
+-- 'errorStatistics', 'serviceStatistics_errorStatistics' - Information about requests that failed with a 4xx Client Error status
+-- code.
+newServiceStatistics ::
   ServiceStatistics
-serviceStatistics =
+newServiceStatistics =
   ServiceStatistics'
-    { _ssTotalResponseTime = Nothing,
-      _ssOKCount = Nothing,
-      _ssFaultStatistics = Nothing,
-      _ssTotalCount = Nothing,
-      _ssErrorStatistics = Nothing
+    { totalResponseTime =
+        Prelude.Nothing,
+      okCount = Prelude.Nothing,
+      faultStatistics = Prelude.Nothing,
+      totalCount = Prelude.Nothing,
+      errorStatistics = Prelude.Nothing
     }
 
 -- | The aggregate response time of completed requests.
-ssTotalResponseTime :: Lens' ServiceStatistics (Maybe Double)
-ssTotalResponseTime = lens _ssTotalResponseTime (\s a -> s {_ssTotalResponseTime = a})
+serviceStatistics_totalResponseTime :: Lens.Lens' ServiceStatistics (Prelude.Maybe Prelude.Double)
+serviceStatistics_totalResponseTime = Lens.lens (\ServiceStatistics' {totalResponseTime} -> totalResponseTime) (\s@ServiceStatistics' {} a -> s {totalResponseTime = a} :: ServiceStatistics)
 
 -- | The number of requests that completed with a 2xx Success status code.
-ssOKCount :: Lens' ServiceStatistics (Maybe Integer)
-ssOKCount = lens _ssOKCount (\s a -> s {_ssOKCount = a})
+serviceStatistics_okCount :: Lens.Lens' ServiceStatistics (Prelude.Maybe Prelude.Integer)
+serviceStatistics_okCount = Lens.lens (\ServiceStatistics' {okCount} -> okCount) (\s@ServiceStatistics' {} a -> s {okCount = a} :: ServiceStatistics)
 
--- | Information about requests that failed with a 5xx Server Error status code.
-ssFaultStatistics :: Lens' ServiceStatistics (Maybe FaultStatistics)
-ssFaultStatistics = lens _ssFaultStatistics (\s a -> s {_ssFaultStatistics = a})
+-- | Information about requests that failed with a 5xx Server Error status
+-- code.
+serviceStatistics_faultStatistics :: Lens.Lens' ServiceStatistics (Prelude.Maybe FaultStatistics)
+serviceStatistics_faultStatistics = Lens.lens (\ServiceStatistics' {faultStatistics} -> faultStatistics) (\s@ServiceStatistics' {} a -> s {faultStatistics = a} :: ServiceStatistics)
 
 -- | The total number of completed requests.
-ssTotalCount :: Lens' ServiceStatistics (Maybe Integer)
-ssTotalCount = lens _ssTotalCount (\s a -> s {_ssTotalCount = a})
+serviceStatistics_totalCount :: Lens.Lens' ServiceStatistics (Prelude.Maybe Prelude.Integer)
+serviceStatistics_totalCount = Lens.lens (\ServiceStatistics' {totalCount} -> totalCount) (\s@ServiceStatistics' {} a -> s {totalCount = a} :: ServiceStatistics)
 
--- | Information about requests that failed with a 4xx Client Error status code.
-ssErrorStatistics :: Lens' ServiceStatistics (Maybe ErrorStatistics)
-ssErrorStatistics = lens _ssErrorStatistics (\s a -> s {_ssErrorStatistics = a})
+-- | Information about requests that failed with a 4xx Client Error status
+-- code.
+serviceStatistics_errorStatistics :: Lens.Lens' ServiceStatistics (Prelude.Maybe ErrorStatistics)
+serviceStatistics_errorStatistics = Lens.lens (\ServiceStatistics' {errorStatistics} -> errorStatistics) (\s@ServiceStatistics' {} a -> s {errorStatistics = a} :: ServiceStatistics)
 
-instance FromJSON ServiceStatistics where
+instance Prelude.FromJSON ServiceStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceStatistics"
       ( \x ->
           ServiceStatistics'
-            <$> (x .:? "TotalResponseTime")
-            <*> (x .:? "OkCount")
-            <*> (x .:? "FaultStatistics")
-            <*> (x .:? "TotalCount")
-            <*> (x .:? "ErrorStatistics")
+            Prelude.<$> (x Prelude..:? "TotalResponseTime")
+            Prelude.<*> (x Prelude..:? "OkCount")
+            Prelude.<*> (x Prelude..:? "FaultStatistics")
+            Prelude.<*> (x Prelude..:? "TotalCount")
+            Prelude.<*> (x Prelude..:? "ErrorStatistics")
       )
 
-instance Hashable ServiceStatistics
+instance Prelude.Hashable ServiceStatistics
 
-instance NFData ServiceStatistics
+instance Prelude.NFData ServiceStatistics

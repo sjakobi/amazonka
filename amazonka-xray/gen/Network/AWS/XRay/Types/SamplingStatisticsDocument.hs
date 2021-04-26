@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,117 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.SamplingStatisticsDocument where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Request sampling results for a single rule from a service. Results are for the last 10 seconds unless the service has been assigned a longer reporting interval after a previous call to 'GetSamplingTargets' .
+-- | Request sampling results for a single rule from a service. Results are
+-- for the last 10 seconds unless the service has been assigned a longer
+-- reporting interval after a previous call to GetSamplingTargets.
 --
---
---
--- /See:/ 'samplingStatisticsDocument' smart constructor.
+-- /See:/ 'newSamplingStatisticsDocument' smart constructor.
 data SamplingStatisticsDocument = SamplingStatisticsDocument'
-  { _ssdBorrowCount ::
-      !(Maybe Nat),
-    _ssdRuleName ::
-      !Text,
-    _ssdClientId ::
-      !Text,
-    _ssdTimestamp ::
-      !POSIX,
-    _ssdRequestCount ::
-      !Nat,
-    _ssdSampledCount ::
-      !Nat
+  { -- | The number of requests recorded with borrowed reservoir quota.
+    borrowCount :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the sampling rule.
+    ruleName :: Prelude.Text,
+    -- | A unique identifier for the service in hexadecimal.
+    clientID :: Prelude.Text,
+    -- | The current time.
+    timestamp :: Prelude.POSIX,
+    -- | The number of requests that matched the rule.
+    requestCount :: Prelude.Nat,
+    -- | The number of requests recorded.
+    sampledCount :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SamplingStatisticsDocument' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SamplingStatisticsDocument' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssdBorrowCount' - The number of requests recorded with borrowed reservoir quota.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssdRuleName' - The name of the sampling rule.
+-- 'borrowCount', 'samplingStatisticsDocument_borrowCount' - The number of requests recorded with borrowed reservoir quota.
 --
--- * 'ssdClientId' - A unique identifier for the service in hexadecimal.
+-- 'ruleName', 'samplingStatisticsDocument_ruleName' - The name of the sampling rule.
 --
--- * 'ssdTimestamp' - The current time.
+-- 'clientID', 'samplingStatisticsDocument_clientID' - A unique identifier for the service in hexadecimal.
 --
--- * 'ssdRequestCount' - The number of requests that matched the rule.
+-- 'timestamp', 'samplingStatisticsDocument_timestamp' - The current time.
 --
--- * 'ssdSampledCount' - The number of requests recorded.
-samplingStatisticsDocument ::
-  -- | 'ssdRuleName'
-  Text ->
-  -- | 'ssdClientId'
-  Text ->
-  -- | 'ssdTimestamp'
-  UTCTime ->
-  -- | 'ssdRequestCount'
-  Natural ->
-  -- | 'ssdSampledCount'
-  Natural ->
+-- 'requestCount', 'samplingStatisticsDocument_requestCount' - The number of requests that matched the rule.
+--
+-- 'sampledCount', 'samplingStatisticsDocument_sampledCount' - The number of requests recorded.
+newSamplingStatisticsDocument ::
+  -- | 'ruleName'
+  Prelude.Text ->
+  -- | 'clientID'
+  Prelude.Text ->
+  -- | 'timestamp'
+  Prelude.UTCTime ->
+  -- | 'requestCount'
+  Prelude.Natural ->
+  -- | 'sampledCount'
+  Prelude.Natural ->
   SamplingStatisticsDocument
-samplingStatisticsDocument
+newSamplingStatisticsDocument
   pRuleName_
-  pClientId_
+  pClientID_
   pTimestamp_
   pRequestCount_
   pSampledCount_ =
     SamplingStatisticsDocument'
-      { _ssdBorrowCount =
-          Nothing,
-        _ssdRuleName = pRuleName_,
-        _ssdClientId = pClientId_,
-        _ssdTimestamp = _Time # pTimestamp_,
-        _ssdRequestCount = _Nat # pRequestCount_,
-        _ssdSampledCount = _Nat # pSampledCount_
+      { borrowCount =
+          Prelude.Nothing,
+        ruleName = pRuleName_,
+        clientID = pClientID_,
+        timestamp = Prelude._Time Lens.# pTimestamp_,
+        requestCount =
+          Prelude._Nat Lens.# pRequestCount_,
+        sampledCount =
+          Prelude._Nat Lens.# pSampledCount_
       }
 
 -- | The number of requests recorded with borrowed reservoir quota.
-ssdBorrowCount :: Lens' SamplingStatisticsDocument (Maybe Natural)
-ssdBorrowCount = lens _ssdBorrowCount (\s a -> s {_ssdBorrowCount = a}) . mapping _Nat
+samplingStatisticsDocument_borrowCount :: Lens.Lens' SamplingStatisticsDocument (Prelude.Maybe Prelude.Natural)
+samplingStatisticsDocument_borrowCount = Lens.lens (\SamplingStatisticsDocument' {borrowCount} -> borrowCount) (\s@SamplingStatisticsDocument' {} a -> s {borrowCount = a} :: SamplingStatisticsDocument) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the sampling rule.
-ssdRuleName :: Lens' SamplingStatisticsDocument Text
-ssdRuleName = lens _ssdRuleName (\s a -> s {_ssdRuleName = a})
+samplingStatisticsDocument_ruleName :: Lens.Lens' SamplingStatisticsDocument Prelude.Text
+samplingStatisticsDocument_ruleName = Lens.lens (\SamplingStatisticsDocument' {ruleName} -> ruleName) (\s@SamplingStatisticsDocument' {} a -> s {ruleName = a} :: SamplingStatisticsDocument)
 
 -- | A unique identifier for the service in hexadecimal.
-ssdClientId :: Lens' SamplingStatisticsDocument Text
-ssdClientId = lens _ssdClientId (\s a -> s {_ssdClientId = a})
+samplingStatisticsDocument_clientID :: Lens.Lens' SamplingStatisticsDocument Prelude.Text
+samplingStatisticsDocument_clientID = Lens.lens (\SamplingStatisticsDocument' {clientID} -> clientID) (\s@SamplingStatisticsDocument' {} a -> s {clientID = a} :: SamplingStatisticsDocument)
 
 -- | The current time.
-ssdTimestamp :: Lens' SamplingStatisticsDocument UTCTime
-ssdTimestamp = lens _ssdTimestamp (\s a -> s {_ssdTimestamp = a}) . _Time
+samplingStatisticsDocument_timestamp :: Lens.Lens' SamplingStatisticsDocument Prelude.UTCTime
+samplingStatisticsDocument_timestamp = Lens.lens (\SamplingStatisticsDocument' {timestamp} -> timestamp) (\s@SamplingStatisticsDocument' {} a -> s {timestamp = a} :: SamplingStatisticsDocument) Prelude.. Prelude._Time
 
 -- | The number of requests that matched the rule.
-ssdRequestCount :: Lens' SamplingStatisticsDocument Natural
-ssdRequestCount = lens _ssdRequestCount (\s a -> s {_ssdRequestCount = a}) . _Nat
+samplingStatisticsDocument_requestCount :: Lens.Lens' SamplingStatisticsDocument Prelude.Natural
+samplingStatisticsDocument_requestCount = Lens.lens (\SamplingStatisticsDocument' {requestCount} -> requestCount) (\s@SamplingStatisticsDocument' {} a -> s {requestCount = a} :: SamplingStatisticsDocument) Prelude.. Prelude._Nat
 
 -- | The number of requests recorded.
-ssdSampledCount :: Lens' SamplingStatisticsDocument Natural
-ssdSampledCount = lens _ssdSampledCount (\s a -> s {_ssdSampledCount = a}) . _Nat
+samplingStatisticsDocument_sampledCount :: Lens.Lens' SamplingStatisticsDocument Prelude.Natural
+samplingStatisticsDocument_sampledCount = Lens.lens (\SamplingStatisticsDocument' {sampledCount} -> sampledCount) (\s@SamplingStatisticsDocument' {} a -> s {sampledCount = a} :: SamplingStatisticsDocument) Prelude.. Prelude._Nat
 
-instance Hashable SamplingStatisticsDocument
+instance Prelude.Hashable SamplingStatisticsDocument
 
-instance NFData SamplingStatisticsDocument
+instance Prelude.NFData SamplingStatisticsDocument
 
-instance ToJSON SamplingStatisticsDocument where
+instance Prelude.ToJSON SamplingStatisticsDocument where
   toJSON SamplingStatisticsDocument' {..} =
-    object
-      ( catMaybes
-          [ ("BorrowCount" .=) <$> _ssdBorrowCount,
-            Just ("RuleName" .= _ssdRuleName),
-            Just ("ClientID" .= _ssdClientId),
-            Just ("Timestamp" .= _ssdTimestamp),
-            Just ("RequestCount" .= _ssdRequestCount),
-            Just ("SampledCount" .= _ssdSampledCount)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("BorrowCount" Prelude..=) Prelude.<$> borrowCount,
+            Prelude.Just ("RuleName" Prelude..= ruleName),
+            Prelude.Just ("ClientID" Prelude..= clientID),
+            Prelude.Just ("Timestamp" Prelude..= timestamp),
+            Prelude.Just
+              ("RequestCount" Prelude..= requestCount),
+            Prelude.Just
+              ("SampledCount" Prelude..= sampledCount)
           ]
       )

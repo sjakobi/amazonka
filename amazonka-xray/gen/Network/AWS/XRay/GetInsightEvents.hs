@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- X-Ray reevaluates insights periodically until they're resolved, and records each intermediate state as an event. You can review an insight's events in the Impact Timeline on the Inspect page in the X-Ray console.
+-- X-Ray reevaluates insights periodically until they\'re resolved, and
+-- records each intermediate state as an event. You can review an
+-- insight\'s events in the Impact Timeline on the Inspect page in the
+-- X-Ray console.
 module Network.AWS.XRay.GetInsightEvents
   ( -- * Creating a Request
-    getInsightEvents,
-    GetInsightEvents,
+    GetInsightEvents (..),
+    newGetInsightEvents,
 
     -- * Request Lenses
-    gieNextToken,
-    gieMaxResults,
-    gieInsightId,
+    getInsightEvents_nextToken,
+    getInsightEvents_maxResults,
+    getInsightEvents_insightId,
 
     -- * Destructuring the Response
-    getInsightEventsResponse,
-    GetInsightEventsResponse,
+    GetInsightEventsResponse (..),
+    newGetInsightEventsResponse,
 
     -- * Response Lenses
-    gierrsNextToken,
-    gierrsInsightEvents,
-    gierrsResponseStatus,
+    getInsightEventsResponse_nextToken,
+    getInsightEventsResponse_insightEvents,
+    getInsightEventsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.InsightEvent
 
--- | /See:/ 'getInsightEvents' smart constructor.
+-- | /See:/ 'newGetInsightEvents' smart constructor.
 data GetInsightEvents = GetInsightEvents'
-  { _gieNextToken ::
-      !(Maybe Text),
-    _gieMaxResults :: !(Maybe Nat),
-    _gieInsightId :: !Text
+  { -- | Specify the pagination token returned by a previous request to retrieve
+    -- the next page of events.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Used to retrieve at most the specified value of events.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The insight\'s unique identifier. Use the GetInsightSummaries action to
+    -- retrieve an InsightId.
+    insightId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightEvents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightEvents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gieNextToken' - Specify the pagination token returned by a previous request to retrieve the next page of events.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gieMaxResults' - Used to retrieve at most the specified value of events.
+-- 'nextToken', 'getInsightEvents_nextToken' - Specify the pagination token returned by a previous request to retrieve
+-- the next page of events.
 --
--- * 'gieInsightId' - The insight's unique identifier. Use the GetInsightSummaries action to retrieve an InsightId.
-getInsightEvents ::
-  -- | 'gieInsightId'
-  Text ->
+-- 'maxResults', 'getInsightEvents_maxResults' - Used to retrieve at most the specified value of events.
+--
+-- 'insightId', 'getInsightEvents_insightId' - The insight\'s unique identifier. Use the GetInsightSummaries action to
+-- retrieve an InsightId.
+newGetInsightEvents ::
+  -- | 'insightId'
+  Prelude.Text ->
   GetInsightEvents
-getInsightEvents pInsightId_ =
+newGetInsightEvents pInsightId_ =
   GetInsightEvents'
-    { _gieNextToken = Nothing,
-      _gieMaxResults = Nothing,
-      _gieInsightId = pInsightId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      insightId = pInsightId_
     }
 
--- | Specify the pagination token returned by a previous request to retrieve the next page of events.
-gieNextToken :: Lens' GetInsightEvents (Maybe Text)
-gieNextToken = lens _gieNextToken (\s a -> s {_gieNextToken = a})
+-- | Specify the pagination token returned by a previous request to retrieve
+-- the next page of events.
+getInsightEvents_nextToken :: Lens.Lens' GetInsightEvents (Prelude.Maybe Prelude.Text)
+getInsightEvents_nextToken = Lens.lens (\GetInsightEvents' {nextToken} -> nextToken) (\s@GetInsightEvents' {} a -> s {nextToken = a} :: GetInsightEvents)
 
 -- | Used to retrieve at most the specified value of events.
-gieMaxResults :: Lens' GetInsightEvents (Maybe Natural)
-gieMaxResults = lens _gieMaxResults (\s a -> s {_gieMaxResults = a}) . mapping _Nat
+getInsightEvents_maxResults :: Lens.Lens' GetInsightEvents (Prelude.Maybe Prelude.Natural)
+getInsightEvents_maxResults = Lens.lens (\GetInsightEvents' {maxResults} -> maxResults) (\s@GetInsightEvents' {} a -> s {maxResults = a} :: GetInsightEvents) Prelude.. Lens.mapping Prelude._Nat
 
--- | The insight's unique identifier. Use the GetInsightSummaries action to retrieve an InsightId.
-gieInsightId :: Lens' GetInsightEvents Text
-gieInsightId = lens _gieInsightId (\s a -> s {_gieInsightId = a})
+-- | The insight\'s unique identifier. Use the GetInsightSummaries action to
+-- retrieve an InsightId.
+getInsightEvents_insightId :: Lens.Lens' GetInsightEvents Prelude.Text
+getInsightEvents_insightId = Lens.lens (\GetInsightEvents' {insightId} -> insightId) (\s@GetInsightEvents' {} a -> s {insightId = a} :: GetInsightEvents)
 
-instance AWSRequest GetInsightEvents where
+instance Prelude.AWSRequest GetInsightEvents where
   type Rs GetInsightEvents = GetInsightEventsResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInsightEventsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "InsightEvents" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "InsightEvents"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInsightEvents
+instance Prelude.Hashable GetInsightEvents
 
-instance NFData GetInsightEvents
+instance Prelude.NFData GetInsightEvents
 
-instance ToHeaders GetInsightEvents where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetInsightEvents where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetInsightEvents where
+instance Prelude.ToJSON GetInsightEvents where
   toJSON GetInsightEvents' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _gieNextToken,
-            ("MaxResults" .=) <$> _gieMaxResults,
-            Just ("InsightId" .= _gieInsightId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("InsightId" Prelude..= insightId)
           ]
       )
 
-instance ToPath GetInsightEvents where
-  toPath = const "/InsightEvents"
+instance Prelude.ToPath GetInsightEvents where
+  toPath = Prelude.const "/InsightEvents"
 
-instance ToQuery GetInsightEvents where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInsightEvents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInsightEventsResponse' smart constructor.
+-- | /See:/ 'newGetInsightEventsResponse' smart constructor.
 data GetInsightEventsResponse = GetInsightEventsResponse'
-  { _gierrsNextToken ::
-      !(Maybe Text),
-    _gierrsInsightEvents ::
-      !( Maybe
-           [InsightEvent]
-       ),
-    _gierrsResponseStatus ::
-      !Int
+  { -- | Use this token to retrieve the next page of insight events.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A detailed description of the event. This includes the time of the
+    -- event, client and root cause impact statistics, and the top anomalous
+    -- service at the time of the event.
+    insightEvents :: Prelude.Maybe [InsightEvent],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightEventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightEventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gierrsNextToken' - Use this token to retrieve the next page of insight events.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gierrsInsightEvents' - A detailed description of the event. This includes the time of the event, client and root cause impact statistics, and the top anomalous service at the time of the event.
+-- 'nextToken', 'getInsightEventsResponse_nextToken' - Use this token to retrieve the next page of insight events.
 --
--- * 'gierrsResponseStatus' - -- | The response status code.
-getInsightEventsResponse ::
-  -- | 'gierrsResponseStatus'
-  Int ->
+-- 'insightEvents', 'getInsightEventsResponse_insightEvents' - A detailed description of the event. This includes the time of the
+-- event, client and root cause impact statistics, and the top anomalous
+-- service at the time of the event.
+--
+-- 'httpStatus', 'getInsightEventsResponse_httpStatus' - The response's http status code.
+newGetInsightEventsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInsightEventsResponse
-getInsightEventsResponse pResponseStatus_ =
+newGetInsightEventsResponse pHttpStatus_ =
   GetInsightEventsResponse'
-    { _gierrsNextToken =
-        Nothing,
-      _gierrsInsightEvents = Nothing,
-      _gierrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      insightEvents = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Use this token to retrieve the next page of insight events.
-gierrsNextToken :: Lens' GetInsightEventsResponse (Maybe Text)
-gierrsNextToken = lens _gierrsNextToken (\s a -> s {_gierrsNextToken = a})
+getInsightEventsResponse_nextToken :: Lens.Lens' GetInsightEventsResponse (Prelude.Maybe Prelude.Text)
+getInsightEventsResponse_nextToken = Lens.lens (\GetInsightEventsResponse' {nextToken} -> nextToken) (\s@GetInsightEventsResponse' {} a -> s {nextToken = a} :: GetInsightEventsResponse)
 
--- | A detailed description of the event. This includes the time of the event, client and root cause impact statistics, and the top anomalous service at the time of the event.
-gierrsInsightEvents :: Lens' GetInsightEventsResponse [InsightEvent]
-gierrsInsightEvents = lens _gierrsInsightEvents (\s a -> s {_gierrsInsightEvents = a}) . _Default . _Coerce
+-- | A detailed description of the event. This includes the time of the
+-- event, client and root cause impact statistics, and the top anomalous
+-- service at the time of the event.
+getInsightEventsResponse_insightEvents :: Lens.Lens' GetInsightEventsResponse (Prelude.Maybe [InsightEvent])
+getInsightEventsResponse_insightEvents = Lens.lens (\GetInsightEventsResponse' {insightEvents} -> insightEvents) (\s@GetInsightEventsResponse' {} a -> s {insightEvents = a} :: GetInsightEventsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gierrsResponseStatus :: Lens' GetInsightEventsResponse Int
-gierrsResponseStatus = lens _gierrsResponseStatus (\s a -> s {_gierrsResponseStatus = a})
+-- | The response's http status code.
+getInsightEventsResponse_httpStatus :: Lens.Lens' GetInsightEventsResponse Prelude.Int
+getInsightEventsResponse_httpStatus = Lens.lens (\GetInsightEventsResponse' {httpStatus} -> httpStatus) (\s@GetInsightEventsResponse' {} a -> s {httpStatus = a} :: GetInsightEventsResponse)
 
-instance NFData GetInsightEventsResponse
+instance Prelude.NFData GetInsightEventsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,249 @@
 -- Creates a group resource with a name and a filter expression.
 module Network.AWS.XRay.CreateGroup
   ( -- * Creating a Request
-    createGroup,
-    CreateGroup,
+    CreateGroup (..),
+    newCreateGroup,
 
     -- * Request Lenses
-    cgInsightsConfiguration,
-    cgFilterExpression,
-    cgTags,
-    cgGroupName,
+    createGroup_insightsConfiguration,
+    createGroup_filterExpression,
+    createGroup_tags,
+    createGroup_groupName,
 
     -- * Destructuring the Response
-    createGroupResponse,
-    CreateGroupResponse,
+    CreateGroupResponse (..),
+    newCreateGroupResponse,
 
     -- * Response Lenses
-    cgrrsGroup,
-    cgrrsResponseStatus,
+    createGroupResponse_group,
+    createGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.Group
 
--- | /See:/ 'createGroup' smart constructor.
+-- | /See:/ 'newCreateGroup' smart constructor.
 data CreateGroup = CreateGroup'
-  { _cgInsightsConfiguration ::
-      !(Maybe InsightsConfiguration),
-    _cgFilterExpression :: !(Maybe Text),
-    _cgTags :: !(Maybe [Tag]),
-    _cgGroupName :: !Text
+  { -- | The structure containing configurations related to insights.
+    --
+    -- -   The InsightsEnabled boolean can be set to true to enable insights
+    --     for the new group or false to disable insights for the new group.
+    --
+    -- -   The NotifcationsEnabled boolean can be set to true to enable
+    --     insights notifications for the new group. Notifications may only be
+    --     enabled on a group with InsightsEnabled set to true.
+    insightsConfiguration :: Prelude.Maybe InsightsConfiguration,
+    -- | The filter expression defining criteria by which to group traces.
+    filterExpression :: Prelude.Maybe Prelude.Text,
+    -- | A map that contains one or more tag keys and tag values to attach to an
+    -- X-Ray group. For more information about ways to use tags, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+    -- in the /AWS General Reference/.
+    --
+    -- The following restrictions apply to tags:
+    --
+    -- -   Maximum number of user-applied tags per resource: 50
+    --
+    -- -   Maximum tag key length: 128 Unicode characters
+    --
+    -- -   Maximum tag value length: 256 Unicode characters
+    --
+    -- -   Valid values for key and value: a-z, A-Z, 0-9, space, and the
+    --     following characters: _ . : \/ = + - and \@
+    --
+    -- -   Tag keys and values are case sensitive.
+    --
+    -- -   Don\'t use @aws:@ as a prefix for keys; it\'s reserved for AWS use.
+    tags :: Prelude.Maybe [Tag],
+    -- | The case-sensitive name of the new group. Default is a reserved name and
+    -- names must be unique.
+    groupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgInsightsConfiguration' - The structure containing configurations related to insights.     * The InsightsEnabled boolean can be set to true to enable insights for the new group or false to disable insights for the new group.     * The NotifcationsEnabled boolean can be set to true to enable insights notifications for the new group. Notifications may only be enabled on a group with InsightsEnabled set to true.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgFilterExpression' - The filter expression defining criteria by which to group traces.
+-- 'insightsConfiguration', 'createGroup_insightsConfiguration' - The structure containing configurations related to insights.
 --
--- * 'cgTags' - A map that contains one or more tag keys and tag values to attach to an X-Ray group. For more information about ways to use tags, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference/ . The following restrictions apply to tags:     * Maximum number of user-applied tags per resource: 50     * Maximum tag key length: 128 Unicode characters     * Maximum tag value length: 256 Unicode characters     * Valid values for key and value: a-z, A-Z, 0-9, space, and the following characters: _ . : / = + - and @     * Tag keys and values are case sensitive.     * Don't use @aws:@ as a prefix for keys; it's reserved for AWS use.
+-- -   The InsightsEnabled boolean can be set to true to enable insights
+--     for the new group or false to disable insights for the new group.
 --
--- * 'cgGroupName' - The case-sensitive name of the new group. Default is a reserved name and names must be unique.
-createGroup ::
-  -- | 'cgGroupName'
-  Text ->
+-- -   The NotifcationsEnabled boolean can be set to true to enable
+--     insights notifications for the new group. Notifications may only be
+--     enabled on a group with InsightsEnabled set to true.
+--
+-- 'filterExpression', 'createGroup_filterExpression' - The filter expression defining criteria by which to group traces.
+--
+-- 'tags', 'createGroup_tags' - A map that contains one or more tag keys and tag values to attach to an
+-- X-Ray group. For more information about ways to use tags, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference/.
+--
+-- The following restrictions apply to tags:
+--
+-- -   Maximum number of user-applied tags per resource: 50
+--
+-- -   Maximum tag key length: 128 Unicode characters
+--
+-- -   Maximum tag value length: 256 Unicode characters
+--
+-- -   Valid values for key and value: a-z, A-Z, 0-9, space, and the
+--     following characters: _ . : \/ = + - and \@
+--
+-- -   Tag keys and values are case sensitive.
+--
+-- -   Don\'t use @aws:@ as a prefix for keys; it\'s reserved for AWS use.
+--
+-- 'groupName', 'createGroup_groupName' - The case-sensitive name of the new group. Default is a reserved name and
+-- names must be unique.
+newCreateGroup ::
+  -- | 'groupName'
+  Prelude.Text ->
   CreateGroup
-createGroup pGroupName_ =
+newCreateGroup pGroupName_ =
   CreateGroup'
-    { _cgInsightsConfiguration = Nothing,
-      _cgFilterExpression = Nothing,
-      _cgTags = Nothing,
-      _cgGroupName = pGroupName_
+    { insightsConfiguration =
+        Prelude.Nothing,
+      filterExpression = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      groupName = pGroupName_
     }
 
--- | The structure containing configurations related to insights.     * The InsightsEnabled boolean can be set to true to enable insights for the new group or false to disable insights for the new group.     * The NotifcationsEnabled boolean can be set to true to enable insights notifications for the new group. Notifications may only be enabled on a group with InsightsEnabled set to true.
-cgInsightsConfiguration :: Lens' CreateGroup (Maybe InsightsConfiguration)
-cgInsightsConfiguration = lens _cgInsightsConfiguration (\s a -> s {_cgInsightsConfiguration = a})
+-- | The structure containing configurations related to insights.
+--
+-- -   The InsightsEnabled boolean can be set to true to enable insights
+--     for the new group or false to disable insights for the new group.
+--
+-- -   The NotifcationsEnabled boolean can be set to true to enable
+--     insights notifications for the new group. Notifications may only be
+--     enabled on a group with InsightsEnabled set to true.
+createGroup_insightsConfiguration :: Lens.Lens' CreateGroup (Prelude.Maybe InsightsConfiguration)
+createGroup_insightsConfiguration = Lens.lens (\CreateGroup' {insightsConfiguration} -> insightsConfiguration) (\s@CreateGroup' {} a -> s {insightsConfiguration = a} :: CreateGroup)
 
 -- | The filter expression defining criteria by which to group traces.
-cgFilterExpression :: Lens' CreateGroup (Maybe Text)
-cgFilterExpression = lens _cgFilterExpression (\s a -> s {_cgFilterExpression = a})
+createGroup_filterExpression :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
+createGroup_filterExpression = Lens.lens (\CreateGroup' {filterExpression} -> filterExpression) (\s@CreateGroup' {} a -> s {filterExpression = a} :: CreateGroup)
 
--- | A map that contains one or more tag keys and tag values to attach to an X-Ray group. For more information about ways to use tags, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference/ . The following restrictions apply to tags:     * Maximum number of user-applied tags per resource: 50     * Maximum tag key length: 128 Unicode characters     * Maximum tag value length: 256 Unicode characters     * Valid values for key and value: a-z, A-Z, 0-9, space, and the following characters: _ . : / = + - and @     * Tag keys and values are case sensitive.     * Don't use @aws:@ as a prefix for keys; it's reserved for AWS use.
-cgTags :: Lens' CreateGroup [Tag]
-cgTags = lens _cgTags (\s a -> s {_cgTags = a}) . _Default . _Coerce
+-- | A map that contains one or more tag keys and tag values to attach to an
+-- X-Ray group. For more information about ways to use tags, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference/.
+--
+-- The following restrictions apply to tags:
+--
+-- -   Maximum number of user-applied tags per resource: 50
+--
+-- -   Maximum tag key length: 128 Unicode characters
+--
+-- -   Maximum tag value length: 256 Unicode characters
+--
+-- -   Valid values for key and value: a-z, A-Z, 0-9, space, and the
+--     following characters: _ . : \/ = + - and \@
+--
+-- -   Tag keys and values are case sensitive.
+--
+-- -   Don\'t use @aws:@ as a prefix for keys; it\'s reserved for AWS use.
+createGroup_tags :: Lens.Lens' CreateGroup (Prelude.Maybe [Tag])
+createGroup_tags = Lens.lens (\CreateGroup' {tags} -> tags) (\s@CreateGroup' {} a -> s {tags = a} :: CreateGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The case-sensitive name of the new group. Default is a reserved name and names must be unique.
-cgGroupName :: Lens' CreateGroup Text
-cgGroupName = lens _cgGroupName (\s a -> s {_cgGroupName = a})
+-- | The case-sensitive name of the new group. Default is a reserved name and
+-- names must be unique.
+createGroup_groupName :: Lens.Lens' CreateGroup Prelude.Text
+createGroup_groupName = Lens.lens (\CreateGroup' {groupName} -> groupName) (\s@CreateGroup' {} a -> s {groupName = a} :: CreateGroup)
 
-instance AWSRequest CreateGroup where
+instance Prelude.AWSRequest CreateGroup where
   type Rs CreateGroup = CreateGroupResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            <$> (x .?> "Group") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Group")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateGroup
+instance Prelude.Hashable CreateGroup
 
-instance NFData CreateGroup
+instance Prelude.NFData CreateGroup
 
-instance ToHeaders CreateGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateGroup where
+instance Prelude.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    object
-      ( catMaybes
-          [ ("InsightsConfiguration" .=)
-              <$> _cgInsightsConfiguration,
-            ("FilterExpression" .=) <$> _cgFilterExpression,
-            ("Tags" .=) <$> _cgTags,
-            Just ("GroupName" .= _cgGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InsightsConfiguration" Prelude..=)
+              Prelude.<$> insightsConfiguration,
+            ("FilterExpression" Prelude..=)
+              Prelude.<$> filterExpression,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("GroupName" Prelude..= groupName)
           ]
       )
 
-instance ToPath CreateGroup where
-  toPath = const "/CreateGroup"
+instance Prelude.ToPath CreateGroup where
+  toPath = Prelude.const "/CreateGroup"
 
-instance ToQuery CreateGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createGroupResponse' smart constructor.
+-- | /See:/ 'newCreateGroupResponse' smart constructor.
 data CreateGroupResponse = CreateGroupResponse'
-  { _cgrrsGroup ::
-      !(Maybe Group),
-    _cgrrsResponseStatus :: !Int
+  { -- | The group that was created. Contains the name of the group that was
+    -- created, the Amazon Resource Name (ARN) of the group that was generated
+    -- based on the group name, the filter expression, and the insight
+    -- configuration that was assigned to the group.
+    group' :: Prelude.Maybe Group,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgrrsGroup' - The group that was created. Contains the name of the group that was created, the Amazon Resource Name (ARN) of the group that was generated based on the group name, the filter expression, and the insight configuration that was assigned to the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgrrsResponseStatus' - -- | The response status code.
-createGroupResponse ::
-  -- | 'cgrrsResponseStatus'
-  Int ->
+-- 'group'', 'createGroupResponse_group' - The group that was created. Contains the name of the group that was
+-- created, the Amazon Resource Name (ARN) of the group that was generated
+-- based on the group name, the filter expression, and the insight
+-- configuration that was assigned to the group.
+--
+-- 'httpStatus', 'createGroupResponse_httpStatus' - The response's http status code.
+newCreateGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateGroupResponse
-createGroupResponse pResponseStatus_ =
+newCreateGroupResponse pHttpStatus_ =
   CreateGroupResponse'
-    { _cgrrsGroup = Nothing,
-      _cgrrsResponseStatus = pResponseStatus_
+    { group' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The group that was created. Contains the name of the group that was created, the Amazon Resource Name (ARN) of the group that was generated based on the group name, the filter expression, and the insight configuration that was assigned to the group.
-cgrrsGroup :: Lens' CreateGroupResponse (Maybe Group)
-cgrrsGroup = lens _cgrrsGroup (\s a -> s {_cgrrsGroup = a})
+-- | The group that was created. Contains the name of the group that was
+-- created, the Amazon Resource Name (ARN) of the group that was generated
+-- based on the group name, the filter expression, and the insight
+-- configuration that was assigned to the group.
+createGroupResponse_group :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Group)
+createGroupResponse_group = Lens.lens (\CreateGroupResponse' {group'} -> group') (\s@CreateGroupResponse' {} a -> s {group' = a} :: CreateGroupResponse)
 
--- | -- | The response status code.
-cgrrsResponseStatus :: Lens' CreateGroupResponse Int
-cgrrsResponseStatus = lens _cgrrsResponseStatus (\s a -> s {_cgrrsResponseStatus = a})
+-- | The response's http status code.
+createGroupResponse_httpStatus :: Lens.Lens' CreateGroupResponse Prelude.Int
+createGroupResponse_httpStatus = Lens.lens (\CreateGroupResponse' {httpStatus} -> httpStatus) (\s@CreateGroupResponse' {} a -> s {httpStatus = a} :: CreateGroupResponse)
 
-instance NFData CreateGroupResponse
+instance Prelude.NFData CreateGroupResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ErrorRootCauseService where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.XRay.Types.ErrorRootCauseEntity
 
--- | A collection of fields identifying the services in a trace summary error.
+-- | A collection of fields identifying the services in a trace summary
+-- error.
 --
---
---
--- /See:/ 'errorRootCauseService' smart constructor.
+-- /See:/ 'newErrorRootCauseService' smart constructor.
 data ErrorRootCauseService = ErrorRootCauseService'
-  { _ercsNames ::
-      !(Maybe [Text]),
-    _ercsAccountId ::
-      !(Maybe Text),
-    _ercsInferred ::
-      !(Maybe Bool),
-    _ercsName :: !(Maybe Text),
-    _ercsEntityPath ::
-      !( Maybe
-           [ErrorRootCauseEntity]
-       ),
-    _ercsType :: !(Maybe Text)
+  { -- | A collection of associated service names.
+    names :: Prelude.Maybe [Prelude.Text],
+    -- | The account ID associated to the service.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value indicating if the service is inferred from the trace.
+    inferred :: Prelude.Maybe Prelude.Bool,
+    -- | The service name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The path of root cause entities found on the service.
+    entityPath :: Prelude.Maybe [ErrorRootCauseEntity],
+    -- | The type associated to the service.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ErrorRootCauseService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ErrorRootCauseService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ercsNames' - A collection of associated service names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ercsAccountId' - The account ID associated to the service.
+-- 'names', 'errorRootCauseService_names' - A collection of associated service names.
 --
--- * 'ercsInferred' - A Boolean value indicating if the service is inferred from the trace.
+-- 'accountId', 'errorRootCauseService_accountId' - The account ID associated to the service.
 --
--- * 'ercsName' - The service name.
+-- 'inferred', 'errorRootCauseService_inferred' - A Boolean value indicating if the service is inferred from the trace.
 --
--- * 'ercsEntityPath' - The path of root cause entities found on the service.
+-- 'name', 'errorRootCauseService_name' - The service name.
 --
--- * 'ercsType' - The type associated to the service.
-errorRootCauseService ::
+-- 'entityPath', 'errorRootCauseService_entityPath' - The path of root cause entities found on the service.
+--
+-- 'type'', 'errorRootCauseService_type' - The type associated to the service.
+newErrorRootCauseService ::
   ErrorRootCauseService
-errorRootCauseService =
+newErrorRootCauseService =
   ErrorRootCauseService'
-    { _ercsNames = Nothing,
-      _ercsAccountId = Nothing,
-      _ercsInferred = Nothing,
-      _ercsName = Nothing,
-      _ercsEntityPath = Nothing,
-      _ercsType = Nothing
+    { names = Prelude.Nothing,
+      accountId = Prelude.Nothing,
+      inferred = Prelude.Nothing,
+      name = Prelude.Nothing,
+      entityPath = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | A collection of associated service names.
-ercsNames :: Lens' ErrorRootCauseService [Text]
-ercsNames = lens _ercsNames (\s a -> s {_ercsNames = a}) . _Default . _Coerce
+errorRootCauseService_names :: Lens.Lens' ErrorRootCauseService (Prelude.Maybe [Prelude.Text])
+errorRootCauseService_names = Lens.lens (\ErrorRootCauseService' {names} -> names) (\s@ErrorRootCauseService' {} a -> s {names = a} :: ErrorRootCauseService) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The account ID associated to the service.
-ercsAccountId :: Lens' ErrorRootCauseService (Maybe Text)
-ercsAccountId = lens _ercsAccountId (\s a -> s {_ercsAccountId = a})
+errorRootCauseService_accountId :: Lens.Lens' ErrorRootCauseService (Prelude.Maybe Prelude.Text)
+errorRootCauseService_accountId = Lens.lens (\ErrorRootCauseService' {accountId} -> accountId) (\s@ErrorRootCauseService' {} a -> s {accountId = a} :: ErrorRootCauseService)
 
 -- | A Boolean value indicating if the service is inferred from the trace.
-ercsInferred :: Lens' ErrorRootCauseService (Maybe Bool)
-ercsInferred = lens _ercsInferred (\s a -> s {_ercsInferred = a})
+errorRootCauseService_inferred :: Lens.Lens' ErrorRootCauseService (Prelude.Maybe Prelude.Bool)
+errorRootCauseService_inferred = Lens.lens (\ErrorRootCauseService' {inferred} -> inferred) (\s@ErrorRootCauseService' {} a -> s {inferred = a} :: ErrorRootCauseService)
 
 -- | The service name.
-ercsName :: Lens' ErrorRootCauseService (Maybe Text)
-ercsName = lens _ercsName (\s a -> s {_ercsName = a})
+errorRootCauseService_name :: Lens.Lens' ErrorRootCauseService (Prelude.Maybe Prelude.Text)
+errorRootCauseService_name = Lens.lens (\ErrorRootCauseService' {name} -> name) (\s@ErrorRootCauseService' {} a -> s {name = a} :: ErrorRootCauseService)
 
 -- | The path of root cause entities found on the service.
-ercsEntityPath :: Lens' ErrorRootCauseService [ErrorRootCauseEntity]
-ercsEntityPath = lens _ercsEntityPath (\s a -> s {_ercsEntityPath = a}) . _Default . _Coerce
+errorRootCauseService_entityPath :: Lens.Lens' ErrorRootCauseService (Prelude.Maybe [ErrorRootCauseEntity])
+errorRootCauseService_entityPath = Lens.lens (\ErrorRootCauseService' {entityPath} -> entityPath) (\s@ErrorRootCauseService' {} a -> s {entityPath = a} :: ErrorRootCauseService) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The type associated to the service.
-ercsType :: Lens' ErrorRootCauseService (Maybe Text)
-ercsType = lens _ercsType (\s a -> s {_ercsType = a})
+errorRootCauseService_type :: Lens.Lens' ErrorRootCauseService (Prelude.Maybe Prelude.Text)
+errorRootCauseService_type = Lens.lens (\ErrorRootCauseService' {type'} -> type') (\s@ErrorRootCauseService' {} a -> s {type' = a} :: ErrorRootCauseService)
 
-instance FromJSON ErrorRootCauseService where
+instance Prelude.FromJSON ErrorRootCauseService where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ErrorRootCauseService"
       ( \x ->
           ErrorRootCauseService'
-            <$> (x .:? "Names" .!= mempty)
-            <*> (x .:? "AccountId")
-            <*> (x .:? "Inferred")
-            <*> (x .:? "Name")
-            <*> (x .:? "EntityPath" .!= mempty)
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Names" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "Inferred")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> ( x Prelude..:? "EntityPath"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable ErrorRootCauseService
+instance Prelude.Hashable ErrorRootCauseService
 
-instance NFData ErrorRootCauseService
+instance Prelude.NFData ErrorRootCauseService

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.XRay.Types.ServiceId where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- |
 --
---
---
--- /See:/ 'serviceId' smart constructor.
+-- /See:/ 'newServiceId' smart constructor.
 data ServiceId = ServiceId'
-  { _siNames ::
-      !(Maybe [Text]),
-    _siAccountId :: !(Maybe Text),
-    _siName :: !(Maybe Text),
-    _siType :: !(Maybe Text)
+  { names :: Prelude.Maybe [Prelude.Text],
+    accountId :: Prelude.Maybe Prelude.Text,
+    name :: Prelude.Maybe Prelude.Text,
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceId' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceId' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siNames' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siAccountId' -
+-- 'names', 'serviceId_names' -
 --
--- * 'siName' -
+-- 'accountId', 'serviceId_accountId' -
 --
--- * 'siType' -
-serviceId ::
+-- 'name', 'serviceId_name' -
+--
+-- 'type'', 'serviceId_type' -
+newServiceId ::
   ServiceId
-serviceId =
+newServiceId =
   ServiceId'
-    { _siNames = Nothing,
-      _siAccountId = Nothing,
-      _siName = Nothing,
-      _siType = Nothing
+    { names = Prelude.Nothing,
+      accountId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- |
-siNames :: Lens' ServiceId [Text]
-siNames = lens _siNames (\s a -> s {_siNames = a}) . _Default . _Coerce
+serviceId_names :: Lens.Lens' ServiceId (Prelude.Maybe [Prelude.Text])
+serviceId_names = Lens.lens (\ServiceId' {names} -> names) (\s@ServiceId' {} a -> s {names = a} :: ServiceId) Prelude.. Lens.mapping Prelude._Coerce
 
 -- |
-siAccountId :: Lens' ServiceId (Maybe Text)
-siAccountId = lens _siAccountId (\s a -> s {_siAccountId = a})
+serviceId_accountId :: Lens.Lens' ServiceId (Prelude.Maybe Prelude.Text)
+serviceId_accountId = Lens.lens (\ServiceId' {accountId} -> accountId) (\s@ServiceId' {} a -> s {accountId = a} :: ServiceId)
 
 -- |
-siName :: Lens' ServiceId (Maybe Text)
-siName = lens _siName (\s a -> s {_siName = a})
+serviceId_name :: Lens.Lens' ServiceId (Prelude.Maybe Prelude.Text)
+serviceId_name = Lens.lens (\ServiceId' {name} -> name) (\s@ServiceId' {} a -> s {name = a} :: ServiceId)
 
 -- |
-siType :: Lens' ServiceId (Maybe Text)
-siType = lens _siType (\s a -> s {_siType = a})
+serviceId_type :: Lens.Lens' ServiceId (Prelude.Maybe Prelude.Text)
+serviceId_type = Lens.lens (\ServiceId' {type'} -> type') (\s@ServiceId' {} a -> s {type' = a} :: ServiceId)
 
-instance FromJSON ServiceId where
+instance Prelude.FromJSON ServiceId where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceId"
       ( \x ->
           ServiceId'
-            <$> (x .:? "Names" .!= mempty)
-            <*> (x .:? "AccountId")
-            <*> (x .:? "Name")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Names" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable ServiceId
+instance Prelude.Hashable ServiceId
 
-instance NFData ServiceId
+instance Prelude.NFData ServiceId

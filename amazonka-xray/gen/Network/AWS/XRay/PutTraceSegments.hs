@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Uploads segment documents to AWS X-Ray. The <https://docs.aws.amazon.com/xray/index.html X-Ray SDK> generates segment documents and sends them to the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or an array of subsegments.
+-- Uploads segment documents to AWS X-Ray. The
+-- <https://docs.aws.amazon.com/xray/index.html X-Ray SDK> generates
+-- segment documents and sends them to the X-Ray daemon, which uploads them
+-- in batches. A segment document can be a completed segment, an
+-- in-progress segment, or an array of subsegments.
 --
---
--- Segments must include the following fields. For the full segment document schema, see <https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html AWS X-Ray Segment Documents> in the /AWS X-Ray Developer Guide/ .
+-- Segments must include the following fields. For the full segment
+-- document schema, see
+-- <https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html AWS X-Ray Segment Documents>
+-- in the /AWS X-Ray Developer Guide/.
 --
 -- __Required segment document fields__
 --
---     * @name@ - The name of the service that handled the request.
+-- -   @name@ - The name of the service that handled the request.
 --
---     * @id@ - A 64-bit identifier for the segment, unique among segments in the same trace, in 16 hexadecimal digits.
+-- -   @id@ - A 64-bit identifier for the segment, unique among segments in
+--     the same trace, in 16 hexadecimal digits.
 --
---     * @trace_id@ - A unique identifier that connects all segments and subsegments originating from a single client request.
+-- -   @trace_id@ - A unique identifier that connects all segments and
+--     subsegments originating from a single client request.
 --
---     * @start_time@ - Time the segment or subsegment was created, in floating point seconds in epoch time, accurate to milliseconds. For example, @1480615200.010@ or @1.480615200010E9@ .
+-- -   @start_time@ - Time the segment or subsegment was created, in
+--     floating point seconds in epoch time, accurate to milliseconds. For
+--     example, @1480615200.010@ or @1.480615200010E9@.
 --
---     * @end_time@ - Time the segment or subsegment was closed. For example, @1480615200.090@ or @1.480615200090E9@ . Specify either an @end_time@ or @in_progress@ .
+-- -   @end_time@ - Time the segment or subsegment was closed. For example,
+--     @1480615200.090@ or @1.480615200090E9@. Specify either an @end_time@
+--     or @in_progress@.
 --
---     * @in_progress@ - Set to @true@ instead of specifying an @end_time@ to record that a segment has been started, but is not complete. Send an in-progress segment when your application receives a request that will take a long time to serve, to trace that the request was received. When the response is sent, send the complete segment to overwrite the in-progress segment.
+-- -   @in_progress@ - Set to @true@ instead of specifying an @end_time@ to
+--     record that a segment has been started, but is not complete. Send an
+--     in-progress segment when your application receives a request that
+--     will take a long time to serve, to trace that the request was
+--     received. When the response is sent, send the complete segment to
+--     overwrite the in-progress segment.
 --
---
---
--- A @trace_id@ consists of three numbers separated by hyphens. For example, 1-58406520-a006649127e371903a2de979. This includes:
+-- A @trace_id@ consists of three numbers separated by hyphens. For
+-- example, 1-58406520-a006649127e371903a2de979. This includes:
 --
 -- __Trace ID Format__
 --
---     * The version number, for instance, @1@ .
+-- -   The version number, for instance, @1@.
 --
---     * The time of the original request, in Unix epoch time, in 8 hexadecimal digits. For example, 10:00AM December 2nd, 2016 PST in epoch time is @1480615200@ seconds, or @58406520@ in hexadecimal.
+-- -   The time of the original request, in Unix epoch time, in 8
+--     hexadecimal digits. For example, 10:00AM December 2nd, 2016 PST in
+--     epoch time is @1480615200@ seconds, or @58406520@ in hexadecimal.
 --
---     * A 96-bit identifier for the trace, globally unique, in 24 hexadecimal digits.
+-- -   A 96-bit identifier for the trace, globally unique, in 24
+--     hexadecimal digits.
 module Network.AWS.XRay.PutTraceSegments
   ( -- * Creating a Request
-    putTraceSegments,
-    PutTraceSegments,
+    PutTraceSegments (..),
+    newPutTraceSegments,
 
     -- * Request Lenses
-    ptsTraceSegmentDocuments,
+    putTraceSegments_traceSegmentDocuments,
 
     -- * Destructuring the Response
-    putTraceSegmentsResponse,
-    PutTraceSegmentsResponse,
+    PutTraceSegmentsResponse (..),
+    newPutTraceSegmentsResponse,
 
     -- * Response Lenses
-    ptsrrsUnprocessedTraceSegments,
-    ptsrrsResponseStatus,
+    putTraceSegmentsResponse_unprocessedTraceSegments,
+    putTraceSegmentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.XRay.Types
+import Network.AWS.XRay.Types.UnprocessedTraceSegment
 
--- | /See:/ 'putTraceSegments' smart constructor.
-newtype PutTraceSegments = PutTraceSegments'
-  { _ptsTraceSegmentDocuments ::
-      [Text]
+-- | /See:/ 'newPutTraceSegments' smart constructor.
+data PutTraceSegments = PutTraceSegments'
+  { -- | A string containing a JSON document defining one or more segments or
+    -- subsegments.
+    traceSegmentDocuments :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutTraceSegments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutTraceSegments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptsTraceSegmentDocuments' - A string containing a JSON document defining one or more segments or subsegments.
-putTraceSegments ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'traceSegmentDocuments', 'putTraceSegments_traceSegmentDocuments' - A string containing a JSON document defining one or more segments or
+-- subsegments.
+newPutTraceSegments ::
   PutTraceSegments
-putTraceSegments =
+newPutTraceSegments =
   PutTraceSegments'
-    { _ptsTraceSegmentDocuments =
-        mempty
+    { traceSegmentDocuments =
+        Prelude.mempty
     }
 
--- | A string containing a JSON document defining one or more segments or subsegments.
-ptsTraceSegmentDocuments :: Lens' PutTraceSegments [Text]
-ptsTraceSegmentDocuments = lens _ptsTraceSegmentDocuments (\s a -> s {_ptsTraceSegmentDocuments = a}) . _Coerce
+-- | A string containing a JSON document defining one or more segments or
+-- subsegments.
+putTraceSegments_traceSegmentDocuments :: Lens.Lens' PutTraceSegments [Prelude.Text]
+putTraceSegments_traceSegmentDocuments = Lens.lens (\PutTraceSegments' {traceSegmentDocuments} -> traceSegmentDocuments) (\s@PutTraceSegments' {} a -> s {traceSegmentDocuments = a} :: PutTraceSegments) Prelude.. Prelude._Coerce
 
-instance AWSRequest PutTraceSegments where
+instance Prelude.AWSRequest PutTraceSegments where
   type Rs PutTraceSegments = PutTraceSegmentsResponse
-  request = postJSON xRay
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutTraceSegmentsResponse'
-            <$> (x .?> "UnprocessedTraceSegments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "UnprocessedTraceSegments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutTraceSegments
+instance Prelude.Hashable PutTraceSegments
 
-instance NFData PutTraceSegments
+instance Prelude.NFData PutTraceSegments
 
-instance ToHeaders PutTraceSegments where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutTraceSegments where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PutTraceSegments where
+instance Prelude.ToJSON PutTraceSegments where
   toJSON PutTraceSegments' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "TraceSegmentDocuments"
-                  .= _ptsTraceSegmentDocuments
+                  Prelude..= traceSegmentDocuments
               )
           ]
       )
 
-instance ToPath PutTraceSegments where
-  toPath = const "/TraceSegments"
+instance Prelude.ToPath PutTraceSegments where
+  toPath = Prelude.const "/TraceSegments"
 
-instance ToQuery PutTraceSegments where
-  toQuery = const mempty
+instance Prelude.ToQuery PutTraceSegments where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putTraceSegmentsResponse' smart constructor.
+-- | /See:/ 'newPutTraceSegmentsResponse' smart constructor.
 data PutTraceSegmentsResponse = PutTraceSegmentsResponse'
-  { _ptsrrsUnprocessedTraceSegments ::
-      !( Maybe
-           [UnprocessedTraceSegment]
-       ),
-    _ptsrrsResponseStatus ::
-      !Int
+  { -- | Segments that failed processing.
+    unprocessedTraceSegments :: Prelude.Maybe [UnprocessedTraceSegment],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutTraceSegmentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutTraceSegmentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ptsrrsUnprocessedTraceSegments' - Segments that failed processing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ptsrrsResponseStatus' - -- | The response status code.
-putTraceSegmentsResponse ::
-  -- | 'ptsrrsResponseStatus'
-  Int ->
+-- 'unprocessedTraceSegments', 'putTraceSegmentsResponse_unprocessedTraceSegments' - Segments that failed processing.
+--
+-- 'httpStatus', 'putTraceSegmentsResponse_httpStatus' - The response's http status code.
+newPutTraceSegmentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutTraceSegmentsResponse
-putTraceSegmentsResponse pResponseStatus_ =
+newPutTraceSegmentsResponse pHttpStatus_ =
   PutTraceSegmentsResponse'
-    { _ptsrrsUnprocessedTraceSegments =
-        Nothing,
-      _ptsrrsResponseStatus = pResponseStatus_
+    { unprocessedTraceSegments =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Segments that failed processing.
-ptsrrsUnprocessedTraceSegments :: Lens' PutTraceSegmentsResponse [UnprocessedTraceSegment]
-ptsrrsUnprocessedTraceSegments = lens _ptsrrsUnprocessedTraceSegments (\s a -> s {_ptsrrsUnprocessedTraceSegments = a}) . _Default . _Coerce
+putTraceSegmentsResponse_unprocessedTraceSegments :: Lens.Lens' PutTraceSegmentsResponse (Prelude.Maybe [UnprocessedTraceSegment])
+putTraceSegmentsResponse_unprocessedTraceSegments = Lens.lens (\PutTraceSegmentsResponse' {unprocessedTraceSegments} -> unprocessedTraceSegments) (\s@PutTraceSegmentsResponse' {} a -> s {unprocessedTraceSegments = a} :: PutTraceSegmentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ptsrrsResponseStatus :: Lens' PutTraceSegmentsResponse Int
-ptsrrsResponseStatus = lens _ptsrrsResponseStatus (\s a -> s {_ptsrrsResponseStatus = a})
+-- | The response's http status code.
+putTraceSegmentsResponse_httpStatus :: Lens.Lens' PutTraceSegmentsResponse Prelude.Int
+putTraceSegmentsResponse_httpStatus = Lens.lens (\PutTraceSegmentsResponse' {httpStatus} -> httpStatus) (\s@PutTraceSegmentsResponse' {} a -> s {httpStatus = a} :: PutTraceSegmentsResponse)
 
-instance NFData PutTraceSegmentsResponse
+instance Prelude.NFData PutTraceSegmentsResponse
