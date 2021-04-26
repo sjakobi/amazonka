@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deactivates the specified running pipeline. The pipeline is set to the @DEACTIVATING@ state until the deactivation process completes.
+-- Deactivates the specified running pipeline. The pipeline is set to the
+-- @DEACTIVATING@ state until the deactivation process completes.
 --
---
--- To resume a deactivated pipeline, use 'ActivatePipeline' . By default, the pipeline resumes from the last completed execution. Optionally, you can specify the date and time to resume the pipeline.
+-- To resume a deactivated pipeline, use ActivatePipeline. By default, the
+-- pipeline resumes from the last completed execution. Optionally, you can
+-- specify the date and time to resume the pipeline.
 module Network.AWS.DataPipeline.DeactivatePipeline
   ( -- * Creating a Request
-    deactivatePipeline,
-    DeactivatePipeline,
+    DeactivatePipeline (..),
+    newDeactivatePipeline,
 
     -- * Request Lenses
-    dCancelActive,
-    dPipelineId,
+    deactivatePipeline_cancelActive,
+    deactivatePipeline_pipelineId,
 
     -- * Destructuring the Response
-    deactivatePipelineResponse,
-    DeactivatePipelineResponse,
+    DeactivatePipelineResponse (..),
+    newDeactivatePipelineResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deactivatePipelineResponse_httpStatus,
   )
 where
 
 import Network.AWS.DataPipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for DeactivatePipeline.
 --
---
---
--- /See:/ 'deactivatePipeline' smart constructor.
+-- /See:/ 'newDeactivatePipeline' smart constructor.
 data DeactivatePipeline = DeactivatePipeline'
-  { _dCancelActive ::
-      !(Maybe Bool),
-    _dPipelineId :: !Text
+  { -- | Indicates whether to cancel any running objects. The default is true,
+    -- which sets the state of any running objects to @CANCELED@. If this value
+    -- is false, the pipeline is deactivated after all running objects finish.
+    cancelActive :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the pipeline.
+    pipelineId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeactivatePipeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeactivatePipeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dCancelActive' - Indicates whether to cancel any running objects. The default is true, which sets the state of any running objects to @CANCELED@ . If this value is false, the pipeline is deactivated after all running objects finish.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dPipelineId' - The ID of the pipeline.
-deactivatePipeline ::
-  -- | 'dPipelineId'
-  Text ->
+-- 'cancelActive', 'deactivatePipeline_cancelActive' - Indicates whether to cancel any running objects. The default is true,
+-- which sets the state of any running objects to @CANCELED@. If this value
+-- is false, the pipeline is deactivated after all running objects finish.
+--
+-- 'pipelineId', 'deactivatePipeline_pipelineId' - The ID of the pipeline.
+newDeactivatePipeline ::
+  -- | 'pipelineId'
+  Prelude.Text ->
   DeactivatePipeline
-deactivatePipeline pPipelineId_ =
+newDeactivatePipeline pPipelineId_ =
   DeactivatePipeline'
-    { _dCancelActive = Nothing,
-      _dPipelineId = pPipelineId_
+    { cancelActive = Prelude.Nothing,
+      pipelineId = pPipelineId_
     }
 
--- | Indicates whether to cancel any running objects. The default is true, which sets the state of any running objects to @CANCELED@ . If this value is false, the pipeline is deactivated after all running objects finish.
-dCancelActive :: Lens' DeactivatePipeline (Maybe Bool)
-dCancelActive = lens _dCancelActive (\s a -> s {_dCancelActive = a})
+-- | Indicates whether to cancel any running objects. The default is true,
+-- which sets the state of any running objects to @CANCELED@. If this value
+-- is false, the pipeline is deactivated after all running objects finish.
+deactivatePipeline_cancelActive :: Lens.Lens' DeactivatePipeline (Prelude.Maybe Prelude.Bool)
+deactivatePipeline_cancelActive = Lens.lens (\DeactivatePipeline' {cancelActive} -> cancelActive) (\s@DeactivatePipeline' {} a -> s {cancelActive = a} :: DeactivatePipeline)
 
 -- | The ID of the pipeline.
-dPipelineId :: Lens' DeactivatePipeline Text
-dPipelineId = lens _dPipelineId (\s a -> s {_dPipelineId = a})
+deactivatePipeline_pipelineId :: Lens.Lens' DeactivatePipeline Prelude.Text
+deactivatePipeline_pipelineId = Lens.lens (\DeactivatePipeline' {pipelineId} -> pipelineId) (\s@DeactivatePipeline' {} a -> s {pipelineId = a} :: DeactivatePipeline)
 
-instance AWSRequest DeactivatePipeline where
+instance Prelude.AWSRequest DeactivatePipeline where
   type
     Rs DeactivatePipeline =
       DeactivatePipelineResponse
-  request = postJSON dataPipeline
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeactivatePipelineResponse' <$> (pure (fromEnum s))
+          DeactivatePipelineResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeactivatePipeline
+instance Prelude.Hashable DeactivatePipeline
 
-instance NFData DeactivatePipeline
+instance Prelude.NFData DeactivatePipeline
 
-instance ToHeaders DeactivatePipeline where
+instance Prelude.ToHeaders DeactivatePipeline where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DataPipeline.DeactivatePipeline" :: ByteString),
+              Prelude.=# ( "DataPipeline.DeactivatePipeline" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeactivatePipeline where
+instance Prelude.ToJSON DeactivatePipeline where
   toJSON DeactivatePipeline' {..} =
-    object
-      ( catMaybes
-          [ ("cancelActive" .=) <$> _dCancelActive,
-            Just ("pipelineId" .= _dPipelineId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("cancelActive" Prelude..=)
+              Prelude.<$> cancelActive,
+            Prelude.Just ("pipelineId" Prelude..= pipelineId)
           ]
       )
 
-instance ToPath DeactivatePipeline where
-  toPath = const "/"
+instance Prelude.ToPath DeactivatePipeline where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeactivatePipeline where
-  toQuery = const mempty
+instance Prelude.ToQuery DeactivatePipeline where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of DeactivatePipeline.
 --
---
---
--- /See:/ 'deactivatePipelineResponse' smart constructor.
-newtype DeactivatePipelineResponse = DeactivatePipelineResponse'
-  { _drsResponseStatus ::
-      Int
+-- /See:/ 'newDeactivatePipelineResponse' smart constructor.
+data DeactivatePipelineResponse = DeactivatePipelineResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeactivatePipelineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeactivatePipelineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deactivatePipelineResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deactivatePipelineResponse_httpStatus' - The response's http status code.
+newDeactivatePipelineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeactivatePipelineResponse
-deactivatePipelineResponse pResponseStatus_ =
+newDeactivatePipelineResponse pHttpStatus_ =
   DeactivatePipelineResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeactivatePipelineResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deactivatePipelineResponse_httpStatus :: Lens.Lens' DeactivatePipelineResponse Prelude.Int
+deactivatePipelineResponse_httpStatus = Lens.lens (\DeactivatePipelineResponse' {httpStatus} -> httpStatus) (\s@DeactivatePipelineResponse' {} a -> s {httpStatus = a} :: DeactivatePipelineResponse)
 
-instance NFData DeactivatePipelineResponse
+instance Prelude.NFData DeactivatePipelineResponse

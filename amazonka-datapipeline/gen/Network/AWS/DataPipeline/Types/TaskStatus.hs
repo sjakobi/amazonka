@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DataPipeline.Types.TaskStatus
   ( TaskStatus
       ( ..,
-        Failed,
-        False',
-        Finished
+        TaskStatusFAILED,
+        TaskStatusFALSE,
+        TaskStatusFINISHED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaskStatus = TaskStatus' (CI Text)
+newtype TaskStatus = TaskStatus'
+  { fromTaskStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: TaskStatus
-pattern Failed = TaskStatus' "FAILED"
+pattern TaskStatusFAILED :: TaskStatus
+pattern TaskStatusFAILED = TaskStatus' "FAILED"
 
-pattern False' :: TaskStatus
-pattern False' = TaskStatus' "FALSE"
+pattern TaskStatusFALSE :: TaskStatus
+pattern TaskStatusFALSE = TaskStatus' "FALSE"
 
-pattern Finished :: TaskStatus
-pattern Finished = TaskStatus' "FINISHED"
+pattern TaskStatusFINISHED :: TaskStatus
+pattern TaskStatusFINISHED = TaskStatus' "FINISHED"
 
 {-# COMPLETE
-  Failed,
-  False',
-  Finished,
+  TaskStatusFAILED,
+  TaskStatusFALSE,
+  TaskStatusFINISHED,
   TaskStatus'
   #-}
 
-instance FromText TaskStatus where
-  parser = (TaskStatus' . mk) <$> takeText
+instance Prelude.FromText TaskStatus where
+  parser = TaskStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TaskStatus where
-  toText (TaskStatus' ci) = original ci
+instance Prelude.ToText TaskStatus where
+  toText (TaskStatus' x) = x
 
-instance Hashable TaskStatus
+instance Prelude.Hashable TaskStatus
 
-instance NFData TaskStatus
+instance Prelude.NFData TaskStatus
 
-instance ToByteString TaskStatus
+instance Prelude.ToByteString TaskStatus
 
-instance ToQuery TaskStatus
+instance Prelude.ToQuery TaskStatus
 
-instance ToHeader TaskStatus
+instance Prelude.ToHeader TaskStatus
 
-instance ToJSON TaskStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaskStatus where
+  toJSON = Prelude.toJSONText

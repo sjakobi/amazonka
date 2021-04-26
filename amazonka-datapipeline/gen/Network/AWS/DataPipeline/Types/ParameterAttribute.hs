@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DataPipeline.Types.ParameterAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The attributes allowed or specified with a parameter object.
 --
---
---
--- /See:/ 'parameterAttribute' smart constructor.
+-- /See:/ 'newParameterAttribute' smart constructor.
 data ParameterAttribute = ParameterAttribute'
-  { _paKey ::
-      !Text,
-    _paStringValue :: !Text
+  { -- | The field identifier.
+    key :: Prelude.Text,
+    -- | The field value, expressed as a String.
+    stringValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paKey' - The field identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paStringValue' - The field value, expressed as a String.
-parameterAttribute ::
-  -- | 'paKey'
-  Text ->
-  -- | 'paStringValue'
-  Text ->
+-- 'key', 'parameterAttribute_key' - The field identifier.
+--
+-- 'stringValue', 'parameterAttribute_stringValue' - The field value, expressed as a String.
+newParameterAttribute ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'stringValue'
+  Prelude.Text ->
   ParameterAttribute
-parameterAttribute pKey_ pStringValue_ =
+newParameterAttribute pKey_ pStringValue_ =
   ParameterAttribute'
-    { _paKey = pKey_,
-      _paStringValue = pStringValue_
+    { key = pKey_,
+      stringValue = pStringValue_
     }
 
 -- | The field identifier.
-paKey :: Lens' ParameterAttribute Text
-paKey = lens _paKey (\s a -> s {_paKey = a})
+parameterAttribute_key :: Lens.Lens' ParameterAttribute Prelude.Text
+parameterAttribute_key = Lens.lens (\ParameterAttribute' {key} -> key) (\s@ParameterAttribute' {} a -> s {key = a} :: ParameterAttribute)
 
 -- | The field value, expressed as a String.
-paStringValue :: Lens' ParameterAttribute Text
-paStringValue = lens _paStringValue (\s a -> s {_paStringValue = a})
+parameterAttribute_stringValue :: Lens.Lens' ParameterAttribute Prelude.Text
+parameterAttribute_stringValue = Lens.lens (\ParameterAttribute' {stringValue} -> stringValue) (\s@ParameterAttribute' {} a -> s {stringValue = a} :: ParameterAttribute)
 
-instance FromJSON ParameterAttribute where
+instance Prelude.FromJSON ParameterAttribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterAttribute"
       ( \x ->
           ParameterAttribute'
-            <$> (x .: "key") <*> (x .: "stringValue")
+            Prelude.<$> (x Prelude..: "key")
+            Prelude.<*> (x Prelude..: "stringValue")
       )
 
-instance Hashable ParameterAttribute
+instance Prelude.Hashable ParameterAttribute
 
-instance NFData ParameterAttribute
+instance Prelude.NFData ParameterAttribute
 
-instance ToJSON ParameterAttribute where
+instance Prelude.ToJSON ParameterAttribute where
   toJSON ParameterAttribute' {..} =
-    object
-      ( catMaybes
-          [ Just ("key" .= _paKey),
-            Just ("stringValue" .= _paStringValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("key" Prelude..= key),
+            Prelude.Just ("stringValue" Prelude..= stringValue)
           ]
       )

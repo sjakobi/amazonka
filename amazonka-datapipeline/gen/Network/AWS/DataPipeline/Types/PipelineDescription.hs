@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,85 +21,106 @@ module Network.AWS.DataPipeline.Types.PipelineDescription where
 
 import Network.AWS.DataPipeline.Types.Field
 import Network.AWS.DataPipeline.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains pipeline metadata.
 --
---
---
--- /See:/ 'pipelineDescription' smart constructor.
+-- /See:/ 'newPipelineDescription' smart constructor.
 data PipelineDescription = PipelineDescription'
-  { _pdTags ::
-      !(Maybe [Tag]),
-    _pdDescription :: !(Maybe Text),
-    _pdPipelineId :: !Text,
-    _pdName :: !Text,
-    _pdFields :: ![Field]
+  { -- | A list of tags to associated with a pipeline. Tags let you control
+    -- access to pipelines. For more information, see
+    -- <http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html Controlling User Access to Pipelines>
+    -- in the /AWS Data Pipeline Developer Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | Description of the pipeline.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The pipeline identifier that was assigned by AWS Data Pipeline. This is
+    -- a string of the form @df-297EG78HU43EEXAMPLE@.
+    pipelineId :: Prelude.Text,
+    -- | The name of the pipeline.
+    name :: Prelude.Text,
+    -- | A list of read-only fields that contain metadata about the pipeline:
+    -- \@userId, \@accountId, and \@pipelineState.
+    fields :: [Field]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdTags' - A list of tags to associated with a pipeline. Tags let you control access to pipelines. For more information, see <http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html Controlling User Access to Pipelines> in the /AWS Data Pipeline Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdDescription' - Description of the pipeline.
+-- 'tags', 'pipelineDescription_tags' - A list of tags to associated with a pipeline. Tags let you control
+-- access to pipelines. For more information, see
+-- <http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html Controlling User Access to Pipelines>
+-- in the /AWS Data Pipeline Developer Guide/.
 --
--- * 'pdPipelineId' - The pipeline identifier that was assigned by AWS Data Pipeline. This is a string of the form @df-297EG78HU43EEXAMPLE@ .
+-- 'description', 'pipelineDescription_description' - Description of the pipeline.
 --
--- * 'pdName' - The name of the pipeline.
+-- 'pipelineId', 'pipelineDescription_pipelineId' - The pipeline identifier that was assigned by AWS Data Pipeline. This is
+-- a string of the form @df-297EG78HU43EEXAMPLE@.
 --
--- * 'pdFields' - A list of read-only fields that contain metadata about the pipeline: @userId, @accountId, and @pipelineState.
-pipelineDescription ::
-  -- | 'pdPipelineId'
-  Text ->
-  -- | 'pdName'
-  Text ->
+-- 'name', 'pipelineDescription_name' - The name of the pipeline.
+--
+-- 'fields', 'pipelineDescription_fields' - A list of read-only fields that contain metadata about the pipeline:
+-- \@userId, \@accountId, and \@pipelineState.
+newPipelineDescription ::
+  -- | 'pipelineId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   PipelineDescription
-pipelineDescription pPipelineId_ pName_ =
+newPipelineDescription pPipelineId_ pName_ =
   PipelineDescription'
-    { _pdTags = Nothing,
-      _pdDescription = Nothing,
-      _pdPipelineId = pPipelineId_,
-      _pdName = pName_,
-      _pdFields = mempty
+    { tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      pipelineId = pPipelineId_,
+      name = pName_,
+      fields = Prelude.mempty
     }
 
--- | A list of tags to associated with a pipeline. Tags let you control access to pipelines. For more information, see <http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html Controlling User Access to Pipelines> in the /AWS Data Pipeline Developer Guide/ .
-pdTags :: Lens' PipelineDescription [Tag]
-pdTags = lens _pdTags (\s a -> s {_pdTags = a}) . _Default . _Coerce
+-- | A list of tags to associated with a pipeline. Tags let you control
+-- access to pipelines. For more information, see
+-- <http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html Controlling User Access to Pipelines>
+-- in the /AWS Data Pipeline Developer Guide/.
+pipelineDescription_tags :: Lens.Lens' PipelineDescription (Prelude.Maybe [Tag])
+pipelineDescription_tags = Lens.lens (\PipelineDescription' {tags} -> tags) (\s@PipelineDescription' {} a -> s {tags = a} :: PipelineDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Description of the pipeline.
-pdDescription :: Lens' PipelineDescription (Maybe Text)
-pdDescription = lens _pdDescription (\s a -> s {_pdDescription = a})
+pipelineDescription_description :: Lens.Lens' PipelineDescription (Prelude.Maybe Prelude.Text)
+pipelineDescription_description = Lens.lens (\PipelineDescription' {description} -> description) (\s@PipelineDescription' {} a -> s {description = a} :: PipelineDescription)
 
--- | The pipeline identifier that was assigned by AWS Data Pipeline. This is a string of the form @df-297EG78HU43EEXAMPLE@ .
-pdPipelineId :: Lens' PipelineDescription Text
-pdPipelineId = lens _pdPipelineId (\s a -> s {_pdPipelineId = a})
+-- | The pipeline identifier that was assigned by AWS Data Pipeline. This is
+-- a string of the form @df-297EG78HU43EEXAMPLE@.
+pipelineDescription_pipelineId :: Lens.Lens' PipelineDescription Prelude.Text
+pipelineDescription_pipelineId = Lens.lens (\PipelineDescription' {pipelineId} -> pipelineId) (\s@PipelineDescription' {} a -> s {pipelineId = a} :: PipelineDescription)
 
 -- | The name of the pipeline.
-pdName :: Lens' PipelineDescription Text
-pdName = lens _pdName (\s a -> s {_pdName = a})
+pipelineDescription_name :: Lens.Lens' PipelineDescription Prelude.Text
+pipelineDescription_name = Lens.lens (\PipelineDescription' {name} -> name) (\s@PipelineDescription' {} a -> s {name = a} :: PipelineDescription)
 
--- | A list of read-only fields that contain metadata about the pipeline: @userId, @accountId, and @pipelineState.
-pdFields :: Lens' PipelineDescription [Field]
-pdFields = lens _pdFields (\s a -> s {_pdFields = a}) . _Coerce
+-- | A list of read-only fields that contain metadata about the pipeline:
+-- \@userId, \@accountId, and \@pipelineState.
+pipelineDescription_fields :: Lens.Lens' PipelineDescription [Field]
+pipelineDescription_fields = Lens.lens (\PipelineDescription' {fields} -> fields) (\s@PipelineDescription' {} a -> s {fields = a} :: PipelineDescription) Prelude.. Prelude._Coerce
 
-instance FromJSON PipelineDescription where
+instance Prelude.FromJSON PipelineDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineDescription"
       ( \x ->
           PipelineDescription'
-            <$> (x .:? "tags" .!= mempty)
-            <*> (x .:? "description")
-            <*> (x .: "pipelineId")
-            <*> (x .: "name")
-            <*> (x .:? "fields" .!= mempty)
+            Prelude.<$> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..: "pipelineId")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..:? "fields" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable PipelineDescription
+instance Prelude.Hashable PipelineDescription
 
-instance NFData PipelineDescription
+instance Prelude.NFData PipelineDescription

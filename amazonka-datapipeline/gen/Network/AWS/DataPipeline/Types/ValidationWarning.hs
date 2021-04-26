@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DataPipeline.Types.ValidationWarning where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Defines a validation warning. Validation warnings do not prevent pipeline activation. The set of validation warnings that can be returned are defined by AWS Data Pipeline.
+-- | Defines a validation warning. Validation warnings do not prevent
+-- pipeline activation. The set of validation warnings that can be returned
+-- are defined by AWS Data Pipeline.
 --
---
---
--- /See:/ 'validationWarning' smart constructor.
+-- /See:/ 'newValidationWarning' smart constructor.
 data ValidationWarning = ValidationWarning'
-  { _vwWarnings ::
-      !(Maybe [Text]),
-    _vwId :: !(Maybe Text)
+  { -- | A description of the validation warning.
+    warnings :: Prelude.Maybe [Prelude.Text],
+    -- | The identifier of the object that contains the validation warning.
+    id :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidationWarning' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidationWarning' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vwWarnings' - A description of the validation warning.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vwId' - The identifier of the object that contains the validation warning.
-validationWarning ::
+-- 'warnings', 'validationWarning_warnings' - A description of the validation warning.
+--
+-- 'id', 'validationWarning_id' - The identifier of the object that contains the validation warning.
+newValidationWarning ::
   ValidationWarning
-validationWarning =
+newValidationWarning =
   ValidationWarning'
-    { _vwWarnings = Nothing,
-      _vwId = Nothing
+    { warnings = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | A description of the validation warning.
-vwWarnings :: Lens' ValidationWarning [Text]
-vwWarnings = lens _vwWarnings (\s a -> s {_vwWarnings = a}) . _Default . _Coerce
+validationWarning_warnings :: Lens.Lens' ValidationWarning (Prelude.Maybe [Prelude.Text])
+validationWarning_warnings = Lens.lens (\ValidationWarning' {warnings} -> warnings) (\s@ValidationWarning' {} a -> s {warnings = a} :: ValidationWarning) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The identifier of the object that contains the validation warning.
-vwId :: Lens' ValidationWarning (Maybe Text)
-vwId = lens _vwId (\s a -> s {_vwId = a})
+validationWarning_id :: Lens.Lens' ValidationWarning (Prelude.Maybe Prelude.Text)
+validationWarning_id = Lens.lens (\ValidationWarning' {id} -> id) (\s@ValidationWarning' {} a -> s {id = a} :: ValidationWarning)
 
-instance FromJSON ValidationWarning where
+instance Prelude.FromJSON ValidationWarning where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ValidationWarning"
       ( \x ->
           ValidationWarning'
-            <$> (x .:? "warnings" .!= mempty) <*> (x .:? "id")
+            Prelude.<$> (x Prelude..:? "warnings" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "id")
       )
 
-instance Hashable ValidationWarning
+instance Prelude.Hashable ValidationWarning
 
-instance NFData ValidationWarning
+instance Prelude.NFData ValidationWarning

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Task runners call @SetTaskStatus@ to notify AWS Data Pipeline that a task is completed and provide information about the final status. A task runner makes this call regardless of whether the task was sucessful. A task runner does not need to call @SetTaskStatus@ for tasks that are canceled by the web service during a call to 'ReportTaskProgress' .
+-- Task runners call @SetTaskStatus@ to notify AWS Data Pipeline that a
+-- task is completed and provide information about the final status. A task
+-- runner makes this call regardless of whether the task was sucessful. A
+-- task runner does not need to call @SetTaskStatus@ for tasks that are
+-- canceled by the web service during a call to ReportTaskProgress.
 module Network.AWS.DataPipeline.SetTaskStatus
   ( -- * Creating a Request
-    setTaskStatus,
-    SetTaskStatus,
+    SetTaskStatus (..),
+    newSetTaskStatus,
 
     -- * Request Lenses
-    stsErrorStackTrace,
-    stsErrorMessage,
-    stsErrorId,
-    stsTaskId,
-    stsTaskStatus,
+    setTaskStatus_errorStackTrace,
+    setTaskStatus_errorMessage,
+    setTaskStatus_errorId,
+    setTaskStatus_taskId,
+    setTaskStatus_taskStatus,
 
     -- * Destructuring the Response
-    setTaskStatusResponse,
-    SetTaskStatusResponse,
+    SetTaskStatusResponse (..),
+    newSetTaskStatusResponse,
 
     -- * Response Lenses
-    stsrrsResponseStatus,
+    setTaskStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.DataPipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for SetTaskStatus.
 --
---
---
--- /See:/ 'setTaskStatus' smart constructor.
+-- /See:/ 'newSetTaskStatus' smart constructor.
 data SetTaskStatus = SetTaskStatus'
-  { _stsErrorStackTrace ::
-      !(Maybe Text),
-    _stsErrorMessage :: !(Maybe Text),
-    _stsErrorId :: !(Maybe Text),
-    _stsTaskId :: !Text,
-    _stsTaskStatus :: !TaskStatus
+  { -- | If an error occurred during the task, this value specifies the stack
+    -- trace associated with the error. This value is set on the physical
+    -- attempt object. It is used to display error information to the user. The
+    -- web service does not parse this value.
+    errorStackTrace :: Prelude.Maybe Prelude.Text,
+    -- | If an error occurred during the task, this value specifies a text
+    -- description of the error. This value is set on the physical attempt
+    -- object. It is used to display error information to the user. The web
+    -- service does not parse this value.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | If an error occurred during the task, this value specifies the error
+    -- code. This value is set on the physical attempt object. It is used to
+    -- display error information to the user. It should not start with string
+    -- \"Service_\" which is reserved by the system.
+    errorId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the task assigned to the task runner. This value is provided
+    -- in the response for PollForTask.
+    taskId :: Prelude.Text,
+    -- | If @FINISHED@, the task successfully completed. If @FAILED@, the task
+    -- ended unsuccessfully. Preconditions use false.
+    taskStatus :: TaskStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetTaskStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetTaskStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stsErrorStackTrace' - If an error occurred during the task, this value specifies the stack trace associated with the error. This value is set on the physical attempt object. It is used to display error information to the user. The web service does not parse this value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stsErrorMessage' - If an error occurred during the task, this value specifies a text description of the error. This value is set on the physical attempt object. It is used to display error information to the user. The web service does not parse this value.
+-- 'errorStackTrace', 'setTaskStatus_errorStackTrace' - If an error occurred during the task, this value specifies the stack
+-- trace associated with the error. This value is set on the physical
+-- attempt object. It is used to display error information to the user. The
+-- web service does not parse this value.
 --
--- * 'stsErrorId' - If an error occurred during the task, this value specifies the error code. This value is set on the physical attempt object. It is used to display error information to the user. It should not start with string "Service_" which is reserved by the system.
+-- 'errorMessage', 'setTaskStatus_errorMessage' - If an error occurred during the task, this value specifies a text
+-- description of the error. This value is set on the physical attempt
+-- object. It is used to display error information to the user. The web
+-- service does not parse this value.
 --
--- * 'stsTaskId' - The ID of the task assigned to the task runner. This value is provided in the response for 'PollForTask' .
+-- 'errorId', 'setTaskStatus_errorId' - If an error occurred during the task, this value specifies the error
+-- code. This value is set on the physical attempt object. It is used to
+-- display error information to the user. It should not start with string
+-- \"Service_\" which is reserved by the system.
 --
--- * 'stsTaskStatus' - If @FINISHED@ , the task successfully completed. If @FAILED@ , the task ended unsuccessfully. Preconditions use false.
-setTaskStatus ::
-  -- | 'stsTaskId'
-  Text ->
-  -- | 'stsTaskStatus'
+-- 'taskId', 'setTaskStatus_taskId' - The ID of the task assigned to the task runner. This value is provided
+-- in the response for PollForTask.
+--
+-- 'taskStatus', 'setTaskStatus_taskStatus' - If @FINISHED@, the task successfully completed. If @FAILED@, the task
+-- ended unsuccessfully. Preconditions use false.
+newSetTaskStatus ::
+  -- | 'taskId'
+  Prelude.Text ->
+  -- | 'taskStatus'
   TaskStatus ->
   SetTaskStatus
-setTaskStatus pTaskId_ pTaskStatus_ =
+newSetTaskStatus pTaskId_ pTaskStatus_ =
   SetTaskStatus'
-    { _stsErrorStackTrace = Nothing,
-      _stsErrorMessage = Nothing,
-      _stsErrorId = Nothing,
-      _stsTaskId = pTaskId_,
-      _stsTaskStatus = pTaskStatus_
+    { errorStackTrace = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorId = Prelude.Nothing,
+      taskId = pTaskId_,
+      taskStatus = pTaskStatus_
     }
 
--- | If an error occurred during the task, this value specifies the stack trace associated with the error. This value is set on the physical attempt object. It is used to display error information to the user. The web service does not parse this value.
-stsErrorStackTrace :: Lens' SetTaskStatus (Maybe Text)
-stsErrorStackTrace = lens _stsErrorStackTrace (\s a -> s {_stsErrorStackTrace = a})
+-- | If an error occurred during the task, this value specifies the stack
+-- trace associated with the error. This value is set on the physical
+-- attempt object. It is used to display error information to the user. The
+-- web service does not parse this value.
+setTaskStatus_errorStackTrace :: Lens.Lens' SetTaskStatus (Prelude.Maybe Prelude.Text)
+setTaskStatus_errorStackTrace = Lens.lens (\SetTaskStatus' {errorStackTrace} -> errorStackTrace) (\s@SetTaskStatus' {} a -> s {errorStackTrace = a} :: SetTaskStatus)
 
--- | If an error occurred during the task, this value specifies a text description of the error. This value is set on the physical attempt object. It is used to display error information to the user. The web service does not parse this value.
-stsErrorMessage :: Lens' SetTaskStatus (Maybe Text)
-stsErrorMessage = lens _stsErrorMessage (\s a -> s {_stsErrorMessage = a})
+-- | If an error occurred during the task, this value specifies a text
+-- description of the error. This value is set on the physical attempt
+-- object. It is used to display error information to the user. The web
+-- service does not parse this value.
+setTaskStatus_errorMessage :: Lens.Lens' SetTaskStatus (Prelude.Maybe Prelude.Text)
+setTaskStatus_errorMessage = Lens.lens (\SetTaskStatus' {errorMessage} -> errorMessage) (\s@SetTaskStatus' {} a -> s {errorMessage = a} :: SetTaskStatus)
 
--- | If an error occurred during the task, this value specifies the error code. This value is set on the physical attempt object. It is used to display error information to the user. It should not start with string "Service_" which is reserved by the system.
-stsErrorId :: Lens' SetTaskStatus (Maybe Text)
-stsErrorId = lens _stsErrorId (\s a -> s {_stsErrorId = a})
+-- | If an error occurred during the task, this value specifies the error
+-- code. This value is set on the physical attempt object. It is used to
+-- display error information to the user. It should not start with string
+-- \"Service_\" which is reserved by the system.
+setTaskStatus_errorId :: Lens.Lens' SetTaskStatus (Prelude.Maybe Prelude.Text)
+setTaskStatus_errorId = Lens.lens (\SetTaskStatus' {errorId} -> errorId) (\s@SetTaskStatus' {} a -> s {errorId = a} :: SetTaskStatus)
 
--- | The ID of the task assigned to the task runner. This value is provided in the response for 'PollForTask' .
-stsTaskId :: Lens' SetTaskStatus Text
-stsTaskId = lens _stsTaskId (\s a -> s {_stsTaskId = a})
+-- | The ID of the task assigned to the task runner. This value is provided
+-- in the response for PollForTask.
+setTaskStatus_taskId :: Lens.Lens' SetTaskStatus Prelude.Text
+setTaskStatus_taskId = Lens.lens (\SetTaskStatus' {taskId} -> taskId) (\s@SetTaskStatus' {} a -> s {taskId = a} :: SetTaskStatus)
 
--- | If @FINISHED@ , the task successfully completed. If @FAILED@ , the task ended unsuccessfully. Preconditions use false.
-stsTaskStatus :: Lens' SetTaskStatus TaskStatus
-stsTaskStatus = lens _stsTaskStatus (\s a -> s {_stsTaskStatus = a})
+-- | If @FINISHED@, the task successfully completed. If @FAILED@, the task
+-- ended unsuccessfully. Preconditions use false.
+setTaskStatus_taskStatus :: Lens.Lens' SetTaskStatus TaskStatus
+setTaskStatus_taskStatus = Lens.lens (\SetTaskStatus' {taskStatus} -> taskStatus) (\s@SetTaskStatus' {} a -> s {taskStatus = a} :: SetTaskStatus)
 
-instance AWSRequest SetTaskStatus where
+instance Prelude.AWSRequest SetTaskStatus where
   type Rs SetTaskStatus = SetTaskStatusResponse
-  request = postJSON dataPipeline
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          SetTaskStatusResponse' <$> (pure (fromEnum s))
+          SetTaskStatusResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetTaskStatus
+instance Prelude.Hashable SetTaskStatus
 
-instance NFData SetTaskStatus
+instance Prelude.NFData SetTaskStatus
 
-instance ToHeaders SetTaskStatus where
+instance Prelude.ToHeaders SetTaskStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DataPipeline.SetTaskStatus" :: ByteString),
+              Prelude.=# ("DataPipeline.SetTaskStatus" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetTaskStatus where
+instance Prelude.ToJSON SetTaskStatus where
   toJSON SetTaskStatus' {..} =
-    object
-      ( catMaybes
-          [ ("errorStackTrace" .=) <$> _stsErrorStackTrace,
-            ("errorMessage" .=) <$> _stsErrorMessage,
-            ("errorId" .=) <$> _stsErrorId,
-            Just ("taskId" .= _stsTaskId),
-            Just ("taskStatus" .= _stsTaskStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("errorStackTrace" Prelude..=)
+              Prelude.<$> errorStackTrace,
+            ("errorMessage" Prelude..=) Prelude.<$> errorMessage,
+            ("errorId" Prelude..=) Prelude.<$> errorId,
+            Prelude.Just ("taskId" Prelude..= taskId),
+            Prelude.Just ("taskStatus" Prelude..= taskStatus)
           ]
       )
 
-instance ToPath SetTaskStatus where
-  toPath = const "/"
+instance Prelude.ToPath SetTaskStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetTaskStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery SetTaskStatus where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of SetTaskStatus.
 --
---
---
--- /See:/ 'setTaskStatusResponse' smart constructor.
-newtype SetTaskStatusResponse = SetTaskStatusResponse'
-  { _stsrrsResponseStatus ::
-      Int
+-- /See:/ 'newSetTaskStatusResponse' smart constructor.
+data SetTaskStatusResponse = SetTaskStatusResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetTaskStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetTaskStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stsrrsResponseStatus' - -- | The response status code.
-setTaskStatusResponse ::
-  -- | 'stsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setTaskStatusResponse_httpStatus' - The response's http status code.
+newSetTaskStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetTaskStatusResponse
-setTaskStatusResponse pResponseStatus_ =
-  SetTaskStatusResponse'
-    { _stsrrsResponseStatus =
-        pResponseStatus_
-    }
+newSetTaskStatusResponse pHttpStatus_ =
+  SetTaskStatusResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-stsrrsResponseStatus :: Lens' SetTaskStatusResponse Int
-stsrrsResponseStatus = lens _stsrrsResponseStatus (\s a -> s {_stsrrsResponseStatus = a})
+-- | The response's http status code.
+setTaskStatusResponse_httpStatus :: Lens.Lens' SetTaskStatusResponse Prelude.Int
+setTaskStatusResponse_httpStatus = Lens.lens (\SetTaskStatusResponse' {httpStatus} -> httpStatus) (\s@SetTaskStatusResponse' {} a -> s {httpStatus = a} :: SetTaskStatusResponse)
 
-instance NFData SetTaskStatusResponse
+instance Prelude.NFData SetTaskStatusResponse

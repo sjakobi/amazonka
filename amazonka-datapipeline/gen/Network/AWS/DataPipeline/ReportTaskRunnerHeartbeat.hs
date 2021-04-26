@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Task runners call @ReportTaskRunnerHeartbeat@ every 15 minutes to indicate that they are operational. If the AWS Data Pipeline Task Runner is launched on a resource managed by AWS Data Pipeline, the web service can use this call to detect when the task runner application has failed and restart a new instance.
+-- Task runners call @ReportTaskRunnerHeartbeat@ every 15 minutes to
+-- indicate that they are operational. If the AWS Data Pipeline Task Runner
+-- is launched on a resource managed by AWS Data Pipeline, the web service
+-- can use this call to detect when the task runner application has failed
+-- and restart a new instance.
 module Network.AWS.DataPipeline.ReportTaskRunnerHeartbeat
   ( -- * Creating a Request
-    reportTaskRunnerHeartbeat,
-    ReportTaskRunnerHeartbeat,
+    ReportTaskRunnerHeartbeat (..),
+    newReportTaskRunnerHeartbeat,
 
     -- * Request Lenses
-    rtrhHostname,
-    rtrhWorkerGroup,
-    rtrhTaskrunnerId,
+    reportTaskRunnerHeartbeat_hostname,
+    reportTaskRunnerHeartbeat_workerGroup,
+    reportTaskRunnerHeartbeat_taskrunnerId,
 
     -- * Destructuring the Response
-    reportTaskRunnerHeartbeatResponse,
-    ReportTaskRunnerHeartbeatResponse,
+    ReportTaskRunnerHeartbeatResponse (..),
+    newReportTaskRunnerHeartbeatResponse,
 
     -- * Response Lenses
-    rtrhrrsResponseStatus,
-    rtrhrrsTerminate,
+    reportTaskRunnerHeartbeatResponse_httpStatus,
+    reportTaskRunnerHeartbeatResponse_terminate,
   )
 where
 
 import Network.AWS.DataPipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for ReportTaskRunnerHeartbeat.
 --
---
---
--- /See:/ 'reportTaskRunnerHeartbeat' smart constructor.
+-- /See:/ 'newReportTaskRunnerHeartbeat' smart constructor.
 data ReportTaskRunnerHeartbeat = ReportTaskRunnerHeartbeat'
-  { _rtrhHostname ::
-      !(Maybe Text),
-    _rtrhWorkerGroup ::
-      !(Maybe Text),
-    _rtrhTaskrunnerId ::
-      !Text
+  { -- | The public DNS name of the task runner.
+    hostname :: Prelude.Maybe Prelude.Text,
+    -- | The type of task the task runner is configured to accept and process.
+    -- The worker group is set as a field on objects in the pipeline when they
+    -- are created. You can only specify a single value for @workerGroup@.
+    -- There are no wildcard values permitted in @workerGroup@; the string must
+    -- be an exact, case-sensitive, match.
+    workerGroup :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the task runner. This value should be unique across your AWS
+    -- account. In the case of AWS Data Pipeline Task Runner launched on a
+    -- resource managed by AWS Data Pipeline, the web service provides a unique
+    -- identifier when it launches the application. If you have written a
+    -- custom task runner, you should assign a unique identifier for the task
+    -- runner.
+    taskrunnerId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportTaskRunnerHeartbeat' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReportTaskRunnerHeartbeat' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrhHostname' - The public DNS name of the task runner.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtrhWorkerGroup' - The type of task the task runner is configured to accept and process. The worker group is set as a field on objects in the pipeline when they are created. You can only specify a single value for @workerGroup@ . There are no wildcard values permitted in @workerGroup@ ; the string must be an exact, case-sensitive, match.
+-- 'hostname', 'reportTaskRunnerHeartbeat_hostname' - The public DNS name of the task runner.
 --
--- * 'rtrhTaskrunnerId' - The ID of the task runner. This value should be unique across your AWS account. In the case of AWS Data Pipeline Task Runner launched on a resource managed by AWS Data Pipeline, the web service provides a unique identifier when it launches the application. If you have written a custom task runner, you should assign a unique identifier for the task runner.
-reportTaskRunnerHeartbeat ::
-  -- | 'rtrhTaskrunnerId'
-  Text ->
+-- 'workerGroup', 'reportTaskRunnerHeartbeat_workerGroup' - The type of task the task runner is configured to accept and process.
+-- The worker group is set as a field on objects in the pipeline when they
+-- are created. You can only specify a single value for @workerGroup@.
+-- There are no wildcard values permitted in @workerGroup@; the string must
+-- be an exact, case-sensitive, match.
+--
+-- 'taskrunnerId', 'reportTaskRunnerHeartbeat_taskrunnerId' - The ID of the task runner. This value should be unique across your AWS
+-- account. In the case of AWS Data Pipeline Task Runner launched on a
+-- resource managed by AWS Data Pipeline, the web service provides a unique
+-- identifier when it launches the application. If you have written a
+-- custom task runner, you should assign a unique identifier for the task
+-- runner.
+newReportTaskRunnerHeartbeat ::
+  -- | 'taskrunnerId'
+  Prelude.Text ->
   ReportTaskRunnerHeartbeat
-reportTaskRunnerHeartbeat pTaskrunnerId_ =
+newReportTaskRunnerHeartbeat pTaskrunnerId_ =
   ReportTaskRunnerHeartbeat'
-    { _rtrhHostname = Nothing,
-      _rtrhWorkerGroup = Nothing,
-      _rtrhTaskrunnerId = pTaskrunnerId_
+    { hostname =
+        Prelude.Nothing,
+      workerGroup = Prelude.Nothing,
+      taskrunnerId = pTaskrunnerId_
     }
 
 -- | The public DNS name of the task runner.
-rtrhHostname :: Lens' ReportTaskRunnerHeartbeat (Maybe Text)
-rtrhHostname = lens _rtrhHostname (\s a -> s {_rtrhHostname = a})
+reportTaskRunnerHeartbeat_hostname :: Lens.Lens' ReportTaskRunnerHeartbeat (Prelude.Maybe Prelude.Text)
+reportTaskRunnerHeartbeat_hostname = Lens.lens (\ReportTaskRunnerHeartbeat' {hostname} -> hostname) (\s@ReportTaskRunnerHeartbeat' {} a -> s {hostname = a} :: ReportTaskRunnerHeartbeat)
 
--- | The type of task the task runner is configured to accept and process. The worker group is set as a field on objects in the pipeline when they are created. You can only specify a single value for @workerGroup@ . There are no wildcard values permitted in @workerGroup@ ; the string must be an exact, case-sensitive, match.
-rtrhWorkerGroup :: Lens' ReportTaskRunnerHeartbeat (Maybe Text)
-rtrhWorkerGroup = lens _rtrhWorkerGroup (\s a -> s {_rtrhWorkerGroup = a})
+-- | The type of task the task runner is configured to accept and process.
+-- The worker group is set as a field on objects in the pipeline when they
+-- are created. You can only specify a single value for @workerGroup@.
+-- There are no wildcard values permitted in @workerGroup@; the string must
+-- be an exact, case-sensitive, match.
+reportTaskRunnerHeartbeat_workerGroup :: Lens.Lens' ReportTaskRunnerHeartbeat (Prelude.Maybe Prelude.Text)
+reportTaskRunnerHeartbeat_workerGroup = Lens.lens (\ReportTaskRunnerHeartbeat' {workerGroup} -> workerGroup) (\s@ReportTaskRunnerHeartbeat' {} a -> s {workerGroup = a} :: ReportTaskRunnerHeartbeat)
 
--- | The ID of the task runner. This value should be unique across your AWS account. In the case of AWS Data Pipeline Task Runner launched on a resource managed by AWS Data Pipeline, the web service provides a unique identifier when it launches the application. If you have written a custom task runner, you should assign a unique identifier for the task runner.
-rtrhTaskrunnerId :: Lens' ReportTaskRunnerHeartbeat Text
-rtrhTaskrunnerId = lens _rtrhTaskrunnerId (\s a -> s {_rtrhTaskrunnerId = a})
+-- | The ID of the task runner. This value should be unique across your AWS
+-- account. In the case of AWS Data Pipeline Task Runner launched on a
+-- resource managed by AWS Data Pipeline, the web service provides a unique
+-- identifier when it launches the application. If you have written a
+-- custom task runner, you should assign a unique identifier for the task
+-- runner.
+reportTaskRunnerHeartbeat_taskrunnerId :: Lens.Lens' ReportTaskRunnerHeartbeat Prelude.Text
+reportTaskRunnerHeartbeat_taskrunnerId = Lens.lens (\ReportTaskRunnerHeartbeat' {taskrunnerId} -> taskrunnerId) (\s@ReportTaskRunnerHeartbeat' {} a -> s {taskrunnerId = a} :: ReportTaskRunnerHeartbeat)
 
-instance AWSRequest ReportTaskRunnerHeartbeat where
+instance Prelude.AWSRequest ReportTaskRunnerHeartbeat where
   type
     Rs ReportTaskRunnerHeartbeat =
       ReportTaskRunnerHeartbeatResponse
-  request = postJSON dataPipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ReportTaskRunnerHeartbeatResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "terminate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "terminate")
       )
 
-instance Hashable ReportTaskRunnerHeartbeat
+instance Prelude.Hashable ReportTaskRunnerHeartbeat
 
-instance NFData ReportTaskRunnerHeartbeat
+instance Prelude.NFData ReportTaskRunnerHeartbeat
 
-instance ToHeaders ReportTaskRunnerHeartbeat where
+instance Prelude.ToHeaders ReportTaskRunnerHeartbeat where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DataPipeline.ReportTaskRunnerHeartbeat" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DataPipeline.ReportTaskRunnerHeartbeat" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ReportTaskRunnerHeartbeat where
+instance Prelude.ToJSON ReportTaskRunnerHeartbeat where
   toJSON ReportTaskRunnerHeartbeat' {..} =
-    object
-      ( catMaybes
-          [ ("hostname" .=) <$> _rtrhHostname,
-            ("workerGroup" .=) <$> _rtrhWorkerGroup,
-            Just ("taskrunnerId" .= _rtrhTaskrunnerId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("hostname" Prelude..=) Prelude.<$> hostname,
+            ("workerGroup" Prelude..=) Prelude.<$> workerGroup,
+            Prelude.Just
+              ("taskrunnerId" Prelude..= taskrunnerId)
           ]
       )
 
-instance ToPath ReportTaskRunnerHeartbeat where
-  toPath = const "/"
+instance Prelude.ToPath ReportTaskRunnerHeartbeat where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReportTaskRunnerHeartbeat where
-  toQuery = const mempty
+instance Prelude.ToQuery ReportTaskRunnerHeartbeat where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of ReportTaskRunnerHeartbeat.
 --
---
---
--- /See:/ 'reportTaskRunnerHeartbeatResponse' smart constructor.
+-- /See:/ 'newReportTaskRunnerHeartbeatResponse' smart constructor.
 data ReportTaskRunnerHeartbeatResponse = ReportTaskRunnerHeartbeatResponse'
-  { _rtrhrrsResponseStatus ::
-      !Int,
-    _rtrhrrsTerminate ::
-      !Bool
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Indicates whether the calling task runner should terminate.
+    terminate :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReportTaskRunnerHeartbeatResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReportTaskRunnerHeartbeatResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrhrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtrhrrsTerminate' - Indicates whether the calling task runner should terminate.
-reportTaskRunnerHeartbeatResponse ::
-  -- | 'rtrhrrsResponseStatus'
-  Int ->
-  -- | 'rtrhrrsTerminate'
-  Bool ->
+-- 'httpStatus', 'reportTaskRunnerHeartbeatResponse_httpStatus' - The response's http status code.
+--
+-- 'terminate', 'reportTaskRunnerHeartbeatResponse_terminate' - Indicates whether the calling task runner should terminate.
+newReportTaskRunnerHeartbeatResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'terminate'
+  Prelude.Bool ->
   ReportTaskRunnerHeartbeatResponse
-reportTaskRunnerHeartbeatResponse
-  pResponseStatus_
+newReportTaskRunnerHeartbeatResponse
+  pHttpStatus_
   pTerminate_ =
     ReportTaskRunnerHeartbeatResponse'
-      { _rtrhrrsResponseStatus =
-          pResponseStatus_,
-        _rtrhrrsTerminate = pTerminate_
+      { httpStatus =
+          pHttpStatus_,
+        terminate = pTerminate_
       }
 
--- | -- | The response status code.
-rtrhrrsResponseStatus :: Lens' ReportTaskRunnerHeartbeatResponse Int
-rtrhrrsResponseStatus = lens _rtrhrrsResponseStatus (\s a -> s {_rtrhrrsResponseStatus = a})
+-- | The response's http status code.
+reportTaskRunnerHeartbeatResponse_httpStatus :: Lens.Lens' ReportTaskRunnerHeartbeatResponse Prelude.Int
+reportTaskRunnerHeartbeatResponse_httpStatus = Lens.lens (\ReportTaskRunnerHeartbeatResponse' {httpStatus} -> httpStatus) (\s@ReportTaskRunnerHeartbeatResponse' {} a -> s {httpStatus = a} :: ReportTaskRunnerHeartbeatResponse)
 
 -- | Indicates whether the calling task runner should terminate.
-rtrhrrsTerminate :: Lens' ReportTaskRunnerHeartbeatResponse Bool
-rtrhrrsTerminate = lens _rtrhrrsTerminate (\s a -> s {_rtrhrrsTerminate = a})
+reportTaskRunnerHeartbeatResponse_terminate :: Lens.Lens' ReportTaskRunnerHeartbeatResponse Prelude.Bool
+reportTaskRunnerHeartbeatResponse_terminate = Lens.lens (\ReportTaskRunnerHeartbeatResponse' {terminate} -> terminate) (\s@ReportTaskRunnerHeartbeatResponse' {} a -> s {terminate = a} :: ReportTaskRunnerHeartbeatResponse)
 
-instance NFData ReportTaskRunnerHeartbeatResponse
+instance
+  Prelude.NFData
+    ReportTaskRunnerHeartbeatResponse

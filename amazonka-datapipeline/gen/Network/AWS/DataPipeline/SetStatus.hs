@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests that the status of the specified physical or logical pipeline objects be updated in the specified pipeline. This update might not occur immediately, but is eventually consistent. The status that can be set depends on the type of object (for example, DataNode or Activity). You cannot perform this operation on @FINISHED@ pipelines and attempting to do so returns @InvalidRequestException@ .
+-- Requests that the status of the specified physical or logical pipeline
+-- objects be updated in the specified pipeline. This update might not
+-- occur immediately, but is eventually consistent. The status that can be
+-- set depends on the type of object (for example, DataNode or Activity).
+-- You cannot perform this operation on @FINISHED@ pipelines and attempting
+-- to do so returns @InvalidRequestException@.
 module Network.AWS.DataPipeline.SetStatus
   ( -- * Creating a Request
-    setStatus,
-    SetStatus,
+    SetStatus (..),
+    newSetStatus,
 
     -- * Request Lenses
-    ssPipelineId,
-    ssObjectIds,
-    ssStatus,
+    setStatus_pipelineId,
+    setStatus_objectIds,
+    setStatus_status,
 
     -- * Destructuring the Response
-    setStatusResponse,
-    SetStatusResponse,
+    SetStatusResponse (..),
+    newSetStatusResponse,
   )
 where
 
 import Network.AWS.DataPipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for SetStatus.
 --
---
---
--- /See:/ 'setStatus' smart constructor.
+-- /See:/ 'newSetStatus' smart constructor.
 data SetStatus = SetStatus'
-  { _ssPipelineId :: !Text,
-    _ssObjectIds :: ![Text],
-    _ssStatus :: !Text
+  { -- | The ID of the pipeline that contains the objects.
+    pipelineId :: Prelude.Text,
+    -- | The IDs of the objects. The corresponding objects can be either physical
+    -- or components, but not a mix of both types.
+    objectIds :: [Prelude.Text],
+    -- | The status to be set on all the objects specified in @objectIds@. For
+    -- components, use @PAUSE@ or @RESUME@. For instances, use @TRY_CANCEL@,
+    -- @RERUN@, or @MARK_FINISHED@.
+    status :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssPipelineId' - The ID of the pipeline that contains the objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssObjectIds' - The IDs of the objects. The corresponding objects can be either physical or components, but not a mix of both types.
+-- 'pipelineId', 'setStatus_pipelineId' - The ID of the pipeline that contains the objects.
 --
--- * 'ssStatus' - The status to be set on all the objects specified in @objectIds@ . For components, use @PAUSE@ or @RESUME@ . For instances, use @TRY_CANCEL@ , @RERUN@ , or @MARK_FINISHED@ .
-setStatus ::
-  -- | 'ssPipelineId'
-  Text ->
-  -- | 'ssStatus'
-  Text ->
+-- 'objectIds', 'setStatus_objectIds' - The IDs of the objects. The corresponding objects can be either physical
+-- or components, but not a mix of both types.
+--
+-- 'status', 'setStatus_status' - The status to be set on all the objects specified in @objectIds@. For
+-- components, use @PAUSE@ or @RESUME@. For instances, use @TRY_CANCEL@,
+-- @RERUN@, or @MARK_FINISHED@.
+newSetStatus ::
+  -- | 'pipelineId'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
   SetStatus
-setStatus pPipelineId_ pStatus_ =
+newSetStatus pPipelineId_ pStatus_ =
   SetStatus'
-    { _ssPipelineId = pPipelineId_,
-      _ssObjectIds = mempty,
-      _ssStatus = pStatus_
+    { pipelineId = pPipelineId_,
+      objectIds = Prelude.mempty,
+      status = pStatus_
     }
 
 -- | The ID of the pipeline that contains the objects.
-ssPipelineId :: Lens' SetStatus Text
-ssPipelineId = lens _ssPipelineId (\s a -> s {_ssPipelineId = a})
+setStatus_pipelineId :: Lens.Lens' SetStatus Prelude.Text
+setStatus_pipelineId = Lens.lens (\SetStatus' {pipelineId} -> pipelineId) (\s@SetStatus' {} a -> s {pipelineId = a} :: SetStatus)
 
--- | The IDs of the objects. The corresponding objects can be either physical or components, but not a mix of both types.
-ssObjectIds :: Lens' SetStatus [Text]
-ssObjectIds = lens _ssObjectIds (\s a -> s {_ssObjectIds = a}) . _Coerce
+-- | The IDs of the objects. The corresponding objects can be either physical
+-- or components, but not a mix of both types.
+setStatus_objectIds :: Lens.Lens' SetStatus [Prelude.Text]
+setStatus_objectIds = Lens.lens (\SetStatus' {objectIds} -> objectIds) (\s@SetStatus' {} a -> s {objectIds = a} :: SetStatus) Prelude.. Prelude._Coerce
 
--- | The status to be set on all the objects specified in @objectIds@ . For components, use @PAUSE@ or @RESUME@ . For instances, use @TRY_CANCEL@ , @RERUN@ , or @MARK_FINISHED@ .
-ssStatus :: Lens' SetStatus Text
-ssStatus = lens _ssStatus (\s a -> s {_ssStatus = a})
+-- | The status to be set on all the objects specified in @objectIds@. For
+-- components, use @PAUSE@ or @RESUME@. For instances, use @TRY_CANCEL@,
+-- @RERUN@, or @MARK_FINISHED@.
+setStatus_status :: Lens.Lens' SetStatus Prelude.Text
+setStatus_status = Lens.lens (\SetStatus' {status} -> status) (\s@SetStatus' {} a -> s {status = a} :: SetStatus)
 
-instance AWSRequest SetStatus where
+instance Prelude.AWSRequest SetStatus where
   type Rs SetStatus = SetStatusResponse
-  request = postJSON dataPipeline
-  response = receiveNull SetStatusResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull SetStatusResponse'
 
-instance Hashable SetStatus
+instance Prelude.Hashable SetStatus
 
-instance NFData SetStatus
+instance Prelude.NFData SetStatus
 
-instance ToHeaders SetStatus where
+instance Prelude.ToHeaders SetStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DataPipeline.SetStatus" :: ByteString),
+              Prelude.=# ("DataPipeline.SetStatus" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SetStatus where
+instance Prelude.ToJSON SetStatus where
   toJSON SetStatus' {..} =
-    object
-      ( catMaybes
-          [ Just ("pipelineId" .= _ssPipelineId),
-            Just ("objectIds" .= _ssObjectIds),
-            Just ("status" .= _ssStatus)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("pipelineId" Prelude..= pipelineId),
+            Prelude.Just ("objectIds" Prelude..= objectIds),
+            Prelude.Just ("status" Prelude..= status)
           ]
       )
 
-instance ToPath SetStatus where
-  toPath = const "/"
+instance Prelude.ToPath SetStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery SetStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'setStatusResponse' smart constructor.
+-- | /See:/ 'newSetStatusResponse' smart constructor.
 data SetStatusResponse = SetStatusResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetStatusResponse' with the minimum fields required to make a request.
-setStatusResponse ::
+-- |
+-- Create a value of 'SetStatusResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetStatusResponse ::
   SetStatusResponse
-setStatusResponse = SetStatusResponse'
+newSetStatusResponse = SetStatusResponse'
 
-instance NFData SetStatusResponse
+instance Prelude.NFData SetStatusResponse

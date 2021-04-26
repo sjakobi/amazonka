@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Task runners call @EvaluateExpression@ to evaluate a string in the context of the specified object. For example, a task runner can evaluate SQL queries stored in Amazon S3.
+-- Task runners call @EvaluateExpression@ to evaluate a string in the
+-- context of the specified object. For example, a task runner can evaluate
+-- SQL queries stored in Amazon S3.
 module Network.AWS.DataPipeline.EvaluateExpression
   ( -- * Creating a Request
-    evaluateExpression,
-    EvaluateExpression,
+    EvaluateExpression (..),
+    newEvaluateExpression,
 
     -- * Request Lenses
-    eePipelineId,
-    eeObjectId,
-    eeExpression,
+    evaluateExpression_pipelineId,
+    evaluateExpression_objectId,
+    evaluateExpression_expression,
 
     -- * Destructuring the Response
-    evaluateExpressionResponse,
-    EvaluateExpressionResponse,
+    EvaluateExpressionResponse (..),
+    newEvaluateExpressionResponse,
 
     -- * Response Lenses
-    eerrsResponseStatus,
-    eerrsEvaluatedExpression,
+    evaluateExpressionResponse_httpStatus,
+    evaluateExpressionResponse_evaluatedExpression,
   )
 where
 
 import Network.AWS.DataPipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for EvaluateExpression.
 --
---
---
--- /See:/ 'evaluateExpression' smart constructor.
+-- /See:/ 'newEvaluateExpression' smart constructor.
 data EvaluateExpression = EvaluateExpression'
-  { _eePipelineId ::
-      !Text,
-    _eeObjectId :: !Text,
-    _eeExpression :: !Text
+  { -- | The ID of the pipeline.
+    pipelineId :: Prelude.Text,
+    -- | The ID of the object.
+    objectId :: Prelude.Text,
+    -- | The expression to evaluate.
+    expression :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluateExpression' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluateExpression' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eePipelineId' - The ID of the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eeObjectId' - The ID of the object.
+-- 'pipelineId', 'evaluateExpression_pipelineId' - The ID of the pipeline.
 --
--- * 'eeExpression' - The expression to evaluate.
-evaluateExpression ::
-  -- | 'eePipelineId'
-  Text ->
-  -- | 'eeObjectId'
-  Text ->
-  -- | 'eeExpression'
-  Text ->
+-- 'objectId', 'evaluateExpression_objectId' - The ID of the object.
+--
+-- 'expression', 'evaluateExpression_expression' - The expression to evaluate.
+newEvaluateExpression ::
+  -- | 'pipelineId'
+  Prelude.Text ->
+  -- | 'objectId'
+  Prelude.Text ->
+  -- | 'expression'
+  Prelude.Text ->
   EvaluateExpression
-evaluateExpression
+newEvaluateExpression
   pPipelineId_
   pObjectId_
   pExpression_ =
     EvaluateExpression'
-      { _eePipelineId = pPipelineId_,
-        _eeObjectId = pObjectId_,
-        _eeExpression = pExpression_
+      { pipelineId = pPipelineId_,
+        objectId = pObjectId_,
+        expression = pExpression_
       }
 
 -- | The ID of the pipeline.
-eePipelineId :: Lens' EvaluateExpression Text
-eePipelineId = lens _eePipelineId (\s a -> s {_eePipelineId = a})
+evaluateExpression_pipelineId :: Lens.Lens' EvaluateExpression Prelude.Text
+evaluateExpression_pipelineId = Lens.lens (\EvaluateExpression' {pipelineId} -> pipelineId) (\s@EvaluateExpression' {} a -> s {pipelineId = a} :: EvaluateExpression)
 
 -- | The ID of the object.
-eeObjectId :: Lens' EvaluateExpression Text
-eeObjectId = lens _eeObjectId (\s a -> s {_eeObjectId = a})
+evaluateExpression_objectId :: Lens.Lens' EvaluateExpression Prelude.Text
+evaluateExpression_objectId = Lens.lens (\EvaluateExpression' {objectId} -> objectId) (\s@EvaluateExpression' {} a -> s {objectId = a} :: EvaluateExpression)
 
 -- | The expression to evaluate.
-eeExpression :: Lens' EvaluateExpression Text
-eeExpression = lens _eeExpression (\s a -> s {_eeExpression = a})
+evaluateExpression_expression :: Lens.Lens' EvaluateExpression Prelude.Text
+evaluateExpression_expression = Lens.lens (\EvaluateExpression' {expression} -> expression) (\s@EvaluateExpression' {} a -> s {expression = a} :: EvaluateExpression)
 
-instance AWSRequest EvaluateExpression where
+instance Prelude.AWSRequest EvaluateExpression where
   type
     Rs EvaluateExpression =
       EvaluateExpressionResponse
-  request = postJSON dataPipeline
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           EvaluateExpressionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "evaluatedExpression")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "evaluatedExpression")
       )
 
-instance Hashable EvaluateExpression
+instance Prelude.Hashable EvaluateExpression
 
-instance NFData EvaluateExpression
+instance Prelude.NFData EvaluateExpression
 
-instance ToHeaders EvaluateExpression where
+instance Prelude.ToHeaders EvaluateExpression where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DataPipeline.EvaluateExpression" :: ByteString),
+              Prelude.=# ( "DataPipeline.EvaluateExpression" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EvaluateExpression where
+instance Prelude.ToJSON EvaluateExpression where
   toJSON EvaluateExpression' {..} =
-    object
-      ( catMaybes
-          [ Just ("pipelineId" .= _eePipelineId),
-            Just ("objectId" .= _eeObjectId),
-            Just ("expression" .= _eeExpression)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("pipelineId" Prelude..= pipelineId),
+            Prelude.Just ("objectId" Prelude..= objectId),
+            Prelude.Just ("expression" Prelude..= expression)
           ]
       )
 
-instance ToPath EvaluateExpression where
-  toPath = const "/"
+instance Prelude.ToPath EvaluateExpression where
+  toPath = Prelude.const "/"
 
-instance ToQuery EvaluateExpression where
-  toQuery = const mempty
+instance Prelude.ToQuery EvaluateExpression where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of EvaluateExpression.
 --
---
---
--- /See:/ 'evaluateExpressionResponse' smart constructor.
+-- /See:/ 'newEvaluateExpressionResponse' smart constructor.
 data EvaluateExpressionResponse = EvaluateExpressionResponse'
-  { _eerrsResponseStatus ::
-      !Int,
-    _eerrsEvaluatedExpression ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The evaluated expression.
+    evaluatedExpression :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluateExpressionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluateExpressionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eerrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eerrsEvaluatedExpression' - The evaluated expression.
-evaluateExpressionResponse ::
-  -- | 'eerrsResponseStatus'
-  Int ->
-  -- | 'eerrsEvaluatedExpression'
-  Text ->
+-- 'httpStatus', 'evaluateExpressionResponse_httpStatus' - The response's http status code.
+--
+-- 'evaluatedExpression', 'evaluateExpressionResponse_evaluatedExpression' - The evaluated expression.
+newEvaluateExpressionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'evaluatedExpression'
+  Prelude.Text ->
   EvaluateExpressionResponse
-evaluateExpressionResponse
-  pResponseStatus_
+newEvaluateExpressionResponse
+  pHttpStatus_
   pEvaluatedExpression_ =
     EvaluateExpressionResponse'
-      { _eerrsResponseStatus =
-          pResponseStatus_,
-        _eerrsEvaluatedExpression =
-          pEvaluatedExpression_
+      { httpStatus =
+          pHttpStatus_,
+        evaluatedExpression = pEvaluatedExpression_
       }
 
--- | -- | The response status code.
-eerrsResponseStatus :: Lens' EvaluateExpressionResponse Int
-eerrsResponseStatus = lens _eerrsResponseStatus (\s a -> s {_eerrsResponseStatus = a})
+-- | The response's http status code.
+evaluateExpressionResponse_httpStatus :: Lens.Lens' EvaluateExpressionResponse Prelude.Int
+evaluateExpressionResponse_httpStatus = Lens.lens (\EvaluateExpressionResponse' {httpStatus} -> httpStatus) (\s@EvaluateExpressionResponse' {} a -> s {httpStatus = a} :: EvaluateExpressionResponse)
 
 -- | The evaluated expression.
-eerrsEvaluatedExpression :: Lens' EvaluateExpressionResponse Text
-eerrsEvaluatedExpression = lens _eerrsEvaluatedExpression (\s a -> s {_eerrsEvaluatedExpression = a})
+evaluateExpressionResponse_evaluatedExpression :: Lens.Lens' EvaluateExpressionResponse Prelude.Text
+evaluateExpressionResponse_evaluatedExpression = Lens.lens (\EvaluateExpressionResponse' {evaluatedExpression} -> evaluatedExpression) (\s@EvaluateExpressionResponse' {} a -> s {evaluatedExpression = a} :: EvaluateExpressionResponse)
 
-instance NFData EvaluateExpressionResponse
+instance Prelude.NFData EvaluateExpressionResponse

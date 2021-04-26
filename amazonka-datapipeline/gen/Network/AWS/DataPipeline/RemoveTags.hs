@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,138 +24,137 @@
 -- Removes existing tags from the specified pipeline.
 module Network.AWS.DataPipeline.RemoveTags
   ( -- * Creating a Request
-    removeTags,
-    RemoveTags,
+    RemoveTags (..),
+    newRemoveTags,
 
     -- * Request Lenses
-    rtPipelineId,
-    rtTagKeys,
+    removeTags_pipelineId,
+    removeTags_tagKeys,
 
     -- * Destructuring the Response
-    removeTagsResponse,
-    RemoveTagsResponse,
+    RemoveTagsResponse (..),
+    newRemoveTagsResponse,
 
     -- * Response Lenses
-    rtrrsResponseStatus,
+    removeTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DataPipeline.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains the parameters for RemoveTags.
 --
---
---
--- /See:/ 'removeTags' smart constructor.
+-- /See:/ 'newRemoveTags' smart constructor.
 data RemoveTags = RemoveTags'
-  { _rtPipelineId :: !Text,
-    _rtTagKeys :: ![Text]
+  { -- | The ID of the pipeline.
+    pipelineId :: Prelude.Text,
+    -- | The keys of the tags to remove.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtPipelineId' - The ID of the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtTagKeys' - The keys of the tags to remove.
-removeTags ::
-  -- | 'rtPipelineId'
-  Text ->
+-- 'pipelineId', 'removeTags_pipelineId' - The ID of the pipeline.
+--
+-- 'tagKeys', 'removeTags_tagKeys' - The keys of the tags to remove.
+newRemoveTags ::
+  -- | 'pipelineId'
+  Prelude.Text ->
   RemoveTags
-removeTags pPipelineId_ =
+newRemoveTags pPipelineId_ =
   RemoveTags'
-    { _rtPipelineId = pPipelineId_,
-      _rtTagKeys = mempty
+    { pipelineId = pPipelineId_,
+      tagKeys = Prelude.mempty
     }
 
 -- | The ID of the pipeline.
-rtPipelineId :: Lens' RemoveTags Text
-rtPipelineId = lens _rtPipelineId (\s a -> s {_rtPipelineId = a})
+removeTags_pipelineId :: Lens.Lens' RemoveTags Prelude.Text
+removeTags_pipelineId = Lens.lens (\RemoveTags' {pipelineId} -> pipelineId) (\s@RemoveTags' {} a -> s {pipelineId = a} :: RemoveTags)
 
 -- | The keys of the tags to remove.
-rtTagKeys :: Lens' RemoveTags [Text]
-rtTagKeys = lens _rtTagKeys (\s a -> s {_rtTagKeys = a}) . _Coerce
+removeTags_tagKeys :: Lens.Lens' RemoveTags [Prelude.Text]
+removeTags_tagKeys = Lens.lens (\RemoveTags' {tagKeys} -> tagKeys) (\s@RemoveTags' {} a -> s {tagKeys = a} :: RemoveTags) Prelude.. Prelude._Coerce
 
-instance AWSRequest RemoveTags where
+instance Prelude.AWSRequest RemoveTags where
   type Rs RemoveTags = RemoveTagsResponse
-  request = postJSON dataPipeline
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RemoveTagsResponse' <$> (pure (fromEnum s))
+          RemoveTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RemoveTags
+instance Prelude.Hashable RemoveTags
 
-instance NFData RemoveTags
+instance Prelude.NFData RemoveTags
 
-instance ToHeaders RemoveTags where
+instance Prelude.ToHeaders RemoveTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DataPipeline.RemoveTags" :: ByteString),
+              Prelude.=# ("DataPipeline.RemoveTags" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RemoveTags where
+instance Prelude.ToJSON RemoveTags where
   toJSON RemoveTags' {..} =
-    object
-      ( catMaybes
-          [ Just ("pipelineId" .= _rtPipelineId),
-            Just ("tagKeys" .= _rtTagKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("pipelineId" Prelude..= pipelineId),
+            Prelude.Just ("tagKeys" Prelude..= tagKeys)
           ]
       )
 
-instance ToPath RemoveTags where
-  toPath = const "/"
+instance Prelude.ToPath RemoveTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveTags where
-  toQuery = const mempty
+instance Prelude.ToQuery RemoveTags where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of RemoveTags.
 --
---
---
--- /See:/ 'removeTagsResponse' smart constructor.
-newtype RemoveTagsResponse = RemoveTagsResponse'
-  { _rtrrsResponseStatus ::
-      Int
+-- /See:/ 'newRemoveTagsResponse' smart constructor.
+data RemoveTagsResponse = RemoveTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrrsResponseStatus' - -- | The response status code.
-removeTagsResponse ::
-  -- | 'rtrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'removeTagsResponse_httpStatus' - The response's http status code.
+newRemoveTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveTagsResponse
-removeTagsResponse pResponseStatus_ =
-  RemoveTagsResponse'
-    { _rtrrsResponseStatus =
-        pResponseStatus_
-    }
+newRemoveTagsResponse pHttpStatus_ =
+  RemoveTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-rtrrsResponseStatus :: Lens' RemoveTagsResponse Int
-rtrrsResponseStatus = lens _rtrrsResponseStatus (\s a -> s {_rtrrsResponseStatus = a})
+-- | The response's http status code.
+removeTagsResponse_httpStatus :: Lens.Lens' RemoveTagsResponse Prelude.Int
+removeTagsResponse_httpStatus = Lens.lens (\RemoveTagsResponse' {httpStatus} -> httpStatus) (\s@RemoveTagsResponse' {} a -> s {httpStatus = a} :: RemoveTagsResponse)
 
-instance NFData RemoveTagsResponse
+instance Prelude.NFData RemoveTagsResponse

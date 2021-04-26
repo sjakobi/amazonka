@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.DataPipeline.Types.OperatorType
   ( OperatorType
       ( ..,
-        OperatorBetween,
-        OperatorEQ',
-        OperatorGE,
-        OperatorLE,
-        OperatorRefEQ
+        OperatorTypeOperatorBETWEEN,
+        OperatorTypeOperatorEQ,
+        OperatorTypeOperatorGE,
+        OperatorTypeOperatorLE,
+        OperatorTypeOperatorREFEQ
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperatorType = OperatorType' (CI Text)
+newtype OperatorType = OperatorType'
+  { fromOperatorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OperatorBetween :: OperatorType
-pattern OperatorBetween = OperatorType' "BETWEEN"
+pattern OperatorTypeOperatorBETWEEN :: OperatorType
+pattern OperatorTypeOperatorBETWEEN = OperatorType' "BETWEEN"
 
-pattern OperatorEQ' :: OperatorType
-pattern OperatorEQ' = OperatorType' "EQ"
+pattern OperatorTypeOperatorEQ :: OperatorType
+pattern OperatorTypeOperatorEQ = OperatorType' "EQ"
 
-pattern OperatorGE :: OperatorType
-pattern OperatorGE = OperatorType' "GE"
+pattern OperatorTypeOperatorGE :: OperatorType
+pattern OperatorTypeOperatorGE = OperatorType' "GE"
 
-pattern OperatorLE :: OperatorType
-pattern OperatorLE = OperatorType' "LE"
+pattern OperatorTypeOperatorLE :: OperatorType
+pattern OperatorTypeOperatorLE = OperatorType' "LE"
 
-pattern OperatorRefEQ :: OperatorType
-pattern OperatorRefEQ = OperatorType' "REF_EQ"
+pattern OperatorTypeOperatorREFEQ :: OperatorType
+pattern OperatorTypeOperatorREFEQ = OperatorType' "REF_EQ"
 
 {-# COMPLETE
-  OperatorBetween,
-  OperatorEQ',
-  OperatorGE,
-  OperatorLE,
-  OperatorRefEQ,
+  OperatorTypeOperatorBETWEEN,
+  OperatorTypeOperatorEQ,
+  OperatorTypeOperatorGE,
+  OperatorTypeOperatorLE,
+  OperatorTypeOperatorREFEQ,
   OperatorType'
   #-}
 
-instance FromText OperatorType where
-  parser = (OperatorType' . mk) <$> takeText
+instance Prelude.FromText OperatorType where
+  parser = OperatorType' Prelude.<$> Prelude.takeText
 
-instance ToText OperatorType where
-  toText (OperatorType' ci) = original ci
+instance Prelude.ToText OperatorType where
+  toText (OperatorType' x) = x
 
-instance Hashable OperatorType
+instance Prelude.Hashable OperatorType
 
-instance NFData OperatorType
+instance Prelude.NFData OperatorType
 
-instance ToByteString OperatorType
+instance Prelude.ToByteString OperatorType
 
-instance ToQuery OperatorType
+instance Prelude.ToQuery OperatorType
 
-instance ToHeader OperatorType
+instance Prelude.ToHeader OperatorType
 
-instance ToJSON OperatorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OperatorType where
+  toJSON = Prelude.toJSONText

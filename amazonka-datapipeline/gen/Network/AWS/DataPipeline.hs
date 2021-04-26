@@ -11,15 +11,32 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS Data Pipeline configures and manages a data-driven workflow called a pipeline. AWS Data Pipeline handles the details of scheduling and ensuring that data dependencies are met so that your application can focus on processing the data.
+-- AWS Data Pipeline configures and manages a data-driven workflow called a
+-- pipeline. AWS Data Pipeline handles the details of scheduling and
+-- ensuring that data dependencies are met so that your application can
+-- focus on processing the data.
 --
+-- AWS Data Pipeline provides a JAR implementation of a task runner called
+-- AWS Data Pipeline Task Runner. AWS Data Pipeline Task Runner provides
+-- logic for common data management scenarios, such as performing database
+-- queries and running data analysis using Amazon Elastic MapReduce (Amazon
+-- EMR). You can use AWS Data Pipeline Task Runner as your task runner, or
+-- you can write your own task runner to provide custom data management.
 --
--- AWS Data Pipeline provides a JAR implementation of a task runner called AWS Data Pipeline Task Runner. AWS Data Pipeline Task Runner provides logic for common data management scenarios, such as performing database queries and running data analysis using Amazon Elastic MapReduce (Amazon EMR). You can use AWS Data Pipeline Task Runner as your task runner, or you can write your own task runner to provide custom data management.
---
--- AWS Data Pipeline implements two main sets of functionality. Use the first set to create a pipeline and define data sources, schedules, dependencies, and the transforms to be performed on the data. Use the second set in your task runner application to receive the next task ready for processing. The logic for performing the task, such as querying the data, running data analysis, or converting the data from one format to another, is contained within the task runner. The task runner performs the task assigned to it by the web service, reporting progress to the web service as it does so. When the task is done, the task runner reports the final success or failure of the task to the web service.
+-- AWS Data Pipeline implements two main sets of functionality. Use the
+-- first set to create a pipeline and define data sources, schedules,
+-- dependencies, and the transforms to be performed on the data. Use the
+-- second set in your task runner application to receive the next task
+-- ready for processing. The logic for performing the task, such as
+-- querying the data, running data analysis, or converting the data from
+-- one format to another, is contained within the task runner. The task
+-- runner performs the task assigned to it by the web service, reporting
+-- progress to the web service as it does so. When the task is done, the
+-- task runner reports the final success or failure of the task to the web
+-- service.
 module Network.AWS.DataPipeline
   ( -- * Service Configuration
-    dataPipeline,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -46,61 +63,118 @@ module Network.AWS.DataPipeline
     -- $operations
 
     -- ** RemoveTags
-    module Network.AWS.DataPipeline.RemoveTags,
+    RemoveTags (RemoveTags'),
+    newRemoveTags,
+    RemoveTagsResponse (RemoveTagsResponse'),
+    newRemoveTagsResponse,
 
     -- ** QueryObjects (Paginated)
-    module Network.AWS.DataPipeline.QueryObjects,
+    QueryObjects (QueryObjects'),
+    newQueryObjects,
+    QueryObjectsResponse (QueryObjectsResponse'),
+    newQueryObjectsResponse,
 
     -- ** EvaluateExpression
-    module Network.AWS.DataPipeline.EvaluateExpression,
+    EvaluateExpression (EvaluateExpression'),
+    newEvaluateExpression,
+    EvaluateExpressionResponse (EvaluateExpressionResponse'),
+    newEvaluateExpressionResponse,
 
     -- ** CreatePipeline
-    module Network.AWS.DataPipeline.CreatePipeline,
+    CreatePipeline (CreatePipeline'),
+    newCreatePipeline,
+    CreatePipelineResponse (CreatePipelineResponse'),
+    newCreatePipelineResponse,
 
     -- ** ReportTaskProgress
-    module Network.AWS.DataPipeline.ReportTaskProgress,
+    ReportTaskProgress (ReportTaskProgress'),
+    newReportTaskProgress,
+    ReportTaskProgressResponse (ReportTaskProgressResponse'),
+    newReportTaskProgressResponse,
 
     -- ** SetTaskStatus
-    module Network.AWS.DataPipeline.SetTaskStatus,
+    SetTaskStatus (SetTaskStatus'),
+    newSetTaskStatus,
+    SetTaskStatusResponse (SetTaskStatusResponse'),
+    newSetTaskStatusResponse,
 
     -- ** DescribeObjects (Paginated)
-    module Network.AWS.DataPipeline.DescribeObjects,
+    DescribeObjects (DescribeObjects'),
+    newDescribeObjects,
+    DescribeObjectsResponse (DescribeObjectsResponse'),
+    newDescribeObjectsResponse,
 
     -- ** DeletePipeline
-    module Network.AWS.DataPipeline.DeletePipeline,
+    DeletePipeline (DeletePipeline'),
+    newDeletePipeline,
+    DeletePipelineResponse (DeletePipelineResponse'),
+    newDeletePipelineResponse,
 
     -- ** ReportTaskRunnerHeartbeat
-    module Network.AWS.DataPipeline.ReportTaskRunnerHeartbeat,
+    ReportTaskRunnerHeartbeat (ReportTaskRunnerHeartbeat'),
+    newReportTaskRunnerHeartbeat,
+    ReportTaskRunnerHeartbeatResponse (ReportTaskRunnerHeartbeatResponse'),
+    newReportTaskRunnerHeartbeatResponse,
 
     -- ** AddTags
-    module Network.AWS.DataPipeline.AddTags,
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
     -- ** DescribePipelines
-    module Network.AWS.DataPipeline.DescribePipelines,
+    DescribePipelines (DescribePipelines'),
+    newDescribePipelines,
+    DescribePipelinesResponse (DescribePipelinesResponse'),
+    newDescribePipelinesResponse,
 
     -- ** GetPipelineDefinition
-    module Network.AWS.DataPipeline.GetPipelineDefinition,
+    GetPipelineDefinition (GetPipelineDefinition'),
+    newGetPipelineDefinition,
+    GetPipelineDefinitionResponse (GetPipelineDefinitionResponse'),
+    newGetPipelineDefinitionResponse,
 
     -- ** PollForTask
-    module Network.AWS.DataPipeline.PollForTask,
+    PollForTask (PollForTask'),
+    newPollForTask,
+    PollForTaskResponse (PollForTaskResponse'),
+    newPollForTaskResponse,
 
     -- ** ValidatePipelineDefinition
-    module Network.AWS.DataPipeline.ValidatePipelineDefinition,
+    ValidatePipelineDefinition (ValidatePipelineDefinition'),
+    newValidatePipelineDefinition,
+    ValidatePipelineDefinitionResponse (ValidatePipelineDefinitionResponse'),
+    newValidatePipelineDefinitionResponse,
 
     -- ** PutPipelineDefinition
-    module Network.AWS.DataPipeline.PutPipelineDefinition,
+    PutPipelineDefinition (PutPipelineDefinition'),
+    newPutPipelineDefinition,
+    PutPipelineDefinitionResponse (PutPipelineDefinitionResponse'),
+    newPutPipelineDefinitionResponse,
 
     -- ** SetStatus
-    module Network.AWS.DataPipeline.SetStatus,
+    SetStatus (SetStatus'),
+    newSetStatus,
+    SetStatusResponse (SetStatusResponse'),
+    newSetStatusResponse,
 
     -- ** ListPipelines (Paginated)
-    module Network.AWS.DataPipeline.ListPipelines,
+    ListPipelines (ListPipelines'),
+    newListPipelines,
+    ListPipelinesResponse (ListPipelinesResponse'),
+    newListPipelinesResponse,
 
     -- ** ActivatePipeline
-    module Network.AWS.DataPipeline.ActivatePipeline,
+    ActivatePipeline (ActivatePipeline'),
+    newActivatePipeline,
+    ActivatePipelineResponse (ActivatePipelineResponse'),
+    newActivatePipelineResponse,
 
     -- ** DeactivatePipeline
-    module Network.AWS.DataPipeline.DeactivatePipeline,
+    DeactivatePipeline (DeactivatePipeline'),
+    newDeactivatePipeline,
+    DeactivatePipelineResponse (DeactivatePipelineResponse'),
+    newDeactivatePipelineResponse,
 
     -- * Types
 
@@ -111,100 +185,64 @@ module Network.AWS.DataPipeline
     TaskStatus (..),
 
     -- ** Field
-    Field,
-    field,
-    fStringValue,
-    fRefValue,
-    fKey,
+    Field (Field'),
+    newField,
 
     -- ** InstanceIdentity
-    InstanceIdentity,
-    instanceIdentity,
-    iiDocument,
-    iiSignature,
+    InstanceIdentity (InstanceIdentity'),
+    newInstanceIdentity,
 
     -- ** Operator
-    Operator,
-    operator,
-    oValues,
-    oType,
+    Operator (Operator'),
+    newOperator,
 
     -- ** ParameterAttribute
-    ParameterAttribute,
-    parameterAttribute,
-    paKey,
-    paStringValue,
+    ParameterAttribute (ParameterAttribute'),
+    newParameterAttribute,
 
     -- ** ParameterObject
-    ParameterObject,
-    parameterObject,
-    pId,
-    pAttributes,
+    ParameterObject (ParameterObject'),
+    newParameterObject,
 
     -- ** ParameterValue
-    ParameterValue,
-    parameterValue,
-    pvId,
-    pvStringValue,
+    ParameterValue (ParameterValue'),
+    newParameterValue,
 
     -- ** PipelineDescription
-    PipelineDescription,
-    pipelineDescription,
-    pdTags,
-    pdDescription,
-    pdPipelineId,
-    pdName,
-    pdFields,
+    PipelineDescription (PipelineDescription'),
+    newPipelineDescription,
 
     -- ** PipelineIdName
-    PipelineIdName,
-    pipelineIdName,
-    pinId,
-    pinName,
+    PipelineIdName (PipelineIdName'),
+    newPipelineIdName,
 
     -- ** PipelineObject
-    PipelineObject,
-    pipelineObject,
-    poId,
-    poName,
-    poFields,
+    PipelineObject (PipelineObject'),
+    newPipelineObject,
 
     -- ** Query
-    Query,
-    query,
-    qSelectors,
+    Query (Query'),
+    newQuery,
 
     -- ** Selector
-    Selector,
-    selector,
-    sOperator,
-    sFieldName,
+    Selector (Selector'),
+    newSelector,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TaskObject
-    TaskObject,
-    taskObject,
-    toPipelineId,
-    toObjects,
-    toTaskId,
-    toAttemptId,
+    TaskObject (TaskObject'),
+    newTaskObject,
 
     -- ** ValidationError
-    ValidationError,
-    validationError,
-    veId,
-    veErrors,
+    ValidationError (ValidationError'),
+    newValidationError,
 
     -- ** ValidationWarning
-    ValidationWarning,
-    validationWarning,
-    vwWarnings,
-    vwId,
+    ValidationWarning (ValidationWarning'),
+    newValidationWarning,
   )
 where
 
@@ -217,6 +255,7 @@ import Network.AWS.DataPipeline.DescribeObjects
 import Network.AWS.DataPipeline.DescribePipelines
 import Network.AWS.DataPipeline.EvaluateExpression
 import Network.AWS.DataPipeline.GetPipelineDefinition
+import Network.AWS.DataPipeline.Lens
 import Network.AWS.DataPipeline.ListPipelines
 import Network.AWS.DataPipeline.PollForTask
 import Network.AWS.DataPipeline.PutPipelineDefinition

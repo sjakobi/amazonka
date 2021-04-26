@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DataPipeline.Types.Field where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A key-value pair that describes a property of a pipeline object. The value is specified as either a string value (@StringValue@ ) or a reference to another object (@RefValue@ ) but not as both.
+-- | A key-value pair that describes a property of a pipeline object. The
+-- value is specified as either a string value (@StringValue@) or a
+-- reference to another object (@RefValue@) but not as both.
 --
---
---
--- /See:/ 'field' smart constructor.
+-- /See:/ 'newField' smart constructor.
 data Field = Field'
-  { _fStringValue :: !(Maybe Text),
-    _fRefValue :: !(Maybe Text),
-    _fKey :: !Text
+  { -- | The field value, expressed as a String.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | The field value, expressed as the identifier of another object.
+    refValue :: Prelude.Maybe Prelude.Text,
+    -- | The field identifier.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Field' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Field' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fStringValue' - The field value, expressed as a String.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fRefValue' - The field value, expressed as the identifier of another object.
+-- 'stringValue', 'field_stringValue' - The field value, expressed as a String.
 --
--- * 'fKey' - The field identifier.
-field ::
-  -- | 'fKey'
-  Text ->
+-- 'refValue', 'field_refValue' - The field value, expressed as the identifier of another object.
+--
+-- 'key', 'field_key' - The field identifier.
+newField ::
+  -- | 'key'
+  Prelude.Text ->
   Field
-field pKey_ =
+newField pKey_ =
   Field'
-    { _fStringValue = Nothing,
-      _fRefValue = Nothing,
-      _fKey = pKey_
+    { stringValue = Prelude.Nothing,
+      refValue = Prelude.Nothing,
+      key = pKey_
     }
 
 -- | The field value, expressed as a String.
-fStringValue :: Lens' Field (Maybe Text)
-fStringValue = lens _fStringValue (\s a -> s {_fStringValue = a})
+field_stringValue :: Lens.Lens' Field (Prelude.Maybe Prelude.Text)
+field_stringValue = Lens.lens (\Field' {stringValue} -> stringValue) (\s@Field' {} a -> s {stringValue = a} :: Field)
 
 -- | The field value, expressed as the identifier of another object.
-fRefValue :: Lens' Field (Maybe Text)
-fRefValue = lens _fRefValue (\s a -> s {_fRefValue = a})
+field_refValue :: Lens.Lens' Field (Prelude.Maybe Prelude.Text)
+field_refValue = Lens.lens (\Field' {refValue} -> refValue) (\s@Field' {} a -> s {refValue = a} :: Field)
 
 -- | The field identifier.
-fKey :: Lens' Field Text
-fKey = lens _fKey (\s a -> s {_fKey = a})
+field_key :: Lens.Lens' Field Prelude.Text
+field_key = Lens.lens (\Field' {key} -> key) (\s@Field' {} a -> s {key = a} :: Field)
 
-instance FromJSON Field where
+instance Prelude.FromJSON Field where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Field"
       ( \x ->
           Field'
-            <$> (x .:? "stringValue")
-            <*> (x .:? "refValue")
-            <*> (x .: "key")
+            Prelude.<$> (x Prelude..:? "stringValue")
+            Prelude.<*> (x Prelude..:? "refValue")
+            Prelude.<*> (x Prelude..: "key")
       )
 
-instance Hashable Field
+instance Prelude.Hashable Field
 
-instance NFData Field
+instance Prelude.NFData Field
 
-instance ToJSON Field where
+instance Prelude.ToJSON Field where
   toJSON Field' {..} =
-    object
-      ( catMaybes
-          [ ("stringValue" .=) <$> _fStringValue,
-            ("refValue" .=) <$> _fRefValue,
-            Just ("key" .= _fKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("stringValue" Prelude..=) Prelude.<$> stringValue,
+            ("refValue" Prelude..=) Prelude.<$> refValue,
+            Prelude.Just ("key" Prelude..= key)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DataPipeline.Types.ValidationError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Defines a validation error. Validation errors prevent pipeline activation. The set of validation errors that can be returned are defined by AWS Data Pipeline.
+-- | Defines a validation error. Validation errors prevent pipeline
+-- activation. The set of validation errors that can be returned are
+-- defined by AWS Data Pipeline.
 --
---
---
--- /See:/ 'validationError' smart constructor.
+-- /See:/ 'newValidationError' smart constructor.
 data ValidationError = ValidationError'
-  { _veId ::
-      !(Maybe Text),
-    _veErrors :: !(Maybe [Text])
+  { -- | The identifier of the object that contains the validation error.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A description of the validation error.
+    errors :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidationError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidationError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veId' - The identifier of the object that contains the validation error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'veErrors' - A description of the validation error.
-validationError ::
+-- 'id', 'validationError_id' - The identifier of the object that contains the validation error.
+--
+-- 'errors', 'validationError_errors' - A description of the validation error.
+newValidationError ::
   ValidationError
-validationError =
+newValidationError =
   ValidationError'
-    { _veId = Nothing,
-      _veErrors = Nothing
+    { id = Prelude.Nothing,
+      errors = Prelude.Nothing
     }
 
 -- | The identifier of the object that contains the validation error.
-veId :: Lens' ValidationError (Maybe Text)
-veId = lens _veId (\s a -> s {_veId = a})
+validationError_id :: Lens.Lens' ValidationError (Prelude.Maybe Prelude.Text)
+validationError_id = Lens.lens (\ValidationError' {id} -> id) (\s@ValidationError' {} a -> s {id = a} :: ValidationError)
 
 -- | A description of the validation error.
-veErrors :: Lens' ValidationError [Text]
-veErrors = lens _veErrors (\s a -> s {_veErrors = a}) . _Default . _Coerce
+validationError_errors :: Lens.Lens' ValidationError (Prelude.Maybe [Prelude.Text])
+validationError_errors = Lens.lens (\ValidationError' {errors} -> errors) (\s@ValidationError' {} a -> s {errors = a} :: ValidationError) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ValidationError where
+instance Prelude.FromJSON ValidationError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ValidationError"
       ( \x ->
           ValidationError'
-            <$> (x .:? "id") <*> (x .:? "errors" .!= mempty)
+            Prelude.<$> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "errors" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ValidationError
+instance Prelude.Hashable ValidationError
 
-instance NFData ValidationError
+instance Prelude.NFData ValidationError

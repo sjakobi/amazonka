@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,70 @@
 module Network.AWS.DataPipeline.Types.ParameterObject where
 
 import Network.AWS.DataPipeline.Types.ParameterAttribute
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a parameter object.
 --
---
---
--- /See:/ 'parameterObject' smart constructor.
+-- /See:/ 'newParameterObject' smart constructor.
 data ParameterObject = ParameterObject'
-  { _pId ::
-      !Text,
-    _pAttributes :: ![ParameterAttribute]
+  { -- | The ID of the parameter object.
+    id :: Prelude.Text,
+    -- | The attributes of the parameter object.
+    attributes :: [ParameterAttribute]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pId' - The ID of the parameter object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pAttributes' - The attributes of the parameter object.
-parameterObject ::
-  -- | 'pId'
-  Text ->
+-- 'id', 'parameterObject_id' - The ID of the parameter object.
+--
+-- 'attributes', 'parameterObject_attributes' - The attributes of the parameter object.
+newParameterObject ::
+  -- | 'id'
+  Prelude.Text ->
   ParameterObject
-parameterObject pId_ =
+newParameterObject pId_ =
   ParameterObject'
-    { _pId = pId_,
-      _pAttributes = mempty
+    { id = pId_,
+      attributes = Prelude.mempty
     }
 
 -- | The ID of the parameter object.
-pId :: Lens' ParameterObject Text
-pId = lens _pId (\s a -> s {_pId = a})
+parameterObject_id :: Lens.Lens' ParameterObject Prelude.Text
+parameterObject_id = Lens.lens (\ParameterObject' {id} -> id) (\s@ParameterObject' {} a -> s {id = a} :: ParameterObject)
 
 -- | The attributes of the parameter object.
-pAttributes :: Lens' ParameterObject [ParameterAttribute]
-pAttributes = lens _pAttributes (\s a -> s {_pAttributes = a}) . _Coerce
+parameterObject_attributes :: Lens.Lens' ParameterObject [ParameterAttribute]
+parameterObject_attributes = Lens.lens (\ParameterObject' {attributes} -> attributes) (\s@ParameterObject' {} a -> s {attributes = a} :: ParameterObject) Prelude.. Prelude._Coerce
 
-instance FromJSON ParameterObject where
+instance Prelude.FromJSON ParameterObject where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterObject"
       ( \x ->
           ParameterObject'
-            <$> (x .: "id") <*> (x .:? "attributes" .!= mempty)
+            Prelude.<$> (x Prelude..: "id")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ParameterObject
+instance Prelude.Hashable ParameterObject
 
-instance NFData ParameterObject
+instance Prelude.NFData ParameterObject
 
-instance ToJSON ParameterObject where
+instance Prelude.ToJSON ParameterObject where
   toJSON ParameterObject' {..} =
-    object
-      ( catMaybes
-          [ Just ("id" .= _pId),
-            Just ("attributes" .= _pAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("id" Prelude..= id),
+            Prelude.Just ("attributes" Prelude..= attributes)
           ]
       )
