@@ -28,37 +28,37 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGetThingShadow $
---             getThingShadow
+--             newGetThingShadow
 --
 --         , requestPublish $
---             publish
+--             newPublish
 --
 --         , requestListNamedShadowsForThing $
---             listNamedShadowsForThing
+--             newListNamedShadowsForThing
 --
 --         , requestUpdateThingShadow $
---             updateThingShadow
+--             newUpdateThingShadow
 --
 --         , requestDeleteThingShadow $
---             deleteThingShadow
+--             newDeleteThingShadow
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGetThingShadow $
---             getThingShadowResponse
+--             newGetThingShadowResponse
 --
 --         , responsePublish $
---             publishResponse
+--             newPublishResponse
 --
 --         , responseListNamedShadowsForThing $
---             listNamedShadowsForThingResponse
+--             newListNamedShadowsForThingResponse
 --
 --         , responseUpdateThingShadow $
---             updateThingShadowResponse
+--             newUpdateThingShadowResponse
 --
 --         , responseDeleteThingShadow $
---             deleteThingShadowResponse
+--             newDeleteThingShadowResponse
 --
 --           ]
 --     ]
@@ -102,7 +102,7 @@ responseGetThingShadow =
   res
     "GetThingShadowResponse"
     "fixture/GetThingShadowResponse.proto"
-    ioTData
+    defaultService
     (Proxy :: Proxy GetThingShadow)
 
 responsePublish :: PublishResponse -> TestTree
@@ -110,7 +110,7 @@ responsePublish =
   res
     "PublishResponse"
     "fixture/PublishResponse.proto"
-    ioTData
+    defaultService
     (Proxy :: Proxy Publish)
 
 responseListNamedShadowsForThing :: ListNamedShadowsForThingResponse -> TestTree
@@ -118,7 +118,7 @@ responseListNamedShadowsForThing =
   res
     "ListNamedShadowsForThingResponse"
     "fixture/ListNamedShadowsForThingResponse.proto"
-    ioTData
+    defaultService
     (Proxy :: Proxy ListNamedShadowsForThing)
 
 responseUpdateThingShadow :: UpdateThingShadowResponse -> TestTree
@@ -126,7 +126,7 @@ responseUpdateThingShadow =
   res
     "UpdateThingShadowResponse"
     "fixture/UpdateThingShadowResponse.proto"
-    ioTData
+    defaultService
     (Proxy :: Proxy UpdateThingShadow)
 
 responseDeleteThingShadow :: DeleteThingShadowResponse -> TestTree
@@ -134,5 +134,5 @@ responseDeleteThingShadow =
   res
     "DeleteThingShadowResponse"
     "fixture/DeleteThingShadowResponse.proto"
-    ioTData
+    defaultService
     (Proxy :: Proxy DeleteThingShadow)

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,184 +24,176 @@
 -- Lists the shadows for the specified thing.
 module Network.AWS.IoTData.ListNamedShadowsForThing
   ( -- * Creating a Request
-    listNamedShadowsForThing,
-    ListNamedShadowsForThing,
+    ListNamedShadowsForThing (..),
+    newListNamedShadowsForThing,
 
     -- * Request Lenses
-    lnsftNextToken,
-    lnsftPageSize,
-    lnsftThingName,
+    listNamedShadowsForThing_nextToken,
+    listNamedShadowsForThing_pageSize,
+    listNamedShadowsForThing_thingName,
 
     -- * Destructuring the Response
-    listNamedShadowsForThingResponse,
-    ListNamedShadowsForThingResponse,
+    ListNamedShadowsForThingResponse (..),
+    newListNamedShadowsForThingResponse,
 
     -- * Response Lenses
-    lnsftrrsNextToken,
-    lnsftrrsTimestamp,
-    lnsftrrsResults,
-    lnsftrrsResponseStatus,
+    listNamedShadowsForThingResponse_nextToken,
+    listNamedShadowsForThingResponse_timestamp,
+    listNamedShadowsForThingResponse_results,
+    listNamedShadowsForThingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTData.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listNamedShadowsForThing' smart constructor.
+-- | /See:/ 'newListNamedShadowsForThing' smart constructor.
 data ListNamedShadowsForThing = ListNamedShadowsForThing'
-  { _lnsftNextToken ::
-      !(Maybe Text),
-    _lnsftPageSize ::
-      !(Maybe Nat),
-    _lnsftThingName ::
-      !Text
+  { -- | The token to retrieve the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The result page size.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the thing.
+    thingName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListNamedShadowsForThing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListNamedShadowsForThing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lnsftNextToken' - The token to retrieve the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lnsftPageSize' - The result page size.
+-- 'nextToken', 'listNamedShadowsForThing_nextToken' - The token to retrieve the next set of results.
 --
--- * 'lnsftThingName' - The name of the thing.
-listNamedShadowsForThing ::
-  -- | 'lnsftThingName'
-  Text ->
+-- 'pageSize', 'listNamedShadowsForThing_pageSize' - The result page size.
+--
+-- 'thingName', 'listNamedShadowsForThing_thingName' - The name of the thing.
+newListNamedShadowsForThing ::
+  -- | 'thingName'
+  Prelude.Text ->
   ListNamedShadowsForThing
-listNamedShadowsForThing pThingName_ =
+newListNamedShadowsForThing pThingName_ =
   ListNamedShadowsForThing'
-    { _lnsftNextToken =
-        Nothing,
-      _lnsftPageSize = Nothing,
-      _lnsftThingName = pThingName_
+    { nextToken =
+        Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      thingName = pThingName_
     }
 
 -- | The token to retrieve the next set of results.
-lnsftNextToken :: Lens' ListNamedShadowsForThing (Maybe Text)
-lnsftNextToken = lens _lnsftNextToken (\s a -> s {_lnsftNextToken = a})
+listNamedShadowsForThing_nextToken :: Lens.Lens' ListNamedShadowsForThing (Prelude.Maybe Prelude.Text)
+listNamedShadowsForThing_nextToken = Lens.lens (\ListNamedShadowsForThing' {nextToken} -> nextToken) (\s@ListNamedShadowsForThing' {} a -> s {nextToken = a} :: ListNamedShadowsForThing)
 
 -- | The result page size.
-lnsftPageSize :: Lens' ListNamedShadowsForThing (Maybe Natural)
-lnsftPageSize = lens _lnsftPageSize (\s a -> s {_lnsftPageSize = a}) . mapping _Nat
+listNamedShadowsForThing_pageSize :: Lens.Lens' ListNamedShadowsForThing (Prelude.Maybe Prelude.Natural)
+listNamedShadowsForThing_pageSize = Lens.lens (\ListNamedShadowsForThing' {pageSize} -> pageSize) (\s@ListNamedShadowsForThing' {} a -> s {pageSize = a} :: ListNamedShadowsForThing) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the thing.
-lnsftThingName :: Lens' ListNamedShadowsForThing Text
-lnsftThingName = lens _lnsftThingName (\s a -> s {_lnsftThingName = a})
+listNamedShadowsForThing_thingName :: Lens.Lens' ListNamedShadowsForThing Prelude.Text
+listNamedShadowsForThing_thingName = Lens.lens (\ListNamedShadowsForThing' {thingName} -> thingName) (\s@ListNamedShadowsForThing' {} a -> s {thingName = a} :: ListNamedShadowsForThing)
 
-instance AWSRequest ListNamedShadowsForThing where
+instance Prelude.AWSRequest ListNamedShadowsForThing where
   type
     Rs ListNamedShadowsForThing =
       ListNamedShadowsForThingResponse
-  request = get ioTData
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListNamedShadowsForThingResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "timestamp")
-            <*> (x .?> "results" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "timestamp")
+            Prelude.<*> (x Prelude..?> "results" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListNamedShadowsForThing
+instance Prelude.Hashable ListNamedShadowsForThing
 
-instance NFData ListNamedShadowsForThing
+instance Prelude.NFData ListNamedShadowsForThing
 
-instance ToHeaders ListNamedShadowsForThing where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListNamedShadowsForThing where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListNamedShadowsForThing where
+instance Prelude.ToPath ListNamedShadowsForThing where
   toPath ListNamedShadowsForThing' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/api/things/shadow/ListNamedShadowsForThing/",
-        toBS _lnsftThingName
+        Prelude.toBS thingName
       ]
 
-instance ToQuery ListNamedShadowsForThing where
+instance Prelude.ToQuery ListNamedShadowsForThing where
   toQuery ListNamedShadowsForThing' {..} =
-    mconcat
-      [ "nextToken" =: _lnsftNextToken,
-        "pageSize" =: _lnsftPageSize
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "pageSize" Prelude.=: pageSize
       ]
 
--- | /See:/ 'listNamedShadowsForThingResponse' smart constructor.
+-- | /See:/ 'newListNamedShadowsForThingResponse' smart constructor.
 data ListNamedShadowsForThingResponse = ListNamedShadowsForThingResponse'
-  { _lnsftrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lnsftrrsTimestamp ::
-      !( Maybe
-           Integer
-       ),
-    _lnsftrrsResults ::
-      !( Maybe
-           [Text]
-       ),
-    _lnsftrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of results, or null if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Epoch date and time the response was generated by AWS IoT.
+    timestamp :: Prelude.Maybe Prelude.Integer,
+    -- | The list of shadows for the specified thing.
+    results :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListNamedShadowsForThingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListNamedShadowsForThingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lnsftrrsNextToken' - The token for the next set of results, or null if there are no additional results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lnsftrrsTimestamp' - The Epoch date and time the response was generated by AWS IoT.
+-- 'nextToken', 'listNamedShadowsForThingResponse_nextToken' - The token for the next set of results, or null if there are no
+-- additional results.
 --
--- * 'lnsftrrsResults' - The list of shadows for the specified thing.
+-- 'timestamp', 'listNamedShadowsForThingResponse_timestamp' - The Epoch date and time the response was generated by AWS IoT.
 --
--- * 'lnsftrrsResponseStatus' - -- | The response status code.
-listNamedShadowsForThingResponse ::
-  -- | 'lnsftrrsResponseStatus'
-  Int ->
+-- 'results', 'listNamedShadowsForThingResponse_results' - The list of shadows for the specified thing.
+--
+-- 'httpStatus', 'listNamedShadowsForThingResponse_httpStatus' - The response's http status code.
+newListNamedShadowsForThingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListNamedShadowsForThingResponse
-listNamedShadowsForThingResponse pResponseStatus_ =
+newListNamedShadowsForThingResponse pHttpStatus_ =
   ListNamedShadowsForThingResponse'
-    { _lnsftrrsNextToken =
-        Nothing,
-      _lnsftrrsTimestamp = Nothing,
-      _lnsftrrsResults = Nothing,
-      _lnsftrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      timestamp = Prelude.Nothing,
+      results = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token for the next set of results, or null if there are no additional results.
-lnsftrrsNextToken :: Lens' ListNamedShadowsForThingResponse (Maybe Text)
-lnsftrrsNextToken = lens _lnsftrrsNextToken (\s a -> s {_lnsftrrsNextToken = a})
+-- | The token for the next set of results, or null if there are no
+-- additional results.
+listNamedShadowsForThingResponse_nextToken :: Lens.Lens' ListNamedShadowsForThingResponse (Prelude.Maybe Prelude.Text)
+listNamedShadowsForThingResponse_nextToken = Lens.lens (\ListNamedShadowsForThingResponse' {nextToken} -> nextToken) (\s@ListNamedShadowsForThingResponse' {} a -> s {nextToken = a} :: ListNamedShadowsForThingResponse)
 
 -- | The Epoch date and time the response was generated by AWS IoT.
-lnsftrrsTimestamp :: Lens' ListNamedShadowsForThingResponse (Maybe Integer)
-lnsftrrsTimestamp = lens _lnsftrrsTimestamp (\s a -> s {_lnsftrrsTimestamp = a})
+listNamedShadowsForThingResponse_timestamp :: Lens.Lens' ListNamedShadowsForThingResponse (Prelude.Maybe Prelude.Integer)
+listNamedShadowsForThingResponse_timestamp = Lens.lens (\ListNamedShadowsForThingResponse' {timestamp} -> timestamp) (\s@ListNamedShadowsForThingResponse' {} a -> s {timestamp = a} :: ListNamedShadowsForThingResponse)
 
 -- | The list of shadows for the specified thing.
-lnsftrrsResults :: Lens' ListNamedShadowsForThingResponse [Text]
-lnsftrrsResults = lens _lnsftrrsResults (\s a -> s {_lnsftrrsResults = a}) . _Default . _Coerce
+listNamedShadowsForThingResponse_results :: Lens.Lens' ListNamedShadowsForThingResponse (Prelude.Maybe [Prelude.Text])
+listNamedShadowsForThingResponse_results = Lens.lens (\ListNamedShadowsForThingResponse' {results} -> results) (\s@ListNamedShadowsForThingResponse' {} a -> s {results = a} :: ListNamedShadowsForThingResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lnsftrrsResponseStatus :: Lens' ListNamedShadowsForThingResponse Int
-lnsftrrsResponseStatus = lens _lnsftrrsResponseStatus (\s a -> s {_lnsftrrsResponseStatus = a})
+-- | The response's http status code.
+listNamedShadowsForThingResponse_httpStatus :: Lens.Lens' ListNamedShadowsForThingResponse Prelude.Int
+listNamedShadowsForThingResponse_httpStatus = Lens.lens (\ListNamedShadowsForThingResponse' {httpStatus} -> httpStatus) (\s@ListNamedShadowsForThingResponse' {} a -> s {httpStatus = a} :: ListNamedShadowsForThingResponse)
 
-instance NFData ListNamedShadowsForThingResponse
+instance
+  Prelude.NFData
+    ListNamedShadowsForThingResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,134 +23,142 @@
 --
 -- Deletes the shadow for the specified thing.
 --
---
--- For more information, see <http://docs.aws.amazon.com/iot/latest/developerguide/API_DeleteThingShadow.html DeleteThingShadow> in the AWS IoT Developer Guide.
+-- For more information, see
+-- <http://docs.aws.amazon.com/iot/latest/developerguide/API_DeleteThingShadow.html DeleteThingShadow>
+-- in the AWS IoT Developer Guide.
 module Network.AWS.IoTData.DeleteThingShadow
   ( -- * Creating a Request
-    deleteThingShadow,
-    DeleteThingShadow,
+    DeleteThingShadow (..),
+    newDeleteThingShadow,
 
     -- * Request Lenses
-    dtsShadowName,
-    dtsThingName,
+    deleteThingShadow_shadowName,
+    deleteThingShadow_thingName,
 
     -- * Destructuring the Response
-    deleteThingShadowResponse,
-    DeleteThingShadowResponse,
+    DeleteThingShadowResponse (..),
+    newDeleteThingShadowResponse,
 
     -- * Response Lenses
-    dtsrrsResponseStatus,
-    dtsrrsPayload,
+    deleteThingShadowResponse_httpStatus,
+    deleteThingShadowResponse_payload,
   )
 where
 
 import Network.AWS.IoTData.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the DeleteThingShadow operation.
 --
---
---
--- /See:/ 'deleteThingShadow' smart constructor.
+-- /See:/ 'newDeleteThingShadow' smart constructor.
 data DeleteThingShadow = DeleteThingShadow'
-  { _dtsShadowName ::
-      !(Maybe Text),
-    _dtsThingName :: !Text
+  { -- | The name of the shadow.
+    shadowName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing.
+    thingName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteThingShadow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteThingShadow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtsShadowName' - The name of the shadow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtsThingName' - The name of the thing.
-deleteThingShadow ::
-  -- | 'dtsThingName'
-  Text ->
+-- 'shadowName', 'deleteThingShadow_shadowName' - The name of the shadow.
+--
+-- 'thingName', 'deleteThingShadow_thingName' - The name of the thing.
+newDeleteThingShadow ::
+  -- | 'thingName'
+  Prelude.Text ->
   DeleteThingShadow
-deleteThingShadow pThingName_ =
+newDeleteThingShadow pThingName_ =
   DeleteThingShadow'
-    { _dtsShadowName = Nothing,
-      _dtsThingName = pThingName_
+    { shadowName = Prelude.Nothing,
+      thingName = pThingName_
     }
 
 -- | The name of the shadow.
-dtsShadowName :: Lens' DeleteThingShadow (Maybe Text)
-dtsShadowName = lens _dtsShadowName (\s a -> s {_dtsShadowName = a})
+deleteThingShadow_shadowName :: Lens.Lens' DeleteThingShadow (Prelude.Maybe Prelude.Text)
+deleteThingShadow_shadowName = Lens.lens (\DeleteThingShadow' {shadowName} -> shadowName) (\s@DeleteThingShadow' {} a -> s {shadowName = a} :: DeleteThingShadow)
 
 -- | The name of the thing.
-dtsThingName :: Lens' DeleteThingShadow Text
-dtsThingName = lens _dtsThingName (\s a -> s {_dtsThingName = a})
+deleteThingShadow_thingName :: Lens.Lens' DeleteThingShadow Prelude.Text
+deleteThingShadow_thingName = Lens.lens (\DeleteThingShadow' {thingName} -> thingName) (\s@DeleteThingShadow' {} a -> s {thingName = a} :: DeleteThingShadow)
 
-instance AWSRequest DeleteThingShadow where
+instance Prelude.AWSRequest DeleteThingShadow where
   type Rs DeleteThingShadow = DeleteThingShadowResponse
-  request = delete ioTData
+  request = Request.delete defaultService
   response =
-    receiveBytes
+    Response.receiveBytes
       ( \s h x ->
           DeleteThingShadowResponse'
-            <$> (pure (fromEnum s)) <*> (pure x)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.pure x)
       )
 
-instance Hashable DeleteThingShadow
+instance Prelude.Hashable DeleteThingShadow
 
-instance NFData DeleteThingShadow
+instance Prelude.NFData DeleteThingShadow
 
-instance ToHeaders DeleteThingShadow where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteThingShadow where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteThingShadow where
+instance Prelude.ToPath DeleteThingShadow where
   toPath DeleteThingShadow' {..} =
-    mconcat ["/things/", toBS _dtsThingName, "/shadow"]
+    Prelude.mconcat
+      ["/things/", Prelude.toBS thingName, "/shadow"]
 
-instance ToQuery DeleteThingShadow where
+instance Prelude.ToQuery DeleteThingShadow where
   toQuery DeleteThingShadow' {..} =
-    mconcat ["name" =: _dtsShadowName]
+    Prelude.mconcat ["name" Prelude.=: shadowName]
 
 -- | The output from the DeleteThingShadow operation.
 --
---
---
--- /See:/ 'deleteThingShadowResponse' smart constructor.
+-- /See:/ 'newDeleteThingShadowResponse' smart constructor.
 data DeleteThingShadowResponse = DeleteThingShadowResponse'
-  { _dtsrrsResponseStatus ::
-      !Int,
-    _dtsrrsPayload ::
-      !ByteString
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The state information, in JSON format.
+    payload :: Prelude.ByteString
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteThingShadowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteThingShadowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtsrrsPayload' - The state information, in JSON format.
-deleteThingShadowResponse ::
-  -- | 'dtsrrsResponseStatus'
-  Int ->
-  -- | 'dtsrrsPayload'
-  ByteString ->
+-- 'httpStatus', 'deleteThingShadowResponse_httpStatus' - The response's http status code.
+--
+-- 'payload', 'deleteThingShadowResponse_payload' - The state information, in JSON format.
+newDeleteThingShadowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'payload'
+  Prelude.ByteString ->
   DeleteThingShadowResponse
-deleteThingShadowResponse pResponseStatus_ pPayload_ =
+newDeleteThingShadowResponse pHttpStatus_ pPayload_ =
   DeleteThingShadowResponse'
-    { _dtsrrsResponseStatus =
-        pResponseStatus_,
-      _dtsrrsPayload = pPayload_
+    { httpStatus =
+        pHttpStatus_,
+      payload = pPayload_
     }
 
--- | -- | The response status code.
-dtsrrsResponseStatus :: Lens' DeleteThingShadowResponse Int
-dtsrrsResponseStatus = lens _dtsrrsResponseStatus (\s a -> s {_dtsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteThingShadowResponse_httpStatus :: Lens.Lens' DeleteThingShadowResponse Prelude.Int
+deleteThingShadowResponse_httpStatus = Lens.lens (\DeleteThingShadowResponse' {httpStatus} -> httpStatus) (\s@DeleteThingShadowResponse' {} a -> s {httpStatus = a} :: DeleteThingShadowResponse)
 
 -- | The state information, in JSON format.
-dtsrrsPayload :: Lens' DeleteThingShadowResponse ByteString
-dtsrrsPayload = lens _dtsrrsPayload (\s a -> s {_dtsrrsPayload = a})
+deleteThingShadowResponse_payload :: Lens.Lens' DeleteThingShadowResponse Prelude.ByteString
+deleteThingShadowResponse_payload = Lens.lens (\DeleteThingShadowResponse' {payload} -> payload) (\s@DeleteThingShadowResponse' {} a -> s {payload = a} :: DeleteThingShadowResponse)
 
-instance NFData DeleteThingShadowResponse
+instance Prelude.NFData DeleteThingShadowResponse

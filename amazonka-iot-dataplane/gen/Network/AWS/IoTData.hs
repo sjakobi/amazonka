@@ -11,18 +11,26 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS IoT__
+-- AWS IoT
 --
--- AWS IoT-Data enables secure, bi-directional communication between Internet-connected things (such as sensors, actuators, embedded devices, or smart appliances) and the AWS cloud. It implements a broker for applications and things to publish messages over HTTP (Publish) and retrieve, update, and delete shadows. A shadow is a persistent representation of your things and their state in the AWS cloud.
+-- AWS IoT-Data enables secure, bi-directional communication between
+-- Internet-connected things (such as sensors, actuators, embedded devices,
+-- or smart appliances) and the AWS cloud. It implements a broker for
+-- applications and things to publish messages over HTTP (Publish) and
+-- retrieve, update, and delete shadows. A shadow is a persistent
+-- representation of your things and their state in the AWS cloud.
 --
--- Find the endpoint address for actions in the AWS IoT data plane by running this CLI command:
+-- Find the endpoint address for actions in the AWS IoT data plane by
+-- running this CLI command:
 --
 -- @aws iot describe-endpoint --endpoint-type iot:Data-ATS@
 --
--- The service name used by <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html AWS Signature Version 4> to sign requests is: /iotdevicegateway/ .
+-- The service name used by
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html AWS Signature Version 4>
+-- to sign requests is: /iotdevicegateway/.
 module Network.AWS.IoTData
   ( -- * Service Configuration
-    ioTData,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -64,19 +72,34 @@ module Network.AWS.IoTData
     -- $operations
 
     -- ** GetThingShadow
-    module Network.AWS.IoTData.GetThingShadow,
+    GetThingShadow (GetThingShadow'),
+    newGetThingShadow,
+    GetThingShadowResponse (GetThingShadowResponse'),
+    newGetThingShadowResponse,
 
     -- ** Publish
-    module Network.AWS.IoTData.Publish,
+    Publish (Publish'),
+    newPublish,
+    PublishResponse (PublishResponse'),
+    newPublishResponse,
 
     -- ** ListNamedShadowsForThing
-    module Network.AWS.IoTData.ListNamedShadowsForThing,
+    ListNamedShadowsForThing (ListNamedShadowsForThing'),
+    newListNamedShadowsForThing,
+    ListNamedShadowsForThingResponse (ListNamedShadowsForThingResponse'),
+    newListNamedShadowsForThingResponse,
 
     -- ** UpdateThingShadow
-    module Network.AWS.IoTData.UpdateThingShadow,
+    UpdateThingShadow (UpdateThingShadow'),
+    newUpdateThingShadow,
+    UpdateThingShadowResponse (UpdateThingShadowResponse'),
+    newUpdateThingShadowResponse,
 
     -- ** DeleteThingShadow
-    module Network.AWS.IoTData.DeleteThingShadow,
+    DeleteThingShadow (DeleteThingShadow'),
+    newDeleteThingShadow,
+    DeleteThingShadowResponse (DeleteThingShadowResponse'),
+    newDeleteThingShadowResponse,
 
     -- * Types
   )
@@ -84,6 +107,7 @@ where
 
 import Network.AWS.IoTData.DeleteThingShadow
 import Network.AWS.IoTData.GetThingShadow
+import Network.AWS.IoTData.Lens
 import Network.AWS.IoTData.ListNamedShadowsForThing
 import Network.AWS.IoTData.Publish
 import Network.AWS.IoTData.Types

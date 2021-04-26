@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,146 +23,155 @@
 --
 -- Updates the shadow for the specified thing.
 --
---
--- For more information, see <http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html UpdateThingShadow> in the AWS IoT Developer Guide.
+-- For more information, see
+-- <http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html UpdateThingShadow>
+-- in the AWS IoT Developer Guide.
 module Network.AWS.IoTData.UpdateThingShadow
   ( -- * Creating a Request
-    updateThingShadow,
-    UpdateThingShadow,
+    UpdateThingShadow (..),
+    newUpdateThingShadow,
 
     -- * Request Lenses
-    utsShadowName,
-    utsThingName,
-    utsPayload,
+    updateThingShadow_shadowName,
+    updateThingShadow_thingName,
+    updateThingShadow_payload,
 
     -- * Destructuring the Response
-    updateThingShadowResponse,
-    UpdateThingShadowResponse,
+    UpdateThingShadowResponse (..),
+    newUpdateThingShadowResponse,
 
     -- * Response Lenses
-    utsrrsPayload,
-    utsrrsResponseStatus,
+    updateThingShadowResponse_payload,
+    updateThingShadowResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTData.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the UpdateThingShadow operation.
 --
---
---
--- /See:/ 'updateThingShadow' smart constructor.
+-- /See:/ 'newUpdateThingShadow' smart constructor.
 data UpdateThingShadow = UpdateThingShadow'
-  { _utsShadowName ::
-      !(Maybe Text),
-    _utsThingName :: !Text,
-    _utsPayload :: !ByteString
+  { -- | The name of the shadow.
+    shadowName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing.
+    thingName :: Prelude.Text,
+    -- | The state information, in JSON format.
+    payload :: Prelude.ByteString
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateThingShadow' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateThingShadow' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utsShadowName' - The name of the shadow.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utsThingName' - The name of the thing.
+-- 'shadowName', 'updateThingShadow_shadowName' - The name of the shadow.
 --
--- * 'utsPayload' - The state information, in JSON format.
-updateThingShadow ::
-  -- | 'utsThingName'
-  Text ->
-  -- | 'utsPayload'
-  ByteString ->
+-- 'thingName', 'updateThingShadow_thingName' - The name of the thing.
+--
+-- 'payload', 'updateThingShadow_payload' - The state information, in JSON format.
+newUpdateThingShadow ::
+  -- | 'thingName'
+  Prelude.Text ->
+  -- | 'payload'
+  Prelude.ByteString ->
   UpdateThingShadow
-updateThingShadow pThingName_ pPayload_ =
+newUpdateThingShadow pThingName_ pPayload_ =
   UpdateThingShadow'
-    { _utsShadowName = Nothing,
-      _utsThingName = pThingName_,
-      _utsPayload = pPayload_
+    { shadowName = Prelude.Nothing,
+      thingName = pThingName_,
+      payload = pPayload_
     }
 
 -- | The name of the shadow.
-utsShadowName :: Lens' UpdateThingShadow (Maybe Text)
-utsShadowName = lens _utsShadowName (\s a -> s {_utsShadowName = a})
+updateThingShadow_shadowName :: Lens.Lens' UpdateThingShadow (Prelude.Maybe Prelude.Text)
+updateThingShadow_shadowName = Lens.lens (\UpdateThingShadow' {shadowName} -> shadowName) (\s@UpdateThingShadow' {} a -> s {shadowName = a} :: UpdateThingShadow)
 
 -- | The name of the thing.
-utsThingName :: Lens' UpdateThingShadow Text
-utsThingName = lens _utsThingName (\s a -> s {_utsThingName = a})
+updateThingShadow_thingName :: Lens.Lens' UpdateThingShadow Prelude.Text
+updateThingShadow_thingName = Lens.lens (\UpdateThingShadow' {thingName} -> thingName) (\s@UpdateThingShadow' {} a -> s {thingName = a} :: UpdateThingShadow)
 
 -- | The state information, in JSON format.
-utsPayload :: Lens' UpdateThingShadow ByteString
-utsPayload = lens _utsPayload (\s a -> s {_utsPayload = a})
+updateThingShadow_payload :: Lens.Lens' UpdateThingShadow Prelude.ByteString
+updateThingShadow_payload = Lens.lens (\UpdateThingShadow' {payload} -> payload) (\s@UpdateThingShadow' {} a -> s {payload = a} :: UpdateThingShadow)
 
-instance AWSRequest UpdateThingShadow where
+instance Prelude.AWSRequest UpdateThingShadow where
   type Rs UpdateThingShadow = UpdateThingShadowResponse
-  request = postBody ioTData
+  request = Request.postBody defaultService
   response =
-    receiveBytes
+    Response.receiveBytes
       ( \s h x ->
           UpdateThingShadowResponse'
-            <$> (pure (Just x)) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.Just x))
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateThingShadow
+instance Prelude.Hashable UpdateThingShadow
 
-instance NFData UpdateThingShadow
+instance Prelude.NFData UpdateThingShadow
 
-instance ToBody UpdateThingShadow where
-  toBody = toBody . _utsPayload
+instance Prelude.ToBody UpdateThingShadow where
+  toBody = Prelude.toBody Prelude.. payload
 
-instance ToHeaders UpdateThingShadow where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateThingShadow where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateThingShadow where
+instance Prelude.ToPath UpdateThingShadow where
   toPath UpdateThingShadow' {..} =
-    mconcat ["/things/", toBS _utsThingName, "/shadow"]
+    Prelude.mconcat
+      ["/things/", Prelude.toBS thingName, "/shadow"]
 
-instance ToQuery UpdateThingShadow where
+instance Prelude.ToQuery UpdateThingShadow where
   toQuery UpdateThingShadow' {..} =
-    mconcat ["name" =: _utsShadowName]
+    Prelude.mconcat ["name" Prelude.=: shadowName]
 
 -- | The output from the UpdateThingShadow operation.
 --
---
---
--- /See:/ 'updateThingShadowResponse' smart constructor.
+-- /See:/ 'newUpdateThingShadowResponse' smart constructor.
 data UpdateThingShadowResponse = UpdateThingShadowResponse'
-  { _utsrrsPayload ::
-      !(Maybe ByteString),
-    _utsrrsResponseStatus ::
-      !Int
+  { -- | The state information, in JSON format.
+    payload :: Prelude.Maybe Prelude.ByteString,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateThingShadowResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateThingShadowResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utsrrsPayload' - The state information, in JSON format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utsrrsResponseStatus' - -- | The response status code.
-updateThingShadowResponse ::
-  -- | 'utsrrsResponseStatus'
-  Int ->
+-- 'payload', 'updateThingShadowResponse_payload' - The state information, in JSON format.
+--
+-- 'httpStatus', 'updateThingShadowResponse_httpStatus' - The response's http status code.
+newUpdateThingShadowResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateThingShadowResponse
-updateThingShadowResponse pResponseStatus_ =
+newUpdateThingShadowResponse pHttpStatus_ =
   UpdateThingShadowResponse'
-    { _utsrrsPayload =
-        Nothing,
-      _utsrrsResponseStatus = pResponseStatus_
+    { payload =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The state information, in JSON format.
-utsrrsPayload :: Lens' UpdateThingShadowResponse (Maybe ByteString)
-utsrrsPayload = lens _utsrrsPayload (\s a -> s {_utsrrsPayload = a})
+updateThingShadowResponse_payload :: Lens.Lens' UpdateThingShadowResponse (Prelude.Maybe Prelude.ByteString)
+updateThingShadowResponse_payload = Lens.lens (\UpdateThingShadowResponse' {payload} -> payload) (\s@UpdateThingShadowResponse' {} a -> s {payload = a} :: UpdateThingShadowResponse)
 
--- | -- | The response status code.
-utsrrsResponseStatus :: Lens' UpdateThingShadowResponse Int
-utsrrsResponseStatus = lens _utsrrsResponseStatus (\s a -> s {_utsrrsResponseStatus = a})
+-- | The response's http status code.
+updateThingShadowResponse_httpStatus :: Lens.Lens' UpdateThingShadowResponse Prelude.Int
+updateThingShadowResponse_httpStatus = Lens.lens (\UpdateThingShadowResponse' {httpStatus} -> httpStatus) (\s@UpdateThingShadowResponse' {} a -> s {httpStatus = a} :: UpdateThingShadowResponse)
 
-instance NFData UpdateThingShadowResponse
+instance Prelude.NFData UpdateThingShadowResponse
