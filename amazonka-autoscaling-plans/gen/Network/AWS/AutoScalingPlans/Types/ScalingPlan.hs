@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,120 +22,185 @@ module Network.AWS.AutoScalingPlans.Types.ScalingPlan where
 import Network.AWS.AutoScalingPlans.Types.ApplicationSource
 import Network.AWS.AutoScalingPlans.Types.ScalingInstruction
 import Network.AWS.AutoScalingPlans.Types.ScalingPlanStatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a scaling plan.
 --
---
---
--- /See:/ 'scalingPlan' smart constructor.
+-- /See:/ 'newScalingPlan' smart constructor.
 data ScalingPlan = ScalingPlan'
-  { _spStatusMessage ::
-      !(Maybe Text),
-    _spCreationTime :: !(Maybe POSIX),
-    _spStatusStartTime :: !(Maybe POSIX),
-    _spScalingPlanName :: !Text,
-    _spScalingPlanVersion :: !Integer,
-    _spApplicationSource :: !ApplicationSource,
-    _spScalingInstructions :: ![ScalingInstruction],
-    _spStatusCode :: !ScalingPlanStatusCode
+  { -- | A simple message about the current status of the scaling plan.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The Unix time stamp when the scaling plan was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Unix time stamp when the scaling plan entered the current status.
+    statusStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the scaling plan.
+    scalingPlanName :: Prelude.Text,
+    -- | The version number of the scaling plan.
+    scalingPlanVersion :: Prelude.Integer,
+    -- | A CloudFormation stack or a set of tags. You can create one scaling plan
+    -- per application source.
+    applicationSource :: ApplicationSource,
+    -- | The scaling instructions.
+    scalingInstructions :: [ScalingInstruction],
+    -- | The status of the scaling plan.
+    --
+    -- -   @Active@ - The scaling plan is active.
+    --
+    -- -   @ActiveWithProblems@ - The scaling plan is active, but the scaling
+    --     configuration for one or more resources could not be applied.
+    --
+    -- -   @CreationInProgress@ - The scaling plan is being created.
+    --
+    -- -   @CreationFailed@ - The scaling plan could not be created.
+    --
+    -- -   @DeletionInProgress@ - The scaling plan is being deleted.
+    --
+    -- -   @DeletionFailed@ - The scaling plan could not be deleted.
+    --
+    -- -   @UpdateInProgress@ - The scaling plan is being updated.
+    --
+    -- -   @UpdateFailed@ - The scaling plan could not be updated.
+    statusCode :: ScalingPlanStatusCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScalingPlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScalingPlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spStatusMessage' - A simple message about the current status of the scaling plan.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spCreationTime' - The Unix time stamp when the scaling plan was created.
+-- 'statusMessage', 'scalingPlan_statusMessage' - A simple message about the current status of the scaling plan.
 --
--- * 'spStatusStartTime' - The Unix time stamp when the scaling plan entered the current status.
+-- 'creationTime', 'scalingPlan_creationTime' - The Unix time stamp when the scaling plan was created.
 --
--- * 'spScalingPlanName' - The name of the scaling plan.
+-- 'statusStartTime', 'scalingPlan_statusStartTime' - The Unix time stamp when the scaling plan entered the current status.
 --
--- * 'spScalingPlanVersion' - The version number of the scaling plan.
+-- 'scalingPlanName', 'scalingPlan_scalingPlanName' - The name of the scaling plan.
 --
--- * 'spApplicationSource' - A CloudFormation stack or a set of tags. You can create one scaling plan per application source.
+-- 'scalingPlanVersion', 'scalingPlan_scalingPlanVersion' - The version number of the scaling plan.
 --
--- * 'spScalingInstructions' - The scaling instructions.
+-- 'applicationSource', 'scalingPlan_applicationSource' - A CloudFormation stack or a set of tags. You can create one scaling plan
+-- per application source.
 --
--- * 'spStatusCode' - The status of the scaling plan.     * @Active@ - The scaling plan is active.     * @ActiveWithProblems@ - The scaling plan is active, but the scaling configuration for one or more resources could not be applied.     * @CreationInProgress@ - The scaling plan is being created.     * @CreationFailed@ - The scaling plan could not be created.     * @DeletionInProgress@ - The scaling plan is being deleted.     * @DeletionFailed@ - The scaling plan could not be deleted.     * @UpdateInProgress@ - The scaling plan is being updated.     * @UpdateFailed@ - The scaling plan could not be updated.
-scalingPlan ::
-  -- | 'spScalingPlanName'
-  Text ->
-  -- | 'spScalingPlanVersion'
-  Integer ->
-  -- | 'spApplicationSource'
+-- 'scalingInstructions', 'scalingPlan_scalingInstructions' - The scaling instructions.
+--
+-- 'statusCode', 'scalingPlan_statusCode' - The status of the scaling plan.
+--
+-- -   @Active@ - The scaling plan is active.
+--
+-- -   @ActiveWithProblems@ - The scaling plan is active, but the scaling
+--     configuration for one or more resources could not be applied.
+--
+-- -   @CreationInProgress@ - The scaling plan is being created.
+--
+-- -   @CreationFailed@ - The scaling plan could not be created.
+--
+-- -   @DeletionInProgress@ - The scaling plan is being deleted.
+--
+-- -   @DeletionFailed@ - The scaling plan could not be deleted.
+--
+-- -   @UpdateInProgress@ - The scaling plan is being updated.
+--
+-- -   @UpdateFailed@ - The scaling plan could not be updated.
+newScalingPlan ::
+  -- | 'scalingPlanName'
+  Prelude.Text ->
+  -- | 'scalingPlanVersion'
+  Prelude.Integer ->
+  -- | 'applicationSource'
   ApplicationSource ->
-  -- | 'spStatusCode'
+  -- | 'statusCode'
   ScalingPlanStatusCode ->
   ScalingPlan
-scalingPlan
+newScalingPlan
   pScalingPlanName_
   pScalingPlanVersion_
   pApplicationSource_
   pStatusCode_ =
     ScalingPlan'
-      { _spStatusMessage = Nothing,
-        _spCreationTime = Nothing,
-        _spStatusStartTime = Nothing,
-        _spScalingPlanName = pScalingPlanName_,
-        _spScalingPlanVersion = pScalingPlanVersion_,
-        _spApplicationSource = pApplicationSource_,
-        _spScalingInstructions = mempty,
-        _spStatusCode = pStatusCode_
+      { statusMessage = Prelude.Nothing,
+        creationTime = Prelude.Nothing,
+        statusStartTime = Prelude.Nothing,
+        scalingPlanName = pScalingPlanName_,
+        scalingPlanVersion = pScalingPlanVersion_,
+        applicationSource = pApplicationSource_,
+        scalingInstructions = Prelude.mempty,
+        statusCode = pStatusCode_
       }
 
 -- | A simple message about the current status of the scaling plan.
-spStatusMessage :: Lens' ScalingPlan (Maybe Text)
-spStatusMessage = lens _spStatusMessage (\s a -> s {_spStatusMessage = a})
+scalingPlan_statusMessage :: Lens.Lens' ScalingPlan (Prelude.Maybe Prelude.Text)
+scalingPlan_statusMessage = Lens.lens (\ScalingPlan' {statusMessage} -> statusMessage) (\s@ScalingPlan' {} a -> s {statusMessage = a} :: ScalingPlan)
 
 -- | The Unix time stamp when the scaling plan was created.
-spCreationTime :: Lens' ScalingPlan (Maybe UTCTime)
-spCreationTime = lens _spCreationTime (\s a -> s {_spCreationTime = a}) . mapping _Time
+scalingPlan_creationTime :: Lens.Lens' ScalingPlan (Prelude.Maybe Prelude.UTCTime)
+scalingPlan_creationTime = Lens.lens (\ScalingPlan' {creationTime} -> creationTime) (\s@ScalingPlan' {} a -> s {creationTime = a} :: ScalingPlan) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Unix time stamp when the scaling plan entered the current status.
-spStatusStartTime :: Lens' ScalingPlan (Maybe UTCTime)
-spStatusStartTime = lens _spStatusStartTime (\s a -> s {_spStatusStartTime = a}) . mapping _Time
+scalingPlan_statusStartTime :: Lens.Lens' ScalingPlan (Prelude.Maybe Prelude.UTCTime)
+scalingPlan_statusStartTime = Lens.lens (\ScalingPlan' {statusStartTime} -> statusStartTime) (\s@ScalingPlan' {} a -> s {statusStartTime = a} :: ScalingPlan) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the scaling plan.
-spScalingPlanName :: Lens' ScalingPlan Text
-spScalingPlanName = lens _spScalingPlanName (\s a -> s {_spScalingPlanName = a})
+scalingPlan_scalingPlanName :: Lens.Lens' ScalingPlan Prelude.Text
+scalingPlan_scalingPlanName = Lens.lens (\ScalingPlan' {scalingPlanName} -> scalingPlanName) (\s@ScalingPlan' {} a -> s {scalingPlanName = a} :: ScalingPlan)
 
 -- | The version number of the scaling plan.
-spScalingPlanVersion :: Lens' ScalingPlan Integer
-spScalingPlanVersion = lens _spScalingPlanVersion (\s a -> s {_spScalingPlanVersion = a})
+scalingPlan_scalingPlanVersion :: Lens.Lens' ScalingPlan Prelude.Integer
+scalingPlan_scalingPlanVersion = Lens.lens (\ScalingPlan' {scalingPlanVersion} -> scalingPlanVersion) (\s@ScalingPlan' {} a -> s {scalingPlanVersion = a} :: ScalingPlan)
 
--- | A CloudFormation stack or a set of tags. You can create one scaling plan per application source.
-spApplicationSource :: Lens' ScalingPlan ApplicationSource
-spApplicationSource = lens _spApplicationSource (\s a -> s {_spApplicationSource = a})
+-- | A CloudFormation stack or a set of tags. You can create one scaling plan
+-- per application source.
+scalingPlan_applicationSource :: Lens.Lens' ScalingPlan ApplicationSource
+scalingPlan_applicationSource = Lens.lens (\ScalingPlan' {applicationSource} -> applicationSource) (\s@ScalingPlan' {} a -> s {applicationSource = a} :: ScalingPlan)
 
 -- | The scaling instructions.
-spScalingInstructions :: Lens' ScalingPlan [ScalingInstruction]
-spScalingInstructions = lens _spScalingInstructions (\s a -> s {_spScalingInstructions = a}) . _Coerce
+scalingPlan_scalingInstructions :: Lens.Lens' ScalingPlan [ScalingInstruction]
+scalingPlan_scalingInstructions = Lens.lens (\ScalingPlan' {scalingInstructions} -> scalingInstructions) (\s@ScalingPlan' {} a -> s {scalingInstructions = a} :: ScalingPlan) Prelude.. Prelude._Coerce
 
--- | The status of the scaling plan.     * @Active@ - The scaling plan is active.     * @ActiveWithProblems@ - The scaling plan is active, but the scaling configuration for one or more resources could not be applied.     * @CreationInProgress@ - The scaling plan is being created.     * @CreationFailed@ - The scaling plan could not be created.     * @DeletionInProgress@ - The scaling plan is being deleted.     * @DeletionFailed@ - The scaling plan could not be deleted.     * @UpdateInProgress@ - The scaling plan is being updated.     * @UpdateFailed@ - The scaling plan could not be updated.
-spStatusCode :: Lens' ScalingPlan ScalingPlanStatusCode
-spStatusCode = lens _spStatusCode (\s a -> s {_spStatusCode = a})
+-- | The status of the scaling plan.
+--
+-- -   @Active@ - The scaling plan is active.
+--
+-- -   @ActiveWithProblems@ - The scaling plan is active, but the scaling
+--     configuration for one or more resources could not be applied.
+--
+-- -   @CreationInProgress@ - The scaling plan is being created.
+--
+-- -   @CreationFailed@ - The scaling plan could not be created.
+--
+-- -   @DeletionInProgress@ - The scaling plan is being deleted.
+--
+-- -   @DeletionFailed@ - The scaling plan could not be deleted.
+--
+-- -   @UpdateInProgress@ - The scaling plan is being updated.
+--
+-- -   @UpdateFailed@ - The scaling plan could not be updated.
+scalingPlan_statusCode :: Lens.Lens' ScalingPlan ScalingPlanStatusCode
+scalingPlan_statusCode = Lens.lens (\ScalingPlan' {statusCode} -> statusCode) (\s@ScalingPlan' {} a -> s {statusCode = a} :: ScalingPlan)
 
-instance FromJSON ScalingPlan where
+instance Prelude.FromJSON ScalingPlan where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ScalingPlan"
       ( \x ->
           ScalingPlan'
-            <$> (x .:? "StatusMessage")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "StatusStartTime")
-            <*> (x .: "ScalingPlanName")
-            <*> (x .: "ScalingPlanVersion")
-            <*> (x .: "ApplicationSource")
-            <*> (x .:? "ScalingInstructions" .!= mempty)
-            <*> (x .: "StatusCode")
+            Prelude.<$> (x Prelude..:? "StatusMessage")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "StatusStartTime")
+            Prelude.<*> (x Prelude..: "ScalingPlanName")
+            Prelude.<*> (x Prelude..: "ScalingPlanVersion")
+            Prelude.<*> (x Prelude..: "ApplicationSource")
+            Prelude.<*> ( x Prelude..:? "ScalingInstructions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "StatusCode")
       )
 
-instance Hashable ScalingPlan
+instance Prelude.Hashable ScalingPlan
 
-instance NFData ScalingPlan
+instance Prelude.NFData ScalingPlan

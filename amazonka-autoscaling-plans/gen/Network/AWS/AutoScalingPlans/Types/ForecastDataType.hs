@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.AutoScalingPlans.Types.ForecastDataType
   ( ForecastDataType
       ( ..,
-        CapacityForecast,
-        LoadForecast,
-        ScheduledActionMaxCapacity,
-        ScheduledActionMinCapacity
+        ForecastDataTypeCapacityForecast,
+        ForecastDataTypeLoadForecast,
+        ForecastDataTypeScheduledActionMaxCapacity,
+        ForecastDataTypeScheduledActionMinCapacity
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ForecastDataType = ForecastDataType' (CI Text)
+newtype ForecastDataType = ForecastDataType'
+  { fromForecastDataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CapacityForecast :: ForecastDataType
-pattern CapacityForecast = ForecastDataType' "CapacityForecast"
+pattern ForecastDataTypeCapacityForecast :: ForecastDataType
+pattern ForecastDataTypeCapacityForecast = ForecastDataType' "CapacityForecast"
 
-pattern LoadForecast :: ForecastDataType
-pattern LoadForecast = ForecastDataType' "LoadForecast"
+pattern ForecastDataTypeLoadForecast :: ForecastDataType
+pattern ForecastDataTypeLoadForecast = ForecastDataType' "LoadForecast"
 
-pattern ScheduledActionMaxCapacity :: ForecastDataType
-pattern ScheduledActionMaxCapacity = ForecastDataType' "ScheduledActionMaxCapacity"
+pattern ForecastDataTypeScheduledActionMaxCapacity :: ForecastDataType
+pattern ForecastDataTypeScheduledActionMaxCapacity = ForecastDataType' "ScheduledActionMaxCapacity"
 
-pattern ScheduledActionMinCapacity :: ForecastDataType
-pattern ScheduledActionMinCapacity = ForecastDataType' "ScheduledActionMinCapacity"
+pattern ForecastDataTypeScheduledActionMinCapacity :: ForecastDataType
+pattern ForecastDataTypeScheduledActionMinCapacity = ForecastDataType' "ScheduledActionMinCapacity"
 
 {-# COMPLETE
-  CapacityForecast,
-  LoadForecast,
-  ScheduledActionMaxCapacity,
-  ScheduledActionMinCapacity,
+  ForecastDataTypeCapacityForecast,
+  ForecastDataTypeLoadForecast,
+  ForecastDataTypeScheduledActionMaxCapacity,
+  ForecastDataTypeScheduledActionMinCapacity,
   ForecastDataType'
   #-}
 
-instance FromText ForecastDataType where
-  parser = (ForecastDataType' . mk) <$> takeText
+instance Prelude.FromText ForecastDataType where
+  parser = ForecastDataType' Prelude.<$> Prelude.takeText
 
-instance ToText ForecastDataType where
-  toText (ForecastDataType' ci) = original ci
+instance Prelude.ToText ForecastDataType where
+  toText (ForecastDataType' x) = x
 
-instance Hashable ForecastDataType
+instance Prelude.Hashable ForecastDataType
 
-instance NFData ForecastDataType
+instance Prelude.NFData ForecastDataType
 
-instance ToByteString ForecastDataType
+instance Prelude.ToByteString ForecastDataType
 
-instance ToQuery ForecastDataType
+instance Prelude.ToQuery ForecastDataType
 
-instance ToHeader ForecastDataType
+instance Prelude.ToHeader ForecastDataType
 
-instance ToJSON ForecastDataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ForecastDataType where
+  toJSON = Prelude.toJSONText

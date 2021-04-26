@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,207 @@
 -- Creates a scaling plan.
 module Network.AWS.AutoScalingPlans.CreateScalingPlan
   ( -- * Creating a Request
-    createScalingPlan,
-    CreateScalingPlan,
+    CreateScalingPlan (..),
+    newCreateScalingPlan,
 
     -- * Request Lenses
-    cspScalingPlanName,
-    cspApplicationSource,
-    cspScalingInstructions,
+    createScalingPlan_scalingPlanName,
+    createScalingPlan_applicationSource,
+    createScalingPlan_scalingInstructions,
 
     -- * Destructuring the Response
-    createScalingPlanResponse,
-    CreateScalingPlanResponse,
+    CreateScalingPlanResponse (..),
+    newCreateScalingPlanResponse,
 
     -- * Response Lenses
-    csprrsResponseStatus,
-    csprrsScalingPlanVersion,
+    createScalingPlanResponse_httpStatus,
+    createScalingPlanResponse_scalingPlanVersion,
   )
 where
 
 import Network.AWS.AutoScalingPlans.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createScalingPlan' smart constructor.
+-- | /See:/ 'newCreateScalingPlan' smart constructor.
 data CreateScalingPlan = CreateScalingPlan'
-  { _cspScalingPlanName ::
-      !Text,
-    _cspApplicationSource ::
-      !ApplicationSource,
-    _cspScalingInstructions ::
-      ![ScalingInstruction]
+  { -- | The name of the scaling plan. Names cannot contain vertical bars,
+    -- colons, or forward slashes.
+    scalingPlanName :: Prelude.Text,
+    -- | A CloudFormation stack or set of tags. You can create one scaling plan
+    -- per application source.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource>
+    -- in the /AWS Auto Scaling API Reference/.
+    applicationSource :: ApplicationSource,
+    -- | The scaling instructions.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction>
+    -- in the /AWS Auto Scaling API Reference/.
+    scalingInstructions :: [ScalingInstruction]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateScalingPlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateScalingPlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cspScalingPlanName' - The name of the scaling plan. Names cannot contain vertical bars, colons, or forward slashes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cspApplicationSource' - A CloudFormation stack or set of tags. You can create one scaling plan per application source. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource> in the /AWS Auto Scaling API Reference/ .
+-- 'scalingPlanName', 'createScalingPlan_scalingPlanName' - The name of the scaling plan. Names cannot contain vertical bars,
+-- colons, or forward slashes.
 --
--- * 'cspScalingInstructions' - The scaling instructions. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction> in the /AWS Auto Scaling API Reference/ .
-createScalingPlan ::
-  -- | 'cspScalingPlanName'
-  Text ->
-  -- | 'cspApplicationSource'
+-- 'applicationSource', 'createScalingPlan_applicationSource' - A CloudFormation stack or set of tags. You can create one scaling plan
+-- per application source.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource>
+-- in the /AWS Auto Scaling API Reference/.
+--
+-- 'scalingInstructions', 'createScalingPlan_scalingInstructions' - The scaling instructions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction>
+-- in the /AWS Auto Scaling API Reference/.
+newCreateScalingPlan ::
+  -- | 'scalingPlanName'
+  Prelude.Text ->
+  -- | 'applicationSource'
   ApplicationSource ->
   CreateScalingPlan
-createScalingPlan
+newCreateScalingPlan
   pScalingPlanName_
   pApplicationSource_ =
     CreateScalingPlan'
-      { _cspScalingPlanName =
+      { scalingPlanName =
           pScalingPlanName_,
-        _cspApplicationSource = pApplicationSource_,
-        _cspScalingInstructions = mempty
+        applicationSource = pApplicationSource_,
+        scalingInstructions = Prelude.mempty
       }
 
--- | The name of the scaling plan. Names cannot contain vertical bars, colons, or forward slashes.
-cspScalingPlanName :: Lens' CreateScalingPlan Text
-cspScalingPlanName = lens _cspScalingPlanName (\s a -> s {_cspScalingPlanName = a})
+-- | The name of the scaling plan. Names cannot contain vertical bars,
+-- colons, or forward slashes.
+createScalingPlan_scalingPlanName :: Lens.Lens' CreateScalingPlan Prelude.Text
+createScalingPlan_scalingPlanName = Lens.lens (\CreateScalingPlan' {scalingPlanName} -> scalingPlanName) (\s@CreateScalingPlan' {} a -> s {scalingPlanName = a} :: CreateScalingPlan)
 
--- | A CloudFormation stack or set of tags. You can create one scaling plan per application source. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource> in the /AWS Auto Scaling API Reference/ .
-cspApplicationSource :: Lens' CreateScalingPlan ApplicationSource
-cspApplicationSource = lens _cspApplicationSource (\s a -> s {_cspApplicationSource = a})
+-- | A CloudFormation stack or set of tags. You can create one scaling plan
+-- per application source.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource>
+-- in the /AWS Auto Scaling API Reference/.
+createScalingPlan_applicationSource :: Lens.Lens' CreateScalingPlan ApplicationSource
+createScalingPlan_applicationSource = Lens.lens (\CreateScalingPlan' {applicationSource} -> applicationSource) (\s@CreateScalingPlan' {} a -> s {applicationSource = a} :: CreateScalingPlan)
 
--- | The scaling instructions. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction> in the /AWS Auto Scaling API Reference/ .
-cspScalingInstructions :: Lens' CreateScalingPlan [ScalingInstruction]
-cspScalingInstructions = lens _cspScalingInstructions (\s a -> s {_cspScalingInstructions = a}) . _Coerce
+-- | The scaling instructions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction>
+-- in the /AWS Auto Scaling API Reference/.
+createScalingPlan_scalingInstructions :: Lens.Lens' CreateScalingPlan [ScalingInstruction]
+createScalingPlan_scalingInstructions = Lens.lens (\CreateScalingPlan' {scalingInstructions} -> scalingInstructions) (\s@CreateScalingPlan' {} a -> s {scalingInstructions = a} :: CreateScalingPlan) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateScalingPlan where
+instance Prelude.AWSRequest CreateScalingPlan where
   type Rs CreateScalingPlan = CreateScalingPlanResponse
-  request = postJSON autoScalingPlans
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateScalingPlanResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "ScalingPlanVersion")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ScalingPlanVersion")
       )
 
-instance Hashable CreateScalingPlan
+instance Prelude.Hashable CreateScalingPlan
 
-instance NFData CreateScalingPlan
+instance Prelude.NFData CreateScalingPlan
 
-instance ToHeaders CreateScalingPlan where
+instance Prelude.ToHeaders CreateScalingPlan where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AnyScaleScalingPlannerFrontendService.CreateScalingPlan" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AnyScaleScalingPlannerFrontendService.CreateScalingPlan" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateScalingPlan where
+instance Prelude.ToJSON CreateScalingPlan where
   toJSON CreateScalingPlan' {..} =
-    object
-      ( catMaybes
-          [ Just ("ScalingPlanName" .= _cspScalingPlanName),
-            Just ("ApplicationSource" .= _cspApplicationSource),
-            Just
-              ("ScalingInstructions" .= _cspScalingInstructions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ScalingPlanName" Prelude..= scalingPlanName),
+            Prelude.Just
+              ("ApplicationSource" Prelude..= applicationSource),
+            Prelude.Just
+              ( "ScalingInstructions"
+                  Prelude..= scalingInstructions
+              )
           ]
       )
 
-instance ToPath CreateScalingPlan where
-  toPath = const "/"
+instance Prelude.ToPath CreateScalingPlan where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateScalingPlan where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateScalingPlan where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createScalingPlanResponse' smart constructor.
+-- | /See:/ 'newCreateScalingPlanResponse' smart constructor.
 data CreateScalingPlanResponse = CreateScalingPlanResponse'
-  { _csprrsResponseStatus ::
-      !Int,
-    _csprrsScalingPlanVersion ::
-      !Integer
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The version number of the scaling plan. This value is always @1@.
+    -- Currently, you cannot have multiple scaling plan versions.
+    scalingPlanVersion :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateScalingPlanResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateScalingPlanResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csprrsScalingPlanVersion' - The version number of the scaling plan. This value is always @1@ . Currently, you cannot have multiple scaling plan versions.
-createScalingPlanResponse ::
-  -- | 'csprrsResponseStatus'
-  Int ->
-  -- | 'csprrsScalingPlanVersion'
-  Integer ->
+-- 'httpStatus', 'createScalingPlanResponse_httpStatus' - The response's http status code.
+--
+-- 'scalingPlanVersion', 'createScalingPlanResponse_scalingPlanVersion' - The version number of the scaling plan. This value is always @1@.
+-- Currently, you cannot have multiple scaling plan versions.
+newCreateScalingPlanResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'scalingPlanVersion'
+  Prelude.Integer ->
   CreateScalingPlanResponse
-createScalingPlanResponse
-  pResponseStatus_
+newCreateScalingPlanResponse
+  pHttpStatus_
   pScalingPlanVersion_ =
     CreateScalingPlanResponse'
-      { _csprrsResponseStatus =
-          pResponseStatus_,
-        _csprrsScalingPlanVersion = pScalingPlanVersion_
+      { httpStatus =
+          pHttpStatus_,
+        scalingPlanVersion = pScalingPlanVersion_
       }
 
--- | -- | The response status code.
-csprrsResponseStatus :: Lens' CreateScalingPlanResponse Int
-csprrsResponseStatus = lens _csprrsResponseStatus (\s a -> s {_csprrsResponseStatus = a})
+-- | The response's http status code.
+createScalingPlanResponse_httpStatus :: Lens.Lens' CreateScalingPlanResponse Prelude.Int
+createScalingPlanResponse_httpStatus = Lens.lens (\CreateScalingPlanResponse' {httpStatus} -> httpStatus) (\s@CreateScalingPlanResponse' {} a -> s {httpStatus = a} :: CreateScalingPlanResponse)
 
--- | The version number of the scaling plan. This value is always @1@ . Currently, you cannot have multiple scaling plan versions.
-csprrsScalingPlanVersion :: Lens' CreateScalingPlanResponse Integer
-csprrsScalingPlanVersion = lens _csprrsScalingPlanVersion (\s a -> s {_csprrsScalingPlanVersion = a})
+-- | The version number of the scaling plan. This value is always @1@.
+-- Currently, you cannot have multiple scaling plan versions.
+createScalingPlanResponse_scalingPlanVersion :: Lens.Lens' CreateScalingPlanResponse Prelude.Integer
+createScalingPlanResponse_scalingPlanVersion = Lens.lens (\CreateScalingPlanResponse' {scalingPlanVersion} -> scalingPlanVersion) (\s@CreateScalingPlanResponse' {} a -> s {scalingPlanVersion = a} :: CreateScalingPlanResponse)
 
-instance NFData CreateScalingPlanResponse
+instance Prelude.NFData CreateScalingPlanResponse

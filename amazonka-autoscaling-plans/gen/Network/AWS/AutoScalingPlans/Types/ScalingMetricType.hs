@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,111 +19,113 @@
 module Network.AWS.AutoScalingPlans.Types.ScalingMetricType
   ( ScalingMetricType
       ( ..,
-        ALBRequestCountPerTarget,
-        ASGAverageCPUUtilization,
-        ASGAverageNetworkIn,
-        ASGAverageNetworkOut,
-        DynamoDBReadCapacityUtilization,
-        DynamoDBWriteCapacityUtilization,
-        EC2SpotFleetRequestAverageCPUUtilization,
-        EC2SpotFleetRequestAverageNetworkIn,
-        EC2SpotFleetRequestAverageNetworkOut,
-        ECSServiceAverageCPUUtilization,
-        ECSServiceAverageMemoryUtilization,
-        RDSReaderAverageCPUUtilization,
-        RDSReaderAverageDatabaseConnections
+        ScalingMetricTypeALBRequestCountPerTarget,
+        ScalingMetricTypeASGAverageCPUUtilization,
+        ScalingMetricTypeASGAverageNetworkIn,
+        ScalingMetricTypeASGAverageNetworkOut,
+        ScalingMetricTypeDynamoDBReadCapacityUtilization,
+        ScalingMetricTypeDynamoDBWriteCapacityUtilization,
+        ScalingMetricTypeEC2SpotFleetRequestAverageCPUUtilization,
+        ScalingMetricTypeEC2SpotFleetRequestAverageNetworkIn,
+        ScalingMetricTypeEC2SpotFleetRequestAverageNetworkOut,
+        ScalingMetricTypeECSServiceAverageCPUUtilization,
+        ScalingMetricTypeECSServiceAverageMemoryUtilization,
+        ScalingMetricTypeRDSReaderAverageCPUUtilization,
+        ScalingMetricTypeRDSReaderAverageDatabaseConnections
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingMetricType = ScalingMetricType' (CI Text)
+newtype ScalingMetricType = ScalingMetricType'
+  { fromScalingMetricType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ALBRequestCountPerTarget :: ScalingMetricType
-pattern ALBRequestCountPerTarget = ScalingMetricType' "ALBRequestCountPerTarget"
+pattern ScalingMetricTypeALBRequestCountPerTarget :: ScalingMetricType
+pattern ScalingMetricTypeALBRequestCountPerTarget = ScalingMetricType' "ALBRequestCountPerTarget"
 
-pattern ASGAverageCPUUtilization :: ScalingMetricType
-pattern ASGAverageCPUUtilization = ScalingMetricType' "ASGAverageCPUUtilization"
+pattern ScalingMetricTypeASGAverageCPUUtilization :: ScalingMetricType
+pattern ScalingMetricTypeASGAverageCPUUtilization = ScalingMetricType' "ASGAverageCPUUtilization"
 
-pattern ASGAverageNetworkIn :: ScalingMetricType
-pattern ASGAverageNetworkIn = ScalingMetricType' "ASGAverageNetworkIn"
+pattern ScalingMetricTypeASGAverageNetworkIn :: ScalingMetricType
+pattern ScalingMetricTypeASGAverageNetworkIn = ScalingMetricType' "ASGAverageNetworkIn"
 
-pattern ASGAverageNetworkOut :: ScalingMetricType
-pattern ASGAverageNetworkOut = ScalingMetricType' "ASGAverageNetworkOut"
+pattern ScalingMetricTypeASGAverageNetworkOut :: ScalingMetricType
+pattern ScalingMetricTypeASGAverageNetworkOut = ScalingMetricType' "ASGAverageNetworkOut"
 
-pattern DynamoDBReadCapacityUtilization :: ScalingMetricType
-pattern DynamoDBReadCapacityUtilization = ScalingMetricType' "DynamoDBReadCapacityUtilization"
+pattern ScalingMetricTypeDynamoDBReadCapacityUtilization :: ScalingMetricType
+pattern ScalingMetricTypeDynamoDBReadCapacityUtilization = ScalingMetricType' "DynamoDBReadCapacityUtilization"
 
-pattern DynamoDBWriteCapacityUtilization :: ScalingMetricType
-pattern DynamoDBWriteCapacityUtilization = ScalingMetricType' "DynamoDBWriteCapacityUtilization"
+pattern ScalingMetricTypeDynamoDBWriteCapacityUtilization :: ScalingMetricType
+pattern ScalingMetricTypeDynamoDBWriteCapacityUtilization = ScalingMetricType' "DynamoDBWriteCapacityUtilization"
 
-pattern EC2SpotFleetRequestAverageCPUUtilization :: ScalingMetricType
-pattern EC2SpotFleetRequestAverageCPUUtilization = ScalingMetricType' "EC2SpotFleetRequestAverageCPUUtilization"
+pattern ScalingMetricTypeEC2SpotFleetRequestAverageCPUUtilization :: ScalingMetricType
+pattern ScalingMetricTypeEC2SpotFleetRequestAverageCPUUtilization = ScalingMetricType' "EC2SpotFleetRequestAverageCPUUtilization"
 
-pattern EC2SpotFleetRequestAverageNetworkIn :: ScalingMetricType
-pattern EC2SpotFleetRequestAverageNetworkIn = ScalingMetricType' "EC2SpotFleetRequestAverageNetworkIn"
+pattern ScalingMetricTypeEC2SpotFleetRequestAverageNetworkIn :: ScalingMetricType
+pattern ScalingMetricTypeEC2SpotFleetRequestAverageNetworkIn = ScalingMetricType' "EC2SpotFleetRequestAverageNetworkIn"
 
-pattern EC2SpotFleetRequestAverageNetworkOut :: ScalingMetricType
-pattern EC2SpotFleetRequestAverageNetworkOut = ScalingMetricType' "EC2SpotFleetRequestAverageNetworkOut"
+pattern ScalingMetricTypeEC2SpotFleetRequestAverageNetworkOut :: ScalingMetricType
+pattern ScalingMetricTypeEC2SpotFleetRequestAverageNetworkOut = ScalingMetricType' "EC2SpotFleetRequestAverageNetworkOut"
 
-pattern ECSServiceAverageCPUUtilization :: ScalingMetricType
-pattern ECSServiceAverageCPUUtilization = ScalingMetricType' "ECSServiceAverageCPUUtilization"
+pattern ScalingMetricTypeECSServiceAverageCPUUtilization :: ScalingMetricType
+pattern ScalingMetricTypeECSServiceAverageCPUUtilization = ScalingMetricType' "ECSServiceAverageCPUUtilization"
 
-pattern ECSServiceAverageMemoryUtilization :: ScalingMetricType
-pattern ECSServiceAverageMemoryUtilization = ScalingMetricType' "ECSServiceAverageMemoryUtilization"
+pattern ScalingMetricTypeECSServiceAverageMemoryUtilization :: ScalingMetricType
+pattern ScalingMetricTypeECSServiceAverageMemoryUtilization = ScalingMetricType' "ECSServiceAverageMemoryUtilization"
 
-pattern RDSReaderAverageCPUUtilization :: ScalingMetricType
-pattern RDSReaderAverageCPUUtilization = ScalingMetricType' "RDSReaderAverageCPUUtilization"
+pattern ScalingMetricTypeRDSReaderAverageCPUUtilization :: ScalingMetricType
+pattern ScalingMetricTypeRDSReaderAverageCPUUtilization = ScalingMetricType' "RDSReaderAverageCPUUtilization"
 
-pattern RDSReaderAverageDatabaseConnections :: ScalingMetricType
-pattern RDSReaderAverageDatabaseConnections = ScalingMetricType' "RDSReaderAverageDatabaseConnections"
+pattern ScalingMetricTypeRDSReaderAverageDatabaseConnections :: ScalingMetricType
+pattern ScalingMetricTypeRDSReaderAverageDatabaseConnections = ScalingMetricType' "RDSReaderAverageDatabaseConnections"
 
 {-# COMPLETE
-  ALBRequestCountPerTarget,
-  ASGAverageCPUUtilization,
-  ASGAverageNetworkIn,
-  ASGAverageNetworkOut,
-  DynamoDBReadCapacityUtilization,
-  DynamoDBWriteCapacityUtilization,
-  EC2SpotFleetRequestAverageCPUUtilization,
-  EC2SpotFleetRequestAverageNetworkIn,
-  EC2SpotFleetRequestAverageNetworkOut,
-  ECSServiceAverageCPUUtilization,
-  ECSServiceAverageMemoryUtilization,
-  RDSReaderAverageCPUUtilization,
-  RDSReaderAverageDatabaseConnections,
+  ScalingMetricTypeALBRequestCountPerTarget,
+  ScalingMetricTypeASGAverageCPUUtilization,
+  ScalingMetricTypeASGAverageNetworkIn,
+  ScalingMetricTypeASGAverageNetworkOut,
+  ScalingMetricTypeDynamoDBReadCapacityUtilization,
+  ScalingMetricTypeDynamoDBWriteCapacityUtilization,
+  ScalingMetricTypeEC2SpotFleetRequestAverageCPUUtilization,
+  ScalingMetricTypeEC2SpotFleetRequestAverageNetworkIn,
+  ScalingMetricTypeEC2SpotFleetRequestAverageNetworkOut,
+  ScalingMetricTypeECSServiceAverageCPUUtilization,
+  ScalingMetricTypeECSServiceAverageMemoryUtilization,
+  ScalingMetricTypeRDSReaderAverageCPUUtilization,
+  ScalingMetricTypeRDSReaderAverageDatabaseConnections,
   ScalingMetricType'
   #-}
 
-instance FromText ScalingMetricType where
-  parser = (ScalingMetricType' . mk) <$> takeText
+instance Prelude.FromText ScalingMetricType where
+  parser = ScalingMetricType' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingMetricType where
-  toText (ScalingMetricType' ci) = original ci
+instance Prelude.ToText ScalingMetricType where
+  toText (ScalingMetricType' x) = x
 
-instance Hashable ScalingMetricType
+instance Prelude.Hashable ScalingMetricType
 
-instance NFData ScalingMetricType
+instance Prelude.NFData ScalingMetricType
 
-instance ToByteString ScalingMetricType
+instance Prelude.ToByteString ScalingMetricType
 
-instance ToQuery ScalingMetricType
+instance Prelude.ToQuery ScalingMetricType
 
-instance ToHeader ScalingMetricType
+instance Prelude.ToHeader ScalingMetricType
 
-instance ToJSON ScalingMetricType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalingMetricType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalingMetricType where
-  parseJSON = parseJSONText "ScalingMetricType"
+instance Prelude.FromJSON ScalingMetricType where
+  parseJSON = Prelude.parseJSONText "ScalingMetricType"

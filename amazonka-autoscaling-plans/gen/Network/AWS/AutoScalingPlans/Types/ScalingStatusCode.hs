@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.AutoScalingPlans.Types.ScalingStatusCode
   ( ScalingStatusCode
       ( ..,
-        Active,
-        Inactive,
-        PartiallyActive
+        ScalingStatusCodeActive,
+        ScalingStatusCodeInactive,
+        ScalingStatusCodePartiallyActive
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingStatusCode = ScalingStatusCode' (CI Text)
+newtype ScalingStatusCode = ScalingStatusCode'
+  { fromScalingStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ScalingStatusCode
-pattern Active = ScalingStatusCode' "Active"
+pattern ScalingStatusCodeActive :: ScalingStatusCode
+pattern ScalingStatusCodeActive = ScalingStatusCode' "Active"
 
-pattern Inactive :: ScalingStatusCode
-pattern Inactive = ScalingStatusCode' "Inactive"
+pattern ScalingStatusCodeInactive :: ScalingStatusCode
+pattern ScalingStatusCodeInactive = ScalingStatusCode' "Inactive"
 
-pattern PartiallyActive :: ScalingStatusCode
-pattern PartiallyActive = ScalingStatusCode' "PartiallyActive"
+pattern ScalingStatusCodePartiallyActive :: ScalingStatusCode
+pattern ScalingStatusCodePartiallyActive = ScalingStatusCode' "PartiallyActive"
 
 {-# COMPLETE
-  Active,
-  Inactive,
-  PartiallyActive,
+  ScalingStatusCodeActive,
+  ScalingStatusCodeInactive,
+  ScalingStatusCodePartiallyActive,
   ScalingStatusCode'
   #-}
 
-instance FromText ScalingStatusCode where
-  parser = (ScalingStatusCode' . mk) <$> takeText
+instance Prelude.FromText ScalingStatusCode where
+  parser = ScalingStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingStatusCode where
-  toText (ScalingStatusCode' ci) = original ci
+instance Prelude.ToText ScalingStatusCode where
+  toText (ScalingStatusCode' x) = x
 
-instance Hashable ScalingStatusCode
+instance Prelude.Hashable ScalingStatusCode
 
-instance NFData ScalingStatusCode
+instance Prelude.NFData ScalingStatusCode
 
-instance ToByteString ScalingStatusCode
+instance Prelude.ToByteString ScalingStatusCode
 
-instance ToQuery ScalingStatusCode
+instance Prelude.ToQuery ScalingStatusCode
 
-instance ToHeader ScalingStatusCode
+instance Prelude.ToHeader ScalingStatusCode
 
-instance FromJSON ScalingStatusCode where
-  parseJSON = parseJSONText "ScalingStatusCode"
+instance Prelude.FromJSON ScalingStatusCode where
+  parseJSON = Prelude.parseJSONText "ScalingStatusCode"

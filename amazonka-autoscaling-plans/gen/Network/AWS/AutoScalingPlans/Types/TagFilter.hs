@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScalingPlans.Types.TagFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a tag.
 --
---
---
--- /See:/ 'tagFilter' smart constructor.
+-- /See:/ 'newTagFilter' smart constructor.
 data TagFilter = TagFilter'
-  { _tfKey :: !(Maybe Text),
-    _tfValues :: !(Maybe [Text])
+  { -- | The tag key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The tag values (0 to 20).
+    values :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tfKey' - The tag key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tfValues' - The tag values (0 to 20).
-tagFilter ::
+-- 'key', 'tagFilter_key' - The tag key.
+--
+-- 'values', 'tagFilter_values' - The tag values (0 to 20).
+newTagFilter ::
   TagFilter
-tagFilter =
-  TagFilter' {_tfKey = Nothing, _tfValues = Nothing}
+newTagFilter =
+  TagFilter'
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
+    }
 
 -- | The tag key.
-tfKey :: Lens' TagFilter (Maybe Text)
-tfKey = lens _tfKey (\s a -> s {_tfKey = a})
+tagFilter_key :: Lens.Lens' TagFilter (Prelude.Maybe Prelude.Text)
+tagFilter_key = Lens.lens (\TagFilter' {key} -> key) (\s@TagFilter' {} a -> s {key = a} :: TagFilter)
 
 -- | The tag values (0 to 20).
-tfValues :: Lens' TagFilter [Text]
-tfValues = lens _tfValues (\s a -> s {_tfValues = a}) . _Default . _Coerce
+tagFilter_values :: Lens.Lens' TagFilter (Prelude.Maybe [Prelude.Text])
+tagFilter_values = Lens.lens (\TagFilter' {values} -> values) (\s@TagFilter' {} a -> s {values = a} :: TagFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON TagFilter where
+instance Prelude.FromJSON TagFilter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TagFilter"
       ( \x ->
           TagFilter'
-            <$> (x .:? "Key") <*> (x .:? "Values" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable TagFilter
+instance Prelude.Hashable TagFilter
 
-instance NFData TagFilter
+instance Prelude.NFData TagFilter
 
-instance ToJSON TagFilter where
+instance Prelude.ToJSON TagFilter where
   toJSON TagFilter' {..} =
-    object
-      ( catMaybes
-          [("Key" .=) <$> _tfKey, ("Values" .=) <$> _tfValues]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Values" Prelude..=) Prelude.<$> values
+          ]
       )

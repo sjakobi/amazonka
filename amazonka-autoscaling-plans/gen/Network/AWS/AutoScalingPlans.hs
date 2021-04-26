@@ -11,32 +11,38 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Auto Scaling__
+-- AWS Auto Scaling
 --
--- Use AWS Auto Scaling to create scaling plans for your applications to automatically scale your scalable AWS resources.
+-- Use AWS Auto Scaling to create scaling plans for your applications to
+-- automatically scale your scalable AWS resources.
 --
 -- __API Summary__
 --
--- You can use the AWS Auto Scaling service API to accomplish the following tasks:
+-- You can use the AWS Auto Scaling service API to accomplish the following
+-- tasks:
 --
---     * Create and manage scaling plans
+-- -   Create and manage scaling plans
 --
---     * Define target tracking scaling policies to dynamically scale your resources based on utilization
+-- -   Define target tracking scaling policies to dynamically scale your
+--     resources based on utilization
 --
---     * Scale Amazon EC2 Auto Scaling groups using predictive scaling and dynamic scaling to scale your Amazon EC2 capacity faster
+-- -   Scale Amazon EC2 Auto Scaling groups using predictive scaling and
+--     dynamic scaling to scale your Amazon EC2 capacity faster
 --
---     * Set minimum and maximum capacity limits
+-- -   Set minimum and maximum capacity limits
 --
---     * Retrieve information on existing scaling plans
+-- -   Retrieve information on existing scaling plans
 --
---     * Access current forecast data and historical forecast data for up to 56 days previous
+-- -   Access current forecast data and historical forecast data for up to
+--     56 days previous
 --
---
---
--- To learn more about AWS Auto Scaling, including information about granting IAM users required permissions for AWS Auto Scaling actions, see the <https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html AWS Auto Scaling User Guide> .
+-- To learn more about AWS Auto Scaling, including information about
+-- granting IAM users required permissions for AWS Auto Scaling actions,
+-- see the
+-- <https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html AWS Auto Scaling User Guide>.
 module Network.AWS.AutoScalingPlans
   ( -- * Service Configuration
-    autoScalingPlans,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -66,22 +72,40 @@ module Network.AWS.AutoScalingPlans
     -- $operations
 
     -- ** UpdateScalingPlan
-    module Network.AWS.AutoScalingPlans.UpdateScalingPlan,
+    UpdateScalingPlan (UpdateScalingPlan'),
+    newUpdateScalingPlan,
+    UpdateScalingPlanResponse (UpdateScalingPlanResponse'),
+    newUpdateScalingPlanResponse,
 
     -- ** DeleteScalingPlan
-    module Network.AWS.AutoScalingPlans.DeleteScalingPlan,
+    DeleteScalingPlan (DeleteScalingPlan'),
+    newDeleteScalingPlan,
+    DeleteScalingPlanResponse (DeleteScalingPlanResponse'),
+    newDeleteScalingPlanResponse,
 
     -- ** DescribeScalingPlanResources (Paginated)
-    module Network.AWS.AutoScalingPlans.DescribeScalingPlanResources,
+    DescribeScalingPlanResources (DescribeScalingPlanResources'),
+    newDescribeScalingPlanResources,
+    DescribeScalingPlanResourcesResponse (DescribeScalingPlanResourcesResponse'),
+    newDescribeScalingPlanResourcesResponse,
 
     -- ** GetScalingPlanResourceForecastData
-    module Network.AWS.AutoScalingPlans.GetScalingPlanResourceForecastData,
+    GetScalingPlanResourceForecastData (GetScalingPlanResourceForecastData'),
+    newGetScalingPlanResourceForecastData,
+    GetScalingPlanResourceForecastDataResponse (GetScalingPlanResourceForecastDataResponse'),
+    newGetScalingPlanResourceForecastDataResponse,
 
     -- ** DescribeScalingPlans (Paginated)
-    module Network.AWS.AutoScalingPlans.DescribeScalingPlans,
+    DescribeScalingPlans (DescribeScalingPlans'),
+    newDescribeScalingPlans,
+    DescribeScalingPlansResponse (DescribeScalingPlansResponse'),
+    newDescribeScalingPlansResponse,
 
     -- ** CreateScalingPlan
-    module Network.AWS.AutoScalingPlans.CreateScalingPlan,
+    CreateScalingPlan (CreateScalingPlan'),
+    newCreateScalingPlan,
+    CreateScalingPlanResponse (CreateScalingPlanResponse'),
+    newCreateScalingPlanResponse,
 
     -- * Types
 
@@ -122,118 +146,56 @@ module Network.AWS.AutoScalingPlans
     ServiceNamespace (..),
 
     -- ** ApplicationSource
-    ApplicationSource,
-    applicationSource,
-    asTagFilters,
-    asCloudFormationStackARN,
+    ApplicationSource (ApplicationSource'),
+    newApplicationSource,
 
     -- ** CustomizedLoadMetricSpecification
-    CustomizedLoadMetricSpecification,
-    customizedLoadMetricSpecification,
-    clmsUnit,
-    clmsDimensions,
-    clmsMetricName,
-    clmsNamespace,
-    clmsStatistic,
+    CustomizedLoadMetricSpecification (CustomizedLoadMetricSpecification'),
+    newCustomizedLoadMetricSpecification,
 
     -- ** CustomizedScalingMetricSpecification
-    CustomizedScalingMetricSpecification,
-    customizedScalingMetricSpecification,
-    csmsUnit,
-    csmsDimensions,
-    csmsMetricName,
-    csmsNamespace,
-    csmsStatistic,
+    CustomizedScalingMetricSpecification (CustomizedScalingMetricSpecification'),
+    newCustomizedScalingMetricSpecification,
 
     -- ** Datapoint
-    Datapoint,
-    datapoint,
-    dTimestamp,
-    dValue,
+    Datapoint (Datapoint'),
+    newDatapoint,
 
     -- ** MetricDimension
-    MetricDimension,
-    metricDimension,
-    mdName,
-    mdValue,
+    MetricDimension (MetricDimension'),
+    newMetricDimension,
 
     -- ** PredefinedLoadMetricSpecification
-    PredefinedLoadMetricSpecification,
-    predefinedLoadMetricSpecification,
-    plmsResourceLabel,
-    plmsPredefinedLoadMetricType,
+    PredefinedLoadMetricSpecification (PredefinedLoadMetricSpecification'),
+    newPredefinedLoadMetricSpecification,
 
     -- ** PredefinedScalingMetricSpecification
-    PredefinedScalingMetricSpecification,
-    predefinedScalingMetricSpecification,
-    psmsResourceLabel,
-    psmsPredefinedScalingMetricType,
+    PredefinedScalingMetricSpecification (PredefinedScalingMetricSpecification'),
+    newPredefinedScalingMetricSpecification,
 
     -- ** ScalingInstruction
-    ScalingInstruction,
-    scalingInstruction,
-    siDisableDynamicScaling,
-    siPredefinedLoadMetricSpecification,
-    siCustomizedLoadMetricSpecification,
-    siPredictiveScalingMaxCapacityBehavior,
-    siPredictiveScalingMaxCapacityBuffer,
-    siPredictiveScalingMode,
-    siScalingPolicyUpdateBehavior,
-    siScheduledActionBufferTime,
-    siServiceNamespace,
-    siResourceId,
-    siScalableDimension,
-    siMinCapacity,
-    siMaxCapacity,
-    siTargetTrackingConfigurations,
+    ScalingInstruction (ScalingInstruction'),
+    newScalingInstruction,
 
     -- ** ScalingPlan
-    ScalingPlan,
-    scalingPlan,
-    spStatusMessage,
-    spCreationTime,
-    spStatusStartTime,
-    spScalingPlanName,
-    spScalingPlanVersion,
-    spApplicationSource,
-    spScalingInstructions,
-    spStatusCode,
+    ScalingPlan (ScalingPlan'),
+    newScalingPlan,
 
     -- ** ScalingPlanResource
-    ScalingPlanResource,
-    scalingPlanResource,
-    sprScalingPolicies,
-    sprScalingStatusMessage,
-    sprScalingPlanName,
-    sprScalingPlanVersion,
-    sprServiceNamespace,
-    sprResourceId,
-    sprScalableDimension,
-    sprScalingStatusCode,
+    ScalingPlanResource (ScalingPlanResource'),
+    newScalingPlanResource,
 
     -- ** ScalingPolicy
-    ScalingPolicy,
-    scalingPolicy,
-    spTargetTrackingConfiguration,
-    spPolicyName,
-    spPolicyType,
+    ScalingPolicy (ScalingPolicy'),
+    newScalingPolicy,
 
     -- ** TagFilter
-    TagFilter,
-    tagFilter,
-    tfKey,
-    tfValues,
+    TagFilter (TagFilter'),
+    newTagFilter,
 
     -- ** TargetTrackingConfiguration
-    TargetTrackingConfiguration,
-    targetTrackingConfiguration,
-    ttcDisableScaleIn,
-    ttcCustomizedScalingMetricSpecification,
-    ttcPredefinedScalingMetricSpecification,
-    ttcEstimatedInstanceWarmup,
-    ttcScaleOutCooldown,
-    ttcScaleInCooldown,
-    ttcTargetValue,
+    TargetTrackingConfiguration (TargetTrackingConfiguration'),
+    newTargetTrackingConfiguration,
   )
 where
 
@@ -242,6 +204,7 @@ import Network.AWS.AutoScalingPlans.DeleteScalingPlan
 import Network.AWS.AutoScalingPlans.DescribeScalingPlanResources
 import Network.AWS.AutoScalingPlans.DescribeScalingPlans
 import Network.AWS.AutoScalingPlans.GetScalingPlanResourceForecastData
+import Network.AWS.AutoScalingPlans.Lens
 import Network.AWS.AutoScalingPlans.Types
 import Network.AWS.AutoScalingPlans.UpdateScalingPlan
 import Network.AWS.AutoScalingPlans.Waiters

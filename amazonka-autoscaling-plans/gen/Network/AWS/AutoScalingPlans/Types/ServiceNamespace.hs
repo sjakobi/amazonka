@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.AutoScalingPlans.Types.ServiceNamespace
   ( ServiceNamespace
       ( ..,
-        Autoscaling,
-        Dynamodb,
-        EC2,
-        Ecs,
-        RDS
+        ServiceNamespaceAutoscaling,
+        ServiceNamespaceDynamodb,
+        ServiceNamespaceEC2,
+        ServiceNamespaceEcs,
+        ServiceNamespaceRds
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServiceNamespace = ServiceNamespace' (CI Text)
+newtype ServiceNamespace = ServiceNamespace'
+  { fromServiceNamespace ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Autoscaling :: ServiceNamespace
-pattern Autoscaling = ServiceNamespace' "autoscaling"
+pattern ServiceNamespaceAutoscaling :: ServiceNamespace
+pattern ServiceNamespaceAutoscaling = ServiceNamespace' "autoscaling"
 
-pattern Dynamodb :: ServiceNamespace
-pattern Dynamodb = ServiceNamespace' "dynamodb"
+pattern ServiceNamespaceDynamodb :: ServiceNamespace
+pattern ServiceNamespaceDynamodb = ServiceNamespace' "dynamodb"
 
-pattern EC2 :: ServiceNamespace
-pattern EC2 = ServiceNamespace' "ec2"
+pattern ServiceNamespaceEC2 :: ServiceNamespace
+pattern ServiceNamespaceEC2 = ServiceNamespace' "ec2"
 
-pattern Ecs :: ServiceNamespace
-pattern Ecs = ServiceNamespace' "ecs"
+pattern ServiceNamespaceEcs :: ServiceNamespace
+pattern ServiceNamespaceEcs = ServiceNamespace' "ecs"
 
-pattern RDS :: ServiceNamespace
-pattern RDS = ServiceNamespace' "rds"
+pattern ServiceNamespaceRds :: ServiceNamespace
+pattern ServiceNamespaceRds = ServiceNamespace' "rds"
 
 {-# COMPLETE
-  Autoscaling,
-  Dynamodb,
-  EC2,
-  Ecs,
-  RDS,
+  ServiceNamespaceAutoscaling,
+  ServiceNamespaceDynamodb,
+  ServiceNamespaceEC2,
+  ServiceNamespaceEcs,
+  ServiceNamespaceRds,
   ServiceNamespace'
   #-}
 
-instance FromText ServiceNamespace where
-  parser = (ServiceNamespace' . mk) <$> takeText
+instance Prelude.FromText ServiceNamespace where
+  parser = ServiceNamespace' Prelude.<$> Prelude.takeText
 
-instance ToText ServiceNamespace where
-  toText (ServiceNamespace' ci) = original ci
+instance Prelude.ToText ServiceNamespace where
+  toText (ServiceNamespace' x) = x
 
-instance Hashable ServiceNamespace
+instance Prelude.Hashable ServiceNamespace
 
-instance NFData ServiceNamespace
+instance Prelude.NFData ServiceNamespace
 
-instance ToByteString ServiceNamespace
+instance Prelude.ToByteString ServiceNamespace
 
-instance ToQuery ServiceNamespace
+instance Prelude.ToQuery ServiceNamespace
 
-instance ToHeader ServiceNamespace
+instance Prelude.ToHeader ServiceNamespace
 
-instance ToJSON ServiceNamespace where
-  toJSON = toJSONText
+instance Prelude.ToJSON ServiceNamespace where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ServiceNamespace where
-  parseJSON = parseJSONText "ServiceNamespace"
+instance Prelude.FromJSON ServiceNamespace where
+  parseJSON = Prelude.parseJSONText "ServiceNamespace"

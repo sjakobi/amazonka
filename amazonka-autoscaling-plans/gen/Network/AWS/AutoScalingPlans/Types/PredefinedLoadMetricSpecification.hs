@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,163 @@
 module Network.AWS.AutoScalingPlans.Types.PredefinedLoadMetricSpecification where
 
 import Network.AWS.AutoScalingPlans.Types.LoadMetricType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a predefined metric that can be used for predictive scaling.
 --
+-- After creating your scaling plan, you can use the AWS Auto Scaling
+-- console to visualize forecasts for the specified metric. For more
+-- information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/userguide/gs-create-scaling-plan.html#gs-view-resource View Scaling Information for a Resource>
+-- in the /AWS Auto Scaling User Guide/.
 --
--- After creating your scaling plan, you can use the AWS Auto Scaling console to visualize forecasts for the specified metric. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/userguide/gs-create-scaling-plan.html#gs-view-resource View Scaling Information for a Resource> in the /AWS Auto Scaling User Guide/ .
---
---
--- /See:/ 'predefinedLoadMetricSpecification' smart constructor.
+-- /See:/ 'newPredefinedLoadMetricSpecification' smart constructor.
 data PredefinedLoadMetricSpecification = PredefinedLoadMetricSpecification'
-  { _plmsResourceLabel ::
-      !( Maybe
-           Text
-       ),
-    _plmsPredefinedLoadMetricType ::
-      !LoadMetricType
+  { -- | Identifies the resource associated with the metric type. You can\'t
+    -- specify a resource label unless the metric type is
+    -- @ALBTargetGroupRequestCount@ and there is a target group for an
+    -- Application Load Balancer attached to the Auto Scaling group.
+    --
+    -- You create the resource label by appending the final portion of the load
+    -- balancer ARN and the final portion of the target group ARN into a single
+    -- value, separated by a forward slash (\/). The format is
+    -- app\/\<load-balancer-name>\/\<load-balancer-id>\/targetgroup\/\<target-group-name>\/\<target-group-id>,
+    -- where:
+    --
+    -- -   app\/\<load-balancer-name>\/\<load-balancer-id> is the final portion
+    --     of the load balancer ARN
+    --
+    -- -   targetgroup\/\<target-group-name>\/\<target-group-id> is the final
+    --     portion of the target group ARN.
+    --
+    -- This is an example:
+    -- app\/EC2Co-EcsEl-1TKLTMITMM0EO\/f37c06a68c1748aa\/targetgroup\/EC2Co-Defau-LDNM7Q3ZH1ZN\/6d4ea56ca2d6a18d.
+    --
+    -- To find the ARN for an Application Load Balancer, use the
+    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html DescribeLoadBalancers>
+    -- API operation. To find the ARN for the target group, use the
+    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
+    -- API operation.
+    resourceLabel :: Prelude.Maybe Prelude.Text,
+    -- | The metric type.
+    predefinedLoadMetricType :: LoadMetricType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PredefinedLoadMetricSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PredefinedLoadMetricSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plmsResourceLabel' - Identifies the resource associated with the metric type. You can't specify a resource label unless the metric type is @ALBTargetGroupRequestCount@ and there is a target group for an Application Load Balancer attached to the Auto Scaling group. You create the resource label by appending the final portion of the load balancer ARN and the final portion of the target group ARN into a single value, separated by a forward slash (/). The format is app/<load-balancer-name>/<load-balancer-id>/targetgroup/<target-group-name>/<target-group-id>, where:     * app/<load-balancer-name>/<load-balancer-id> is the final portion of the load balancer ARN     * targetgroup/<target-group-name>/<target-group-id> is the final portion of the target group ARN. This is an example: app/EC2Co-EcsEl-1TKLTMITMM0EO/f37c06a68c1748aa/targetgroup/EC2Co-Defau-LDNM7Q3ZH1ZN/6d4ea56ca2d6a18d. To find the ARN for an Application Load Balancer, use the <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html DescribeLoadBalancers> API operation. To find the ARN for the target group, use the <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups> API operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plmsPredefinedLoadMetricType' - The metric type.
-predefinedLoadMetricSpecification ::
-  -- | 'plmsPredefinedLoadMetricType'
+-- 'resourceLabel', 'predefinedLoadMetricSpecification_resourceLabel' - Identifies the resource associated with the metric type. You can\'t
+-- specify a resource label unless the metric type is
+-- @ALBTargetGroupRequestCount@ and there is a target group for an
+-- Application Load Balancer attached to the Auto Scaling group.
+--
+-- You create the resource label by appending the final portion of the load
+-- balancer ARN and the final portion of the target group ARN into a single
+-- value, separated by a forward slash (\/). The format is
+-- app\/\<load-balancer-name>\/\<load-balancer-id>\/targetgroup\/\<target-group-name>\/\<target-group-id>,
+-- where:
+--
+-- -   app\/\<load-balancer-name>\/\<load-balancer-id> is the final portion
+--     of the load balancer ARN
+--
+-- -   targetgroup\/\<target-group-name>\/\<target-group-id> is the final
+--     portion of the target group ARN.
+--
+-- This is an example:
+-- app\/EC2Co-EcsEl-1TKLTMITMM0EO\/f37c06a68c1748aa\/targetgroup\/EC2Co-Defau-LDNM7Q3ZH1ZN\/6d4ea56ca2d6a18d.
+--
+-- To find the ARN for an Application Load Balancer, use the
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html DescribeLoadBalancers>
+-- API operation. To find the ARN for the target group, use the
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
+-- API operation.
+--
+-- 'predefinedLoadMetricType', 'predefinedLoadMetricSpecification_predefinedLoadMetricType' - The metric type.
+newPredefinedLoadMetricSpecification ::
+  -- | 'predefinedLoadMetricType'
   LoadMetricType ->
   PredefinedLoadMetricSpecification
-predefinedLoadMetricSpecification
+newPredefinedLoadMetricSpecification
   pPredefinedLoadMetricType_ =
     PredefinedLoadMetricSpecification'
-      { _plmsResourceLabel =
-          Nothing,
-        _plmsPredefinedLoadMetricType =
+      { resourceLabel =
+          Prelude.Nothing,
+        predefinedLoadMetricType =
           pPredefinedLoadMetricType_
       }
 
--- | Identifies the resource associated with the metric type. You can't specify a resource label unless the metric type is @ALBTargetGroupRequestCount@ and there is a target group for an Application Load Balancer attached to the Auto Scaling group. You create the resource label by appending the final portion of the load balancer ARN and the final portion of the target group ARN into a single value, separated by a forward slash (/). The format is app/<load-balancer-name>/<load-balancer-id>/targetgroup/<target-group-name>/<target-group-id>, where:     * app/<load-balancer-name>/<load-balancer-id> is the final portion of the load balancer ARN     * targetgroup/<target-group-name>/<target-group-id> is the final portion of the target group ARN. This is an example: app/EC2Co-EcsEl-1TKLTMITMM0EO/f37c06a68c1748aa/targetgroup/EC2Co-Defau-LDNM7Q3ZH1ZN/6d4ea56ca2d6a18d. To find the ARN for an Application Load Balancer, use the <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html DescribeLoadBalancers> API operation. To find the ARN for the target group, use the <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups> API operation.
-plmsResourceLabel :: Lens' PredefinedLoadMetricSpecification (Maybe Text)
-plmsResourceLabel = lens _plmsResourceLabel (\s a -> s {_plmsResourceLabel = a})
+-- | Identifies the resource associated with the metric type. You can\'t
+-- specify a resource label unless the metric type is
+-- @ALBTargetGroupRequestCount@ and there is a target group for an
+-- Application Load Balancer attached to the Auto Scaling group.
+--
+-- You create the resource label by appending the final portion of the load
+-- balancer ARN and the final portion of the target group ARN into a single
+-- value, separated by a forward slash (\/). The format is
+-- app\/\<load-balancer-name>\/\<load-balancer-id>\/targetgroup\/\<target-group-name>\/\<target-group-id>,
+-- where:
+--
+-- -   app\/\<load-balancer-name>\/\<load-balancer-id> is the final portion
+--     of the load balancer ARN
+--
+-- -   targetgroup\/\<target-group-name>\/\<target-group-id> is the final
+--     portion of the target group ARN.
+--
+-- This is an example:
+-- app\/EC2Co-EcsEl-1TKLTMITMM0EO\/f37c06a68c1748aa\/targetgroup\/EC2Co-Defau-LDNM7Q3ZH1ZN\/6d4ea56ca2d6a18d.
+--
+-- To find the ARN for an Application Load Balancer, use the
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html DescribeLoadBalancers>
+-- API operation. To find the ARN for the target group, use the
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
+-- API operation.
+predefinedLoadMetricSpecification_resourceLabel :: Lens.Lens' PredefinedLoadMetricSpecification (Prelude.Maybe Prelude.Text)
+predefinedLoadMetricSpecification_resourceLabel = Lens.lens (\PredefinedLoadMetricSpecification' {resourceLabel} -> resourceLabel) (\s@PredefinedLoadMetricSpecification' {} a -> s {resourceLabel = a} :: PredefinedLoadMetricSpecification)
 
 -- | The metric type.
-plmsPredefinedLoadMetricType :: Lens' PredefinedLoadMetricSpecification LoadMetricType
-plmsPredefinedLoadMetricType = lens _plmsPredefinedLoadMetricType (\s a -> s {_plmsPredefinedLoadMetricType = a})
+predefinedLoadMetricSpecification_predefinedLoadMetricType :: Lens.Lens' PredefinedLoadMetricSpecification LoadMetricType
+predefinedLoadMetricSpecification_predefinedLoadMetricType = Lens.lens (\PredefinedLoadMetricSpecification' {predefinedLoadMetricType} -> predefinedLoadMetricType) (\s@PredefinedLoadMetricSpecification' {} a -> s {predefinedLoadMetricType = a} :: PredefinedLoadMetricSpecification)
 
-instance FromJSON PredefinedLoadMetricSpecification where
+instance
+  Prelude.FromJSON
+    PredefinedLoadMetricSpecification
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PredefinedLoadMetricSpecification"
       ( \x ->
           PredefinedLoadMetricSpecification'
-            <$> (x .:? "ResourceLabel")
-            <*> (x .: "PredefinedLoadMetricType")
+            Prelude.<$> (x Prelude..:? "ResourceLabel")
+            Prelude.<*> (x Prelude..: "PredefinedLoadMetricType")
       )
 
-instance Hashable PredefinedLoadMetricSpecification
+instance
+  Prelude.Hashable
+    PredefinedLoadMetricSpecification
 
-instance NFData PredefinedLoadMetricSpecification
+instance
+  Prelude.NFData
+    PredefinedLoadMetricSpecification
 
-instance ToJSON PredefinedLoadMetricSpecification where
+instance
+  Prelude.ToJSON
+    PredefinedLoadMetricSpecification
+  where
   toJSON PredefinedLoadMetricSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("ResourceLabel" .=) <$> _plmsResourceLabel,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceLabel" Prelude..=)
+              Prelude.<$> resourceLabel,
+            Prelude.Just
               ( "PredefinedLoadMetricType"
-                  .= _plmsPredefinedLoadMetricType
+                  Prelude..= predefinedLoadMetricType
               )
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,105 +23,154 @@
 --
 -- Retrieves the forecast data for a scalable resource.
 --
---
--- Capacity forecasts are represented as predicted values, or data points, that are calculated using historical data points from a specified CloudWatch load metric. Data points are available for up to 56 days.
+-- Capacity forecasts are represented as predicted values, or data points,
+-- that are calculated using historical data points from a specified
+-- CloudWatch load metric. Data points are available for up to 56 days.
 module Network.AWS.AutoScalingPlans.GetScalingPlanResourceForecastData
   ( -- * Creating a Request
-    getScalingPlanResourceForecastData,
-    GetScalingPlanResourceForecastData,
+    GetScalingPlanResourceForecastData (..),
+    newGetScalingPlanResourceForecastData,
 
     -- * Request Lenses
-    gsprfdScalingPlanName,
-    gsprfdScalingPlanVersion,
-    gsprfdServiceNamespace,
-    gsprfdResourceId,
-    gsprfdScalableDimension,
-    gsprfdForecastDataType,
-    gsprfdStartTime,
-    gsprfdEndTime,
+    getScalingPlanResourceForecastData_scalingPlanName,
+    getScalingPlanResourceForecastData_scalingPlanVersion,
+    getScalingPlanResourceForecastData_serviceNamespace,
+    getScalingPlanResourceForecastData_resourceId,
+    getScalingPlanResourceForecastData_scalableDimension,
+    getScalingPlanResourceForecastData_forecastDataType,
+    getScalingPlanResourceForecastData_startTime,
+    getScalingPlanResourceForecastData_endTime,
 
     -- * Destructuring the Response
-    getScalingPlanResourceForecastDataResponse,
-    GetScalingPlanResourceForecastDataResponse,
+    GetScalingPlanResourceForecastDataResponse (..),
+    newGetScalingPlanResourceForecastDataResponse,
 
     -- * Response Lenses
-    gsprfdrrsResponseStatus,
-    gsprfdrrsDatapoints,
+    getScalingPlanResourceForecastDataResponse_httpStatus,
+    getScalingPlanResourceForecastDataResponse_datapoints,
   )
 where
 
 import Network.AWS.AutoScalingPlans.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AutoScalingPlans.Types.Datapoint
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getScalingPlanResourceForecastData' smart constructor.
+-- | /See:/ 'newGetScalingPlanResourceForecastData' smart constructor.
 data GetScalingPlanResourceForecastData = GetScalingPlanResourceForecastData'
-  { _gsprfdScalingPlanName ::
-      !Text,
-    _gsprfdScalingPlanVersion ::
-      !Integer,
-    _gsprfdServiceNamespace ::
-      !ServiceNamespace,
-    _gsprfdResourceId ::
-      !Text,
-    _gsprfdScalableDimension ::
-      !ScalableDimension,
-    _gsprfdForecastDataType ::
-      !ForecastDataType,
-    _gsprfdStartTime ::
-      !POSIX,
-    _gsprfdEndTime ::
-      !POSIX
+  { -- | The name of the scaling plan.
+    scalingPlanName :: Prelude.Text,
+    -- | The version number of the scaling plan. Currently, the only valid value
+    -- is @1@.
+    scalingPlanVersion :: Prelude.Integer,
+    -- | The namespace of the AWS service. The only valid value is @autoscaling@.
+    serviceNamespace :: ServiceNamespace,
+    -- | The ID of the resource. This string consists of a prefix
+    -- (@autoScalingGroup@) followed by the name of a specified Auto Scaling
+    -- group (@my-asg@). Example: @autoScalingGroup\/my-asg@.
+    resourceId :: Prelude.Text,
+    -- | The scalable dimension for the resource. The only valid value is
+    -- @autoscaling:autoScalingGroup:DesiredCapacity@.
+    scalableDimension :: ScalableDimension,
+    -- | The type of forecast data to get.
+    --
+    -- -   @LoadForecast@: The load metric forecast.
+    --
+    -- -   @CapacityForecast@: The capacity forecast.
+    --
+    -- -   @ScheduledActionMinCapacity@: The minimum capacity for each
+    --     scheduled scaling action. This data is calculated as the larger of
+    --     two values: the capacity forecast or the minimum capacity in the
+    --     scaling instruction.
+    --
+    -- -   @ScheduledActionMaxCapacity@: The maximum capacity for each
+    --     scheduled scaling action. The calculation used is determined by the
+    --     predictive scaling maximum capacity behavior setting in the scaling
+    --     instruction.
+    forecastDataType :: ForecastDataType,
+    -- | The inclusive start time of the time range for the forecast data to get.
+    -- The date and time can be at most 56 days before the current date and
+    -- time.
+    startTime :: Prelude.POSIX,
+    -- | The exclusive end time of the time range for the forecast data to get.
+    -- The maximum time duration between the start and end time is seven days.
+    --
+    -- Although this parameter can accept a date and time that is more than two
+    -- days in the future, the availability of forecast data has limits. AWS
+    -- Auto Scaling only issues forecasts for periods of two days in advance.
+    endTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetScalingPlanResourceForecastData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetScalingPlanResourceForecastData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsprfdScalingPlanName' - The name of the scaling plan.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsprfdScalingPlanVersion' - The version number of the scaling plan. Currently, the only valid value is @1@ .
+-- 'scalingPlanName', 'getScalingPlanResourceForecastData_scalingPlanName' - The name of the scaling plan.
 --
--- * 'gsprfdServiceNamespace' - The namespace of the AWS service. The only valid value is @autoscaling@ .
+-- 'scalingPlanVersion', 'getScalingPlanResourceForecastData_scalingPlanVersion' - The version number of the scaling plan. Currently, the only valid value
+-- is @1@.
 --
--- * 'gsprfdResourceId' - The ID of the resource. This string consists of a prefix (@autoScalingGroup@ ) followed by the name of a specified Auto Scaling group (@my-asg@ ). Example: @autoScalingGroup/my-asg@ .
+-- 'serviceNamespace', 'getScalingPlanResourceForecastData_serviceNamespace' - The namespace of the AWS service. The only valid value is @autoscaling@.
 --
--- * 'gsprfdScalableDimension' - The scalable dimension for the resource. The only valid value is @autoscaling:autoScalingGroup:DesiredCapacity@ .
+-- 'resourceId', 'getScalingPlanResourceForecastData_resourceId' - The ID of the resource. This string consists of a prefix
+-- (@autoScalingGroup@) followed by the name of a specified Auto Scaling
+-- group (@my-asg@). Example: @autoScalingGroup\/my-asg@.
 --
--- * 'gsprfdForecastDataType' - The type of forecast data to get.     * @LoadForecast@ : The load metric forecast.      * @CapacityForecast@ : The capacity forecast.      * @ScheduledActionMinCapacity@ : The minimum capacity for each scheduled scaling action. This data is calculated as the larger of two values: the capacity forecast or the minimum capacity in the scaling instruction.     * @ScheduledActionMaxCapacity@ : The maximum capacity for each scheduled scaling action. The calculation used is determined by the predictive scaling maximum capacity behavior setting in the scaling instruction.
+-- 'scalableDimension', 'getScalingPlanResourceForecastData_scalableDimension' - The scalable dimension for the resource. The only valid value is
+-- @autoscaling:autoScalingGroup:DesiredCapacity@.
 --
--- * 'gsprfdStartTime' - The inclusive start time of the time range for the forecast data to get. The date and time can be at most 56 days before the current date and time.
+-- 'forecastDataType', 'getScalingPlanResourceForecastData_forecastDataType' - The type of forecast data to get.
 --
--- * 'gsprfdEndTime' - The exclusive end time of the time range for the forecast data to get. The maximum time duration between the start and end time is seven days.  Although this parameter can accept a date and time that is more than two days in the future, the availability of forecast data has limits. AWS Auto Scaling only issues forecasts for periods of two days in advance.
-getScalingPlanResourceForecastData ::
-  -- | 'gsprfdScalingPlanName'
-  Text ->
-  -- | 'gsprfdScalingPlanVersion'
-  Integer ->
-  -- | 'gsprfdServiceNamespace'
+-- -   @LoadForecast@: The load metric forecast.
+--
+-- -   @CapacityForecast@: The capacity forecast.
+--
+-- -   @ScheduledActionMinCapacity@: The minimum capacity for each
+--     scheduled scaling action. This data is calculated as the larger of
+--     two values: the capacity forecast or the minimum capacity in the
+--     scaling instruction.
+--
+-- -   @ScheduledActionMaxCapacity@: The maximum capacity for each
+--     scheduled scaling action. The calculation used is determined by the
+--     predictive scaling maximum capacity behavior setting in the scaling
+--     instruction.
+--
+-- 'startTime', 'getScalingPlanResourceForecastData_startTime' - The inclusive start time of the time range for the forecast data to get.
+-- The date and time can be at most 56 days before the current date and
+-- time.
+--
+-- 'endTime', 'getScalingPlanResourceForecastData_endTime' - The exclusive end time of the time range for the forecast data to get.
+-- The maximum time duration between the start and end time is seven days.
+--
+-- Although this parameter can accept a date and time that is more than two
+-- days in the future, the availability of forecast data has limits. AWS
+-- Auto Scaling only issues forecasts for periods of two days in advance.
+newGetScalingPlanResourceForecastData ::
+  -- | 'scalingPlanName'
+  Prelude.Text ->
+  -- | 'scalingPlanVersion'
+  Prelude.Integer ->
+  -- | 'serviceNamespace'
   ServiceNamespace ->
-  -- | 'gsprfdResourceId'
-  Text ->
-  -- | 'gsprfdScalableDimension'
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'scalableDimension'
   ScalableDimension ->
-  -- | 'gsprfdForecastDataType'
+  -- | 'forecastDataType'
   ForecastDataType ->
-  -- | 'gsprfdStartTime'
-  UTCTime ->
-  -- | 'gsprfdEndTime'
-  UTCTime ->
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
   GetScalingPlanResourceForecastData
-getScalingPlanResourceForecastData
+newGetScalingPlanResourceForecastData
   pScalingPlanName_
   pScalingPlanVersion_
   pServiceNamespace_
@@ -127,152 +180,196 @@ getScalingPlanResourceForecastData
   pStartTime_
   pEndTime_ =
     GetScalingPlanResourceForecastData'
-      { _gsprfdScalingPlanName =
+      { scalingPlanName =
           pScalingPlanName_,
-        _gsprfdScalingPlanVersion =
+        scalingPlanVersion =
           pScalingPlanVersion_,
-        _gsprfdServiceNamespace =
-          pServiceNamespace_,
-        _gsprfdResourceId = pResourceId_,
-        _gsprfdScalableDimension =
-          pScalableDimension_,
-        _gsprfdForecastDataType =
-          pForecastDataType_,
-        _gsprfdStartTime = _Time # pStartTime_,
-        _gsprfdEndTime = _Time # pEndTime_
+        serviceNamespace = pServiceNamespace_,
+        resourceId = pResourceId_,
+        scalableDimension = pScalableDimension_,
+        forecastDataType = pForecastDataType_,
+        startTime =
+          Prelude._Time Lens.# pStartTime_,
+        endTime =
+          Prelude._Time Lens.# pEndTime_
       }
 
 -- | The name of the scaling plan.
-gsprfdScalingPlanName :: Lens' GetScalingPlanResourceForecastData Text
-gsprfdScalingPlanName = lens _gsprfdScalingPlanName (\s a -> s {_gsprfdScalingPlanName = a})
+getScalingPlanResourceForecastData_scalingPlanName :: Lens.Lens' GetScalingPlanResourceForecastData Prelude.Text
+getScalingPlanResourceForecastData_scalingPlanName = Lens.lens (\GetScalingPlanResourceForecastData' {scalingPlanName} -> scalingPlanName) (\s@GetScalingPlanResourceForecastData' {} a -> s {scalingPlanName = a} :: GetScalingPlanResourceForecastData)
 
--- | The version number of the scaling plan. Currently, the only valid value is @1@ .
-gsprfdScalingPlanVersion :: Lens' GetScalingPlanResourceForecastData Integer
-gsprfdScalingPlanVersion = lens _gsprfdScalingPlanVersion (\s a -> s {_gsprfdScalingPlanVersion = a})
+-- | The version number of the scaling plan. Currently, the only valid value
+-- is @1@.
+getScalingPlanResourceForecastData_scalingPlanVersion :: Lens.Lens' GetScalingPlanResourceForecastData Prelude.Integer
+getScalingPlanResourceForecastData_scalingPlanVersion = Lens.lens (\GetScalingPlanResourceForecastData' {scalingPlanVersion} -> scalingPlanVersion) (\s@GetScalingPlanResourceForecastData' {} a -> s {scalingPlanVersion = a} :: GetScalingPlanResourceForecastData)
 
--- | The namespace of the AWS service. The only valid value is @autoscaling@ .
-gsprfdServiceNamespace :: Lens' GetScalingPlanResourceForecastData ServiceNamespace
-gsprfdServiceNamespace = lens _gsprfdServiceNamespace (\s a -> s {_gsprfdServiceNamespace = a})
+-- | The namespace of the AWS service. The only valid value is @autoscaling@.
+getScalingPlanResourceForecastData_serviceNamespace :: Lens.Lens' GetScalingPlanResourceForecastData ServiceNamespace
+getScalingPlanResourceForecastData_serviceNamespace = Lens.lens (\GetScalingPlanResourceForecastData' {serviceNamespace} -> serviceNamespace) (\s@GetScalingPlanResourceForecastData' {} a -> s {serviceNamespace = a} :: GetScalingPlanResourceForecastData)
 
--- | The ID of the resource. This string consists of a prefix (@autoScalingGroup@ ) followed by the name of a specified Auto Scaling group (@my-asg@ ). Example: @autoScalingGroup/my-asg@ .
-gsprfdResourceId :: Lens' GetScalingPlanResourceForecastData Text
-gsprfdResourceId = lens _gsprfdResourceId (\s a -> s {_gsprfdResourceId = a})
+-- | The ID of the resource. This string consists of a prefix
+-- (@autoScalingGroup@) followed by the name of a specified Auto Scaling
+-- group (@my-asg@). Example: @autoScalingGroup\/my-asg@.
+getScalingPlanResourceForecastData_resourceId :: Lens.Lens' GetScalingPlanResourceForecastData Prelude.Text
+getScalingPlanResourceForecastData_resourceId = Lens.lens (\GetScalingPlanResourceForecastData' {resourceId} -> resourceId) (\s@GetScalingPlanResourceForecastData' {} a -> s {resourceId = a} :: GetScalingPlanResourceForecastData)
 
--- | The scalable dimension for the resource. The only valid value is @autoscaling:autoScalingGroup:DesiredCapacity@ .
-gsprfdScalableDimension :: Lens' GetScalingPlanResourceForecastData ScalableDimension
-gsprfdScalableDimension = lens _gsprfdScalableDimension (\s a -> s {_gsprfdScalableDimension = a})
+-- | The scalable dimension for the resource. The only valid value is
+-- @autoscaling:autoScalingGroup:DesiredCapacity@.
+getScalingPlanResourceForecastData_scalableDimension :: Lens.Lens' GetScalingPlanResourceForecastData ScalableDimension
+getScalingPlanResourceForecastData_scalableDimension = Lens.lens (\GetScalingPlanResourceForecastData' {scalableDimension} -> scalableDimension) (\s@GetScalingPlanResourceForecastData' {} a -> s {scalableDimension = a} :: GetScalingPlanResourceForecastData)
 
--- | The type of forecast data to get.     * @LoadForecast@ : The load metric forecast.      * @CapacityForecast@ : The capacity forecast.      * @ScheduledActionMinCapacity@ : The minimum capacity for each scheduled scaling action. This data is calculated as the larger of two values: the capacity forecast or the minimum capacity in the scaling instruction.     * @ScheduledActionMaxCapacity@ : The maximum capacity for each scheduled scaling action. The calculation used is determined by the predictive scaling maximum capacity behavior setting in the scaling instruction.
-gsprfdForecastDataType :: Lens' GetScalingPlanResourceForecastData ForecastDataType
-gsprfdForecastDataType = lens _gsprfdForecastDataType (\s a -> s {_gsprfdForecastDataType = a})
+-- | The type of forecast data to get.
+--
+-- -   @LoadForecast@: The load metric forecast.
+--
+-- -   @CapacityForecast@: The capacity forecast.
+--
+-- -   @ScheduledActionMinCapacity@: The minimum capacity for each
+--     scheduled scaling action. This data is calculated as the larger of
+--     two values: the capacity forecast or the minimum capacity in the
+--     scaling instruction.
+--
+-- -   @ScheduledActionMaxCapacity@: The maximum capacity for each
+--     scheduled scaling action. The calculation used is determined by the
+--     predictive scaling maximum capacity behavior setting in the scaling
+--     instruction.
+getScalingPlanResourceForecastData_forecastDataType :: Lens.Lens' GetScalingPlanResourceForecastData ForecastDataType
+getScalingPlanResourceForecastData_forecastDataType = Lens.lens (\GetScalingPlanResourceForecastData' {forecastDataType} -> forecastDataType) (\s@GetScalingPlanResourceForecastData' {} a -> s {forecastDataType = a} :: GetScalingPlanResourceForecastData)
 
--- | The inclusive start time of the time range for the forecast data to get. The date and time can be at most 56 days before the current date and time.
-gsprfdStartTime :: Lens' GetScalingPlanResourceForecastData UTCTime
-gsprfdStartTime = lens _gsprfdStartTime (\s a -> s {_gsprfdStartTime = a}) . _Time
+-- | The inclusive start time of the time range for the forecast data to get.
+-- The date and time can be at most 56 days before the current date and
+-- time.
+getScalingPlanResourceForecastData_startTime :: Lens.Lens' GetScalingPlanResourceForecastData Prelude.UTCTime
+getScalingPlanResourceForecastData_startTime = Lens.lens (\GetScalingPlanResourceForecastData' {startTime} -> startTime) (\s@GetScalingPlanResourceForecastData' {} a -> s {startTime = a} :: GetScalingPlanResourceForecastData) Prelude.. Prelude._Time
 
--- | The exclusive end time of the time range for the forecast data to get. The maximum time duration between the start and end time is seven days.  Although this parameter can accept a date and time that is more than two days in the future, the availability of forecast data has limits. AWS Auto Scaling only issues forecasts for periods of two days in advance.
-gsprfdEndTime :: Lens' GetScalingPlanResourceForecastData UTCTime
-gsprfdEndTime = lens _gsprfdEndTime (\s a -> s {_gsprfdEndTime = a}) . _Time
+-- | The exclusive end time of the time range for the forecast data to get.
+-- The maximum time duration between the start and end time is seven days.
+--
+-- Although this parameter can accept a date and time that is more than two
+-- days in the future, the availability of forecast data has limits. AWS
+-- Auto Scaling only issues forecasts for periods of two days in advance.
+getScalingPlanResourceForecastData_endTime :: Lens.Lens' GetScalingPlanResourceForecastData Prelude.UTCTime
+getScalingPlanResourceForecastData_endTime = Lens.lens (\GetScalingPlanResourceForecastData' {endTime} -> endTime) (\s@GetScalingPlanResourceForecastData' {} a -> s {endTime = a} :: GetScalingPlanResourceForecastData) Prelude.. Prelude._Time
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetScalingPlanResourceForecastData
   where
   type
     Rs GetScalingPlanResourceForecastData =
       GetScalingPlanResourceForecastDataResponse
-  request = postJSON autoScalingPlans
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetScalingPlanResourceForecastDataResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "Datapoints" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> ( x Prelude..?> "Datapoints"
+                              Prelude..!@ Prelude.mempty
+                          )
       )
-
-instance Hashable GetScalingPlanResourceForecastData
-
-instance NFData GetScalingPlanResourceForecastData
-
-instance ToHeaders GetScalingPlanResourceForecastData where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AnyScaleScalingPlannerFrontendService.GetScalingPlanResourceForecastData" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON GetScalingPlanResourceForecastData where
-  toJSON GetScalingPlanResourceForecastData' {..} =
-    object
-      ( catMaybes
-          [ Just ("ScalingPlanName" .= _gsprfdScalingPlanName),
-            Just
-              ("ScalingPlanVersion" .= _gsprfdScalingPlanVersion),
-            Just ("ServiceNamespace" .= _gsprfdServiceNamespace),
-            Just ("ResourceId" .= _gsprfdResourceId),
-            Just
-              ("ScalableDimension" .= _gsprfdScalableDimension),
-            Just ("ForecastDataType" .= _gsprfdForecastDataType),
-            Just ("StartTime" .= _gsprfdStartTime),
-            Just ("EndTime" .= _gsprfdEndTime)
-          ]
-      )
-
-instance ToPath GetScalingPlanResourceForecastData where
-  toPath = const "/"
-
-instance ToQuery GetScalingPlanResourceForecastData where
-  toQuery = const mempty
-
--- | /See:/ 'getScalingPlanResourceForecastDataResponse' smart constructor.
-data GetScalingPlanResourceForecastDataResponse = GetScalingPlanResourceForecastDataResponse'
-  { _gsprfdrrsResponseStatus ::
-      !Int,
-    _gsprfdrrsDatapoints ::
-      ![Datapoint]
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetScalingPlanResourceForecastDataResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'gsprfdrrsResponseStatus' - -- | The response status code.
---
--- * 'gsprfdrrsDatapoints' - The data points to return.
-getScalingPlanResourceForecastDataResponse ::
-  -- | 'gsprfdrrsResponseStatus'
-  Int ->
-  GetScalingPlanResourceForecastDataResponse
-getScalingPlanResourceForecastDataResponse
-  pResponseStatus_ =
-    GetScalingPlanResourceForecastDataResponse'
-      { _gsprfdrrsResponseStatus =
-          pResponseStatus_,
-        _gsprfdrrsDatapoints = mempty
-      }
-
--- | -- | The response status code.
-gsprfdrrsResponseStatus :: Lens' GetScalingPlanResourceForecastDataResponse Int
-gsprfdrrsResponseStatus = lens _gsprfdrrsResponseStatus (\s a -> s {_gsprfdrrsResponseStatus = a})
-
--- | The data points to return.
-gsprfdrrsDatapoints :: Lens' GetScalingPlanResourceForecastDataResponse [Datapoint]
-gsprfdrrsDatapoints = lens _gsprfdrrsDatapoints (\s a -> s {_gsprfdrrsDatapoints = a}) . _Coerce
 
 instance
-  NFData
+  Prelude.Hashable
+    GetScalingPlanResourceForecastData
+
+instance
+  Prelude.NFData
+    GetScalingPlanResourceForecastData
+
+instance
+  Prelude.ToHeaders
+    GetScalingPlanResourceForecastData
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AnyScaleScalingPlannerFrontendService.GetScalingPlanResourceForecastData" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    GetScalingPlanResourceForecastData
+  where
+  toJSON GetScalingPlanResourceForecastData' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ScalingPlanName" Prelude..= scalingPlanName),
+            Prelude.Just
+              ("ScalingPlanVersion" Prelude..= scalingPlanVersion),
+            Prelude.Just
+              ("ServiceNamespace" Prelude..= serviceNamespace),
+            Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
+              ("ScalableDimension" Prelude..= scalableDimension),
+            Prelude.Just
+              ("ForecastDataType" Prelude..= forecastDataType),
+            Prelude.Just ("StartTime" Prelude..= startTime),
+            Prelude.Just ("EndTime" Prelude..= endTime)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    GetScalingPlanResourceForecastData
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    GetScalingPlanResourceForecastData
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newGetScalingPlanResourceForecastDataResponse' smart constructor.
+data GetScalingPlanResourceForecastDataResponse = GetScalingPlanResourceForecastDataResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The data points to return.
+    datapoints :: [Datapoint]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetScalingPlanResourceForecastDataResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'getScalingPlanResourceForecastDataResponse_httpStatus' - The response's http status code.
+--
+-- 'datapoints', 'getScalingPlanResourceForecastDataResponse_datapoints' - The data points to return.
+newGetScalingPlanResourceForecastDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetScalingPlanResourceForecastDataResponse
+newGetScalingPlanResourceForecastDataResponse
+  pHttpStatus_ =
+    GetScalingPlanResourceForecastDataResponse'
+      { httpStatus =
+          pHttpStatus_,
+        datapoints = Prelude.mempty
+      }
+
+-- | The response's http status code.
+getScalingPlanResourceForecastDataResponse_httpStatus :: Lens.Lens' GetScalingPlanResourceForecastDataResponse Prelude.Int
+getScalingPlanResourceForecastDataResponse_httpStatus = Lens.lens (\GetScalingPlanResourceForecastDataResponse' {httpStatus} -> httpStatus) (\s@GetScalingPlanResourceForecastDataResponse' {} a -> s {httpStatus = a} :: GetScalingPlanResourceForecastDataResponse)
+
+-- | The data points to return.
+getScalingPlanResourceForecastDataResponse_datapoints :: Lens.Lens' GetScalingPlanResourceForecastDataResponse [Datapoint]
+getScalingPlanResourceForecastDataResponse_datapoints = Lens.lens (\GetScalingPlanResourceForecastDataResponse' {datapoints} -> datapoints) (\s@GetScalingPlanResourceForecastDataResponse' {} a -> s {datapoints = a} :: GetScalingPlanResourceForecastDataResponse) Prelude.. Prelude._Coerce
+
+instance
+  Prelude.NFData
     GetScalingPlanResourceForecastDataResponse

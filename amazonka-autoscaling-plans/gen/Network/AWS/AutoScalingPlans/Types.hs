@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AutoScalingPlans.Types
   ( -- * Service Configuration
-    autoScalingPlans,
+    defaultService,
 
     -- * Errors
     _ObjectNotFoundException,
@@ -59,117 +62,55 @@ module Network.AWS.AutoScalingPlans.Types
 
     -- * ApplicationSource
     ApplicationSource (..),
-    applicationSource,
-    asTagFilters,
-    asCloudFormationStackARN,
+    newApplicationSource,
 
     -- * CustomizedLoadMetricSpecification
     CustomizedLoadMetricSpecification (..),
-    customizedLoadMetricSpecification,
-    clmsUnit,
-    clmsDimensions,
-    clmsMetricName,
-    clmsNamespace,
-    clmsStatistic,
+    newCustomizedLoadMetricSpecification,
 
     -- * CustomizedScalingMetricSpecification
     CustomizedScalingMetricSpecification (..),
-    customizedScalingMetricSpecification,
-    csmsUnit,
-    csmsDimensions,
-    csmsMetricName,
-    csmsNamespace,
-    csmsStatistic,
+    newCustomizedScalingMetricSpecification,
 
     -- * Datapoint
     Datapoint (..),
-    datapoint,
-    dTimestamp,
-    dValue,
+    newDatapoint,
 
     -- * MetricDimension
     MetricDimension (..),
-    metricDimension,
-    mdName,
-    mdValue,
+    newMetricDimension,
 
     -- * PredefinedLoadMetricSpecification
     PredefinedLoadMetricSpecification (..),
-    predefinedLoadMetricSpecification,
-    plmsResourceLabel,
-    plmsPredefinedLoadMetricType,
+    newPredefinedLoadMetricSpecification,
 
     -- * PredefinedScalingMetricSpecification
     PredefinedScalingMetricSpecification (..),
-    predefinedScalingMetricSpecification,
-    psmsResourceLabel,
-    psmsPredefinedScalingMetricType,
+    newPredefinedScalingMetricSpecification,
 
     -- * ScalingInstruction
     ScalingInstruction (..),
-    scalingInstruction,
-    siDisableDynamicScaling,
-    siPredefinedLoadMetricSpecification,
-    siCustomizedLoadMetricSpecification,
-    siPredictiveScalingMaxCapacityBehavior,
-    siPredictiveScalingMaxCapacityBuffer,
-    siPredictiveScalingMode,
-    siScalingPolicyUpdateBehavior,
-    siScheduledActionBufferTime,
-    siServiceNamespace,
-    siResourceId,
-    siScalableDimension,
-    siMinCapacity,
-    siMaxCapacity,
-    siTargetTrackingConfigurations,
+    newScalingInstruction,
 
     -- * ScalingPlan
     ScalingPlan (..),
-    scalingPlan,
-    spStatusMessage,
-    spCreationTime,
-    spStatusStartTime,
-    spScalingPlanName,
-    spScalingPlanVersion,
-    spApplicationSource,
-    spScalingInstructions,
-    spStatusCode,
+    newScalingPlan,
 
     -- * ScalingPlanResource
     ScalingPlanResource (..),
-    scalingPlanResource,
-    sprScalingPolicies,
-    sprScalingStatusMessage,
-    sprScalingPlanName,
-    sprScalingPlanVersion,
-    sprServiceNamespace,
-    sprResourceId,
-    sprScalableDimension,
-    sprScalingStatusCode,
+    newScalingPlanResource,
 
     -- * ScalingPolicy
     ScalingPolicy (..),
-    scalingPolicy,
-    spTargetTrackingConfiguration,
-    spPolicyName,
-    spPolicyType,
+    newScalingPolicy,
 
     -- * TagFilter
     TagFilter (..),
-    tagFilter,
-    tfKey,
-    tfValues,
+    newTagFilter,
 
     -- * TargetTrackingConfiguration
     TargetTrackingConfiguration (..),
-    targetTrackingConfiguration,
-    ttcDisableScaleIn,
-    ttcCustomizedScalingMetricSpecification,
-    ttcPredefinedScalingMetricSpecification,
-    ttcEstimatedInstanceWarmup,
-    ttcScaleOutCooldown,
-    ttcScaleInCooldown,
-    ttcTargetValue,
+    newTargetTrackingConfiguration,
   )
 where
 
@@ -198,99 +139,122 @@ import Network.AWS.AutoScalingPlans.Types.ScalingStatusCode
 import Network.AWS.AutoScalingPlans.Types.ServiceNamespace
 import Network.AWS.AutoScalingPlans.Types.TagFilter
 import Network.AWS.AutoScalingPlans.Types.TargetTrackingConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2018-01-06@ of the Amazon Auto Scaling Plans SDK configuration.
-autoScalingPlans :: Service
-autoScalingPlans =
-  Service
-    { _svcAbbrev = "AutoScalingPlans",
-      _svcSigner = v4,
-      _svcPrefix = "autoscaling-plans",
-      _svcVersion = "2018-01-06",
-      _svcEndpoint = defaultEndpoint autoScalingPlans,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "AutoScalingPlans",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "AutoScalingPlans",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "autoscaling-plans",
+      Prelude._svcVersion = "2018-01-06",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "AutoScalingPlans",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The specified object could not be found.
-_ObjectNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ObjectNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ObjectNotFoundException =
-  _MatchServiceError
-    autoScalingPlans
+  Prelude._MatchServiceError
+    defaultService
     "ObjectNotFoundException"
 
 -- | The service encountered an internal error.
-_InternalServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceException =
-  _MatchServiceError
-    autoScalingPlans
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceException"
 
 -- | The token provided is not valid.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    autoScalingPlans
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
--- | An exception was thrown for a validation issue. Review the parameters provided.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An exception was thrown for a validation issue. Review the parameters
+-- provided.
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError
-    autoScalingPlans
+  Prelude._MatchServiceError
+    defaultService
     "ValidationException"
 
--- | Your account exceeded a limit. This exception is thrown when a per-account resource limit is exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Your account exceeded a limit. This exception is thrown when a
+-- per-account resource limit is exceeded.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    autoScalingPlans
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | Concurrent updates caused an exception, for example, if you request an update to a scaling plan that already has a pending update.
-_ConcurrentUpdateException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Concurrent updates caused an exception, for example, if you request an
+-- update to a scaling plan that already has a pending update.
+_ConcurrentUpdateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentUpdateException =
-  _MatchServiceError
-    autoScalingPlans
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentUpdateException"

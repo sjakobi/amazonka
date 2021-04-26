@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.AutoScalingPlans.Types.ScalableDimension
   ( ScalableDimension
       ( ..,
-        AutoscalingAutoScalingGroupDesiredCapacity,
-        DynamodbIndexReadCapacityUnits,
-        DynamodbIndexWriteCapacityUnits,
-        DynamodbTableReadCapacityUnits,
-        DynamodbTableWriteCapacityUnits,
-        EC2SpotFleetRequestTargetCapacity,
-        EcsServiceDesiredCount,
-        RDSClusterReadReplicaCount
+        ScalableDimensionAutoscalingAutoScalingGroupDesiredCapacity,
+        ScalableDimensionDynamodbIndexReadCapacityUnits,
+        ScalableDimensionDynamodbIndexWriteCapacityUnits,
+        ScalableDimensionDynamodbTableReadCapacityUnits,
+        ScalableDimensionDynamodbTableWriteCapacityUnits,
+        ScalableDimensionEC2SpotFleetRequestTargetCapacity,
+        ScalableDimensionEcsServiceDesiredCount,
+        ScalableDimensionRdsClusterReadReplicaCount
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalableDimension = ScalableDimension' (CI Text)
+newtype ScalableDimension = ScalableDimension'
+  { fromScalableDimension ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AutoscalingAutoScalingGroupDesiredCapacity :: ScalableDimension
-pattern AutoscalingAutoScalingGroupDesiredCapacity = ScalableDimension' "autoscaling:autoScalingGroup:DesiredCapacity"
+pattern ScalableDimensionAutoscalingAutoScalingGroupDesiredCapacity :: ScalableDimension
+pattern ScalableDimensionAutoscalingAutoScalingGroupDesiredCapacity = ScalableDimension' "autoscaling:autoScalingGroup:DesiredCapacity"
 
-pattern DynamodbIndexReadCapacityUnits :: ScalableDimension
-pattern DynamodbIndexReadCapacityUnits = ScalableDimension' "dynamodb:index:ReadCapacityUnits"
+pattern ScalableDimensionDynamodbIndexReadCapacityUnits :: ScalableDimension
+pattern ScalableDimensionDynamodbIndexReadCapacityUnits = ScalableDimension' "dynamodb:index:ReadCapacityUnits"
 
-pattern DynamodbIndexWriteCapacityUnits :: ScalableDimension
-pattern DynamodbIndexWriteCapacityUnits = ScalableDimension' "dynamodb:index:WriteCapacityUnits"
+pattern ScalableDimensionDynamodbIndexWriteCapacityUnits :: ScalableDimension
+pattern ScalableDimensionDynamodbIndexWriteCapacityUnits = ScalableDimension' "dynamodb:index:WriteCapacityUnits"
 
-pattern DynamodbTableReadCapacityUnits :: ScalableDimension
-pattern DynamodbTableReadCapacityUnits = ScalableDimension' "dynamodb:table:ReadCapacityUnits"
+pattern ScalableDimensionDynamodbTableReadCapacityUnits :: ScalableDimension
+pattern ScalableDimensionDynamodbTableReadCapacityUnits = ScalableDimension' "dynamodb:table:ReadCapacityUnits"
 
-pattern DynamodbTableWriteCapacityUnits :: ScalableDimension
-pattern DynamodbTableWriteCapacityUnits = ScalableDimension' "dynamodb:table:WriteCapacityUnits"
+pattern ScalableDimensionDynamodbTableWriteCapacityUnits :: ScalableDimension
+pattern ScalableDimensionDynamodbTableWriteCapacityUnits = ScalableDimension' "dynamodb:table:WriteCapacityUnits"
 
-pattern EC2SpotFleetRequestTargetCapacity :: ScalableDimension
-pattern EC2SpotFleetRequestTargetCapacity = ScalableDimension' "ec2:spot-fleet-request:TargetCapacity"
+pattern ScalableDimensionEC2SpotFleetRequestTargetCapacity :: ScalableDimension
+pattern ScalableDimensionEC2SpotFleetRequestTargetCapacity = ScalableDimension' "ec2:spot-fleet-request:TargetCapacity"
 
-pattern EcsServiceDesiredCount :: ScalableDimension
-pattern EcsServiceDesiredCount = ScalableDimension' "ecs:service:DesiredCount"
+pattern ScalableDimensionEcsServiceDesiredCount :: ScalableDimension
+pattern ScalableDimensionEcsServiceDesiredCount = ScalableDimension' "ecs:service:DesiredCount"
 
-pattern RDSClusterReadReplicaCount :: ScalableDimension
-pattern RDSClusterReadReplicaCount = ScalableDimension' "rds:cluster:ReadReplicaCount"
+pattern ScalableDimensionRdsClusterReadReplicaCount :: ScalableDimension
+pattern ScalableDimensionRdsClusterReadReplicaCount = ScalableDimension' "rds:cluster:ReadReplicaCount"
 
 {-# COMPLETE
-  AutoscalingAutoScalingGroupDesiredCapacity,
-  DynamodbIndexReadCapacityUnits,
-  DynamodbIndexWriteCapacityUnits,
-  DynamodbTableReadCapacityUnits,
-  DynamodbTableWriteCapacityUnits,
-  EC2SpotFleetRequestTargetCapacity,
-  EcsServiceDesiredCount,
-  RDSClusterReadReplicaCount,
+  ScalableDimensionAutoscalingAutoScalingGroupDesiredCapacity,
+  ScalableDimensionDynamodbIndexReadCapacityUnits,
+  ScalableDimensionDynamodbIndexWriteCapacityUnits,
+  ScalableDimensionDynamodbTableReadCapacityUnits,
+  ScalableDimensionDynamodbTableWriteCapacityUnits,
+  ScalableDimensionEC2SpotFleetRequestTargetCapacity,
+  ScalableDimensionEcsServiceDesiredCount,
+  ScalableDimensionRdsClusterReadReplicaCount,
   ScalableDimension'
   #-}
 
-instance FromText ScalableDimension where
-  parser = (ScalableDimension' . mk) <$> takeText
+instance Prelude.FromText ScalableDimension where
+  parser = ScalableDimension' Prelude.<$> Prelude.takeText
 
-instance ToText ScalableDimension where
-  toText (ScalableDimension' ci) = original ci
+instance Prelude.ToText ScalableDimension where
+  toText (ScalableDimension' x) = x
 
-instance Hashable ScalableDimension
+instance Prelude.Hashable ScalableDimension
 
-instance NFData ScalableDimension
+instance Prelude.NFData ScalableDimension
 
-instance ToByteString ScalableDimension
+instance Prelude.ToByteString ScalableDimension
 
-instance ToQuery ScalableDimension
+instance Prelude.ToQuery ScalableDimension
 
-instance ToHeader ScalableDimension
+instance Prelude.ToHeader ScalableDimension
 
-instance ToJSON ScalableDimension where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalableDimension where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalableDimension where
-  parseJSON = parseJSONText "ScalableDimension"
+instance Prelude.FromJSON ScalableDimension where
+  parseJSON = Prelude.parseJSONText "ScalableDimension"

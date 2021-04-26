@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.AutoScalingPlans.Types.PredictiveScalingMode
   ( PredictiveScalingMode
       ( ..,
-        ForecastAndScale,
-        ForecastOnly
+        PredictiveScalingModeForecastAndScale,
+        PredictiveScalingModeForecastOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PredictiveScalingMode
-  = PredictiveScalingMode'
-      ( CI
-          Text
-      )
+newtype PredictiveScalingMode = PredictiveScalingMode'
+  { fromPredictiveScalingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ForecastAndScale :: PredictiveScalingMode
-pattern ForecastAndScale = PredictiveScalingMode' "ForecastAndScale"
+pattern PredictiveScalingModeForecastAndScale :: PredictiveScalingMode
+pattern PredictiveScalingModeForecastAndScale = PredictiveScalingMode' "ForecastAndScale"
 
-pattern ForecastOnly :: PredictiveScalingMode
-pattern ForecastOnly = PredictiveScalingMode' "ForecastOnly"
+pattern PredictiveScalingModeForecastOnly :: PredictiveScalingMode
+pattern PredictiveScalingModeForecastOnly = PredictiveScalingMode' "ForecastOnly"
 
 {-# COMPLETE
-  ForecastAndScale,
-  ForecastOnly,
+  PredictiveScalingModeForecastAndScale,
+  PredictiveScalingModeForecastOnly,
   PredictiveScalingMode'
   #-}
 
-instance FromText PredictiveScalingMode where
-  parser = (PredictiveScalingMode' . mk) <$> takeText
+instance Prelude.FromText PredictiveScalingMode where
+  parser = PredictiveScalingMode' Prelude.<$> Prelude.takeText
 
-instance ToText PredictiveScalingMode where
-  toText (PredictiveScalingMode' ci) = original ci
+instance Prelude.ToText PredictiveScalingMode where
+  toText (PredictiveScalingMode' x) = x
 
-instance Hashable PredictiveScalingMode
+instance Prelude.Hashable PredictiveScalingMode
 
-instance NFData PredictiveScalingMode
+instance Prelude.NFData PredictiveScalingMode
 
-instance ToByteString PredictiveScalingMode
+instance Prelude.ToByteString PredictiveScalingMode
 
-instance ToQuery PredictiveScalingMode
+instance Prelude.ToQuery PredictiveScalingMode
 
-instance ToHeader PredictiveScalingMode
+instance Prelude.ToHeader PredictiveScalingMode
 
-instance ToJSON PredictiveScalingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PredictiveScalingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PredictiveScalingMode where
-  parseJSON = parseJSONText "PredictiveScalingMode"
+instance Prelude.FromJSON PredictiveScalingMode where
+  parseJSON = Prelude.parseJSONText "PredictiveScalingMode"

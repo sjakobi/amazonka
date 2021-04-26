@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -23,234 +27,603 @@ import Network.AWS.AutoScalingPlans.Types.ScalableDimension
 import Network.AWS.AutoScalingPlans.Types.ScalingPolicyUpdateBehavior
 import Network.AWS.AutoScalingPlans.Types.ServiceNamespace
 import Network.AWS.AutoScalingPlans.Types.TargetTrackingConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a scaling instruction for a scalable resource in a scaling plan. Each scaling instruction applies to one resource.
+-- | Describes a scaling instruction for a scalable resource in a scaling
+-- plan. Each scaling instruction applies to one resource.
 --
+-- AWS Auto Scaling creates target tracking scaling policies based on the
+-- scaling instructions. Target tracking scaling policies adjust the
+-- capacity of your scalable resource as required to maintain resource
+-- utilization at the target value that you specified.
 --
--- AWS Auto Scaling creates target tracking scaling policies based on the scaling instructions. Target tracking scaling policies adjust the capacity of your scalable resource as required to maintain resource utilization at the target value that you specified.
+-- AWS Auto Scaling also configures predictive scaling for your Amazon EC2
+-- Auto Scaling groups using a subset of parameters, including the load
+-- metric, the scaling metric, the target value for the scaling metric, the
+-- predictive scaling mode (forecast and scale or forecast only), and the
+-- desired behavior when the forecast capacity exceeds the maximum capacity
+-- of the resource. With predictive scaling, AWS Auto Scaling generates
+-- forecasts with traffic predictions for the two days ahead and schedules
+-- scaling actions that proactively add and remove resource capacity to
+-- match the forecast.
 --
--- AWS Auto Scaling also configures predictive scaling for your Amazon EC2 Auto Scaling groups using a subset of parameters, including the load metric, the scaling metric, the target value for the scaling metric, the predictive scaling mode (forecast and scale or forecast only), and the desired behavior when the forecast capacity exceeds the maximum capacity of the resource. With predictive scaling, AWS Auto Scaling generates forecasts with traffic predictions for the two days ahead and schedules scaling actions that proactively add and remove resource capacity to match the forecast.
+-- We recommend waiting a minimum of 24 hours after creating an Auto
+-- Scaling group to configure predictive scaling. At minimum, there must be
+-- 24 hours of historical data to generate a forecast. For more
+-- information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/userguide/gs-best-practices.html Best Practices for AWS Auto Scaling>
+-- in the /AWS Auto Scaling User Guide/.
 --
--- /Important:/ We recommend waiting a minimum of 24 hours after creating an Auto Scaling group to configure predictive scaling. At minimum, there must be 24 hours of historical data to generate a forecast. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/userguide/gs-best-practices.html Best Practices for AWS Auto Scaling> in the /AWS Auto Scaling User Guide/ .
---
---
--- /See:/ 'scalingInstruction' smart constructor.
+-- /See:/ 'newScalingInstruction' smart constructor.
 data ScalingInstruction = ScalingInstruction'
-  { _siDisableDynamicScaling ::
-      !(Maybe Bool),
-    _siPredefinedLoadMetricSpecification ::
-      !( Maybe
-           PredefinedLoadMetricSpecification
-       ),
-    _siCustomizedLoadMetricSpecification ::
-      !( Maybe
-           CustomizedLoadMetricSpecification
-       ),
-    _siPredictiveScalingMaxCapacityBehavior ::
-      !( Maybe
-           PredictiveScalingMaxCapacityBehavior
-       ),
-    _siPredictiveScalingMaxCapacityBuffer ::
-      !(Maybe Int),
-    _siPredictiveScalingMode ::
-      !(Maybe PredictiveScalingMode),
-    _siScalingPolicyUpdateBehavior ::
-      !( Maybe
-           ScalingPolicyUpdateBehavior
-       ),
-    _siScheduledActionBufferTime ::
-      !(Maybe Nat),
-    _siServiceNamespace ::
-      !ServiceNamespace,
-    _siResourceId :: !Text,
-    _siScalableDimension ::
-      !ScalableDimension,
-    _siMinCapacity :: !Int,
-    _siMaxCapacity :: !Int,
-    _siTargetTrackingConfigurations ::
-      ![TargetTrackingConfiguration]
+  { -- | Controls whether dynamic scaling by AWS Auto Scaling is disabled. When
+    -- dynamic scaling is enabled, AWS Auto Scaling creates target tracking
+    -- scaling policies based on the specified target tracking configurations.
+    --
+    -- The default is enabled (@false@).
+    disableDynamicScaling :: Prelude.Maybe Prelude.Bool,
+    -- | The predefined load metric to use for predictive scaling. This parameter
+    -- or a __CustomizedLoadMetricSpecification__ is required when configuring
+    -- predictive scaling, and cannot be used otherwise.
+    predefinedLoadMetricSpecification :: Prelude.Maybe PredefinedLoadMetricSpecification,
+    -- | The customized load metric to use for predictive scaling. This parameter
+    -- or a __PredefinedLoadMetricSpecification__ is required when configuring
+    -- predictive scaling, and cannot be used otherwise.
+    customizedLoadMetricSpecification :: Prelude.Maybe CustomizedLoadMetricSpecification,
+    -- | Defines the behavior that should be applied if the forecast capacity
+    -- approaches or exceeds the maximum capacity specified for the resource.
+    -- The default value is @SetForecastCapacityToMaxCapacity@.
+    --
+    -- The following are possible values:
+    --
+    -- -   @SetForecastCapacityToMaxCapacity@ - AWS Auto Scaling cannot scale
+    --     resource capacity higher than the maximum capacity. The maximum
+    --     capacity is enforced as a hard limit.
+    --
+    -- -   @SetMaxCapacityToForecastCapacity@ - AWS Auto Scaling may scale
+    --     resource capacity higher than the maximum capacity to equal but not
+    --     exceed forecast capacity.
+    --
+    -- -   @SetMaxCapacityAboveForecastCapacity@ - AWS Auto Scaling may scale
+    --     resource capacity higher than the maximum capacity by a specified
+    --     buffer value. The intention is to give the target tracking scaling
+    --     policy extra capacity if unexpected traffic occurs.
+    --
+    -- Only valid when configuring predictive scaling.
+    predictiveScalingMaxCapacityBehavior :: Prelude.Maybe PredictiveScalingMaxCapacityBehavior,
+    -- | The size of the capacity buffer to use when the forecast capacity is
+    -- close to or exceeds the maximum capacity. The value is specified as a
+    -- percentage relative to the forecast capacity. For example, if the buffer
+    -- is 10, this means a 10 percent buffer, such that if the forecast
+    -- capacity is 50, and the maximum capacity is 40, then the effective
+    -- maximum capacity is 55.
+    --
+    -- Only valid when configuring predictive scaling. Required if the
+    -- __PredictiveScalingMaxCapacityBehavior__ is set to
+    -- @SetMaxCapacityAboveForecastCapacity@, and cannot be used otherwise.
+    --
+    -- The range is 1-100.
+    predictiveScalingMaxCapacityBuffer :: Prelude.Maybe Prelude.Int,
+    -- | The predictive scaling mode. The default value is @ForecastAndScale@.
+    -- Otherwise, AWS Auto Scaling forecasts capacity but does not create any
+    -- scheduled scaling actions based on the capacity forecast.
+    predictiveScalingMode :: Prelude.Maybe PredictiveScalingMode,
+    -- | Controls whether a resource\'s externally created scaling policies are
+    -- kept or replaced.
+    --
+    -- The default value is @KeepExternalPolicies@. If the parameter is set to
+    -- @ReplaceExternalPolicies@, any scaling policies that are external to AWS
+    -- Auto Scaling are deleted and new target tracking scaling policies
+    -- created.
+    --
+    -- Only valid when configuring dynamic scaling.
+    --
+    -- Condition: The number of existing policies to be replaced must be less
+    -- than or equal to 50. If there are more than 50 policies to be replaced,
+    -- AWS Auto Scaling keeps all existing policies and does not create new
+    -- ones.
+    scalingPolicyUpdateBehavior :: Prelude.Maybe ScalingPolicyUpdateBehavior,
+    -- | The amount of time, in seconds, to buffer the run time of scheduled
+    -- scaling actions when scaling out. For example, if the forecast says to
+    -- add capacity at 10:00 AM, and the buffer time is 5 minutes, then the run
+    -- time of the corresponding scheduled scaling action will be 9:55 AM. The
+    -- intention is to give resources time to be provisioned. For example, it
+    -- can take a few minutes to launch an EC2 instance. The actual amount of
+    -- time required depends on several factors, such as the size of the
+    -- instance and whether there are startup scripts to complete.
+    --
+    -- The value must be less than the forecast interval duration of 3600
+    -- seconds (60 minutes). The default is 300 seconds.
+    --
+    -- Only valid when configuring predictive scaling.
+    scheduledActionBufferTime :: Prelude.Maybe Prelude.Nat,
+    -- | The namespace of the AWS service.
+    serviceNamespace :: ServiceNamespace,
+    -- | The ID of the resource. This string consists of the resource type and
+    -- unique identifier.
+    --
+    -- -   Auto Scaling group - The resource type is @autoScalingGroup@ and the
+    --     unique identifier is the name of the Auto Scaling group. Example:
+    --     @autoScalingGroup\/my-asg@.
+    --
+    -- -   ECS service - The resource type is @service@ and the unique
+    --     identifier is the cluster name and service name. Example:
+    --     @service\/default\/sample-webapp@.
+    --
+    -- -   Spot Fleet request - The resource type is @spot-fleet-request@ and
+    --     the unique identifier is the Spot Fleet request ID. Example:
+    --     @spot-fleet-request\/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@.
+    --
+    -- -   DynamoDB table - The resource type is @table@ and the unique
+    --     identifier is the resource ID. Example: @table\/my-table@.
+    --
+    -- -   DynamoDB global secondary index - The resource type is @index@ and
+    --     the unique identifier is the resource ID. Example:
+    --     @table\/my-table\/index\/my-table-index@.
+    --
+    -- -   Aurora DB cluster - The resource type is @cluster@ and the unique
+    --     identifier is the cluster name. Example: @cluster:my-db-cluster@.
+    resourceId :: Prelude.Text,
+    -- | The scalable dimension associated with the resource.
+    --
+    -- -   @autoscaling:autoScalingGroup:DesiredCapacity@ - The desired
+    --     capacity of an Auto Scaling group.
+    --
+    -- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
+    --     service.
+    --
+    -- -   @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a
+    --     Spot Fleet request.
+    --
+    -- -   @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity
+    --     for a DynamoDB table.
+    --
+    -- -   @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity
+    --     for a DynamoDB table.
+    --
+    -- -   @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity
+    --     for a DynamoDB global secondary index.
+    --
+    -- -   @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity
+    --     for a DynamoDB global secondary index.
+    --
+    -- -   @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an
+    --     Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+    --     Aurora PostgreSQL-compatible edition.
+    scalableDimension :: ScalableDimension,
+    -- | The minimum capacity of the resource.
+    minCapacity :: Prelude.Int,
+    -- | The maximum capacity of the resource. The exception to this upper limit
+    -- is if you specify a non-default setting for
+    -- __PredictiveScalingMaxCapacityBehavior__.
+    maxCapacity :: Prelude.Int,
+    -- | The target tracking configurations (up to 10). Each of these structures
+    -- must specify a unique scaling metric and a target value for the metric.
+    targetTrackingConfigurations :: [TargetTrackingConfiguration]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScalingInstruction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScalingInstruction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siDisableDynamicScaling' - Controls whether dynamic scaling by AWS Auto Scaling is disabled. When dynamic scaling is enabled, AWS Auto Scaling creates target tracking scaling policies based on the specified target tracking configurations.  The default is enabled (@false@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siPredefinedLoadMetricSpecification' - The predefined load metric to use for predictive scaling. This parameter or a __CustomizedLoadMetricSpecification__ is required when configuring predictive scaling, and cannot be used otherwise.
+-- 'disableDynamicScaling', 'scalingInstruction_disableDynamicScaling' - Controls whether dynamic scaling by AWS Auto Scaling is disabled. When
+-- dynamic scaling is enabled, AWS Auto Scaling creates target tracking
+-- scaling policies based on the specified target tracking configurations.
 --
--- * 'siCustomizedLoadMetricSpecification' - The customized load metric to use for predictive scaling. This parameter or a __PredefinedLoadMetricSpecification__ is required when configuring predictive scaling, and cannot be used otherwise.
+-- The default is enabled (@false@).
 --
--- * 'siPredictiveScalingMaxCapacityBehavior' - Defines the behavior that should be applied if the forecast capacity approaches or exceeds the maximum capacity specified for the resource. The default value is @SetForecastCapacityToMaxCapacity@ . The following are possible values:     * @SetForecastCapacityToMaxCapacity@ - AWS Auto Scaling cannot scale resource capacity higher than the maximum capacity. The maximum capacity is enforced as a hard limit.      * @SetMaxCapacityToForecastCapacity@ - AWS Auto Scaling may scale resource capacity higher than the maximum capacity to equal but not exceed forecast capacity.     * @SetMaxCapacityAboveForecastCapacity@ - AWS Auto Scaling may scale resource capacity higher than the maximum capacity by a specified buffer value. The intention is to give the target tracking scaling policy extra capacity if unexpected traffic occurs.  Only valid when configuring predictive scaling.
+-- 'predefinedLoadMetricSpecification', 'scalingInstruction_predefinedLoadMetricSpecification' - The predefined load metric to use for predictive scaling. This parameter
+-- or a __CustomizedLoadMetricSpecification__ is required when configuring
+-- predictive scaling, and cannot be used otherwise.
 --
--- * 'siPredictiveScalingMaxCapacityBuffer' - The size of the capacity buffer to use when the forecast capacity is close to or exceeds the maximum capacity. The value is specified as a percentage relative to the forecast capacity. For example, if the buffer is 10, this means a 10 percent buffer, such that if the forecast capacity is 50, and the maximum capacity is 40, then the effective maximum capacity is 55. Only valid when configuring predictive scaling. Required if the __PredictiveScalingMaxCapacityBehavior__ is set to @SetMaxCapacityAboveForecastCapacity@ , and cannot be used otherwise. The range is 1-100.
+-- 'customizedLoadMetricSpecification', 'scalingInstruction_customizedLoadMetricSpecification' - The customized load metric to use for predictive scaling. This parameter
+-- or a __PredefinedLoadMetricSpecification__ is required when configuring
+-- predictive scaling, and cannot be used otherwise.
 --
--- * 'siPredictiveScalingMode' - The predictive scaling mode. The default value is @ForecastAndScale@ . Otherwise, AWS Auto Scaling forecasts capacity but does not create any scheduled scaling actions based on the capacity forecast.
+-- 'predictiveScalingMaxCapacityBehavior', 'scalingInstruction_predictiveScalingMaxCapacityBehavior' - Defines the behavior that should be applied if the forecast capacity
+-- approaches or exceeds the maximum capacity specified for the resource.
+-- The default value is @SetForecastCapacityToMaxCapacity@.
 --
--- * 'siScalingPolicyUpdateBehavior' - Controls whether a resource's externally created scaling policies are kept or replaced.  The default value is @KeepExternalPolicies@ . If the parameter is set to @ReplaceExternalPolicies@ , any scaling policies that are external to AWS Auto Scaling are deleted and new target tracking scaling policies created.  Only valid when configuring dynamic scaling.  Condition: The number of existing policies to be replaced must be less than or equal to 50. If there are more than 50 policies to be replaced, AWS Auto Scaling keeps all existing policies and does not create new ones.
+-- The following are possible values:
 --
--- * 'siScheduledActionBufferTime' - The amount of time, in seconds, to buffer the run time of scheduled scaling actions when scaling out. For example, if the forecast says to add capacity at 10:00 AM, and the buffer time is 5 minutes, then the run time of the corresponding scheduled scaling action will be 9:55 AM. The intention is to give resources time to be provisioned. For example, it can take a few minutes to launch an EC2 instance. The actual amount of time required depends on several factors, such as the size of the instance and whether there are startup scripts to complete.  The value must be less than the forecast interval duration of 3600 seconds (60 minutes). The default is 300 seconds.  Only valid when configuring predictive scaling.
+-- -   @SetForecastCapacityToMaxCapacity@ - AWS Auto Scaling cannot scale
+--     resource capacity higher than the maximum capacity. The maximum
+--     capacity is enforced as a hard limit.
 --
--- * 'siServiceNamespace' - The namespace of the AWS service.
+-- -   @SetMaxCapacityToForecastCapacity@ - AWS Auto Scaling may scale
+--     resource capacity higher than the maximum capacity to equal but not
+--     exceed forecast capacity.
 --
--- * 'siResourceId' - The ID of the resource. This string consists of the resource type and unique identifier.     * Auto Scaling group - The resource type is @autoScalingGroup@ and the unique identifier is the name of the Auto Scaling group. Example: @autoScalingGroup/my-asg@ .     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot Fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot Fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the resource ID. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the resource ID. Example: @table/my-table/index/my-table-index@ .     * Aurora DB cluster - The resource type is @cluster@ and the unique identifier is the cluster name. Example: @cluster:my-db-cluster@ .
+-- -   @SetMaxCapacityAboveForecastCapacity@ - AWS Auto Scaling may scale
+--     resource capacity higher than the maximum capacity by a specified
+--     buffer value. The intention is to give the target tracking scaling
+--     policy extra capacity if unexpected traffic occurs.
 --
--- * 'siScalableDimension' - The scalable dimension associated with the resource.     * @autoscaling:autoScalingGroup:DesiredCapacity@ - The desired capacity of an Auto Scaling group.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot Fleet request.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.     * @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+-- Only valid when configuring predictive scaling.
 --
--- * 'siMinCapacity' - The minimum capacity of the resource.
+-- 'predictiveScalingMaxCapacityBuffer', 'scalingInstruction_predictiveScalingMaxCapacityBuffer' - The size of the capacity buffer to use when the forecast capacity is
+-- close to or exceeds the maximum capacity. The value is specified as a
+-- percentage relative to the forecast capacity. For example, if the buffer
+-- is 10, this means a 10 percent buffer, such that if the forecast
+-- capacity is 50, and the maximum capacity is 40, then the effective
+-- maximum capacity is 55.
 --
--- * 'siMaxCapacity' - The maximum capacity of the resource. The exception to this upper limit is if you specify a non-default setting for __PredictiveScalingMaxCapacityBehavior__ .
+-- Only valid when configuring predictive scaling. Required if the
+-- __PredictiveScalingMaxCapacityBehavior__ is set to
+-- @SetMaxCapacityAboveForecastCapacity@, and cannot be used otherwise.
 --
--- * 'siTargetTrackingConfigurations' - The target tracking configurations (up to 10). Each of these structures must specify a unique scaling metric and a target value for the metric.
-scalingInstruction ::
-  -- | 'siServiceNamespace'
+-- The range is 1-100.
+--
+-- 'predictiveScalingMode', 'scalingInstruction_predictiveScalingMode' - The predictive scaling mode. The default value is @ForecastAndScale@.
+-- Otherwise, AWS Auto Scaling forecasts capacity but does not create any
+-- scheduled scaling actions based on the capacity forecast.
+--
+-- 'scalingPolicyUpdateBehavior', 'scalingInstruction_scalingPolicyUpdateBehavior' - Controls whether a resource\'s externally created scaling policies are
+-- kept or replaced.
+--
+-- The default value is @KeepExternalPolicies@. If the parameter is set to
+-- @ReplaceExternalPolicies@, any scaling policies that are external to AWS
+-- Auto Scaling are deleted and new target tracking scaling policies
+-- created.
+--
+-- Only valid when configuring dynamic scaling.
+--
+-- Condition: The number of existing policies to be replaced must be less
+-- than or equal to 50. If there are more than 50 policies to be replaced,
+-- AWS Auto Scaling keeps all existing policies and does not create new
+-- ones.
+--
+-- 'scheduledActionBufferTime', 'scalingInstruction_scheduledActionBufferTime' - The amount of time, in seconds, to buffer the run time of scheduled
+-- scaling actions when scaling out. For example, if the forecast says to
+-- add capacity at 10:00 AM, and the buffer time is 5 minutes, then the run
+-- time of the corresponding scheduled scaling action will be 9:55 AM. The
+-- intention is to give resources time to be provisioned. For example, it
+-- can take a few minutes to launch an EC2 instance. The actual amount of
+-- time required depends on several factors, such as the size of the
+-- instance and whether there are startup scripts to complete.
+--
+-- The value must be less than the forecast interval duration of 3600
+-- seconds (60 minutes). The default is 300 seconds.
+--
+-- Only valid when configuring predictive scaling.
+--
+-- 'serviceNamespace', 'scalingInstruction_serviceNamespace' - The namespace of the AWS service.
+--
+-- 'resourceId', 'scalingInstruction_resourceId' - The ID of the resource. This string consists of the resource type and
+-- unique identifier.
+--
+-- -   Auto Scaling group - The resource type is @autoScalingGroup@ and the
+--     unique identifier is the name of the Auto Scaling group. Example:
+--     @autoScalingGroup\/my-asg@.
+--
+-- -   ECS service - The resource type is @service@ and the unique
+--     identifier is the cluster name and service name. Example:
+--     @service\/default\/sample-webapp@.
+--
+-- -   Spot Fleet request - The resource type is @spot-fleet-request@ and
+--     the unique identifier is the Spot Fleet request ID. Example:
+--     @spot-fleet-request\/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@.
+--
+-- -   DynamoDB table - The resource type is @table@ and the unique
+--     identifier is the resource ID. Example: @table\/my-table@.
+--
+-- -   DynamoDB global secondary index - The resource type is @index@ and
+--     the unique identifier is the resource ID. Example:
+--     @table\/my-table\/index\/my-table-index@.
+--
+-- -   Aurora DB cluster - The resource type is @cluster@ and the unique
+--     identifier is the cluster name. Example: @cluster:my-db-cluster@.
+--
+-- 'scalableDimension', 'scalingInstruction_scalableDimension' - The scalable dimension associated with the resource.
+--
+-- -   @autoscaling:autoScalingGroup:DesiredCapacity@ - The desired
+--     capacity of an Auto Scaling group.
+--
+-- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
+--     service.
+--
+-- -   @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a
+--     Spot Fleet request.
+--
+-- -   @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an
+--     Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+--     Aurora PostgreSQL-compatible edition.
+--
+-- 'minCapacity', 'scalingInstruction_minCapacity' - The minimum capacity of the resource.
+--
+-- 'maxCapacity', 'scalingInstruction_maxCapacity' - The maximum capacity of the resource. The exception to this upper limit
+-- is if you specify a non-default setting for
+-- __PredictiveScalingMaxCapacityBehavior__.
+--
+-- 'targetTrackingConfigurations', 'scalingInstruction_targetTrackingConfigurations' - The target tracking configurations (up to 10). Each of these structures
+-- must specify a unique scaling metric and a target value for the metric.
+newScalingInstruction ::
+  -- | 'serviceNamespace'
   ServiceNamespace ->
-  -- | 'siResourceId'
-  Text ->
-  -- | 'siScalableDimension'
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'scalableDimension'
   ScalableDimension ->
-  -- | 'siMinCapacity'
-  Int ->
-  -- | 'siMaxCapacity'
-  Int ->
+  -- | 'minCapacity'
+  Prelude.Int ->
+  -- | 'maxCapacity'
+  Prelude.Int ->
   ScalingInstruction
-scalingInstruction
+newScalingInstruction
   pServiceNamespace_
   pResourceId_
   pScalableDimension_
   pMinCapacity_
   pMaxCapacity_ =
     ScalingInstruction'
-      { _siDisableDynamicScaling =
-          Nothing,
-        _siPredefinedLoadMetricSpecification = Nothing,
-        _siCustomizedLoadMetricSpecification = Nothing,
-        _siPredictiveScalingMaxCapacityBehavior = Nothing,
-        _siPredictiveScalingMaxCapacityBuffer = Nothing,
-        _siPredictiveScalingMode = Nothing,
-        _siScalingPolicyUpdateBehavior = Nothing,
-        _siScheduledActionBufferTime = Nothing,
-        _siServiceNamespace = pServiceNamespace_,
-        _siResourceId = pResourceId_,
-        _siScalableDimension = pScalableDimension_,
-        _siMinCapacity = pMinCapacity_,
-        _siMaxCapacity = pMaxCapacity_,
-        _siTargetTrackingConfigurations = mempty
+      { disableDynamicScaling =
+          Prelude.Nothing,
+        predefinedLoadMetricSpecification = Prelude.Nothing,
+        customizedLoadMetricSpecification = Prelude.Nothing,
+        predictiveScalingMaxCapacityBehavior =
+          Prelude.Nothing,
+        predictiveScalingMaxCapacityBuffer = Prelude.Nothing,
+        predictiveScalingMode = Prelude.Nothing,
+        scalingPolicyUpdateBehavior = Prelude.Nothing,
+        scheduledActionBufferTime = Prelude.Nothing,
+        serviceNamespace = pServiceNamespace_,
+        resourceId = pResourceId_,
+        scalableDimension = pScalableDimension_,
+        minCapacity = pMinCapacity_,
+        maxCapacity = pMaxCapacity_,
+        targetTrackingConfigurations = Prelude.mempty
       }
 
--- | Controls whether dynamic scaling by AWS Auto Scaling is disabled. When dynamic scaling is enabled, AWS Auto Scaling creates target tracking scaling policies based on the specified target tracking configurations.  The default is enabled (@false@ ).
-siDisableDynamicScaling :: Lens' ScalingInstruction (Maybe Bool)
-siDisableDynamicScaling = lens _siDisableDynamicScaling (\s a -> s {_siDisableDynamicScaling = a})
+-- | Controls whether dynamic scaling by AWS Auto Scaling is disabled. When
+-- dynamic scaling is enabled, AWS Auto Scaling creates target tracking
+-- scaling policies based on the specified target tracking configurations.
+--
+-- The default is enabled (@false@).
+scalingInstruction_disableDynamicScaling :: Lens.Lens' ScalingInstruction (Prelude.Maybe Prelude.Bool)
+scalingInstruction_disableDynamicScaling = Lens.lens (\ScalingInstruction' {disableDynamicScaling} -> disableDynamicScaling) (\s@ScalingInstruction' {} a -> s {disableDynamicScaling = a} :: ScalingInstruction)
 
--- | The predefined load metric to use for predictive scaling. This parameter or a __CustomizedLoadMetricSpecification__ is required when configuring predictive scaling, and cannot be used otherwise.
-siPredefinedLoadMetricSpecification :: Lens' ScalingInstruction (Maybe PredefinedLoadMetricSpecification)
-siPredefinedLoadMetricSpecification = lens _siPredefinedLoadMetricSpecification (\s a -> s {_siPredefinedLoadMetricSpecification = a})
+-- | The predefined load metric to use for predictive scaling. This parameter
+-- or a __CustomizedLoadMetricSpecification__ is required when configuring
+-- predictive scaling, and cannot be used otherwise.
+scalingInstruction_predefinedLoadMetricSpecification :: Lens.Lens' ScalingInstruction (Prelude.Maybe PredefinedLoadMetricSpecification)
+scalingInstruction_predefinedLoadMetricSpecification = Lens.lens (\ScalingInstruction' {predefinedLoadMetricSpecification} -> predefinedLoadMetricSpecification) (\s@ScalingInstruction' {} a -> s {predefinedLoadMetricSpecification = a} :: ScalingInstruction)
 
--- | The customized load metric to use for predictive scaling. This parameter or a __PredefinedLoadMetricSpecification__ is required when configuring predictive scaling, and cannot be used otherwise.
-siCustomizedLoadMetricSpecification :: Lens' ScalingInstruction (Maybe CustomizedLoadMetricSpecification)
-siCustomizedLoadMetricSpecification = lens _siCustomizedLoadMetricSpecification (\s a -> s {_siCustomizedLoadMetricSpecification = a})
+-- | The customized load metric to use for predictive scaling. This parameter
+-- or a __PredefinedLoadMetricSpecification__ is required when configuring
+-- predictive scaling, and cannot be used otherwise.
+scalingInstruction_customizedLoadMetricSpecification :: Lens.Lens' ScalingInstruction (Prelude.Maybe CustomizedLoadMetricSpecification)
+scalingInstruction_customizedLoadMetricSpecification = Lens.lens (\ScalingInstruction' {customizedLoadMetricSpecification} -> customizedLoadMetricSpecification) (\s@ScalingInstruction' {} a -> s {customizedLoadMetricSpecification = a} :: ScalingInstruction)
 
--- | Defines the behavior that should be applied if the forecast capacity approaches or exceeds the maximum capacity specified for the resource. The default value is @SetForecastCapacityToMaxCapacity@ . The following are possible values:     * @SetForecastCapacityToMaxCapacity@ - AWS Auto Scaling cannot scale resource capacity higher than the maximum capacity. The maximum capacity is enforced as a hard limit.      * @SetMaxCapacityToForecastCapacity@ - AWS Auto Scaling may scale resource capacity higher than the maximum capacity to equal but not exceed forecast capacity.     * @SetMaxCapacityAboveForecastCapacity@ - AWS Auto Scaling may scale resource capacity higher than the maximum capacity by a specified buffer value. The intention is to give the target tracking scaling policy extra capacity if unexpected traffic occurs.  Only valid when configuring predictive scaling.
-siPredictiveScalingMaxCapacityBehavior :: Lens' ScalingInstruction (Maybe PredictiveScalingMaxCapacityBehavior)
-siPredictiveScalingMaxCapacityBehavior = lens _siPredictiveScalingMaxCapacityBehavior (\s a -> s {_siPredictiveScalingMaxCapacityBehavior = a})
+-- | Defines the behavior that should be applied if the forecast capacity
+-- approaches or exceeds the maximum capacity specified for the resource.
+-- The default value is @SetForecastCapacityToMaxCapacity@.
+--
+-- The following are possible values:
+--
+-- -   @SetForecastCapacityToMaxCapacity@ - AWS Auto Scaling cannot scale
+--     resource capacity higher than the maximum capacity. The maximum
+--     capacity is enforced as a hard limit.
+--
+-- -   @SetMaxCapacityToForecastCapacity@ - AWS Auto Scaling may scale
+--     resource capacity higher than the maximum capacity to equal but not
+--     exceed forecast capacity.
+--
+-- -   @SetMaxCapacityAboveForecastCapacity@ - AWS Auto Scaling may scale
+--     resource capacity higher than the maximum capacity by a specified
+--     buffer value. The intention is to give the target tracking scaling
+--     policy extra capacity if unexpected traffic occurs.
+--
+-- Only valid when configuring predictive scaling.
+scalingInstruction_predictiveScalingMaxCapacityBehavior :: Lens.Lens' ScalingInstruction (Prelude.Maybe PredictiveScalingMaxCapacityBehavior)
+scalingInstruction_predictiveScalingMaxCapacityBehavior = Lens.lens (\ScalingInstruction' {predictiveScalingMaxCapacityBehavior} -> predictiveScalingMaxCapacityBehavior) (\s@ScalingInstruction' {} a -> s {predictiveScalingMaxCapacityBehavior = a} :: ScalingInstruction)
 
--- | The size of the capacity buffer to use when the forecast capacity is close to or exceeds the maximum capacity. The value is specified as a percentage relative to the forecast capacity. For example, if the buffer is 10, this means a 10 percent buffer, such that if the forecast capacity is 50, and the maximum capacity is 40, then the effective maximum capacity is 55. Only valid when configuring predictive scaling. Required if the __PredictiveScalingMaxCapacityBehavior__ is set to @SetMaxCapacityAboveForecastCapacity@ , and cannot be used otherwise. The range is 1-100.
-siPredictiveScalingMaxCapacityBuffer :: Lens' ScalingInstruction (Maybe Int)
-siPredictiveScalingMaxCapacityBuffer = lens _siPredictiveScalingMaxCapacityBuffer (\s a -> s {_siPredictiveScalingMaxCapacityBuffer = a})
+-- | The size of the capacity buffer to use when the forecast capacity is
+-- close to or exceeds the maximum capacity. The value is specified as a
+-- percentage relative to the forecast capacity. For example, if the buffer
+-- is 10, this means a 10 percent buffer, such that if the forecast
+-- capacity is 50, and the maximum capacity is 40, then the effective
+-- maximum capacity is 55.
+--
+-- Only valid when configuring predictive scaling. Required if the
+-- __PredictiveScalingMaxCapacityBehavior__ is set to
+-- @SetMaxCapacityAboveForecastCapacity@, and cannot be used otherwise.
+--
+-- The range is 1-100.
+scalingInstruction_predictiveScalingMaxCapacityBuffer :: Lens.Lens' ScalingInstruction (Prelude.Maybe Prelude.Int)
+scalingInstruction_predictiveScalingMaxCapacityBuffer = Lens.lens (\ScalingInstruction' {predictiveScalingMaxCapacityBuffer} -> predictiveScalingMaxCapacityBuffer) (\s@ScalingInstruction' {} a -> s {predictiveScalingMaxCapacityBuffer = a} :: ScalingInstruction)
 
--- | The predictive scaling mode. The default value is @ForecastAndScale@ . Otherwise, AWS Auto Scaling forecasts capacity but does not create any scheduled scaling actions based on the capacity forecast.
-siPredictiveScalingMode :: Lens' ScalingInstruction (Maybe PredictiveScalingMode)
-siPredictiveScalingMode = lens _siPredictiveScalingMode (\s a -> s {_siPredictiveScalingMode = a})
+-- | The predictive scaling mode. The default value is @ForecastAndScale@.
+-- Otherwise, AWS Auto Scaling forecasts capacity but does not create any
+-- scheduled scaling actions based on the capacity forecast.
+scalingInstruction_predictiveScalingMode :: Lens.Lens' ScalingInstruction (Prelude.Maybe PredictiveScalingMode)
+scalingInstruction_predictiveScalingMode = Lens.lens (\ScalingInstruction' {predictiveScalingMode} -> predictiveScalingMode) (\s@ScalingInstruction' {} a -> s {predictiveScalingMode = a} :: ScalingInstruction)
 
--- | Controls whether a resource's externally created scaling policies are kept or replaced.  The default value is @KeepExternalPolicies@ . If the parameter is set to @ReplaceExternalPolicies@ , any scaling policies that are external to AWS Auto Scaling are deleted and new target tracking scaling policies created.  Only valid when configuring dynamic scaling.  Condition: The number of existing policies to be replaced must be less than or equal to 50. If there are more than 50 policies to be replaced, AWS Auto Scaling keeps all existing policies and does not create new ones.
-siScalingPolicyUpdateBehavior :: Lens' ScalingInstruction (Maybe ScalingPolicyUpdateBehavior)
-siScalingPolicyUpdateBehavior = lens _siScalingPolicyUpdateBehavior (\s a -> s {_siScalingPolicyUpdateBehavior = a})
+-- | Controls whether a resource\'s externally created scaling policies are
+-- kept or replaced.
+--
+-- The default value is @KeepExternalPolicies@. If the parameter is set to
+-- @ReplaceExternalPolicies@, any scaling policies that are external to AWS
+-- Auto Scaling are deleted and new target tracking scaling policies
+-- created.
+--
+-- Only valid when configuring dynamic scaling.
+--
+-- Condition: The number of existing policies to be replaced must be less
+-- than or equal to 50. If there are more than 50 policies to be replaced,
+-- AWS Auto Scaling keeps all existing policies and does not create new
+-- ones.
+scalingInstruction_scalingPolicyUpdateBehavior :: Lens.Lens' ScalingInstruction (Prelude.Maybe ScalingPolicyUpdateBehavior)
+scalingInstruction_scalingPolicyUpdateBehavior = Lens.lens (\ScalingInstruction' {scalingPolicyUpdateBehavior} -> scalingPolicyUpdateBehavior) (\s@ScalingInstruction' {} a -> s {scalingPolicyUpdateBehavior = a} :: ScalingInstruction)
 
--- | The amount of time, in seconds, to buffer the run time of scheduled scaling actions when scaling out. For example, if the forecast says to add capacity at 10:00 AM, and the buffer time is 5 minutes, then the run time of the corresponding scheduled scaling action will be 9:55 AM. The intention is to give resources time to be provisioned. For example, it can take a few minutes to launch an EC2 instance. The actual amount of time required depends on several factors, such as the size of the instance and whether there are startup scripts to complete.  The value must be less than the forecast interval duration of 3600 seconds (60 minutes). The default is 300 seconds.  Only valid when configuring predictive scaling.
-siScheduledActionBufferTime :: Lens' ScalingInstruction (Maybe Natural)
-siScheduledActionBufferTime = lens _siScheduledActionBufferTime (\s a -> s {_siScheduledActionBufferTime = a}) . mapping _Nat
+-- | The amount of time, in seconds, to buffer the run time of scheduled
+-- scaling actions when scaling out. For example, if the forecast says to
+-- add capacity at 10:00 AM, and the buffer time is 5 minutes, then the run
+-- time of the corresponding scheduled scaling action will be 9:55 AM. The
+-- intention is to give resources time to be provisioned. For example, it
+-- can take a few minutes to launch an EC2 instance. The actual amount of
+-- time required depends on several factors, such as the size of the
+-- instance and whether there are startup scripts to complete.
+--
+-- The value must be less than the forecast interval duration of 3600
+-- seconds (60 minutes). The default is 300 seconds.
+--
+-- Only valid when configuring predictive scaling.
+scalingInstruction_scheduledActionBufferTime :: Lens.Lens' ScalingInstruction (Prelude.Maybe Prelude.Natural)
+scalingInstruction_scheduledActionBufferTime = Lens.lens (\ScalingInstruction' {scheduledActionBufferTime} -> scheduledActionBufferTime) (\s@ScalingInstruction' {} a -> s {scheduledActionBufferTime = a} :: ScalingInstruction) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The namespace of the AWS service.
-siServiceNamespace :: Lens' ScalingInstruction ServiceNamespace
-siServiceNamespace = lens _siServiceNamespace (\s a -> s {_siServiceNamespace = a})
+scalingInstruction_serviceNamespace :: Lens.Lens' ScalingInstruction ServiceNamespace
+scalingInstruction_serviceNamespace = Lens.lens (\ScalingInstruction' {serviceNamespace} -> serviceNamespace) (\s@ScalingInstruction' {} a -> s {serviceNamespace = a} :: ScalingInstruction)
 
--- | The ID of the resource. This string consists of the resource type and unique identifier.     * Auto Scaling group - The resource type is @autoScalingGroup@ and the unique identifier is the name of the Auto Scaling group. Example: @autoScalingGroup/my-asg@ .     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot Fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot Fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the resource ID. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the resource ID. Example: @table/my-table/index/my-table-index@ .     * Aurora DB cluster - The resource type is @cluster@ and the unique identifier is the cluster name. Example: @cluster:my-db-cluster@ .
-siResourceId :: Lens' ScalingInstruction Text
-siResourceId = lens _siResourceId (\s a -> s {_siResourceId = a})
+-- | The ID of the resource. This string consists of the resource type and
+-- unique identifier.
+--
+-- -   Auto Scaling group - The resource type is @autoScalingGroup@ and the
+--     unique identifier is the name of the Auto Scaling group. Example:
+--     @autoScalingGroup\/my-asg@.
+--
+-- -   ECS service - The resource type is @service@ and the unique
+--     identifier is the cluster name and service name. Example:
+--     @service\/default\/sample-webapp@.
+--
+-- -   Spot Fleet request - The resource type is @spot-fleet-request@ and
+--     the unique identifier is the Spot Fleet request ID. Example:
+--     @spot-fleet-request\/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@.
+--
+-- -   DynamoDB table - The resource type is @table@ and the unique
+--     identifier is the resource ID. Example: @table\/my-table@.
+--
+-- -   DynamoDB global secondary index - The resource type is @index@ and
+--     the unique identifier is the resource ID. Example:
+--     @table\/my-table\/index\/my-table-index@.
+--
+-- -   Aurora DB cluster - The resource type is @cluster@ and the unique
+--     identifier is the cluster name. Example: @cluster:my-db-cluster@.
+scalingInstruction_resourceId :: Lens.Lens' ScalingInstruction Prelude.Text
+scalingInstruction_resourceId = Lens.lens (\ScalingInstruction' {resourceId} -> resourceId) (\s@ScalingInstruction' {} a -> s {resourceId = a} :: ScalingInstruction)
 
--- | The scalable dimension associated with the resource.     * @autoscaling:autoScalingGroup:DesiredCapacity@ - The desired capacity of an Auto Scaling group.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot Fleet request.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.     * @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
-siScalableDimension :: Lens' ScalingInstruction ScalableDimension
-siScalableDimension = lens _siScalableDimension (\s a -> s {_siScalableDimension = a})
+-- | The scalable dimension associated with the resource.
+--
+-- -   @autoscaling:autoScalingGroup:DesiredCapacity@ - The desired
+--     capacity of an Auto Scaling group.
+--
+-- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
+--     service.
+--
+-- -   @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a
+--     Spot Fleet request.
+--
+-- -   @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an
+--     Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+--     Aurora PostgreSQL-compatible edition.
+scalingInstruction_scalableDimension :: Lens.Lens' ScalingInstruction ScalableDimension
+scalingInstruction_scalableDimension = Lens.lens (\ScalingInstruction' {scalableDimension} -> scalableDimension) (\s@ScalingInstruction' {} a -> s {scalableDimension = a} :: ScalingInstruction)
 
 -- | The minimum capacity of the resource.
-siMinCapacity :: Lens' ScalingInstruction Int
-siMinCapacity = lens _siMinCapacity (\s a -> s {_siMinCapacity = a})
+scalingInstruction_minCapacity :: Lens.Lens' ScalingInstruction Prelude.Int
+scalingInstruction_minCapacity = Lens.lens (\ScalingInstruction' {minCapacity} -> minCapacity) (\s@ScalingInstruction' {} a -> s {minCapacity = a} :: ScalingInstruction)
 
--- | The maximum capacity of the resource. The exception to this upper limit is if you specify a non-default setting for __PredictiveScalingMaxCapacityBehavior__ .
-siMaxCapacity :: Lens' ScalingInstruction Int
-siMaxCapacity = lens _siMaxCapacity (\s a -> s {_siMaxCapacity = a})
+-- | The maximum capacity of the resource. The exception to this upper limit
+-- is if you specify a non-default setting for
+-- __PredictiveScalingMaxCapacityBehavior__.
+scalingInstruction_maxCapacity :: Lens.Lens' ScalingInstruction Prelude.Int
+scalingInstruction_maxCapacity = Lens.lens (\ScalingInstruction' {maxCapacity} -> maxCapacity) (\s@ScalingInstruction' {} a -> s {maxCapacity = a} :: ScalingInstruction)
 
--- | The target tracking configurations (up to 10). Each of these structures must specify a unique scaling metric and a target value for the metric.
-siTargetTrackingConfigurations :: Lens' ScalingInstruction [TargetTrackingConfiguration]
-siTargetTrackingConfigurations = lens _siTargetTrackingConfigurations (\s a -> s {_siTargetTrackingConfigurations = a}) . _Coerce
+-- | The target tracking configurations (up to 10). Each of these structures
+-- must specify a unique scaling metric and a target value for the metric.
+scalingInstruction_targetTrackingConfigurations :: Lens.Lens' ScalingInstruction [TargetTrackingConfiguration]
+scalingInstruction_targetTrackingConfigurations = Lens.lens (\ScalingInstruction' {targetTrackingConfigurations} -> targetTrackingConfigurations) (\s@ScalingInstruction' {} a -> s {targetTrackingConfigurations = a} :: ScalingInstruction) Prelude.. Prelude._Coerce
 
-instance FromJSON ScalingInstruction where
+instance Prelude.FromJSON ScalingInstruction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ScalingInstruction"
       ( \x ->
           ScalingInstruction'
-            <$> (x .:? "DisableDynamicScaling")
-            <*> (x .:? "PredefinedLoadMetricSpecification")
-            <*> (x .:? "CustomizedLoadMetricSpecification")
-            <*> (x .:? "PredictiveScalingMaxCapacityBehavior")
-            <*> (x .:? "PredictiveScalingMaxCapacityBuffer")
-            <*> (x .:? "PredictiveScalingMode")
-            <*> (x .:? "ScalingPolicyUpdateBehavior")
-            <*> (x .:? "ScheduledActionBufferTime")
-            <*> (x .: "ServiceNamespace")
-            <*> (x .: "ResourceId")
-            <*> (x .: "ScalableDimension")
-            <*> (x .: "MinCapacity")
-            <*> (x .: "MaxCapacity")
-            <*> (x .:? "TargetTrackingConfigurations" .!= mempty)
+            Prelude.<$> (x Prelude..:? "DisableDynamicScaling")
+            Prelude.<*> (x Prelude..:? "PredefinedLoadMetricSpecification")
+            Prelude.<*> (x Prelude..:? "CustomizedLoadMetricSpecification")
+            Prelude.<*> ( x
+                            Prelude..:? "PredictiveScalingMaxCapacityBehavior"
+                        )
+            Prelude.<*> (x Prelude..:? "PredictiveScalingMaxCapacityBuffer")
+            Prelude.<*> (x Prelude..:? "PredictiveScalingMode")
+            Prelude.<*> (x Prelude..:? "ScalingPolicyUpdateBehavior")
+            Prelude.<*> (x Prelude..:? "ScheduledActionBufferTime")
+            Prelude.<*> (x Prelude..: "ServiceNamespace")
+            Prelude.<*> (x Prelude..: "ResourceId")
+            Prelude.<*> (x Prelude..: "ScalableDimension")
+            Prelude.<*> (x Prelude..: "MinCapacity")
+            Prelude.<*> (x Prelude..: "MaxCapacity")
+            Prelude.<*> ( x Prelude..:? "TargetTrackingConfigurations"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ScalingInstruction
+instance Prelude.Hashable ScalingInstruction
 
-instance NFData ScalingInstruction
+instance Prelude.NFData ScalingInstruction
 
-instance ToJSON ScalingInstruction where
+instance Prelude.ToJSON ScalingInstruction where
   toJSON ScalingInstruction' {..} =
-    object
-      ( catMaybes
-          [ ("DisableDynamicScaling" .=)
-              <$> _siDisableDynamicScaling,
-            ("PredefinedLoadMetricSpecification" .=)
-              <$> _siPredefinedLoadMetricSpecification,
-            ("CustomizedLoadMetricSpecification" .=)
-              <$> _siCustomizedLoadMetricSpecification,
-            ("PredictiveScalingMaxCapacityBehavior" .=)
-              <$> _siPredictiveScalingMaxCapacityBehavior,
-            ("PredictiveScalingMaxCapacityBuffer" .=)
-              <$> _siPredictiveScalingMaxCapacityBuffer,
-            ("PredictiveScalingMode" .=)
-              <$> _siPredictiveScalingMode,
-            ("ScalingPolicyUpdateBehavior" .=)
-              <$> _siScalingPolicyUpdateBehavior,
-            ("ScheduledActionBufferTime" .=)
-              <$> _siScheduledActionBufferTime,
-            Just ("ServiceNamespace" .= _siServiceNamespace),
-            Just ("ResourceId" .= _siResourceId),
-            Just ("ScalableDimension" .= _siScalableDimension),
-            Just ("MinCapacity" .= _siMinCapacity),
-            Just ("MaxCapacity" .= _siMaxCapacity),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DisableDynamicScaling" Prelude..=)
+              Prelude.<$> disableDynamicScaling,
+            ("PredefinedLoadMetricSpecification" Prelude..=)
+              Prelude.<$> predefinedLoadMetricSpecification,
+            ("CustomizedLoadMetricSpecification" Prelude..=)
+              Prelude.<$> customizedLoadMetricSpecification,
+            ("PredictiveScalingMaxCapacityBehavior" Prelude..=)
+              Prelude.<$> predictiveScalingMaxCapacityBehavior,
+            ("PredictiveScalingMaxCapacityBuffer" Prelude..=)
+              Prelude.<$> predictiveScalingMaxCapacityBuffer,
+            ("PredictiveScalingMode" Prelude..=)
+              Prelude.<$> predictiveScalingMode,
+            ("ScalingPolicyUpdateBehavior" Prelude..=)
+              Prelude.<$> scalingPolicyUpdateBehavior,
+            ("ScheduledActionBufferTime" Prelude..=)
+              Prelude.<$> scheduledActionBufferTime,
+            Prelude.Just
+              ("ServiceNamespace" Prelude..= serviceNamespace),
+            Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
+              ("ScalableDimension" Prelude..= scalableDimension),
+            Prelude.Just ("MinCapacity" Prelude..= minCapacity),
+            Prelude.Just ("MaxCapacity" Prelude..= maxCapacity),
+            Prelude.Just
               ( "TargetTrackingConfigurations"
-                  .= _siTargetTrackingConfigurations
+                  Prelude..= targetTrackingConfigurations
               )
           ]
       )

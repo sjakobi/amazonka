@@ -28,43 +28,43 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestUpdateScalingPlan $
---             updateScalingPlan
+--             newUpdateScalingPlan
 --
 --         , requestDeleteScalingPlan $
---             deleteScalingPlan
+--             newDeleteScalingPlan
 --
 --         , requestDescribeScalingPlanResources $
---             describeScalingPlanResources
+--             newDescribeScalingPlanResources
 --
 --         , requestGetScalingPlanResourceForecastData $
---             getScalingPlanResourceForecastData
+--             newGetScalingPlanResourceForecastData
 --
 --         , requestDescribeScalingPlans $
---             describeScalingPlans
+--             newDescribeScalingPlans
 --
 --         , requestCreateScalingPlan $
---             createScalingPlan
+--             newCreateScalingPlan
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseUpdateScalingPlan $
---             updateScalingPlanResponse
+--             newUpdateScalingPlanResponse
 --
 --         , responseDeleteScalingPlan $
---             deleteScalingPlanResponse
+--             newDeleteScalingPlanResponse
 --
 --         , responseDescribeScalingPlanResources $
---             describeScalingPlanResourcesResponse
+--             newDescribeScalingPlanResourcesResponse
 --
 --         , responseGetScalingPlanResourceForecastData $
---             getScalingPlanResourceForecastDataResponse
+--             newGetScalingPlanResourceForecastDataResponse
 --
 --         , responseDescribeScalingPlans $
---             describeScalingPlansResponse
+--             newDescribeScalingPlansResponse
 --
 --         , responseCreateScalingPlan $
---             createScalingPlanResponse
+--             newCreateScalingPlanResponse
 --
 --           ]
 --     ]
@@ -114,7 +114,7 @@ responseUpdateScalingPlan =
   res
     "UpdateScalingPlanResponse"
     "fixture/UpdateScalingPlanResponse.proto"
-    autoScalingPlans
+    defaultService
     (Proxy :: Proxy UpdateScalingPlan)
 
 responseDeleteScalingPlan :: DeleteScalingPlanResponse -> TestTree
@@ -122,7 +122,7 @@ responseDeleteScalingPlan =
   res
     "DeleteScalingPlanResponse"
     "fixture/DeleteScalingPlanResponse.proto"
-    autoScalingPlans
+    defaultService
     (Proxy :: Proxy DeleteScalingPlan)
 
 responseDescribeScalingPlanResources :: DescribeScalingPlanResourcesResponse -> TestTree
@@ -130,7 +130,7 @@ responseDescribeScalingPlanResources =
   res
     "DescribeScalingPlanResourcesResponse"
     "fixture/DescribeScalingPlanResourcesResponse.proto"
-    autoScalingPlans
+    defaultService
     (Proxy :: Proxy DescribeScalingPlanResources)
 
 responseGetScalingPlanResourceForecastData :: GetScalingPlanResourceForecastDataResponse -> TestTree
@@ -138,7 +138,7 @@ responseGetScalingPlanResourceForecastData =
   res
     "GetScalingPlanResourceForecastDataResponse"
     "fixture/GetScalingPlanResourceForecastDataResponse.proto"
-    autoScalingPlans
+    defaultService
     (Proxy :: Proxy GetScalingPlanResourceForecastData)
 
 responseDescribeScalingPlans :: DescribeScalingPlansResponse -> TestTree
@@ -146,7 +146,7 @@ responseDescribeScalingPlans =
   res
     "DescribeScalingPlansResponse"
     "fixture/DescribeScalingPlansResponse.proto"
-    autoScalingPlans
+    defaultService
     (Proxy :: Proxy DescribeScalingPlans)
 
 responseCreateScalingPlan :: CreateScalingPlanResponse -> TestTree
@@ -154,5 +154,5 @@ responseCreateScalingPlan =
   res
     "CreateScalingPlanResponse"
     "fixture/CreateScalingPlanResponse.proto"
-    autoScalingPlans
+    defaultService
     (Proxy :: Proxy CreateScalingPlan)

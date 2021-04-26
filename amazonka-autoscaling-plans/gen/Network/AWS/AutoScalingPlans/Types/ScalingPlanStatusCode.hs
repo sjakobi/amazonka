@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.AutoScalingPlans.Types.ScalingPlanStatusCode
   ( ScalingPlanStatusCode
       ( ..,
-        SPSCActive,
-        SPSCActiveWithProblems,
-        SPSCCreationFailed,
-        SPSCCreationInProgress,
-        SPSCDeletionFailed,
-        SPSCDeletionInProgress,
-        SPSCUpdateFailed,
-        SPSCUpdateInProgress
+        ScalingPlanStatusCodeActive,
+        ScalingPlanStatusCodeActiveWithProblems,
+        ScalingPlanStatusCodeCreationFailed,
+        ScalingPlanStatusCodeCreationInProgress,
+        ScalingPlanStatusCodeDeletionFailed,
+        ScalingPlanStatusCodeDeletionInProgress,
+        ScalingPlanStatusCodeUpdateFailed,
+        ScalingPlanStatusCodeUpdateInProgress
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingPlanStatusCode
-  = ScalingPlanStatusCode'
-      ( CI
-          Text
-      )
+newtype ScalingPlanStatusCode = ScalingPlanStatusCode'
+  { fromScalingPlanStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SPSCActive :: ScalingPlanStatusCode
-pattern SPSCActive = ScalingPlanStatusCode' "Active"
+pattern ScalingPlanStatusCodeActive :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeActive = ScalingPlanStatusCode' "Active"
 
-pattern SPSCActiveWithProblems :: ScalingPlanStatusCode
-pattern SPSCActiveWithProblems = ScalingPlanStatusCode' "ActiveWithProblems"
+pattern ScalingPlanStatusCodeActiveWithProblems :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeActiveWithProblems = ScalingPlanStatusCode' "ActiveWithProblems"
 
-pattern SPSCCreationFailed :: ScalingPlanStatusCode
-pattern SPSCCreationFailed = ScalingPlanStatusCode' "CreationFailed"
+pattern ScalingPlanStatusCodeCreationFailed :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeCreationFailed = ScalingPlanStatusCode' "CreationFailed"
 
-pattern SPSCCreationInProgress :: ScalingPlanStatusCode
-pattern SPSCCreationInProgress = ScalingPlanStatusCode' "CreationInProgress"
+pattern ScalingPlanStatusCodeCreationInProgress :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeCreationInProgress = ScalingPlanStatusCode' "CreationInProgress"
 
-pattern SPSCDeletionFailed :: ScalingPlanStatusCode
-pattern SPSCDeletionFailed = ScalingPlanStatusCode' "DeletionFailed"
+pattern ScalingPlanStatusCodeDeletionFailed :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeDeletionFailed = ScalingPlanStatusCode' "DeletionFailed"
 
-pattern SPSCDeletionInProgress :: ScalingPlanStatusCode
-pattern SPSCDeletionInProgress = ScalingPlanStatusCode' "DeletionInProgress"
+pattern ScalingPlanStatusCodeDeletionInProgress :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeDeletionInProgress = ScalingPlanStatusCode' "DeletionInProgress"
 
-pattern SPSCUpdateFailed :: ScalingPlanStatusCode
-pattern SPSCUpdateFailed = ScalingPlanStatusCode' "UpdateFailed"
+pattern ScalingPlanStatusCodeUpdateFailed :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeUpdateFailed = ScalingPlanStatusCode' "UpdateFailed"
 
-pattern SPSCUpdateInProgress :: ScalingPlanStatusCode
-pattern SPSCUpdateInProgress = ScalingPlanStatusCode' "UpdateInProgress"
+pattern ScalingPlanStatusCodeUpdateInProgress :: ScalingPlanStatusCode
+pattern ScalingPlanStatusCodeUpdateInProgress = ScalingPlanStatusCode' "UpdateInProgress"
 
 {-# COMPLETE
-  SPSCActive,
-  SPSCActiveWithProblems,
-  SPSCCreationFailed,
-  SPSCCreationInProgress,
-  SPSCDeletionFailed,
-  SPSCDeletionInProgress,
-  SPSCUpdateFailed,
-  SPSCUpdateInProgress,
+  ScalingPlanStatusCodeActive,
+  ScalingPlanStatusCodeActiveWithProblems,
+  ScalingPlanStatusCodeCreationFailed,
+  ScalingPlanStatusCodeCreationInProgress,
+  ScalingPlanStatusCodeDeletionFailed,
+  ScalingPlanStatusCodeDeletionInProgress,
+  ScalingPlanStatusCodeUpdateFailed,
+  ScalingPlanStatusCodeUpdateInProgress,
   ScalingPlanStatusCode'
   #-}
 
-instance FromText ScalingPlanStatusCode where
-  parser = (ScalingPlanStatusCode' . mk) <$> takeText
+instance Prelude.FromText ScalingPlanStatusCode where
+  parser = ScalingPlanStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingPlanStatusCode where
-  toText (ScalingPlanStatusCode' ci) = original ci
+instance Prelude.ToText ScalingPlanStatusCode where
+  toText (ScalingPlanStatusCode' x) = x
 
-instance Hashable ScalingPlanStatusCode
+instance Prelude.Hashable ScalingPlanStatusCode
 
-instance NFData ScalingPlanStatusCode
+instance Prelude.NFData ScalingPlanStatusCode
 
-instance ToByteString ScalingPlanStatusCode
+instance Prelude.ToByteString ScalingPlanStatusCode
 
-instance ToQuery ScalingPlanStatusCode
+instance Prelude.ToQuery ScalingPlanStatusCode
 
-instance ToHeader ScalingPlanStatusCode
+instance Prelude.ToHeader ScalingPlanStatusCode
 
-instance FromJSON ScalingPlanStatusCode where
-  parseJSON = parseJSONText "ScalingPlanStatusCode"
+instance Prelude.FromJSON ScalingPlanStatusCode where
+  parseJSON = Prelude.parseJSONText "ScalingPlanStatusCode"

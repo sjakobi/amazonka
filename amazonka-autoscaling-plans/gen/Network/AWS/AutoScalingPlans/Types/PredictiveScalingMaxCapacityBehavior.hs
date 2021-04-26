@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.AutoScalingPlans.Types.PredictiveScalingMaxCapacityBehavior
   ( PredictiveScalingMaxCapacityBehavior
       ( ..,
-        SetForecastCapacityToMaxCapacity,
-        SetMaxCapacityAboveForecastCapacity,
-        SetMaxCapacityToForecastCapacity
+        PredictiveScalingMaxCapacityBehaviorSetForecastCapacityToMaxCapacity,
+        PredictiveScalingMaxCapacityBehaviorSetMaxCapacityAboveForecastCapacity,
+        PredictiveScalingMaxCapacityBehaviorSetMaxCapacityToForecastCapacity
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PredictiveScalingMaxCapacityBehavior
-  = PredictiveScalingMaxCapacityBehavior'
-      ( CI
-          Text
-      )
+newtype PredictiveScalingMaxCapacityBehavior = PredictiveScalingMaxCapacityBehavior'
+  { fromPredictiveScalingMaxCapacityBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SetForecastCapacityToMaxCapacity :: PredictiveScalingMaxCapacityBehavior
-pattern SetForecastCapacityToMaxCapacity = PredictiveScalingMaxCapacityBehavior' "SetForecastCapacityToMaxCapacity"
+pattern PredictiveScalingMaxCapacityBehaviorSetForecastCapacityToMaxCapacity :: PredictiveScalingMaxCapacityBehavior
+pattern PredictiveScalingMaxCapacityBehaviorSetForecastCapacityToMaxCapacity = PredictiveScalingMaxCapacityBehavior' "SetForecastCapacityToMaxCapacity"
 
-pattern SetMaxCapacityAboveForecastCapacity :: PredictiveScalingMaxCapacityBehavior
-pattern SetMaxCapacityAboveForecastCapacity = PredictiveScalingMaxCapacityBehavior' "SetMaxCapacityAboveForecastCapacity"
+pattern PredictiveScalingMaxCapacityBehaviorSetMaxCapacityAboveForecastCapacity :: PredictiveScalingMaxCapacityBehavior
+pattern PredictiveScalingMaxCapacityBehaviorSetMaxCapacityAboveForecastCapacity = PredictiveScalingMaxCapacityBehavior' "SetMaxCapacityAboveForecastCapacity"
 
-pattern SetMaxCapacityToForecastCapacity :: PredictiveScalingMaxCapacityBehavior
-pattern SetMaxCapacityToForecastCapacity = PredictiveScalingMaxCapacityBehavior' "SetMaxCapacityToForecastCapacity"
+pattern PredictiveScalingMaxCapacityBehaviorSetMaxCapacityToForecastCapacity :: PredictiveScalingMaxCapacityBehavior
+pattern PredictiveScalingMaxCapacityBehaviorSetMaxCapacityToForecastCapacity = PredictiveScalingMaxCapacityBehavior' "SetMaxCapacityToForecastCapacity"
 
 {-# COMPLETE
-  SetForecastCapacityToMaxCapacity,
-  SetMaxCapacityAboveForecastCapacity,
-  SetMaxCapacityToForecastCapacity,
+  PredictiveScalingMaxCapacityBehaviorSetForecastCapacityToMaxCapacity,
+  PredictiveScalingMaxCapacityBehaviorSetMaxCapacityAboveForecastCapacity,
+  PredictiveScalingMaxCapacityBehaviorSetMaxCapacityToForecastCapacity,
   PredictiveScalingMaxCapacityBehavior'
   #-}
 
-instance FromText PredictiveScalingMaxCapacityBehavior where
-  parser = (PredictiveScalingMaxCapacityBehavior' . mk) <$> takeText
+instance Prelude.FromText PredictiveScalingMaxCapacityBehavior where
+  parser = PredictiveScalingMaxCapacityBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText PredictiveScalingMaxCapacityBehavior where
-  toText (PredictiveScalingMaxCapacityBehavior' ci) = original ci
+instance Prelude.ToText PredictiveScalingMaxCapacityBehavior where
+  toText (PredictiveScalingMaxCapacityBehavior' x) = x
 
-instance Hashable PredictiveScalingMaxCapacityBehavior
+instance Prelude.Hashable PredictiveScalingMaxCapacityBehavior
 
-instance NFData PredictiveScalingMaxCapacityBehavior
+instance Prelude.NFData PredictiveScalingMaxCapacityBehavior
 
-instance ToByteString PredictiveScalingMaxCapacityBehavior
+instance Prelude.ToByteString PredictiveScalingMaxCapacityBehavior
 
-instance ToQuery PredictiveScalingMaxCapacityBehavior
+instance Prelude.ToQuery PredictiveScalingMaxCapacityBehavior
 
-instance ToHeader PredictiveScalingMaxCapacityBehavior
+instance Prelude.ToHeader PredictiveScalingMaxCapacityBehavior
 
-instance ToJSON PredictiveScalingMaxCapacityBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON PredictiveScalingMaxCapacityBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PredictiveScalingMaxCapacityBehavior where
-  parseJSON = parseJSONText "PredictiveScalingMaxCapacityBehavior"
+instance Prelude.FromJSON PredictiveScalingMaxCapacityBehavior where
+  parseJSON = Prelude.parseJSONText "PredictiveScalingMaxCapacityBehavior"

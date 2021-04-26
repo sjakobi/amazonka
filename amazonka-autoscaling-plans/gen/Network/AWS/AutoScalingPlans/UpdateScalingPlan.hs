@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,164 +23,202 @@
 --
 -- Updates the specified scaling plan.
 --
---
--- You cannot update a scaling plan if it is in the process of being created, updated, or deleted.
+-- You cannot update a scaling plan if it is in the process of being
+-- created, updated, or deleted.
 module Network.AWS.AutoScalingPlans.UpdateScalingPlan
   ( -- * Creating a Request
-    updateScalingPlan,
-    UpdateScalingPlan,
+    UpdateScalingPlan (..),
+    newUpdateScalingPlan,
 
     -- * Request Lenses
-    uspApplicationSource,
-    uspScalingInstructions,
-    uspScalingPlanName,
-    uspScalingPlanVersion,
+    updateScalingPlan_applicationSource,
+    updateScalingPlan_scalingInstructions,
+    updateScalingPlan_scalingPlanName,
+    updateScalingPlan_scalingPlanVersion,
 
     -- * Destructuring the Response
-    updateScalingPlanResponse,
-    UpdateScalingPlanResponse,
+    UpdateScalingPlanResponse (..),
+    newUpdateScalingPlanResponse,
 
     -- * Response Lenses
-    usprrsResponseStatus,
+    updateScalingPlanResponse_httpStatus,
   )
 where
 
 import Network.AWS.AutoScalingPlans.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateScalingPlan' smart constructor.
+-- | /See:/ 'newUpdateScalingPlan' smart constructor.
 data UpdateScalingPlan = UpdateScalingPlan'
-  { _uspApplicationSource ::
-      !(Maybe ApplicationSource),
-    _uspScalingInstructions ::
-      !(Maybe [ScalingInstruction]),
-    _uspScalingPlanName :: !Text,
-    _uspScalingPlanVersion :: !Integer
+  { -- | A CloudFormation stack or set of tags.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource>
+    -- in the /AWS Auto Scaling API Reference/.
+    applicationSource :: Prelude.Maybe ApplicationSource,
+    -- | The scaling instructions.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction>
+    -- in the /AWS Auto Scaling API Reference/.
+    scalingInstructions :: Prelude.Maybe [ScalingInstruction],
+    -- | The name of the scaling plan.
+    scalingPlanName :: Prelude.Text,
+    -- | The version number of the scaling plan. The only valid value is @1@.
+    -- Currently, you cannot have multiple scaling plan versions.
+    scalingPlanVersion :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateScalingPlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateScalingPlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uspApplicationSource' - A CloudFormation stack or set of tags. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource> in the /AWS Auto Scaling API Reference/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uspScalingInstructions' - The scaling instructions. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction> in the /AWS Auto Scaling API Reference/ .
+-- 'applicationSource', 'updateScalingPlan_applicationSource' - A CloudFormation stack or set of tags.
 --
--- * 'uspScalingPlanName' - The name of the scaling plan.
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource>
+-- in the /AWS Auto Scaling API Reference/.
 --
--- * 'uspScalingPlanVersion' - The version number of the scaling plan. The only valid value is @1@ . Currently, you cannot have multiple scaling plan versions.
-updateScalingPlan ::
-  -- | 'uspScalingPlanName'
-  Text ->
-  -- | 'uspScalingPlanVersion'
-  Integer ->
+-- 'scalingInstructions', 'updateScalingPlan_scalingInstructions' - The scaling instructions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction>
+-- in the /AWS Auto Scaling API Reference/.
+--
+-- 'scalingPlanName', 'updateScalingPlan_scalingPlanName' - The name of the scaling plan.
+--
+-- 'scalingPlanVersion', 'updateScalingPlan_scalingPlanVersion' - The version number of the scaling plan. The only valid value is @1@.
+-- Currently, you cannot have multiple scaling plan versions.
+newUpdateScalingPlan ::
+  -- | 'scalingPlanName'
+  Prelude.Text ->
+  -- | 'scalingPlanVersion'
+  Prelude.Integer ->
   UpdateScalingPlan
-updateScalingPlan
+newUpdateScalingPlan
   pScalingPlanName_
   pScalingPlanVersion_ =
     UpdateScalingPlan'
-      { _uspApplicationSource = Nothing,
-        _uspScalingInstructions = Nothing,
-        _uspScalingPlanName = pScalingPlanName_,
-        _uspScalingPlanVersion = pScalingPlanVersion_
+      { applicationSource =
+          Prelude.Nothing,
+        scalingInstructions = Prelude.Nothing,
+        scalingPlanName = pScalingPlanName_,
+        scalingPlanVersion = pScalingPlanVersion_
       }
 
--- | A CloudFormation stack or set of tags. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource> in the /AWS Auto Scaling API Reference/ .
-uspApplicationSource :: Lens' UpdateScalingPlan (Maybe ApplicationSource)
-uspApplicationSource = lens _uspApplicationSource (\s a -> s {_uspApplicationSource = a})
+-- | A CloudFormation stack or set of tags.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ApplicationSource.html ApplicationSource>
+-- in the /AWS Auto Scaling API Reference/.
+updateScalingPlan_applicationSource :: Lens.Lens' UpdateScalingPlan (Prelude.Maybe ApplicationSource)
+updateScalingPlan_applicationSource = Lens.lens (\UpdateScalingPlan' {applicationSource} -> applicationSource) (\s@UpdateScalingPlan' {} a -> s {applicationSource = a} :: UpdateScalingPlan)
 
--- | The scaling instructions. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction> in the /AWS Auto Scaling API Reference/ .
-uspScalingInstructions :: Lens' UpdateScalingPlan [ScalingInstruction]
-uspScalingInstructions = lens _uspScalingInstructions (\s a -> s {_uspScalingInstructions = a}) . _Default . _Coerce
+-- | The scaling instructions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/APIReference/API_ScalingInstruction.html ScalingInstruction>
+-- in the /AWS Auto Scaling API Reference/.
+updateScalingPlan_scalingInstructions :: Lens.Lens' UpdateScalingPlan (Prelude.Maybe [ScalingInstruction])
+updateScalingPlan_scalingInstructions = Lens.lens (\UpdateScalingPlan' {scalingInstructions} -> scalingInstructions) (\s@UpdateScalingPlan' {} a -> s {scalingInstructions = a} :: UpdateScalingPlan) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the scaling plan.
-uspScalingPlanName :: Lens' UpdateScalingPlan Text
-uspScalingPlanName = lens _uspScalingPlanName (\s a -> s {_uspScalingPlanName = a})
+updateScalingPlan_scalingPlanName :: Lens.Lens' UpdateScalingPlan Prelude.Text
+updateScalingPlan_scalingPlanName = Lens.lens (\UpdateScalingPlan' {scalingPlanName} -> scalingPlanName) (\s@UpdateScalingPlan' {} a -> s {scalingPlanName = a} :: UpdateScalingPlan)
 
--- | The version number of the scaling plan. The only valid value is @1@ . Currently, you cannot have multiple scaling plan versions.
-uspScalingPlanVersion :: Lens' UpdateScalingPlan Integer
-uspScalingPlanVersion = lens _uspScalingPlanVersion (\s a -> s {_uspScalingPlanVersion = a})
+-- | The version number of the scaling plan. The only valid value is @1@.
+-- Currently, you cannot have multiple scaling plan versions.
+updateScalingPlan_scalingPlanVersion :: Lens.Lens' UpdateScalingPlan Prelude.Integer
+updateScalingPlan_scalingPlanVersion = Lens.lens (\UpdateScalingPlan' {scalingPlanVersion} -> scalingPlanVersion) (\s@UpdateScalingPlan' {} a -> s {scalingPlanVersion = a} :: UpdateScalingPlan)
 
-instance AWSRequest UpdateScalingPlan where
+instance Prelude.AWSRequest UpdateScalingPlan where
   type Rs UpdateScalingPlan = UpdateScalingPlanResponse
-  request = postJSON autoScalingPlans
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateScalingPlanResponse' <$> (pure (fromEnum s))
+          UpdateScalingPlanResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateScalingPlan
+instance Prelude.Hashable UpdateScalingPlan
 
-instance NFData UpdateScalingPlan
+instance Prelude.NFData UpdateScalingPlan
 
-instance ToHeaders UpdateScalingPlan where
+instance Prelude.ToHeaders UpdateScalingPlan where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AnyScaleScalingPlannerFrontendService.UpdateScalingPlan" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AnyScaleScalingPlannerFrontendService.UpdateScalingPlan" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateScalingPlan where
+instance Prelude.ToJSON UpdateScalingPlan where
   toJSON UpdateScalingPlan' {..} =
-    object
-      ( catMaybes
-          [ ("ApplicationSource" .=) <$> _uspApplicationSource,
-            ("ScalingInstructions" .=)
-              <$> _uspScalingInstructions,
-            Just ("ScalingPlanName" .= _uspScalingPlanName),
-            Just
-              ("ScalingPlanVersion" .= _uspScalingPlanVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ApplicationSource" Prelude..=)
+              Prelude.<$> applicationSource,
+            ("ScalingInstructions" Prelude..=)
+              Prelude.<$> scalingInstructions,
+            Prelude.Just
+              ("ScalingPlanName" Prelude..= scalingPlanName),
+            Prelude.Just
+              ( "ScalingPlanVersion"
+                  Prelude..= scalingPlanVersion
+              )
           ]
       )
 
-instance ToPath UpdateScalingPlan where
-  toPath = const "/"
+instance Prelude.ToPath UpdateScalingPlan where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateScalingPlan where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateScalingPlan where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateScalingPlanResponse' smart constructor.
-newtype UpdateScalingPlanResponse = UpdateScalingPlanResponse'
-  { _usprrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateScalingPlanResponse' smart constructor.
+data UpdateScalingPlanResponse = UpdateScalingPlanResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateScalingPlanResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateScalingPlanResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usprrsResponseStatus' - -- | The response status code.
-updateScalingPlanResponse ::
-  -- | 'usprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateScalingPlanResponse_httpStatus' - The response's http status code.
+newUpdateScalingPlanResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateScalingPlanResponse
-updateScalingPlanResponse pResponseStatus_ =
+newUpdateScalingPlanResponse pHttpStatus_ =
   UpdateScalingPlanResponse'
-    { _usprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-usprrsResponseStatus :: Lens' UpdateScalingPlanResponse Int
-usprrsResponseStatus = lens _usprrsResponseStatus (\s a -> s {_usprrsResponseStatus = a})
+-- | The response's http status code.
+updateScalingPlanResponse_httpStatus :: Lens.Lens' UpdateScalingPlanResponse Prelude.Int
+updateScalingPlanResponse_httpStatus = Lens.lens (\UpdateScalingPlanResponse' {httpStatus} -> httpStatus) (\s@UpdateScalingPlanResponse' {} a -> s {httpStatus = a} :: UpdateScalingPlanResponse)
 
-instance NFData UpdateScalingPlanResponse
+instance Prelude.NFData UpdateScalingPlanResponse

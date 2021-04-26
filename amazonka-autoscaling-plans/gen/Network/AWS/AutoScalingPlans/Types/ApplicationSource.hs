@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,69 @@
 module Network.AWS.AutoScalingPlans.Types.ApplicationSource where
 
 import Network.AWS.AutoScalingPlans.Types.TagFilter
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents an application source.
 --
---
---
--- /See:/ 'applicationSource' smart constructor.
+-- /See:/ 'newApplicationSource' smart constructor.
 data ApplicationSource = ApplicationSource'
-  { _asTagFilters ::
-      !(Maybe [TagFilter]),
-    _asCloudFormationStackARN ::
-      !(Maybe Text)
+  { -- | A set of tags (up to 50).
+    tagFilters :: Prelude.Maybe [TagFilter],
+    -- | The Amazon Resource Name (ARN) of a AWS CloudFormation stack.
+    cloudFormationStackARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asTagFilters' - A set of tags (up to 50).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asCloudFormationStackARN' - The Amazon Resource Name (ARN) of a AWS CloudFormation stack.
-applicationSource ::
+-- 'tagFilters', 'applicationSource_tagFilters' - A set of tags (up to 50).
+--
+-- 'cloudFormationStackARN', 'applicationSource_cloudFormationStackARN' - The Amazon Resource Name (ARN) of a AWS CloudFormation stack.
+newApplicationSource ::
   ApplicationSource
-applicationSource =
+newApplicationSource =
   ApplicationSource'
-    { _asTagFilters = Nothing,
-      _asCloudFormationStackARN = Nothing
+    { tagFilters = Prelude.Nothing,
+      cloudFormationStackARN = Prelude.Nothing
     }
 
 -- | A set of tags (up to 50).
-asTagFilters :: Lens' ApplicationSource [TagFilter]
-asTagFilters = lens _asTagFilters (\s a -> s {_asTagFilters = a}) . _Default . _Coerce
+applicationSource_tagFilters :: Lens.Lens' ApplicationSource (Prelude.Maybe [TagFilter])
+applicationSource_tagFilters = Lens.lens (\ApplicationSource' {tagFilters} -> tagFilters) (\s@ApplicationSource' {} a -> s {tagFilters = a} :: ApplicationSource) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) of a AWS CloudFormation stack.
-asCloudFormationStackARN :: Lens' ApplicationSource (Maybe Text)
-asCloudFormationStackARN = lens _asCloudFormationStackARN (\s a -> s {_asCloudFormationStackARN = a})
+applicationSource_cloudFormationStackARN :: Lens.Lens' ApplicationSource (Prelude.Maybe Prelude.Text)
+applicationSource_cloudFormationStackARN = Lens.lens (\ApplicationSource' {cloudFormationStackARN} -> cloudFormationStackARN) (\s@ApplicationSource' {} a -> s {cloudFormationStackARN = a} :: ApplicationSource)
 
-instance FromJSON ApplicationSource where
+instance Prelude.FromJSON ApplicationSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ApplicationSource"
       ( \x ->
           ApplicationSource'
-            <$> (x .:? "TagFilters" .!= mempty)
-            <*> (x .:? "CloudFormationStackARN")
+            Prelude.<$> ( x Prelude..:? "TagFilters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "CloudFormationStackARN")
       )
 
-instance Hashable ApplicationSource
+instance Prelude.Hashable ApplicationSource
 
-instance NFData ApplicationSource
+instance Prelude.NFData ApplicationSource
 
-instance ToJSON ApplicationSource where
+instance Prelude.ToJSON ApplicationSource where
   toJSON ApplicationSource' {..} =
-    object
-      ( catMaybes
-          [ ("TagFilters" .=) <$> _asTagFilters,
-            ("CloudFormationStackARN" .=)
-              <$> _asCloudFormationStackARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagFilters" Prelude..=) Prelude.<$> tagFilters,
+            ("CloudFormationStackARN" Prelude..=)
+              Prelude.<$> cloudFormationStackARN
           ]
       )

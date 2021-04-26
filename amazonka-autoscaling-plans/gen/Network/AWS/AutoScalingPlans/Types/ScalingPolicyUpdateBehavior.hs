@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.AutoScalingPlans.Types.ScalingPolicyUpdateBehavior
   ( ScalingPolicyUpdateBehavior
       ( ..,
-        KeepExternalPolicies,
-        ReplaceExternalPolicies
+        ScalingPolicyUpdateBehaviorKeepExternalPolicies,
+        ScalingPolicyUpdateBehaviorReplaceExternalPolicies
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingPolicyUpdateBehavior
-  = ScalingPolicyUpdateBehavior'
-      ( CI
-          Text
-      )
+newtype ScalingPolicyUpdateBehavior = ScalingPolicyUpdateBehavior'
+  { fromScalingPolicyUpdateBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KeepExternalPolicies :: ScalingPolicyUpdateBehavior
-pattern KeepExternalPolicies = ScalingPolicyUpdateBehavior' "KeepExternalPolicies"
+pattern ScalingPolicyUpdateBehaviorKeepExternalPolicies :: ScalingPolicyUpdateBehavior
+pattern ScalingPolicyUpdateBehaviorKeepExternalPolicies = ScalingPolicyUpdateBehavior' "KeepExternalPolicies"
 
-pattern ReplaceExternalPolicies :: ScalingPolicyUpdateBehavior
-pattern ReplaceExternalPolicies = ScalingPolicyUpdateBehavior' "ReplaceExternalPolicies"
+pattern ScalingPolicyUpdateBehaviorReplaceExternalPolicies :: ScalingPolicyUpdateBehavior
+pattern ScalingPolicyUpdateBehaviorReplaceExternalPolicies = ScalingPolicyUpdateBehavior' "ReplaceExternalPolicies"
 
 {-# COMPLETE
-  KeepExternalPolicies,
-  ReplaceExternalPolicies,
+  ScalingPolicyUpdateBehaviorKeepExternalPolicies,
+  ScalingPolicyUpdateBehaviorReplaceExternalPolicies,
   ScalingPolicyUpdateBehavior'
   #-}
 
-instance FromText ScalingPolicyUpdateBehavior where
-  parser = (ScalingPolicyUpdateBehavior' . mk) <$> takeText
+instance Prelude.FromText ScalingPolicyUpdateBehavior where
+  parser = ScalingPolicyUpdateBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingPolicyUpdateBehavior where
-  toText (ScalingPolicyUpdateBehavior' ci) = original ci
+instance Prelude.ToText ScalingPolicyUpdateBehavior where
+  toText (ScalingPolicyUpdateBehavior' x) = x
 
-instance Hashable ScalingPolicyUpdateBehavior
+instance Prelude.Hashable ScalingPolicyUpdateBehavior
 
-instance NFData ScalingPolicyUpdateBehavior
+instance Prelude.NFData ScalingPolicyUpdateBehavior
 
-instance ToByteString ScalingPolicyUpdateBehavior
+instance Prelude.ToByteString ScalingPolicyUpdateBehavior
 
-instance ToQuery ScalingPolicyUpdateBehavior
+instance Prelude.ToQuery ScalingPolicyUpdateBehavior
 
-instance ToHeader ScalingPolicyUpdateBehavior
+instance Prelude.ToHeader ScalingPolicyUpdateBehavior
 
-instance ToJSON ScalingPolicyUpdateBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalingPolicyUpdateBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalingPolicyUpdateBehavior where
-  parseJSON = parseJSONText "ScalingPolicyUpdateBehavior"
+instance Prelude.FromJSON ScalingPolicyUpdateBehavior where
+  parseJSON = Prelude.parseJSONText "ScalingPolicyUpdateBehavior"

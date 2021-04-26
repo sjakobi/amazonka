@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.AutoScalingPlans.Types.LoadMetricType
   ( LoadMetricType
       ( ..,
-        ALBTargetGroupRequestCount,
-        ASGTotalCPUUtilization,
-        ASGTotalNetworkIn,
-        ASGTotalNetworkOut
+        LoadMetricTypeALBTargetGroupRequestCount,
+        LoadMetricTypeASGTotalCPUUtilization,
+        LoadMetricTypeASGTotalNetworkIn,
+        LoadMetricTypeASGTotalNetworkOut
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadMetricType = LoadMetricType' (CI Text)
+newtype LoadMetricType = LoadMetricType'
+  { fromLoadMetricType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ALBTargetGroupRequestCount :: LoadMetricType
-pattern ALBTargetGroupRequestCount = LoadMetricType' "ALBTargetGroupRequestCount"
+pattern LoadMetricTypeALBTargetGroupRequestCount :: LoadMetricType
+pattern LoadMetricTypeALBTargetGroupRequestCount = LoadMetricType' "ALBTargetGroupRequestCount"
 
-pattern ASGTotalCPUUtilization :: LoadMetricType
-pattern ASGTotalCPUUtilization = LoadMetricType' "ASGTotalCPUUtilization"
+pattern LoadMetricTypeASGTotalCPUUtilization :: LoadMetricType
+pattern LoadMetricTypeASGTotalCPUUtilization = LoadMetricType' "ASGTotalCPUUtilization"
 
-pattern ASGTotalNetworkIn :: LoadMetricType
-pattern ASGTotalNetworkIn = LoadMetricType' "ASGTotalNetworkIn"
+pattern LoadMetricTypeASGTotalNetworkIn :: LoadMetricType
+pattern LoadMetricTypeASGTotalNetworkIn = LoadMetricType' "ASGTotalNetworkIn"
 
-pattern ASGTotalNetworkOut :: LoadMetricType
-pattern ASGTotalNetworkOut = LoadMetricType' "ASGTotalNetworkOut"
+pattern LoadMetricTypeASGTotalNetworkOut :: LoadMetricType
+pattern LoadMetricTypeASGTotalNetworkOut = LoadMetricType' "ASGTotalNetworkOut"
 
 {-# COMPLETE
-  ALBTargetGroupRequestCount,
-  ASGTotalCPUUtilization,
-  ASGTotalNetworkIn,
-  ASGTotalNetworkOut,
+  LoadMetricTypeALBTargetGroupRequestCount,
+  LoadMetricTypeASGTotalCPUUtilization,
+  LoadMetricTypeASGTotalNetworkIn,
+  LoadMetricTypeASGTotalNetworkOut,
   LoadMetricType'
   #-}
 
-instance FromText LoadMetricType where
-  parser = (LoadMetricType' . mk) <$> takeText
+instance Prelude.FromText LoadMetricType where
+  parser = LoadMetricType' Prelude.<$> Prelude.takeText
 
-instance ToText LoadMetricType where
-  toText (LoadMetricType' ci) = original ci
+instance Prelude.ToText LoadMetricType where
+  toText (LoadMetricType' x) = x
 
-instance Hashable LoadMetricType
+instance Prelude.Hashable LoadMetricType
 
-instance NFData LoadMetricType
+instance Prelude.NFData LoadMetricType
 
-instance ToByteString LoadMetricType
+instance Prelude.ToByteString LoadMetricType
 
-instance ToQuery LoadMetricType
+instance Prelude.ToQuery LoadMetricType
 
-instance ToHeader LoadMetricType
+instance Prelude.ToHeader LoadMetricType
 
-instance ToJSON LoadMetricType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoadMetricType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoadMetricType where
-  parseJSON = parseJSONText "LoadMetricType"
+instance Prelude.FromJSON LoadMetricType where
+  parseJSON = Prelude.parseJSONText "LoadMetricType"

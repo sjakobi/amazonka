@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,128 +21,166 @@ module Network.AWS.AutoScalingPlans.Types.CustomizedLoadMetricSpecification wher
 
 import Network.AWS.AutoScalingPlans.Types.MetricDimension
 import Network.AWS.AutoScalingPlans.Types.MetricStatistic
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a CloudWatch metric of your choosing that can be used for predictive scaling.
+-- | Represents a CloudWatch metric of your choosing that can be used for
+-- predictive scaling.
 --
+-- For predictive scaling to work with a customized load metric
+-- specification, AWS Auto Scaling needs access to the @Sum@ and @Average@
+-- statistics that CloudWatch computes from metric data.
 --
--- For predictive scaling to work with a customized load metric specification, AWS Auto Scaling needs access to the @Sum@ and @Average@ statistics that CloudWatch computes from metric data.
+-- When you choose a load metric, make sure that the required @Sum@ and
+-- @Average@ statistics for your metric are available in CloudWatch and
+-- that they provide relevant data for predictive scaling. The @Sum@
+-- statistic must represent the total load on the resource, and the
+-- @Average@ statistic must represent the average load per capacity unit of
+-- the resource. For example, there is a metric that counts the number of
+-- requests processed by your Auto Scaling group. If the @Sum@ statistic
+-- represents the total request count processed by the group, then the
+-- @Average@ statistic for the specified metric must represent the average
+-- request count processed by each instance of the group.
 --
--- When you choose a load metric, make sure that the required @Sum@ and @Average@ statistics for your metric are available in CloudWatch and that they provide relevant data for predictive scaling. The @Sum@ statistic must represent the total load on the resource, and the @Average@ statistic must represent the average load per capacity unit of the resource. For example, there is a metric that counts the number of requests processed by your Auto Scaling group. If the @Sum@ statistic represents the total request count processed by the group, then the @Average@ statistic for the specified metric must represent the average request count processed by each instance of the group.
+-- If you publish your own metrics, you can aggregate the data points at a
+-- given interval and then publish the aggregated data points to
+-- CloudWatch. Before AWS Auto Scaling generates the forecast, it sums up
+-- all the metric data points that occurred within each hour to match the
+-- granularity period that is used in the forecast (60 minutes).
 --
--- If you publish your own metrics, you can aggregate the data points at a given interval and then publish the aggregated data points to CloudWatch. Before AWS Auto Scaling generates the forecast, it sums up all the metric data points that occurred within each hour to match the granularity period that is used in the forecast (60 minutes).
+-- For information about terminology, available metrics, or how to publish
+-- new metrics, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html Amazon CloudWatch Concepts>
+-- in the /Amazon CloudWatch User Guide/.
 --
--- For information about terminology, available metrics, or how to publish new metrics, see <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html Amazon CloudWatch Concepts> in the /Amazon CloudWatch User Guide/ .
+-- After creating your scaling plan, you can use the AWS Auto Scaling
+-- console to visualize forecasts for the specified metric. For more
+-- information, see
+-- <https://docs.aws.amazon.com/autoscaling/plans/userguide/gs-create-scaling-plan.html#gs-view-resource View Scaling Information for a Resource>
+-- in the /AWS Auto Scaling User Guide/.
 --
--- After creating your scaling plan, you can use the AWS Auto Scaling console to visualize forecasts for the specified metric. For more information, see <https://docs.aws.amazon.com/autoscaling/plans/userguide/gs-create-scaling-plan.html#gs-view-resource View Scaling Information for a Resource> in the /AWS Auto Scaling User Guide/ .
---
---
--- /See:/ 'customizedLoadMetricSpecification' smart constructor.
+-- /See:/ 'newCustomizedLoadMetricSpecification' smart constructor.
 data CustomizedLoadMetricSpecification = CustomizedLoadMetricSpecification'
-  { _clmsUnit ::
-      !( Maybe
-           Text
-       ),
-    _clmsDimensions ::
-      !( Maybe
-           [MetricDimension]
-       ),
-    _clmsMetricName ::
-      !Text,
-    _clmsNamespace ::
-      !Text,
-    _clmsStatistic ::
-      !MetricStatistic
+  { -- | The unit of the metric.
+    unit :: Prelude.Maybe Prelude.Text,
+    -- | The dimensions of the metric.
+    --
+    -- Conditional: If you published your metric with dimensions, you must
+    -- specify the same dimensions in your customized load metric
+    -- specification.
+    dimensions :: Prelude.Maybe [MetricDimension],
+    -- | The name of the metric.
+    metricName :: Prelude.Text,
+    -- | The namespace of the metric.
+    namespace :: Prelude.Text,
+    -- | The statistic of the metric. The only valid value is @Sum@.
+    statistic :: MetricStatistic
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomizedLoadMetricSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomizedLoadMetricSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clmsUnit' - The unit of the metric.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clmsDimensions' - The dimensions of the metric. Conditional: If you published your metric with dimensions, you must specify the same dimensions in your customized load metric specification.
+-- 'unit', 'customizedLoadMetricSpecification_unit' - The unit of the metric.
 --
--- * 'clmsMetricName' - The name of the metric.
+-- 'dimensions', 'customizedLoadMetricSpecification_dimensions' - The dimensions of the metric.
 --
--- * 'clmsNamespace' - The namespace of the metric.
+-- Conditional: If you published your metric with dimensions, you must
+-- specify the same dimensions in your customized load metric
+-- specification.
 --
--- * 'clmsStatistic' - The statistic of the metric. The only valid value is @Sum@ .
-customizedLoadMetricSpecification ::
-  -- | 'clmsMetricName'
-  Text ->
-  -- | 'clmsNamespace'
-  Text ->
-  -- | 'clmsStatistic'
+-- 'metricName', 'customizedLoadMetricSpecification_metricName' - The name of the metric.
+--
+-- 'namespace', 'customizedLoadMetricSpecification_namespace' - The namespace of the metric.
+--
+-- 'statistic', 'customizedLoadMetricSpecification_statistic' - The statistic of the metric. The only valid value is @Sum@.
+newCustomizedLoadMetricSpecification ::
+  -- | 'metricName'
+  Prelude.Text ->
+  -- | 'namespace'
+  Prelude.Text ->
+  -- | 'statistic'
   MetricStatistic ->
   CustomizedLoadMetricSpecification
-customizedLoadMetricSpecification
+newCustomizedLoadMetricSpecification
   pMetricName_
   pNamespace_
   pStatistic_ =
     CustomizedLoadMetricSpecification'
-      { _clmsUnit =
-          Nothing,
-        _clmsDimensions = Nothing,
-        _clmsMetricName = pMetricName_,
-        _clmsNamespace = pNamespace_,
-        _clmsStatistic = pStatistic_
+      { unit =
+          Prelude.Nothing,
+        dimensions = Prelude.Nothing,
+        metricName = pMetricName_,
+        namespace = pNamespace_,
+        statistic = pStatistic_
       }
 
 -- | The unit of the metric.
-clmsUnit :: Lens' CustomizedLoadMetricSpecification (Maybe Text)
-clmsUnit = lens _clmsUnit (\s a -> s {_clmsUnit = a})
+customizedLoadMetricSpecification_unit :: Lens.Lens' CustomizedLoadMetricSpecification (Prelude.Maybe Prelude.Text)
+customizedLoadMetricSpecification_unit = Lens.lens (\CustomizedLoadMetricSpecification' {unit} -> unit) (\s@CustomizedLoadMetricSpecification' {} a -> s {unit = a} :: CustomizedLoadMetricSpecification)
 
--- | The dimensions of the metric. Conditional: If you published your metric with dimensions, you must specify the same dimensions in your customized load metric specification.
-clmsDimensions :: Lens' CustomizedLoadMetricSpecification [MetricDimension]
-clmsDimensions = lens _clmsDimensions (\s a -> s {_clmsDimensions = a}) . _Default . _Coerce
+-- | The dimensions of the metric.
+--
+-- Conditional: If you published your metric with dimensions, you must
+-- specify the same dimensions in your customized load metric
+-- specification.
+customizedLoadMetricSpecification_dimensions :: Lens.Lens' CustomizedLoadMetricSpecification (Prelude.Maybe [MetricDimension])
+customizedLoadMetricSpecification_dimensions = Lens.lens (\CustomizedLoadMetricSpecification' {dimensions} -> dimensions) (\s@CustomizedLoadMetricSpecification' {} a -> s {dimensions = a} :: CustomizedLoadMetricSpecification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the metric.
-clmsMetricName :: Lens' CustomizedLoadMetricSpecification Text
-clmsMetricName = lens _clmsMetricName (\s a -> s {_clmsMetricName = a})
+customizedLoadMetricSpecification_metricName :: Lens.Lens' CustomizedLoadMetricSpecification Prelude.Text
+customizedLoadMetricSpecification_metricName = Lens.lens (\CustomizedLoadMetricSpecification' {metricName} -> metricName) (\s@CustomizedLoadMetricSpecification' {} a -> s {metricName = a} :: CustomizedLoadMetricSpecification)
 
 -- | The namespace of the metric.
-clmsNamespace :: Lens' CustomizedLoadMetricSpecification Text
-clmsNamespace = lens _clmsNamespace (\s a -> s {_clmsNamespace = a})
+customizedLoadMetricSpecification_namespace :: Lens.Lens' CustomizedLoadMetricSpecification Prelude.Text
+customizedLoadMetricSpecification_namespace = Lens.lens (\CustomizedLoadMetricSpecification' {namespace} -> namespace) (\s@CustomizedLoadMetricSpecification' {} a -> s {namespace = a} :: CustomizedLoadMetricSpecification)
 
--- | The statistic of the metric. The only valid value is @Sum@ .
-clmsStatistic :: Lens' CustomizedLoadMetricSpecification MetricStatistic
-clmsStatistic = lens _clmsStatistic (\s a -> s {_clmsStatistic = a})
+-- | The statistic of the metric. The only valid value is @Sum@.
+customizedLoadMetricSpecification_statistic :: Lens.Lens' CustomizedLoadMetricSpecification MetricStatistic
+customizedLoadMetricSpecification_statistic = Lens.lens (\CustomizedLoadMetricSpecification' {statistic} -> statistic) (\s@CustomizedLoadMetricSpecification' {} a -> s {statistic = a} :: CustomizedLoadMetricSpecification)
 
-instance FromJSON CustomizedLoadMetricSpecification where
+instance
+  Prelude.FromJSON
+    CustomizedLoadMetricSpecification
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomizedLoadMetricSpecification"
       ( \x ->
           CustomizedLoadMetricSpecification'
-            <$> (x .:? "Unit")
-            <*> (x .:? "Dimensions" .!= mempty)
-            <*> (x .: "MetricName")
-            <*> (x .: "Namespace")
-            <*> (x .: "Statistic")
+            Prelude.<$> (x Prelude..:? "Unit")
+            Prelude.<*> ( x Prelude..:? "Dimensions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "MetricName")
+            Prelude.<*> (x Prelude..: "Namespace")
+            Prelude.<*> (x Prelude..: "Statistic")
       )
 
-instance Hashable CustomizedLoadMetricSpecification
+instance
+  Prelude.Hashable
+    CustomizedLoadMetricSpecification
 
-instance NFData CustomizedLoadMetricSpecification
+instance
+  Prelude.NFData
+    CustomizedLoadMetricSpecification
 
-instance ToJSON CustomizedLoadMetricSpecification where
+instance
+  Prelude.ToJSON
+    CustomizedLoadMetricSpecification
+  where
   toJSON CustomizedLoadMetricSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("Unit" .=) <$> _clmsUnit,
-            ("Dimensions" .=) <$> _clmsDimensions,
-            Just ("MetricName" .= _clmsMetricName),
-            Just ("Namespace" .= _clmsNamespace),
-            Just ("Statistic" .= _clmsStatistic)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Unit" Prelude..=) Prelude.<$> unit,
+            ("Dimensions" Prelude..=) Prelude.<$> dimensions,
+            Prelude.Just ("MetricName" Prelude..= metricName),
+            Prelude.Just ("Namespace" Prelude..= namespace),
+            Prelude.Just ("Statistic" Prelude..= statistic)
           ]
       )
