@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,130 +23,151 @@
 --
 -- Updates the attributes of the specified link aggregation group (LAG).
 --
---
 -- You can update the following attributes:
 --
---     * The name of the LAG.
+-- -   The name of the LAG.
 --
---     * The value for the minimum number of connections that must be operational for the LAG itself to be operational.
+-- -   The value for the minimum number of connections that must be
+--     operational for the LAG itself to be operational.
 --
---
---
--- When you create a LAG, the default value for the minimum number of operational connections is zero (0). If you update this value and the number of operational connections falls below the specified value, the LAG automatically goes down to avoid over-utilization of the remaining connections. Adjust this value with care, as it could force the LAG down if it is set higher than the current number of operational connections.
+-- When you create a LAG, the default value for the minimum number of
+-- operational connections is zero (0). If you update this value and the
+-- number of operational connections falls below the specified value, the
+-- LAG automatically goes down to avoid over-utilization of the remaining
+-- connections. Adjust this value with care, as it could force the LAG down
+-- if it is set higher than the current number of operational connections.
 module Network.AWS.DirectConnect.UpdateLag
   ( -- * Creating a Request
-    updateLag,
-    UpdateLag,
+    UpdateLag (..),
+    newUpdateLag,
 
     -- * Request Lenses
-    ulLagName,
-    ulMinimumLinks,
-    ulLagId,
+    updateLag_lagName,
+    updateLag_minimumLinks,
+    updateLag_lagId,
 
     -- * Destructuring the Response
-    lag,
-    Lag,
+    Lag (..),
+    newLag,
 
     -- * Response Lenses
-    lagNumberOfConnections,
-    lagAwsDeviceV2,
-    lagAllowsHostedConnections,
-    lagProviderName,
-    lagHasLogicalRedundancy,
-    lagConnections,
-    lagAwsDevice,
-    lagLagName,
-    lagLagState,
-    lagJumboFrameCapable,
-    lagConnectionsBandwidth,
-    lagLagId,
-    lagTags,
-    lagOwnerAccount,
-    lagRegion,
-    lagLocation,
-    lagMinimumLinks,
+    lag_numberOfConnections,
+    lag_awsDeviceV2,
+    lag_allowsHostedConnections,
+    lag_providerName,
+    lag_hasLogicalRedundancy,
+    lag_connections,
+    lag_awsDevice,
+    lag_lagName,
+    lag_lagState,
+    lag_jumboFrameCapable,
+    lag_connectionsBandwidth,
+    lag_lagId,
+    lag_tags,
+    lag_ownerAccount,
+    lag_region,
+    lag_location,
+    lag_minimumLinks,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.Connection
+import Network.AWS.DirectConnect.Types.HasLogicalRedundancy
+import Network.AWS.DirectConnect.Types.Lag
+import Network.AWS.DirectConnect.Types.LagState
+import Network.AWS.DirectConnect.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateLag' smart constructor.
+-- | /See:/ 'newUpdateLag' smart constructor.
 data UpdateLag = UpdateLag'
-  { _ulLagName ::
-      !(Maybe Text),
-    _ulMinimumLinks :: !(Maybe Int),
-    _ulLagId :: !Text
+  { -- | The name of the LAG.
+    lagName :: Prelude.Maybe Prelude.Text,
+    -- | The minimum number of physical connections that must be operational for
+    -- the LAG itself to be operational.
+    minimumLinks :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the LAG.
+    lagId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateLag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateLag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ulLagName' - The name of the LAG.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ulMinimumLinks' - The minimum number of physical connections that must be operational for the LAG itself to be operational.
+-- 'lagName', 'updateLag_lagName' - The name of the LAG.
 --
--- * 'ulLagId' - The ID of the LAG.
-updateLag ::
-  -- | 'ulLagId'
-  Text ->
+-- 'minimumLinks', 'updateLag_minimumLinks' - The minimum number of physical connections that must be operational for
+-- the LAG itself to be operational.
+--
+-- 'lagId', 'updateLag_lagId' - The ID of the LAG.
+newUpdateLag ::
+  -- | 'lagId'
+  Prelude.Text ->
   UpdateLag
-updateLag pLagId_ =
+newUpdateLag pLagId_ =
   UpdateLag'
-    { _ulLagName = Nothing,
-      _ulMinimumLinks = Nothing,
-      _ulLagId = pLagId_
+    { lagName = Prelude.Nothing,
+      minimumLinks = Prelude.Nothing,
+      lagId = pLagId_
     }
 
 -- | The name of the LAG.
-ulLagName :: Lens' UpdateLag (Maybe Text)
-ulLagName = lens _ulLagName (\s a -> s {_ulLagName = a})
+updateLag_lagName :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Text)
+updateLag_lagName = Lens.lens (\UpdateLag' {lagName} -> lagName) (\s@UpdateLag' {} a -> s {lagName = a} :: UpdateLag)
 
--- | The minimum number of physical connections that must be operational for the LAG itself to be operational.
-ulMinimumLinks :: Lens' UpdateLag (Maybe Int)
-ulMinimumLinks = lens _ulMinimumLinks (\s a -> s {_ulMinimumLinks = a})
+-- | The minimum number of physical connections that must be operational for
+-- the LAG itself to be operational.
+updateLag_minimumLinks :: Lens.Lens' UpdateLag (Prelude.Maybe Prelude.Int)
+updateLag_minimumLinks = Lens.lens (\UpdateLag' {minimumLinks} -> minimumLinks) (\s@UpdateLag' {} a -> s {minimumLinks = a} :: UpdateLag)
 
 -- | The ID of the LAG.
-ulLagId :: Lens' UpdateLag Text
-ulLagId = lens _ulLagId (\s a -> s {_ulLagId = a})
+updateLag_lagId :: Lens.Lens' UpdateLag Prelude.Text
+updateLag_lagId = Lens.lens (\UpdateLag' {lagId} -> lagId) (\s@UpdateLag' {} a -> s {lagId = a} :: UpdateLag)
 
-instance AWSRequest UpdateLag where
+instance Prelude.AWSRequest UpdateLag where
   type Rs UpdateLag = Lag
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateLag
+instance Prelude.Hashable UpdateLag
 
-instance NFData UpdateLag
+instance Prelude.NFData UpdateLag
 
-instance ToHeaders UpdateLag where
+instance Prelude.ToHeaders UpdateLag where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OvertureService.UpdateLag" :: ByteString),
+              Prelude.=# ("OvertureService.UpdateLag" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateLag where
+instance Prelude.ToJSON UpdateLag where
   toJSON UpdateLag' {..} =
-    object
-      ( catMaybes
-          [ ("lagName" .=) <$> _ulLagName,
-            ("minimumLinks" .=) <$> _ulMinimumLinks,
-            Just ("lagId" .= _ulLagId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("lagName" Prelude..=) Prelude.<$> lagName,
+            ("minimumLinks" Prelude..=) Prelude.<$> minimumLinks,
+            Prelude.Just ("lagId" Prelude..= lagId)
           ]
       )
 
-instance ToPath UpdateLag where
-  toPath = const "/"
+instance Prelude.ToPath UpdateLag where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateLag where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateLag where
+  toQuery = Prelude.const Prelude.mempty

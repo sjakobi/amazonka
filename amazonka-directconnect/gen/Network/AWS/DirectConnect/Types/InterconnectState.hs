@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.DirectConnect.Types.InterconnectState
   ( InterconnectState
       ( ..,
-        ISAvailable,
-        ISDeleted,
-        ISDeleting,
-        ISDown,
-        ISPending,
-        ISRequested,
-        ISUnknown
+        InterconnectStateAvailable,
+        InterconnectStateDeleted,
+        InterconnectStateDeleting,
+        InterconnectStateDown,
+        InterconnectStatePending,
+        InterconnectStateRequested,
+        InterconnectStateUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InterconnectState = InterconnectState' (CI Text)
+newtype InterconnectState = InterconnectState'
+  { fromInterconnectState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAvailable :: InterconnectState
-pattern ISAvailable = InterconnectState' "available"
+pattern InterconnectStateAvailable :: InterconnectState
+pattern InterconnectStateAvailable = InterconnectState' "available"
 
-pattern ISDeleted :: InterconnectState
-pattern ISDeleted = InterconnectState' "deleted"
+pattern InterconnectStateDeleted :: InterconnectState
+pattern InterconnectStateDeleted = InterconnectState' "deleted"
 
-pattern ISDeleting :: InterconnectState
-pattern ISDeleting = InterconnectState' "deleting"
+pattern InterconnectStateDeleting :: InterconnectState
+pattern InterconnectStateDeleting = InterconnectState' "deleting"
 
-pattern ISDown :: InterconnectState
-pattern ISDown = InterconnectState' "down"
+pattern InterconnectStateDown :: InterconnectState
+pattern InterconnectStateDown = InterconnectState' "down"
 
-pattern ISPending :: InterconnectState
-pattern ISPending = InterconnectState' "pending"
+pattern InterconnectStatePending :: InterconnectState
+pattern InterconnectStatePending = InterconnectState' "pending"
 
-pattern ISRequested :: InterconnectState
-pattern ISRequested = InterconnectState' "requested"
+pattern InterconnectStateRequested :: InterconnectState
+pattern InterconnectStateRequested = InterconnectState' "requested"
 
-pattern ISUnknown :: InterconnectState
-pattern ISUnknown = InterconnectState' "unknown"
+pattern InterconnectStateUnknown :: InterconnectState
+pattern InterconnectStateUnknown = InterconnectState' "unknown"
 
 {-# COMPLETE
-  ISAvailable,
-  ISDeleted,
-  ISDeleting,
-  ISDown,
-  ISPending,
-  ISRequested,
-  ISUnknown,
+  InterconnectStateAvailable,
+  InterconnectStateDeleted,
+  InterconnectStateDeleting,
+  InterconnectStateDown,
+  InterconnectStatePending,
+  InterconnectStateRequested,
+  InterconnectStateUnknown,
   InterconnectState'
   #-}
 
-instance FromText InterconnectState where
-  parser = (InterconnectState' . mk) <$> takeText
+instance Prelude.FromText InterconnectState where
+  parser = InterconnectState' Prelude.<$> Prelude.takeText
 
-instance ToText InterconnectState where
-  toText (InterconnectState' ci) = original ci
+instance Prelude.ToText InterconnectState where
+  toText (InterconnectState' x) = x
 
-instance Hashable InterconnectState
+instance Prelude.Hashable InterconnectState
 
-instance NFData InterconnectState
+instance Prelude.NFData InterconnectState
 
-instance ToByteString InterconnectState
+instance Prelude.ToByteString InterconnectState
 
-instance ToQuery InterconnectState
+instance Prelude.ToQuery InterconnectState
 
-instance ToHeader InterconnectState
+instance Prelude.ToHeader InterconnectState
 
-instance FromJSON InterconnectState where
-  parseJSON = parseJSONText "InterconnectState"
+instance Prelude.FromJSON InterconnectState where
+  parseJSON = Prelude.parseJSONText "InterconnectState"

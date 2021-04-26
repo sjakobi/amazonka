@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,261 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts ownership of a public virtual interface created by another AWS account.
+-- Accepts ownership of a public virtual interface created by another AWS
+-- account.
 --
---
--- After the virtual interface owner makes this call, the specified virtual interface is created and made available to handle traffic.
+-- After the virtual interface owner makes this call, the specified virtual
+-- interface is created and made available to handle traffic.
 module Network.AWS.DirectConnect.ConfirmPublicVirtualInterface
   ( -- * Creating a Request
-    confirmPublicVirtualInterface,
-    ConfirmPublicVirtualInterface,
+    ConfirmPublicVirtualInterface (..),
+    newConfirmPublicVirtualInterface,
 
     -- * Request Lenses
-    cpviVirtualInterfaceId,
+    confirmPublicVirtualInterface_virtualInterfaceId,
 
     -- * Destructuring the Response
-    confirmPublicVirtualInterfaceResponse,
-    ConfirmPublicVirtualInterfaceResponse,
+    ConfirmPublicVirtualInterfaceResponse (..),
+    newConfirmPublicVirtualInterfaceResponse,
 
     -- * Response Lenses
-    cpvirrsVirtualInterfaceState,
-    cpvirrsResponseStatus,
+    confirmPublicVirtualInterfaceResponse_virtualInterfaceState,
+    confirmPublicVirtualInterfaceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.VirtualInterfaceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'confirmPublicVirtualInterface' smart constructor.
-newtype ConfirmPublicVirtualInterface = ConfirmPublicVirtualInterface'
-  { _cpviVirtualInterfaceId ::
-      Text
+-- | /See:/ 'newConfirmPublicVirtualInterface' smart constructor.
+data ConfirmPublicVirtualInterface = ConfirmPublicVirtualInterface'
+  { -- | The ID of the virtual interface.
+    virtualInterfaceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfirmPublicVirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfirmPublicVirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpviVirtualInterfaceId' - The ID of the virtual interface.
-confirmPublicVirtualInterface ::
-  -- | 'cpviVirtualInterfaceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'virtualInterfaceId', 'confirmPublicVirtualInterface_virtualInterfaceId' - The ID of the virtual interface.
+newConfirmPublicVirtualInterface ::
+  -- | 'virtualInterfaceId'
+  Prelude.Text ->
   ConfirmPublicVirtualInterface
-confirmPublicVirtualInterface pVirtualInterfaceId_ =
+newConfirmPublicVirtualInterface pVirtualInterfaceId_ =
   ConfirmPublicVirtualInterface'
-    { _cpviVirtualInterfaceId =
+    { virtualInterfaceId =
         pVirtualInterfaceId_
     }
 
 -- | The ID of the virtual interface.
-cpviVirtualInterfaceId :: Lens' ConfirmPublicVirtualInterface Text
-cpviVirtualInterfaceId = lens _cpviVirtualInterfaceId (\s a -> s {_cpviVirtualInterfaceId = a})
+confirmPublicVirtualInterface_virtualInterfaceId :: Lens.Lens' ConfirmPublicVirtualInterface Prelude.Text
+confirmPublicVirtualInterface_virtualInterfaceId = Lens.lens (\ConfirmPublicVirtualInterface' {virtualInterfaceId} -> virtualInterfaceId) (\s@ConfirmPublicVirtualInterface' {} a -> s {virtualInterfaceId = a} :: ConfirmPublicVirtualInterface)
 
-instance AWSRequest ConfirmPublicVirtualInterface where
+instance
+  Prelude.AWSRequest
+    ConfirmPublicVirtualInterface
+  where
   type
     Rs ConfirmPublicVirtualInterface =
       ConfirmPublicVirtualInterfaceResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ConfirmPublicVirtualInterfaceResponse'
-            <$> (x .?> "virtualInterfaceState")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "virtualInterfaceState")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ConfirmPublicVirtualInterface
+instance
+  Prelude.Hashable
+    ConfirmPublicVirtualInterface
 
-instance NFData ConfirmPublicVirtualInterface
+instance Prelude.NFData ConfirmPublicVirtualInterface
 
-instance ToHeaders ConfirmPublicVirtualInterface where
+instance
+  Prelude.ToHeaders
+    ConfirmPublicVirtualInterface
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.ConfirmPublicVirtualInterface" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.ConfirmPublicVirtualInterface" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ConfirmPublicVirtualInterface where
+instance Prelude.ToJSON ConfirmPublicVirtualInterface where
   toJSON ConfirmPublicVirtualInterface' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("virtualInterfaceId" .= _cpviVirtualInterfaceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "virtualInterfaceId"
+                  Prelude..= virtualInterfaceId
+              )
           ]
       )
 
-instance ToPath ConfirmPublicVirtualInterface where
-  toPath = const "/"
+instance Prelude.ToPath ConfirmPublicVirtualInterface where
+  toPath = Prelude.const "/"
 
-instance ToQuery ConfirmPublicVirtualInterface where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    ConfirmPublicVirtualInterface
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'confirmPublicVirtualInterfaceResponse' smart constructor.
+-- | /See:/ 'newConfirmPublicVirtualInterfaceResponse' smart constructor.
 data ConfirmPublicVirtualInterfaceResponse = ConfirmPublicVirtualInterfaceResponse'
-  { _cpvirrsVirtualInterfaceState ::
-      !( Maybe
-           VirtualInterfaceState
-       ),
-    _cpvirrsResponseStatus ::
-      !Int
+  { -- | The state of the virtual interface. The following are the possible
+    -- values:
+    --
+    -- -   @confirming@: The creation of the virtual interface is pending
+    --     confirmation from the virtual interface owner. If the owner of the
+    --     virtual interface is different from the owner of the connection on
+    --     which it is provisioned, then the virtual interface will remain in
+    --     this state until it is confirmed by the virtual interface owner.
+    --
+    -- -   @verifying@: This state only applies to public virtual interfaces.
+    --     Each public virtual interface needs validation before the virtual
+    --     interface can be created.
+    --
+    -- -   @pending@: A virtual interface is in this state from the time that
+    --     it is created until the virtual interface is ready to forward
+    --     traffic.
+    --
+    -- -   @available@: A virtual interface that is able to forward traffic.
+    --
+    -- -   @down@: A virtual interface that is BGP down.
+    --
+    -- -   @deleting@: A virtual interface is in this state immediately after
+    --     calling DeleteVirtualInterface until it can no longer forward
+    --     traffic.
+    --
+    -- -   @deleted@: A virtual interface that cannot forward traffic.
+    --
+    -- -   @rejected@: The virtual interface owner has declined creation of the
+    --     virtual interface. If a virtual interface in the @Confirming@ state
+    --     is deleted by the virtual interface owner, the virtual interface
+    --     enters the @Rejected@ state.
+    --
+    -- -   @unknown@: The state of the virtual interface is not available.
+    virtualInterfaceState :: Prelude.Maybe VirtualInterfaceState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfirmPublicVirtualInterfaceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfirmPublicVirtualInterfaceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpvirrsVirtualInterfaceState' - The state of the virtual interface. The following are the possible values:     * @confirming@ : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.     * @verifying@ : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.     * @pending@ : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.     * @available@ : A virtual interface that is able to forward traffic.     * @down@ : A virtual interface that is BGP down.     * @deleting@ : A virtual interface is in this state immediately after calling 'DeleteVirtualInterface' until it can no longer forward traffic.     * @deleted@ : A virtual interface that cannot forward traffic.     * @rejected@ : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the @Confirming@ state is deleted by the virtual interface owner, the virtual interface enters the @Rejected@ state.     * @unknown@ : The state of the virtual interface is not available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpvirrsResponseStatus' - -- | The response status code.
-confirmPublicVirtualInterfaceResponse ::
-  -- | 'cpvirrsResponseStatus'
-  Int ->
+-- 'virtualInterfaceState', 'confirmPublicVirtualInterfaceResponse_virtualInterfaceState' - The state of the virtual interface. The following are the possible
+-- values:
+--
+-- -   @confirming@: The creation of the virtual interface is pending
+--     confirmation from the virtual interface owner. If the owner of the
+--     virtual interface is different from the owner of the connection on
+--     which it is provisioned, then the virtual interface will remain in
+--     this state until it is confirmed by the virtual interface owner.
+--
+-- -   @verifying@: This state only applies to public virtual interfaces.
+--     Each public virtual interface needs validation before the virtual
+--     interface can be created.
+--
+-- -   @pending@: A virtual interface is in this state from the time that
+--     it is created until the virtual interface is ready to forward
+--     traffic.
+--
+-- -   @available@: A virtual interface that is able to forward traffic.
+--
+-- -   @down@: A virtual interface that is BGP down.
+--
+-- -   @deleting@: A virtual interface is in this state immediately after
+--     calling DeleteVirtualInterface until it can no longer forward
+--     traffic.
+--
+-- -   @deleted@: A virtual interface that cannot forward traffic.
+--
+-- -   @rejected@: The virtual interface owner has declined creation of the
+--     virtual interface. If a virtual interface in the @Confirming@ state
+--     is deleted by the virtual interface owner, the virtual interface
+--     enters the @Rejected@ state.
+--
+-- -   @unknown@: The state of the virtual interface is not available.
+--
+-- 'httpStatus', 'confirmPublicVirtualInterfaceResponse_httpStatus' - The response's http status code.
+newConfirmPublicVirtualInterfaceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ConfirmPublicVirtualInterfaceResponse
-confirmPublicVirtualInterfaceResponse
-  pResponseStatus_ =
-    ConfirmPublicVirtualInterfaceResponse'
-      { _cpvirrsVirtualInterfaceState =
-          Nothing,
-        _cpvirrsResponseStatus =
-          pResponseStatus_
-      }
+newConfirmPublicVirtualInterfaceResponse pHttpStatus_ =
+  ConfirmPublicVirtualInterfaceResponse'
+    { virtualInterfaceState =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The state of the virtual interface. The following are the possible values:     * @confirming@ : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.     * @verifying@ : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.     * @pending@ : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.     * @available@ : A virtual interface that is able to forward traffic.     * @down@ : A virtual interface that is BGP down.     * @deleting@ : A virtual interface is in this state immediately after calling 'DeleteVirtualInterface' until it can no longer forward traffic.     * @deleted@ : A virtual interface that cannot forward traffic.     * @rejected@ : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the @Confirming@ state is deleted by the virtual interface owner, the virtual interface enters the @Rejected@ state.     * @unknown@ : The state of the virtual interface is not available.
-cpvirrsVirtualInterfaceState :: Lens' ConfirmPublicVirtualInterfaceResponse (Maybe VirtualInterfaceState)
-cpvirrsVirtualInterfaceState = lens _cpvirrsVirtualInterfaceState (\s a -> s {_cpvirrsVirtualInterfaceState = a})
+-- | The state of the virtual interface. The following are the possible
+-- values:
+--
+-- -   @confirming@: The creation of the virtual interface is pending
+--     confirmation from the virtual interface owner. If the owner of the
+--     virtual interface is different from the owner of the connection on
+--     which it is provisioned, then the virtual interface will remain in
+--     this state until it is confirmed by the virtual interface owner.
+--
+-- -   @verifying@: This state only applies to public virtual interfaces.
+--     Each public virtual interface needs validation before the virtual
+--     interface can be created.
+--
+-- -   @pending@: A virtual interface is in this state from the time that
+--     it is created until the virtual interface is ready to forward
+--     traffic.
+--
+-- -   @available@: A virtual interface that is able to forward traffic.
+--
+-- -   @down@: A virtual interface that is BGP down.
+--
+-- -   @deleting@: A virtual interface is in this state immediately after
+--     calling DeleteVirtualInterface until it can no longer forward
+--     traffic.
+--
+-- -   @deleted@: A virtual interface that cannot forward traffic.
+--
+-- -   @rejected@: The virtual interface owner has declined creation of the
+--     virtual interface. If a virtual interface in the @Confirming@ state
+--     is deleted by the virtual interface owner, the virtual interface
+--     enters the @Rejected@ state.
+--
+-- -   @unknown@: The state of the virtual interface is not available.
+confirmPublicVirtualInterfaceResponse_virtualInterfaceState :: Lens.Lens' ConfirmPublicVirtualInterfaceResponse (Prelude.Maybe VirtualInterfaceState)
+confirmPublicVirtualInterfaceResponse_virtualInterfaceState = Lens.lens (\ConfirmPublicVirtualInterfaceResponse' {virtualInterfaceState} -> virtualInterfaceState) (\s@ConfirmPublicVirtualInterfaceResponse' {} a -> s {virtualInterfaceState = a} :: ConfirmPublicVirtualInterfaceResponse)
 
--- | -- | The response status code.
-cpvirrsResponseStatus :: Lens' ConfirmPublicVirtualInterfaceResponse Int
-cpvirrsResponseStatus = lens _cpvirrsResponseStatus (\s a -> s {_cpvirrsResponseStatus = a})
+-- | The response's http status code.
+confirmPublicVirtualInterfaceResponse_httpStatus :: Lens.Lens' ConfirmPublicVirtualInterfaceResponse Prelude.Int
+confirmPublicVirtualInterfaceResponse_httpStatus = Lens.lens (\ConfirmPublicVirtualInterfaceResponse' {httpStatus} -> httpStatus) (\s@ConfirmPublicVirtualInterfaceResponse' {} a -> s {httpStatus = a} :: ConfirmPublicVirtualInterfaceResponse)
 
-instance NFData ConfirmPublicVirtualInterfaceResponse
+instance
+  Prelude.NFData
+    ConfirmPublicVirtualInterfaceResponse

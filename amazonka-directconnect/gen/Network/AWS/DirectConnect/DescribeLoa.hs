@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,207 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the LOA-CFA for a connection, interconnect, or link aggregation group (LAG).
+-- Gets the LOA-CFA for a connection, interconnect, or link aggregation
+-- group (LAG).
 --
---
--- The Letter of Authorization - Connecting Facility Assignment (LOA-CFA) is a document that is used when establishing your cross connect to AWS at the colocation facility. For more information, see <https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html Requesting Cross Connects at AWS Direct Connect Locations> in the /AWS Direct Connect User Guide/ .
+-- The Letter of Authorization - Connecting Facility Assignment (LOA-CFA)
+-- is a document that is used when establishing your cross connect to AWS
+-- at the colocation facility. For more information, see
+-- <https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html Requesting Cross Connects at AWS Direct Connect Locations>
+-- in the /AWS Direct Connect User Guide/.
 module Network.AWS.DirectConnect.DescribeLoa
   ( -- * Creating a Request
-    describeLoa,
-    DescribeLoa,
+    DescribeLoa (..),
+    newDescribeLoa,
 
     -- * Request Lenses
-    dlProviderName,
-    dlLoaContentType,
-    dlConnectionId,
+    describeLoa_providerName,
+    describeLoa_loaContentType,
+    describeLoa_connectionId,
 
     -- * Destructuring the Response
-    describeLoaResponse,
-    DescribeLoaResponse,
+    DescribeLoaResponse (..),
+    newDescribeLoaResponse,
 
     -- * Response Lenses
-    dlrrsLoaContent,
-    dlrrsLoaContentType,
-    dlrrsResponseStatus,
+    describeLoaResponse_loaContent,
+    describeLoaResponse_loaContentType,
+    describeLoaResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.LoaContentType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLoa' smart constructor.
+-- | /See:/ 'newDescribeLoa' smart constructor.
 data DescribeLoa = DescribeLoa'
-  { _dlProviderName ::
-      !(Maybe Text),
-    _dlLoaContentType :: !(Maybe LoaContentType),
-    _dlConnectionId :: !Text
+  { -- | The name of the service provider who establishes connectivity on your
+    -- behalf. If you specify this parameter, the LOA-CFA lists the provider
+    -- name alongside your company name as the requester of the cross connect.
+    providerName :: Prelude.Maybe Prelude.Text,
+    -- | The standard media type for the LOA-CFA document. The only supported
+    -- value is application\/pdf.
+    loaContentType :: Prelude.Maybe LoaContentType,
+    -- | The ID of a connection, LAG, or interconnect.
+    connectionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLoa' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLoa' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlProviderName' - The name of the service provider who establishes connectivity on your behalf. If you specify this parameter, the LOA-CFA lists the provider name alongside your company name as the requester of the cross connect.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlLoaContentType' - The standard media type for the LOA-CFA document. The only supported value is application/pdf.
+-- 'providerName', 'describeLoa_providerName' - The name of the service provider who establishes connectivity on your
+-- behalf. If you specify this parameter, the LOA-CFA lists the provider
+-- name alongside your company name as the requester of the cross connect.
 --
--- * 'dlConnectionId' - The ID of a connection, LAG, or interconnect.
-describeLoa ::
-  -- | 'dlConnectionId'
-  Text ->
+-- 'loaContentType', 'describeLoa_loaContentType' - The standard media type for the LOA-CFA document. The only supported
+-- value is application\/pdf.
+--
+-- 'connectionId', 'describeLoa_connectionId' - The ID of a connection, LAG, or interconnect.
+newDescribeLoa ::
+  -- | 'connectionId'
+  Prelude.Text ->
   DescribeLoa
-describeLoa pConnectionId_ =
+newDescribeLoa pConnectionId_ =
   DescribeLoa'
-    { _dlProviderName = Nothing,
-      _dlLoaContentType = Nothing,
-      _dlConnectionId = pConnectionId_
+    { providerName = Prelude.Nothing,
+      loaContentType = Prelude.Nothing,
+      connectionId = pConnectionId_
     }
 
--- | The name of the service provider who establishes connectivity on your behalf. If you specify this parameter, the LOA-CFA lists the provider name alongside your company name as the requester of the cross connect.
-dlProviderName :: Lens' DescribeLoa (Maybe Text)
-dlProviderName = lens _dlProviderName (\s a -> s {_dlProviderName = a})
+-- | The name of the service provider who establishes connectivity on your
+-- behalf. If you specify this parameter, the LOA-CFA lists the provider
+-- name alongside your company name as the requester of the cross connect.
+describeLoa_providerName :: Lens.Lens' DescribeLoa (Prelude.Maybe Prelude.Text)
+describeLoa_providerName = Lens.lens (\DescribeLoa' {providerName} -> providerName) (\s@DescribeLoa' {} a -> s {providerName = a} :: DescribeLoa)
 
--- | The standard media type for the LOA-CFA document. The only supported value is application/pdf.
-dlLoaContentType :: Lens' DescribeLoa (Maybe LoaContentType)
-dlLoaContentType = lens _dlLoaContentType (\s a -> s {_dlLoaContentType = a})
+-- | The standard media type for the LOA-CFA document. The only supported
+-- value is application\/pdf.
+describeLoa_loaContentType :: Lens.Lens' DescribeLoa (Prelude.Maybe LoaContentType)
+describeLoa_loaContentType = Lens.lens (\DescribeLoa' {loaContentType} -> loaContentType) (\s@DescribeLoa' {} a -> s {loaContentType = a} :: DescribeLoa)
 
 -- | The ID of a connection, LAG, or interconnect.
-dlConnectionId :: Lens' DescribeLoa Text
-dlConnectionId = lens _dlConnectionId (\s a -> s {_dlConnectionId = a})
+describeLoa_connectionId :: Lens.Lens' DescribeLoa Prelude.Text
+describeLoa_connectionId = Lens.lens (\DescribeLoa' {connectionId} -> connectionId) (\s@DescribeLoa' {} a -> s {connectionId = a} :: DescribeLoa)
 
-instance AWSRequest DescribeLoa where
+instance Prelude.AWSRequest DescribeLoa where
   type Rs DescribeLoa = DescribeLoaResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeLoaResponse'
-            <$> (x .?> "loaContent")
-            <*> (x .?> "loaContentType")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "loaContent")
+            Prelude.<*> (x Prelude..?> "loaContentType")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLoa
+instance Prelude.Hashable DescribeLoa
 
-instance NFData DescribeLoa
+instance Prelude.NFData DescribeLoa
 
-instance ToHeaders DescribeLoa where
+instance Prelude.ToHeaders DescribeLoa where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OvertureService.DescribeLoa" :: ByteString),
+              Prelude.=# ( "OvertureService.DescribeLoa" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeLoa where
+instance Prelude.ToJSON DescribeLoa where
   toJSON DescribeLoa' {..} =
-    object
-      ( catMaybes
-          [ ("providerName" .=) <$> _dlProviderName,
-            ("loaContentType" .=) <$> _dlLoaContentType,
-            Just ("connectionId" .= _dlConnectionId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("providerName" Prelude..=)
+              Prelude.<$> providerName,
+            ("loaContentType" Prelude..=)
+              Prelude.<$> loaContentType,
+            Prelude.Just
+              ("connectionId" Prelude..= connectionId)
           ]
       )
 
-instance ToPath DescribeLoa where
-  toPath = const "/"
+instance Prelude.ToPath DescribeLoa where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeLoa where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeLoa where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Information about a Letter of Authorization - Connecting Facility Assignment (LOA-CFA) for a connection.
+-- | Information about a Letter of Authorization - Connecting Facility
+-- Assignment (LOA-CFA) for a connection.
 --
---
---
--- /See:/ 'describeLoaResponse' smart constructor.
+-- /See:/ 'newDescribeLoaResponse' smart constructor.
 data DescribeLoaResponse = DescribeLoaResponse'
-  { _dlrrsLoaContent ::
-      !(Maybe Base64),
-    _dlrrsLoaContentType ::
-      !(Maybe LoaContentType),
-    _dlrrsResponseStatus :: !Int
+  { -- | The binary contents of the LOA-CFA document.
+    loaContent :: Prelude.Maybe Prelude.Base64,
+    -- | The standard media type for the LOA-CFA document. The only supported
+    -- value is application\/pdf.
+    loaContentType :: Prelude.Maybe LoaContentType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLoaResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLoaResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlrrsLoaContent' - The binary contents of the LOA-CFA document.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlrrsLoaContentType' - The standard media type for the LOA-CFA document. The only supported value is application/pdf.
+-- 'loaContent', 'describeLoaResponse_loaContent' - The binary contents of the LOA-CFA document.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- * 'dlrrsResponseStatus' - -- | The response status code.
-describeLoaResponse ::
-  -- | 'dlrrsResponseStatus'
-  Int ->
+-- 'loaContentType', 'describeLoaResponse_loaContentType' - The standard media type for the LOA-CFA document. The only supported
+-- value is application\/pdf.
+--
+-- 'httpStatus', 'describeLoaResponse_httpStatus' - The response's http status code.
+newDescribeLoaResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLoaResponse
-describeLoaResponse pResponseStatus_ =
+newDescribeLoaResponse pHttpStatus_ =
   DescribeLoaResponse'
-    { _dlrrsLoaContent = Nothing,
-      _dlrrsLoaContentType = Nothing,
-      _dlrrsResponseStatus = pResponseStatus_
+    { loaContent = Prelude.Nothing,
+      loaContentType = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The binary contents of the LOA-CFA document.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-dlrrsLoaContent :: Lens' DescribeLoaResponse (Maybe ByteString)
-dlrrsLoaContent = lens _dlrrsLoaContent (\s a -> s {_dlrrsLoaContent = a}) . mapping _Base64
+-- | The binary contents of the LOA-CFA document.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+describeLoaResponse_loaContent :: Lens.Lens' DescribeLoaResponse (Prelude.Maybe Prelude.ByteString)
+describeLoaResponse_loaContent = Lens.lens (\DescribeLoaResponse' {loaContent} -> loaContent) (\s@DescribeLoaResponse' {} a -> s {loaContent = a} :: DescribeLoaResponse) Prelude.. Lens.mapping Prelude._Base64
 
--- | The standard media type for the LOA-CFA document. The only supported value is application/pdf.
-dlrrsLoaContentType :: Lens' DescribeLoaResponse (Maybe LoaContentType)
-dlrrsLoaContentType = lens _dlrrsLoaContentType (\s a -> s {_dlrrsLoaContentType = a})
+-- | The standard media type for the LOA-CFA document. The only supported
+-- value is application\/pdf.
+describeLoaResponse_loaContentType :: Lens.Lens' DescribeLoaResponse (Prelude.Maybe LoaContentType)
+describeLoaResponse_loaContentType = Lens.lens (\DescribeLoaResponse' {loaContentType} -> loaContentType) (\s@DescribeLoaResponse' {} a -> s {loaContentType = a} :: DescribeLoaResponse)
 
--- | -- | The response status code.
-dlrrsResponseStatus :: Lens' DescribeLoaResponse Int
-dlrrsResponseStatus = lens _dlrrsResponseStatus (\s a -> s {_dlrrsResponseStatus = a})
+-- | The response's http status code.
+describeLoaResponse_httpStatus :: Lens.Lens' DescribeLoaResponse Prelude.Int
+describeLoaResponse_httpStatus = Lens.lens (\DescribeLoaResponse' {httpStatus} -> httpStatus) (\s@DescribeLoaResponse' {} a -> s {httpStatus = a} :: DescribeLoaResponse)
 
-instance NFData DescribeLoaResponse
+instance Prelude.NFData DescribeLoaResponse

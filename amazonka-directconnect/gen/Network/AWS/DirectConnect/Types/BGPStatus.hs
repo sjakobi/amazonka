@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DirectConnect.Types.BGPStatus
   ( BGPStatus
       ( ..,
-        BSDown,
-        BSUP,
-        BSUnknown
+        BGPStatusDown,
+        BGPStatusUP,
+        BGPStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BGPStatus = BGPStatus' (CI Text)
+newtype BGPStatus = BGPStatus'
+  { fromBGPStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSDown :: BGPStatus
-pattern BSDown = BGPStatus' "down"
+pattern BGPStatusDown :: BGPStatus
+pattern BGPStatusDown = BGPStatus' "down"
 
-pattern BSUP :: BGPStatus
-pattern BSUP = BGPStatus' "up"
+pattern BGPStatusUP :: BGPStatus
+pattern BGPStatusUP = BGPStatus' "up"
 
-pattern BSUnknown :: BGPStatus
-pattern BSUnknown = BGPStatus' "unknown"
+pattern BGPStatusUnknown :: BGPStatus
+pattern BGPStatusUnknown = BGPStatus' "unknown"
 
 {-# COMPLETE
-  BSDown,
-  BSUP,
-  BSUnknown,
+  BGPStatusDown,
+  BGPStatusUP,
+  BGPStatusUnknown,
   BGPStatus'
   #-}
 
-instance FromText BGPStatus where
-  parser = (BGPStatus' . mk) <$> takeText
+instance Prelude.FromText BGPStatus where
+  parser = BGPStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BGPStatus where
-  toText (BGPStatus' ci) = original ci
+instance Prelude.ToText BGPStatus where
+  toText (BGPStatus' x) = x
 
-instance Hashable BGPStatus
+instance Prelude.Hashable BGPStatus
 
-instance NFData BGPStatus
+instance Prelude.NFData BGPStatus
 
-instance ToByteString BGPStatus
+instance Prelude.ToByteString BGPStatus
 
-instance ToQuery BGPStatus
+instance Prelude.ToQuery BGPStatus
 
-instance ToHeader BGPStatus
+instance Prelude.ToHeader BGPStatus
 
-instance FromJSON BGPStatus where
-  parseJSON = parseJSONText "BGPStatus"
+instance Prelude.FromJSON BGPStatus where
+  parseJSON = Prelude.parseJSONText "BGPStatus"

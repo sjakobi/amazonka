@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DirectConnect.Types.Location where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an AWS Direct Connect location.
 --
---
---
--- /See:/ 'location' smart constructor.
+-- /See:/ 'newLocation' smart constructor.
 data Location = Location'
-  { _lAvailablePortSpeeds ::
-      !(Maybe [Text]),
-    _lAvailableProviders :: !(Maybe [Text]),
-    _lLocationCode :: !(Maybe Text),
-    _lRegion :: !(Maybe Text),
-    _lLocationName :: !(Maybe Text)
+  { -- | The available port speeds for the location.
+    availablePortSpeeds :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the service provider for the location.
+    availableProviders :: Prelude.Maybe [Prelude.Text],
+    -- | The code for the location.
+    locationCode :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region for the location.
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The name of the location. This includes the name of the colocation
+    -- partner and the physical site of the building.
+    locationName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lAvailablePortSpeeds' - The available port speeds for the location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lAvailableProviders' - The name of the service provider for the location.
+-- 'availablePortSpeeds', 'location_availablePortSpeeds' - The available port speeds for the location.
 --
--- * 'lLocationCode' - The code for the location.
+-- 'availableProviders', 'location_availableProviders' - The name of the service provider for the location.
 --
--- * 'lRegion' - The AWS Region for the location.
+-- 'locationCode', 'location_locationCode' - The code for the location.
 --
--- * 'lLocationName' - The name of the location. This includes the name of the colocation partner and the physical site of the building.
-location ::
+-- 'region', 'location_region' - The AWS Region for the location.
+--
+-- 'locationName', 'location_locationName' - The name of the location. This includes the name of the colocation
+-- partner and the physical site of the building.
+newLocation ::
   Location
-location =
+newLocation =
   Location'
-    { _lAvailablePortSpeeds = Nothing,
-      _lAvailableProviders = Nothing,
-      _lLocationCode = Nothing,
-      _lRegion = Nothing,
-      _lLocationName = Nothing
+    { availablePortSpeeds = Prelude.Nothing,
+      availableProviders = Prelude.Nothing,
+      locationCode = Prelude.Nothing,
+      region = Prelude.Nothing,
+      locationName = Prelude.Nothing
     }
 
 -- | The available port speeds for the location.
-lAvailablePortSpeeds :: Lens' Location [Text]
-lAvailablePortSpeeds = lens _lAvailablePortSpeeds (\s a -> s {_lAvailablePortSpeeds = a}) . _Default . _Coerce
+location_availablePortSpeeds :: Lens.Lens' Location (Prelude.Maybe [Prelude.Text])
+location_availablePortSpeeds = Lens.lens (\Location' {availablePortSpeeds} -> availablePortSpeeds) (\s@Location' {} a -> s {availablePortSpeeds = a} :: Location) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the service provider for the location.
-lAvailableProviders :: Lens' Location [Text]
-lAvailableProviders = lens _lAvailableProviders (\s a -> s {_lAvailableProviders = a}) . _Default . _Coerce
+location_availableProviders :: Lens.Lens' Location (Prelude.Maybe [Prelude.Text])
+location_availableProviders = Lens.lens (\Location' {availableProviders} -> availableProviders) (\s@Location' {} a -> s {availableProviders = a} :: Location) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The code for the location.
-lLocationCode :: Lens' Location (Maybe Text)
-lLocationCode = lens _lLocationCode (\s a -> s {_lLocationCode = a})
+location_locationCode :: Lens.Lens' Location (Prelude.Maybe Prelude.Text)
+location_locationCode = Lens.lens (\Location' {locationCode} -> locationCode) (\s@Location' {} a -> s {locationCode = a} :: Location)
 
 -- | The AWS Region for the location.
-lRegion :: Lens' Location (Maybe Text)
-lRegion = lens _lRegion (\s a -> s {_lRegion = a})
+location_region :: Lens.Lens' Location (Prelude.Maybe Prelude.Text)
+location_region = Lens.lens (\Location' {region} -> region) (\s@Location' {} a -> s {region = a} :: Location)
 
--- | The name of the location. This includes the name of the colocation partner and the physical site of the building.
-lLocationName :: Lens' Location (Maybe Text)
-lLocationName = lens _lLocationName (\s a -> s {_lLocationName = a})
+-- | The name of the location. This includes the name of the colocation
+-- partner and the physical site of the building.
+location_locationName :: Lens.Lens' Location (Prelude.Maybe Prelude.Text)
+location_locationName = Lens.lens (\Location' {locationName} -> locationName) (\s@Location' {} a -> s {locationName = a} :: Location)
 
-instance FromJSON Location where
+instance Prelude.FromJSON Location where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Location"
       ( \x ->
           Location'
-            <$> (x .:? "availablePortSpeeds" .!= mempty)
-            <*> (x .:? "availableProviders" .!= mempty)
-            <*> (x .:? "locationCode")
-            <*> (x .:? "region")
-            <*> (x .:? "locationName")
+            Prelude.<$> ( x Prelude..:? "availablePortSpeeds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "availableProviders"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "locationCode")
+            Prelude.<*> (x Prelude..:? "region")
+            Prelude.<*> (x Prelude..:? "locationName")
       )
 
-instance Hashable Location
+instance Prelude.Hashable Location
 
-instance NFData Location
+instance Prelude.NFData Location

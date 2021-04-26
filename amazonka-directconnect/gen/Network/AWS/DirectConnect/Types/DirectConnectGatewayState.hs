@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.DirectConnect.Types.DirectConnectGatewayState
   ( DirectConnectGatewayState
       ( ..,
-        DCGSAvailable,
-        DCGSDeleted,
-        DCGSDeleting,
-        DCGSPending
+        DirectConnectGatewayStateAvailable,
+        DirectConnectGatewayStateDeleted,
+        DirectConnectGatewayStateDeleting,
+        DirectConnectGatewayStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectConnectGatewayState
-  = DirectConnectGatewayState'
-      ( CI
-          Text
-      )
+newtype DirectConnectGatewayState = DirectConnectGatewayState'
+  { fromDirectConnectGatewayState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DCGSAvailable :: DirectConnectGatewayState
-pattern DCGSAvailable = DirectConnectGatewayState' "available"
+pattern DirectConnectGatewayStateAvailable :: DirectConnectGatewayState
+pattern DirectConnectGatewayStateAvailable = DirectConnectGatewayState' "available"
 
-pattern DCGSDeleted :: DirectConnectGatewayState
-pattern DCGSDeleted = DirectConnectGatewayState' "deleted"
+pattern DirectConnectGatewayStateDeleted :: DirectConnectGatewayState
+pattern DirectConnectGatewayStateDeleted = DirectConnectGatewayState' "deleted"
 
-pattern DCGSDeleting :: DirectConnectGatewayState
-pattern DCGSDeleting = DirectConnectGatewayState' "deleting"
+pattern DirectConnectGatewayStateDeleting :: DirectConnectGatewayState
+pattern DirectConnectGatewayStateDeleting = DirectConnectGatewayState' "deleting"
 
-pattern DCGSPending :: DirectConnectGatewayState
-pattern DCGSPending = DirectConnectGatewayState' "pending"
+pattern DirectConnectGatewayStatePending :: DirectConnectGatewayState
+pattern DirectConnectGatewayStatePending = DirectConnectGatewayState' "pending"
 
 {-# COMPLETE
-  DCGSAvailable,
-  DCGSDeleted,
-  DCGSDeleting,
-  DCGSPending,
+  DirectConnectGatewayStateAvailable,
+  DirectConnectGatewayStateDeleted,
+  DirectConnectGatewayStateDeleting,
+  DirectConnectGatewayStatePending,
   DirectConnectGatewayState'
   #-}
 
-instance FromText DirectConnectGatewayState where
-  parser = (DirectConnectGatewayState' . mk) <$> takeText
+instance Prelude.FromText DirectConnectGatewayState where
+  parser = DirectConnectGatewayState' Prelude.<$> Prelude.takeText
 
-instance ToText DirectConnectGatewayState where
-  toText (DirectConnectGatewayState' ci) = original ci
+instance Prelude.ToText DirectConnectGatewayState where
+  toText (DirectConnectGatewayState' x) = x
 
-instance Hashable DirectConnectGatewayState
+instance Prelude.Hashable DirectConnectGatewayState
 
-instance NFData DirectConnectGatewayState
+instance Prelude.NFData DirectConnectGatewayState
 
-instance ToByteString DirectConnectGatewayState
+instance Prelude.ToByteString DirectConnectGatewayState
 
-instance ToQuery DirectConnectGatewayState
+instance Prelude.ToQuery DirectConnectGatewayState
 
-instance ToHeader DirectConnectGatewayState
+instance Prelude.ToHeader DirectConnectGatewayState
 
-instance FromJSON DirectConnectGatewayState where
-  parseJSON = parseJSONText "DirectConnectGatewayState"
+instance Prelude.FromJSON DirectConnectGatewayState where
+  parseJSON = Prelude.parseJSONText "DirectConnectGatewayState"

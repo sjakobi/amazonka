@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DirectConnect.Types.GatewayType
   ( GatewayType
       ( ..,
-        TransitGateway,
-        VirtualPrivateGateway
+        GatewayTypeTransitGateway,
+        GatewayTypeVirtualPrivateGateway
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GatewayType = GatewayType' (CI Text)
+newtype GatewayType = GatewayType'
+  { fromGatewayType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TransitGateway :: GatewayType
-pattern TransitGateway = GatewayType' "transitGateway"
+pattern GatewayTypeTransitGateway :: GatewayType
+pattern GatewayTypeTransitGateway = GatewayType' "transitGateway"
 
-pattern VirtualPrivateGateway :: GatewayType
-pattern VirtualPrivateGateway = GatewayType' "virtualPrivateGateway"
+pattern GatewayTypeVirtualPrivateGateway :: GatewayType
+pattern GatewayTypeVirtualPrivateGateway = GatewayType' "virtualPrivateGateway"
 
 {-# COMPLETE
-  TransitGateway,
-  VirtualPrivateGateway,
+  GatewayTypeTransitGateway,
+  GatewayTypeVirtualPrivateGateway,
   GatewayType'
   #-}
 
-instance FromText GatewayType where
-  parser = (GatewayType' . mk) <$> takeText
+instance Prelude.FromText GatewayType where
+  parser = GatewayType' Prelude.<$> Prelude.takeText
 
-instance ToText GatewayType where
-  toText (GatewayType' ci) = original ci
+instance Prelude.ToText GatewayType where
+  toText (GatewayType' x) = x
 
-instance Hashable GatewayType
+instance Prelude.Hashable GatewayType
 
-instance NFData GatewayType
+instance Prelude.NFData GatewayType
 
-instance ToByteString GatewayType
+instance Prelude.ToByteString GatewayType
 
-instance ToQuery GatewayType
+instance Prelude.ToQuery GatewayType
 
-instance ToHeader GatewayType
+instance Prelude.ToHeader GatewayType
 
-instance FromJSON GatewayType where
-  parseJSON = parseJSONText "GatewayType"
+instance Prelude.FromJSON GatewayType where
+  parseJSON = Prelude.parseJSONText "GatewayType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,244 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a proposal to associate the specified virtual private gateway or transit gateway with the specified Direct Connect gateway.
+-- Creates a proposal to associate the specified virtual private gateway or
+-- transit gateway with the specified Direct Connect gateway.
 --
---
--- You can associate a Direct Connect gateway and virtual private gateway or transit gateway that is owned by any AWS account.
+-- You can associate a Direct Connect gateway and virtual private gateway
+-- or transit gateway that is owned by any AWS account.
 module Network.AWS.DirectConnect.CreateDirectConnectGatewayAssociationProposal
   ( -- * Creating a Request
-    createDirectConnectGatewayAssociationProposal,
-    CreateDirectConnectGatewayAssociationProposal,
+    CreateDirectConnectGatewayAssociationProposal (..),
+    newCreateDirectConnectGatewayAssociationProposal,
 
     -- * Request Lenses
-    cdcgapRemoveAllowedPrefixesToDirectConnectGateway,
-    cdcgapAddAllowedPrefixesToDirectConnectGateway,
-    cdcgapDirectConnectGatewayId,
-    cdcgapDirectConnectGatewayOwnerAccount,
-    cdcgapGatewayId,
+    createDirectConnectGatewayAssociationProposal_removeAllowedPrefixesToDirectConnectGateway,
+    createDirectConnectGatewayAssociationProposal_addAllowedPrefixesToDirectConnectGateway,
+    createDirectConnectGatewayAssociationProposal_directConnectGatewayId,
+    createDirectConnectGatewayAssociationProposal_directConnectGatewayOwnerAccount,
+    createDirectConnectGatewayAssociationProposal_gatewayId,
 
     -- * Destructuring the Response
-    createDirectConnectGatewayAssociationProposalResponse,
-    CreateDirectConnectGatewayAssociationProposalResponse,
+    CreateDirectConnectGatewayAssociationProposalResponse (..),
+    newCreateDirectConnectGatewayAssociationProposalResponse,
 
     -- * Response Lenses
-    cdcgaprrsDirectConnectGatewayAssociationProposal,
-    cdcgaprrsResponseStatus,
+    createDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal,
+    createDirectConnectGatewayAssociationProposalResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.DirectConnectGatewayAssociationProposal
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDirectConnectGatewayAssociationProposal' smart constructor.
+-- | /See:/ 'newCreateDirectConnectGatewayAssociationProposal' smart constructor.
 data CreateDirectConnectGatewayAssociationProposal = CreateDirectConnectGatewayAssociationProposal'
-  { _cdcgapRemoveAllowedPrefixesToDirectConnectGateway ::
-      !( Maybe
-           [RouteFilterPrefix]
-       ),
-    _cdcgapAddAllowedPrefixesToDirectConnectGateway ::
-      !( Maybe
-           [RouteFilterPrefix]
-       ),
-    _cdcgapDirectConnectGatewayId ::
-      !Text,
-    _cdcgapDirectConnectGatewayOwnerAccount ::
-      !Text,
-    _cdcgapGatewayId ::
-      !Text
+  { -- | The Amazon VPC prefixes to no longer advertise to the Direct Connect
+    -- gateway.
+    removeAllowedPrefixesToDirectConnectGateway :: Prelude.Maybe [RouteFilterPrefix],
+    -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+    addAllowedPrefixesToDirectConnectGateway :: Prelude.Maybe [RouteFilterPrefix],
+    -- | The ID of the Direct Connect gateway.
+    directConnectGatewayId :: Prelude.Text,
+    -- | The ID of the AWS account that owns the Direct Connect gateway.
+    directConnectGatewayOwnerAccount :: Prelude.Text,
+    -- | The ID of the virtual private gateway or transit gateway.
+    gatewayId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDirectConnectGatewayAssociationProposal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDirectConnectGatewayAssociationProposal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcgapRemoveAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to no longer advertise to the Direct Connect gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcgapAddAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+-- 'removeAllowedPrefixesToDirectConnectGateway', 'createDirectConnectGatewayAssociationProposal_removeAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to no longer advertise to the Direct Connect
+-- gateway.
 --
--- * 'cdcgapDirectConnectGatewayId' - The ID of the Direct Connect gateway.
+-- 'addAllowedPrefixesToDirectConnectGateway', 'createDirectConnectGatewayAssociationProposal_addAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to advertise to the Direct Connect gateway.
 --
--- * 'cdcgapDirectConnectGatewayOwnerAccount' - The ID of the AWS account that owns the Direct Connect gateway.
+-- 'directConnectGatewayId', 'createDirectConnectGatewayAssociationProposal_directConnectGatewayId' - The ID of the Direct Connect gateway.
 --
--- * 'cdcgapGatewayId' - The ID of the virtual private gateway or transit gateway.
-createDirectConnectGatewayAssociationProposal ::
-  -- | 'cdcgapDirectConnectGatewayId'
-  Text ->
-  -- | 'cdcgapDirectConnectGatewayOwnerAccount'
-  Text ->
-  -- | 'cdcgapGatewayId'
-  Text ->
+-- 'directConnectGatewayOwnerAccount', 'createDirectConnectGatewayAssociationProposal_directConnectGatewayOwnerAccount' - The ID of the AWS account that owns the Direct Connect gateway.
+--
+-- 'gatewayId', 'createDirectConnectGatewayAssociationProposal_gatewayId' - The ID of the virtual private gateway or transit gateway.
+newCreateDirectConnectGatewayAssociationProposal ::
+  -- | 'directConnectGatewayId'
+  Prelude.Text ->
+  -- | 'directConnectGatewayOwnerAccount'
+  Prelude.Text ->
+  -- | 'gatewayId'
+  Prelude.Text ->
   CreateDirectConnectGatewayAssociationProposal
-createDirectConnectGatewayAssociationProposal
+newCreateDirectConnectGatewayAssociationProposal
   pDirectConnectGatewayId_
   pDirectConnectGatewayOwnerAccount_
   pGatewayId_ =
     CreateDirectConnectGatewayAssociationProposal'
-      { _cdcgapRemoveAllowedPrefixesToDirectConnectGateway =
-          Nothing,
-        _cdcgapAddAllowedPrefixesToDirectConnectGateway =
-          Nothing,
-        _cdcgapDirectConnectGatewayId =
+      { removeAllowedPrefixesToDirectConnectGateway =
+          Prelude.Nothing,
+        addAllowedPrefixesToDirectConnectGateway =
+          Prelude.Nothing,
+        directConnectGatewayId =
           pDirectConnectGatewayId_,
-        _cdcgapDirectConnectGatewayOwnerAccount =
+        directConnectGatewayOwnerAccount =
           pDirectConnectGatewayOwnerAccount_,
-        _cdcgapGatewayId =
-          pGatewayId_
+        gatewayId = pGatewayId_
       }
 
--- | The Amazon VPC prefixes to no longer advertise to the Direct Connect gateway.
-cdcgapRemoveAllowedPrefixesToDirectConnectGateway :: Lens' CreateDirectConnectGatewayAssociationProposal [RouteFilterPrefix]
-cdcgapRemoveAllowedPrefixesToDirectConnectGateway = lens _cdcgapRemoveAllowedPrefixesToDirectConnectGateway (\s a -> s {_cdcgapRemoveAllowedPrefixesToDirectConnectGateway = a}) . _Default . _Coerce
+-- | The Amazon VPC prefixes to no longer advertise to the Direct Connect
+-- gateway.
+createDirectConnectGatewayAssociationProposal_removeAllowedPrefixesToDirectConnectGateway :: Lens.Lens' CreateDirectConnectGatewayAssociationProposal (Prelude.Maybe [RouteFilterPrefix])
+createDirectConnectGatewayAssociationProposal_removeAllowedPrefixesToDirectConnectGateway = Lens.lens (\CreateDirectConnectGatewayAssociationProposal' {removeAllowedPrefixesToDirectConnectGateway} -> removeAllowedPrefixesToDirectConnectGateway) (\s@CreateDirectConnectGatewayAssociationProposal' {} a -> s {removeAllowedPrefixesToDirectConnectGateway = a} :: CreateDirectConnectGatewayAssociationProposal) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
-cdcgapAddAllowedPrefixesToDirectConnectGateway :: Lens' CreateDirectConnectGatewayAssociationProposal [RouteFilterPrefix]
-cdcgapAddAllowedPrefixesToDirectConnectGateway = lens _cdcgapAddAllowedPrefixesToDirectConnectGateway (\s a -> s {_cdcgapAddAllowedPrefixesToDirectConnectGateway = a}) . _Default . _Coerce
+createDirectConnectGatewayAssociationProposal_addAllowedPrefixesToDirectConnectGateway :: Lens.Lens' CreateDirectConnectGatewayAssociationProposal (Prelude.Maybe [RouteFilterPrefix])
+createDirectConnectGatewayAssociationProposal_addAllowedPrefixesToDirectConnectGateway = Lens.lens (\CreateDirectConnectGatewayAssociationProposal' {addAllowedPrefixesToDirectConnectGateway} -> addAllowedPrefixesToDirectConnectGateway) (\s@CreateDirectConnectGatewayAssociationProposal' {} a -> s {addAllowedPrefixesToDirectConnectGateway = a} :: CreateDirectConnectGatewayAssociationProposal) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Direct Connect gateway.
-cdcgapDirectConnectGatewayId :: Lens' CreateDirectConnectGatewayAssociationProposal Text
-cdcgapDirectConnectGatewayId = lens _cdcgapDirectConnectGatewayId (\s a -> s {_cdcgapDirectConnectGatewayId = a})
+createDirectConnectGatewayAssociationProposal_directConnectGatewayId :: Lens.Lens' CreateDirectConnectGatewayAssociationProposal Prelude.Text
+createDirectConnectGatewayAssociationProposal_directConnectGatewayId = Lens.lens (\CreateDirectConnectGatewayAssociationProposal' {directConnectGatewayId} -> directConnectGatewayId) (\s@CreateDirectConnectGatewayAssociationProposal' {} a -> s {directConnectGatewayId = a} :: CreateDirectConnectGatewayAssociationProposal)
 
 -- | The ID of the AWS account that owns the Direct Connect gateway.
-cdcgapDirectConnectGatewayOwnerAccount :: Lens' CreateDirectConnectGatewayAssociationProposal Text
-cdcgapDirectConnectGatewayOwnerAccount = lens _cdcgapDirectConnectGatewayOwnerAccount (\s a -> s {_cdcgapDirectConnectGatewayOwnerAccount = a})
+createDirectConnectGatewayAssociationProposal_directConnectGatewayOwnerAccount :: Lens.Lens' CreateDirectConnectGatewayAssociationProposal Prelude.Text
+createDirectConnectGatewayAssociationProposal_directConnectGatewayOwnerAccount = Lens.lens (\CreateDirectConnectGatewayAssociationProposal' {directConnectGatewayOwnerAccount} -> directConnectGatewayOwnerAccount) (\s@CreateDirectConnectGatewayAssociationProposal' {} a -> s {directConnectGatewayOwnerAccount = a} :: CreateDirectConnectGatewayAssociationProposal)
 
 -- | The ID of the virtual private gateway or transit gateway.
-cdcgapGatewayId :: Lens' CreateDirectConnectGatewayAssociationProposal Text
-cdcgapGatewayId = lens _cdcgapGatewayId (\s a -> s {_cdcgapGatewayId = a})
+createDirectConnectGatewayAssociationProposal_gatewayId :: Lens.Lens' CreateDirectConnectGatewayAssociationProposal Prelude.Text
+createDirectConnectGatewayAssociationProposal_gatewayId = Lens.lens (\CreateDirectConnectGatewayAssociationProposal' {gatewayId} -> gatewayId) (\s@CreateDirectConnectGatewayAssociationProposal' {} a -> s {gatewayId = a} :: CreateDirectConnectGatewayAssociationProposal)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateDirectConnectGatewayAssociationProposal
   where
   type
     Rs CreateDirectConnectGatewayAssociationProposal =
       CreateDirectConnectGatewayAssociationProposalResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDirectConnectGatewayAssociationProposalResponse'
-            <$> (x .?> "directConnectGatewayAssociationProposal")
-              <*> (pure (fromEnum s))
+            Prelude.<$> ( x
+                            Prelude..?> "directConnectGatewayAssociationProposal"
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateDirectConnectGatewayAssociationProposal
 
 instance
-  NFData
+  Prelude.NFData
     CreateDirectConnectGatewayAssociationProposal
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CreateDirectConnectGatewayAssociationProposal
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.CreateDirectConnectGatewayAssociationProposal" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.CreateDirectConnectGatewayAssociationProposal" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CreateDirectConnectGatewayAssociationProposal
   where
   toJSON
     CreateDirectConnectGatewayAssociationProposal' {..} =
-      object
-        ( catMaybes
-            [ ("removeAllowedPrefixesToDirectConnectGateway" .=)
-                <$> _cdcgapRemoveAllowedPrefixesToDirectConnectGateway,
-              ("addAllowedPrefixesToDirectConnectGateway" .=)
-                <$> _cdcgapAddAllowedPrefixesToDirectConnectGateway,
-              Just
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ( "removeAllowedPrefixesToDirectConnectGateway"
+                  Prelude..=
+              )
+                Prelude.<$> removeAllowedPrefixesToDirectConnectGateway,
+              ( "addAllowedPrefixesToDirectConnectGateway"
+                  Prelude..=
+              )
+                Prelude.<$> addAllowedPrefixesToDirectConnectGateway,
+              Prelude.Just
                 ( "directConnectGatewayId"
-                    .= _cdcgapDirectConnectGatewayId
+                    Prelude..= directConnectGatewayId
                 ),
-              Just
+              Prelude.Just
                 ( "directConnectGatewayOwnerAccount"
-                    .= _cdcgapDirectConnectGatewayOwnerAccount
+                    Prelude..= directConnectGatewayOwnerAccount
                 ),
-              Just ("gatewayId" .= _cdcgapGatewayId)
+              Prelude.Just ("gatewayId" Prelude..= gatewayId)
             ]
         )
 
 instance
-  ToPath
+  Prelude.ToPath
     CreateDirectConnectGatewayAssociationProposal
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     CreateDirectConnectGatewayAssociationProposal
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDirectConnectGatewayAssociationProposalResponse' smart constructor.
+-- | /See:/ 'newCreateDirectConnectGatewayAssociationProposalResponse' smart constructor.
 data CreateDirectConnectGatewayAssociationProposalResponse = CreateDirectConnectGatewayAssociationProposalResponse'
-  { _cdcgaprrsDirectConnectGatewayAssociationProposal ::
-      !( Maybe
-           DirectConnectGatewayAssociationProposal
-       ),
-    _cdcgaprrsResponseStatus ::
-      !Int
+  { -- | Information about the Direct Connect gateway proposal.
+    directConnectGatewayAssociationProposal :: Prelude.Maybe DirectConnectGatewayAssociationProposal,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDirectConnectGatewayAssociationProposalResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDirectConnectGatewayAssociationProposalResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcgaprrsDirectConnectGatewayAssociationProposal' - Information about the Direct Connect gateway proposal.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcgaprrsResponseStatus' - -- | The response status code.
-createDirectConnectGatewayAssociationProposalResponse ::
-  -- | 'cdcgaprrsResponseStatus'
-  Int ->
+-- 'directConnectGatewayAssociationProposal', 'createDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal' - Information about the Direct Connect gateway proposal.
+--
+-- 'httpStatus', 'createDirectConnectGatewayAssociationProposalResponse_httpStatus' - The response's http status code.
+newCreateDirectConnectGatewayAssociationProposalResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDirectConnectGatewayAssociationProposalResponse
-createDirectConnectGatewayAssociationProposalResponse
-  pResponseStatus_ =
+newCreateDirectConnectGatewayAssociationProposalResponse
+  pHttpStatus_ =
     CreateDirectConnectGatewayAssociationProposalResponse'
-      { _cdcgaprrsDirectConnectGatewayAssociationProposal =
-          Nothing,
-        _cdcgaprrsResponseStatus =
-          pResponseStatus_
+      { directConnectGatewayAssociationProposal =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Information about the Direct Connect gateway proposal.
-cdcgaprrsDirectConnectGatewayAssociationProposal :: Lens' CreateDirectConnectGatewayAssociationProposalResponse (Maybe DirectConnectGatewayAssociationProposal)
-cdcgaprrsDirectConnectGatewayAssociationProposal = lens _cdcgaprrsDirectConnectGatewayAssociationProposal (\s a -> s {_cdcgaprrsDirectConnectGatewayAssociationProposal = a})
+createDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal :: Lens.Lens' CreateDirectConnectGatewayAssociationProposalResponse (Prelude.Maybe DirectConnectGatewayAssociationProposal)
+createDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal = Lens.lens (\CreateDirectConnectGatewayAssociationProposalResponse' {directConnectGatewayAssociationProposal} -> directConnectGatewayAssociationProposal) (\s@CreateDirectConnectGatewayAssociationProposalResponse' {} a -> s {directConnectGatewayAssociationProposal = a} :: CreateDirectConnectGatewayAssociationProposalResponse)
 
--- | -- | The response status code.
-cdcgaprrsResponseStatus :: Lens' CreateDirectConnectGatewayAssociationProposalResponse Int
-cdcgaprrsResponseStatus = lens _cdcgaprrsResponseStatus (\s a -> s {_cdcgaprrsResponseStatus = a})
+-- | The response's http status code.
+createDirectConnectGatewayAssociationProposalResponse_httpStatus :: Lens.Lens' CreateDirectConnectGatewayAssociationProposalResponse Prelude.Int
+createDirectConnectGatewayAssociationProposalResponse_httpStatus = Lens.lens (\CreateDirectConnectGatewayAssociationProposalResponse' {httpStatus} -> httpStatus) (\s@CreateDirectConnectGatewayAssociationProposalResponse' {} a -> s {httpStatus = a} :: CreateDirectConnectGatewayAssociationProposalResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateDirectConnectGatewayAssociationProposalResponse

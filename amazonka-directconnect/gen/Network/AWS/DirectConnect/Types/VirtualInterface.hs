@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,260 +24,408 @@ import Network.AWS.DirectConnect.Types.BGPPeer
 import Network.AWS.DirectConnect.Types.RouteFilterPrefix
 import Network.AWS.DirectConnect.Types.Tag
 import Network.AWS.DirectConnect.Types.VirtualInterfaceState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a virtual interface.
 --
---
---
--- /See:/ 'virtualInterface' smart constructor.
+-- /See:/ 'newVirtualInterface' smart constructor.
 data VirtualInterface = VirtualInterface'
-  { _viAuthKey ::
-      !(Maybe Text),
-    _viBgpPeers :: !(Maybe [BGPPeer]),
-    _viVirtualGatewayId :: !(Maybe Text),
-    _viAsn :: !(Maybe Int),
-    _viAwsDeviceV2 :: !(Maybe Text),
-    _viConnectionId :: !(Maybe Text),
-    _viCustomerRouterConfig ::
-      !(Maybe Text),
-    _viJumboFrameCapable :: !(Maybe Bool),
-    _viRouteFilterPrefixes ::
-      !(Maybe [RouteFilterPrefix]),
-    _viVirtualInterfaceType ::
-      !(Maybe Text),
-    _viMtu :: !(Maybe Int),
-    _viTags :: !(Maybe (List1 Tag)),
-    _viVirtualInterfaceId ::
-      !(Maybe Text),
-    _viAmazonSideASN :: !(Maybe Integer),
-    _viDirectConnectGatewayId ::
-      !(Maybe Text),
-    _viVirtualInterfaceState ::
-      !(Maybe VirtualInterfaceState),
-    _viVirtualInterfaceName ::
-      !(Maybe Text),
-    _viAddressFamily ::
-      !(Maybe AddressFamily),
-    _viAmazonAddress :: !(Maybe Text),
-    _viOwnerAccount :: !(Maybe Text),
-    _viRegion :: !(Maybe Text),
-    _viLocation :: !(Maybe Text),
-    _viVlan :: !(Maybe Int),
-    _viCustomerAddress :: !(Maybe Text)
+  { -- | The authentication key for BGP configuration. This string has a minimum
+    -- length of 6 characters and and a maximun lenth of 80 characters.
+    authKey :: Prelude.Maybe Prelude.Text,
+    -- | The BGP peers configured on this virtual interface.
+    bgpPeers :: Prelude.Maybe [BGPPeer],
+    -- | The ID of the virtual private gateway. Applies only to private virtual
+    -- interfaces.
+    virtualGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+    -- configuration.
+    --
+    -- The valid values are 1-2147483647.
+    asn :: Prelude.Maybe Prelude.Int,
+    -- | The Direct Connect endpoint on which the virtual interface terminates.
+    awsDeviceV2 :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the connection.
+    connectionId :: Prelude.Maybe Prelude.Text,
+    -- | The customer router configuration.
+    customerRouterConfig :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether jumbo frames (9001 MTU) are supported.
+    jumboFrameCapable :: Prelude.Maybe Prelude.Bool,
+    -- | The routes to be advertised to the AWS network in this Region. Applies
+    -- to public virtual interfaces.
+    routeFilterPrefixes :: Prelude.Maybe [RouteFilterPrefix],
+    -- | The type of virtual interface. The possible values are @private@ and
+    -- @public@.
+    virtualInterfaceType :: Prelude.Maybe Prelude.Text,
+    -- | The maximum transmission unit (MTU), in bytes. The supported values are
+    -- 1500 and 9001. The default value is 1500.
+    mtu :: Prelude.Maybe Prelude.Int,
+    -- | The tags associated with the virtual interface.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | The ID of the virtual interface.
+    virtualInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The autonomous system number (ASN) for the Amazon side of the
+    -- connection.
+    amazonSideAsn :: Prelude.Maybe Prelude.Integer,
+    -- | The ID of the Direct Connect gateway.
+    directConnectGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the virtual interface. The following are the possible
+    -- values:
+    --
+    -- -   @confirming@: The creation of the virtual interface is pending
+    --     confirmation from the virtual interface owner. If the owner of the
+    --     virtual interface is different from the owner of the connection on
+    --     which it is provisioned, then the virtual interface will remain in
+    --     this state until it is confirmed by the virtual interface owner.
+    --
+    -- -   @verifying@: This state only applies to public virtual interfaces.
+    --     Each public virtual interface needs validation before the virtual
+    --     interface can be created.
+    --
+    -- -   @pending@: A virtual interface is in this state from the time that
+    --     it is created until the virtual interface is ready to forward
+    --     traffic.
+    --
+    -- -   @available@: A virtual interface that is able to forward traffic.
+    --
+    -- -   @down@: A virtual interface that is BGP down.
+    --
+    -- -   @deleting@: A virtual interface is in this state immediately after
+    --     calling DeleteVirtualInterface until it can no longer forward
+    --     traffic.
+    --
+    -- -   @deleted@: A virtual interface that cannot forward traffic.
+    --
+    -- -   @rejected@: The virtual interface owner has declined creation of the
+    --     virtual interface. If a virtual interface in the @Confirming@ state
+    --     is deleted by the virtual interface owner, the virtual interface
+    --     enters the @Rejected@ state.
+    --
+    -- -   @unknown@: The state of the virtual interface is not available.
+    virtualInterfaceState :: Prelude.Maybe VirtualInterfaceState,
+    -- | The name of the virtual interface assigned by the customer network. The
+    -- name has a maximum of 100 characters. The following are valid
+    -- characters: a-z, 0-9 and a hyphen (-).
+    virtualInterfaceName :: Prelude.Maybe Prelude.Text,
+    -- | The address family for the BGP peer.
+    addressFamily :: Prelude.Maybe AddressFamily,
+    -- | The IP address assigned to the Amazon interface.
+    amazonAddress :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the AWS account that owns the virtual interface.
+    ownerAccount :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region where the virtual interface is located.
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The location of the connection.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VLAN.
+    vlan :: Prelude.Maybe Prelude.Int,
+    -- | The IP address assigned to the customer interface.
+    customerAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'viAuthKey' - The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'viBgpPeers' - The BGP peers configured on this virtual interface.
+-- 'authKey', 'virtualInterface_authKey' - The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
 --
--- * 'viVirtualGatewayId' - The ID of the virtual private gateway. Applies only to private virtual interfaces.
+-- 'bgpPeers', 'virtualInterface_bgpPeers' - The BGP peers configured on this virtual interface.
 --
--- * 'viAsn' - The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration. The valid values are 1-2147483647.
+-- 'virtualGatewayId', 'virtualInterface_virtualGatewayId' - The ID of the virtual private gateway. Applies only to private virtual
+-- interfaces.
 --
--- * 'viAwsDeviceV2' - The Direct Connect endpoint on which the virtual interface terminates.
+-- 'asn', 'virtualInterface_asn' - The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
 --
--- * 'viConnectionId' - The ID of the connection.
+-- The valid values are 1-2147483647.
 --
--- * 'viCustomerRouterConfig' - The customer router configuration.
+-- 'awsDeviceV2', 'virtualInterface_awsDeviceV2' - The Direct Connect endpoint on which the virtual interface terminates.
 --
--- * 'viJumboFrameCapable' - Indicates whether jumbo frames (9001 MTU) are supported.
+-- 'connectionId', 'virtualInterface_connectionId' - The ID of the connection.
 --
--- * 'viRouteFilterPrefixes' - The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+-- 'customerRouterConfig', 'virtualInterface_customerRouterConfig' - The customer router configuration.
 --
--- * 'viVirtualInterfaceType' - The type of virtual interface. The possible values are @private@ and @public@ .
+-- 'jumboFrameCapable', 'virtualInterface_jumboFrameCapable' - Indicates whether jumbo frames (9001 MTU) are supported.
 --
--- * 'viMtu' - The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+-- 'routeFilterPrefixes', 'virtualInterface_routeFilterPrefixes' - The routes to be advertised to the AWS network in this Region. Applies
+-- to public virtual interfaces.
 --
--- * 'viTags' - The tags associated with the virtual interface.
+-- 'virtualInterfaceType', 'virtualInterface_virtualInterfaceType' - The type of virtual interface. The possible values are @private@ and
+-- @public@.
 --
--- * 'viVirtualInterfaceId' - The ID of the virtual interface.
+-- 'mtu', 'virtualInterface_mtu' - The maximum transmission unit (MTU), in bytes. The supported values are
+-- 1500 and 9001. The default value is 1500.
 --
--- * 'viAmazonSideASN' - The autonomous system number (ASN) for the Amazon side of the connection.
+-- 'tags', 'virtualInterface_tags' - The tags associated with the virtual interface.
 --
--- * 'viDirectConnectGatewayId' - The ID of the Direct Connect gateway.
+-- 'virtualInterfaceId', 'virtualInterface_virtualInterfaceId' - The ID of the virtual interface.
 --
--- * 'viVirtualInterfaceState' - The state of the virtual interface. The following are the possible values:     * @confirming@ : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.     * @verifying@ : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.     * @pending@ : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.     * @available@ : A virtual interface that is able to forward traffic.     * @down@ : A virtual interface that is BGP down.     * @deleting@ : A virtual interface is in this state immediately after calling 'DeleteVirtualInterface' until it can no longer forward traffic.     * @deleted@ : A virtual interface that cannot forward traffic.     * @rejected@ : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the @Confirming@ state is deleted by the virtual interface owner, the virtual interface enters the @Rejected@ state.     * @unknown@ : The state of the virtual interface is not available.
+-- 'amazonSideAsn', 'virtualInterface_amazonSideAsn' - The autonomous system number (ASN) for the Amazon side of the
+-- connection.
 --
--- * 'viVirtualInterfaceName' - The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
+-- 'directConnectGatewayId', 'virtualInterface_directConnectGatewayId' - The ID of the Direct Connect gateway.
 --
--- * 'viAddressFamily' - The address family for the BGP peer.
+-- 'virtualInterfaceState', 'virtualInterface_virtualInterfaceState' - The state of the virtual interface. The following are the possible
+-- values:
 --
--- * 'viAmazonAddress' - The IP address assigned to the Amazon interface.
+-- -   @confirming@: The creation of the virtual interface is pending
+--     confirmation from the virtual interface owner. If the owner of the
+--     virtual interface is different from the owner of the connection on
+--     which it is provisioned, then the virtual interface will remain in
+--     this state until it is confirmed by the virtual interface owner.
 --
--- * 'viOwnerAccount' - The ID of the AWS account that owns the virtual interface.
+-- -   @verifying@: This state only applies to public virtual interfaces.
+--     Each public virtual interface needs validation before the virtual
+--     interface can be created.
 --
--- * 'viRegion' - The AWS Region where the virtual interface is located.
+-- -   @pending@: A virtual interface is in this state from the time that
+--     it is created until the virtual interface is ready to forward
+--     traffic.
 --
--- * 'viLocation' - The location of the connection.
+-- -   @available@: A virtual interface that is able to forward traffic.
 --
--- * 'viVlan' - The ID of the VLAN.
+-- -   @down@: A virtual interface that is BGP down.
 --
--- * 'viCustomerAddress' - The IP address assigned to the customer interface.
-virtualInterface ::
+-- -   @deleting@: A virtual interface is in this state immediately after
+--     calling DeleteVirtualInterface until it can no longer forward
+--     traffic.
+--
+-- -   @deleted@: A virtual interface that cannot forward traffic.
+--
+-- -   @rejected@: The virtual interface owner has declined creation of the
+--     virtual interface. If a virtual interface in the @Confirming@ state
+--     is deleted by the virtual interface owner, the virtual interface
+--     enters the @Rejected@ state.
+--
+-- -   @unknown@: The state of the virtual interface is not available.
+--
+-- 'virtualInterfaceName', 'virtualInterface_virtualInterfaceName' - The name of the virtual interface assigned by the customer network. The
+-- name has a maximum of 100 characters. The following are valid
+-- characters: a-z, 0-9 and a hyphen (-).
+--
+-- 'addressFamily', 'virtualInterface_addressFamily' - The address family for the BGP peer.
+--
+-- 'amazonAddress', 'virtualInterface_amazonAddress' - The IP address assigned to the Amazon interface.
+--
+-- 'ownerAccount', 'virtualInterface_ownerAccount' - The ID of the AWS account that owns the virtual interface.
+--
+-- 'region', 'virtualInterface_region' - The AWS Region where the virtual interface is located.
+--
+-- 'location', 'virtualInterface_location' - The location of the connection.
+--
+-- 'vlan', 'virtualInterface_vlan' - The ID of the VLAN.
+--
+-- 'customerAddress', 'virtualInterface_customerAddress' - The IP address assigned to the customer interface.
+newVirtualInterface ::
   VirtualInterface
-virtualInterface =
+newVirtualInterface =
   VirtualInterface'
-    { _viAuthKey = Nothing,
-      _viBgpPeers = Nothing,
-      _viVirtualGatewayId = Nothing,
-      _viAsn = Nothing,
-      _viAwsDeviceV2 = Nothing,
-      _viConnectionId = Nothing,
-      _viCustomerRouterConfig = Nothing,
-      _viJumboFrameCapable = Nothing,
-      _viRouteFilterPrefixes = Nothing,
-      _viVirtualInterfaceType = Nothing,
-      _viMtu = Nothing,
-      _viTags = Nothing,
-      _viVirtualInterfaceId = Nothing,
-      _viAmazonSideASN = Nothing,
-      _viDirectConnectGatewayId = Nothing,
-      _viVirtualInterfaceState = Nothing,
-      _viVirtualInterfaceName = Nothing,
-      _viAddressFamily = Nothing,
-      _viAmazonAddress = Nothing,
-      _viOwnerAccount = Nothing,
-      _viRegion = Nothing,
-      _viLocation = Nothing,
-      _viVlan = Nothing,
-      _viCustomerAddress = Nothing
+    { authKey = Prelude.Nothing,
+      bgpPeers = Prelude.Nothing,
+      virtualGatewayId = Prelude.Nothing,
+      asn = Prelude.Nothing,
+      awsDeviceV2 = Prelude.Nothing,
+      connectionId = Prelude.Nothing,
+      customerRouterConfig = Prelude.Nothing,
+      jumboFrameCapable = Prelude.Nothing,
+      routeFilterPrefixes = Prelude.Nothing,
+      virtualInterfaceType = Prelude.Nothing,
+      mtu = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      virtualInterfaceId = Prelude.Nothing,
+      amazonSideAsn = Prelude.Nothing,
+      directConnectGatewayId = Prelude.Nothing,
+      virtualInterfaceState = Prelude.Nothing,
+      virtualInterfaceName = Prelude.Nothing,
+      addressFamily = Prelude.Nothing,
+      amazonAddress = Prelude.Nothing,
+      ownerAccount = Prelude.Nothing,
+      region = Prelude.Nothing,
+      location = Prelude.Nothing,
+      vlan = Prelude.Nothing,
+      customerAddress = Prelude.Nothing
     }
 
--- | The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
-viAuthKey :: Lens' VirtualInterface (Maybe Text)
-viAuthKey = lens _viAuthKey (\s a -> s {_viAuthKey = a})
+-- | The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
+virtualInterface_authKey :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_authKey = Lens.lens (\VirtualInterface' {authKey} -> authKey) (\s@VirtualInterface' {} a -> s {authKey = a} :: VirtualInterface)
 
 -- | The BGP peers configured on this virtual interface.
-viBgpPeers :: Lens' VirtualInterface [BGPPeer]
-viBgpPeers = lens _viBgpPeers (\s a -> s {_viBgpPeers = a}) . _Default . _Coerce
+virtualInterface_bgpPeers :: Lens.Lens' VirtualInterface (Prelude.Maybe [BGPPeer])
+virtualInterface_bgpPeers = Lens.lens (\VirtualInterface' {bgpPeers} -> bgpPeers) (\s@VirtualInterface' {} a -> s {bgpPeers = a} :: VirtualInterface) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ID of the virtual private gateway. Applies only to private virtual interfaces.
-viVirtualGatewayId :: Lens' VirtualInterface (Maybe Text)
-viVirtualGatewayId = lens _viVirtualGatewayId (\s a -> s {_viVirtualGatewayId = a})
+-- | The ID of the virtual private gateway. Applies only to private virtual
+-- interfaces.
+virtualInterface_virtualGatewayId :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_virtualGatewayId = Lens.lens (\VirtualInterface' {virtualGatewayId} -> virtualGatewayId) (\s@VirtualInterface' {} a -> s {virtualGatewayId = a} :: VirtualInterface)
 
--- | The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration. The valid values are 1-2147483647.
-viAsn :: Lens' VirtualInterface (Maybe Int)
-viAsn = lens _viAsn (\s a -> s {_viAsn = a})
+-- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
+--
+-- The valid values are 1-2147483647.
+virtualInterface_asn :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Int)
+virtualInterface_asn = Lens.lens (\VirtualInterface' {asn} -> asn) (\s@VirtualInterface' {} a -> s {asn = a} :: VirtualInterface)
 
 -- | The Direct Connect endpoint on which the virtual interface terminates.
-viAwsDeviceV2 :: Lens' VirtualInterface (Maybe Text)
-viAwsDeviceV2 = lens _viAwsDeviceV2 (\s a -> s {_viAwsDeviceV2 = a})
+virtualInterface_awsDeviceV2 :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_awsDeviceV2 = Lens.lens (\VirtualInterface' {awsDeviceV2} -> awsDeviceV2) (\s@VirtualInterface' {} a -> s {awsDeviceV2 = a} :: VirtualInterface)
 
 -- | The ID of the connection.
-viConnectionId :: Lens' VirtualInterface (Maybe Text)
-viConnectionId = lens _viConnectionId (\s a -> s {_viConnectionId = a})
+virtualInterface_connectionId :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_connectionId = Lens.lens (\VirtualInterface' {connectionId} -> connectionId) (\s@VirtualInterface' {} a -> s {connectionId = a} :: VirtualInterface)
 
 -- | The customer router configuration.
-viCustomerRouterConfig :: Lens' VirtualInterface (Maybe Text)
-viCustomerRouterConfig = lens _viCustomerRouterConfig (\s a -> s {_viCustomerRouterConfig = a})
+virtualInterface_customerRouterConfig :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_customerRouterConfig = Lens.lens (\VirtualInterface' {customerRouterConfig} -> customerRouterConfig) (\s@VirtualInterface' {} a -> s {customerRouterConfig = a} :: VirtualInterface)
 
 -- | Indicates whether jumbo frames (9001 MTU) are supported.
-viJumboFrameCapable :: Lens' VirtualInterface (Maybe Bool)
-viJumboFrameCapable = lens _viJumboFrameCapable (\s a -> s {_viJumboFrameCapable = a})
+virtualInterface_jumboFrameCapable :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Bool)
+virtualInterface_jumboFrameCapable = Lens.lens (\VirtualInterface' {jumboFrameCapable} -> jumboFrameCapable) (\s@VirtualInterface' {} a -> s {jumboFrameCapable = a} :: VirtualInterface)
 
--- | The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
-viRouteFilterPrefixes :: Lens' VirtualInterface [RouteFilterPrefix]
-viRouteFilterPrefixes = lens _viRouteFilterPrefixes (\s a -> s {_viRouteFilterPrefixes = a}) . _Default . _Coerce
+-- | The routes to be advertised to the AWS network in this Region. Applies
+-- to public virtual interfaces.
+virtualInterface_routeFilterPrefixes :: Lens.Lens' VirtualInterface (Prelude.Maybe [RouteFilterPrefix])
+virtualInterface_routeFilterPrefixes = Lens.lens (\VirtualInterface' {routeFilterPrefixes} -> routeFilterPrefixes) (\s@VirtualInterface' {} a -> s {routeFilterPrefixes = a} :: VirtualInterface) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The type of virtual interface. The possible values are @private@ and @public@ .
-viVirtualInterfaceType :: Lens' VirtualInterface (Maybe Text)
-viVirtualInterfaceType = lens _viVirtualInterfaceType (\s a -> s {_viVirtualInterfaceType = a})
+-- | The type of virtual interface. The possible values are @private@ and
+-- @public@.
+virtualInterface_virtualInterfaceType :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_virtualInterfaceType = Lens.lens (\VirtualInterface' {virtualInterfaceType} -> virtualInterfaceType) (\s@VirtualInterface' {} a -> s {virtualInterfaceType = a} :: VirtualInterface)
 
--- | The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
-viMtu :: Lens' VirtualInterface (Maybe Int)
-viMtu = lens _viMtu (\s a -> s {_viMtu = a})
+-- | The maximum transmission unit (MTU), in bytes. The supported values are
+-- 1500 and 9001. The default value is 1500.
+virtualInterface_mtu :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Int)
+virtualInterface_mtu = Lens.lens (\VirtualInterface' {mtu} -> mtu) (\s@VirtualInterface' {} a -> s {mtu = a} :: VirtualInterface)
 
 -- | The tags associated with the virtual interface.
-viTags :: Lens' VirtualInterface (Maybe (NonEmpty Tag))
-viTags = lens _viTags (\s a -> s {_viTags = a}) . mapping _List1
+virtualInterface_tags :: Lens.Lens' VirtualInterface (Prelude.Maybe (Prelude.NonEmpty Tag))
+virtualInterface_tags = Lens.lens (\VirtualInterface' {tags} -> tags) (\s@VirtualInterface' {} a -> s {tags = a} :: VirtualInterface) Prelude.. Lens.mapping Prelude._List1
 
 -- | The ID of the virtual interface.
-viVirtualInterfaceId :: Lens' VirtualInterface (Maybe Text)
-viVirtualInterfaceId = lens _viVirtualInterfaceId (\s a -> s {_viVirtualInterfaceId = a})
+virtualInterface_virtualInterfaceId :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_virtualInterfaceId = Lens.lens (\VirtualInterface' {virtualInterfaceId} -> virtualInterfaceId) (\s@VirtualInterface' {} a -> s {virtualInterfaceId = a} :: VirtualInterface)
 
--- | The autonomous system number (ASN) for the Amazon side of the connection.
-viAmazonSideASN :: Lens' VirtualInterface (Maybe Integer)
-viAmazonSideASN = lens _viAmazonSideASN (\s a -> s {_viAmazonSideASN = a})
+-- | The autonomous system number (ASN) for the Amazon side of the
+-- connection.
+virtualInterface_amazonSideAsn :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Integer)
+virtualInterface_amazonSideAsn = Lens.lens (\VirtualInterface' {amazonSideAsn} -> amazonSideAsn) (\s@VirtualInterface' {} a -> s {amazonSideAsn = a} :: VirtualInterface)
 
 -- | The ID of the Direct Connect gateway.
-viDirectConnectGatewayId :: Lens' VirtualInterface (Maybe Text)
-viDirectConnectGatewayId = lens _viDirectConnectGatewayId (\s a -> s {_viDirectConnectGatewayId = a})
+virtualInterface_directConnectGatewayId :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_directConnectGatewayId = Lens.lens (\VirtualInterface' {directConnectGatewayId} -> directConnectGatewayId) (\s@VirtualInterface' {} a -> s {directConnectGatewayId = a} :: VirtualInterface)
 
--- | The state of the virtual interface. The following are the possible values:     * @confirming@ : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.     * @verifying@ : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.     * @pending@ : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.     * @available@ : A virtual interface that is able to forward traffic.     * @down@ : A virtual interface that is BGP down.     * @deleting@ : A virtual interface is in this state immediately after calling 'DeleteVirtualInterface' until it can no longer forward traffic.     * @deleted@ : A virtual interface that cannot forward traffic.     * @rejected@ : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the @Confirming@ state is deleted by the virtual interface owner, the virtual interface enters the @Rejected@ state.     * @unknown@ : The state of the virtual interface is not available.
-viVirtualInterfaceState :: Lens' VirtualInterface (Maybe VirtualInterfaceState)
-viVirtualInterfaceState = lens _viVirtualInterfaceState (\s a -> s {_viVirtualInterfaceState = a})
+-- | The state of the virtual interface. The following are the possible
+-- values:
+--
+-- -   @confirming@: The creation of the virtual interface is pending
+--     confirmation from the virtual interface owner. If the owner of the
+--     virtual interface is different from the owner of the connection on
+--     which it is provisioned, then the virtual interface will remain in
+--     this state until it is confirmed by the virtual interface owner.
+--
+-- -   @verifying@: This state only applies to public virtual interfaces.
+--     Each public virtual interface needs validation before the virtual
+--     interface can be created.
+--
+-- -   @pending@: A virtual interface is in this state from the time that
+--     it is created until the virtual interface is ready to forward
+--     traffic.
+--
+-- -   @available@: A virtual interface that is able to forward traffic.
+--
+-- -   @down@: A virtual interface that is BGP down.
+--
+-- -   @deleting@: A virtual interface is in this state immediately after
+--     calling DeleteVirtualInterface until it can no longer forward
+--     traffic.
+--
+-- -   @deleted@: A virtual interface that cannot forward traffic.
+--
+-- -   @rejected@: The virtual interface owner has declined creation of the
+--     virtual interface. If a virtual interface in the @Confirming@ state
+--     is deleted by the virtual interface owner, the virtual interface
+--     enters the @Rejected@ state.
+--
+-- -   @unknown@: The state of the virtual interface is not available.
+virtualInterface_virtualInterfaceState :: Lens.Lens' VirtualInterface (Prelude.Maybe VirtualInterfaceState)
+virtualInterface_virtualInterfaceState = Lens.lens (\VirtualInterface' {virtualInterfaceState} -> virtualInterfaceState) (\s@VirtualInterface' {} a -> s {virtualInterfaceState = a} :: VirtualInterface)
 
--- | The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
-viVirtualInterfaceName :: Lens' VirtualInterface (Maybe Text)
-viVirtualInterfaceName = lens _viVirtualInterfaceName (\s a -> s {_viVirtualInterfaceName = a})
+-- | The name of the virtual interface assigned by the customer network. The
+-- name has a maximum of 100 characters. The following are valid
+-- characters: a-z, 0-9 and a hyphen (-).
+virtualInterface_virtualInterfaceName :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_virtualInterfaceName = Lens.lens (\VirtualInterface' {virtualInterfaceName} -> virtualInterfaceName) (\s@VirtualInterface' {} a -> s {virtualInterfaceName = a} :: VirtualInterface)
 
 -- | The address family for the BGP peer.
-viAddressFamily :: Lens' VirtualInterface (Maybe AddressFamily)
-viAddressFamily = lens _viAddressFamily (\s a -> s {_viAddressFamily = a})
+virtualInterface_addressFamily :: Lens.Lens' VirtualInterface (Prelude.Maybe AddressFamily)
+virtualInterface_addressFamily = Lens.lens (\VirtualInterface' {addressFamily} -> addressFamily) (\s@VirtualInterface' {} a -> s {addressFamily = a} :: VirtualInterface)
 
 -- | The IP address assigned to the Amazon interface.
-viAmazonAddress :: Lens' VirtualInterface (Maybe Text)
-viAmazonAddress = lens _viAmazonAddress (\s a -> s {_viAmazonAddress = a})
+virtualInterface_amazonAddress :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_amazonAddress = Lens.lens (\VirtualInterface' {amazonAddress} -> amazonAddress) (\s@VirtualInterface' {} a -> s {amazonAddress = a} :: VirtualInterface)
 
 -- | The ID of the AWS account that owns the virtual interface.
-viOwnerAccount :: Lens' VirtualInterface (Maybe Text)
-viOwnerAccount = lens _viOwnerAccount (\s a -> s {_viOwnerAccount = a})
+virtualInterface_ownerAccount :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_ownerAccount = Lens.lens (\VirtualInterface' {ownerAccount} -> ownerAccount) (\s@VirtualInterface' {} a -> s {ownerAccount = a} :: VirtualInterface)
 
 -- | The AWS Region where the virtual interface is located.
-viRegion :: Lens' VirtualInterface (Maybe Text)
-viRegion = lens _viRegion (\s a -> s {_viRegion = a})
+virtualInterface_region :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_region = Lens.lens (\VirtualInterface' {region} -> region) (\s@VirtualInterface' {} a -> s {region = a} :: VirtualInterface)
 
 -- | The location of the connection.
-viLocation :: Lens' VirtualInterface (Maybe Text)
-viLocation = lens _viLocation (\s a -> s {_viLocation = a})
+virtualInterface_location :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_location = Lens.lens (\VirtualInterface' {location} -> location) (\s@VirtualInterface' {} a -> s {location = a} :: VirtualInterface)
 
 -- | The ID of the VLAN.
-viVlan :: Lens' VirtualInterface (Maybe Int)
-viVlan = lens _viVlan (\s a -> s {_viVlan = a})
+virtualInterface_vlan :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Int)
+virtualInterface_vlan = Lens.lens (\VirtualInterface' {vlan} -> vlan) (\s@VirtualInterface' {} a -> s {vlan = a} :: VirtualInterface)
 
 -- | The IP address assigned to the customer interface.
-viCustomerAddress :: Lens' VirtualInterface (Maybe Text)
-viCustomerAddress = lens _viCustomerAddress (\s a -> s {_viCustomerAddress = a})
+virtualInterface_customerAddress :: Lens.Lens' VirtualInterface (Prelude.Maybe Prelude.Text)
+virtualInterface_customerAddress = Lens.lens (\VirtualInterface' {customerAddress} -> customerAddress) (\s@VirtualInterface' {} a -> s {customerAddress = a} :: VirtualInterface)
 
-instance FromJSON VirtualInterface where
+instance Prelude.FromJSON VirtualInterface where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VirtualInterface"
       ( \x ->
           VirtualInterface'
-            <$> (x .:? "authKey")
-            <*> (x .:? "bgpPeers" .!= mempty)
-            <*> (x .:? "virtualGatewayId")
-            <*> (x .:? "asn")
-            <*> (x .:? "awsDeviceV2")
-            <*> (x .:? "connectionId")
-            <*> (x .:? "customerRouterConfig")
-            <*> (x .:? "jumboFrameCapable")
-            <*> (x .:? "routeFilterPrefixes" .!= mempty)
-            <*> (x .:? "virtualInterfaceType")
-            <*> (x .:? "mtu")
-            <*> (x .:? "tags")
-            <*> (x .:? "virtualInterfaceId")
-            <*> (x .:? "amazonSideAsn")
-            <*> (x .:? "directConnectGatewayId")
-            <*> (x .:? "virtualInterfaceState")
-            <*> (x .:? "virtualInterfaceName")
-            <*> (x .:? "addressFamily")
-            <*> (x .:? "amazonAddress")
-            <*> (x .:? "ownerAccount")
-            <*> (x .:? "region")
-            <*> (x .:? "location")
-            <*> (x .:? "vlan")
-            <*> (x .:? "customerAddress")
+            Prelude.<$> (x Prelude..:? "authKey")
+            Prelude.<*> (x Prelude..:? "bgpPeers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "virtualGatewayId")
+            Prelude.<*> (x Prelude..:? "asn")
+            Prelude.<*> (x Prelude..:? "awsDeviceV2")
+            Prelude.<*> (x Prelude..:? "connectionId")
+            Prelude.<*> (x Prelude..:? "customerRouterConfig")
+            Prelude.<*> (x Prelude..:? "jumboFrameCapable")
+            Prelude.<*> ( x Prelude..:? "routeFilterPrefixes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "virtualInterfaceType")
+            Prelude.<*> (x Prelude..:? "mtu")
+            Prelude.<*> (x Prelude..:? "tags")
+            Prelude.<*> (x Prelude..:? "virtualInterfaceId")
+            Prelude.<*> (x Prelude..:? "amazonSideAsn")
+            Prelude.<*> (x Prelude..:? "directConnectGatewayId")
+            Prelude.<*> (x Prelude..:? "virtualInterfaceState")
+            Prelude.<*> (x Prelude..:? "virtualInterfaceName")
+            Prelude.<*> (x Prelude..:? "addressFamily")
+            Prelude.<*> (x Prelude..:? "amazonAddress")
+            Prelude.<*> (x Prelude..:? "ownerAccount")
+            Prelude.<*> (x Prelude..:? "region")
+            Prelude.<*> (x Prelude..:? "location")
+            Prelude.<*> (x Prelude..:? "vlan")
+            Prelude.<*> (x Prelude..:? "customerAddress")
       )
 
-instance Hashable VirtualInterface
+instance Prelude.Hashable VirtualInterface
 
-instance NFData VirtualInterface
+instance Prelude.NFData VirtualInterface

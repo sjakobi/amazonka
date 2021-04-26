@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Displays all virtual interfaces for an AWS account. Virtual interfaces deleted fewer than 15 minutes before you make the request are also returned. If you specify a connection ID, only the virtual interfaces associated with the connection are returned. If you specify a virtual interface ID, then only a single virtual interface is returned.
+-- Displays all virtual interfaces for an AWS account. Virtual interfaces
+-- deleted fewer than 15 minutes before you make the request are also
+-- returned. If you specify a connection ID, only the virtual interfaces
+-- associated with the connection are returned. If you specify a virtual
+-- interface ID, then only a single virtual interface is returned.
 --
---
--- A virtual interface (VLAN) transmits the traffic between the AWS Direct Connect location and the customer network.
+-- A virtual interface (VLAN) transmits the traffic between the AWS Direct
+-- Connect location and the customer network.
 module Network.AWS.DirectConnect.DescribeVirtualInterfaces
   ( -- * Creating a Request
-    describeVirtualInterfaces,
-    DescribeVirtualInterfaces,
+    DescribeVirtualInterfaces (..),
+    newDescribeVirtualInterfaces,
 
     -- * Request Lenses
-    dvisConnectionId,
-    dvisVirtualInterfaceId,
+    describeVirtualInterfaces_connectionId,
+    describeVirtualInterfaces_virtualInterfaceId,
 
     -- * Destructuring the Response
-    describeVirtualInterfacesResponse,
-    DescribeVirtualInterfacesResponse,
+    DescribeVirtualInterfacesResponse (..),
+    newDescribeVirtualInterfacesResponse,
 
     -- * Response Lenses
-    dvirrsVirtualInterfaces,
-    dvirrsResponseStatus,
+    describeVirtualInterfacesResponse_virtualInterfaces,
+    describeVirtualInterfacesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.VirtualInterface
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeVirtualInterfaces' smart constructor.
+-- | /See:/ 'newDescribeVirtualInterfaces' smart constructor.
 data DescribeVirtualInterfaces = DescribeVirtualInterfaces'
-  { _dvisConnectionId ::
-      !(Maybe Text),
-    _dvisVirtualInterfaceId ::
-      !(Maybe Text)
+  { -- | The ID of the connection.
+    connectionId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the virtual interface.
+    virtualInterfaceId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeVirtualInterfaces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeVirtualInterfaces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvisConnectionId' - The ID of the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvisVirtualInterfaceId' - The ID of the virtual interface.
-describeVirtualInterfaces ::
+-- 'connectionId', 'describeVirtualInterfaces_connectionId' - The ID of the connection.
+--
+-- 'virtualInterfaceId', 'describeVirtualInterfaces_virtualInterfaceId' - The ID of the virtual interface.
+newDescribeVirtualInterfaces ::
   DescribeVirtualInterfaces
-describeVirtualInterfaces =
+newDescribeVirtualInterfaces =
   DescribeVirtualInterfaces'
-    { _dvisConnectionId =
-        Nothing,
-      _dvisVirtualInterfaceId = Nothing
+    { connectionId =
+        Prelude.Nothing,
+      virtualInterfaceId = Prelude.Nothing
     }
 
 -- | The ID of the connection.
-dvisConnectionId :: Lens' DescribeVirtualInterfaces (Maybe Text)
-dvisConnectionId = lens _dvisConnectionId (\s a -> s {_dvisConnectionId = a})
+describeVirtualInterfaces_connectionId :: Lens.Lens' DescribeVirtualInterfaces (Prelude.Maybe Prelude.Text)
+describeVirtualInterfaces_connectionId = Lens.lens (\DescribeVirtualInterfaces' {connectionId} -> connectionId) (\s@DescribeVirtualInterfaces' {} a -> s {connectionId = a} :: DescribeVirtualInterfaces)
 
 -- | The ID of the virtual interface.
-dvisVirtualInterfaceId :: Lens' DescribeVirtualInterfaces (Maybe Text)
-dvisVirtualInterfaceId = lens _dvisVirtualInterfaceId (\s a -> s {_dvisVirtualInterfaceId = a})
+describeVirtualInterfaces_virtualInterfaceId :: Lens.Lens' DescribeVirtualInterfaces (Prelude.Maybe Prelude.Text)
+describeVirtualInterfaces_virtualInterfaceId = Lens.lens (\DescribeVirtualInterfaces' {virtualInterfaceId} -> virtualInterfaceId) (\s@DescribeVirtualInterfaces' {} a -> s {virtualInterfaceId = a} :: DescribeVirtualInterfaces)
 
-instance AWSRequest DescribeVirtualInterfaces where
+instance Prelude.AWSRequest DescribeVirtualInterfaces where
   type
     Rs DescribeVirtualInterfaces =
       DescribeVirtualInterfacesResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeVirtualInterfacesResponse'
-            <$> (x .?> "virtualInterfaces" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "virtualInterfaces"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeVirtualInterfaces
+instance Prelude.Hashable DescribeVirtualInterfaces
 
-instance NFData DescribeVirtualInterfaces
+instance Prelude.NFData DescribeVirtualInterfaces
 
-instance ToHeaders DescribeVirtualInterfaces where
+instance Prelude.ToHeaders DescribeVirtualInterfaces where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.DescribeVirtualInterfaces" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.DescribeVirtualInterfaces" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeVirtualInterfaces where
+instance Prelude.ToJSON DescribeVirtualInterfaces where
   toJSON DescribeVirtualInterfaces' {..} =
-    object
-      ( catMaybes
-          [ ("connectionId" .=) <$> _dvisConnectionId,
-            ("virtualInterfaceId" .=)
-              <$> _dvisVirtualInterfaceId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("connectionId" Prelude..=)
+              Prelude.<$> connectionId,
+            ("virtualInterfaceId" Prelude..=)
+              Prelude.<$> virtualInterfaceId
           ]
       )
 
-instance ToPath DescribeVirtualInterfaces where
-  toPath = const "/"
+instance Prelude.ToPath DescribeVirtualInterfaces where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeVirtualInterfaces where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeVirtualInterfaces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeVirtualInterfacesResponse' smart constructor.
+-- | /See:/ 'newDescribeVirtualInterfacesResponse' smart constructor.
 data DescribeVirtualInterfacesResponse = DescribeVirtualInterfacesResponse'
-  { _dvirrsVirtualInterfaces ::
-      !( Maybe
-           [VirtualInterface]
-       ),
-    _dvirrsResponseStatus ::
-      !Int
+  { -- | The virtual interfaces
+    virtualInterfaces :: Prelude.Maybe [VirtualInterface],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeVirtualInterfacesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeVirtualInterfacesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvirrsVirtualInterfaces' - The virtual interfaces
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvirrsResponseStatus' - -- | The response status code.
-describeVirtualInterfacesResponse ::
-  -- | 'dvirrsResponseStatus'
-  Int ->
+-- 'virtualInterfaces', 'describeVirtualInterfacesResponse_virtualInterfaces' - The virtual interfaces
+--
+-- 'httpStatus', 'describeVirtualInterfacesResponse_httpStatus' - The response's http status code.
+newDescribeVirtualInterfacesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeVirtualInterfacesResponse
-describeVirtualInterfacesResponse pResponseStatus_ =
+newDescribeVirtualInterfacesResponse pHttpStatus_ =
   DescribeVirtualInterfacesResponse'
-    { _dvirrsVirtualInterfaces =
-        Nothing,
-      _dvirrsResponseStatus = pResponseStatus_
+    { virtualInterfaces =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The virtual interfaces
-dvirrsVirtualInterfaces :: Lens' DescribeVirtualInterfacesResponse [VirtualInterface]
-dvirrsVirtualInterfaces = lens _dvirrsVirtualInterfaces (\s a -> s {_dvirrsVirtualInterfaces = a}) . _Default . _Coerce
+describeVirtualInterfacesResponse_virtualInterfaces :: Lens.Lens' DescribeVirtualInterfacesResponse (Prelude.Maybe [VirtualInterface])
+describeVirtualInterfacesResponse_virtualInterfaces = Lens.lens (\DescribeVirtualInterfacesResponse' {virtualInterfaces} -> virtualInterfaces) (\s@DescribeVirtualInterfacesResponse' {} a -> s {virtualInterfaces = a} :: DescribeVirtualInterfacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dvirrsResponseStatus :: Lens' DescribeVirtualInterfacesResponse Int
-dvirrsResponseStatus = lens _dvirrsResponseStatus (\s a -> s {_dvirrsResponseStatus = a})
+-- | The response's http status code.
+describeVirtualInterfacesResponse_httpStatus :: Lens.Lens' DescribeVirtualInterfacesResponse Prelude.Int
+describeVirtualInterfacesResponse_httpStatus = Lens.lens (\DescribeVirtualInterfacesResponse' {httpStatus} -> httpStatus) (\s@DescribeVirtualInterfacesResponse' {} a -> s {httpStatus = a} :: DescribeVirtualInterfacesResponse)
 
-instance NFData DescribeVirtualInterfacesResponse
+instance
+  Prelude.NFData
+    DescribeVirtualInterfacesResponse

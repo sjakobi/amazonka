@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.DirectConnect.Types.HasLogicalRedundancy
   ( HasLogicalRedundancy
       ( ..,
-        HLRNO,
-        HLRUnknown,
-        HLRYes
+        HasLogicalRedundancyNO,
+        HasLogicalRedundancyUnknown,
+        HasLogicalRedundancyYes
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HasLogicalRedundancy
-  = HasLogicalRedundancy'
-      ( CI
-          Text
-      )
+newtype HasLogicalRedundancy = HasLogicalRedundancy'
+  { fromHasLogicalRedundancy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HLRNO :: HasLogicalRedundancy
-pattern HLRNO = HasLogicalRedundancy' "no"
+pattern HasLogicalRedundancyNO :: HasLogicalRedundancy
+pattern HasLogicalRedundancyNO = HasLogicalRedundancy' "no"
 
-pattern HLRUnknown :: HasLogicalRedundancy
-pattern HLRUnknown = HasLogicalRedundancy' "unknown"
+pattern HasLogicalRedundancyUnknown :: HasLogicalRedundancy
+pattern HasLogicalRedundancyUnknown = HasLogicalRedundancy' "unknown"
 
-pattern HLRYes :: HasLogicalRedundancy
-pattern HLRYes = HasLogicalRedundancy' "yes"
+pattern HasLogicalRedundancyYes :: HasLogicalRedundancy
+pattern HasLogicalRedundancyYes = HasLogicalRedundancy' "yes"
 
 {-# COMPLETE
-  HLRNO,
-  HLRUnknown,
-  HLRYes,
+  HasLogicalRedundancyNO,
+  HasLogicalRedundancyUnknown,
+  HasLogicalRedundancyYes,
   HasLogicalRedundancy'
   #-}
 
-instance FromText HasLogicalRedundancy where
-  parser = (HasLogicalRedundancy' . mk) <$> takeText
+instance Prelude.FromText HasLogicalRedundancy where
+  parser = HasLogicalRedundancy' Prelude.<$> Prelude.takeText
 
-instance ToText HasLogicalRedundancy where
-  toText (HasLogicalRedundancy' ci) = original ci
+instance Prelude.ToText HasLogicalRedundancy where
+  toText (HasLogicalRedundancy' x) = x
 
-instance Hashable HasLogicalRedundancy
+instance Prelude.Hashable HasLogicalRedundancy
 
-instance NFData HasLogicalRedundancy
+instance Prelude.NFData HasLogicalRedundancy
 
-instance ToByteString HasLogicalRedundancy
+instance Prelude.ToByteString HasLogicalRedundancy
 
-instance ToQuery HasLogicalRedundancy
+instance Prelude.ToQuery HasLogicalRedundancy
 
-instance ToHeader HasLogicalRedundancy
+instance Prelude.ToHeader HasLogicalRedundancy
 
-instance FromJSON HasLogicalRedundancy where
-  parseJSON = parseJSONText "HasLogicalRedundancy"
+instance Prelude.FromJSON HasLogicalRedundancy where
+  parseJSON = Prelude.parseJSONText "HasLogicalRedundancy"

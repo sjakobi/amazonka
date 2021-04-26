@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a public virtual interface. A virtual interface is the VLAN that transports AWS Direct Connect traffic. A public virtual interface supports sending traffic to public services of AWS such as Amazon S3.
+-- Creates a public virtual interface. A virtual interface is the VLAN that
+-- transports AWS Direct Connect traffic. A public virtual interface
+-- supports sending traffic to public services of AWS such as Amazon S3.
 --
---
--- When creating an IPv6 public virtual interface (@addressFamily@ is @ipv6@ ), leave the @customer@ and @amazon@ address fields blank to use auto-assigned IPv6 space. Custom IPv6 addresses are not supported.
+-- When creating an IPv6 public virtual interface (@addressFamily@ is
+-- @ipv6@), leave the @customer@ and @amazon@ address fields blank to use
+-- auto-assigned IPv6 space. Custom IPv6 addresses are not supported.
 module Network.AWS.DirectConnect.CreatePublicVirtualInterface
   ( -- * Creating a Request
-    createPublicVirtualInterface,
-    CreatePublicVirtualInterface,
+    CreatePublicVirtualInterface (..),
+    newCreatePublicVirtualInterface,
 
     -- * Request Lenses
-    cpviConnectionId,
-    cpviNewPublicVirtualInterface,
+    createPublicVirtualInterface_connectionId,
+    createPublicVirtualInterface_newPublicVirtualInterface,
 
     -- * Destructuring the Response
-    virtualInterface,
-    VirtualInterface,
+    VirtualInterface (..),
+    newVirtualInterface,
 
     -- * Response Lenses
-    viAuthKey,
-    viBgpPeers,
-    viVirtualGatewayId,
-    viAsn,
-    viAwsDeviceV2,
-    viConnectionId,
-    viCustomerRouterConfig,
-    viJumboFrameCapable,
-    viRouteFilterPrefixes,
-    viVirtualInterfaceType,
-    viMtu,
-    viTags,
-    viVirtualInterfaceId,
-    viAmazonSideASN,
-    viDirectConnectGatewayId,
-    viVirtualInterfaceState,
-    viVirtualInterfaceName,
-    viAddressFamily,
-    viAmazonAddress,
-    viOwnerAccount,
-    viRegion,
-    viLocation,
-    viVlan,
-    viCustomerAddress,
+    virtualInterface_authKey,
+    virtualInterface_bgpPeers,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_asn,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_connectionId,
+    virtualInterface_customerRouterConfig,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_mtu,
+    virtualInterface_tags,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_amazonSideAsn,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_addressFamily,
+    virtualInterface_amazonAddress,
+    virtualInterface_ownerAccount,
+    virtualInterface_region,
+    virtualInterface_location,
+    virtualInterface_vlan,
+    virtualInterface_customerAddress,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.AddressFamily
+import Network.AWS.DirectConnect.Types.BGPPeer
+import Network.AWS.DirectConnect.Types.RouteFilterPrefix
+import Network.AWS.DirectConnect.Types.Tag
+import Network.AWS.DirectConnect.Types.VirtualInterface
+import Network.AWS.DirectConnect.Types.VirtualInterfaceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPublicVirtualInterface' smart constructor.
+-- | /See:/ 'newCreatePublicVirtualInterface' smart constructor.
 data CreatePublicVirtualInterface = CreatePublicVirtualInterface'
-  { _cpviConnectionId ::
-      !Text,
-    _cpviNewPublicVirtualInterface ::
-      !NewPublicVirtualInterface
+  { -- | The ID of the connection.
+    connectionId :: Prelude.Text,
+    -- | Information about the public virtual interface.
+    newPublicVirtualInterface' :: NewPublicVirtualInterface
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePublicVirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePublicVirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpviConnectionId' - The ID of the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpviNewPublicVirtualInterface' - Information about the public virtual interface.
-createPublicVirtualInterface ::
-  -- | 'cpviConnectionId'
-  Text ->
-  -- | 'cpviNewPublicVirtualInterface'
+-- 'connectionId', 'createPublicVirtualInterface_connectionId' - The ID of the connection.
+--
+-- 'newPublicVirtualInterface'', 'createPublicVirtualInterface_newPublicVirtualInterface' - Information about the public virtual interface.
+newCreatePublicVirtualInterface ::
+  -- | 'connectionId'
+  Prelude.Text ->
+  -- | 'newPublicVirtualInterface''
   NewPublicVirtualInterface ->
   CreatePublicVirtualInterface
-createPublicVirtualInterface
+newCreatePublicVirtualInterface
   pConnectionId_
   pNewPublicVirtualInterface_ =
     CreatePublicVirtualInterface'
-      { _cpviConnectionId =
+      { connectionId =
           pConnectionId_,
-        _cpviNewPublicVirtualInterface =
+        newPublicVirtualInterface' =
           pNewPublicVirtualInterface_
       }
 
 -- | The ID of the connection.
-cpviConnectionId :: Lens' CreatePublicVirtualInterface Text
-cpviConnectionId = lens _cpviConnectionId (\s a -> s {_cpviConnectionId = a})
+createPublicVirtualInterface_connectionId :: Lens.Lens' CreatePublicVirtualInterface Prelude.Text
+createPublicVirtualInterface_connectionId = Lens.lens (\CreatePublicVirtualInterface' {connectionId} -> connectionId) (\s@CreatePublicVirtualInterface' {} a -> s {connectionId = a} :: CreatePublicVirtualInterface)
 
 -- | Information about the public virtual interface.
-cpviNewPublicVirtualInterface :: Lens' CreatePublicVirtualInterface NewPublicVirtualInterface
-cpviNewPublicVirtualInterface = lens _cpviNewPublicVirtualInterface (\s a -> s {_cpviNewPublicVirtualInterface = a})
+createPublicVirtualInterface_newPublicVirtualInterface :: Lens.Lens' CreatePublicVirtualInterface NewPublicVirtualInterface
+createPublicVirtualInterface_newPublicVirtualInterface = Lens.lens (\CreatePublicVirtualInterface' {newPublicVirtualInterface'} -> newPublicVirtualInterface') (\s@CreatePublicVirtualInterface' {} a -> s {newPublicVirtualInterface' = a} :: CreatePublicVirtualInterface)
 
-instance AWSRequest CreatePublicVirtualInterface where
+instance
+  Prelude.AWSRequest
+    CreatePublicVirtualInterface
+  where
   type
     Rs CreatePublicVirtualInterface =
       VirtualInterface
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable CreatePublicVirtualInterface
+instance
+  Prelude.Hashable
+    CreatePublicVirtualInterface
 
-instance NFData CreatePublicVirtualInterface
+instance Prelude.NFData CreatePublicVirtualInterface
 
-instance ToHeaders CreatePublicVirtualInterface where
+instance
+  Prelude.ToHeaders
+    CreatePublicVirtualInterface
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.CreatePublicVirtualInterface" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.CreatePublicVirtualInterface" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePublicVirtualInterface where
+instance Prelude.ToJSON CreatePublicVirtualInterface where
   toJSON CreatePublicVirtualInterface' {..} =
-    object
-      ( catMaybes
-          [ Just ("connectionId" .= _cpviConnectionId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("connectionId" Prelude..= connectionId),
+            Prelude.Just
               ( "newPublicVirtualInterface"
-                  .= _cpviNewPublicVirtualInterface
+                  Prelude..= newPublicVirtualInterface'
               )
           ]
       )
 
-instance ToPath CreatePublicVirtualInterface where
-  toPath = const "/"
+instance Prelude.ToPath CreatePublicVirtualInterface where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePublicVirtualInterface where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePublicVirtualInterface where
+  toQuery = Prelude.const Prelude.mempty

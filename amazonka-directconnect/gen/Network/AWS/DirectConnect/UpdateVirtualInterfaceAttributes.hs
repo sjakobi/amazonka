@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified attributes of the specified virtual private interface.
+-- Updates the specified attributes of the specified virtual private
+-- interface.
 --
---
--- Setting the MTU of a virtual interface to 9001 (jumbo frames) can cause an update to the underlying physical connection if it wasn't updated to support jumbo frames. Updating the connection disrupts network connectivity for all virtual interfaces associated with the connection for up to 30 seconds. To check whether your connection supports jumbo frames, call 'DescribeConnections' . To check whether your virtual q interface supports jumbo frames, call 'DescribeVirtualInterfaces' .
+-- Setting the MTU of a virtual interface to 9001 (jumbo frames) can cause
+-- an update to the underlying physical connection if it wasn\'t updated to
+-- support jumbo frames. Updating the connection disrupts network
+-- connectivity for all virtual interfaces associated with the connection
+-- for up to 30 seconds. To check whether your connection supports jumbo
+-- frames, call DescribeConnections. To check whether your virtual q
+-- interface supports jumbo frames, call DescribeVirtualInterfaces.
 module Network.AWS.DirectConnect.UpdateVirtualInterfaceAttributes
   ( -- * Creating a Request
-    updateVirtualInterfaceAttributes,
-    UpdateVirtualInterfaceAttributes,
+    UpdateVirtualInterfaceAttributes (..),
+    newUpdateVirtualInterfaceAttributes,
 
     -- * Request Lenses
-    uviaMtu,
-    uviaVirtualInterfaceId,
+    updateVirtualInterfaceAttributes_mtu,
+    updateVirtualInterfaceAttributes_virtualInterfaceId,
 
     -- * Destructuring the Response
-    virtualInterface,
-    VirtualInterface,
+    VirtualInterface (..),
+    newVirtualInterface,
 
     -- * Response Lenses
-    viAuthKey,
-    viBgpPeers,
-    viVirtualGatewayId,
-    viAsn,
-    viAwsDeviceV2,
-    viConnectionId,
-    viCustomerRouterConfig,
-    viJumboFrameCapable,
-    viRouteFilterPrefixes,
-    viVirtualInterfaceType,
-    viMtu,
-    viTags,
-    viVirtualInterfaceId,
-    viAmazonSideASN,
-    viDirectConnectGatewayId,
-    viVirtualInterfaceState,
-    viVirtualInterfaceName,
-    viAddressFamily,
-    viAmazonAddress,
-    viOwnerAccount,
-    viRegion,
-    viLocation,
-    viVlan,
-    viCustomerAddress,
+    virtualInterface_authKey,
+    virtualInterface_bgpPeers,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_asn,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_connectionId,
+    virtualInterface_customerRouterConfig,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_mtu,
+    virtualInterface_tags,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_amazonSideAsn,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_addressFamily,
+    virtualInterface_amazonAddress,
+    virtualInterface_ownerAccount,
+    virtualInterface_region,
+    virtualInterface_location,
+    virtualInterface_vlan,
+    virtualInterface_customerAddress,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.AddressFamily
+import Network.AWS.DirectConnect.Types.BGPPeer
+import Network.AWS.DirectConnect.Types.RouteFilterPrefix
+import Network.AWS.DirectConnect.Types.Tag
+import Network.AWS.DirectConnect.Types.VirtualInterface
+import Network.AWS.DirectConnect.Types.VirtualInterfaceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateVirtualInterfaceAttributes' smart constructor.
+-- | /See:/ 'newUpdateVirtualInterfaceAttributes' smart constructor.
 data UpdateVirtualInterfaceAttributes = UpdateVirtualInterfaceAttributes'
-  { _uviaMtu ::
-      !( Maybe
-           Int
-       ),
-    _uviaVirtualInterfaceId ::
-      !Text
+  { -- | The maximum transmission unit (MTU), in bytes. The supported values are
+    -- 1500 and 9001. The default value is 1500.
+    mtu :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the virtual private interface.
+    virtualInterfaceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateVirtualInterfaceAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateVirtualInterfaceAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uviaMtu' - The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uviaVirtualInterfaceId' - The ID of the virtual private interface.
-updateVirtualInterfaceAttributes ::
-  -- | 'uviaVirtualInterfaceId'
-  Text ->
+-- 'mtu', 'updateVirtualInterfaceAttributes_mtu' - The maximum transmission unit (MTU), in bytes. The supported values are
+-- 1500 and 9001. The default value is 1500.
+--
+-- 'virtualInterfaceId', 'updateVirtualInterfaceAttributes_virtualInterfaceId' - The ID of the virtual private interface.
+newUpdateVirtualInterfaceAttributes ::
+  -- | 'virtualInterfaceId'
+  Prelude.Text ->
   UpdateVirtualInterfaceAttributes
-updateVirtualInterfaceAttributes pVirtualInterfaceId_ =
-  UpdateVirtualInterfaceAttributes'
-    { _uviaMtu =
-        Nothing,
-      _uviaVirtualInterfaceId =
-        pVirtualInterfaceId_
-    }
+newUpdateVirtualInterfaceAttributes
+  pVirtualInterfaceId_ =
+    UpdateVirtualInterfaceAttributes'
+      { mtu =
+          Prelude.Nothing,
+        virtualInterfaceId = pVirtualInterfaceId_
+      }
 
--- | The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
-uviaMtu :: Lens' UpdateVirtualInterfaceAttributes (Maybe Int)
-uviaMtu = lens _uviaMtu (\s a -> s {_uviaMtu = a})
+-- | The maximum transmission unit (MTU), in bytes. The supported values are
+-- 1500 and 9001. The default value is 1500.
+updateVirtualInterfaceAttributes_mtu :: Lens.Lens' UpdateVirtualInterfaceAttributes (Prelude.Maybe Prelude.Int)
+updateVirtualInterfaceAttributes_mtu = Lens.lens (\UpdateVirtualInterfaceAttributes' {mtu} -> mtu) (\s@UpdateVirtualInterfaceAttributes' {} a -> s {mtu = a} :: UpdateVirtualInterfaceAttributes)
 
 -- | The ID of the virtual private interface.
-uviaVirtualInterfaceId :: Lens' UpdateVirtualInterfaceAttributes Text
-uviaVirtualInterfaceId = lens _uviaVirtualInterfaceId (\s a -> s {_uviaVirtualInterfaceId = a})
+updateVirtualInterfaceAttributes_virtualInterfaceId :: Lens.Lens' UpdateVirtualInterfaceAttributes Prelude.Text
+updateVirtualInterfaceAttributes_virtualInterfaceId = Lens.lens (\UpdateVirtualInterfaceAttributes' {virtualInterfaceId} -> virtualInterfaceId) (\s@UpdateVirtualInterfaceAttributes' {} a -> s {virtualInterfaceId = a} :: UpdateVirtualInterfaceAttributes)
 
-instance AWSRequest UpdateVirtualInterfaceAttributes where
+instance
+  Prelude.AWSRequest
+    UpdateVirtualInterfaceAttributes
+  where
   type
     Rs UpdateVirtualInterfaceAttributes =
       VirtualInterface
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateVirtualInterfaceAttributes
+instance
+  Prelude.Hashable
+    UpdateVirtualInterfaceAttributes
 
-instance NFData UpdateVirtualInterfaceAttributes
+instance
+  Prelude.NFData
+    UpdateVirtualInterfaceAttributes
 
-instance ToHeaders UpdateVirtualInterfaceAttributes where
+instance
+  Prelude.ToHeaders
+    UpdateVirtualInterfaceAttributes
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.UpdateVirtualInterfaceAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.UpdateVirtualInterfaceAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateVirtualInterfaceAttributes where
+instance
+  Prelude.ToJSON
+    UpdateVirtualInterfaceAttributes
+  where
   toJSON UpdateVirtualInterfaceAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("mtu" .=) <$> _uviaMtu,
-            Just
-              ("virtualInterfaceId" .= _uviaVirtualInterfaceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("mtu" Prelude..=) Prelude.<$> mtu,
+            Prelude.Just
+              ( "virtualInterfaceId"
+                  Prelude..= virtualInterfaceId
+              )
           ]
       )
 
-instance ToPath UpdateVirtualInterfaceAttributes where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    UpdateVirtualInterfaceAttributes
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateVirtualInterfaceAttributes where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    UpdateVirtualInterfaceAttributes
+  where
+  toQuery = Prelude.const Prelude.mempty

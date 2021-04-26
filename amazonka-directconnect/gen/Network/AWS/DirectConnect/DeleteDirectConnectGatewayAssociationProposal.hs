@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the association proposal request between the specified Direct Connect gateway and virtual private gateway or transit gateway.
+-- Deletes the association proposal request between the specified Direct
+-- Connect gateway and virtual private gateway or transit gateway.
 module Network.AWS.DirectConnect.DeleteDirectConnectGatewayAssociationProposal
   ( -- * Creating a Request
-    deleteDirectConnectGatewayAssociationProposal,
-    DeleteDirectConnectGatewayAssociationProposal,
+    DeleteDirectConnectGatewayAssociationProposal (..),
+    newDeleteDirectConnectGatewayAssociationProposal,
 
     -- * Request Lenses
-    ddcgapProposalId,
+    deleteDirectConnectGatewayAssociationProposal_proposalId,
 
     -- * Destructuring the Response
-    deleteDirectConnectGatewayAssociationProposalResponse,
-    DeleteDirectConnectGatewayAssociationProposalResponse,
+    DeleteDirectConnectGatewayAssociationProposalResponse (..),
+    newDeleteDirectConnectGatewayAssociationProposalResponse,
 
     -- * Response Lenses
-    ddcgaprrsDirectConnectGatewayAssociationProposal,
-    ddcgaprrsResponseStatus,
+    deleteDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal,
+    deleteDirectConnectGatewayAssociationProposalResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.DirectConnectGatewayAssociationProposal
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDirectConnectGatewayAssociationProposal' smart constructor.
-newtype DeleteDirectConnectGatewayAssociationProposal = DeleteDirectConnectGatewayAssociationProposal'
-  { _ddcgapProposalId ::
-      Text
+-- | /See:/ 'newDeleteDirectConnectGatewayAssociationProposal' smart constructor.
+data DeleteDirectConnectGatewayAssociationProposal = DeleteDirectConnectGatewayAssociationProposal'
+  { -- | The ID of the proposal.
+    proposalId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDirectConnectGatewayAssociationProposal' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDirectConnectGatewayAssociationProposal' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcgapProposalId' - The ID of the proposal.
-deleteDirectConnectGatewayAssociationProposal ::
-  -- | 'ddcgapProposalId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'proposalId', 'deleteDirectConnectGatewayAssociationProposal_proposalId' - The ID of the proposal.
+newDeleteDirectConnectGatewayAssociationProposal ::
+  -- | 'proposalId'
+  Prelude.Text ->
   DeleteDirectConnectGatewayAssociationProposal
-deleteDirectConnectGatewayAssociationProposal
+newDeleteDirectConnectGatewayAssociationProposal
   pProposalId_ =
     DeleteDirectConnectGatewayAssociationProposal'
-      { _ddcgapProposalId =
+      { proposalId =
           pProposalId_
       }
 
 -- | The ID of the proposal.
-ddcgapProposalId :: Lens' DeleteDirectConnectGatewayAssociationProposal Text
-ddcgapProposalId = lens _ddcgapProposalId (\s a -> s {_ddcgapProposalId = a})
+deleteDirectConnectGatewayAssociationProposal_proposalId :: Lens.Lens' DeleteDirectConnectGatewayAssociationProposal Prelude.Text
+deleteDirectConnectGatewayAssociationProposal_proposalId = Lens.lens (\DeleteDirectConnectGatewayAssociationProposal' {proposalId} -> proposalId) (\s@DeleteDirectConnectGatewayAssociationProposal' {} a -> s {proposalId = a} :: DeleteDirectConnectGatewayAssociationProposal)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteDirectConnectGatewayAssociationProposal
   where
   type
     Rs DeleteDirectConnectGatewayAssociationProposal =
       DeleteDirectConnectGatewayAssociationProposalResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDirectConnectGatewayAssociationProposalResponse'
-            <$> (x .?> "directConnectGatewayAssociationProposal")
-              <*> (pure (fromEnum s))
+            Prelude.<$> ( x
+                            Prelude..?> "directConnectGatewayAssociationProposal"
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DeleteDirectConnectGatewayAssociationProposal
 
 instance
-  NFData
+  Prelude.NFData
     DeleteDirectConnectGatewayAssociationProposal
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DeleteDirectConnectGatewayAssociationProposal
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.DeleteDirectConnectGatewayAssociationProposal" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.DeleteDirectConnectGatewayAssociationProposal" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DeleteDirectConnectGatewayAssociationProposal
   where
   toJSON
     DeleteDirectConnectGatewayAssociationProposal' {..} =
-      object
-        ( catMaybes
-            [Just ("proposalId" .= _ddcgapProposalId)]
+      Prelude.object
+        ( Prelude.catMaybes
+            [Prelude.Just ("proposalId" Prelude..= proposalId)]
         )
 
 instance
-  ToPath
+  Prelude.ToPath
     DeleteDirectConnectGatewayAssociationProposal
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DeleteDirectConnectGatewayAssociationProposal
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDirectConnectGatewayAssociationProposalResponse' smart constructor.
+-- | /See:/ 'newDeleteDirectConnectGatewayAssociationProposalResponse' smart constructor.
 data DeleteDirectConnectGatewayAssociationProposalResponse = DeleteDirectConnectGatewayAssociationProposalResponse'
-  { _ddcgaprrsDirectConnectGatewayAssociationProposal ::
-      !( Maybe
-           DirectConnectGatewayAssociationProposal
-       ),
-    _ddcgaprrsResponseStatus ::
-      !Int
+  { -- | The ID of the associated gateway.
+    directConnectGatewayAssociationProposal :: Prelude.Maybe DirectConnectGatewayAssociationProposal,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDirectConnectGatewayAssociationProposalResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDirectConnectGatewayAssociationProposalResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcgaprrsDirectConnectGatewayAssociationProposal' - The ID of the associated gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddcgaprrsResponseStatus' - -- | The response status code.
-deleteDirectConnectGatewayAssociationProposalResponse ::
-  -- | 'ddcgaprrsResponseStatus'
-  Int ->
+-- 'directConnectGatewayAssociationProposal', 'deleteDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal' - The ID of the associated gateway.
+--
+-- 'httpStatus', 'deleteDirectConnectGatewayAssociationProposalResponse_httpStatus' - The response's http status code.
+newDeleteDirectConnectGatewayAssociationProposalResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDirectConnectGatewayAssociationProposalResponse
-deleteDirectConnectGatewayAssociationProposalResponse
-  pResponseStatus_ =
+newDeleteDirectConnectGatewayAssociationProposalResponse
+  pHttpStatus_ =
     DeleteDirectConnectGatewayAssociationProposalResponse'
-      { _ddcgaprrsDirectConnectGatewayAssociationProposal =
-          Nothing,
-        _ddcgaprrsResponseStatus =
-          pResponseStatus_
+      { directConnectGatewayAssociationProposal =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | The ID of the associated gateway.
-ddcgaprrsDirectConnectGatewayAssociationProposal :: Lens' DeleteDirectConnectGatewayAssociationProposalResponse (Maybe DirectConnectGatewayAssociationProposal)
-ddcgaprrsDirectConnectGatewayAssociationProposal = lens _ddcgaprrsDirectConnectGatewayAssociationProposal (\s a -> s {_ddcgaprrsDirectConnectGatewayAssociationProposal = a})
+deleteDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal :: Lens.Lens' DeleteDirectConnectGatewayAssociationProposalResponse (Prelude.Maybe DirectConnectGatewayAssociationProposal)
+deleteDirectConnectGatewayAssociationProposalResponse_directConnectGatewayAssociationProposal = Lens.lens (\DeleteDirectConnectGatewayAssociationProposalResponse' {directConnectGatewayAssociationProposal} -> directConnectGatewayAssociationProposal) (\s@DeleteDirectConnectGatewayAssociationProposalResponse' {} a -> s {directConnectGatewayAssociationProposal = a} :: DeleteDirectConnectGatewayAssociationProposalResponse)
 
--- | -- | The response status code.
-ddcgaprrsResponseStatus :: Lens' DeleteDirectConnectGatewayAssociationProposalResponse Int
-ddcgaprrsResponseStatus = lens _ddcgaprrsResponseStatus (\s a -> s {_ddcgaprrsResponseStatus = a})
+-- | The response's http status code.
+deleteDirectConnectGatewayAssociationProposalResponse_httpStatus :: Lens.Lens' DeleteDirectConnectGatewayAssociationProposalResponse Prelude.Int
+deleteDirectConnectGatewayAssociationProposalResponse_httpStatus = Lens.lens (\DeleteDirectConnectGatewayAssociationProposalResponse' {httpStatus} -> httpStatus) (\s@DeleteDirectConnectGatewayAssociationProposalResponse' {} a -> s {httpStatus = a} :: DeleteDirectConnectGatewayAssociationProposalResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteDirectConnectGatewayAssociationProposalResponse

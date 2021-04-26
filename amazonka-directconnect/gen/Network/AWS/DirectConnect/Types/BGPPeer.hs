@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,116 +22,196 @@ module Network.AWS.DirectConnect.Types.BGPPeer where
 import Network.AWS.DirectConnect.Types.AddressFamily
 import Network.AWS.DirectConnect.Types.BGPPeerState
 import Network.AWS.DirectConnect.Types.BGPStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a BGP peer.
 --
---
---
--- /See:/ 'bgpPeer' smart constructor.
+-- /See:/ 'newBGPPeer' smart constructor.
 data BGPPeer = BGPPeer'
-  { _bpAuthKey :: !(Maybe Text),
-    _bpAsn :: !(Maybe Int),
-    _bpAwsDeviceV2 :: !(Maybe Text),
-    _bpBgpPeerId :: !(Maybe Text),
-    _bpBgpStatus :: !(Maybe BGPStatus),
-    _bpBgpPeerState :: !(Maybe BGPPeerState),
-    _bpAddressFamily :: !(Maybe AddressFamily),
-    _bpAmazonAddress :: !(Maybe Text),
-    _bpCustomerAddress :: !(Maybe Text)
+  { -- | The authentication key for BGP configuration. This string has a minimum
+    -- length of 6 characters and and a maximun lenth of 80 characters.
+    authKey :: Prelude.Maybe Prelude.Text,
+    -- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+    -- configuration.
+    asn :: Prelude.Maybe Prelude.Int,
+    -- | The Direct Connect endpoint on which the BGP peer terminates.
+    awsDeviceV2 :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the BGP peer.
+    bgpPeerId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the BGP peer. The following are the possible values:
+    --
+    -- -   @up@: The BGP peer is established. This state does not indicate the
+    --     state of the routing function. Ensure that you are receiving routes
+    --     over the BGP session.
+    --
+    -- -   @down@: The BGP peer is down.
+    --
+    -- -   @unknown@: The BGP peer status is not available.
+    bgpStatus :: Prelude.Maybe BGPStatus,
+    -- | The state of the BGP peer. The following are the possible values:
+    --
+    -- -   @verifying@: The BGP peering addresses or ASN require validation
+    --     before the BGP peer can be created. This state applies only to
+    --     public virtual interfaces.
+    --
+    -- -   @pending@: The BGP peer is created, and remains in this state until
+    --     it is ready to be established.
+    --
+    -- -   @available@: The BGP peer is ready to be established.
+    --
+    -- -   @deleting@: The BGP peer is being deleted.
+    --
+    -- -   @deleted@: The BGP peer is deleted and cannot be established.
+    bgpPeerState :: Prelude.Maybe BGPPeerState,
+    -- | The address family for the BGP peer.
+    addressFamily :: Prelude.Maybe AddressFamily,
+    -- | The IP address assigned to the Amazon interface.
+    amazonAddress :: Prelude.Maybe Prelude.Text,
+    -- | The IP address assigned to the customer interface.
+    customerAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BGPPeer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BGPPeer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpAuthKey' - The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bpAsn' - The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+-- 'authKey', 'bGPPeer_authKey' - The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
 --
--- * 'bpAwsDeviceV2' - The Direct Connect endpoint on which the BGP peer terminates.
+-- 'asn', 'bGPPeer_asn' - The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
 --
--- * 'bpBgpPeerId' - The ID of the BGP peer.
+-- 'awsDeviceV2', 'bGPPeer_awsDeviceV2' - The Direct Connect endpoint on which the BGP peer terminates.
 --
--- * 'bpBgpStatus' - The status of the BGP peer. The following are the possible values:     * @up@ : The BGP peer is established. This state does not indicate the state of the routing function. Ensure that you are receiving routes over the BGP session.     * @down@ : The BGP peer is down.     * @unknown@ : The BGP peer status is not available.
+-- 'bgpPeerId', 'bGPPeer_bgpPeerId' - The ID of the BGP peer.
 --
--- * 'bpBgpPeerState' - The state of the BGP peer. The following are the possible values:     * @verifying@ : The BGP peering addresses or ASN require validation before the BGP peer can be created. This state applies only to public virtual interfaces.     * @pending@ : The BGP peer is created, and remains in this state until it is ready to be established.     * @available@ : The BGP peer is ready to be established.     * @deleting@ : The BGP peer is being deleted.     * @deleted@ : The BGP peer is deleted and cannot be established.
+-- 'bgpStatus', 'bGPPeer_bgpStatus' - The status of the BGP peer. The following are the possible values:
 --
--- * 'bpAddressFamily' - The address family for the BGP peer.
+-- -   @up@: The BGP peer is established. This state does not indicate the
+--     state of the routing function. Ensure that you are receiving routes
+--     over the BGP session.
 --
--- * 'bpAmazonAddress' - The IP address assigned to the Amazon interface.
+-- -   @down@: The BGP peer is down.
 --
--- * 'bpCustomerAddress' - The IP address assigned to the customer interface.
-bgpPeer ::
+-- -   @unknown@: The BGP peer status is not available.
+--
+-- 'bgpPeerState', 'bGPPeer_bgpPeerState' - The state of the BGP peer. The following are the possible values:
+--
+-- -   @verifying@: The BGP peering addresses or ASN require validation
+--     before the BGP peer can be created. This state applies only to
+--     public virtual interfaces.
+--
+-- -   @pending@: The BGP peer is created, and remains in this state until
+--     it is ready to be established.
+--
+-- -   @available@: The BGP peer is ready to be established.
+--
+-- -   @deleting@: The BGP peer is being deleted.
+--
+-- -   @deleted@: The BGP peer is deleted and cannot be established.
+--
+-- 'addressFamily', 'bGPPeer_addressFamily' - The address family for the BGP peer.
+--
+-- 'amazonAddress', 'bGPPeer_amazonAddress' - The IP address assigned to the Amazon interface.
+--
+-- 'customerAddress', 'bGPPeer_customerAddress' - The IP address assigned to the customer interface.
+newBGPPeer ::
   BGPPeer
-bgpPeer =
+newBGPPeer =
   BGPPeer'
-    { _bpAuthKey = Nothing,
-      _bpAsn = Nothing,
-      _bpAwsDeviceV2 = Nothing,
-      _bpBgpPeerId = Nothing,
-      _bpBgpStatus = Nothing,
-      _bpBgpPeerState = Nothing,
-      _bpAddressFamily = Nothing,
-      _bpAmazonAddress = Nothing,
-      _bpCustomerAddress = Nothing
+    { authKey = Prelude.Nothing,
+      asn = Prelude.Nothing,
+      awsDeviceV2 = Prelude.Nothing,
+      bgpPeerId = Prelude.Nothing,
+      bgpStatus = Prelude.Nothing,
+      bgpPeerState = Prelude.Nothing,
+      addressFamily = Prelude.Nothing,
+      amazonAddress = Prelude.Nothing,
+      customerAddress = Prelude.Nothing
     }
 
--- | The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
-bpAuthKey :: Lens' BGPPeer (Maybe Text)
-bpAuthKey = lens _bpAuthKey (\s a -> s {_bpAuthKey = a})
+-- | The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
+bGPPeer_authKey :: Lens.Lens' BGPPeer (Prelude.Maybe Prelude.Text)
+bGPPeer_authKey = Lens.lens (\BGPPeer' {authKey} -> authKey) (\s@BGPPeer' {} a -> s {authKey = a} :: BGPPeer)
 
--- | The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
-bpAsn :: Lens' BGPPeer (Maybe Int)
-bpAsn = lens _bpAsn (\s a -> s {_bpAsn = a})
+-- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
+bGPPeer_asn :: Lens.Lens' BGPPeer (Prelude.Maybe Prelude.Int)
+bGPPeer_asn = Lens.lens (\BGPPeer' {asn} -> asn) (\s@BGPPeer' {} a -> s {asn = a} :: BGPPeer)
 
 -- | The Direct Connect endpoint on which the BGP peer terminates.
-bpAwsDeviceV2 :: Lens' BGPPeer (Maybe Text)
-bpAwsDeviceV2 = lens _bpAwsDeviceV2 (\s a -> s {_bpAwsDeviceV2 = a})
+bGPPeer_awsDeviceV2 :: Lens.Lens' BGPPeer (Prelude.Maybe Prelude.Text)
+bGPPeer_awsDeviceV2 = Lens.lens (\BGPPeer' {awsDeviceV2} -> awsDeviceV2) (\s@BGPPeer' {} a -> s {awsDeviceV2 = a} :: BGPPeer)
 
 -- | The ID of the BGP peer.
-bpBgpPeerId :: Lens' BGPPeer (Maybe Text)
-bpBgpPeerId = lens _bpBgpPeerId (\s a -> s {_bpBgpPeerId = a})
+bGPPeer_bgpPeerId :: Lens.Lens' BGPPeer (Prelude.Maybe Prelude.Text)
+bGPPeer_bgpPeerId = Lens.lens (\BGPPeer' {bgpPeerId} -> bgpPeerId) (\s@BGPPeer' {} a -> s {bgpPeerId = a} :: BGPPeer)
 
--- | The status of the BGP peer. The following are the possible values:     * @up@ : The BGP peer is established. This state does not indicate the state of the routing function. Ensure that you are receiving routes over the BGP session.     * @down@ : The BGP peer is down.     * @unknown@ : The BGP peer status is not available.
-bpBgpStatus :: Lens' BGPPeer (Maybe BGPStatus)
-bpBgpStatus = lens _bpBgpStatus (\s a -> s {_bpBgpStatus = a})
+-- | The status of the BGP peer. The following are the possible values:
+--
+-- -   @up@: The BGP peer is established. This state does not indicate the
+--     state of the routing function. Ensure that you are receiving routes
+--     over the BGP session.
+--
+-- -   @down@: The BGP peer is down.
+--
+-- -   @unknown@: The BGP peer status is not available.
+bGPPeer_bgpStatus :: Lens.Lens' BGPPeer (Prelude.Maybe BGPStatus)
+bGPPeer_bgpStatus = Lens.lens (\BGPPeer' {bgpStatus} -> bgpStatus) (\s@BGPPeer' {} a -> s {bgpStatus = a} :: BGPPeer)
 
--- | The state of the BGP peer. The following are the possible values:     * @verifying@ : The BGP peering addresses or ASN require validation before the BGP peer can be created. This state applies only to public virtual interfaces.     * @pending@ : The BGP peer is created, and remains in this state until it is ready to be established.     * @available@ : The BGP peer is ready to be established.     * @deleting@ : The BGP peer is being deleted.     * @deleted@ : The BGP peer is deleted and cannot be established.
-bpBgpPeerState :: Lens' BGPPeer (Maybe BGPPeerState)
-bpBgpPeerState = lens _bpBgpPeerState (\s a -> s {_bpBgpPeerState = a})
+-- | The state of the BGP peer. The following are the possible values:
+--
+-- -   @verifying@: The BGP peering addresses or ASN require validation
+--     before the BGP peer can be created. This state applies only to
+--     public virtual interfaces.
+--
+-- -   @pending@: The BGP peer is created, and remains in this state until
+--     it is ready to be established.
+--
+-- -   @available@: The BGP peer is ready to be established.
+--
+-- -   @deleting@: The BGP peer is being deleted.
+--
+-- -   @deleted@: The BGP peer is deleted and cannot be established.
+bGPPeer_bgpPeerState :: Lens.Lens' BGPPeer (Prelude.Maybe BGPPeerState)
+bGPPeer_bgpPeerState = Lens.lens (\BGPPeer' {bgpPeerState} -> bgpPeerState) (\s@BGPPeer' {} a -> s {bgpPeerState = a} :: BGPPeer)
 
 -- | The address family for the BGP peer.
-bpAddressFamily :: Lens' BGPPeer (Maybe AddressFamily)
-bpAddressFamily = lens _bpAddressFamily (\s a -> s {_bpAddressFamily = a})
+bGPPeer_addressFamily :: Lens.Lens' BGPPeer (Prelude.Maybe AddressFamily)
+bGPPeer_addressFamily = Lens.lens (\BGPPeer' {addressFamily} -> addressFamily) (\s@BGPPeer' {} a -> s {addressFamily = a} :: BGPPeer)
 
 -- | The IP address assigned to the Amazon interface.
-bpAmazonAddress :: Lens' BGPPeer (Maybe Text)
-bpAmazonAddress = lens _bpAmazonAddress (\s a -> s {_bpAmazonAddress = a})
+bGPPeer_amazonAddress :: Lens.Lens' BGPPeer (Prelude.Maybe Prelude.Text)
+bGPPeer_amazonAddress = Lens.lens (\BGPPeer' {amazonAddress} -> amazonAddress) (\s@BGPPeer' {} a -> s {amazonAddress = a} :: BGPPeer)
 
 -- | The IP address assigned to the customer interface.
-bpCustomerAddress :: Lens' BGPPeer (Maybe Text)
-bpCustomerAddress = lens _bpCustomerAddress (\s a -> s {_bpCustomerAddress = a})
+bGPPeer_customerAddress :: Lens.Lens' BGPPeer (Prelude.Maybe Prelude.Text)
+bGPPeer_customerAddress = Lens.lens (\BGPPeer' {customerAddress} -> customerAddress) (\s@BGPPeer' {} a -> s {customerAddress = a} :: BGPPeer)
 
-instance FromJSON BGPPeer where
+instance Prelude.FromJSON BGPPeer where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BGPPeer"
       ( \x ->
           BGPPeer'
-            <$> (x .:? "authKey")
-            <*> (x .:? "asn")
-            <*> (x .:? "awsDeviceV2")
-            <*> (x .:? "bgpPeerId")
-            <*> (x .:? "bgpStatus")
-            <*> (x .:? "bgpPeerState")
-            <*> (x .:? "addressFamily")
-            <*> (x .:? "amazonAddress")
-            <*> (x .:? "customerAddress")
+            Prelude.<$> (x Prelude..:? "authKey")
+            Prelude.<*> (x Prelude..:? "asn")
+            Prelude.<*> (x Prelude..:? "awsDeviceV2")
+            Prelude.<*> (x Prelude..:? "bgpPeerId")
+            Prelude.<*> (x Prelude..:? "bgpStatus")
+            Prelude.<*> (x Prelude..:? "bgpPeerState")
+            Prelude.<*> (x Prelude..:? "addressFamily")
+            Prelude.<*> (x Prelude..:? "amazonAddress")
+            Prelude.<*> (x Prelude..:? "customerAddress")
       )
 
-instance Hashable BGPPeer
+instance Prelude.Hashable BGPPeer
 
-instance NFData BGPPeer
+instance Prelude.NFData BGPPeer

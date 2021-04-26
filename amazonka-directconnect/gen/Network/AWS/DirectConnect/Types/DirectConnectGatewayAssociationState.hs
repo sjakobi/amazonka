@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.DirectConnect.Types.DirectConnectGatewayAssociationState
   ( DirectConnectGatewayAssociationState
       ( ..,
-        Associated,
-        Associating,
-        Disassociated,
-        Disassociating,
-        Updating
+        DirectConnectGatewayAssociationStateAssociated,
+        DirectConnectGatewayAssociationStateAssociating,
+        DirectConnectGatewayAssociationStateDisassociated,
+        DirectConnectGatewayAssociationStateDisassociating,
+        DirectConnectGatewayAssociationStateUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectConnectGatewayAssociationState
-  = DirectConnectGatewayAssociationState'
-      ( CI
-          Text
-      )
+newtype DirectConnectGatewayAssociationState = DirectConnectGatewayAssociationState'
+  { fromDirectConnectGatewayAssociationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Associated :: DirectConnectGatewayAssociationState
-pattern Associated = DirectConnectGatewayAssociationState' "associated"
+pattern DirectConnectGatewayAssociationStateAssociated :: DirectConnectGatewayAssociationState
+pattern DirectConnectGatewayAssociationStateAssociated = DirectConnectGatewayAssociationState' "associated"
 
-pattern Associating :: DirectConnectGatewayAssociationState
-pattern Associating = DirectConnectGatewayAssociationState' "associating"
+pattern DirectConnectGatewayAssociationStateAssociating :: DirectConnectGatewayAssociationState
+pattern DirectConnectGatewayAssociationStateAssociating = DirectConnectGatewayAssociationState' "associating"
 
-pattern Disassociated :: DirectConnectGatewayAssociationState
-pattern Disassociated = DirectConnectGatewayAssociationState' "disassociated"
+pattern DirectConnectGatewayAssociationStateDisassociated :: DirectConnectGatewayAssociationState
+pattern DirectConnectGatewayAssociationStateDisassociated = DirectConnectGatewayAssociationState' "disassociated"
 
-pattern Disassociating :: DirectConnectGatewayAssociationState
-pattern Disassociating = DirectConnectGatewayAssociationState' "disassociating"
+pattern DirectConnectGatewayAssociationStateDisassociating :: DirectConnectGatewayAssociationState
+pattern DirectConnectGatewayAssociationStateDisassociating = DirectConnectGatewayAssociationState' "disassociating"
 
-pattern Updating :: DirectConnectGatewayAssociationState
-pattern Updating = DirectConnectGatewayAssociationState' "updating"
+pattern DirectConnectGatewayAssociationStateUpdating :: DirectConnectGatewayAssociationState
+pattern DirectConnectGatewayAssociationStateUpdating = DirectConnectGatewayAssociationState' "updating"
 
 {-# COMPLETE
-  Associated,
-  Associating,
-  Disassociated,
-  Disassociating,
-  Updating,
+  DirectConnectGatewayAssociationStateAssociated,
+  DirectConnectGatewayAssociationStateAssociating,
+  DirectConnectGatewayAssociationStateDisassociated,
+  DirectConnectGatewayAssociationStateDisassociating,
+  DirectConnectGatewayAssociationStateUpdating,
   DirectConnectGatewayAssociationState'
   #-}
 
-instance FromText DirectConnectGatewayAssociationState where
-  parser = (DirectConnectGatewayAssociationState' . mk) <$> takeText
+instance Prelude.FromText DirectConnectGatewayAssociationState where
+  parser = DirectConnectGatewayAssociationState' Prelude.<$> Prelude.takeText
 
-instance ToText DirectConnectGatewayAssociationState where
-  toText (DirectConnectGatewayAssociationState' ci) = original ci
+instance Prelude.ToText DirectConnectGatewayAssociationState where
+  toText (DirectConnectGatewayAssociationState' x) = x
 
-instance Hashable DirectConnectGatewayAssociationState
+instance Prelude.Hashable DirectConnectGatewayAssociationState
 
-instance NFData DirectConnectGatewayAssociationState
+instance Prelude.NFData DirectConnectGatewayAssociationState
 
-instance ToByteString DirectConnectGatewayAssociationState
+instance Prelude.ToByteString DirectConnectGatewayAssociationState
 
-instance ToQuery DirectConnectGatewayAssociationState
+instance Prelude.ToQuery DirectConnectGatewayAssociationState
 
-instance ToHeader DirectConnectGatewayAssociationState
+instance Prelude.ToHeader DirectConnectGatewayAssociationState
 
-instance FromJSON DirectConnectGatewayAssociationState where
-  parseJSON = parseJSONText "DirectConnectGatewayAssociationState"
+instance Prelude.FromJSON DirectConnectGatewayAssociationState where
+  parseJSON = Prelude.parseJSONText "DirectConnectGatewayAssociationState"

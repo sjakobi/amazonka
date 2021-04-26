@@ -11,10 +11,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS Direct Connect links your internal network to an AWS Direct Connect location over a standard Ethernet fiber-optic cable. One end of the cable is connected to your router, the other to an AWS Direct Connect router. With this connection in place, you can create virtual interfaces directly to the AWS cloud (for example, to Amazon EC2 and Amazon S3) and to Amazon VPC, bypassing Internet service providers in your network path. A connection provides access to all AWS Regions except the China (Beijing) and (China) Ningxia Regions. AWS resources in the China Regions can only be accessed through locations associated with those Regions.
+-- AWS Direct Connect links your internal network to an AWS Direct Connect
+-- location over a standard Ethernet fiber-optic cable. One end of the
+-- cable is connected to your router, the other to an AWS Direct Connect
+-- router. With this connection in place, you can create virtual interfaces
+-- directly to the AWS cloud (for example, to Amazon EC2 and Amazon S3) and
+-- to Amazon VPC, bypassing Internet service providers in your network
+-- path. A connection provides access to all AWS Regions except the China
+-- (Beijing) and (China) Ningxia Regions. AWS resources in the China
+-- Regions can only be accessed through locations associated with those
+-- Regions.
 module Network.AWS.DirectConnect
   ( -- * Service Configuration
-    directConnect,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -38,160 +47,316 @@ module Network.AWS.DirectConnect
     -- $operations
 
     -- ** ConfirmPublicVirtualInterface
-    module Network.AWS.DirectConnect.ConfirmPublicVirtualInterface,
+    ConfirmPublicVirtualInterface (ConfirmPublicVirtualInterface'),
+    newConfirmPublicVirtualInterface,
+    ConfirmPublicVirtualInterfaceResponse (ConfirmPublicVirtualInterfaceResponse'),
+    newConfirmPublicVirtualInterfaceResponse,
 
-    -- ** StartBGPFailoverTest
-    module Network.AWS.DirectConnect.StartBGPFailoverTest,
+    -- ** StartBgpFailoverTest
+    StartBgpFailoverTest (StartBgpFailoverTest'),
+    newStartBgpFailoverTest,
+    StartBgpFailoverTestResponse (StartBgpFailoverTestResponse'),
+    newStartBgpFailoverTestResponse,
 
     -- ** DeleteConnection
-    module Network.AWS.DirectConnect.DeleteConnection,
+    DeleteConnection (DeleteConnection'),
+    newDeleteConnection,
+    Connection (Connection'),
+    newConnection,
 
     -- ** DeleteDirectConnectGatewayAssociationProposal
-    module Network.AWS.DirectConnect.DeleteDirectConnectGatewayAssociationProposal,
+    DeleteDirectConnectGatewayAssociationProposal (DeleteDirectConnectGatewayAssociationProposal'),
+    newDeleteDirectConnectGatewayAssociationProposal,
+    DeleteDirectConnectGatewayAssociationProposalResponse (DeleteDirectConnectGatewayAssociationProposalResponse'),
+    newDeleteDirectConnectGatewayAssociationProposalResponse,
 
-    -- ** StopBGPFailoverTest
-    module Network.AWS.DirectConnect.StopBGPFailoverTest,
+    -- ** StopBgpFailoverTest
+    StopBgpFailoverTest (StopBgpFailoverTest'),
+    newStopBgpFailoverTest,
+    StopBgpFailoverTestResponse (StopBgpFailoverTestResponse'),
+    newStopBgpFailoverTestResponse,
 
     -- ** DescribeVirtualGateways
-    module Network.AWS.DirectConnect.DescribeVirtualGateways,
+    DescribeVirtualGateways (DescribeVirtualGateways'),
+    newDescribeVirtualGateways,
+    DescribeVirtualGatewaysResponse (DescribeVirtualGatewaysResponse'),
+    newDescribeVirtualGatewaysResponse,
 
     -- ** AllocatePrivateVirtualInterface
-    module Network.AWS.DirectConnect.AllocatePrivateVirtualInterface,
+    AllocatePrivateVirtualInterface (AllocatePrivateVirtualInterface'),
+    newAllocatePrivateVirtualInterface,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** DescribeDirectConnectGatewayAssociations (Paginated)
-    module Network.AWS.DirectConnect.DescribeDirectConnectGatewayAssociations,
+    DescribeDirectConnectGatewayAssociations (DescribeDirectConnectGatewayAssociations'),
+    newDescribeDirectConnectGatewayAssociations,
+    DescribeDirectConnectGatewayAssociationsResponse (DescribeDirectConnectGatewayAssociationsResponse'),
+    newDescribeDirectConnectGatewayAssociationsResponse,
 
     -- ** ConfirmConnection
-    module Network.AWS.DirectConnect.ConfirmConnection,
+    ConfirmConnection (ConfirmConnection'),
+    newConfirmConnection,
+    ConfirmConnectionResponse (ConfirmConnectionResponse'),
+    newConfirmConnectionResponse,
 
     -- ** DescribeTags
-    module Network.AWS.DirectConnect.DescribeTags,
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
 
     -- ** DescribeDirectConnectGatewayAttachments (Paginated)
-    module Network.AWS.DirectConnect.DescribeDirectConnectGatewayAttachments,
+    DescribeDirectConnectGatewayAttachments (DescribeDirectConnectGatewayAttachments'),
+    newDescribeDirectConnectGatewayAttachments,
+    DescribeDirectConnectGatewayAttachmentsResponse (DescribeDirectConnectGatewayAttachmentsResponse'),
+    newDescribeDirectConnectGatewayAttachmentsResponse,
 
     -- ** DescribeHostedConnections
-    module Network.AWS.DirectConnect.DescribeHostedConnections,
+    DescribeHostedConnections (DescribeHostedConnections'),
+    newDescribeHostedConnections,
+    Connections (Connections'),
+    newConnections,
 
     -- ** CreatePublicVirtualInterface
-    module Network.AWS.DirectConnect.CreatePublicVirtualInterface,
+    CreatePublicVirtualInterface (CreatePublicVirtualInterface'),
+    newCreatePublicVirtualInterface,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** AcceptDirectConnectGatewayAssociationProposal
-    module Network.AWS.DirectConnect.AcceptDirectConnectGatewayAssociationProposal,
+    AcceptDirectConnectGatewayAssociationProposal (AcceptDirectConnectGatewayAssociationProposal'),
+    newAcceptDirectConnectGatewayAssociationProposal,
+    AcceptDirectConnectGatewayAssociationProposalResponse (AcceptDirectConnectGatewayAssociationProposalResponse'),
+    newAcceptDirectConnectGatewayAssociationProposalResponse,
 
     -- ** CreateDirectConnectGatewayAssociation
-    module Network.AWS.DirectConnect.CreateDirectConnectGatewayAssociation,
+    CreateDirectConnectGatewayAssociation (CreateDirectConnectGatewayAssociation'),
+    newCreateDirectConnectGatewayAssociation,
+    CreateDirectConnectGatewayAssociationResponse (CreateDirectConnectGatewayAssociationResponse'),
+    newCreateDirectConnectGatewayAssociationResponse,
 
     -- ** CreateInterconnect
-    module Network.AWS.DirectConnect.CreateInterconnect,
+    CreateInterconnect (CreateInterconnect'),
+    newCreateInterconnect,
+    Interconnect (Interconnect'),
+    newInterconnect,
 
     -- ** ConfirmPrivateVirtualInterface
-    module Network.AWS.DirectConnect.ConfirmPrivateVirtualInterface,
+    ConfirmPrivateVirtualInterface (ConfirmPrivateVirtualInterface'),
+    newConfirmPrivateVirtualInterface,
+    ConfirmPrivateVirtualInterfaceResponse (ConfirmPrivateVirtualInterfaceResponse'),
+    newConfirmPrivateVirtualInterfaceResponse,
 
     -- ** UpdateLag
-    module Network.AWS.DirectConnect.UpdateLag,
+    UpdateLag (UpdateLag'),
+    newUpdateLag,
+    Lag (Lag'),
+    newLag,
 
     -- ** DeleteInterconnect
-    module Network.AWS.DirectConnect.DeleteInterconnect,
+    DeleteInterconnect (DeleteInterconnect'),
+    newDeleteInterconnect,
+    DeleteInterconnectResponse (DeleteInterconnectResponse'),
+    newDeleteInterconnectResponse,
 
     -- ** DeleteLag
-    module Network.AWS.DirectConnect.DeleteLag,
+    DeleteLag (DeleteLag'),
+    newDeleteLag,
+    Lag (Lag'),
+    newLag,
 
     -- ** AssociateHostedConnection
-    module Network.AWS.DirectConnect.AssociateHostedConnection,
+    AssociateHostedConnection (AssociateHostedConnection'),
+    newAssociateHostedConnection,
+    Connection (Connection'),
+    newConnection,
 
     -- ** CreateBGPPeer
-    module Network.AWS.DirectConnect.CreateBGPPeer,
+    CreateBGPPeer (CreateBGPPeer'),
+    newCreateBGPPeer,
+    CreateBGPPeerResponse (CreateBGPPeerResponse'),
+    newCreateBGPPeerResponse,
 
     -- ** UntagResource
-    module Network.AWS.DirectConnect.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DisassociateConnectionFromLag
-    module Network.AWS.DirectConnect.DisassociateConnectionFromLag,
+    DisassociateConnectionFromLag (DisassociateConnectionFromLag'),
+    newDisassociateConnectionFromLag,
+    Connection (Connection'),
+    newConnection,
 
     -- ** TagResource
-    module Network.AWS.DirectConnect.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DeleteVirtualInterface
-    module Network.AWS.DirectConnect.DeleteVirtualInterface,
+    DeleteVirtualInterface (DeleteVirtualInterface'),
+    newDeleteVirtualInterface,
+    DeleteVirtualInterfaceResponse (DeleteVirtualInterfaceResponse'),
+    newDeleteVirtualInterfaceResponse,
 
     -- ** DescribeDirectConnectGateways (Paginated)
-    module Network.AWS.DirectConnect.DescribeDirectConnectGateways,
+    DescribeDirectConnectGateways (DescribeDirectConnectGateways'),
+    newDescribeDirectConnectGateways,
+    DescribeDirectConnectGatewaysResponse (DescribeDirectConnectGatewaysResponse'),
+    newDescribeDirectConnectGatewaysResponse,
 
     -- ** UpdateVirtualInterfaceAttributes
-    module Network.AWS.DirectConnect.UpdateVirtualInterfaceAttributes,
+    UpdateVirtualInterfaceAttributes (UpdateVirtualInterfaceAttributes'),
+    newUpdateVirtualInterfaceAttributes,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** AssociateConnectionWithLag
-    module Network.AWS.DirectConnect.AssociateConnectionWithLag,
+    AssociateConnectionWithLag (AssociateConnectionWithLag'),
+    newAssociateConnectionWithLag,
+    Connection (Connection'),
+    newConnection,
 
     -- ** CreateConnection
-    module Network.AWS.DirectConnect.CreateConnection,
+    CreateConnection (CreateConnection'),
+    newCreateConnection,
+    Connection (Connection'),
+    newConnection,
 
     -- ** DescribeVirtualInterfaces
-    module Network.AWS.DirectConnect.DescribeVirtualInterfaces,
+    DescribeVirtualInterfaces (DescribeVirtualInterfaces'),
+    newDescribeVirtualInterfaces,
+    DescribeVirtualInterfacesResponse (DescribeVirtualInterfacesResponse'),
+    newDescribeVirtualInterfacesResponse,
 
     -- ** ListVirtualInterfaceTestHistory
-    module Network.AWS.DirectConnect.ListVirtualInterfaceTestHistory,
+    ListVirtualInterfaceTestHistory (ListVirtualInterfaceTestHistory'),
+    newListVirtualInterfaceTestHistory,
+    ListVirtualInterfaceTestHistoryResponse (ListVirtualInterfaceTestHistoryResponse'),
+    newListVirtualInterfaceTestHistoryResponse,
 
     -- ** CreateTransitVirtualInterface
-    module Network.AWS.DirectConnect.CreateTransitVirtualInterface,
+    CreateTransitVirtualInterface (CreateTransitVirtualInterface'),
+    newCreateTransitVirtualInterface,
+    CreateTransitVirtualInterfaceResponse (CreateTransitVirtualInterfaceResponse'),
+    newCreateTransitVirtualInterfaceResponse,
 
     -- ** DescribeLoa
-    module Network.AWS.DirectConnect.DescribeLoa,
+    DescribeLoa (DescribeLoa'),
+    newDescribeLoa,
+    DescribeLoaResponse (DescribeLoaResponse'),
+    newDescribeLoaResponse,
 
     -- ** CreateDirectConnectGateway
-    module Network.AWS.DirectConnect.CreateDirectConnectGateway,
+    CreateDirectConnectGateway (CreateDirectConnectGateway'),
+    newCreateDirectConnectGateway,
+    CreateDirectConnectGatewayResponse (CreateDirectConnectGatewayResponse'),
+    newCreateDirectConnectGatewayResponse,
 
     -- ** DescribeInterconnects
-    module Network.AWS.DirectConnect.DescribeInterconnects,
+    DescribeInterconnects (DescribeInterconnects'),
+    newDescribeInterconnects,
+    DescribeInterconnectsResponse (DescribeInterconnectsResponse'),
+    newDescribeInterconnectsResponse,
 
     -- ** DescribeLags
-    module Network.AWS.DirectConnect.DescribeLags,
+    DescribeLags (DescribeLags'),
+    newDescribeLags,
+    DescribeLagsResponse (DescribeLagsResponse'),
+    newDescribeLagsResponse,
 
     -- ** ConfirmTransitVirtualInterface
-    module Network.AWS.DirectConnect.ConfirmTransitVirtualInterface,
+    ConfirmTransitVirtualInterface (ConfirmTransitVirtualInterface'),
+    newConfirmTransitVirtualInterface,
+    ConfirmTransitVirtualInterfaceResponse (ConfirmTransitVirtualInterfaceResponse'),
+    newConfirmTransitVirtualInterfaceResponse,
 
     -- ** CreateLag
-    module Network.AWS.DirectConnect.CreateLag,
+    CreateLag (CreateLag'),
+    newCreateLag,
+    Lag (Lag'),
+    newLag,
 
     -- ** DeleteBGPPeer
-    module Network.AWS.DirectConnect.DeleteBGPPeer,
+    DeleteBGPPeer (DeleteBGPPeer'),
+    newDeleteBGPPeer,
+    DeleteBGPPeerResponse (DeleteBGPPeerResponse'),
+    newDeleteBGPPeerResponse,
 
     -- ** AllocateTransitVirtualInterface
-    module Network.AWS.DirectConnect.AllocateTransitVirtualInterface,
+    AllocateTransitVirtualInterface (AllocateTransitVirtualInterface'),
+    newAllocateTransitVirtualInterface,
+    AllocateTransitVirtualInterfaceResponse (AllocateTransitVirtualInterfaceResponse'),
+    newAllocateTransitVirtualInterfaceResponse,
 
     -- ** DescribeLocations
-    module Network.AWS.DirectConnect.DescribeLocations,
+    DescribeLocations (DescribeLocations'),
+    newDescribeLocations,
+    DescribeLocationsResponse (DescribeLocationsResponse'),
+    newDescribeLocationsResponse,
 
     -- ** DeleteDirectConnectGatewayAssociation
-    module Network.AWS.DirectConnect.DeleteDirectConnectGatewayAssociation,
+    DeleteDirectConnectGatewayAssociation (DeleteDirectConnectGatewayAssociation'),
+    newDeleteDirectConnectGatewayAssociation,
+    DeleteDirectConnectGatewayAssociationResponse (DeleteDirectConnectGatewayAssociationResponse'),
+    newDeleteDirectConnectGatewayAssociationResponse,
 
     -- ** UpdateDirectConnectGatewayAssociation
-    module Network.AWS.DirectConnect.UpdateDirectConnectGatewayAssociation,
+    UpdateDirectConnectGatewayAssociation (UpdateDirectConnectGatewayAssociation'),
+    newUpdateDirectConnectGatewayAssociation,
+    UpdateDirectConnectGatewayAssociationResponse (UpdateDirectConnectGatewayAssociationResponse'),
+    newUpdateDirectConnectGatewayAssociationResponse,
 
     -- ** AllocatePublicVirtualInterface
-    module Network.AWS.DirectConnect.AllocatePublicVirtualInterface,
+    AllocatePublicVirtualInterface (AllocatePublicVirtualInterface'),
+    newAllocatePublicVirtualInterface,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** DescribeConnections
-    module Network.AWS.DirectConnect.DescribeConnections,
+    DescribeConnections (DescribeConnections'),
+    newDescribeConnections,
+    Connections (Connections'),
+    newConnections,
 
     -- ** AssociateVirtualInterface
-    module Network.AWS.DirectConnect.AssociateVirtualInterface,
+    AssociateVirtualInterface (AssociateVirtualInterface'),
+    newAssociateVirtualInterface,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** DescribeDirectConnectGatewayAssociationProposals
-    module Network.AWS.DirectConnect.DescribeDirectConnectGatewayAssociationProposals,
+    DescribeDirectConnectGatewayAssociationProposals (DescribeDirectConnectGatewayAssociationProposals'),
+    newDescribeDirectConnectGatewayAssociationProposals,
+    DescribeDirectConnectGatewayAssociationProposalsResponse (DescribeDirectConnectGatewayAssociationProposalsResponse'),
+    newDescribeDirectConnectGatewayAssociationProposalsResponse,
 
     -- ** CreatePrivateVirtualInterface
-    module Network.AWS.DirectConnect.CreatePrivateVirtualInterface,
+    CreatePrivateVirtualInterface (CreatePrivateVirtualInterface'),
+    newCreatePrivateVirtualInterface,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** AllocateHostedConnection
-    module Network.AWS.DirectConnect.AllocateHostedConnection,
+    AllocateHostedConnection (AllocateHostedConnection'),
+    newAllocateHostedConnection,
+    Connection (Connection'),
+    newConnection,
 
     -- ** CreateDirectConnectGatewayAssociationProposal
-    module Network.AWS.DirectConnect.CreateDirectConnectGatewayAssociationProposal,
+    CreateDirectConnectGatewayAssociationProposal (CreateDirectConnectGatewayAssociationProposal'),
+    newCreateDirectConnectGatewayAssociationProposal,
+    CreateDirectConnectGatewayAssociationProposalResponse (CreateDirectConnectGatewayAssociationProposalResponse'),
+    newCreateDirectConnectGatewayAssociationProposalResponse,
 
     -- ** DeleteDirectConnectGateway
-    module Network.AWS.DirectConnect.DeleteDirectConnectGateway,
+    DeleteDirectConnectGateway (DeleteDirectConnectGateway'),
+    newDeleteDirectConnectGateway,
+    DeleteDirectConnectGatewayResponse (DeleteDirectConnectGatewayResponse'),
+    newDeleteDirectConnectGatewayResponse,
 
     -- * Types
 
@@ -241,298 +406,100 @@ module Network.AWS.DirectConnect
     VirtualInterfaceState (..),
 
     -- ** AssociatedGateway
-    AssociatedGateway,
-    associatedGateway,
-    agId,
-    agType,
-    agOwnerAccount,
-    agRegion,
+    AssociatedGateway (AssociatedGateway'),
+    newAssociatedGateway,
 
     -- ** BGPPeer
-    BGPPeer,
-    bgpPeer,
-    bpAuthKey,
-    bpAsn,
-    bpAwsDeviceV2,
-    bpBgpPeerId,
-    bpBgpStatus,
-    bpBgpPeerState,
-    bpAddressFamily,
-    bpAmazonAddress,
-    bpCustomerAddress,
+    BGPPeer (BGPPeer'),
+    newBGPPeer,
 
     -- ** Connection
-    Connection,
-    connection,
-    cBandwidth,
-    cConnectionState,
-    cAwsDeviceV2,
-    cConnectionName,
-    cProviderName,
-    cConnectionId,
-    cHasLogicalRedundancy,
-    cAwsDevice,
-    cJumboFrameCapable,
-    cLagId,
-    cPartnerName,
-    cTags,
-    cLoaIssueTime,
-    cOwnerAccount,
-    cRegion,
-    cLocation,
-    cVlan,
+    Connection (Connection'),
+    newConnection,
 
     -- ** Connections
-    Connections,
-    connections,
-    cConnections,
+    Connections (Connections'),
+    newConnections,
 
     -- ** DirectConnectGateway
-    DirectConnectGateway,
-    directConnectGateway,
-    dcgDirectConnectGatewayState,
-    dcgStateChangeError,
-    dcgDirectConnectGatewayName,
-    dcgAmazonSideASN,
-    dcgDirectConnectGatewayId,
-    dcgOwnerAccount,
+    DirectConnectGateway (DirectConnectGateway'),
+    newDirectConnectGateway,
 
     -- ** DirectConnectGatewayAssociation
-    DirectConnectGatewayAssociation,
-    directConnectGatewayAssociation,
-    dcgaVirtualGatewayId,
-    dcgaVirtualGatewayOwnerAccount,
-    dcgaStateChangeError,
-    dcgaVirtualGatewayRegion,
-    dcgaAssociationState,
-    dcgaAssociatedGateway,
-    dcgaAssociationId,
-    dcgaDirectConnectGatewayId,
-    dcgaAllowedPrefixesToDirectConnectGateway,
-    dcgaDirectConnectGatewayOwnerAccount,
+    DirectConnectGatewayAssociation (DirectConnectGatewayAssociation'),
+    newDirectConnectGatewayAssociation,
 
     -- ** DirectConnectGatewayAssociationProposal
-    DirectConnectGatewayAssociationProposal,
-    directConnectGatewayAssociationProposal,
-    dcgapProposalId,
-    dcgapRequestedAllowedPrefixesToDirectConnectGateway,
-    dcgapProposalState,
-    dcgapAssociatedGateway,
-    dcgapExistingAllowedPrefixesToDirectConnectGateway,
-    dcgapDirectConnectGatewayId,
-    dcgapDirectConnectGatewayOwnerAccount,
+    DirectConnectGatewayAssociationProposal (DirectConnectGatewayAssociationProposal'),
+    newDirectConnectGatewayAssociationProposal,
 
     -- ** DirectConnectGatewayAttachment
-    DirectConnectGatewayAttachment,
-    directConnectGatewayAttachment,
-    dStateChangeError,
-    dAttachmentState,
-    dVirtualInterfaceOwnerAccount,
-    dVirtualInterfaceRegion,
-    dAttachmentType,
-    dVirtualInterfaceId,
-    dDirectConnectGatewayId,
+    DirectConnectGatewayAttachment (DirectConnectGatewayAttachment'),
+    newDirectConnectGatewayAttachment,
 
     -- ** Interconnect
-    Interconnect,
-    interconnect,
-    iBandwidth,
-    iInterconnectId,
-    iAwsDeviceV2,
-    iProviderName,
-    iHasLogicalRedundancy,
-    iAwsDevice,
-    iJumboFrameCapable,
-    iLagId,
-    iTags,
-    iLoaIssueTime,
-    iRegion,
-    iInterconnectState,
-    iLocation,
-    iInterconnectName,
+    Interconnect (Interconnect'),
+    newInterconnect,
 
     -- ** Lag
-    Lag,
-    lag,
-    lagNumberOfConnections,
-    lagAwsDeviceV2,
-    lagAllowsHostedConnections,
-    lagProviderName,
-    lagHasLogicalRedundancy,
-    lagConnections,
-    lagAwsDevice,
-    lagLagName,
-    lagLagState,
-    lagJumboFrameCapable,
-    lagConnectionsBandwidth,
-    lagLagId,
-    lagTags,
-    lagOwnerAccount,
-    lagRegion,
-    lagLocation,
-    lagMinimumLinks,
+    Lag (Lag'),
+    newLag,
 
     -- ** Location
-    Location,
-    location,
-    lAvailablePortSpeeds,
-    lAvailableProviders,
-    lLocationCode,
-    lRegion,
-    lLocationName,
+    Location (Location'),
+    newLocation,
 
     -- ** NewBGPPeer
-    NewBGPPeer,
-    newBGPPeer,
-    nbpAuthKey,
-    nbpAsn,
-    nbpAddressFamily,
-    nbpAmazonAddress,
-    nbpCustomerAddress,
+    NewBGPPeer (NewBGPPeer'),
+    newNewBGPPeer,
 
     -- ** NewPrivateVirtualInterface
-    NewPrivateVirtualInterface,
-    newPrivateVirtualInterface,
-    newAuthKey,
-    newVirtualGatewayId,
-    newMtu,
-    newTags,
-    newDirectConnectGatewayId,
-    newAddressFamily,
-    newAmazonAddress,
-    newCustomerAddress,
-    newVirtualInterfaceName,
-    newVlan,
-    newAsn,
+    NewPrivateVirtualInterface (NewPrivateVirtualInterface'),
+    newNewPrivateVirtualInterface,
 
     -- ** NewPrivateVirtualInterfaceAllocation
-    NewPrivateVirtualInterfaceAllocation,
-    newPrivateVirtualInterfaceAllocation,
-    npviaAuthKey,
-    npviaMtu,
-    npviaTags,
-    npviaAddressFamily,
-    npviaAmazonAddress,
-    npviaCustomerAddress,
-    npviaVirtualInterfaceName,
-    npviaVlan,
-    npviaAsn,
+    NewPrivateVirtualInterfaceAllocation (NewPrivateVirtualInterfaceAllocation'),
+    newNewPrivateVirtualInterfaceAllocation,
 
     -- ** NewPublicVirtualInterface
-    NewPublicVirtualInterface,
-    newPublicVirtualInterface,
-    npviAuthKey,
-    npviRouteFilterPrefixes,
-    npviTags,
-    npviAddressFamily,
-    npviAmazonAddress,
-    npviCustomerAddress,
-    npviVirtualInterfaceName,
-    npviVlan,
-    npviAsn,
+    NewPublicVirtualInterface (NewPublicVirtualInterface'),
+    newNewPublicVirtualInterface,
 
     -- ** NewPublicVirtualInterfaceAllocation
-    NewPublicVirtualInterfaceAllocation,
-    newPublicVirtualInterfaceAllocation,
-    nAuthKey,
-    nRouteFilterPrefixes,
-    nTags,
-    nAddressFamily,
-    nAmazonAddress,
-    nCustomerAddress,
-    nVirtualInterfaceName,
-    nVlan,
-    nAsn,
+    NewPublicVirtualInterfaceAllocation (NewPublicVirtualInterfaceAllocation'),
+    newNewPublicVirtualInterfaceAllocation,
 
     -- ** NewTransitVirtualInterface
-    NewTransitVirtualInterface,
-    newTransitVirtualInterface,
-    ntviAuthKey,
-    ntviAsn,
-    ntviMtu,
-    ntviTags,
-    ntviDirectConnectGatewayId,
-    ntviVirtualInterfaceName,
-    ntviAddressFamily,
-    ntviAmazonAddress,
-    ntviVlan,
-    ntviCustomerAddress,
+    NewTransitVirtualInterface (NewTransitVirtualInterface'),
+    newNewTransitVirtualInterface,
 
     -- ** NewTransitVirtualInterfaceAllocation
-    NewTransitVirtualInterfaceAllocation,
-    newTransitVirtualInterfaceAllocation,
-    ntviaAuthKey,
-    ntviaAsn,
-    ntviaMtu,
-    ntviaTags,
-    ntviaVirtualInterfaceName,
-    ntviaAddressFamily,
-    ntviaAmazonAddress,
-    ntviaVlan,
-    ntviaCustomerAddress,
+    NewTransitVirtualInterfaceAllocation (NewTransitVirtualInterfaceAllocation'),
+    newNewTransitVirtualInterfaceAllocation,
 
     -- ** ResourceTag
-    ResourceTag,
-    resourceTag,
-    rtResourceARN,
-    rtTags,
+    ResourceTag (ResourceTag'),
+    newResourceTag,
 
     -- ** RouteFilterPrefix
-    RouteFilterPrefix,
-    routeFilterPrefix,
-    rfpCidr,
+    RouteFilterPrefix (RouteFilterPrefix'),
+    newRouteFilterPrefix,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** VirtualGateway
-    VirtualGateway,
-    virtualGateway,
-    vgVirtualGatewayId,
-    vgVirtualGatewayState,
+    VirtualGateway (VirtualGateway'),
+    newVirtualGateway,
 
     -- ** VirtualInterface
-    VirtualInterface,
-    virtualInterface,
-    viAuthKey,
-    viBgpPeers,
-    viVirtualGatewayId,
-    viAsn,
-    viAwsDeviceV2,
-    viConnectionId,
-    viCustomerRouterConfig,
-    viJumboFrameCapable,
-    viRouteFilterPrefixes,
-    viVirtualInterfaceType,
-    viMtu,
-    viTags,
-    viVirtualInterfaceId,
-    viAmazonSideASN,
-    viDirectConnectGatewayId,
-    viVirtualInterfaceState,
-    viVirtualInterfaceName,
-    viAddressFamily,
-    viAmazonAddress,
-    viOwnerAccount,
-    viRegion,
-    viLocation,
-    viVlan,
-    viCustomerAddress,
+    VirtualInterface (VirtualInterface'),
+    newVirtualInterface,
 
     -- ** VirtualInterfaceTestHistory
-    VirtualInterfaceTestHistory,
-    virtualInterfaceTestHistory,
-    vithBgpPeers,
-    vithStatus,
-    vithTestId,
-    vithStartTime,
-    vithEndTime,
-    vithVirtualInterfaceId,
-    vithOwnerAccount,
-    vithTestDurationInMinutes,
+    VirtualInterfaceTestHistory (VirtualInterfaceTestHistory'),
+    newVirtualInterfaceTestHistory,
   )
 where
 
@@ -580,9 +547,10 @@ import Network.AWS.DirectConnect.DescribeTags
 import Network.AWS.DirectConnect.DescribeVirtualGateways
 import Network.AWS.DirectConnect.DescribeVirtualInterfaces
 import Network.AWS.DirectConnect.DisassociateConnectionFromLag
+import Network.AWS.DirectConnect.Lens
 import Network.AWS.DirectConnect.ListVirtualInterfaceTestHistory
-import Network.AWS.DirectConnect.StartBGPFailoverTest
-import Network.AWS.DirectConnect.StopBGPFailoverTest
+import Network.AWS.DirectConnect.StartBgpFailoverTest
+import Network.AWS.DirectConnect.StopBgpFailoverTest
 import Network.AWS.DirectConnect.TagResource
 import Network.AWS.DirectConnect.Types
 import Network.AWS.DirectConnect.UntagResource

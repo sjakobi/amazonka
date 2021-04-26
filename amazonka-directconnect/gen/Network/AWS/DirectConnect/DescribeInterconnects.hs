@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the interconnects owned by the AWS account or only the specified interconnect.
+-- Lists the interconnects owned by the AWS account or only the specified
+-- interconnect.
 module Network.AWS.DirectConnect.DescribeInterconnects
   ( -- * Creating a Request
-    describeInterconnects,
-    DescribeInterconnects,
+    DescribeInterconnects (..),
+    newDescribeInterconnects,
 
     -- * Request Lenses
-    dInterconnectId,
+    describeInterconnects_interconnectId,
 
     -- * Destructuring the Response
-    describeInterconnectsResponse,
-    DescribeInterconnectsResponse,
+    DescribeInterconnectsResponse (..),
+    newDescribeInterconnectsResponse,
 
     -- * Response Lenses
-    desrsInterconnects,
-    desrsResponseStatus,
+    describeInterconnectsResponse_interconnects,
+    describeInterconnectsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.Interconnect
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeInterconnects' smart constructor.
-newtype DescribeInterconnects = DescribeInterconnects'
-  { _dInterconnectId ::
-      Maybe Text
+-- | /See:/ 'newDescribeInterconnects' smart constructor.
+data DescribeInterconnects = DescribeInterconnects'
+  { -- | The ID of the interconnect.
+    interconnectId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInterconnects' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInterconnects' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dInterconnectId' - The ID of the interconnect.
-describeInterconnects ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'interconnectId', 'describeInterconnects_interconnectId' - The ID of the interconnect.
+newDescribeInterconnects ::
   DescribeInterconnects
-describeInterconnects =
-  DescribeInterconnects' {_dInterconnectId = Nothing}
+newDescribeInterconnects =
+  DescribeInterconnects'
+    { interconnectId =
+        Prelude.Nothing
+    }
 
 -- | The ID of the interconnect.
-dInterconnectId :: Lens' DescribeInterconnects (Maybe Text)
-dInterconnectId = lens _dInterconnectId (\s a -> s {_dInterconnectId = a})
+describeInterconnects_interconnectId :: Lens.Lens' DescribeInterconnects (Prelude.Maybe Prelude.Text)
+describeInterconnects_interconnectId = Lens.lens (\DescribeInterconnects' {interconnectId} -> interconnectId) (\s@DescribeInterconnects' {} a -> s {interconnectId = a} :: DescribeInterconnects)
 
-instance AWSRequest DescribeInterconnects where
+instance Prelude.AWSRequest DescribeInterconnects where
   type
     Rs DescribeInterconnects =
       DescribeInterconnectsResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeInterconnectsResponse'
-            <$> (x .?> "interconnects" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "interconnects"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInterconnects
+instance Prelude.Hashable DescribeInterconnects
 
-instance NFData DescribeInterconnects
+instance Prelude.NFData DescribeInterconnects
 
-instance ToHeaders DescribeInterconnects where
+instance Prelude.ToHeaders DescribeInterconnects where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.DescribeInterconnects" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.DescribeInterconnects" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeInterconnects where
+instance Prelude.ToJSON DescribeInterconnects where
   toJSON DescribeInterconnects' {..} =
-    object
-      ( catMaybes
-          [("interconnectId" .=) <$> _dInterconnectId]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("interconnectId" Prelude..=)
+              Prelude.<$> interconnectId
+          ]
       )
 
-instance ToPath DescribeInterconnects where
-  toPath = const "/"
+instance Prelude.ToPath DescribeInterconnects where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeInterconnects where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeInterconnects where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeInterconnectsResponse' smart constructor.
+-- | /See:/ 'newDescribeInterconnectsResponse' smart constructor.
 data DescribeInterconnectsResponse = DescribeInterconnectsResponse'
-  { _desrsInterconnects ::
-      !( Maybe
-           [Interconnect]
-       ),
-    _desrsResponseStatus ::
-      !Int
+  { -- | The interconnects.
+    interconnects :: Prelude.Maybe [Interconnect],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInterconnectsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInterconnectsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsInterconnects' - The interconnects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeInterconnectsResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'interconnects', 'describeInterconnectsResponse_interconnects' - The interconnects.
+--
+-- 'httpStatus', 'describeInterconnectsResponse_httpStatus' - The response's http status code.
+newDescribeInterconnectsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInterconnectsResponse
-describeInterconnectsResponse pResponseStatus_ =
+newDescribeInterconnectsResponse pHttpStatus_ =
   DescribeInterconnectsResponse'
-    { _desrsInterconnects =
-        Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { interconnects =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The interconnects.
-desrsInterconnects :: Lens' DescribeInterconnectsResponse [Interconnect]
-desrsInterconnects = lens _desrsInterconnects (\s a -> s {_desrsInterconnects = a}) . _Default . _Coerce
+describeInterconnectsResponse_interconnects :: Lens.Lens' DescribeInterconnectsResponse (Prelude.Maybe [Interconnect])
+describeInterconnectsResponse_interconnects = Lens.lens (\DescribeInterconnectsResponse' {interconnects} -> interconnects) (\s@DescribeInterconnectsResponse' {} a -> s {interconnects = a} :: DescribeInterconnectsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeInterconnectsResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeInterconnectsResponse_httpStatus :: Lens.Lens' DescribeInterconnectsResponse Prelude.Int
+describeInterconnectsResponse_httpStatus = Lens.lens (\DescribeInterconnectsResponse' {httpStatus} -> httpStatus) (\s@DescribeInterconnectsResponse' {} a -> s {httpStatus = a} :: DescribeInterconnectsResponse)
 
-instance NFData DescribeInterconnectsResponse
+instance Prelude.NFData DescribeInterconnectsResponse

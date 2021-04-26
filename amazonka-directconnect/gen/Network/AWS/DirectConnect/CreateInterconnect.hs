@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an interconnect between an AWS Direct Connect Partner's network and a specific AWS Direct Connect location.
+-- Creates an interconnect between an AWS Direct Connect Partner\'s network
+-- and a specific AWS Direct Connect location.
 --
+-- An interconnect is a connection that is capable of hosting other
+-- connections. The AWS Direct Connect partner can use an interconnect to
+-- provide AWS Direct Connect hosted connections to customers through their
+-- own network services. Like a standard connection, an interconnect links
+-- the partner\'s network to an AWS Direct Connect location over a standard
+-- Ethernet fiber-optic cable. One end is connected to the partner\'s
+-- router, the other to an AWS Direct Connect router.
 --
--- An interconnect is a connection that is capable of hosting other connections. The AWS Direct Connect partner can use an interconnect to provide AWS Direct Connect hosted connections to customers through their own network services. Like a standard connection, an interconnect links the partner's network to an AWS Direct Connect location over a standard Ethernet fiber-optic cable. One end is connected to the partner's router, the other to an AWS Direct Connect router.
+-- You can automatically add the new interconnect to a link aggregation
+-- group (LAG) by specifying a LAG ID in the request. This ensures that the
+-- new interconnect is allocated on the same AWS Direct Connect endpoint
+-- that hosts the specified LAG. If there are no available ports on the
+-- endpoint, the request fails and no interconnect is created.
 --
--- You can automatically add the new interconnect to a link aggregation group (LAG) by specifying a LAG ID in the request. This ensures that the new interconnect is allocated on the same AWS Direct Connect endpoint that hosts the specified LAG. If there are no available ports on the endpoint, the request fails and no interconnect is created.
+-- For each end customer, the AWS Direct Connect Partner provisions a
+-- connection on their interconnect by calling AllocateHostedConnection.
+-- The end customer can then connect to AWS resources by creating a virtual
+-- interface on their connection, using the VLAN assigned to them by the
+-- AWS Direct Connect Partner.
 --
--- For each end customer, the AWS Direct Connect Partner provisions a connection on their interconnect by calling 'AllocateHostedConnection' . The end customer can then connect to AWS resources by creating a virtual interface on their connection, using the VLAN assigned to them by the AWS Direct Connect Partner.
+-- Intended for use by AWS Direct Connect Partners only.
 module Network.AWS.DirectConnect.CreateInterconnect
   ( -- * Creating a Request
-    createInterconnect,
-    CreateInterconnect,
+    CreateInterconnect (..),
+    newCreateInterconnect,
 
     -- * Request Lenses
-    ciProviderName,
-    ciLagId,
-    ciTags,
-    ciInterconnectName,
-    ciBandwidth,
-    ciLocation,
+    createInterconnect_providerName,
+    createInterconnect_lagId,
+    createInterconnect_tags,
+    createInterconnect_interconnectName,
+    createInterconnect_bandwidth,
+    createInterconnect_location,
 
     -- * Destructuring the Response
-    interconnect,
-    Interconnect,
+    Interconnect (..),
+    newInterconnect,
 
     -- * Response Lenses
-    iBandwidth,
-    iInterconnectId,
-    iAwsDeviceV2,
-    iProviderName,
-    iHasLogicalRedundancy,
-    iAwsDevice,
-    iJumboFrameCapable,
-    iLagId,
-    iTags,
-    iLoaIssueTime,
-    iRegion,
-    iInterconnectState,
-    iLocation,
-    iInterconnectName,
+    interconnect_bandwidth,
+    interconnect_interconnectId,
+    interconnect_awsDeviceV2,
+    interconnect_providerName,
+    interconnect_hasLogicalRedundancy,
+    interconnect_awsDevice,
+    interconnect_jumboFrameCapable,
+    interconnect_lagId,
+    interconnect_tags,
+    interconnect_loaIssueTime,
+    interconnect_region,
+    interconnect_interconnectState,
+    interconnect_location,
+    interconnect_interconnectName,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.HasLogicalRedundancy
+import Network.AWS.DirectConnect.Types.Interconnect
+import Network.AWS.DirectConnect.Types.InterconnectState
+import Network.AWS.DirectConnect.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createInterconnect' smart constructor.
+-- | /See:/ 'newCreateInterconnect' smart constructor.
 data CreateInterconnect = CreateInterconnect'
-  { _ciProviderName ::
-      !(Maybe Text),
-    _ciLagId :: !(Maybe Text),
-    _ciTags :: !(Maybe (List1 Tag)),
-    _ciInterconnectName :: !Text,
-    _ciBandwidth :: !Text,
-    _ciLocation :: !Text
+  { -- | The name of the service provider associated with the interconnect.
+    providerName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the LAG.
+    lagId :: Prelude.Maybe Prelude.Text,
+    -- | The tags to associate with the interconnect.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | The name of the interconnect.
+    interconnectName :: Prelude.Text,
+    -- | The port bandwidth, in Gbps. The possible values are 1 and 10.
+    bandwidth :: Prelude.Text,
+    -- | The location of the interconnect.
+    location :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInterconnect' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInterconnect' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciProviderName' - The name of the service provider associated with the interconnect.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciLagId' - The ID of the LAG.
+-- 'providerName', 'createInterconnect_providerName' - The name of the service provider associated with the interconnect.
 --
--- * 'ciTags' - The tags to associate with the interconnect.
+-- 'lagId', 'createInterconnect_lagId' - The ID of the LAG.
 --
--- * 'ciInterconnectName' - The name of the interconnect.
+-- 'tags', 'createInterconnect_tags' - The tags to associate with the interconnect.
 --
--- * 'ciBandwidth' - The port bandwidth, in Gbps. The possible values are 1 and 10.
+-- 'interconnectName', 'createInterconnect_interconnectName' - The name of the interconnect.
 --
--- * 'ciLocation' - The location of the interconnect.
-createInterconnect ::
-  -- | 'ciInterconnectName'
-  Text ->
-  -- | 'ciBandwidth'
-  Text ->
-  -- | 'ciLocation'
-  Text ->
+-- 'bandwidth', 'createInterconnect_bandwidth' - The port bandwidth, in Gbps. The possible values are 1 and 10.
+--
+-- 'location', 'createInterconnect_location' - The location of the interconnect.
+newCreateInterconnect ::
+  -- | 'interconnectName'
+  Prelude.Text ->
+  -- | 'bandwidth'
+  Prelude.Text ->
+  -- | 'location'
+  Prelude.Text ->
   CreateInterconnect
-createInterconnect
+newCreateInterconnect
   pInterconnectName_
   pBandwidth_
   pLocation_ =
     CreateInterconnect'
-      { _ciProviderName = Nothing,
-        _ciLagId = Nothing,
-        _ciTags = Nothing,
-        _ciInterconnectName = pInterconnectName_,
-        _ciBandwidth = pBandwidth_,
-        _ciLocation = pLocation_
+      { providerName = Prelude.Nothing,
+        lagId = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        interconnectName = pInterconnectName_,
+        bandwidth = pBandwidth_,
+        location = pLocation_
       }
 
 -- | The name of the service provider associated with the interconnect.
-ciProviderName :: Lens' CreateInterconnect (Maybe Text)
-ciProviderName = lens _ciProviderName (\s a -> s {_ciProviderName = a})
+createInterconnect_providerName :: Lens.Lens' CreateInterconnect (Prelude.Maybe Prelude.Text)
+createInterconnect_providerName = Lens.lens (\CreateInterconnect' {providerName} -> providerName) (\s@CreateInterconnect' {} a -> s {providerName = a} :: CreateInterconnect)
 
 -- | The ID of the LAG.
-ciLagId :: Lens' CreateInterconnect (Maybe Text)
-ciLagId = lens _ciLagId (\s a -> s {_ciLagId = a})
+createInterconnect_lagId :: Lens.Lens' CreateInterconnect (Prelude.Maybe Prelude.Text)
+createInterconnect_lagId = Lens.lens (\CreateInterconnect' {lagId} -> lagId) (\s@CreateInterconnect' {} a -> s {lagId = a} :: CreateInterconnect)
 
 -- | The tags to associate with the interconnect.
-ciTags :: Lens' CreateInterconnect (Maybe (NonEmpty Tag))
-ciTags = lens _ciTags (\s a -> s {_ciTags = a}) . mapping _List1
+createInterconnect_tags :: Lens.Lens' CreateInterconnect (Prelude.Maybe (Prelude.NonEmpty Tag))
+createInterconnect_tags = Lens.lens (\CreateInterconnect' {tags} -> tags) (\s@CreateInterconnect' {} a -> s {tags = a} :: CreateInterconnect) Prelude.. Lens.mapping Prelude._List1
 
 -- | The name of the interconnect.
-ciInterconnectName :: Lens' CreateInterconnect Text
-ciInterconnectName = lens _ciInterconnectName (\s a -> s {_ciInterconnectName = a})
+createInterconnect_interconnectName :: Lens.Lens' CreateInterconnect Prelude.Text
+createInterconnect_interconnectName = Lens.lens (\CreateInterconnect' {interconnectName} -> interconnectName) (\s@CreateInterconnect' {} a -> s {interconnectName = a} :: CreateInterconnect)
 
 -- | The port bandwidth, in Gbps. The possible values are 1 and 10.
-ciBandwidth :: Lens' CreateInterconnect Text
-ciBandwidth = lens _ciBandwidth (\s a -> s {_ciBandwidth = a})
+createInterconnect_bandwidth :: Lens.Lens' CreateInterconnect Prelude.Text
+createInterconnect_bandwidth = Lens.lens (\CreateInterconnect' {bandwidth} -> bandwidth) (\s@CreateInterconnect' {} a -> s {bandwidth = a} :: CreateInterconnect)
 
 -- | The location of the interconnect.
-ciLocation :: Lens' CreateInterconnect Text
-ciLocation = lens _ciLocation (\s a -> s {_ciLocation = a})
+createInterconnect_location :: Lens.Lens' CreateInterconnect Prelude.Text
+createInterconnect_location = Lens.lens (\CreateInterconnect' {location} -> location) (\s@CreateInterconnect' {} a -> s {location = a} :: CreateInterconnect)
 
-instance AWSRequest CreateInterconnect where
+instance Prelude.AWSRequest CreateInterconnect where
   type Rs CreateInterconnect = Interconnect
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable CreateInterconnect
+instance Prelude.Hashable CreateInterconnect
 
-instance NFData CreateInterconnect
+instance Prelude.NFData CreateInterconnect
 
-instance ToHeaders CreateInterconnect where
+instance Prelude.ToHeaders CreateInterconnect where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OvertureService.CreateInterconnect" :: ByteString),
+              Prelude.=# ( "OvertureService.CreateInterconnect" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateInterconnect where
+instance Prelude.ToJSON CreateInterconnect where
   toJSON CreateInterconnect' {..} =
-    object
-      ( catMaybes
-          [ ("providerName" .=) <$> _ciProviderName,
-            ("lagId" .=) <$> _ciLagId,
-            ("tags" .=) <$> _ciTags,
-            Just ("interconnectName" .= _ciInterconnectName),
-            Just ("bandwidth" .= _ciBandwidth),
-            Just ("location" .= _ciLocation)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("providerName" Prelude..=)
+              Prelude.<$> providerName,
+            ("lagId" Prelude..=) Prelude.<$> lagId,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("interconnectName" Prelude..= interconnectName),
+            Prelude.Just ("bandwidth" Prelude..= bandwidth),
+            Prelude.Just ("location" Prelude..= location)
           ]
       )
 
-instance ToPath CreateInterconnect where
-  toPath = const "/"
+instance Prelude.ToPath CreateInterconnect where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateInterconnect where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateInterconnect where
+  toQuery = Prelude.const Prelude.mempty

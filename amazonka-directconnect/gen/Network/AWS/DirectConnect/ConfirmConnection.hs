@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,224 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Confirms the creation of the specified hosted connection on an interconnect.
+-- Confirms the creation of the specified hosted connection on an
+-- interconnect.
 --
---
--- Upon creation, the hosted connection is initially in the @Ordering@ state, and remains in this state until the owner confirms creation of the hosted connection.
+-- Upon creation, the hosted connection is initially in the @Ordering@
+-- state, and remains in this state until the owner confirms creation of
+-- the hosted connection.
 module Network.AWS.DirectConnect.ConfirmConnection
   ( -- * Creating a Request
-    confirmConnection,
-    ConfirmConnection,
+    ConfirmConnection (..),
+    newConfirmConnection,
 
     -- * Request Lenses
-    ccConnectionId,
+    confirmConnection_connectionId,
 
     -- * Destructuring the Response
-    confirmConnectionResponse,
-    ConfirmConnectionResponse,
+    ConfirmConnectionResponse (..),
+    newConfirmConnectionResponse,
 
     -- * Response Lenses
-    ccrrsConnectionState,
-    ccrrsResponseStatus,
+    confirmConnectionResponse_connectionState,
+    confirmConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.ConnectionState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'confirmConnection' smart constructor.
-newtype ConfirmConnection = ConfirmConnection'
-  { _ccConnectionId ::
-      Text
+-- | /See:/ 'newConfirmConnection' smart constructor.
+data ConfirmConnection = ConfirmConnection'
+  { -- | The ID of the hosted connection.
+    connectionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfirmConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfirmConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccConnectionId' - The ID of the hosted connection.
-confirmConnection ::
-  -- | 'ccConnectionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'connectionId', 'confirmConnection_connectionId' - The ID of the hosted connection.
+newConfirmConnection ::
+  -- | 'connectionId'
+  Prelude.Text ->
   ConfirmConnection
-confirmConnection pConnectionId_ =
-  ConfirmConnection'
-    { _ccConnectionId =
-        pConnectionId_
-    }
+newConfirmConnection pConnectionId_ =
+  ConfirmConnection' {connectionId = pConnectionId_}
 
 -- | The ID of the hosted connection.
-ccConnectionId :: Lens' ConfirmConnection Text
-ccConnectionId = lens _ccConnectionId (\s a -> s {_ccConnectionId = a})
+confirmConnection_connectionId :: Lens.Lens' ConfirmConnection Prelude.Text
+confirmConnection_connectionId = Lens.lens (\ConfirmConnection' {connectionId} -> connectionId) (\s@ConfirmConnection' {} a -> s {connectionId = a} :: ConfirmConnection)
 
-instance AWSRequest ConfirmConnection where
+instance Prelude.AWSRequest ConfirmConnection where
   type Rs ConfirmConnection = ConfirmConnectionResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ConfirmConnectionResponse'
-            <$> (x .?> "connectionState") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "connectionState")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ConfirmConnection
+instance Prelude.Hashable ConfirmConnection
 
-instance NFData ConfirmConnection
+instance Prelude.NFData ConfirmConnection
 
-instance ToHeaders ConfirmConnection where
+instance Prelude.ToHeaders ConfirmConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OvertureService.ConfirmConnection" :: ByteString),
+              Prelude.=# ( "OvertureService.ConfirmConnection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ConfirmConnection where
+instance Prelude.ToJSON ConfirmConnection where
   toJSON ConfirmConnection' {..} =
-    object
-      ( catMaybes
-          [Just ("connectionId" .= _ccConnectionId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("connectionId" Prelude..= connectionId)
+          ]
       )
 
-instance ToPath ConfirmConnection where
-  toPath = const "/"
+instance Prelude.ToPath ConfirmConnection where
+  toPath = Prelude.const "/"
 
-instance ToQuery ConfirmConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery ConfirmConnection where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'confirmConnectionResponse' smart constructor.
+-- | /See:/ 'newConfirmConnectionResponse' smart constructor.
 data ConfirmConnectionResponse = ConfirmConnectionResponse'
-  { _ccrrsConnectionState ::
-      !( Maybe
-           ConnectionState
-       ),
-    _ccrrsResponseStatus ::
-      !Int
+  { -- | The state of the connection. The following are the possible values:
+    --
+    -- -   @ordering@: The initial state of a hosted connection provisioned on
+    --     an interconnect. The connection stays in the ordering state until
+    --     the owner of the hosted connection confirms or declines the
+    --     connection order.
+    --
+    -- -   @requested@: The initial state of a standard connection. The
+    --     connection stays in the requested state until the Letter of
+    --     Authorization (LOA) is sent to the customer.
+    --
+    -- -   @pending@: The connection has been approved and is being
+    --     initialized.
+    --
+    -- -   @available@: The network link is up and the connection is ready for
+    --     use.
+    --
+    -- -   @down@: The network link is down.
+    --
+    -- -   @deleting@: The connection is being deleted.
+    --
+    -- -   @deleted@: The connection has been deleted.
+    --
+    -- -   @rejected@: A hosted connection in the @ordering@ state enters the
+    --     @rejected@ state if it is deleted by the customer.
+    --
+    -- -   @unknown@: The state of the connection is not available.
+    connectionState :: Prelude.Maybe ConnectionState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfirmConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfirmConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrsConnectionState' - The state of the connection. The following are the possible values:     * @ordering@ : The initial state of a hosted connection provisioned on an interconnect. The connection stays in the ordering state until the owner of the hosted connection confirms or declines the connection order.     * @requested@ : The initial state of a standard connection. The connection stays in the requested state until the Letter of Authorization (LOA) is sent to the customer.     * @pending@ : The connection has been approved and is being initialized.     * @available@ : The network link is up and the connection is ready for use.     * @down@ : The network link is down.     * @deleting@ : The connection is being deleted.     * @deleted@ : The connection has been deleted.     * @rejected@ : A hosted connection in the @ordering@ state enters the @rejected@ state if it is deleted by the customer.     * @unknown@ : The state of the connection is not available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrrsResponseStatus' - -- | The response status code.
-confirmConnectionResponse ::
-  -- | 'ccrrsResponseStatus'
-  Int ->
+-- 'connectionState', 'confirmConnectionResponse_connectionState' - The state of the connection. The following are the possible values:
+--
+-- -   @ordering@: The initial state of a hosted connection provisioned on
+--     an interconnect. The connection stays in the ordering state until
+--     the owner of the hosted connection confirms or declines the
+--     connection order.
+--
+-- -   @requested@: The initial state of a standard connection. The
+--     connection stays in the requested state until the Letter of
+--     Authorization (LOA) is sent to the customer.
+--
+-- -   @pending@: The connection has been approved and is being
+--     initialized.
+--
+-- -   @available@: The network link is up and the connection is ready for
+--     use.
+--
+-- -   @down@: The network link is down.
+--
+-- -   @deleting@: The connection is being deleted.
+--
+-- -   @deleted@: The connection has been deleted.
+--
+-- -   @rejected@: A hosted connection in the @ordering@ state enters the
+--     @rejected@ state if it is deleted by the customer.
+--
+-- -   @unknown@: The state of the connection is not available.
+--
+-- 'httpStatus', 'confirmConnectionResponse_httpStatus' - The response's http status code.
+newConfirmConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ConfirmConnectionResponse
-confirmConnectionResponse pResponseStatus_ =
+newConfirmConnectionResponse pHttpStatus_ =
   ConfirmConnectionResponse'
-    { _ccrrsConnectionState =
-        Nothing,
-      _ccrrsResponseStatus = pResponseStatus_
+    { connectionState =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The state of the connection. The following are the possible values:     * @ordering@ : The initial state of a hosted connection provisioned on an interconnect. The connection stays in the ordering state until the owner of the hosted connection confirms or declines the connection order.     * @requested@ : The initial state of a standard connection. The connection stays in the requested state until the Letter of Authorization (LOA) is sent to the customer.     * @pending@ : The connection has been approved and is being initialized.     * @available@ : The network link is up and the connection is ready for use.     * @down@ : The network link is down.     * @deleting@ : The connection is being deleted.     * @deleted@ : The connection has been deleted.     * @rejected@ : A hosted connection in the @ordering@ state enters the @rejected@ state if it is deleted by the customer.     * @unknown@ : The state of the connection is not available.
-ccrrsConnectionState :: Lens' ConfirmConnectionResponse (Maybe ConnectionState)
-ccrrsConnectionState = lens _ccrrsConnectionState (\s a -> s {_ccrrsConnectionState = a})
+-- | The state of the connection. The following are the possible values:
+--
+-- -   @ordering@: The initial state of a hosted connection provisioned on
+--     an interconnect. The connection stays in the ordering state until
+--     the owner of the hosted connection confirms or declines the
+--     connection order.
+--
+-- -   @requested@: The initial state of a standard connection. The
+--     connection stays in the requested state until the Letter of
+--     Authorization (LOA) is sent to the customer.
+--
+-- -   @pending@: The connection has been approved and is being
+--     initialized.
+--
+-- -   @available@: The network link is up and the connection is ready for
+--     use.
+--
+-- -   @down@: The network link is down.
+--
+-- -   @deleting@: The connection is being deleted.
+--
+-- -   @deleted@: The connection has been deleted.
+--
+-- -   @rejected@: A hosted connection in the @ordering@ state enters the
+--     @rejected@ state if it is deleted by the customer.
+--
+-- -   @unknown@: The state of the connection is not available.
+confirmConnectionResponse_connectionState :: Lens.Lens' ConfirmConnectionResponse (Prelude.Maybe ConnectionState)
+confirmConnectionResponse_connectionState = Lens.lens (\ConfirmConnectionResponse' {connectionState} -> connectionState) (\s@ConfirmConnectionResponse' {} a -> s {connectionState = a} :: ConfirmConnectionResponse)
 
--- | -- | The response status code.
-ccrrsResponseStatus :: Lens' ConfirmConnectionResponse Int
-ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
+-- | The response's http status code.
+confirmConnectionResponse_httpStatus :: Lens.Lens' ConfirmConnectionResponse Prelude.Int
+confirmConnectionResponse_httpStatus = Lens.lens (\ConfirmConnectionResponse' {httpStatus} -> httpStatus) (\s@ConfirmConnectionResponse' {} a -> s {httpStatus = a} :: ConfirmConnectionResponse)
 
-instance NFData ConfirmConnectionResponse
+instance Prelude.NFData ConfirmConnectionResponse

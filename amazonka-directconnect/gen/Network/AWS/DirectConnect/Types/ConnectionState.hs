@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.DirectConnect.Types.ConnectionState
   ( ConnectionState
       ( ..,
-        Available,
-        Deleted,
-        Deleting,
-        Down,
-        Ordering,
-        Pending,
-        Rejected,
-        Requested,
-        Unknown
+        ConnectionStateAvailable,
+        ConnectionStateDeleted,
+        ConnectionStateDeleting,
+        ConnectionStateDown,
+        ConnectionStateOrdering,
+        ConnectionStatePending,
+        ConnectionStateRejected,
+        ConnectionStateRequested,
+        ConnectionStateUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionState = ConnectionState' (CI Text)
+newtype ConnectionState = ConnectionState'
+  { fromConnectionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: ConnectionState
-pattern Available = ConnectionState' "available"
+pattern ConnectionStateAvailable :: ConnectionState
+pattern ConnectionStateAvailable = ConnectionState' "available"
 
-pattern Deleted :: ConnectionState
-pattern Deleted = ConnectionState' "deleted"
+pattern ConnectionStateDeleted :: ConnectionState
+pattern ConnectionStateDeleted = ConnectionState' "deleted"
 
-pattern Deleting :: ConnectionState
-pattern Deleting = ConnectionState' "deleting"
+pattern ConnectionStateDeleting :: ConnectionState
+pattern ConnectionStateDeleting = ConnectionState' "deleting"
 
-pattern Down :: ConnectionState
-pattern Down = ConnectionState' "down"
+pattern ConnectionStateDown :: ConnectionState
+pattern ConnectionStateDown = ConnectionState' "down"
 
-pattern Ordering :: ConnectionState
-pattern Ordering = ConnectionState' "ordering"
+pattern ConnectionStateOrdering :: ConnectionState
+pattern ConnectionStateOrdering = ConnectionState' "ordering"
 
-pattern Pending :: ConnectionState
-pattern Pending = ConnectionState' "pending"
+pattern ConnectionStatePending :: ConnectionState
+pattern ConnectionStatePending = ConnectionState' "pending"
 
-pattern Rejected :: ConnectionState
-pattern Rejected = ConnectionState' "rejected"
+pattern ConnectionStateRejected :: ConnectionState
+pattern ConnectionStateRejected = ConnectionState' "rejected"
 
-pattern Requested :: ConnectionState
-pattern Requested = ConnectionState' "requested"
+pattern ConnectionStateRequested :: ConnectionState
+pattern ConnectionStateRequested = ConnectionState' "requested"
 
-pattern Unknown :: ConnectionState
-pattern Unknown = ConnectionState' "unknown"
+pattern ConnectionStateUnknown :: ConnectionState
+pattern ConnectionStateUnknown = ConnectionState' "unknown"
 
 {-# COMPLETE
-  Available,
-  Deleted,
-  Deleting,
-  Down,
-  Ordering,
-  Pending,
-  Rejected,
-  Requested,
-  Unknown,
+  ConnectionStateAvailable,
+  ConnectionStateDeleted,
+  ConnectionStateDeleting,
+  ConnectionStateDown,
+  ConnectionStateOrdering,
+  ConnectionStatePending,
+  ConnectionStateRejected,
+  ConnectionStateRequested,
+  ConnectionStateUnknown,
   ConnectionState'
   #-}
 
-instance FromText ConnectionState where
-  parser = (ConnectionState' . mk) <$> takeText
+instance Prelude.FromText ConnectionState where
+  parser = ConnectionState' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionState where
-  toText (ConnectionState' ci) = original ci
+instance Prelude.ToText ConnectionState where
+  toText (ConnectionState' x) = x
 
-instance Hashable ConnectionState
+instance Prelude.Hashable ConnectionState
 
-instance NFData ConnectionState
+instance Prelude.NFData ConnectionState
 
-instance ToByteString ConnectionState
+instance Prelude.ToByteString ConnectionState
 
-instance ToQuery ConnectionState
+instance Prelude.ToQuery ConnectionState
 
-instance ToHeader ConnectionState
+instance Prelude.ToHeader ConnectionState
 
-instance FromJSON ConnectionState where
-  parseJSON = parseJSONText "ConnectionState"
+instance Prelude.FromJSON ConnectionState where
+  parseJSON = Prelude.parseJSONText "ConnectionState"

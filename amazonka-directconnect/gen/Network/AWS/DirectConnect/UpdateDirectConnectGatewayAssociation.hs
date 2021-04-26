@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified attributes of the Direct Connect gateway association.
---
+-- Updates the specified attributes of the Direct Connect gateway
+-- association.
 --
 -- Add or remove prefixes from the association.
 module Network.AWS.DirectConnect.UpdateDirectConnectGatewayAssociation
   ( -- * Creating a Request
-    updateDirectConnectGatewayAssociation,
-    UpdateDirectConnectGatewayAssociation,
+    UpdateDirectConnectGatewayAssociation (..),
+    newUpdateDirectConnectGatewayAssociation,
 
     -- * Request Lenses
-    udcgaRemoveAllowedPrefixesToDirectConnectGateway,
-    udcgaAddAllowedPrefixesToDirectConnectGateway,
-    udcgaAssociationId,
+    updateDirectConnectGatewayAssociation_removeAllowedPrefixesToDirectConnectGateway,
+    updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway,
+    updateDirectConnectGatewayAssociation_associationId,
 
     -- * Destructuring the Response
-    updateDirectConnectGatewayAssociationResponse,
-    UpdateDirectConnectGatewayAssociationResponse,
+    UpdateDirectConnectGatewayAssociationResponse (..),
+    newUpdateDirectConnectGatewayAssociationResponse,
 
     -- * Response Lenses
-    udcgarrsDirectConnectGatewayAssociation,
-    udcgarrsResponseStatus,
+    updateDirectConnectGatewayAssociationResponse_directConnectGatewayAssociation,
+    updateDirectConnectGatewayAssociationResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.DirectConnectGatewayAssociation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDirectConnectGatewayAssociation' smart constructor.
+-- | /See:/ 'newUpdateDirectConnectGatewayAssociation' smart constructor.
 data UpdateDirectConnectGatewayAssociation = UpdateDirectConnectGatewayAssociation'
-  { _udcgaRemoveAllowedPrefixesToDirectConnectGateway ::
-      !( Maybe
-           [RouteFilterPrefix]
-       ),
-    _udcgaAddAllowedPrefixesToDirectConnectGateway ::
-      !( Maybe
-           [RouteFilterPrefix]
-       ),
-    _udcgaAssociationId ::
-      !( Maybe
-           Text
-       )
+  { -- | The Amazon VPC prefixes to no longer advertise to the Direct Connect
+    -- gateway.
+    removeAllowedPrefixesToDirectConnectGateway :: Prelude.Maybe [RouteFilterPrefix],
+    -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+    addAllowedPrefixesToDirectConnectGateway :: Prelude.Maybe [RouteFilterPrefix],
+    -- | The ID of the Direct Connect gateway association.
+    associationId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDirectConnectGatewayAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDirectConnectGatewayAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udcgaRemoveAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to no longer advertise to the Direct Connect gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udcgaAddAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+-- 'removeAllowedPrefixesToDirectConnectGateway', 'updateDirectConnectGatewayAssociation_removeAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to no longer advertise to the Direct Connect
+-- gateway.
 --
--- * 'udcgaAssociationId' - The ID of the Direct Connect gateway association.
-updateDirectConnectGatewayAssociation ::
+-- 'addAllowedPrefixesToDirectConnectGateway', 'updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+--
+-- 'associationId', 'updateDirectConnectGatewayAssociation_associationId' - The ID of the Direct Connect gateway association.
+newUpdateDirectConnectGatewayAssociation ::
   UpdateDirectConnectGatewayAssociation
-updateDirectConnectGatewayAssociation =
+newUpdateDirectConnectGatewayAssociation =
   UpdateDirectConnectGatewayAssociation'
-    { _udcgaRemoveAllowedPrefixesToDirectConnectGateway =
-        Nothing,
-      _udcgaAddAllowedPrefixesToDirectConnectGateway =
-        Nothing,
-      _udcgaAssociationId = Nothing
+    { removeAllowedPrefixesToDirectConnectGateway =
+        Prelude.Nothing,
+      addAllowedPrefixesToDirectConnectGateway =
+        Prelude.Nothing,
+      associationId = Prelude.Nothing
     }
 
--- | The Amazon VPC prefixes to no longer advertise to the Direct Connect gateway.
-udcgaRemoveAllowedPrefixesToDirectConnectGateway :: Lens' UpdateDirectConnectGatewayAssociation [RouteFilterPrefix]
-udcgaRemoveAllowedPrefixesToDirectConnectGateway = lens _udcgaRemoveAllowedPrefixesToDirectConnectGateway (\s a -> s {_udcgaRemoveAllowedPrefixesToDirectConnectGateway = a}) . _Default . _Coerce
+-- | The Amazon VPC prefixes to no longer advertise to the Direct Connect
+-- gateway.
+updateDirectConnectGatewayAssociation_removeAllowedPrefixesToDirectConnectGateway :: Lens.Lens' UpdateDirectConnectGatewayAssociation (Prelude.Maybe [RouteFilterPrefix])
+updateDirectConnectGatewayAssociation_removeAllowedPrefixesToDirectConnectGateway = Lens.lens (\UpdateDirectConnectGatewayAssociation' {removeAllowedPrefixesToDirectConnectGateway} -> removeAllowedPrefixesToDirectConnectGateway) (\s@UpdateDirectConnectGatewayAssociation' {} a -> s {removeAllowedPrefixesToDirectConnectGateway = a} :: UpdateDirectConnectGatewayAssociation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
-udcgaAddAllowedPrefixesToDirectConnectGateway :: Lens' UpdateDirectConnectGatewayAssociation [RouteFilterPrefix]
-udcgaAddAllowedPrefixesToDirectConnectGateway = lens _udcgaAddAllowedPrefixesToDirectConnectGateway (\s a -> s {_udcgaAddAllowedPrefixesToDirectConnectGateway = a}) . _Default . _Coerce
+updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway :: Lens.Lens' UpdateDirectConnectGatewayAssociation (Prelude.Maybe [RouteFilterPrefix])
+updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway = Lens.lens (\UpdateDirectConnectGatewayAssociation' {addAllowedPrefixesToDirectConnectGateway} -> addAllowedPrefixesToDirectConnectGateway) (\s@UpdateDirectConnectGatewayAssociation' {} a -> s {addAllowedPrefixesToDirectConnectGateway = a} :: UpdateDirectConnectGatewayAssociation) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ID of the Direct Connect gateway association.
-udcgaAssociationId :: Lens' UpdateDirectConnectGatewayAssociation (Maybe Text)
-udcgaAssociationId = lens _udcgaAssociationId (\s a -> s {_udcgaAssociationId = a})
+updateDirectConnectGatewayAssociation_associationId :: Lens.Lens' UpdateDirectConnectGatewayAssociation (Prelude.Maybe Prelude.Text)
+updateDirectConnectGatewayAssociation_associationId = Lens.lens (\UpdateDirectConnectGatewayAssociation' {associationId} -> associationId) (\s@UpdateDirectConnectGatewayAssociation' {} a -> s {associationId = a} :: UpdateDirectConnectGatewayAssociation)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdateDirectConnectGatewayAssociation
   where
   type
     Rs UpdateDirectConnectGatewayAssociation =
       UpdateDirectConnectGatewayAssociationResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateDirectConnectGatewayAssociationResponse'
-            <$> (x .?> "directConnectGatewayAssociation")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "directConnectGatewayAssociation")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateDirectConnectGatewayAssociation
 
-instance NFData UpdateDirectConnectGatewayAssociation
+instance
+  Prelude.NFData
+    UpdateDirectConnectGatewayAssociation
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     UpdateDirectConnectGatewayAssociation
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.UpdateDirectConnectGatewayAssociation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.UpdateDirectConnectGatewayAssociation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
-
-instance ToJSON UpdateDirectConnectGatewayAssociation where
-  toJSON UpdateDirectConnectGatewayAssociation' {..} =
-    object
-      ( catMaybes
-          [ ("removeAllowedPrefixesToDirectConnectGateway" .=)
-              <$> _udcgaRemoveAllowedPrefixesToDirectConnectGateway,
-            ("addAllowedPrefixesToDirectConnectGateway" .=)
-              <$> _udcgaAddAllowedPrefixesToDirectConnectGateway,
-            ("associationId" .=) <$> _udcgaAssociationId
-          ]
-      )
-
-instance ToPath UpdateDirectConnectGatewayAssociation where
-  toPath = const "/"
 
 instance
-  ToQuery
+  Prelude.ToJSON
     UpdateDirectConnectGatewayAssociation
   where
-  toQuery = const mempty
+  toJSON UpdateDirectConnectGatewayAssociation' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ( "removeAllowedPrefixesToDirectConnectGateway"
+                Prelude..=
+            )
+              Prelude.<$> removeAllowedPrefixesToDirectConnectGateway,
+            ( "addAllowedPrefixesToDirectConnectGateway"
+                Prelude..=
+            )
+              Prelude.<$> addAllowedPrefixesToDirectConnectGateway,
+            ("associationId" Prelude..=)
+              Prelude.<$> associationId
+          ]
+      )
 
--- | /See:/ 'updateDirectConnectGatewayAssociationResponse' smart constructor.
+instance
+  Prelude.ToPath
+    UpdateDirectConnectGatewayAssociation
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    UpdateDirectConnectGatewayAssociation
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newUpdateDirectConnectGatewayAssociationResponse' smart constructor.
 data UpdateDirectConnectGatewayAssociationResponse = UpdateDirectConnectGatewayAssociationResponse'
-  { _udcgarrsDirectConnectGatewayAssociation ::
-      !( Maybe
-           DirectConnectGatewayAssociation
-       ),
-    _udcgarrsResponseStatus ::
-      !Int
+  { directConnectGatewayAssociation :: Prelude.Maybe DirectConnectGatewayAssociation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDirectConnectGatewayAssociationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDirectConnectGatewayAssociationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udcgarrsDirectConnectGatewayAssociation' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udcgarrsResponseStatus' - -- | The response status code.
-updateDirectConnectGatewayAssociationResponse ::
-  -- | 'udcgarrsResponseStatus'
-  Int ->
+-- 'directConnectGatewayAssociation', 'updateDirectConnectGatewayAssociationResponse_directConnectGatewayAssociation' - Undocumented member.
+--
+-- 'httpStatus', 'updateDirectConnectGatewayAssociationResponse_httpStatus' - The response's http status code.
+newUpdateDirectConnectGatewayAssociationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDirectConnectGatewayAssociationResponse
-updateDirectConnectGatewayAssociationResponse
-  pResponseStatus_ =
+newUpdateDirectConnectGatewayAssociationResponse
+  pHttpStatus_ =
     UpdateDirectConnectGatewayAssociationResponse'
-      { _udcgarrsDirectConnectGatewayAssociation =
-          Nothing,
-        _udcgarrsResponseStatus =
-          pResponseStatus_
+      { directConnectGatewayAssociation =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-udcgarrsDirectConnectGatewayAssociation :: Lens' UpdateDirectConnectGatewayAssociationResponse (Maybe DirectConnectGatewayAssociation)
-udcgarrsDirectConnectGatewayAssociation = lens _udcgarrsDirectConnectGatewayAssociation (\s a -> s {_udcgarrsDirectConnectGatewayAssociation = a})
+updateDirectConnectGatewayAssociationResponse_directConnectGatewayAssociation :: Lens.Lens' UpdateDirectConnectGatewayAssociationResponse (Prelude.Maybe DirectConnectGatewayAssociation)
+updateDirectConnectGatewayAssociationResponse_directConnectGatewayAssociation = Lens.lens (\UpdateDirectConnectGatewayAssociationResponse' {directConnectGatewayAssociation} -> directConnectGatewayAssociation) (\s@UpdateDirectConnectGatewayAssociationResponse' {} a -> s {directConnectGatewayAssociation = a} :: UpdateDirectConnectGatewayAssociationResponse)
 
--- | -- | The response status code.
-udcgarrsResponseStatus :: Lens' UpdateDirectConnectGatewayAssociationResponse Int
-udcgarrsResponseStatus = lens _udcgarrsResponseStatus (\s a -> s {_udcgarrsResponseStatus = a})
+-- | The response's http status code.
+updateDirectConnectGatewayAssociationResponse_httpStatus :: Lens.Lens' UpdateDirectConnectGatewayAssociationResponse Prelude.Int
+updateDirectConnectGatewayAssociationResponse_httpStatus = Lens.lens (\UpdateDirectConnectGatewayAssociationResponse' {httpStatus} -> httpStatus) (\s@UpdateDirectConnectGatewayAssociationResponse' {} a -> s {httpStatus = a} :: UpdateDirectConnectGatewayAssociationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateDirectConnectGatewayAssociationResponse

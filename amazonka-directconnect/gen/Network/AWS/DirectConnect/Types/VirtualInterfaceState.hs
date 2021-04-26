@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.DirectConnect.Types.VirtualInterfaceState
   ( VirtualInterfaceState
       ( ..,
-        VISAvailable,
-        VISConfirming,
-        VISDeleted,
-        VISDeleting,
-        VISDown,
-        VISPending,
-        VISRejected,
-        VISUnknown,
-        VISVerifying
+        VirtualInterfaceStateAvailable,
+        VirtualInterfaceStateConfirming,
+        VirtualInterfaceStateDeleted,
+        VirtualInterfaceStateDeleting,
+        VirtualInterfaceStateDown,
+        VirtualInterfaceStatePending,
+        VirtualInterfaceStateRejected,
+        VirtualInterfaceStateUnknown,
+        VirtualInterfaceStateVerifying
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VirtualInterfaceState
-  = VirtualInterfaceState'
-      ( CI
-          Text
-      )
+newtype VirtualInterfaceState = VirtualInterfaceState'
+  { fromVirtualInterfaceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VISAvailable :: VirtualInterfaceState
-pattern VISAvailable = VirtualInterfaceState' "available"
+pattern VirtualInterfaceStateAvailable :: VirtualInterfaceState
+pattern VirtualInterfaceStateAvailable = VirtualInterfaceState' "available"
 
-pattern VISConfirming :: VirtualInterfaceState
-pattern VISConfirming = VirtualInterfaceState' "confirming"
+pattern VirtualInterfaceStateConfirming :: VirtualInterfaceState
+pattern VirtualInterfaceStateConfirming = VirtualInterfaceState' "confirming"
 
-pattern VISDeleted :: VirtualInterfaceState
-pattern VISDeleted = VirtualInterfaceState' "deleted"
+pattern VirtualInterfaceStateDeleted :: VirtualInterfaceState
+pattern VirtualInterfaceStateDeleted = VirtualInterfaceState' "deleted"
 
-pattern VISDeleting :: VirtualInterfaceState
-pattern VISDeleting = VirtualInterfaceState' "deleting"
+pattern VirtualInterfaceStateDeleting :: VirtualInterfaceState
+pattern VirtualInterfaceStateDeleting = VirtualInterfaceState' "deleting"
 
-pattern VISDown :: VirtualInterfaceState
-pattern VISDown = VirtualInterfaceState' "down"
+pattern VirtualInterfaceStateDown :: VirtualInterfaceState
+pattern VirtualInterfaceStateDown = VirtualInterfaceState' "down"
 
-pattern VISPending :: VirtualInterfaceState
-pattern VISPending = VirtualInterfaceState' "pending"
+pattern VirtualInterfaceStatePending :: VirtualInterfaceState
+pattern VirtualInterfaceStatePending = VirtualInterfaceState' "pending"
 
-pattern VISRejected :: VirtualInterfaceState
-pattern VISRejected = VirtualInterfaceState' "rejected"
+pattern VirtualInterfaceStateRejected :: VirtualInterfaceState
+pattern VirtualInterfaceStateRejected = VirtualInterfaceState' "rejected"
 
-pattern VISUnknown :: VirtualInterfaceState
-pattern VISUnknown = VirtualInterfaceState' "unknown"
+pattern VirtualInterfaceStateUnknown :: VirtualInterfaceState
+pattern VirtualInterfaceStateUnknown = VirtualInterfaceState' "unknown"
 
-pattern VISVerifying :: VirtualInterfaceState
-pattern VISVerifying = VirtualInterfaceState' "verifying"
+pattern VirtualInterfaceStateVerifying :: VirtualInterfaceState
+pattern VirtualInterfaceStateVerifying = VirtualInterfaceState' "verifying"
 
 {-# COMPLETE
-  VISAvailable,
-  VISConfirming,
-  VISDeleted,
-  VISDeleting,
-  VISDown,
-  VISPending,
-  VISRejected,
-  VISUnknown,
-  VISVerifying,
+  VirtualInterfaceStateAvailable,
+  VirtualInterfaceStateConfirming,
+  VirtualInterfaceStateDeleted,
+  VirtualInterfaceStateDeleting,
+  VirtualInterfaceStateDown,
+  VirtualInterfaceStatePending,
+  VirtualInterfaceStateRejected,
+  VirtualInterfaceStateUnknown,
+  VirtualInterfaceStateVerifying,
   VirtualInterfaceState'
   #-}
 
-instance FromText VirtualInterfaceState where
-  parser = (VirtualInterfaceState' . mk) <$> takeText
+instance Prelude.FromText VirtualInterfaceState where
+  parser = VirtualInterfaceState' Prelude.<$> Prelude.takeText
 
-instance ToText VirtualInterfaceState where
-  toText (VirtualInterfaceState' ci) = original ci
+instance Prelude.ToText VirtualInterfaceState where
+  toText (VirtualInterfaceState' x) = x
 
-instance Hashable VirtualInterfaceState
+instance Prelude.Hashable VirtualInterfaceState
 
-instance NFData VirtualInterfaceState
+instance Prelude.NFData VirtualInterfaceState
 
-instance ToByteString VirtualInterfaceState
+instance Prelude.ToByteString VirtualInterfaceState
 
-instance ToQuery VirtualInterfaceState
+instance Prelude.ToQuery VirtualInterfaceState
 
-instance ToHeader VirtualInterfaceState
+instance Prelude.ToHeader VirtualInterfaceState
 
-instance FromJSON VirtualInterfaceState where
-  parseJSON = parseJSONText "VirtualInterfaceState"
+instance Prelude.FromJSON VirtualInterfaceState where
+  parseJSON = Prelude.parseJSONText "VirtualInterfaceState"

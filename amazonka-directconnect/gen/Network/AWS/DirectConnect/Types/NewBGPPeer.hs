@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,80 +20,95 @@
 module Network.AWS.DirectConnect.Types.NewBGPPeer where
 
 import Network.AWS.DirectConnect.Types.AddressFamily
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a new BGP peer.
 --
---
---
--- /See:/ 'newBGPPeer' smart constructor.
+-- /See:/ 'newNewBGPPeer' smart constructor.
 data NewBGPPeer = NewBGPPeer'
-  { _nbpAuthKey ::
-      !(Maybe Text),
-    _nbpAsn :: !(Maybe Int),
-    _nbpAddressFamily :: !(Maybe AddressFamily),
-    _nbpAmazonAddress :: !(Maybe Text),
-    _nbpCustomerAddress :: !(Maybe Text)
+  { -- | The authentication key for BGP configuration. This string has a minimum
+    -- length of 6 characters and and a maximun lenth of 80 characters.
+    authKey :: Prelude.Maybe Prelude.Text,
+    -- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+    -- configuration.
+    asn :: Prelude.Maybe Prelude.Int,
+    -- | The address family for the BGP peer.
+    addressFamily :: Prelude.Maybe AddressFamily,
+    -- | The IP address assigned to the Amazon interface.
+    amazonAddress :: Prelude.Maybe Prelude.Text,
+    -- | The IP address assigned to the customer interface.
+    customerAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NewBGPPeer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NewBGPPeer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nbpAuthKey' - The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nbpAsn' - The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+-- 'authKey', 'newBGPPeer_authKey' - The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
 --
--- * 'nbpAddressFamily' - The address family for the BGP peer.
+-- 'asn', 'newBGPPeer_asn' - The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
 --
--- * 'nbpAmazonAddress' - The IP address assigned to the Amazon interface.
+-- 'addressFamily', 'newBGPPeer_addressFamily' - The address family for the BGP peer.
 --
--- * 'nbpCustomerAddress' - The IP address assigned to the customer interface.
-newBGPPeer ::
+-- 'amazonAddress', 'newBGPPeer_amazonAddress' - The IP address assigned to the Amazon interface.
+--
+-- 'customerAddress', 'newBGPPeer_customerAddress' - The IP address assigned to the customer interface.
+newNewBGPPeer ::
   NewBGPPeer
-newBGPPeer =
+newNewBGPPeer =
   NewBGPPeer'
-    { _nbpAuthKey = Nothing,
-      _nbpAsn = Nothing,
-      _nbpAddressFamily = Nothing,
-      _nbpAmazonAddress = Nothing,
-      _nbpCustomerAddress = Nothing
+    { authKey = Prelude.Nothing,
+      asn = Prelude.Nothing,
+      addressFamily = Prelude.Nothing,
+      amazonAddress = Prelude.Nothing,
+      customerAddress = Prelude.Nothing
     }
 
--- | The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
-nbpAuthKey :: Lens' NewBGPPeer (Maybe Text)
-nbpAuthKey = lens _nbpAuthKey (\s a -> s {_nbpAuthKey = a})
+-- | The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
+newBGPPeer_authKey :: Lens.Lens' NewBGPPeer (Prelude.Maybe Prelude.Text)
+newBGPPeer_authKey = Lens.lens (\NewBGPPeer' {authKey} -> authKey) (\s@NewBGPPeer' {} a -> s {authKey = a} :: NewBGPPeer)
 
--- | The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
-nbpAsn :: Lens' NewBGPPeer (Maybe Int)
-nbpAsn = lens _nbpAsn (\s a -> s {_nbpAsn = a})
+-- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
+newBGPPeer_asn :: Lens.Lens' NewBGPPeer (Prelude.Maybe Prelude.Int)
+newBGPPeer_asn = Lens.lens (\NewBGPPeer' {asn} -> asn) (\s@NewBGPPeer' {} a -> s {asn = a} :: NewBGPPeer)
 
 -- | The address family for the BGP peer.
-nbpAddressFamily :: Lens' NewBGPPeer (Maybe AddressFamily)
-nbpAddressFamily = lens _nbpAddressFamily (\s a -> s {_nbpAddressFamily = a})
+newBGPPeer_addressFamily :: Lens.Lens' NewBGPPeer (Prelude.Maybe AddressFamily)
+newBGPPeer_addressFamily = Lens.lens (\NewBGPPeer' {addressFamily} -> addressFamily) (\s@NewBGPPeer' {} a -> s {addressFamily = a} :: NewBGPPeer)
 
 -- | The IP address assigned to the Amazon interface.
-nbpAmazonAddress :: Lens' NewBGPPeer (Maybe Text)
-nbpAmazonAddress = lens _nbpAmazonAddress (\s a -> s {_nbpAmazonAddress = a})
+newBGPPeer_amazonAddress :: Lens.Lens' NewBGPPeer (Prelude.Maybe Prelude.Text)
+newBGPPeer_amazonAddress = Lens.lens (\NewBGPPeer' {amazonAddress} -> amazonAddress) (\s@NewBGPPeer' {} a -> s {amazonAddress = a} :: NewBGPPeer)
 
 -- | The IP address assigned to the customer interface.
-nbpCustomerAddress :: Lens' NewBGPPeer (Maybe Text)
-nbpCustomerAddress = lens _nbpCustomerAddress (\s a -> s {_nbpCustomerAddress = a})
+newBGPPeer_customerAddress :: Lens.Lens' NewBGPPeer (Prelude.Maybe Prelude.Text)
+newBGPPeer_customerAddress = Lens.lens (\NewBGPPeer' {customerAddress} -> customerAddress) (\s@NewBGPPeer' {} a -> s {customerAddress = a} :: NewBGPPeer)
 
-instance Hashable NewBGPPeer
+instance Prelude.Hashable NewBGPPeer
 
-instance NFData NewBGPPeer
+instance Prelude.NFData NewBGPPeer
 
-instance ToJSON NewBGPPeer where
+instance Prelude.ToJSON NewBGPPeer where
   toJSON NewBGPPeer' {..} =
-    object
-      ( catMaybes
-          [ ("authKey" .=) <$> _nbpAuthKey,
-            ("asn" .=) <$> _nbpAsn,
-            ("addressFamily" .=) <$> _nbpAddressFamily,
-            ("amazonAddress" .=) <$> _nbpAmazonAddress,
-            ("customerAddress" .=) <$> _nbpCustomerAddress
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("authKey" Prelude..=) Prelude.<$> authKey,
+            ("asn" Prelude..=) Prelude.<$> asn,
+            ("addressFamily" Prelude..=)
+              Prelude.<$> addressFamily,
+            ("amazonAddress" Prelude..=)
+              Prelude.<$> amazonAddress,
+            ("customerAddress" Prelude..=)
+              Prelude.<$> customerAddress
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DirectConnect.Types.DirectConnectGatewayAttachmentType
   ( DirectConnectGatewayAttachmentType
       ( ..,
-        PrivateVirtualInterface,
-        TransitVirtualInterface
+        DirectConnectGatewayAttachmentTypePrivateVirtualInterface,
+        DirectConnectGatewayAttachmentTypeTransitVirtualInterface
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectConnectGatewayAttachmentType
-  = DirectConnectGatewayAttachmentType'
-      ( CI
-          Text
-      )
+newtype DirectConnectGatewayAttachmentType = DirectConnectGatewayAttachmentType'
+  { fromDirectConnectGatewayAttachmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PrivateVirtualInterface :: DirectConnectGatewayAttachmentType
-pattern PrivateVirtualInterface = DirectConnectGatewayAttachmentType' "PrivateVirtualInterface"
+pattern DirectConnectGatewayAttachmentTypePrivateVirtualInterface :: DirectConnectGatewayAttachmentType
+pattern DirectConnectGatewayAttachmentTypePrivateVirtualInterface = DirectConnectGatewayAttachmentType' "PrivateVirtualInterface"
 
-pattern TransitVirtualInterface :: DirectConnectGatewayAttachmentType
-pattern TransitVirtualInterface = DirectConnectGatewayAttachmentType' "TransitVirtualInterface"
+pattern DirectConnectGatewayAttachmentTypeTransitVirtualInterface :: DirectConnectGatewayAttachmentType
+pattern DirectConnectGatewayAttachmentTypeTransitVirtualInterface = DirectConnectGatewayAttachmentType' "TransitVirtualInterface"
 
 {-# COMPLETE
-  PrivateVirtualInterface,
-  TransitVirtualInterface,
+  DirectConnectGatewayAttachmentTypePrivateVirtualInterface,
+  DirectConnectGatewayAttachmentTypeTransitVirtualInterface,
   DirectConnectGatewayAttachmentType'
   #-}
 
-instance FromText DirectConnectGatewayAttachmentType where
-  parser = (DirectConnectGatewayAttachmentType' . mk) <$> takeText
+instance Prelude.FromText DirectConnectGatewayAttachmentType where
+  parser = DirectConnectGatewayAttachmentType' Prelude.<$> Prelude.takeText
 
-instance ToText DirectConnectGatewayAttachmentType where
-  toText (DirectConnectGatewayAttachmentType' ci) = original ci
+instance Prelude.ToText DirectConnectGatewayAttachmentType where
+  toText (DirectConnectGatewayAttachmentType' x) = x
 
-instance Hashable DirectConnectGatewayAttachmentType
+instance Prelude.Hashable DirectConnectGatewayAttachmentType
 
-instance NFData DirectConnectGatewayAttachmentType
+instance Prelude.NFData DirectConnectGatewayAttachmentType
 
-instance ToByteString DirectConnectGatewayAttachmentType
+instance Prelude.ToByteString DirectConnectGatewayAttachmentType
 
-instance ToQuery DirectConnectGatewayAttachmentType
+instance Prelude.ToQuery DirectConnectGatewayAttachmentType
 
-instance ToHeader DirectConnectGatewayAttachmentType
+instance Prelude.ToHeader DirectConnectGatewayAttachmentType
 
-instance FromJSON DirectConnectGatewayAttachmentType where
-  parseJSON = parseJSONText "DirectConnectGatewayAttachmentType"
+instance Prelude.FromJSON DirectConnectGatewayAttachmentType where
+  parseJSON = Prelude.parseJSONText "DirectConnectGatewayAttachmentType"

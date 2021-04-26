@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,164 +22,231 @@ module Network.AWS.DirectConnect.Types.Interconnect where
 import Network.AWS.DirectConnect.Types.HasLogicalRedundancy
 import Network.AWS.DirectConnect.Types.InterconnectState
 import Network.AWS.DirectConnect.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an interconnect.
 --
---
---
--- /See:/ 'interconnect' smart constructor.
+-- /See:/ 'newInterconnect' smart constructor.
 data Interconnect = Interconnect'
-  { _iBandwidth ::
-      !(Maybe Text),
-    _iInterconnectId :: !(Maybe Text),
-    _iAwsDeviceV2 :: !(Maybe Text),
-    _iProviderName :: !(Maybe Text),
-    _iHasLogicalRedundancy ::
-      !(Maybe HasLogicalRedundancy),
-    _iAwsDevice :: !(Maybe Text),
-    _iJumboFrameCapable :: !(Maybe Bool),
-    _iLagId :: !(Maybe Text),
-    _iTags :: !(Maybe (List1 Tag)),
-    _iLoaIssueTime :: !(Maybe POSIX),
-    _iRegion :: !(Maybe Text),
-    _iInterconnectState ::
-      !(Maybe InterconnectState),
-    _iLocation :: !(Maybe Text),
-    _iInterconnectName :: !(Maybe Text)
+  { -- | The bandwidth of the connection.
+    bandwidth :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the interconnect.
+    interconnectId :: Prelude.Maybe Prelude.Text,
+    -- | The Direct Connect endpoint on which the physical connection terminates.
+    awsDeviceV2 :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service provider associated with the interconnect.
+    providerName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the interconnect supports a secondary BGP in the same
+    -- address family (IPv4\/IPv6).
+    hasLogicalRedundancy :: Prelude.Maybe HasLogicalRedundancy,
+    -- | The Direct Connect endpoint on which the physical connection terminates.
+    awsDevice :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether jumbo frames (9001 MTU) are supported.
+    jumboFrameCapable :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the LAG.
+    lagId :: Prelude.Maybe Prelude.Text,
+    -- | The tags associated with the interconnect.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | The time of the most recent call to DescribeLoa for this connection.
+    loaIssueTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The AWS Region where the connection is located.
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The state of the interconnect. The following are the possible values:
+    --
+    -- -   @requested@: The initial state of an interconnect. The interconnect
+    --     stays in the requested state until the Letter of Authorization (LOA)
+    --     is sent to the customer.
+    --
+    -- -   @pending@: The interconnect is approved, and is being initialized.
+    --
+    -- -   @available@: The network link is up, and the interconnect is ready
+    --     for use.
+    --
+    -- -   @down@: The network link is down.
+    --
+    -- -   @deleting@: The interconnect is being deleted.
+    --
+    -- -   @deleted@: The interconnect is deleted.
+    --
+    -- -   @unknown@: The state of the interconnect is not available.
+    interconnectState :: Prelude.Maybe InterconnectState,
+    -- | The location of the connection.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The name of the interconnect.
+    interconnectName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Interconnect' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Interconnect' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iBandwidth' - The bandwidth of the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iInterconnectId' - The ID of the interconnect.
+-- 'bandwidth', 'interconnect_bandwidth' - The bandwidth of the connection.
 --
--- * 'iAwsDeviceV2' - The Direct Connect endpoint on which the physical connection terminates.
+-- 'interconnectId', 'interconnect_interconnectId' - The ID of the interconnect.
 --
--- * 'iProviderName' - The name of the service provider associated with the interconnect.
+-- 'awsDeviceV2', 'interconnect_awsDeviceV2' - The Direct Connect endpoint on which the physical connection terminates.
 --
--- * 'iHasLogicalRedundancy' - Indicates whether the interconnect supports a secondary BGP in the same address family (IPv4/IPv6).
+-- 'providerName', 'interconnect_providerName' - The name of the service provider associated with the interconnect.
 --
--- * 'iAwsDevice' - The Direct Connect endpoint on which the physical connection terminates.
+-- 'hasLogicalRedundancy', 'interconnect_hasLogicalRedundancy' - Indicates whether the interconnect supports a secondary BGP in the same
+-- address family (IPv4\/IPv6).
 --
--- * 'iJumboFrameCapable' - Indicates whether jumbo frames (9001 MTU) are supported.
+-- 'awsDevice', 'interconnect_awsDevice' - The Direct Connect endpoint on which the physical connection terminates.
 --
--- * 'iLagId' - The ID of the LAG.
+-- 'jumboFrameCapable', 'interconnect_jumboFrameCapable' - Indicates whether jumbo frames (9001 MTU) are supported.
 --
--- * 'iTags' - The tags associated with the interconnect.
+-- 'lagId', 'interconnect_lagId' - The ID of the LAG.
 --
--- * 'iLoaIssueTime' - The time of the most recent call to 'DescribeLoa' for this connection.
+-- 'tags', 'interconnect_tags' - The tags associated with the interconnect.
 --
--- * 'iRegion' - The AWS Region where the connection is located.
+-- 'loaIssueTime', 'interconnect_loaIssueTime' - The time of the most recent call to DescribeLoa for this connection.
 --
--- * 'iInterconnectState' - The state of the interconnect. The following are the possible values:     * @requested@ : The initial state of an interconnect. The interconnect stays in the requested state until the Letter of Authorization (LOA) is sent to the customer.     * @pending@ : The interconnect is approved, and is being initialized.     * @available@ : The network link is up, and the interconnect is ready for use.     * @down@ : The network link is down.     * @deleting@ : The interconnect is being deleted.     * @deleted@ : The interconnect is deleted.     * @unknown@ : The state of the interconnect is not available.
+-- 'region', 'interconnect_region' - The AWS Region where the connection is located.
 --
--- * 'iLocation' - The location of the connection.
+-- 'interconnectState', 'interconnect_interconnectState' - The state of the interconnect. The following are the possible values:
 --
--- * 'iInterconnectName' - The name of the interconnect.
-interconnect ::
+-- -   @requested@: The initial state of an interconnect. The interconnect
+--     stays in the requested state until the Letter of Authorization (LOA)
+--     is sent to the customer.
+--
+-- -   @pending@: The interconnect is approved, and is being initialized.
+--
+-- -   @available@: The network link is up, and the interconnect is ready
+--     for use.
+--
+-- -   @down@: The network link is down.
+--
+-- -   @deleting@: The interconnect is being deleted.
+--
+-- -   @deleted@: The interconnect is deleted.
+--
+-- -   @unknown@: The state of the interconnect is not available.
+--
+-- 'location', 'interconnect_location' - The location of the connection.
+--
+-- 'interconnectName', 'interconnect_interconnectName' - The name of the interconnect.
+newInterconnect ::
   Interconnect
-interconnect =
+newInterconnect =
   Interconnect'
-    { _iBandwidth = Nothing,
-      _iInterconnectId = Nothing,
-      _iAwsDeviceV2 = Nothing,
-      _iProviderName = Nothing,
-      _iHasLogicalRedundancy = Nothing,
-      _iAwsDevice = Nothing,
-      _iJumboFrameCapable = Nothing,
-      _iLagId = Nothing,
-      _iTags = Nothing,
-      _iLoaIssueTime = Nothing,
-      _iRegion = Nothing,
-      _iInterconnectState = Nothing,
-      _iLocation = Nothing,
-      _iInterconnectName = Nothing
+    { bandwidth = Prelude.Nothing,
+      interconnectId = Prelude.Nothing,
+      awsDeviceV2 = Prelude.Nothing,
+      providerName = Prelude.Nothing,
+      hasLogicalRedundancy = Prelude.Nothing,
+      awsDevice = Prelude.Nothing,
+      jumboFrameCapable = Prelude.Nothing,
+      lagId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      loaIssueTime = Prelude.Nothing,
+      region = Prelude.Nothing,
+      interconnectState = Prelude.Nothing,
+      location = Prelude.Nothing,
+      interconnectName = Prelude.Nothing
     }
 
 -- | The bandwidth of the connection.
-iBandwidth :: Lens' Interconnect (Maybe Text)
-iBandwidth = lens _iBandwidth (\s a -> s {_iBandwidth = a})
+interconnect_bandwidth :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_bandwidth = Lens.lens (\Interconnect' {bandwidth} -> bandwidth) (\s@Interconnect' {} a -> s {bandwidth = a} :: Interconnect)
 
 -- | The ID of the interconnect.
-iInterconnectId :: Lens' Interconnect (Maybe Text)
-iInterconnectId = lens _iInterconnectId (\s a -> s {_iInterconnectId = a})
+interconnect_interconnectId :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_interconnectId = Lens.lens (\Interconnect' {interconnectId} -> interconnectId) (\s@Interconnect' {} a -> s {interconnectId = a} :: Interconnect)
 
 -- | The Direct Connect endpoint on which the physical connection terminates.
-iAwsDeviceV2 :: Lens' Interconnect (Maybe Text)
-iAwsDeviceV2 = lens _iAwsDeviceV2 (\s a -> s {_iAwsDeviceV2 = a})
+interconnect_awsDeviceV2 :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_awsDeviceV2 = Lens.lens (\Interconnect' {awsDeviceV2} -> awsDeviceV2) (\s@Interconnect' {} a -> s {awsDeviceV2 = a} :: Interconnect)
 
 -- | The name of the service provider associated with the interconnect.
-iProviderName :: Lens' Interconnect (Maybe Text)
-iProviderName = lens _iProviderName (\s a -> s {_iProviderName = a})
+interconnect_providerName :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_providerName = Lens.lens (\Interconnect' {providerName} -> providerName) (\s@Interconnect' {} a -> s {providerName = a} :: Interconnect)
 
--- | Indicates whether the interconnect supports a secondary BGP in the same address family (IPv4/IPv6).
-iHasLogicalRedundancy :: Lens' Interconnect (Maybe HasLogicalRedundancy)
-iHasLogicalRedundancy = lens _iHasLogicalRedundancy (\s a -> s {_iHasLogicalRedundancy = a})
+-- | Indicates whether the interconnect supports a secondary BGP in the same
+-- address family (IPv4\/IPv6).
+interconnect_hasLogicalRedundancy :: Lens.Lens' Interconnect (Prelude.Maybe HasLogicalRedundancy)
+interconnect_hasLogicalRedundancy = Lens.lens (\Interconnect' {hasLogicalRedundancy} -> hasLogicalRedundancy) (\s@Interconnect' {} a -> s {hasLogicalRedundancy = a} :: Interconnect)
 
 -- | The Direct Connect endpoint on which the physical connection terminates.
-iAwsDevice :: Lens' Interconnect (Maybe Text)
-iAwsDevice = lens _iAwsDevice (\s a -> s {_iAwsDevice = a})
+interconnect_awsDevice :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_awsDevice = Lens.lens (\Interconnect' {awsDevice} -> awsDevice) (\s@Interconnect' {} a -> s {awsDevice = a} :: Interconnect)
 
 -- | Indicates whether jumbo frames (9001 MTU) are supported.
-iJumboFrameCapable :: Lens' Interconnect (Maybe Bool)
-iJumboFrameCapable = lens _iJumboFrameCapable (\s a -> s {_iJumboFrameCapable = a})
+interconnect_jumboFrameCapable :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Bool)
+interconnect_jumboFrameCapable = Lens.lens (\Interconnect' {jumboFrameCapable} -> jumboFrameCapable) (\s@Interconnect' {} a -> s {jumboFrameCapable = a} :: Interconnect)
 
 -- | The ID of the LAG.
-iLagId :: Lens' Interconnect (Maybe Text)
-iLagId = lens _iLagId (\s a -> s {_iLagId = a})
+interconnect_lagId :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_lagId = Lens.lens (\Interconnect' {lagId} -> lagId) (\s@Interconnect' {} a -> s {lagId = a} :: Interconnect)
 
 -- | The tags associated with the interconnect.
-iTags :: Lens' Interconnect (Maybe (NonEmpty Tag))
-iTags = lens _iTags (\s a -> s {_iTags = a}) . mapping _List1
+interconnect_tags :: Lens.Lens' Interconnect (Prelude.Maybe (Prelude.NonEmpty Tag))
+interconnect_tags = Lens.lens (\Interconnect' {tags} -> tags) (\s@Interconnect' {} a -> s {tags = a} :: Interconnect) Prelude.. Lens.mapping Prelude._List1
 
--- | The time of the most recent call to 'DescribeLoa' for this connection.
-iLoaIssueTime :: Lens' Interconnect (Maybe UTCTime)
-iLoaIssueTime = lens _iLoaIssueTime (\s a -> s {_iLoaIssueTime = a}) . mapping _Time
+-- | The time of the most recent call to DescribeLoa for this connection.
+interconnect_loaIssueTime :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.UTCTime)
+interconnect_loaIssueTime = Lens.lens (\Interconnect' {loaIssueTime} -> loaIssueTime) (\s@Interconnect' {} a -> s {loaIssueTime = a} :: Interconnect) Prelude.. Lens.mapping Prelude._Time
 
 -- | The AWS Region where the connection is located.
-iRegion :: Lens' Interconnect (Maybe Text)
-iRegion = lens _iRegion (\s a -> s {_iRegion = a})
+interconnect_region :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_region = Lens.lens (\Interconnect' {region} -> region) (\s@Interconnect' {} a -> s {region = a} :: Interconnect)
 
--- | The state of the interconnect. The following are the possible values:     * @requested@ : The initial state of an interconnect. The interconnect stays in the requested state until the Letter of Authorization (LOA) is sent to the customer.     * @pending@ : The interconnect is approved, and is being initialized.     * @available@ : The network link is up, and the interconnect is ready for use.     * @down@ : The network link is down.     * @deleting@ : The interconnect is being deleted.     * @deleted@ : The interconnect is deleted.     * @unknown@ : The state of the interconnect is not available.
-iInterconnectState :: Lens' Interconnect (Maybe InterconnectState)
-iInterconnectState = lens _iInterconnectState (\s a -> s {_iInterconnectState = a})
+-- | The state of the interconnect. The following are the possible values:
+--
+-- -   @requested@: The initial state of an interconnect. The interconnect
+--     stays in the requested state until the Letter of Authorization (LOA)
+--     is sent to the customer.
+--
+-- -   @pending@: The interconnect is approved, and is being initialized.
+--
+-- -   @available@: The network link is up, and the interconnect is ready
+--     for use.
+--
+-- -   @down@: The network link is down.
+--
+-- -   @deleting@: The interconnect is being deleted.
+--
+-- -   @deleted@: The interconnect is deleted.
+--
+-- -   @unknown@: The state of the interconnect is not available.
+interconnect_interconnectState :: Lens.Lens' Interconnect (Prelude.Maybe InterconnectState)
+interconnect_interconnectState = Lens.lens (\Interconnect' {interconnectState} -> interconnectState) (\s@Interconnect' {} a -> s {interconnectState = a} :: Interconnect)
 
 -- | The location of the connection.
-iLocation :: Lens' Interconnect (Maybe Text)
-iLocation = lens _iLocation (\s a -> s {_iLocation = a})
+interconnect_location :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_location = Lens.lens (\Interconnect' {location} -> location) (\s@Interconnect' {} a -> s {location = a} :: Interconnect)
 
 -- | The name of the interconnect.
-iInterconnectName :: Lens' Interconnect (Maybe Text)
-iInterconnectName = lens _iInterconnectName (\s a -> s {_iInterconnectName = a})
+interconnect_interconnectName :: Lens.Lens' Interconnect (Prelude.Maybe Prelude.Text)
+interconnect_interconnectName = Lens.lens (\Interconnect' {interconnectName} -> interconnectName) (\s@Interconnect' {} a -> s {interconnectName = a} :: Interconnect)
 
-instance FromJSON Interconnect where
+instance Prelude.FromJSON Interconnect where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Interconnect"
       ( \x ->
           Interconnect'
-            <$> (x .:? "bandwidth")
-            <*> (x .:? "interconnectId")
-            <*> (x .:? "awsDeviceV2")
-            <*> (x .:? "providerName")
-            <*> (x .:? "hasLogicalRedundancy")
-            <*> (x .:? "awsDevice")
-            <*> (x .:? "jumboFrameCapable")
-            <*> (x .:? "lagId")
-            <*> (x .:? "tags")
-            <*> (x .:? "loaIssueTime")
-            <*> (x .:? "region")
-            <*> (x .:? "interconnectState")
-            <*> (x .:? "location")
-            <*> (x .:? "interconnectName")
+            Prelude.<$> (x Prelude..:? "bandwidth")
+            Prelude.<*> (x Prelude..:? "interconnectId")
+            Prelude.<*> (x Prelude..:? "awsDeviceV2")
+            Prelude.<*> (x Prelude..:? "providerName")
+            Prelude.<*> (x Prelude..:? "hasLogicalRedundancy")
+            Prelude.<*> (x Prelude..:? "awsDevice")
+            Prelude.<*> (x Prelude..:? "jumboFrameCapable")
+            Prelude.<*> (x Prelude..:? "lagId")
+            Prelude.<*> (x Prelude..:? "tags")
+            Prelude.<*> (x Prelude..:? "loaIssueTime")
+            Prelude.<*> (x Prelude..:? "region")
+            Prelude.<*> (x Prelude..:? "interconnectState")
+            Prelude.<*> (x Prelude..:? "location")
+            Prelude.<*> (x Prelude..:? "interconnectName")
       )
 
-instance Hashable Interconnect
+instance Prelude.Hashable Interconnect
 
-instance NFData Interconnect
+instance Prelude.NFData Interconnect

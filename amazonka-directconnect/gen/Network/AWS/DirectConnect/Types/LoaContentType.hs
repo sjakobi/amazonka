@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.DirectConnect.Types.LoaContentType
   ( LoaContentType
       ( ..,
-        ApplicationPdf
+        LoaContentTypeApplicationPdf
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoaContentType = LoaContentType' (CI Text)
+newtype LoaContentType = LoaContentType'
+  { fromLoaContentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ApplicationPdf :: LoaContentType
-pattern ApplicationPdf = LoaContentType' "application/pdf"
+pattern LoaContentTypeApplicationPdf :: LoaContentType
+pattern LoaContentTypeApplicationPdf = LoaContentType' "application/pdf"
 
 {-# COMPLETE
-  ApplicationPdf,
+  LoaContentTypeApplicationPdf,
   LoaContentType'
   #-}
 
-instance FromText LoaContentType where
-  parser = (LoaContentType' . mk) <$> takeText
+instance Prelude.FromText LoaContentType where
+  parser = LoaContentType' Prelude.<$> Prelude.takeText
 
-instance ToText LoaContentType where
-  toText (LoaContentType' ci) = original ci
+instance Prelude.ToText LoaContentType where
+  toText (LoaContentType' x) = x
 
-instance Hashable LoaContentType
+instance Prelude.Hashable LoaContentType
 
-instance NFData LoaContentType
+instance Prelude.NFData LoaContentType
 
-instance ToByteString LoaContentType
+instance Prelude.ToByteString LoaContentType
 
-instance ToQuery LoaContentType
+instance Prelude.ToQuery LoaContentType
 
-instance ToHeader LoaContentType
+instance Prelude.ToHeader LoaContentType
 
-instance ToJSON LoaContentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoaContentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoaContentType where
-  parseJSON = parseJSONText "LoaContentType"
+instance Prelude.FromJSON LoaContentType where
+  parseJSON = Prelude.parseJSONText "LoaContentType"

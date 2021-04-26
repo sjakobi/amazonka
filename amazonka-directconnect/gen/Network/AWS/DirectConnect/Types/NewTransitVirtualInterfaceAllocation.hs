@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,155 +21,161 @@ module Network.AWS.DirectConnect.Types.NewTransitVirtualInterfaceAllocation wher
 
 import Network.AWS.DirectConnect.Types.AddressFamily
 import Network.AWS.DirectConnect.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a transit virtual interface to be provisioned on a connection.
+-- | Information about a transit virtual interface to be provisioned on a
+-- connection.
 --
---
---
--- /See:/ 'newTransitVirtualInterfaceAllocation' smart constructor.
+-- /See:/ 'newNewTransitVirtualInterfaceAllocation' smart constructor.
 data NewTransitVirtualInterfaceAllocation = NewTransitVirtualInterfaceAllocation'
-  { _ntviaAuthKey ::
-      !( Maybe
-           Text
-       ),
-    _ntviaAsn ::
-      !( Maybe
-           Int
-       ),
-    _ntviaMtu ::
-      !( Maybe
-           Int
-       ),
-    _ntviaTags ::
-      !( Maybe
-           ( List1
-               Tag
-           )
-       ),
-    _ntviaVirtualInterfaceName ::
-      !( Maybe
-           Text
-       ),
-    _ntviaAddressFamily ::
-      !( Maybe
-           AddressFamily
-       ),
-    _ntviaAmazonAddress ::
-      !( Maybe
-           Text
-       ),
-    _ntviaVlan ::
-      !( Maybe
-           Int
-       ),
-    _ntviaCustomerAddress ::
-      !( Maybe
-           Text
-       )
+  { -- | The authentication key for BGP configuration. This string has a minimum
+    -- length of 6 characters and and a maximun lenth of 80 characters.
+    authKey :: Prelude.Maybe Prelude.Text,
+    -- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+    -- configuration.
+    --
+    -- The valid values are 1-2147483647.
+    asn :: Prelude.Maybe Prelude.Int,
+    -- | The maximum transmission unit (MTU), in bytes. The supported values are
+    -- 1500 and 9001. The default value is 1500.
+    mtu :: Prelude.Maybe Prelude.Int,
+    -- | The tags associated with the transitive virtual interface.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | The name of the virtual interface assigned by the customer network. The
+    -- name has a maximum of 100 characters. The following are valid
+    -- characters: a-z, 0-9 and a hyphen (-).
+    virtualInterfaceName :: Prelude.Maybe Prelude.Text,
+    -- | The address family for the BGP peer.
+    addressFamily :: Prelude.Maybe AddressFamily,
+    -- | The IP address assigned to the Amazon interface.
+    amazonAddress :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VLAN.
+    vlan :: Prelude.Maybe Prelude.Int,
+    -- | The IP address assigned to the customer interface.
+    customerAddress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NewTransitVirtualInterfaceAllocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NewTransitVirtualInterfaceAllocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ntviaAuthKey' - The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ntviaAsn' - The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration. The valid values are 1-2147483647.
+-- 'authKey', 'newTransitVirtualInterfaceAllocation_authKey' - The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
 --
--- * 'ntviaMtu' - The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+-- 'asn', 'newTransitVirtualInterfaceAllocation_asn' - The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
 --
--- * 'ntviaTags' - The tags associated with the transitive virtual interface.
+-- The valid values are 1-2147483647.
 --
--- * 'ntviaVirtualInterfaceName' - The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
+-- 'mtu', 'newTransitVirtualInterfaceAllocation_mtu' - The maximum transmission unit (MTU), in bytes. The supported values are
+-- 1500 and 9001. The default value is 1500.
 --
--- * 'ntviaAddressFamily' - The address family for the BGP peer.
+-- 'tags', 'newTransitVirtualInterfaceAllocation_tags' - The tags associated with the transitive virtual interface.
 --
--- * 'ntviaAmazonAddress' - The IP address assigned to the Amazon interface.
+-- 'virtualInterfaceName', 'newTransitVirtualInterfaceAllocation_virtualInterfaceName' - The name of the virtual interface assigned by the customer network. The
+-- name has a maximum of 100 characters. The following are valid
+-- characters: a-z, 0-9 and a hyphen (-).
 --
--- * 'ntviaVlan' - The ID of the VLAN.
+-- 'addressFamily', 'newTransitVirtualInterfaceAllocation_addressFamily' - The address family for the BGP peer.
 --
--- * 'ntviaCustomerAddress' - The IP address assigned to the customer interface.
-newTransitVirtualInterfaceAllocation ::
+-- 'amazonAddress', 'newTransitVirtualInterfaceAllocation_amazonAddress' - The IP address assigned to the Amazon interface.
+--
+-- 'vlan', 'newTransitVirtualInterfaceAllocation_vlan' - The ID of the VLAN.
+--
+-- 'customerAddress', 'newTransitVirtualInterfaceAllocation_customerAddress' - The IP address assigned to the customer interface.
+newNewTransitVirtualInterfaceAllocation ::
   NewTransitVirtualInterfaceAllocation
-newTransitVirtualInterfaceAllocation =
+newNewTransitVirtualInterfaceAllocation =
   NewTransitVirtualInterfaceAllocation'
-    { _ntviaAuthKey =
-        Nothing,
-      _ntviaAsn = Nothing,
-      _ntviaMtu = Nothing,
-      _ntviaTags = Nothing,
-      _ntviaVirtualInterfaceName = Nothing,
-      _ntviaAddressFamily = Nothing,
-      _ntviaAmazonAddress = Nothing,
-      _ntviaVlan = Nothing,
-      _ntviaCustomerAddress = Nothing
+    { authKey =
+        Prelude.Nothing,
+      asn = Prelude.Nothing,
+      mtu = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      virtualInterfaceName =
+        Prelude.Nothing,
+      addressFamily = Prelude.Nothing,
+      amazonAddress = Prelude.Nothing,
+      vlan = Prelude.Nothing,
+      customerAddress = Prelude.Nothing
     }
 
--- | The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.
-ntviaAuthKey :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Text)
-ntviaAuthKey = lens _ntviaAuthKey (\s a -> s {_ntviaAuthKey = a})
+-- | The authentication key for BGP configuration. This string has a minimum
+-- length of 6 characters and and a maximun lenth of 80 characters.
+newTransitVirtualInterfaceAllocation_authKey :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Text)
+newTransitVirtualInterfaceAllocation_authKey = Lens.lens (\NewTransitVirtualInterfaceAllocation' {authKey} -> authKey) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {authKey = a} :: NewTransitVirtualInterfaceAllocation)
 
--- | The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration. The valid values are 1-2147483647.
-ntviaAsn :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Int)
-ntviaAsn = lens _ntviaAsn (\s a -> s {_ntviaAsn = a})
+-- | The autonomous system (AS) number for Border Gateway Protocol (BGP)
+-- configuration.
+--
+-- The valid values are 1-2147483647.
+newTransitVirtualInterfaceAllocation_asn :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Int)
+newTransitVirtualInterfaceAllocation_asn = Lens.lens (\NewTransitVirtualInterfaceAllocation' {asn} -> asn) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {asn = a} :: NewTransitVirtualInterfaceAllocation)
 
--- | The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
-ntviaMtu :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Int)
-ntviaMtu = lens _ntviaMtu (\s a -> s {_ntviaMtu = a})
+-- | The maximum transmission unit (MTU), in bytes. The supported values are
+-- 1500 and 9001. The default value is 1500.
+newTransitVirtualInterfaceAllocation_mtu :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Int)
+newTransitVirtualInterfaceAllocation_mtu = Lens.lens (\NewTransitVirtualInterfaceAllocation' {mtu} -> mtu) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {mtu = a} :: NewTransitVirtualInterfaceAllocation)
 
 -- | The tags associated with the transitive virtual interface.
-ntviaTags :: Lens' NewTransitVirtualInterfaceAllocation (Maybe (NonEmpty Tag))
-ntviaTags = lens _ntviaTags (\s a -> s {_ntviaTags = a}) . mapping _List1
+newTransitVirtualInterfaceAllocation_tags :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe (Prelude.NonEmpty Tag))
+newTransitVirtualInterfaceAllocation_tags = Lens.lens (\NewTransitVirtualInterfaceAllocation' {tags} -> tags) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {tags = a} :: NewTransitVirtualInterfaceAllocation) Prelude.. Lens.mapping Prelude._List1
 
--- | The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
-ntviaVirtualInterfaceName :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Text)
-ntviaVirtualInterfaceName = lens _ntviaVirtualInterfaceName (\s a -> s {_ntviaVirtualInterfaceName = a})
+-- | The name of the virtual interface assigned by the customer network. The
+-- name has a maximum of 100 characters. The following are valid
+-- characters: a-z, 0-9 and a hyphen (-).
+newTransitVirtualInterfaceAllocation_virtualInterfaceName :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Text)
+newTransitVirtualInterfaceAllocation_virtualInterfaceName = Lens.lens (\NewTransitVirtualInterfaceAllocation' {virtualInterfaceName} -> virtualInterfaceName) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {virtualInterfaceName = a} :: NewTransitVirtualInterfaceAllocation)
 
 -- | The address family for the BGP peer.
-ntviaAddressFamily :: Lens' NewTransitVirtualInterfaceAllocation (Maybe AddressFamily)
-ntviaAddressFamily = lens _ntviaAddressFamily (\s a -> s {_ntviaAddressFamily = a})
+newTransitVirtualInterfaceAllocation_addressFamily :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe AddressFamily)
+newTransitVirtualInterfaceAllocation_addressFamily = Lens.lens (\NewTransitVirtualInterfaceAllocation' {addressFamily} -> addressFamily) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {addressFamily = a} :: NewTransitVirtualInterfaceAllocation)
 
 -- | The IP address assigned to the Amazon interface.
-ntviaAmazonAddress :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Text)
-ntviaAmazonAddress = lens _ntviaAmazonAddress (\s a -> s {_ntviaAmazonAddress = a})
+newTransitVirtualInterfaceAllocation_amazonAddress :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Text)
+newTransitVirtualInterfaceAllocation_amazonAddress = Lens.lens (\NewTransitVirtualInterfaceAllocation' {amazonAddress} -> amazonAddress) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {amazonAddress = a} :: NewTransitVirtualInterfaceAllocation)
 
 -- | The ID of the VLAN.
-ntviaVlan :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Int)
-ntviaVlan = lens _ntviaVlan (\s a -> s {_ntviaVlan = a})
+newTransitVirtualInterfaceAllocation_vlan :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Int)
+newTransitVirtualInterfaceAllocation_vlan = Lens.lens (\NewTransitVirtualInterfaceAllocation' {vlan} -> vlan) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {vlan = a} :: NewTransitVirtualInterfaceAllocation)
 
 -- | The IP address assigned to the customer interface.
-ntviaCustomerAddress :: Lens' NewTransitVirtualInterfaceAllocation (Maybe Text)
-ntviaCustomerAddress = lens _ntviaCustomerAddress (\s a -> s {_ntviaCustomerAddress = a})
+newTransitVirtualInterfaceAllocation_customerAddress :: Lens.Lens' NewTransitVirtualInterfaceAllocation (Prelude.Maybe Prelude.Text)
+newTransitVirtualInterfaceAllocation_customerAddress = Lens.lens (\NewTransitVirtualInterfaceAllocation' {customerAddress} -> customerAddress) (\s@NewTransitVirtualInterfaceAllocation' {} a -> s {customerAddress = a} :: NewTransitVirtualInterfaceAllocation)
 
 instance
-  Hashable
+  Prelude.Hashable
     NewTransitVirtualInterfaceAllocation
 
-instance NFData NewTransitVirtualInterfaceAllocation
+instance
+  Prelude.NFData
+    NewTransitVirtualInterfaceAllocation
 
-instance ToJSON NewTransitVirtualInterfaceAllocation where
+instance
+  Prelude.ToJSON
+    NewTransitVirtualInterfaceAllocation
+  where
   toJSON NewTransitVirtualInterfaceAllocation' {..} =
-    object
-      ( catMaybes
-          [ ("authKey" .=) <$> _ntviaAuthKey,
-            ("asn" .=) <$> _ntviaAsn,
-            ("mtu" .=) <$> _ntviaMtu,
-            ("tags" .=) <$> _ntviaTags,
-            ("virtualInterfaceName" .=)
-              <$> _ntviaVirtualInterfaceName,
-            ("addressFamily" .=) <$> _ntviaAddressFamily,
-            ("amazonAddress" .=) <$> _ntviaAmazonAddress,
-            ("vlan" .=) <$> _ntviaVlan,
-            ("customerAddress" .=) <$> _ntviaCustomerAddress
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("authKey" Prelude..=) Prelude.<$> authKey,
+            ("asn" Prelude..=) Prelude.<$> asn,
+            ("mtu" Prelude..=) Prelude.<$> mtu,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("virtualInterfaceName" Prelude..=)
+              Prelude.<$> virtualInterfaceName,
+            ("addressFamily" Prelude..=)
+              Prelude.<$> addressFamily,
+            ("amazonAddress" Prelude..=)
+              Prelude.<$> amazonAddress,
+            ("vlan" Prelude..=) Prelude.<$> vlan,
+            ("customerAddress" Prelude..=)
+              Prelude.<$> customerAddress
           ]
       )

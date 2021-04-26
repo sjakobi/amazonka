@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provisions a private virtual interface to be owned by the specified AWS account.
+-- Provisions a private virtual interface to be owned by the specified AWS
+-- account.
 --
---
--- Virtual interfaces created using this action must be confirmed by the owner using 'ConfirmPrivateVirtualInterface' . Until then, the virtual interface is in the @Confirming@ state and is not available to handle traffic.
+-- Virtual interfaces created using this action must be confirmed by the
+-- owner using ConfirmPrivateVirtualInterface. Until then, the virtual
+-- interface is in the @Confirming@ state and is not available to handle
+-- traffic.
 module Network.AWS.DirectConnect.AllocatePrivateVirtualInterface
   ( -- * Creating a Request
-    allocatePrivateVirtualInterface,
-    AllocatePrivateVirtualInterface,
+    AllocatePrivateVirtualInterface (..),
+    newAllocatePrivateVirtualInterface,
 
     -- * Request Lenses
-    apviConnectionId,
-    apviOwnerAccount,
-    apviNewPrivateVirtualInterfaceAllocation,
+    allocatePrivateVirtualInterface_connectionId,
+    allocatePrivateVirtualInterface_ownerAccount,
+    allocatePrivateVirtualInterface_newPrivateVirtualInterfaceAllocation,
 
     -- * Destructuring the Response
-    virtualInterface,
-    VirtualInterface,
+    VirtualInterface (..),
+    newVirtualInterface,
 
     -- * Response Lenses
-    viAuthKey,
-    viBgpPeers,
-    viVirtualGatewayId,
-    viAsn,
-    viAwsDeviceV2,
-    viConnectionId,
-    viCustomerRouterConfig,
-    viJumboFrameCapable,
-    viRouteFilterPrefixes,
-    viVirtualInterfaceType,
-    viMtu,
-    viTags,
-    viVirtualInterfaceId,
-    viAmazonSideASN,
-    viDirectConnectGatewayId,
-    viVirtualInterfaceState,
-    viVirtualInterfaceName,
-    viAddressFamily,
-    viAmazonAddress,
-    viOwnerAccount,
-    viRegion,
-    viLocation,
-    viVlan,
-    viCustomerAddress,
+    virtualInterface_authKey,
+    virtualInterface_bgpPeers,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_asn,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_connectionId,
+    virtualInterface_customerRouterConfig,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_mtu,
+    virtualInterface_tags,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_amazonSideAsn,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_addressFamily,
+    virtualInterface_amazonAddress,
+    virtualInterface_ownerAccount,
+    virtualInterface_region,
+    virtualInterface_location,
+    virtualInterface_vlan,
+    virtualInterface_customerAddress,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.AddressFamily
+import Network.AWS.DirectConnect.Types.BGPPeer
+import Network.AWS.DirectConnect.Types.RouteFilterPrefix
+import Network.AWS.DirectConnect.Types.Tag
+import Network.AWS.DirectConnect.Types.VirtualInterface
+import Network.AWS.DirectConnect.Types.VirtualInterfaceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'allocatePrivateVirtualInterface' smart constructor.
+-- | /See:/ 'newAllocatePrivateVirtualInterface' smart constructor.
 data AllocatePrivateVirtualInterface = AllocatePrivateVirtualInterface'
-  { _apviConnectionId ::
-      !Text,
-    _apviOwnerAccount ::
-      !Text,
-    _apviNewPrivateVirtualInterfaceAllocation ::
-      !NewPrivateVirtualInterfaceAllocation
+  { -- | The ID of the connection on which the private virtual interface is
+    -- provisioned.
+    connectionId :: Prelude.Text,
+    -- | The ID of the AWS account that owns the virtual private interface.
+    ownerAccount :: Prelude.Text,
+    -- | Information about the private virtual interface.
+    newPrivateVirtualInterfaceAllocation' :: NewPrivateVirtualInterfaceAllocation
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AllocatePrivateVirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AllocatePrivateVirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'apviConnectionId' - The ID of the connection on which the private virtual interface is provisioned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'apviOwnerAccount' - The ID of the AWS account that owns the virtual private interface.
+-- 'connectionId', 'allocatePrivateVirtualInterface_connectionId' - The ID of the connection on which the private virtual interface is
+-- provisioned.
 --
--- * 'apviNewPrivateVirtualInterfaceAllocation' - Information about the private virtual interface.
-allocatePrivateVirtualInterface ::
-  -- | 'apviConnectionId'
-  Text ->
-  -- | 'apviOwnerAccount'
-  Text ->
-  -- | 'apviNewPrivateVirtualInterfaceAllocation'
+-- 'ownerAccount', 'allocatePrivateVirtualInterface_ownerAccount' - The ID of the AWS account that owns the virtual private interface.
+--
+-- 'newPrivateVirtualInterfaceAllocation'', 'allocatePrivateVirtualInterface_newPrivateVirtualInterfaceAllocation' - Information about the private virtual interface.
+newAllocatePrivateVirtualInterface ::
+  -- | 'connectionId'
+  Prelude.Text ->
+  -- | 'ownerAccount'
+  Prelude.Text ->
+  -- | 'newPrivateVirtualInterfaceAllocation''
   NewPrivateVirtualInterfaceAllocation ->
   AllocatePrivateVirtualInterface
-allocatePrivateVirtualInterface
+newAllocatePrivateVirtualInterface
   pConnectionId_
   pOwnerAccount_
   pNewPrivateVirtualInterfaceAllocation_ =
     AllocatePrivateVirtualInterface'
-      { _apviConnectionId =
+      { connectionId =
           pConnectionId_,
-        _apviOwnerAccount = pOwnerAccount_,
-        _apviNewPrivateVirtualInterfaceAllocation =
+        ownerAccount = pOwnerAccount_,
+        newPrivateVirtualInterfaceAllocation' =
           pNewPrivateVirtualInterfaceAllocation_
       }
 
--- | The ID of the connection on which the private virtual interface is provisioned.
-apviConnectionId :: Lens' AllocatePrivateVirtualInterface Text
-apviConnectionId = lens _apviConnectionId (\s a -> s {_apviConnectionId = a})
+-- | The ID of the connection on which the private virtual interface is
+-- provisioned.
+allocatePrivateVirtualInterface_connectionId :: Lens.Lens' AllocatePrivateVirtualInterface Prelude.Text
+allocatePrivateVirtualInterface_connectionId = Lens.lens (\AllocatePrivateVirtualInterface' {connectionId} -> connectionId) (\s@AllocatePrivateVirtualInterface' {} a -> s {connectionId = a} :: AllocatePrivateVirtualInterface)
 
 -- | The ID of the AWS account that owns the virtual private interface.
-apviOwnerAccount :: Lens' AllocatePrivateVirtualInterface Text
-apviOwnerAccount = lens _apviOwnerAccount (\s a -> s {_apviOwnerAccount = a})
+allocatePrivateVirtualInterface_ownerAccount :: Lens.Lens' AllocatePrivateVirtualInterface Prelude.Text
+allocatePrivateVirtualInterface_ownerAccount = Lens.lens (\AllocatePrivateVirtualInterface' {ownerAccount} -> ownerAccount) (\s@AllocatePrivateVirtualInterface' {} a -> s {ownerAccount = a} :: AllocatePrivateVirtualInterface)
 
 -- | Information about the private virtual interface.
-apviNewPrivateVirtualInterfaceAllocation :: Lens' AllocatePrivateVirtualInterface NewPrivateVirtualInterfaceAllocation
-apviNewPrivateVirtualInterfaceAllocation = lens _apviNewPrivateVirtualInterfaceAllocation (\s a -> s {_apviNewPrivateVirtualInterfaceAllocation = a})
+allocatePrivateVirtualInterface_newPrivateVirtualInterfaceAllocation :: Lens.Lens' AllocatePrivateVirtualInterface NewPrivateVirtualInterfaceAllocation
+allocatePrivateVirtualInterface_newPrivateVirtualInterfaceAllocation = Lens.lens (\AllocatePrivateVirtualInterface' {newPrivateVirtualInterfaceAllocation'} -> newPrivateVirtualInterfaceAllocation') (\s@AllocatePrivateVirtualInterface' {} a -> s {newPrivateVirtualInterfaceAllocation' = a} :: AllocatePrivateVirtualInterface)
 
-instance AWSRequest AllocatePrivateVirtualInterface where
+instance
+  Prelude.AWSRequest
+    AllocatePrivateVirtualInterface
+  where
   type
     Rs AllocatePrivateVirtualInterface =
       VirtualInterface
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable AllocatePrivateVirtualInterface
+instance
+  Prelude.Hashable
+    AllocatePrivateVirtualInterface
 
-instance NFData AllocatePrivateVirtualInterface
+instance
+  Prelude.NFData
+    AllocatePrivateVirtualInterface
 
-instance ToHeaders AllocatePrivateVirtualInterface where
+instance
+  Prelude.ToHeaders
+    AllocatePrivateVirtualInterface
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.AllocatePrivateVirtualInterface" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.AllocatePrivateVirtualInterface" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AllocatePrivateVirtualInterface where
+instance
+  Prelude.ToJSON
+    AllocatePrivateVirtualInterface
+  where
   toJSON AllocatePrivateVirtualInterface' {..} =
-    object
-      ( catMaybes
-          [ Just ("connectionId" .= _apviConnectionId),
-            Just ("ownerAccount" .= _apviOwnerAccount),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("connectionId" Prelude..= connectionId),
+            Prelude.Just
+              ("ownerAccount" Prelude..= ownerAccount),
+            Prelude.Just
               ( "newPrivateVirtualInterfaceAllocation"
-                  .= _apviNewPrivateVirtualInterfaceAllocation
+                  Prelude..= newPrivateVirtualInterfaceAllocation'
               )
           ]
       )
 
-instance ToPath AllocatePrivateVirtualInterface where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    AllocatePrivateVirtualInterface
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery AllocatePrivateVirtualInterface where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    AllocatePrivateVirtualInterface
+  where
+  toQuery = Prelude.const Prelude.mempty

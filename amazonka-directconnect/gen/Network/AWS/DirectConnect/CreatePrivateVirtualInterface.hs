@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a private virtual interface. A virtual interface is the VLAN that transports AWS Direct Connect traffic. A private virtual interface can be connected to either a Direct Connect gateway or a Virtual Private Gateway (VGW). Connecting the private virtual interface to a Direct Connect gateway enables the possibility for connecting to multiple VPCs, including VPCs in different AWS Regions. Connecting the private virtual interface to a VGW only provides access to a single VPC within the same Region.
+-- Creates a private virtual interface. A virtual interface is the VLAN
+-- that transports AWS Direct Connect traffic. A private virtual interface
+-- can be connected to either a Direct Connect gateway or a Virtual Private
+-- Gateway (VGW). Connecting the private virtual interface to a Direct
+-- Connect gateway enables the possibility for connecting to multiple VPCs,
+-- including VPCs in different AWS Regions. Connecting the private virtual
+-- interface to a VGW only provides access to a single VPC within the same
+-- Region.
 --
---
--- Setting the MTU of a virtual interface to 9001 (jumbo frames) can cause an update to the underlying physical connection if it wasn't updated to support jumbo frames. Updating the connection disrupts network connectivity for all virtual interfaces associated with the connection for up to 30 seconds. To check whether your connection supports jumbo frames, call 'DescribeConnections' . To check whether your virtual interface supports jumbo frames, call 'DescribeVirtualInterfaces' .
+-- Setting the MTU of a virtual interface to 9001 (jumbo frames) can cause
+-- an update to the underlying physical connection if it wasn\'t updated to
+-- support jumbo frames. Updating the connection disrupts network
+-- connectivity for all virtual interfaces associated with the connection
+-- for up to 30 seconds. To check whether your connection supports jumbo
+-- frames, call DescribeConnections. To check whether your virtual
+-- interface supports jumbo frames, call DescribeVirtualInterfaces.
 module Network.AWS.DirectConnect.CreatePrivateVirtualInterface
   ( -- * Creating a Request
-    createPrivateVirtualInterface,
-    CreatePrivateVirtualInterface,
+    CreatePrivateVirtualInterface (..),
+    newCreatePrivateVirtualInterface,
 
     -- * Request Lenses
-    creConnectionId,
-    creNewPrivateVirtualInterface,
+    createPrivateVirtualInterface_connectionId,
+    createPrivateVirtualInterface_newPrivateVirtualInterface,
 
     -- * Destructuring the Response
-    virtualInterface,
-    VirtualInterface,
+    VirtualInterface (..),
+    newVirtualInterface,
 
     -- * Response Lenses
-    viAuthKey,
-    viBgpPeers,
-    viVirtualGatewayId,
-    viAsn,
-    viAwsDeviceV2,
-    viConnectionId,
-    viCustomerRouterConfig,
-    viJumboFrameCapable,
-    viRouteFilterPrefixes,
-    viVirtualInterfaceType,
-    viMtu,
-    viTags,
-    viVirtualInterfaceId,
-    viAmazonSideASN,
-    viDirectConnectGatewayId,
-    viVirtualInterfaceState,
-    viVirtualInterfaceName,
-    viAddressFamily,
-    viAmazonAddress,
-    viOwnerAccount,
-    viRegion,
-    viLocation,
-    viVlan,
-    viCustomerAddress,
+    virtualInterface_authKey,
+    virtualInterface_bgpPeers,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_asn,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_connectionId,
+    virtualInterface_customerRouterConfig,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_mtu,
+    virtualInterface_tags,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_amazonSideAsn,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_addressFamily,
+    virtualInterface_amazonAddress,
+    virtualInterface_ownerAccount,
+    virtualInterface_region,
+    virtualInterface_location,
+    virtualInterface_vlan,
+    virtualInterface_customerAddress,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.AddressFamily
+import Network.AWS.DirectConnect.Types.BGPPeer
+import Network.AWS.DirectConnect.Types.RouteFilterPrefix
+import Network.AWS.DirectConnect.Types.Tag
+import Network.AWS.DirectConnect.Types.VirtualInterface
+import Network.AWS.DirectConnect.Types.VirtualInterfaceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPrivateVirtualInterface' smart constructor.
+-- | /See:/ 'newCreatePrivateVirtualInterface' smart constructor.
 data CreatePrivateVirtualInterface = CreatePrivateVirtualInterface'
-  { _creConnectionId ::
-      !Text,
-    _creNewPrivateVirtualInterface ::
-      !NewPrivateVirtualInterface
+  { -- | The ID of the connection.
+    connectionId :: Prelude.Text,
+    -- | Information about the private virtual interface.
+    newPrivateVirtualInterface' :: NewPrivateVirtualInterface
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePrivateVirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePrivateVirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'creConnectionId' - The ID of the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'creNewPrivateVirtualInterface' - Information about the private virtual interface.
-createPrivateVirtualInterface ::
-  -- | 'creConnectionId'
-  Text ->
-  -- | 'creNewPrivateVirtualInterface'
+-- 'connectionId', 'createPrivateVirtualInterface_connectionId' - The ID of the connection.
+--
+-- 'newPrivateVirtualInterface'', 'createPrivateVirtualInterface_newPrivateVirtualInterface' - Information about the private virtual interface.
+newCreatePrivateVirtualInterface ::
+  -- | 'connectionId'
+  Prelude.Text ->
+  -- | 'newPrivateVirtualInterface''
   NewPrivateVirtualInterface ->
   CreatePrivateVirtualInterface
-createPrivateVirtualInterface
+newCreatePrivateVirtualInterface
   pConnectionId_
   pNewPrivateVirtualInterface_ =
     CreatePrivateVirtualInterface'
-      { _creConnectionId =
+      { connectionId =
           pConnectionId_,
-        _creNewPrivateVirtualInterface =
+        newPrivateVirtualInterface' =
           pNewPrivateVirtualInterface_
       }
 
 -- | The ID of the connection.
-creConnectionId :: Lens' CreatePrivateVirtualInterface Text
-creConnectionId = lens _creConnectionId (\s a -> s {_creConnectionId = a})
+createPrivateVirtualInterface_connectionId :: Lens.Lens' CreatePrivateVirtualInterface Prelude.Text
+createPrivateVirtualInterface_connectionId = Lens.lens (\CreatePrivateVirtualInterface' {connectionId} -> connectionId) (\s@CreatePrivateVirtualInterface' {} a -> s {connectionId = a} :: CreatePrivateVirtualInterface)
 
 -- | Information about the private virtual interface.
-creNewPrivateVirtualInterface :: Lens' CreatePrivateVirtualInterface NewPrivateVirtualInterface
-creNewPrivateVirtualInterface = lens _creNewPrivateVirtualInterface (\s a -> s {_creNewPrivateVirtualInterface = a})
+createPrivateVirtualInterface_newPrivateVirtualInterface :: Lens.Lens' CreatePrivateVirtualInterface NewPrivateVirtualInterface
+createPrivateVirtualInterface_newPrivateVirtualInterface = Lens.lens (\CreatePrivateVirtualInterface' {newPrivateVirtualInterface'} -> newPrivateVirtualInterface') (\s@CreatePrivateVirtualInterface' {} a -> s {newPrivateVirtualInterface' = a} :: CreatePrivateVirtualInterface)
 
-instance AWSRequest CreatePrivateVirtualInterface where
+instance
+  Prelude.AWSRequest
+    CreatePrivateVirtualInterface
+  where
   type
     Rs CreatePrivateVirtualInterface =
       VirtualInterface
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable CreatePrivateVirtualInterface
+instance
+  Prelude.Hashable
+    CreatePrivateVirtualInterface
 
-instance NFData CreatePrivateVirtualInterface
+instance Prelude.NFData CreatePrivateVirtualInterface
 
-instance ToHeaders CreatePrivateVirtualInterface where
+instance
+  Prelude.ToHeaders
+    CreatePrivateVirtualInterface
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.CreatePrivateVirtualInterface" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.CreatePrivateVirtualInterface" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePrivateVirtualInterface where
+instance Prelude.ToJSON CreatePrivateVirtualInterface where
   toJSON CreatePrivateVirtualInterface' {..} =
-    object
-      ( catMaybes
-          [ Just ("connectionId" .= _creConnectionId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("connectionId" Prelude..= connectionId),
+            Prelude.Just
               ( "newPrivateVirtualInterface"
-                  .= _creNewPrivateVirtualInterface
+                  Prelude..= newPrivateVirtualInterface'
               )
           ]
       )
 
-instance ToPath CreatePrivateVirtualInterface where
-  toPath = const "/"
+instance Prelude.ToPath CreatePrivateVirtualInterface where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePrivateVirtualInterface where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreatePrivateVirtualInterface
+  where
+  toQuery = Prelude.const Prelude.mempty

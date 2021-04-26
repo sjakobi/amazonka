@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,123 +19,121 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DirectConnect.Types.VirtualInterfaceTestHistory where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the virtual interface failover test.
 --
---
---
--- /See:/ 'virtualInterfaceTestHistory' smart constructor.
+-- /See:/ 'newVirtualInterfaceTestHistory' smart constructor.
 data VirtualInterfaceTestHistory = VirtualInterfaceTestHistory'
-  { _vithBgpPeers ::
-      !(Maybe [Text]),
-    _vithStatus ::
-      !(Maybe Text),
-    _vithTestId ::
-      !(Maybe Text),
-    _vithStartTime ::
-      !(Maybe POSIX),
-    _vithEndTime ::
-      !(Maybe POSIX),
-    _vithVirtualInterfaceId ::
-      !(Maybe Text),
-    _vithOwnerAccount ::
-      !(Maybe Text),
-    _vithTestDurationInMinutes ::
-      !(Maybe Int)
+  { -- | The BGP peers that were put in the DOWN state as part of the virtual
+    -- interface failover test.
+    bgpPeers :: Prelude.Maybe [Prelude.Text],
+    -- | The status of the virtual interface failover test.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the virtual interface failover test.
+    testId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the virtual interface moves to the DOWN state.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that the virtual interface moves out of the DOWN state.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the tested virtual interface.
+    virtualInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The owner ID of the tested virtual interface.
+    ownerAccount :: Prelude.Maybe Prelude.Text,
+    -- | The time that the virtual interface failover test ran in minutes.
+    testDurationInMinutes :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VirtualInterfaceTestHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VirtualInterfaceTestHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vithBgpPeers' - The BGP peers that were put in the DOWN state as part of the virtual interface failover test.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vithStatus' - The status of the virtual interface failover test.
+-- 'bgpPeers', 'virtualInterfaceTestHistory_bgpPeers' - The BGP peers that were put in the DOWN state as part of the virtual
+-- interface failover test.
 --
--- * 'vithTestId' - The ID of the virtual interface failover test.
+-- 'status', 'virtualInterfaceTestHistory_status' - The status of the virtual interface failover test.
 --
--- * 'vithStartTime' - The time that the virtual interface moves to the DOWN state.
+-- 'testId', 'virtualInterfaceTestHistory_testId' - The ID of the virtual interface failover test.
 --
--- * 'vithEndTime' - The time that the virtual interface moves out of the DOWN state.
+-- 'startTime', 'virtualInterfaceTestHistory_startTime' - The time that the virtual interface moves to the DOWN state.
 --
--- * 'vithVirtualInterfaceId' - The ID of the tested virtual interface.
+-- 'endTime', 'virtualInterfaceTestHistory_endTime' - The time that the virtual interface moves out of the DOWN state.
 --
--- * 'vithOwnerAccount' - The owner ID of the tested virtual interface.
+-- 'virtualInterfaceId', 'virtualInterfaceTestHistory_virtualInterfaceId' - The ID of the tested virtual interface.
 --
--- * 'vithTestDurationInMinutes' - The time that the virtual interface failover test ran in minutes.
-virtualInterfaceTestHistory ::
+-- 'ownerAccount', 'virtualInterfaceTestHistory_ownerAccount' - The owner ID of the tested virtual interface.
+--
+-- 'testDurationInMinutes', 'virtualInterfaceTestHistory_testDurationInMinutes' - The time that the virtual interface failover test ran in minutes.
+newVirtualInterfaceTestHistory ::
   VirtualInterfaceTestHistory
-virtualInterfaceTestHistory =
+newVirtualInterfaceTestHistory =
   VirtualInterfaceTestHistory'
-    { _vithBgpPeers =
-        Nothing,
-      _vithStatus = Nothing,
-      _vithTestId = Nothing,
-      _vithStartTime = Nothing,
-      _vithEndTime = Nothing,
-      _vithVirtualInterfaceId = Nothing,
-      _vithOwnerAccount = Nothing,
-      _vithTestDurationInMinutes = Nothing
+    { bgpPeers =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      testId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      virtualInterfaceId = Prelude.Nothing,
+      ownerAccount = Prelude.Nothing,
+      testDurationInMinutes = Prelude.Nothing
     }
 
--- | The BGP peers that were put in the DOWN state as part of the virtual interface failover test.
-vithBgpPeers :: Lens' VirtualInterfaceTestHistory [Text]
-vithBgpPeers = lens _vithBgpPeers (\s a -> s {_vithBgpPeers = a}) . _Default . _Coerce
+-- | The BGP peers that were put in the DOWN state as part of the virtual
+-- interface failover test.
+virtualInterfaceTestHistory_bgpPeers :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe [Prelude.Text])
+virtualInterfaceTestHistory_bgpPeers = Lens.lens (\VirtualInterfaceTestHistory' {bgpPeers} -> bgpPeers) (\s@VirtualInterfaceTestHistory' {} a -> s {bgpPeers = a} :: VirtualInterfaceTestHistory) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The status of the virtual interface failover test.
-vithStatus :: Lens' VirtualInterfaceTestHistory (Maybe Text)
-vithStatus = lens _vithStatus (\s a -> s {_vithStatus = a})
+virtualInterfaceTestHistory_status :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.Text)
+virtualInterfaceTestHistory_status = Lens.lens (\VirtualInterfaceTestHistory' {status} -> status) (\s@VirtualInterfaceTestHistory' {} a -> s {status = a} :: VirtualInterfaceTestHistory)
 
 -- | The ID of the virtual interface failover test.
-vithTestId :: Lens' VirtualInterfaceTestHistory (Maybe Text)
-vithTestId = lens _vithTestId (\s a -> s {_vithTestId = a})
+virtualInterfaceTestHistory_testId :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.Text)
+virtualInterfaceTestHistory_testId = Lens.lens (\VirtualInterfaceTestHistory' {testId} -> testId) (\s@VirtualInterfaceTestHistory' {} a -> s {testId = a} :: VirtualInterfaceTestHistory)
 
 -- | The time that the virtual interface moves to the DOWN state.
-vithStartTime :: Lens' VirtualInterfaceTestHistory (Maybe UTCTime)
-vithStartTime = lens _vithStartTime (\s a -> s {_vithStartTime = a}) . mapping _Time
+virtualInterfaceTestHistory_startTime :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.UTCTime)
+virtualInterfaceTestHistory_startTime = Lens.lens (\VirtualInterfaceTestHistory' {startTime} -> startTime) (\s@VirtualInterfaceTestHistory' {} a -> s {startTime = a} :: VirtualInterfaceTestHistory) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time that the virtual interface moves out of the DOWN state.
-vithEndTime :: Lens' VirtualInterfaceTestHistory (Maybe UTCTime)
-vithEndTime = lens _vithEndTime (\s a -> s {_vithEndTime = a}) . mapping _Time
+virtualInterfaceTestHistory_endTime :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.UTCTime)
+virtualInterfaceTestHistory_endTime = Lens.lens (\VirtualInterfaceTestHistory' {endTime} -> endTime) (\s@VirtualInterfaceTestHistory' {} a -> s {endTime = a} :: VirtualInterfaceTestHistory) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the tested virtual interface.
-vithVirtualInterfaceId :: Lens' VirtualInterfaceTestHistory (Maybe Text)
-vithVirtualInterfaceId = lens _vithVirtualInterfaceId (\s a -> s {_vithVirtualInterfaceId = a})
+virtualInterfaceTestHistory_virtualInterfaceId :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.Text)
+virtualInterfaceTestHistory_virtualInterfaceId = Lens.lens (\VirtualInterfaceTestHistory' {virtualInterfaceId} -> virtualInterfaceId) (\s@VirtualInterfaceTestHistory' {} a -> s {virtualInterfaceId = a} :: VirtualInterfaceTestHistory)
 
 -- | The owner ID of the tested virtual interface.
-vithOwnerAccount :: Lens' VirtualInterfaceTestHistory (Maybe Text)
-vithOwnerAccount = lens _vithOwnerAccount (\s a -> s {_vithOwnerAccount = a})
+virtualInterfaceTestHistory_ownerAccount :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.Text)
+virtualInterfaceTestHistory_ownerAccount = Lens.lens (\VirtualInterfaceTestHistory' {ownerAccount} -> ownerAccount) (\s@VirtualInterfaceTestHistory' {} a -> s {ownerAccount = a} :: VirtualInterfaceTestHistory)
 
 -- | The time that the virtual interface failover test ran in minutes.
-vithTestDurationInMinutes :: Lens' VirtualInterfaceTestHistory (Maybe Int)
-vithTestDurationInMinutes = lens _vithTestDurationInMinutes (\s a -> s {_vithTestDurationInMinutes = a})
+virtualInterfaceTestHistory_testDurationInMinutes :: Lens.Lens' VirtualInterfaceTestHistory (Prelude.Maybe Prelude.Int)
+virtualInterfaceTestHistory_testDurationInMinutes = Lens.lens (\VirtualInterfaceTestHistory' {testDurationInMinutes} -> testDurationInMinutes) (\s@VirtualInterfaceTestHistory' {} a -> s {testDurationInMinutes = a} :: VirtualInterfaceTestHistory)
 
-instance FromJSON VirtualInterfaceTestHistory where
+instance Prelude.FromJSON VirtualInterfaceTestHistory where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VirtualInterfaceTestHistory"
       ( \x ->
           VirtualInterfaceTestHistory'
-            <$> (x .:? "bgpPeers" .!= mempty)
-            <*> (x .:? "status")
-            <*> (x .:? "testId")
-            <*> (x .:? "startTime")
-            <*> (x .:? "endTime")
-            <*> (x .:? "virtualInterfaceId")
-            <*> (x .:? "ownerAccount")
-            <*> (x .:? "testDurationInMinutes")
+            Prelude.<$> (x Prelude..:? "bgpPeers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "testId")
+            Prelude.<*> (x Prelude..:? "startTime")
+            Prelude.<*> (x Prelude..:? "endTime")
+            Prelude.<*> (x Prelude..:? "virtualInterfaceId")
+            Prelude.<*> (x Prelude..:? "ownerAccount")
+            Prelude.<*> (x Prelude..:? "testDurationInMinutes")
       )
 
-instance Hashable VirtualInterfaceTestHistory
+instance Prelude.Hashable VirtualInterfaceTestHistory
 
-instance NFData VirtualInterfaceTestHistory
+instance Prelude.NFData VirtualInterfaceTestHistory

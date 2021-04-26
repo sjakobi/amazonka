@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a transit virtual interface. A transit virtual interface should be used to access one or more transit gateways associated with Direct Connect gateways. A transit virtual interface enables the connection of multiple VPCs attached to a transit gateway to a Direct Connect gateway.
+-- Creates a transit virtual interface. A transit virtual interface should
+-- be used to access one or more transit gateways associated with Direct
+-- Connect gateways. A transit virtual interface enables the connection of
+-- multiple VPCs attached to a transit gateway to a Direct Connect gateway.
 --
+-- If you associate your transit gateway with one or more Direct Connect
+-- gateways, the Autonomous System Number (ASN) used by the transit gateway
+-- and the Direct Connect gateway must be different. For example, if you
+-- use the default ASN 64512 for both your the transit gateway and Direct
+-- Connect gateway, the association request fails.
 --
--- /Important:/ If you associate your transit gateway with one or more Direct Connect gateways, the Autonomous System Number (ASN) used by the transit gateway and the Direct Connect gateway must be different. For example, if you use the default ASN 64512 for both your the transit gateway and Direct Connect gateway, the association request fails.
---
--- Setting the MTU of a virtual interface to 8500 (jumbo frames) can cause an update to the underlying physical connection if it wasn't updated to support jumbo frames. Updating the connection disrupts network connectivity for all virtual interfaces associated with the connection for up to 30 seconds. To check whether your connection supports jumbo frames, call 'DescribeConnections' . To check whether your virtual interface supports jumbo frames, call 'DescribeVirtualInterfaces' .
+-- Setting the MTU of a virtual interface to 8500 (jumbo frames) can cause
+-- an update to the underlying physical connection if it wasn\'t updated to
+-- support jumbo frames. Updating the connection disrupts network
+-- connectivity for all virtual interfaces associated with the connection
+-- for up to 30 seconds. To check whether your connection supports jumbo
+-- frames, call DescribeConnections. To check whether your virtual
+-- interface supports jumbo frames, call DescribeVirtualInterfaces.
 module Network.AWS.DirectConnect.CreateTransitVirtualInterface
   ( -- * Creating a Request
-    createTransitVirtualInterface,
-    CreateTransitVirtualInterface,
+    CreateTransitVirtualInterface (..),
+    newCreateTransitVirtualInterface,
 
     -- * Request Lenses
-    ctviConnectionId,
-    ctviNewTransitVirtualInterface,
+    createTransitVirtualInterface_connectionId,
+    createTransitVirtualInterface_newTransitVirtualInterface,
 
     -- * Destructuring the Response
-    createTransitVirtualInterfaceResponse,
-    CreateTransitVirtualInterfaceResponse,
+    CreateTransitVirtualInterfaceResponse (..),
+    newCreateTransitVirtualInterfaceResponse,
 
     -- * Response Lenses
-    ctvirrsVirtualInterface,
-    ctvirrsResponseStatus,
+    createTransitVirtualInterfaceResponse_virtualInterface,
+    createTransitVirtualInterfaceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.VirtualInterface
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createTransitVirtualInterface' smart constructor.
+-- | /See:/ 'newCreateTransitVirtualInterface' smart constructor.
 data CreateTransitVirtualInterface = CreateTransitVirtualInterface'
-  { _ctviConnectionId ::
-      !Text,
-    _ctviNewTransitVirtualInterface ::
-      !NewTransitVirtualInterface
+  { -- | The ID of the connection.
+    connectionId :: Prelude.Text,
+    -- | Information about the transit virtual interface.
+    newTransitVirtualInterface' :: NewTransitVirtualInterface
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitVirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitVirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctviConnectionId' - The ID of the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctviNewTransitVirtualInterface' - Information about the transit virtual interface.
-createTransitVirtualInterface ::
-  -- | 'ctviConnectionId'
-  Text ->
-  -- | 'ctviNewTransitVirtualInterface'
+-- 'connectionId', 'createTransitVirtualInterface_connectionId' - The ID of the connection.
+--
+-- 'newTransitVirtualInterface'', 'createTransitVirtualInterface_newTransitVirtualInterface' - Information about the transit virtual interface.
+newCreateTransitVirtualInterface ::
+  -- | 'connectionId'
+  Prelude.Text ->
+  -- | 'newTransitVirtualInterface''
   NewTransitVirtualInterface ->
   CreateTransitVirtualInterface
-createTransitVirtualInterface
+newCreateTransitVirtualInterface
   pConnectionId_
   pNewTransitVirtualInterface_ =
     CreateTransitVirtualInterface'
-      { _ctviConnectionId =
+      { connectionId =
           pConnectionId_,
-        _ctviNewTransitVirtualInterface =
+        newTransitVirtualInterface' =
           pNewTransitVirtualInterface_
       }
 
 -- | The ID of the connection.
-ctviConnectionId :: Lens' CreateTransitVirtualInterface Text
-ctviConnectionId = lens _ctviConnectionId (\s a -> s {_ctviConnectionId = a})
+createTransitVirtualInterface_connectionId :: Lens.Lens' CreateTransitVirtualInterface Prelude.Text
+createTransitVirtualInterface_connectionId = Lens.lens (\CreateTransitVirtualInterface' {connectionId} -> connectionId) (\s@CreateTransitVirtualInterface' {} a -> s {connectionId = a} :: CreateTransitVirtualInterface)
 
 -- | Information about the transit virtual interface.
-ctviNewTransitVirtualInterface :: Lens' CreateTransitVirtualInterface NewTransitVirtualInterface
-ctviNewTransitVirtualInterface = lens _ctviNewTransitVirtualInterface (\s a -> s {_ctviNewTransitVirtualInterface = a})
+createTransitVirtualInterface_newTransitVirtualInterface :: Lens.Lens' CreateTransitVirtualInterface NewTransitVirtualInterface
+createTransitVirtualInterface_newTransitVirtualInterface = Lens.lens (\CreateTransitVirtualInterface' {newTransitVirtualInterface'} -> newTransitVirtualInterface') (\s@CreateTransitVirtualInterface' {} a -> s {newTransitVirtualInterface' = a} :: CreateTransitVirtualInterface)
 
-instance AWSRequest CreateTransitVirtualInterface where
+instance
+  Prelude.AWSRequest
+    CreateTransitVirtualInterface
+  where
   type
     Rs CreateTransitVirtualInterface =
       CreateTransitVirtualInterfaceResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateTransitVirtualInterfaceResponse'
-            <$> (x .?> "virtualInterface") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "virtualInterface")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTransitVirtualInterface
+instance
+  Prelude.Hashable
+    CreateTransitVirtualInterface
 
-instance NFData CreateTransitVirtualInterface
+instance Prelude.NFData CreateTransitVirtualInterface
 
-instance ToHeaders CreateTransitVirtualInterface where
+instance
+  Prelude.ToHeaders
+    CreateTransitVirtualInterface
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.CreateTransitVirtualInterface" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.CreateTransitVirtualInterface" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateTransitVirtualInterface where
+instance Prelude.ToJSON CreateTransitVirtualInterface where
   toJSON CreateTransitVirtualInterface' {..} =
-    object
-      ( catMaybes
-          [ Just ("connectionId" .= _ctviConnectionId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("connectionId" Prelude..= connectionId),
+            Prelude.Just
               ( "newTransitVirtualInterface"
-                  .= _ctviNewTransitVirtualInterface
+                  Prelude..= newTransitVirtualInterface'
               )
           ]
       )
 
-instance ToPath CreateTransitVirtualInterface where
-  toPath = const "/"
+instance Prelude.ToPath CreateTransitVirtualInterface where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTransitVirtualInterface where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CreateTransitVirtualInterface
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createTransitVirtualInterfaceResponse' smart constructor.
+-- | /See:/ 'newCreateTransitVirtualInterfaceResponse' smart constructor.
 data CreateTransitVirtualInterfaceResponse = CreateTransitVirtualInterfaceResponse'
-  { _ctvirrsVirtualInterface ::
-      !( Maybe
-           VirtualInterface
-       ),
-    _ctvirrsResponseStatus ::
-      !Int
+  { virtualInterface :: Prelude.Maybe VirtualInterface,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTransitVirtualInterfaceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTransitVirtualInterfaceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctvirrsVirtualInterface' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctvirrsResponseStatus' - -- | The response status code.
-createTransitVirtualInterfaceResponse ::
-  -- | 'ctvirrsResponseStatus'
-  Int ->
+-- 'virtualInterface', 'createTransitVirtualInterfaceResponse_virtualInterface' - Undocumented member.
+--
+-- 'httpStatus', 'createTransitVirtualInterfaceResponse_httpStatus' - The response's http status code.
+newCreateTransitVirtualInterfaceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTransitVirtualInterfaceResponse
-createTransitVirtualInterfaceResponse
-  pResponseStatus_ =
-    CreateTransitVirtualInterfaceResponse'
-      { _ctvirrsVirtualInterface =
-          Nothing,
-        _ctvirrsResponseStatus =
-          pResponseStatus_
-      }
+newCreateTransitVirtualInterfaceResponse pHttpStatus_ =
+  CreateTransitVirtualInterfaceResponse'
+    { virtualInterface =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | Undocumented member.
-ctvirrsVirtualInterface :: Lens' CreateTransitVirtualInterfaceResponse (Maybe VirtualInterface)
-ctvirrsVirtualInterface = lens _ctvirrsVirtualInterface (\s a -> s {_ctvirrsVirtualInterface = a})
+createTransitVirtualInterfaceResponse_virtualInterface :: Lens.Lens' CreateTransitVirtualInterfaceResponse (Prelude.Maybe VirtualInterface)
+createTransitVirtualInterfaceResponse_virtualInterface = Lens.lens (\CreateTransitVirtualInterfaceResponse' {virtualInterface} -> virtualInterface) (\s@CreateTransitVirtualInterfaceResponse' {} a -> s {virtualInterface = a} :: CreateTransitVirtualInterfaceResponse)
 
--- | -- | The response status code.
-ctvirrsResponseStatus :: Lens' CreateTransitVirtualInterfaceResponse Int
-ctvirrsResponseStatus = lens _ctvirrsResponseStatus (\s a -> s {_ctvirrsResponseStatus = a})
+-- | The response's http status code.
+createTransitVirtualInterfaceResponse_httpStatus :: Lens.Lens' CreateTransitVirtualInterfaceResponse Prelude.Int
+createTransitVirtualInterfaceResponse_httpStatus = Lens.lens (\CreateTransitVirtualInterfaceResponse' {httpStatus} -> httpStatus) (\s@CreateTransitVirtualInterfaceResponse' {} a -> s {httpStatus = a} :: CreateTransitVirtualInterfaceResponse)
 
-instance NFData CreateTransitVirtualInterfaceResponse
+instance
+  Prelude.NFData
+    CreateTransitVirtualInterfaceResponse

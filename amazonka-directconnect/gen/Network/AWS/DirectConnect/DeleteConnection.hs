@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,99 +23,117 @@
 --
 -- Deletes the specified connection.
 --
---
--- Deleting a connection only stops the AWS Direct Connect port hour and data transfer charges. If you are partnering with any third parties to connect with the AWS Direct Connect location, you must cancel your service with them separately.
+-- Deleting a connection only stops the AWS Direct Connect port hour and
+-- data transfer charges. If you are partnering with any third parties to
+-- connect with the AWS Direct Connect location, you must cancel your
+-- service with them separately.
 module Network.AWS.DirectConnect.DeleteConnection
   ( -- * Creating a Request
-    deleteConnection,
-    DeleteConnection,
+    DeleteConnection (..),
+    newDeleteConnection,
 
     -- * Request Lenses
-    dcConnectionId,
+    deleteConnection_connectionId,
 
     -- * Destructuring the Response
-    connection,
-    Connection,
+    Connection (..),
+    newConnection,
 
     -- * Response Lenses
-    cBandwidth,
-    cConnectionState,
-    cAwsDeviceV2,
-    cConnectionName,
-    cProviderName,
-    cConnectionId,
-    cHasLogicalRedundancy,
-    cAwsDevice,
-    cJumboFrameCapable,
-    cLagId,
-    cPartnerName,
-    cTags,
-    cLoaIssueTime,
-    cOwnerAccount,
-    cRegion,
-    cLocation,
-    cVlan,
+    connection_bandwidth,
+    connection_connectionState,
+    connection_awsDeviceV2,
+    connection_connectionName,
+    connection_providerName,
+    connection_connectionId,
+    connection_hasLogicalRedundancy,
+    connection_awsDevice,
+    connection_jumboFrameCapable,
+    connection_lagId,
+    connection_partnerName,
+    connection_tags,
+    connection_loaIssueTime,
+    connection_ownerAccount,
+    connection_region,
+    connection_location,
+    connection_vlan,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.Connection
+import Network.AWS.DirectConnect.Types.ConnectionState
+import Network.AWS.DirectConnect.Types.HasLogicalRedundancy
+import Network.AWS.DirectConnect.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteConnection' smart constructor.
-newtype DeleteConnection = DeleteConnection'
-  { _dcConnectionId ::
-      Text
+-- | /See:/ 'newDeleteConnection' smart constructor.
+data DeleteConnection = DeleteConnection'
+  { -- | The ID of the connection.
+    connectionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcConnectionId' - The ID of the connection.
-deleteConnection ::
-  -- | 'dcConnectionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'connectionId', 'deleteConnection_connectionId' - The ID of the connection.
+newDeleteConnection ::
+  -- | 'connectionId'
+  Prelude.Text ->
   DeleteConnection
-deleteConnection pConnectionId_ =
-  DeleteConnection' {_dcConnectionId = pConnectionId_}
+newDeleteConnection pConnectionId_ =
+  DeleteConnection' {connectionId = pConnectionId_}
 
 -- | The ID of the connection.
-dcConnectionId :: Lens' DeleteConnection Text
-dcConnectionId = lens _dcConnectionId (\s a -> s {_dcConnectionId = a})
+deleteConnection_connectionId :: Lens.Lens' DeleteConnection Prelude.Text
+deleteConnection_connectionId = Lens.lens (\DeleteConnection' {connectionId} -> connectionId) (\s@DeleteConnection' {} a -> s {connectionId = a} :: DeleteConnection)
 
-instance AWSRequest DeleteConnection where
+instance Prelude.AWSRequest DeleteConnection where
   type Rs DeleteConnection = Connection
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable DeleteConnection
+instance Prelude.Hashable DeleteConnection
 
-instance NFData DeleteConnection
+instance Prelude.NFData DeleteConnection
 
-instance ToHeaders DeleteConnection where
+instance Prelude.ToHeaders DeleteConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OvertureService.DeleteConnection" :: ByteString),
+              Prelude.=# ( "OvertureService.DeleteConnection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteConnection where
+instance Prelude.ToJSON DeleteConnection where
   toJSON DeleteConnection' {..} =
-    object
-      ( catMaybes
-          [Just ("connectionId" .= _dcConnectionId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("connectionId" Prelude..= connectionId)
+          ]
       )
 
-instance ToPath DeleteConnection where
-  toPath = const "/"
+instance Prelude.ToPath DeleteConnection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteConnection where
+  toQuery = Prelude.const Prelude.mempty

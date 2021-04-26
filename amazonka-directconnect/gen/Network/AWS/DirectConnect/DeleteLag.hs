@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,91 +21,111 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified link aggregation group (LAG). You cannot delete a LAG if it has active virtual interfaces or hosted connections.
+-- Deletes the specified link aggregation group (LAG). You cannot delete a
+-- LAG if it has active virtual interfaces or hosted connections.
 module Network.AWS.DirectConnect.DeleteLag
   ( -- * Creating a Request
-    deleteLag,
-    DeleteLag,
+    DeleteLag (..),
+    newDeleteLag,
 
     -- * Request Lenses
-    dlLagId,
+    deleteLag_lagId,
 
     -- * Destructuring the Response
-    lag,
-    Lag,
+    Lag (..),
+    newLag,
 
     -- * Response Lenses
-    lagNumberOfConnections,
-    lagAwsDeviceV2,
-    lagAllowsHostedConnections,
-    lagProviderName,
-    lagHasLogicalRedundancy,
-    lagConnections,
-    lagAwsDevice,
-    lagLagName,
-    lagLagState,
-    lagJumboFrameCapable,
-    lagConnectionsBandwidth,
-    lagLagId,
-    lagTags,
-    lagOwnerAccount,
-    lagRegion,
-    lagLocation,
-    lagMinimumLinks,
+    lag_numberOfConnections,
+    lag_awsDeviceV2,
+    lag_allowsHostedConnections,
+    lag_providerName,
+    lag_hasLogicalRedundancy,
+    lag_connections,
+    lag_awsDevice,
+    lag_lagName,
+    lag_lagState,
+    lag_jumboFrameCapable,
+    lag_connectionsBandwidth,
+    lag_lagId,
+    lag_tags,
+    lag_ownerAccount,
+    lag_region,
+    lag_location,
+    lag_minimumLinks,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.Connection
+import Network.AWS.DirectConnect.Types.HasLogicalRedundancy
+import Network.AWS.DirectConnect.Types.Lag
+import Network.AWS.DirectConnect.Types.LagState
+import Network.AWS.DirectConnect.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLag' smart constructor.
-newtype DeleteLag = DeleteLag' {_dlLagId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteLag' smart constructor.
+data DeleteLag = DeleteLag'
+  { -- | The ID of the LAG.
+    lagId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlLagId' - The ID of the LAG.
-deleteLag ::
-  -- | 'dlLagId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'lagId', 'deleteLag_lagId' - The ID of the LAG.
+newDeleteLag ::
+  -- | 'lagId'
+  Prelude.Text ->
   DeleteLag
-deleteLag pLagId_ = DeleteLag' {_dlLagId = pLagId_}
+newDeleteLag pLagId_ = DeleteLag' {lagId = pLagId_}
 
 -- | The ID of the LAG.
-dlLagId :: Lens' DeleteLag Text
-dlLagId = lens _dlLagId (\s a -> s {_dlLagId = a})
+deleteLag_lagId :: Lens.Lens' DeleteLag Prelude.Text
+deleteLag_lagId = Lens.lens (\DeleteLag' {lagId} -> lagId) (\s@DeleteLag' {} a -> s {lagId = a} :: DeleteLag)
 
-instance AWSRequest DeleteLag where
+instance Prelude.AWSRequest DeleteLag where
   type Rs DeleteLag = Lag
-  request = postJSON directConnect
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable DeleteLag
+instance Prelude.Hashable DeleteLag
 
-instance NFData DeleteLag
+instance Prelude.NFData DeleteLag
 
-instance ToHeaders DeleteLag where
+instance Prelude.ToHeaders DeleteLag where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("OvertureService.DeleteLag" :: ByteString),
+              Prelude.=# ("OvertureService.DeleteLag" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLag where
+instance Prelude.ToJSON DeleteLag where
   toJSON DeleteLag' {..} =
-    object (catMaybes [Just ("lagId" .= _dlLagId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("lagId" Prelude..= lagId)]
+      )
 
-instance ToPath DeleteLag where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLag where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLag where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLag where
+  toQuery = Prelude.const Prelude.mempty

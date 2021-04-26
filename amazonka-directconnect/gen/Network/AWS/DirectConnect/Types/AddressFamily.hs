@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectConnect.Types.AddressFamily
   ( AddressFamily
       ( ..,
-        IPV4,
-        IPV6
+        AddressFamilyIPV4,
+        AddressFamilyIPV6
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AddressFamily = AddressFamily' (CI Text)
+newtype AddressFamily = AddressFamily'
+  { fromAddressFamily ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IPV4 :: AddressFamily
-pattern IPV4 = AddressFamily' "ipv4"
+pattern AddressFamilyIPV4 :: AddressFamily
+pattern AddressFamilyIPV4 = AddressFamily' "ipv4"
 
-pattern IPV6 :: AddressFamily
-pattern IPV6 = AddressFamily' "ipv6"
+pattern AddressFamilyIPV6 :: AddressFamily
+pattern AddressFamilyIPV6 = AddressFamily' "ipv6"
 
 {-# COMPLETE
-  IPV4,
-  IPV6,
+  AddressFamilyIPV4,
+  AddressFamilyIPV6,
   AddressFamily'
   #-}
 
-instance FromText AddressFamily where
-  parser = (AddressFamily' . mk) <$> takeText
+instance Prelude.FromText AddressFamily where
+  parser = AddressFamily' Prelude.<$> Prelude.takeText
 
-instance ToText AddressFamily where
-  toText (AddressFamily' ci) = original ci
+instance Prelude.ToText AddressFamily where
+  toText (AddressFamily' x) = x
 
-instance Hashable AddressFamily
+instance Prelude.Hashable AddressFamily
 
-instance NFData AddressFamily
+instance Prelude.NFData AddressFamily
 
-instance ToByteString AddressFamily
+instance Prelude.ToByteString AddressFamily
 
-instance ToQuery AddressFamily
+instance Prelude.ToQuery AddressFamily
 
-instance ToHeader AddressFamily
+instance Prelude.ToHeader AddressFamily
 
-instance ToJSON AddressFamily where
-  toJSON = toJSONText
+instance Prelude.ToJSON AddressFamily where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AddressFamily where
-  parseJSON = parseJSONText "AddressFamily"
+instance Prelude.FromJSON AddressFamily where
+  parseJSON = Prelude.parseJSONText "AddressFamily"

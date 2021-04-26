@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,148 +24,243 @@
 -- Deletes a virtual interface.
 module Network.AWS.DirectConnect.DeleteVirtualInterface
   ( -- * Creating a Request
-    deleteVirtualInterface,
-    DeleteVirtualInterface,
+    DeleteVirtualInterface (..),
+    newDeleteVirtualInterface,
 
     -- * Request Lenses
-    dviVirtualInterfaceId,
+    deleteVirtualInterface_virtualInterfaceId,
 
     -- * Destructuring the Response
-    deleteVirtualInterfaceResponse,
-    DeleteVirtualInterfaceResponse,
+    DeleteVirtualInterfaceResponse (..),
+    newDeleteVirtualInterfaceResponse,
 
     -- * Response Lenses
-    delrsVirtualInterfaceState,
-    delrsResponseStatus,
+    deleteVirtualInterfaceResponse_virtualInterfaceState,
+    deleteVirtualInterfaceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectConnect.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectConnect.Types.VirtualInterfaceState
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteVirtualInterface' smart constructor.
-newtype DeleteVirtualInterface = DeleteVirtualInterface'
-  { _dviVirtualInterfaceId ::
-      Text
+-- | /See:/ 'newDeleteVirtualInterface' smart constructor.
+data DeleteVirtualInterface = DeleteVirtualInterface'
+  { -- | The ID of the virtual interface.
+    virtualInterfaceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVirtualInterface' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVirtualInterface' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dviVirtualInterfaceId' - The ID of the virtual interface.
-deleteVirtualInterface ::
-  -- | 'dviVirtualInterfaceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'virtualInterfaceId', 'deleteVirtualInterface_virtualInterfaceId' - The ID of the virtual interface.
+newDeleteVirtualInterface ::
+  -- | 'virtualInterfaceId'
+  Prelude.Text ->
   DeleteVirtualInterface
-deleteVirtualInterface pVirtualInterfaceId_ =
+newDeleteVirtualInterface pVirtualInterfaceId_ =
   DeleteVirtualInterface'
-    { _dviVirtualInterfaceId =
+    { virtualInterfaceId =
         pVirtualInterfaceId_
     }
 
 -- | The ID of the virtual interface.
-dviVirtualInterfaceId :: Lens' DeleteVirtualInterface Text
-dviVirtualInterfaceId = lens _dviVirtualInterfaceId (\s a -> s {_dviVirtualInterfaceId = a})
+deleteVirtualInterface_virtualInterfaceId :: Lens.Lens' DeleteVirtualInterface Prelude.Text
+deleteVirtualInterface_virtualInterfaceId = Lens.lens (\DeleteVirtualInterface' {virtualInterfaceId} -> virtualInterfaceId) (\s@DeleteVirtualInterface' {} a -> s {virtualInterfaceId = a} :: DeleteVirtualInterface)
 
-instance AWSRequest DeleteVirtualInterface where
+instance Prelude.AWSRequest DeleteVirtualInterface where
   type
     Rs DeleteVirtualInterface =
       DeleteVirtualInterfaceResponse
-  request = postJSON directConnect
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteVirtualInterfaceResponse'
-            <$> (x .?> "virtualInterfaceState")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "virtualInterfaceState")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteVirtualInterface
+instance Prelude.Hashable DeleteVirtualInterface
 
-instance NFData DeleteVirtualInterface
+instance Prelude.NFData DeleteVirtualInterface
 
-instance ToHeaders DeleteVirtualInterface where
+instance Prelude.ToHeaders DeleteVirtualInterface where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OvertureService.DeleteVirtualInterface" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OvertureService.DeleteVirtualInterface" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteVirtualInterface where
+instance Prelude.ToJSON DeleteVirtualInterface where
   toJSON DeleteVirtualInterface' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("virtualInterfaceId" .= _dviVirtualInterfaceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "virtualInterfaceId"
+                  Prelude..= virtualInterfaceId
+              )
           ]
       )
 
-instance ToPath DeleteVirtualInterface where
-  toPath = const "/"
+instance Prelude.ToPath DeleteVirtualInterface where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteVirtualInterface where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteVirtualInterface where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteVirtualInterfaceResponse' smart constructor.
+-- | /See:/ 'newDeleteVirtualInterfaceResponse' smart constructor.
 data DeleteVirtualInterfaceResponse = DeleteVirtualInterfaceResponse'
-  { _delrsVirtualInterfaceState ::
-      !( Maybe
-           VirtualInterfaceState
-       ),
-    _delrsResponseStatus ::
-      !Int
+  { -- | The state of the virtual interface. The following are the possible
+    -- values:
+    --
+    -- -   @confirming@: The creation of the virtual interface is pending
+    --     confirmation from the virtual interface owner. If the owner of the
+    --     virtual interface is different from the owner of the connection on
+    --     which it is provisioned, then the virtual interface will remain in
+    --     this state until it is confirmed by the virtual interface owner.
+    --
+    -- -   @verifying@: This state only applies to public virtual interfaces.
+    --     Each public virtual interface needs validation before the virtual
+    --     interface can be created.
+    --
+    -- -   @pending@: A virtual interface is in this state from the time that
+    --     it is created until the virtual interface is ready to forward
+    --     traffic.
+    --
+    -- -   @available@: A virtual interface that is able to forward traffic.
+    --
+    -- -   @down@: A virtual interface that is BGP down.
+    --
+    -- -   @deleting@: A virtual interface is in this state immediately after
+    --     calling DeleteVirtualInterface until it can no longer forward
+    --     traffic.
+    --
+    -- -   @deleted@: A virtual interface that cannot forward traffic.
+    --
+    -- -   @rejected@: The virtual interface owner has declined creation of the
+    --     virtual interface. If a virtual interface in the @Confirming@ state
+    --     is deleted by the virtual interface owner, the virtual interface
+    --     enters the @Rejected@ state.
+    --
+    -- -   @unknown@: The state of the virtual interface is not available.
+    virtualInterfaceState :: Prelude.Maybe VirtualInterfaceState,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVirtualInterfaceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVirtualInterfaceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsVirtualInterfaceState' - The state of the virtual interface. The following are the possible values:     * @confirming@ : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.     * @verifying@ : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.     * @pending@ : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.     * @available@ : A virtual interface that is able to forward traffic.     * @down@ : A virtual interface that is BGP down.     * @deleting@ : A virtual interface is in this state immediately after calling 'DeleteVirtualInterface' until it can no longer forward traffic.     * @deleted@ : A virtual interface that cannot forward traffic.     * @rejected@ : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the @Confirming@ state is deleted by the virtual interface owner, the virtual interface enters the @Rejected@ state.     * @unknown@ : The state of the virtual interface is not available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteVirtualInterfaceResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'virtualInterfaceState', 'deleteVirtualInterfaceResponse_virtualInterfaceState' - The state of the virtual interface. The following are the possible
+-- values:
+--
+-- -   @confirming@: The creation of the virtual interface is pending
+--     confirmation from the virtual interface owner. If the owner of the
+--     virtual interface is different from the owner of the connection on
+--     which it is provisioned, then the virtual interface will remain in
+--     this state until it is confirmed by the virtual interface owner.
+--
+-- -   @verifying@: This state only applies to public virtual interfaces.
+--     Each public virtual interface needs validation before the virtual
+--     interface can be created.
+--
+-- -   @pending@: A virtual interface is in this state from the time that
+--     it is created until the virtual interface is ready to forward
+--     traffic.
+--
+-- -   @available@: A virtual interface that is able to forward traffic.
+--
+-- -   @down@: A virtual interface that is BGP down.
+--
+-- -   @deleting@: A virtual interface is in this state immediately after
+--     calling DeleteVirtualInterface until it can no longer forward
+--     traffic.
+--
+-- -   @deleted@: A virtual interface that cannot forward traffic.
+--
+-- -   @rejected@: The virtual interface owner has declined creation of the
+--     virtual interface. If a virtual interface in the @Confirming@ state
+--     is deleted by the virtual interface owner, the virtual interface
+--     enters the @Rejected@ state.
+--
+-- -   @unknown@: The state of the virtual interface is not available.
+--
+-- 'httpStatus', 'deleteVirtualInterfaceResponse_httpStatus' - The response's http status code.
+newDeleteVirtualInterfaceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteVirtualInterfaceResponse
-deleteVirtualInterfaceResponse pResponseStatus_ =
+newDeleteVirtualInterfaceResponse pHttpStatus_ =
   DeleteVirtualInterfaceResponse'
-    { _delrsVirtualInterfaceState =
-        Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { virtualInterfaceState =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The state of the virtual interface. The following are the possible values:     * @confirming@ : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.     * @verifying@ : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.     * @pending@ : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.     * @available@ : A virtual interface that is able to forward traffic.     * @down@ : A virtual interface that is BGP down.     * @deleting@ : A virtual interface is in this state immediately after calling 'DeleteVirtualInterface' until it can no longer forward traffic.     * @deleted@ : A virtual interface that cannot forward traffic.     * @rejected@ : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the @Confirming@ state is deleted by the virtual interface owner, the virtual interface enters the @Rejected@ state.     * @unknown@ : The state of the virtual interface is not available.
-delrsVirtualInterfaceState :: Lens' DeleteVirtualInterfaceResponse (Maybe VirtualInterfaceState)
-delrsVirtualInterfaceState = lens _delrsVirtualInterfaceState (\s a -> s {_delrsVirtualInterfaceState = a})
+-- | The state of the virtual interface. The following are the possible
+-- values:
+--
+-- -   @confirming@: The creation of the virtual interface is pending
+--     confirmation from the virtual interface owner. If the owner of the
+--     virtual interface is different from the owner of the connection on
+--     which it is provisioned, then the virtual interface will remain in
+--     this state until it is confirmed by the virtual interface owner.
+--
+-- -   @verifying@: This state only applies to public virtual interfaces.
+--     Each public virtual interface needs validation before the virtual
+--     interface can be created.
+--
+-- -   @pending@: A virtual interface is in this state from the time that
+--     it is created until the virtual interface is ready to forward
+--     traffic.
+--
+-- -   @available@: A virtual interface that is able to forward traffic.
+--
+-- -   @down@: A virtual interface that is BGP down.
+--
+-- -   @deleting@: A virtual interface is in this state immediately after
+--     calling DeleteVirtualInterface until it can no longer forward
+--     traffic.
+--
+-- -   @deleted@: A virtual interface that cannot forward traffic.
+--
+-- -   @rejected@: The virtual interface owner has declined creation of the
+--     virtual interface. If a virtual interface in the @Confirming@ state
+--     is deleted by the virtual interface owner, the virtual interface
+--     enters the @Rejected@ state.
+--
+-- -   @unknown@: The state of the virtual interface is not available.
+deleteVirtualInterfaceResponse_virtualInterfaceState :: Lens.Lens' DeleteVirtualInterfaceResponse (Prelude.Maybe VirtualInterfaceState)
+deleteVirtualInterfaceResponse_virtualInterfaceState = Lens.lens (\DeleteVirtualInterfaceResponse' {virtualInterfaceState} -> virtualInterfaceState) (\s@DeleteVirtualInterfaceResponse' {} a -> s {virtualInterfaceState = a} :: DeleteVirtualInterfaceResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteVirtualInterfaceResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteVirtualInterfaceResponse_httpStatus :: Lens.Lens' DeleteVirtualInterfaceResponse Prelude.Int
+deleteVirtualInterfaceResponse_httpStatus = Lens.lens (\DeleteVirtualInterfaceResponse' {httpStatus} -> httpStatus) (\s@DeleteVirtualInterfaceResponse' {} a -> s {httpStatus = a} :: DeleteVirtualInterfaceResponse)
 
-instance NFData DeleteVirtualInterfaceResponse
+instance
+  Prelude.NFData
+    DeleteVirtualInterfaceResponse
