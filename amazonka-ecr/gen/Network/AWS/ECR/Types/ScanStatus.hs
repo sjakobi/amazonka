@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ECR.Types.ScanStatus
   ( ScanStatus
       ( ..,
-        SSComplete,
-        SSFailed,
-        SSInProgress
+        ScanStatusCOMPLETE,
+        ScanStatusFAILED,
+        ScanStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScanStatus = ScanStatus' (CI Text)
+newtype ScanStatus = ScanStatus'
+  { fromScanStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSComplete :: ScanStatus
-pattern SSComplete = ScanStatus' "COMPLETE"
+pattern ScanStatusCOMPLETE :: ScanStatus
+pattern ScanStatusCOMPLETE = ScanStatus' "COMPLETE"
 
-pattern SSFailed :: ScanStatus
-pattern SSFailed = ScanStatus' "FAILED"
+pattern ScanStatusFAILED :: ScanStatus
+pattern ScanStatusFAILED = ScanStatus' "FAILED"
 
-pattern SSInProgress :: ScanStatus
-pattern SSInProgress = ScanStatus' "IN_PROGRESS"
+pattern ScanStatusINPROGRESS :: ScanStatus
+pattern ScanStatusINPROGRESS = ScanStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  SSComplete,
-  SSFailed,
-  SSInProgress,
+  ScanStatusCOMPLETE,
+  ScanStatusFAILED,
+  ScanStatusINPROGRESS,
   ScanStatus'
   #-}
 
-instance FromText ScanStatus where
-  parser = (ScanStatus' . mk) <$> takeText
+instance Prelude.FromText ScanStatus where
+  parser = ScanStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ScanStatus where
-  toText (ScanStatus' ci) = original ci
+instance Prelude.ToText ScanStatus where
+  toText (ScanStatus' x) = x
 
-instance Hashable ScanStatus
+instance Prelude.Hashable ScanStatus
 
-instance NFData ScanStatus
+instance Prelude.NFData ScanStatus
 
-instance ToByteString ScanStatus
+instance Prelude.ToByteString ScanStatus
 
-instance ToQuery ScanStatus
+instance Prelude.ToQuery ScanStatus
 
-instance ToHeader ScanStatus
+instance Prelude.ToHeader ScanStatus
 
-instance FromJSON ScanStatus where
-  parseJSON = parseJSONText "ScanStatus"
+instance Prelude.FromJSON ScanStatus where
+  parseJSON = Prelude.parseJSONText "ScanStatus"

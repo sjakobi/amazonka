@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,209 +23,296 @@
 --
 -- Returns metadata about the images in a repository.
 --
---
+-- Beginning with Docker version 1.9, the Docker client compresses image
+-- layers before pushing them to a V2 Docker registry. The output of the
+-- @docker images@ command shows the uncompressed image size, so it may
+-- return a larger image size than the image sizes returned by
+-- DescribeImages.
 --
 -- This operation returns paginated results.
 module Network.AWS.ECR.DescribeImages
   ( -- * Creating a Request
-    describeImages,
-    DescribeImages,
+    DescribeImages (..),
+    newDescribeImages,
 
     -- * Request Lenses
-    diNextToken,
-    diImageIds,
-    diMaxResults,
-    diRegistryId,
-    diFilter,
-    diRepositoryName,
+    describeImages_nextToken,
+    describeImages_imageIds,
+    describeImages_maxResults,
+    describeImages_registryId,
+    describeImages_filter,
+    describeImages_repositoryName,
 
     -- * Destructuring the Response
-    describeImagesResponse,
-    DescribeImagesResponse,
+    DescribeImagesResponse (..),
+    newDescribeImagesResponse,
 
     -- * Response Lenses
-    dirrsNextToken,
-    dirrsImageDetails,
-    dirrsResponseStatus,
+    describeImagesResponse_nextToken,
+    describeImagesResponse_imageDetails,
+    describeImagesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECR.Types.ImageDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeImages' smart constructor.
+-- | /See:/ 'newDescribeImages' smart constructor.
 data DescribeImages = DescribeImages'
-  { _diNextToken ::
-      !(Maybe Text),
-    _diImageIds :: !(Maybe [ImageIdentifier]),
-    _diMaxResults :: !(Maybe Nat),
-    _diRegistryId :: !(Maybe Text),
-    _diFilter ::
-      !(Maybe DescribeImagesFilter),
-    _diRepositoryName :: !Text
+  { -- | The @nextToken@ value returned from a previous paginated
+    -- @DescribeImages@ request where @maxResults@ was used and the results
+    -- exceeded the value of that parameter. Pagination continues from the end
+    -- of the previous results that returned the @nextToken@ value. This value
+    -- is @null@ when there are no more results to return. This option cannot
+    -- be used when you specify images with @imageIds@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of image IDs for the requested repository.
+    imageIds :: Prelude.Maybe [ImageIdentifier],
+    -- | The maximum number of repository results returned by @DescribeImages@ in
+    -- paginated output. When this parameter is used, @DescribeImages@ only
+    -- returns @maxResults@ results in a single page along with a @nextToken@
+    -- response element. The remaining results of the initial request can be
+    -- seen by sending another @DescribeImages@ request with the returned
+    -- @nextToken@ value. This value can be between 1 and 1000. If this
+    -- parameter is not used, then @DescribeImages@ returns up to 100 results
+    -- and a @nextToken@ value, if applicable. This option cannot be used when
+    -- you specify images with @imageIds@.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The AWS account ID associated with the registry that contains the
+    -- repository in which to describe images. If you do not specify a
+    -- registry, the default registry is assumed.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The filter key and value with which to filter your @DescribeImages@
+    -- results.
+    filter' :: Prelude.Maybe DescribeImagesFilter,
+    -- | The repository that contains the images to describe.
+    repositoryName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diNextToken' - The @nextToken@ value returned from a previous paginated @DescribeImages@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return. This option cannot be used when you specify images with @imageIds@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diImageIds' - The list of image IDs for the requested repository.
+-- 'nextToken', 'describeImages_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @DescribeImages@ request where @maxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value. This value
+-- is @null@ when there are no more results to return. This option cannot
+-- be used when you specify images with @imageIds@.
 --
--- * 'diMaxResults' - The maximum number of repository results returned by @DescribeImages@ in paginated output. When this parameter is used, @DescribeImages@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeImages@ request with the returned @nextToken@ value. This value can be between 1 and 1000. If this parameter is not used, then @DescribeImages@ returns up to 100 results and a @nextToken@ value, if applicable. This option cannot be used when you specify images with @imageIds@ .
+-- 'imageIds', 'describeImages_imageIds' - The list of image IDs for the requested repository.
 --
--- * 'diRegistryId' - The AWS account ID associated with the registry that contains the repository in which to describe images. If you do not specify a registry, the default registry is assumed.
+-- 'maxResults', 'describeImages_maxResults' - The maximum number of repository results returned by @DescribeImages@ in
+-- paginated output. When this parameter is used, @DescribeImages@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @DescribeImages@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 1000. If this
+-- parameter is not used, then @DescribeImages@ returns up to 100 results
+-- and a @nextToken@ value, if applicable. This option cannot be used when
+-- you specify images with @imageIds@.
 --
--- * 'diFilter' - The filter key and value with which to filter your @DescribeImages@ results.
+-- 'registryId', 'describeImages_registryId' - The AWS account ID associated with the registry that contains the
+-- repository in which to describe images. If you do not specify a
+-- registry, the default registry is assumed.
 --
--- * 'diRepositoryName' - The repository that contains the images to describe.
-describeImages ::
-  -- | 'diRepositoryName'
-  Text ->
+-- 'filter'', 'describeImages_filter' - The filter key and value with which to filter your @DescribeImages@
+-- results.
+--
+-- 'repositoryName', 'describeImages_repositoryName' - The repository that contains the images to describe.
+newDescribeImages ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   DescribeImages
-describeImages pRepositoryName_ =
+newDescribeImages pRepositoryName_ =
   DescribeImages'
-    { _diNextToken = Nothing,
-      _diImageIds = Nothing,
-      _diMaxResults = Nothing,
-      _diRegistryId = Nothing,
-      _diFilter = Nothing,
-      _diRepositoryName = pRepositoryName_
+    { nextToken = Prelude.Nothing,
+      imageIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      registryId = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      repositoryName = pRepositoryName_
     }
 
--- | The @nextToken@ value returned from a previous paginated @DescribeImages@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return. This option cannot be used when you specify images with @imageIds@ .
-diNextToken :: Lens' DescribeImages (Maybe Text)
-diNextToken = lens _diNextToken (\s a -> s {_diNextToken = a})
+-- | The @nextToken@ value returned from a previous paginated
+-- @DescribeImages@ request where @maxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value. This value
+-- is @null@ when there are no more results to return. This option cannot
+-- be used when you specify images with @imageIds@.
+describeImages_nextToken :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
+describeImages_nextToken = Lens.lens (\DescribeImages' {nextToken} -> nextToken) (\s@DescribeImages' {} a -> s {nextToken = a} :: DescribeImages)
 
 -- | The list of image IDs for the requested repository.
-diImageIds :: Lens' DescribeImages [ImageIdentifier]
-diImageIds = lens _diImageIds (\s a -> s {_diImageIds = a}) . _Default . _Coerce
+describeImages_imageIds :: Lens.Lens' DescribeImages (Prelude.Maybe [ImageIdentifier])
+describeImages_imageIds = Lens.lens (\DescribeImages' {imageIds} -> imageIds) (\s@DescribeImages' {} a -> s {imageIds = a} :: DescribeImages) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of repository results returned by @DescribeImages@ in paginated output. When this parameter is used, @DescribeImages@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @DescribeImages@ request with the returned @nextToken@ value. This value can be between 1 and 1000. If this parameter is not used, then @DescribeImages@ returns up to 100 results and a @nextToken@ value, if applicable. This option cannot be used when you specify images with @imageIds@ .
-diMaxResults :: Lens' DescribeImages (Maybe Natural)
-diMaxResults = lens _diMaxResults (\s a -> s {_diMaxResults = a}) . mapping _Nat
+-- | The maximum number of repository results returned by @DescribeImages@ in
+-- paginated output. When this parameter is used, @DescribeImages@ only
+-- returns @maxResults@ results in a single page along with a @nextToken@
+-- response element. The remaining results of the initial request can be
+-- seen by sending another @DescribeImages@ request with the returned
+-- @nextToken@ value. This value can be between 1 and 1000. If this
+-- parameter is not used, then @DescribeImages@ returns up to 100 results
+-- and a @nextToken@ value, if applicable. This option cannot be used when
+-- you specify images with @imageIds@.
+describeImages_maxResults :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Natural)
+describeImages_maxResults = Lens.lens (\DescribeImages' {maxResults} -> maxResults) (\s@DescribeImages' {} a -> s {maxResults = a} :: DescribeImages) Prelude.. Lens.mapping Prelude._Nat
 
--- | The AWS account ID associated with the registry that contains the repository in which to describe images. If you do not specify a registry, the default registry is assumed.
-diRegistryId :: Lens' DescribeImages (Maybe Text)
-diRegistryId = lens _diRegistryId (\s a -> s {_diRegistryId = a})
+-- | The AWS account ID associated with the registry that contains the
+-- repository in which to describe images. If you do not specify a
+-- registry, the default registry is assumed.
+describeImages_registryId :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
+describeImages_registryId = Lens.lens (\DescribeImages' {registryId} -> registryId) (\s@DescribeImages' {} a -> s {registryId = a} :: DescribeImages)
 
--- | The filter key and value with which to filter your @DescribeImages@ results.
-diFilter :: Lens' DescribeImages (Maybe DescribeImagesFilter)
-diFilter = lens _diFilter (\s a -> s {_diFilter = a})
+-- | The filter key and value with which to filter your @DescribeImages@
+-- results.
+describeImages_filter :: Lens.Lens' DescribeImages (Prelude.Maybe DescribeImagesFilter)
+describeImages_filter = Lens.lens (\DescribeImages' {filter'} -> filter') (\s@DescribeImages' {} a -> s {filter' = a} :: DescribeImages)
 
 -- | The repository that contains the images to describe.
-diRepositoryName :: Lens' DescribeImages Text
-diRepositoryName = lens _diRepositoryName (\s a -> s {_diRepositoryName = a})
+describeImages_repositoryName :: Lens.Lens' DescribeImages Prelude.Text
+describeImages_repositoryName = Lens.lens (\DescribeImages' {repositoryName} -> repositoryName) (\s@DescribeImages' {} a -> s {repositoryName = a} :: DescribeImages)
 
-instance AWSPager DescribeImages where
+instance Pager.AWSPager DescribeImages where
   page rq rs
-    | stop (rs ^. dirrsNextToken) = Nothing
-    | stop (rs ^. dirrsImageDetails) = Nothing
-    | otherwise =
-      Just $ rq & diNextToken .~ rs ^. dirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeImagesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeImagesResponse_imageDetails
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeImages_nextToken
+          Lens..~ rs
+          Lens.^? describeImagesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest DescribeImages where
+instance Prelude.AWSRequest DescribeImages where
   type Rs DescribeImages = DescribeImagesResponse
-  request = postJSON ecr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeImagesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "imageDetails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "imageDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeImages
+instance Prelude.Hashable DescribeImages
 
-instance NFData DescribeImages
+instance Prelude.NFData DescribeImages
 
-instance ToHeaders DescribeImages where
+instance Prelude.ToHeaders DescribeImages where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerRegistry_V20150921.DescribeImages" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerRegistry_V20150921.DescribeImages" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeImages where
+instance Prelude.ToJSON DescribeImages where
   toJSON DescribeImages' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _diNextToken,
-            ("imageIds" .=) <$> _diImageIds,
-            ("maxResults" .=) <$> _diMaxResults,
-            ("registryId" .=) <$> _diRegistryId,
-            ("filter" .=) <$> _diFilter,
-            Just ("repositoryName" .= _diRepositoryName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("imageIds" Prelude..=) Prelude.<$> imageIds,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("registryId" Prelude..=) Prelude.<$> registryId,
+            ("filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
           ]
       )
 
-instance ToPath DescribeImages where
-  toPath = const "/"
+instance Prelude.ToPath DescribeImages where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeImages where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeImages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeImagesResponse' smart constructor.
+-- | /See:/ 'newDescribeImagesResponse' smart constructor.
 data DescribeImagesResponse = DescribeImagesResponse'
-  { _dirrsNextToken ::
-      !(Maybe Text),
-    _dirrsImageDetails ::
-      !(Maybe [ImageDetail]),
-    _dirrsResponseStatus ::
-      !Int
+  { -- | The @nextToken@ value to include in a future @DescribeImages@ request.
+    -- When the results of a @DescribeImages@ request exceed @maxResults@, this
+    -- value can be used to retrieve the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of ImageDetail objects that contain data about the image.
+    imageDetails :: Prelude.Maybe [ImageDetail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrsNextToken' - The @nextToken@ value to include in a future @DescribeImages@ request. When the results of a @DescribeImages@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirrsImageDetails' - A list of 'ImageDetail' objects that contain data about the image.
+-- 'nextToken', 'describeImagesResponse_nextToken' - The @nextToken@ value to include in a future @DescribeImages@ request.
+-- When the results of a @DescribeImages@ request exceed @maxResults@, this
+-- value can be used to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'dirrsResponseStatus' - -- | The response status code.
-describeImagesResponse ::
-  -- | 'dirrsResponseStatus'
-  Int ->
+-- 'imageDetails', 'describeImagesResponse_imageDetails' - A list of ImageDetail objects that contain data about the image.
+--
+-- 'httpStatus', 'describeImagesResponse_httpStatus' - The response's http status code.
+newDescribeImagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeImagesResponse
-describeImagesResponse pResponseStatus_ =
+newDescribeImagesResponse pHttpStatus_ =
   DescribeImagesResponse'
-    { _dirrsNextToken = Nothing,
-      _dirrsImageDetails = Nothing,
-      _dirrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      imageDetails = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @nextToken@ value to include in a future @DescribeImages@ request. When the results of a @DescribeImages@ request exceed @maxResults@ , this value can be used to retrieve the next page of results. This value is @null@ when there are no more results to return.
-dirrsNextToken :: Lens' DescribeImagesResponse (Maybe Text)
-dirrsNextToken = lens _dirrsNextToken (\s a -> s {_dirrsNextToken = a})
+-- | The @nextToken@ value to include in a future @DescribeImages@ request.
+-- When the results of a @DescribeImages@ request exceed @maxResults@, this
+-- value can be used to retrieve the next page of results. This value is
+-- @null@ when there are no more results to return.
+describeImagesResponse_nextToken :: Lens.Lens' DescribeImagesResponse (Prelude.Maybe Prelude.Text)
+describeImagesResponse_nextToken = Lens.lens (\DescribeImagesResponse' {nextToken} -> nextToken) (\s@DescribeImagesResponse' {} a -> s {nextToken = a} :: DescribeImagesResponse)
 
--- | A list of 'ImageDetail' objects that contain data about the image.
-dirrsImageDetails :: Lens' DescribeImagesResponse [ImageDetail]
-dirrsImageDetails = lens _dirrsImageDetails (\s a -> s {_dirrsImageDetails = a}) . _Default . _Coerce
+-- | A list of ImageDetail objects that contain data about the image.
+describeImagesResponse_imageDetails :: Lens.Lens' DescribeImagesResponse (Prelude.Maybe [ImageDetail])
+describeImagesResponse_imageDetails = Lens.lens (\DescribeImagesResponse' {imageDetails} -> imageDetails) (\s@DescribeImagesResponse' {} a -> s {imageDetails = a} :: DescribeImagesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dirrsResponseStatus :: Lens' DescribeImagesResponse Int
-dirrsResponseStatus = lens _dirrsResponseStatus (\s a -> s {_dirrsResponseStatus = a})
+-- | The response's http status code.
+describeImagesResponse_httpStatus :: Lens.Lens' DescribeImagesResponse Prelude.Int
+describeImagesResponse_httpStatus = Lens.lens (\DescribeImagesResponse' {httpStatus} -> httpStatus) (\s@DescribeImagesResponse' {} a -> s {httpStatus = a} :: DescribeImagesResponse)
 
-instance NFData DescribeImagesResponse
+instance Prelude.NFData DescribeImagesResponse

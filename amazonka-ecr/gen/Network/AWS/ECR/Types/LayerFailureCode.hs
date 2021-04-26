@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ECR.Types.LayerFailureCode
   ( LayerFailureCode
       ( ..,
-        InvalidLayerDigest,
-        MissingLayerDigest
+        LayerFailureCodeInvalidLayerDigest,
+        LayerFailureCodeMissingLayerDigest
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LayerFailureCode = LayerFailureCode' (CI Text)
+newtype LayerFailureCode = LayerFailureCode'
+  { fromLayerFailureCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InvalidLayerDigest :: LayerFailureCode
-pattern InvalidLayerDigest = LayerFailureCode' "InvalidLayerDigest"
+pattern LayerFailureCodeInvalidLayerDigest :: LayerFailureCode
+pattern LayerFailureCodeInvalidLayerDigest = LayerFailureCode' "InvalidLayerDigest"
 
-pattern MissingLayerDigest :: LayerFailureCode
-pattern MissingLayerDigest = LayerFailureCode' "MissingLayerDigest"
+pattern LayerFailureCodeMissingLayerDigest :: LayerFailureCode
+pattern LayerFailureCodeMissingLayerDigest = LayerFailureCode' "MissingLayerDigest"
 
 {-# COMPLETE
-  InvalidLayerDigest,
-  MissingLayerDigest,
+  LayerFailureCodeInvalidLayerDigest,
+  LayerFailureCodeMissingLayerDigest,
   LayerFailureCode'
   #-}
 
-instance FromText LayerFailureCode where
-  parser = (LayerFailureCode' . mk) <$> takeText
+instance Prelude.FromText LayerFailureCode where
+  parser = LayerFailureCode' Prelude.<$> Prelude.takeText
 
-instance ToText LayerFailureCode where
-  toText (LayerFailureCode' ci) = original ci
+instance Prelude.ToText LayerFailureCode where
+  toText (LayerFailureCode' x) = x
 
-instance Hashable LayerFailureCode
+instance Prelude.Hashable LayerFailureCode
 
-instance NFData LayerFailureCode
+instance Prelude.NFData LayerFailureCode
 
-instance ToByteString LayerFailureCode
+instance Prelude.ToByteString LayerFailureCode
 
-instance ToQuery LayerFailureCode
+instance Prelude.ToQuery LayerFailureCode
 
-instance ToHeader LayerFailureCode
+instance Prelude.ToHeader LayerFailureCode
 
-instance FromJSON LayerFailureCode where
-  parseJSON = parseJSONText "LayerFailureCode"
+instance Prelude.FromJSON LayerFailureCode where
+  parseJSON = Prelude.parseJSONText "LayerFailureCode"

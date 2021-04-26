@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.ECR.Types.ImageFailureCode
   ( ImageFailureCode
       ( ..,
-        ImageNotFound,
-        ImageReferencedByManifestList,
-        ImageTagDoesNotMatchDigest,
-        InvalidImageDigest,
-        InvalidImageTag,
-        KMSError,
-        MissingDigestAndTag
+        ImageFailureCodeImageNotFound,
+        ImageFailureCodeImageReferencedByManifestList,
+        ImageFailureCodeImageTagDoesNotMatchDigest,
+        ImageFailureCodeInvalidImageDigest,
+        ImageFailureCodeInvalidImageTag,
+        ImageFailureCodeKmsError,
+        ImageFailureCodeMissingDigestAndTag
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageFailureCode = ImageFailureCode' (CI Text)
+newtype ImageFailureCode = ImageFailureCode'
+  { fromImageFailureCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ImageNotFound :: ImageFailureCode
-pattern ImageNotFound = ImageFailureCode' "ImageNotFound"
+pattern ImageFailureCodeImageNotFound :: ImageFailureCode
+pattern ImageFailureCodeImageNotFound = ImageFailureCode' "ImageNotFound"
 
-pattern ImageReferencedByManifestList :: ImageFailureCode
-pattern ImageReferencedByManifestList = ImageFailureCode' "ImageReferencedByManifestList"
+pattern ImageFailureCodeImageReferencedByManifestList :: ImageFailureCode
+pattern ImageFailureCodeImageReferencedByManifestList = ImageFailureCode' "ImageReferencedByManifestList"
 
-pattern ImageTagDoesNotMatchDigest :: ImageFailureCode
-pattern ImageTagDoesNotMatchDigest = ImageFailureCode' "ImageTagDoesNotMatchDigest"
+pattern ImageFailureCodeImageTagDoesNotMatchDigest :: ImageFailureCode
+pattern ImageFailureCodeImageTagDoesNotMatchDigest = ImageFailureCode' "ImageTagDoesNotMatchDigest"
 
-pattern InvalidImageDigest :: ImageFailureCode
-pattern InvalidImageDigest = ImageFailureCode' "InvalidImageDigest"
+pattern ImageFailureCodeInvalidImageDigest :: ImageFailureCode
+pattern ImageFailureCodeInvalidImageDigest = ImageFailureCode' "InvalidImageDigest"
 
-pattern InvalidImageTag :: ImageFailureCode
-pattern InvalidImageTag = ImageFailureCode' "InvalidImageTag"
+pattern ImageFailureCodeInvalidImageTag :: ImageFailureCode
+pattern ImageFailureCodeInvalidImageTag = ImageFailureCode' "InvalidImageTag"
 
-pattern KMSError :: ImageFailureCode
-pattern KMSError = ImageFailureCode' "KmsError"
+pattern ImageFailureCodeKmsError :: ImageFailureCode
+pattern ImageFailureCodeKmsError = ImageFailureCode' "KmsError"
 
-pattern MissingDigestAndTag :: ImageFailureCode
-pattern MissingDigestAndTag = ImageFailureCode' "MissingDigestAndTag"
+pattern ImageFailureCodeMissingDigestAndTag :: ImageFailureCode
+pattern ImageFailureCodeMissingDigestAndTag = ImageFailureCode' "MissingDigestAndTag"
 
 {-# COMPLETE
-  ImageNotFound,
-  ImageReferencedByManifestList,
-  ImageTagDoesNotMatchDigest,
-  InvalidImageDigest,
-  InvalidImageTag,
-  KMSError,
-  MissingDigestAndTag,
+  ImageFailureCodeImageNotFound,
+  ImageFailureCodeImageReferencedByManifestList,
+  ImageFailureCodeImageTagDoesNotMatchDigest,
+  ImageFailureCodeInvalidImageDigest,
+  ImageFailureCodeInvalidImageTag,
+  ImageFailureCodeKmsError,
+  ImageFailureCodeMissingDigestAndTag,
   ImageFailureCode'
   #-}
 
-instance FromText ImageFailureCode where
-  parser = (ImageFailureCode' . mk) <$> takeText
+instance Prelude.FromText ImageFailureCode where
+  parser = ImageFailureCode' Prelude.<$> Prelude.takeText
 
-instance ToText ImageFailureCode where
-  toText (ImageFailureCode' ci) = original ci
+instance Prelude.ToText ImageFailureCode where
+  toText (ImageFailureCode' x) = x
 
-instance Hashable ImageFailureCode
+instance Prelude.Hashable ImageFailureCode
 
-instance NFData ImageFailureCode
+instance Prelude.NFData ImageFailureCode
 
-instance ToByteString ImageFailureCode
+instance Prelude.ToByteString ImageFailureCode
 
-instance ToQuery ImageFailureCode
+instance Prelude.ToQuery ImageFailureCode
 
-instance ToHeader ImageFailureCode
+instance Prelude.ToHeader ImageFailureCode
 
-instance FromJSON ImageFailureCode where
-  parseJSON = parseJSONText "ImageFailureCode"
+instance Prelude.FromJSON ImageFailureCode where
+  parseJSON = Prelude.parseJSONText "ImageFailureCode"

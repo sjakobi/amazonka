@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECR.Types
   ( -- * Service Configuration
-    ecr,
+    defaultService,
 
     -- * Errors
     _UploadNotFoundException,
@@ -41,7 +44,7 @@ module Network.AWS.ECR.Types
     _RepositoryNotEmptyException,
     _LayerInaccessibleException,
     _LifecyclePolicyNotFoundException,
-    _KMSException,
+    _KmsException,
     _ServerException,
     _LayerAlreadyExistsException,
 
@@ -77,176 +80,103 @@ module Network.AWS.ECR.Types
 
     -- * Attribute
     Attribute (..),
-    attribute,
-    aValue,
-    aKey,
+    newAttribute,
 
     -- * AuthorizationData
     AuthorizationData (..),
-    authorizationData,
-    adProxyEndpoint,
-    adExpiresAt,
-    adAuthorizationToken,
+    newAuthorizationData,
 
     -- * DescribeImagesFilter
     DescribeImagesFilter (..),
-    describeImagesFilter,
-    difTagStatus,
+    newDescribeImagesFilter,
 
     -- * EncryptionConfiguration
     EncryptionConfiguration (..),
-    encryptionConfiguration,
-    ecKmsKey,
-    ecEncryptionType,
+    newEncryptionConfiguration,
 
     -- * Image
     Image (..),
-    image,
-    iImageManifest,
-    iRegistryId,
-    iRepositoryName,
-    iImageId,
-    iImageManifestMediaType,
+    newImage,
 
     -- * ImageDetail
     ImageDetail (..),
-    imageDetail,
-    idImageDigest,
-    idImageScanStatus,
-    idImageTags,
-    idRegistryId,
-    idRepositoryName,
-    idArtifactMediaType,
-    idImageSizeInBytes,
-    idImageManifestMediaType,
-    idImagePushedAt,
-    idImageScanFindingsSummary,
+    newImageDetail,
 
     -- * ImageFailure
     ImageFailure (..),
-    imageFailure,
-    ifFailureCode,
-    ifImageId,
-    ifFailureReason,
+    newImageFailure,
 
     -- * ImageIdentifier
     ImageIdentifier (..),
-    imageIdentifier,
-    iiImageDigest,
-    iiImageTag,
+    newImageIdentifier,
 
     -- * ImageScanFinding
     ImageScanFinding (..),
-    imageScanFinding,
-    isfUri,
-    isfSeverity,
-    isfName,
-    isfAttributes,
-    isfDescription,
+    newImageScanFinding,
 
     -- * ImageScanFindings
     ImageScanFindings (..),
-    imageScanFindings,
-    isfFindings,
-    isfImageScanCompletedAt,
-    isfVulnerabilitySourceUpdatedAt,
-    isfFindingSeverityCounts,
+    newImageScanFindings,
 
     -- * ImageScanFindingsSummary
     ImageScanFindingsSummary (..),
-    imageScanFindingsSummary,
-    isfsImageScanCompletedAt,
-    isfsVulnerabilitySourceUpdatedAt,
-    isfsFindingSeverityCounts,
+    newImageScanFindingsSummary,
 
     -- * ImageScanStatus
     ImageScanStatus (..),
-    imageScanStatus,
-    issStatus,
-    issDescription,
+    newImageScanStatus,
 
     -- * ImageScanningConfiguration
     ImageScanningConfiguration (..),
-    imageScanningConfiguration,
-    iscScanOnPush,
+    newImageScanningConfiguration,
 
     -- * Layer
     Layer (..),
-    layer,
-    lLayerSize,
-    lLayerAvailability,
-    lMediaType,
-    lLayerDigest,
+    newLayer,
 
     -- * LayerFailure
     LayerFailure (..),
-    layerFailure,
-    lfFailureCode,
-    lfFailureReason,
-    lfLayerDigest,
+    newLayerFailure,
 
     -- * LifecyclePolicyPreviewFilter
     LifecyclePolicyPreviewFilter (..),
-    lifecyclePolicyPreviewFilter,
-    lppfTagStatus,
+    newLifecyclePolicyPreviewFilter,
 
     -- * LifecyclePolicyPreviewResult
     LifecyclePolicyPreviewResult (..),
-    lifecyclePolicyPreviewResult,
-    lpprImageDigest,
-    lpprAppliedRulePriority,
-    lpprImageTags,
-    lpprAction,
-    lpprImagePushedAt,
+    newLifecyclePolicyPreviewResult,
 
     -- * LifecyclePolicyPreviewSummary
     LifecyclePolicyPreviewSummary (..),
-    lifecyclePolicyPreviewSummary,
-    lppsExpiringImageTotalCount,
+    newLifecyclePolicyPreviewSummary,
 
     -- * LifecyclePolicyRuleAction
     LifecyclePolicyRuleAction (..),
-    lifecyclePolicyRuleAction,
-    lpraType,
+    newLifecyclePolicyRuleAction,
 
     -- * ListImagesFilter
     ListImagesFilter (..),
-    listImagesFilter,
-    lifTagStatus,
+    newListImagesFilter,
 
     -- * ReplicationConfiguration
     ReplicationConfiguration (..),
-    replicationConfiguration,
-    rcRules,
+    newReplicationConfiguration,
 
     -- * ReplicationDestination
     ReplicationDestination (..),
-    replicationDestination,
-    rdRegion,
-    rdRegistryId,
+    newReplicationDestination,
 
     -- * ReplicationRule
     ReplicationRule (..),
-    replicationRule,
-    rrDestinations,
+    newReplicationRule,
 
     -- * Repository
     Repository (..),
-    repository,
-    rEncryptionConfiguration,
-    rRepositoryURI,
-    rRegistryId,
-    rCreatedAt,
-    rRepositoryName,
-    rRepositoryARN,
-    rImageScanningConfiguration,
-    rImageTagMutability,
+    newRepository,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
   )
 where
 
@@ -285,236 +215,307 @@ import Network.AWS.ECR.Types.Repository
 import Network.AWS.ECR.Types.ScanStatus
 import Network.AWS.ECR.Types.Tag
 import Network.AWS.ECR.Types.TagStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-09-21@ of the Amazon EC2 Container Registry SDK configuration.
-ecr :: Service
-ecr =
-  Service
-    { _svcAbbrev = "ECR",
-      _svcSigner = v4,
-      _svcPrefix = "api.ecr",
-      _svcVersion = "2015-09-21",
-      _svcEndpoint = defaultEndpoint ecr,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "ECR",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "ECR",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "api.ecr",
+      Prelude._svcVersion = "2015-09-21",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "ECR",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The upload could not be found, or the specified upload ID is not valid for this repository.
-_UploadNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The upload could not be found, or the specified upload ID is not valid
+-- for this repository.
+_UploadNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UploadNotFoundException =
-  _MatchServiceError ecr "UploadNotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "UploadNotFoundException"
 
--- | The specified image is tagged with a tag that already exists. The repository is configured for tag immutability.
-_ImageTagAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified image is tagged with a tag that already exists. The
+-- repository is configured for tag immutability.
+_ImageTagAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ImageTagAlreadyExistsException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "ImageTagAlreadyExistsException"
 
--- | The list of tags on the repository is over the limit. The maximum number of tags that can be applied to a repository is 50.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The list of tags on the repository is over the limit. The maximum number
+-- of tags that can be applied to a repository is 50.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError ecr "TooManyTagsException"
+  Prelude._MatchServiceError
+    defaultService
+    "TooManyTagsException"
 
--- | The specified repository could not be found. Check the spelling of the specified repository and ensure that you are performing operations on the correct registry.
-_RepositoryNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified repository could not be found. Check the spelling of the
+-- specified repository and ensure that you are performing operations on
+-- the correct registry.
+_RepositoryNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryNotFoundException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryNotFoundException"
 
--- | The specified image has already been pushed, and there were no changes to the manifest or image tag after the last push.
-_ImageAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified image has already been pushed, and there were no changes
+-- to the manifest or image tag after the last push.
+_ImageAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ImageAlreadyExistsException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "ImageAlreadyExistsException"
 
--- | The specified image scan could not be found. Ensure that image scanning is enabled on the repository and try again.
-_ScanNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified image scan could not be found. Ensure that image scanning
+-- is enabled on the repository and try again.
+_ScanNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ScanNotFoundException =
-  _MatchServiceError ecr "ScanNotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "ScanNotFoundException"
 
--- | The specified image digest does not match the digest that Amazon ECR calculated for the image.
-_ImageDigestDoesNotMatchException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified image digest does not match the digest that Amazon ECR
+-- calculated for the image.
+_ImageDigestDoesNotMatchException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ImageDigestDoesNotMatchException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "ImageDigestDoesNotMatchException"
 
 -- | The image requested does not exist in the specified repository.
-_ImageNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ImageNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ImageNotFoundException =
-  _MatchServiceError ecr "ImageNotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "ImageNotFoundException"
 
 -- | Layer parts must be at least 5 MiB in size.
-_LayerPartTooSmallException :: AsError a => Getting (First ServiceError) a ServiceError
+_LayerPartTooSmallException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LayerPartTooSmallException =
-  _MatchServiceError ecr "LayerPartTooSmallException"
+  Prelude._MatchServiceError
+    defaultService
+    "LayerPartTooSmallException"
 
--- | The layer digest calculation performed by Amazon ECR upon receipt of the image layer does not match the digest specified.
-_InvalidLayerException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The layer digest calculation performed by Amazon ECR upon receipt of the
+-- image layer does not match the digest specified.
+_InvalidLayerException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidLayerException =
-  _MatchServiceError ecr "InvalidLayerException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidLayerException"
 
--- | An invalid parameter has been specified. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.
-_InvalidTagParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An invalid parameter has been specified. Tag keys can have a maximum
+-- character length of 128 characters, and tag values can have a maximum
+-- length of 256 characters.
+_InvalidTagParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidTagParameterException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "InvalidTagParameterException"
 
--- | The layer part size is not valid, or the first byte specified is not consecutive to the last byte of a previous layer part upload.
-_InvalidLayerPartException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The layer part size is not valid, or the first byte specified is not
+-- consecutive to the last byte of a previous layer part upload.
+_InvalidLayerPartException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidLayerPartException =
-  _MatchServiceError ecr "InvalidLayerPartException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidLayerPartException"
 
 -- | The manifest list is referencing an image that does not exist.
-_ReferencedImagesNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReferencedImagesNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReferencedImagesNotFoundException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "ReferencedImagesNotFoundException"
 
--- | The specified parameter is invalid. Review the available parameters for the API request.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified parameter is invalid. Review the available parameters for
+-- the API request.
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError ecr "InvalidParameterException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidParameterException"
 
 -- | There was an exception validating this request.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError ecr "ValidationException"
+  Prelude._MatchServiceError
+    defaultService
+    "ValidationException"
 
--- | The specified layers could not be found, or the specified layer is not valid for this repository.
-_LayersNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified layers could not be found, or the specified layer is not
+-- valid for this repository.
+_LayersNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LayersNotFoundException =
-  _MatchServiceError ecr "LayersNotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "LayersNotFoundException"
 
--- | The operation did not succeed because it would have exceeded a service limit for your account. For more information, see <https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html Amazon ECR Service Quotas> in the Amazon Elastic Container Registry User Guide.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The operation did not succeed because it would have exceeded a service
+-- limit for your account. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html Amazon ECR Service Quotas>
+-- in the Amazon Elastic Container Registry User Guide.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError ecr "LimitExceededException"
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
 
--- | The registry doesn't have an associated registry policy.
-_RegistryPolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The registry doesn\'t have an associated registry policy.
+_RegistryPolicyNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RegistryPolicyNotFoundException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "RegistryPolicyNotFoundException"
 
--- | The previous lifecycle policy preview request has not completed. Wait and try again.
-_LifecyclePolicyPreviewInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The previous lifecycle policy preview request has not completed. Wait
+-- and try again.
+_LifecyclePolicyPreviewInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LifecyclePolicyPreviewInProgressException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "LifecyclePolicyPreviewInProgressException"
 
 -- | The specified layer upload does not contain any layer parts.
-_EmptyUploadException :: AsError a => Getting (First ServiceError) a ServiceError
+_EmptyUploadException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _EmptyUploadException =
-  _MatchServiceError ecr "EmptyUploadException"
+  Prelude._MatchServiceError
+    defaultService
+    "EmptyUploadException"
 
--- | The specified repository and registry combination does not have an associated repository policy.
-_RepositoryPolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified repository and registry combination does not have an
+-- associated repository policy.
+_RepositoryPolicyNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryPolicyNotFoundException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryPolicyNotFoundException"
 
 -- | The specified repository already exists in the specified registry.
-_RepositoryAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_RepositoryAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryAlreadyExistsException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryAlreadyExistsException"
 
 -- | There is no dry run for this repository.
-_LifecyclePolicyPreviewNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_LifecyclePolicyPreviewNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LifecyclePolicyPreviewNotFoundException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "LifecyclePolicyPreviewNotFoundException"
 
 -- | The image is of a type that cannot be scanned.
-_UnsupportedImageTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnsupportedImageTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedImageTypeException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedImageTypeException"
 
--- | The specified repository contains images. To delete a repository that contains images, you must force the deletion with the @force@ parameter.
-_RepositoryNotEmptyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified repository contains images. To delete a repository that
+-- contains images, you must force the deletion with the @force@ parameter.
+_RepositoryNotEmptyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RepositoryNotEmptyException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "RepositoryNotEmptyException"
 
--- | The specified layer is not available because it is not associated with an image. Unassociated image layers may be cleaned up at any time.
-_LayerInaccessibleException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified layer is not available because it is not associated with
+-- an image. Unassociated image layers may be cleaned up at any time.
+_LayerInaccessibleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LayerInaccessibleException =
-  _MatchServiceError ecr "LayerInaccessibleException"
+  Prelude._MatchServiceError
+    defaultService
+    "LayerInaccessibleException"
 
--- | The lifecycle policy could not be found, and no policy is set to the repository.
-_LifecyclePolicyNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The lifecycle policy could not be found, and no policy is set to the
+-- repository.
+_LifecyclePolicyNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LifecyclePolicyNotFoundException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "LifecyclePolicyNotFoundException"
 
 -- | The operation failed due to a KMS exception.
-_KMSException :: AsError a => Getting (First ServiceError) a ServiceError
-_KMSException = _MatchServiceError ecr "KmsException"
+_KmsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_KmsException =
+  Prelude._MatchServiceError
+    defaultService
+    "KmsException"
 
 -- | These errors are usually caused by a server-side issue.
-_ServerException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServerException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServerException =
-  _MatchServiceError ecr "ServerException"
+  Prelude._MatchServiceError
+    defaultService
+    "ServerException"
 
 -- | The image layer already exists in the associated repository.
-_LayerAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_LayerAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LayerAlreadyExistsException =
-  _MatchServiceError
-    ecr
+  Prelude._MatchServiceError
+    defaultService
     "LayerAlreadyExistsException"

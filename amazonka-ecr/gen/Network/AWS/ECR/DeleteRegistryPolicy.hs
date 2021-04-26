@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,124 +24,129 @@
 -- Deletes the registry permissions policy.
 module Network.AWS.ECR.DeleteRegistryPolicy
   ( -- * Creating a Request
-    deleteRegistryPolicy,
-    DeleteRegistryPolicy,
+    DeleteRegistryPolicy (..),
+    newDeleteRegistryPolicy,
 
     -- * Destructuring the Response
-    deleteRegistryPolicyResponse,
-    DeleteRegistryPolicyResponse,
+    DeleteRegistryPolicyResponse (..),
+    newDeleteRegistryPolicyResponse,
 
     -- * Response Lenses
-    delrsRegistryId,
-    delrsPolicyText,
-    delrsResponseStatus,
+    deleteRegistryPolicyResponse_registryId,
+    deleteRegistryPolicyResponse_policyText,
+    deleteRegistryPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRegistryPolicy' smart constructor.
+-- | /See:/ 'newDeleteRegistryPolicy' smart constructor.
 data DeleteRegistryPolicy = DeleteRegistryPolicy'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRegistryPolicy' with the minimum fields required to make a request.
-deleteRegistryPolicy ::
+-- |
+-- Create a value of 'DeleteRegistryPolicy' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteRegistryPolicy ::
   DeleteRegistryPolicy
-deleteRegistryPolicy = DeleteRegistryPolicy'
+newDeleteRegistryPolicy = DeleteRegistryPolicy'
 
-instance AWSRequest DeleteRegistryPolicy where
+instance Prelude.AWSRequest DeleteRegistryPolicy where
   type
     Rs DeleteRegistryPolicy =
       DeleteRegistryPolicyResponse
-  request = postJSON ecr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteRegistryPolicyResponse'
-            <$> (x .?> "registryId")
-            <*> (x .?> "policyText")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "registryId")
+            Prelude.<*> (x Prelude..?> "policyText")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRegistryPolicy
+instance Prelude.Hashable DeleteRegistryPolicy
 
-instance NFData DeleteRegistryPolicy
+instance Prelude.NFData DeleteRegistryPolicy
 
-instance ToHeaders DeleteRegistryPolicy where
+instance Prelude.ToHeaders DeleteRegistryPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerRegistry_V20150921.DeleteRegistryPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerRegistry_V20150921.DeleteRegistryPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRegistryPolicy where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DeleteRegistryPolicy where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DeleteRegistryPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRegistryPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRegistryPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRegistryPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteRegistryPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteRegistryPolicyResponse' smart constructor.
 data DeleteRegistryPolicyResponse = DeleteRegistryPolicyResponse'
-  { _delrsRegistryId ::
-      !(Maybe Text),
-    _delrsPolicyText ::
-      !(Maybe Text),
-    _delrsResponseStatus ::
-      !Int
+  { -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The contents of the registry permissions policy that was deleted.
+    policyText :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRegistryPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRegistryPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsRegistryId' - The registry ID associated with the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsPolicyText' - The contents of the registry permissions policy that was deleted.
+-- 'registryId', 'deleteRegistryPolicyResponse_registryId' - The registry ID associated with the request.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteRegistryPolicyResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'policyText', 'deleteRegistryPolicyResponse_policyText' - The contents of the registry permissions policy that was deleted.
+--
+-- 'httpStatus', 'deleteRegistryPolicyResponse_httpStatus' - The response's http status code.
+newDeleteRegistryPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRegistryPolicyResponse
-deleteRegistryPolicyResponse pResponseStatus_ =
+newDeleteRegistryPolicyResponse pHttpStatus_ =
   DeleteRegistryPolicyResponse'
-    { _delrsRegistryId =
-        Nothing,
-      _delrsPolicyText = Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { registryId =
+        Prelude.Nothing,
+      policyText = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The registry ID associated with the request.
-delrsRegistryId :: Lens' DeleteRegistryPolicyResponse (Maybe Text)
-delrsRegistryId = lens _delrsRegistryId (\s a -> s {_delrsRegistryId = a})
+deleteRegistryPolicyResponse_registryId :: Lens.Lens' DeleteRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
+deleteRegistryPolicyResponse_registryId = Lens.lens (\DeleteRegistryPolicyResponse' {registryId} -> registryId) (\s@DeleteRegistryPolicyResponse' {} a -> s {registryId = a} :: DeleteRegistryPolicyResponse)
 
 -- | The contents of the registry permissions policy that was deleted.
-delrsPolicyText :: Lens' DeleteRegistryPolicyResponse (Maybe Text)
-delrsPolicyText = lens _delrsPolicyText (\s a -> s {_delrsPolicyText = a})
+deleteRegistryPolicyResponse_policyText :: Lens.Lens' DeleteRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
+deleteRegistryPolicyResponse_policyText = Lens.lens (\DeleteRegistryPolicyResponse' {policyText} -> policyText) (\s@DeleteRegistryPolicyResponse' {} a -> s {policyText = a} :: DeleteRegistryPolicyResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteRegistryPolicyResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteRegistryPolicyResponse_httpStatus :: Lens.Lens' DeleteRegistryPolicyResponse Prelude.Int
+deleteRegistryPolicyResponse_httpStatus = Lens.lens (\DeleteRegistryPolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteRegistryPolicyResponse' {} a -> s {httpStatus = a} :: DeleteRegistryPolicyResponse)
 
-instance NFData DeleteRegistryPolicyResponse
+instance Prelude.NFData DeleteRegistryPolicyResponse

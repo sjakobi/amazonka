@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates or updates the replication configuration for a registry. The existing replication configuration for a repository can be retrieved with the 'DescribeRegistry' API action. The first time the PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the replication process. For more information, see <https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html Using Service-Linked Roles for Amazon ECR> in the /Amazon Elastic Container Registry User Guide/ .
+-- Creates or updates the replication configuration for a registry. The
+-- existing replication configuration for a repository can be retrieved
+-- with the DescribeRegistry API action. The first time the
+-- PutReplicationConfiguration API is called, a service-linked IAM role is
+-- created in your account for the replication process. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html Using Service-Linked Roles for Amazon ECR>
+-- in the /Amazon Elastic Container Registry User Guide/.
+--
+-- When configuring cross-account replication, the destination account must
+-- grant the source account permission to replicate. This permission is
+-- controlled using a registry permissions policy. For more information,
+-- see PutRegistryPolicy.
 module Network.AWS.ECR.PutReplicationConfiguration
   ( -- * Creating a Request
-    putReplicationConfiguration,
-    PutReplicationConfiguration,
+    PutReplicationConfiguration (..),
+    newPutReplicationConfiguration,
 
     -- * Request Lenses
-    prcReplicationConfiguration,
+    putReplicationConfiguration_replicationConfiguration,
 
     -- * Destructuring the Response
-    putReplicationConfigurationResponse,
-    PutReplicationConfigurationResponse,
+    PutReplicationConfigurationResponse (..),
+    newPutReplicationConfigurationResponse,
 
     -- * Response Lenses
-    prcrrsReplicationConfiguration,
-    prcrrsResponseStatus,
+    putReplicationConfigurationResponse_replicationConfiguration,
+    putReplicationConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECR.Types.ReplicationConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putReplicationConfiguration' smart constructor.
-newtype PutReplicationConfiguration = PutReplicationConfiguration'
-  { _prcReplicationConfiguration ::
-      ReplicationConfiguration
+-- | /See:/ 'newPutReplicationConfiguration' smart constructor.
+data PutReplicationConfiguration = PutReplicationConfiguration'
+  { -- | An object representing the replication configuration for a registry.
+    replicationConfiguration :: ReplicationConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutReplicationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutReplicationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prcReplicationConfiguration' - An object representing the replication configuration for a registry.
-putReplicationConfiguration ::
-  -- | 'prcReplicationConfiguration'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'replicationConfiguration', 'putReplicationConfiguration_replicationConfiguration' - An object representing the replication configuration for a registry.
+newPutReplicationConfiguration ::
+  -- | 'replicationConfiguration'
   ReplicationConfiguration ->
   PutReplicationConfiguration
-putReplicationConfiguration
+newPutReplicationConfiguration
   pReplicationConfiguration_ =
     PutReplicationConfiguration'
-      { _prcReplicationConfiguration =
+      { replicationConfiguration =
           pReplicationConfiguration_
       }
 
 -- | An object representing the replication configuration for a registry.
-prcReplicationConfiguration :: Lens' PutReplicationConfiguration ReplicationConfiguration
-prcReplicationConfiguration = lens _prcReplicationConfiguration (\s a -> s {_prcReplicationConfiguration = a})
+putReplicationConfiguration_replicationConfiguration :: Lens.Lens' PutReplicationConfiguration ReplicationConfiguration
+putReplicationConfiguration_replicationConfiguration = Lens.lens (\PutReplicationConfiguration' {replicationConfiguration} -> replicationConfiguration) (\s@PutReplicationConfiguration' {} a -> s {replicationConfiguration = a} :: PutReplicationConfiguration)
 
-instance AWSRequest PutReplicationConfiguration where
+instance
+  Prelude.AWSRequest
+    PutReplicationConfiguration
+  where
   type
     Rs PutReplicationConfiguration =
       PutReplicationConfigurationResponse
-  request = postJSON ecr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutReplicationConfigurationResponse'
-            <$> (x .?> "replicationConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "replicationConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutReplicationConfiguration
+instance Prelude.Hashable PutReplicationConfiguration
 
-instance NFData PutReplicationConfiguration
+instance Prelude.NFData PutReplicationConfiguration
 
-instance ToHeaders PutReplicationConfiguration where
+instance
+  Prelude.ToHeaders
+    PutReplicationConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerRegistry_V20150921.PutReplicationConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerRegistry_V20150921.PutReplicationConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutReplicationConfiguration where
+instance Prelude.ToJSON PutReplicationConfiguration where
   toJSON PutReplicationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "replicationConfiguration"
-                  .= _prcReplicationConfiguration
+                  Prelude..= replicationConfiguration
               )
           ]
       )
 
-instance ToPath PutReplicationConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutReplicationConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutReplicationConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutReplicationConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putReplicationConfigurationResponse' smart constructor.
+-- | /See:/ 'newPutReplicationConfigurationResponse' smart constructor.
 data PutReplicationConfigurationResponse = PutReplicationConfigurationResponse'
-  { _prcrrsReplicationConfiguration ::
-      !( Maybe
-           ReplicationConfiguration
-       ),
-    _prcrrsResponseStatus ::
-      !Int
+  { -- | The contents of the replication configuration for the registry.
+    replicationConfiguration :: Prelude.Maybe ReplicationConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutReplicationConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutReplicationConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prcrrsReplicationConfiguration' - The contents of the replication configuration for the registry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prcrrsResponseStatus' - -- | The response status code.
-putReplicationConfigurationResponse ::
-  -- | 'prcrrsResponseStatus'
-  Int ->
+-- 'replicationConfiguration', 'putReplicationConfigurationResponse_replicationConfiguration' - The contents of the replication configuration for the registry.
+--
+-- 'httpStatus', 'putReplicationConfigurationResponse_httpStatus' - The response's http status code.
+newPutReplicationConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutReplicationConfigurationResponse
-putReplicationConfigurationResponse pResponseStatus_ =
+newPutReplicationConfigurationResponse pHttpStatus_ =
   PutReplicationConfigurationResponse'
-    { _prcrrsReplicationConfiguration =
-        Nothing,
-      _prcrrsResponseStatus =
-        pResponseStatus_
+    { replicationConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The contents of the replication configuration for the registry.
-prcrrsReplicationConfiguration :: Lens' PutReplicationConfigurationResponse (Maybe ReplicationConfiguration)
-prcrrsReplicationConfiguration = lens _prcrrsReplicationConfiguration (\s a -> s {_prcrrsReplicationConfiguration = a})
+putReplicationConfigurationResponse_replicationConfiguration :: Lens.Lens' PutReplicationConfigurationResponse (Prelude.Maybe ReplicationConfiguration)
+putReplicationConfigurationResponse_replicationConfiguration = Lens.lens (\PutReplicationConfigurationResponse' {replicationConfiguration} -> replicationConfiguration) (\s@PutReplicationConfigurationResponse' {} a -> s {replicationConfiguration = a} :: PutReplicationConfigurationResponse)
 
--- | -- | The response status code.
-prcrrsResponseStatus :: Lens' PutReplicationConfigurationResponse Int
-prcrrsResponseStatus = lens _prcrrsResponseStatus (\s a -> s {_prcrrsResponseStatus = a})
+-- | The response's http status code.
+putReplicationConfigurationResponse_httpStatus :: Lens.Lens' PutReplicationConfigurationResponse Prelude.Int
+putReplicationConfigurationResponse_httpStatus = Lens.lens (\PutReplicationConfigurationResponse' {httpStatus} -> httpStatus) (\s@PutReplicationConfigurationResponse' {} a -> s {httpStatus = a} :: PutReplicationConfigurationResponse)
 
-instance NFData PutReplicationConfigurationResponse
+instance
+  Prelude.NFData
+    PutReplicationConfigurationResponse

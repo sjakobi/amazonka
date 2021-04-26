@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +21,79 @@ module Network.AWS.ECR.Types.ImageScanFindings where
 
 import Network.AWS.ECR.Types.FindingSeverity
 import Network.AWS.ECR.Types.ImageScanFinding
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of an image scan.
 --
---
---
--- /See:/ 'imageScanFindings' smart constructor.
+-- /See:/ 'newImageScanFindings' smart constructor.
 data ImageScanFindings = ImageScanFindings'
-  { _isfFindings ::
-      !(Maybe [ImageScanFinding]),
-    _isfImageScanCompletedAt ::
-      !(Maybe POSIX),
-    _isfVulnerabilitySourceUpdatedAt ::
-      !(Maybe POSIX),
-    _isfFindingSeverityCounts ::
-      !(Maybe (Map FindingSeverity Nat))
+  { -- | The findings from the image scan.
+    findings :: Prelude.Maybe [ImageScanFinding],
+    -- | The time of the last completed image scan.
+    imageScanCompletedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The time when the vulnerability data was last scanned.
+    vulnerabilitySourceUpdatedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The image vulnerability counts, sorted by severity.
+    findingSeverityCounts :: Prelude.Maybe (Prelude.Map FindingSeverity Prelude.Nat)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageScanFindings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageScanFindings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isfFindings' - The findings from the image scan.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isfImageScanCompletedAt' - The time of the last completed image scan.
+-- 'findings', 'imageScanFindings_findings' - The findings from the image scan.
 --
--- * 'isfVulnerabilitySourceUpdatedAt' - The time when the vulnerability data was last scanned.
+-- 'imageScanCompletedAt', 'imageScanFindings_imageScanCompletedAt' - The time of the last completed image scan.
 --
--- * 'isfFindingSeverityCounts' - The image vulnerability counts, sorted by severity.
-imageScanFindings ::
+-- 'vulnerabilitySourceUpdatedAt', 'imageScanFindings_vulnerabilitySourceUpdatedAt' - The time when the vulnerability data was last scanned.
+--
+-- 'findingSeverityCounts', 'imageScanFindings_findingSeverityCounts' - The image vulnerability counts, sorted by severity.
+newImageScanFindings ::
   ImageScanFindings
-imageScanFindings =
+newImageScanFindings =
   ImageScanFindings'
-    { _isfFindings = Nothing,
-      _isfImageScanCompletedAt = Nothing,
-      _isfVulnerabilitySourceUpdatedAt = Nothing,
-      _isfFindingSeverityCounts = Nothing
+    { findings = Prelude.Nothing,
+      imageScanCompletedAt = Prelude.Nothing,
+      vulnerabilitySourceUpdatedAt = Prelude.Nothing,
+      findingSeverityCounts = Prelude.Nothing
     }
 
 -- | The findings from the image scan.
-isfFindings :: Lens' ImageScanFindings [ImageScanFinding]
-isfFindings = lens _isfFindings (\s a -> s {_isfFindings = a}) . _Default . _Coerce
+imageScanFindings_findings :: Lens.Lens' ImageScanFindings (Prelude.Maybe [ImageScanFinding])
+imageScanFindings_findings = Lens.lens (\ImageScanFindings' {findings} -> findings) (\s@ImageScanFindings' {} a -> s {findings = a} :: ImageScanFindings) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time of the last completed image scan.
-isfImageScanCompletedAt :: Lens' ImageScanFindings (Maybe UTCTime)
-isfImageScanCompletedAt = lens _isfImageScanCompletedAt (\s a -> s {_isfImageScanCompletedAt = a}) . mapping _Time
+imageScanFindings_imageScanCompletedAt :: Lens.Lens' ImageScanFindings (Prelude.Maybe Prelude.UTCTime)
+imageScanFindings_imageScanCompletedAt = Lens.lens (\ImageScanFindings' {imageScanCompletedAt} -> imageScanCompletedAt) (\s@ImageScanFindings' {} a -> s {imageScanCompletedAt = a} :: ImageScanFindings) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time when the vulnerability data was last scanned.
-isfVulnerabilitySourceUpdatedAt :: Lens' ImageScanFindings (Maybe UTCTime)
-isfVulnerabilitySourceUpdatedAt = lens _isfVulnerabilitySourceUpdatedAt (\s a -> s {_isfVulnerabilitySourceUpdatedAt = a}) . mapping _Time
+imageScanFindings_vulnerabilitySourceUpdatedAt :: Lens.Lens' ImageScanFindings (Prelude.Maybe Prelude.UTCTime)
+imageScanFindings_vulnerabilitySourceUpdatedAt = Lens.lens (\ImageScanFindings' {vulnerabilitySourceUpdatedAt} -> vulnerabilitySourceUpdatedAt) (\s@ImageScanFindings' {} a -> s {vulnerabilitySourceUpdatedAt = a} :: ImageScanFindings) Prelude.. Lens.mapping Prelude._Time
 
 -- | The image vulnerability counts, sorted by severity.
-isfFindingSeverityCounts :: Lens' ImageScanFindings (HashMap FindingSeverity Natural)
-isfFindingSeverityCounts = lens _isfFindingSeverityCounts (\s a -> s {_isfFindingSeverityCounts = a}) . _Default . _Map
+imageScanFindings_findingSeverityCounts :: Lens.Lens' ImageScanFindings (Prelude.Maybe (Prelude.HashMap FindingSeverity Prelude.Natural))
+imageScanFindings_findingSeverityCounts = Lens.lens (\ImageScanFindings' {findingSeverityCounts} -> findingSeverityCounts) (\s@ImageScanFindings' {} a -> s {findingSeverityCounts = a} :: ImageScanFindings) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON ImageScanFindings where
+instance Prelude.FromJSON ImageScanFindings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageScanFindings"
       ( \x ->
           ImageScanFindings'
-            <$> (x .:? "findings" .!= mempty)
-            <*> (x .:? "imageScanCompletedAt")
-            <*> (x .:? "vulnerabilitySourceUpdatedAt")
-            <*> (x .:? "findingSeverityCounts" .!= mempty)
+            Prelude.<$> (x Prelude..:? "findings" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "imageScanCompletedAt")
+            Prelude.<*> (x Prelude..:? "vulnerabilitySourceUpdatedAt")
+            Prelude.<*> ( x Prelude..:? "findingSeverityCounts"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ImageScanFindings
+instance Prelude.Hashable ImageScanFindings
 
-instance NFData ImageScanFindings
+instance Prelude.NFData ImageScanFindings

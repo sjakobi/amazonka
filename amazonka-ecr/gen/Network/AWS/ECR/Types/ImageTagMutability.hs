@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ECR.Types.ImageTagMutability
   ( ImageTagMutability
       ( ..,
-        Immutable,
-        Mutable
+        ImageTagMutabilityIMMUTABLE,
+        ImageTagMutabilityMUTABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageTagMutability
-  = ImageTagMutability'
-      ( CI
-          Text
-      )
+newtype ImageTagMutability = ImageTagMutability'
+  { fromImageTagMutability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Immutable :: ImageTagMutability
-pattern Immutable = ImageTagMutability' "IMMUTABLE"
+pattern ImageTagMutabilityIMMUTABLE :: ImageTagMutability
+pattern ImageTagMutabilityIMMUTABLE = ImageTagMutability' "IMMUTABLE"
 
-pattern Mutable :: ImageTagMutability
-pattern Mutable = ImageTagMutability' "MUTABLE"
+pattern ImageTagMutabilityMUTABLE :: ImageTagMutability
+pattern ImageTagMutabilityMUTABLE = ImageTagMutability' "MUTABLE"
 
 {-# COMPLETE
-  Immutable,
-  Mutable,
+  ImageTagMutabilityIMMUTABLE,
+  ImageTagMutabilityMUTABLE,
   ImageTagMutability'
   #-}
 
-instance FromText ImageTagMutability where
-  parser = (ImageTagMutability' . mk) <$> takeText
+instance Prelude.FromText ImageTagMutability where
+  parser = ImageTagMutability' Prelude.<$> Prelude.takeText
 
-instance ToText ImageTagMutability where
-  toText (ImageTagMutability' ci) = original ci
+instance Prelude.ToText ImageTagMutability where
+  toText (ImageTagMutability' x) = x
 
-instance Hashable ImageTagMutability
+instance Prelude.Hashable ImageTagMutability
 
-instance NFData ImageTagMutability
+instance Prelude.NFData ImageTagMutability
 
-instance ToByteString ImageTagMutability
+instance Prelude.ToByteString ImageTagMutability
 
-instance ToQuery ImageTagMutability
+instance Prelude.ToQuery ImageTagMutability
 
-instance ToHeader ImageTagMutability
+instance Prelude.ToHeader ImageTagMutability
 
-instance ToJSON ImageTagMutability where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImageTagMutability where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ImageTagMutability where
-  parseJSON = parseJSONText "ImageTagMutability"
+instance Prelude.FromJSON ImageTagMutability where
+  parseJSON = Prelude.parseJSONText "ImageTagMutability"

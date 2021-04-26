@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,110 +22,141 @@ module Network.AWS.ECR.Types.Repository where
 import Network.AWS.ECR.Types.EncryptionConfiguration
 import Network.AWS.ECR.Types.ImageScanningConfiguration
 import Network.AWS.ECR.Types.ImageTagMutability
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing a repository.
 --
---
---
--- /See:/ 'repository' smart constructor.
+-- /See:/ 'newRepository' smart constructor.
 data Repository = Repository'
-  { _rEncryptionConfiguration ::
-      !(Maybe EncryptionConfiguration),
-    _rRepositoryURI :: !(Maybe Text),
-    _rRegistryId :: !(Maybe Text),
-    _rCreatedAt :: !(Maybe POSIX),
-    _rRepositoryName :: !(Maybe Text),
-    _rRepositoryARN :: !(Maybe Text),
-    _rImageScanningConfiguration ::
-      !(Maybe ImageScanningConfiguration),
-    _rImageTagMutability ::
-      !(Maybe ImageTagMutability)
+  { -- | The encryption configuration for the repository. This determines how the
+    -- contents of your repository are encrypted at rest.
+    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
+    -- | The URI for the repository. You can use this URI for container image
+    -- @push@ and @pull@ operations.
+    repositoryUri :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account ID associated with the registry that contains the
+    -- repository.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in JavaScript date format, when the repository was
+    -- created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the repository.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that identifies the repository. The ARN
+    -- contains the @arn:aws:ecr@ namespace, followed by the region of the
+    -- repository, AWS account ID of the repository owner, repository
+    -- namespace, and repository name. For example,
+    -- @arn:aws:ecr:region:012345678910:repository\/test@.
+    repositoryArn :: Prelude.Maybe Prelude.Text,
+    imageScanningConfiguration :: Prelude.Maybe ImageScanningConfiguration,
+    -- | The tag mutability setting for the repository.
+    imageTagMutability :: Prelude.Maybe ImageTagMutability
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Repository' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Repository' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rEncryptionConfiguration' - The encryption configuration for the repository. This determines how the contents of your repository are encrypted at rest.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rRepositoryURI' - The URI for the repository. You can use this URI for container image @push@ and @pull@ operations.
+-- 'encryptionConfiguration', 'repository_encryptionConfiguration' - The encryption configuration for the repository. This determines how the
+-- contents of your repository are encrypted at rest.
 --
--- * 'rRegistryId' - The AWS account ID associated with the registry that contains the repository.
+-- 'repositoryUri', 'repository_repositoryUri' - The URI for the repository. You can use this URI for container image
+-- @push@ and @pull@ operations.
 --
--- * 'rCreatedAt' - The date and time, in JavaScript date format, when the repository was created.
+-- 'registryId', 'repository_registryId' - The AWS account ID associated with the registry that contains the
+-- repository.
 --
--- * 'rRepositoryName' - The name of the repository.
+-- 'createdAt', 'repository_createdAt' - The date and time, in JavaScript date format, when the repository was
+-- created.
 --
--- * 'rRepositoryARN' - The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the @arn:aws:ecr@ namespace, followed by the region of the repository, AWS account ID of the repository owner, repository namespace, and repository name. For example, @arn:aws:ecr:region:012345678910:repository/test@ .
+-- 'repositoryName', 'repository_repositoryName' - The name of the repository.
 --
--- * 'rImageScanningConfiguration' - Undocumented member.
+-- 'repositoryArn', 'repository_repositoryArn' - The Amazon Resource Name (ARN) that identifies the repository. The ARN
+-- contains the @arn:aws:ecr@ namespace, followed by the region of the
+-- repository, AWS account ID of the repository owner, repository
+-- namespace, and repository name. For example,
+-- @arn:aws:ecr:region:012345678910:repository\/test@.
 --
--- * 'rImageTagMutability' - The tag mutability setting for the repository.
-repository ::
+-- 'imageScanningConfiguration', 'repository_imageScanningConfiguration' - Undocumented member.
+--
+-- 'imageTagMutability', 'repository_imageTagMutability' - The tag mutability setting for the repository.
+newRepository ::
   Repository
-repository =
+newRepository =
   Repository'
-    { _rEncryptionConfiguration = Nothing,
-      _rRepositoryURI = Nothing,
-      _rRegistryId = Nothing,
-      _rCreatedAt = Nothing,
-      _rRepositoryName = Nothing,
-      _rRepositoryARN = Nothing,
-      _rImageScanningConfiguration = Nothing,
-      _rImageTagMutability = Nothing
+    { encryptionConfiguration =
+        Prelude.Nothing,
+      repositoryUri = Prelude.Nothing,
+      registryId = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      repositoryName = Prelude.Nothing,
+      repositoryArn = Prelude.Nothing,
+      imageScanningConfiguration = Prelude.Nothing,
+      imageTagMutability = Prelude.Nothing
     }
 
--- | The encryption configuration for the repository. This determines how the contents of your repository are encrypted at rest.
-rEncryptionConfiguration :: Lens' Repository (Maybe EncryptionConfiguration)
-rEncryptionConfiguration = lens _rEncryptionConfiguration (\s a -> s {_rEncryptionConfiguration = a})
+-- | The encryption configuration for the repository. This determines how the
+-- contents of your repository are encrypted at rest.
+repository_encryptionConfiguration :: Lens.Lens' Repository (Prelude.Maybe EncryptionConfiguration)
+repository_encryptionConfiguration = Lens.lens (\Repository' {encryptionConfiguration} -> encryptionConfiguration) (\s@Repository' {} a -> s {encryptionConfiguration = a} :: Repository)
 
--- | The URI for the repository. You can use this URI for container image @push@ and @pull@ operations.
-rRepositoryURI :: Lens' Repository (Maybe Text)
-rRepositoryURI = lens _rRepositoryURI (\s a -> s {_rRepositoryURI = a})
+-- | The URI for the repository. You can use this URI for container image
+-- @push@ and @pull@ operations.
+repository_repositoryUri :: Lens.Lens' Repository (Prelude.Maybe Prelude.Text)
+repository_repositoryUri = Lens.lens (\Repository' {repositoryUri} -> repositoryUri) (\s@Repository' {} a -> s {repositoryUri = a} :: Repository)
 
--- | The AWS account ID associated with the registry that contains the repository.
-rRegistryId :: Lens' Repository (Maybe Text)
-rRegistryId = lens _rRegistryId (\s a -> s {_rRegistryId = a})
+-- | The AWS account ID associated with the registry that contains the
+-- repository.
+repository_registryId :: Lens.Lens' Repository (Prelude.Maybe Prelude.Text)
+repository_registryId = Lens.lens (\Repository' {registryId} -> registryId) (\s@Repository' {} a -> s {registryId = a} :: Repository)
 
--- | The date and time, in JavaScript date format, when the repository was created.
-rCreatedAt :: Lens' Repository (Maybe UTCTime)
-rCreatedAt = lens _rCreatedAt (\s a -> s {_rCreatedAt = a}) . mapping _Time
+-- | The date and time, in JavaScript date format, when the repository was
+-- created.
+repository_createdAt :: Lens.Lens' Repository (Prelude.Maybe Prelude.UTCTime)
+repository_createdAt = Lens.lens (\Repository' {createdAt} -> createdAt) (\s@Repository' {} a -> s {createdAt = a} :: Repository) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the repository.
-rRepositoryName :: Lens' Repository (Maybe Text)
-rRepositoryName = lens _rRepositoryName (\s a -> s {_rRepositoryName = a})
+repository_repositoryName :: Lens.Lens' Repository (Prelude.Maybe Prelude.Text)
+repository_repositoryName = Lens.lens (\Repository' {repositoryName} -> repositoryName) (\s@Repository' {} a -> s {repositoryName = a} :: Repository)
 
--- | The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the @arn:aws:ecr@ namespace, followed by the region of the repository, AWS account ID of the repository owner, repository namespace, and repository name. For example, @arn:aws:ecr:region:012345678910:repository/test@ .
-rRepositoryARN :: Lens' Repository (Maybe Text)
-rRepositoryARN = lens _rRepositoryARN (\s a -> s {_rRepositoryARN = a})
+-- | The Amazon Resource Name (ARN) that identifies the repository. The ARN
+-- contains the @arn:aws:ecr@ namespace, followed by the region of the
+-- repository, AWS account ID of the repository owner, repository
+-- namespace, and repository name. For example,
+-- @arn:aws:ecr:region:012345678910:repository\/test@.
+repository_repositoryArn :: Lens.Lens' Repository (Prelude.Maybe Prelude.Text)
+repository_repositoryArn = Lens.lens (\Repository' {repositoryArn} -> repositoryArn) (\s@Repository' {} a -> s {repositoryArn = a} :: Repository)
 
 -- | Undocumented member.
-rImageScanningConfiguration :: Lens' Repository (Maybe ImageScanningConfiguration)
-rImageScanningConfiguration = lens _rImageScanningConfiguration (\s a -> s {_rImageScanningConfiguration = a})
+repository_imageScanningConfiguration :: Lens.Lens' Repository (Prelude.Maybe ImageScanningConfiguration)
+repository_imageScanningConfiguration = Lens.lens (\Repository' {imageScanningConfiguration} -> imageScanningConfiguration) (\s@Repository' {} a -> s {imageScanningConfiguration = a} :: Repository)
 
 -- | The tag mutability setting for the repository.
-rImageTagMutability :: Lens' Repository (Maybe ImageTagMutability)
-rImageTagMutability = lens _rImageTagMutability (\s a -> s {_rImageTagMutability = a})
+repository_imageTagMutability :: Lens.Lens' Repository (Prelude.Maybe ImageTagMutability)
+repository_imageTagMutability = Lens.lens (\Repository' {imageTagMutability} -> imageTagMutability) (\s@Repository' {} a -> s {imageTagMutability = a} :: Repository)
 
-instance FromJSON Repository where
+instance Prelude.FromJSON Repository where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Repository"
       ( \x ->
           Repository'
-            <$> (x .:? "encryptionConfiguration")
-            <*> (x .:? "repositoryUri")
-            <*> (x .:? "registryId")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "repositoryName")
-            <*> (x .:? "repositoryArn")
-            <*> (x .:? "imageScanningConfiguration")
-            <*> (x .:? "imageTagMutability")
+            Prelude.<$> (x Prelude..:? "encryptionConfiguration")
+            Prelude.<*> (x Prelude..:? "repositoryUri")
+            Prelude.<*> (x Prelude..:? "registryId")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "repositoryName")
+            Prelude.<*> (x Prelude..:? "repositoryArn")
+            Prelude.<*> (x Prelude..:? "imageScanningConfiguration")
+            Prelude.<*> (x Prelude..:? "imageTagMutability")
       )
 
-instance Hashable Repository
+instance Prelude.Hashable Repository
 
-instance NFData Repository
+instance Prelude.NFData Repository

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,193 +21,209 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an image vulnerability scan. An image scan can only be started once per day on an individual image. This limit includes if an image was scanned on initial push. For more information, see <https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html Image Scanning> in the /Amazon Elastic Container Registry User Guide/ .
+-- Starts an image vulnerability scan. An image scan can only be started
+-- once per day on an individual image. This limit includes if an image was
+-- scanned on initial push. For more information, see
+-- <https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html Image Scanning>
+-- in the /Amazon Elastic Container Registry User Guide/.
 module Network.AWS.ECR.StartImageScan
   ( -- * Creating a Request
-    startImageScan,
-    StartImageScan,
+    StartImageScan (..),
+    newStartImageScan,
 
     -- * Request Lenses
-    sisRegistryId,
-    sisRepositoryName,
-    sisImageId,
+    startImageScan_registryId,
+    startImageScan_repositoryName,
+    startImageScan_imageId,
 
     -- * Destructuring the Response
-    startImageScanResponse,
-    StartImageScanResponse,
+    StartImageScanResponse (..),
+    newStartImageScanResponse,
 
     -- * Response Lenses
-    sisrrsImageScanStatus,
-    sisrrsRegistryId,
-    sisrrsRepositoryName,
-    sisrrsImageId,
-    sisrrsResponseStatus,
+    startImageScanResponse_imageScanStatus,
+    startImageScanResponse_registryId,
+    startImageScanResponse_repositoryName,
+    startImageScanResponse_imageId,
+    startImageScanResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECR.Types.ImageIdentifier
+import Network.AWS.ECR.Types.ImageScanStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startImageScan' smart constructor.
+-- | /See:/ 'newStartImageScan' smart constructor.
 data StartImageScan = StartImageScan'
-  { _sisRegistryId ::
-      !(Maybe Text),
-    _sisRepositoryName :: !Text,
-    _sisImageId :: !ImageIdentifier
+  { -- | The AWS account ID associated with the registry that contains the
+    -- repository in which to start an image scan request. If you do not
+    -- specify a registry, the default registry is assumed.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository that contains the images to scan.
+    repositoryName :: Prelude.Text,
+    imageId :: ImageIdentifier
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartImageScan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartImageScan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sisRegistryId' - The AWS account ID associated with the registry that contains the repository in which to start an image scan request. If you do not specify a registry, the default registry is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sisRepositoryName' - The name of the repository that contains the images to scan.
+-- 'registryId', 'startImageScan_registryId' - The AWS account ID associated with the registry that contains the
+-- repository in which to start an image scan request. If you do not
+-- specify a registry, the default registry is assumed.
 --
--- * 'sisImageId' - Undocumented member.
-startImageScan ::
-  -- | 'sisRepositoryName'
-  Text ->
-  -- | 'sisImageId'
+-- 'repositoryName', 'startImageScan_repositoryName' - The name of the repository that contains the images to scan.
+--
+-- 'imageId', 'startImageScan_imageId' - Undocumented member.
+newStartImageScan ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'imageId'
   ImageIdentifier ->
   StartImageScan
-startImageScan pRepositoryName_ pImageId_ =
+newStartImageScan pRepositoryName_ pImageId_ =
   StartImageScan'
-    { _sisRegistryId = Nothing,
-      _sisRepositoryName = pRepositoryName_,
-      _sisImageId = pImageId_
+    { registryId = Prelude.Nothing,
+      repositoryName = pRepositoryName_,
+      imageId = pImageId_
     }
 
--- | The AWS account ID associated with the registry that contains the repository in which to start an image scan request. If you do not specify a registry, the default registry is assumed.
-sisRegistryId :: Lens' StartImageScan (Maybe Text)
-sisRegistryId = lens _sisRegistryId (\s a -> s {_sisRegistryId = a})
+-- | The AWS account ID associated with the registry that contains the
+-- repository in which to start an image scan request. If you do not
+-- specify a registry, the default registry is assumed.
+startImageScan_registryId :: Lens.Lens' StartImageScan (Prelude.Maybe Prelude.Text)
+startImageScan_registryId = Lens.lens (\StartImageScan' {registryId} -> registryId) (\s@StartImageScan' {} a -> s {registryId = a} :: StartImageScan)
 
 -- | The name of the repository that contains the images to scan.
-sisRepositoryName :: Lens' StartImageScan Text
-sisRepositoryName = lens _sisRepositoryName (\s a -> s {_sisRepositoryName = a})
+startImageScan_repositoryName :: Lens.Lens' StartImageScan Prelude.Text
+startImageScan_repositoryName = Lens.lens (\StartImageScan' {repositoryName} -> repositoryName) (\s@StartImageScan' {} a -> s {repositoryName = a} :: StartImageScan)
 
 -- | Undocumented member.
-sisImageId :: Lens' StartImageScan ImageIdentifier
-sisImageId = lens _sisImageId (\s a -> s {_sisImageId = a})
+startImageScan_imageId :: Lens.Lens' StartImageScan ImageIdentifier
+startImageScan_imageId = Lens.lens (\StartImageScan' {imageId} -> imageId) (\s@StartImageScan' {} a -> s {imageId = a} :: StartImageScan)
 
-instance AWSRequest StartImageScan where
+instance Prelude.AWSRequest StartImageScan where
   type Rs StartImageScan = StartImageScanResponse
-  request = postJSON ecr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartImageScanResponse'
-            <$> (x .?> "imageScanStatus")
-            <*> (x .?> "registryId")
-            <*> (x .?> "repositoryName")
-            <*> (x .?> "imageId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "imageScanStatus")
+            Prelude.<*> (x Prelude..?> "registryId")
+            Prelude.<*> (x Prelude..?> "repositoryName")
+            Prelude.<*> (x Prelude..?> "imageId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartImageScan
+instance Prelude.Hashable StartImageScan
 
-instance NFData StartImageScan
+instance Prelude.NFData StartImageScan
 
-instance ToHeaders StartImageScan where
+instance Prelude.ToHeaders StartImageScan where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerRegistry_V20150921.StartImageScan" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerRegistry_V20150921.StartImageScan" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartImageScan where
+instance Prelude.ToJSON StartImageScan where
   toJSON StartImageScan' {..} =
-    object
-      ( catMaybes
-          [ ("registryId" .=) <$> _sisRegistryId,
-            Just ("repositoryName" .= _sisRepositoryName),
-            Just ("imageId" .= _sisImageId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("registryId" Prelude..=) Prelude.<$> registryId,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just ("imageId" Prelude..= imageId)
           ]
       )
 
-instance ToPath StartImageScan where
-  toPath = const "/"
+instance Prelude.ToPath StartImageScan where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartImageScan where
-  toQuery = const mempty
+instance Prelude.ToQuery StartImageScan where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startImageScanResponse' smart constructor.
+-- | /See:/ 'newStartImageScanResponse' smart constructor.
 data StartImageScanResponse = StartImageScanResponse'
-  { _sisrrsImageScanStatus ::
-      !(Maybe ImageScanStatus),
-    _sisrrsRegistryId ::
-      !(Maybe Text),
-    _sisrrsRepositoryName ::
-      !(Maybe Text),
-    _sisrrsImageId ::
-      !(Maybe ImageIdentifier),
-    _sisrrsResponseStatus ::
-      !Int
+  { -- | The current state of the scan.
+    imageScanStatus :: Prelude.Maybe ImageScanStatus,
+    -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The repository name associated with the request.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    imageId :: Prelude.Maybe ImageIdentifier,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartImageScanResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartImageScanResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sisrrsImageScanStatus' - The current state of the scan.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sisrrsRegistryId' - The registry ID associated with the request.
+-- 'imageScanStatus', 'startImageScanResponse_imageScanStatus' - The current state of the scan.
 --
--- * 'sisrrsRepositoryName' - The repository name associated with the request.
+-- 'registryId', 'startImageScanResponse_registryId' - The registry ID associated with the request.
 --
--- * 'sisrrsImageId' - Undocumented member.
+-- 'repositoryName', 'startImageScanResponse_repositoryName' - The repository name associated with the request.
 --
--- * 'sisrrsResponseStatus' - -- | The response status code.
-startImageScanResponse ::
-  -- | 'sisrrsResponseStatus'
-  Int ->
+-- 'imageId', 'startImageScanResponse_imageId' - Undocumented member.
+--
+-- 'httpStatus', 'startImageScanResponse_httpStatus' - The response's http status code.
+newStartImageScanResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartImageScanResponse
-startImageScanResponse pResponseStatus_ =
+newStartImageScanResponse pHttpStatus_ =
   StartImageScanResponse'
-    { _sisrrsImageScanStatus =
-        Nothing,
-      _sisrrsRegistryId = Nothing,
-      _sisrrsRepositoryName = Nothing,
-      _sisrrsImageId = Nothing,
-      _sisrrsResponseStatus = pResponseStatus_
+    { imageScanStatus =
+        Prelude.Nothing,
+      registryId = Prelude.Nothing,
+      repositoryName = Prelude.Nothing,
+      imageId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current state of the scan.
-sisrrsImageScanStatus :: Lens' StartImageScanResponse (Maybe ImageScanStatus)
-sisrrsImageScanStatus = lens _sisrrsImageScanStatus (\s a -> s {_sisrrsImageScanStatus = a})
+startImageScanResponse_imageScanStatus :: Lens.Lens' StartImageScanResponse (Prelude.Maybe ImageScanStatus)
+startImageScanResponse_imageScanStatus = Lens.lens (\StartImageScanResponse' {imageScanStatus} -> imageScanStatus) (\s@StartImageScanResponse' {} a -> s {imageScanStatus = a} :: StartImageScanResponse)
 
 -- | The registry ID associated with the request.
-sisrrsRegistryId :: Lens' StartImageScanResponse (Maybe Text)
-sisrrsRegistryId = lens _sisrrsRegistryId (\s a -> s {_sisrrsRegistryId = a})
+startImageScanResponse_registryId :: Lens.Lens' StartImageScanResponse (Prelude.Maybe Prelude.Text)
+startImageScanResponse_registryId = Lens.lens (\StartImageScanResponse' {registryId} -> registryId) (\s@StartImageScanResponse' {} a -> s {registryId = a} :: StartImageScanResponse)
 
 -- | The repository name associated with the request.
-sisrrsRepositoryName :: Lens' StartImageScanResponse (Maybe Text)
-sisrrsRepositoryName = lens _sisrrsRepositoryName (\s a -> s {_sisrrsRepositoryName = a})
+startImageScanResponse_repositoryName :: Lens.Lens' StartImageScanResponse (Prelude.Maybe Prelude.Text)
+startImageScanResponse_repositoryName = Lens.lens (\StartImageScanResponse' {repositoryName} -> repositoryName) (\s@StartImageScanResponse' {} a -> s {repositoryName = a} :: StartImageScanResponse)
 
 -- | Undocumented member.
-sisrrsImageId :: Lens' StartImageScanResponse (Maybe ImageIdentifier)
-sisrrsImageId = lens _sisrrsImageId (\s a -> s {_sisrrsImageId = a})
+startImageScanResponse_imageId :: Lens.Lens' StartImageScanResponse (Prelude.Maybe ImageIdentifier)
+startImageScanResponse_imageId = Lens.lens (\StartImageScanResponse' {imageId} -> imageId) (\s@StartImageScanResponse' {} a -> s {imageId = a} :: StartImageScanResponse)
 
--- | -- | The response status code.
-sisrrsResponseStatus :: Lens' StartImageScanResponse Int
-sisrrsResponseStatus = lens _sisrrsResponseStatus (\s a -> s {_sisrrsResponseStatus = a})
+-- | The response's http status code.
+startImageScanResponse_httpStatus :: Lens.Lens' StartImageScanResponse Prelude.Int
+startImageScanResponse_httpStatus = Lens.lens (\StartImageScanResponse' {httpStatus} -> httpStatus) (\s@StartImageScanResponse' {} a -> s {httpStatus = a} :: StartImageScanResponse)
 
-instance NFData StartImageScanResponse
+instance Prelude.NFData StartImageScanResponse

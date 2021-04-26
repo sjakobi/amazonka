@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,195 +24,192 @@
 -- Deletes the lifecycle policy associated with the specified repository.
 module Network.AWS.ECR.DeleteLifecyclePolicy
   ( -- * Creating a Request
-    deleteLifecyclePolicy,
-    DeleteLifecyclePolicy,
+    DeleteLifecyclePolicy (..),
+    newDeleteLifecyclePolicy,
 
     -- * Request Lenses
-    dlpRegistryId,
-    dlpRepositoryName,
+    deleteLifecyclePolicy_registryId,
+    deleteLifecyclePolicy_repositoryName,
 
     -- * Destructuring the Response
-    deleteLifecyclePolicyResponse,
-    DeleteLifecyclePolicyResponse,
+    DeleteLifecyclePolicyResponse (..),
+    newDeleteLifecyclePolicyResponse,
 
     -- * Response Lenses
-    dlprrsRegistryId,
-    dlprrsRepositoryName,
-    dlprrsLifecyclePolicyText,
-    dlprrsLastEvaluatedAt,
-    dlprrsResponseStatus,
+    deleteLifecyclePolicyResponse_registryId,
+    deleteLifecyclePolicyResponse_repositoryName,
+    deleteLifecyclePolicyResponse_lifecyclePolicyText,
+    deleteLifecyclePolicyResponse_lastEvaluatedAt,
+    deleteLifecyclePolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLifecyclePolicy' smart constructor.
+-- | /See:/ 'newDeleteLifecyclePolicy' smart constructor.
 data DeleteLifecyclePolicy = DeleteLifecyclePolicy'
-  { _dlpRegistryId ::
-      !(Maybe Text),
-    _dlpRepositoryName :: !Text
+  { -- | The AWS account ID associated with the registry that contains the
+    -- repository. If you do not specify a registry, the default registry is
+    -- assumed.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository.
+    repositoryName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLifecyclePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLifecyclePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlpRegistryId' - The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlpRepositoryName' - The name of the repository.
-deleteLifecyclePolicy ::
-  -- | 'dlpRepositoryName'
-  Text ->
+-- 'registryId', 'deleteLifecyclePolicy_registryId' - The AWS account ID associated with the registry that contains the
+-- repository. If you do not specify a registry, the default registry is
+-- assumed.
+--
+-- 'repositoryName', 'deleteLifecyclePolicy_repositoryName' - The name of the repository.
+newDeleteLifecyclePolicy ::
+  -- | 'repositoryName'
+  Prelude.Text ->
   DeleteLifecyclePolicy
-deleteLifecyclePolicy pRepositoryName_ =
+newDeleteLifecyclePolicy pRepositoryName_ =
   DeleteLifecyclePolicy'
-    { _dlpRegistryId = Nothing,
-      _dlpRepositoryName = pRepositoryName_
+    { registryId =
+        Prelude.Nothing,
+      repositoryName = pRepositoryName_
     }
 
--- | The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed.
-dlpRegistryId :: Lens' DeleteLifecyclePolicy (Maybe Text)
-dlpRegistryId = lens _dlpRegistryId (\s a -> s {_dlpRegistryId = a})
+-- | The AWS account ID associated with the registry that contains the
+-- repository. If you do not specify a registry, the default registry is
+-- assumed.
+deleteLifecyclePolicy_registryId :: Lens.Lens' DeleteLifecyclePolicy (Prelude.Maybe Prelude.Text)
+deleteLifecyclePolicy_registryId = Lens.lens (\DeleteLifecyclePolicy' {registryId} -> registryId) (\s@DeleteLifecyclePolicy' {} a -> s {registryId = a} :: DeleteLifecyclePolicy)
 
 -- | The name of the repository.
-dlpRepositoryName :: Lens' DeleteLifecyclePolicy Text
-dlpRepositoryName = lens _dlpRepositoryName (\s a -> s {_dlpRepositoryName = a})
+deleteLifecyclePolicy_repositoryName :: Lens.Lens' DeleteLifecyclePolicy Prelude.Text
+deleteLifecyclePolicy_repositoryName = Lens.lens (\DeleteLifecyclePolicy' {repositoryName} -> repositoryName) (\s@DeleteLifecyclePolicy' {} a -> s {repositoryName = a} :: DeleteLifecyclePolicy)
 
-instance AWSRequest DeleteLifecyclePolicy where
+instance Prelude.AWSRequest DeleteLifecyclePolicy where
   type
     Rs DeleteLifecyclePolicy =
       DeleteLifecyclePolicyResponse
-  request = postJSON ecr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteLifecyclePolicyResponse'
-            <$> (x .?> "registryId")
-            <*> (x .?> "repositoryName")
-            <*> (x .?> "lifecyclePolicyText")
-            <*> (x .?> "lastEvaluatedAt")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "registryId")
+            Prelude.<*> (x Prelude..?> "repositoryName")
+            Prelude.<*> (x Prelude..?> "lifecyclePolicyText")
+            Prelude.<*> (x Prelude..?> "lastEvaluatedAt")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteLifecyclePolicy
+instance Prelude.Hashable DeleteLifecyclePolicy
 
-instance NFData DeleteLifecyclePolicy
+instance Prelude.NFData DeleteLifecyclePolicy
 
-instance ToHeaders DeleteLifecyclePolicy where
+instance Prelude.ToHeaders DeleteLifecyclePolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerRegistry_V20150921.DeleteLifecyclePolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerRegistry_V20150921.DeleteLifecyclePolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLifecyclePolicy where
+instance Prelude.ToJSON DeleteLifecyclePolicy where
   toJSON DeleteLifecyclePolicy' {..} =
-    object
-      ( catMaybes
-          [ ("registryId" .=) <$> _dlpRegistryId,
-            Just ("repositoryName" .= _dlpRepositoryName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("registryId" Prelude..=) Prelude.<$> registryId,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName)
           ]
       )
 
-instance ToPath DeleteLifecyclePolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLifecyclePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLifecyclePolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLifecyclePolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLifecyclePolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteLifecyclePolicyResponse' smart constructor.
 data DeleteLifecyclePolicyResponse = DeleteLifecyclePolicyResponse'
-  { _dlprrsRegistryId ::
-      !( Maybe
-           Text
-       ),
-    _dlprrsRepositoryName ::
-      !( Maybe
-           Text
-       ),
-    _dlprrsLifecyclePolicyText ::
-      !( Maybe
-           Text
-       ),
-    _dlprrsLastEvaluatedAt ::
-      !( Maybe
-           POSIX
-       ),
-    _dlprrsResponseStatus ::
-      !Int
+  { -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The repository name associated with the request.
+    repositoryName :: Prelude.Maybe Prelude.Text,
+    -- | The JSON lifecycle policy text.
+    lifecyclePolicyText :: Prelude.Maybe Prelude.Text,
+    -- | The time stamp of the last time that the lifecycle policy was run.
+    lastEvaluatedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLifecyclePolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLifecyclePolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlprrsRegistryId' - The registry ID associated with the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlprrsRepositoryName' - The repository name associated with the request.
+-- 'registryId', 'deleteLifecyclePolicyResponse_registryId' - The registry ID associated with the request.
 --
--- * 'dlprrsLifecyclePolicyText' - The JSON lifecycle policy text.
+-- 'repositoryName', 'deleteLifecyclePolicyResponse_repositoryName' - The repository name associated with the request.
 --
--- * 'dlprrsLastEvaluatedAt' - The time stamp of the last time that the lifecycle policy was run.
+-- 'lifecyclePolicyText', 'deleteLifecyclePolicyResponse_lifecyclePolicyText' - The JSON lifecycle policy text.
 --
--- * 'dlprrsResponseStatus' - -- | The response status code.
-deleteLifecyclePolicyResponse ::
-  -- | 'dlprrsResponseStatus'
-  Int ->
+-- 'lastEvaluatedAt', 'deleteLifecyclePolicyResponse_lastEvaluatedAt' - The time stamp of the last time that the lifecycle policy was run.
+--
+-- 'httpStatus', 'deleteLifecyclePolicyResponse_httpStatus' - The response's http status code.
+newDeleteLifecyclePolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteLifecyclePolicyResponse
-deleteLifecyclePolicyResponse pResponseStatus_ =
+newDeleteLifecyclePolicyResponse pHttpStatus_ =
   DeleteLifecyclePolicyResponse'
-    { _dlprrsRegistryId =
-        Nothing,
-      _dlprrsRepositoryName = Nothing,
-      _dlprrsLifecyclePolicyText = Nothing,
-      _dlprrsLastEvaluatedAt = Nothing,
-      _dlprrsResponseStatus = pResponseStatus_
+    { registryId =
+        Prelude.Nothing,
+      repositoryName = Prelude.Nothing,
+      lifecyclePolicyText = Prelude.Nothing,
+      lastEvaluatedAt = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The registry ID associated with the request.
-dlprrsRegistryId :: Lens' DeleteLifecyclePolicyResponse (Maybe Text)
-dlprrsRegistryId = lens _dlprrsRegistryId (\s a -> s {_dlprrsRegistryId = a})
+deleteLifecyclePolicyResponse_registryId :: Lens.Lens' DeleteLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
+deleteLifecyclePolicyResponse_registryId = Lens.lens (\DeleteLifecyclePolicyResponse' {registryId} -> registryId) (\s@DeleteLifecyclePolicyResponse' {} a -> s {registryId = a} :: DeleteLifecyclePolicyResponse)
 
 -- | The repository name associated with the request.
-dlprrsRepositoryName :: Lens' DeleteLifecyclePolicyResponse (Maybe Text)
-dlprrsRepositoryName = lens _dlprrsRepositoryName (\s a -> s {_dlprrsRepositoryName = a})
+deleteLifecyclePolicyResponse_repositoryName :: Lens.Lens' DeleteLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
+deleteLifecyclePolicyResponse_repositoryName = Lens.lens (\DeleteLifecyclePolicyResponse' {repositoryName} -> repositoryName) (\s@DeleteLifecyclePolicyResponse' {} a -> s {repositoryName = a} :: DeleteLifecyclePolicyResponse)
 
 -- | The JSON lifecycle policy text.
-dlprrsLifecyclePolicyText :: Lens' DeleteLifecyclePolicyResponse (Maybe Text)
-dlprrsLifecyclePolicyText = lens _dlprrsLifecyclePolicyText (\s a -> s {_dlprrsLifecyclePolicyText = a})
+deleteLifecyclePolicyResponse_lifecyclePolicyText :: Lens.Lens' DeleteLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
+deleteLifecyclePolicyResponse_lifecyclePolicyText = Lens.lens (\DeleteLifecyclePolicyResponse' {lifecyclePolicyText} -> lifecyclePolicyText) (\s@DeleteLifecyclePolicyResponse' {} a -> s {lifecyclePolicyText = a} :: DeleteLifecyclePolicyResponse)
 
 -- | The time stamp of the last time that the lifecycle policy was run.
-dlprrsLastEvaluatedAt :: Lens' DeleteLifecyclePolicyResponse (Maybe UTCTime)
-dlprrsLastEvaluatedAt = lens _dlprrsLastEvaluatedAt (\s a -> s {_dlprrsLastEvaluatedAt = a}) . mapping _Time
+deleteLifecyclePolicyResponse_lastEvaluatedAt :: Lens.Lens' DeleteLifecyclePolicyResponse (Prelude.Maybe Prelude.UTCTime)
+deleteLifecyclePolicyResponse_lastEvaluatedAt = Lens.lens (\DeleteLifecyclePolicyResponse' {lastEvaluatedAt} -> lastEvaluatedAt) (\s@DeleteLifecyclePolicyResponse' {} a -> s {lastEvaluatedAt = a} :: DeleteLifecyclePolicyResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-dlprrsResponseStatus :: Lens' DeleteLifecyclePolicyResponse Int
-dlprrsResponseStatus = lens _dlprrsResponseStatus (\s a -> s {_dlprrsResponseStatus = a})
+-- | The response's http status code.
+deleteLifecyclePolicyResponse_httpStatus :: Lens.Lens' DeleteLifecyclePolicyResponse Prelude.Int
+deleteLifecyclePolicyResponse_httpStatus = Lens.lens (\DeleteLifecyclePolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteLifecyclePolicyResponse' {} a -> s {httpStatus = a} :: DeleteLifecyclePolicyResponse)
 
-instance NFData DeleteLifecyclePolicyResponse
+instance Prelude.NFData DeleteLifecyclePolicyResponse

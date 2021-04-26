@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,50 +20,48 @@
 module Network.AWS.ECR.Types.LifecyclePolicyPreviewFilter where
 
 import Network.AWS.ECR.Types.TagStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The filter for the lifecycle policy preview.
 --
---
---
--- /See:/ 'lifecyclePolicyPreviewFilter' smart constructor.
-newtype LifecyclePolicyPreviewFilter = LifecyclePolicyPreviewFilter'
-  { _lppfTagStatus ::
-      Maybe
-        TagStatus
+-- /See:/ 'newLifecyclePolicyPreviewFilter' smart constructor.
+data LifecyclePolicyPreviewFilter = LifecyclePolicyPreviewFilter'
+  { -- | The tag status of the image.
+    tagStatus :: Prelude.Maybe TagStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LifecyclePolicyPreviewFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LifecyclePolicyPreviewFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lppfTagStatus' - The tag status of the image.
-lifecyclePolicyPreviewFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tagStatus', 'lifecyclePolicyPreviewFilter_tagStatus' - The tag status of the image.
+newLifecyclePolicyPreviewFilter ::
   LifecyclePolicyPreviewFilter
-lifecyclePolicyPreviewFilter =
+newLifecyclePolicyPreviewFilter =
   LifecyclePolicyPreviewFilter'
-    { _lppfTagStatus =
-        Nothing
+    { tagStatus =
+        Prelude.Nothing
     }
 
 -- | The tag status of the image.
-lppfTagStatus :: Lens' LifecyclePolicyPreviewFilter (Maybe TagStatus)
-lppfTagStatus = lens _lppfTagStatus (\s a -> s {_lppfTagStatus = a})
+lifecyclePolicyPreviewFilter_tagStatus :: Lens.Lens' LifecyclePolicyPreviewFilter (Prelude.Maybe TagStatus)
+lifecyclePolicyPreviewFilter_tagStatus = Lens.lens (\LifecyclePolicyPreviewFilter' {tagStatus} -> tagStatus) (\s@LifecyclePolicyPreviewFilter' {} a -> s {tagStatus = a} :: LifecyclePolicyPreviewFilter)
 
-instance Hashable LifecyclePolicyPreviewFilter
+instance
+  Prelude.Hashable
+    LifecyclePolicyPreviewFilter
 
-instance NFData LifecyclePolicyPreviewFilter
+instance Prelude.NFData LifecyclePolicyPreviewFilter
 
-instance ToJSON LifecyclePolicyPreviewFilter where
+instance Prelude.ToJSON LifecyclePolicyPreviewFilter where
   toJSON LifecyclePolicyPreviewFilter' {..} =
-    object
-      (catMaybes [("tagStatus" .=) <$> _lppfTagStatus])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("tagStatus" Prelude..=) Prelude.<$> tagStatus]
+      )

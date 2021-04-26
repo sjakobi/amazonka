@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECR.Types.LifecyclePolicyPreviewSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The summary of the lifecycle policy preview request.
 --
---
---
--- /See:/ 'lifecyclePolicyPreviewSummary' smart constructor.
-newtype LifecyclePolicyPreviewSummary = LifecyclePolicyPreviewSummary'
-  { _lppsExpiringImageTotalCount ::
-      Maybe
-        Nat
+-- /See:/ 'newLifecyclePolicyPreviewSummary' smart constructor.
+data LifecyclePolicyPreviewSummary = LifecyclePolicyPreviewSummary'
+  { -- | The number of expiring images.
+    expiringImageTotalCount :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LifecyclePolicyPreviewSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LifecyclePolicyPreviewSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lppsExpiringImageTotalCount' - The number of expiring images.
-lifecyclePolicyPreviewSummary ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'expiringImageTotalCount', 'lifecyclePolicyPreviewSummary_expiringImageTotalCount' - The number of expiring images.
+newLifecyclePolicyPreviewSummary ::
   LifecyclePolicyPreviewSummary
-lifecyclePolicyPreviewSummary =
+newLifecyclePolicyPreviewSummary =
   LifecyclePolicyPreviewSummary'
-    { _lppsExpiringImageTotalCount =
-        Nothing
+    { expiringImageTotalCount =
+        Prelude.Nothing
     }
 
 -- | The number of expiring images.
-lppsExpiringImageTotalCount :: Lens' LifecyclePolicyPreviewSummary (Maybe Natural)
-lppsExpiringImageTotalCount = lens _lppsExpiringImageTotalCount (\s a -> s {_lppsExpiringImageTotalCount = a}) . mapping _Nat
+lifecyclePolicyPreviewSummary_expiringImageTotalCount :: Lens.Lens' LifecyclePolicyPreviewSummary (Prelude.Maybe Prelude.Natural)
+lifecyclePolicyPreviewSummary_expiringImageTotalCount = Lens.lens (\LifecyclePolicyPreviewSummary' {expiringImageTotalCount} -> expiringImageTotalCount) (\s@LifecyclePolicyPreviewSummary' {} a -> s {expiringImageTotalCount = a} :: LifecyclePolicyPreviewSummary) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON LifecyclePolicyPreviewSummary where
+instance
+  Prelude.FromJSON
+    LifecyclePolicyPreviewSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LifecyclePolicyPreviewSummary"
       ( \x ->
           LifecyclePolicyPreviewSummary'
-            <$> (x .:? "expiringImageTotalCount")
+            Prelude.<$> (x Prelude..:? "expiringImageTotalCount")
       )
 
-instance Hashable LifecyclePolicyPreviewSummary
+instance
+  Prelude.Hashable
+    LifecyclePolicyPreviewSummary
 
-instance NFData LifecyclePolicyPreviewSummary
+instance Prelude.NFData LifecyclePolicyPreviewSummary

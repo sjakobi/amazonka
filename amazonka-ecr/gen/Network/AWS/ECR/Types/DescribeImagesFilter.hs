@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,46 +20,46 @@
 module Network.AWS.ECR.Types.DescribeImagesFilter where
 
 import Network.AWS.ECR.Types.TagStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object representing a filter on a 'DescribeImages' operation.
+-- | An object representing a filter on a DescribeImages operation.
 --
---
---
--- /See:/ 'describeImagesFilter' smart constructor.
-newtype DescribeImagesFilter = DescribeImagesFilter'
-  { _difTagStatus ::
-      Maybe TagStatus
+-- /See:/ 'newDescribeImagesFilter' smart constructor.
+data DescribeImagesFilter = DescribeImagesFilter'
+  { -- | The tag status with which to filter your DescribeImages results. You can
+    -- filter results based on whether they are @TAGGED@ or @UNTAGGED@.
+    tagStatus :: Prelude.Maybe TagStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeImagesFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeImagesFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'difTagStatus' - The tag status with which to filter your 'DescribeImages' results. You can filter results based on whether they are @TAGGED@ or @UNTAGGED@ .
-describeImagesFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tagStatus', 'describeImagesFilter_tagStatus' - The tag status with which to filter your DescribeImages results. You can
+-- filter results based on whether they are @TAGGED@ or @UNTAGGED@.
+newDescribeImagesFilter ::
   DescribeImagesFilter
-describeImagesFilter =
-  DescribeImagesFilter' {_difTagStatus = Nothing}
+newDescribeImagesFilter =
+  DescribeImagesFilter' {tagStatus = Prelude.Nothing}
 
--- | The tag status with which to filter your 'DescribeImages' results. You can filter results based on whether they are @TAGGED@ or @UNTAGGED@ .
-difTagStatus :: Lens' DescribeImagesFilter (Maybe TagStatus)
-difTagStatus = lens _difTagStatus (\s a -> s {_difTagStatus = a})
+-- | The tag status with which to filter your DescribeImages results. You can
+-- filter results based on whether they are @TAGGED@ or @UNTAGGED@.
+describeImagesFilter_tagStatus :: Lens.Lens' DescribeImagesFilter (Prelude.Maybe TagStatus)
+describeImagesFilter_tagStatus = Lens.lens (\DescribeImagesFilter' {tagStatus} -> tagStatus) (\s@DescribeImagesFilter' {} a -> s {tagStatus = a} :: DescribeImagesFilter)
 
-instance Hashable DescribeImagesFilter
+instance Prelude.Hashable DescribeImagesFilter
 
-instance NFData DescribeImagesFilter
+instance Prelude.NFData DescribeImagesFilter
 
-instance ToJSON DescribeImagesFilter where
+instance Prelude.ToJSON DescribeImagesFilter where
   toJSON DescribeImagesFilter' {..} =
-    object
-      (catMaybes [("tagStatus" .=) <$> _difTagStatus])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("tagStatus" Prelude..=) Prelude.<$> tagStatus]
+      )

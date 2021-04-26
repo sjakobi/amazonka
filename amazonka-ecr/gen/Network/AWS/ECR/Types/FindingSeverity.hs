@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.ECR.Types.FindingSeverity
   ( FindingSeverity
       ( ..,
-        Critical,
-        High,
-        Informational,
-        Low,
-        Medium,
-        Undefined
+        FindingSeverityCRITICAL,
+        FindingSeverityHIGH,
+        FindingSeverityINFORMATIONAL,
+        FindingSeverityLOW,
+        FindingSeverityMEDIUM,
+        FindingSeverityUNDEFINED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FindingSeverity = FindingSeverity' (CI Text)
+newtype FindingSeverity = FindingSeverity'
+  { fromFindingSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Critical :: FindingSeverity
-pattern Critical = FindingSeverity' "CRITICAL"
+pattern FindingSeverityCRITICAL :: FindingSeverity
+pattern FindingSeverityCRITICAL = FindingSeverity' "CRITICAL"
 
-pattern High :: FindingSeverity
-pattern High = FindingSeverity' "HIGH"
+pattern FindingSeverityHIGH :: FindingSeverity
+pattern FindingSeverityHIGH = FindingSeverity' "HIGH"
 
-pattern Informational :: FindingSeverity
-pattern Informational = FindingSeverity' "INFORMATIONAL"
+pattern FindingSeverityINFORMATIONAL :: FindingSeverity
+pattern FindingSeverityINFORMATIONAL = FindingSeverity' "INFORMATIONAL"
 
-pattern Low :: FindingSeverity
-pattern Low = FindingSeverity' "LOW"
+pattern FindingSeverityLOW :: FindingSeverity
+pattern FindingSeverityLOW = FindingSeverity' "LOW"
 
-pattern Medium :: FindingSeverity
-pattern Medium = FindingSeverity' "MEDIUM"
+pattern FindingSeverityMEDIUM :: FindingSeverity
+pattern FindingSeverityMEDIUM = FindingSeverity' "MEDIUM"
 
-pattern Undefined :: FindingSeverity
-pattern Undefined = FindingSeverity' "UNDEFINED"
+pattern FindingSeverityUNDEFINED :: FindingSeverity
+pattern FindingSeverityUNDEFINED = FindingSeverity' "UNDEFINED"
 
 {-# COMPLETE
-  Critical,
-  High,
-  Informational,
-  Low,
-  Medium,
-  Undefined,
+  FindingSeverityCRITICAL,
+  FindingSeverityHIGH,
+  FindingSeverityINFORMATIONAL,
+  FindingSeverityLOW,
+  FindingSeverityMEDIUM,
+  FindingSeverityUNDEFINED,
   FindingSeverity'
   #-}
 
-instance FromText FindingSeverity where
-  parser = (FindingSeverity' . mk) <$> takeText
+instance Prelude.FromText FindingSeverity where
+  parser = FindingSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText FindingSeverity where
-  toText (FindingSeverity' ci) = original ci
+instance Prelude.ToText FindingSeverity where
+  toText (FindingSeverity' x) = x
 
-instance Hashable FindingSeverity
+instance Prelude.Hashable FindingSeverity
 
-instance NFData FindingSeverity
+instance Prelude.NFData FindingSeverity
 
-instance ToByteString FindingSeverity
+instance Prelude.ToByteString FindingSeverity
 
-instance ToQuery FindingSeverity
+instance Prelude.ToQuery FindingSeverity
 
-instance ToHeader FindingSeverity
+instance Prelude.ToHeader FindingSeverity
 
-instance FromJSON FindingSeverity where
-  parseJSON = parseJSONText "FindingSeverity"
+instance Prelude.FromJSON FindingSeverity where
+  parseJSON = Prelude.parseJSONText "FindingSeverity"

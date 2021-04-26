@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.ECR.Types.LifecyclePolicyPreviewStatus
   ( LifecyclePolicyPreviewStatus
       ( ..,
-        Complete,
-        Expired,
-        Failed,
-        InProgress
+        LifecyclePolicyPreviewStatusCOMPLETE,
+        LifecyclePolicyPreviewStatusEXPIRED,
+        LifecyclePolicyPreviewStatusFAILED,
+        LifecyclePolicyPreviewStatusINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LifecyclePolicyPreviewStatus
-  = LifecyclePolicyPreviewStatus'
-      ( CI
-          Text
-      )
+newtype LifecyclePolicyPreviewStatus = LifecyclePolicyPreviewStatus'
+  { fromLifecyclePolicyPreviewStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Complete :: LifecyclePolicyPreviewStatus
-pattern Complete = LifecyclePolicyPreviewStatus' "COMPLETE"
+pattern LifecyclePolicyPreviewStatusCOMPLETE :: LifecyclePolicyPreviewStatus
+pattern LifecyclePolicyPreviewStatusCOMPLETE = LifecyclePolicyPreviewStatus' "COMPLETE"
 
-pattern Expired :: LifecyclePolicyPreviewStatus
-pattern Expired = LifecyclePolicyPreviewStatus' "EXPIRED"
+pattern LifecyclePolicyPreviewStatusEXPIRED :: LifecyclePolicyPreviewStatus
+pattern LifecyclePolicyPreviewStatusEXPIRED = LifecyclePolicyPreviewStatus' "EXPIRED"
 
-pattern Failed :: LifecyclePolicyPreviewStatus
-pattern Failed = LifecyclePolicyPreviewStatus' "FAILED"
+pattern LifecyclePolicyPreviewStatusFAILED :: LifecyclePolicyPreviewStatus
+pattern LifecyclePolicyPreviewStatusFAILED = LifecyclePolicyPreviewStatus' "FAILED"
 
-pattern InProgress :: LifecyclePolicyPreviewStatus
-pattern InProgress = LifecyclePolicyPreviewStatus' "IN_PROGRESS"
+pattern LifecyclePolicyPreviewStatusINPROGRESS :: LifecyclePolicyPreviewStatus
+pattern LifecyclePolicyPreviewStatusINPROGRESS = LifecyclePolicyPreviewStatus' "IN_PROGRESS"
 
 {-# COMPLETE
-  Complete,
-  Expired,
-  Failed,
-  InProgress,
+  LifecyclePolicyPreviewStatusCOMPLETE,
+  LifecyclePolicyPreviewStatusEXPIRED,
+  LifecyclePolicyPreviewStatusFAILED,
+  LifecyclePolicyPreviewStatusINPROGRESS,
   LifecyclePolicyPreviewStatus'
   #-}
 
-instance FromText LifecyclePolicyPreviewStatus where
-  parser = (LifecyclePolicyPreviewStatus' . mk) <$> takeText
+instance Prelude.FromText LifecyclePolicyPreviewStatus where
+  parser = LifecyclePolicyPreviewStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LifecyclePolicyPreviewStatus where
-  toText (LifecyclePolicyPreviewStatus' ci) = original ci
+instance Prelude.ToText LifecyclePolicyPreviewStatus where
+  toText (LifecyclePolicyPreviewStatus' x) = x
 
-instance Hashable LifecyclePolicyPreviewStatus
+instance Prelude.Hashable LifecyclePolicyPreviewStatus
 
-instance NFData LifecyclePolicyPreviewStatus
+instance Prelude.NFData LifecyclePolicyPreviewStatus
 
-instance ToByteString LifecyclePolicyPreviewStatus
+instance Prelude.ToByteString LifecyclePolicyPreviewStatus
 
-instance ToQuery LifecyclePolicyPreviewStatus
+instance Prelude.ToQuery LifecyclePolicyPreviewStatus
 
-instance ToHeader LifecyclePolicyPreviewStatus
+instance Prelude.ToHeader LifecyclePolicyPreviewStatus
 
-instance FromJSON LifecyclePolicyPreviewStatus where
-  parseJSON = parseJSONText "LifecyclePolicyPreviewStatus"
+instance Prelude.FromJSON LifecyclePolicyPreviewStatus where
+  parseJSON = Prelude.parseJSONText "LifecyclePolicyPreviewStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,225 @@
 --
 -- Creates or updates the image manifest and tags associated with an image.
 --
+-- When an image is pushed and all new image layers have been uploaded, the
+-- PutImage API is called once to create or update the image manifest and
+-- the tags associated with the image.
 --
--- When an image is pushed and all new image layers have been uploaded, the PutImage API is called once to create or update the image manifest and the tags associated with the image.
+-- This operation is used by the Amazon ECR proxy and is not generally used
+-- by customers for pulling and pushing images. In most cases, you should
+-- use the @docker@ CLI to pull, tag, and push images.
 module Network.AWS.ECR.PutImage
   ( -- * Creating a Request
-    putImage,
-    PutImage,
+    PutImage (..),
+    newPutImage,
 
     -- * Request Lenses
-    piImageDigest,
-    piRegistryId,
-    piImageTag,
-    piImageManifestMediaType,
-    piRepositoryName,
-    piImageManifest,
+    putImage_imageDigest,
+    putImage_registryId,
+    putImage_imageTag,
+    putImage_imageManifestMediaType,
+    putImage_repositoryName,
+    putImage_imageManifest,
 
     -- * Destructuring the Response
-    putImageResponse,
-    PutImageResponse,
+    PutImageResponse (..),
+    newPutImageResponse,
 
     -- * Response Lenses
-    pirrsImage,
-    pirrsResponseStatus,
+    putImageResponse_image,
+    putImageResponse_httpStatus,
   )
 where
 
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ECR.Types.Image
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putImage' smart constructor.
+-- | /See:/ 'newPutImage' smart constructor.
 data PutImage = PutImage'
-  { _piImageDigest ::
-      !(Maybe Text),
-    _piRegistryId :: !(Maybe Text),
-    _piImageTag :: !(Maybe Text),
-    _piImageManifestMediaType :: !(Maybe Text),
-    _piRepositoryName :: !Text,
-    _piImageManifest :: !Text
+  { -- | The image digest of the image manifest corresponding to the image.
+    imageDigest :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account ID associated with the registry that contains the
+    -- repository in which to put the image. If you do not specify a registry,
+    -- the default registry is assumed.
+    registryId :: Prelude.Maybe Prelude.Text,
+    -- | The tag to associate with the image. This parameter is required for
+    -- images that use the Docker Image Manifest V2 Schema 2 or Open Container
+    -- Initiative (OCI) formats.
+    imageTag :: Prelude.Maybe Prelude.Text,
+    -- | The media type of the image manifest. If you push an image manifest that
+    -- does not contain the @mediaType@ field, you must specify the
+    -- @imageManifestMediaType@ in the request.
+    imageManifestMediaType :: Prelude.Maybe Prelude.Text,
+    -- | The name of the repository in which to put the image.
+    repositoryName :: Prelude.Text,
+    -- | The image manifest corresponding to the image to be uploaded.
+    imageManifest :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'piImageDigest' - The image digest of the image manifest corresponding to the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'piRegistryId' - The AWS account ID associated with the registry that contains the repository in which to put the image. If you do not specify a registry, the default registry is assumed.
+-- 'imageDigest', 'putImage_imageDigest' - The image digest of the image manifest corresponding to the image.
 --
--- * 'piImageTag' - The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2 Schema 2 or Open Container Initiative (OCI) formats.
+-- 'registryId', 'putImage_registryId' - The AWS account ID associated with the registry that contains the
+-- repository in which to put the image. If you do not specify a registry,
+-- the default registry is assumed.
 --
--- * 'piImageManifestMediaType' - The media type of the image manifest. If you push an image manifest that does not contain the @mediaType@ field, you must specify the @imageManifestMediaType@ in the request.
+-- 'imageTag', 'putImage_imageTag' - The tag to associate with the image. This parameter is required for
+-- images that use the Docker Image Manifest V2 Schema 2 or Open Container
+-- Initiative (OCI) formats.
 --
--- * 'piRepositoryName' - The name of the repository in which to put the image.
+-- 'imageManifestMediaType', 'putImage_imageManifestMediaType' - The media type of the image manifest. If you push an image manifest that
+-- does not contain the @mediaType@ field, you must specify the
+-- @imageManifestMediaType@ in the request.
 --
--- * 'piImageManifest' - The image manifest corresponding to the image to be uploaded.
-putImage ::
-  -- | 'piRepositoryName'
-  Text ->
-  -- | 'piImageManifest'
-  Text ->
+-- 'repositoryName', 'putImage_repositoryName' - The name of the repository in which to put the image.
+--
+-- 'imageManifest', 'putImage_imageManifest' - The image manifest corresponding to the image to be uploaded.
+newPutImage ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  -- | 'imageManifest'
+  Prelude.Text ->
   PutImage
-putImage pRepositoryName_ pImageManifest_ =
+newPutImage pRepositoryName_ pImageManifest_ =
   PutImage'
-    { _piImageDigest = Nothing,
-      _piRegistryId = Nothing,
-      _piImageTag = Nothing,
-      _piImageManifestMediaType = Nothing,
-      _piRepositoryName = pRepositoryName_,
-      _piImageManifest = pImageManifest_
+    { imageDigest = Prelude.Nothing,
+      registryId = Prelude.Nothing,
+      imageTag = Prelude.Nothing,
+      imageManifestMediaType = Prelude.Nothing,
+      repositoryName = pRepositoryName_,
+      imageManifest = pImageManifest_
     }
 
 -- | The image digest of the image manifest corresponding to the image.
-piImageDigest :: Lens' PutImage (Maybe Text)
-piImageDigest = lens _piImageDigest (\s a -> s {_piImageDigest = a})
+putImage_imageDigest :: Lens.Lens' PutImage (Prelude.Maybe Prelude.Text)
+putImage_imageDigest = Lens.lens (\PutImage' {imageDigest} -> imageDigest) (\s@PutImage' {} a -> s {imageDigest = a} :: PutImage)
 
--- | The AWS account ID associated with the registry that contains the repository in which to put the image. If you do not specify a registry, the default registry is assumed.
-piRegistryId :: Lens' PutImage (Maybe Text)
-piRegistryId = lens _piRegistryId (\s a -> s {_piRegistryId = a})
+-- | The AWS account ID associated with the registry that contains the
+-- repository in which to put the image. If you do not specify a registry,
+-- the default registry is assumed.
+putImage_registryId :: Lens.Lens' PutImage (Prelude.Maybe Prelude.Text)
+putImage_registryId = Lens.lens (\PutImage' {registryId} -> registryId) (\s@PutImage' {} a -> s {registryId = a} :: PutImage)
 
--- | The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2 Schema 2 or Open Container Initiative (OCI) formats.
-piImageTag :: Lens' PutImage (Maybe Text)
-piImageTag = lens _piImageTag (\s a -> s {_piImageTag = a})
+-- | The tag to associate with the image. This parameter is required for
+-- images that use the Docker Image Manifest V2 Schema 2 or Open Container
+-- Initiative (OCI) formats.
+putImage_imageTag :: Lens.Lens' PutImage (Prelude.Maybe Prelude.Text)
+putImage_imageTag = Lens.lens (\PutImage' {imageTag} -> imageTag) (\s@PutImage' {} a -> s {imageTag = a} :: PutImage)
 
--- | The media type of the image manifest. If you push an image manifest that does not contain the @mediaType@ field, you must specify the @imageManifestMediaType@ in the request.
-piImageManifestMediaType :: Lens' PutImage (Maybe Text)
-piImageManifestMediaType = lens _piImageManifestMediaType (\s a -> s {_piImageManifestMediaType = a})
+-- | The media type of the image manifest. If you push an image manifest that
+-- does not contain the @mediaType@ field, you must specify the
+-- @imageManifestMediaType@ in the request.
+putImage_imageManifestMediaType :: Lens.Lens' PutImage (Prelude.Maybe Prelude.Text)
+putImage_imageManifestMediaType = Lens.lens (\PutImage' {imageManifestMediaType} -> imageManifestMediaType) (\s@PutImage' {} a -> s {imageManifestMediaType = a} :: PutImage)
 
 -- | The name of the repository in which to put the image.
-piRepositoryName :: Lens' PutImage Text
-piRepositoryName = lens _piRepositoryName (\s a -> s {_piRepositoryName = a})
+putImage_repositoryName :: Lens.Lens' PutImage Prelude.Text
+putImage_repositoryName = Lens.lens (\PutImage' {repositoryName} -> repositoryName) (\s@PutImage' {} a -> s {repositoryName = a} :: PutImage)
 
 -- | The image manifest corresponding to the image to be uploaded.
-piImageManifest :: Lens' PutImage Text
-piImageManifest = lens _piImageManifest (\s a -> s {_piImageManifest = a})
+putImage_imageManifest :: Lens.Lens' PutImage Prelude.Text
+putImage_imageManifest = Lens.lens (\PutImage' {imageManifest} -> imageManifest) (\s@PutImage' {} a -> s {imageManifest = a} :: PutImage)
 
-instance AWSRequest PutImage where
+instance Prelude.AWSRequest PutImage where
   type Rs PutImage = PutImageResponse
-  request = postJSON ecr
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutImageResponse'
-            <$> (x .?> "image") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "image")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutImage
+instance Prelude.Hashable PutImage
 
-instance NFData PutImage
+instance Prelude.NFData PutImage
 
-instance ToHeaders PutImage where
+instance Prelude.ToHeaders PutImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonEC2ContainerRegistry_V20150921.PutImage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonEC2ContainerRegistry_V20150921.PutImage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutImage where
+instance Prelude.ToJSON PutImage where
   toJSON PutImage' {..} =
-    object
-      ( catMaybes
-          [ ("imageDigest" .=) <$> _piImageDigest,
-            ("registryId" .=) <$> _piRegistryId,
-            ("imageTag" .=) <$> _piImageTag,
-            ("imageManifestMediaType" .=)
-              <$> _piImageManifestMediaType,
-            Just ("repositoryName" .= _piRepositoryName),
-            Just ("imageManifest" .= _piImageManifest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("imageDigest" Prelude..=) Prelude.<$> imageDigest,
+            ("registryId" Prelude..=) Prelude.<$> registryId,
+            ("imageTag" Prelude..=) Prelude.<$> imageTag,
+            ("imageManifestMediaType" Prelude..=)
+              Prelude.<$> imageManifestMediaType,
+            Prelude.Just
+              ("repositoryName" Prelude..= repositoryName),
+            Prelude.Just
+              ("imageManifest" Prelude..= imageManifest)
           ]
       )
 
-instance ToPath PutImage where
-  toPath = const "/"
+instance Prelude.ToPath PutImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutImage where
-  toQuery = const mempty
+instance Prelude.ToQuery PutImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putImageResponse' smart constructor.
+-- | /See:/ 'newPutImageResponse' smart constructor.
 data PutImageResponse = PutImageResponse'
-  { _pirrsImage ::
-      !(Maybe Image),
-    _pirrsResponseStatus :: !Int
+  { -- | Details of the image uploaded.
+    image :: Prelude.Maybe Image,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pirrsImage' - Details of the image uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pirrsResponseStatus' - -- | The response status code.
-putImageResponse ::
-  -- | 'pirrsResponseStatus'
-  Int ->
+-- 'image', 'putImageResponse_image' - Details of the image uploaded.
+--
+-- 'httpStatus', 'putImageResponse_httpStatus' - The response's http status code.
+newPutImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutImageResponse
-putImageResponse pResponseStatus_ =
+newPutImageResponse pHttpStatus_ =
   PutImageResponse'
-    { _pirrsImage = Nothing,
-      _pirrsResponseStatus = pResponseStatus_
+    { image = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Details of the image uploaded.
-pirrsImage :: Lens' PutImageResponse (Maybe Image)
-pirrsImage = lens _pirrsImage (\s a -> s {_pirrsImage = a})
+putImageResponse_image :: Lens.Lens' PutImageResponse (Prelude.Maybe Image)
+putImageResponse_image = Lens.lens (\PutImageResponse' {image} -> image) (\s@PutImageResponse' {} a -> s {image = a} :: PutImageResponse)
 
--- | -- | The response status code.
-pirrsResponseStatus :: Lens' PutImageResponse Int
-pirrsResponseStatus = lens _pirrsResponseStatus (\s a -> s {_pirrsResponseStatus = a})
+-- | The response's http status code.
+putImageResponse_httpStatus :: Lens.Lens' PutImageResponse Prelude.Int
+putImageResponse_httpStatus = Lens.lens (\PutImageResponse' {httpStatus} -> httpStatus) (\s@PutImageResponse' {} a -> s {httpStatus = a} :: PutImageResponse)
 
-instance NFData PutImageResponse
+instance Prelude.NFData PutImageResponse

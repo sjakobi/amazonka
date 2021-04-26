@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECR.Types.ImageScanningConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The image scanning configuration for a repository.
 --
---
---
--- /See:/ 'imageScanningConfiguration' smart constructor.
-newtype ImageScanningConfiguration = ImageScanningConfiguration'
-  { _iscScanOnPush ::
-      Maybe Bool
+-- /See:/ 'newImageScanningConfiguration' smart constructor.
+data ImageScanningConfiguration = ImageScanningConfiguration'
+  { -- | The setting that determines whether images are scanned after being
+    -- pushed to a repository. If set to @true@, images will be scanned after
+    -- being pushed. If this parameter is not specified, it will default to
+    -- @false@ and images will not be scanned unless a scan is manually started
+    -- with the StartImageScan API.
+    scanOnPush :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageScanningConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageScanningConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iscScanOnPush' - The setting that determines whether images are scanned after being pushed to a repository. If set to @true@ , images will be scanned after being pushed. If this parameter is not specified, it will default to @false@ and images will not be scanned unless a scan is manually started with the 'StartImageScan' API.
-imageScanningConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'scanOnPush', 'imageScanningConfiguration_scanOnPush' - The setting that determines whether images are scanned after being
+-- pushed to a repository. If set to @true@, images will be scanned after
+-- being pushed. If this parameter is not specified, it will default to
+-- @false@ and images will not be scanned unless a scan is manually started
+-- with the StartImageScan API.
+newImageScanningConfiguration ::
   ImageScanningConfiguration
-imageScanningConfiguration =
+newImageScanningConfiguration =
   ImageScanningConfiguration'
-    { _iscScanOnPush =
-        Nothing
+    { scanOnPush =
+        Prelude.Nothing
     }
 
--- | The setting that determines whether images are scanned after being pushed to a repository. If set to @true@ , images will be scanned after being pushed. If this parameter is not specified, it will default to @false@ and images will not be scanned unless a scan is manually started with the 'StartImageScan' API.
-iscScanOnPush :: Lens' ImageScanningConfiguration (Maybe Bool)
-iscScanOnPush = lens _iscScanOnPush (\s a -> s {_iscScanOnPush = a})
+-- | The setting that determines whether images are scanned after being
+-- pushed to a repository. If set to @true@, images will be scanned after
+-- being pushed. If this parameter is not specified, it will default to
+-- @false@ and images will not be scanned unless a scan is manually started
+-- with the StartImageScan API.
+imageScanningConfiguration_scanOnPush :: Lens.Lens' ImageScanningConfiguration (Prelude.Maybe Prelude.Bool)
+imageScanningConfiguration_scanOnPush = Lens.lens (\ImageScanningConfiguration' {scanOnPush} -> scanOnPush) (\s@ImageScanningConfiguration' {} a -> s {scanOnPush = a} :: ImageScanningConfiguration)
 
-instance FromJSON ImageScanningConfiguration where
+instance Prelude.FromJSON ImageScanningConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageScanningConfiguration"
       ( \x ->
-          ImageScanningConfiguration' <$> (x .:? "scanOnPush")
+          ImageScanningConfiguration'
+            Prelude.<$> (x Prelude..:? "scanOnPush")
       )
 
-instance Hashable ImageScanningConfiguration
+instance Prelude.Hashable ImageScanningConfiguration
 
-instance NFData ImageScanningConfiguration
+instance Prelude.NFData ImageScanningConfiguration
 
-instance ToJSON ImageScanningConfiguration where
+instance Prelude.ToJSON ImageScanningConfiguration where
   toJSON ImageScanningConfiguration' {..} =
-    object
-      (catMaybes [("scanOnPush" .=) <$> _iscScanOnPush])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("scanOnPush" Prelude..=) Prelude.<$> scanOnPush]
+      )

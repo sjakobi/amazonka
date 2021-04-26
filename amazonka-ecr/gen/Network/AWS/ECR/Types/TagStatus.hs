@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ECR.Types.TagStatus
   ( TagStatus
       ( ..,
-        Any,
-        Tagged,
-        Untagged
+        TagStatusANY,
+        TagStatusTAGGED,
+        TagStatusUNTAGGED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TagStatus = TagStatus' (CI Text)
+newtype TagStatus = TagStatus'
+  { fromTagStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Any :: TagStatus
-pattern Any = TagStatus' "ANY"
+pattern TagStatusANY :: TagStatus
+pattern TagStatusANY = TagStatus' "ANY"
 
-pattern Tagged :: TagStatus
-pattern Tagged = TagStatus' "TAGGED"
+pattern TagStatusTAGGED :: TagStatus
+pattern TagStatusTAGGED = TagStatus' "TAGGED"
 
-pattern Untagged :: TagStatus
-pattern Untagged = TagStatus' "UNTAGGED"
+pattern TagStatusUNTAGGED :: TagStatus
+pattern TagStatusUNTAGGED = TagStatus' "UNTAGGED"
 
 {-# COMPLETE
-  Any,
-  Tagged,
-  Untagged,
+  TagStatusANY,
+  TagStatusTAGGED,
+  TagStatusUNTAGGED,
   TagStatus'
   #-}
 
-instance FromText TagStatus where
-  parser = (TagStatus' . mk) <$> takeText
+instance Prelude.FromText TagStatus where
+  parser = TagStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TagStatus where
-  toText (TagStatus' ci) = original ci
+instance Prelude.ToText TagStatus where
+  toText (TagStatus' x) = x
 
-instance Hashable TagStatus
+instance Prelude.Hashable TagStatus
 
-instance NFData TagStatus
+instance Prelude.NFData TagStatus
 
-instance ToByteString TagStatus
+instance Prelude.ToByteString TagStatus
 
-instance ToQuery TagStatus
+instance Prelude.ToQuery TagStatus
 
-instance ToHeader TagStatus
+instance Prelude.ToHeader TagStatus
 
-instance ToJSON TagStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TagStatus where
+  toJSON = Prelude.toJSONText

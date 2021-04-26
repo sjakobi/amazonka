@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +17,63 @@ module Network.AWS.ECR.Waiters where
 
 import Network.AWS.ECR.DescribeImageScanFindings
 import Network.AWS.ECR.GetLifecyclePolicyPreview
+import Network.AWS.ECR.Lens
 import Network.AWS.ECR.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.ECR.DescribeImageScanFindings' every 5 seconds until a successful state is reached. An error is returned after 60 failed checks.
-imageScanComplete :: Wait DescribeImageScanFindings
-imageScanComplete =
-  Wait
-    { _waitName = "ImageScanComplete",
-      _waitAttempts = 60,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newImageScanComplete :: Waiter.Wait DescribeImageScanFindings
+newImageScanComplete =
+  Waiter.Wait
+    { Waiter._waitName = "ImageScanComplete",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETE"
-            AcceptSuccess
-            ( disfrrsImageScanStatus . _Just . issStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( describeImageScanFindingsResponse_imageScanStatus
+                Prelude.. Lens._Just
+                Prelude.. imageScanStatus_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAll
+          Waiter.matchAll
             "FAILED"
-            AcceptFailure
-            ( disfrrsImageScanStatus . _Just . issStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( describeImageScanFindingsResponse_imageScanStatus
+                Prelude.. Lens._Just
+                Prelude.. imageScanStatus_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.ECR.GetLifecyclePolicyPreview' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-lifecyclePolicyPreviewComplete :: Wait GetLifecyclePolicyPreview
-lifecyclePolicyPreviewComplete =
-  Wait
-    { _waitName = "LifecyclePolicyPreviewComplete",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newLifecyclePolicyPreviewComplete :: Waiter.Wait GetLifecyclePolicyPreview
+newLifecyclePolicyPreviewComplete =
+  Waiter.Wait
+    { Waiter._waitName =
+        "LifecyclePolicyPreviewComplete",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETE"
-            AcceptSuccess
-            (glpprrsStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( getLifecyclePolicyPreviewResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "FAILED"
-            AcceptFailure
-            (glpprrsStatus . to toTextCI)
+            Waiter.AcceptFailure
+            ( getLifecyclePolicyPreviewResponse_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }

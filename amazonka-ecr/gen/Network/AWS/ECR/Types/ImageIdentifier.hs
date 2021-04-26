@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECR.Types.ImageIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object with identifying information for an Amazon ECR image.
 --
---
---
--- /See:/ 'imageIdentifier' smart constructor.
+-- /See:/ 'newImageIdentifier' smart constructor.
 data ImageIdentifier = ImageIdentifier'
-  { _iiImageDigest ::
-      !(Maybe Text),
-    _iiImageTag :: !(Maybe Text)
+  { -- | The @sha256@ digest of the image manifest.
+    imageDigest :: Prelude.Maybe Prelude.Text,
+    -- | The tag used for the image.
+    imageTag :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iiImageDigest' - The @sha256@ digest of the image manifest.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iiImageTag' - The tag used for the image.
-imageIdentifier ::
+-- 'imageDigest', 'imageIdentifier_imageDigest' - The @sha256@ digest of the image manifest.
+--
+-- 'imageTag', 'imageIdentifier_imageTag' - The tag used for the image.
+newImageIdentifier ::
   ImageIdentifier
-imageIdentifier =
+newImageIdentifier =
   ImageIdentifier'
-    { _iiImageDigest = Nothing,
-      _iiImageTag = Nothing
+    { imageDigest = Prelude.Nothing,
+      imageTag = Prelude.Nothing
     }
 
 -- | The @sha256@ digest of the image manifest.
-iiImageDigest :: Lens' ImageIdentifier (Maybe Text)
-iiImageDigest = lens _iiImageDigest (\s a -> s {_iiImageDigest = a})
+imageIdentifier_imageDigest :: Lens.Lens' ImageIdentifier (Prelude.Maybe Prelude.Text)
+imageIdentifier_imageDigest = Lens.lens (\ImageIdentifier' {imageDigest} -> imageDigest) (\s@ImageIdentifier' {} a -> s {imageDigest = a} :: ImageIdentifier)
 
 -- | The tag used for the image.
-iiImageTag :: Lens' ImageIdentifier (Maybe Text)
-iiImageTag = lens _iiImageTag (\s a -> s {_iiImageTag = a})
+imageIdentifier_imageTag :: Lens.Lens' ImageIdentifier (Prelude.Maybe Prelude.Text)
+imageIdentifier_imageTag = Lens.lens (\ImageIdentifier' {imageTag} -> imageTag) (\s@ImageIdentifier' {} a -> s {imageTag = a} :: ImageIdentifier)
 
-instance FromJSON ImageIdentifier where
+instance Prelude.FromJSON ImageIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageIdentifier"
       ( \x ->
           ImageIdentifier'
-            <$> (x .:? "imageDigest") <*> (x .:? "imageTag")
+            Prelude.<$> (x Prelude..:? "imageDigest")
+            Prelude.<*> (x Prelude..:? "imageTag")
       )
 
-instance Hashable ImageIdentifier
+instance Prelude.Hashable ImageIdentifier
 
-instance NFData ImageIdentifier
+instance Prelude.NFData ImageIdentifier
 
-instance ToJSON ImageIdentifier where
+instance Prelude.ToJSON ImageIdentifier where
   toJSON ImageIdentifier' {..} =
-    object
-      ( catMaybes
-          [ ("imageDigest" .=) <$> _iiImageDigest,
-            ("imageTag" .=) <$> _iiImageTag
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("imageDigest" Prelude..=) Prelude.<$> imageDigest,
+            ("imageTag" Prelude..=) Prelude.<$> imageTag
           ]
       )

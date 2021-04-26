@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ECR.Types.ReplicationDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An array of objects representing the details of a replication destination.
+-- | An array of objects representing the details of a replication
+-- destination.
 --
---
---
--- /See:/ 'replicationDestination' smart constructor.
+-- /See:/ 'newReplicationDestination' smart constructor.
 data ReplicationDestination = ReplicationDestination'
-  { _rdRegion ::
-      !Text,
-    _rdRegistryId :: !Text
+  { -- | A Region to replicate to.
+    region :: Prelude.Text,
+    -- | The account ID of the destination registry to replicate to.
+    registryId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdRegion' - A Region to replicate to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdRegistryId' - The account ID of the destination registry to replicate to.
-replicationDestination ::
-  -- | 'rdRegion'
-  Text ->
-  -- | 'rdRegistryId'
-  Text ->
+-- 'region', 'replicationDestination_region' - A Region to replicate to.
+--
+-- 'registryId', 'replicationDestination_registryId' - The account ID of the destination registry to replicate to.
+newReplicationDestination ::
+  -- | 'region'
+  Prelude.Text ->
+  -- | 'registryId'
+  Prelude.Text ->
   ReplicationDestination
-replicationDestination pRegion_ pRegistryId_ =
+newReplicationDestination pRegion_ pRegistryId_ =
   ReplicationDestination'
-    { _rdRegion = pRegion_,
-      _rdRegistryId = pRegistryId_
+    { region = pRegion_,
+      registryId = pRegistryId_
     }
 
 -- | A Region to replicate to.
-rdRegion :: Lens' ReplicationDestination Text
-rdRegion = lens _rdRegion (\s a -> s {_rdRegion = a})
+replicationDestination_region :: Lens.Lens' ReplicationDestination Prelude.Text
+replicationDestination_region = Lens.lens (\ReplicationDestination' {region} -> region) (\s@ReplicationDestination' {} a -> s {region = a} :: ReplicationDestination)
 
 -- | The account ID of the destination registry to replicate to.
-rdRegistryId :: Lens' ReplicationDestination Text
-rdRegistryId = lens _rdRegistryId (\s a -> s {_rdRegistryId = a})
+replicationDestination_registryId :: Lens.Lens' ReplicationDestination Prelude.Text
+replicationDestination_registryId = Lens.lens (\ReplicationDestination' {registryId} -> registryId) (\s@ReplicationDestination' {} a -> s {registryId = a} :: ReplicationDestination)
 
-instance FromJSON ReplicationDestination where
+instance Prelude.FromJSON ReplicationDestination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicationDestination"
       ( \x ->
           ReplicationDestination'
-            <$> (x .: "region") <*> (x .: "registryId")
+            Prelude.<$> (x Prelude..: "region")
+            Prelude.<*> (x Prelude..: "registryId")
       )
 
-instance Hashable ReplicationDestination
+instance Prelude.Hashable ReplicationDestination
 
-instance NFData ReplicationDestination
+instance Prelude.NFData ReplicationDestination
 
-instance ToJSON ReplicationDestination where
+instance Prelude.ToJSON ReplicationDestination where
   toJSON ReplicationDestination' {..} =
-    object
-      ( catMaybes
-          [ Just ("region" .= _rdRegion),
-            Just ("registryId" .= _rdRegistryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("region" Prelude..= region),
+            Prelude.Just ("registryId" Prelude..= registryId)
           ]
       )
