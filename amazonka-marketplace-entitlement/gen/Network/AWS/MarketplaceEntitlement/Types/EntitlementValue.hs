@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MarketplaceEntitlement.Types.EntitlementValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The EntitlementValue represents the amount of capacity that the customer is entitled to for the product.
+-- | The EntitlementValue represents the amount of capacity that the customer
+-- is entitled to for the product.
 --
---
---
--- /See:/ 'entitlementValue' smart constructor.
+-- /See:/ 'newEntitlementValue' smart constructor.
 data EntitlementValue = EntitlementValue'
-  { _evDoubleValue ::
-      !(Maybe Double),
-    _evStringValue :: !(Maybe Text),
-    _evBooleanValue :: !(Maybe Bool),
-    _evIntegerValue :: !(Maybe Int)
+  { -- | The DoubleValue field will be populated with a double value when the
+    -- entitlement is a double type. Otherwise, the field will not be set.
+    doubleValue :: Prelude.Maybe Prelude.Double,
+    -- | The StringValue field will be populated with a string value when the
+    -- entitlement is a string type. Otherwise, the field will not be set.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | The BooleanValue field will be populated with a boolean value when the
+    -- entitlement is a boolean type. Otherwise, the field will not be set.
+    booleanValue :: Prelude.Maybe Prelude.Bool,
+    -- | The IntegerValue field will be populated with an integer value when the
+    -- entitlement is an integer type. Otherwise, the field will not be set.
+    integerValue :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntitlementValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntitlementValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'evDoubleValue' - The DoubleValue field will be populated with a double value when the entitlement is a double type. Otherwise, the field will not be set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'evStringValue' - The StringValue field will be populated with a string value when the entitlement is a string type. Otherwise, the field will not be set.
+-- 'doubleValue', 'entitlementValue_doubleValue' - The DoubleValue field will be populated with a double value when the
+-- entitlement is a double type. Otherwise, the field will not be set.
 --
--- * 'evBooleanValue' - The BooleanValue field will be populated with a boolean value when the entitlement is a boolean type. Otherwise, the field will not be set.
+-- 'stringValue', 'entitlementValue_stringValue' - The StringValue field will be populated with a string value when the
+-- entitlement is a string type. Otherwise, the field will not be set.
 --
--- * 'evIntegerValue' - The IntegerValue field will be populated with an integer value when the entitlement is an integer type. Otherwise, the field will not be set.
-entitlementValue ::
+-- 'booleanValue', 'entitlementValue_booleanValue' - The BooleanValue field will be populated with a boolean value when the
+-- entitlement is a boolean type. Otherwise, the field will not be set.
+--
+-- 'integerValue', 'entitlementValue_integerValue' - The IntegerValue field will be populated with an integer value when the
+-- entitlement is an integer type. Otherwise, the field will not be set.
+newEntitlementValue ::
   EntitlementValue
-entitlementValue =
+newEntitlementValue =
   EntitlementValue'
-    { _evDoubleValue = Nothing,
-      _evStringValue = Nothing,
-      _evBooleanValue = Nothing,
-      _evIntegerValue = Nothing
+    { doubleValue = Prelude.Nothing,
+      stringValue = Prelude.Nothing,
+      booleanValue = Prelude.Nothing,
+      integerValue = Prelude.Nothing
     }
 
--- | The DoubleValue field will be populated with a double value when the entitlement is a double type. Otherwise, the field will not be set.
-evDoubleValue :: Lens' EntitlementValue (Maybe Double)
-evDoubleValue = lens _evDoubleValue (\s a -> s {_evDoubleValue = a})
+-- | The DoubleValue field will be populated with a double value when the
+-- entitlement is a double type. Otherwise, the field will not be set.
+entitlementValue_doubleValue :: Lens.Lens' EntitlementValue (Prelude.Maybe Prelude.Double)
+entitlementValue_doubleValue = Lens.lens (\EntitlementValue' {doubleValue} -> doubleValue) (\s@EntitlementValue' {} a -> s {doubleValue = a} :: EntitlementValue)
 
--- | The StringValue field will be populated with a string value when the entitlement is a string type. Otherwise, the field will not be set.
-evStringValue :: Lens' EntitlementValue (Maybe Text)
-evStringValue = lens _evStringValue (\s a -> s {_evStringValue = a})
+-- | The StringValue field will be populated with a string value when the
+-- entitlement is a string type. Otherwise, the field will not be set.
+entitlementValue_stringValue :: Lens.Lens' EntitlementValue (Prelude.Maybe Prelude.Text)
+entitlementValue_stringValue = Lens.lens (\EntitlementValue' {stringValue} -> stringValue) (\s@EntitlementValue' {} a -> s {stringValue = a} :: EntitlementValue)
 
--- | The BooleanValue field will be populated with a boolean value when the entitlement is a boolean type. Otherwise, the field will not be set.
-evBooleanValue :: Lens' EntitlementValue (Maybe Bool)
-evBooleanValue = lens _evBooleanValue (\s a -> s {_evBooleanValue = a})
+-- | The BooleanValue field will be populated with a boolean value when the
+-- entitlement is a boolean type. Otherwise, the field will not be set.
+entitlementValue_booleanValue :: Lens.Lens' EntitlementValue (Prelude.Maybe Prelude.Bool)
+entitlementValue_booleanValue = Lens.lens (\EntitlementValue' {booleanValue} -> booleanValue) (\s@EntitlementValue' {} a -> s {booleanValue = a} :: EntitlementValue)
 
--- | The IntegerValue field will be populated with an integer value when the entitlement is an integer type. Otherwise, the field will not be set.
-evIntegerValue :: Lens' EntitlementValue (Maybe Int)
-evIntegerValue = lens _evIntegerValue (\s a -> s {_evIntegerValue = a})
+-- | The IntegerValue field will be populated with an integer value when the
+-- entitlement is an integer type. Otherwise, the field will not be set.
+entitlementValue_integerValue :: Lens.Lens' EntitlementValue (Prelude.Maybe Prelude.Int)
+entitlementValue_integerValue = Lens.lens (\EntitlementValue' {integerValue} -> integerValue) (\s@EntitlementValue' {} a -> s {integerValue = a} :: EntitlementValue)
 
-instance FromJSON EntitlementValue where
+instance Prelude.FromJSON EntitlementValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EntitlementValue"
       ( \x ->
           EntitlementValue'
-            <$> (x .:? "DoubleValue")
-            <*> (x .:? "StringValue")
-            <*> (x .:? "BooleanValue")
-            <*> (x .:? "IntegerValue")
+            Prelude.<$> (x Prelude..:? "DoubleValue")
+            Prelude.<*> (x Prelude..:? "StringValue")
+            Prelude.<*> (x Prelude..:? "BooleanValue")
+            Prelude.<*> (x Prelude..:? "IntegerValue")
       )
 
-instance Hashable EntitlementValue
+instance Prelude.Hashable EntitlementValue
 
-instance NFData EntitlementValue
+instance Prelude.NFData EntitlementValue

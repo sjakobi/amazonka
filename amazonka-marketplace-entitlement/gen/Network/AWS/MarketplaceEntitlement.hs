@@ -11,18 +11,23 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Marketplace Entitlement Service__
+-- AWS Marketplace Entitlement Service
 --
--- This reference provides descriptions of the AWS Marketplace Entitlement Service API.
+-- This reference provides descriptions of the AWS Marketplace Entitlement
+-- Service API.
 --
--- AWS Marketplace Entitlement Service is used to determine the entitlement of a customer to a given product. An entitlement represents capacity in a product owned by the customer. For example, a customer might own some number of users or seats in an SaaS application or some amount of data capacity in a multi-tenant database.
+-- AWS Marketplace Entitlement Service is used to determine the entitlement
+-- of a customer to a given product. An entitlement represents capacity in
+-- a product owned by the customer. For example, a customer might own some
+-- number of users or seats in an SaaS application or some amount of data
+-- capacity in a multi-tenant database.
 --
 -- __Getting Entitlement Records__
 --
---     * /GetEntitlements/ - Gets the entitlements for a Marketplace product.
+-- -   /GetEntitlements/- Gets the entitlements for a Marketplace product.
 module Network.AWS.MarketplaceEntitlement
   ( -- * Service Configuration
-    marketplaceEntitlement,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -43,7 +48,10 @@ module Network.AWS.MarketplaceEntitlement
     -- $operations
 
     -- ** GetEntitlements (Paginated)
-    module Network.AWS.MarketplaceEntitlement.GetEntitlements,
+    GetEntitlements (GetEntitlements'),
+    newGetEntitlements,
+    GetEntitlementsResponse (GetEntitlementsResponse'),
+    newGetEntitlementsResponse,
 
     -- * Types
 
@@ -51,25 +59,17 @@ module Network.AWS.MarketplaceEntitlement
     GetEntitlementFilterName (..),
 
     -- ** Entitlement
-    Entitlement,
-    entitlement,
-    eExpirationDate,
-    eCustomerIdentifier,
-    eProductCode,
-    eValue,
-    eDimension,
+    Entitlement (Entitlement'),
+    newEntitlement,
 
     -- ** EntitlementValue
-    EntitlementValue,
-    entitlementValue,
-    evDoubleValue,
-    evStringValue,
-    evBooleanValue,
-    evIntegerValue,
+    EntitlementValue (EntitlementValue'),
+    newEntitlementValue,
   )
 where
 
 import Network.AWS.MarketplaceEntitlement.GetEntitlements
+import Network.AWS.MarketplaceEntitlement.Lens
 import Network.AWS.MarketplaceEntitlement.Types
 import Network.AWS.MarketplaceEntitlement.Waiters
 

@@ -28,13 +28,13 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGetEntitlements $
---             getEntitlements
+--             newGetEntitlements
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGetEntitlements $
---             getEntitlementsResponse
+--             newGetEntitlementsResponse
 --
 --           ]
 --     ]
@@ -54,5 +54,5 @@ responseGetEntitlements =
   res
     "GetEntitlementsResponse"
     "fixture/GetEntitlementsResponse.proto"
-    marketplaceEntitlement
+    defaultService
     (Proxy :: Proxy GetEntitlements)

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,124 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MarketplaceEntitlement.Types.Entitlement where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MarketplaceEntitlement.Types.EntitlementValue
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | An entitlement represents capacity in a product owned by the customer. For example, a customer might own some number of users or seats in an SaaS application or some amount of data capacity in a multi-tenant database.
+-- | An entitlement represents capacity in a product owned by the customer.
+-- For example, a customer might own some number of users or seats in an
+-- SaaS application or some amount of data capacity in a multi-tenant
+-- database.
 --
---
---
--- /See:/ 'entitlement' smart constructor.
+-- /See:/ 'newEntitlement' smart constructor.
 data Entitlement = Entitlement'
-  { _eExpirationDate ::
-      !(Maybe POSIX),
-    _eCustomerIdentifier :: !(Maybe Text),
-    _eProductCode :: !(Maybe Text),
-    _eValue :: !(Maybe EntitlementValue),
-    _eDimension :: !(Maybe Text)
+  { -- | The expiration date represents the minimum date through which this
+    -- entitlement is expected to remain valid. For contractual products listed
+    -- on AWS Marketplace, the expiration date is the date at which the
+    -- customer will renew or cancel their contract. Customers who are opting
+    -- to renew their contract will still have entitlements with an expiration
+    -- date.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The customer identifier is a handle to each unique customer in an
+    -- application. Customer identifiers are obtained through the
+    -- ResolveCustomer operation in AWS Marketplace Metering Service.
+    customerIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The product code for which the given entitlement applies. Product codes
+    -- are provided by AWS Marketplace when the product listing is created.
+    productCode :: Prelude.Maybe Prelude.Text,
+    -- | The EntitlementValue represents the amount of capacity that the customer
+    -- is entitled to for the product.
+    value :: Prelude.Maybe EntitlementValue,
+    -- | The dimension for which the given entitlement applies. Dimensions
+    -- represent categories of capacity in a product and are specified when the
+    -- product is listed in AWS Marketplace.
+    dimension :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Entitlement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Entitlement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eExpirationDate' - The expiration date represents the minimum date through which this entitlement is expected to remain valid. For contractual products listed on AWS Marketplace, the expiration date is the date at which the customer will renew or cancel their contract. Customers who are opting to renew their contract will still have entitlements with an expiration date.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eCustomerIdentifier' - The customer identifier is a handle to each unique customer in an application. Customer identifiers are obtained through the ResolveCustomer operation in AWS Marketplace Metering Service.
+-- 'expirationDate', 'entitlement_expirationDate' - The expiration date represents the minimum date through which this
+-- entitlement is expected to remain valid. For contractual products listed
+-- on AWS Marketplace, the expiration date is the date at which the
+-- customer will renew or cancel their contract. Customers who are opting
+-- to renew their contract will still have entitlements with an expiration
+-- date.
 --
--- * 'eProductCode' - The product code for which the given entitlement applies. Product codes are provided by AWS Marketplace when the product listing is created.
+-- 'customerIdentifier', 'entitlement_customerIdentifier' - The customer identifier is a handle to each unique customer in an
+-- application. Customer identifiers are obtained through the
+-- ResolveCustomer operation in AWS Marketplace Metering Service.
 --
--- * 'eValue' - The EntitlementValue represents the amount of capacity that the customer is entitled to for the product.
+-- 'productCode', 'entitlement_productCode' - The product code for which the given entitlement applies. Product codes
+-- are provided by AWS Marketplace when the product listing is created.
 --
--- * 'eDimension' - The dimension for which the given entitlement applies. Dimensions represent categories of capacity in a product and are specified when the product is listed in AWS Marketplace.
-entitlement ::
+-- 'value', 'entitlement_value' - The EntitlementValue represents the amount of capacity that the customer
+-- is entitled to for the product.
+--
+-- 'dimension', 'entitlement_dimension' - The dimension for which the given entitlement applies. Dimensions
+-- represent categories of capacity in a product and are specified when the
+-- product is listed in AWS Marketplace.
+newEntitlement ::
   Entitlement
-entitlement =
+newEntitlement =
   Entitlement'
-    { _eExpirationDate = Nothing,
-      _eCustomerIdentifier = Nothing,
-      _eProductCode = Nothing,
-      _eValue = Nothing,
-      _eDimension = Nothing
+    { expirationDate = Prelude.Nothing,
+      customerIdentifier = Prelude.Nothing,
+      productCode = Prelude.Nothing,
+      value = Prelude.Nothing,
+      dimension = Prelude.Nothing
     }
 
--- | The expiration date represents the minimum date through which this entitlement is expected to remain valid. For contractual products listed on AWS Marketplace, the expiration date is the date at which the customer will renew or cancel their contract. Customers who are opting to renew their contract will still have entitlements with an expiration date.
-eExpirationDate :: Lens' Entitlement (Maybe UTCTime)
-eExpirationDate = lens _eExpirationDate (\s a -> s {_eExpirationDate = a}) . mapping _Time
+-- | The expiration date represents the minimum date through which this
+-- entitlement is expected to remain valid. For contractual products listed
+-- on AWS Marketplace, the expiration date is the date at which the
+-- customer will renew or cancel their contract. Customers who are opting
+-- to renew their contract will still have entitlements with an expiration
+-- date.
+entitlement_expirationDate :: Lens.Lens' Entitlement (Prelude.Maybe Prelude.UTCTime)
+entitlement_expirationDate = Lens.lens (\Entitlement' {expirationDate} -> expirationDate) (\s@Entitlement' {} a -> s {expirationDate = a} :: Entitlement) Prelude.. Lens.mapping Prelude._Time
 
--- | The customer identifier is a handle to each unique customer in an application. Customer identifiers are obtained through the ResolveCustomer operation in AWS Marketplace Metering Service.
-eCustomerIdentifier :: Lens' Entitlement (Maybe Text)
-eCustomerIdentifier = lens _eCustomerIdentifier (\s a -> s {_eCustomerIdentifier = a})
+-- | The customer identifier is a handle to each unique customer in an
+-- application. Customer identifiers are obtained through the
+-- ResolveCustomer operation in AWS Marketplace Metering Service.
+entitlement_customerIdentifier :: Lens.Lens' Entitlement (Prelude.Maybe Prelude.Text)
+entitlement_customerIdentifier = Lens.lens (\Entitlement' {customerIdentifier} -> customerIdentifier) (\s@Entitlement' {} a -> s {customerIdentifier = a} :: Entitlement)
 
--- | The product code for which the given entitlement applies. Product codes are provided by AWS Marketplace when the product listing is created.
-eProductCode :: Lens' Entitlement (Maybe Text)
-eProductCode = lens _eProductCode (\s a -> s {_eProductCode = a})
+-- | The product code for which the given entitlement applies. Product codes
+-- are provided by AWS Marketplace when the product listing is created.
+entitlement_productCode :: Lens.Lens' Entitlement (Prelude.Maybe Prelude.Text)
+entitlement_productCode = Lens.lens (\Entitlement' {productCode} -> productCode) (\s@Entitlement' {} a -> s {productCode = a} :: Entitlement)
 
--- | The EntitlementValue represents the amount of capacity that the customer is entitled to for the product.
-eValue :: Lens' Entitlement (Maybe EntitlementValue)
-eValue = lens _eValue (\s a -> s {_eValue = a})
+-- | The EntitlementValue represents the amount of capacity that the customer
+-- is entitled to for the product.
+entitlement_value :: Lens.Lens' Entitlement (Prelude.Maybe EntitlementValue)
+entitlement_value = Lens.lens (\Entitlement' {value} -> value) (\s@Entitlement' {} a -> s {value = a} :: Entitlement)
 
--- | The dimension for which the given entitlement applies. Dimensions represent categories of capacity in a product and are specified when the product is listed in AWS Marketplace.
-eDimension :: Lens' Entitlement (Maybe Text)
-eDimension = lens _eDimension (\s a -> s {_eDimension = a})
+-- | The dimension for which the given entitlement applies. Dimensions
+-- represent categories of capacity in a product and are specified when the
+-- product is listed in AWS Marketplace.
+entitlement_dimension :: Lens.Lens' Entitlement (Prelude.Maybe Prelude.Text)
+entitlement_dimension = Lens.lens (\Entitlement' {dimension} -> dimension) (\s@Entitlement' {} a -> s {dimension = a} :: Entitlement)
 
-instance FromJSON Entitlement where
+instance Prelude.FromJSON Entitlement where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Entitlement"
       ( \x ->
           Entitlement'
-            <$> (x .:? "ExpirationDate")
-            <*> (x .:? "CustomerIdentifier")
-            <*> (x .:? "ProductCode")
-            <*> (x .:? "Value")
-            <*> (x .:? "Dimension")
+            Prelude.<$> (x Prelude..:? "ExpirationDate")
+            Prelude.<*> (x Prelude..:? "CustomerIdentifier")
+            Prelude.<*> (x Prelude..:? "ProductCode")
+            Prelude.<*> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Dimension")
       )
 
-instance Hashable Entitlement
+instance Prelude.Hashable Entitlement
 
-instance NFData Entitlement
+instance Prelude.NFData Entitlement

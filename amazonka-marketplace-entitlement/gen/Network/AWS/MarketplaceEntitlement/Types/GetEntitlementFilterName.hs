@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.MarketplaceEntitlement.Types.GetEntitlementFilterName
   ( GetEntitlementFilterName
       ( ..,
-        CustomerIdentifier,
-        Dimension
+        GetEntitlementFilterNameCUSTOMERIDENTIFIER,
+        GetEntitlementFilterNameDIMENSION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GetEntitlementFilterName
-  = GetEntitlementFilterName'
-      ( CI
-          Text
-      )
+newtype GetEntitlementFilterName = GetEntitlementFilterName'
+  { fromGetEntitlementFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CustomerIdentifier :: GetEntitlementFilterName
-pattern CustomerIdentifier = GetEntitlementFilterName' "CUSTOMER_IDENTIFIER"
+pattern GetEntitlementFilterNameCUSTOMERIDENTIFIER :: GetEntitlementFilterName
+pattern GetEntitlementFilterNameCUSTOMERIDENTIFIER = GetEntitlementFilterName' "CUSTOMER_IDENTIFIER"
 
-pattern Dimension :: GetEntitlementFilterName
-pattern Dimension = GetEntitlementFilterName' "DIMENSION"
+pattern GetEntitlementFilterNameDIMENSION :: GetEntitlementFilterName
+pattern GetEntitlementFilterNameDIMENSION = GetEntitlementFilterName' "DIMENSION"
 
 {-# COMPLETE
-  CustomerIdentifier,
-  Dimension,
+  GetEntitlementFilterNameCUSTOMERIDENTIFIER,
+  GetEntitlementFilterNameDIMENSION,
   GetEntitlementFilterName'
   #-}
 
-instance FromText GetEntitlementFilterName where
-  parser = (GetEntitlementFilterName' . mk) <$> takeText
+instance Prelude.FromText GetEntitlementFilterName where
+  parser = GetEntitlementFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText GetEntitlementFilterName where
-  toText (GetEntitlementFilterName' ci) = original ci
+instance Prelude.ToText GetEntitlementFilterName where
+  toText (GetEntitlementFilterName' x) = x
 
-instance Hashable GetEntitlementFilterName
+instance Prelude.Hashable GetEntitlementFilterName
 
-instance NFData GetEntitlementFilterName
+instance Prelude.NFData GetEntitlementFilterName
 
-instance ToByteString GetEntitlementFilterName
+instance Prelude.ToByteString GetEntitlementFilterName
 
-instance ToQuery GetEntitlementFilterName
+instance Prelude.ToQuery GetEntitlementFilterName
 
-instance ToHeader GetEntitlementFilterName
+instance Prelude.ToHeader GetEntitlementFilterName
 
-instance ToJSON GetEntitlementFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON GetEntitlementFilterName where
+  toJSON = Prelude.toJSONText
