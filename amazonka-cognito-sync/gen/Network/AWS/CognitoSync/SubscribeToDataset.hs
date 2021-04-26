@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Subscribes to receive notifications when a dataset is modified by another device.
+-- Subscribes to receive notifications when a dataset is modified by
+-- another device.
 --
---
--- This API can only be called with temporary credentials provided by Cognito Identity. You cannot call this API with developer credentials.
+-- This API can only be called with temporary credentials provided by
+-- Cognito Identity. You cannot call this API with developer credentials.
 module Network.AWS.CognitoSync.SubscribeToDataset
   ( -- * Creating a Request
-    subscribeToDataset,
-    SubscribeToDataset,
+    SubscribeToDataset (..),
+    newSubscribeToDataset,
 
     -- * Request Lenses
-    stdIdentityPoolId,
-    stdIdentityId,
-    stdDatasetName,
-    stdDeviceId,
+    subscribeToDataset_identityPoolId,
+    subscribeToDataset_identityId,
+    subscribeToDataset_datasetName,
+    subscribeToDataset_deviceId,
 
     -- * Destructuring the Response
-    subscribeToDatasetResponse,
-    SubscribeToDatasetResponse,
+    SubscribeToDatasetResponse (..),
+    newSubscribeToDatasetResponse,
 
     -- * Response Lenses
-    stdrrsResponseStatus,
+    subscribeToDatasetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to SubscribeToDatasetRequest.
 --
---
---
--- /See:/ 'subscribeToDataset' smart constructor.
+-- /See:/ 'newSubscribeToDataset' smart constructor.
 data SubscribeToDataset = SubscribeToDataset'
-  { _stdIdentityPoolId ::
-      !Text,
-    _stdIdentityId :: !Text,
-    _stdDatasetName :: !Text,
-    _stdDeviceId :: !Text
+  { -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. The ID of the pool to which the identity belongs.
+    identityPoolId :: Prelude.Text,
+    -- | Unique ID for this identity.
+    identityId :: Prelude.Text,
+    -- | The name of the dataset to subcribe to.
+    datasetName :: Prelude.Text,
+    -- | The unique ID generated for this device by Cognito.
+    deviceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubscribeToDataset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubscribeToDataset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. The ID of the pool to which the identity belongs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stdIdentityId' - Unique ID for this identity.
+-- 'identityPoolId', 'subscribeToDataset_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. The ID of the pool to which the identity belongs.
 --
--- * 'stdDatasetName' - The name of the dataset to subcribe to.
+-- 'identityId', 'subscribeToDataset_identityId' - Unique ID for this identity.
 --
--- * 'stdDeviceId' - The unique ID generated for this device by Cognito.
-subscribeToDataset ::
-  -- | 'stdIdentityPoolId'
-  Text ->
-  -- | 'stdIdentityId'
-  Text ->
-  -- | 'stdDatasetName'
-  Text ->
-  -- | 'stdDeviceId'
-  Text ->
+-- 'datasetName', 'subscribeToDataset_datasetName' - The name of the dataset to subcribe to.
+--
+-- 'deviceId', 'subscribeToDataset_deviceId' - The unique ID generated for this device by Cognito.
+newSubscribeToDataset ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
+  -- | 'identityId'
+  Prelude.Text ->
+  -- | 'datasetName'
+  Prelude.Text ->
+  -- | 'deviceId'
+  Prelude.Text ->
   SubscribeToDataset
-subscribeToDataset
+newSubscribeToDataset
   pIdentityPoolId_
   pIdentityId_
   pDatasetName_
   pDeviceId_ =
     SubscribeToDataset'
-      { _stdIdentityPoolId =
+      { identityPoolId =
           pIdentityPoolId_,
-        _stdIdentityId = pIdentityId_,
-        _stdDatasetName = pDatasetName_,
-        _stdDeviceId = pDeviceId_
+        identityId = pIdentityId_,
+        datasetName = pDatasetName_,
+        deviceId = pDeviceId_
       }
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. The ID of the pool to which the identity belongs.
-stdIdentityPoolId :: Lens' SubscribeToDataset Text
-stdIdentityPoolId = lens _stdIdentityPoolId (\s a -> s {_stdIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. The ID of the pool to which the identity belongs.
+subscribeToDataset_identityPoolId :: Lens.Lens' SubscribeToDataset Prelude.Text
+subscribeToDataset_identityPoolId = Lens.lens (\SubscribeToDataset' {identityPoolId} -> identityPoolId) (\s@SubscribeToDataset' {} a -> s {identityPoolId = a} :: SubscribeToDataset)
 
 -- | Unique ID for this identity.
-stdIdentityId :: Lens' SubscribeToDataset Text
-stdIdentityId = lens _stdIdentityId (\s a -> s {_stdIdentityId = a})
+subscribeToDataset_identityId :: Lens.Lens' SubscribeToDataset Prelude.Text
+subscribeToDataset_identityId = Lens.lens (\SubscribeToDataset' {identityId} -> identityId) (\s@SubscribeToDataset' {} a -> s {identityId = a} :: SubscribeToDataset)
 
 -- | The name of the dataset to subcribe to.
-stdDatasetName :: Lens' SubscribeToDataset Text
-stdDatasetName = lens _stdDatasetName (\s a -> s {_stdDatasetName = a})
+subscribeToDataset_datasetName :: Lens.Lens' SubscribeToDataset Prelude.Text
+subscribeToDataset_datasetName = Lens.lens (\SubscribeToDataset' {datasetName} -> datasetName) (\s@SubscribeToDataset' {} a -> s {datasetName = a} :: SubscribeToDataset)
 
 -- | The unique ID generated for this device by Cognito.
-stdDeviceId :: Lens' SubscribeToDataset Text
-stdDeviceId = lens _stdDeviceId (\s a -> s {_stdDeviceId = a})
+subscribeToDataset_deviceId :: Lens.Lens' SubscribeToDataset Prelude.Text
+subscribeToDataset_deviceId = Lens.lens (\SubscribeToDataset' {deviceId} -> deviceId) (\s@SubscribeToDataset' {} a -> s {deviceId = a} :: SubscribeToDataset)
 
-instance AWSRequest SubscribeToDataset where
+instance Prelude.AWSRequest SubscribeToDataset where
   type
     Rs SubscribeToDataset =
       SubscribeToDatasetResponse
-  request = postJSON cognitoSync
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          SubscribeToDatasetResponse' <$> (pure (fromEnum s))
+          SubscribeToDatasetResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SubscribeToDataset
+instance Prelude.Hashable SubscribeToDataset
 
-instance NFData SubscribeToDataset
+instance Prelude.NFData SubscribeToDataset
 
-instance ToHeaders SubscribeToDataset where
+instance Prelude.ToHeaders SubscribeToDataset where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SubscribeToDataset where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON SubscribeToDataset where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath SubscribeToDataset where
+instance Prelude.ToPath SubscribeToDataset where
   toPath SubscribeToDataset' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _stdIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/identities/",
-        toBS _stdIdentityId,
+        Prelude.toBS identityId,
         "/datasets/",
-        toBS _stdDatasetName,
+        Prelude.toBS datasetName,
         "/subscriptions/",
-        toBS _stdDeviceId
+        Prelude.toBS deviceId
       ]
 
-instance ToQuery SubscribeToDataset where
-  toQuery = const mempty
+instance Prelude.ToQuery SubscribeToDataset where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response to a SubscribeToDataset request.
 --
---
---
--- /See:/ 'subscribeToDatasetResponse' smart constructor.
-newtype SubscribeToDatasetResponse = SubscribeToDatasetResponse'
-  { _stdrrsResponseStatus ::
-      Int
+-- /See:/ 'newSubscribeToDatasetResponse' smart constructor.
+data SubscribeToDatasetResponse = SubscribeToDatasetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SubscribeToDatasetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SubscribeToDatasetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdrrsResponseStatus' - -- | The response status code.
-subscribeToDatasetResponse ::
-  -- | 'stdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'subscribeToDatasetResponse_httpStatus' - The response's http status code.
+newSubscribeToDatasetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SubscribeToDatasetResponse
-subscribeToDatasetResponse pResponseStatus_ =
+newSubscribeToDatasetResponse pHttpStatus_ =
   SubscribeToDatasetResponse'
-    { _stdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-stdrrsResponseStatus :: Lens' SubscribeToDatasetResponse Int
-stdrrsResponseStatus = lens _stdrrsResponseStatus (\s a -> s {_stdrrsResponseStatus = a})
+-- | The response's http status code.
+subscribeToDatasetResponse_httpStatus :: Lens.Lens' SubscribeToDatasetResponse Prelude.Int
+subscribeToDatasetResponse_httpStatus = Lens.lens (\SubscribeToDatasetResponse' {httpStatus} -> httpStatus) (\s@SubscribeToDatasetResponse' {} a -> s {httpStatus = a} :: SubscribeToDatasetResponse)
 
-instance NFData SubscribeToDatasetResponse
+instance Prelude.NFData SubscribeToDatasetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CognitoSync.Types.StreamingStatus
   ( StreamingStatus
       ( ..,
-        Disabled,
-        Enabled
+        StreamingStatusDISABLED,
+        StreamingStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamingStatus = StreamingStatus' (CI Text)
+newtype StreamingStatus = StreamingStatus'
+  { fromStreamingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: StreamingStatus
-pattern Disabled = StreamingStatus' "DISABLED"
+pattern StreamingStatusDISABLED :: StreamingStatus
+pattern StreamingStatusDISABLED = StreamingStatus' "DISABLED"
 
-pattern Enabled :: StreamingStatus
-pattern Enabled = StreamingStatus' "ENABLED"
+pattern StreamingStatusENABLED :: StreamingStatus
+pattern StreamingStatusENABLED = StreamingStatus' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  StreamingStatusDISABLED,
+  StreamingStatusENABLED,
   StreamingStatus'
   #-}
 
-instance FromText StreamingStatus where
-  parser = (StreamingStatus' . mk) <$> takeText
+instance Prelude.FromText StreamingStatus where
+  parser = StreamingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StreamingStatus where
-  toText (StreamingStatus' ci) = original ci
+instance Prelude.ToText StreamingStatus where
+  toText (StreamingStatus' x) = x
 
-instance Hashable StreamingStatus
+instance Prelude.Hashable StreamingStatus
 
-instance NFData StreamingStatus
+instance Prelude.NFData StreamingStatus
 
-instance ToByteString StreamingStatus
+instance Prelude.ToByteString StreamingStatus
 
-instance ToQuery StreamingStatus
+instance Prelude.ToQuery StreamingStatus
 
-instance ToHeader StreamingStatus
+instance Prelude.ToHeader StreamingStatus
 
-instance ToJSON StreamingStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON StreamingStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StreamingStatus where
-  parseJSON = parseJSONText "StreamingStatus"
+instance Prelude.FromJSON StreamingStatus where
+  parseJSON = Prelude.parseJSONText "StreamingStatus"

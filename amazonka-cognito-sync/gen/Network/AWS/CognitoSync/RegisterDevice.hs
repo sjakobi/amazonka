@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,187 +23,195 @@
 --
 -- Registers a device to receive push sync notifications.
 --
---
--- This API can only be called with temporary credentials provided by Cognito Identity. You cannot call this API with developer credentials.
+-- This API can only be called with temporary credentials provided by
+-- Cognito Identity. You cannot call this API with developer credentials.
 module Network.AWS.CognitoSync.RegisterDevice
   ( -- * Creating a Request
-    registerDevice,
-    RegisterDevice,
+    RegisterDevice (..),
+    newRegisterDevice,
 
     -- * Request Lenses
-    rdIdentityPoolId,
-    rdIdentityId,
-    rdPlatform,
-    rdToken,
+    registerDevice_identityPoolId,
+    registerDevice_identityId,
+    registerDevice_platform,
+    registerDevice_token,
 
     -- * Destructuring the Response
-    registerDeviceResponse,
-    RegisterDeviceResponse,
+    RegisterDeviceResponse (..),
+    newRegisterDeviceResponse,
 
     -- * Response Lenses
-    rdrrsDeviceId,
-    rdrrsResponseStatus,
+    registerDeviceResponse_deviceId,
+    registerDeviceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to RegisterDevice.
 --
---
---
--- /See:/ 'registerDevice' smart constructor.
+-- /See:/ 'newRegisterDevice' smart constructor.
 data RegisterDevice = RegisterDevice'
-  { _rdIdentityPoolId ::
-      !Text,
-    _rdIdentityId :: !Text,
-    _rdPlatform :: !Platform,
-    _rdToken :: !Text
+  { -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. Here, the ID of the pool that the identity belongs to.
+    identityPoolId :: Prelude.Text,
+    -- | The unique ID for this identity.
+    identityId :: Prelude.Text,
+    -- | The SNS platform type (e.g. GCM, SDM, APNS, APNS_SANDBOX).
+    platform :: Platform,
+    -- | The push token.
+    token :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. Here, the ID of the pool that the identity belongs to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdIdentityId' - The unique ID for this identity.
+-- 'identityPoolId', 'registerDevice_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. Here, the ID of the pool that the identity belongs to.
 --
--- * 'rdPlatform' - The SNS platform type (e.g. GCM, SDM, APNS, APNS_SANDBOX).
+-- 'identityId', 'registerDevice_identityId' - The unique ID for this identity.
 --
--- * 'rdToken' - The push token.
-registerDevice ::
-  -- | 'rdIdentityPoolId'
-  Text ->
-  -- | 'rdIdentityId'
-  Text ->
-  -- | 'rdPlatform'
+-- 'platform', 'registerDevice_platform' - The SNS platform type (e.g. GCM, SDM, APNS, APNS_SANDBOX).
+--
+-- 'token', 'registerDevice_token' - The push token.
+newRegisterDevice ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
+  -- | 'identityId'
+  Prelude.Text ->
+  -- | 'platform'
   Platform ->
-  -- | 'rdToken'
-  Text ->
+  -- | 'token'
+  Prelude.Text ->
   RegisterDevice
-registerDevice
+newRegisterDevice
   pIdentityPoolId_
   pIdentityId_
   pPlatform_
   pToken_ =
     RegisterDevice'
-      { _rdIdentityPoolId =
-          pIdentityPoolId_,
-        _rdIdentityId = pIdentityId_,
-        _rdPlatform = pPlatform_,
-        _rdToken = pToken_
+      { identityPoolId = pIdentityPoolId_,
+        identityId = pIdentityId_,
+        platform = pPlatform_,
+        token = pToken_
       }
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. Here, the ID of the pool that the identity belongs to.
-rdIdentityPoolId :: Lens' RegisterDevice Text
-rdIdentityPoolId = lens _rdIdentityPoolId (\s a -> s {_rdIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. Here, the ID of the pool that the identity belongs to.
+registerDevice_identityPoolId :: Lens.Lens' RegisterDevice Prelude.Text
+registerDevice_identityPoolId = Lens.lens (\RegisterDevice' {identityPoolId} -> identityPoolId) (\s@RegisterDevice' {} a -> s {identityPoolId = a} :: RegisterDevice)
 
 -- | The unique ID for this identity.
-rdIdentityId :: Lens' RegisterDevice Text
-rdIdentityId = lens _rdIdentityId (\s a -> s {_rdIdentityId = a})
+registerDevice_identityId :: Lens.Lens' RegisterDevice Prelude.Text
+registerDevice_identityId = Lens.lens (\RegisterDevice' {identityId} -> identityId) (\s@RegisterDevice' {} a -> s {identityId = a} :: RegisterDevice)
 
 -- | The SNS platform type (e.g. GCM, SDM, APNS, APNS_SANDBOX).
-rdPlatform :: Lens' RegisterDevice Platform
-rdPlatform = lens _rdPlatform (\s a -> s {_rdPlatform = a})
+registerDevice_platform :: Lens.Lens' RegisterDevice Platform
+registerDevice_platform = Lens.lens (\RegisterDevice' {platform} -> platform) (\s@RegisterDevice' {} a -> s {platform = a} :: RegisterDevice)
 
 -- | The push token.
-rdToken :: Lens' RegisterDevice Text
-rdToken = lens _rdToken (\s a -> s {_rdToken = a})
+registerDevice_token :: Lens.Lens' RegisterDevice Prelude.Text
+registerDevice_token = Lens.lens (\RegisterDevice' {token} -> token) (\s@RegisterDevice' {} a -> s {token = a} :: RegisterDevice)
 
-instance AWSRequest RegisterDevice where
+instance Prelude.AWSRequest RegisterDevice where
   type Rs RegisterDevice = RegisterDeviceResponse
-  request = postJSON cognitoSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterDeviceResponse'
-            <$> (x .?> "DeviceId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DeviceId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterDevice
+instance Prelude.Hashable RegisterDevice
 
-instance NFData RegisterDevice
+instance Prelude.NFData RegisterDevice
 
-instance ToHeaders RegisterDevice where
+instance Prelude.ToHeaders RegisterDevice where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterDevice where
+instance Prelude.ToJSON RegisterDevice where
   toJSON RegisterDevice' {..} =
-    object
-      ( catMaybes
-          [ Just ("Platform" .= _rdPlatform),
-            Just ("Token" .= _rdToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Platform" Prelude..= platform),
+            Prelude.Just ("Token" Prelude..= token)
           ]
       )
 
-instance ToPath RegisterDevice where
+instance Prelude.ToPath RegisterDevice where
   toPath RegisterDevice' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _rdIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/identity/",
-        toBS _rdIdentityId,
+        Prelude.toBS identityId,
         "/device"
       ]
 
-instance ToQuery RegisterDevice where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterDevice where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response to a RegisterDevice request.
 --
---
---
--- /See:/ 'registerDeviceResponse' smart constructor.
+-- /See:/ 'newRegisterDeviceResponse' smart constructor.
 data RegisterDeviceResponse = RegisterDeviceResponse'
-  { _rdrrsDeviceId ::
-      !(Maybe Text),
-    _rdrrsResponseStatus ::
-      !Int
+  { -- | The unique ID generated for this device by Cognito.
+    deviceId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDeviceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterDeviceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdrrsDeviceId' - The unique ID generated for this device by Cognito.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdrrsResponseStatus' - -- | The response status code.
-registerDeviceResponse ::
-  -- | 'rdrrsResponseStatus'
-  Int ->
+-- 'deviceId', 'registerDeviceResponse_deviceId' - The unique ID generated for this device by Cognito.
+--
+-- 'httpStatus', 'registerDeviceResponse_httpStatus' - The response's http status code.
+newRegisterDeviceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterDeviceResponse
-registerDeviceResponse pResponseStatus_ =
+newRegisterDeviceResponse pHttpStatus_ =
   RegisterDeviceResponse'
-    { _rdrrsDeviceId = Nothing,
-      _rdrrsResponseStatus = pResponseStatus_
+    { deviceId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique ID generated for this device by Cognito.
-rdrrsDeviceId :: Lens' RegisterDeviceResponse (Maybe Text)
-rdrrsDeviceId = lens _rdrrsDeviceId (\s a -> s {_rdrrsDeviceId = a})
+registerDeviceResponse_deviceId :: Lens.Lens' RegisterDeviceResponse (Prelude.Maybe Prelude.Text)
+registerDeviceResponse_deviceId = Lens.lens (\RegisterDeviceResponse' {deviceId} -> deviceId) (\s@RegisterDeviceResponse' {} a -> s {deviceId = a} :: RegisterDeviceResponse)
 
--- | -- | The response status code.
-rdrrsResponseStatus :: Lens' RegisterDeviceResponse Int
-rdrrsResponseStatus = lens _rdrrsResponseStatus (\s a -> s {_rdrrsResponseStatus = a})
+-- | The response's http status code.
+registerDeviceResponse_httpStatus :: Lens.Lens' RegisterDeviceResponse Prelude.Int
+registerDeviceResponse_httpStatus = Lens.lens (\RegisterDeviceResponse' {httpStatus} -> httpStatus) (\s@RegisterDeviceResponse' {} a -> s {httpStatus = a} :: RegisterDeviceResponse)
 
-instance NFData RegisterDeviceResponse
+instance Prelude.NFData RegisterDeviceResponse

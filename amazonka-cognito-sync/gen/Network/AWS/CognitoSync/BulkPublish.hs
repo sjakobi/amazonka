@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates a bulk publish of all existing datasets for an Identity Pool to the configured stream. Customers are limited to one successful bulk publish per 24 hours. Bulk publish is an asynchronous request, customers can see the status of the request via the GetBulkPublishDetails operation.
+-- Initiates a bulk publish of all existing datasets for an Identity Pool
+-- to the configured stream. Customers are limited to one successful bulk
+-- publish per 24 hours. Bulk publish is an asynchronous request, customers
+-- can see the status of the request via the GetBulkPublishDetails
+-- operation.
 --
---
--- This API can only be called with developer credentials. You cannot call this API with the temporary user credentials provided by Cognito Identity.
+-- This API can only be called with developer credentials. You cannot call
+-- this API with the temporary user credentials provided by Cognito
+-- Identity.
 module Network.AWS.CognitoSync.BulkPublish
   ( -- * Creating a Request
-    bulkPublish,
-    BulkPublish,
+    BulkPublish (..),
+    newBulkPublish,
 
     -- * Request Lenses
-    bpIdentityPoolId,
+    bulkPublish_identityPoolId,
 
     -- * Destructuring the Response
-    bulkPublishResponse,
-    BulkPublishResponse,
+    BulkPublishResponse (..),
+    newBulkPublishResponse,
 
     -- * Response Lenses
-    bprrsIdentityPoolId,
-    bprrsResponseStatus,
+    bulkPublishResponse_identityPoolId,
+    bulkPublishResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The input for the BulkPublish operation.
 --
--- /See:/ 'bulkPublish' smart constructor.
-newtype BulkPublish = BulkPublish'
-  { _bpIdentityPoolId ::
-      Text
+-- /See:/ 'newBulkPublish' smart constructor.
+data BulkPublish = BulkPublish'
+  { -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BulkPublish' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BulkPublish' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-bulkPublish ::
-  -- | 'bpIdentityPoolId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'identityPoolId', 'bulkPublish_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+newBulkPublish ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
   BulkPublish
-bulkPublish pIdentityPoolId_ =
-  BulkPublish' {_bpIdentityPoolId = pIdentityPoolId_}
+newBulkPublish pIdentityPoolId_ =
+  BulkPublish' {identityPoolId = pIdentityPoolId_}
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-bpIdentityPoolId :: Lens' BulkPublish Text
-bpIdentityPoolId = lens _bpIdentityPoolId (\s a -> s {_bpIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+bulkPublish_identityPoolId :: Lens.Lens' BulkPublish Prelude.Text
+bulkPublish_identityPoolId = Lens.lens (\BulkPublish' {identityPoolId} -> identityPoolId) (\s@BulkPublish' {} a -> s {identityPoolId = a} :: BulkPublish)
 
-instance AWSRequest BulkPublish where
+instance Prelude.AWSRequest BulkPublish where
   type Rs BulkPublish = BulkPublishResponse
-  request = postJSON cognitoSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BulkPublishResponse'
-            <$> (x .?> "IdentityPoolId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "IdentityPoolId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BulkPublish
+instance Prelude.Hashable BulkPublish
 
-instance NFData BulkPublish
+instance Prelude.NFData BulkPublish
 
-instance ToHeaders BulkPublish where
+instance Prelude.ToHeaders BulkPublish where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BulkPublish where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON BulkPublish where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath BulkPublish where
+instance Prelude.ToPath BulkPublish where
   toPath BulkPublish' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _bpIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/bulkpublish"
       ]
 
-instance ToQuery BulkPublish where
-  toQuery = const mempty
+instance Prelude.ToQuery BulkPublish where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the BulkPublish operation.
 --
--- /See:/ 'bulkPublishResponse' smart constructor.
+-- /See:/ 'newBulkPublishResponse' smart constructor.
 data BulkPublishResponse = BulkPublishResponse'
-  { _bprrsIdentityPoolId ::
-      !(Maybe Text),
-    _bprrsResponseStatus :: !Int
+  { -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BulkPublishResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BulkPublishResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bprrsIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bprrsResponseStatus' - -- | The response status code.
-bulkPublishResponse ::
-  -- | 'bprrsResponseStatus'
-  Int ->
+-- 'identityPoolId', 'bulkPublishResponse_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+--
+-- 'httpStatus', 'bulkPublishResponse_httpStatus' - The response's http status code.
+newBulkPublishResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BulkPublishResponse
-bulkPublishResponse pResponseStatus_ =
+newBulkPublishResponse pHttpStatus_ =
   BulkPublishResponse'
-    { _bprrsIdentityPoolId =
-        Nothing,
-      _bprrsResponseStatus = pResponseStatus_
+    { identityPoolId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-bprrsIdentityPoolId :: Lens' BulkPublishResponse (Maybe Text)
-bprrsIdentityPoolId = lens _bprrsIdentityPoolId (\s a -> s {_bprrsIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+bulkPublishResponse_identityPoolId :: Lens.Lens' BulkPublishResponse (Prelude.Maybe Prelude.Text)
+bulkPublishResponse_identityPoolId = Lens.lens (\BulkPublishResponse' {identityPoolId} -> identityPoolId) (\s@BulkPublishResponse' {} a -> s {identityPoolId = a} :: BulkPublishResponse)
 
--- | -- | The response status code.
-bprrsResponseStatus :: Lens' BulkPublishResponse Int
-bprrsResponseStatus = lens _bprrsResponseStatus (\s a -> s {_bprrsResponseStatus = a})
+-- | The response's http status code.
+bulkPublishResponse_httpStatus :: Lens.Lens' BulkPublishResponse Prelude.Int
+bulkPublishResponse_httpStatus = Lens.lens (\BulkPublishResponse' {httpStatus} -> httpStatus) (\s@BulkPublishResponse' {} a -> s {httpStatus = a} :: BulkPublishResponse)
 
-instance NFData BulkPublishResponse
+instance Prelude.NFData BulkPublishResponse

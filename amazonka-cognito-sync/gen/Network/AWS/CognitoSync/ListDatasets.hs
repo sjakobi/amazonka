@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,216 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists datasets for an identity. With Amazon Cognito Sync, each identity has access only to its own data. Thus, the credentials used to make this API call need to have access to the identity data.
+-- Lists datasets for an identity. With Amazon Cognito Sync, each identity
+-- has access only to its own data. Thus, the credentials used to make this
+-- API call need to have access to the identity data.
 --
---
--- ListDatasets can be called with temporary user credentials provided by Cognito Identity or with developer credentials. You should use the Cognito Identity credentials to make this API call.
+-- ListDatasets can be called with temporary user credentials provided by
+-- Cognito Identity or with developer credentials. You should use the
+-- Cognito Identity credentials to make this API call.
 module Network.AWS.CognitoSync.ListDatasets
   ( -- * Creating a Request
-    listDatasets,
-    ListDatasets,
+    ListDatasets (..),
+    newListDatasets,
 
     -- * Request Lenses
-    ldNextToken,
-    ldMaxResults,
-    ldIdentityId,
-    ldIdentityPoolId,
+    listDatasets_nextToken,
+    listDatasets_maxResults,
+    listDatasets_identityId,
+    listDatasets_identityPoolId,
 
     -- * Destructuring the Response
-    listDatasetsResponse,
-    ListDatasetsResponse,
+    ListDatasetsResponse (..),
+    newListDatasetsResponse,
 
     -- * Response Lenses
-    ldrrsNextToken,
-    ldrrsDatasets,
-    ldrrsCount,
-    ldrrsResponseStatus,
+    listDatasetsResponse_nextToken,
+    listDatasetsResponse_datasets,
+    listDatasetsResponse_count,
+    listDatasetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoSync.Types.Dataset
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request for a list of datasets for an identity.
 --
--- /See:/ 'listDatasets' smart constructor.
+-- /See:/ 'newListDatasets' smart constructor.
 data ListDatasets = ListDatasets'
-  { _ldNextToken ::
-      !(Maybe Text),
-    _ldMaxResults :: !(Maybe Int),
-    _ldIdentityId :: !Text,
-    _ldIdentityPoolId :: !Text
+  { -- | A pagination token for obtaining the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityId :: Prelude.Text,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityPoolId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDatasets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDatasets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldNextToken' - A pagination token for obtaining the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldMaxResults' - The maximum number of results to be returned.
+-- 'nextToken', 'listDatasets_nextToken' - A pagination token for obtaining the next page of results.
 --
--- * 'ldIdentityId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- 'maxResults', 'listDatasets_maxResults' - The maximum number of results to be returned.
 --
--- * 'ldIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-listDatasets ::
-  -- | 'ldIdentityId'
-  Text ->
-  -- | 'ldIdentityPoolId'
-  Text ->
+-- 'identityId', 'listDatasets_identityId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+--
+-- 'identityPoolId', 'listDatasets_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+newListDatasets ::
+  -- | 'identityId'
+  Prelude.Text ->
+  -- | 'identityPoolId'
+  Prelude.Text ->
   ListDatasets
-listDatasets pIdentityId_ pIdentityPoolId_ =
+newListDatasets pIdentityId_ pIdentityPoolId_ =
   ListDatasets'
-    { _ldNextToken = Nothing,
-      _ldMaxResults = Nothing,
-      _ldIdentityId = pIdentityId_,
-      _ldIdentityPoolId = pIdentityPoolId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      identityId = pIdentityId_,
+      identityPoolId = pIdentityPoolId_
     }
 
 -- | A pagination token for obtaining the next page of results.
-ldNextToken :: Lens' ListDatasets (Maybe Text)
-ldNextToken = lens _ldNextToken (\s a -> s {_ldNextToken = a})
+listDatasets_nextToken :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Text)
+listDatasets_nextToken = Lens.lens (\ListDatasets' {nextToken} -> nextToken) (\s@ListDatasets' {} a -> s {nextToken = a} :: ListDatasets)
 
 -- | The maximum number of results to be returned.
-ldMaxResults :: Lens' ListDatasets (Maybe Int)
-ldMaxResults = lens _ldMaxResults (\s a -> s {_ldMaxResults = a})
+listDatasets_maxResults :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Int)
+listDatasets_maxResults = Lens.lens (\ListDatasets' {maxResults} -> maxResults) (\s@ListDatasets' {} a -> s {maxResults = a} :: ListDatasets)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-ldIdentityId :: Lens' ListDatasets Text
-ldIdentityId = lens _ldIdentityId (\s a -> s {_ldIdentityId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+listDatasets_identityId :: Lens.Lens' ListDatasets Prelude.Text
+listDatasets_identityId = Lens.lens (\ListDatasets' {identityId} -> identityId) (\s@ListDatasets' {} a -> s {identityId = a} :: ListDatasets)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-ldIdentityPoolId :: Lens' ListDatasets Text
-ldIdentityPoolId = lens _ldIdentityPoolId (\s a -> s {_ldIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+listDatasets_identityPoolId :: Lens.Lens' ListDatasets Prelude.Text
+listDatasets_identityPoolId = Lens.lens (\ListDatasets' {identityPoolId} -> identityPoolId) (\s@ListDatasets' {} a -> s {identityPoolId = a} :: ListDatasets)
 
-instance AWSRequest ListDatasets where
+instance Prelude.AWSRequest ListDatasets where
   type Rs ListDatasets = ListDatasetsResponse
-  request = get cognitoSync
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDatasetsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Datasets" .!@ mempty)
-            <*> (x .?> "Count")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Datasets" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Count")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDatasets
+instance Prelude.Hashable ListDatasets
 
-instance NFData ListDatasets
+instance Prelude.NFData ListDatasets
 
-instance ToHeaders ListDatasets where
+instance Prelude.ToHeaders ListDatasets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListDatasets where
+instance Prelude.ToPath ListDatasets where
   toPath ListDatasets' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _ldIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/identities/",
-        toBS _ldIdentityId,
+        Prelude.toBS identityId,
         "/datasets"
       ]
 
-instance ToQuery ListDatasets where
+instance Prelude.ToQuery ListDatasets where
   toQuery ListDatasets' {..} =
-    mconcat
-      [ "nextToken" =: _ldNextToken,
-        "maxResults" =: _ldMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
 -- | Returned for a successful ListDatasets request.
 --
--- /See:/ 'listDatasetsResponse' smart constructor.
+-- /See:/ 'newListDatasetsResponse' smart constructor.
 data ListDatasetsResponse = ListDatasetsResponse'
-  { _ldrrsNextToken ::
-      !(Maybe Text),
-    _ldrrsDatasets ::
-      !(Maybe [Dataset]),
-    _ldrrsCount :: !(Maybe Int),
-    _ldrrsResponseStatus :: !Int
+  { -- | A pagination token for obtaining the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A set of datasets.
+    datasets :: Prelude.Maybe [Dataset],
+    -- | Number of datasets returned.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDatasetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDatasetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrsNextToken' - A pagination token for obtaining the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrsDatasets' - A set of datasets.
+-- 'nextToken', 'listDatasetsResponse_nextToken' - A pagination token for obtaining the next page of results.
 --
--- * 'ldrrsCount' - Number of datasets returned.
+-- 'datasets', 'listDatasetsResponse_datasets' - A set of datasets.
 --
--- * 'ldrrsResponseStatus' - -- | The response status code.
-listDatasetsResponse ::
-  -- | 'ldrrsResponseStatus'
-  Int ->
+-- 'count', 'listDatasetsResponse_count' - Number of datasets returned.
+--
+-- 'httpStatus', 'listDatasetsResponse_httpStatus' - The response's http status code.
+newListDatasetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDatasetsResponse
-listDatasetsResponse pResponseStatus_ =
+newListDatasetsResponse pHttpStatus_ =
   ListDatasetsResponse'
-    { _ldrrsNextToken = Nothing,
-      _ldrrsDatasets = Nothing,
-      _ldrrsCount = Nothing,
-      _ldrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      datasets = Prelude.Nothing,
+      count = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A pagination token for obtaining the next page of results.
-ldrrsNextToken :: Lens' ListDatasetsResponse (Maybe Text)
-ldrrsNextToken = lens _ldrrsNextToken (\s a -> s {_ldrrsNextToken = a})
+listDatasetsResponse_nextToken :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe Prelude.Text)
+listDatasetsResponse_nextToken = Lens.lens (\ListDatasetsResponse' {nextToken} -> nextToken) (\s@ListDatasetsResponse' {} a -> s {nextToken = a} :: ListDatasetsResponse)
 
 -- | A set of datasets.
-ldrrsDatasets :: Lens' ListDatasetsResponse [Dataset]
-ldrrsDatasets = lens _ldrrsDatasets (\s a -> s {_ldrrsDatasets = a}) . _Default . _Coerce
+listDatasetsResponse_datasets :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe [Dataset])
+listDatasetsResponse_datasets = Lens.lens (\ListDatasetsResponse' {datasets} -> datasets) (\s@ListDatasetsResponse' {} a -> s {datasets = a} :: ListDatasetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Number of datasets returned.
-ldrrsCount :: Lens' ListDatasetsResponse (Maybe Int)
-ldrrsCount = lens _ldrrsCount (\s a -> s {_ldrrsCount = a})
+listDatasetsResponse_count :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe Prelude.Int)
+listDatasetsResponse_count = Lens.lens (\ListDatasetsResponse' {count} -> count) (\s@ListDatasetsResponse' {} a -> s {count = a} :: ListDatasetsResponse)
 
--- | -- | The response status code.
-ldrrsResponseStatus :: Lens' ListDatasetsResponse Int
-ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
+-- | The response's http status code.
+listDatasetsResponse_httpStatus :: Lens.Lens' ListDatasetsResponse Prelude.Int
+listDatasetsResponse_httpStatus = Lens.lens (\ListDatasetsResponse' {httpStatus} -> httpStatus) (\s@ListDatasetsResponse' {} a -> s {httpStatus = a} :: ListDatasetsResponse)
 
-instance NFData ListDatasetsResponse
+instance Prelude.NFData ListDatasetsResponse

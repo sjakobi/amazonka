@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specific dataset. The dataset will be deleted permanently, and the action can't be undone. Datasets that this dataset was merged with will no longer report the merge. Any subsequent operation on this dataset will result in a ResourceNotFoundException.
+-- Deletes the specific dataset. The dataset will be deleted permanently,
+-- and the action can\'t be undone. Datasets that this dataset was merged
+-- with will no longer report the merge. Any subsequent operation on this
+-- dataset will result in a ResourceNotFoundException.
 --
---
--- This API can be called with temporary user credentials provided by Cognito Identity or with developer credentials.
+-- This API can be called with temporary user credentials provided by
+-- Cognito Identity or with developer credentials.
 module Network.AWS.CognitoSync.DeleteDataset
   ( -- * Creating a Request
-    deleteDataset,
-    DeleteDataset,
+    DeleteDataset (..),
+    newDeleteDataset,
 
     -- * Request Lenses
-    delIdentityPoolId,
-    delIdentityId,
-    delDatasetName,
+    deleteDataset_identityPoolId,
+    deleteDataset_identityId,
+    deleteDataset_datasetName,
 
     -- * Destructuring the Response
-    deleteDatasetResponse,
-    DeleteDatasetResponse,
+    DeleteDatasetResponse (..),
+    newDeleteDatasetResponse,
 
     -- * Response Lenses
-    drsDataset,
-    drsResponseStatus,
+    deleteDatasetResponse_dataset,
+    deleteDatasetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoSync.Types.Dataset
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to delete the specific dataset.
 --
--- /See:/ 'deleteDataset' smart constructor.
+-- /See:/ 'newDeleteDataset' smart constructor.
 data DeleteDataset = DeleteDataset'
-  { _delIdentityPoolId ::
-      !Text,
-    _delIdentityId :: !Text,
-    _delDatasetName :: !Text
+  { -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityPoolId :: Prelude.Text,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityId :: Prelude.Text,
+    -- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+    -- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+    datasetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDataset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDataset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delIdentityId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- 'identityPoolId', 'deleteDataset_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
 --
--- * 'delDatasetName' - A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
-deleteDataset ::
-  -- | 'delIdentityPoolId'
-  Text ->
-  -- | 'delIdentityId'
-  Text ->
-  -- | 'delDatasetName'
-  Text ->
+-- 'identityId', 'deleteDataset_identityId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+--
+-- 'datasetName', 'deleteDataset_datasetName' - A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+-- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+newDeleteDataset ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
+  -- | 'identityId'
+  Prelude.Text ->
+  -- | 'datasetName'
+  Prelude.Text ->
   DeleteDataset
-deleteDataset
+newDeleteDataset
   pIdentityPoolId_
   pIdentityId_
   pDatasetName_ =
     DeleteDataset'
-      { _delIdentityPoolId =
-          pIdentityPoolId_,
-        _delIdentityId = pIdentityId_,
-        _delDatasetName = pDatasetName_
+      { identityPoolId = pIdentityPoolId_,
+        identityId = pIdentityId_,
+        datasetName = pDatasetName_
       }
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-delIdentityPoolId :: Lens' DeleteDataset Text
-delIdentityPoolId = lens _delIdentityPoolId (\s a -> s {_delIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+deleteDataset_identityPoolId :: Lens.Lens' DeleteDataset Prelude.Text
+deleteDataset_identityPoolId = Lens.lens (\DeleteDataset' {identityPoolId} -> identityPoolId) (\s@DeleteDataset' {} a -> s {identityPoolId = a} :: DeleteDataset)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-delIdentityId :: Lens' DeleteDataset Text
-delIdentityId = lens _delIdentityId (\s a -> s {_delIdentityId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+deleteDataset_identityId :: Lens.Lens' DeleteDataset Prelude.Text
+deleteDataset_identityId = Lens.lens (\DeleteDataset' {identityId} -> identityId) (\s@DeleteDataset' {} a -> s {identityId = a} :: DeleteDataset)
 
--- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
-delDatasetName :: Lens' DeleteDataset Text
-delDatasetName = lens _delDatasetName (\s a -> s {_delDatasetName = a})
+-- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+-- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+deleteDataset_datasetName :: Lens.Lens' DeleteDataset Prelude.Text
+deleteDataset_datasetName = Lens.lens (\DeleteDataset' {datasetName} -> datasetName) (\s@DeleteDataset' {} a -> s {datasetName = a} :: DeleteDataset)
 
-instance AWSRequest DeleteDataset where
+instance Prelude.AWSRequest DeleteDataset where
   type Rs DeleteDataset = DeleteDatasetResponse
-  request = delete cognitoSync
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDatasetResponse'
-            <$> (x .?> "Dataset") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Dataset")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDataset
+instance Prelude.Hashable DeleteDataset
 
-instance NFData DeleteDataset
+instance Prelude.NFData DeleteDataset
 
-instance ToHeaders DeleteDataset where
+instance Prelude.ToHeaders DeleteDataset where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteDataset where
+instance Prelude.ToPath DeleteDataset where
   toPath DeleteDataset' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _delIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/identities/",
-        toBS _delIdentityId,
+        Prelude.toBS identityId,
         "/datasets/",
-        toBS _delDatasetName
+        Prelude.toBS datasetName
       ]
 
-instance ToQuery DeleteDataset where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDataset where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Response to a successful DeleteDataset request.
 --
--- /See:/ 'deleteDatasetResponse' smart constructor.
+-- /See:/ 'newDeleteDatasetResponse' smart constructor.
 data DeleteDatasetResponse = DeleteDatasetResponse'
-  { _drsDataset ::
-      !(Maybe Dataset),
-    _drsResponseStatus :: !Int
+  { -- | A collection of data for an identity pool. An identity pool can have
+    -- multiple datasets. A dataset is per identity and can be general or
+    -- associated with a particular entity in an application (like a saved
+    -- game). Datasets are automatically created if they don\'t exist. Data is
+    -- synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
+    dataset :: Prelude.Maybe Dataset,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDatasetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDatasetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsDataset' - A collection of data for an identity pool. An identity pool can have multiple datasets. A dataset is per identity and can be general or associated with a particular entity in an application (like a saved game). Datasets are automatically created if they don't exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteDatasetResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'dataset', 'deleteDatasetResponse_dataset' - A collection of data for an identity pool. An identity pool can have
+-- multiple datasets. A dataset is per identity and can be general or
+-- associated with a particular entity in an application (like a saved
+-- game). Datasets are automatically created if they don\'t exist. Data is
+-- synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
+--
+-- 'httpStatus', 'deleteDatasetResponse_httpStatus' - The response's http status code.
+newDeleteDatasetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDatasetResponse
-deleteDatasetResponse pResponseStatus_ =
+newDeleteDatasetResponse pHttpStatus_ =
   DeleteDatasetResponse'
-    { _drsDataset = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { dataset = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A collection of data for an identity pool. An identity pool can have multiple datasets. A dataset is per identity and can be general or associated with a particular entity in an application (like a saved game). Datasets are automatically created if they don't exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
-drsDataset :: Lens' DeleteDatasetResponse (Maybe Dataset)
-drsDataset = lens _drsDataset (\s a -> s {_drsDataset = a})
+-- | A collection of data for an identity pool. An identity pool can have
+-- multiple datasets. A dataset is per identity and can be general or
+-- associated with a particular entity in an application (like a saved
+-- game). Datasets are automatically created if they don\'t exist. Data is
+-- synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
+deleteDatasetResponse_dataset :: Lens.Lens' DeleteDatasetResponse (Prelude.Maybe Dataset)
+deleteDatasetResponse_dataset = Lens.lens (\DeleteDatasetResponse' {dataset} -> dataset) (\s@DeleteDatasetResponse' {} a -> s {dataset = a} :: DeleteDatasetResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteDatasetResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteDatasetResponse_httpStatus :: Lens.Lens' DeleteDatasetResponse Prelude.Int
+deleteDatasetResponse_httpStatus = Lens.lens (\DeleteDatasetResponse' {httpStatus} -> httpStatus) (\s@DeleteDatasetResponse' {} a -> s {httpStatus = a} :: DeleteDatasetResponse)
 
-instance NFData DeleteDatasetResponse
+instance Prelude.NFData DeleteDatasetResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,120 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CognitoSync.Types.Dataset where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A collection of data for an identity pool. An identity pool can have multiple datasets. A dataset is per identity and can be general or associated with a particular entity in an application (like a saved game). Datasets are automatically created if they don't exist. Data is synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
+-- | A collection of data for an identity pool. An identity pool can have
+-- multiple datasets. A dataset is per identity and can be general or
+-- associated with a particular entity in an application (like a saved
+-- game). Datasets are automatically created if they don\'t exist. Data is
+-- synced by dataset, and a dataset can hold up to 1MB of key-value pairs.
 --
--- /See:/ 'dataset' smart constructor.
+-- /See:/ 'newDataset' smart constructor.
 data Dataset = Dataset'
-  { _dLastModifiedDate ::
-      !(Maybe POSIX),
-    _dNumRecords :: !(Maybe Integer),
-    _dCreationDate :: !(Maybe POSIX),
-    _dDataStorage :: !(Maybe Integer),
-    _dIdentityId :: !(Maybe Text),
-    _dLastModifiedBy :: !(Maybe Text),
-    _dDatasetName :: !(Maybe Text)
+  { -- | Date when the dataset was last modified.
+    lastModifiedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Number of records in this dataset.
+    numRecords :: Prelude.Maybe Prelude.Integer,
+    -- | Date on which the dataset was created.
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Total size in bytes of the records in this dataset.
+    dataStorage :: Prelude.Maybe Prelude.Integer,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityId :: Prelude.Maybe Prelude.Text,
+    -- | The device that made the last change to this dataset.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+    -- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+    datasetName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Dataset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Dataset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dLastModifiedDate' - Date when the dataset was last modified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dNumRecords' - Number of records in this dataset.
+-- 'lastModifiedDate', 'dataset_lastModifiedDate' - Date when the dataset was last modified.
 --
--- * 'dCreationDate' - Date on which the dataset was created.
+-- 'numRecords', 'dataset_numRecords' - Number of records in this dataset.
 --
--- * 'dDataStorage' - Total size in bytes of the records in this dataset.
+-- 'creationDate', 'dataset_creationDate' - Date on which the dataset was created.
 --
--- * 'dIdentityId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- 'dataStorage', 'dataset_dataStorage' - Total size in bytes of the records in this dataset.
 --
--- * 'dLastModifiedBy' - The device that made the last change to this dataset.
+-- 'identityId', 'dataset_identityId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
 --
--- * 'dDatasetName' - A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
-dataset ::
+-- 'lastModifiedBy', 'dataset_lastModifiedBy' - The device that made the last change to this dataset.
+--
+-- 'datasetName', 'dataset_datasetName' - A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+-- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+newDataset ::
   Dataset
-dataset =
+newDataset =
   Dataset'
-    { _dLastModifiedDate = Nothing,
-      _dNumRecords = Nothing,
-      _dCreationDate = Nothing,
-      _dDataStorage = Nothing,
-      _dIdentityId = Nothing,
-      _dLastModifiedBy = Nothing,
-      _dDatasetName = Nothing
+    { lastModifiedDate = Prelude.Nothing,
+      numRecords = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      dataStorage = Prelude.Nothing,
+      identityId = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      datasetName = Prelude.Nothing
     }
 
 -- | Date when the dataset was last modified.
-dLastModifiedDate :: Lens' Dataset (Maybe UTCTime)
-dLastModifiedDate = lens _dLastModifiedDate (\s a -> s {_dLastModifiedDate = a}) . mapping _Time
+dataset_lastModifiedDate :: Lens.Lens' Dataset (Prelude.Maybe Prelude.UTCTime)
+dataset_lastModifiedDate = Lens.lens (\Dataset' {lastModifiedDate} -> lastModifiedDate) (\s@Dataset' {} a -> s {lastModifiedDate = a} :: Dataset) Prelude.. Lens.mapping Prelude._Time
 
 -- | Number of records in this dataset.
-dNumRecords :: Lens' Dataset (Maybe Integer)
-dNumRecords = lens _dNumRecords (\s a -> s {_dNumRecords = a})
+dataset_numRecords :: Lens.Lens' Dataset (Prelude.Maybe Prelude.Integer)
+dataset_numRecords = Lens.lens (\Dataset' {numRecords} -> numRecords) (\s@Dataset' {} a -> s {numRecords = a} :: Dataset)
 
 -- | Date on which the dataset was created.
-dCreationDate :: Lens' Dataset (Maybe UTCTime)
-dCreationDate = lens _dCreationDate (\s a -> s {_dCreationDate = a}) . mapping _Time
+dataset_creationDate :: Lens.Lens' Dataset (Prelude.Maybe Prelude.UTCTime)
+dataset_creationDate = Lens.lens (\Dataset' {creationDate} -> creationDate) (\s@Dataset' {} a -> s {creationDate = a} :: Dataset) Prelude.. Lens.mapping Prelude._Time
 
 -- | Total size in bytes of the records in this dataset.
-dDataStorage :: Lens' Dataset (Maybe Integer)
-dDataStorage = lens _dDataStorage (\s a -> s {_dDataStorage = a})
+dataset_dataStorage :: Lens.Lens' Dataset (Prelude.Maybe Prelude.Integer)
+dataset_dataStorage = Lens.lens (\Dataset' {dataStorage} -> dataStorage) (\s@Dataset' {} a -> s {dataStorage = a} :: Dataset)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-dIdentityId :: Lens' Dataset (Maybe Text)
-dIdentityId = lens _dIdentityId (\s a -> s {_dIdentityId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+dataset_identityId :: Lens.Lens' Dataset (Prelude.Maybe Prelude.Text)
+dataset_identityId = Lens.lens (\Dataset' {identityId} -> identityId) (\s@Dataset' {} a -> s {identityId = a} :: Dataset)
 
 -- | The device that made the last change to this dataset.
-dLastModifiedBy :: Lens' Dataset (Maybe Text)
-dLastModifiedBy = lens _dLastModifiedBy (\s a -> s {_dLastModifiedBy = a})
+dataset_lastModifiedBy :: Lens.Lens' Dataset (Prelude.Maybe Prelude.Text)
+dataset_lastModifiedBy = Lens.lens (\Dataset' {lastModifiedBy} -> lastModifiedBy) (\s@Dataset' {} a -> s {lastModifiedBy = a} :: Dataset)
 
--- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
-dDatasetName :: Lens' Dataset (Maybe Text)
-dDatasetName = lens _dDatasetName (\s a -> s {_dDatasetName = a})
+-- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+-- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+dataset_datasetName :: Lens.Lens' Dataset (Prelude.Maybe Prelude.Text)
+dataset_datasetName = Lens.lens (\Dataset' {datasetName} -> datasetName) (\s@Dataset' {} a -> s {datasetName = a} :: Dataset)
 
-instance FromJSON Dataset where
+instance Prelude.FromJSON Dataset where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Dataset"
       ( \x ->
           Dataset'
-            <$> (x .:? "LastModifiedDate")
-            <*> (x .:? "NumRecords")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "DataStorage")
-            <*> (x .:? "IdentityId")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .:? "DatasetName")
+            Prelude.<$> (x Prelude..:? "LastModifiedDate")
+            Prelude.<*> (x Prelude..:? "NumRecords")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "DataStorage")
+            Prelude.<*> (x Prelude..:? "IdentityId")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..:? "DatasetName")
       )
 
-instance Hashable Dataset
+instance Prelude.Hashable Dataset
 
-instance NFData Dataset
+instance Prelude.NFData Dataset

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,288 +21,330 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets paginated records, optionally changed after a particular sync count for a dataset and identity. With Amazon Cognito Sync, each identity has access only to its own data. Thus, the credentials used to make this API call need to have access to the identity data.
+-- Gets paginated records, optionally changed after a particular sync count
+-- for a dataset and identity. With Amazon Cognito Sync, each identity has
+-- access only to its own data. Thus, the credentials used to make this API
+-- call need to have access to the identity data.
 --
---
--- ListRecords can be called with temporary user credentials provided by Cognito Identity or with developer credentials. You should use Cognito Identity credentials to make this API call.
+-- ListRecords can be called with temporary user credentials provided by
+-- Cognito Identity or with developer credentials. You should use Cognito
+-- Identity credentials to make this API call.
 module Network.AWS.CognitoSync.ListRecords
   ( -- * Creating a Request
-    listRecords,
-    ListRecords,
+    ListRecords (..),
+    newListRecords,
 
     -- * Request Lenses
-    lrNextToken,
-    lrLastSyncCount,
-    lrMaxResults,
-    lrSyncSessionToken,
-    lrIdentityPoolId,
-    lrIdentityId,
-    lrDatasetName,
+    listRecords_nextToken,
+    listRecords_lastSyncCount,
+    listRecords_maxResults,
+    listRecords_syncSessionToken,
+    listRecords_identityPoolId,
+    listRecords_identityId,
+    listRecords_datasetName,
 
     -- * Destructuring the Response
-    listRecordsResponse,
-    ListRecordsResponse,
+    ListRecordsResponse (..),
+    newListRecordsResponse,
 
     -- * Response Lenses
-    lrrrsNextToken,
-    lrrrsRecords,
-    lrrrsDatasetSyncCount,
-    lrrrsDatasetDeletedAfterRequestedSyncCount,
-    lrrrsCount,
-    lrrrsLastModifiedBy,
-    lrrrsDatasetExists,
-    lrrrsSyncSessionToken,
-    lrrrsMergedDatasetNames,
-    lrrrsResponseStatus,
+    listRecordsResponse_nextToken,
+    listRecordsResponse_records,
+    listRecordsResponse_datasetSyncCount,
+    listRecordsResponse_datasetDeletedAfterRequestedSyncCount,
+    listRecordsResponse_count,
+    listRecordsResponse_lastModifiedBy,
+    listRecordsResponse_datasetExists,
+    listRecordsResponse_syncSessionToken,
+    listRecordsResponse_mergedDatasetNames,
+    listRecordsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoSync.Types.Record
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request for a list of records.
 --
--- /See:/ 'listRecords' smart constructor.
+-- /See:/ 'newListRecords' smart constructor.
 data ListRecords = ListRecords'
-  { _lrNextToken ::
-      !(Maybe Text),
-    _lrLastSyncCount :: !(Maybe Integer),
-    _lrMaxResults :: !(Maybe Int),
-    _lrSyncSessionToken :: !(Maybe Text),
-    _lrIdentityPoolId :: !Text,
-    _lrIdentityId :: !Text,
-    _lrDatasetName :: !Text
+  { -- | A pagination token for obtaining the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The last server sync count for this record.
+    lastSyncCount :: Prelude.Maybe Prelude.Integer,
+    -- | The maximum number of results to be returned.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A token containing a session ID, identity ID, and expiration.
+    syncSessionToken :: Prelude.Maybe Prelude.Text,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityPoolId :: Prelude.Text,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityId :: Prelude.Text,
+    -- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+    -- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+    datasetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRecords' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRecords' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrNextToken' - A pagination token for obtaining the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrLastSyncCount' - The last server sync count for this record.
+-- 'nextToken', 'listRecords_nextToken' - A pagination token for obtaining the next page of results.
 --
--- * 'lrMaxResults' - The maximum number of results to be returned.
+-- 'lastSyncCount', 'listRecords_lastSyncCount' - The last server sync count for this record.
 --
--- * 'lrSyncSessionToken' - A token containing a session ID, identity ID, and expiration.
+-- 'maxResults', 'listRecords_maxResults' - The maximum number of results to be returned.
 --
--- * 'lrIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- 'syncSessionToken', 'listRecords_syncSessionToken' - A token containing a session ID, identity ID, and expiration.
 --
--- * 'lrIdentityId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- 'identityPoolId', 'listRecords_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
 --
--- * 'lrDatasetName' - A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
-listRecords ::
-  -- | 'lrIdentityPoolId'
-  Text ->
-  -- | 'lrIdentityId'
-  Text ->
-  -- | 'lrDatasetName'
-  Text ->
+-- 'identityId', 'listRecords_identityId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+--
+-- 'datasetName', 'listRecords_datasetName' - A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+-- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+newListRecords ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
+  -- | 'identityId'
+  Prelude.Text ->
+  -- | 'datasetName'
+  Prelude.Text ->
   ListRecords
-listRecords
+newListRecords
   pIdentityPoolId_
   pIdentityId_
   pDatasetName_ =
     ListRecords'
-      { _lrNextToken = Nothing,
-        _lrLastSyncCount = Nothing,
-        _lrMaxResults = Nothing,
-        _lrSyncSessionToken = Nothing,
-        _lrIdentityPoolId = pIdentityPoolId_,
-        _lrIdentityId = pIdentityId_,
-        _lrDatasetName = pDatasetName_
+      { nextToken = Prelude.Nothing,
+        lastSyncCount = Prelude.Nothing,
+        maxResults = Prelude.Nothing,
+        syncSessionToken = Prelude.Nothing,
+        identityPoolId = pIdentityPoolId_,
+        identityId = pIdentityId_,
+        datasetName = pDatasetName_
       }
 
 -- | A pagination token for obtaining the next page of results.
-lrNextToken :: Lens' ListRecords (Maybe Text)
-lrNextToken = lens _lrNextToken (\s a -> s {_lrNextToken = a})
+listRecords_nextToken :: Lens.Lens' ListRecords (Prelude.Maybe Prelude.Text)
+listRecords_nextToken = Lens.lens (\ListRecords' {nextToken} -> nextToken) (\s@ListRecords' {} a -> s {nextToken = a} :: ListRecords)
 
 -- | The last server sync count for this record.
-lrLastSyncCount :: Lens' ListRecords (Maybe Integer)
-lrLastSyncCount = lens _lrLastSyncCount (\s a -> s {_lrLastSyncCount = a})
+listRecords_lastSyncCount :: Lens.Lens' ListRecords (Prelude.Maybe Prelude.Integer)
+listRecords_lastSyncCount = Lens.lens (\ListRecords' {lastSyncCount} -> lastSyncCount) (\s@ListRecords' {} a -> s {lastSyncCount = a} :: ListRecords)
 
 -- | The maximum number of results to be returned.
-lrMaxResults :: Lens' ListRecords (Maybe Int)
-lrMaxResults = lens _lrMaxResults (\s a -> s {_lrMaxResults = a})
+listRecords_maxResults :: Lens.Lens' ListRecords (Prelude.Maybe Prelude.Int)
+listRecords_maxResults = Lens.lens (\ListRecords' {maxResults} -> maxResults) (\s@ListRecords' {} a -> s {maxResults = a} :: ListRecords)
 
 -- | A token containing a session ID, identity ID, and expiration.
-lrSyncSessionToken :: Lens' ListRecords (Maybe Text)
-lrSyncSessionToken = lens _lrSyncSessionToken (\s a -> s {_lrSyncSessionToken = a})
+listRecords_syncSessionToken :: Lens.Lens' ListRecords (Prelude.Maybe Prelude.Text)
+listRecords_syncSessionToken = Lens.lens (\ListRecords' {syncSessionToken} -> syncSessionToken) (\s@ListRecords' {} a -> s {syncSessionToken = a} :: ListRecords)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-lrIdentityPoolId :: Lens' ListRecords Text
-lrIdentityPoolId = lens _lrIdentityPoolId (\s a -> s {_lrIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+listRecords_identityPoolId :: Lens.Lens' ListRecords Prelude.Text
+listRecords_identityPoolId = Lens.lens (\ListRecords' {identityPoolId} -> identityPoolId) (\s@ListRecords' {} a -> s {identityPoolId = a} :: ListRecords)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-lrIdentityId :: Lens' ListRecords Text
-lrIdentityId = lens _lrIdentityId (\s a -> s {_lrIdentityId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+listRecords_identityId :: Lens.Lens' ListRecords Prelude.Text
+listRecords_identityId = Lens.lens (\ListRecords' {identityId} -> identityId) (\s@ListRecords' {} a -> s {identityId = a} :: ListRecords)
 
--- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (dash), and '.' (dot).
-lrDatasetName :: Lens' ListRecords Text
-lrDatasetName = lens _lrDatasetName (\s a -> s {_lrDatasetName = a})
+-- | A string of up to 128 characters. Allowed characters are a-z, A-Z, 0-9,
+-- \'_\' (underscore), \'-\' (dash), and \'.\' (dot).
+listRecords_datasetName :: Lens.Lens' ListRecords Prelude.Text
+listRecords_datasetName = Lens.lens (\ListRecords' {datasetName} -> datasetName) (\s@ListRecords' {} a -> s {datasetName = a} :: ListRecords)
 
-instance AWSRequest ListRecords where
+instance Prelude.AWSRequest ListRecords where
   type Rs ListRecords = ListRecordsResponse
-  request = get cognitoSync
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListRecordsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Records" .!@ mempty)
-            <*> (x .?> "DatasetSyncCount")
-            <*> (x .?> "DatasetDeletedAfterRequestedSyncCount")
-            <*> (x .?> "Count")
-            <*> (x .?> "LastModifiedBy")
-            <*> (x .?> "DatasetExists")
-            <*> (x .?> "SyncSessionToken")
-            <*> (x .?> "MergedDatasetNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Records" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "DatasetSyncCount")
+            Prelude.<*> ( x
+                            Prelude..?> "DatasetDeletedAfterRequestedSyncCount"
+                        )
+            Prelude.<*> (x Prelude..?> "Count")
+            Prelude.<*> (x Prelude..?> "LastModifiedBy")
+            Prelude.<*> (x Prelude..?> "DatasetExists")
+            Prelude.<*> (x Prelude..?> "SyncSessionToken")
+            Prelude.<*> ( x Prelude..?> "MergedDatasetNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListRecords
+instance Prelude.Hashable ListRecords
 
-instance NFData ListRecords
+instance Prelude.NFData ListRecords
 
-instance ToHeaders ListRecords where
+instance Prelude.ToHeaders ListRecords where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListRecords where
+instance Prelude.ToPath ListRecords where
   toPath ListRecords' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _lrIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/identities/",
-        toBS _lrIdentityId,
+        Prelude.toBS identityId,
         "/datasets/",
-        toBS _lrDatasetName,
+        Prelude.toBS datasetName,
         "/records"
       ]
 
-instance ToQuery ListRecords where
+instance Prelude.ToQuery ListRecords where
   toQuery ListRecords' {..} =
-    mconcat
-      [ "nextToken" =: _lrNextToken,
-        "lastSyncCount" =: _lrLastSyncCount,
-        "maxResults" =: _lrMaxResults,
-        "syncSessionToken" =: _lrSyncSessionToken
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "lastSyncCount" Prelude.=: lastSyncCount,
+        "maxResults" Prelude.=: maxResults,
+        "syncSessionToken" Prelude.=: syncSessionToken
       ]
 
 -- | Returned for a successful ListRecordsRequest.
 --
--- /See:/ 'listRecordsResponse' smart constructor.
+-- /See:/ 'newListRecordsResponse' smart constructor.
 data ListRecordsResponse = ListRecordsResponse'
-  { _lrrrsNextToken ::
-      !(Maybe Text),
-    _lrrrsRecords ::
-      !(Maybe [Record]),
-    _lrrrsDatasetSyncCount ::
-      !(Maybe Integer),
-    _lrrrsDatasetDeletedAfterRequestedSyncCount ::
-      !(Maybe Bool),
-    _lrrrsCount :: !(Maybe Int),
-    _lrrrsLastModifiedBy ::
-      !(Maybe Text),
-    _lrrrsDatasetExists ::
-      !(Maybe Bool),
-    _lrrrsSyncSessionToken ::
-      !(Maybe Text),
-    _lrrrsMergedDatasetNames ::
-      !(Maybe [Text]),
-    _lrrrsResponseStatus :: !Int
+  { -- | A pagination token for obtaining the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of all records.
+    records :: Prelude.Maybe [Record],
+    -- | Server sync count for this dataset.
+    datasetSyncCount :: Prelude.Maybe Prelude.Integer,
+    -- | A boolean value specifying whether to delete the dataset locally.
+    datasetDeletedAfterRequestedSyncCount :: Prelude.Maybe Prelude.Bool,
+    -- | Total number of records.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The user\/device that made the last change to this record.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the dataset exists.
+    datasetExists :: Prelude.Maybe Prelude.Bool,
+    -- | A token containing a session ID, identity ID, and expiration.
+    syncSessionToken :: Prelude.Maybe Prelude.Text,
+    -- | Names of merged datasets.
+    mergedDatasetNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRecordsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRecordsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsNextToken' - A pagination token for obtaining the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsRecords' - A list of all records.
+-- 'nextToken', 'listRecordsResponse_nextToken' - A pagination token for obtaining the next page of results.
 --
--- * 'lrrrsDatasetSyncCount' - Server sync count for this dataset.
+-- 'records', 'listRecordsResponse_records' - A list of all records.
 --
--- * 'lrrrsDatasetDeletedAfterRequestedSyncCount' - A boolean value specifying whether to delete the dataset locally.
+-- 'datasetSyncCount', 'listRecordsResponse_datasetSyncCount' - Server sync count for this dataset.
 --
--- * 'lrrrsCount' - Total number of records.
+-- 'datasetDeletedAfterRequestedSyncCount', 'listRecordsResponse_datasetDeletedAfterRequestedSyncCount' - A boolean value specifying whether to delete the dataset locally.
 --
--- * 'lrrrsLastModifiedBy' - The user/device that made the last change to this record.
+-- 'count', 'listRecordsResponse_count' - Total number of records.
 --
--- * 'lrrrsDatasetExists' - Indicates whether the dataset exists.
+-- 'lastModifiedBy', 'listRecordsResponse_lastModifiedBy' - The user\/device that made the last change to this record.
 --
--- * 'lrrrsSyncSessionToken' - A token containing a session ID, identity ID, and expiration.
+-- 'datasetExists', 'listRecordsResponse_datasetExists' - Indicates whether the dataset exists.
 --
--- * 'lrrrsMergedDatasetNames' - Names of merged datasets.
+-- 'syncSessionToken', 'listRecordsResponse_syncSessionToken' - A token containing a session ID, identity ID, and expiration.
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
-listRecordsResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'mergedDatasetNames', 'listRecordsResponse_mergedDatasetNames' - Names of merged datasets.
+--
+-- 'httpStatus', 'listRecordsResponse_httpStatus' - The response's http status code.
+newListRecordsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListRecordsResponse
-listRecordsResponse pResponseStatus_ =
+newListRecordsResponse pHttpStatus_ =
   ListRecordsResponse'
-    { _lrrrsNextToken = Nothing,
-      _lrrrsRecords = Nothing,
-      _lrrrsDatasetSyncCount = Nothing,
-      _lrrrsDatasetDeletedAfterRequestedSyncCount =
-        Nothing,
-      _lrrrsCount = Nothing,
-      _lrrrsLastModifiedBy = Nothing,
-      _lrrrsDatasetExists = Nothing,
-      _lrrrsSyncSessionToken = Nothing,
-      _lrrrsMergedDatasetNames = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      records = Prelude.Nothing,
+      datasetSyncCount = Prelude.Nothing,
+      datasetDeletedAfterRequestedSyncCount =
+        Prelude.Nothing,
+      count = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      datasetExists = Prelude.Nothing,
+      syncSessionToken = Prelude.Nothing,
+      mergedDatasetNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A pagination token for obtaining the next page of results.
-lrrrsNextToken :: Lens' ListRecordsResponse (Maybe Text)
-lrrrsNextToken = lens _lrrrsNextToken (\s a -> s {_lrrrsNextToken = a})
+listRecordsResponse_nextToken :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Text)
+listRecordsResponse_nextToken = Lens.lens (\ListRecordsResponse' {nextToken} -> nextToken) (\s@ListRecordsResponse' {} a -> s {nextToken = a} :: ListRecordsResponse)
 
 -- | A list of all records.
-lrrrsRecords :: Lens' ListRecordsResponse [Record]
-lrrrsRecords = lens _lrrrsRecords (\s a -> s {_lrrrsRecords = a}) . _Default . _Coerce
+listRecordsResponse_records :: Lens.Lens' ListRecordsResponse (Prelude.Maybe [Record])
+listRecordsResponse_records = Lens.lens (\ListRecordsResponse' {records} -> records) (\s@ListRecordsResponse' {} a -> s {records = a} :: ListRecordsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Server sync count for this dataset.
-lrrrsDatasetSyncCount :: Lens' ListRecordsResponse (Maybe Integer)
-lrrrsDatasetSyncCount = lens _lrrrsDatasetSyncCount (\s a -> s {_lrrrsDatasetSyncCount = a})
+listRecordsResponse_datasetSyncCount :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Integer)
+listRecordsResponse_datasetSyncCount = Lens.lens (\ListRecordsResponse' {datasetSyncCount} -> datasetSyncCount) (\s@ListRecordsResponse' {} a -> s {datasetSyncCount = a} :: ListRecordsResponse)
 
 -- | A boolean value specifying whether to delete the dataset locally.
-lrrrsDatasetDeletedAfterRequestedSyncCount :: Lens' ListRecordsResponse (Maybe Bool)
-lrrrsDatasetDeletedAfterRequestedSyncCount = lens _lrrrsDatasetDeletedAfterRequestedSyncCount (\s a -> s {_lrrrsDatasetDeletedAfterRequestedSyncCount = a})
+listRecordsResponse_datasetDeletedAfterRequestedSyncCount :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Bool)
+listRecordsResponse_datasetDeletedAfterRequestedSyncCount = Lens.lens (\ListRecordsResponse' {datasetDeletedAfterRequestedSyncCount} -> datasetDeletedAfterRequestedSyncCount) (\s@ListRecordsResponse' {} a -> s {datasetDeletedAfterRequestedSyncCount = a} :: ListRecordsResponse)
 
 -- | Total number of records.
-lrrrsCount :: Lens' ListRecordsResponse (Maybe Int)
-lrrrsCount = lens _lrrrsCount (\s a -> s {_lrrrsCount = a})
+listRecordsResponse_count :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Int)
+listRecordsResponse_count = Lens.lens (\ListRecordsResponse' {count} -> count) (\s@ListRecordsResponse' {} a -> s {count = a} :: ListRecordsResponse)
 
--- | The user/device that made the last change to this record.
-lrrrsLastModifiedBy :: Lens' ListRecordsResponse (Maybe Text)
-lrrrsLastModifiedBy = lens _lrrrsLastModifiedBy (\s a -> s {_lrrrsLastModifiedBy = a})
+-- | The user\/device that made the last change to this record.
+listRecordsResponse_lastModifiedBy :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Text)
+listRecordsResponse_lastModifiedBy = Lens.lens (\ListRecordsResponse' {lastModifiedBy} -> lastModifiedBy) (\s@ListRecordsResponse' {} a -> s {lastModifiedBy = a} :: ListRecordsResponse)
 
 -- | Indicates whether the dataset exists.
-lrrrsDatasetExists :: Lens' ListRecordsResponse (Maybe Bool)
-lrrrsDatasetExists = lens _lrrrsDatasetExists (\s a -> s {_lrrrsDatasetExists = a})
+listRecordsResponse_datasetExists :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Bool)
+listRecordsResponse_datasetExists = Lens.lens (\ListRecordsResponse' {datasetExists} -> datasetExists) (\s@ListRecordsResponse' {} a -> s {datasetExists = a} :: ListRecordsResponse)
 
 -- | A token containing a session ID, identity ID, and expiration.
-lrrrsSyncSessionToken :: Lens' ListRecordsResponse (Maybe Text)
-lrrrsSyncSessionToken = lens _lrrrsSyncSessionToken (\s a -> s {_lrrrsSyncSessionToken = a})
+listRecordsResponse_syncSessionToken :: Lens.Lens' ListRecordsResponse (Prelude.Maybe Prelude.Text)
+listRecordsResponse_syncSessionToken = Lens.lens (\ListRecordsResponse' {syncSessionToken} -> syncSessionToken) (\s@ListRecordsResponse' {} a -> s {syncSessionToken = a} :: ListRecordsResponse)
 
 -- | Names of merged datasets.
-lrrrsMergedDatasetNames :: Lens' ListRecordsResponse [Text]
-lrrrsMergedDatasetNames = lens _lrrrsMergedDatasetNames (\s a -> s {_lrrrsMergedDatasetNames = a}) . _Default . _Coerce
+listRecordsResponse_mergedDatasetNames :: Lens.Lens' ListRecordsResponse (Prelude.Maybe [Prelude.Text])
+listRecordsResponse_mergedDatasetNames = Lens.lens (\ListRecordsResponse' {mergedDatasetNames} -> mergedDatasetNames) (\s@ListRecordsResponse' {} a -> s {mergedDatasetNames = a} :: ListRecordsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListRecordsResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listRecordsResponse_httpStatus :: Lens.Lens' ListRecordsResponse Prelude.Int
+listRecordsResponse_httpStatus = Lens.lens (\ListRecordsResponse' {httpStatus} -> httpStatus) (\s@ListRecordsResponse' {} a -> s {httpStatus = a} :: ListRecordsResponse)
 
-instance NFData ListRecordsResponse
+instance Prelude.NFData ListRecordsResponse

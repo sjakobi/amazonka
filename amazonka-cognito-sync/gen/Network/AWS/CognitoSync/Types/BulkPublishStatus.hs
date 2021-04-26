@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CognitoSync.Types.BulkPublishStatus
   ( BulkPublishStatus
       ( ..,
-        Failed,
-        InProgress,
-        NotStarted,
-        Succeeded
+        BulkPublishStatusFAILED,
+        BulkPublishStatusINPROGRESS,
+        BulkPublishStatusNOTSTARTED,
+        BulkPublishStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BulkPublishStatus = BulkPublishStatus' (CI Text)
+newtype BulkPublishStatus = BulkPublishStatus'
+  { fromBulkPublishStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: BulkPublishStatus
-pattern Failed = BulkPublishStatus' "FAILED"
+pattern BulkPublishStatusFAILED :: BulkPublishStatus
+pattern BulkPublishStatusFAILED = BulkPublishStatus' "FAILED"
 
-pattern InProgress :: BulkPublishStatus
-pattern InProgress = BulkPublishStatus' "IN_PROGRESS"
+pattern BulkPublishStatusINPROGRESS :: BulkPublishStatus
+pattern BulkPublishStatusINPROGRESS = BulkPublishStatus' "IN_PROGRESS"
 
-pattern NotStarted :: BulkPublishStatus
-pattern NotStarted = BulkPublishStatus' "NOT_STARTED"
+pattern BulkPublishStatusNOTSTARTED :: BulkPublishStatus
+pattern BulkPublishStatusNOTSTARTED = BulkPublishStatus' "NOT_STARTED"
 
-pattern Succeeded :: BulkPublishStatus
-pattern Succeeded = BulkPublishStatus' "SUCCEEDED"
+pattern BulkPublishStatusSUCCEEDED :: BulkPublishStatus
+pattern BulkPublishStatusSUCCEEDED = BulkPublishStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  NotStarted,
-  Succeeded,
+  BulkPublishStatusFAILED,
+  BulkPublishStatusINPROGRESS,
+  BulkPublishStatusNOTSTARTED,
+  BulkPublishStatusSUCCEEDED,
   BulkPublishStatus'
   #-}
 
-instance FromText BulkPublishStatus where
-  parser = (BulkPublishStatus' . mk) <$> takeText
+instance Prelude.FromText BulkPublishStatus where
+  parser = BulkPublishStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BulkPublishStatus where
-  toText (BulkPublishStatus' ci) = original ci
+instance Prelude.ToText BulkPublishStatus where
+  toText (BulkPublishStatus' x) = x
 
-instance Hashable BulkPublishStatus
+instance Prelude.Hashable BulkPublishStatus
 
-instance NFData BulkPublishStatus
+instance Prelude.NFData BulkPublishStatus
 
-instance ToByteString BulkPublishStatus
+instance Prelude.ToByteString BulkPublishStatus
 
-instance ToQuery BulkPublishStatus
+instance Prelude.ToQuery BulkPublishStatus
 
-instance ToHeader BulkPublishStatus
+instance Prelude.ToHeader BulkPublishStatus
 
-instance FromJSON BulkPublishStatus where
-  parseJSON = parseJSONText "BulkPublishStatus"
+instance Prelude.FromJSON BulkPublishStatus where
+  parseJSON = Prelude.parseJSONText "BulkPublishStatus"

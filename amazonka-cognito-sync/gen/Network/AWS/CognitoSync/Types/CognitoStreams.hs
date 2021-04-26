@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,102 @@
 module Network.AWS.CognitoSync.Types.CognitoStreams where
 
 import Network.AWS.CognitoSync.Types.StreamingStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration options for configure Cognito streams.
 --
--- /See:/ 'cognitoStreams' smart constructor.
+-- /See:/ 'newCognitoStreams' smart constructor.
 data CognitoStreams = CognitoStreams'
-  { _csRoleARN ::
-      !(Maybe Text),
-    _csStreamName :: !(Maybe Text),
-    _csStreamingStatus ::
-      !(Maybe StreamingStatus)
+  { -- | The ARN of the role Amazon Cognito can assume in order to publish to the
+    -- stream. This role must grant access to Amazon Cognito (cognito-sync) to
+    -- invoke PutRecord on your Cognito stream.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Cognito stream to receive updates. This stream must be
+    -- in the developers account and in the same region as the identity pool.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | Status of the Cognito streams. Valid values are:
+    --
+    -- ENABLED - Streaming of updates to identity pool is enabled.
+    --
+    -- DISABLED - Streaming of updates to identity pool is disabled. Bulk
+    -- publish will also fail if StreamingStatus is DISABLED.
+    streamingStatus :: Prelude.Maybe StreamingStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoStreams' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoStreams' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csRoleARN' - The ARN of the role Amazon Cognito can assume in order to publish to the stream. This role must grant access to Amazon Cognito (cognito-sync) to invoke PutRecord on your Cognito stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csStreamName' - The name of the Cognito stream to receive updates. This stream must be in the developers account and in the same region as the identity pool.
+-- 'roleArn', 'cognitoStreams_roleArn' - The ARN of the role Amazon Cognito can assume in order to publish to the
+-- stream. This role must grant access to Amazon Cognito (cognito-sync) to
+-- invoke PutRecord on your Cognito stream.
 --
--- * 'csStreamingStatus' - Status of the Cognito streams. Valid values are: ENABLED - Streaming of updates to identity pool is enabled. DISABLED - Streaming of updates to identity pool is disabled. Bulk publish will also fail if StreamingStatus is DISABLED.
-cognitoStreams ::
+-- 'streamName', 'cognitoStreams_streamName' - The name of the Cognito stream to receive updates. This stream must be
+-- in the developers account and in the same region as the identity pool.
+--
+-- 'streamingStatus', 'cognitoStreams_streamingStatus' - Status of the Cognito streams. Valid values are:
+--
+-- ENABLED - Streaming of updates to identity pool is enabled.
+--
+-- DISABLED - Streaming of updates to identity pool is disabled. Bulk
+-- publish will also fail if StreamingStatus is DISABLED.
+newCognitoStreams ::
   CognitoStreams
-cognitoStreams =
+newCognitoStreams =
   CognitoStreams'
-    { _csRoleARN = Nothing,
-      _csStreamName = Nothing,
-      _csStreamingStatus = Nothing
+    { roleArn = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      streamingStatus = Prelude.Nothing
     }
 
--- | The ARN of the role Amazon Cognito can assume in order to publish to the stream. This role must grant access to Amazon Cognito (cognito-sync) to invoke PutRecord on your Cognito stream.
-csRoleARN :: Lens' CognitoStreams (Maybe Text)
-csRoleARN = lens _csRoleARN (\s a -> s {_csRoleARN = a})
+-- | The ARN of the role Amazon Cognito can assume in order to publish to the
+-- stream. This role must grant access to Amazon Cognito (cognito-sync) to
+-- invoke PutRecord on your Cognito stream.
+cognitoStreams_roleArn :: Lens.Lens' CognitoStreams (Prelude.Maybe Prelude.Text)
+cognitoStreams_roleArn = Lens.lens (\CognitoStreams' {roleArn} -> roleArn) (\s@CognitoStreams' {} a -> s {roleArn = a} :: CognitoStreams)
 
--- | The name of the Cognito stream to receive updates. This stream must be in the developers account and in the same region as the identity pool.
-csStreamName :: Lens' CognitoStreams (Maybe Text)
-csStreamName = lens _csStreamName (\s a -> s {_csStreamName = a})
+-- | The name of the Cognito stream to receive updates. This stream must be
+-- in the developers account and in the same region as the identity pool.
+cognitoStreams_streamName :: Lens.Lens' CognitoStreams (Prelude.Maybe Prelude.Text)
+cognitoStreams_streamName = Lens.lens (\CognitoStreams' {streamName} -> streamName) (\s@CognitoStreams' {} a -> s {streamName = a} :: CognitoStreams)
 
--- | Status of the Cognito streams. Valid values are: ENABLED - Streaming of updates to identity pool is enabled. DISABLED - Streaming of updates to identity pool is disabled. Bulk publish will also fail if StreamingStatus is DISABLED.
-csStreamingStatus :: Lens' CognitoStreams (Maybe StreamingStatus)
-csStreamingStatus = lens _csStreamingStatus (\s a -> s {_csStreamingStatus = a})
+-- | Status of the Cognito streams. Valid values are:
+--
+-- ENABLED - Streaming of updates to identity pool is enabled.
+--
+-- DISABLED - Streaming of updates to identity pool is disabled. Bulk
+-- publish will also fail if StreamingStatus is DISABLED.
+cognitoStreams_streamingStatus :: Lens.Lens' CognitoStreams (Prelude.Maybe StreamingStatus)
+cognitoStreams_streamingStatus = Lens.lens (\CognitoStreams' {streamingStatus} -> streamingStatus) (\s@CognitoStreams' {} a -> s {streamingStatus = a} :: CognitoStreams)
 
-instance FromJSON CognitoStreams where
+instance Prelude.FromJSON CognitoStreams where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoStreams"
       ( \x ->
           CognitoStreams'
-            <$> (x .:? "RoleArn")
-            <*> (x .:? "StreamName")
-            <*> (x .:? "StreamingStatus")
+            Prelude.<$> (x Prelude..:? "RoleArn")
+            Prelude.<*> (x Prelude..:? "StreamName")
+            Prelude.<*> (x Prelude..:? "StreamingStatus")
       )
 
-instance Hashable CognitoStreams
+instance Prelude.Hashable CognitoStreams
 
-instance NFData CognitoStreams
+instance Prelude.NFData CognitoStreams
 
-instance ToJSON CognitoStreams where
+instance Prelude.ToJSON CognitoStreams where
   toJSON CognitoStreams' {..} =
-    object
-      ( catMaybes
-          [ ("RoleArn" .=) <$> _csRoleARN,
-            ("StreamName" .=) <$> _csStreamName,
-            ("StreamingStatus" .=) <$> _csStreamingStatus
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            ("StreamingStatus" Prelude..=)
+              Prelude.<$> streamingStatus
           ]
       )

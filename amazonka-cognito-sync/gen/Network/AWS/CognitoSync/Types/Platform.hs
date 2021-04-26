@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CognitoSync.Types.Platform
   ( Platform
       ( ..,
-        ADM,
-        APNS,
-        APNSSandbox,
-        GCM
+        PlatformADM,
+        PlatformAPNS,
+        PlatformAPNSSANDBOX,
+        PlatformGCM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Platform = Platform' (CI Text)
+newtype Platform = Platform'
+  { fromPlatform ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADM :: Platform
-pattern ADM = Platform' "ADM"
+pattern PlatformADM :: Platform
+pattern PlatformADM = Platform' "ADM"
 
-pattern APNS :: Platform
-pattern APNS = Platform' "APNS"
+pattern PlatformAPNS :: Platform
+pattern PlatformAPNS = Platform' "APNS"
 
-pattern APNSSandbox :: Platform
-pattern APNSSandbox = Platform' "APNS_SANDBOX"
+pattern PlatformAPNSSANDBOX :: Platform
+pattern PlatformAPNSSANDBOX = Platform' "APNS_SANDBOX"
 
-pattern GCM :: Platform
-pattern GCM = Platform' "GCM"
+pattern PlatformGCM :: Platform
+pattern PlatformGCM = Platform' "GCM"
 
 {-# COMPLETE
-  ADM,
-  APNS,
-  APNSSandbox,
-  GCM,
+  PlatformADM,
+  PlatformAPNS,
+  PlatformAPNSSANDBOX,
+  PlatformGCM,
   Platform'
   #-}
 
-instance FromText Platform where
-  parser = (Platform' . mk) <$> takeText
+instance Prelude.FromText Platform where
+  parser = Platform' Prelude.<$> Prelude.takeText
 
-instance ToText Platform where
-  toText (Platform' ci) = original ci
+instance Prelude.ToText Platform where
+  toText (Platform' x) = x
 
-instance Hashable Platform
+instance Prelude.Hashable Platform
 
-instance NFData Platform
+instance Prelude.NFData Platform
 
-instance ToByteString Platform
+instance Prelude.ToByteString Platform
 
-instance ToQuery Platform
+instance Prelude.ToQuery Platform
 
-instance ToHeader Platform
+instance Prelude.ToHeader Platform
 
-instance ToJSON Platform where
-  toJSON = toJSONText
+instance Prelude.ToJSON Platform where
+  toJSON = Prelude.toJSONText

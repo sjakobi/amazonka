@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets usage information for an identity, including number of datasets and data usage.
+-- Gets usage information for an identity, including number of datasets and
+-- data usage.
 --
---
--- This API can be called with temporary user credentials provided by Cognito Identity or with developer credentials.
+-- This API can be called with temporary user credentials provided by
+-- Cognito Identity or with developer credentials.
 module Network.AWS.CognitoSync.DescribeIdentityUsage
   ( -- * Creating a Request
-    describeIdentityUsage,
-    DescribeIdentityUsage,
+    DescribeIdentityUsage (..),
+    newDescribeIdentityUsage,
 
     -- * Request Lenses
-    diuIdentityPoolId,
-    diuIdentityId,
+    describeIdentityUsage_identityPoolId,
+    describeIdentityUsage_identityId,
 
     -- * Destructuring the Response
-    describeIdentityUsageResponse,
-    DescribeIdentityUsageResponse,
+    DescribeIdentityUsageResponse (..),
+    newDescribeIdentityUsageResponse,
 
     -- * Response Lenses
-    diurrsIdentityUsage,
-    diurrsResponseStatus,
+    describeIdentityUsageResponse_identityUsage,
+    describeIdentityUsageResponse_httpStatus,
   )
 where
 
 import Network.AWS.CognitoSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CognitoSync.Types.IdentityUsage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request for information about the usage of an identity pool.
 --
--- /See:/ 'describeIdentityUsage' smart constructor.
+-- /See:/ 'newDescribeIdentityUsage' smart constructor.
 data DescribeIdentityUsage = DescribeIdentityUsage'
-  { _diuIdentityPoolId ::
-      !Text,
-    _diuIdentityId :: !Text
+  { -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityPoolId :: Prelude.Text,
+    -- | A name-spaced GUID (for example,
+    -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+    -- Cognito. GUID generation is unique within a region.
+    identityId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeIdentityUsage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeIdentityUsage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diuIdentityPoolId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diuIdentityId' - A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-describeIdentityUsage ::
-  -- | 'diuIdentityPoolId'
-  Text ->
-  -- | 'diuIdentityId'
-  Text ->
+-- 'identityPoolId', 'describeIdentityUsage_identityPoolId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+--
+-- 'identityId', 'describeIdentityUsage_identityId' - A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+newDescribeIdentityUsage ::
+  -- | 'identityPoolId'
+  Prelude.Text ->
+  -- | 'identityId'
+  Prelude.Text ->
   DescribeIdentityUsage
-describeIdentityUsage pIdentityPoolId_ pIdentityId_ =
-  DescribeIdentityUsage'
-    { _diuIdentityPoolId =
-        pIdentityPoolId_,
-      _diuIdentityId = pIdentityId_
-    }
+newDescribeIdentityUsage
+  pIdentityPoolId_
+  pIdentityId_ =
+    DescribeIdentityUsage'
+      { identityPoolId =
+          pIdentityPoolId_,
+        identityId = pIdentityId_
+      }
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-diuIdentityPoolId :: Lens' DescribeIdentityUsage Text
-diuIdentityPoolId = lens _diuIdentityPoolId (\s a -> s {_diuIdentityPoolId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+describeIdentityUsage_identityPoolId :: Lens.Lens' DescribeIdentityUsage Prelude.Text
+describeIdentityUsage_identityPoolId = Lens.lens (\DescribeIdentityUsage' {identityPoolId} -> identityPoolId) (\s@DescribeIdentityUsage' {} a -> s {identityPoolId = a} :: DescribeIdentityUsage)
 
--- | A name-spaced GUID (for example, us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito. GUID generation is unique within a region.
-diuIdentityId :: Lens' DescribeIdentityUsage Text
-diuIdentityId = lens _diuIdentityId (\s a -> s {_diuIdentityId = a})
+-- | A name-spaced GUID (for example,
+-- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
+-- Cognito. GUID generation is unique within a region.
+describeIdentityUsage_identityId :: Lens.Lens' DescribeIdentityUsage Prelude.Text
+describeIdentityUsage_identityId = Lens.lens (\DescribeIdentityUsage' {identityId} -> identityId) (\s@DescribeIdentityUsage' {} a -> s {identityId = a} :: DescribeIdentityUsage)
 
-instance AWSRequest DescribeIdentityUsage where
+instance Prelude.AWSRequest DescribeIdentityUsage where
   type
     Rs DescribeIdentityUsage =
       DescribeIdentityUsageResponse
-  request = get cognitoSync
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeIdentityUsageResponse'
-            <$> (x .?> "IdentityUsage") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "IdentityUsage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeIdentityUsage
+instance Prelude.Hashable DescribeIdentityUsage
 
-instance NFData DescribeIdentityUsage
+instance Prelude.NFData DescribeIdentityUsage
 
-instance ToHeaders DescribeIdentityUsage where
+instance Prelude.ToHeaders DescribeIdentityUsage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeIdentityUsage where
+instance Prelude.ToPath DescribeIdentityUsage where
   toPath DescribeIdentityUsage' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/identitypools/",
-        toBS _diuIdentityPoolId,
+        Prelude.toBS identityPoolId,
         "/identities/",
-        toBS _diuIdentityId
+        Prelude.toBS identityId
       ]
 
-instance ToQuery DescribeIdentityUsage where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeIdentityUsage where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response to a successful DescribeIdentityUsage request.
 --
--- /See:/ 'describeIdentityUsageResponse' smart constructor.
+-- /See:/ 'newDescribeIdentityUsageResponse' smart constructor.
 data DescribeIdentityUsageResponse = DescribeIdentityUsageResponse'
-  { _diurrsIdentityUsage ::
-      !( Maybe
-           IdentityUsage
-       ),
-    _diurrsResponseStatus ::
-      !Int
+  { -- | Usage information for the identity.
+    identityUsage :: Prelude.Maybe IdentityUsage,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeIdentityUsageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeIdentityUsageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diurrsIdentityUsage' - Usage information for the identity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diurrsResponseStatus' - -- | The response status code.
-describeIdentityUsageResponse ::
-  -- | 'diurrsResponseStatus'
-  Int ->
+-- 'identityUsage', 'describeIdentityUsageResponse_identityUsage' - Usage information for the identity.
+--
+-- 'httpStatus', 'describeIdentityUsageResponse_httpStatus' - The response's http status code.
+newDescribeIdentityUsageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeIdentityUsageResponse
-describeIdentityUsageResponse pResponseStatus_ =
+newDescribeIdentityUsageResponse pHttpStatus_ =
   DescribeIdentityUsageResponse'
-    { _diurrsIdentityUsage =
-        Nothing,
-      _diurrsResponseStatus = pResponseStatus_
+    { identityUsage =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Usage information for the identity.
-diurrsIdentityUsage :: Lens' DescribeIdentityUsageResponse (Maybe IdentityUsage)
-diurrsIdentityUsage = lens _diurrsIdentityUsage (\s a -> s {_diurrsIdentityUsage = a})
+describeIdentityUsageResponse_identityUsage :: Lens.Lens' DescribeIdentityUsageResponse (Prelude.Maybe IdentityUsage)
+describeIdentityUsageResponse_identityUsage = Lens.lens (\DescribeIdentityUsageResponse' {identityUsage} -> identityUsage) (\s@DescribeIdentityUsageResponse' {} a -> s {identityUsage = a} :: DescribeIdentityUsageResponse)
 
--- | -- | The response status code.
-diurrsResponseStatus :: Lens' DescribeIdentityUsageResponse Int
-diurrsResponseStatus = lens _diurrsResponseStatus (\s a -> s {_diurrsResponseStatus = a})
+-- | The response's http status code.
+describeIdentityUsageResponse_httpStatus :: Lens.Lens' DescribeIdentityUsageResponse Prelude.Int
+describeIdentityUsageResponse_httpStatus = Lens.lens (\DescribeIdentityUsageResponse' {httpStatus} -> httpStatus) (\s@DescribeIdentityUsageResponse' {} a -> s {httpStatus = a} :: DescribeIdentityUsageResponse)
 
-instance NFData DescribeIdentityUsageResponse
+instance Prelude.NFData DescribeIdentityUsageResponse

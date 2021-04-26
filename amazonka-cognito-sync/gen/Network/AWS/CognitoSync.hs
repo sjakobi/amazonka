@@ -11,16 +11,33 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Cognito Sync__
+-- Amazon Cognito Sync
 --
--- Amazon Cognito Sync provides an AWS service and client library that enable cross-device syncing of application-related user data. High-level client libraries are available for both iOS and Android. You can use these libraries to persist data locally so that it's available even if the device is offline. Developer credentials don't need to be stored on the mobile device to access the service. You can use Amazon Cognito to obtain a normalized user ID and credentials. User data is persisted in a dataset that can store up to 1 MB of key-value pairs, and you can have up to 20 datasets per user identity.
+-- Amazon Cognito Sync provides an AWS service and client library that
+-- enable cross-device syncing of application-related user data. High-level
+-- client libraries are available for both iOS and Android. You can use
+-- these libraries to persist data locally so that it\'s available even if
+-- the device is offline. Developer credentials don\'t need to be stored on
+-- the mobile device to access the service. You can use Amazon Cognito to
+-- obtain a normalized user ID and credentials. User data is persisted in a
+-- dataset that can store up to 1 MB of key-value pairs, and you can have
+-- up to 20 datasets per user identity.
 --
--- With Amazon Cognito Sync, the data stored for each identity is accessible only to credentials assigned to that identity. In order to use the Cognito Sync service, you need to make API calls using credentials retrieved with <http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html Amazon Cognito Identity service> .
+-- With Amazon Cognito Sync, the data stored for each identity is
+-- accessible only to credentials assigned to that identity. In order to
+-- use the Cognito Sync service, you need to make API calls using
+-- credentials retrieved with
+-- <http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html Amazon Cognito Identity service>.
 --
--- If you want to use Cognito Sync in an Android or iOS application, you will probably want to make API calls via the AWS Mobile SDK. To learn more, see the <http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html Developer Guide for Android> and the <http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html Developer Guide for iOS> .
+-- If you want to use Cognito Sync in an Android or iOS application, you
+-- will probably want to make API calls via the AWS Mobile SDK. To learn
+-- more, see the
+-- <http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html Developer Guide for Android>
+-- and the
+-- <http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html Developer Guide for iOS>.
 module Network.AWS.CognitoSync
   ( -- * Service Configuration
-    cognitoSync,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -71,55 +88,106 @@ module Network.AWS.CognitoSync
     -- $operations
 
     -- ** UpdateRecords
-    module Network.AWS.CognitoSync.UpdateRecords,
+    UpdateRecords (UpdateRecords'),
+    newUpdateRecords,
+    UpdateRecordsResponse (UpdateRecordsResponse'),
+    newUpdateRecordsResponse,
 
     -- ** ListRecords
-    module Network.AWS.CognitoSync.ListRecords,
+    ListRecords (ListRecords'),
+    newListRecords,
+    ListRecordsResponse (ListRecordsResponse'),
+    newListRecordsResponse,
 
     -- ** RegisterDevice
-    module Network.AWS.CognitoSync.RegisterDevice,
+    RegisterDevice (RegisterDevice'),
+    newRegisterDevice,
+    RegisterDeviceResponse (RegisterDeviceResponse'),
+    newRegisterDeviceResponse,
 
     -- ** SubscribeToDataset
-    module Network.AWS.CognitoSync.SubscribeToDataset,
+    SubscribeToDataset (SubscribeToDataset'),
+    newSubscribeToDataset,
+    SubscribeToDatasetResponse (SubscribeToDatasetResponse'),
+    newSubscribeToDatasetResponse,
 
     -- ** BulkPublish
-    module Network.AWS.CognitoSync.BulkPublish,
+    BulkPublish (BulkPublish'),
+    newBulkPublish,
+    BulkPublishResponse (BulkPublishResponse'),
+    newBulkPublishResponse,
 
     -- ** DescribeIdentityUsage
-    module Network.AWS.CognitoSync.DescribeIdentityUsage,
+    DescribeIdentityUsage (DescribeIdentityUsage'),
+    newDescribeIdentityUsage,
+    DescribeIdentityUsageResponse (DescribeIdentityUsageResponse'),
+    newDescribeIdentityUsageResponse,
 
     -- ** SetIdentityPoolConfiguration
-    module Network.AWS.CognitoSync.SetIdentityPoolConfiguration,
+    SetIdentityPoolConfiguration (SetIdentityPoolConfiguration'),
+    newSetIdentityPoolConfiguration,
+    SetIdentityPoolConfigurationResponse (SetIdentityPoolConfigurationResponse'),
+    newSetIdentityPoolConfigurationResponse,
 
     -- ** GetBulkPublishDetails
-    module Network.AWS.CognitoSync.GetBulkPublishDetails,
+    GetBulkPublishDetails (GetBulkPublishDetails'),
+    newGetBulkPublishDetails,
+    GetBulkPublishDetailsResponse (GetBulkPublishDetailsResponse'),
+    newGetBulkPublishDetailsResponse,
 
     -- ** ListIdentityPoolUsage
-    module Network.AWS.CognitoSync.ListIdentityPoolUsage,
+    ListIdentityPoolUsage (ListIdentityPoolUsage'),
+    newListIdentityPoolUsage,
+    ListIdentityPoolUsageResponse (ListIdentityPoolUsageResponse'),
+    newListIdentityPoolUsageResponse,
 
     -- ** SetCognitoEvents
-    module Network.AWS.CognitoSync.SetCognitoEvents,
+    SetCognitoEvents (SetCognitoEvents'),
+    newSetCognitoEvents,
+    SetCognitoEventsResponse (SetCognitoEventsResponse'),
+    newSetCognitoEventsResponse,
 
     -- ** DescribeDataset
-    module Network.AWS.CognitoSync.DescribeDataset,
+    DescribeDataset (DescribeDataset'),
+    newDescribeDataset,
+    DescribeDatasetResponse (DescribeDatasetResponse'),
+    newDescribeDatasetResponse,
 
     -- ** UnsubscribeFromDataset
-    module Network.AWS.CognitoSync.UnsubscribeFromDataset,
+    UnsubscribeFromDataset (UnsubscribeFromDataset'),
+    newUnsubscribeFromDataset,
+    UnsubscribeFromDatasetResponse (UnsubscribeFromDatasetResponse'),
+    newUnsubscribeFromDatasetResponse,
 
     -- ** GetIdentityPoolConfiguration
-    module Network.AWS.CognitoSync.GetIdentityPoolConfiguration,
+    GetIdentityPoolConfiguration (GetIdentityPoolConfiguration'),
+    newGetIdentityPoolConfiguration,
+    GetIdentityPoolConfigurationResponse (GetIdentityPoolConfigurationResponse'),
+    newGetIdentityPoolConfigurationResponse,
 
     -- ** GetCognitoEvents
-    module Network.AWS.CognitoSync.GetCognitoEvents,
+    GetCognitoEvents (GetCognitoEvents'),
+    newGetCognitoEvents,
+    GetCognitoEventsResponse (GetCognitoEventsResponse'),
+    newGetCognitoEventsResponse,
 
     -- ** DeleteDataset
-    module Network.AWS.CognitoSync.DeleteDataset,
+    DeleteDataset (DeleteDataset'),
+    newDeleteDataset,
+    DeleteDatasetResponse (DeleteDatasetResponse'),
+    newDeleteDatasetResponse,
 
     -- ** ListDatasets
-    module Network.AWS.CognitoSync.ListDatasets,
+    ListDatasets (ListDatasets'),
+    newListDatasets,
+    ListDatasetsResponse (ListDatasetsResponse'),
+    newListDatasetsResponse,
 
     -- ** DescribeIdentityPoolUsage
-    module Network.AWS.CognitoSync.DescribeIdentityPoolUsage,
+    DescribeIdentityPoolUsage (DescribeIdentityPoolUsage'),
+    newDescribeIdentityPoolUsage,
+    DescribeIdentityPoolUsageResponse (DescribeIdentityPoolUsageResponse'),
+    newDescribeIdentityPoolUsageResponse,
 
     -- * Types
 
@@ -136,64 +204,32 @@ module Network.AWS.CognitoSync
     StreamingStatus (..),
 
     -- ** CognitoStreams
-    CognitoStreams,
-    cognitoStreams,
-    csRoleARN,
-    csStreamName,
-    csStreamingStatus,
+    CognitoStreams (CognitoStreams'),
+    newCognitoStreams,
 
     -- ** Dataset
-    Dataset,
-    dataset,
-    dLastModifiedDate,
-    dNumRecords,
-    dCreationDate,
-    dDataStorage,
-    dIdentityId,
-    dLastModifiedBy,
-    dDatasetName,
+    Dataset (Dataset'),
+    newDataset,
 
     -- ** IdentityPoolUsage
-    IdentityPoolUsage,
-    identityPoolUsage,
-    ipuLastModifiedDate,
-    ipuIdentityPoolId,
-    ipuSyncSessionsCount,
-    ipuDataStorage,
+    IdentityPoolUsage (IdentityPoolUsage'),
+    newIdentityPoolUsage,
 
     -- ** IdentityUsage
-    IdentityUsage,
-    identityUsage,
-    iuLastModifiedDate,
-    iuIdentityPoolId,
-    iuDatasetCount,
-    iuDataStorage,
-    iuIdentityId,
+    IdentityUsage (IdentityUsage'),
+    newIdentityUsage,
 
     -- ** PushSync
-    PushSync,
-    pushSync,
-    psRoleARN,
-    psApplicationARNs,
+    PushSync (PushSync'),
+    newPushSync,
 
     -- ** Record
-    Record,
-    record,
-    rDeviceLastModifiedDate,
-    rLastModifiedDate,
-    rKey,
-    rSyncCount,
-    rValue,
-    rLastModifiedBy,
+    Record (Record'),
+    newRecord,
 
     -- ** RecordPatch
-    RecordPatch,
-    recordPatch,
-    rpDeviceLastModifiedDate,
-    rpValue,
-    rpOp,
-    rpKey,
-    rpSyncCount,
+    RecordPatch (RecordPatch'),
+    newRecordPatch,
   )
 where
 
@@ -205,6 +241,7 @@ import Network.AWS.CognitoSync.DescribeIdentityUsage
 import Network.AWS.CognitoSync.GetBulkPublishDetails
 import Network.AWS.CognitoSync.GetCognitoEvents
 import Network.AWS.CognitoSync.GetIdentityPoolConfiguration
+import Network.AWS.CognitoSync.Lens
 import Network.AWS.CognitoSync.ListDatasets
 import Network.AWS.CognitoSync.ListIdentityPoolUsage
 import Network.AWS.CognitoSync.ListRecords
