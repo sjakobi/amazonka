@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides an endpoint for the specified signaling channel to send and receive messages. This API uses the @SingleMasterChannelEndpointConfiguration@ input parameter, which consists of the @Protocols@ and @Role@ properties.
+-- Provides an endpoint for the specified signaling channel to send and
+-- receive messages. This API uses the
+-- @SingleMasterChannelEndpointConfiguration@ input parameter, which
+-- consists of the @Protocols@ and @Role@ properties.
 --
+-- @Protocols@ is used to determine the communication mechanism. For
+-- example, if you specify @WSS@ as the protocol, this API produces a
+-- secure websocket endpoint. If you specify @HTTPS@ as the protocol, this
+-- API generates an HTTPS endpoint.
 --
--- @Protocols@ is used to determine the communication mechanism. For example, if you specify @WSS@ as the protocol, this API produces a secure websocket endpoint. If you specify @HTTPS@ as the protocol, this API generates an HTTPS endpoint.
---
--- @Role@ determines the messaging permissions. A @MASTER@ role results in this API generating an endpoint that a client can use to communicate with any of the viewers on the channel. A @VIEWER@ role results in this API generating an endpoint that a client can use to communicate only with a @MASTER@ .
+-- @Role@ determines the messaging permissions. A @MASTER@ role results in
+-- this API generating an endpoint that a client can use to communicate
+-- with any of the viewers on the channel. A @VIEWER@ role results in this
+-- API generating an endpoint that a client can use to communicate only
+-- with a @MASTER@.
 module Network.AWS.KinesisVideo.GetSignalingChannelEndpoint
   ( -- * Creating a Request
-    getSignalingChannelEndpoint,
-    GetSignalingChannelEndpoint,
+    GetSignalingChannelEndpoint (..),
+    newGetSignalingChannelEndpoint,
 
     -- * Request Lenses
-    gsceSingleMasterChannelEndpointConfiguration,
-    gsceChannelARN,
+    getSignalingChannelEndpoint_singleMasterChannelEndpointConfiguration,
+    getSignalingChannelEndpoint_channelARN,
 
     -- * Destructuring the Response
-    getSignalingChannelEndpointResponse,
-    GetSignalingChannelEndpointResponse,
+    GetSignalingChannelEndpointResponse (..),
+    newGetSignalingChannelEndpointResponse,
 
     -- * Response Lenses
-    gscerrsResourceEndpointList,
-    gscerrsResponseStatus,
+    getSignalingChannelEndpointResponse_resourceEndpointList,
+    getSignalingChannelEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KinesisVideo.Types.ResourceEndpointListItem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSignalingChannelEndpoint' smart constructor.
+-- | /See:/ 'newGetSignalingChannelEndpoint' smart constructor.
 data GetSignalingChannelEndpoint = GetSignalingChannelEndpoint'
-  { _gsceSingleMasterChannelEndpointConfiguration ::
-      !( Maybe
-           SingleMasterChannelEndpointConfiguration
-       ),
-    _gsceChannelARN ::
-      !Text
+  { -- | A structure containing the endpoint configuration for the
+    -- @SINGLE_MASTER@ channel type.
+    singleMasterChannelEndpointConfiguration :: Prelude.Maybe SingleMasterChannelEndpointConfiguration,
+    -- | The Amazon Resource Name (ARN) of the signalling channel for which you
+    -- want to get an endpoint.
+    channelARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSignalingChannelEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSignalingChannelEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsceSingleMasterChannelEndpointConfiguration' - A structure containing the endpoint configuration for the @SINGLE_MASTER@ channel type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsceChannelARN' - The Amazon Resource Name (ARN) of the signalling channel for which you want to get an endpoint.
-getSignalingChannelEndpoint ::
-  -- | 'gsceChannelARN'
-  Text ->
+-- 'singleMasterChannelEndpointConfiguration', 'getSignalingChannelEndpoint_singleMasterChannelEndpointConfiguration' - A structure containing the endpoint configuration for the
+-- @SINGLE_MASTER@ channel type.
+--
+-- 'channelARN', 'getSignalingChannelEndpoint_channelARN' - The Amazon Resource Name (ARN) of the signalling channel for which you
+-- want to get an endpoint.
+newGetSignalingChannelEndpoint ::
+  -- | 'channelARN'
+  Prelude.Text ->
   GetSignalingChannelEndpoint
-getSignalingChannelEndpoint pChannelARN_ =
+newGetSignalingChannelEndpoint pChannelARN_ =
   GetSignalingChannelEndpoint'
-    { _gsceSingleMasterChannelEndpointConfiguration =
-        Nothing,
-      _gsceChannelARN = pChannelARN_
+    { singleMasterChannelEndpointConfiguration =
+        Prelude.Nothing,
+      channelARN = pChannelARN_
     }
 
--- | A structure containing the endpoint configuration for the @SINGLE_MASTER@ channel type.
-gsceSingleMasterChannelEndpointConfiguration :: Lens' GetSignalingChannelEndpoint (Maybe SingleMasterChannelEndpointConfiguration)
-gsceSingleMasterChannelEndpointConfiguration = lens _gsceSingleMasterChannelEndpointConfiguration (\s a -> s {_gsceSingleMasterChannelEndpointConfiguration = a})
+-- | A structure containing the endpoint configuration for the
+-- @SINGLE_MASTER@ channel type.
+getSignalingChannelEndpoint_singleMasterChannelEndpointConfiguration :: Lens.Lens' GetSignalingChannelEndpoint (Prelude.Maybe SingleMasterChannelEndpointConfiguration)
+getSignalingChannelEndpoint_singleMasterChannelEndpointConfiguration = Lens.lens (\GetSignalingChannelEndpoint' {singleMasterChannelEndpointConfiguration} -> singleMasterChannelEndpointConfiguration) (\s@GetSignalingChannelEndpoint' {} a -> s {singleMasterChannelEndpointConfiguration = a} :: GetSignalingChannelEndpoint)
 
--- | The Amazon Resource Name (ARN) of the signalling channel for which you want to get an endpoint.
-gsceChannelARN :: Lens' GetSignalingChannelEndpoint Text
-gsceChannelARN = lens _gsceChannelARN (\s a -> s {_gsceChannelARN = a})
+-- | The Amazon Resource Name (ARN) of the signalling channel for which you
+-- want to get an endpoint.
+getSignalingChannelEndpoint_channelARN :: Lens.Lens' GetSignalingChannelEndpoint Prelude.Text
+getSignalingChannelEndpoint_channelARN = Lens.lens (\GetSignalingChannelEndpoint' {channelARN} -> channelARN) (\s@GetSignalingChannelEndpoint' {} a -> s {channelARN = a} :: GetSignalingChannelEndpoint)
 
-instance AWSRequest GetSignalingChannelEndpoint where
+instance
+  Prelude.AWSRequest
+    GetSignalingChannelEndpoint
+  where
   type
     Rs GetSignalingChannelEndpoint =
       GetSignalingChannelEndpointResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSignalingChannelEndpointResponse'
-            <$> (x .?> "ResourceEndpointList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ResourceEndpointList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSignalingChannelEndpoint
+instance Prelude.Hashable GetSignalingChannelEndpoint
 
-instance NFData GetSignalingChannelEndpoint
+instance Prelude.NFData GetSignalingChannelEndpoint
 
-instance ToHeaders GetSignalingChannelEndpoint where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetSignalingChannelEndpoint
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetSignalingChannelEndpoint where
+instance Prelude.ToJSON GetSignalingChannelEndpoint where
   toJSON GetSignalingChannelEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("SingleMasterChannelEndpointConfiguration" .=)
-              <$> _gsceSingleMasterChannelEndpointConfiguration,
-            Just ("ChannelARN" .= _gsceChannelARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ( "SingleMasterChannelEndpointConfiguration"
+                Prelude..=
+            )
+              Prelude.<$> singleMasterChannelEndpointConfiguration,
+            Prelude.Just ("ChannelARN" Prelude..= channelARN)
           ]
       )
 
-instance ToPath GetSignalingChannelEndpoint where
-  toPath = const "/getSignalingChannelEndpoint"
+instance Prelude.ToPath GetSignalingChannelEndpoint where
+  toPath = Prelude.const "/getSignalingChannelEndpoint"
 
-instance ToQuery GetSignalingChannelEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSignalingChannelEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSignalingChannelEndpointResponse' smart constructor.
+-- | /See:/ 'newGetSignalingChannelEndpointResponse' smart constructor.
 data GetSignalingChannelEndpointResponse = GetSignalingChannelEndpointResponse'
-  { _gscerrsResourceEndpointList ::
-      !( Maybe
-           [ResourceEndpointListItem]
-       ),
-    _gscerrsResponseStatus ::
-      !Int
+  { -- | A list of endpoints for the specified signaling channel.
+    resourceEndpointList :: Prelude.Maybe [ResourceEndpointListItem],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSignalingChannelEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSignalingChannelEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gscerrsResourceEndpointList' - A list of endpoints for the specified signaling channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gscerrsResponseStatus' - -- | The response status code.
-getSignalingChannelEndpointResponse ::
-  -- | 'gscerrsResponseStatus'
-  Int ->
+-- 'resourceEndpointList', 'getSignalingChannelEndpointResponse_resourceEndpointList' - A list of endpoints for the specified signaling channel.
+--
+-- 'httpStatus', 'getSignalingChannelEndpointResponse_httpStatus' - The response's http status code.
+newGetSignalingChannelEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSignalingChannelEndpointResponse
-getSignalingChannelEndpointResponse pResponseStatus_ =
+newGetSignalingChannelEndpointResponse pHttpStatus_ =
   GetSignalingChannelEndpointResponse'
-    { _gscerrsResourceEndpointList =
-        Nothing,
-      _gscerrsResponseStatus =
-        pResponseStatus_
+    { resourceEndpointList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of endpoints for the specified signaling channel.
-gscerrsResourceEndpointList :: Lens' GetSignalingChannelEndpointResponse [ResourceEndpointListItem]
-gscerrsResourceEndpointList = lens _gscerrsResourceEndpointList (\s a -> s {_gscerrsResourceEndpointList = a}) . _Default . _Coerce
+getSignalingChannelEndpointResponse_resourceEndpointList :: Lens.Lens' GetSignalingChannelEndpointResponse (Prelude.Maybe [ResourceEndpointListItem])
+getSignalingChannelEndpointResponse_resourceEndpointList = Lens.lens (\GetSignalingChannelEndpointResponse' {resourceEndpointList} -> resourceEndpointList) (\s@GetSignalingChannelEndpointResponse' {} a -> s {resourceEndpointList = a} :: GetSignalingChannelEndpointResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gscerrsResponseStatus :: Lens' GetSignalingChannelEndpointResponse Int
-gscerrsResponseStatus = lens _gscerrsResponseStatus (\s a -> s {_gscerrsResponseStatus = a})
+-- | The response's http status code.
+getSignalingChannelEndpointResponse_httpStatus :: Lens.Lens' GetSignalingChannelEndpointResponse Prelude.Int
+getSignalingChannelEndpointResponse_httpStatus = Lens.lens (\GetSignalingChannelEndpointResponse' {httpStatus} -> httpStatus) (\s@GetSignalingChannelEndpointResponse' {} a -> s {httpStatus = a} :: GetSignalingChannelEndpointResponse)
 
-instance NFData GetSignalingChannelEndpointResponse
+instance
+  Prelude.NFData
+    GetSignalingChannelEndpointResponse

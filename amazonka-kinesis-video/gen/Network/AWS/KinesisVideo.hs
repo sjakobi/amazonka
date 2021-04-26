@@ -12,7 +12,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisVideo
   ( -- * Service Configuration
-    kinesisVideo,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -63,61 +63,118 @@ module Network.AWS.KinesisVideo
     -- $operations
 
     -- ** ListTagsForStream
-    module Network.AWS.KinesisVideo.ListTagsForStream,
+    ListTagsForStream (ListTagsForStream'),
+    newListTagsForStream,
+    ListTagsForStreamResponse (ListTagsForStreamResponse'),
+    newListTagsForStreamResponse,
 
     -- ** UntagResource
-    module Network.AWS.KinesisVideo.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** TagResource
-    module Network.AWS.KinesisVideo.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** GetDataEndpoint
-    module Network.AWS.KinesisVideo.GetDataEndpoint,
+    GetDataEndpoint (GetDataEndpoint'),
+    newGetDataEndpoint,
+    GetDataEndpointResponse (GetDataEndpointResponse'),
+    newGetDataEndpointResponse,
 
     -- ** UpdateStream
-    module Network.AWS.KinesisVideo.UpdateStream,
+    UpdateStream (UpdateStream'),
+    newUpdateStream,
+    UpdateStreamResponse (UpdateStreamResponse'),
+    newUpdateStreamResponse,
 
     -- ** DeleteStream
-    module Network.AWS.KinesisVideo.DeleteStream,
+    DeleteStream (DeleteStream'),
+    newDeleteStream,
+    DeleteStreamResponse (DeleteStreamResponse'),
+    newDeleteStreamResponse,
 
     -- ** UntagStream
-    module Network.AWS.KinesisVideo.UntagStream,
+    UntagStream (UntagStream'),
+    newUntagStream,
+    UntagStreamResponse (UntagStreamResponse'),
+    newUntagStreamResponse,
 
     -- ** UpdateDataRetention
-    module Network.AWS.KinesisVideo.UpdateDataRetention,
+    UpdateDataRetention (UpdateDataRetention'),
+    newUpdateDataRetention,
+    UpdateDataRetentionResponse (UpdateDataRetentionResponse'),
+    newUpdateDataRetentionResponse,
 
     -- ** UpdateSignalingChannel
-    module Network.AWS.KinesisVideo.UpdateSignalingChannel,
+    UpdateSignalingChannel (UpdateSignalingChannel'),
+    newUpdateSignalingChannel,
+    UpdateSignalingChannelResponse (UpdateSignalingChannelResponse'),
+    newUpdateSignalingChannelResponse,
 
     -- ** DeleteSignalingChannel
-    module Network.AWS.KinesisVideo.DeleteSignalingChannel,
+    DeleteSignalingChannel (DeleteSignalingChannel'),
+    newDeleteSignalingChannel,
+    DeleteSignalingChannelResponse (DeleteSignalingChannelResponse'),
+    newDeleteSignalingChannelResponse,
 
     -- ** ListSignalingChannels (Paginated)
-    module Network.AWS.KinesisVideo.ListSignalingChannels,
+    ListSignalingChannels (ListSignalingChannels'),
+    newListSignalingChannels,
+    ListSignalingChannelsResponse (ListSignalingChannelsResponse'),
+    newListSignalingChannelsResponse,
 
     -- ** CreateSignalingChannel
-    module Network.AWS.KinesisVideo.CreateSignalingChannel,
+    CreateSignalingChannel (CreateSignalingChannel'),
+    newCreateSignalingChannel,
+    CreateSignalingChannelResponse (CreateSignalingChannelResponse'),
+    newCreateSignalingChannelResponse,
 
     -- ** DescribeStream
-    module Network.AWS.KinesisVideo.DescribeStream,
+    DescribeStream (DescribeStream'),
+    newDescribeStream,
+    DescribeStreamResponse (DescribeStreamResponse'),
+    newDescribeStreamResponse,
 
     -- ** TagStream
-    module Network.AWS.KinesisVideo.TagStream,
+    TagStream (TagStream'),
+    newTagStream,
+    TagStreamResponse (TagStreamResponse'),
+    newTagStreamResponse,
 
     -- ** GetSignalingChannelEndpoint
-    module Network.AWS.KinesisVideo.GetSignalingChannelEndpoint,
+    GetSignalingChannelEndpoint (GetSignalingChannelEndpoint'),
+    newGetSignalingChannelEndpoint,
+    GetSignalingChannelEndpointResponse (GetSignalingChannelEndpointResponse'),
+    newGetSignalingChannelEndpointResponse,
 
     -- ** DescribeSignalingChannel
-    module Network.AWS.KinesisVideo.DescribeSignalingChannel,
+    DescribeSignalingChannel (DescribeSignalingChannel'),
+    newDescribeSignalingChannel,
+    DescribeSignalingChannelResponse (DescribeSignalingChannelResponse'),
+    newDescribeSignalingChannelResponse,
 
     -- ** CreateStream
-    module Network.AWS.KinesisVideo.CreateStream,
+    CreateStream (CreateStream'),
+    newCreateStream,
+    CreateStreamResponse (CreateStreamResponse'),
+    newCreateStreamResponse,
 
     -- ** ListStreams (Paginated)
-    module Network.AWS.KinesisVideo.ListStreams,
+    ListStreams (ListStreams'),
+    newListStreams,
+    ListStreamsResponse (ListStreamsResponse'),
+    newListStreamsResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.KinesisVideo.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
@@ -143,63 +200,36 @@ module Network.AWS.KinesisVideo
     UpdateDataRetentionOperation (..),
 
     -- ** ChannelInfo
-    ChannelInfo,
-    channelInfo,
-    ciChannelName,
-    ciCreationTime,
-    ciSingleMasterConfiguration,
-    ciChannelType,
-    ciVersion,
-    ciChannelStatus,
-    ciChannelARN,
+    ChannelInfo (ChannelInfo'),
+    newChannelInfo,
 
     -- ** ChannelNameCondition
-    ChannelNameCondition,
-    channelNameCondition,
-    cncComparisonOperator,
-    cncComparisonValue,
+    ChannelNameCondition (ChannelNameCondition'),
+    newChannelNameCondition,
 
     -- ** ResourceEndpointListItem
-    ResourceEndpointListItem,
-    resourceEndpointListItem,
-    reliResourceEndpoint,
-    reliProtocol,
+    ResourceEndpointListItem (ResourceEndpointListItem'),
+    newResourceEndpointListItem,
 
     -- ** SingleMasterChannelEndpointConfiguration
-    SingleMasterChannelEndpointConfiguration,
-    singleMasterChannelEndpointConfiguration,
-    smcecProtocols,
-    smcecRole,
+    SingleMasterChannelEndpointConfiguration (SingleMasterChannelEndpointConfiguration'),
+    newSingleMasterChannelEndpointConfiguration,
 
     -- ** SingleMasterConfiguration
-    SingleMasterConfiguration,
-    singleMasterConfiguration,
-    smcMessageTtlSeconds,
+    SingleMasterConfiguration (SingleMasterConfiguration'),
+    newSingleMasterConfiguration,
 
     -- ** StreamInfo
-    StreamInfo,
-    streamInfo,
-    siStatus,
-    siCreationTime,
-    siDataRetentionInHours,
-    siVersion,
-    siKMSKeyId,
-    siDeviceName,
-    siMediaType,
-    siStreamARN,
-    siStreamName,
+    StreamInfo (StreamInfo'),
+    newStreamInfo,
 
     -- ** StreamNameCondition
-    StreamNameCondition,
-    streamNameCondition,
-    sncComparisonOperator,
-    sncComparisonValue,
+    StreamNameCondition (StreamNameCondition'),
+    newStreamNameCondition,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -211,6 +241,7 @@ import Network.AWS.KinesisVideo.DescribeSignalingChannel
 import Network.AWS.KinesisVideo.DescribeStream
 import Network.AWS.KinesisVideo.GetDataEndpoint
 import Network.AWS.KinesisVideo.GetSignalingChannelEndpoint
+import Network.AWS.KinesisVideo.Lens
 import Network.AWS.KinesisVideo.ListSignalingChannels
 import Network.AWS.KinesisVideo.ListStreams
 import Network.AWS.KinesisVideo.ListTagsForResource

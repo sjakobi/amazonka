@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.KinesisVideo.Types.APIName
   ( APIName
       ( ..,
-        GetClip,
-        GetDashStreamingSessionURL,
-        GetHlsStreamingSessionURL,
-        GetMedia,
-        GetMediaForFragmentList,
-        ListFragments,
-        PutMedia
+        APINameGETCLIP,
+        APINameGETDASHSTREAMINGSESSIONURL,
+        APINameGETHLSSTREAMINGSESSIONURL,
+        APINameGETMEDIA,
+        APINameGETMEDIAFORFRAGMENTLIST,
+        APINameLISTFRAGMENTS,
+        APINamePUTMEDIA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data APIName = APIName' (CI Text)
+newtype APIName = APIName'
+  { fromAPIName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GetClip :: APIName
-pattern GetClip = APIName' "GET_CLIP"
+pattern APINameGETCLIP :: APIName
+pattern APINameGETCLIP = APIName' "GET_CLIP"
 
-pattern GetDashStreamingSessionURL :: APIName
-pattern GetDashStreamingSessionURL = APIName' "GET_DASH_STREAMING_SESSION_URL"
+pattern APINameGETDASHSTREAMINGSESSIONURL :: APIName
+pattern APINameGETDASHSTREAMINGSESSIONURL = APIName' "GET_DASH_STREAMING_SESSION_URL"
 
-pattern GetHlsStreamingSessionURL :: APIName
-pattern GetHlsStreamingSessionURL = APIName' "GET_HLS_STREAMING_SESSION_URL"
+pattern APINameGETHLSSTREAMINGSESSIONURL :: APIName
+pattern APINameGETHLSSTREAMINGSESSIONURL = APIName' "GET_HLS_STREAMING_SESSION_URL"
 
-pattern GetMedia :: APIName
-pattern GetMedia = APIName' "GET_MEDIA"
+pattern APINameGETMEDIA :: APIName
+pattern APINameGETMEDIA = APIName' "GET_MEDIA"
 
-pattern GetMediaForFragmentList :: APIName
-pattern GetMediaForFragmentList = APIName' "GET_MEDIA_FOR_FRAGMENT_LIST"
+pattern APINameGETMEDIAFORFRAGMENTLIST :: APIName
+pattern APINameGETMEDIAFORFRAGMENTLIST = APIName' "GET_MEDIA_FOR_FRAGMENT_LIST"
 
-pattern ListFragments :: APIName
-pattern ListFragments = APIName' "LIST_FRAGMENTS"
+pattern APINameLISTFRAGMENTS :: APIName
+pattern APINameLISTFRAGMENTS = APIName' "LIST_FRAGMENTS"
 
-pattern PutMedia :: APIName
-pattern PutMedia = APIName' "PUT_MEDIA"
+pattern APINamePUTMEDIA :: APIName
+pattern APINamePUTMEDIA = APIName' "PUT_MEDIA"
 
 {-# COMPLETE
-  GetClip,
-  GetDashStreamingSessionURL,
-  GetHlsStreamingSessionURL,
-  GetMedia,
-  GetMediaForFragmentList,
-  ListFragments,
-  PutMedia,
+  APINameGETCLIP,
+  APINameGETDASHSTREAMINGSESSIONURL,
+  APINameGETHLSSTREAMINGSESSIONURL,
+  APINameGETMEDIA,
+  APINameGETMEDIAFORFRAGMENTLIST,
+  APINameLISTFRAGMENTS,
+  APINamePUTMEDIA,
   APIName'
   #-}
 
-instance FromText APIName where
-  parser = (APIName' . mk) <$> takeText
+instance Prelude.FromText APIName where
+  parser = APIName' Prelude.<$> Prelude.takeText
 
-instance ToText APIName where
-  toText (APIName' ci) = original ci
+instance Prelude.ToText APIName where
+  toText (APIName' x) = x
 
-instance Hashable APIName
+instance Prelude.Hashable APIName
 
-instance NFData APIName
+instance Prelude.NFData APIName
 
-instance ToByteString APIName
+instance Prelude.ToByteString APIName
 
-instance ToQuery APIName
+instance Prelude.ToQuery APIName
 
-instance ToHeader APIName
+instance Prelude.ToHeader APIName
 
-instance ToJSON APIName where
-  toJSON = toJSONText
+instance Prelude.ToJSON APIName where
+  toJSON = Prelude.toJSONText

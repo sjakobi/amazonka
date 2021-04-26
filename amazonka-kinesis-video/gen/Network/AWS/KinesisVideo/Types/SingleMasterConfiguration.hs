@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisVideo.Types.SingleMasterConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure that contains the configuration for the @SINGLE_MASTER@ channel type.
+-- | A structure that contains the configuration for the @SINGLE_MASTER@
+-- channel type.
 --
---
---
--- /See:/ 'singleMasterConfiguration' smart constructor.
-newtype SingleMasterConfiguration = SingleMasterConfiguration'
-  { _smcMessageTtlSeconds ::
-      Maybe Nat
+-- /See:/ 'newSingleMasterConfiguration' smart constructor.
+data SingleMasterConfiguration = SingleMasterConfiguration'
+  { -- | The period of time a signaling channel retains underlivered messages
+    -- before they are discarded.
+    messageTtlSeconds :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SingleMasterConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SingleMasterConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smcMessageTtlSeconds' - The period of time a signaling channel retains underlivered messages before they are discarded.
-singleMasterConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'messageTtlSeconds', 'singleMasterConfiguration_messageTtlSeconds' - The period of time a signaling channel retains underlivered messages
+-- before they are discarded.
+newSingleMasterConfiguration ::
   SingleMasterConfiguration
-singleMasterConfiguration =
+newSingleMasterConfiguration =
   SingleMasterConfiguration'
-    { _smcMessageTtlSeconds =
-        Nothing
+    { messageTtlSeconds =
+        Prelude.Nothing
     }
 
--- | The period of time a signaling channel retains underlivered messages before they are discarded.
-smcMessageTtlSeconds :: Lens' SingleMasterConfiguration (Maybe Natural)
-smcMessageTtlSeconds = lens _smcMessageTtlSeconds (\s a -> s {_smcMessageTtlSeconds = a}) . mapping _Nat
+-- | The period of time a signaling channel retains underlivered messages
+-- before they are discarded.
+singleMasterConfiguration_messageTtlSeconds :: Lens.Lens' SingleMasterConfiguration (Prelude.Maybe Prelude.Natural)
+singleMasterConfiguration_messageTtlSeconds = Lens.lens (\SingleMasterConfiguration' {messageTtlSeconds} -> messageTtlSeconds) (\s@SingleMasterConfiguration' {} a -> s {messageTtlSeconds = a} :: SingleMasterConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON SingleMasterConfiguration where
+instance Prelude.FromJSON SingleMasterConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SingleMasterConfiguration"
       ( \x ->
           SingleMasterConfiguration'
-            <$> (x .:? "MessageTtlSeconds")
+            Prelude.<$> (x Prelude..:? "MessageTtlSeconds")
       )
 
-instance Hashable SingleMasterConfiguration
+instance Prelude.Hashable SingleMasterConfiguration
 
-instance NFData SingleMasterConfiguration
+instance Prelude.NFData SingleMasterConfiguration
 
-instance ToJSON SingleMasterConfiguration where
+instance Prelude.ToJSON SingleMasterConfiguration where
   toJSON SingleMasterConfiguration' {..} =
-    object
-      ( catMaybes
-          [("MessageTtlSeconds" .=) <$> _smcMessageTtlSeconds]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MessageTtlSeconds" Prelude..=)
+              Prelude.<$> messageTtlSeconds
+          ]
       )

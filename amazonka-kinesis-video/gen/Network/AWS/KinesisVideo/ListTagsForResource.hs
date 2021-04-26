@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,153 +24,168 @@
 -- Returns a list of tags associated with the specified signaling channel.
 module Network.AWS.KinesisVideo.ListTagsForResource
   ( -- * Creating a Request
-    listTagsForResource,
-    ListTagsForResource,
+    ListTagsForResource (..),
+    newListTagsForResource,
 
     -- * Request Lenses
-    ltfrNextToken,
-    ltfrResourceARN,
+    listTagsForResource_nextToken,
+    listTagsForResource_resourceARN,
 
     -- * Destructuring the Response
-    listTagsForResourceResponse,
-    ListTagsForResourceResponse,
+    ListTagsForResourceResponse (..),
+    newListTagsForResourceResponse,
 
     -- * Response Lenses
-    ltfrrrsNextToken,
-    ltfrrrsTags,
-    ltfrrrsResponseStatus,
+    listTagsForResourceResponse_nextToken,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTagsForResource' smart constructor.
+-- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { _ltfrNextToken ::
-      !(Maybe Text),
-    _ltfrResourceARN :: !Text
+  { -- | If you specify this parameter and the result of a @ListTagsForResource@
+    -- call is truncated, the response includes a token that you can use in the
+    -- next request to fetch the next batch of tags.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the signaling channel for which you
+    -- want to list tags.
+    resourceARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrNextToken' - If you specify this parameter and the result of a @ListTagsForResource@ call is truncated, the response includes a token that you can use in the next request to fetch the next batch of tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrResourceARN' - The Amazon Resource Name (ARN) of the signaling channel for which you want to list tags.
-listTagsForResource ::
-  -- | 'ltfrResourceARN'
-  Text ->
+-- 'nextToken', 'listTagsForResource_nextToken' - If you specify this parameter and the result of a @ListTagsForResource@
+-- call is truncated, the response includes a token that you can use in the
+-- next request to fetch the next batch of tags.
+--
+-- 'resourceARN', 'listTagsForResource_resourceARN' - The Amazon Resource Name (ARN) of the signaling channel for which you
+-- want to list tags.
+newListTagsForResource ::
+  -- | 'resourceARN'
+  Prelude.Text ->
   ListTagsForResource
-listTagsForResource pResourceARN_ =
+newListTagsForResource pResourceARN_ =
   ListTagsForResource'
-    { _ltfrNextToken = Nothing,
-      _ltfrResourceARN = pResourceARN_
+    { nextToken = Prelude.Nothing,
+      resourceARN = pResourceARN_
     }
 
--- | If you specify this parameter and the result of a @ListTagsForResource@ call is truncated, the response includes a token that you can use in the next request to fetch the next batch of tags.
-ltfrNextToken :: Lens' ListTagsForResource (Maybe Text)
-ltfrNextToken = lens _ltfrNextToken (\s a -> s {_ltfrNextToken = a})
+-- | If you specify this parameter and the result of a @ListTagsForResource@
+-- call is truncated, the response includes a token that you can use in the
+-- next request to fetch the next batch of tags.
+listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
+listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
 
--- | The Amazon Resource Name (ARN) of the signaling channel for which you want to list tags.
-ltfrResourceARN :: Lens' ListTagsForResource Text
-ltfrResourceARN = lens _ltfrResourceARN (\s a -> s {_ltfrResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the signaling channel for which you
+-- want to list tags.
+listTagsForResource_resourceARN :: Lens.Lens' ListTagsForResource Prelude.Text
+listTagsForResource_resourceARN = Lens.lens (\ListTagsForResource' {resourceARN} -> resourceARN) (\s@ListTagsForResource' {} a -> s {resourceARN = a} :: ListTagsForResource)
 
-instance AWSRequest ListTagsForResource where
+instance Prelude.AWSRequest ListTagsForResource where
   type
     Rs ListTagsForResource =
       ListTagsForResourceResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagsForResource
+instance Prelude.Hashable ListTagsForResource
 
-instance NFData ListTagsForResource
+instance Prelude.NFData ListTagsForResource
 
-instance ToHeaders ListTagsForResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTagsForResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON ListTagsForResource where
+instance Prelude.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ltfrNextToken,
-            Just ("ResourceARN" .= _ltfrResourceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceARN" Prelude..= resourceARN)
           ]
       )
 
-instance ToPath ListTagsForResource where
-  toPath = const "/ListTagsForResource"
+instance Prelude.ToPath ListTagsForResource where
+  toPath = Prelude.const "/ListTagsForResource"
 
-instance ToQuery ListTagsForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTagsForResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsForResourceResponse' smart constructor.
+-- | /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'
-  { _ltfrrrsNextToken ::
-      !(Maybe Text),
-    _ltfrrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _ltfrrrsResponseStatus ::
-      !Int
+  { -- | If you specify this parameter and the result of a @ListTagsForResource@
+    -- call is truncated, the response includes a token that you can use in the
+    -- next request to fetch the next set of tags.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A map of tag keys and values associated with the specified signaling
+    -- channel.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrrrsNextToken' - If you specify this parameter and the result of a @ListTagsForResource@ call is truncated, the response includes a token that you can use in the next request to fetch the next set of tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrrrsTags' - A map of tag keys and values associated with the specified signaling channel.
+-- 'nextToken', 'listTagsForResourceResponse_nextToken' - If you specify this parameter and the result of a @ListTagsForResource@
+-- call is truncated, the response includes a token that you can use in the
+-- next request to fetch the next set of tags.
 --
--- * 'ltfrrrsResponseStatus' - -- | The response status code.
-listTagsForResourceResponse ::
-  -- | 'ltfrrrsResponseStatus'
-  Int ->
+-- 'tags', 'listTagsForResourceResponse_tags' - A map of tag keys and values associated with the specified signaling
+-- channel.
+--
+-- 'httpStatus', 'listTagsForResourceResponse_httpStatus' - The response's http status code.
+newListTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsForResourceResponse
-listTagsForResourceResponse pResponseStatus_ =
+newListTagsForResourceResponse pHttpStatus_ =
   ListTagsForResourceResponse'
-    { _ltfrrrsNextToken =
-        Nothing,
-      _ltfrrrsTags = Nothing,
-      _ltfrrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If you specify this parameter and the result of a @ListTagsForResource@ call is truncated, the response includes a token that you can use in the next request to fetch the next set of tags.
-ltfrrrsNextToken :: Lens' ListTagsForResourceResponse (Maybe Text)
-ltfrrrsNextToken = lens _ltfrrrsNextToken (\s a -> s {_ltfrrrsNextToken = a})
+-- | If you specify this parameter and the result of a @ListTagsForResource@
+-- call is truncated, the response includes a token that you can use in the
+-- next request to fetch the next set of tags.
+listTagsForResourceResponse_nextToken :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe Prelude.Text)
+listTagsForResourceResponse_nextToken = Lens.lens (\ListTagsForResourceResponse' {nextToken} -> nextToken) (\s@ListTagsForResourceResponse' {} a -> s {nextToken = a} :: ListTagsForResourceResponse)
 
--- | A map of tag keys and values associated with the specified signaling channel.
-ltfrrrsTags :: Lens' ListTagsForResourceResponse (HashMap Text Text)
-ltfrrrsTags = lens _ltfrrrsTags (\s a -> s {_ltfrrrsTags = a}) . _Default . _Map
+-- | A map of tag keys and values associated with the specified signaling
+-- channel.
+listTagsForResourceResponse_tags :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listTagsForResourceResponse_tags = Lens.lens (\ListTagsForResourceResponse' {tags} -> tags) (\s@ListTagsForResourceResponse' {} a -> s {tags = a} :: ListTagsForResourceResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-ltfrrrsResponseStatus :: Lens' ListTagsForResourceResponse Int
-ltfrrrsResponseStatus = lens _ltfrrrsResponseStatus (\s a -> s {_ltfrrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsForResourceResponse_httpStatus :: Lens.Lens' ListTagsForResourceResponse Prelude.Int
+listTagsForResourceResponse_httpStatus = Lens.lens (\ListTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ListTagsForResourceResponse' {} a -> s {httpStatus = a} :: ListTagsForResourceResponse)
 
-instance NFData ListTagsForResourceResponse
+instance Prelude.NFData ListTagsForResourceResponse

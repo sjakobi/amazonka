@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,65 @@
 module Network.AWS.KinesisVideo.Types.ResourceEndpointListItem where
 
 import Network.AWS.KinesisVideo.Types.ChannelProtocol
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that describes the endpoint of the signaling channel returned by the @GetSignalingChannelEndpoint@ API.
+-- | An object that describes the endpoint of the signaling channel returned
+-- by the @GetSignalingChannelEndpoint@ API.
 --
---
---
--- /See:/ 'resourceEndpointListItem' smart constructor.
+-- /See:/ 'newResourceEndpointListItem' smart constructor.
 data ResourceEndpointListItem = ResourceEndpointListItem'
-  { _reliResourceEndpoint ::
-      !(Maybe Text),
-    _reliProtocol ::
-      !( Maybe
-           ChannelProtocol
-       )
+  { -- | The endpoint of the signaling channel returned by the
+    -- @GetSignalingChannelEndpoint@ API.
+    resourceEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The protocol of the signaling channel returned by the
+    -- @GetSignalingChannelEndpoint@ API.
+    protocol :: Prelude.Maybe ChannelProtocol
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceEndpointListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceEndpointListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'reliResourceEndpoint' - The endpoint of the signaling channel returned by the @GetSignalingChannelEndpoint@ API.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'reliProtocol' - The protocol of the signaling channel returned by the @GetSignalingChannelEndpoint@ API.
-resourceEndpointListItem ::
+-- 'resourceEndpoint', 'resourceEndpointListItem_resourceEndpoint' - The endpoint of the signaling channel returned by the
+-- @GetSignalingChannelEndpoint@ API.
+--
+-- 'protocol', 'resourceEndpointListItem_protocol' - The protocol of the signaling channel returned by the
+-- @GetSignalingChannelEndpoint@ API.
+newResourceEndpointListItem ::
   ResourceEndpointListItem
-resourceEndpointListItem =
+newResourceEndpointListItem =
   ResourceEndpointListItem'
-    { _reliResourceEndpoint =
-        Nothing,
-      _reliProtocol = Nothing
+    { resourceEndpoint =
+        Prelude.Nothing,
+      protocol = Prelude.Nothing
     }
 
--- | The endpoint of the signaling channel returned by the @GetSignalingChannelEndpoint@ API.
-reliResourceEndpoint :: Lens' ResourceEndpointListItem (Maybe Text)
-reliResourceEndpoint = lens _reliResourceEndpoint (\s a -> s {_reliResourceEndpoint = a})
+-- | The endpoint of the signaling channel returned by the
+-- @GetSignalingChannelEndpoint@ API.
+resourceEndpointListItem_resourceEndpoint :: Lens.Lens' ResourceEndpointListItem (Prelude.Maybe Prelude.Text)
+resourceEndpointListItem_resourceEndpoint = Lens.lens (\ResourceEndpointListItem' {resourceEndpoint} -> resourceEndpoint) (\s@ResourceEndpointListItem' {} a -> s {resourceEndpoint = a} :: ResourceEndpointListItem)
 
--- | The protocol of the signaling channel returned by the @GetSignalingChannelEndpoint@ API.
-reliProtocol :: Lens' ResourceEndpointListItem (Maybe ChannelProtocol)
-reliProtocol = lens _reliProtocol (\s a -> s {_reliProtocol = a})
+-- | The protocol of the signaling channel returned by the
+-- @GetSignalingChannelEndpoint@ API.
+resourceEndpointListItem_protocol :: Lens.Lens' ResourceEndpointListItem (Prelude.Maybe ChannelProtocol)
+resourceEndpointListItem_protocol = Lens.lens (\ResourceEndpointListItem' {protocol} -> protocol) (\s@ResourceEndpointListItem' {} a -> s {protocol = a} :: ResourceEndpointListItem)
 
-instance FromJSON ResourceEndpointListItem where
+instance Prelude.FromJSON ResourceEndpointListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceEndpointListItem"
       ( \x ->
           ResourceEndpointListItem'
-            <$> (x .:? "ResourceEndpoint") <*> (x .:? "Protocol")
+            Prelude.<$> (x Prelude..:? "ResourceEndpoint")
+            Prelude.<*> (x Prelude..:? "Protocol")
       )
 
-instance Hashable ResourceEndpointListItem
+instance Prelude.Hashable ResourceEndpointListItem
 
-instance NFData ResourceEndpointListItem
+instance Prelude.NFData ResourceEndpointListItem

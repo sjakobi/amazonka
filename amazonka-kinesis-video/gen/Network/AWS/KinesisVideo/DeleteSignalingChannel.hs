@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,146 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specified signaling channel. @DeleteSignalingChannel@ is an asynchronous operation. If you don't specify the channel's current version, the most recent version is deleted.
+-- Deletes a specified signaling channel. @DeleteSignalingChannel@ is an
+-- asynchronous operation. If you don\'t specify the channel\'s current
+-- version, the most recent version is deleted.
 module Network.AWS.KinesisVideo.DeleteSignalingChannel
   ( -- * Creating a Request
-    deleteSignalingChannel,
-    DeleteSignalingChannel,
+    DeleteSignalingChannel (..),
+    newDeleteSignalingChannel,
 
     -- * Request Lenses
-    dscCurrentVersion,
-    dscChannelARN,
+    deleteSignalingChannel_currentVersion,
+    deleteSignalingChannel_channelARN,
 
     -- * Destructuring the Response
-    deleteSignalingChannelResponse,
-    DeleteSignalingChannelResponse,
+    DeleteSignalingChannelResponse (..),
+    newDeleteSignalingChannelResponse,
 
     -- * Response Lenses
-    dscrrsResponseStatus,
+    deleteSignalingChannelResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSignalingChannel' smart constructor.
+-- | /See:/ 'newDeleteSignalingChannel' smart constructor.
 data DeleteSignalingChannel = DeleteSignalingChannel'
-  { _dscCurrentVersion ::
-      !(Maybe Text),
-    _dscChannelARN :: !Text
+  { -- | The current version of the signaling channel that you want to delete.
+    -- You can obtain the current version by invoking the
+    -- @DescribeSignalingChannel@ or @ListSignalingChannels@ API operations.
+    currentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the signaling channel that you want to
+    -- delete.
+    channelARN :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSignalingChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSignalingChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscCurrentVersion' - The current version of the signaling channel that you want to delete. You can obtain the current version by invoking the @DescribeSignalingChannel@ or @ListSignalingChannels@ API operations.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscChannelARN' - The Amazon Resource Name (ARN) of the signaling channel that you want to delete.
-deleteSignalingChannel ::
-  -- | 'dscChannelARN'
-  Text ->
+-- 'currentVersion', 'deleteSignalingChannel_currentVersion' - The current version of the signaling channel that you want to delete.
+-- You can obtain the current version by invoking the
+-- @DescribeSignalingChannel@ or @ListSignalingChannels@ API operations.
+--
+-- 'channelARN', 'deleteSignalingChannel_channelARN' - The Amazon Resource Name (ARN) of the signaling channel that you want to
+-- delete.
+newDeleteSignalingChannel ::
+  -- | 'channelARN'
+  Prelude.Text ->
   DeleteSignalingChannel
-deleteSignalingChannel pChannelARN_ =
+newDeleteSignalingChannel pChannelARN_ =
   DeleteSignalingChannel'
-    { _dscCurrentVersion =
-        Nothing,
-      _dscChannelARN = pChannelARN_
+    { currentVersion =
+        Prelude.Nothing,
+      channelARN = pChannelARN_
     }
 
--- | The current version of the signaling channel that you want to delete. You can obtain the current version by invoking the @DescribeSignalingChannel@ or @ListSignalingChannels@ API operations.
-dscCurrentVersion :: Lens' DeleteSignalingChannel (Maybe Text)
-dscCurrentVersion = lens _dscCurrentVersion (\s a -> s {_dscCurrentVersion = a})
+-- | The current version of the signaling channel that you want to delete.
+-- You can obtain the current version by invoking the
+-- @DescribeSignalingChannel@ or @ListSignalingChannels@ API operations.
+deleteSignalingChannel_currentVersion :: Lens.Lens' DeleteSignalingChannel (Prelude.Maybe Prelude.Text)
+deleteSignalingChannel_currentVersion = Lens.lens (\DeleteSignalingChannel' {currentVersion} -> currentVersion) (\s@DeleteSignalingChannel' {} a -> s {currentVersion = a} :: DeleteSignalingChannel)
 
--- | The Amazon Resource Name (ARN) of the signaling channel that you want to delete.
-dscChannelARN :: Lens' DeleteSignalingChannel Text
-dscChannelARN = lens _dscChannelARN (\s a -> s {_dscChannelARN = a})
+-- | The Amazon Resource Name (ARN) of the signaling channel that you want to
+-- delete.
+deleteSignalingChannel_channelARN :: Lens.Lens' DeleteSignalingChannel Prelude.Text
+deleteSignalingChannel_channelARN = Lens.lens (\DeleteSignalingChannel' {channelARN} -> channelARN) (\s@DeleteSignalingChannel' {} a -> s {channelARN = a} :: DeleteSignalingChannel)
 
-instance AWSRequest DeleteSignalingChannel where
+instance Prelude.AWSRequest DeleteSignalingChannel where
   type
     Rs DeleteSignalingChannel =
       DeleteSignalingChannelResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteSignalingChannelResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSignalingChannel
+instance Prelude.Hashable DeleteSignalingChannel
 
-instance NFData DeleteSignalingChannel
+instance Prelude.NFData DeleteSignalingChannel
 
-instance ToHeaders DeleteSignalingChannel where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteSignalingChannel where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON DeleteSignalingChannel where
+instance Prelude.ToJSON DeleteSignalingChannel where
   toJSON DeleteSignalingChannel' {..} =
-    object
-      ( catMaybes
-          [ ("CurrentVersion" .=) <$> _dscCurrentVersion,
-            Just ("ChannelARN" .= _dscChannelARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CurrentVersion" Prelude..=)
+              Prelude.<$> currentVersion,
+            Prelude.Just ("ChannelARN" Prelude..= channelARN)
           ]
       )
 
-instance ToPath DeleteSignalingChannel where
-  toPath = const "/deleteSignalingChannel"
+instance Prelude.ToPath DeleteSignalingChannel where
+  toPath = Prelude.const "/deleteSignalingChannel"
 
-instance ToQuery DeleteSignalingChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSignalingChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSignalingChannelResponse' smart constructor.
-newtype DeleteSignalingChannelResponse = DeleteSignalingChannelResponse'
-  { _dscrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteSignalingChannelResponse' smart constructor.
+data DeleteSignalingChannelResponse = DeleteSignalingChannelResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSignalingChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSignalingChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscrrsResponseStatus' - -- | The response status code.
-deleteSignalingChannelResponse ::
-  -- | 'dscrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteSignalingChannelResponse_httpStatus' - The response's http status code.
+newDeleteSignalingChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSignalingChannelResponse
-deleteSignalingChannelResponse pResponseStatus_ =
+newDeleteSignalingChannelResponse pHttpStatus_ =
   DeleteSignalingChannelResponse'
-    { _dscrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dscrrsResponseStatus :: Lens' DeleteSignalingChannelResponse Int
-dscrrsResponseStatus = lens _dscrrsResponseStatus (\s a -> s {_dscrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSignalingChannelResponse_httpStatus :: Lens.Lens' DeleteSignalingChannelResponse Prelude.Int
+deleteSignalingChannelResponse_httpStatus = Lens.lens (\DeleteSignalingChannelResponse' {httpStatus} -> httpStatus) (\s@DeleteSignalingChannelResponse' {} a -> s {httpStatus = a} :: DeleteSignalingChannelResponse)
 
-instance NFData DeleteSignalingChannelResponse
+instance
+  Prelude.NFData
+    DeleteSignalingChannelResponse

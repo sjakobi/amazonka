@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,176 +23,302 @@
 --
 -- Creates a new Kinesis video stream.
 --
---
--- When you create a new stream, Kinesis Video Streams assigns it a version number. When you change the stream's metadata, Kinesis Video Streams updates the version.
+-- When you create a new stream, Kinesis Video Streams assigns it a version
+-- number. When you change the stream\'s metadata, Kinesis Video Streams
+-- updates the version.
 --
 -- @CreateStream@ is an asynchronous operation.
 --
--- For information about how the service works, see <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-it-works.html How it Works> .
+-- For information about how the service works, see
+-- <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-it-works.html How it Works>.
 --
 -- You must have permissions for the @KinesisVideo:CreateStream@ action.
 module Network.AWS.KinesisVideo.CreateStream
   ( -- * Creating a Request
-    createStream,
-    CreateStream,
+    CreateStream (..),
+    newCreateStream,
 
     -- * Request Lenses
-    csDataRetentionInHours,
-    csKMSKeyId,
-    csDeviceName,
-    csMediaType,
-    csTags,
-    csStreamName,
+    createStream_dataRetentionInHours,
+    createStream_kmsKeyId,
+    createStream_deviceName,
+    createStream_mediaType,
+    createStream_tags,
+    createStream_streamName,
 
     -- * Destructuring the Response
-    createStreamResponse,
-    CreateStreamResponse,
+    CreateStreamResponse (..),
+    newCreateStreamResponse,
 
     -- * Response Lenses
-    csrrsStreamARN,
-    csrrsResponseStatus,
+    createStreamResponse_streamARN,
+    createStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createStream' smart constructor.
+-- | /See:/ 'newCreateStream' smart constructor.
 data CreateStream = CreateStream'
-  { _csDataRetentionInHours ::
-      !(Maybe Nat),
-    _csKMSKeyId :: !(Maybe Text),
-    _csDeviceName :: !(Maybe Text),
-    _csMediaType :: !(Maybe Text),
-    _csTags :: !(Maybe (Map Text Text)),
-    _csStreamName :: !Text
+  { -- | The number of hours that you want to retain the data in the stream.
+    -- Kinesis Video Streams retains the data in a data store that is
+    -- associated with the stream.
+    --
+    -- The default value is 0, indicating that the stream does not persist
+    -- data.
+    --
+    -- When the @DataRetentionInHours@ value is 0, consumers can still consume
+    -- the fragments that remain in the service host buffer, which has a
+    -- retention time limit of 5 minutes and a retention memory limit of 200
+    -- MB. Fragments are removed from the buffer when either limit is reached.
+    dataRetentionInHours :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the AWS Key Management Service (AWS KMS) key that you want
+    -- Kinesis Video Streams to use to encrypt stream data.
+    --
+    -- If no key ID is specified, the default, Kinesis Video-managed key
+    -- (@aws\/kinesisvideo@) is used.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters DescribeKey>.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the device that is writing to the stream.
+    --
+    -- In the current implementation, Kinesis Video Streams does not use this
+    -- name.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The media type of the stream. Consumers of the stream can use this
+    -- information when processing the stream. For more information about media
+    -- types, see
+    -- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
+    -- If you choose to specify the @MediaType@, see
+    -- <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements>
+    -- for guidelines.
+    --
+    -- Example valid values include \"video\/h264\" and
+    -- \"video\/h264,audio\/aac\".
+    --
+    -- This parameter is optional; the default value is @null@ (or empty in
+    -- JSON).
+    mediaType :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags to associate with the specified stream. Each tag is a
+    -- key-value pair (the value is optional).
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A name for the stream that you are creating.
+    --
+    -- The stream name is an identifier for the stream, and must be unique for
+    -- each account and region.
+    streamName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csDataRetentionInHours' - The number of hours that you want to retain the data in the stream. Kinesis Video Streams retains the data in a data store that is associated with the stream. The default value is 0, indicating that the stream does not persist data. When the @DataRetentionInHours@ value is 0, consumers can still consume the fragments that remain in the service host buffer, which has a retention time limit of 5 minutes and a retention memory limit of 200 MB. Fragments are removed from the buffer when either limit is reached.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csKMSKeyId' - The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to encrypt stream data. If no key ID is specified, the default, Kinesis Video-managed key (@aws/kinesisvideo@ ) is used. For more information, see <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters DescribeKey> .
+-- 'dataRetentionInHours', 'createStream_dataRetentionInHours' - The number of hours that you want to retain the data in the stream.
+-- Kinesis Video Streams retains the data in a data store that is
+-- associated with the stream.
 --
--- * 'csDeviceName' - The name of the device that is writing to the stream.
+-- The default value is 0, indicating that the stream does not persist
+-- data.
 --
--- * 'csMediaType' - The media type of the stream. Consumers of the stream can use this information when processing the stream. For more information about media types, see <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types> . If you choose to specify the @MediaType@ , see <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements> for guidelines. Example valid values include "video/h264" and "video/h264,audio/aac". This parameter is optional; the default value is @null@ (or empty in JSON).
+-- When the @DataRetentionInHours@ value is 0, consumers can still consume
+-- the fragments that remain in the service host buffer, which has a
+-- retention time limit of 5 minutes and a retention memory limit of 200
+-- MB. Fragments are removed from the buffer when either limit is reached.
 --
--- * 'csTags' - A list of tags to associate with the specified stream. Each tag is a key-value pair (the value is optional).
+-- 'kmsKeyId', 'createStream_kmsKeyId' - The ID of the AWS Key Management Service (AWS KMS) key that you want
+-- Kinesis Video Streams to use to encrypt stream data.
 --
--- * 'csStreamName' - A name for the stream that you are creating. The stream name is an identifier for the stream, and must be unique for each account and region.
-createStream ::
-  -- | 'csStreamName'
-  Text ->
+-- If no key ID is specified, the default, Kinesis Video-managed key
+-- (@aws\/kinesisvideo@) is used.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters DescribeKey>.
+--
+-- 'deviceName', 'createStream_deviceName' - The name of the device that is writing to the stream.
+--
+-- In the current implementation, Kinesis Video Streams does not use this
+-- name.
+--
+-- 'mediaType', 'createStream_mediaType' - The media type of the stream. Consumers of the stream can use this
+-- information when processing the stream. For more information about media
+-- types, see
+-- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
+-- If you choose to specify the @MediaType@, see
+-- <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements>
+-- for guidelines.
+--
+-- Example valid values include \"video\/h264\" and
+-- \"video\/h264,audio\/aac\".
+--
+-- This parameter is optional; the default value is @null@ (or empty in
+-- JSON).
+--
+-- 'tags', 'createStream_tags' - A list of tags to associate with the specified stream. Each tag is a
+-- key-value pair (the value is optional).
+--
+-- 'streamName', 'createStream_streamName' - A name for the stream that you are creating.
+--
+-- The stream name is an identifier for the stream, and must be unique for
+-- each account and region.
+newCreateStream ::
+  -- | 'streamName'
+  Prelude.Text ->
   CreateStream
-createStream pStreamName_ =
+newCreateStream pStreamName_ =
   CreateStream'
-    { _csDataRetentionInHours = Nothing,
-      _csKMSKeyId = Nothing,
-      _csDeviceName = Nothing,
-      _csMediaType = Nothing,
-      _csTags = Nothing,
-      _csStreamName = pStreamName_
+    { dataRetentionInHours =
+        Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      deviceName = Prelude.Nothing,
+      mediaType = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      streamName = pStreamName_
     }
 
--- | The number of hours that you want to retain the data in the stream. Kinesis Video Streams retains the data in a data store that is associated with the stream. The default value is 0, indicating that the stream does not persist data. When the @DataRetentionInHours@ value is 0, consumers can still consume the fragments that remain in the service host buffer, which has a retention time limit of 5 minutes and a retention memory limit of 200 MB. Fragments are removed from the buffer when either limit is reached.
-csDataRetentionInHours :: Lens' CreateStream (Maybe Natural)
-csDataRetentionInHours = lens _csDataRetentionInHours (\s a -> s {_csDataRetentionInHours = a}) . mapping _Nat
+-- | The number of hours that you want to retain the data in the stream.
+-- Kinesis Video Streams retains the data in a data store that is
+-- associated with the stream.
+--
+-- The default value is 0, indicating that the stream does not persist
+-- data.
+--
+-- When the @DataRetentionInHours@ value is 0, consumers can still consume
+-- the fragments that remain in the service host buffer, which has a
+-- retention time limit of 5 minutes and a retention memory limit of 200
+-- MB. Fragments are removed from the buffer when either limit is reached.
+createStream_dataRetentionInHours :: Lens.Lens' CreateStream (Prelude.Maybe Prelude.Natural)
+createStream_dataRetentionInHours = Lens.lens (\CreateStream' {dataRetentionInHours} -> dataRetentionInHours) (\s@CreateStream' {} a -> s {dataRetentionInHours = a} :: CreateStream) Prelude.. Lens.mapping Prelude._Nat
 
--- | The ID of the AWS Key Management Service (AWS KMS) key that you want Kinesis Video Streams to use to encrypt stream data. If no key ID is specified, the default, Kinesis Video-managed key (@aws/kinesisvideo@ ) is used. For more information, see <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters DescribeKey> .
-csKMSKeyId :: Lens' CreateStream (Maybe Text)
-csKMSKeyId = lens _csKMSKeyId (\s a -> s {_csKMSKeyId = a})
+-- | The ID of the AWS Key Management Service (AWS KMS) key that you want
+-- Kinesis Video Streams to use to encrypt stream data.
+--
+-- If no key ID is specified, the default, Kinesis Video-managed key
+-- (@aws\/kinesisvideo@) is used.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters DescribeKey>.
+createStream_kmsKeyId :: Lens.Lens' CreateStream (Prelude.Maybe Prelude.Text)
+createStream_kmsKeyId = Lens.lens (\CreateStream' {kmsKeyId} -> kmsKeyId) (\s@CreateStream' {} a -> s {kmsKeyId = a} :: CreateStream)
 
 -- | The name of the device that is writing to the stream.
-csDeviceName :: Lens' CreateStream (Maybe Text)
-csDeviceName = lens _csDeviceName (\s a -> s {_csDeviceName = a})
+--
+-- In the current implementation, Kinesis Video Streams does not use this
+-- name.
+createStream_deviceName :: Lens.Lens' CreateStream (Prelude.Maybe Prelude.Text)
+createStream_deviceName = Lens.lens (\CreateStream' {deviceName} -> deviceName) (\s@CreateStream' {} a -> s {deviceName = a} :: CreateStream)
 
--- | The media type of the stream. Consumers of the stream can use this information when processing the stream. For more information about media types, see <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types> . If you choose to specify the @MediaType@ , see <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements> for guidelines. Example valid values include "video/h264" and "video/h264,audio/aac". This parameter is optional; the default value is @null@ (or empty in JSON).
-csMediaType :: Lens' CreateStream (Maybe Text)
-csMediaType = lens _csMediaType (\s a -> s {_csMediaType = a})
+-- | The media type of the stream. Consumers of the stream can use this
+-- information when processing the stream. For more information about media
+-- types, see
+-- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
+-- If you choose to specify the @MediaType@, see
+-- <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements>
+-- for guidelines.
+--
+-- Example valid values include \"video\/h264\" and
+-- \"video\/h264,audio\/aac\".
+--
+-- This parameter is optional; the default value is @null@ (or empty in
+-- JSON).
+createStream_mediaType :: Lens.Lens' CreateStream (Prelude.Maybe Prelude.Text)
+createStream_mediaType = Lens.lens (\CreateStream' {mediaType} -> mediaType) (\s@CreateStream' {} a -> s {mediaType = a} :: CreateStream)
 
--- | A list of tags to associate with the specified stream. Each tag is a key-value pair (the value is optional).
-csTags :: Lens' CreateStream (HashMap Text Text)
-csTags = lens _csTags (\s a -> s {_csTags = a}) . _Default . _Map
+-- | A list of tags to associate with the specified stream. Each tag is a
+-- key-value pair (the value is optional).
+createStream_tags :: Lens.Lens' CreateStream (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createStream_tags = Lens.lens (\CreateStream' {tags} -> tags) (\s@CreateStream' {} a -> s {tags = a} :: CreateStream) Prelude.. Lens.mapping Prelude._Map
 
--- | A name for the stream that you are creating. The stream name is an identifier for the stream, and must be unique for each account and region.
-csStreamName :: Lens' CreateStream Text
-csStreamName = lens _csStreamName (\s a -> s {_csStreamName = a})
+-- | A name for the stream that you are creating.
+--
+-- The stream name is an identifier for the stream, and must be unique for
+-- each account and region.
+createStream_streamName :: Lens.Lens' CreateStream Prelude.Text
+createStream_streamName = Lens.lens (\CreateStream' {streamName} -> streamName) (\s@CreateStream' {} a -> s {streamName = a} :: CreateStream)
 
-instance AWSRequest CreateStream where
+instance Prelude.AWSRequest CreateStream where
   type Rs CreateStream = CreateStreamResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateStreamResponse'
-            <$> (x .?> "StreamARN") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "StreamARN")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateStream
+instance Prelude.Hashable CreateStream
 
-instance NFData CreateStream
+instance Prelude.NFData CreateStream
 
-instance ToHeaders CreateStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateStream where
+instance Prelude.ToJSON CreateStream where
   toJSON CreateStream' {..} =
-    object
-      ( catMaybes
-          [ ("DataRetentionInHours" .=)
-              <$> _csDataRetentionInHours,
-            ("KmsKeyId" .=) <$> _csKMSKeyId,
-            ("DeviceName" .=) <$> _csDeviceName,
-            ("MediaType" .=) <$> _csMediaType,
-            ("Tags" .=) <$> _csTags,
-            Just ("StreamName" .= _csStreamName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DataRetentionInHours" Prelude..=)
+              Prelude.<$> dataRetentionInHours,
+            ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            ("DeviceName" Prelude..=) Prelude.<$> deviceName,
+            ("MediaType" Prelude..=) Prelude.<$> mediaType,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("StreamName" Prelude..= streamName)
           ]
       )
 
-instance ToPath CreateStream where
-  toPath = const "/createStream"
+instance Prelude.ToPath CreateStream where
+  toPath = Prelude.const "/createStream"
 
-instance ToQuery CreateStream where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createStreamResponse' smart constructor.
+-- | /See:/ 'newCreateStreamResponse' smart constructor.
 data CreateStreamResponse = CreateStreamResponse'
-  { _csrrsStreamARN ::
-      !(Maybe Text),
-    _csrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the stream.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsStreamARN' - The Amazon Resource Name (ARN) of the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-createStreamResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- 'streamARN', 'createStreamResponse_streamARN' - The Amazon Resource Name (ARN) of the stream.
+--
+-- 'httpStatus', 'createStreamResponse_httpStatus' - The response's http status code.
+newCreateStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateStreamResponse
-createStreamResponse pResponseStatus_ =
+newCreateStreamResponse pHttpStatus_ =
   CreateStreamResponse'
-    { _csrrsStreamARN = Nothing,
-      _csrrsResponseStatus = pResponseStatus_
+    { streamARN = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the stream.
-csrrsStreamARN :: Lens' CreateStreamResponse (Maybe Text)
-csrrsStreamARN = lens _csrrsStreamARN (\s a -> s {_csrrsStreamARN = a})
+createStreamResponse_streamARN :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
+createStreamResponse_streamARN = Lens.lens (\CreateStreamResponse' {streamARN} -> streamARN) (\s@CreateStreamResponse' {} a -> s {streamARN = a} :: CreateStreamResponse)
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateStreamResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+createStreamResponse_httpStatus :: Lens.Lens' CreateStreamResponse Prelude.Int
+createStreamResponse_httpStatus = Lens.lens (\CreateStreamResponse' {httpStatus} -> httpStatus) (\s@CreateStreamResponse' {} a -> s {httpStatus = a} :: CreateStreamResponse)
 
-instance NFData CreateStreamResponse
+instance Prelude.NFData CreateStreamResponse

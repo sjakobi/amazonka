@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the existing signaling channel. This is an asynchronous operation and takes time to complete.
+-- Updates the existing signaling channel. This is an asynchronous
+-- operation and takes time to complete.
 --
---
--- If the @MessageTtlSeconds@ value is updated (either increased or reduced), it only applies to new messages sent via this channel after it's been updated. Existing messages are still expired as per the previous @MessageTtlSeconds@ value.
+-- If the @MessageTtlSeconds@ value is updated (either increased or
+-- reduced), it only applies to new messages sent via this channel after
+-- it\'s been updated. Existing messages are still expired as per the
+-- previous @MessageTtlSeconds@ value.
 module Network.AWS.KinesisVideo.UpdateSignalingChannel
   ( -- * Creating a Request
-    updateSignalingChannel,
-    UpdateSignalingChannel,
+    UpdateSignalingChannel (..),
+    newUpdateSignalingChannel,
 
     -- * Request Lenses
-    uscSingleMasterConfiguration,
-    uscChannelARN,
-    uscCurrentVersion,
+    updateSignalingChannel_singleMasterConfiguration,
+    updateSignalingChannel_channelARN,
+    updateSignalingChannel_currentVersion,
 
     -- * Destructuring the Response
-    updateSignalingChannelResponse,
-    UpdateSignalingChannelResponse,
+    UpdateSignalingChannelResponse (..),
+    newUpdateSignalingChannelResponse,
 
     -- * Response Lenses
-    uscrrsResponseStatus,
+    updateSignalingChannelResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateSignalingChannel' smart constructor.
+-- | /See:/ 'newUpdateSignalingChannel' smart constructor.
 data UpdateSignalingChannel = UpdateSignalingChannel'
-  { _uscSingleMasterConfiguration ::
-      !( Maybe
-           SingleMasterConfiguration
-       ),
-    _uscChannelARN :: !Text,
-    _uscCurrentVersion ::
-      !Text
+  { -- | The structure containing the configuration for the @SINGLE_MASTER@ type
+    -- of the signaling channel that you want to update.
+    singleMasterConfiguration :: Prelude.Maybe SingleMasterConfiguration,
+    -- | The Amazon Resource Name (ARN) of the signaling channel that you want to
+    -- update.
+    channelARN :: Prelude.Text,
+    -- | The current version of the signaling channel that you want to update.
+    currentVersion :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSignalingChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSignalingChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uscSingleMasterConfiguration' - The structure containing the configuration for the @SINGLE_MASTER@ type of the signaling channel that you want to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uscChannelARN' - The Amazon Resource Name (ARN) of the signaling channel that you want to update.
+-- 'singleMasterConfiguration', 'updateSignalingChannel_singleMasterConfiguration' - The structure containing the configuration for the @SINGLE_MASTER@ type
+-- of the signaling channel that you want to update.
 --
--- * 'uscCurrentVersion' - The current version of the signaling channel that you want to update.
-updateSignalingChannel ::
-  -- | 'uscChannelARN'
-  Text ->
-  -- | 'uscCurrentVersion'
-  Text ->
+-- 'channelARN', 'updateSignalingChannel_channelARN' - The Amazon Resource Name (ARN) of the signaling channel that you want to
+-- update.
+--
+-- 'currentVersion', 'updateSignalingChannel_currentVersion' - The current version of the signaling channel that you want to update.
+newUpdateSignalingChannel ::
+  -- | 'channelARN'
+  Prelude.Text ->
+  -- | 'currentVersion'
+  Prelude.Text ->
   UpdateSignalingChannel
-updateSignalingChannel pChannelARN_ pCurrentVersion_ =
-  UpdateSignalingChannel'
-    { _uscSingleMasterConfiguration =
-        Nothing,
-      _uscChannelARN = pChannelARN_,
-      _uscCurrentVersion = pCurrentVersion_
-    }
+newUpdateSignalingChannel
+  pChannelARN_
+  pCurrentVersion_ =
+    UpdateSignalingChannel'
+      { singleMasterConfiguration =
+          Prelude.Nothing,
+        channelARN = pChannelARN_,
+        currentVersion = pCurrentVersion_
+      }
 
--- | The structure containing the configuration for the @SINGLE_MASTER@ type of the signaling channel that you want to update.
-uscSingleMasterConfiguration :: Lens' UpdateSignalingChannel (Maybe SingleMasterConfiguration)
-uscSingleMasterConfiguration = lens _uscSingleMasterConfiguration (\s a -> s {_uscSingleMasterConfiguration = a})
+-- | The structure containing the configuration for the @SINGLE_MASTER@ type
+-- of the signaling channel that you want to update.
+updateSignalingChannel_singleMasterConfiguration :: Lens.Lens' UpdateSignalingChannel (Prelude.Maybe SingleMasterConfiguration)
+updateSignalingChannel_singleMasterConfiguration = Lens.lens (\UpdateSignalingChannel' {singleMasterConfiguration} -> singleMasterConfiguration) (\s@UpdateSignalingChannel' {} a -> s {singleMasterConfiguration = a} :: UpdateSignalingChannel)
 
--- | The Amazon Resource Name (ARN) of the signaling channel that you want to update.
-uscChannelARN :: Lens' UpdateSignalingChannel Text
-uscChannelARN = lens _uscChannelARN (\s a -> s {_uscChannelARN = a})
+-- | The Amazon Resource Name (ARN) of the signaling channel that you want to
+-- update.
+updateSignalingChannel_channelARN :: Lens.Lens' UpdateSignalingChannel Prelude.Text
+updateSignalingChannel_channelARN = Lens.lens (\UpdateSignalingChannel' {channelARN} -> channelARN) (\s@UpdateSignalingChannel' {} a -> s {channelARN = a} :: UpdateSignalingChannel)
 
 -- | The current version of the signaling channel that you want to update.
-uscCurrentVersion :: Lens' UpdateSignalingChannel Text
-uscCurrentVersion = lens _uscCurrentVersion (\s a -> s {_uscCurrentVersion = a})
+updateSignalingChannel_currentVersion :: Lens.Lens' UpdateSignalingChannel Prelude.Text
+updateSignalingChannel_currentVersion = Lens.lens (\UpdateSignalingChannel' {currentVersion} -> currentVersion) (\s@UpdateSignalingChannel' {} a -> s {currentVersion = a} :: UpdateSignalingChannel)
 
-instance AWSRequest UpdateSignalingChannel where
+instance Prelude.AWSRequest UpdateSignalingChannel where
   type
     Rs UpdateSignalingChannel =
       UpdateSignalingChannelResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateSignalingChannelResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateSignalingChannel
+instance Prelude.Hashable UpdateSignalingChannel
 
-instance NFData UpdateSignalingChannel
+instance Prelude.NFData UpdateSignalingChannel
 
-instance ToHeaders UpdateSignalingChannel where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateSignalingChannel where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateSignalingChannel where
+instance Prelude.ToJSON UpdateSignalingChannel where
   toJSON UpdateSignalingChannel' {..} =
-    object
-      ( catMaybes
-          [ ("SingleMasterConfiguration" .=)
-              <$> _uscSingleMasterConfiguration,
-            Just ("ChannelARN" .= _uscChannelARN),
-            Just ("CurrentVersion" .= _uscCurrentVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SingleMasterConfiguration" Prelude..=)
+              Prelude.<$> singleMasterConfiguration,
+            Prelude.Just ("ChannelARN" Prelude..= channelARN),
+            Prelude.Just
+              ("CurrentVersion" Prelude..= currentVersion)
           ]
       )
 
-instance ToPath UpdateSignalingChannel where
-  toPath = const "/updateSignalingChannel"
+instance Prelude.ToPath UpdateSignalingChannel where
+  toPath = Prelude.const "/updateSignalingChannel"
 
-instance ToQuery UpdateSignalingChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateSignalingChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateSignalingChannelResponse' smart constructor.
-newtype UpdateSignalingChannelResponse = UpdateSignalingChannelResponse'
-  { _uscrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateSignalingChannelResponse' smart constructor.
+data UpdateSignalingChannelResponse = UpdateSignalingChannelResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSignalingChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSignalingChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uscrrsResponseStatus' - -- | The response status code.
-updateSignalingChannelResponse ::
-  -- | 'uscrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateSignalingChannelResponse_httpStatus' - The response's http status code.
+newUpdateSignalingChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateSignalingChannelResponse
-updateSignalingChannelResponse pResponseStatus_ =
+newUpdateSignalingChannelResponse pHttpStatus_ =
   UpdateSignalingChannelResponse'
-    { _uscrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uscrrsResponseStatus :: Lens' UpdateSignalingChannelResponse Int
-uscrrsResponseStatus = lens _uscrrsResponseStatus (\s a -> s {_uscrrsResponseStatus = a})
+-- | The response's http status code.
+updateSignalingChannelResponse_httpStatus :: Lens.Lens' UpdateSignalingChannelResponse Prelude.Int
+updateSignalingChannelResponse_httpStatus = Lens.lens (\UpdateSignalingChannelResponse' {httpStatus} -> httpStatus) (\s@UpdateSignalingChannelResponse' {} a -> s {httpStatus = a} :: UpdateSignalingChannelResponse)
 
-instance NFData UpdateSignalingChannelResponse
+instance
+  Prelude.NFData
+    UpdateSignalingChannelResponse

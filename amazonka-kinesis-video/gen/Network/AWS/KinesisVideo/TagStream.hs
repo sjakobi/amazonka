@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more tags to a stream. A /tag/ is a key-value pair (the value is optional) that you can define and assign to AWS resources. If you specify a tag that already exists, the tag value is replaced with the value that you specify in the request. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- Adds one or more tags to a stream. A /tag/ is a key-value pair (the
+-- value is optional) that you can define and assign to AWS resources. If
+-- you specify a tag that already exists, the tag value is replaced with
+-- the value that you specify in the request. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
+-- You must provide either the @StreamName@ or the @StreamARN@.
 --
--- You must provide either the @StreamName@ or the @StreamARN@ .
---
--- This operation requires permission for the @KinesisVideo:TagStream@ action.
+-- This operation requires permission for the @KinesisVideo:TagStream@
+-- action.
 --
 -- Kinesis video streams support up to 50 tags.
 module Network.AWS.KinesisVideo.TagStream
   ( -- * Creating a Request
-    tagStream,
-    TagStream,
+    TagStream (..),
+    newTagStream,
 
     -- * Request Lenses
-    tsStreamARN,
-    tsStreamName,
-    tsTags,
+    tagStream_streamARN,
+    tagStream_streamName,
+    tagStream_tags,
 
     -- * Destructuring the Response
-    tagStreamResponse,
-    TagStreamResponse,
+    TagStreamResponse (..),
+    newTagStreamResponse,
 
     -- * Response Lenses
-    tsrrsResponseStatus,
+    tagStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagStream' smart constructor.
+-- | /See:/ 'newTagStream' smart constructor.
 data TagStream = TagStream'
-  { _tsStreamARN ::
-      !(Maybe Text),
-    _tsStreamName :: !(Maybe Text),
-    _tsTags :: !(Map Text Text)
+  { -- | The Amazon Resource Name (ARN) of the resource that you want to add the
+    -- tag or tags to.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream that you want to add the tag or tags to.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags to associate with the specified stream. Each tag is a
+    -- key-value pair (the value is optional).
+    tags :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsStreamARN' - The Amazon Resource Name (ARN) of the resource that you want to add the tag or tags to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsStreamName' - The name of the stream that you want to add the tag or tags to.
+-- 'streamARN', 'tagStream_streamARN' - The Amazon Resource Name (ARN) of the resource that you want to add the
+-- tag or tags to.
 --
--- * 'tsTags' - A list of tags to associate with the specified stream. Each tag is a key-value pair (the value is optional).
-tagStream ::
+-- 'streamName', 'tagStream_streamName' - The name of the stream that you want to add the tag or tags to.
+--
+-- 'tags', 'tagStream_tags' - A list of tags to associate with the specified stream. Each tag is a
+-- key-value pair (the value is optional).
+newTagStream ::
   TagStream
-tagStream =
+newTagStream =
   TagStream'
-    { _tsStreamARN = Nothing,
-      _tsStreamName = Nothing,
-      _tsTags = mempty
+    { streamARN = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      tags = Prelude.mempty
     }
 
--- | The Amazon Resource Name (ARN) of the resource that you want to add the tag or tags to.
-tsStreamARN :: Lens' TagStream (Maybe Text)
-tsStreamARN = lens _tsStreamARN (\s a -> s {_tsStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the resource that you want to add the
+-- tag or tags to.
+tagStream_streamARN :: Lens.Lens' TagStream (Prelude.Maybe Prelude.Text)
+tagStream_streamARN = Lens.lens (\TagStream' {streamARN} -> streamARN) (\s@TagStream' {} a -> s {streamARN = a} :: TagStream)
 
 -- | The name of the stream that you want to add the tag or tags to.
-tsStreamName :: Lens' TagStream (Maybe Text)
-tsStreamName = lens _tsStreamName (\s a -> s {_tsStreamName = a})
+tagStream_streamName :: Lens.Lens' TagStream (Prelude.Maybe Prelude.Text)
+tagStream_streamName = Lens.lens (\TagStream' {streamName} -> streamName) (\s@TagStream' {} a -> s {streamName = a} :: TagStream)
 
--- | A list of tags to associate with the specified stream. Each tag is a key-value pair (the value is optional).
-tsTags :: Lens' TagStream (HashMap Text Text)
-tsTags = lens _tsTags (\s a -> s {_tsTags = a}) . _Map
+-- | A list of tags to associate with the specified stream. Each tag is a
+-- key-value pair (the value is optional).
+tagStream_tags :: Lens.Lens' TagStream (Prelude.HashMap Prelude.Text Prelude.Text)
+tagStream_tags = Lens.lens (\TagStream' {tags} -> tags) (\s@TagStream' {} a -> s {tags = a} :: TagStream) Prelude.. Prelude._Map
 
-instance AWSRequest TagStream where
+instance Prelude.AWSRequest TagStream where
   type Rs TagStream = TagStreamResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          TagStreamResponse' <$> (pure (fromEnum s))
+          TagStreamResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagStream
+instance Prelude.Hashable TagStream
 
-instance NFData TagStream
+instance Prelude.NFData TagStream
 
-instance ToHeaders TagStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TagStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON TagStream where
+instance Prelude.ToJSON TagStream where
   toJSON TagStream' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _tsStreamARN,
-            ("StreamName" .=) <$> _tsStreamName,
-            Just ("Tags" .= _tsTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagStream where
-  toPath = const "/tagStream"
+instance Prelude.ToPath TagStream where
+  toPath = Prelude.const "/tagStream"
 
-instance ToQuery TagStream where
-  toQuery = const mempty
+instance Prelude.ToQuery TagStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagStreamResponse' smart constructor.
-newtype TagStreamResponse = TagStreamResponse'
-  { _tsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newTagStreamResponse' smart constructor.
+data TagStreamResponse = TagStreamResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsrrsResponseStatus' - -- | The response status code.
-tagStreamResponse ::
-  -- | 'tsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'tagStreamResponse_httpStatus' - The response's http status code.
+newTagStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagStreamResponse
-tagStreamResponse pResponseStatus_ =
-  TagStreamResponse'
-    { _tsrrsResponseStatus =
-        pResponseStatus_
-    }
+newTagStreamResponse pHttpStatus_ =
+  TagStreamResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-tsrrsResponseStatus :: Lens' TagStreamResponse Int
-tsrrsResponseStatus = lens _tsrrsResponseStatus (\s a -> s {_tsrrsResponseStatus = a})
+-- | The response's http status code.
+tagStreamResponse_httpStatus :: Lens.Lens' TagStreamResponse Prelude.Int
+tagStreamResponse_httpStatus = Lens.lens (\TagStreamResponse' {httpStatus} -> httpStatus) (\s@TagStreamResponse' {} a -> s {httpStatus = a} :: TagStreamResponse)
 
-instance NFData TagStreamResponse
+instance Prelude.NFData TagStreamResponse

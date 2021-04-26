@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes one or more tags from a signaling channel. In the request, specify only a tag key or keys; don't specify the value. If you specify a tag key that does not exist, it's ignored.
+-- Removes one or more tags from a signaling channel. In the request,
+-- specify only a tag key or keys; don\'t specify the value. If you specify
+-- a tag key that does not exist, it\'s ignored.
 module Network.AWS.KinesisVideo.UntagResource
   ( -- * Creating a Request
-    untagResource,
-    UntagResource,
+    UntagResource (..),
+    newUntagResource,
 
     -- * Request Lenses
-    urResourceARN,
-    urTagKeyList,
+    untagResource_resourceARN,
+    untagResource_tagKeyList,
 
     -- * Destructuring the Response
-    untagResourceResponse,
-    UntagResourceResponse,
+    UntagResourceResponse (..),
+    newUntagResourceResponse,
 
     -- * Response Lenses
-    urrrsResponseStatus,
+    untagResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagResource' smart constructor.
+-- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { _urResourceARN ::
-      !Text,
-    _urTagKeyList :: !(List1 Text)
+  { -- | The Amazon Resource Name (ARN) of the signaling channel from which you
+    -- want to remove tags.
+    resourceARN :: Prelude.Text,
+    -- | A list of the keys of the tags that you want to remove.
+    tagKeyList :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urResourceARN' - The Amazon Resource Name (ARN) of the signaling channel from which you want to remove tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urTagKeyList' - A list of the keys of the tags that you want to remove.
-untagResource ::
-  -- | 'urResourceARN'
-  Text ->
-  -- | 'urTagKeyList'
-  NonEmpty Text ->
+-- 'resourceARN', 'untagResource_resourceARN' - The Amazon Resource Name (ARN) of the signaling channel from which you
+-- want to remove tags.
+--
+-- 'tagKeyList', 'untagResource_tagKeyList' - A list of the keys of the tags that you want to remove.
+newUntagResource ::
+  -- | 'resourceARN'
+  Prelude.Text ->
+  -- | 'tagKeyList'
+  Prelude.NonEmpty Prelude.Text ->
   UntagResource
-untagResource pResourceARN_ pTagKeyList_ =
+newUntagResource pResourceARN_ pTagKeyList_ =
   UntagResource'
-    { _urResourceARN = pResourceARN_,
-      _urTagKeyList = _List1 # pTagKeyList_
+    { resourceARN = pResourceARN_,
+      tagKeyList = Prelude._List1 Lens.# pTagKeyList_
     }
 
--- | The Amazon Resource Name (ARN) of the signaling channel from which you want to remove tags.
-urResourceARN :: Lens' UntagResource Text
-urResourceARN = lens _urResourceARN (\s a -> s {_urResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the signaling channel from which you
+-- want to remove tags.
+untagResource_resourceARN :: Lens.Lens' UntagResource Prelude.Text
+untagResource_resourceARN = Lens.lens (\UntagResource' {resourceARN} -> resourceARN) (\s@UntagResource' {} a -> s {resourceARN = a} :: UntagResource)
 
 -- | A list of the keys of the tags that you want to remove.
-urTagKeyList :: Lens' UntagResource (NonEmpty Text)
-urTagKeyList = lens _urTagKeyList (\s a -> s {_urTagKeyList = a}) . _List1
+untagResource_tagKeyList :: Lens.Lens' UntagResource (Prelude.NonEmpty Prelude.Text)
+untagResource_tagKeyList = Lens.lens (\UntagResource' {tagKeyList} -> tagKeyList) (\s@UntagResource' {} a -> s {tagKeyList = a} :: UntagResource) Prelude.. Prelude._List1
 
-instance AWSRequest UntagResource where
+instance Prelude.AWSRequest UntagResource where
   type Rs UntagResource = UntagResourceResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UntagResourceResponse' <$> (pure (fromEnum s))
+          UntagResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UntagResource
+instance Prelude.Hashable UntagResource
 
-instance NFData UntagResource
+instance Prelude.NFData UntagResource
 
-instance ToHeaders UntagResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UntagResource where
+instance Prelude.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceARN" .= _urResourceARN),
-            Just ("TagKeyList" .= _urTagKeyList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceARN" Prelude..= resourceARN),
+            Prelude.Just ("TagKeyList" Prelude..= tagKeyList)
           ]
       )
 
-instance ToPath UntagResource where
-  toPath = const "/UntagResource"
+instance Prelude.ToPath UntagResource where
+  toPath = Prelude.const "/UntagResource"
 
-instance ToQuery UntagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagResourceResponse' smart constructor.
-newtype UntagResourceResponse = UntagResourceResponse'
-  { _urrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUntagResourceResponse' smart constructor.
+data UntagResourceResponse = UntagResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-untagResourceResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'untagResourceResponse_httpStatus' - The response's http status code.
+newUntagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UntagResourceResponse
-untagResourceResponse pResponseStatus_ =
-  UntagResourceResponse'
-    { _urrrsResponseStatus =
-        pResponseStatus_
-    }
+newUntagResourceResponse pHttpStatus_ =
+  UntagResourceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UntagResourceResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+untagResourceResponse_httpStatus :: Lens.Lens' UntagResourceResponse Prelude.Int
+untagResourceResponse_httpStatus = Lens.lens (\UntagResourceResponse' {httpStatus} -> httpStatus) (\s@UntagResourceResponse' {} a -> s {httpStatus = a} :: UntagResourceResponse)
 
-instance NFData UntagResourceResponse
+instance Prelude.NFData UntagResourceResponse

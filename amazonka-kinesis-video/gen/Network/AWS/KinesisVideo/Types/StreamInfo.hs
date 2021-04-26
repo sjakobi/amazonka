@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,117 +20,130 @@
 module Network.AWS.KinesisVideo.Types.StreamInfo where
 
 import Network.AWS.KinesisVideo.Types.StreamStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object describing a Kinesis video stream.
 --
---
---
--- /See:/ 'streamInfo' smart constructor.
+-- /See:/ 'newStreamInfo' smart constructor.
 data StreamInfo = StreamInfo'
-  { _siStatus ::
-      !(Maybe StreamStatus),
-    _siCreationTime :: !(Maybe POSIX),
-    _siDataRetentionInHours :: !(Maybe Nat),
-    _siVersion :: !(Maybe Text),
-    _siKMSKeyId :: !(Maybe Text),
-    _siDeviceName :: !(Maybe Text),
-    _siMediaType :: !(Maybe Text),
-    _siStreamARN :: !(Maybe Text),
-    _siStreamName :: !(Maybe Text)
+  { -- | The status of the stream.
+    status :: Prelude.Maybe StreamStatus,
+    -- | A time stamp that indicates when the stream was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | How long the stream retains data, in hours.
+    dataRetentionInHours :: Prelude.Maybe Prelude.Nat,
+    -- | The version of the stream.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the AWS Key Management Service (AWS KMS) key that Kinesis
+    -- Video Streams uses to encrypt data on the stream.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the device that is associated with the stream.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The @MediaType@ of the stream.
+    mediaType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the stream.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream.
+    streamName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siStatus' - The status of the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siCreationTime' - A time stamp that indicates when the stream was created.
+-- 'status', 'streamInfo_status' - The status of the stream.
 --
--- * 'siDataRetentionInHours' - How long the stream retains data, in hours.
+-- 'creationTime', 'streamInfo_creationTime' - A time stamp that indicates when the stream was created.
 --
--- * 'siVersion' - The version of the stream.
+-- 'dataRetentionInHours', 'streamInfo_dataRetentionInHours' - How long the stream retains data, in hours.
 --
--- * 'siKMSKeyId' - The ID of the AWS Key Management Service (AWS KMS) key that Kinesis Video Streams uses to encrypt data on the stream.
+-- 'version', 'streamInfo_version' - The version of the stream.
 --
--- * 'siDeviceName' - The name of the device that is associated with the stream.
+-- 'kmsKeyId', 'streamInfo_kmsKeyId' - The ID of the AWS Key Management Service (AWS KMS) key that Kinesis
+-- Video Streams uses to encrypt data on the stream.
 --
--- * 'siMediaType' - The @MediaType@ of the stream.
+-- 'deviceName', 'streamInfo_deviceName' - The name of the device that is associated with the stream.
 --
--- * 'siStreamARN' - The Amazon Resource Name (ARN) of the stream.
+-- 'mediaType', 'streamInfo_mediaType' - The @MediaType@ of the stream.
 --
--- * 'siStreamName' - The name of the stream.
-streamInfo ::
+-- 'streamARN', 'streamInfo_streamARN' - The Amazon Resource Name (ARN) of the stream.
+--
+-- 'streamName', 'streamInfo_streamName' - The name of the stream.
+newStreamInfo ::
   StreamInfo
-streamInfo =
+newStreamInfo =
   StreamInfo'
-    { _siStatus = Nothing,
-      _siCreationTime = Nothing,
-      _siDataRetentionInHours = Nothing,
-      _siVersion = Nothing,
-      _siKMSKeyId = Nothing,
-      _siDeviceName = Nothing,
-      _siMediaType = Nothing,
-      _siStreamARN = Nothing,
-      _siStreamName = Nothing
+    { status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      dataRetentionInHours = Prelude.Nothing,
+      version = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      deviceName = Prelude.Nothing,
+      mediaType = Prelude.Nothing,
+      streamARN = Prelude.Nothing,
+      streamName = Prelude.Nothing
     }
 
 -- | The status of the stream.
-siStatus :: Lens' StreamInfo (Maybe StreamStatus)
-siStatus = lens _siStatus (\s a -> s {_siStatus = a})
+streamInfo_status :: Lens.Lens' StreamInfo (Prelude.Maybe StreamStatus)
+streamInfo_status = Lens.lens (\StreamInfo' {status} -> status) (\s@StreamInfo' {} a -> s {status = a} :: StreamInfo)
 
 -- | A time stamp that indicates when the stream was created.
-siCreationTime :: Lens' StreamInfo (Maybe UTCTime)
-siCreationTime = lens _siCreationTime (\s a -> s {_siCreationTime = a}) . mapping _Time
+streamInfo_creationTime :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.UTCTime)
+streamInfo_creationTime = Lens.lens (\StreamInfo' {creationTime} -> creationTime) (\s@StreamInfo' {} a -> s {creationTime = a} :: StreamInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | How long the stream retains data, in hours.
-siDataRetentionInHours :: Lens' StreamInfo (Maybe Natural)
-siDataRetentionInHours = lens _siDataRetentionInHours (\s a -> s {_siDataRetentionInHours = a}) . mapping _Nat
+streamInfo_dataRetentionInHours :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Natural)
+streamInfo_dataRetentionInHours = Lens.lens (\StreamInfo' {dataRetentionInHours} -> dataRetentionInHours) (\s@StreamInfo' {} a -> s {dataRetentionInHours = a} :: StreamInfo) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The version of the stream.
-siVersion :: Lens' StreamInfo (Maybe Text)
-siVersion = lens _siVersion (\s a -> s {_siVersion = a})
+streamInfo_version :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Text)
+streamInfo_version = Lens.lens (\StreamInfo' {version} -> version) (\s@StreamInfo' {} a -> s {version = a} :: StreamInfo)
 
--- | The ID of the AWS Key Management Service (AWS KMS) key that Kinesis Video Streams uses to encrypt data on the stream.
-siKMSKeyId :: Lens' StreamInfo (Maybe Text)
-siKMSKeyId = lens _siKMSKeyId (\s a -> s {_siKMSKeyId = a})
+-- | The ID of the AWS Key Management Service (AWS KMS) key that Kinesis
+-- Video Streams uses to encrypt data on the stream.
+streamInfo_kmsKeyId :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Text)
+streamInfo_kmsKeyId = Lens.lens (\StreamInfo' {kmsKeyId} -> kmsKeyId) (\s@StreamInfo' {} a -> s {kmsKeyId = a} :: StreamInfo)
 
 -- | The name of the device that is associated with the stream.
-siDeviceName :: Lens' StreamInfo (Maybe Text)
-siDeviceName = lens _siDeviceName (\s a -> s {_siDeviceName = a})
+streamInfo_deviceName :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Text)
+streamInfo_deviceName = Lens.lens (\StreamInfo' {deviceName} -> deviceName) (\s@StreamInfo' {} a -> s {deviceName = a} :: StreamInfo)
 
 -- | The @MediaType@ of the stream.
-siMediaType :: Lens' StreamInfo (Maybe Text)
-siMediaType = lens _siMediaType (\s a -> s {_siMediaType = a})
+streamInfo_mediaType :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Text)
+streamInfo_mediaType = Lens.lens (\StreamInfo' {mediaType} -> mediaType) (\s@StreamInfo' {} a -> s {mediaType = a} :: StreamInfo)
 
 -- | The Amazon Resource Name (ARN) of the stream.
-siStreamARN :: Lens' StreamInfo (Maybe Text)
-siStreamARN = lens _siStreamARN (\s a -> s {_siStreamARN = a})
+streamInfo_streamARN :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Text)
+streamInfo_streamARN = Lens.lens (\StreamInfo' {streamARN} -> streamARN) (\s@StreamInfo' {} a -> s {streamARN = a} :: StreamInfo)
 
 -- | The name of the stream.
-siStreamName :: Lens' StreamInfo (Maybe Text)
-siStreamName = lens _siStreamName (\s a -> s {_siStreamName = a})
+streamInfo_streamName :: Lens.Lens' StreamInfo (Prelude.Maybe Prelude.Text)
+streamInfo_streamName = Lens.lens (\StreamInfo' {streamName} -> streamName) (\s@StreamInfo' {} a -> s {streamName = a} :: StreamInfo)
 
-instance FromJSON StreamInfo where
+instance Prelude.FromJSON StreamInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StreamInfo"
       ( \x ->
           StreamInfo'
-            <$> (x .:? "Status")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "DataRetentionInHours")
-            <*> (x .:? "Version")
-            <*> (x .:? "KmsKeyId")
-            <*> (x .:? "DeviceName")
-            <*> (x .:? "MediaType")
-            <*> (x .:? "StreamARN")
-            <*> (x .:? "StreamName")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "DataRetentionInHours")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "KmsKeyId")
+            Prelude.<*> (x Prelude..:? "DeviceName")
+            Prelude.<*> (x Prelude..:? "MediaType")
+            Prelude.<*> (x Prelude..:? "StreamARN")
+            Prelude.<*> (x Prelude..:? "StreamName")
       )
 
-instance Hashable StreamInfo
+instance Prelude.Hashable StreamInfo
 
-instance NFData StreamInfo
+instance Prelude.NFData StreamInfo

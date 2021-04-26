@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes one or more tags from a stream. In the request, specify only a tag key or keys; don't specify the value. If you specify a tag key that does not exist, it's ignored.
+-- Removes one or more tags from a stream. In the request, specify only a
+-- tag key or keys; don\'t specify the value. If you specify a tag key that
+-- does not exist, it\'s ignored.
 --
---
--- In the request, you must provide the @StreamName@ or @StreamARN@ .
+-- In the request, you must provide the @StreamName@ or @StreamARN@.
 module Network.AWS.KinesisVideo.UntagStream
   ( -- * Creating a Request
-    untagStream,
-    UntagStream,
+    UntagStream (..),
+    newUntagStream,
 
     -- * Request Lenses
-    uStreamARN,
-    uStreamName,
-    uTagKeyList,
+    untagStream_streamARN,
+    untagStream_streamName,
+    untagStream_tagKeyList,
 
     -- * Destructuring the Response
-    untagStreamResponse,
-    UntagStreamResponse,
+    UntagStreamResponse (..),
+    newUntagStreamResponse,
 
     -- * Response Lenses
-    ursResponseStatus,
+    untagStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagStream' smart constructor.
+-- | /See:/ 'newUntagStream' smart constructor.
 data UntagStream = UntagStream'
-  { _uStreamARN ::
-      !(Maybe Text),
-    _uStreamName :: !(Maybe Text),
-    _uTagKeyList :: !(List1 Text)
+  { -- | The Amazon Resource Name (ARN) of the stream that you want to remove
+    -- tags from.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream that you want to remove tags from.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | A list of the keys of the tags that you want to remove.
+    tagKeyList :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uStreamARN' - The Amazon Resource Name (ARN) of the stream that you want to remove tags from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uStreamName' - The name of the stream that you want to remove tags from.
+-- 'streamARN', 'untagStream_streamARN' - The Amazon Resource Name (ARN) of the stream that you want to remove
+-- tags from.
 --
--- * 'uTagKeyList' - A list of the keys of the tags that you want to remove.
-untagStream ::
-  -- | 'uTagKeyList'
-  NonEmpty Text ->
+-- 'streamName', 'untagStream_streamName' - The name of the stream that you want to remove tags from.
+--
+-- 'tagKeyList', 'untagStream_tagKeyList' - A list of the keys of the tags that you want to remove.
+newUntagStream ::
+  -- | 'tagKeyList'
+  Prelude.NonEmpty Prelude.Text ->
   UntagStream
-untagStream pTagKeyList_ =
+newUntagStream pTagKeyList_ =
   UntagStream'
-    { _uStreamARN = Nothing,
-      _uStreamName = Nothing,
-      _uTagKeyList = _List1 # pTagKeyList_
+    { streamARN = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      tagKeyList = Prelude._List1 Lens.# pTagKeyList_
     }
 
--- | The Amazon Resource Name (ARN) of the stream that you want to remove tags from.
-uStreamARN :: Lens' UntagStream (Maybe Text)
-uStreamARN = lens _uStreamARN (\s a -> s {_uStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the stream that you want to remove
+-- tags from.
+untagStream_streamARN :: Lens.Lens' UntagStream (Prelude.Maybe Prelude.Text)
+untagStream_streamARN = Lens.lens (\UntagStream' {streamARN} -> streamARN) (\s@UntagStream' {} a -> s {streamARN = a} :: UntagStream)
 
 -- | The name of the stream that you want to remove tags from.
-uStreamName :: Lens' UntagStream (Maybe Text)
-uStreamName = lens _uStreamName (\s a -> s {_uStreamName = a})
+untagStream_streamName :: Lens.Lens' UntagStream (Prelude.Maybe Prelude.Text)
+untagStream_streamName = Lens.lens (\UntagStream' {streamName} -> streamName) (\s@UntagStream' {} a -> s {streamName = a} :: UntagStream)
 
 -- | A list of the keys of the tags that you want to remove.
-uTagKeyList :: Lens' UntagStream (NonEmpty Text)
-uTagKeyList = lens _uTagKeyList (\s a -> s {_uTagKeyList = a}) . _List1
+untagStream_tagKeyList :: Lens.Lens' UntagStream (Prelude.NonEmpty Prelude.Text)
+untagStream_tagKeyList = Lens.lens (\UntagStream' {tagKeyList} -> tagKeyList) (\s@UntagStream' {} a -> s {tagKeyList = a} :: UntagStream) Prelude.. Prelude._List1
 
-instance AWSRequest UntagStream where
+instance Prelude.AWSRequest UntagStream where
   type Rs UntagStream = UntagStreamResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UntagStreamResponse' <$> (pure (fromEnum s))
+          UntagStreamResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UntagStream
+instance Prelude.Hashable UntagStream
 
-instance NFData UntagStream
+instance Prelude.NFData UntagStream
 
-instance ToHeaders UntagStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UntagStream where
+instance Prelude.ToJSON UntagStream where
   toJSON UntagStream' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _uStreamARN,
-            ("StreamName" .=) <$> _uStreamName,
-            Just ("TagKeyList" .= _uTagKeyList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just ("TagKeyList" Prelude..= tagKeyList)
           ]
       )
 
-instance ToPath UntagStream where
-  toPath = const "/untagStream"
+instance Prelude.ToPath UntagStream where
+  toPath = Prelude.const "/untagStream"
 
-instance ToQuery UntagStream where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagStreamResponse' smart constructor.
-newtype UntagStreamResponse = UntagStreamResponse'
-  { _ursResponseStatus ::
-      Int
+-- | /See:/ 'newUntagStreamResponse' smart constructor.
+data UntagStreamResponse = UntagStreamResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursResponseStatus' - -- | The response status code.
-untagStreamResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'untagStreamResponse_httpStatus' - The response's http status code.
+newUntagStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UntagStreamResponse
-untagStreamResponse pResponseStatus_ =
-  UntagStreamResponse'
-    { _ursResponseStatus =
-        pResponseStatus_
-    }
+newUntagStreamResponse pHttpStatus_ =
+  UntagStreamResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UntagStreamResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+untagStreamResponse_httpStatus :: Lens.Lens' UntagStreamResponse Prelude.Int
+untagStreamResponse_httpStatus = Lens.lens (\UntagStreamResponse' {httpStatus} -> httpStatus) (\s@UntagStreamResponse' {} a -> s {httpStatus = a} :: UntagStreamResponse)
 
-instance NFData UntagStreamResponse
+instance Prelude.NFData UntagStreamResponse

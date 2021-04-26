@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.KinesisVideo.Types.ChannelProtocol
   ( ChannelProtocol
       ( ..,
-        HTTPS,
-        Wss
+        ChannelProtocolHTTPS,
+        ChannelProtocolWSS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChannelProtocol = ChannelProtocol' (CI Text)
+newtype ChannelProtocol = ChannelProtocol'
+  { fromChannelProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTPS :: ChannelProtocol
-pattern HTTPS = ChannelProtocol' "HTTPS"
+pattern ChannelProtocolHTTPS :: ChannelProtocol
+pattern ChannelProtocolHTTPS = ChannelProtocol' "HTTPS"
 
-pattern Wss :: ChannelProtocol
-pattern Wss = ChannelProtocol' "WSS"
+pattern ChannelProtocolWSS :: ChannelProtocol
+pattern ChannelProtocolWSS = ChannelProtocol' "WSS"
 
 {-# COMPLETE
-  HTTPS,
-  Wss,
+  ChannelProtocolHTTPS,
+  ChannelProtocolWSS,
   ChannelProtocol'
   #-}
 
-instance FromText ChannelProtocol where
-  parser = (ChannelProtocol' . mk) <$> takeText
+instance Prelude.FromText ChannelProtocol where
+  parser = ChannelProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelProtocol where
-  toText (ChannelProtocol' ci) = original ci
+instance Prelude.ToText ChannelProtocol where
+  toText (ChannelProtocol' x) = x
 
-instance Hashable ChannelProtocol
+instance Prelude.Hashable ChannelProtocol
 
-instance NFData ChannelProtocol
+instance Prelude.NFData ChannelProtocol
 
-instance ToByteString ChannelProtocol
+instance Prelude.ToByteString ChannelProtocol
 
-instance ToQuery ChannelProtocol
+instance Prelude.ToQuery ChannelProtocol
 
-instance ToHeader ChannelProtocol
+instance Prelude.ToHeader ChannelProtocol
 
-instance ToJSON ChannelProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChannelProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ChannelProtocol where
-  parseJSON = parseJSONText "ChannelProtocol"
+instance Prelude.FromJSON ChannelProtocol where
+  parseJSON = Prelude.parseJSONText "ChannelProtocol"

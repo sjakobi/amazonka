@@ -28,121 +28,121 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListTagsForStream $
---             listTagsForStream
+--             newListTagsForStream
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestGetDataEndpoint $
---             getDataEndpoint
+--             newGetDataEndpoint
 --
 --         , requestUpdateStream $
---             updateStream
+--             newUpdateStream
 --
 --         , requestDeleteStream $
---             deleteStream
+--             newDeleteStream
 --
 --         , requestUntagStream $
---             untagStream
+--             newUntagStream
 --
 --         , requestUpdateDataRetention $
---             updateDataRetention
+--             newUpdateDataRetention
 --
 --         , requestUpdateSignalingChannel $
---             updateSignalingChannel
+--             newUpdateSignalingChannel
 --
 --         , requestDeleteSignalingChannel $
---             deleteSignalingChannel
+--             newDeleteSignalingChannel
 --
 --         , requestListSignalingChannels $
---             listSignalingChannels
+--             newListSignalingChannels
 --
 --         , requestCreateSignalingChannel $
---             createSignalingChannel
+--             newCreateSignalingChannel
 --
 --         , requestDescribeStream $
---             describeStream
+--             newDescribeStream
 --
 --         , requestTagStream $
---             tagStream
+--             newTagStream
 --
 --         , requestGetSignalingChannelEndpoint $
---             getSignalingChannelEndpoint
+--             newGetSignalingChannelEndpoint
 --
 --         , requestDescribeSignalingChannel $
---             describeSignalingChannel
+--             newDescribeSignalingChannel
 --
 --         , requestCreateStream $
---             createStream
+--             newCreateStream
 --
 --         , requestListStreams $
---             listStreams
+--             newListStreams
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListTagsForStream $
---             listTagsForStreamResponse
+--             newListTagsForStreamResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseGetDataEndpoint $
---             getDataEndpointResponse
+--             newGetDataEndpointResponse
 --
 --         , responseUpdateStream $
---             updateStreamResponse
+--             newUpdateStreamResponse
 --
 --         , responseDeleteStream $
---             deleteStreamResponse
+--             newDeleteStreamResponse
 --
 --         , responseUntagStream $
---             untagStreamResponse
+--             newUntagStreamResponse
 --
 --         , responseUpdateDataRetention $
---             updateDataRetentionResponse
+--             newUpdateDataRetentionResponse
 --
 --         , responseUpdateSignalingChannel $
---             updateSignalingChannelResponse
+--             newUpdateSignalingChannelResponse
 --
 --         , responseDeleteSignalingChannel $
---             deleteSignalingChannelResponse
+--             newDeleteSignalingChannelResponse
 --
 --         , responseListSignalingChannels $
---             listSignalingChannelsResponse
+--             newListSignalingChannelsResponse
 --
 --         , responseCreateSignalingChannel $
---             createSignalingChannelResponse
+--             newCreateSignalingChannelResponse
 --
 --         , responseDescribeStream $
---             describeStreamResponse
+--             newDescribeStreamResponse
 --
 --         , responseTagStream $
---             tagStreamResponse
+--             newTagStreamResponse
 --
 --         , responseGetSignalingChannelEndpoint $
---             getSignalingChannelEndpointResponse
+--             newGetSignalingChannelEndpointResponse
 --
 --         , responseDescribeSignalingChannel $
---             describeSignalingChannelResponse
+--             newDescribeSignalingChannelResponse
 --
 --         , responseCreateStream $
---             createStreamResponse
+--             newCreateStreamResponse
 --
 --         , responseListStreams $
---             listStreamsResponse
+--             newListStreamsResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --           ]
 --     ]
@@ -270,7 +270,7 @@ responseListTagsForStream =
   res
     "ListTagsForStreamResponse"
     "fixture/ListTagsForStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy ListTagsForStream)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -278,7 +278,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -286,7 +286,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseGetDataEndpoint :: GetDataEndpointResponse -> TestTree
@@ -294,7 +294,7 @@ responseGetDataEndpoint =
   res
     "GetDataEndpointResponse"
     "fixture/GetDataEndpointResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy GetDataEndpoint)
 
 responseUpdateStream :: UpdateStreamResponse -> TestTree
@@ -302,7 +302,7 @@ responseUpdateStream =
   res
     "UpdateStreamResponse"
     "fixture/UpdateStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy UpdateStream)
 
 responseDeleteStream :: DeleteStreamResponse -> TestTree
@@ -310,7 +310,7 @@ responseDeleteStream =
   res
     "DeleteStreamResponse"
     "fixture/DeleteStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy DeleteStream)
 
 responseUntagStream :: UntagStreamResponse -> TestTree
@@ -318,7 +318,7 @@ responseUntagStream =
   res
     "UntagStreamResponse"
     "fixture/UntagStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy UntagStream)
 
 responseUpdateDataRetention :: UpdateDataRetentionResponse -> TestTree
@@ -326,7 +326,7 @@ responseUpdateDataRetention =
   res
     "UpdateDataRetentionResponse"
     "fixture/UpdateDataRetentionResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy UpdateDataRetention)
 
 responseUpdateSignalingChannel :: UpdateSignalingChannelResponse -> TestTree
@@ -334,7 +334,7 @@ responseUpdateSignalingChannel =
   res
     "UpdateSignalingChannelResponse"
     "fixture/UpdateSignalingChannelResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy UpdateSignalingChannel)
 
 responseDeleteSignalingChannel :: DeleteSignalingChannelResponse -> TestTree
@@ -342,7 +342,7 @@ responseDeleteSignalingChannel =
   res
     "DeleteSignalingChannelResponse"
     "fixture/DeleteSignalingChannelResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy DeleteSignalingChannel)
 
 responseListSignalingChannels :: ListSignalingChannelsResponse -> TestTree
@@ -350,7 +350,7 @@ responseListSignalingChannels =
   res
     "ListSignalingChannelsResponse"
     "fixture/ListSignalingChannelsResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy ListSignalingChannels)
 
 responseCreateSignalingChannel :: CreateSignalingChannelResponse -> TestTree
@@ -358,7 +358,7 @@ responseCreateSignalingChannel =
   res
     "CreateSignalingChannelResponse"
     "fixture/CreateSignalingChannelResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy CreateSignalingChannel)
 
 responseDescribeStream :: DescribeStreamResponse -> TestTree
@@ -366,7 +366,7 @@ responseDescribeStream =
   res
     "DescribeStreamResponse"
     "fixture/DescribeStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy DescribeStream)
 
 responseTagStream :: TagStreamResponse -> TestTree
@@ -374,7 +374,7 @@ responseTagStream =
   res
     "TagStreamResponse"
     "fixture/TagStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy TagStream)
 
 responseGetSignalingChannelEndpoint :: GetSignalingChannelEndpointResponse -> TestTree
@@ -382,7 +382,7 @@ responseGetSignalingChannelEndpoint =
   res
     "GetSignalingChannelEndpointResponse"
     "fixture/GetSignalingChannelEndpointResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy GetSignalingChannelEndpoint)
 
 responseDescribeSignalingChannel :: DescribeSignalingChannelResponse -> TestTree
@@ -390,7 +390,7 @@ responseDescribeSignalingChannel =
   res
     "DescribeSignalingChannelResponse"
     "fixture/DescribeSignalingChannelResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy DescribeSignalingChannel)
 
 responseCreateStream :: CreateStreamResponse -> TestTree
@@ -398,7 +398,7 @@ responseCreateStream =
   res
     "CreateStreamResponse"
     "fixture/CreateStreamResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy CreateStream)
 
 responseListStreams :: ListStreamsResponse -> TestTree
@@ -406,7 +406,7 @@ responseListStreams =
   res
     "ListStreamsResponse"
     "fixture/ListStreamsResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy ListStreams)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -414,5 +414,5 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    kinesisVideo
+    defaultService
     (Proxy :: Proxy ListTagsForResource)

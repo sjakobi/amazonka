@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.KinesisVideo.Types.ChannelType
   ( ChannelType
       ( ..,
-        SingleMaster
+        ChannelTypeSINGLEMASTER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChannelType = ChannelType' (CI Text)
+newtype ChannelType = ChannelType'
+  { fromChannelType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SingleMaster :: ChannelType
-pattern SingleMaster = ChannelType' "SINGLE_MASTER"
+pattern ChannelTypeSINGLEMASTER :: ChannelType
+pattern ChannelTypeSINGLEMASTER = ChannelType' "SINGLE_MASTER"
 
 {-# COMPLETE
-  SingleMaster,
+  ChannelTypeSINGLEMASTER,
   ChannelType'
   #-}
 
-instance FromText ChannelType where
-  parser = (ChannelType' . mk) <$> takeText
+instance Prelude.FromText ChannelType where
+  parser = ChannelType' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelType where
-  toText (ChannelType' ci) = original ci
+instance Prelude.ToText ChannelType where
+  toText (ChannelType' x) = x
 
-instance Hashable ChannelType
+instance Prelude.Hashable ChannelType
 
-instance NFData ChannelType
+instance Prelude.NFData ChannelType
 
-instance ToByteString ChannelType
+instance Prelude.ToByteString ChannelType
 
-instance ToQuery ChannelType
+instance Prelude.ToQuery ChannelType
 
-instance ToHeader ChannelType
+instance Prelude.ToHeader ChannelType
 
-instance ToJSON ChannelType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChannelType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ChannelType where
-  parseJSON = parseJSONText "ChannelType"
+instance Prelude.FromJSON ChannelType where
+  parseJSON = Prelude.parseJSONText "ChannelType"

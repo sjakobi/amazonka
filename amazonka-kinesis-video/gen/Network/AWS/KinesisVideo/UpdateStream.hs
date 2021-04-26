@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,161 +23,214 @@
 --
 -- Updates stream metadata, such as the device name and media type.
 --
+-- You must provide the stream name or the Amazon Resource Name (ARN) of
+-- the stream.
 --
--- You must provide the stream name or the Amazon Resource Name (ARN) of the stream.
---
--- To make sure that you have the latest version of the stream before updating it, you can specify the stream version. Kinesis Video Streams assigns a version to each stream. When you update a stream, Kinesis Video Streams assigns a new version number. To get the latest stream version, use the @DescribeStream@ API.
+-- To make sure that you have the latest version of the stream before
+-- updating it, you can specify the stream version. Kinesis Video Streams
+-- assigns a version to each stream. When you update a stream, Kinesis
+-- Video Streams assigns a new version number. To get the latest stream
+-- version, use the @DescribeStream@ API.
 --
 -- @UpdateStream@ is an asynchronous operation, and takes time to complete.
 module Network.AWS.KinesisVideo.UpdateStream
   ( -- * Creating a Request
-    updateStream,
-    UpdateStream,
+    UpdateStream (..),
+    newUpdateStream,
 
     -- * Request Lenses
-    usDeviceName,
-    usMediaType,
-    usStreamARN,
-    usStreamName,
-    usCurrentVersion,
+    updateStream_deviceName,
+    updateStream_mediaType,
+    updateStream_streamARN,
+    updateStream_streamName,
+    updateStream_currentVersion,
 
     -- * Destructuring the Response
-    updateStreamResponse,
-    UpdateStreamResponse,
+    UpdateStreamResponse (..),
+    newUpdateStreamResponse,
 
     -- * Response Lenses
-    usrrsResponseStatus,
+    updateStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateStream' smart constructor.
+-- | /See:/ 'newUpdateStream' smart constructor.
 data UpdateStream = UpdateStream'
-  { _usDeviceName ::
-      !(Maybe Text),
-    _usMediaType :: !(Maybe Text),
-    _usStreamARN :: !(Maybe Text),
-    _usStreamName :: !(Maybe Text),
-    _usCurrentVersion :: !Text
+  { -- | The name of the device that is writing to the stream.
+    --
+    -- In the current implementation, Kinesis Video Streams does not use this
+    -- name.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The stream\'s media type. Use @MediaType@ to specify the type of content
+    -- that the stream contains to the consumers of the stream. For more
+    -- information about media types, see
+    -- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
+    -- If you choose to specify the @MediaType@, see
+    -- <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements>.
+    --
+    -- To play video on the console, you must specify the correct video type.
+    -- For example, if the video in the stream is H.264, specify @video\/h264@
+    -- as the @MediaType@.
+    mediaType :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the stream whose metadata you want to update.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream whose metadata you want to update.
+    --
+    -- The stream name is an identifier for the stream, and must be unique for
+    -- each account and region.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the stream whose metadata you want to update.
+    currentVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usDeviceName' - The name of the device that is writing to the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usMediaType' - The stream's media type. Use @MediaType@ to specify the type of content that the stream contains to the consumers of the stream. For more information about media types, see <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types> . If you choose to specify the @MediaType@ , see <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements> . To play video on the console, you must specify the correct video type. For example, if the video in the stream is H.264, specify @video/h264@ as the @MediaType@ .
+-- 'deviceName', 'updateStream_deviceName' - The name of the device that is writing to the stream.
 --
--- * 'usStreamARN' - The ARN of the stream whose metadata you want to update.
+-- In the current implementation, Kinesis Video Streams does not use this
+-- name.
 --
--- * 'usStreamName' - The name of the stream whose metadata you want to update. The stream name is an identifier for the stream, and must be unique for each account and region.
+-- 'mediaType', 'updateStream_mediaType' - The stream\'s media type. Use @MediaType@ to specify the type of content
+-- that the stream contains to the consumers of the stream. For more
+-- information about media types, see
+-- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
+-- If you choose to specify the @MediaType@, see
+-- <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements>.
 --
--- * 'usCurrentVersion' - The version of the stream whose metadata you want to update.
-updateStream ::
-  -- | 'usCurrentVersion'
-  Text ->
+-- To play video on the console, you must specify the correct video type.
+-- For example, if the video in the stream is H.264, specify @video\/h264@
+-- as the @MediaType@.
+--
+-- 'streamARN', 'updateStream_streamARN' - The ARN of the stream whose metadata you want to update.
+--
+-- 'streamName', 'updateStream_streamName' - The name of the stream whose metadata you want to update.
+--
+-- The stream name is an identifier for the stream, and must be unique for
+-- each account and region.
+--
+-- 'currentVersion', 'updateStream_currentVersion' - The version of the stream whose metadata you want to update.
+newUpdateStream ::
+  -- | 'currentVersion'
+  Prelude.Text ->
   UpdateStream
-updateStream pCurrentVersion_ =
+newUpdateStream pCurrentVersion_ =
   UpdateStream'
-    { _usDeviceName = Nothing,
-      _usMediaType = Nothing,
-      _usStreamARN = Nothing,
-      _usStreamName = Nothing,
-      _usCurrentVersion = pCurrentVersion_
+    { deviceName = Prelude.Nothing,
+      mediaType = Prelude.Nothing,
+      streamARN = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      currentVersion = pCurrentVersion_
     }
 
 -- | The name of the device that is writing to the stream.
-usDeviceName :: Lens' UpdateStream (Maybe Text)
-usDeviceName = lens _usDeviceName (\s a -> s {_usDeviceName = a})
+--
+-- In the current implementation, Kinesis Video Streams does not use this
+-- name.
+updateStream_deviceName :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_deviceName = Lens.lens (\UpdateStream' {deviceName} -> deviceName) (\s@UpdateStream' {} a -> s {deviceName = a} :: UpdateStream)
 
--- | The stream's media type. Use @MediaType@ to specify the type of content that the stream contains to the consumers of the stream. For more information about media types, see <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types> . If you choose to specify the @MediaType@ , see <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements> . To play video on the console, you must specify the correct video type. For example, if the video in the stream is H.264, specify @video/h264@ as the @MediaType@ .
-usMediaType :: Lens' UpdateStream (Maybe Text)
-usMediaType = lens _usMediaType (\s a -> s {_usMediaType = a})
+-- | The stream\'s media type. Use @MediaType@ to specify the type of content
+-- that the stream contains to the consumers of the stream. For more
+-- information about media types, see
+-- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
+-- If you choose to specify the @MediaType@, see
+-- <https://tools.ietf.org/html/rfc6838#section-4.2 Naming Requirements>.
+--
+-- To play video on the console, you must specify the correct video type.
+-- For example, if the video in the stream is H.264, specify @video\/h264@
+-- as the @MediaType@.
+updateStream_mediaType :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_mediaType = Lens.lens (\UpdateStream' {mediaType} -> mediaType) (\s@UpdateStream' {} a -> s {mediaType = a} :: UpdateStream)
 
 -- | The ARN of the stream whose metadata you want to update.
-usStreamARN :: Lens' UpdateStream (Maybe Text)
-usStreamARN = lens _usStreamARN (\s a -> s {_usStreamARN = a})
+updateStream_streamARN :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_streamARN = Lens.lens (\UpdateStream' {streamARN} -> streamARN) (\s@UpdateStream' {} a -> s {streamARN = a} :: UpdateStream)
 
--- | The name of the stream whose metadata you want to update. The stream name is an identifier for the stream, and must be unique for each account and region.
-usStreamName :: Lens' UpdateStream (Maybe Text)
-usStreamName = lens _usStreamName (\s a -> s {_usStreamName = a})
+-- | The name of the stream whose metadata you want to update.
+--
+-- The stream name is an identifier for the stream, and must be unique for
+-- each account and region.
+updateStream_streamName :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_streamName = Lens.lens (\UpdateStream' {streamName} -> streamName) (\s@UpdateStream' {} a -> s {streamName = a} :: UpdateStream)
 
 -- | The version of the stream whose metadata you want to update.
-usCurrentVersion :: Lens' UpdateStream Text
-usCurrentVersion = lens _usCurrentVersion (\s a -> s {_usCurrentVersion = a})
+updateStream_currentVersion :: Lens.Lens' UpdateStream Prelude.Text
+updateStream_currentVersion = Lens.lens (\UpdateStream' {currentVersion} -> currentVersion) (\s@UpdateStream' {} a -> s {currentVersion = a} :: UpdateStream)
 
-instance AWSRequest UpdateStream where
+instance Prelude.AWSRequest UpdateStream where
   type Rs UpdateStream = UpdateStreamResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateStreamResponse' <$> (pure (fromEnum s))
+          UpdateStreamResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateStream
+instance Prelude.Hashable UpdateStream
 
-instance NFData UpdateStream
+instance Prelude.NFData UpdateStream
 
-instance ToHeaders UpdateStream where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateStream where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateStream where
+instance Prelude.ToJSON UpdateStream where
   toJSON UpdateStream' {..} =
-    object
-      ( catMaybes
-          [ ("DeviceName" .=) <$> _usDeviceName,
-            ("MediaType" .=) <$> _usMediaType,
-            ("StreamARN" .=) <$> _usStreamARN,
-            ("StreamName" .=) <$> _usStreamName,
-            Just ("CurrentVersion" .= _usCurrentVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeviceName" Prelude..=) Prelude.<$> deviceName,
+            ("MediaType" Prelude..=) Prelude.<$> mediaType,
+            ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just
+              ("CurrentVersion" Prelude..= currentVersion)
           ]
       )
 
-instance ToPath UpdateStream where
-  toPath = const "/updateStream"
+instance Prelude.ToPath UpdateStream where
+  toPath = Prelude.const "/updateStream"
 
-instance ToQuery UpdateStream where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateStreamResponse' smart constructor.
-newtype UpdateStreamResponse = UpdateStreamResponse'
-  { _usrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateStreamResponse' smart constructor.
+data UpdateStreamResponse = UpdateStreamResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrsResponseStatus' - -- | The response status code.
-updateStreamResponse ::
-  -- | 'usrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateStreamResponse_httpStatus' - The response's http status code.
+newUpdateStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateStreamResponse
-updateStreamResponse pResponseStatus_ =
-  UpdateStreamResponse'
-    { _usrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateStreamResponse pHttpStatus_ =
+  UpdateStreamResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-usrrsResponseStatus :: Lens' UpdateStreamResponse Int
-usrrsResponseStatus = lens _usrrsResponseStatus (\s a -> s {_usrrsResponseStatus = a})
+-- | The response's http status code.
+updateStreamResponse_httpStatus :: Lens.Lens' UpdateStreamResponse Prelude.Int
+updateStreamResponse_httpStatus = Lens.lens (\UpdateStreamResponse' {httpStatus} -> httpStatus) (\s@UpdateStreamResponse' {} a -> s {httpStatus = a} :: UpdateStreamResponse)
 
-instance NFData UpdateStreamResponse
+instance Prelude.NFData UpdateStreamResponse

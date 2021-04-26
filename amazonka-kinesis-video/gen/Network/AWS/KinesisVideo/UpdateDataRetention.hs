@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Increases or decreases the stream's data retention period by the value that you specify. To indicate whether you want to increase or decrease the data retention period, specify the @Operation@ parameter in the request body. In the request, you must specify either the @StreamName@ or the @StreamARN@ .
+-- Increases or decreases the stream\'s data retention period by the value
+-- that you specify. To indicate whether you want to increase or decrease
+-- the data retention period, specify the @Operation@ parameter in the
+-- request body. In the request, you must specify either the @StreamName@
+-- or the @StreamARN@.
 --
+-- The retention period that you specify replaces the current value.
 --
--- This operation requires permission for the @KinesisVideo:UpdateDataRetention@ action.
+-- This operation requires permission for the
+-- @KinesisVideo:UpdateDataRetention@ action.
 --
--- Changing the data retention period affects the data in the stream as follows:
+-- Changing the data retention period affects the data in the stream as
+-- follows:
 --
---     * If the data retention period is increased, existing data is retained for the new retention period. For example, if the data retention period is increased from one hour to seven hours, all existing data is retained for seven hours.
+-- -   If the data retention period is increased, existing data is retained
+--     for the new retention period. For example, if the data retention
+--     period is increased from one hour to seven hours, all existing data
+--     is retained for seven hours.
 --
---     * If the data retention period is decreased, existing data is retained for the new retention period. For example, if the data retention period is decreased from seven hours to one hour, all existing data is retained for one hour, and any data older than one hour is deleted immediately.
+-- -   If the data retention period is decreased, existing data is retained
+--     for the new retention period. For example, if the data retention
+--     period is decreased from seven hours to one hour, all existing data
+--     is retained for one hour, and any data older than one hour is
+--     deleted immediately.
 module Network.AWS.KinesisVideo.UpdateDataRetention
   ( -- * Creating a Request
-    updateDataRetention,
-    UpdateDataRetention,
+    UpdateDataRetention (..),
+    newUpdateDataRetention,
 
     -- * Request Lenses
-    udrStreamARN,
-    udrStreamName,
-    udrCurrentVersion,
-    udrOperation,
-    udrDataRetentionChangeInHours,
+    updateDataRetention_streamARN,
+    updateDataRetention_streamName,
+    updateDataRetention_currentVersion,
+    updateDataRetention_operation,
+    updateDataRetention_dataRetentionChangeInHours,
 
     -- * Destructuring the Response
-    updateDataRetentionResponse,
-    UpdateDataRetentionResponse,
+    UpdateDataRetentionResponse (..),
+    newUpdateDataRetentionResponse,
 
     -- * Response Lenses
-    udrrrsResponseStatus,
+    updateDataRetentionResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDataRetention' smart constructor.
+-- | /See:/ 'newUpdateDataRetention' smart constructor.
 data UpdateDataRetention = UpdateDataRetention'
-  { _udrStreamARN ::
-      !(Maybe Text),
-    _udrStreamName :: !(Maybe Text),
-    _udrCurrentVersion :: !Text,
-    _udrOperation ::
-      !UpdateDataRetentionOperation,
-    _udrDataRetentionChangeInHours ::
-      !Nat
+  { -- | The Amazon Resource Name (ARN) of the stream whose retention period you
+    -- want to change.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream whose retention period you want to change.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the stream whose retention period you want to change. To
+    -- get the version, call either the @DescribeStream@ or the @ListStreams@
+    -- API.
+    currentVersion :: Prelude.Text,
+    -- | Indicates whether you want to increase or decrease the retention period.
+    operation :: UpdateDataRetentionOperation,
+    -- | The retention period, in hours. The value you specify replaces the
+    -- current value. The maximum value for this parameter is 87600 (ten
+    -- years).
+    dataRetentionChangeInHours :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDataRetention' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDataRetention' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udrStreamARN' - The Amazon Resource Name (ARN) of the stream whose retention period you want to change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udrStreamName' - The name of the stream whose retention period you want to change.
+-- 'streamARN', 'updateDataRetention_streamARN' - The Amazon Resource Name (ARN) of the stream whose retention period you
+-- want to change.
 --
--- * 'udrCurrentVersion' - The version of the stream whose retention period you want to change. To get the version, call either the @DescribeStream@ or the @ListStreams@ API.
+-- 'streamName', 'updateDataRetention_streamName' - The name of the stream whose retention period you want to change.
 --
--- * 'udrOperation' - Indicates whether you want to increase or decrease the retention period.
+-- 'currentVersion', 'updateDataRetention_currentVersion' - The version of the stream whose retention period you want to change. To
+-- get the version, call either the @DescribeStream@ or the @ListStreams@
+-- API.
 --
--- * 'udrDataRetentionChangeInHours' - The retention period, in hours. The value you specify replaces the current value. The maximum value for this parameter is 87600 (ten years).
-updateDataRetention ::
-  -- | 'udrCurrentVersion'
-  Text ->
-  -- | 'udrOperation'
+-- 'operation', 'updateDataRetention_operation' - Indicates whether you want to increase or decrease the retention period.
+--
+-- 'dataRetentionChangeInHours', 'updateDataRetention_dataRetentionChangeInHours' - The retention period, in hours. The value you specify replaces the
+-- current value. The maximum value for this parameter is 87600 (ten
+-- years).
+newUpdateDataRetention ::
+  -- | 'currentVersion'
+  Prelude.Text ->
+  -- | 'operation'
   UpdateDataRetentionOperation ->
-  -- | 'udrDataRetentionChangeInHours'
-  Natural ->
+  -- | 'dataRetentionChangeInHours'
+  Prelude.Natural ->
   UpdateDataRetention
-updateDataRetention
+newUpdateDataRetention
   pCurrentVersion_
   pOperation_
   pDataRetentionChangeInHours_ =
     UpdateDataRetention'
-      { _udrStreamARN = Nothing,
-        _udrStreamName = Nothing,
-        _udrCurrentVersion = pCurrentVersion_,
-        _udrOperation = pOperation_,
-        _udrDataRetentionChangeInHours =
-          _Nat # pDataRetentionChangeInHours_
+      { streamARN = Prelude.Nothing,
+        streamName = Prelude.Nothing,
+        currentVersion = pCurrentVersion_,
+        operation = pOperation_,
+        dataRetentionChangeInHours =
+          Prelude._Nat Lens.# pDataRetentionChangeInHours_
       }
 
--- | The Amazon Resource Name (ARN) of the stream whose retention period you want to change.
-udrStreamARN :: Lens' UpdateDataRetention (Maybe Text)
-udrStreamARN = lens _udrStreamARN (\s a -> s {_udrStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the stream whose retention period you
+-- want to change.
+updateDataRetention_streamARN :: Lens.Lens' UpdateDataRetention (Prelude.Maybe Prelude.Text)
+updateDataRetention_streamARN = Lens.lens (\UpdateDataRetention' {streamARN} -> streamARN) (\s@UpdateDataRetention' {} a -> s {streamARN = a} :: UpdateDataRetention)
 
 -- | The name of the stream whose retention period you want to change.
-udrStreamName :: Lens' UpdateDataRetention (Maybe Text)
-udrStreamName = lens _udrStreamName (\s a -> s {_udrStreamName = a})
+updateDataRetention_streamName :: Lens.Lens' UpdateDataRetention (Prelude.Maybe Prelude.Text)
+updateDataRetention_streamName = Lens.lens (\UpdateDataRetention' {streamName} -> streamName) (\s@UpdateDataRetention' {} a -> s {streamName = a} :: UpdateDataRetention)
 
--- | The version of the stream whose retention period you want to change. To get the version, call either the @DescribeStream@ or the @ListStreams@ API.
-udrCurrentVersion :: Lens' UpdateDataRetention Text
-udrCurrentVersion = lens _udrCurrentVersion (\s a -> s {_udrCurrentVersion = a})
+-- | The version of the stream whose retention period you want to change. To
+-- get the version, call either the @DescribeStream@ or the @ListStreams@
+-- API.
+updateDataRetention_currentVersion :: Lens.Lens' UpdateDataRetention Prelude.Text
+updateDataRetention_currentVersion = Lens.lens (\UpdateDataRetention' {currentVersion} -> currentVersion) (\s@UpdateDataRetention' {} a -> s {currentVersion = a} :: UpdateDataRetention)
 
 -- | Indicates whether you want to increase or decrease the retention period.
-udrOperation :: Lens' UpdateDataRetention UpdateDataRetentionOperation
-udrOperation = lens _udrOperation (\s a -> s {_udrOperation = a})
+updateDataRetention_operation :: Lens.Lens' UpdateDataRetention UpdateDataRetentionOperation
+updateDataRetention_operation = Lens.lens (\UpdateDataRetention' {operation} -> operation) (\s@UpdateDataRetention' {} a -> s {operation = a} :: UpdateDataRetention)
 
--- | The retention period, in hours. The value you specify replaces the current value. The maximum value for this parameter is 87600 (ten years).
-udrDataRetentionChangeInHours :: Lens' UpdateDataRetention Natural
-udrDataRetentionChangeInHours = lens _udrDataRetentionChangeInHours (\s a -> s {_udrDataRetentionChangeInHours = a}) . _Nat
+-- | The retention period, in hours. The value you specify replaces the
+-- current value. The maximum value for this parameter is 87600 (ten
+-- years).
+updateDataRetention_dataRetentionChangeInHours :: Lens.Lens' UpdateDataRetention Prelude.Natural
+updateDataRetention_dataRetentionChangeInHours = Lens.lens (\UpdateDataRetention' {dataRetentionChangeInHours} -> dataRetentionChangeInHours) (\s@UpdateDataRetention' {} a -> s {dataRetentionChangeInHours = a} :: UpdateDataRetention) Prelude.. Prelude._Nat
 
-instance AWSRequest UpdateDataRetention where
+instance Prelude.AWSRequest UpdateDataRetention where
   type
     Rs UpdateDataRetention =
       UpdateDataRetentionResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateDataRetentionResponse' <$> (pure (fromEnum s))
+          UpdateDataRetentionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDataRetention
+instance Prelude.Hashable UpdateDataRetention
 
-instance NFData UpdateDataRetention
+instance Prelude.NFData UpdateDataRetention
 
-instance ToHeaders UpdateDataRetention where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateDataRetention where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateDataRetention where
+instance Prelude.ToJSON UpdateDataRetention where
   toJSON UpdateDataRetention' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _udrStreamARN,
-            ("StreamName" .=) <$> _udrStreamName,
-            Just ("CurrentVersion" .= _udrCurrentVersion),
-            Just ("Operation" .= _udrOperation),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just
+              ("CurrentVersion" Prelude..= currentVersion),
+            Prelude.Just ("Operation" Prelude..= operation),
+            Prelude.Just
               ( "DataRetentionChangeInHours"
-                  .= _udrDataRetentionChangeInHours
+                  Prelude..= dataRetentionChangeInHours
               )
           ]
       )
 
-instance ToPath UpdateDataRetention where
-  toPath = const "/updateDataRetention"
+instance Prelude.ToPath UpdateDataRetention where
+  toPath = Prelude.const "/updateDataRetention"
 
-instance ToQuery UpdateDataRetention where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDataRetention where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDataRetentionResponse' smart constructor.
-newtype UpdateDataRetentionResponse = UpdateDataRetentionResponse'
-  { _udrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateDataRetentionResponse' smart constructor.
+data UpdateDataRetentionResponse = UpdateDataRetentionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDataRetentionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDataRetentionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udrrrsResponseStatus' - -- | The response status code.
-updateDataRetentionResponse ::
-  -- | 'udrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateDataRetentionResponse_httpStatus' - The response's http status code.
+newUpdateDataRetentionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDataRetentionResponse
-updateDataRetentionResponse pResponseStatus_ =
+newUpdateDataRetentionResponse pHttpStatus_ =
   UpdateDataRetentionResponse'
-    { _udrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-udrrrsResponseStatus :: Lens' UpdateDataRetentionResponse Int
-udrrrsResponseStatus = lens _udrrrsResponseStatus (\s a -> s {_udrrrsResponseStatus = a})
+-- | The response's http status code.
+updateDataRetentionResponse_httpStatus :: Lens.Lens' UpdateDataRetentionResponse Prelude.Int
+updateDataRetentionResponse_httpStatus = Lens.lens (\UpdateDataRetentionResponse' {httpStatus} -> httpStatus) (\s@UpdateDataRetentionResponse' {} a -> s {httpStatus = a} :: UpdateDataRetentionResponse)
 
-instance NFData UpdateDataRetentionResponse
+instance Prelude.NFData UpdateDataRetentionResponse

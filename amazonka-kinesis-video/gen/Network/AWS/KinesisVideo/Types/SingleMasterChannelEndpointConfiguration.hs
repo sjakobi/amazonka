@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +21,92 @@ module Network.AWS.KinesisVideo.Types.SingleMasterChannelEndpointConfiguration w
 
 import Network.AWS.KinesisVideo.Types.ChannelProtocol
 import Network.AWS.KinesisVideo.Types.ChannelRole
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that contains the endpoint configuration for the @SINGLE_MASTER@ channel type.
+-- | An object that contains the endpoint configuration for the
+-- @SINGLE_MASTER@ channel type.
 --
---
---
--- /See:/ 'singleMasterChannelEndpointConfiguration' smart constructor.
+-- /See:/ 'newSingleMasterChannelEndpointConfiguration' smart constructor.
 data SingleMasterChannelEndpointConfiguration = SingleMasterChannelEndpointConfiguration'
-  { _smcecProtocols ::
-      !( Maybe
-           ( List1
-               ChannelProtocol
-           )
-       ),
-    _smcecRole ::
-      !( Maybe
-           ChannelRole
-       )
+  { -- | This property is used to determine the nature of communication over this
+    -- @SINGLE_MASTER@ signaling channel. If @WSS@ is specified, this API
+    -- returns a websocket endpoint. If @HTTPS@ is specified, this API returns
+    -- an @HTTPS@ endpoint.
+    protocols :: Prelude.Maybe (Prelude.List1 ChannelProtocol),
+    -- | This property is used to determine messaging permissions in this
+    -- @SINGLE_MASTER@ signaling channel. If @MASTER@ is specified, this API
+    -- returns an endpoint that a client can use to receive offers from and
+    -- send answers to any of the viewers on this signaling channel. If
+    -- @VIEWER@ is specified, this API returns an endpoint that a client can
+    -- use only to send offers to another @MASTER@ client on this signaling
+    -- channel.
+    role' :: Prelude.Maybe ChannelRole
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SingleMasterChannelEndpointConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SingleMasterChannelEndpointConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smcecProtocols' - This property is used to determine the nature of communication over this @SINGLE_MASTER@ signaling channel. If @WSS@ is specified, this API returns a websocket endpoint. If @HTTPS@ is specified, this API returns an @HTTPS@ endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smcecRole' - This property is used to determine messaging permissions in this @SINGLE_MASTER@ signaling channel. If @MASTER@ is specified, this API returns an endpoint that a client can use to receive offers from and send answers to any of the viewers on this signaling channel. If @VIEWER@ is specified, this API returns an endpoint that a client can use only to send offers to another @MASTER@ client on this signaling channel.
-singleMasterChannelEndpointConfiguration ::
+-- 'protocols', 'singleMasterChannelEndpointConfiguration_protocols' - This property is used to determine the nature of communication over this
+-- @SINGLE_MASTER@ signaling channel. If @WSS@ is specified, this API
+-- returns a websocket endpoint. If @HTTPS@ is specified, this API returns
+-- an @HTTPS@ endpoint.
+--
+-- 'role'', 'singleMasterChannelEndpointConfiguration_role' - This property is used to determine messaging permissions in this
+-- @SINGLE_MASTER@ signaling channel. If @MASTER@ is specified, this API
+-- returns an endpoint that a client can use to receive offers from and
+-- send answers to any of the viewers on this signaling channel. If
+-- @VIEWER@ is specified, this API returns an endpoint that a client can
+-- use only to send offers to another @MASTER@ client on this signaling
+-- channel.
+newSingleMasterChannelEndpointConfiguration ::
   SingleMasterChannelEndpointConfiguration
-singleMasterChannelEndpointConfiguration =
+newSingleMasterChannelEndpointConfiguration =
   SingleMasterChannelEndpointConfiguration'
-    { _smcecProtocols =
-        Nothing,
-      _smcecRole = Nothing
+    { protocols =
+        Prelude.Nothing,
+      role' = Prelude.Nothing
     }
 
--- | This property is used to determine the nature of communication over this @SINGLE_MASTER@ signaling channel. If @WSS@ is specified, this API returns a websocket endpoint. If @HTTPS@ is specified, this API returns an @HTTPS@ endpoint.
-smcecProtocols :: Lens' SingleMasterChannelEndpointConfiguration (Maybe (NonEmpty ChannelProtocol))
-smcecProtocols = lens _smcecProtocols (\s a -> s {_smcecProtocols = a}) . mapping _List1
+-- | This property is used to determine the nature of communication over this
+-- @SINGLE_MASTER@ signaling channel. If @WSS@ is specified, this API
+-- returns a websocket endpoint. If @HTTPS@ is specified, this API returns
+-- an @HTTPS@ endpoint.
+singleMasterChannelEndpointConfiguration_protocols :: Lens.Lens' SingleMasterChannelEndpointConfiguration (Prelude.Maybe (Prelude.NonEmpty ChannelProtocol))
+singleMasterChannelEndpointConfiguration_protocols = Lens.lens (\SingleMasterChannelEndpointConfiguration' {protocols} -> protocols) (\s@SingleMasterChannelEndpointConfiguration' {} a -> s {protocols = a} :: SingleMasterChannelEndpointConfiguration) Prelude.. Lens.mapping Prelude._List1
 
--- | This property is used to determine messaging permissions in this @SINGLE_MASTER@ signaling channel. If @MASTER@ is specified, this API returns an endpoint that a client can use to receive offers from and send answers to any of the viewers on this signaling channel. If @VIEWER@ is specified, this API returns an endpoint that a client can use only to send offers to another @MASTER@ client on this signaling channel.
-smcecRole :: Lens' SingleMasterChannelEndpointConfiguration (Maybe ChannelRole)
-smcecRole = lens _smcecRole (\s a -> s {_smcecRole = a})
+-- | This property is used to determine messaging permissions in this
+-- @SINGLE_MASTER@ signaling channel. If @MASTER@ is specified, this API
+-- returns an endpoint that a client can use to receive offers from and
+-- send answers to any of the viewers on this signaling channel. If
+-- @VIEWER@ is specified, this API returns an endpoint that a client can
+-- use only to send offers to another @MASTER@ client on this signaling
+-- channel.
+singleMasterChannelEndpointConfiguration_role :: Lens.Lens' SingleMasterChannelEndpointConfiguration (Prelude.Maybe ChannelRole)
+singleMasterChannelEndpointConfiguration_role = Lens.lens (\SingleMasterChannelEndpointConfiguration' {role'} -> role') (\s@SingleMasterChannelEndpointConfiguration' {} a -> s {role' = a} :: SingleMasterChannelEndpointConfiguration)
 
 instance
-  Hashable
+  Prelude.Hashable
     SingleMasterChannelEndpointConfiguration
 
 instance
-  NFData
+  Prelude.NFData
     SingleMasterChannelEndpointConfiguration
 
 instance
-  ToJSON
+  Prelude.ToJSON
     SingleMasterChannelEndpointConfiguration
   where
   toJSON SingleMasterChannelEndpointConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("Protocols" .=) <$> _smcecProtocols,
-            ("Role" .=) <$> _smcecRole
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Protocols" Prelude..=) Prelude.<$> protocols,
+            ("Role" Prelude..=) Prelude.<$> role'
           ]
       )

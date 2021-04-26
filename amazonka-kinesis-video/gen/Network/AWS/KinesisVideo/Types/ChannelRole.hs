@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.KinesisVideo.Types.ChannelRole
   ( ChannelRole
       ( ..,
-        Master,
-        Viewer
+        ChannelRoleMASTER,
+        ChannelRoleVIEWER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChannelRole = ChannelRole' (CI Text)
+newtype ChannelRole = ChannelRole'
+  { fromChannelRole ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Master :: ChannelRole
-pattern Master = ChannelRole' "MASTER"
+pattern ChannelRoleMASTER :: ChannelRole
+pattern ChannelRoleMASTER = ChannelRole' "MASTER"
 
-pattern Viewer :: ChannelRole
-pattern Viewer = ChannelRole' "VIEWER"
+pattern ChannelRoleVIEWER :: ChannelRole
+pattern ChannelRoleVIEWER = ChannelRole' "VIEWER"
 
 {-# COMPLETE
-  Master,
-  Viewer,
+  ChannelRoleMASTER,
+  ChannelRoleVIEWER,
   ChannelRole'
   #-}
 
-instance FromText ChannelRole where
-  parser = (ChannelRole' . mk) <$> takeText
+instance Prelude.FromText ChannelRole where
+  parser = ChannelRole' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelRole where
-  toText (ChannelRole' ci) = original ci
+instance Prelude.ToText ChannelRole where
+  toText (ChannelRole' x) = x
 
-instance Hashable ChannelRole
+instance Prelude.Hashable ChannelRole
 
-instance NFData ChannelRole
+instance Prelude.NFData ChannelRole
 
-instance ToByteString ChannelRole
+instance Prelude.ToByteString ChannelRole
 
-instance ToQuery ChannelRole
+instance Prelude.ToQuery ChannelRole
 
-instance ToHeader ChannelRole
+instance Prelude.ToHeader ChannelRole
 
-instance ToJSON ChannelRole where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChannelRole where
+  toJSON = Prelude.toJSONText

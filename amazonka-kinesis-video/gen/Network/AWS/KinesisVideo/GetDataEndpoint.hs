@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets an endpoint for a specified stream for either reading or writing. Use this endpoint in your application to read from the specified stream (using the @GetMedia@ or @GetMediaForFragmentList@ operations) or write to it (using the @PutMedia@ operation).
+-- Gets an endpoint for a specified stream for either reading or writing.
+-- Use this endpoint in your application to read from the specified stream
+-- (using the @GetMedia@ or @GetMediaForFragmentList@ operations) or write
+-- to it (using the @PutMedia@ operation).
 --
+-- The returned endpoint does not have the API name appended. The client
+-- needs to add the API name to the returned endpoint.
 --
--- In the request, specify the stream either by @StreamName@ or @StreamARN@ .
+-- In the request, specify the stream either by @StreamName@ or
+-- @StreamARN@.
 module Network.AWS.KinesisVideo.GetDataEndpoint
   ( -- * Creating a Request
-    getDataEndpoint,
-    GetDataEndpoint,
+    GetDataEndpoint (..),
+    newGetDataEndpoint,
 
     -- * Request Lenses
-    gdeStreamARN,
-    gdeStreamName,
-    gdeAPIName,
+    getDataEndpoint_streamARN,
+    getDataEndpoint_streamName,
+    getDataEndpoint_aPIName,
 
     -- * Destructuring the Response
-    getDataEndpointResponse,
-    GetDataEndpointResponse,
+    GetDataEndpointResponse (..),
+    newGetDataEndpointResponse,
 
     -- * Response Lenses
-    gderrsDataEndpoint,
-    gderrsResponseStatus,
+    getDataEndpointResponse_dataEndpoint,
+    getDataEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDataEndpoint' smart constructor.
+-- | /See:/ 'newGetDataEndpoint' smart constructor.
 data GetDataEndpoint = GetDataEndpoint'
-  { _gdeStreamARN ::
-      !(Maybe Text),
-    _gdeStreamName :: !(Maybe Text),
-    _gdeAPIName :: !APIName
+  { -- | The Amazon Resource Name (ARN) of the stream that you want to get the
+    -- endpoint for. You must specify either this parameter or a @StreamName@
+    -- in the request.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream that you want to get the endpoint for. You must
+    -- specify either this parameter or a @StreamARN@ in the request.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the API action for which to get an endpoint.
+    aPIName :: APIName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdeStreamARN' - The Amazon Resource Name (ARN) of the stream that you want to get the endpoint for. You must specify either this parameter or a @StreamName@ in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdeStreamName' - The name of the stream that you want to get the endpoint for. You must specify either this parameter or a @StreamARN@ in the request.
+-- 'streamARN', 'getDataEndpoint_streamARN' - The Amazon Resource Name (ARN) of the stream that you want to get the
+-- endpoint for. You must specify either this parameter or a @StreamName@
+-- in the request.
 --
--- * 'gdeAPIName' - The name of the API action for which to get an endpoint.
-getDataEndpoint ::
-  -- | 'gdeAPIName'
+-- 'streamName', 'getDataEndpoint_streamName' - The name of the stream that you want to get the endpoint for. You must
+-- specify either this parameter or a @StreamARN@ in the request.
+--
+-- 'aPIName', 'getDataEndpoint_aPIName' - The name of the API action for which to get an endpoint.
+newGetDataEndpoint ::
+  -- | 'aPIName'
   APIName ->
   GetDataEndpoint
-getDataEndpoint pAPIName_ =
+newGetDataEndpoint pAPIName_ =
   GetDataEndpoint'
-    { _gdeStreamARN = Nothing,
-      _gdeStreamName = Nothing,
-      _gdeAPIName = pAPIName_
+    { streamARN = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      aPIName = pAPIName_
     }
 
--- | The Amazon Resource Name (ARN) of the stream that you want to get the endpoint for. You must specify either this parameter or a @StreamName@ in the request.
-gdeStreamARN :: Lens' GetDataEndpoint (Maybe Text)
-gdeStreamARN = lens _gdeStreamARN (\s a -> s {_gdeStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the stream that you want to get the
+-- endpoint for. You must specify either this parameter or a @StreamName@
+-- in the request.
+getDataEndpoint_streamARN :: Lens.Lens' GetDataEndpoint (Prelude.Maybe Prelude.Text)
+getDataEndpoint_streamARN = Lens.lens (\GetDataEndpoint' {streamARN} -> streamARN) (\s@GetDataEndpoint' {} a -> s {streamARN = a} :: GetDataEndpoint)
 
--- | The name of the stream that you want to get the endpoint for. You must specify either this parameter or a @StreamARN@ in the request.
-gdeStreamName :: Lens' GetDataEndpoint (Maybe Text)
-gdeStreamName = lens _gdeStreamName (\s a -> s {_gdeStreamName = a})
+-- | The name of the stream that you want to get the endpoint for. You must
+-- specify either this parameter or a @StreamARN@ in the request.
+getDataEndpoint_streamName :: Lens.Lens' GetDataEndpoint (Prelude.Maybe Prelude.Text)
+getDataEndpoint_streamName = Lens.lens (\GetDataEndpoint' {streamName} -> streamName) (\s@GetDataEndpoint' {} a -> s {streamName = a} :: GetDataEndpoint)
 
 -- | The name of the API action for which to get an endpoint.
-gdeAPIName :: Lens' GetDataEndpoint APIName
-gdeAPIName = lens _gdeAPIName (\s a -> s {_gdeAPIName = a})
+getDataEndpoint_aPIName :: Lens.Lens' GetDataEndpoint APIName
+getDataEndpoint_aPIName = Lens.lens (\GetDataEndpoint' {aPIName} -> aPIName) (\s@GetDataEndpoint' {} a -> s {aPIName = a} :: GetDataEndpoint)
 
-instance AWSRequest GetDataEndpoint where
+instance Prelude.AWSRequest GetDataEndpoint where
   type Rs GetDataEndpoint = GetDataEndpointResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDataEndpointResponse'
-            <$> (x .?> "DataEndpoint") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DataEndpoint")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDataEndpoint
+instance Prelude.Hashable GetDataEndpoint
 
-instance NFData GetDataEndpoint
+instance Prelude.NFData GetDataEndpoint
 
-instance ToHeaders GetDataEndpoint where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetDataEndpoint where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetDataEndpoint where
+instance Prelude.ToJSON GetDataEndpoint where
   toJSON GetDataEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _gdeStreamARN,
-            ("StreamName" .=) <$> _gdeStreamName,
-            Just ("APIName" .= _gdeAPIName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just ("APIName" Prelude..= aPIName)
           ]
       )
 
-instance ToPath GetDataEndpoint where
-  toPath = const "/getDataEndpoint"
+instance Prelude.ToPath GetDataEndpoint where
+  toPath = Prelude.const "/getDataEndpoint"
 
-instance ToQuery GetDataEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDataEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDataEndpointResponse' smart constructor.
+-- | /See:/ 'newGetDataEndpointResponse' smart constructor.
 data GetDataEndpointResponse = GetDataEndpointResponse'
-  { _gderrsDataEndpoint ::
-      !(Maybe Text),
-    _gderrsResponseStatus ::
-      !Int
+  { -- | The endpoint value. To read data from the stream or to write data to it,
+    -- specify this endpoint in your application.
+    dataEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDataEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDataEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gderrsDataEndpoint' - The endpoint value. To read data from the stream or to write data to it, specify this endpoint in your application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gderrsResponseStatus' - -- | The response status code.
-getDataEndpointResponse ::
-  -- | 'gderrsResponseStatus'
-  Int ->
+-- 'dataEndpoint', 'getDataEndpointResponse_dataEndpoint' - The endpoint value. To read data from the stream or to write data to it,
+-- specify this endpoint in your application.
+--
+-- 'httpStatus', 'getDataEndpointResponse_httpStatus' - The response's http status code.
+newGetDataEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDataEndpointResponse
-getDataEndpointResponse pResponseStatus_ =
+newGetDataEndpointResponse pHttpStatus_ =
   GetDataEndpointResponse'
-    { _gderrsDataEndpoint =
-        Nothing,
-      _gderrsResponseStatus = pResponseStatus_
+    { dataEndpoint =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The endpoint value. To read data from the stream or to write data to it, specify this endpoint in your application.
-gderrsDataEndpoint :: Lens' GetDataEndpointResponse (Maybe Text)
-gderrsDataEndpoint = lens _gderrsDataEndpoint (\s a -> s {_gderrsDataEndpoint = a})
+-- | The endpoint value. To read data from the stream or to write data to it,
+-- specify this endpoint in your application.
+getDataEndpointResponse_dataEndpoint :: Lens.Lens' GetDataEndpointResponse (Prelude.Maybe Prelude.Text)
+getDataEndpointResponse_dataEndpoint = Lens.lens (\GetDataEndpointResponse' {dataEndpoint} -> dataEndpoint) (\s@GetDataEndpointResponse' {} a -> s {dataEndpoint = a} :: GetDataEndpointResponse)
 
--- | -- | The response status code.
-gderrsResponseStatus :: Lens' GetDataEndpointResponse Int
-gderrsResponseStatus = lens _gderrsResponseStatus (\s a -> s {_gderrsResponseStatus = a})
+-- | The response's http status code.
+getDataEndpointResponse_httpStatus :: Lens.Lens' GetDataEndpointResponse Prelude.Int
+getDataEndpointResponse_httpStatus = Lens.lens (\GetDataEndpointResponse' {httpStatus} -> httpStatus) (\s@GetDataEndpointResponse' {} a -> s {httpStatus = a} :: GetDataEndpointResponse)
 
-instance NFData GetDataEndpointResponse
+instance Prelude.NFData GetDataEndpointResponse

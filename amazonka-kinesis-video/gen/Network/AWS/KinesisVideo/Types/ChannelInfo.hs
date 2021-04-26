@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,100 +22,111 @@ module Network.AWS.KinesisVideo.Types.ChannelInfo where
 import Network.AWS.KinesisVideo.Types.ChannelType
 import Network.AWS.KinesisVideo.Types.SingleMasterConfiguration
 import Network.AWS.KinesisVideo.Types.StreamStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure that encapsulates a signaling channel's metadata and properties.
+-- | A structure that encapsulates a signaling channel\'s metadata and
+-- properties.
 --
---
---
--- /See:/ 'channelInfo' smart constructor.
+-- /See:/ 'newChannelInfo' smart constructor.
 data ChannelInfo = ChannelInfo'
-  { _ciChannelName ::
-      !(Maybe Text),
-    _ciCreationTime :: !(Maybe POSIX),
-    _ciSingleMasterConfiguration ::
-      !(Maybe SingleMasterConfiguration),
-    _ciChannelType :: !(Maybe ChannelType),
-    _ciVersion :: !(Maybe Text),
-    _ciChannelStatus :: !(Maybe StreamStatus),
-    _ciChannelARN :: !(Maybe Text)
+  { -- | The name of the signaling channel.
+    channelName :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the signaling channel was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A structure that contains the configuration for the @SINGLE_MASTER@
+    -- channel type.
+    singleMasterConfiguration :: Prelude.Maybe SingleMasterConfiguration,
+    -- | The type of the signaling channel.
+    channelType :: Prelude.Maybe ChannelType,
+    -- | The current version of the signaling channel.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | Current status of the signaling channel.
+    channelStatus :: Prelude.Maybe StreamStatus,
+    -- | The Amazon Resource Name (ARN) of the signaling channel.
+    channelARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciChannelName' - The name of the signaling channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciCreationTime' - The time at which the signaling channel was created.
+-- 'channelName', 'channelInfo_channelName' - The name of the signaling channel.
 --
--- * 'ciSingleMasterConfiguration' - A structure that contains the configuration for the @SINGLE_MASTER@ channel type.
+-- 'creationTime', 'channelInfo_creationTime' - The time at which the signaling channel was created.
 --
--- * 'ciChannelType' - The type of the signaling channel.
+-- 'singleMasterConfiguration', 'channelInfo_singleMasterConfiguration' - A structure that contains the configuration for the @SINGLE_MASTER@
+-- channel type.
 --
--- * 'ciVersion' - The current version of the signaling channel.
+-- 'channelType', 'channelInfo_channelType' - The type of the signaling channel.
 --
--- * 'ciChannelStatus' - Current status of the signaling channel.
+-- 'version', 'channelInfo_version' - The current version of the signaling channel.
 --
--- * 'ciChannelARN' - The Amazon Resource Name (ARN) of the signaling channel.
-channelInfo ::
+-- 'channelStatus', 'channelInfo_channelStatus' - Current status of the signaling channel.
+--
+-- 'channelARN', 'channelInfo_channelARN' - The Amazon Resource Name (ARN) of the signaling channel.
+newChannelInfo ::
   ChannelInfo
-channelInfo =
+newChannelInfo =
   ChannelInfo'
-    { _ciChannelName = Nothing,
-      _ciCreationTime = Nothing,
-      _ciSingleMasterConfiguration = Nothing,
-      _ciChannelType = Nothing,
-      _ciVersion = Nothing,
-      _ciChannelStatus = Nothing,
-      _ciChannelARN = Nothing
+    { channelName = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      singleMasterConfiguration = Prelude.Nothing,
+      channelType = Prelude.Nothing,
+      version = Prelude.Nothing,
+      channelStatus = Prelude.Nothing,
+      channelARN = Prelude.Nothing
     }
 
 -- | The name of the signaling channel.
-ciChannelName :: Lens' ChannelInfo (Maybe Text)
-ciChannelName = lens _ciChannelName (\s a -> s {_ciChannelName = a})
+channelInfo_channelName :: Lens.Lens' ChannelInfo (Prelude.Maybe Prelude.Text)
+channelInfo_channelName = Lens.lens (\ChannelInfo' {channelName} -> channelName) (\s@ChannelInfo' {} a -> s {channelName = a} :: ChannelInfo)
 
 -- | The time at which the signaling channel was created.
-ciCreationTime :: Lens' ChannelInfo (Maybe UTCTime)
-ciCreationTime = lens _ciCreationTime (\s a -> s {_ciCreationTime = a}) . mapping _Time
+channelInfo_creationTime :: Lens.Lens' ChannelInfo (Prelude.Maybe Prelude.UTCTime)
+channelInfo_creationTime = Lens.lens (\ChannelInfo' {creationTime} -> creationTime) (\s@ChannelInfo' {} a -> s {creationTime = a} :: ChannelInfo) Prelude.. Lens.mapping Prelude._Time
 
--- | A structure that contains the configuration for the @SINGLE_MASTER@ channel type.
-ciSingleMasterConfiguration :: Lens' ChannelInfo (Maybe SingleMasterConfiguration)
-ciSingleMasterConfiguration = lens _ciSingleMasterConfiguration (\s a -> s {_ciSingleMasterConfiguration = a})
+-- | A structure that contains the configuration for the @SINGLE_MASTER@
+-- channel type.
+channelInfo_singleMasterConfiguration :: Lens.Lens' ChannelInfo (Prelude.Maybe SingleMasterConfiguration)
+channelInfo_singleMasterConfiguration = Lens.lens (\ChannelInfo' {singleMasterConfiguration} -> singleMasterConfiguration) (\s@ChannelInfo' {} a -> s {singleMasterConfiguration = a} :: ChannelInfo)
 
 -- | The type of the signaling channel.
-ciChannelType :: Lens' ChannelInfo (Maybe ChannelType)
-ciChannelType = lens _ciChannelType (\s a -> s {_ciChannelType = a})
+channelInfo_channelType :: Lens.Lens' ChannelInfo (Prelude.Maybe ChannelType)
+channelInfo_channelType = Lens.lens (\ChannelInfo' {channelType} -> channelType) (\s@ChannelInfo' {} a -> s {channelType = a} :: ChannelInfo)
 
 -- | The current version of the signaling channel.
-ciVersion :: Lens' ChannelInfo (Maybe Text)
-ciVersion = lens _ciVersion (\s a -> s {_ciVersion = a})
+channelInfo_version :: Lens.Lens' ChannelInfo (Prelude.Maybe Prelude.Text)
+channelInfo_version = Lens.lens (\ChannelInfo' {version} -> version) (\s@ChannelInfo' {} a -> s {version = a} :: ChannelInfo)
 
 -- | Current status of the signaling channel.
-ciChannelStatus :: Lens' ChannelInfo (Maybe StreamStatus)
-ciChannelStatus = lens _ciChannelStatus (\s a -> s {_ciChannelStatus = a})
+channelInfo_channelStatus :: Lens.Lens' ChannelInfo (Prelude.Maybe StreamStatus)
+channelInfo_channelStatus = Lens.lens (\ChannelInfo' {channelStatus} -> channelStatus) (\s@ChannelInfo' {} a -> s {channelStatus = a} :: ChannelInfo)
 
 -- | The Amazon Resource Name (ARN) of the signaling channel.
-ciChannelARN :: Lens' ChannelInfo (Maybe Text)
-ciChannelARN = lens _ciChannelARN (\s a -> s {_ciChannelARN = a})
+channelInfo_channelARN :: Lens.Lens' ChannelInfo (Prelude.Maybe Prelude.Text)
+channelInfo_channelARN = Lens.lens (\ChannelInfo' {channelARN} -> channelARN) (\s@ChannelInfo' {} a -> s {channelARN = a} :: ChannelInfo)
 
-instance FromJSON ChannelInfo where
+instance Prelude.FromJSON ChannelInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelInfo"
       ( \x ->
           ChannelInfo'
-            <$> (x .:? "ChannelName")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "SingleMasterConfiguration")
-            <*> (x .:? "ChannelType")
-            <*> (x .:? "Version")
-            <*> (x .:? "ChannelStatus")
-            <*> (x .:? "ChannelARN")
+            Prelude.<$> (x Prelude..:? "ChannelName")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "SingleMasterConfiguration")
+            Prelude.<*> (x Prelude..:? "ChannelType")
+            Prelude.<*> (x Prelude..:? "Version")
+            Prelude.<*> (x Prelude..:? "ChannelStatus")
+            Prelude.<*> (x Prelude..:? "ChannelARN")
       )
 
-instance Hashable ChannelInfo
+instance Prelude.Hashable ChannelInfo
 
-instance NFData ChannelInfo
+instance Prelude.NFData ChannelInfo

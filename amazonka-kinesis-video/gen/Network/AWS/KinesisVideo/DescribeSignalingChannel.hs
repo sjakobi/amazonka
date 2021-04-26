@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the most current information about the signaling channel. You must specify either the name or the Amazon Resource Name (ARN) of the channel that you want to describe.
+-- Returns the most current information about the signaling channel. You
+-- must specify either the name or the Amazon Resource Name (ARN) of the
+-- channel that you want to describe.
 module Network.AWS.KinesisVideo.DescribeSignalingChannel
   ( -- * Creating a Request
-    describeSignalingChannel,
-    DescribeSignalingChannel,
+    DescribeSignalingChannel (..),
+    newDescribeSignalingChannel,
 
     -- * Request Lenses
-    dChannelName,
-    dChannelARN,
+    describeSignalingChannel_channelName,
+    describeSignalingChannel_channelARN,
 
     -- * Destructuring the Response
-    describeSignalingChannelResponse,
-    DescribeSignalingChannelResponse,
+    DescribeSignalingChannelResponse (..),
+    newDescribeSignalingChannelResponse,
 
     -- * Response Lenses
-    drsChannelInfo,
-    drsResponseStatus,
+    describeSignalingChannelResponse_channelInfo,
+    describeSignalingChannelResponse_httpStatus,
   )
 where
 
 import Network.AWS.KinesisVideo.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KinesisVideo.Types.ChannelInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSignalingChannel' smart constructor.
+-- | /See:/ 'newDescribeSignalingChannel' smart constructor.
 data DescribeSignalingChannel = DescribeSignalingChannel'
-  { _dChannelName ::
-      !(Maybe Text),
-    _dChannelARN ::
-      !(Maybe Text)
+  { -- | The name of the signaling channel that you want to describe.
+    channelName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the signaling channel that you want to describe.
+    channelARN :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSignalingChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSignalingChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dChannelName' - The name of the signaling channel that you want to describe.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dChannelARN' - The ARN of the signaling channel that you want to describe.
-describeSignalingChannel ::
+-- 'channelName', 'describeSignalingChannel_channelName' - The name of the signaling channel that you want to describe.
+--
+-- 'channelARN', 'describeSignalingChannel_channelARN' - The ARN of the signaling channel that you want to describe.
+newDescribeSignalingChannel ::
   DescribeSignalingChannel
-describeSignalingChannel =
+newDescribeSignalingChannel =
   DescribeSignalingChannel'
-    { _dChannelName = Nothing,
-      _dChannelARN = Nothing
+    { channelName =
+        Prelude.Nothing,
+      channelARN = Prelude.Nothing
     }
 
 -- | The name of the signaling channel that you want to describe.
-dChannelName :: Lens' DescribeSignalingChannel (Maybe Text)
-dChannelName = lens _dChannelName (\s a -> s {_dChannelName = a})
+describeSignalingChannel_channelName :: Lens.Lens' DescribeSignalingChannel (Prelude.Maybe Prelude.Text)
+describeSignalingChannel_channelName = Lens.lens (\DescribeSignalingChannel' {channelName} -> channelName) (\s@DescribeSignalingChannel' {} a -> s {channelName = a} :: DescribeSignalingChannel)
 
 -- | The ARN of the signaling channel that you want to describe.
-dChannelARN :: Lens' DescribeSignalingChannel (Maybe Text)
-dChannelARN = lens _dChannelARN (\s a -> s {_dChannelARN = a})
+describeSignalingChannel_channelARN :: Lens.Lens' DescribeSignalingChannel (Prelude.Maybe Prelude.Text)
+describeSignalingChannel_channelARN = Lens.lens (\DescribeSignalingChannel' {channelARN} -> channelARN) (\s@DescribeSignalingChannel' {} a -> s {channelARN = a} :: DescribeSignalingChannel)
 
-instance AWSRequest DescribeSignalingChannel where
+instance Prelude.AWSRequest DescribeSignalingChannel where
   type
     Rs DescribeSignalingChannel =
       DescribeSignalingChannelResponse
-  request = postJSON kinesisVideo
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSignalingChannelResponse'
-            <$> (x .?> "ChannelInfo") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChannelInfo")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSignalingChannel
+instance Prelude.Hashable DescribeSignalingChannel
 
-instance NFData DescribeSignalingChannel
+instance Prelude.NFData DescribeSignalingChannel
 
-instance ToHeaders DescribeSignalingChannel where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeSignalingChannel where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON DescribeSignalingChannel where
+instance Prelude.ToJSON DescribeSignalingChannel where
   toJSON DescribeSignalingChannel' {..} =
-    object
-      ( catMaybes
-          [ ("ChannelName" .=) <$> _dChannelName,
-            ("ChannelARN" .=) <$> _dChannelARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ChannelName" Prelude..=) Prelude.<$> channelName,
+            ("ChannelARN" Prelude..=) Prelude.<$> channelARN
           ]
       )
 
-instance ToPath DescribeSignalingChannel where
-  toPath = const "/describeSignalingChannel"
+instance Prelude.ToPath DescribeSignalingChannel where
+  toPath = Prelude.const "/describeSignalingChannel"
 
-instance ToQuery DescribeSignalingChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSignalingChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeSignalingChannelResponse' smart constructor.
+-- | /See:/ 'newDescribeSignalingChannelResponse' smart constructor.
 data DescribeSignalingChannelResponse = DescribeSignalingChannelResponse'
-  { _drsChannelInfo ::
-      !( Maybe
-           ChannelInfo
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | A structure that encapsulates the specified signaling channel\'s
+    -- metadata and properties.
+    channelInfo :: Prelude.Maybe ChannelInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSignalingChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSignalingChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsChannelInfo' - A structure that encapsulates the specified signaling channel's metadata and properties.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeSignalingChannelResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'channelInfo', 'describeSignalingChannelResponse_channelInfo' - A structure that encapsulates the specified signaling channel\'s
+-- metadata and properties.
+--
+-- 'httpStatus', 'describeSignalingChannelResponse_httpStatus' - The response's http status code.
+newDescribeSignalingChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSignalingChannelResponse
-describeSignalingChannelResponse pResponseStatus_ =
+newDescribeSignalingChannelResponse pHttpStatus_ =
   DescribeSignalingChannelResponse'
-    { _drsChannelInfo =
-        Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { channelInfo =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A structure that encapsulates the specified signaling channel's metadata and properties.
-drsChannelInfo :: Lens' DescribeSignalingChannelResponse (Maybe ChannelInfo)
-drsChannelInfo = lens _drsChannelInfo (\s a -> s {_drsChannelInfo = a})
+-- | A structure that encapsulates the specified signaling channel\'s
+-- metadata and properties.
+describeSignalingChannelResponse_channelInfo :: Lens.Lens' DescribeSignalingChannelResponse (Prelude.Maybe ChannelInfo)
+describeSignalingChannelResponse_channelInfo = Lens.lens (\DescribeSignalingChannelResponse' {channelInfo} -> channelInfo) (\s@DescribeSignalingChannelResponse' {} a -> s {channelInfo = a} :: DescribeSignalingChannelResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeSignalingChannelResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeSignalingChannelResponse_httpStatus :: Lens.Lens' DescribeSignalingChannelResponse Prelude.Int
+describeSignalingChannelResponse_httpStatus = Lens.lens (\DescribeSignalingChannelResponse' {httpStatus} -> httpStatus) (\s@DescribeSignalingChannelResponse' {} a -> s {httpStatus = a} :: DescribeSignalingChannelResponse)
 
-instance NFData DescribeSignalingChannelResponse
+instance
+  Prelude.NFData
+    DescribeSignalingChannelResponse
