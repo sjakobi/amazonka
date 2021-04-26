@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SDB.Types.ReplaceableAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- |
 --
---
---
--- /See:/ 'replaceableAttribute' smart constructor.
+-- /See:/ 'newReplaceableAttribute' smart constructor.
 data ReplaceableAttribute = ReplaceableAttribute'
-  { _raReplace ::
-      !(Maybe Bool),
-    _raName :: !Text,
-    _raValue :: !Text
+  { -- | A flag specifying whether or not to replace the attribute\/value pair or
+    -- to add a new attribute\/value pair. The default setting is @false@.
+    replace :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the replaceable attribute.
+    name :: Prelude.Text,
+    -- | The value of the replaceable attribute.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplaceableAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplaceableAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raReplace' - @false@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raName' - The name of the replaceable attribute.
+-- 'replace', 'replaceableAttribute_replace' - A flag specifying whether or not to replace the attribute\/value pair or
+-- to add a new attribute\/value pair. The default setting is @false@.
 --
--- * 'raValue' - The value of the replaceable attribute.
-replaceableAttribute ::
-  -- | 'raName'
-  Text ->
-  -- | 'raValue'
-  Text ->
+-- 'name', 'replaceableAttribute_name' - The name of the replaceable attribute.
+--
+-- 'value', 'replaceableAttribute_value' - The value of the replaceable attribute.
+newReplaceableAttribute ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   ReplaceableAttribute
-replaceableAttribute pName_ pValue_ =
+newReplaceableAttribute pName_ pValue_ =
   ReplaceableAttribute'
-    { _raReplace = Nothing,
-      _raName = pName_,
-      _raValue = pValue_
+    { replace = Prelude.Nothing,
+      name = pName_,
+      value = pValue_
     }
 
--- | @false@
-raReplace :: Lens' ReplaceableAttribute (Maybe Bool)
-raReplace = lens _raReplace (\s a -> s {_raReplace = a})
+-- | A flag specifying whether or not to replace the attribute\/value pair or
+-- to add a new attribute\/value pair. The default setting is @false@.
+replaceableAttribute_replace :: Lens.Lens' ReplaceableAttribute (Prelude.Maybe Prelude.Bool)
+replaceableAttribute_replace = Lens.lens (\ReplaceableAttribute' {replace} -> replace) (\s@ReplaceableAttribute' {} a -> s {replace = a} :: ReplaceableAttribute)
 
 -- | The name of the replaceable attribute.
-raName :: Lens' ReplaceableAttribute Text
-raName = lens _raName (\s a -> s {_raName = a})
+replaceableAttribute_name :: Lens.Lens' ReplaceableAttribute Prelude.Text
+replaceableAttribute_name = Lens.lens (\ReplaceableAttribute' {name} -> name) (\s@ReplaceableAttribute' {} a -> s {name = a} :: ReplaceableAttribute)
 
 -- | The value of the replaceable attribute.
-raValue :: Lens' ReplaceableAttribute Text
-raValue = lens _raValue (\s a -> s {_raValue = a})
+replaceableAttribute_value :: Lens.Lens' ReplaceableAttribute Prelude.Text
+replaceableAttribute_value = Lens.lens (\ReplaceableAttribute' {value} -> value) (\s@ReplaceableAttribute' {} a -> s {value = a} :: ReplaceableAttribute)
 
-instance Hashable ReplaceableAttribute
+instance Prelude.Hashable ReplaceableAttribute
 
-instance NFData ReplaceableAttribute
+instance Prelude.NFData ReplaceableAttribute
 
-instance ToQuery ReplaceableAttribute where
+instance Prelude.ToQuery ReplaceableAttribute where
   toQuery ReplaceableAttribute' {..} =
-    mconcat
-      [ "Replace" =: _raReplace,
-        "Name" =: _raName,
-        "Value" =: _raValue
+    Prelude.mconcat
+      [ "Replace" Prelude.=: replace,
+        "Name" Prelude.=: name,
+        "Value" Prelude.=: value
       ]

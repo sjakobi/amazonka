@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all of the attributes associated with the specified item. Optionally, the attributes returned can be limited to one or more attributes by specifying an attribute name parameter.
+-- Returns all of the attributes associated with the specified item.
+-- Optionally, the attributes returned can be limited to one or more
+-- attributes by specifying an attribute name parameter.
 --
---
--- If the item does not exist on the replica that was accessed for this operation, an empty set is returned. The system does not return an error as it cannot guarantee the item does not exist on other replicas.
+-- If the item does not exist on the replica that was accessed for this
+-- operation, an empty set is returned. The system does not return an error
+-- as it cannot guarantee the item does not exist on other replicas.
 module Network.AWS.SDB.GetAttributes
   ( -- * Creating a Request
-    getAttributes,
-    GetAttributes,
+    GetAttributes (..),
+    newGetAttributes,
 
     -- * Request Lenses
-    gaConsistentRead,
-    gaAttributeNames,
-    gaDomainName,
-    gaItemName,
+    getAttributes_consistentRead,
+    getAttributes_attributeNames,
+    getAttributes_domainName,
+    getAttributes_itemName,
 
     -- * Destructuring the Response
-    getAttributesResponse,
-    GetAttributesResponse,
+    GetAttributesResponse (..),
+    newGetAttributesResponse,
 
     -- * Response Lenses
-    garrsAttributes,
-    garrsResponseStatus,
+    getAttributesResponse_attributes,
+    getAttributesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SDB.Types
+import Network.AWS.SDB.Types.Attribute
 
--- | /See:/ 'getAttributes' smart constructor.
+-- | /See:/ 'newGetAttributes' smart constructor.
 data GetAttributes = GetAttributes'
-  { _gaConsistentRead ::
-      !(Maybe Bool),
-    _gaAttributeNames :: !(Maybe [Text]),
-    _gaDomainName :: !Text,
-    _gaItemName :: !Text
+  { -- | Determines whether or not strong consistency should be enforced when
+    -- data is read from SimpleDB. If @true@, any data previously written to
+    -- SimpleDB will be returned. Otherwise, results will be consistent
+    -- eventually, and the client may not see data that was written immediately
+    -- before your read.
+    consistentRead :: Prelude.Maybe Prelude.Bool,
+    -- | The names of the attributes.
+    attributeNames :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the domain in which to perform the operation.
+    domainName :: Prelude.Text,
+    -- | The name of the item.
+    itemName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaConsistentRead' - @true@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaAttributeNames' - The names of the attributes.
+-- 'consistentRead', 'getAttributes_consistentRead' - Determines whether or not strong consistency should be enforced when
+-- data is read from SimpleDB. If @true@, any data previously written to
+-- SimpleDB will be returned. Otherwise, results will be consistent
+-- eventually, and the client may not see data that was written immediately
+-- before your read.
 --
--- * 'gaDomainName' - The name of the domain in which to perform the operation.
+-- 'attributeNames', 'getAttributes_attributeNames' - The names of the attributes.
 --
--- * 'gaItemName' - The name of the item.
-getAttributes ::
-  -- | 'gaDomainName'
-  Text ->
-  -- | 'gaItemName'
-  Text ->
+-- 'domainName', 'getAttributes_domainName' - The name of the domain in which to perform the operation.
+--
+-- 'itemName', 'getAttributes_itemName' - The name of the item.
+newGetAttributes ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'itemName'
+  Prelude.Text ->
   GetAttributes
-getAttributes pDomainName_ pItemName_ =
+newGetAttributes pDomainName_ pItemName_ =
   GetAttributes'
-    { _gaConsistentRead = Nothing,
-      _gaAttributeNames = Nothing,
-      _gaDomainName = pDomainName_,
-      _gaItemName = pItemName_
+    { consistentRead = Prelude.Nothing,
+      attributeNames = Prelude.Nothing,
+      domainName = pDomainName_,
+      itemName = pItemName_
     }
 
--- | @true@
-gaConsistentRead :: Lens' GetAttributes (Maybe Bool)
-gaConsistentRead = lens _gaConsistentRead (\s a -> s {_gaConsistentRead = a})
+-- | Determines whether or not strong consistency should be enforced when
+-- data is read from SimpleDB. If @true@, any data previously written to
+-- SimpleDB will be returned. Otherwise, results will be consistent
+-- eventually, and the client may not see data that was written immediately
+-- before your read.
+getAttributes_consistentRead :: Lens.Lens' GetAttributes (Prelude.Maybe Prelude.Bool)
+getAttributes_consistentRead = Lens.lens (\GetAttributes' {consistentRead} -> consistentRead) (\s@GetAttributes' {} a -> s {consistentRead = a} :: GetAttributes)
 
 -- | The names of the attributes.
-gaAttributeNames :: Lens' GetAttributes [Text]
-gaAttributeNames = lens _gaAttributeNames (\s a -> s {_gaAttributeNames = a}) . _Default . _Coerce
+getAttributes_attributeNames :: Lens.Lens' GetAttributes (Prelude.Maybe [Prelude.Text])
+getAttributes_attributeNames = Lens.lens (\GetAttributes' {attributeNames} -> attributeNames) (\s@GetAttributes' {} a -> s {attributeNames = a} :: GetAttributes) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the domain in which to perform the operation.
-gaDomainName :: Lens' GetAttributes Text
-gaDomainName = lens _gaDomainName (\s a -> s {_gaDomainName = a})
+getAttributes_domainName :: Lens.Lens' GetAttributes Prelude.Text
+getAttributes_domainName = Lens.lens (\GetAttributes' {domainName} -> domainName) (\s@GetAttributes' {} a -> s {domainName = a} :: GetAttributes)
 
 -- | The name of the item.
-gaItemName :: Lens' GetAttributes Text
-gaItemName = lens _gaItemName (\s a -> s {_gaItemName = a})
+getAttributes_itemName :: Lens.Lens' GetAttributes Prelude.Text
+getAttributes_itemName = Lens.lens (\GetAttributes' {itemName} -> itemName) (\s@GetAttributes' {} a -> s {itemName = a} :: GetAttributes)
 
-instance AWSRequest GetAttributes where
+instance Prelude.AWSRequest GetAttributes where
   type Rs GetAttributes = GetAttributesResponse
-  request = postQuery sdb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetAttributesResult"
       ( \s h x ->
           GetAttributesResponse'
-            <$> (may (parseXMLList "Attribute") x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.may (Prelude.parseXMLList "Attribute") x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAttributes
+instance Prelude.Hashable GetAttributes
 
-instance NFData GetAttributes
+instance Prelude.NFData GetAttributes
 
-instance ToHeaders GetAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetAttributes where
-  toPath = const "/"
+instance Prelude.ToPath GetAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAttributes where
+instance Prelude.ToQuery GetAttributes where
   toQuery GetAttributes' {..} =
-    mconcat
-      [ "Action" =: ("GetAttributes" :: ByteString),
-        "Version" =: ("2009-04-15" :: ByteString),
-        "ConsistentRead" =: _gaConsistentRead,
-        toQuery
-          (toQueryList "AttributeName" <$> _gaAttributeNames),
-        "DomainName" =: _gaDomainName,
-        "ItemName" =: _gaItemName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetAttributes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2009-04-15" :: Prelude.ByteString),
+        "ConsistentRead" Prelude.=: consistentRead,
+        Prelude.toQuery
+          ( Prelude.toQueryList "AttributeName"
+              Prelude.<$> attributeNames
+          ),
+        "DomainName" Prelude.=: domainName,
+        "ItemName" Prelude.=: itemName
       ]
 
--- | /See:/ 'getAttributesResponse' smart constructor.
+-- | /See:/ 'newGetAttributesResponse' smart constructor.
 data GetAttributesResponse = GetAttributesResponse'
-  { _garrsAttributes ::
-      !(Maybe [Attribute]),
-    _garrsResponseStatus ::
-      !Int
+  { -- | The list of attributes returned by the operation.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garrsAttributes' - The list of attributes returned by the operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garrsResponseStatus' - -- | The response status code.
-getAttributesResponse ::
-  -- | 'garrsResponseStatus'
-  Int ->
+-- 'attributes', 'getAttributesResponse_attributes' - The list of attributes returned by the operation.
+--
+-- 'httpStatus', 'getAttributesResponse_httpStatus' - The response's http status code.
+newGetAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAttributesResponse
-getAttributesResponse pResponseStatus_ =
+newGetAttributesResponse pHttpStatus_ =
   GetAttributesResponse'
-    { _garrsAttributes = Nothing,
-      _garrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of attributes returned by the operation.
-garrsAttributes :: Lens' GetAttributesResponse [Attribute]
-garrsAttributes = lens _garrsAttributes (\s a -> s {_garrsAttributes = a}) . _Default . _Coerce
+getAttributesResponse_attributes :: Lens.Lens' GetAttributesResponse (Prelude.Maybe [Attribute])
+getAttributesResponse_attributes = Lens.lens (\GetAttributesResponse' {attributes} -> attributes) (\s@GetAttributesResponse' {} a -> s {attributes = a} :: GetAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-garrsResponseStatus :: Lens' GetAttributesResponse Int
-garrsResponseStatus = lens _garrsResponseStatus (\s a -> s {_garrsResponseStatus = a})
+-- | The response's http status code.
+getAttributesResponse_httpStatus :: Lens.Lens' GetAttributesResponse Prelude.Int
+getAttributesResponse_httpStatus = Lens.lens (\GetAttributesResponse' {httpStatus} -> httpStatus) (\s@GetAttributesResponse' {} a -> s {httpStatus = a} :: GetAttributesResponse)
 
-instance NFData GetAttributesResponse
+instance Prelude.NFData GetAttributesResponse

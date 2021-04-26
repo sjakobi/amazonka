@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SDB.Types.Attribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- |
 --
---
---
--- /See:/ 'attribute' smart constructor.
+-- /See:/ 'newAttribute' smart constructor.
 data Attribute = Attribute'
-  { _aAlternateNameEncoding ::
-      !(Maybe Text),
-    _aAlternateValueEncoding :: !(Maybe Text),
-    _aName :: !Text,
-    _aValue :: !Text
+  { alternateNameEncoding :: Prelude.Maybe Prelude.Text,
+    alternateValueEncoding :: Prelude.Maybe Prelude.Text,
+    -- | The name of the attribute.
+    name :: Prelude.Text,
+    -- | The value of the attribute.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Attribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Attribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aAlternateNameEncoding' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aAlternateValueEncoding' -
+-- 'alternateNameEncoding', 'attribute_alternateNameEncoding' -
 --
--- * 'aName' - The name of the attribute.
+-- 'alternateValueEncoding', 'attribute_alternateValueEncoding' -
 --
--- * 'aValue' - The value of the attribute.
-attribute ::
-  -- | 'aName'
-  Text ->
-  -- | 'aValue'
-  Text ->
+-- 'name', 'attribute_name' - The name of the attribute.
+--
+-- 'value', 'attribute_value' - The value of the attribute.
+newAttribute ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Attribute
-attribute pName_ pValue_ =
+newAttribute pName_ pValue_ =
   Attribute'
-    { _aAlternateNameEncoding = Nothing,
-      _aAlternateValueEncoding = Nothing,
-      _aName = pName_,
-      _aValue = pValue_
+    { alternateNameEncoding = Prelude.Nothing,
+      alternateValueEncoding = Prelude.Nothing,
+      name = pName_,
+      value = pValue_
     }
 
 -- |
-aAlternateNameEncoding :: Lens' Attribute (Maybe Text)
-aAlternateNameEncoding = lens _aAlternateNameEncoding (\s a -> s {_aAlternateNameEncoding = a})
+attribute_alternateNameEncoding :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
+attribute_alternateNameEncoding = Lens.lens (\Attribute' {alternateNameEncoding} -> alternateNameEncoding) (\s@Attribute' {} a -> s {alternateNameEncoding = a} :: Attribute)
 
 -- |
-aAlternateValueEncoding :: Lens' Attribute (Maybe Text)
-aAlternateValueEncoding = lens _aAlternateValueEncoding (\s a -> s {_aAlternateValueEncoding = a})
+attribute_alternateValueEncoding :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
+attribute_alternateValueEncoding = Lens.lens (\Attribute' {alternateValueEncoding} -> alternateValueEncoding) (\s@Attribute' {} a -> s {alternateValueEncoding = a} :: Attribute)
 
 -- | The name of the attribute.
-aName :: Lens' Attribute Text
-aName = lens _aName (\s a -> s {_aName = a})
+attribute_name :: Lens.Lens' Attribute Prelude.Text
+attribute_name = Lens.lens (\Attribute' {name} -> name) (\s@Attribute' {} a -> s {name = a} :: Attribute)
 
 -- | The value of the attribute.
-aValue :: Lens' Attribute Text
-aValue = lens _aValue (\s a -> s {_aValue = a})
+attribute_value :: Lens.Lens' Attribute Prelude.Text
+attribute_value = Lens.lens (\Attribute' {value} -> value) (\s@Attribute' {} a -> s {value = a} :: Attribute)
 
-instance FromXML Attribute where
+instance Prelude.FromXML Attribute where
   parseXML x =
     Attribute'
-      <$> (x .@? "AlternateNameEncoding")
-      <*> (x .@? "AlternateValueEncoding")
-      <*> (x .@ "Name")
-      <*> (x .@ "Value")
+      Prelude.<$> (x Prelude..@? "AlternateNameEncoding")
+      Prelude.<*> (x Prelude..@? "AlternateValueEncoding")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable Attribute
+instance Prelude.Hashable Attribute
 
-instance NFData Attribute
+instance Prelude.NFData Attribute
 
-instance ToQuery Attribute where
+instance Prelude.ToQuery Attribute where
   toQuery Attribute' {..} =
-    mconcat
-      [ "AlternateNameEncoding" =: _aAlternateNameEncoding,
-        "AlternateValueEncoding" =: _aAlternateValueEncoding,
-        "Name" =: _aName,
-        "Value" =: _aValue
+    Prelude.mconcat
+      [ "AlternateNameEncoding"
+          Prelude.=: alternateNameEncoding,
+        "AlternateValueEncoding"
+          Prelude.=: alternateValueEncoding,
+        "Name" Prelude.=: name,
+        "Value" Prelude.=: value
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,85 +21,105 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @CreateDomain@ operation creates a new domain. The domain name should be unique among the domains associated with the Access Key ID provided in the request. The @CreateDomain@ operation may take 10 or more seconds to complete.
---
+-- The @CreateDomain@ operation creates a new domain. The domain name
+-- should be unique among the domains associated with the Access Key ID
+-- provided in the request. The @CreateDomain@ operation may take 10 or
+-- more seconds to complete.
 --
 -- The client can create up to 100 domains per account.
 --
--- If the client requires additional domains, go to <http://aws.amazon.com/contact-us/simpledb-limit-request/ http://aws.amazon.com/contact-us/simpledb-limit-request/> .
+-- If the client requires additional domains, go to
+-- <http://aws.amazon.com/contact-us/simpledb-limit-request/>.
 module Network.AWS.SDB.CreateDomain
   ( -- * Creating a Request
-    createDomain,
-    CreateDomain,
+    CreateDomain (..),
+    newCreateDomain,
 
     -- * Request Lenses
-    cdDomainName,
+    createDomain_domainName,
 
     -- * Destructuring the Response
-    createDomainResponse,
-    CreateDomainResponse,
+    CreateDomainResponse (..),
+    newCreateDomainResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SDB.Types
 
--- | /See:/ 'createDomain' smart constructor.
-newtype CreateDomain = CreateDomain'
-  { _cdDomainName ::
-      Text
+-- | /See:/ 'newCreateDomain' smart constructor.
+data CreateDomain = CreateDomain'
+  { -- | The name of the domain to create. The name can range between 3 and 255
+    -- characters and can contain the following characters: a-z, A-Z, 0-9,
+    -- \'_\', \'-\', and \'.\'.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdDomainName' - The name of the domain to create. The name can range between 3 and 255 characters and can contain the following characters: a-z, A-Z, 0-9, '_', '-', and '.'.
-createDomain ::
-  -- | 'cdDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'createDomain_domainName' - The name of the domain to create. The name can range between 3 and 255
+-- characters and can contain the following characters: a-z, A-Z, 0-9,
+-- \'_\', \'-\', and \'.\'.
+newCreateDomain ::
+  -- | 'domainName'
+  Prelude.Text ->
   CreateDomain
-createDomain pDomainName_ =
-  CreateDomain' {_cdDomainName = pDomainName_}
+newCreateDomain pDomainName_ =
+  CreateDomain' {domainName = pDomainName_}
 
--- | The name of the domain to create. The name can range between 3 and 255 characters and can contain the following characters: a-z, A-Z, 0-9, '_', '-', and '.'.
-cdDomainName :: Lens' CreateDomain Text
-cdDomainName = lens _cdDomainName (\s a -> s {_cdDomainName = a})
+-- | The name of the domain to create. The name can range between 3 and 255
+-- characters and can contain the following characters: a-z, A-Z, 0-9,
+-- \'_\', \'-\', and \'.\'.
+createDomain_domainName :: Lens.Lens' CreateDomain Prelude.Text
+createDomain_domainName = Lens.lens (\CreateDomain' {domainName} -> domainName) (\s@CreateDomain' {} a -> s {domainName = a} :: CreateDomain)
 
-instance AWSRequest CreateDomain where
+instance Prelude.AWSRequest CreateDomain where
   type Rs CreateDomain = CreateDomainResponse
-  request = postQuery sdb
-  response = receiveNull CreateDomainResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull CreateDomainResponse'
 
-instance Hashable CreateDomain
+instance Prelude.Hashable CreateDomain
 
-instance NFData CreateDomain
+instance Prelude.NFData CreateDomain
 
-instance ToHeaders CreateDomain where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDomain where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateDomain where
-  toPath = const "/"
+instance Prelude.ToPath CreateDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDomain where
+instance Prelude.ToQuery CreateDomain where
   toQuery CreateDomain' {..} =
-    mconcat
-      [ "Action" =: ("CreateDomain" :: ByteString),
-        "Version" =: ("2009-04-15" :: ByteString),
-        "DomainName" =: _cdDomainName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateDomain" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2009-04-15" :: Prelude.ByteString),
+        "DomainName" Prelude.=: domainName
       ]
 
--- | /See:/ 'createDomainResponse' smart constructor.
+-- | /See:/ 'newCreateDomainResponse' smart constructor.
 data CreateDomainResponse = CreateDomainResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomainResponse' with the minimum fields required to make a request.
-createDomainResponse ::
+-- |
+-- Create a value of 'CreateDomainResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateDomainResponse ::
   CreateDomainResponse
-createDomainResponse = CreateDomainResponse'
+newCreateDomainResponse = CreateDomainResponse'
 
-instance NFData CreateDomainResponse
+instance Prelude.NFData CreateDomainResponse

@@ -28,67 +28,67 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListDomains $
---             listDomains
+--             newListDomains
 --
 --         , requestDeleteAttributes $
---             deleteAttributes
+--             newDeleteAttributes
 --
 --         , requestDomainMetadata $
---             domainMetadata
+--             newDomainMetadata
 --
 --         , requestBatchPutAttributes $
---             batchPutAttributes
+--             newBatchPutAttributes
 --
 --         , requestCreateDomain $
---             createDomain
+--             newCreateDomain
 --
 --         , requestGetAttributes $
---             getAttributes
+--             newGetAttributes
 --
 --         , requestDeleteDomain $
---             deleteDomain
+--             newDeleteDomain
 --
 --         , requestPutAttributes $
---             putAttributes
+--             newPutAttributes
 --
 --         , requestSelect $
---             select
+--             newSelect
 --
 --         , requestBatchDeleteAttributes $
---             batchDeleteAttributes
+--             newBatchDeleteAttributes
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListDomains $
---             listDomainsResponse
+--             newListDomainsResponse
 --
 --         , responseDeleteAttributes $
---             deleteAttributesResponse
+--             newDeleteAttributesResponse
 --
 --         , responseDomainMetadata $
---             domainMetadataResponse
+--             newDomainMetadataResponse
 --
 --         , responseBatchPutAttributes $
---             batchPutAttributesResponse
+--             newBatchPutAttributesResponse
 --
 --         , responseCreateDomain $
---             createDomainResponse
+--             newCreateDomainResponse
 --
 --         , responseGetAttributes $
---             getAttributesResponse
+--             newGetAttributesResponse
 --
 --         , responseDeleteDomain $
---             deleteDomainResponse
+--             newDeleteDomainResponse
 --
 --         , responsePutAttributes $
---             putAttributesResponse
+--             newPutAttributesResponse
 --
 --         , responseSelect $
---             selectResponse
+--             newSelectResponse
 --
 --         , responseBatchDeleteAttributes $
---             batchDeleteAttributesResponse
+--             newBatchDeleteAttributesResponse
 --
 --           ]
 --     ]
@@ -162,7 +162,7 @@ responseListDomains =
   res
     "ListDomainsResponse"
     "fixture/ListDomainsResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy ListDomains)
 
 responseDeleteAttributes :: DeleteAttributesResponse -> TestTree
@@ -170,7 +170,7 @@ responseDeleteAttributes =
   res
     "DeleteAttributesResponse"
     "fixture/DeleteAttributesResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy DeleteAttributes)
 
 responseDomainMetadata :: DomainMetadataResponse -> TestTree
@@ -178,7 +178,7 @@ responseDomainMetadata =
   res
     "DomainMetadataResponse"
     "fixture/DomainMetadataResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy DomainMetadata)
 
 responseBatchPutAttributes :: BatchPutAttributesResponse -> TestTree
@@ -186,7 +186,7 @@ responseBatchPutAttributes =
   res
     "BatchPutAttributesResponse"
     "fixture/BatchPutAttributesResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy BatchPutAttributes)
 
 responseCreateDomain :: CreateDomainResponse -> TestTree
@@ -194,7 +194,7 @@ responseCreateDomain =
   res
     "CreateDomainResponse"
     "fixture/CreateDomainResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy CreateDomain)
 
 responseGetAttributes :: GetAttributesResponse -> TestTree
@@ -202,7 +202,7 @@ responseGetAttributes =
   res
     "GetAttributesResponse"
     "fixture/GetAttributesResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy GetAttributes)
 
 responseDeleteDomain :: DeleteDomainResponse -> TestTree
@@ -210,7 +210,7 @@ responseDeleteDomain =
   res
     "DeleteDomainResponse"
     "fixture/DeleteDomainResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy DeleteDomain)
 
 responsePutAttributes :: PutAttributesResponse -> TestTree
@@ -218,7 +218,7 @@ responsePutAttributes =
   res
     "PutAttributesResponse"
     "fixture/PutAttributesResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy PutAttributes)
 
 responseSelect :: SelectResponse -> TestTree
@@ -226,7 +226,7 @@ responseSelect =
   res
     "SelectResponse"
     "fixture/SelectResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy Select)
 
 responseBatchDeleteAttributes :: BatchDeleteAttributesResponse -> TestTree
@@ -234,5 +234,5 @@ responseBatchDeleteAttributes =
   res
     "BatchDeleteAttributesResponse"
     "fixture/BatchDeleteAttributesResponse.proto"
-    sdb
+    defaultService
     (Proxy :: Proxy BatchDeleteAttributes)

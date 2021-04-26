@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @ListDomains@ operation lists all domains associated with the Access Key ID. It returns domain names up to the limit set by <#MaxNumberOfDomains MaxNumberOfDomains> . A <#NextToken NextToken> is returned if there are more than @MaxNumberOfDomains@ domains. Calling @ListDomains@ successive times with the @NextToken@ provided by the operation returns up to @MaxNumberOfDomains@ more domain names with each successive operation call.
---
---
+-- The @ListDomains@ operation lists all domains associated with the Access
+-- Key ID. It returns domain names up to the limit set by
+-- <#MaxNumberOfDomains MaxNumberOfDomains>. A <#NextToken NextToken> is
+-- returned if there are more than @MaxNumberOfDomains@ domains. Calling
+-- @ListDomains@ successive times with the @NextToken@ provided by the
+-- operation returns up to @MaxNumberOfDomains@ more domain names with each
+-- successive operation call.
 --
 -- This operation returns paginated results.
 module Network.AWS.SDB.ListDomains
   ( -- * Creating a Request
-    listDomains,
-    ListDomains,
+    ListDomains (..),
+    newListDomains,
 
     -- * Request Lenses
-    ldNextToken,
-    ldMaxNumberOfDomains,
+    listDomains_nextToken,
+    listDomains_maxNumberOfDomains,
 
     -- * Destructuring the Response
-    listDomainsResponse,
-    ListDomainsResponse,
+    ListDomainsResponse (..),
+    newListDomainsResponse,
 
     -- * Response Lenses
-    ldrrsNextToken,
-    ldrrsDomainNames,
-    ldrrsResponseStatus,
+    listDomainsResponse_nextToken,
+    listDomainsResponse_domainNames,
+    listDomainsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SDB.Types
 
--- | /See:/ 'listDomains' smart constructor.
+-- | /See:/ 'newListDomains' smart constructor.
 data ListDomains = ListDomains'
-  { _ldNextToken ::
-      !(Maybe Text),
-    _ldMaxNumberOfDomains :: !(Maybe Int)
+  { -- | A string informing Amazon SimpleDB where to start the next list of
+    -- domain names.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of domain names you want returned. The range is 1 to
+    -- 100. The default setting is 100.
+    maxNumberOfDomains :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomains' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomains' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldNextToken' - A string informing Amazon SimpleDB where to start the next list of domain names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldMaxNumberOfDomains' - The maximum number of domain names you want returned. The range is 1 to 100. The default setting is 100.
-listDomains ::
+-- 'nextToken', 'listDomains_nextToken' - A string informing Amazon SimpleDB where to start the next list of
+-- domain names.
+--
+-- 'maxNumberOfDomains', 'listDomains_maxNumberOfDomains' - The maximum number of domain names you want returned. The range is 1 to
+-- 100. The default setting is 100.
+newListDomains ::
   ListDomains
-listDomains =
+newListDomains =
   ListDomains'
-    { _ldNextToken = Nothing,
-      _ldMaxNumberOfDomains = Nothing
+    { nextToken = Prelude.Nothing,
+      maxNumberOfDomains = Prelude.Nothing
     }
 
--- | A string informing Amazon SimpleDB where to start the next list of domain names.
-ldNextToken :: Lens' ListDomains (Maybe Text)
-ldNextToken = lens _ldNextToken (\s a -> s {_ldNextToken = a})
+-- | A string informing Amazon SimpleDB where to start the next list of
+-- domain names.
+listDomains_nextToken :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Text)
+listDomains_nextToken = Lens.lens (\ListDomains' {nextToken} -> nextToken) (\s@ListDomains' {} a -> s {nextToken = a} :: ListDomains)
 
--- | The maximum number of domain names you want returned. The range is 1 to 100. The default setting is 100.
-ldMaxNumberOfDomains :: Lens' ListDomains (Maybe Int)
-ldMaxNumberOfDomains = lens _ldMaxNumberOfDomains (\s a -> s {_ldMaxNumberOfDomains = a})
+-- | The maximum number of domain names you want returned. The range is 1 to
+-- 100. The default setting is 100.
+listDomains_maxNumberOfDomains :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Int)
+listDomains_maxNumberOfDomains = Lens.lens (\ListDomains' {maxNumberOfDomains} -> maxNumberOfDomains) (\s@ListDomains' {} a -> s {maxNumberOfDomains = a} :: ListDomains)
 
-instance AWSPager ListDomains where
+instance Pager.AWSPager ListDomains where
   page rq rs
-    | stop (rs ^. ldrrsNextToken) = Nothing
-    | stop (rs ^. ldrrsDomainNames) = Nothing
-    | otherwise =
-      Just $ rq & ldNextToken .~ rs ^. ldrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDomainsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDomainsResponse_domainNames Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDomains_nextToken
+          Lens..~ rs
+          Lens.^? listDomainsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListDomains where
+instance Prelude.AWSRequest ListDomains where
   type Rs ListDomains = ListDomainsResponse
-  request = postQuery sdb
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListDomainsResult"
       ( \s h x ->
           ListDomainsResponse'
-            <$> (x .@? "NextToken")
-            <*> (may (parseXMLList "DomainName") x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> (Prelude.may (Prelude.parseXMLList "DomainName") x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDomains
+instance Prelude.Hashable ListDomains
 
-instance NFData ListDomains
+instance Prelude.NFData ListDomains
 
-instance ToHeaders ListDomains where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListDomains where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListDomains where
-  toPath = const "/"
+instance Prelude.ToPath ListDomains where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDomains where
+instance Prelude.ToQuery ListDomains where
   toQuery ListDomains' {..} =
-    mconcat
-      [ "Action" =: ("ListDomains" :: ByteString),
-        "Version" =: ("2009-04-15" :: ByteString),
-        "NextToken" =: _ldNextToken,
-        "MaxNumberOfDomains" =: _ldMaxNumberOfDomains
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListDomains" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2009-04-15" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxNumberOfDomains" Prelude.=: maxNumberOfDomains
       ]
 
--- | /See:/ 'listDomainsResponse' smart constructor.
+-- | /See:/ 'newListDomainsResponse' smart constructor.
 data ListDomainsResponse = ListDomainsResponse'
-  { _ldrrsNextToken ::
-      !(Maybe Text),
-    _ldrrsDomainNames ::
-      !(Maybe [Text]),
-    _ldrrsResponseStatus :: !Int
+  { -- | An opaque token indicating that there are more domains than the
+    -- specified @MaxNumberOfDomains@ still available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of domain names that match the expression.
+    domainNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomainsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomainsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrsNextToken' - @MaxNumberOfDomains@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrsDomainNames' - A list of domain names that match the expression.
+-- 'nextToken', 'listDomainsResponse_nextToken' - An opaque token indicating that there are more domains than the
+-- specified @MaxNumberOfDomains@ still available.
 --
--- * 'ldrrsResponseStatus' - -- | The response status code.
-listDomainsResponse ::
-  -- | 'ldrrsResponseStatus'
-  Int ->
+-- 'domainNames', 'listDomainsResponse_domainNames' - A list of domain names that match the expression.
+--
+-- 'httpStatus', 'listDomainsResponse_httpStatus' - The response's http status code.
+newListDomainsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDomainsResponse
-listDomainsResponse pResponseStatus_ =
+newListDomainsResponse pHttpStatus_ =
   ListDomainsResponse'
-    { _ldrrsNextToken = Nothing,
-      _ldrrsDomainNames = Nothing,
-      _ldrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      domainNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | @MaxNumberOfDomains@
-ldrrsNextToken :: Lens' ListDomainsResponse (Maybe Text)
-ldrrsNextToken = lens _ldrrsNextToken (\s a -> s {_ldrrsNextToken = a})
+-- | An opaque token indicating that there are more domains than the
+-- specified @MaxNumberOfDomains@ still available.
+listDomainsResponse_nextToken :: Lens.Lens' ListDomainsResponse (Prelude.Maybe Prelude.Text)
+listDomainsResponse_nextToken = Lens.lens (\ListDomainsResponse' {nextToken} -> nextToken) (\s@ListDomainsResponse' {} a -> s {nextToken = a} :: ListDomainsResponse)
 
 -- | A list of domain names that match the expression.
-ldrrsDomainNames :: Lens' ListDomainsResponse [Text]
-ldrrsDomainNames = lens _ldrrsDomainNames (\s a -> s {_ldrrsDomainNames = a}) . _Default . _Coerce
+listDomainsResponse_domainNames :: Lens.Lens' ListDomainsResponse (Prelude.Maybe [Prelude.Text])
+listDomainsResponse_domainNames = Lens.lens (\ListDomainsResponse' {domainNames} -> domainNames) (\s@ListDomainsResponse' {} a -> s {domainNames = a} :: ListDomainsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldrrsResponseStatus :: Lens' ListDomainsResponse Int
-ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
+-- | The response's http status code.
+listDomainsResponse_httpStatus :: Lens.Lens' ListDomainsResponse Prelude.Int
+listDomainsResponse_httpStatus = Lens.lens (\ListDomainsResponse' {httpStatus} -> httpStatus) (\s@ListDomainsResponse' {} a -> s {httpStatus = a} :: ListDomainsResponse)
 
-instance NFData ListDomainsResponse
+instance Prelude.NFData ListDomainsResponse

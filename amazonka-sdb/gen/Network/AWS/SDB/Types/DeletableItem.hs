@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SDB.Types.DeletableItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SDB.Types.Attribute
 
--- | /See:/ 'deletableItem' smart constructor.
+-- | /See:/ 'newDeletableItem' smart constructor.
 data DeletableItem = DeletableItem'
-  { _diAttributes ::
-      !(Maybe [Attribute]),
-    _diName :: !Text
+  { attributes :: Prelude.Maybe [Attribute],
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletableItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletableItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diAttributes' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diName' - Undocumented member.
-deletableItem ::
-  -- | 'diName'
-  Text ->
+-- 'attributes', 'deletableItem_attributes' - Undocumented member.
+--
+-- 'name', 'deletableItem_name' - Undocumented member.
+newDeletableItem ::
+  -- | 'name'
+  Prelude.Text ->
   DeletableItem
-deletableItem pName_ =
+newDeletableItem pName_ =
   DeletableItem'
-    { _diAttributes = Nothing,
-      _diName = pName_
+    { attributes = Prelude.Nothing,
+      name = pName_
     }
 
 -- | Undocumented member.
-diAttributes :: Lens' DeletableItem [Attribute]
-diAttributes = lens _diAttributes (\s a -> s {_diAttributes = a}) . _Default . _Coerce
+deletableItem_attributes :: Lens.Lens' DeletableItem (Prelude.Maybe [Attribute])
+deletableItem_attributes = Lens.lens (\DeletableItem' {attributes} -> attributes) (\s@DeletableItem' {} a -> s {attributes = a} :: DeletableItem) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-diName :: Lens' DeletableItem Text
-diName = lens _diName (\s a -> s {_diName = a})
+deletableItem_name :: Lens.Lens' DeletableItem Prelude.Text
+deletableItem_name = Lens.lens (\DeletableItem' {name} -> name) (\s@DeletableItem' {} a -> s {name = a} :: DeletableItem)
 
-instance Hashable DeletableItem
+instance Prelude.Hashable DeletableItem
 
-instance NFData DeletableItem
+instance Prelude.NFData DeletableItem
 
-instance ToQuery DeletableItem where
+instance Prelude.ToQuery DeletableItem where
   toQuery DeletableItem' {..} =
-    mconcat
-      [ toQuery (toQueryList "Attribute" <$> _diAttributes),
-        "ItemName" =: _diName
+    Prelude.mconcat
+      [ Prelude.toQuery
+          ( Prelude.toQueryList "Attribute"
+              Prelude.<$> attributes
+          ),
+        "ItemName" Prelude.=: name
       ]

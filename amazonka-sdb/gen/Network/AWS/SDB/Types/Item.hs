@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SDB.Types.Item where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SDB.Types.Attribute
 
 -- |
 --
---
---
--- /See:/ 'item' smart constructor.
+-- /See:/ 'newItem' smart constructor.
 data Item = Item'
-  { _iAlternateNameEncoding ::
-      !(Maybe Text),
-    _iName :: !Text,
-    _iAttributes :: ![Attribute]
+  { alternateNameEncoding :: Prelude.Maybe Prelude.Text,
+    -- | The name of the item.
+    name :: Prelude.Text,
+    -- | A list of attributes.
+    attributes :: [Attribute]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Item' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Item' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iAlternateNameEncoding' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iName' - The name of the item.
+-- 'alternateNameEncoding', 'item_alternateNameEncoding' -
 --
--- * 'iAttributes' - A list of attributes.
-item ::
-  -- | 'iName'
-  Text ->
+-- 'name', 'item_name' - The name of the item.
+--
+-- 'attributes', 'item_attributes' - A list of attributes.
+newItem ::
+  -- | 'name'
+  Prelude.Text ->
   Item
-item pName_ =
+newItem pName_ =
   Item'
-    { _iAlternateNameEncoding = Nothing,
-      _iName = pName_,
-      _iAttributes = mempty
+    { alternateNameEncoding = Prelude.Nothing,
+      name = pName_,
+      attributes = Prelude.mempty
     }
 
 -- |
-iAlternateNameEncoding :: Lens' Item (Maybe Text)
-iAlternateNameEncoding = lens _iAlternateNameEncoding (\s a -> s {_iAlternateNameEncoding = a})
+item_alternateNameEncoding :: Lens.Lens' Item (Prelude.Maybe Prelude.Text)
+item_alternateNameEncoding = Lens.lens (\Item' {alternateNameEncoding} -> alternateNameEncoding) (\s@Item' {} a -> s {alternateNameEncoding = a} :: Item)
 
 -- | The name of the item.
-iName :: Lens' Item Text
-iName = lens _iName (\s a -> s {_iName = a})
+item_name :: Lens.Lens' Item Prelude.Text
+item_name = Lens.lens (\Item' {name} -> name) (\s@Item' {} a -> s {name = a} :: Item)
 
 -- | A list of attributes.
-iAttributes :: Lens' Item [Attribute]
-iAttributes = lens _iAttributes (\s a -> s {_iAttributes = a}) . _Coerce
+item_attributes :: Lens.Lens' Item [Attribute]
+item_attributes = Lens.lens (\Item' {attributes} -> attributes) (\s@Item' {} a -> s {attributes = a} :: Item) Prelude.. Prelude._Coerce
 
-instance FromXML Item where
+instance Prelude.FromXML Item where
   parseXML x =
     Item'
-      <$> (x .@? "AlternateNameEncoding")
-      <*> (x .@ "Name")
-      <*> (parseXMLList "Attribute" x)
+      Prelude.<$> (x Prelude..@? "AlternateNameEncoding")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (Prelude.parseXMLList "Attribute" x)
 
-instance Hashable Item
+instance Prelude.Hashable Item
 
-instance NFData Item
+instance Prelude.NFData Item

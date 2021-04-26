@@ -11,13 +11,26 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon SimpleDB is a web service providing the core database functions of data indexing and querying in the cloud. By offloading the time and effort associated with building and operating a web-scale database, SimpleDB provides developers the freedom to focus on application development. A traditional, clustered relational database requires a sizable upfront capital outlay, is complex to design, and often requires extensive and repetitive database administration. Amazon SimpleDB is dramatically simpler, requiring no schema, automatically indexing your data and providing a simple API for storage and access. This approach eliminates the administrative burden of data modeling, index maintenance, and performance tuning. Developers gain access to this functionality within Amazon's proven computing environment, are able to scale instantly, and pay only for what they use.
+-- Amazon SimpleDB is a web service providing the core database functions
+-- of data indexing and querying in the cloud. By offloading the time and
+-- effort associated with building and operating a web-scale database,
+-- SimpleDB provides developers the freedom to focus on application
+-- development.
 --
+-- A traditional, clustered relational database requires a sizable upfront
+-- capital outlay, is complex to design, and often requires extensive and
+-- repetitive database administration. Amazon SimpleDB is dramatically
+-- simpler, requiring no schema, automatically indexing your data and
+-- providing a simple API for storage and access. This approach eliminates
+-- the administrative burden of data modeling, index maintenance, and
+-- performance tuning. Developers gain access to this functionality within
+-- Amazon\'s proven computing environment, are able to scale instantly, and
+-- pay only for what they use.
 --
--- Visit <http://aws.amazon.com/simpledb/ http://aws.amazon.com/simpledb/> for more information.
+-- Visit <http://aws.amazon.com/simpledb/> for more information.
 module Network.AWS.SDB
   ( -- * Service Configuration
-    sdb,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -80,77 +93,90 @@ module Network.AWS.SDB
     -- $operations
 
     -- ** ListDomains (Paginated)
-    module Network.AWS.SDB.ListDomains,
+    ListDomains (ListDomains'),
+    newListDomains,
+    ListDomainsResponse (ListDomainsResponse'),
+    newListDomainsResponse,
 
     -- ** DeleteAttributes
-    module Network.AWS.SDB.DeleteAttributes,
+    DeleteAttributes (DeleteAttributes'),
+    newDeleteAttributes,
+    DeleteAttributesResponse (DeleteAttributesResponse'),
+    newDeleteAttributesResponse,
 
     -- ** DomainMetadata
-    module Network.AWS.SDB.DomainMetadata,
+    DomainMetadata (DomainMetadata'),
+    newDomainMetadata,
+    DomainMetadataResponse (DomainMetadataResponse'),
+    newDomainMetadataResponse,
 
     -- ** BatchPutAttributes
-    module Network.AWS.SDB.BatchPutAttributes,
+    BatchPutAttributes (BatchPutAttributes'),
+    newBatchPutAttributes,
+    BatchPutAttributesResponse (BatchPutAttributesResponse'),
+    newBatchPutAttributesResponse,
 
     -- ** CreateDomain
-    module Network.AWS.SDB.CreateDomain,
+    CreateDomain (CreateDomain'),
+    newCreateDomain,
+    CreateDomainResponse (CreateDomainResponse'),
+    newCreateDomainResponse,
 
     -- ** GetAttributes
-    module Network.AWS.SDB.GetAttributes,
+    GetAttributes (GetAttributes'),
+    newGetAttributes,
+    GetAttributesResponse (GetAttributesResponse'),
+    newGetAttributesResponse,
 
     -- ** DeleteDomain
-    module Network.AWS.SDB.DeleteDomain,
+    DeleteDomain (DeleteDomain'),
+    newDeleteDomain,
+    DeleteDomainResponse (DeleteDomainResponse'),
+    newDeleteDomainResponse,
 
     -- ** PutAttributes
-    module Network.AWS.SDB.PutAttributes,
+    PutAttributes (PutAttributes'),
+    newPutAttributes,
+    PutAttributesResponse (PutAttributesResponse'),
+    newPutAttributesResponse,
 
     -- ** Select (Paginated)
-    module Network.AWS.SDB.Select,
+    Select (Select'),
+    newSelect,
+    SelectResponse (SelectResponse'),
+    newSelectResponse,
 
     -- ** BatchDeleteAttributes
-    module Network.AWS.SDB.BatchDeleteAttributes,
+    BatchDeleteAttributes (BatchDeleteAttributes'),
+    newBatchDeleteAttributes,
+    BatchDeleteAttributesResponse (BatchDeleteAttributesResponse'),
+    newBatchDeleteAttributesResponse,
 
     -- * Types
 
     -- ** Attribute
-    Attribute,
-    attribute,
-    aAlternateNameEncoding,
-    aAlternateValueEncoding,
-    aName,
-    aValue,
+    Attribute (Attribute'),
+    newAttribute,
 
     -- ** DeletableItem
-    DeletableItem,
-    deletableItem,
-    diAttributes,
-    diName,
+    DeletableItem (DeletableItem'),
+    newDeletableItem,
 
     -- ** Item
-    Item,
-    item,
-    iAlternateNameEncoding,
-    iName,
-    iAttributes,
+    Item (Item'),
+    newItem,
 
     -- ** ReplaceableAttribute
-    ReplaceableAttribute,
-    replaceableAttribute,
-    raReplace,
-    raName,
-    raValue,
+    ReplaceableAttribute (ReplaceableAttribute'),
+    newReplaceableAttribute,
 
     -- ** ReplaceableItem
-    ReplaceableItem,
-    replaceableItem,
-    riName,
-    riAttributes,
+    ReplaceableItem (ReplaceableItem'),
+    newReplaceableItem,
 
     -- ** UpdateCondition
-    UpdateCondition,
-    updateCondition,
-    ucExists,
-    ucName,
-    ucValue,
+    UpdateCondition (UpdateCondition'),
+    newUpdateCondition,
   )
 where
 
@@ -161,6 +187,7 @@ import Network.AWS.SDB.DeleteAttributes
 import Network.AWS.SDB.DeleteDomain
 import Network.AWS.SDB.DomainMetadata
 import Network.AWS.SDB.GetAttributes
+import Network.AWS.SDB.Lens
 import Network.AWS.SDB.ListDomains
 import Network.AWS.SDB.PutAttributes
 import Network.AWS.SDB.Select
