@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.MarketplaceAnalytics.Types.SupportDataSetType
   ( SupportDataSetType
       ( ..,
-        CustomerSupportContactsData,
-        TestCustomerSupportContactsData
+        SupportDataSetTypeCustomerSupportContactsData,
+        SupportDataSetTypeTestCustomerSupportContactsData
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SupportDataSetType
-  = SupportDataSetType'
-      ( CI
-          Text
-      )
+newtype SupportDataSetType = SupportDataSetType'
+  { fromSupportDataSetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CustomerSupportContactsData :: SupportDataSetType
-pattern CustomerSupportContactsData = SupportDataSetType' "customer_support_contacts_data"
+pattern SupportDataSetTypeCustomerSupportContactsData :: SupportDataSetType
+pattern SupportDataSetTypeCustomerSupportContactsData = SupportDataSetType' "customer_support_contacts_data"
 
-pattern TestCustomerSupportContactsData :: SupportDataSetType
-pattern TestCustomerSupportContactsData = SupportDataSetType' "test_customer_support_contacts_data"
+pattern SupportDataSetTypeTestCustomerSupportContactsData :: SupportDataSetType
+pattern SupportDataSetTypeTestCustomerSupportContactsData = SupportDataSetType' "test_customer_support_contacts_data"
 
 {-# COMPLETE
-  CustomerSupportContactsData,
-  TestCustomerSupportContactsData,
+  SupportDataSetTypeCustomerSupportContactsData,
+  SupportDataSetTypeTestCustomerSupportContactsData,
   SupportDataSetType'
   #-}
 
-instance FromText SupportDataSetType where
-  parser = (SupportDataSetType' . mk) <$> takeText
+instance Prelude.FromText SupportDataSetType where
+  parser = SupportDataSetType' Prelude.<$> Prelude.takeText
 
-instance ToText SupportDataSetType where
-  toText (SupportDataSetType' ci) = original ci
+instance Prelude.ToText SupportDataSetType where
+  toText (SupportDataSetType' x) = x
 
-instance Hashable SupportDataSetType
+instance Prelude.Hashable SupportDataSetType
 
-instance NFData SupportDataSetType
+instance Prelude.NFData SupportDataSetType
 
-instance ToByteString SupportDataSetType
+instance Prelude.ToByteString SupportDataSetType
 
-instance ToQuery SupportDataSetType
+instance Prelude.ToQuery SupportDataSetType
 
-instance ToHeader SupportDataSetType
+instance Prelude.ToHeader SupportDataSetType
 
-instance ToJSON SupportDataSetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SupportDataSetType where
+  toJSON = Prelude.toJSONText

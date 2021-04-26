@@ -14,7 +14,7 @@
 -- Provides AWS Marketplace business intelligence data on-demand.
 module Network.AWS.MarketplaceAnalytics
   ( -- * Service Configuration
-    marketplaceAnalytics,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -29,10 +29,16 @@ module Network.AWS.MarketplaceAnalytics
     -- $operations
 
     -- ** StartSupportDataExport
-    module Network.AWS.MarketplaceAnalytics.StartSupportDataExport,
+    StartSupportDataExport (StartSupportDataExport'),
+    newStartSupportDataExport,
+    StartSupportDataExportResponse (StartSupportDataExportResponse'),
+    newStartSupportDataExportResponse,
 
     -- ** GenerateDataSet
-    module Network.AWS.MarketplaceAnalytics.GenerateDataSet,
+    GenerateDataSet (GenerateDataSet'),
+    newGenerateDataSet,
+    GenerateDataSetResponse (GenerateDataSetResponse'),
+    newGenerateDataSetResponse,
 
     -- * Types
 
@@ -45,6 +51,7 @@ module Network.AWS.MarketplaceAnalytics
 where
 
 import Network.AWS.MarketplaceAnalytics.GenerateDataSet
+import Network.AWS.MarketplaceAnalytics.Lens
 import Network.AWS.MarketplaceAnalytics.StartSupportDataExport
 import Network.AWS.MarketplaceAnalytics.Types
 import Network.AWS.MarketplaceAnalytics.Waiters

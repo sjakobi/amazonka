@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,225 +21,647 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Given a data set type and data set publication date, asynchronously publishes the requested data set to the specified S3 bucket and notifies the specified SNS topic once the data is available. Returns a unique request identifier that can be used to correlate requests with notifications from the SNS topic. Data sets will be published in comma-separated values (CSV) format with the file name {data_set_type}_YYYY-MM-DD.csv. If a file with the same name already exists (e.g. if the same data set is requested twice), the original file will be overwritten by the new file. Requires a Role with an attached permissions policy providing Allow permissions for the following actions: s3:PutObject, s3:GetBucketLocation, sns:GetTopicAttributes, sns:Publish, iam:GetRolePolicy.
+-- Given a data set type and data set publication date, asynchronously
+-- publishes the requested data set to the specified S3 bucket and notifies
+-- the specified SNS topic once the data is available. Returns a unique
+-- request identifier that can be used to correlate requests with
+-- notifications from the SNS topic. Data sets will be published in
+-- comma-separated values (CSV) format with the file name
+-- {data_set_type}_YYYY-MM-DD.csv. If a file with the same name already
+-- exists (e.g. if the same data set is requested twice), the original file
+-- will be overwritten by the new file. Requires a Role with an attached
+-- permissions policy providing Allow permissions for the following
+-- actions: s3:PutObject, s3:GetBucketLocation, sns:GetTopicAttributes,
+-- sns:Publish, iam:GetRolePolicy.
 module Network.AWS.MarketplaceAnalytics.GenerateDataSet
   ( -- * Creating a Request
-    generateDataSet,
-    GenerateDataSet,
+    GenerateDataSet (..),
+    newGenerateDataSet,
 
     -- * Request Lenses
-    gdsDestinationS3Prefix,
-    gdsCustomerDefinedValues,
-    gdsDataSetType,
-    gdsDataSetPublicationDate,
-    gdsRoleNameARN,
-    gdsDestinationS3BucketName,
-    gdsSnsTopicARN,
+    generateDataSet_destinationS3Prefix,
+    generateDataSet_customerDefinedValues,
+    generateDataSet_dataSetType,
+    generateDataSet_dataSetPublicationDate,
+    generateDataSet_roleNameArn,
+    generateDataSet_destinationS3BucketName,
+    generateDataSet_snsTopicArn,
 
     -- * Destructuring the Response
-    generateDataSetResponse,
-    GenerateDataSetResponse,
+    GenerateDataSetResponse (..),
+    newGenerateDataSetResponse,
 
     -- * Response Lenses
-    gdsrrsDataSetRequestId,
-    gdsrrsResponseStatus,
+    generateDataSetResponse_dataSetRequestId,
+    generateDataSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MarketplaceAnalytics.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Container for the parameters to the GenerateDataSet operation.
 --
--- /See:/ 'generateDataSet' smart constructor.
+-- /See:/ 'newGenerateDataSet' smart constructor.
 data GenerateDataSet = GenerateDataSet'
-  { _gdsDestinationS3Prefix ::
-      !(Maybe Text),
-    _gdsCustomerDefinedValues ::
-      !(Maybe (Map Text Text)),
-    _gdsDataSetType :: !DataSetType,
-    _gdsDataSetPublicationDate :: !POSIX,
-    _gdsRoleNameARN :: !Text,
-    _gdsDestinationS3BucketName :: !Text,
-    _gdsSnsTopicARN :: !Text
+  { -- | (Optional) The desired S3 prefix for the published data set, similar to
+    -- a directory path in standard file systems. For example, if given the
+    -- bucket name \"mybucket\" and the prefix \"myprefix\/mydatasets\", the
+    -- output file \"outputfile\" would be published to
+    -- \"s3:\/\/mybucket\/myprefix\/mydatasets\/outputfile\". If the prefix
+    -- directory structure does not exist, it will be created. If no prefix is
+    -- provided, the data set will be published to the S3 bucket root.
+    destinationS3Prefix :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) Key-value pairs which will be returned, unmodified, in the
+    -- Amazon SNS notification message and the data set metadata file. These
+    -- key-value pairs can be used to correlated responses with tracking
+    -- information from other systems.
+    customerDefinedValues :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The desired data set type.
+    --
+    -- -   __customer_subscriber_hourly_monthly_subscriptions__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __customer_subscriber_annual_subscriptions__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __daily_business_usage_by_instance_type__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __daily_business_fees__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __daily_business_free_trial_conversions__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __daily_business_new_instances__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __daily_business_new_product_subscribers__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __daily_business_canceled_product_subscribers__
+    --
+    --     From 2017-09-15 to present: Available daily by 24:00 UTC.
+    --
+    -- -   __monthly_revenue_billing_and_revenue_data__
+    --
+    --     From 2017-09-15 to present: Available monthly on the 15th day of the
+    --     month by 24:00 UTC. Data includes metered transactions (e.g. hourly)
+    --     from one month prior.
+    --
+    -- -   __monthly_revenue_annual_subscriptions__
+    --
+    --     From 2017-09-15 to present: Available monthly on the 15th day of the
+    --     month by 24:00 UTC. Data includes up-front software charges (e.g.
+    --     annual) from one month prior.
+    --
+    -- -   __monthly_revenue_field_demonstration_usage__
+    --
+    --     From 2018-03-15 to present: Available monthly on the 15th day of the
+    --     month by 24:00 UTC.
+    --
+    -- -   __monthly_revenue_flexible_payment_schedule__
+    --
+    --     From 2018-11-15 to present: Available monthly on the 15th day of the
+    --     month by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_product__
+    --
+    --     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_instance_hours__
+    --
+    --     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_customer_geo__
+    --
+    --     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_age_of_uncollected_funds__
+    --
+    --     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_age_of_disbursed_funds__
+    --
+    --     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_age_of_past_due_funds__
+    --
+    --     From 2018-04-07 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_uncollected_funds_breakdown__
+    --
+    --     From 2019-10-04 to present: Available every 30 days by 24:00 UTC.
+    --
+    -- -   __sales_compensation_billed_revenue__
+    --
+    --     From 2017-09-15 to present: Available monthly on the 15th day of the
+    --     month by 24:00 UTC. Data includes metered transactions (e.g. hourly)
+    --     from one month prior, and up-front software charges (e.g. annual)
+    --     from one month prior.
+    --
+    -- -   __us_sales_and_use_tax_records__
+    --
+    --     From 2017-09-15 to present: Available monthly on the 15th day of the
+    --     month by 24:00 UTC.
+    --
+    -- -   __disbursed_amount_by_product_with_uncollected_funds__
+    --
+    --     This data set is deprecated. Download related reports from AMMP
+    --     instead!
+    --
+    -- -   __customer_profile_by_industry__
+    --
+    --     This data set is deprecated. Download related reports from AMMP
+    --     instead!
+    --
+    -- -   __customer_profile_by_revenue__
+    --
+    --     This data set is deprecated. Download related reports from AMMP
+    --     instead!
+    --
+    -- -   __customer_profile_by_geography__
+    --
+    --     This data set is deprecated. Download related reports from AMMP
+    --     instead!
+    dataSetType :: DataSetType,
+    -- | The date a data set was published. For daily data sets, provide a date
+    -- with day-level granularity for the desired day. For monthly data sets
+    -- except those with prefix disbursed_amount, provide a date with
+    -- month-level granularity for the desired month (the day value will be
+    -- ignored). For data sets with prefix disbursed_amount, provide a date
+    -- with day-level granularity for the desired day. For these data sets we
+    -- will look backwards in time over the range of 31 days until the first
+    -- data set is found (the latest one).
+    dataSetPublicationDate :: Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the Role with an attached permissions
+    -- policy to interact with the provided AWS services.
+    roleNameArn :: Prelude.Text,
+    -- | The name (friendly name, not ARN) of the destination S3 bucket.
+    destinationS3BucketName :: Prelude.Text,
+    -- | Amazon Resource Name (ARN) for the SNS Topic that will be notified when
+    -- the data set has been published or if an error has occurred.
+    snsTopicArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateDataSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateDataSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsDestinationS3Prefix' - (Optional) The desired S3 prefix for the published data set, similar to a directory path in standard file systems. For example, if given the bucket name "mybucket" and the prefix "myprefix/mydatasets", the output file "outputfile" would be published to "s3://mybucket/myprefix/mydatasets/outputfile". If the prefix directory structure does not exist, it will be created. If no prefix is provided, the data set will be published to the S3 bucket root.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsCustomerDefinedValues' - (Optional) Key-value pairs which will be returned, unmodified, in the Amazon SNS notification message and the data set metadata file. These key-value pairs can be used to correlated responses with tracking information from other systems.
+-- 'destinationS3Prefix', 'generateDataSet_destinationS3Prefix' - (Optional) The desired S3 prefix for the published data set, similar to
+-- a directory path in standard file systems. For example, if given the
+-- bucket name \"mybucket\" and the prefix \"myprefix\/mydatasets\", the
+-- output file \"outputfile\" would be published to
+-- \"s3:\/\/mybucket\/myprefix\/mydatasets\/outputfile\". If the prefix
+-- directory structure does not exist, it will be created. If no prefix is
+-- provided, the data set will be published to the S3 bucket root.
 --
--- * 'gdsDataSetType' - The desired data set type.     * __customer_subscriber_hourly_monthly_subscriptions__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __customer_subscriber_annual_subscriptions__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_usage_by_instance_type__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_fees__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_free_trial_conversions__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_new_instances__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_new_product_subscribers__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_canceled_product_subscribers__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __monthly_revenue_billing_and_revenue_data__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC. Data includes metered transactions (e.g. hourly) from one month prior.     * __monthly_revenue_annual_subscriptions__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC. Data includes up-front software charges (e.g. annual) from one month prior.     * __monthly_revenue_field_demonstration_usage__ From 2018-03-15 to present: Available monthly on the 15th day of the month by 24:00 UTC.     * __monthly_revenue_flexible_payment_schedule__ From 2018-11-15 to present: Available monthly on the 15th day of the month by 24:00 UTC.     * __disbursed_amount_by_product__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_instance_hours__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_customer_geo__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_age_of_uncollected_funds__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_age_of_disbursed_funds__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_age_of_past_due_funds__ From 2018-04-07 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_uncollected_funds_breakdown__ From 2019-10-04 to present: Available every 30 days by 24:00 UTC.     * __sales_compensation_billed_revenue__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC. Data includes metered transactions (e.g. hourly) from one month prior, and up-front software charges (e.g. annual) from one month prior.     * __us_sales_and_use_tax_records__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC.     * __disbursed_amount_by_product_with_uncollected_funds__ This data set is deprecated. Download related reports from AMMP instead!     * __customer_profile_by_industry__ This data set is deprecated. Download related reports from AMMP instead!     * __customer_profile_by_revenue__ This data set is deprecated. Download related reports from AMMP instead!     * __customer_profile_by_geography__ This data set is deprecated. Download related reports from AMMP instead!
+-- 'customerDefinedValues', 'generateDataSet_customerDefinedValues' - (Optional) Key-value pairs which will be returned, unmodified, in the
+-- Amazon SNS notification message and the data set metadata file. These
+-- key-value pairs can be used to correlated responses with tracking
+-- information from other systems.
 --
--- * 'gdsDataSetPublicationDate' - The date a data set was published. For daily data sets, provide a date with day-level granularity for the desired day. For monthly data sets except those with prefix disbursed_amount, provide a date with month-level granularity for the desired month (the day value will be ignored). For data sets with prefix disbursed_amount, provide a date with day-level granularity for the desired day. For these data sets we will look backwards in time over the range of 31 days until the first data set is found (the latest one).
+-- 'dataSetType', 'generateDataSet_dataSetType' - The desired data set type.
 --
--- * 'gdsRoleNameARN' - The Amazon Resource Name (ARN) of the Role with an attached permissions policy to interact with the provided AWS services.
+-- -   __customer_subscriber_hourly_monthly_subscriptions__
 --
--- * 'gdsDestinationS3BucketName' - The name (friendly name, not ARN) of the destination S3 bucket.
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
 --
--- * 'gdsSnsTopicARN' - Amazon Resource Name (ARN) for the SNS Topic that will be notified when the data set has been published or if an error has occurred.
-generateDataSet ::
-  -- | 'gdsDataSetType'
+-- -   __customer_subscriber_annual_subscriptions__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_usage_by_instance_type__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_fees__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_free_trial_conversions__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_new_instances__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_new_product_subscribers__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_canceled_product_subscribers__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __monthly_revenue_billing_and_revenue_data__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC. Data includes metered transactions (e.g. hourly)
+--     from one month prior.
+--
+-- -   __monthly_revenue_annual_subscriptions__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC. Data includes up-front software charges (e.g.
+--     annual) from one month prior.
+--
+-- -   __monthly_revenue_field_demonstration_usage__
+--
+--     From 2018-03-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC.
+--
+-- -   __monthly_revenue_flexible_payment_schedule__
+--
+--     From 2018-11-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_product__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_instance_hours__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_customer_geo__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_age_of_uncollected_funds__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_age_of_disbursed_funds__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_age_of_past_due_funds__
+--
+--     From 2018-04-07 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_uncollected_funds_breakdown__
+--
+--     From 2019-10-04 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __sales_compensation_billed_revenue__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC. Data includes metered transactions (e.g. hourly)
+--     from one month prior, and up-front software charges (e.g. annual)
+--     from one month prior.
+--
+-- -   __us_sales_and_use_tax_records__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_product_with_uncollected_funds__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- -   __customer_profile_by_industry__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- -   __customer_profile_by_revenue__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- -   __customer_profile_by_geography__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- 'dataSetPublicationDate', 'generateDataSet_dataSetPublicationDate' - The date a data set was published. For daily data sets, provide a date
+-- with day-level granularity for the desired day. For monthly data sets
+-- except those with prefix disbursed_amount, provide a date with
+-- month-level granularity for the desired month (the day value will be
+-- ignored). For data sets with prefix disbursed_amount, provide a date
+-- with day-level granularity for the desired day. For these data sets we
+-- will look backwards in time over the range of 31 days until the first
+-- data set is found (the latest one).
+--
+-- 'roleNameArn', 'generateDataSet_roleNameArn' - The Amazon Resource Name (ARN) of the Role with an attached permissions
+-- policy to interact with the provided AWS services.
+--
+-- 'destinationS3BucketName', 'generateDataSet_destinationS3BucketName' - The name (friendly name, not ARN) of the destination S3 bucket.
+--
+-- 'snsTopicArn', 'generateDataSet_snsTopicArn' - Amazon Resource Name (ARN) for the SNS Topic that will be notified when
+-- the data set has been published or if an error has occurred.
+newGenerateDataSet ::
+  -- | 'dataSetType'
   DataSetType ->
-  -- | 'gdsDataSetPublicationDate'
-  UTCTime ->
-  -- | 'gdsRoleNameARN'
-  Text ->
-  -- | 'gdsDestinationS3BucketName'
-  Text ->
-  -- | 'gdsSnsTopicARN'
-  Text ->
+  -- | 'dataSetPublicationDate'
+  Prelude.UTCTime ->
+  -- | 'roleNameArn'
+  Prelude.Text ->
+  -- | 'destinationS3BucketName'
+  Prelude.Text ->
+  -- | 'snsTopicArn'
+  Prelude.Text ->
   GenerateDataSet
-generateDataSet
+newGenerateDataSet
   pDataSetType_
   pDataSetPublicationDate_
-  pRoleNameARN_
+  pRoleNameArn_
   pDestinationS3BucketName_
-  pSnsTopicARN_ =
+  pSnsTopicArn_ =
     GenerateDataSet'
-      { _gdsDestinationS3Prefix = Nothing,
-        _gdsCustomerDefinedValues = Nothing,
-        _gdsDataSetType = pDataSetType_,
-        _gdsDataSetPublicationDate =
-          _Time # pDataSetPublicationDate_,
-        _gdsRoleNameARN = pRoleNameARN_,
-        _gdsDestinationS3BucketName =
-          pDestinationS3BucketName_,
-        _gdsSnsTopicARN = pSnsTopicARN_
+      { destinationS3Prefix =
+          Prelude.Nothing,
+        customerDefinedValues = Prelude.Nothing,
+        dataSetType = pDataSetType_,
+        dataSetPublicationDate =
+          Prelude._Time Lens.# pDataSetPublicationDate_,
+        roleNameArn = pRoleNameArn_,
+        destinationS3BucketName = pDestinationS3BucketName_,
+        snsTopicArn = pSnsTopicArn_
       }
 
--- | (Optional) The desired S3 prefix for the published data set, similar to a directory path in standard file systems. For example, if given the bucket name "mybucket" and the prefix "myprefix/mydatasets", the output file "outputfile" would be published to "s3://mybucket/myprefix/mydatasets/outputfile". If the prefix directory structure does not exist, it will be created. If no prefix is provided, the data set will be published to the S3 bucket root.
-gdsDestinationS3Prefix :: Lens' GenerateDataSet (Maybe Text)
-gdsDestinationS3Prefix = lens _gdsDestinationS3Prefix (\s a -> s {_gdsDestinationS3Prefix = a})
+-- | (Optional) The desired S3 prefix for the published data set, similar to
+-- a directory path in standard file systems. For example, if given the
+-- bucket name \"mybucket\" and the prefix \"myprefix\/mydatasets\", the
+-- output file \"outputfile\" would be published to
+-- \"s3:\/\/mybucket\/myprefix\/mydatasets\/outputfile\". If the prefix
+-- directory structure does not exist, it will be created. If no prefix is
+-- provided, the data set will be published to the S3 bucket root.
+generateDataSet_destinationS3Prefix :: Lens.Lens' GenerateDataSet (Prelude.Maybe Prelude.Text)
+generateDataSet_destinationS3Prefix = Lens.lens (\GenerateDataSet' {destinationS3Prefix} -> destinationS3Prefix) (\s@GenerateDataSet' {} a -> s {destinationS3Prefix = a} :: GenerateDataSet)
 
--- | (Optional) Key-value pairs which will be returned, unmodified, in the Amazon SNS notification message and the data set metadata file. These key-value pairs can be used to correlated responses with tracking information from other systems.
-gdsCustomerDefinedValues :: Lens' GenerateDataSet (HashMap Text Text)
-gdsCustomerDefinedValues = lens _gdsCustomerDefinedValues (\s a -> s {_gdsCustomerDefinedValues = a}) . _Default . _Map
+-- | (Optional) Key-value pairs which will be returned, unmodified, in the
+-- Amazon SNS notification message and the data set metadata file. These
+-- key-value pairs can be used to correlated responses with tracking
+-- information from other systems.
+generateDataSet_customerDefinedValues :: Lens.Lens' GenerateDataSet (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+generateDataSet_customerDefinedValues = Lens.lens (\GenerateDataSet' {customerDefinedValues} -> customerDefinedValues) (\s@GenerateDataSet' {} a -> s {customerDefinedValues = a} :: GenerateDataSet) Prelude.. Lens.mapping Prelude._Map
 
--- | The desired data set type.     * __customer_subscriber_hourly_monthly_subscriptions__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __customer_subscriber_annual_subscriptions__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_usage_by_instance_type__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_fees__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_free_trial_conversions__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_new_instances__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_new_product_subscribers__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __daily_business_canceled_product_subscribers__ From 2017-09-15 to present: Available daily by 24:00 UTC.     * __monthly_revenue_billing_and_revenue_data__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC. Data includes metered transactions (e.g. hourly) from one month prior.     * __monthly_revenue_annual_subscriptions__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC. Data includes up-front software charges (e.g. annual) from one month prior.     * __monthly_revenue_field_demonstration_usage__ From 2018-03-15 to present: Available monthly on the 15th day of the month by 24:00 UTC.     * __monthly_revenue_flexible_payment_schedule__ From 2018-11-15 to present: Available monthly on the 15th day of the month by 24:00 UTC.     * __disbursed_amount_by_product__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_instance_hours__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_customer_geo__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_age_of_uncollected_funds__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_age_of_disbursed_funds__ From 2017-09-15 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_age_of_past_due_funds__ From 2018-04-07 to present: Available every 30 days by 24:00 UTC.     * __disbursed_amount_by_uncollected_funds_breakdown__ From 2019-10-04 to present: Available every 30 days by 24:00 UTC.     * __sales_compensation_billed_revenue__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC. Data includes metered transactions (e.g. hourly) from one month prior, and up-front software charges (e.g. annual) from one month prior.     * __us_sales_and_use_tax_records__ From 2017-09-15 to present: Available monthly on the 15th day of the month by 24:00 UTC.     * __disbursed_amount_by_product_with_uncollected_funds__ This data set is deprecated. Download related reports from AMMP instead!     * __customer_profile_by_industry__ This data set is deprecated. Download related reports from AMMP instead!     * __customer_profile_by_revenue__ This data set is deprecated. Download related reports from AMMP instead!     * __customer_profile_by_geography__ This data set is deprecated. Download related reports from AMMP instead!
-gdsDataSetType :: Lens' GenerateDataSet DataSetType
-gdsDataSetType = lens _gdsDataSetType (\s a -> s {_gdsDataSetType = a})
+-- | The desired data set type.
+--
+-- -   __customer_subscriber_hourly_monthly_subscriptions__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __customer_subscriber_annual_subscriptions__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_usage_by_instance_type__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_fees__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_free_trial_conversions__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_new_instances__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_new_product_subscribers__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __daily_business_canceled_product_subscribers__
+--
+--     From 2017-09-15 to present: Available daily by 24:00 UTC.
+--
+-- -   __monthly_revenue_billing_and_revenue_data__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC. Data includes metered transactions (e.g. hourly)
+--     from one month prior.
+--
+-- -   __monthly_revenue_annual_subscriptions__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC. Data includes up-front software charges (e.g.
+--     annual) from one month prior.
+--
+-- -   __monthly_revenue_field_demonstration_usage__
+--
+--     From 2018-03-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC.
+--
+-- -   __monthly_revenue_flexible_payment_schedule__
+--
+--     From 2018-11-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_product__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_instance_hours__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_customer_geo__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_age_of_uncollected_funds__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_age_of_disbursed_funds__
+--
+--     From 2017-09-15 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_age_of_past_due_funds__
+--
+--     From 2018-04-07 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_uncollected_funds_breakdown__
+--
+--     From 2019-10-04 to present: Available every 30 days by 24:00 UTC.
+--
+-- -   __sales_compensation_billed_revenue__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC. Data includes metered transactions (e.g. hourly)
+--     from one month prior, and up-front software charges (e.g. annual)
+--     from one month prior.
+--
+-- -   __us_sales_and_use_tax_records__
+--
+--     From 2017-09-15 to present: Available monthly on the 15th day of the
+--     month by 24:00 UTC.
+--
+-- -   __disbursed_amount_by_product_with_uncollected_funds__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- -   __customer_profile_by_industry__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- -   __customer_profile_by_revenue__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+--
+-- -   __customer_profile_by_geography__
+--
+--     This data set is deprecated. Download related reports from AMMP
+--     instead!
+generateDataSet_dataSetType :: Lens.Lens' GenerateDataSet DataSetType
+generateDataSet_dataSetType = Lens.lens (\GenerateDataSet' {dataSetType} -> dataSetType) (\s@GenerateDataSet' {} a -> s {dataSetType = a} :: GenerateDataSet)
 
--- | The date a data set was published. For daily data sets, provide a date with day-level granularity for the desired day. For monthly data sets except those with prefix disbursed_amount, provide a date with month-level granularity for the desired month (the day value will be ignored). For data sets with prefix disbursed_amount, provide a date with day-level granularity for the desired day. For these data sets we will look backwards in time over the range of 31 days until the first data set is found (the latest one).
-gdsDataSetPublicationDate :: Lens' GenerateDataSet UTCTime
-gdsDataSetPublicationDate = lens _gdsDataSetPublicationDate (\s a -> s {_gdsDataSetPublicationDate = a}) . _Time
+-- | The date a data set was published. For daily data sets, provide a date
+-- with day-level granularity for the desired day. For monthly data sets
+-- except those with prefix disbursed_amount, provide a date with
+-- month-level granularity for the desired month (the day value will be
+-- ignored). For data sets with prefix disbursed_amount, provide a date
+-- with day-level granularity for the desired day. For these data sets we
+-- will look backwards in time over the range of 31 days until the first
+-- data set is found (the latest one).
+generateDataSet_dataSetPublicationDate :: Lens.Lens' GenerateDataSet Prelude.UTCTime
+generateDataSet_dataSetPublicationDate = Lens.lens (\GenerateDataSet' {dataSetPublicationDate} -> dataSetPublicationDate) (\s@GenerateDataSet' {} a -> s {dataSetPublicationDate = a} :: GenerateDataSet) Prelude.. Prelude._Time
 
--- | The Amazon Resource Name (ARN) of the Role with an attached permissions policy to interact with the provided AWS services.
-gdsRoleNameARN :: Lens' GenerateDataSet Text
-gdsRoleNameARN = lens _gdsRoleNameARN (\s a -> s {_gdsRoleNameARN = a})
+-- | The Amazon Resource Name (ARN) of the Role with an attached permissions
+-- policy to interact with the provided AWS services.
+generateDataSet_roleNameArn :: Lens.Lens' GenerateDataSet Prelude.Text
+generateDataSet_roleNameArn = Lens.lens (\GenerateDataSet' {roleNameArn} -> roleNameArn) (\s@GenerateDataSet' {} a -> s {roleNameArn = a} :: GenerateDataSet)
 
 -- | The name (friendly name, not ARN) of the destination S3 bucket.
-gdsDestinationS3BucketName :: Lens' GenerateDataSet Text
-gdsDestinationS3BucketName = lens _gdsDestinationS3BucketName (\s a -> s {_gdsDestinationS3BucketName = a})
+generateDataSet_destinationS3BucketName :: Lens.Lens' GenerateDataSet Prelude.Text
+generateDataSet_destinationS3BucketName = Lens.lens (\GenerateDataSet' {destinationS3BucketName} -> destinationS3BucketName) (\s@GenerateDataSet' {} a -> s {destinationS3BucketName = a} :: GenerateDataSet)
 
--- | Amazon Resource Name (ARN) for the SNS Topic that will be notified when the data set has been published or if an error has occurred.
-gdsSnsTopicARN :: Lens' GenerateDataSet Text
-gdsSnsTopicARN = lens _gdsSnsTopicARN (\s a -> s {_gdsSnsTopicARN = a})
+-- | Amazon Resource Name (ARN) for the SNS Topic that will be notified when
+-- the data set has been published or if an error has occurred.
+generateDataSet_snsTopicArn :: Lens.Lens' GenerateDataSet Prelude.Text
+generateDataSet_snsTopicArn = Lens.lens (\GenerateDataSet' {snsTopicArn} -> snsTopicArn) (\s@GenerateDataSet' {} a -> s {snsTopicArn = a} :: GenerateDataSet)
 
-instance AWSRequest GenerateDataSet where
+instance Prelude.AWSRequest GenerateDataSet where
   type Rs GenerateDataSet = GenerateDataSetResponse
-  request = postJSON marketplaceAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GenerateDataSetResponse'
-            <$> (x .?> "dataSetRequestId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "dataSetRequestId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GenerateDataSet
+instance Prelude.Hashable GenerateDataSet
 
-instance NFData GenerateDataSet
+instance Prelude.NFData GenerateDataSet
 
-instance ToHeaders GenerateDataSet where
+instance Prelude.ToHeaders GenerateDataSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MarketplaceCommerceAnalytics20150701.GenerateDataSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MarketplaceCommerceAnalytics20150701.GenerateDataSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GenerateDataSet where
+instance Prelude.ToJSON GenerateDataSet where
   toJSON GenerateDataSet' {..} =
-    object
-      ( catMaybes
-          [ ("destinationS3Prefix" .=)
-              <$> _gdsDestinationS3Prefix,
-            ("customerDefinedValues" .=)
-              <$> _gdsCustomerDefinedValues,
-            Just ("dataSetType" .= _gdsDataSetType),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("destinationS3Prefix" Prelude..=)
+              Prelude.<$> destinationS3Prefix,
+            ("customerDefinedValues" Prelude..=)
+              Prelude.<$> customerDefinedValues,
+            Prelude.Just ("dataSetType" Prelude..= dataSetType),
+            Prelude.Just
               ( "dataSetPublicationDate"
-                  .= _gdsDataSetPublicationDate
+                  Prelude..= dataSetPublicationDate
               ),
-            Just ("roleNameArn" .= _gdsRoleNameARN),
-            Just
+            Prelude.Just ("roleNameArn" Prelude..= roleNameArn),
+            Prelude.Just
               ( "destinationS3BucketName"
-                  .= _gdsDestinationS3BucketName
+                  Prelude..= destinationS3BucketName
               ),
-            Just ("snsTopicArn" .= _gdsSnsTopicARN)
+            Prelude.Just ("snsTopicArn" Prelude..= snsTopicArn)
           ]
       )
 
-instance ToPath GenerateDataSet where
-  toPath = const "/"
+instance Prelude.ToPath GenerateDataSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery GenerateDataSet where
-  toQuery = const mempty
+instance Prelude.ToQuery GenerateDataSet where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Container for the result of the GenerateDataSet operation.
 --
--- /See:/ 'generateDataSetResponse' smart constructor.
+-- /See:/ 'newGenerateDataSetResponse' smart constructor.
 data GenerateDataSetResponse = GenerateDataSetResponse'
-  { _gdsrrsDataSetRequestId ::
-      !(Maybe Text),
-    _gdsrrsResponseStatus ::
-      !Int
+  { -- | A unique identifier representing a specific request to the
+    -- GenerateDataSet operation. This identifier can be used to correlate a
+    -- request with notifications from the SNS topic.
+    dataSetRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateDataSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateDataSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsrrsDataSetRequestId' - A unique identifier representing a specific request to the GenerateDataSet operation. This identifier can be used to correlate a request with notifications from the SNS topic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsrrsResponseStatus' - -- | The response status code.
-generateDataSetResponse ::
-  -- | 'gdsrrsResponseStatus'
-  Int ->
+-- 'dataSetRequestId', 'generateDataSetResponse_dataSetRequestId' - A unique identifier representing a specific request to the
+-- GenerateDataSet operation. This identifier can be used to correlate a
+-- request with notifications from the SNS topic.
+--
+-- 'httpStatus', 'generateDataSetResponse_httpStatus' - The response's http status code.
+newGenerateDataSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GenerateDataSetResponse
-generateDataSetResponse pResponseStatus_ =
+newGenerateDataSetResponse pHttpStatus_ =
   GenerateDataSetResponse'
-    { _gdsrrsDataSetRequestId =
-        Nothing,
-      _gdsrrsResponseStatus = pResponseStatus_
+    { dataSetRequestId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A unique identifier representing a specific request to the GenerateDataSet operation. This identifier can be used to correlate a request with notifications from the SNS topic.
-gdsrrsDataSetRequestId :: Lens' GenerateDataSetResponse (Maybe Text)
-gdsrrsDataSetRequestId = lens _gdsrrsDataSetRequestId (\s a -> s {_gdsrrsDataSetRequestId = a})
+-- | A unique identifier representing a specific request to the
+-- GenerateDataSet operation. This identifier can be used to correlate a
+-- request with notifications from the SNS topic.
+generateDataSetResponse_dataSetRequestId :: Lens.Lens' GenerateDataSetResponse (Prelude.Maybe Prelude.Text)
+generateDataSetResponse_dataSetRequestId = Lens.lens (\GenerateDataSetResponse' {dataSetRequestId} -> dataSetRequestId) (\s@GenerateDataSetResponse' {} a -> s {dataSetRequestId = a} :: GenerateDataSetResponse)
 
--- | -- | The response status code.
-gdsrrsResponseStatus :: Lens' GenerateDataSetResponse Int
-gdsrrsResponseStatus = lens _gdsrrsResponseStatus (\s a -> s {_gdsrrsResponseStatus = a})
+-- | The response's http status code.
+generateDataSetResponse_httpStatus :: Lens.Lens' GenerateDataSetResponse Prelude.Int
+generateDataSetResponse_httpStatus = Lens.lens (\GenerateDataSetResponse' {httpStatus} -> httpStatus) (\s@GenerateDataSetResponse' {} a -> s {httpStatus = a} :: GenerateDataSetResponse)
 
-instance NFData GenerateDataSetResponse
+instance Prelude.NFData GenerateDataSetResponse

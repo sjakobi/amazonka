@@ -28,19 +28,19 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestStartSupportDataExport $
---             startSupportDataExport
+--             newStartSupportDataExport
 --
 --         , requestGenerateDataSet $
---             generateDataSet
+--             newGenerateDataSet
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseStartSupportDataExport $
---             startSupportDataExportResponse
+--             newStartSupportDataExportResponse
 --
 --         , responseGenerateDataSet $
---             generateDataSetResponse
+--             newGenerateDataSetResponse
 --
 --           ]
 --     ]
@@ -66,7 +66,7 @@ responseStartSupportDataExport =
   res
     "StartSupportDataExportResponse"
     "fixture/StartSupportDataExportResponse.proto"
-    marketplaceAnalytics
+    defaultService
     (Proxy :: Proxy StartSupportDataExport)
 
 responseGenerateDataSet :: GenerateDataSetResponse -> TestTree
@@ -74,5 +74,5 @@ responseGenerateDataSet =
   res
     "GenerateDataSetResponse"
     "fixture/GenerateDataSetResponse.proto"
-    marketplaceAnalytics
+    defaultService
     (Proxy :: Proxy GenerateDataSet)
