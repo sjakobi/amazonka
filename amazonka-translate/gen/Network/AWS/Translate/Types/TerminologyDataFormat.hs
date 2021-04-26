@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Translate.Types.TerminologyDataFormat
   ( TerminologyDataFormat
       ( ..,
-        TDFCSV,
-        TDFTmx
+        TerminologyDataFormatCSV,
+        TerminologyDataFormatTMX
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TerminologyDataFormat
-  = TerminologyDataFormat'
-      ( CI
-          Text
-      )
+newtype TerminologyDataFormat = TerminologyDataFormat'
+  { fromTerminologyDataFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDFCSV :: TerminologyDataFormat
-pattern TDFCSV = TerminologyDataFormat' "CSV"
+pattern TerminologyDataFormatCSV :: TerminologyDataFormat
+pattern TerminologyDataFormatCSV = TerminologyDataFormat' "CSV"
 
-pattern TDFTmx :: TerminologyDataFormat
-pattern TDFTmx = TerminologyDataFormat' "TMX"
+pattern TerminologyDataFormatTMX :: TerminologyDataFormat
+pattern TerminologyDataFormatTMX = TerminologyDataFormat' "TMX"
 
 {-# COMPLETE
-  TDFCSV,
-  TDFTmx,
+  TerminologyDataFormatCSV,
+  TerminologyDataFormatTMX,
   TerminologyDataFormat'
   #-}
 
-instance FromText TerminologyDataFormat where
-  parser = (TerminologyDataFormat' . mk) <$> takeText
+instance Prelude.FromText TerminologyDataFormat where
+  parser = TerminologyDataFormat' Prelude.<$> Prelude.takeText
 
-instance ToText TerminologyDataFormat where
-  toText (TerminologyDataFormat' ci) = original ci
+instance Prelude.ToText TerminologyDataFormat where
+  toText (TerminologyDataFormat' x) = x
 
-instance Hashable TerminologyDataFormat
+instance Prelude.Hashable TerminologyDataFormat
 
-instance NFData TerminologyDataFormat
+instance Prelude.NFData TerminologyDataFormat
 
-instance ToByteString TerminologyDataFormat
+instance Prelude.ToByteString TerminologyDataFormat
 
-instance ToQuery TerminologyDataFormat
+instance Prelude.ToQuery TerminologyDataFormat
 
-instance ToHeader TerminologyDataFormat
+instance Prelude.ToHeader TerminologyDataFormat
 
-instance ToJSON TerminologyDataFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON TerminologyDataFormat where
+  toJSON = Prelude.toJSONText

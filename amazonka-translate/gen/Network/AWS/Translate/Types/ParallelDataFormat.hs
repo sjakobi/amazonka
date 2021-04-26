@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Translate.Types.ParallelDataFormat
   ( ParallelDataFormat
       ( ..,
-        CSV,
-        Tmx,
-        Tsv
+        ParallelDataFormatCSV,
+        ParallelDataFormatTMX,
+        ParallelDataFormatTSV
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParallelDataFormat
-  = ParallelDataFormat'
-      ( CI
-          Text
-      )
+newtype ParallelDataFormat = ParallelDataFormat'
+  { fromParallelDataFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: ParallelDataFormat
-pattern CSV = ParallelDataFormat' "CSV"
+pattern ParallelDataFormatCSV :: ParallelDataFormat
+pattern ParallelDataFormatCSV = ParallelDataFormat' "CSV"
 
-pattern Tmx :: ParallelDataFormat
-pattern Tmx = ParallelDataFormat' "TMX"
+pattern ParallelDataFormatTMX :: ParallelDataFormat
+pattern ParallelDataFormatTMX = ParallelDataFormat' "TMX"
 
-pattern Tsv :: ParallelDataFormat
-pattern Tsv = ParallelDataFormat' "TSV"
+pattern ParallelDataFormatTSV :: ParallelDataFormat
+pattern ParallelDataFormatTSV = ParallelDataFormat' "TSV"
 
 {-# COMPLETE
-  CSV,
-  Tmx,
-  Tsv,
+  ParallelDataFormatCSV,
+  ParallelDataFormatTMX,
+  ParallelDataFormatTSV,
   ParallelDataFormat'
   #-}
 
-instance FromText ParallelDataFormat where
-  parser = (ParallelDataFormat' . mk) <$> takeText
+instance Prelude.FromText ParallelDataFormat where
+  parser = ParallelDataFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ParallelDataFormat where
-  toText (ParallelDataFormat' ci) = original ci
+instance Prelude.ToText ParallelDataFormat where
+  toText (ParallelDataFormat' x) = x
 
-instance Hashable ParallelDataFormat
+instance Prelude.Hashable ParallelDataFormat
 
-instance NFData ParallelDataFormat
+instance Prelude.NFData ParallelDataFormat
 
-instance ToByteString ParallelDataFormat
+instance Prelude.ToByteString ParallelDataFormat
 
-instance ToQuery ParallelDataFormat
+instance Prelude.ToQuery ParallelDataFormat
 
-instance ToHeader ParallelDataFormat
+instance Prelude.ToHeader ParallelDataFormat
 
-instance ToJSON ParallelDataFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParallelDataFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParallelDataFormat where
-  parseJSON = parseJSONText "ParallelDataFormat"
+instance Prelude.FromJSON ParallelDataFormat where
+  parseJSON = Prelude.parseJSONText "ParallelDataFormat"

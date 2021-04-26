@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,170 +23,196 @@
 --
 -- Provides a list of custom terminologies associated with your account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Translate.ListTerminologies
   ( -- * Creating a Request
-    listTerminologies,
-    ListTerminologies,
+    ListTerminologies (..),
+    newListTerminologies,
 
     -- * Request Lenses
-    ltNextToken,
-    ltMaxResults,
+    listTerminologies_nextToken,
+    listTerminologies_maxResults,
 
     -- * Destructuring the Response
-    listTerminologiesResponse,
-    ListTerminologiesResponse,
+    ListTerminologiesResponse (..),
+    newListTerminologiesResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsTerminologyPropertiesList,
-    ltrrsResponseStatus,
+    listTerminologiesResponse_nextToken,
+    listTerminologiesResponse_terminologyPropertiesList,
+    listTerminologiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.TerminologyProperties
 
--- | /See:/ 'listTerminologies' smart constructor.
+-- | /See:/ 'newListTerminologies' smart constructor.
 data ListTerminologies = ListTerminologies'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltMaxResults :: !(Maybe Nat)
+  { -- | If the result of the request to ListTerminologies was truncated, include
+    -- the NextToken to fetch the next group of custom terminologies.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of custom terminologies returned per list request.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTerminologies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTerminologies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - If the result of the request to ListTerminologies was truncated, include the NextToken to fetch the next group of custom terminologies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltMaxResults' - The maximum number of custom terminologies returned per list request.
-listTerminologies ::
+-- 'nextToken', 'listTerminologies_nextToken' - If the result of the request to ListTerminologies was truncated, include
+-- the NextToken to fetch the next group of custom terminologies.
+--
+-- 'maxResults', 'listTerminologies_maxResults' - The maximum number of custom terminologies returned per list request.
+newListTerminologies ::
   ListTerminologies
-listTerminologies =
+newListTerminologies =
   ListTerminologies'
-    { _ltNextToken = Nothing,
-      _ltMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | If the result of the request to ListTerminologies was truncated, include the NextToken to fetch the next group of custom terminologies.
-ltNextToken :: Lens' ListTerminologies (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | If the result of the request to ListTerminologies was truncated, include
+-- the NextToken to fetch the next group of custom terminologies.
+listTerminologies_nextToken :: Lens.Lens' ListTerminologies (Prelude.Maybe Prelude.Text)
+listTerminologies_nextToken = Lens.lens (\ListTerminologies' {nextToken} -> nextToken) (\s@ListTerminologies' {} a -> s {nextToken = a} :: ListTerminologies)
 
 -- | The maximum number of custom terminologies returned per list request.
-ltMaxResults :: Lens' ListTerminologies (Maybe Natural)
-ltMaxResults = lens _ltMaxResults (\s a -> s {_ltMaxResults = a}) . mapping _Nat
+listTerminologies_maxResults :: Lens.Lens' ListTerminologies (Prelude.Maybe Prelude.Natural)
+listTerminologies_maxResults = Lens.lens (\ListTerminologies' {maxResults} -> maxResults) (\s@ListTerminologies' {} a -> s {maxResults = a} :: ListTerminologies) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListTerminologies where
+instance Pager.AWSPager ListTerminologies where
   page rq rs
-    | stop (rs ^. ltrrsNextToken) = Nothing
-    | stop (rs ^. ltrrsTerminologyPropertiesList) =
-      Nothing
-    | otherwise =
-      Just $ rq & ltNextToken .~ rs ^. ltrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTerminologiesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTerminologiesResponse_terminologyPropertiesList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTerminologies_nextToken
+          Lens..~ rs
+          Lens.^? listTerminologiesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListTerminologies where
+instance Prelude.AWSRequest ListTerminologies where
   type Rs ListTerminologies = ListTerminologiesResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTerminologiesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "TerminologyPropertiesList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "TerminologyPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTerminologies
+instance Prelude.Hashable ListTerminologies
 
-instance NFData ListTerminologies
+instance Prelude.NFData ListTerminologies
 
-instance ToHeaders ListTerminologies where
+instance Prelude.ToHeaders ListTerminologies where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.ListTerminologies" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.ListTerminologies" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTerminologies where
+instance Prelude.ToJSON ListTerminologies where
   toJSON ListTerminologies' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ltNextToken,
-            ("MaxResults" .=) <$> _ltMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListTerminologies where
-  toPath = const "/"
+instance Prelude.ToPath ListTerminologies where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTerminologies where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTerminologies where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTerminologiesResponse' smart constructor.
+-- | /See:/ 'newListTerminologiesResponse' smart constructor.
 data ListTerminologiesResponse = ListTerminologiesResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsTerminologyPropertiesList ::
-      !( Maybe
-           [TerminologyProperties]
-       ),
-    _ltrrsResponseStatus ::
-      !Int
+  { -- | If the response to the ListTerminologies was truncated, the NextToken
+    -- fetches the next group of custom terminologies.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The properties list of the custom terminologies returned on the list
+    -- request.
+    terminologyPropertiesList :: Prelude.Maybe [TerminologyProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTerminologiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTerminologiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - If the response to the ListTerminologies was truncated, the NextToken fetches the next group of custom terminologies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsTerminologyPropertiesList' - The properties list of the custom terminologies returned on the list request.
+-- 'nextToken', 'listTerminologiesResponse_nextToken' - If the response to the ListTerminologies was truncated, the NextToken
+-- fetches the next group of custom terminologies.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTerminologiesResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'terminologyPropertiesList', 'listTerminologiesResponse_terminologyPropertiesList' - The properties list of the custom terminologies returned on the list
+-- request.
+--
+-- 'httpStatus', 'listTerminologiesResponse_httpStatus' - The response's http status code.
+newListTerminologiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTerminologiesResponse
-listTerminologiesResponse pResponseStatus_ =
+newListTerminologiesResponse pHttpStatus_ =
   ListTerminologiesResponse'
-    { _ltrrsNextToken =
-        Nothing,
-      _ltrrsTerminologyPropertiesList = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      terminologyPropertiesList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the response to the ListTerminologies was truncated, the NextToken fetches the next group of custom terminologies.
-ltrrsNextToken :: Lens' ListTerminologiesResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+-- | If the response to the ListTerminologies was truncated, the NextToken
+-- fetches the next group of custom terminologies.
+listTerminologiesResponse_nextToken :: Lens.Lens' ListTerminologiesResponse (Prelude.Maybe Prelude.Text)
+listTerminologiesResponse_nextToken = Lens.lens (\ListTerminologiesResponse' {nextToken} -> nextToken) (\s@ListTerminologiesResponse' {} a -> s {nextToken = a} :: ListTerminologiesResponse)
 
--- | The properties list of the custom terminologies returned on the list request.
-ltrrsTerminologyPropertiesList :: Lens' ListTerminologiesResponse [TerminologyProperties]
-ltrrsTerminologyPropertiesList = lens _ltrrsTerminologyPropertiesList (\s a -> s {_ltrrsTerminologyPropertiesList = a}) . _Default . _Coerce
+-- | The properties list of the custom terminologies returned on the list
+-- request.
+listTerminologiesResponse_terminologyPropertiesList :: Lens.Lens' ListTerminologiesResponse (Prelude.Maybe [TerminologyProperties])
+listTerminologiesResponse_terminologyPropertiesList = Lens.lens (\ListTerminologiesResponse' {terminologyPropertiesList} -> terminologyPropertiesList) (\s@ListTerminologiesResponse' {} a -> s {terminologyPropertiesList = a} :: ListTerminologiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTerminologiesResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTerminologiesResponse_httpStatus :: Lens.Lens' ListTerminologiesResponse Prelude.Int
+listTerminologiesResponse_httpStatus = Lens.lens (\ListTerminologiesResponse' {httpStatus} -> httpStatus) (\s@ListTerminologiesResponse' {} a -> s {httpStatus = a} :: ListTerminologiesResponse)
 
-instance NFData ListTerminologiesResponse
+instance Prelude.NFData ListTerminologiesResponse

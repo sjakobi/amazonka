@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,149 @@
 -- Deletes a parallel data resource in Amazon Translate.
 module Network.AWS.Translate.DeleteParallelData
   ( -- * Creating a Request
-    deleteParallelData,
-    DeleteParallelData,
+    DeleteParallelData (..),
+    newDeleteParallelData,
 
     -- * Request Lenses
-    dpdName,
+    deleteParallelData_name,
 
     -- * Destructuring the Response
-    deleteParallelDataResponse,
-    DeleteParallelDataResponse,
+    DeleteParallelDataResponse (..),
+    newDeleteParallelDataResponse,
 
     -- * Response Lenses
-    dpdrrsStatus,
-    dpdrrsName,
-    dpdrrsResponseStatus,
+    deleteParallelDataResponse_status,
+    deleteParallelDataResponse_name,
+    deleteParallelDataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.ParallelDataStatus
 
--- | /See:/ 'deleteParallelData' smart constructor.
-newtype DeleteParallelData = DeleteParallelData'
-  { _dpdName ::
-      Text
+-- | /See:/ 'newDeleteParallelData' smart constructor.
+data DeleteParallelData = DeleteParallelData'
+  { -- | The name of the parallel data resource that is being deleted.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteParallelData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteParallelData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpdName' - The name of the parallel data resource that is being deleted.
-deleteParallelData ::
-  -- | 'dpdName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteParallelData_name' - The name of the parallel data resource that is being deleted.
+newDeleteParallelData ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteParallelData
-deleteParallelData pName_ =
-  DeleteParallelData' {_dpdName = pName_}
+newDeleteParallelData pName_ =
+  DeleteParallelData' {name = pName_}
 
 -- | The name of the parallel data resource that is being deleted.
-dpdName :: Lens' DeleteParallelData Text
-dpdName = lens _dpdName (\s a -> s {_dpdName = a})
+deleteParallelData_name :: Lens.Lens' DeleteParallelData Prelude.Text
+deleteParallelData_name = Lens.lens (\DeleteParallelData' {name} -> name) (\s@DeleteParallelData' {} a -> s {name = a} :: DeleteParallelData)
 
-instance AWSRequest DeleteParallelData where
+instance Prelude.AWSRequest DeleteParallelData where
   type
     Rs DeleteParallelData =
       DeleteParallelDataResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteParallelDataResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "Name")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "Name")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteParallelData
+instance Prelude.Hashable DeleteParallelData
 
-instance NFData DeleteParallelData
+instance Prelude.NFData DeleteParallelData
 
-instance ToHeaders DeleteParallelData where
+instance Prelude.ToHeaders DeleteParallelData where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.DeleteParallelData" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.DeleteParallelData" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteParallelData where
+instance Prelude.ToJSON DeleteParallelData where
   toJSON DeleteParallelData' {..} =
-    object (catMaybes [Just ("Name" .= _dpdName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteParallelData where
-  toPath = const "/"
+instance Prelude.ToPath DeleteParallelData where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteParallelData where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteParallelData where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteParallelDataResponse' smart constructor.
+-- | /See:/ 'newDeleteParallelDataResponse' smart constructor.
 data DeleteParallelDataResponse = DeleteParallelDataResponse'
-  { _dpdrrsStatus ::
-      !( Maybe
-           ParallelDataStatus
-       ),
-    _dpdrrsName ::
-      !(Maybe Text),
-    _dpdrrsResponseStatus ::
-      !Int
+  { -- | The status of the parallel data deletion.
+    status :: Prelude.Maybe ParallelDataStatus,
+    -- | The name of the parallel data resource that is being deleted.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteParallelDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteParallelDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpdrrsStatus' - The status of the parallel data deletion.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpdrrsName' - The name of the parallel data resource that is being deleted.
+-- 'status', 'deleteParallelDataResponse_status' - The status of the parallel data deletion.
 --
--- * 'dpdrrsResponseStatus' - -- | The response status code.
-deleteParallelDataResponse ::
-  -- | 'dpdrrsResponseStatus'
-  Int ->
+-- 'name', 'deleteParallelDataResponse_name' - The name of the parallel data resource that is being deleted.
+--
+-- 'httpStatus', 'deleteParallelDataResponse_httpStatus' - The response's http status code.
+newDeleteParallelDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteParallelDataResponse
-deleteParallelDataResponse pResponseStatus_ =
+newDeleteParallelDataResponse pHttpStatus_ =
   DeleteParallelDataResponse'
-    { _dpdrrsStatus =
-        Nothing,
-      _dpdrrsName = Nothing,
-      _dpdrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the parallel data deletion.
-dpdrrsStatus :: Lens' DeleteParallelDataResponse (Maybe ParallelDataStatus)
-dpdrrsStatus = lens _dpdrrsStatus (\s a -> s {_dpdrrsStatus = a})
+deleteParallelDataResponse_status :: Lens.Lens' DeleteParallelDataResponse (Prelude.Maybe ParallelDataStatus)
+deleteParallelDataResponse_status = Lens.lens (\DeleteParallelDataResponse' {status} -> status) (\s@DeleteParallelDataResponse' {} a -> s {status = a} :: DeleteParallelDataResponse)
 
 -- | The name of the parallel data resource that is being deleted.
-dpdrrsName :: Lens' DeleteParallelDataResponse (Maybe Text)
-dpdrrsName = lens _dpdrrsName (\s a -> s {_dpdrrsName = a})
+deleteParallelDataResponse_name :: Lens.Lens' DeleteParallelDataResponse (Prelude.Maybe Prelude.Text)
+deleteParallelDataResponse_name = Lens.lens (\DeleteParallelDataResponse' {name} -> name) (\s@DeleteParallelDataResponse' {} a -> s {name = a} :: DeleteParallelDataResponse)
 
--- | -- | The response status code.
-dpdrrsResponseStatus :: Lens' DeleteParallelDataResponse Int
-dpdrrsResponseStatus = lens _dpdrrsResponseStatus (\s a -> s {_dpdrrsResponseStatus = a})
+-- | The response's http status code.
+deleteParallelDataResponse_httpStatus :: Lens.Lens' DeleteParallelDataResponse Prelude.Int
+deleteParallelDataResponse_httpStatus = Lens.lens (\DeleteParallelDataResponse' {httpStatus} -> httpStatus) (\s@DeleteParallelDataResponse' {} a -> s {httpStatus = a} :: DeleteParallelDataResponse)
 
-instance NFData DeleteParallelDataResponse
+instance Prelude.NFData DeleteParallelDataResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Translate.Types.JobDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The number of documents successfully and unsuccessfully processed during a translation job.
+-- | The number of documents successfully and unsuccessfully processed during
+-- a translation job.
 --
---
---
--- /See:/ 'jobDetails' smart constructor.
+-- /See:/ 'newJobDetails' smart constructor.
 data JobDetails = JobDetails'
-  { _jdInputDocumentsCount ::
-      !(Maybe Int),
-    _jdDocumentsWithErrorsCount :: !(Maybe Int),
-    _jdTranslatedDocumentsCount :: !(Maybe Int)
+  { -- | The number of documents used as input in a translation job.
+    inputDocumentsCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of documents that could not be processed during a translation
+    -- job.
+    documentsWithErrorsCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of documents successfully processed during a translation job.
+    translatedDocumentsCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jdInputDocumentsCount' - The number of documents used as input in a translation job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jdDocumentsWithErrorsCount' - The number of documents that could not be processed during a translation job.
+-- 'inputDocumentsCount', 'jobDetails_inputDocumentsCount' - The number of documents used as input in a translation job.
 --
--- * 'jdTranslatedDocumentsCount' - The number of documents successfully processed during a translation job.
-jobDetails ::
+-- 'documentsWithErrorsCount', 'jobDetails_documentsWithErrorsCount' - The number of documents that could not be processed during a translation
+-- job.
+--
+-- 'translatedDocumentsCount', 'jobDetails_translatedDocumentsCount' - The number of documents successfully processed during a translation job.
+newJobDetails ::
   JobDetails
-jobDetails =
+newJobDetails =
   JobDetails'
-    { _jdInputDocumentsCount = Nothing,
-      _jdDocumentsWithErrorsCount = Nothing,
-      _jdTranslatedDocumentsCount = Nothing
+    { inputDocumentsCount = Prelude.Nothing,
+      documentsWithErrorsCount = Prelude.Nothing,
+      translatedDocumentsCount = Prelude.Nothing
     }
 
 -- | The number of documents used as input in a translation job.
-jdInputDocumentsCount :: Lens' JobDetails (Maybe Int)
-jdInputDocumentsCount = lens _jdInputDocumentsCount (\s a -> s {_jdInputDocumentsCount = a})
+jobDetails_inputDocumentsCount :: Lens.Lens' JobDetails (Prelude.Maybe Prelude.Int)
+jobDetails_inputDocumentsCount = Lens.lens (\JobDetails' {inputDocumentsCount} -> inputDocumentsCount) (\s@JobDetails' {} a -> s {inputDocumentsCount = a} :: JobDetails)
 
--- | The number of documents that could not be processed during a translation job.
-jdDocumentsWithErrorsCount :: Lens' JobDetails (Maybe Int)
-jdDocumentsWithErrorsCount = lens _jdDocumentsWithErrorsCount (\s a -> s {_jdDocumentsWithErrorsCount = a})
+-- | The number of documents that could not be processed during a translation
+-- job.
+jobDetails_documentsWithErrorsCount :: Lens.Lens' JobDetails (Prelude.Maybe Prelude.Int)
+jobDetails_documentsWithErrorsCount = Lens.lens (\JobDetails' {documentsWithErrorsCount} -> documentsWithErrorsCount) (\s@JobDetails' {} a -> s {documentsWithErrorsCount = a} :: JobDetails)
 
 -- | The number of documents successfully processed during a translation job.
-jdTranslatedDocumentsCount :: Lens' JobDetails (Maybe Int)
-jdTranslatedDocumentsCount = lens _jdTranslatedDocumentsCount (\s a -> s {_jdTranslatedDocumentsCount = a})
+jobDetails_translatedDocumentsCount :: Lens.Lens' JobDetails (Prelude.Maybe Prelude.Int)
+jobDetails_translatedDocumentsCount = Lens.lens (\JobDetails' {translatedDocumentsCount} -> translatedDocumentsCount) (\s@JobDetails' {} a -> s {translatedDocumentsCount = a} :: JobDetails)
 
-instance FromJSON JobDetails where
+instance Prelude.FromJSON JobDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobDetails"
       ( \x ->
           JobDetails'
-            <$> (x .:? "InputDocumentsCount")
-            <*> (x .:? "DocumentsWithErrorsCount")
-            <*> (x .:? "TranslatedDocumentsCount")
+            Prelude.<$> (x Prelude..:? "InputDocumentsCount")
+            Prelude.<*> (x Prelude..:? "DocumentsWithErrorsCount")
+            Prelude.<*> (x Prelude..:? "TranslatedDocumentsCount")
       )
 
-instance Hashable JobDetails
+instance Prelude.Hashable JobDetails
 
-instance NFData JobDetails
+instance Prelude.NFData JobDetails

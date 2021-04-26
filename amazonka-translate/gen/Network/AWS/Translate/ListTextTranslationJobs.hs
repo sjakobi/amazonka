@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,182 +24,190 @@
 -- Gets a list of the batch translation jobs that you have submitted.
 module Network.AWS.Translate.ListTextTranslationJobs
   ( -- * Creating a Request
-    listTextTranslationJobs,
-    ListTextTranslationJobs,
+    ListTextTranslationJobs (..),
+    newListTextTranslationJobs,
 
     -- * Request Lenses
-    lttjNextToken,
-    lttjMaxResults,
-    lttjFilter,
+    listTextTranslationJobs_nextToken,
+    listTextTranslationJobs_maxResults,
+    listTextTranslationJobs_filter,
 
     -- * Destructuring the Response
-    listTextTranslationJobsResponse,
-    ListTextTranslationJobsResponse,
+    ListTextTranslationJobsResponse (..),
+    newListTextTranslationJobsResponse,
 
     -- * Response Lenses
-    lttjrrsNextToken,
-    lttjrrsTextTranslationJobPropertiesList,
-    lttjrrsResponseStatus,
+    listTextTranslationJobsResponse_nextToken,
+    listTextTranslationJobsResponse_textTranslationJobPropertiesList,
+    listTextTranslationJobsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.TextTranslationJobProperties
 
--- | /See:/ 'listTextTranslationJobs' smart constructor.
+-- | /See:/ 'newListTextTranslationJobs' smart constructor.
 data ListTextTranslationJobs = ListTextTranslationJobs'
-  { _lttjNextToken ::
-      !(Maybe Text),
-    _lttjMaxResults ::
-      !(Maybe Nat),
-    _lttjFilter ::
-      !( Maybe
-           TextTranslationJobFilter
-       )
+  { -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in each page. The default value
+    -- is 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The parameters that specify which batch translation jobs to retrieve.
+    -- Filters include job name, job status, and submission time. You can only
+    -- set one filter at a time.
+    filter' :: Prelude.Maybe TextTranslationJobFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTextTranslationJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTextTranslationJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lttjNextToken' - The token to request the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lttjMaxResults' - The maximum number of results to return in each page. The default value is 100.
+-- 'nextToken', 'listTextTranslationJobs_nextToken' - The token to request the next page of results.
 --
--- * 'lttjFilter' - The parameters that specify which batch translation jobs to retrieve. Filters include job name, job status, and submission time. You can only set one filter at a time.
-listTextTranslationJobs ::
+-- 'maxResults', 'listTextTranslationJobs_maxResults' - The maximum number of results to return in each page. The default value
+-- is 100.
+--
+-- 'filter'', 'listTextTranslationJobs_filter' - The parameters that specify which batch translation jobs to retrieve.
+-- Filters include job name, job status, and submission time. You can only
+-- set one filter at a time.
+newListTextTranslationJobs ::
   ListTextTranslationJobs
-listTextTranslationJobs =
+newListTextTranslationJobs =
   ListTextTranslationJobs'
-    { _lttjNextToken = Nothing,
-      _lttjMaxResults = Nothing,
-      _lttjFilter = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | The token to request the next page of results.
-lttjNextToken :: Lens' ListTextTranslationJobs (Maybe Text)
-lttjNextToken = lens _lttjNextToken (\s a -> s {_lttjNextToken = a})
+listTextTranslationJobs_nextToken :: Lens.Lens' ListTextTranslationJobs (Prelude.Maybe Prelude.Text)
+listTextTranslationJobs_nextToken = Lens.lens (\ListTextTranslationJobs' {nextToken} -> nextToken) (\s@ListTextTranslationJobs' {} a -> s {nextToken = a} :: ListTextTranslationJobs)
 
--- | The maximum number of results to return in each page. The default value is 100.
-lttjMaxResults :: Lens' ListTextTranslationJobs (Maybe Natural)
-lttjMaxResults = lens _lttjMaxResults (\s a -> s {_lttjMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in each page. The default value
+-- is 100.
+listTextTranslationJobs_maxResults :: Lens.Lens' ListTextTranslationJobs (Prelude.Maybe Prelude.Natural)
+listTextTranslationJobs_maxResults = Lens.lens (\ListTextTranslationJobs' {maxResults} -> maxResults) (\s@ListTextTranslationJobs' {} a -> s {maxResults = a} :: ListTextTranslationJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | The parameters that specify which batch translation jobs to retrieve. Filters include job name, job status, and submission time. You can only set one filter at a time.
-lttjFilter :: Lens' ListTextTranslationJobs (Maybe TextTranslationJobFilter)
-lttjFilter = lens _lttjFilter (\s a -> s {_lttjFilter = a})
+-- | The parameters that specify which batch translation jobs to retrieve.
+-- Filters include job name, job status, and submission time. You can only
+-- set one filter at a time.
+listTextTranslationJobs_filter :: Lens.Lens' ListTextTranslationJobs (Prelude.Maybe TextTranslationJobFilter)
+listTextTranslationJobs_filter = Lens.lens (\ListTextTranslationJobs' {filter'} -> filter') (\s@ListTextTranslationJobs' {} a -> s {filter' = a} :: ListTextTranslationJobs)
 
-instance AWSRequest ListTextTranslationJobs where
+instance Prelude.AWSRequest ListTextTranslationJobs where
   type
     Rs ListTextTranslationJobs =
       ListTextTranslationJobsResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTextTranslationJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "TextTranslationJobPropertiesList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "TextTranslationJobPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTextTranslationJobs
+instance Prelude.Hashable ListTextTranslationJobs
 
-instance NFData ListTextTranslationJobs
+instance Prelude.NFData ListTextTranslationJobs
 
-instance ToHeaders ListTextTranslationJobs where
+instance Prelude.ToHeaders ListTextTranslationJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.ListTextTranslationJobs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.ListTextTranslationJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTextTranslationJobs where
+instance Prelude.ToJSON ListTextTranslationJobs where
   toJSON ListTextTranslationJobs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lttjNextToken,
-            ("MaxResults" .=) <$> _lttjMaxResults,
-            ("Filter" .=) <$> _lttjFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListTextTranslationJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListTextTranslationJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTextTranslationJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTextTranslationJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTextTranslationJobsResponse' smart constructor.
+-- | /See:/ 'newListTextTranslationJobsResponse' smart constructor.
 data ListTextTranslationJobsResponse = ListTextTranslationJobsResponse'
-  { _lttjrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lttjrrsTextTranslationJobPropertiesList ::
-      !( Maybe
-           [TextTranslationJobProperties]
-       ),
-    _lttjrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retreive the next page of results. This value is
+    -- @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list containing the properties of each job that is returned.
+    textTranslationJobPropertiesList :: Prelude.Maybe [TextTranslationJobProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTextTranslationJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTextTranslationJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lttjrrsNextToken' - The token to use to retreive the next page of results. This value is @null@ when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lttjrrsTextTranslationJobPropertiesList' - A list containing the properties of each job that is returned.
+-- 'nextToken', 'listTextTranslationJobsResponse_nextToken' - The token to use to retreive the next page of results. This value is
+-- @null@ when there are no more results to return.
 --
--- * 'lttjrrsResponseStatus' - -- | The response status code.
-listTextTranslationJobsResponse ::
-  -- | 'lttjrrsResponseStatus'
-  Int ->
+-- 'textTranslationJobPropertiesList', 'listTextTranslationJobsResponse_textTranslationJobPropertiesList' - A list containing the properties of each job that is returned.
+--
+-- 'httpStatus', 'listTextTranslationJobsResponse_httpStatus' - The response's http status code.
+newListTextTranslationJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTextTranslationJobsResponse
-listTextTranslationJobsResponse pResponseStatus_ =
+newListTextTranslationJobsResponse pHttpStatus_ =
   ListTextTranslationJobsResponse'
-    { _lttjrrsNextToken =
-        Nothing,
-      _lttjrrsTextTranslationJobPropertiesList =
-        Nothing,
-      _lttjrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      textTranslationJobPropertiesList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retreive the next page of results. This value is @null@ when there are no more results to return.
-lttjrrsNextToken :: Lens' ListTextTranslationJobsResponse (Maybe Text)
-lttjrrsNextToken = lens _lttjrrsNextToken (\s a -> s {_lttjrrsNextToken = a})
+-- | The token to use to retreive the next page of results. This value is
+-- @null@ when there are no more results to return.
+listTextTranslationJobsResponse_nextToken :: Lens.Lens' ListTextTranslationJobsResponse (Prelude.Maybe Prelude.Text)
+listTextTranslationJobsResponse_nextToken = Lens.lens (\ListTextTranslationJobsResponse' {nextToken} -> nextToken) (\s@ListTextTranslationJobsResponse' {} a -> s {nextToken = a} :: ListTextTranslationJobsResponse)
 
 -- | A list containing the properties of each job that is returned.
-lttjrrsTextTranslationJobPropertiesList :: Lens' ListTextTranslationJobsResponse [TextTranslationJobProperties]
-lttjrrsTextTranslationJobPropertiesList = lens _lttjrrsTextTranslationJobPropertiesList (\s a -> s {_lttjrrsTextTranslationJobPropertiesList = a}) . _Default . _Coerce
+listTextTranslationJobsResponse_textTranslationJobPropertiesList :: Lens.Lens' ListTextTranslationJobsResponse (Prelude.Maybe [TextTranslationJobProperties])
+listTextTranslationJobsResponse_textTranslationJobPropertiesList = Lens.lens (\ListTextTranslationJobsResponse' {textTranslationJobPropertiesList} -> textTranslationJobPropertiesList) (\s@ListTextTranslationJobsResponse' {} a -> s {textTranslationJobPropertiesList = a} :: ListTextTranslationJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lttjrrsResponseStatus :: Lens' ListTextTranslationJobsResponse Int
-lttjrrsResponseStatus = lens _lttjrrsResponseStatus (\s a -> s {_lttjrrsResponseStatus = a})
+-- | The response's http status code.
+listTextTranslationJobsResponse_httpStatus :: Lens.Lens' ListTextTranslationJobsResponse Prelude.Int
+listTextTranslationJobsResponse_httpStatus = Lens.lens (\ListTextTranslationJobsResponse' {httpStatus} -> httpStatus) (\s@ListTextTranslationJobsResponse' {} a -> s {httpStatus = a} :: ListTextTranslationJobsResponse)
 
-instance NFData ListTextTranslationJobsResponse
+instance
+  Prelude.NFData
+    ListTextTranslationJobsResponse

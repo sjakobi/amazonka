@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,171 +24,197 @@
 -- Provides information about a parallel data resource.
 module Network.AWS.Translate.GetParallelData
   ( -- * Creating a Request
-    getParallelData,
-    GetParallelData,
+    GetParallelData (..),
+    newGetParallelData,
 
     -- * Request Lenses
-    gpdName,
+    getParallelData_name,
 
     -- * Destructuring the Response
-    getParallelDataResponse,
-    GetParallelDataResponse,
+    GetParallelDataResponse (..),
+    newGetParallelDataResponse,
 
     -- * Response Lenses
-    gpdrrsAuxiliaryDataLocation,
-    gpdrrsParallelDataProperties,
-    gpdrrsLatestUpdateAttemptAuxiliaryDataLocation,
-    gpdrrsDataLocation,
-    gpdrrsResponseStatus,
+    getParallelDataResponse_auxiliaryDataLocation,
+    getParallelDataResponse_parallelDataProperties,
+    getParallelDataResponse_latestUpdateAttemptAuxiliaryDataLocation,
+    getParallelDataResponse_dataLocation,
+    getParallelDataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.ParallelDataDataLocation
+import Network.AWS.Translate.Types.ParallelDataProperties
 
--- | /See:/ 'getParallelData' smart constructor.
-newtype GetParallelData = GetParallelData'
-  { _gpdName ::
-      Text
+-- | /See:/ 'newGetParallelData' smart constructor.
+data GetParallelData = GetParallelData'
+  { -- | The name of the parallel data resource that is being retrieved.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetParallelData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetParallelData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpdName' - The name of the parallel data resource that is being retrieved.
-getParallelData ::
-  -- | 'gpdName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'getParallelData_name' - The name of the parallel data resource that is being retrieved.
+newGetParallelData ::
+  -- | 'name'
+  Prelude.Text ->
   GetParallelData
-getParallelData pName_ =
-  GetParallelData' {_gpdName = pName_}
+newGetParallelData pName_ =
+  GetParallelData' {name = pName_}
 
 -- | The name of the parallel data resource that is being retrieved.
-gpdName :: Lens' GetParallelData Text
-gpdName = lens _gpdName (\s a -> s {_gpdName = a})
+getParallelData_name :: Lens.Lens' GetParallelData Prelude.Text
+getParallelData_name = Lens.lens (\GetParallelData' {name} -> name) (\s@GetParallelData' {} a -> s {name = a} :: GetParallelData)
 
-instance AWSRequest GetParallelData where
+instance Prelude.AWSRequest GetParallelData where
   type Rs GetParallelData = GetParallelDataResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetParallelDataResponse'
-            <$> (x .?> "AuxiliaryDataLocation")
-            <*> (x .?> "ParallelDataProperties")
-            <*> (x .?> "LatestUpdateAttemptAuxiliaryDataLocation")
-            <*> (x .?> "DataLocation")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AuxiliaryDataLocation")
+            Prelude.<*> (x Prelude..?> "ParallelDataProperties")
+            Prelude.<*> ( x
+                            Prelude..?> "LatestUpdateAttemptAuxiliaryDataLocation"
+                        )
+            Prelude.<*> (x Prelude..?> "DataLocation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetParallelData
+instance Prelude.Hashable GetParallelData
 
-instance NFData GetParallelData
+instance Prelude.NFData GetParallelData
 
-instance ToHeaders GetParallelData where
+instance Prelude.ToHeaders GetParallelData where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.GetParallelData" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.GetParallelData" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetParallelData where
+instance Prelude.ToJSON GetParallelData where
   toJSON GetParallelData' {..} =
-    object (catMaybes [Just ("Name" .= _gpdName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath GetParallelData where
-  toPath = const "/"
+instance Prelude.ToPath GetParallelData where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetParallelData where
-  toQuery = const mempty
+instance Prelude.ToQuery GetParallelData where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getParallelDataResponse' smart constructor.
+-- | /See:/ 'newGetParallelDataResponse' smart constructor.
 data GetParallelDataResponse = GetParallelDataResponse'
-  { _gpdrrsAuxiliaryDataLocation ::
-      !( Maybe
-           ParallelDataDataLocation
-       ),
-    _gpdrrsParallelDataProperties ::
-      !( Maybe
-           ParallelDataProperties
-       ),
-    _gpdrrsLatestUpdateAttemptAuxiliaryDataLocation ::
-      !( Maybe
-           ParallelDataDataLocation
-       ),
-    _gpdrrsDataLocation ::
-      !( Maybe
-           ParallelDataDataLocation
-       ),
-    _gpdrrsResponseStatus ::
-      !Int
+  { -- | The Amazon S3 location of a file that provides any errors or warnings
+    -- that were produced by your input file. This file was created when Amazon
+    -- Translate attempted to create a parallel data resource. The location is
+    -- returned as a presigned URL to that has a 30 minute expiration.
+    auxiliaryDataLocation :: Prelude.Maybe ParallelDataDataLocation,
+    -- | The properties of the parallel data resource that is being retrieved.
+    parallelDataProperties :: Prelude.Maybe ParallelDataProperties,
+    -- | The Amazon S3 location of a file that provides any errors or warnings
+    -- that were produced by your input file. This file was created when Amazon
+    -- Translate attempted to update a parallel data resource. The location is
+    -- returned as a presigned URL to that has a 30 minute expiration.
+    latestUpdateAttemptAuxiliaryDataLocation :: Prelude.Maybe ParallelDataDataLocation,
+    -- | The location of the most recent parallel data input file that was
+    -- successfully imported into Amazon Translate. The location is returned as
+    -- a presigned URL that has a 30 minute expiration.
+    dataLocation :: Prelude.Maybe ParallelDataDataLocation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetParallelDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetParallelDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpdrrsAuxiliaryDataLocation' - The Amazon S3 location of a file that provides any errors or warnings that were produced by your input file. This file was created when Amazon Translate attempted to create a parallel data resource. The location is returned as a presigned URL to that has a 30 minute expiration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpdrrsParallelDataProperties' - The properties of the parallel data resource that is being retrieved.
+-- 'auxiliaryDataLocation', 'getParallelDataResponse_auxiliaryDataLocation' - The Amazon S3 location of a file that provides any errors or warnings
+-- that were produced by your input file. This file was created when Amazon
+-- Translate attempted to create a parallel data resource. The location is
+-- returned as a presigned URL to that has a 30 minute expiration.
 --
--- * 'gpdrrsLatestUpdateAttemptAuxiliaryDataLocation' - The Amazon S3 location of a file that provides any errors or warnings that were produced by your input file. This file was created when Amazon Translate attempted to update a parallel data resource. The location is returned as a presigned URL to that has a 30 minute expiration.
+-- 'parallelDataProperties', 'getParallelDataResponse_parallelDataProperties' - The properties of the parallel data resource that is being retrieved.
 --
--- * 'gpdrrsDataLocation' - The location of the most recent parallel data input file that was successfully imported into Amazon Translate. The location is returned as a presigned URL that has a 30 minute expiration.
+-- 'latestUpdateAttemptAuxiliaryDataLocation', 'getParallelDataResponse_latestUpdateAttemptAuxiliaryDataLocation' - The Amazon S3 location of a file that provides any errors or warnings
+-- that were produced by your input file. This file was created when Amazon
+-- Translate attempted to update a parallel data resource. The location is
+-- returned as a presigned URL to that has a 30 minute expiration.
 --
--- * 'gpdrrsResponseStatus' - -- | The response status code.
-getParallelDataResponse ::
-  -- | 'gpdrrsResponseStatus'
-  Int ->
+-- 'dataLocation', 'getParallelDataResponse_dataLocation' - The location of the most recent parallel data input file that was
+-- successfully imported into Amazon Translate. The location is returned as
+-- a presigned URL that has a 30 minute expiration.
+--
+-- 'httpStatus', 'getParallelDataResponse_httpStatus' - The response's http status code.
+newGetParallelDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetParallelDataResponse
-getParallelDataResponse pResponseStatus_ =
+newGetParallelDataResponse pHttpStatus_ =
   GetParallelDataResponse'
-    { _gpdrrsAuxiliaryDataLocation =
-        Nothing,
-      _gpdrrsParallelDataProperties = Nothing,
-      _gpdrrsLatestUpdateAttemptAuxiliaryDataLocation =
-        Nothing,
-      _gpdrrsDataLocation = Nothing,
-      _gpdrrsResponseStatus = pResponseStatus_
+    { auxiliaryDataLocation =
+        Prelude.Nothing,
+      parallelDataProperties = Prelude.Nothing,
+      latestUpdateAttemptAuxiliaryDataLocation =
+        Prelude.Nothing,
+      dataLocation = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon S3 location of a file that provides any errors or warnings that were produced by your input file. This file was created when Amazon Translate attempted to create a parallel data resource. The location is returned as a presigned URL to that has a 30 minute expiration.
-gpdrrsAuxiliaryDataLocation :: Lens' GetParallelDataResponse (Maybe ParallelDataDataLocation)
-gpdrrsAuxiliaryDataLocation = lens _gpdrrsAuxiliaryDataLocation (\s a -> s {_gpdrrsAuxiliaryDataLocation = a})
+-- | The Amazon S3 location of a file that provides any errors or warnings
+-- that were produced by your input file. This file was created when Amazon
+-- Translate attempted to create a parallel data resource. The location is
+-- returned as a presigned URL to that has a 30 minute expiration.
+getParallelDataResponse_auxiliaryDataLocation :: Lens.Lens' GetParallelDataResponse (Prelude.Maybe ParallelDataDataLocation)
+getParallelDataResponse_auxiliaryDataLocation = Lens.lens (\GetParallelDataResponse' {auxiliaryDataLocation} -> auxiliaryDataLocation) (\s@GetParallelDataResponse' {} a -> s {auxiliaryDataLocation = a} :: GetParallelDataResponse)
 
 -- | The properties of the parallel data resource that is being retrieved.
-gpdrrsParallelDataProperties :: Lens' GetParallelDataResponse (Maybe ParallelDataProperties)
-gpdrrsParallelDataProperties = lens _gpdrrsParallelDataProperties (\s a -> s {_gpdrrsParallelDataProperties = a})
+getParallelDataResponse_parallelDataProperties :: Lens.Lens' GetParallelDataResponse (Prelude.Maybe ParallelDataProperties)
+getParallelDataResponse_parallelDataProperties = Lens.lens (\GetParallelDataResponse' {parallelDataProperties} -> parallelDataProperties) (\s@GetParallelDataResponse' {} a -> s {parallelDataProperties = a} :: GetParallelDataResponse)
 
--- | The Amazon S3 location of a file that provides any errors or warnings that were produced by your input file. This file was created when Amazon Translate attempted to update a parallel data resource. The location is returned as a presigned URL to that has a 30 minute expiration.
-gpdrrsLatestUpdateAttemptAuxiliaryDataLocation :: Lens' GetParallelDataResponse (Maybe ParallelDataDataLocation)
-gpdrrsLatestUpdateAttemptAuxiliaryDataLocation = lens _gpdrrsLatestUpdateAttemptAuxiliaryDataLocation (\s a -> s {_gpdrrsLatestUpdateAttemptAuxiliaryDataLocation = a})
+-- | The Amazon S3 location of a file that provides any errors or warnings
+-- that were produced by your input file. This file was created when Amazon
+-- Translate attempted to update a parallel data resource. The location is
+-- returned as a presigned URL to that has a 30 minute expiration.
+getParallelDataResponse_latestUpdateAttemptAuxiliaryDataLocation :: Lens.Lens' GetParallelDataResponse (Prelude.Maybe ParallelDataDataLocation)
+getParallelDataResponse_latestUpdateAttemptAuxiliaryDataLocation = Lens.lens (\GetParallelDataResponse' {latestUpdateAttemptAuxiliaryDataLocation} -> latestUpdateAttemptAuxiliaryDataLocation) (\s@GetParallelDataResponse' {} a -> s {latestUpdateAttemptAuxiliaryDataLocation = a} :: GetParallelDataResponse)
 
--- | The location of the most recent parallel data input file that was successfully imported into Amazon Translate. The location is returned as a presigned URL that has a 30 minute expiration.
-gpdrrsDataLocation :: Lens' GetParallelDataResponse (Maybe ParallelDataDataLocation)
-gpdrrsDataLocation = lens _gpdrrsDataLocation (\s a -> s {_gpdrrsDataLocation = a})
+-- | The location of the most recent parallel data input file that was
+-- successfully imported into Amazon Translate. The location is returned as
+-- a presigned URL that has a 30 minute expiration.
+getParallelDataResponse_dataLocation :: Lens.Lens' GetParallelDataResponse (Prelude.Maybe ParallelDataDataLocation)
+getParallelDataResponse_dataLocation = Lens.lens (\GetParallelDataResponse' {dataLocation} -> dataLocation) (\s@GetParallelDataResponse' {} a -> s {dataLocation = a} :: GetParallelDataResponse)
 
--- | -- | The response status code.
-gpdrrsResponseStatus :: Lens' GetParallelDataResponse Int
-gpdrrsResponseStatus = lens _gpdrrsResponseStatus (\s a -> s {_gpdrrsResponseStatus = a})
+-- | The response's http status code.
+getParallelDataResponse_httpStatus :: Lens.Lens' GetParallelDataResponse Prelude.Int
+getParallelDataResponse_httpStatus = Lens.lens (\GetParallelDataResponse' {httpStatus} -> httpStatus) (\s@GetParallelDataResponse' {} a -> s {httpStatus = a} :: GetParallelDataResponse)
 
-instance NFData GetParallelDataResponse
+instance Prelude.NFData GetParallelDataResponse

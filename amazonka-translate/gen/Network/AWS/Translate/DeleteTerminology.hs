@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,94 +24,102 @@
 -- A synchronous action that deletes a custom terminology.
 module Network.AWS.Translate.DeleteTerminology
   ( -- * Creating a Request
-    deleteTerminology,
-    DeleteTerminology,
+    DeleteTerminology (..),
+    newDeleteTerminology,
 
     -- * Request Lenses
-    dtName,
+    deleteTerminology_name,
 
     -- * Destructuring the Response
-    deleteTerminologyResponse,
-    DeleteTerminologyResponse,
+    DeleteTerminologyResponse (..),
+    newDeleteTerminologyResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
 
--- | /See:/ 'deleteTerminology' smart constructor.
-newtype DeleteTerminology = DeleteTerminology'
-  { _dtName ::
-      Text
+-- | /See:/ 'newDeleteTerminology' smart constructor.
+data DeleteTerminology = DeleteTerminology'
+  { -- | The name of the custom terminology being deleted.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTerminology' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTerminology' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtName' - The name of the custom terminology being deleted.
-deleteTerminology ::
-  -- | 'dtName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteTerminology_name' - The name of the custom terminology being deleted.
+newDeleteTerminology ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteTerminology
-deleteTerminology pName_ =
-  DeleteTerminology' {_dtName = pName_}
+newDeleteTerminology pName_ =
+  DeleteTerminology' {name = pName_}
 
 -- | The name of the custom terminology being deleted.
-dtName :: Lens' DeleteTerminology Text
-dtName = lens _dtName (\s a -> s {_dtName = a})
+deleteTerminology_name :: Lens.Lens' DeleteTerminology Prelude.Text
+deleteTerminology_name = Lens.lens (\DeleteTerminology' {name} -> name) (\s@DeleteTerminology' {} a -> s {name = a} :: DeleteTerminology)
 
-instance AWSRequest DeleteTerminology where
+instance Prelude.AWSRequest DeleteTerminology where
   type Rs DeleteTerminology = DeleteTerminologyResponse
-  request = postJSON translate
-  response = receiveNull DeleteTerminologyResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteTerminologyResponse'
 
-instance Hashable DeleteTerminology
+instance Prelude.Hashable DeleteTerminology
 
-instance NFData DeleteTerminology
+instance Prelude.NFData DeleteTerminology
 
-instance ToHeaders DeleteTerminology where
+instance Prelude.ToHeaders DeleteTerminology where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.DeleteTerminology" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.DeleteTerminology" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTerminology where
+instance Prelude.ToJSON DeleteTerminology where
   toJSON DeleteTerminology' {..} =
-    object (catMaybes [Just ("Name" .= _dtName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteTerminology where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTerminology where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTerminology where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTerminology where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTerminologyResponse' smart constructor.
+-- | /See:/ 'newDeleteTerminologyResponse' smart constructor.
 data DeleteTerminologyResponse = DeleteTerminologyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTerminologyResponse' with the minimum fields required to make a request.
-deleteTerminologyResponse ::
+-- |
+-- Create a value of 'DeleteTerminologyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteTerminologyResponse ::
   DeleteTerminologyResponse
-deleteTerminologyResponse =
+newDeleteTerminologyResponse =
   DeleteTerminologyResponse'
 
-instance NFData DeleteTerminologyResponse
+instance Prelude.NFData DeleteTerminologyResponse

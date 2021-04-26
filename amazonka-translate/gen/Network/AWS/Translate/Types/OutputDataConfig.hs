@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Translate.Types.OutputDataConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The output configuration properties for a batch translation job.
 --
---
---
--- /See:/ 'outputDataConfig' smart constructor.
-newtype OutputDataConfig = OutputDataConfig'
-  { _odcS3URI ::
-      Text
+-- /See:/ 'newOutputDataConfig' smart constructor.
+data OutputDataConfig = OutputDataConfig'
+  { -- | The URI of the S3 folder that contains a translation job\'s output file.
+    -- The folder must be in the same Region as the API endpoint that you are
+    -- calling.
+    s3Uri :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputDataConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputDataConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'odcS3URI' - The URI of the S3 folder that contains a translation job's output file. The folder must be in the same Region as the API endpoint that you are calling.
-outputDataConfig ::
-  -- | 'odcS3URI'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Uri', 'outputDataConfig_s3Uri' - The URI of the S3 folder that contains a translation job\'s output file.
+-- The folder must be in the same Region as the API endpoint that you are
+-- calling.
+newOutputDataConfig ::
+  -- | 's3Uri'
+  Prelude.Text ->
   OutputDataConfig
-outputDataConfig pS3URI_ =
-  OutputDataConfig' {_odcS3URI = pS3URI_}
+newOutputDataConfig pS3Uri_ =
+  OutputDataConfig' {s3Uri = pS3Uri_}
 
--- | The URI of the S3 folder that contains a translation job's output file. The folder must be in the same Region as the API endpoint that you are calling.
-odcS3URI :: Lens' OutputDataConfig Text
-odcS3URI = lens _odcS3URI (\s a -> s {_odcS3URI = a})
+-- | The URI of the S3 folder that contains a translation job\'s output file.
+-- The folder must be in the same Region as the API endpoint that you are
+-- calling.
+outputDataConfig_s3Uri :: Lens.Lens' OutputDataConfig Prelude.Text
+outputDataConfig_s3Uri = Lens.lens (\OutputDataConfig' {s3Uri} -> s3Uri) (\s@OutputDataConfig' {} a -> s {s3Uri = a} :: OutputDataConfig)
 
-instance FromJSON OutputDataConfig where
+instance Prelude.FromJSON OutputDataConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputDataConfig"
-      (\x -> OutputDataConfig' <$> (x .: "S3Uri"))
+      ( \x ->
+          OutputDataConfig' Prelude.<$> (x Prelude..: "S3Uri")
+      )
 
-instance Hashable OutputDataConfig
+instance Prelude.Hashable OutputDataConfig
 
-instance NFData OutputDataConfig
+instance Prelude.NFData OutputDataConfig
 
-instance ToJSON OutputDataConfig where
+instance Prelude.ToJSON OutputDataConfig where
   toJSON OutputDataConfig' {..} =
-    object (catMaybes [Just ("S3Uri" .= _odcS3URI)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("S3Uri" Prelude..= s3Uri)]
+      )

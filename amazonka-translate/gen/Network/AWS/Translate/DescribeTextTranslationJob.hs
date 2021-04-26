@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the properties associated with an asycnhronous batch translation job including name, ID, status, source and target languages, input/output S3 buckets, and so on.
+-- Gets the properties associated with an asycnhronous batch translation
+-- job including name, ID, status, source and target languages,
+-- input\/output S3 buckets, and so on.
 module Network.AWS.Translate.DescribeTextTranslationJob
   ( -- * Creating a Request
-    describeTextTranslationJob,
-    DescribeTextTranslationJob,
+    DescribeTextTranslationJob (..),
+    newDescribeTextTranslationJob,
 
     -- * Request Lenses
-    dttjJobId,
+    describeTextTranslationJob_jobId,
 
     -- * Destructuring the Response
-    describeTextTranslationJobResponse,
-    DescribeTextTranslationJobResponse,
+    DescribeTextTranslationJobResponse (..),
+    newDescribeTextTranslationJobResponse,
 
     -- * Response Lenses
-    dttjrrsTextTranslationJobProperties,
-    dttjrrsResponseStatus,
+    describeTextTranslationJobResponse_textTranslationJobProperties,
+    describeTextTranslationJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.TextTranslationJobProperties
 
--- | /See:/ 'describeTextTranslationJob' smart constructor.
-newtype DescribeTextTranslationJob = DescribeTextTranslationJob'
-  { _dttjJobId ::
-      Text
+-- | /See:/ 'newDescribeTextTranslationJob' smart constructor.
+data DescribeTextTranslationJob = DescribeTextTranslationJob'
+  { -- | The identifier that Amazon Translate generated for the job. The
+    -- StartTextTranslationJob operation returns this identifier in its
+    -- response.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTextTranslationJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTextTranslationJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dttjJobId' - The identifier that Amazon Translate generated for the job. The 'StartTextTranslationJob' operation returns this identifier in its response.
-describeTextTranslationJob ::
-  -- | 'dttjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'describeTextTranslationJob_jobId' - The identifier that Amazon Translate generated for the job. The
+-- StartTextTranslationJob operation returns this identifier in its
+-- response.
+newDescribeTextTranslationJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   DescribeTextTranslationJob
-describeTextTranslationJob pJobId_ =
-  DescribeTextTranslationJob' {_dttjJobId = pJobId_}
+newDescribeTextTranslationJob pJobId_ =
+  DescribeTextTranslationJob' {jobId = pJobId_}
 
--- | The identifier that Amazon Translate generated for the job. The 'StartTextTranslationJob' operation returns this identifier in its response.
-dttjJobId :: Lens' DescribeTextTranslationJob Text
-dttjJobId = lens _dttjJobId (\s a -> s {_dttjJobId = a})
+-- | The identifier that Amazon Translate generated for the job. The
+-- StartTextTranslationJob operation returns this identifier in its
+-- response.
+describeTextTranslationJob_jobId :: Lens.Lens' DescribeTextTranslationJob Prelude.Text
+describeTextTranslationJob_jobId = Lens.lens (\DescribeTextTranslationJob' {jobId} -> jobId) (\s@DescribeTextTranslationJob' {} a -> s {jobId = a} :: DescribeTextTranslationJob)
 
-instance AWSRequest DescribeTextTranslationJob where
+instance
+  Prelude.AWSRequest
+    DescribeTextTranslationJob
+  where
   type
     Rs DescribeTextTranslationJob =
       DescribeTextTranslationJobResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTextTranslationJobResponse'
-            <$> (x .?> "TextTranslationJobProperties")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TextTranslationJobProperties")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTextTranslationJob
+instance Prelude.Hashable DescribeTextTranslationJob
 
-instance NFData DescribeTextTranslationJob
+instance Prelude.NFData DescribeTextTranslationJob
 
-instance ToHeaders DescribeTextTranslationJob where
+instance Prelude.ToHeaders DescribeTextTranslationJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.DescribeTextTranslationJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.DescribeTextTranslationJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTextTranslationJob where
+instance Prelude.ToJSON DescribeTextTranslationJob where
   toJSON DescribeTextTranslationJob' {..} =
-    object (catMaybes [Just ("JobId" .= _dttjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath DescribeTextTranslationJob where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTextTranslationJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTextTranslationJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTextTranslationJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeTextTranslationJobResponse' smart constructor.
+-- | /See:/ 'newDescribeTextTranslationJobResponse' smart constructor.
 data DescribeTextTranslationJobResponse = DescribeTextTranslationJobResponse'
-  { _dttjrrsTextTranslationJobProperties ::
-      !( Maybe
-           TextTranslationJobProperties
-       ),
-    _dttjrrsResponseStatus ::
-      !Int
+  { -- | An object that contains the properties associated with an asynchronous
+    -- batch translation job.
+    textTranslationJobProperties :: Prelude.Maybe TextTranslationJobProperties,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTextTranslationJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTextTranslationJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dttjrrsTextTranslationJobProperties' - An object that contains the properties associated with an asynchronous batch translation job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dttjrrsResponseStatus' - -- | The response status code.
-describeTextTranslationJobResponse ::
-  -- | 'dttjrrsResponseStatus'
-  Int ->
+-- 'textTranslationJobProperties', 'describeTextTranslationJobResponse_textTranslationJobProperties' - An object that contains the properties associated with an asynchronous
+-- batch translation job.
+--
+-- 'httpStatus', 'describeTextTranslationJobResponse_httpStatus' - The response's http status code.
+newDescribeTextTranslationJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTextTranslationJobResponse
-describeTextTranslationJobResponse pResponseStatus_ =
+newDescribeTextTranslationJobResponse pHttpStatus_ =
   DescribeTextTranslationJobResponse'
-    { _dttjrrsTextTranslationJobProperties =
-        Nothing,
-      _dttjrrsResponseStatus =
-        pResponseStatus_
+    { textTranslationJobProperties =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that contains the properties associated with an asynchronous batch translation job.
-dttjrrsTextTranslationJobProperties :: Lens' DescribeTextTranslationJobResponse (Maybe TextTranslationJobProperties)
-dttjrrsTextTranslationJobProperties = lens _dttjrrsTextTranslationJobProperties (\s a -> s {_dttjrrsTextTranslationJobProperties = a})
+-- | An object that contains the properties associated with an asynchronous
+-- batch translation job.
+describeTextTranslationJobResponse_textTranslationJobProperties :: Lens.Lens' DescribeTextTranslationJobResponse (Prelude.Maybe TextTranslationJobProperties)
+describeTextTranslationJobResponse_textTranslationJobProperties = Lens.lens (\DescribeTextTranslationJobResponse' {textTranslationJobProperties} -> textTranslationJobProperties) (\s@DescribeTextTranslationJobResponse' {} a -> s {textTranslationJobProperties = a} :: DescribeTextTranslationJobResponse)
 
--- | -- | The response status code.
-dttjrrsResponseStatus :: Lens' DescribeTextTranslationJobResponse Int
-dttjrrsResponseStatus = lens _dttjrrsResponseStatus (\s a -> s {_dttjrrsResponseStatus = a})
+-- | The response's http status code.
+describeTextTranslationJobResponse_httpStatus :: Lens.Lens' DescribeTextTranslationJobResponse Prelude.Int
+describeTextTranslationJobResponse_httpStatus = Lens.lens (\DescribeTextTranslationJobResponse' {httpStatus} -> httpStatus) (\s@DescribeTextTranslationJobResponse' {} a -> s {httpStatus = a} :: DescribeTextTranslationJobResponse)
 
-instance NFData DescribeTextTranslationJobResponse
+instance
+  Prelude.NFData
+    DescribeTextTranslationJobResponse

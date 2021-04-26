@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Translate.Types.TerminologyData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Translate.Types.TerminologyDataFormat
 
 -- | The data associated with the custom terminology.
 --
---
---
--- /See:/ 'terminologyData' smart constructor.
+-- /See:/ 'newTerminologyData' smart constructor.
 data TerminologyData = TerminologyData'
-  { _tdFile ::
-      !(Sensitive Base64),
-    _tdFormat :: !TerminologyDataFormat
+  { -- | The file containing the custom terminology data. Your version of the AWS
+    -- SDK performs a Base64-encoding on this field before sending a request to
+    -- the AWS service. Users of the SDK should not perform Base64-encoding
+    -- themselves.
+    file :: Prelude.Sensitive Prelude.Base64,
+    -- | The data format of the custom terminology. Either CSV or TMX.
+    format :: TerminologyDataFormat
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminologyData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminologyData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdFile' - The file containing the custom terminology data. Your version of the AWS SDK performs a Base64-encoding on this field before sending a request to the AWS service. Users of the SDK should not perform Base64-encoding themselves.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdFormat' - The data format of the custom terminology. Either CSV or TMX.
-terminologyData ::
-  -- | 'tdFile'
-  ByteString ->
-  -- | 'tdFormat'
+-- 'file', 'terminologyData_file' - The file containing the custom terminology data. Your version of the AWS
+-- SDK performs a Base64-encoding on this field before sending a request to
+-- the AWS service. Users of the SDK should not perform Base64-encoding
+-- themselves.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'format', 'terminologyData_format' - The data format of the custom terminology. Either CSV or TMX.
+newTerminologyData ::
+  -- | 'file'
+  Prelude.ByteString ->
+  -- | 'format'
   TerminologyDataFormat ->
   TerminologyData
-terminologyData pFile_ pFormat_ =
+newTerminologyData pFile_ pFormat_ =
   TerminologyData'
-    { _tdFile =
-        _Sensitive . _Base64 # pFile_,
-      _tdFormat = pFormat_
+    { file =
+        Prelude._Sensitive Prelude.. Prelude._Base64
+          Lens.# pFile_,
+      format = pFormat_
     }
 
--- | The file containing the custom terminology data. Your version of the AWS SDK performs a Base64-encoding on this field before sending a request to the AWS service. Users of the SDK should not perform Base64-encoding themselves.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-tdFile :: Lens' TerminologyData ByteString
-tdFile = lens _tdFile (\s a -> s {_tdFile = a}) . _Sensitive . _Base64
+-- | The file containing the custom terminology data. Your version of the AWS
+-- SDK performs a Base64-encoding on this field before sending a request to
+-- the AWS service. Users of the SDK should not perform Base64-encoding
+-- themselves.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+terminologyData_file :: Lens.Lens' TerminologyData Prelude.ByteString
+terminologyData_file = Lens.lens (\TerminologyData' {file} -> file) (\s@TerminologyData' {} a -> s {file = a} :: TerminologyData) Prelude.. Prelude._Sensitive Prelude.. Prelude._Base64
 
 -- | The data format of the custom terminology. Either CSV or TMX.
-tdFormat :: Lens' TerminologyData TerminologyDataFormat
-tdFormat = lens _tdFormat (\s a -> s {_tdFormat = a})
+terminologyData_format :: Lens.Lens' TerminologyData TerminologyDataFormat
+terminologyData_format = Lens.lens (\TerminologyData' {format} -> format) (\s@TerminologyData' {} a -> s {format = a} :: TerminologyData)
 
-instance Hashable TerminologyData
+instance Prelude.Hashable TerminologyData
 
-instance NFData TerminologyData
+instance Prelude.NFData TerminologyData
 
-instance ToJSON TerminologyData where
+instance Prelude.ToJSON TerminologyData where
   toJSON TerminologyData' {..} =
-    object
-      ( catMaybes
-          [ Just ("File" .= _tdFile),
-            Just ("Format" .= _tdFormat)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("File" Prelude..= file),
+            Prelude.Just ("Format" Prelude..= format)
           ]
       )

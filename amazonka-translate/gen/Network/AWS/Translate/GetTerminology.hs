@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,176 @@
 -- Retrieves a custom terminology.
 module Network.AWS.Translate.GetTerminology
   ( -- * Creating a Request
-    getTerminology,
-    GetTerminology,
+    GetTerminology (..),
+    newGetTerminology,
 
     -- * Request Lenses
-    gtName,
-    gtTerminologyDataFormat,
+    getTerminology_name,
+    getTerminology_terminologyDataFormat,
 
     -- * Destructuring the Response
-    getTerminologyResponse,
-    GetTerminologyResponse,
+    GetTerminologyResponse (..),
+    newGetTerminologyResponse,
 
     -- * Response Lenses
-    gtrrsTerminologyDataLocation,
-    gtrrsTerminologyProperties,
-    gtrrsResponseStatus,
+    getTerminologyResponse_terminologyDataLocation,
+    getTerminologyResponse_terminologyProperties,
+    getTerminologyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.TerminologyDataLocation
+import Network.AWS.Translate.Types.TerminologyProperties
 
--- | /See:/ 'getTerminology' smart constructor.
+-- | /See:/ 'newGetTerminology' smart constructor.
 data GetTerminology = GetTerminology'
-  { _gtName ::
-      !Text,
-    _gtTerminologyDataFormat ::
-      !TerminologyDataFormat
+  { -- | The name of the custom terminology being retrieved.
+    name :: Prelude.Text,
+    -- | The data format of the custom terminology being retrieved, either CSV or
+    -- TMX.
+    terminologyDataFormat :: TerminologyDataFormat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTerminology' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTerminology' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtName' - The name of the custom terminology being retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtTerminologyDataFormat' - The data format of the custom terminology being retrieved, either CSV or TMX.
-getTerminology ::
-  -- | 'gtName'
-  Text ->
-  -- | 'gtTerminologyDataFormat'
+-- 'name', 'getTerminology_name' - The name of the custom terminology being retrieved.
+--
+-- 'terminologyDataFormat', 'getTerminology_terminologyDataFormat' - The data format of the custom terminology being retrieved, either CSV or
+-- TMX.
+newGetTerminology ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'terminologyDataFormat'
   TerminologyDataFormat ->
   GetTerminology
-getTerminology pName_ pTerminologyDataFormat_ =
+newGetTerminology pName_ pTerminologyDataFormat_ =
   GetTerminology'
-    { _gtName = pName_,
-      _gtTerminologyDataFormat = pTerminologyDataFormat_
+    { name = pName_,
+      terminologyDataFormat = pTerminologyDataFormat_
     }
 
 -- | The name of the custom terminology being retrieved.
-gtName :: Lens' GetTerminology Text
-gtName = lens _gtName (\s a -> s {_gtName = a})
+getTerminology_name :: Lens.Lens' GetTerminology Prelude.Text
+getTerminology_name = Lens.lens (\GetTerminology' {name} -> name) (\s@GetTerminology' {} a -> s {name = a} :: GetTerminology)
 
--- | The data format of the custom terminology being retrieved, either CSV or TMX.
-gtTerminologyDataFormat :: Lens' GetTerminology TerminologyDataFormat
-gtTerminologyDataFormat = lens _gtTerminologyDataFormat (\s a -> s {_gtTerminologyDataFormat = a})
+-- | The data format of the custom terminology being retrieved, either CSV or
+-- TMX.
+getTerminology_terminologyDataFormat :: Lens.Lens' GetTerminology TerminologyDataFormat
+getTerminology_terminologyDataFormat = Lens.lens (\GetTerminology' {terminologyDataFormat} -> terminologyDataFormat) (\s@GetTerminology' {} a -> s {terminologyDataFormat = a} :: GetTerminology)
 
-instance AWSRequest GetTerminology where
+instance Prelude.AWSRequest GetTerminology where
   type Rs GetTerminology = GetTerminologyResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTerminologyResponse'
-            <$> (x .?> "TerminologyDataLocation")
-            <*> (x .?> "TerminologyProperties")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TerminologyDataLocation")
+            Prelude.<*> (x Prelude..?> "TerminologyProperties")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTerminology
+instance Prelude.Hashable GetTerminology
 
-instance NFData GetTerminology
+instance Prelude.NFData GetTerminology
 
-instance ToHeaders GetTerminology where
+instance Prelude.ToHeaders GetTerminology where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.GetTerminology" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.GetTerminology" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTerminology where
+instance Prelude.ToJSON GetTerminology where
   toJSON GetTerminology' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _gtName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
               ( "TerminologyDataFormat"
-                  .= _gtTerminologyDataFormat
+                  Prelude..= terminologyDataFormat
               )
           ]
       )
 
-instance ToPath GetTerminology where
-  toPath = const "/"
+instance Prelude.ToPath GetTerminology where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTerminology where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTerminology where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTerminologyResponse' smart constructor.
+-- | /See:/ 'newGetTerminologyResponse' smart constructor.
 data GetTerminologyResponse = GetTerminologyResponse'
-  { _gtrrsTerminologyDataLocation ::
-      !( Maybe
-           TerminologyDataLocation
-       ),
-    _gtrrsTerminologyProperties ::
-      !( Maybe
-           TerminologyProperties
-       ),
-    _gtrrsResponseStatus ::
-      !Int
+  { -- | The data location of the custom terminology being retrieved. The custom
+    -- terminology file is returned in a presigned url that has a 30 minute
+    -- expiration.
+    terminologyDataLocation :: Prelude.Maybe TerminologyDataLocation,
+    -- | The properties of the custom terminology being retrieved.
+    terminologyProperties :: Prelude.Maybe TerminologyProperties,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTerminologyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTerminologyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsTerminologyDataLocation' - The data location of the custom terminology being retrieved. The custom terminology file is returned in a presigned url that has a 30 minute expiration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsTerminologyProperties' - The properties of the custom terminology being retrieved.
+-- 'terminologyDataLocation', 'getTerminologyResponse_terminologyDataLocation' - The data location of the custom terminology being retrieved. The custom
+-- terminology file is returned in a presigned url that has a 30 minute
+-- expiration.
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
-getTerminologyResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
+-- 'terminologyProperties', 'getTerminologyResponse_terminologyProperties' - The properties of the custom terminology being retrieved.
+--
+-- 'httpStatus', 'getTerminologyResponse_httpStatus' - The response's http status code.
+newGetTerminologyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTerminologyResponse
-getTerminologyResponse pResponseStatus_ =
+newGetTerminologyResponse pHttpStatus_ =
   GetTerminologyResponse'
-    { _gtrrsTerminologyDataLocation =
-        Nothing,
-      _gtrrsTerminologyProperties = Nothing,
-      _gtrrsResponseStatus = pResponseStatus_
+    { terminologyDataLocation =
+        Prelude.Nothing,
+      terminologyProperties = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The data location of the custom terminology being retrieved. The custom terminology file is returned in a presigned url that has a 30 minute expiration.
-gtrrsTerminologyDataLocation :: Lens' GetTerminologyResponse (Maybe TerminologyDataLocation)
-gtrrsTerminologyDataLocation = lens _gtrrsTerminologyDataLocation (\s a -> s {_gtrrsTerminologyDataLocation = a})
+-- | The data location of the custom terminology being retrieved. The custom
+-- terminology file is returned in a presigned url that has a 30 minute
+-- expiration.
+getTerminologyResponse_terminologyDataLocation :: Lens.Lens' GetTerminologyResponse (Prelude.Maybe TerminologyDataLocation)
+getTerminologyResponse_terminologyDataLocation = Lens.lens (\GetTerminologyResponse' {terminologyDataLocation} -> terminologyDataLocation) (\s@GetTerminologyResponse' {} a -> s {terminologyDataLocation = a} :: GetTerminologyResponse)
 
 -- | The properties of the custom terminology being retrieved.
-gtrrsTerminologyProperties :: Lens' GetTerminologyResponse (Maybe TerminologyProperties)
-gtrrsTerminologyProperties = lens _gtrrsTerminologyProperties (\s a -> s {_gtrrsTerminologyProperties = a})
+getTerminologyResponse_terminologyProperties :: Lens.Lens' GetTerminologyResponse (Prelude.Maybe TerminologyProperties)
+getTerminologyResponse_terminologyProperties = Lens.lens (\GetTerminologyResponse' {terminologyProperties} -> terminologyProperties) (\s@GetTerminologyResponse' {} a -> s {terminologyProperties = a} :: GetTerminologyResponse)
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GetTerminologyResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+getTerminologyResponse_httpStatus :: Lens.Lens' GetTerminologyResponse Prelude.Int
+getTerminologyResponse_httpStatus = Lens.lens (\GetTerminologyResponse' {httpStatus} -> httpStatus) (\s@GetTerminologyResponse' {} a -> s {httpStatus = a} :: GetTerminologyResponse)
 
-instance NFData GetTerminologyResponse
+instance Prelude.NFData GetTerminologyResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Translate.Types.ParallelDataStatus
   ( ParallelDataStatus
       ( ..,
-        PDSActive,
-        PDSCreating,
-        PDSDeleting,
-        PDSFailed,
-        PDSUpdating
+        ParallelDataStatusACTIVE,
+        ParallelDataStatusCREATING,
+        ParallelDataStatusDELETING,
+        ParallelDataStatusFAILED,
+        ParallelDataStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParallelDataStatus
-  = ParallelDataStatus'
-      ( CI
-          Text
-      )
+newtype ParallelDataStatus = ParallelDataStatus'
+  { fromParallelDataStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PDSActive :: ParallelDataStatus
-pattern PDSActive = ParallelDataStatus' "ACTIVE"
+pattern ParallelDataStatusACTIVE :: ParallelDataStatus
+pattern ParallelDataStatusACTIVE = ParallelDataStatus' "ACTIVE"
 
-pattern PDSCreating :: ParallelDataStatus
-pattern PDSCreating = ParallelDataStatus' "CREATING"
+pattern ParallelDataStatusCREATING :: ParallelDataStatus
+pattern ParallelDataStatusCREATING = ParallelDataStatus' "CREATING"
 
-pattern PDSDeleting :: ParallelDataStatus
-pattern PDSDeleting = ParallelDataStatus' "DELETING"
+pattern ParallelDataStatusDELETING :: ParallelDataStatus
+pattern ParallelDataStatusDELETING = ParallelDataStatus' "DELETING"
 
-pattern PDSFailed :: ParallelDataStatus
-pattern PDSFailed = ParallelDataStatus' "FAILED"
+pattern ParallelDataStatusFAILED :: ParallelDataStatus
+pattern ParallelDataStatusFAILED = ParallelDataStatus' "FAILED"
 
-pattern PDSUpdating :: ParallelDataStatus
-pattern PDSUpdating = ParallelDataStatus' "UPDATING"
+pattern ParallelDataStatusUPDATING :: ParallelDataStatus
+pattern ParallelDataStatusUPDATING = ParallelDataStatus' "UPDATING"
 
 {-# COMPLETE
-  PDSActive,
-  PDSCreating,
-  PDSDeleting,
-  PDSFailed,
-  PDSUpdating,
+  ParallelDataStatusACTIVE,
+  ParallelDataStatusCREATING,
+  ParallelDataStatusDELETING,
+  ParallelDataStatusFAILED,
+  ParallelDataStatusUPDATING,
   ParallelDataStatus'
   #-}
 
-instance FromText ParallelDataStatus where
-  parser = (ParallelDataStatus' . mk) <$> takeText
+instance Prelude.FromText ParallelDataStatus where
+  parser = ParallelDataStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ParallelDataStatus where
-  toText (ParallelDataStatus' ci) = original ci
+instance Prelude.ToText ParallelDataStatus where
+  toText (ParallelDataStatus' x) = x
 
-instance Hashable ParallelDataStatus
+instance Prelude.Hashable ParallelDataStatus
 
-instance NFData ParallelDataStatus
+instance Prelude.NFData ParallelDataStatus
 
-instance ToByteString ParallelDataStatus
+instance Prelude.ToByteString ParallelDataStatus
 
-instance ToQuery ParallelDataStatus
+instance Prelude.ToQuery ParallelDataStatus
 
-instance ToHeader ParallelDataStatus
+instance Prelude.ToHeader ParallelDataStatus
 
-instance FromJSON ParallelDataStatus where
-  parseJSON = parseJSONText "ParallelDataStatus"
+instance Prelude.FromJSON ParallelDataStatus where
+  parseJSON = Prelude.parseJSONText "ParallelDataStatus"

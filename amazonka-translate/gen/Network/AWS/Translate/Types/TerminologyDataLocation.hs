@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Translate.Types.TerminologyDataLocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The location of the custom terminology data.
 --
---
---
--- /See:/ 'terminologyDataLocation' smart constructor.
+-- /See:/ 'newTerminologyDataLocation' smart constructor.
 data TerminologyDataLocation = TerminologyDataLocation'
-  { _tdlRepositoryType ::
-      !Text,
-    _tdlLocation :: !Text
+  { -- | The repository type for the custom terminology data.
+    repositoryType :: Prelude.Text,
+    -- | The location of the custom terminology data.
+    location :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminologyDataLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminologyDataLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdlRepositoryType' - The repository type for the custom terminology data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdlLocation' - The location of the custom terminology data.
-terminologyDataLocation ::
-  -- | 'tdlRepositoryType'
-  Text ->
-  -- | 'tdlLocation'
-  Text ->
+-- 'repositoryType', 'terminologyDataLocation_repositoryType' - The repository type for the custom terminology data.
+--
+-- 'location', 'terminologyDataLocation_location' - The location of the custom terminology data.
+newTerminologyDataLocation ::
+  -- | 'repositoryType'
+  Prelude.Text ->
+  -- | 'location'
+  Prelude.Text ->
   TerminologyDataLocation
-terminologyDataLocation pRepositoryType_ pLocation_ =
-  TerminologyDataLocation'
-    { _tdlRepositoryType =
-        pRepositoryType_,
-      _tdlLocation = pLocation_
-    }
+newTerminologyDataLocation
+  pRepositoryType_
+  pLocation_ =
+    TerminologyDataLocation'
+      { repositoryType =
+          pRepositoryType_,
+        location = pLocation_
+      }
 
 -- | The repository type for the custom terminology data.
-tdlRepositoryType :: Lens' TerminologyDataLocation Text
-tdlRepositoryType = lens _tdlRepositoryType (\s a -> s {_tdlRepositoryType = a})
+terminologyDataLocation_repositoryType :: Lens.Lens' TerminologyDataLocation Prelude.Text
+terminologyDataLocation_repositoryType = Lens.lens (\TerminologyDataLocation' {repositoryType} -> repositoryType) (\s@TerminologyDataLocation' {} a -> s {repositoryType = a} :: TerminologyDataLocation)
 
 -- | The location of the custom terminology data.
-tdlLocation :: Lens' TerminologyDataLocation Text
-tdlLocation = lens _tdlLocation (\s a -> s {_tdlLocation = a})
+terminologyDataLocation_location :: Lens.Lens' TerminologyDataLocation Prelude.Text
+terminologyDataLocation_location = Lens.lens (\TerminologyDataLocation' {location} -> location) (\s@TerminologyDataLocation' {} a -> s {location = a} :: TerminologyDataLocation)
 
-instance FromJSON TerminologyDataLocation where
+instance Prelude.FromJSON TerminologyDataLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TerminologyDataLocation"
       ( \x ->
           TerminologyDataLocation'
-            <$> (x .: "RepositoryType") <*> (x .: "Location")
+            Prelude.<$> (x Prelude..: "RepositoryType")
+            Prelude.<*> (x Prelude..: "Location")
       )
 
-instance Hashable TerminologyDataLocation
+instance Prelude.Hashable TerminologyDataLocation
 
-instance NFData TerminologyDataLocation
+instance Prelude.NFData TerminologyDataLocation

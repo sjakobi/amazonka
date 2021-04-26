@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,170 @@
 -- Provides a list of your parallel data resources in Amazon Translate.
 module Network.AWS.Translate.ListParallelData
   ( -- * Creating a Request
-    listParallelData,
-    ListParallelData,
+    ListParallelData (..),
+    newListParallelData,
 
     -- * Request Lenses
-    lpdNextToken,
-    lpdMaxResults,
+    listParallelData_nextToken,
+    listParallelData_maxResults,
 
     -- * Destructuring the Response
-    listParallelDataResponse,
-    ListParallelDataResponse,
+    ListParallelDataResponse (..),
+    newListParallelDataResponse,
 
     -- * Response Lenses
-    lpdrrsNextToken,
-    lpdrrsParallelDataPropertiesList,
-    lpdrrsResponseStatus,
+    listParallelDataResponse_nextToken,
+    listParallelDataResponse_parallelDataPropertiesList,
+    listParallelDataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Translate.Types
+import Network.AWS.Translate.Types.ParallelDataProperties
 
--- | /See:/ 'listParallelData' smart constructor.
+-- | /See:/ 'newListParallelData' smart constructor.
 data ListParallelData = ListParallelData'
-  { _lpdNextToken ::
-      !(Maybe Text),
-    _lpdMaxResults :: !(Maybe Nat)
+  { -- | A string that specifies the next page of results to return in a
+    -- paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of parallel data resources returned for each request.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListParallelData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListParallelData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpdNextToken' - A string that specifies the next page of results to return in a paginated response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpdMaxResults' - The maximum number of parallel data resources returned for each request.
-listParallelData ::
+-- 'nextToken', 'listParallelData_nextToken' - A string that specifies the next page of results to return in a
+-- paginated response.
+--
+-- 'maxResults', 'listParallelData_maxResults' - The maximum number of parallel data resources returned for each request.
+newListParallelData ::
   ListParallelData
-listParallelData =
+newListParallelData =
   ListParallelData'
-    { _lpdNextToken = Nothing,
-      _lpdMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | A string that specifies the next page of results to return in a paginated response.
-lpdNextToken :: Lens' ListParallelData (Maybe Text)
-lpdNextToken = lens _lpdNextToken (\s a -> s {_lpdNextToken = a})
+-- | A string that specifies the next page of results to return in a
+-- paginated response.
+listParallelData_nextToken :: Lens.Lens' ListParallelData (Prelude.Maybe Prelude.Text)
+listParallelData_nextToken = Lens.lens (\ListParallelData' {nextToken} -> nextToken) (\s@ListParallelData' {} a -> s {nextToken = a} :: ListParallelData)
 
 -- | The maximum number of parallel data resources returned for each request.
-lpdMaxResults :: Lens' ListParallelData (Maybe Natural)
-lpdMaxResults = lens _lpdMaxResults (\s a -> s {_lpdMaxResults = a}) . mapping _Nat
+listParallelData_maxResults :: Lens.Lens' ListParallelData (Prelude.Maybe Prelude.Natural)
+listParallelData_maxResults = Lens.lens (\ListParallelData' {maxResults} -> maxResults) (\s@ListParallelData' {} a -> s {maxResults = a} :: ListParallelData) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListParallelData where
+instance Prelude.AWSRequest ListParallelData where
   type Rs ListParallelData = ListParallelDataResponse
-  request = postJSON translate
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListParallelDataResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ParallelDataPropertiesList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ParallelDataPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListParallelData
+instance Prelude.Hashable ListParallelData
 
-instance NFData ListParallelData
+instance Prelude.NFData ListParallelData
 
-instance ToHeaders ListParallelData where
+instance Prelude.ToHeaders ListParallelData where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSShineFrontendService_20170701.ListParallelData" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSShineFrontendService_20170701.ListParallelData" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListParallelData where
+instance Prelude.ToJSON ListParallelData where
   toJSON ListParallelData' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lpdNextToken,
-            ("MaxResults" .=) <$> _lpdMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListParallelData where
-  toPath = const "/"
+instance Prelude.ToPath ListParallelData where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListParallelData where
-  toQuery = const mempty
+instance Prelude.ToQuery ListParallelData where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listParallelDataResponse' smart constructor.
+-- | /See:/ 'newListParallelDataResponse' smart constructor.
 data ListParallelDataResponse = ListParallelDataResponse'
-  { _lpdrrsNextToken ::
-      !(Maybe Text),
-    _lpdrrsParallelDataPropertiesList ::
-      !( Maybe
-           [ParallelDataProperties]
-       ),
-    _lpdrrsResponseStatus ::
-      !Int
+  { -- | The string to use in a subsequent request to get the next page of
+    -- results in a paginated response. This value is null if there are no
+    -- additional pages.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The properties of the parallel data resources returned by this request.
+    parallelDataPropertiesList :: Prelude.Maybe [ParallelDataProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListParallelDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListParallelDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpdrrsNextToken' - The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpdrrsParallelDataPropertiesList' - The properties of the parallel data resources returned by this request.
+-- 'nextToken', 'listParallelDataResponse_nextToken' - The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
 --
--- * 'lpdrrsResponseStatus' - -- | The response status code.
-listParallelDataResponse ::
-  -- | 'lpdrrsResponseStatus'
-  Int ->
+-- 'parallelDataPropertiesList', 'listParallelDataResponse_parallelDataPropertiesList' - The properties of the parallel data resources returned by this request.
+--
+-- 'httpStatus', 'listParallelDataResponse_httpStatus' - The response's http status code.
+newListParallelDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListParallelDataResponse
-listParallelDataResponse pResponseStatus_ =
+newListParallelDataResponse pHttpStatus_ =
   ListParallelDataResponse'
-    { _lpdrrsNextToken =
-        Nothing,
-      _lpdrrsParallelDataPropertiesList = Nothing,
-      _lpdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      parallelDataPropertiesList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The string to use in a subsequent request to get the next page of results in a paginated response. This value is null if there are no additional pages.
-lpdrrsNextToken :: Lens' ListParallelDataResponse (Maybe Text)
-lpdrrsNextToken = lens _lpdrrsNextToken (\s a -> s {_lpdrrsNextToken = a})
+-- | The string to use in a subsequent request to get the next page of
+-- results in a paginated response. This value is null if there are no
+-- additional pages.
+listParallelDataResponse_nextToken :: Lens.Lens' ListParallelDataResponse (Prelude.Maybe Prelude.Text)
+listParallelDataResponse_nextToken = Lens.lens (\ListParallelDataResponse' {nextToken} -> nextToken) (\s@ListParallelDataResponse' {} a -> s {nextToken = a} :: ListParallelDataResponse)
 
 -- | The properties of the parallel data resources returned by this request.
-lpdrrsParallelDataPropertiesList :: Lens' ListParallelDataResponse [ParallelDataProperties]
-lpdrrsParallelDataPropertiesList = lens _lpdrrsParallelDataPropertiesList (\s a -> s {_lpdrrsParallelDataPropertiesList = a}) . _Default . _Coerce
+listParallelDataResponse_parallelDataPropertiesList :: Lens.Lens' ListParallelDataResponse (Prelude.Maybe [ParallelDataProperties])
+listParallelDataResponse_parallelDataPropertiesList = Lens.lens (\ListParallelDataResponse' {parallelDataPropertiesList} -> parallelDataPropertiesList) (\s@ListParallelDataResponse' {} a -> s {parallelDataPropertiesList = a} :: ListParallelDataResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lpdrrsResponseStatus :: Lens' ListParallelDataResponse Int
-lpdrrsResponseStatus = lens _lpdrrsResponseStatus (\s a -> s {_lpdrrsResponseStatus = a})
+-- | The response's http status code.
+listParallelDataResponse_httpStatus :: Lens.Lens' ListParallelDataResponse Prelude.Int
+listParallelDataResponse_httpStatus = Lens.lens (\ListParallelDataResponse' {httpStatus} -> httpStatus) (\s@ListParallelDataResponse' {} a -> s {httpStatus = a} :: ListParallelDataResponse)
 
-instance NFData ListParallelDataResponse
+instance Prelude.NFData ListParallelDataResponse

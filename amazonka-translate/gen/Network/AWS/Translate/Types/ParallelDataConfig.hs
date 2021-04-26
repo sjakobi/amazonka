@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Translate.Types.ParallelDataConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Translate.Types.ParallelDataFormat
 
 -- | Specifies the format and S3 location of the parallel data input file.
 --
---
---
--- /See:/ 'parallelDataConfig' smart constructor.
+-- /See:/ 'newParallelDataConfig' smart constructor.
 data ParallelDataConfig = ParallelDataConfig'
-  { _pdcS3URI ::
-      !Text,
-    _pdcFormat :: !ParallelDataFormat
+  { -- | The URI of the Amazon S3 folder that contains the parallel data input
+    -- file. The folder must be in the same Region as the API endpoint you are
+    -- calling.
+    s3Uri :: Prelude.Text,
+    -- | The format of the parallel data input file.
+    format :: ParallelDataFormat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParallelDataConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParallelDataConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdcS3URI' - The URI of the Amazon S3 folder that contains the parallel data input file. The folder must be in the same Region as the API endpoint you are calling.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdcFormat' - The format of the parallel data input file.
-parallelDataConfig ::
-  -- | 'pdcS3URI'
-  Text ->
-  -- | 'pdcFormat'
+-- 's3Uri', 'parallelDataConfig_s3Uri' - The URI of the Amazon S3 folder that contains the parallel data input
+-- file. The folder must be in the same Region as the API endpoint you are
+-- calling.
+--
+-- 'format', 'parallelDataConfig_format' - The format of the parallel data input file.
+newParallelDataConfig ::
+  -- | 's3Uri'
+  Prelude.Text ->
+  -- | 'format'
   ParallelDataFormat ->
   ParallelDataConfig
-parallelDataConfig pS3URI_ pFormat_ =
+newParallelDataConfig pS3Uri_ pFormat_ =
   ParallelDataConfig'
-    { _pdcS3URI = pS3URI_,
-      _pdcFormat = pFormat_
+    { s3Uri = pS3Uri_,
+      format = pFormat_
     }
 
--- | The URI of the Amazon S3 folder that contains the parallel data input file. The folder must be in the same Region as the API endpoint you are calling.
-pdcS3URI :: Lens' ParallelDataConfig Text
-pdcS3URI = lens _pdcS3URI (\s a -> s {_pdcS3URI = a})
+-- | The URI of the Amazon S3 folder that contains the parallel data input
+-- file. The folder must be in the same Region as the API endpoint you are
+-- calling.
+parallelDataConfig_s3Uri :: Lens.Lens' ParallelDataConfig Prelude.Text
+parallelDataConfig_s3Uri = Lens.lens (\ParallelDataConfig' {s3Uri} -> s3Uri) (\s@ParallelDataConfig' {} a -> s {s3Uri = a} :: ParallelDataConfig)
 
 -- | The format of the parallel data input file.
-pdcFormat :: Lens' ParallelDataConfig ParallelDataFormat
-pdcFormat = lens _pdcFormat (\s a -> s {_pdcFormat = a})
+parallelDataConfig_format :: Lens.Lens' ParallelDataConfig ParallelDataFormat
+parallelDataConfig_format = Lens.lens (\ParallelDataConfig' {format} -> format) (\s@ParallelDataConfig' {} a -> s {format = a} :: ParallelDataConfig)
 
-instance FromJSON ParallelDataConfig where
+instance Prelude.FromJSON ParallelDataConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParallelDataConfig"
       ( \x ->
           ParallelDataConfig'
-            <$> (x .: "S3Uri") <*> (x .: "Format")
+            Prelude.<$> (x Prelude..: "S3Uri")
+            Prelude.<*> (x Prelude..: "Format")
       )
 
-instance Hashable ParallelDataConfig
+instance Prelude.Hashable ParallelDataConfig
 
-instance NFData ParallelDataConfig
+instance Prelude.NFData ParallelDataConfig
 
-instance ToJSON ParallelDataConfig where
+instance Prelude.ToJSON ParallelDataConfig where
   toJSON ParallelDataConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("S3Uri" .= _pdcS3URI),
-            Just ("Format" .= _pdcFormat)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("S3Uri" Prelude..= s3Uri),
+            Prelude.Just ("Format" Prelude..= format)
           ]
       )
