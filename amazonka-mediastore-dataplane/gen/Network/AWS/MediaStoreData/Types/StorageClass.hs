@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.MediaStoreData.Types.StorageClass
   ( StorageClass
       ( ..,
-        Temporal
+        StorageClassTEMPORAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StorageClass = StorageClass' (CI Text)
+newtype StorageClass = StorageClass'
+  { fromStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Temporal :: StorageClass
-pattern Temporal = StorageClass' "TEMPORAL"
+pattern StorageClassTEMPORAL :: StorageClass
+pattern StorageClassTEMPORAL = StorageClass' "TEMPORAL"
 
 {-# COMPLETE
-  Temporal,
+  StorageClassTEMPORAL,
   StorageClass'
   #-}
 
-instance FromText StorageClass where
-  parser = (StorageClass' . mk) <$> takeText
+instance Prelude.FromText StorageClass where
+  parser = StorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText StorageClass where
-  toText (StorageClass' ci) = original ci
+instance Prelude.ToText StorageClass where
+  toText (StorageClass' x) = x
 
-instance Hashable StorageClass
+instance Prelude.Hashable StorageClass
 
-instance NFData StorageClass
+instance Prelude.NFData StorageClass
 
-instance ToByteString StorageClass
+instance Prelude.ToByteString StorageClass
 
-instance ToQuery StorageClass
+instance Prelude.ToQuery StorageClass
 
-instance ToHeader StorageClass
+instance Prelude.ToHeader StorageClass
 
-instance ToJSON StorageClass where
-  toJSON = toJSONText
+instance Prelude.ToJSON StorageClass where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StorageClass where
-  parseJSON = parseJSONText "StorageClass"
+instance Prelude.FromJSON StorageClass where
+  parseJSON = Prelude.parseJSONText "StorageClass"

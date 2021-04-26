@@ -11,10 +11,12 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An AWS Elemental MediaStore asset is an object, similar to an object in the Amazon S3 service. Objects are the fundamental entities that are stored in AWS Elemental MediaStore.
+-- An AWS Elemental MediaStore asset is an object, similar to an object in
+-- the Amazon S3 service. Objects are the fundamental entities that are
+-- stored in AWS Elemental MediaStore.
 module Network.AWS.MediaStoreData
   ( -- * Service Configuration
-    mediaStoreData,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -38,19 +40,34 @@ module Network.AWS.MediaStoreData
     -- $operations
 
     -- ** ListItems (Paginated)
-    module Network.AWS.MediaStoreData.ListItems,
+    ListItems (ListItems'),
+    newListItems,
+    ListItemsResponse (ListItemsResponse'),
+    newListItemsResponse,
 
     -- ** DeleteObject
-    module Network.AWS.MediaStoreData.DeleteObject,
+    DeleteObject (DeleteObject'),
+    newDeleteObject,
+    DeleteObjectResponse (DeleteObjectResponse'),
+    newDeleteObjectResponse,
 
     -- ** DescribeObject
-    module Network.AWS.MediaStoreData.DescribeObject,
+    DescribeObject (DescribeObject'),
+    newDescribeObject,
+    DescribeObjectResponse (DescribeObjectResponse'),
+    newDescribeObjectResponse,
 
     -- ** PutObject
-    module Network.AWS.MediaStoreData.PutObject,
+    PutObject (PutObject'),
+    newPutObject,
+    PutObjectResponse (PutObjectResponse'),
+    newPutObjectResponse,
 
     -- ** GetObject
-    module Network.AWS.MediaStoreData.GetObject,
+    GetObject (GetObject'),
+    newGetObject,
+    GetObjectResponse (GetObjectResponse'),
+    newGetObjectResponse,
 
     -- * Types
 
@@ -64,20 +81,15 @@ module Network.AWS.MediaStoreData
     UploadAvailability (..),
 
     -- ** Item
-    Item,
-    item,
-    iETag,
-    iContentType,
-    iContentLength,
-    iName,
-    iLastModified,
-    iType,
+    Item (Item'),
+    newItem,
   )
 where
 
 import Network.AWS.MediaStoreData.DeleteObject
 import Network.AWS.MediaStoreData.DescribeObject
 import Network.AWS.MediaStoreData.GetObject
+import Network.AWS.MediaStoreData.Lens
 import Network.AWS.MediaStoreData.ListItems
 import Network.AWS.MediaStoreData.PutObject
 import Network.AWS.MediaStoreData.Types

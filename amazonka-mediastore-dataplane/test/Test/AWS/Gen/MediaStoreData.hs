@@ -28,37 +28,37 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListItems $
---             listItems
+--             newListItems
 --
 --         , requestDeleteObject $
---             deleteObject
+--             newDeleteObject
 --
 --         , requestDescribeObject $
---             describeObject
+--             newDescribeObject
 --
 --         , requestPutObject $
---             putObject
+--             newPutObject
 --
 --         , requestGetObject $
---             getObject
+--             newGetObject
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListItems $
---             listItemsResponse
+--             newListItemsResponse
 --
 --         , responseDeleteObject $
---             deleteObjectResponse
+--             newDeleteObjectResponse
 --
 --         , responseDescribeObject $
---             describeObjectResponse
+--             newDescribeObjectResponse
 --
 --         , responsePutObject $
---             putObjectResponse
+--             newPutObjectResponse
 --
 --         , responseGetObject $
---             getObjectResponse
+--             newGetObjectResponse
 --
 --           ]
 --     ]
@@ -96,7 +96,7 @@ responseListItems =
   res
     "ListItemsResponse"
     "fixture/ListItemsResponse.proto"
-    mediaStoreData
+    defaultService
     (Proxy :: Proxy ListItems)
 
 responseDeleteObject :: DeleteObjectResponse -> TestTree
@@ -104,7 +104,7 @@ responseDeleteObject =
   res
     "DeleteObjectResponse"
     "fixture/DeleteObjectResponse.proto"
-    mediaStoreData
+    defaultService
     (Proxy :: Proxy DeleteObject)
 
 responseDescribeObject :: DescribeObjectResponse -> TestTree
@@ -112,7 +112,7 @@ responseDescribeObject =
   res
     "DescribeObjectResponse"
     "fixture/DescribeObjectResponse.proto"
-    mediaStoreData
+    defaultService
     (Proxy :: Proxy DescribeObject)
 
 responsePutObject :: PutObjectResponse -> TestTree
@@ -120,5 +120,5 @@ responsePutObject =
   res
     "PutObjectResponse"
     "fixture/PutObjectResponse.proto"
-    mediaStoreData
+    defaultService
     (Proxy :: Proxy PutObject)

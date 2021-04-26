@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,235 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides a list of metadata entries about folders and objects in the specified folder.
---
---
+-- Provides a list of metadata entries about folders and objects in the
+-- specified folder.
 --
 -- This operation returns paginated results.
 module Network.AWS.MediaStoreData.ListItems
   ( -- * Creating a Request
-    listItems,
-    ListItems,
+    ListItems (..),
+    newListItems,
 
     -- * Request Lenses
-    liNextToken,
-    liMaxResults,
-    liPath,
+    listItems_nextToken,
+    listItems_maxResults,
+    listItems_path,
 
     -- * Destructuring the Response
-    listItemsResponse,
-    ListItemsResponse,
+    ListItemsResponse (..),
+    newListItemsResponse,
 
     -- * Response Lenses
-    lirrsNextToken,
-    lirrsItems,
-    lirrsResponseStatus,
+    listItemsResponse_nextToken,
+    listItemsResponse_items,
+    listItemsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStoreData.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaStoreData.Types.Item
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listItems' smart constructor.
+-- | /See:/ 'newListItems' smart constructor.
 data ListItems = ListItems'
-  { _liNextToken ::
-      !(Maybe Text),
-    _liMaxResults :: !(Maybe Nat),
-    _liPath :: !(Maybe Text)
+  { -- | The token that identifies which batch of results that you want to see.
+    -- For example, you submit a @ListItems@ request with @MaxResults@ set at
+    -- 500. The service returns the first batch of results (up to 500) and a
+    -- @NextToken@ value. To see the next batch of results, you can submit the
+    -- @ListItems@ request a second time and specify the @NextToken@ value.
+    --
+    -- Tokens expire after 15 minutes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return per API request. For example,
+    -- you submit a @ListItems@ request with @MaxResults@ set at 500. Although
+    -- 2,000 items match your request, the service returns no more than the
+    -- first 500 items. (The service also returns a @NextToken@ value that you
+    -- can use to fetch the next batch of results.) The service might return
+    -- fewer results than the @MaxResults@ value.
+    --
+    -- If @MaxResults@ is not included in the request, the service defaults to
+    -- pagination with a maximum of 1,000 results per page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The path in the container from which to retrieve items. Format: \<folder
+    -- name>\/\<folder name>\/\<file name>
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListItems' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListItems' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liNextToken' - The token that identifies which batch of results that you want to see. For example, you submit a @ListItems@ request with @MaxResults@ set at 500. The service returns the first batch of results (up to 500) and a @NextToken@ value. To see the next batch of results, you can submit the @ListItems@ request a second time and specify the @NextToken@ value. Tokens expire after 15 minutes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liMaxResults' - The maximum number of results to return per API request. For example, you submit a @ListItems@ request with @MaxResults@ set at 500. Although 2,000 items match your request, the service returns no more than the first 500 items. (The service also returns a @NextToken@ value that you can use to fetch the next batch of results.) The service might return fewer results than the @MaxResults@ value. If @MaxResults@ is not included in the request, the service defaults to pagination with a maximum of 1,000 results per page.
+-- 'nextToken', 'listItems_nextToken' - The token that identifies which batch of results that you want to see.
+-- For example, you submit a @ListItems@ request with @MaxResults@ set at
+-- 500. The service returns the first batch of results (up to 500) and a
+-- @NextToken@ value. To see the next batch of results, you can submit the
+-- @ListItems@ request a second time and specify the @NextToken@ value.
 --
--- * 'liPath' - The path in the container from which to retrieve items. Format: <folder name>/<folder name>/<file name>
-listItems ::
+-- Tokens expire after 15 minutes.
+--
+-- 'maxResults', 'listItems_maxResults' - The maximum number of results to return per API request. For example,
+-- you submit a @ListItems@ request with @MaxResults@ set at 500. Although
+-- 2,000 items match your request, the service returns no more than the
+-- first 500 items. (The service also returns a @NextToken@ value that you
+-- can use to fetch the next batch of results.) The service might return
+-- fewer results than the @MaxResults@ value.
+--
+-- If @MaxResults@ is not included in the request, the service defaults to
+-- pagination with a maximum of 1,000 results per page.
+--
+-- 'path', 'listItems_path' - The path in the container from which to retrieve items. Format: \<folder
+-- name>\/\<folder name>\/\<file name>
+newListItems ::
   ListItems
-listItems =
+newListItems =
   ListItems'
-    { _liNextToken = Nothing,
-      _liMaxResults = Nothing,
-      _liPath = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
--- | The token that identifies which batch of results that you want to see. For example, you submit a @ListItems@ request with @MaxResults@ set at 500. The service returns the first batch of results (up to 500) and a @NextToken@ value. To see the next batch of results, you can submit the @ListItems@ request a second time and specify the @NextToken@ value. Tokens expire after 15 minutes.
-liNextToken :: Lens' ListItems (Maybe Text)
-liNextToken = lens _liNextToken (\s a -> s {_liNextToken = a})
+-- | The token that identifies which batch of results that you want to see.
+-- For example, you submit a @ListItems@ request with @MaxResults@ set at
+-- 500. The service returns the first batch of results (up to 500) and a
+-- @NextToken@ value. To see the next batch of results, you can submit the
+-- @ListItems@ request a second time and specify the @NextToken@ value.
+--
+-- Tokens expire after 15 minutes.
+listItems_nextToken :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Text)
+listItems_nextToken = Lens.lens (\ListItems' {nextToken} -> nextToken) (\s@ListItems' {} a -> s {nextToken = a} :: ListItems)
 
--- | The maximum number of results to return per API request. For example, you submit a @ListItems@ request with @MaxResults@ set at 500. Although 2,000 items match your request, the service returns no more than the first 500 items. (The service also returns a @NextToken@ value that you can use to fetch the next batch of results.) The service might return fewer results than the @MaxResults@ value. If @MaxResults@ is not included in the request, the service defaults to pagination with a maximum of 1,000 results per page.
-liMaxResults :: Lens' ListItems (Maybe Natural)
-liMaxResults = lens _liMaxResults (\s a -> s {_liMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return per API request. For example,
+-- you submit a @ListItems@ request with @MaxResults@ set at 500. Although
+-- 2,000 items match your request, the service returns no more than the
+-- first 500 items. (The service also returns a @NextToken@ value that you
+-- can use to fetch the next batch of results.) The service might return
+-- fewer results than the @MaxResults@ value.
+--
+-- If @MaxResults@ is not included in the request, the service defaults to
+-- pagination with a maximum of 1,000 results per page.
+listItems_maxResults :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Natural)
+listItems_maxResults = Lens.lens (\ListItems' {maxResults} -> maxResults) (\s@ListItems' {} a -> s {maxResults = a} :: ListItems) Prelude.. Lens.mapping Prelude._Nat
 
--- | The path in the container from which to retrieve items. Format: <folder name>/<folder name>/<file name>
-liPath :: Lens' ListItems (Maybe Text)
-liPath = lens _liPath (\s a -> s {_liPath = a})
+-- | The path in the container from which to retrieve items. Format: \<folder
+-- name>\/\<folder name>\/\<file name>
+listItems_path :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Text)
+listItems_path = Lens.lens (\ListItems' {path} -> path) (\s@ListItems' {} a -> s {path = a} :: ListItems)
 
-instance AWSPager ListItems where
+instance Pager.AWSPager ListItems where
   page rq rs
-    | stop (rs ^. lirrsNextToken) = Nothing
-    | stop (rs ^. lirrsItems) = Nothing
-    | otherwise =
-      Just $ rq & liNextToken .~ rs ^. lirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listItemsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listItemsResponse_items Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listItems_nextToken
+          Lens..~ rs
+          Lens.^? listItemsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListItems where
+instance Prelude.AWSRequest ListItems where
   type Rs ListItems = ListItemsResponse
-  request = get mediaStoreData
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListItemsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Items" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Items" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListItems
+instance Prelude.Hashable ListItems
 
-instance NFData ListItems
+instance Prelude.NFData ListItems
 
-instance ToHeaders ListItems where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListItems where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListItems where
-  toPath = const "/"
+instance Prelude.ToPath ListItems where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListItems where
+instance Prelude.ToQuery ListItems where
   toQuery ListItems' {..} =
-    mconcat
-      [ "NextToken" =: _liNextToken,
-        "MaxResults" =: _liMaxResults,
-        "Path" =: _liPath
+    Prelude.mconcat
+      [ "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults,
+        "Path" Prelude.=: path
       ]
 
--- | /See:/ 'listItemsResponse' smart constructor.
+-- | /See:/ 'newListItemsResponse' smart constructor.
 data ListItemsResponse = ListItemsResponse'
-  { _lirrsNextToken ::
-      !(Maybe Text),
-    _lirrsItems :: !(Maybe [Item]),
-    _lirrsResponseStatus :: !Int
+  { -- | The token that can be used in a request to view the next set of results.
+    -- For example, you submit a @ListItems@ request that matches 2,000 items
+    -- with @MaxResults@ set at 500. The service returns the first batch of
+    -- results (up to 500) and a @NextToken@ value that can be used to fetch
+    -- the next batch of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The metadata entries for the folders and objects at the requested path.
+    items :: Prelude.Maybe [Item],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListItemsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListItemsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lirrsNextToken' - The token that can be used in a request to view the next set of results. For example, you submit a @ListItems@ request that matches 2,000 items with @MaxResults@ set at 500. The service returns the first batch of results (up to 500) and a @NextToken@ value that can be used to fetch the next batch of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lirrsItems' - The metadata entries for the folders and objects at the requested path.
+-- 'nextToken', 'listItemsResponse_nextToken' - The token that can be used in a request to view the next set of results.
+-- For example, you submit a @ListItems@ request that matches 2,000 items
+-- with @MaxResults@ set at 500. The service returns the first batch of
+-- results (up to 500) and a @NextToken@ value that can be used to fetch
+-- the next batch of results.
 --
--- * 'lirrsResponseStatus' - -- | The response status code.
-listItemsResponse ::
-  -- | 'lirrsResponseStatus'
-  Int ->
+-- 'items', 'listItemsResponse_items' - The metadata entries for the folders and objects at the requested path.
+--
+-- 'httpStatus', 'listItemsResponse_httpStatus' - The response's http status code.
+newListItemsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListItemsResponse
-listItemsResponse pResponseStatus_ =
+newListItemsResponse pHttpStatus_ =
   ListItemsResponse'
-    { _lirrsNextToken = Nothing,
-      _lirrsItems = Nothing,
-      _lirrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      items = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token that can be used in a request to view the next set of results. For example, you submit a @ListItems@ request that matches 2,000 items with @MaxResults@ set at 500. The service returns the first batch of results (up to 500) and a @NextToken@ value that can be used to fetch the next batch of results.
-lirrsNextToken :: Lens' ListItemsResponse (Maybe Text)
-lirrsNextToken = lens _lirrsNextToken (\s a -> s {_lirrsNextToken = a})
+-- | The token that can be used in a request to view the next set of results.
+-- For example, you submit a @ListItems@ request that matches 2,000 items
+-- with @MaxResults@ set at 500. The service returns the first batch of
+-- results (up to 500) and a @NextToken@ value that can be used to fetch
+-- the next batch of results.
+listItemsResponse_nextToken :: Lens.Lens' ListItemsResponse (Prelude.Maybe Prelude.Text)
+listItemsResponse_nextToken = Lens.lens (\ListItemsResponse' {nextToken} -> nextToken) (\s@ListItemsResponse' {} a -> s {nextToken = a} :: ListItemsResponse)
 
 -- | The metadata entries for the folders and objects at the requested path.
-lirrsItems :: Lens' ListItemsResponse [Item]
-lirrsItems = lens _lirrsItems (\s a -> s {_lirrsItems = a}) . _Default . _Coerce
+listItemsResponse_items :: Lens.Lens' ListItemsResponse (Prelude.Maybe [Item])
+listItemsResponse_items = Lens.lens (\ListItemsResponse' {items} -> items) (\s@ListItemsResponse' {} a -> s {items = a} :: ListItemsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lirrsResponseStatus :: Lens' ListItemsResponse Int
-lirrsResponseStatus = lens _lirrsResponseStatus (\s a -> s {_lirrsResponseStatus = a})
+-- | The response's http status code.
+listItemsResponse_httpStatus :: Lens.Lens' ListItemsResponse Prelude.Int
+listItemsResponse_httpStatus = Lens.lens (\ListItemsResponse' {httpStatus} -> httpStatus) (\s@ListItemsResponse' {} a -> s {httpStatus = a} :: ListItemsResponse)
 
-instance NFData ListItemsResponse
+instance Prelude.NFData ListItemsResponse

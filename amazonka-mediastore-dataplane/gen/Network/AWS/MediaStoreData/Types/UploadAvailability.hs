@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.MediaStoreData.Types.UploadAvailability
   ( UploadAvailability
       ( ..,
-        Standard,
-        Streaming
+        UploadAvailabilitySTANDARD,
+        UploadAvailabilitySTREAMING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UploadAvailability
-  = UploadAvailability'
-      ( CI
-          Text
-      )
+newtype UploadAvailability = UploadAvailability'
+  { fromUploadAvailability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Standard :: UploadAvailability
-pattern Standard = UploadAvailability' "STANDARD"
+pattern UploadAvailabilitySTANDARD :: UploadAvailability
+pattern UploadAvailabilitySTANDARD = UploadAvailability' "STANDARD"
 
-pattern Streaming :: UploadAvailability
-pattern Streaming = UploadAvailability' "STREAMING"
+pattern UploadAvailabilitySTREAMING :: UploadAvailability
+pattern UploadAvailabilitySTREAMING = UploadAvailability' "STREAMING"
 
 {-# COMPLETE
-  Standard,
-  Streaming,
+  UploadAvailabilitySTANDARD,
+  UploadAvailabilitySTREAMING,
   UploadAvailability'
   #-}
 
-instance FromText UploadAvailability where
-  parser = (UploadAvailability' . mk) <$> takeText
+instance Prelude.FromText UploadAvailability where
+  parser = UploadAvailability' Prelude.<$> Prelude.takeText
 
-instance ToText UploadAvailability where
-  toText (UploadAvailability' ci) = original ci
+instance Prelude.ToText UploadAvailability where
+  toText (UploadAvailability' x) = x
 
-instance Hashable UploadAvailability
+instance Prelude.Hashable UploadAvailability
 
-instance NFData UploadAvailability
+instance Prelude.NFData UploadAvailability
 
-instance ToByteString UploadAvailability
+instance Prelude.ToByteString UploadAvailability
 
-instance ToQuery UploadAvailability
+instance Prelude.ToQuery UploadAvailability
 
-instance ToHeader UploadAvailability
+instance Prelude.ToHeader UploadAvailability
 
-instance ToJSON UploadAvailability where
-  toJSON = toJSONText
+instance Prelude.ToJSON UploadAvailability where
+  toJSON = Prelude.toJSONText

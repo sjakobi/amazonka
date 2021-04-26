@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,305 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Downloads the object at the specified path. If the object’s upload availability is set to @streaming@ , AWS Elemental MediaStore downloads the object even if it’s still uploading the object.
+-- Downloads the object at the specified path. If the object’s upload
+-- availability is set to @streaming@, AWS Elemental MediaStore downloads
+-- the object even if it’s still uploading the object.
 module Network.AWS.MediaStoreData.GetObject
   ( -- * Creating a Request
-    getObject,
-    GetObject,
+    GetObject (..),
+    newGetObject,
 
     -- * Request Lenses
-    goRange,
-    goPath,
+    getObject_range,
+    getObject_path,
 
     -- * Destructuring the Response
-    getObjectResponse,
-    GetObjectResponse,
+    GetObjectResponse (..),
+    newGetObjectResponse,
 
     -- * Response Lenses
-    gorrsETag,
-    gorrsContentType,
-    gorrsContentRange,
-    gorrsContentLength,
-    gorrsLastModified,
-    gorrsCacheControl,
-    gorrsStatusCode,
-    gorrsBody,
+    getObjectResponse_eTag,
+    getObjectResponse_contentType,
+    getObjectResponse_contentRange,
+    getObjectResponse_contentLength,
+    getObjectResponse_lastModified,
+    getObjectResponse_cacheControl,
+    getObjectResponse_statusCode,
+    getObjectResponse_body,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStoreData.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getObject' smart constructor.
+-- | /See:/ 'newGetObject' smart constructor.
 data GetObject = GetObject'
-  { _goRange ::
-      !(Maybe Text),
-    _goPath :: !Text
+  { -- | The range bytes of an object to retrieve. For more information about the
+    -- @Range@ header, see
+    -- <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35>. AWS
+    -- Elemental MediaStore ignores this header for partially uploaded objects
+    -- that have streaming upload availability.
+    range :: Prelude.Maybe Prelude.Text,
+    -- | The path (including the file name) where the object is stored in the
+    -- container. Format: \<folder name>\/\<folder name>\/\<file name>
+    --
+    -- For example, to upload the file @mlaw.avi@ to the folder path
+    -- @premium\\canada@ in the container @movies@, enter the path
+    -- @premium\/canada\/mlaw.avi@.
+    --
+    -- Do not include the container name in this path.
+    --
+    -- If the path includes any folders that don\'t exist yet, the service
+    -- creates them. For example, suppose you have an existing @premium\/usa@
+    -- subfolder. If you specify @premium\/canada@, the service creates a
+    -- @canada@ subfolder in the @premium@ folder. You then have two
+    -- subfolders, @usa@ and @canada@, in the @premium@ folder.
+    --
+    -- There is no correlation between the path to the source and the path
+    -- (folders) in the container in AWS Elemental MediaStore.
+    --
+    -- For more information about folders and how they exist in a container,
+    -- see the
+    -- <http://docs.aws.amazon.com/mediastore/latest/ug/ AWS Elemental MediaStore User Guide>.
+    --
+    -- The file name is the name that is assigned to the file that you upload.
+    -- The file can have the same name inside and outside of AWS Elemental
+    -- MediaStore, or it can have the same name. The file name can include or
+    -- omit an extension.
+    path :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goRange' - The range bytes of an object to retrieve. For more information about the @Range@ header, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35 http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35> . AWS Elemental MediaStore ignores this header for partially uploaded objects that have streaming upload availability.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'goPath' - The path (including the file name) where the object is stored in the container. Format: <folder name>/<folder name>/<file name> For example, to upload the file @mlaw.avi@ to the folder path @premium\canada@ in the container @movies@ , enter the path @premium/canada/mlaw.avi@ . Do not include the container name in this path. If the path includes any folders that don't exist yet, the service creates them. For example, suppose you have an existing @premium/usa@ subfolder. If you specify @premium/canada@ , the service creates a @canada@ subfolder in the @premium@ folder. You then have two subfolders, @usa@ and @canada@ , in the @premium@ folder.  There is no correlation between the path to the source and the path (folders) in the container in AWS Elemental MediaStore. For more information about folders and how they exist in a container, see the <http://docs.aws.amazon.com/mediastore/latest/ug/ AWS Elemental MediaStore User Guide> . The file name is the name that is assigned to the file that you upload. The file can have the same name inside and outside of AWS Elemental MediaStore, or it can have the same name. The file name can include or omit an extension.
-getObject ::
-  -- | 'goPath'
-  Text ->
+-- 'range', 'getObject_range' - The range bytes of an object to retrieve. For more information about the
+-- @Range@ header, see
+-- <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35>. AWS
+-- Elemental MediaStore ignores this header for partially uploaded objects
+-- that have streaming upload availability.
+--
+-- 'path', 'getObject_path' - The path (including the file name) where the object is stored in the
+-- container. Format: \<folder name>\/\<folder name>\/\<file name>
+--
+-- For example, to upload the file @mlaw.avi@ to the folder path
+-- @premium\\canada@ in the container @movies@, enter the path
+-- @premium\/canada\/mlaw.avi@.
+--
+-- Do not include the container name in this path.
+--
+-- If the path includes any folders that don\'t exist yet, the service
+-- creates them. For example, suppose you have an existing @premium\/usa@
+-- subfolder. If you specify @premium\/canada@, the service creates a
+-- @canada@ subfolder in the @premium@ folder. You then have two
+-- subfolders, @usa@ and @canada@, in the @premium@ folder.
+--
+-- There is no correlation between the path to the source and the path
+-- (folders) in the container in AWS Elemental MediaStore.
+--
+-- For more information about folders and how they exist in a container,
+-- see the
+-- <http://docs.aws.amazon.com/mediastore/latest/ug/ AWS Elemental MediaStore User Guide>.
+--
+-- The file name is the name that is assigned to the file that you upload.
+-- The file can have the same name inside and outside of AWS Elemental
+-- MediaStore, or it can have the same name. The file name can include or
+-- omit an extension.
+newGetObject ::
+  -- | 'path'
+  Prelude.Text ->
   GetObject
-getObject pPath_ =
-  GetObject' {_goRange = Nothing, _goPath = pPath_}
+newGetObject pPath_ =
+  GetObject' {range = Prelude.Nothing, path = pPath_}
 
--- | The range bytes of an object to retrieve. For more information about the @Range@ header, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35 http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35> . AWS Elemental MediaStore ignores this header for partially uploaded objects that have streaming upload availability.
-goRange :: Lens' GetObject (Maybe Text)
-goRange = lens _goRange (\s a -> s {_goRange = a})
+-- | The range bytes of an object to retrieve. For more information about the
+-- @Range@ header, see
+-- <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35>. AWS
+-- Elemental MediaStore ignores this header for partially uploaded objects
+-- that have streaming upload availability.
+getObject_range :: Lens.Lens' GetObject (Prelude.Maybe Prelude.Text)
+getObject_range = Lens.lens (\GetObject' {range} -> range) (\s@GetObject' {} a -> s {range = a} :: GetObject)
 
--- | The path (including the file name) where the object is stored in the container. Format: <folder name>/<folder name>/<file name> For example, to upload the file @mlaw.avi@ to the folder path @premium\canada@ in the container @movies@ , enter the path @premium/canada/mlaw.avi@ . Do not include the container name in this path. If the path includes any folders that don't exist yet, the service creates them. For example, suppose you have an existing @premium/usa@ subfolder. If you specify @premium/canada@ , the service creates a @canada@ subfolder in the @premium@ folder. You then have two subfolders, @usa@ and @canada@ , in the @premium@ folder.  There is no correlation between the path to the source and the path (folders) in the container in AWS Elemental MediaStore. For more information about folders and how they exist in a container, see the <http://docs.aws.amazon.com/mediastore/latest/ug/ AWS Elemental MediaStore User Guide> . The file name is the name that is assigned to the file that you upload. The file can have the same name inside and outside of AWS Elemental MediaStore, or it can have the same name. The file name can include or omit an extension.
-goPath :: Lens' GetObject Text
-goPath = lens _goPath (\s a -> s {_goPath = a})
+-- | The path (including the file name) where the object is stored in the
+-- container. Format: \<folder name>\/\<folder name>\/\<file name>
+--
+-- For example, to upload the file @mlaw.avi@ to the folder path
+-- @premium\\canada@ in the container @movies@, enter the path
+-- @premium\/canada\/mlaw.avi@.
+--
+-- Do not include the container name in this path.
+--
+-- If the path includes any folders that don\'t exist yet, the service
+-- creates them. For example, suppose you have an existing @premium\/usa@
+-- subfolder. If you specify @premium\/canada@, the service creates a
+-- @canada@ subfolder in the @premium@ folder. You then have two
+-- subfolders, @usa@ and @canada@, in the @premium@ folder.
+--
+-- There is no correlation between the path to the source and the path
+-- (folders) in the container in AWS Elemental MediaStore.
+--
+-- For more information about folders and how they exist in a container,
+-- see the
+-- <http://docs.aws.amazon.com/mediastore/latest/ug/ AWS Elemental MediaStore User Guide>.
+--
+-- The file name is the name that is assigned to the file that you upload.
+-- The file can have the same name inside and outside of AWS Elemental
+-- MediaStore, or it can have the same name. The file name can include or
+-- omit an extension.
+getObject_path :: Lens.Lens' GetObject Prelude.Text
+getObject_path = Lens.lens (\GetObject' {path} -> path) (\s@GetObject' {} a -> s {path = a} :: GetObject)
 
-instance AWSRequest GetObject where
+instance Prelude.AWSRequest GetObject where
   type Rs GetObject = GetObjectResponse
-  request = get mediaStoreData
+  request = Request.get defaultService
   response =
-    receiveBody
+    Response.receiveBody
       ( \s h x ->
           GetObjectResponse'
-            <$> (h .#? "ETag")
-            <*> (h .#? "Content-Type")
-            <*> (h .#? "Content-Range")
-            <*> (h .#? "Content-Length")
-            <*> (h .#? "Last-Modified")
-            <*> (h .#? "Cache-Control")
-            <*> (pure (fromEnum s))
-            <*> (pure x)
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (h Prelude..#? "Content-Type")
+            Prelude.<*> (h Prelude..#? "Content-Range")
+            Prelude.<*> (h Prelude..#? "Content-Length")
+            Prelude.<*> (h Prelude..#? "Last-Modified")
+            Prelude.<*> (h Prelude..#? "Cache-Control")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.pure x)
       )
 
-instance Hashable GetObject
+instance Prelude.Hashable GetObject
 
-instance NFData GetObject
+instance Prelude.NFData GetObject
 
-instance ToHeaders GetObject where
+instance Prelude.ToHeaders GetObject where
   toHeaders GetObject' {..} =
-    mconcat ["Range" =# _goRange]
+    Prelude.mconcat ["Range" Prelude.=# range]
 
-instance ToPath GetObject where
-  toPath GetObject' {..} = mconcat ["/", toBS _goPath]
+instance Prelude.ToPath GetObject where
+  toPath GetObject' {..} =
+    Prelude.mconcat ["/", Prelude.toBS path]
 
-instance ToQuery GetObject where
-  toQuery = const mempty
+instance Prelude.ToQuery GetObject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getObjectResponse' smart constructor.
+-- | /See:/ 'newGetObjectResponse' smart constructor.
 data GetObjectResponse = GetObjectResponse'
-  { _gorrsETag ::
-      !(Maybe Text),
-    _gorrsContentType :: !(Maybe Text),
-    _gorrsContentRange :: !(Maybe Text),
-    _gorrsContentLength :: !(Maybe Nat),
-    _gorrsLastModified ::
-      !(Maybe POSIX),
-    _gorrsCacheControl :: !(Maybe Text),
-    _gorrsStatusCode :: !Int,
-    _gorrsBody :: !RsBody
+  { -- | The ETag that represents a unique instance of the object.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | The content type of the object.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The range of bytes to retrieve.
+    contentRange :: Prelude.Maybe Prelude.Text,
+    -- | The length of the object in bytes.
+    contentLength :: Prelude.Maybe Prelude.Nat,
+    -- | The date and time that the object was last modified.
+    lastModified :: Prelude.Maybe Prelude.POSIX,
+    -- | An optional @CacheControl@ header that allows the caller to control the
+    -- object\'s cache behavior. Headers can be passed in as specified in the
+    -- HTTP spec at
+    -- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
+    --
+    -- Headers with a custom user-defined value are also accepted.
+    cacheControl :: Prelude.Maybe Prelude.Text,
+    -- | The HTML status code of the request. Status codes ranging from 200 to
+    -- 299 indicate success. All other status codes indicate the type of error
+    -- that occurred.
+    statusCode :: Prelude.Int,
+    -- | The bytes of the object.
+    body :: Prelude.RsBody
   }
-  deriving (Show, Generic)
+  deriving (Prelude.Show, Prelude.Generic)
 
--- | Creates a value of 'GetObjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gorrsETag' - The ETag that represents a unique instance of the object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gorrsContentType' - The content type of the object.
+-- 'eTag', 'getObjectResponse_eTag' - The ETag that represents a unique instance of the object.
 --
--- * 'gorrsContentRange' - The range of bytes to retrieve.
+-- 'contentType', 'getObjectResponse_contentType' - The content type of the object.
 --
--- * 'gorrsContentLength' - The length of the object in bytes.
+-- 'contentRange', 'getObjectResponse_contentRange' - The range of bytes to retrieve.
 --
--- * 'gorrsLastModified' - The date and time that the object was last modified.
+-- 'contentLength', 'getObjectResponse_contentLength' - The length of the object in bytes.
 --
--- * 'gorrsCacheControl' - An optional @CacheControl@ header that allows the caller to control the object's cache behavior. Headers can be passed in as specified in the HTTP spec at <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9 https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9> . Headers with a custom user-defined value are also accepted.
+-- 'lastModified', 'getObjectResponse_lastModified' - The date and time that the object was last modified.
 --
--- * 'gorrsStatusCode' - The HTML status code of the request. Status codes ranging from 200 to 299 indicate success. All other status codes indicate the type of error that occurred.
+-- 'cacheControl', 'getObjectResponse_cacheControl' - An optional @CacheControl@ header that allows the caller to control the
+-- object\'s cache behavior. Headers can be passed in as specified in the
+-- HTTP spec at
+-- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
 --
--- * 'gorrsBody' - The bytes of the object.
-getObjectResponse ::
-  -- | 'gorrsStatusCode'
-  Int ->
-  -- | 'gorrsBody'
-  RsBody ->
+-- Headers with a custom user-defined value are also accepted.
+--
+-- 'statusCode', 'getObjectResponse_statusCode' - The HTML status code of the request. Status codes ranging from 200 to
+-- 299 indicate success. All other status codes indicate the type of error
+-- that occurred.
+--
+-- 'body', 'getObjectResponse_body' - The bytes of the object.
+newGetObjectResponse ::
+  -- | 'statusCode'
+  Prelude.Int ->
+  -- | 'body'
+  Prelude.RsBody ->
   GetObjectResponse
-getObjectResponse pStatusCode_ pBody_ =
+newGetObjectResponse pStatusCode_ pBody_ =
   GetObjectResponse'
-    { _gorrsETag = Nothing,
-      _gorrsContentType = Nothing,
-      _gorrsContentRange = Nothing,
-      _gorrsContentLength = Nothing,
-      _gorrsLastModified = Nothing,
-      _gorrsCacheControl = Nothing,
-      _gorrsStatusCode = pStatusCode_,
-      _gorrsBody = pBody_
+    { eTag = Prelude.Nothing,
+      contentType = Prelude.Nothing,
+      contentRange = Prelude.Nothing,
+      contentLength = Prelude.Nothing,
+      lastModified = Prelude.Nothing,
+      cacheControl = Prelude.Nothing,
+      statusCode = pStatusCode_,
+      body = pBody_
     }
 
 -- | The ETag that represents a unique instance of the object.
-gorrsETag :: Lens' GetObjectResponse (Maybe Text)
-gorrsETag = lens _gorrsETag (\s a -> s {_gorrsETag = a})
+getObjectResponse_eTag :: Lens.Lens' GetObjectResponse (Prelude.Maybe Prelude.Text)
+getObjectResponse_eTag = Lens.lens (\GetObjectResponse' {eTag} -> eTag) (\s@GetObjectResponse' {} a -> s {eTag = a} :: GetObjectResponse)
 
 -- | The content type of the object.
-gorrsContentType :: Lens' GetObjectResponse (Maybe Text)
-gorrsContentType = lens _gorrsContentType (\s a -> s {_gorrsContentType = a})
+getObjectResponse_contentType :: Lens.Lens' GetObjectResponse (Prelude.Maybe Prelude.Text)
+getObjectResponse_contentType = Lens.lens (\GetObjectResponse' {contentType} -> contentType) (\s@GetObjectResponse' {} a -> s {contentType = a} :: GetObjectResponse)
 
 -- | The range of bytes to retrieve.
-gorrsContentRange :: Lens' GetObjectResponse (Maybe Text)
-gorrsContentRange = lens _gorrsContentRange (\s a -> s {_gorrsContentRange = a})
+getObjectResponse_contentRange :: Lens.Lens' GetObjectResponse (Prelude.Maybe Prelude.Text)
+getObjectResponse_contentRange = Lens.lens (\GetObjectResponse' {contentRange} -> contentRange) (\s@GetObjectResponse' {} a -> s {contentRange = a} :: GetObjectResponse)
 
 -- | The length of the object in bytes.
-gorrsContentLength :: Lens' GetObjectResponse (Maybe Natural)
-gorrsContentLength = lens _gorrsContentLength (\s a -> s {_gorrsContentLength = a}) . mapping _Nat
+getObjectResponse_contentLength :: Lens.Lens' GetObjectResponse (Prelude.Maybe Prelude.Natural)
+getObjectResponse_contentLength = Lens.lens (\GetObjectResponse' {contentLength} -> contentLength) (\s@GetObjectResponse' {} a -> s {contentLength = a} :: GetObjectResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The date and time that the object was last modified.
-gorrsLastModified :: Lens' GetObjectResponse (Maybe UTCTime)
-gorrsLastModified = lens _gorrsLastModified (\s a -> s {_gorrsLastModified = a}) . mapping _Time
+getObjectResponse_lastModified :: Lens.Lens' GetObjectResponse (Prelude.Maybe Prelude.UTCTime)
+getObjectResponse_lastModified = Lens.lens (\GetObjectResponse' {lastModified} -> lastModified) (\s@GetObjectResponse' {} a -> s {lastModified = a} :: GetObjectResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | An optional @CacheControl@ header that allows the caller to control the object's cache behavior. Headers can be passed in as specified in the HTTP spec at <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9 https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9> . Headers with a custom user-defined value are also accepted.
-gorrsCacheControl :: Lens' GetObjectResponse (Maybe Text)
-gorrsCacheControl = lens _gorrsCacheControl (\s a -> s {_gorrsCacheControl = a})
+-- | An optional @CacheControl@ header that allows the caller to control the
+-- object\'s cache behavior. Headers can be passed in as specified in the
+-- HTTP spec at
+-- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
+--
+-- Headers with a custom user-defined value are also accepted.
+getObjectResponse_cacheControl :: Lens.Lens' GetObjectResponse (Prelude.Maybe Prelude.Text)
+getObjectResponse_cacheControl = Lens.lens (\GetObjectResponse' {cacheControl} -> cacheControl) (\s@GetObjectResponse' {} a -> s {cacheControl = a} :: GetObjectResponse)
 
--- | The HTML status code of the request. Status codes ranging from 200 to 299 indicate success. All other status codes indicate the type of error that occurred.
-gorrsStatusCode :: Lens' GetObjectResponse Int
-gorrsStatusCode = lens _gorrsStatusCode (\s a -> s {_gorrsStatusCode = a})
+-- | The HTML status code of the request. Status codes ranging from 200 to
+-- 299 indicate success. All other status codes indicate the type of error
+-- that occurred.
+getObjectResponse_statusCode :: Lens.Lens' GetObjectResponse Prelude.Int
+getObjectResponse_statusCode = Lens.lens (\GetObjectResponse' {statusCode} -> statusCode) (\s@GetObjectResponse' {} a -> s {statusCode = a} :: GetObjectResponse)
 
 -- | The bytes of the object.
-gorrsBody :: Lens' GetObjectResponse RsBody
-gorrsBody = lens _gorrsBody (\s a -> s {_gorrsBody = a})
+getObjectResponse_body :: Lens.Lens' GetObjectResponse Prelude.RsBody
+getObjectResponse_body = Lens.lens (\GetObjectResponse' {body} -> body) (\s@GetObjectResponse' {} a -> s {body = a} :: GetObjectResponse)

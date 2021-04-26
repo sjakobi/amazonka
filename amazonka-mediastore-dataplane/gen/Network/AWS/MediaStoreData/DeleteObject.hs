@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,100 +24,105 @@
 -- Deletes an object at the specified path.
 module Network.AWS.MediaStoreData.DeleteObject
   ( -- * Creating a Request
-    deleteObject,
-    DeleteObject,
+    DeleteObject (..),
+    newDeleteObject,
 
     -- * Request Lenses
-    doPath,
+    deleteObject_path,
 
     -- * Destructuring the Response
-    deleteObjectResponse,
-    DeleteObjectResponse,
+    DeleteObjectResponse (..),
+    newDeleteObjectResponse,
 
     -- * Response Lenses
-    dorrsResponseStatus,
+    deleteObjectResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStoreData.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteObject' smart constructor.
-newtype DeleteObject = DeleteObject' {_doPath :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteObject' smart constructor.
+data DeleteObject = DeleteObject'
+  { -- | The path (including the file name) where the object is stored in the
+    -- container. Format: \<folder name>\/\<folder name>\/\<file name>
+    path :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'doPath' - The path (including the file name) where the object is stored in the container. Format: <folder name>/<folder name>/<file name>
-deleteObject ::
-  -- | 'doPath'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'path', 'deleteObject_path' - The path (including the file name) where the object is stored in the
+-- container. Format: \<folder name>\/\<folder name>\/\<file name>
+newDeleteObject ::
+  -- | 'path'
+  Prelude.Text ->
   DeleteObject
-deleteObject pPath_ = DeleteObject' {_doPath = pPath_}
+newDeleteObject pPath_ = DeleteObject' {path = pPath_}
 
--- | The path (including the file name) where the object is stored in the container. Format: <folder name>/<folder name>/<file name>
-doPath :: Lens' DeleteObject Text
-doPath = lens _doPath (\s a -> s {_doPath = a})
+-- | The path (including the file name) where the object is stored in the
+-- container. Format: \<folder name>\/\<folder name>\/\<file name>
+deleteObject_path :: Lens.Lens' DeleteObject Prelude.Text
+deleteObject_path = Lens.lens (\DeleteObject' {path} -> path) (\s@DeleteObject' {} a -> s {path = a} :: DeleteObject)
 
-instance AWSRequest DeleteObject where
+instance Prelude.AWSRequest DeleteObject where
   type Rs DeleteObject = DeleteObjectResponse
-  request = delete mediaStoreData
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteObjectResponse' <$> (pure (fromEnum s))
+          DeleteObjectResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteObject
+instance Prelude.Hashable DeleteObject
 
-instance NFData DeleteObject
+instance Prelude.NFData DeleteObject
 
-instance ToHeaders DeleteObject where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteObject where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteObject where
+instance Prelude.ToPath DeleteObject where
   toPath DeleteObject' {..} =
-    mconcat ["/", toBS _doPath]
+    Prelude.mconcat ["/", Prelude.toBS path]
 
-instance ToQuery DeleteObject where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteObject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteObjectResponse' smart constructor.
-newtype DeleteObjectResponse = DeleteObjectResponse'
-  { _dorrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteObjectResponse' smart constructor.
+data DeleteObjectResponse = DeleteObjectResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteObjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteObjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dorrsResponseStatus' - -- | The response status code.
-deleteObjectResponse ::
-  -- | 'dorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteObjectResponse_httpStatus' - The response's http status code.
+newDeleteObjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteObjectResponse
-deleteObjectResponse pResponseStatus_ =
-  DeleteObjectResponse'
-    { _dorrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteObjectResponse pHttpStatus_ =
+  DeleteObjectResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dorrsResponseStatus :: Lens' DeleteObjectResponse Int
-dorrsResponseStatus = lens _dorrsResponseStatus (\s a -> s {_dorrsResponseStatus = a})
+-- | The response's http status code.
+deleteObjectResponse_httpStatus :: Lens.Lens' DeleteObjectResponse Prelude.Int
+deleteObjectResponse_httpStatus = Lens.lens (\DeleteObjectResponse' {httpStatus} -> httpStatus) (\s@DeleteObjectResponse' {} a -> s {httpStatus = a} :: DeleteObjectResponse)
 
-instance NFData DeleteObjectResponse
+instance Prelude.NFData DeleteObjectResponse

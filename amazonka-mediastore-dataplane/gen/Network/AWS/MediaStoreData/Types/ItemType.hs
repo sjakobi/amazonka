@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.MediaStoreData.Types.ItemType
   ( ItemType
       ( ..,
-        TypeFolder,
-        TypeObject
+        ItemTypeTypeFOLDER,
+        ItemTypeTypeOBJECT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ItemType = ItemType' (CI Text)
+newtype ItemType = ItemType'
+  { fromItemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TypeFolder :: ItemType
-pattern TypeFolder = ItemType' "FOLDER"
+pattern ItemTypeTypeFOLDER :: ItemType
+pattern ItemTypeTypeFOLDER = ItemType' "FOLDER"
 
-pattern TypeObject :: ItemType
-pattern TypeObject = ItemType' "OBJECT"
+pattern ItemTypeTypeOBJECT :: ItemType
+pattern ItemTypeTypeOBJECT = ItemType' "OBJECT"
 
 {-# COMPLETE
-  TypeFolder,
-  TypeObject,
+  ItemTypeTypeFOLDER,
+  ItemTypeTypeOBJECT,
   ItemType'
   #-}
 
-instance FromText ItemType where
-  parser = (ItemType' . mk) <$> takeText
+instance Prelude.FromText ItemType where
+  parser = ItemType' Prelude.<$> Prelude.takeText
 
-instance ToText ItemType where
-  toText (ItemType' ci) = original ci
+instance Prelude.ToText ItemType where
+  toText (ItemType' x) = x
 
-instance Hashable ItemType
+instance Prelude.Hashable ItemType
 
-instance NFData ItemType
+instance Prelude.NFData ItemType
 
-instance ToByteString ItemType
+instance Prelude.ToByteString ItemType
 
-instance ToQuery ItemType
+instance Prelude.ToQuery ItemType
 
-instance ToHeader ItemType
+instance Prelude.ToHeader ItemType
 
-instance FromJSON ItemType where
-  parseJSON = parseJSONText "ItemType"
+instance Prelude.FromJSON ItemType where
+  parseJSON = Prelude.parseJSONText "ItemType"
