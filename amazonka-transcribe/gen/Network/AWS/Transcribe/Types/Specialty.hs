@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Transcribe.Types.Specialty
   ( Specialty
       ( ..,
-        Primarycare
+        SpecialtyPRIMARYCARE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Specialty = Specialty' (CI Text)
+newtype Specialty = Specialty'
+  { fromSpecialty ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Primarycare :: Specialty
-pattern Primarycare = Specialty' "PRIMARYCARE"
+pattern SpecialtyPRIMARYCARE :: Specialty
+pattern SpecialtyPRIMARYCARE = Specialty' "PRIMARYCARE"
 
 {-# COMPLETE
-  Primarycare,
+  SpecialtyPRIMARYCARE,
   Specialty'
   #-}
 
-instance FromText Specialty where
-  parser = (Specialty' . mk) <$> takeText
+instance Prelude.FromText Specialty where
+  parser = Specialty' Prelude.<$> Prelude.takeText
 
-instance ToText Specialty where
-  toText (Specialty' ci) = original ci
+instance Prelude.ToText Specialty where
+  toText (Specialty' x) = x
 
-instance Hashable Specialty
+instance Prelude.Hashable Specialty
 
-instance NFData Specialty
+instance Prelude.NFData Specialty
 
-instance ToByteString Specialty
+instance Prelude.ToByteString Specialty
 
-instance ToQuery Specialty
+instance Prelude.ToQuery Specialty
 
-instance ToHeader Specialty
+instance Prelude.ToHeader Specialty
 
-instance ToJSON Specialty where
-  toJSON = toJSONText
+instance Prelude.ToJSON Specialty where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Specialty where
-  parseJSON = parseJSONText "Specialty"
+instance Prelude.FromJSON Specialty where
+  parseJSON = Prelude.parseJSONText "Specialty"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.Transcript where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Identifies the location of a transcription.
 --
---
---
--- /See:/ 'transcript' smart constructor.
+-- /See:/ 'newTranscript' smart constructor.
 data Transcript = Transcript'
-  { _tTranscriptFileURI ::
-      !(Maybe Text),
-    _tRedactedTranscriptFileURI :: !(Maybe Text)
+  { -- | The S3 object location of the transcript.
+    --
+    -- Use this URI to access the transcript. If you specified an S3 bucket in
+    -- the @OutputBucketName@ field when you created the job, this is the URI
+    -- of that bucket. If you chose to store the transcript in Amazon
+    -- Transcribe, this is a shareable URL that provides secure access to that
+    -- location.
+    transcriptFileUri :: Prelude.Maybe Prelude.Text,
+    -- | The S3 object location of the redacted transcript.
+    --
+    -- Use this URI to access the redacted transcript. If you specified an S3
+    -- bucket in the @OutputBucketName@ field when you created the job, this is
+    -- the URI of that bucket. If you chose to store the transcript in Amazon
+    -- Transcribe, this is a shareable URL that provides secure access to that
+    -- location.
+    redactedTranscriptFileUri :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Transcript' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Transcript' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tTranscriptFileURI' - The S3 object location of the transcript. Use this URI to access the transcript. If you specified an S3 bucket in the @OutputBucketName@ field when you created the job, this is the URI of that bucket. If you chose to store the transcript in Amazon Transcribe, this is a shareable URL that provides secure access to that location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tRedactedTranscriptFileURI' - The S3 object location of the redacted transcript. Use this URI to access the redacted transcript. If you specified an S3 bucket in the @OutputBucketName@ field when you created the job, this is the URI of that bucket. If you chose to store the transcript in Amazon Transcribe, this is a shareable URL that provides secure access to that location.
-transcript ::
+-- 'transcriptFileUri', 'transcript_transcriptFileUri' - The S3 object location of the transcript.
+--
+-- Use this URI to access the transcript. If you specified an S3 bucket in
+-- the @OutputBucketName@ field when you created the job, this is the URI
+-- of that bucket. If you chose to store the transcript in Amazon
+-- Transcribe, this is a shareable URL that provides secure access to that
+-- location.
+--
+-- 'redactedTranscriptFileUri', 'transcript_redactedTranscriptFileUri' - The S3 object location of the redacted transcript.
+--
+-- Use this URI to access the redacted transcript. If you specified an S3
+-- bucket in the @OutputBucketName@ field when you created the job, this is
+-- the URI of that bucket. If you chose to store the transcript in Amazon
+-- Transcribe, this is a shareable URL that provides secure access to that
+-- location.
+newTranscript ::
   Transcript
-transcript =
+newTranscript =
   Transcript'
-    { _tTranscriptFileURI = Nothing,
-      _tRedactedTranscriptFileURI = Nothing
+    { transcriptFileUri = Prelude.Nothing,
+      redactedTranscriptFileUri = Prelude.Nothing
     }
 
--- | The S3 object location of the transcript. Use this URI to access the transcript. If you specified an S3 bucket in the @OutputBucketName@ field when you created the job, this is the URI of that bucket. If you chose to store the transcript in Amazon Transcribe, this is a shareable URL that provides secure access to that location.
-tTranscriptFileURI :: Lens' Transcript (Maybe Text)
-tTranscriptFileURI = lens _tTranscriptFileURI (\s a -> s {_tTranscriptFileURI = a})
+-- | The S3 object location of the transcript.
+--
+-- Use this URI to access the transcript. If you specified an S3 bucket in
+-- the @OutputBucketName@ field when you created the job, this is the URI
+-- of that bucket. If you chose to store the transcript in Amazon
+-- Transcribe, this is a shareable URL that provides secure access to that
+-- location.
+transcript_transcriptFileUri :: Lens.Lens' Transcript (Prelude.Maybe Prelude.Text)
+transcript_transcriptFileUri = Lens.lens (\Transcript' {transcriptFileUri} -> transcriptFileUri) (\s@Transcript' {} a -> s {transcriptFileUri = a} :: Transcript)
 
--- | The S3 object location of the redacted transcript. Use this URI to access the redacted transcript. If you specified an S3 bucket in the @OutputBucketName@ field when you created the job, this is the URI of that bucket. If you chose to store the transcript in Amazon Transcribe, this is a shareable URL that provides secure access to that location.
-tRedactedTranscriptFileURI :: Lens' Transcript (Maybe Text)
-tRedactedTranscriptFileURI = lens _tRedactedTranscriptFileURI (\s a -> s {_tRedactedTranscriptFileURI = a})
+-- | The S3 object location of the redacted transcript.
+--
+-- Use this URI to access the redacted transcript. If you specified an S3
+-- bucket in the @OutputBucketName@ field when you created the job, this is
+-- the URI of that bucket. If you chose to store the transcript in Amazon
+-- Transcribe, this is a shareable URL that provides secure access to that
+-- location.
+transcript_redactedTranscriptFileUri :: Lens.Lens' Transcript (Prelude.Maybe Prelude.Text)
+transcript_redactedTranscriptFileUri = Lens.lens (\Transcript' {redactedTranscriptFileUri} -> redactedTranscriptFileUri) (\s@Transcript' {} a -> s {redactedTranscriptFileUri = a} :: Transcript)
 
-instance FromJSON Transcript where
+instance Prelude.FromJSON Transcript where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Transcript"
       ( \x ->
           Transcript'
-            <$> (x .:? "TranscriptFileUri")
-            <*> (x .:? "RedactedTranscriptFileUri")
+            Prelude.<$> (x Prelude..:? "TranscriptFileUri")
+            Prelude.<*> (x Prelude..:? "RedactedTranscriptFileUri")
       )
 
-instance Hashable Transcript
+instance Prelude.Hashable Transcript
 
-instance NFData Transcript
+instance Prelude.NFData Transcript

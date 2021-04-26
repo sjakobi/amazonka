@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.Media where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the input media file in a transcription request.
 --
---
---
--- /See:/ 'media' smart constructor.
-newtype Media = Media' {_mMediaFileURI :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newMedia' smart constructor.
+data Media = Media'
+  { -- | The S3 object location of the input media file. The URI must be in the
+    -- same region as the API endpoint that you are calling. The general form
+    -- is:
+    --
+    -- For example:
+    --
+    -- For more information about S3 object names, see
+    -- <http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys>
+    -- in the /Amazon S3 Developer Guide/.
+    mediaFileUri :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Media' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Media' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mMediaFileURI' - The S3 object location of the input media file. The URI must be in the same region as the API endpoint that you are calling. The general form is: For example: For more information about S3 object names, see <http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys> in the /Amazon S3 Developer Guide/ .
-media ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'mediaFileUri', 'media_mediaFileUri' - The S3 object location of the input media file. The URI must be in the
+-- same region as the API endpoint that you are calling. The general form
+-- is:
+--
+-- For example:
+--
+-- For more information about S3 object names, see
+-- <http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys>
+-- in the /Amazon S3 Developer Guide/.
+newMedia ::
   Media
-media = Media' {_mMediaFileURI = Nothing}
+newMedia = Media' {mediaFileUri = Prelude.Nothing}
 
--- | The S3 object location of the input media file. The URI must be in the same region as the API endpoint that you are calling. The general form is: For example: For more information about S3 object names, see <http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys> in the /Amazon S3 Developer Guide/ .
-mMediaFileURI :: Lens' Media (Maybe Text)
-mMediaFileURI = lens _mMediaFileURI (\s a -> s {_mMediaFileURI = a})
+-- | The S3 object location of the input media file. The URI must be in the
+-- same region as the API endpoint that you are calling. The general form
+-- is:
+--
+-- For example:
+--
+-- For more information about S3 object names, see
+-- <http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys>
+-- in the /Amazon S3 Developer Guide/.
+media_mediaFileUri :: Lens.Lens' Media (Prelude.Maybe Prelude.Text)
+media_mediaFileUri = Lens.lens (\Media' {mediaFileUri} -> mediaFileUri) (\s@Media' {} a -> s {mediaFileUri = a} :: Media)
 
-instance FromJSON Media where
+instance Prelude.FromJSON Media where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Media"
-      (\x -> Media' <$> (x .:? "MediaFileUri"))
+      ( \x ->
+          Media' Prelude.<$> (x Prelude..:? "MediaFileUri")
+      )
 
-instance Hashable Media
+instance Prelude.Hashable Media
 
-instance NFData Media
+instance Prelude.NFData Media
 
-instance ToJSON Media where
+instance Prelude.ToJSON Media where
   toJSON Media' {..} =
-    object
-      (catMaybes [("MediaFileUri" .=) <$> _mMediaFileURI])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MediaFileUri" Prelude..=)
+              Prelude.<$> mediaFileUri
+          ]
+      )

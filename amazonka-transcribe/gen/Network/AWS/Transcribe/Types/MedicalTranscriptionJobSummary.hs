@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.MedicalTranscriptionJobSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Transcribe.Types.LanguageCode
 import Network.AWS.Transcribe.Types.OutputLocationType
 import Network.AWS.Transcribe.Types.Specialty
@@ -25,158 +29,156 @@ import Network.AWS.Transcribe.Types.Type
 
 -- | Provides summary information about a transcription job.
 --
---
---
--- /See:/ 'medicalTranscriptionJobSummary' smart constructor.
+-- /See:/ 'newMedicalTranscriptionJobSummary' smart constructor.
 data MedicalTranscriptionJobSummary = MedicalTranscriptionJobSummary'
-  { _mtjsLanguageCode ::
-      !( Maybe
-           LanguageCode
-       ),
-    _mtjsCreationTime ::
-      !( Maybe
-           POSIX
-       ),
-    _mtjsCompletionTime ::
-      !( Maybe
-           POSIX
-       ),
-    _mtjsStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _mtjsTranscriptionJobStatus ::
-      !( Maybe
-           TranscriptionJobStatus
-       ),
-    _mtjsOutputLocationType ::
-      !( Maybe
-           OutputLocationType
-       ),
-    _mtjsSpecialty ::
-      !( Maybe
-           Specialty
-       ),
-    _mtjsFailureReason ::
-      !( Maybe
-           Text
-       ),
-    _mtjsType ::
-      !( Maybe
-           Type
-       ),
-    _mtjsMedicalTranscriptionJobName ::
-      !( Maybe
-           Text
-       )
+  { -- | The language of the transcript in the source audio file.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | A timestamp that shows when the medical transcription job was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A timestamp that shows when the job was completed.
+    completionTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A timestamp that shows when the job began processing.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the medical transcription job.
+    transcriptionJobStatus :: Prelude.Maybe TranscriptionJobStatus,
+    -- | Indicates the location of the transcription job\'s output.
+    --
+    -- The @CUSTOMER_BUCKET@ is the S3 location provided in the
+    -- @OutputBucketName@ field when the
+    outputLocationType :: Prelude.Maybe OutputLocationType,
+    -- | The medical specialty of the transcription job. @Primary care@ is the
+    -- only valid value.
+    specialty :: Prelude.Maybe Specialty,
+    -- | If the @TranscriptionJobStatus@ field is @FAILED@, a description of the
+    -- error.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The speech of the clinician in the input audio.
+    type' :: Prelude.Maybe Type,
+    -- | The name of a medical transcription job.
+    medicalTranscriptionJobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MedicalTranscriptionJobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MedicalTranscriptionJobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mtjsLanguageCode' - The language of the transcript in the source audio file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mtjsCreationTime' - A timestamp that shows when the medical transcription job was created.
+-- 'languageCode', 'medicalTranscriptionJobSummary_languageCode' - The language of the transcript in the source audio file.
 --
--- * 'mtjsCompletionTime' - A timestamp that shows when the job was completed.
+-- 'creationTime', 'medicalTranscriptionJobSummary_creationTime' - A timestamp that shows when the medical transcription job was created.
 --
--- * 'mtjsStartTime' - A timestamp that shows when the job began processing.
+-- 'completionTime', 'medicalTranscriptionJobSummary_completionTime' - A timestamp that shows when the job was completed.
 --
--- * 'mtjsTranscriptionJobStatus' - The status of the medical transcription job.
+-- 'startTime', 'medicalTranscriptionJobSummary_startTime' - A timestamp that shows when the job began processing.
 --
--- * 'mtjsOutputLocationType' - Indicates the location of the transcription job's output. The @CUSTOMER_BUCKET@ is the S3 location provided in the @OutputBucketName@ field when the
+-- 'transcriptionJobStatus', 'medicalTranscriptionJobSummary_transcriptionJobStatus' - The status of the medical transcription job.
 --
--- * 'mtjsSpecialty' - The medical specialty of the transcription job. @Primary care@ is the only valid value.
+-- 'outputLocationType', 'medicalTranscriptionJobSummary_outputLocationType' - Indicates the location of the transcription job\'s output.
 --
--- * 'mtjsFailureReason' - If the @TranscriptionJobStatus@ field is @FAILED@ , a description of the error.
+-- The @CUSTOMER_BUCKET@ is the S3 location provided in the
+-- @OutputBucketName@ field when the
 --
--- * 'mtjsType' - The speech of the clinician in the input audio.
+-- 'specialty', 'medicalTranscriptionJobSummary_specialty' - The medical specialty of the transcription job. @Primary care@ is the
+-- only valid value.
 --
--- * 'mtjsMedicalTranscriptionJobName' - The name of a medical transcription job.
-medicalTranscriptionJobSummary ::
+-- 'failureReason', 'medicalTranscriptionJobSummary_failureReason' - If the @TranscriptionJobStatus@ field is @FAILED@, a description of the
+-- error.
+--
+-- 'type'', 'medicalTranscriptionJobSummary_type' - The speech of the clinician in the input audio.
+--
+-- 'medicalTranscriptionJobName', 'medicalTranscriptionJobSummary_medicalTranscriptionJobName' - The name of a medical transcription job.
+newMedicalTranscriptionJobSummary ::
   MedicalTranscriptionJobSummary
-medicalTranscriptionJobSummary =
+newMedicalTranscriptionJobSummary =
   MedicalTranscriptionJobSummary'
-    { _mtjsLanguageCode =
-        Nothing,
-      _mtjsCreationTime = Nothing,
-      _mtjsCompletionTime = Nothing,
-      _mtjsStartTime = Nothing,
-      _mtjsTranscriptionJobStatus = Nothing,
-      _mtjsOutputLocationType = Nothing,
-      _mtjsSpecialty = Nothing,
-      _mtjsFailureReason = Nothing,
-      _mtjsType = Nothing,
-      _mtjsMedicalTranscriptionJobName = Nothing
+    { languageCode =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      completionTime = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      transcriptionJobStatus = Prelude.Nothing,
+      outputLocationType = Prelude.Nothing,
+      specialty = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      medicalTranscriptionJobName =
+        Prelude.Nothing
     }
 
 -- | The language of the transcript in the source audio file.
-mtjsLanguageCode :: Lens' MedicalTranscriptionJobSummary (Maybe LanguageCode)
-mtjsLanguageCode = lens _mtjsLanguageCode (\s a -> s {_mtjsLanguageCode = a})
+medicalTranscriptionJobSummary_languageCode :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe LanguageCode)
+medicalTranscriptionJobSummary_languageCode = Lens.lens (\MedicalTranscriptionJobSummary' {languageCode} -> languageCode) (\s@MedicalTranscriptionJobSummary' {} a -> s {languageCode = a} :: MedicalTranscriptionJobSummary)
 
 -- | A timestamp that shows when the medical transcription job was created.
-mtjsCreationTime :: Lens' MedicalTranscriptionJobSummary (Maybe UTCTime)
-mtjsCreationTime = lens _mtjsCreationTime (\s a -> s {_mtjsCreationTime = a}) . mapping _Time
+medicalTranscriptionJobSummary_creationTime :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Prelude.UTCTime)
+medicalTranscriptionJobSummary_creationTime = Lens.lens (\MedicalTranscriptionJobSummary' {creationTime} -> creationTime) (\s@MedicalTranscriptionJobSummary' {} a -> s {creationTime = a} :: MedicalTranscriptionJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | A timestamp that shows when the job was completed.
-mtjsCompletionTime :: Lens' MedicalTranscriptionJobSummary (Maybe UTCTime)
-mtjsCompletionTime = lens _mtjsCompletionTime (\s a -> s {_mtjsCompletionTime = a}) . mapping _Time
+medicalTranscriptionJobSummary_completionTime :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Prelude.UTCTime)
+medicalTranscriptionJobSummary_completionTime = Lens.lens (\MedicalTranscriptionJobSummary' {completionTime} -> completionTime) (\s@MedicalTranscriptionJobSummary' {} a -> s {completionTime = a} :: MedicalTranscriptionJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | A timestamp that shows when the job began processing.
-mtjsStartTime :: Lens' MedicalTranscriptionJobSummary (Maybe UTCTime)
-mtjsStartTime = lens _mtjsStartTime (\s a -> s {_mtjsStartTime = a}) . mapping _Time
+medicalTranscriptionJobSummary_startTime :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Prelude.UTCTime)
+medicalTranscriptionJobSummary_startTime = Lens.lens (\MedicalTranscriptionJobSummary' {startTime} -> startTime) (\s@MedicalTranscriptionJobSummary' {} a -> s {startTime = a} :: MedicalTranscriptionJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the medical transcription job.
-mtjsTranscriptionJobStatus :: Lens' MedicalTranscriptionJobSummary (Maybe TranscriptionJobStatus)
-mtjsTranscriptionJobStatus = lens _mtjsTranscriptionJobStatus (\s a -> s {_mtjsTranscriptionJobStatus = a})
+medicalTranscriptionJobSummary_transcriptionJobStatus :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe TranscriptionJobStatus)
+medicalTranscriptionJobSummary_transcriptionJobStatus = Lens.lens (\MedicalTranscriptionJobSummary' {transcriptionJobStatus} -> transcriptionJobStatus) (\s@MedicalTranscriptionJobSummary' {} a -> s {transcriptionJobStatus = a} :: MedicalTranscriptionJobSummary)
 
--- | Indicates the location of the transcription job's output. The @CUSTOMER_BUCKET@ is the S3 location provided in the @OutputBucketName@ field when the
-mtjsOutputLocationType :: Lens' MedicalTranscriptionJobSummary (Maybe OutputLocationType)
-mtjsOutputLocationType = lens _mtjsOutputLocationType (\s a -> s {_mtjsOutputLocationType = a})
+-- | Indicates the location of the transcription job\'s output.
+--
+-- The @CUSTOMER_BUCKET@ is the S3 location provided in the
+-- @OutputBucketName@ field when the
+medicalTranscriptionJobSummary_outputLocationType :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe OutputLocationType)
+medicalTranscriptionJobSummary_outputLocationType = Lens.lens (\MedicalTranscriptionJobSummary' {outputLocationType} -> outputLocationType) (\s@MedicalTranscriptionJobSummary' {} a -> s {outputLocationType = a} :: MedicalTranscriptionJobSummary)
 
--- | The medical specialty of the transcription job. @Primary care@ is the only valid value.
-mtjsSpecialty :: Lens' MedicalTranscriptionJobSummary (Maybe Specialty)
-mtjsSpecialty = lens _mtjsSpecialty (\s a -> s {_mtjsSpecialty = a})
+-- | The medical specialty of the transcription job. @Primary care@ is the
+-- only valid value.
+medicalTranscriptionJobSummary_specialty :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Specialty)
+medicalTranscriptionJobSummary_specialty = Lens.lens (\MedicalTranscriptionJobSummary' {specialty} -> specialty) (\s@MedicalTranscriptionJobSummary' {} a -> s {specialty = a} :: MedicalTranscriptionJobSummary)
 
--- | If the @TranscriptionJobStatus@ field is @FAILED@ , a description of the error.
-mtjsFailureReason :: Lens' MedicalTranscriptionJobSummary (Maybe Text)
-mtjsFailureReason = lens _mtjsFailureReason (\s a -> s {_mtjsFailureReason = a})
+-- | If the @TranscriptionJobStatus@ field is @FAILED@, a description of the
+-- error.
+medicalTranscriptionJobSummary_failureReason :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Prelude.Text)
+medicalTranscriptionJobSummary_failureReason = Lens.lens (\MedicalTranscriptionJobSummary' {failureReason} -> failureReason) (\s@MedicalTranscriptionJobSummary' {} a -> s {failureReason = a} :: MedicalTranscriptionJobSummary)
 
 -- | The speech of the clinician in the input audio.
-mtjsType :: Lens' MedicalTranscriptionJobSummary (Maybe Type)
-mtjsType = lens _mtjsType (\s a -> s {_mtjsType = a})
+medicalTranscriptionJobSummary_type :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Type)
+medicalTranscriptionJobSummary_type = Lens.lens (\MedicalTranscriptionJobSummary' {type'} -> type') (\s@MedicalTranscriptionJobSummary' {} a -> s {type' = a} :: MedicalTranscriptionJobSummary)
 
 -- | The name of a medical transcription job.
-mtjsMedicalTranscriptionJobName :: Lens' MedicalTranscriptionJobSummary (Maybe Text)
-mtjsMedicalTranscriptionJobName = lens _mtjsMedicalTranscriptionJobName (\s a -> s {_mtjsMedicalTranscriptionJobName = a})
+medicalTranscriptionJobSummary_medicalTranscriptionJobName :: Lens.Lens' MedicalTranscriptionJobSummary (Prelude.Maybe Prelude.Text)
+medicalTranscriptionJobSummary_medicalTranscriptionJobName = Lens.lens (\MedicalTranscriptionJobSummary' {medicalTranscriptionJobName} -> medicalTranscriptionJobName) (\s@MedicalTranscriptionJobSummary' {} a -> s {medicalTranscriptionJobName = a} :: MedicalTranscriptionJobSummary)
 
-instance FromJSON MedicalTranscriptionJobSummary where
+instance
+  Prelude.FromJSON
+    MedicalTranscriptionJobSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MedicalTranscriptionJobSummary"
       ( \x ->
           MedicalTranscriptionJobSummary'
-            <$> (x .:? "LanguageCode")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "CompletionTime")
-            <*> (x .:? "StartTime")
-            <*> (x .:? "TranscriptionJobStatus")
-            <*> (x .:? "OutputLocationType")
-            <*> (x .:? "Specialty")
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "Type")
-            <*> (x .:? "MedicalTranscriptionJobName")
+            Prelude.<$> (x Prelude..:? "LanguageCode")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "CompletionTime")
+            Prelude.<*> (x Prelude..:? "StartTime")
+            Prelude.<*> (x Prelude..:? "TranscriptionJobStatus")
+            Prelude.<*> (x Prelude..:? "OutputLocationType")
+            Prelude.<*> (x Prelude..:? "Specialty")
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "MedicalTranscriptionJobName")
       )
 
-instance Hashable MedicalTranscriptionJobSummary
+instance
+  Prelude.Hashable
+    MedicalTranscriptionJobSummary
 
-instance NFData MedicalTranscriptionJobSummary
+instance
+  Prelude.NFData
+    MedicalTranscriptionJobSummary

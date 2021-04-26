@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a transcription job. To see the status of the job, check the @TranscriptionJobStatus@ field. If the status is @COMPLETED@ , the job is finished and you can find the results at the location specified in the @TranscriptFileUri@ field. If you enable content redaction, the redacted transcript appears in @RedactedTranscriptFileUri@ .
+-- Returns information about a transcription job. To see the status of the
+-- job, check the @TranscriptionJobStatus@ field. If the status is
+-- @COMPLETED@, the job is finished and you can find the results at the
+-- location specified in the @TranscriptFileUri@ field. If you enable
+-- content redaction, the redacted transcript appears in
+-- @RedactedTranscriptFileUri@.
 module Network.AWS.Transcribe.GetTranscriptionJob
   ( -- * Creating a Request
-    getTranscriptionJob,
-    GetTranscriptionJob,
+    GetTranscriptionJob (..),
+    newGetTranscriptionJob,
 
     -- * Request Lenses
-    gtjTranscriptionJobName,
+    getTranscriptionJob_transcriptionJobName,
 
     -- * Destructuring the Response
-    getTranscriptionJobResponse,
-    GetTranscriptionJobResponse,
+    GetTranscriptionJobResponse (..),
+    newGetTranscriptionJobResponse,
 
     -- * Response Lenses
-    gtjrrsTranscriptionJob,
-    gtjrrsResponseStatus,
+    getTranscriptionJobResponse_transcriptionJob,
+    getTranscriptionJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
+import Network.AWS.Transcribe.Types.TranscriptionJob
 
--- | /See:/ 'getTranscriptionJob' smart constructor.
-newtype GetTranscriptionJob = GetTranscriptionJob'
-  { _gtjTranscriptionJobName ::
-      Text
+-- | /See:/ 'newGetTranscriptionJob' smart constructor.
+data GetTranscriptionJob = GetTranscriptionJob'
+  { -- | The name of the job.
+    transcriptionJobName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTranscriptionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTranscriptionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtjTranscriptionJobName' - The name of the job.
-getTranscriptionJob ::
-  -- | 'gtjTranscriptionJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'transcriptionJobName', 'getTranscriptionJob_transcriptionJobName' - The name of the job.
+newGetTranscriptionJob ::
+  -- | 'transcriptionJobName'
+  Prelude.Text ->
   GetTranscriptionJob
-getTranscriptionJob pTranscriptionJobName_ =
+newGetTranscriptionJob pTranscriptionJobName_ =
   GetTranscriptionJob'
-    { _gtjTranscriptionJobName =
+    { transcriptionJobName =
         pTranscriptionJobName_
     }
 
 -- | The name of the job.
-gtjTranscriptionJobName :: Lens' GetTranscriptionJob Text
-gtjTranscriptionJobName = lens _gtjTranscriptionJobName (\s a -> s {_gtjTranscriptionJobName = a})
+getTranscriptionJob_transcriptionJobName :: Lens.Lens' GetTranscriptionJob Prelude.Text
+getTranscriptionJob_transcriptionJobName = Lens.lens (\GetTranscriptionJob' {transcriptionJobName} -> transcriptionJobName) (\s@GetTranscriptionJob' {} a -> s {transcriptionJobName = a} :: GetTranscriptionJob)
 
-instance AWSRequest GetTranscriptionJob where
+instance Prelude.AWSRequest GetTranscriptionJob where
   type
     Rs GetTranscriptionJob =
       GetTranscriptionJobResponse
-  request = postJSON transcribe
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTranscriptionJobResponse'
-            <$> (x .?> "TranscriptionJob") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TranscriptionJob")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTranscriptionJob
+instance Prelude.Hashable GetTranscriptionJob
 
-instance NFData GetTranscriptionJob
+instance Prelude.NFData GetTranscriptionJob
 
-instance ToHeaders GetTranscriptionJob where
+instance Prelude.ToHeaders GetTranscriptionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.GetTranscriptionJob" :: ByteString),
+              Prelude.=# ( "Transcribe.GetTranscriptionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTranscriptionJob where
+instance Prelude.ToJSON GetTranscriptionJob where
   toJSON GetTranscriptionJob' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "TranscriptionJobName"
-                  .= _gtjTranscriptionJobName
+                  Prelude..= transcriptionJobName
               )
           ]
       )
 
-instance ToPath GetTranscriptionJob where
-  toPath = const "/"
+instance Prelude.ToPath GetTranscriptionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTranscriptionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTranscriptionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTranscriptionJobResponse' smart constructor.
+-- | /See:/ 'newGetTranscriptionJobResponse' smart constructor.
 data GetTranscriptionJobResponse = GetTranscriptionJobResponse'
-  { _gtjrrsTranscriptionJob ::
-      !( Maybe
-           TranscriptionJob
-       ),
-    _gtjrrsResponseStatus ::
-      !Int
+  { -- | An object that contains the results of the transcription job.
+    transcriptionJob :: Prelude.Maybe TranscriptionJob,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTranscriptionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTranscriptionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtjrrsTranscriptionJob' - An object that contains the results of the transcription job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtjrrsResponseStatus' - -- | The response status code.
-getTranscriptionJobResponse ::
-  -- | 'gtjrrsResponseStatus'
-  Int ->
+-- 'transcriptionJob', 'getTranscriptionJobResponse_transcriptionJob' - An object that contains the results of the transcription job.
+--
+-- 'httpStatus', 'getTranscriptionJobResponse_httpStatus' - The response's http status code.
+newGetTranscriptionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTranscriptionJobResponse
-getTranscriptionJobResponse pResponseStatus_ =
+newGetTranscriptionJobResponse pHttpStatus_ =
   GetTranscriptionJobResponse'
-    { _gtjrrsTranscriptionJob =
-        Nothing,
-      _gtjrrsResponseStatus = pResponseStatus_
+    { transcriptionJob =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object that contains the results of the transcription job.
-gtjrrsTranscriptionJob :: Lens' GetTranscriptionJobResponse (Maybe TranscriptionJob)
-gtjrrsTranscriptionJob = lens _gtjrrsTranscriptionJob (\s a -> s {_gtjrrsTranscriptionJob = a})
+getTranscriptionJobResponse_transcriptionJob :: Lens.Lens' GetTranscriptionJobResponse (Prelude.Maybe TranscriptionJob)
+getTranscriptionJobResponse_transcriptionJob = Lens.lens (\GetTranscriptionJobResponse' {transcriptionJob} -> transcriptionJob) (\s@GetTranscriptionJobResponse' {} a -> s {transcriptionJob = a} :: GetTranscriptionJobResponse)
 
--- | -- | The response status code.
-gtjrrsResponseStatus :: Lens' GetTranscriptionJobResponse Int
-gtjrrsResponseStatus = lens _gtjrrsResponseStatus (\s a -> s {_gtjrrsResponseStatus = a})
+-- | The response's http status code.
+getTranscriptionJobResponse_httpStatus :: Lens.Lens' GetTranscriptionJobResponse Prelude.Int
+getTranscriptionJobResponse_httpStatus = Lens.lens (\GetTranscriptionJobResponse' {httpStatus} -> httpStatus) (\s@GetTranscriptionJobResponse' {} a -> s {httpStatus = a} :: GetTranscriptionJobResponse)
 
-instance NFData GetTranscriptionJobResponse
+instance Prelude.NFData GetTranscriptionJobResponse

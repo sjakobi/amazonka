@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,181 +24,184 @@
 -- Returns information about a vocabulary filter.
 module Network.AWS.Transcribe.GetVocabularyFilter
   ( -- * Creating a Request
-    getVocabularyFilter,
-    GetVocabularyFilter,
+    GetVocabularyFilter (..),
+    newGetVocabularyFilter,
 
     -- * Request Lenses
-    gvfVocabularyFilterName,
+    getVocabularyFilter_vocabularyFilterName,
 
     -- * Destructuring the Response
-    getVocabularyFilterResponse,
-    GetVocabularyFilterResponse,
+    GetVocabularyFilterResponse (..),
+    newGetVocabularyFilterResponse,
 
     -- * Response Lenses
-    gvfrrsLanguageCode,
-    gvfrrsVocabularyFilterName,
-    gvfrrsLastModifiedTime,
-    gvfrrsDownloadURI,
-    gvfrrsResponseStatus,
+    getVocabularyFilterResponse_languageCode,
+    getVocabularyFilterResponse_vocabularyFilterName,
+    getVocabularyFilterResponse_lastModifiedTime,
+    getVocabularyFilterResponse_downloadUri,
+    getVocabularyFilterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
+import Network.AWS.Transcribe.Types.LanguageCode
 
--- | /See:/ 'getVocabularyFilter' smart constructor.
-newtype GetVocabularyFilter = GetVocabularyFilter'
-  { _gvfVocabularyFilterName ::
-      Text
+-- | /See:/ 'newGetVocabularyFilter' smart constructor.
+data GetVocabularyFilter = GetVocabularyFilter'
+  { -- | The name of the vocabulary filter for which to return information.
+    vocabularyFilterName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVocabularyFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVocabularyFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvfVocabularyFilterName' - The name of the vocabulary filter for which to return information.
-getVocabularyFilter ::
-  -- | 'gvfVocabularyFilterName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'vocabularyFilterName', 'getVocabularyFilter_vocabularyFilterName' - The name of the vocabulary filter for which to return information.
+newGetVocabularyFilter ::
+  -- | 'vocabularyFilterName'
+  Prelude.Text ->
   GetVocabularyFilter
-getVocabularyFilter pVocabularyFilterName_ =
+newGetVocabularyFilter pVocabularyFilterName_ =
   GetVocabularyFilter'
-    { _gvfVocabularyFilterName =
+    { vocabularyFilterName =
         pVocabularyFilterName_
     }
 
 -- | The name of the vocabulary filter for which to return information.
-gvfVocabularyFilterName :: Lens' GetVocabularyFilter Text
-gvfVocabularyFilterName = lens _gvfVocabularyFilterName (\s a -> s {_gvfVocabularyFilterName = a})
+getVocabularyFilter_vocabularyFilterName :: Lens.Lens' GetVocabularyFilter Prelude.Text
+getVocabularyFilter_vocabularyFilterName = Lens.lens (\GetVocabularyFilter' {vocabularyFilterName} -> vocabularyFilterName) (\s@GetVocabularyFilter' {} a -> s {vocabularyFilterName = a} :: GetVocabularyFilter)
 
-instance AWSRequest GetVocabularyFilter where
+instance Prelude.AWSRequest GetVocabularyFilter where
   type
     Rs GetVocabularyFilter =
       GetVocabularyFilterResponse
-  request = postJSON transcribe
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetVocabularyFilterResponse'
-            <$> (x .?> "LanguageCode")
-            <*> (x .?> "VocabularyFilterName")
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "DownloadUri")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "LanguageCode")
+            Prelude.<*> (x Prelude..?> "VocabularyFilterName")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "DownloadUri")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetVocabularyFilter
+instance Prelude.Hashable GetVocabularyFilter
 
-instance NFData GetVocabularyFilter
+instance Prelude.NFData GetVocabularyFilter
 
-instance ToHeaders GetVocabularyFilter where
+instance Prelude.ToHeaders GetVocabularyFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.GetVocabularyFilter" :: ByteString),
+              Prelude.=# ( "Transcribe.GetVocabularyFilter" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetVocabularyFilter where
+instance Prelude.ToJSON GetVocabularyFilter where
   toJSON GetVocabularyFilter' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "VocabularyFilterName"
-                  .= _gvfVocabularyFilterName
+                  Prelude..= vocabularyFilterName
               )
           ]
       )
 
-instance ToPath GetVocabularyFilter where
-  toPath = const "/"
+instance Prelude.ToPath GetVocabularyFilter where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetVocabularyFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery GetVocabularyFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getVocabularyFilterResponse' smart constructor.
+-- | /See:/ 'newGetVocabularyFilterResponse' smart constructor.
 data GetVocabularyFilterResponse = GetVocabularyFilterResponse'
-  { _gvfrrsLanguageCode ::
-      !( Maybe
-           LanguageCode
-       ),
-    _gvfrrsVocabularyFilterName ::
-      !(Maybe Text),
-    _gvfrrsLastModifiedTime ::
-      !(Maybe POSIX),
-    _gvfrrsDownloadURI ::
-      !(Maybe Text),
-    _gvfrrsResponseStatus ::
-      !Int
+  { -- | The language code of the words in the vocabulary filter.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The name of the vocabulary filter.
+    vocabularyFilterName :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the contents of the vocabulary filter were
+    -- updated.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The URI of the list of words in the vocabulary filter. You can use this
+    -- URI to get the list of words.
+    downloadUri :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVocabularyFilterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVocabularyFilterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvfrrsLanguageCode' - The language code of the words in the vocabulary filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gvfrrsVocabularyFilterName' - The name of the vocabulary filter.
+-- 'languageCode', 'getVocabularyFilterResponse_languageCode' - The language code of the words in the vocabulary filter.
 --
--- * 'gvfrrsLastModifiedTime' - The date and time that the contents of the vocabulary filter were updated.
+-- 'vocabularyFilterName', 'getVocabularyFilterResponse_vocabularyFilterName' - The name of the vocabulary filter.
 --
--- * 'gvfrrsDownloadURI' - The URI of the list of words in the vocabulary filter. You can use this URI to get the list of words.
+-- 'lastModifiedTime', 'getVocabularyFilterResponse_lastModifiedTime' - The date and time that the contents of the vocabulary filter were
+-- updated.
 --
--- * 'gvfrrsResponseStatus' - -- | The response status code.
-getVocabularyFilterResponse ::
-  -- | 'gvfrrsResponseStatus'
-  Int ->
+-- 'downloadUri', 'getVocabularyFilterResponse_downloadUri' - The URI of the list of words in the vocabulary filter. You can use this
+-- URI to get the list of words.
+--
+-- 'httpStatus', 'getVocabularyFilterResponse_httpStatus' - The response's http status code.
+newGetVocabularyFilterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetVocabularyFilterResponse
-getVocabularyFilterResponse pResponseStatus_ =
+newGetVocabularyFilterResponse pHttpStatus_ =
   GetVocabularyFilterResponse'
-    { _gvfrrsLanguageCode =
-        Nothing,
-      _gvfrrsVocabularyFilterName = Nothing,
-      _gvfrrsLastModifiedTime = Nothing,
-      _gvfrrsDownloadURI = Nothing,
-      _gvfrrsResponseStatus = pResponseStatus_
+    { languageCode =
+        Prelude.Nothing,
+      vocabularyFilterName = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      downloadUri = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The language code of the words in the vocabulary filter.
-gvfrrsLanguageCode :: Lens' GetVocabularyFilterResponse (Maybe LanguageCode)
-gvfrrsLanguageCode = lens _gvfrrsLanguageCode (\s a -> s {_gvfrrsLanguageCode = a})
+getVocabularyFilterResponse_languageCode :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe LanguageCode)
+getVocabularyFilterResponse_languageCode = Lens.lens (\GetVocabularyFilterResponse' {languageCode} -> languageCode) (\s@GetVocabularyFilterResponse' {} a -> s {languageCode = a} :: GetVocabularyFilterResponse)
 
 -- | The name of the vocabulary filter.
-gvfrrsVocabularyFilterName :: Lens' GetVocabularyFilterResponse (Maybe Text)
-gvfrrsVocabularyFilterName = lens _gvfrrsVocabularyFilterName (\s a -> s {_gvfrrsVocabularyFilterName = a})
+getVocabularyFilterResponse_vocabularyFilterName :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.Text)
+getVocabularyFilterResponse_vocabularyFilterName = Lens.lens (\GetVocabularyFilterResponse' {vocabularyFilterName} -> vocabularyFilterName) (\s@GetVocabularyFilterResponse' {} a -> s {vocabularyFilterName = a} :: GetVocabularyFilterResponse)
 
--- | The date and time that the contents of the vocabulary filter were updated.
-gvfrrsLastModifiedTime :: Lens' GetVocabularyFilterResponse (Maybe UTCTime)
-gvfrrsLastModifiedTime = lens _gvfrrsLastModifiedTime (\s a -> s {_gvfrrsLastModifiedTime = a}) . mapping _Time
+-- | The date and time that the contents of the vocabulary filter were
+-- updated.
+getVocabularyFilterResponse_lastModifiedTime :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.UTCTime)
+getVocabularyFilterResponse_lastModifiedTime = Lens.lens (\GetVocabularyFilterResponse' {lastModifiedTime} -> lastModifiedTime) (\s@GetVocabularyFilterResponse' {} a -> s {lastModifiedTime = a} :: GetVocabularyFilterResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The URI of the list of words in the vocabulary filter. You can use this URI to get the list of words.
-gvfrrsDownloadURI :: Lens' GetVocabularyFilterResponse (Maybe Text)
-gvfrrsDownloadURI = lens _gvfrrsDownloadURI (\s a -> s {_gvfrrsDownloadURI = a})
+-- | The URI of the list of words in the vocabulary filter. You can use this
+-- URI to get the list of words.
+getVocabularyFilterResponse_downloadUri :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.Text)
+getVocabularyFilterResponse_downloadUri = Lens.lens (\GetVocabularyFilterResponse' {downloadUri} -> downloadUri) (\s@GetVocabularyFilterResponse' {} a -> s {downloadUri = a} :: GetVocabularyFilterResponse)
 
--- | -- | The response status code.
-gvfrrsResponseStatus :: Lens' GetVocabularyFilterResponse Int
-gvfrrsResponseStatus = lens _gvfrrsResponseStatus (\s a -> s {_gvfrrsResponseStatus = a})
+-- | The response's http status code.
+getVocabularyFilterResponse_httpStatus :: Lens.Lens' GetVocabularyFilterResponse Prelude.Int
+getVocabularyFilterResponse_httpStatus = Lens.lens (\GetVocabularyFilterResponse' {httpStatus} -> httpStatus) (\s@GetVocabularyFilterResponse' {} a -> s {httpStatus = a} :: GetVocabularyFilterResponse)
 
-instance NFData GetVocabularyFilterResponse
+instance Prelude.NFData GetVocabularyFilterResponse

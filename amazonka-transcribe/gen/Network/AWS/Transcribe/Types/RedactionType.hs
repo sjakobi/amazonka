@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Transcribe.Types.RedactionType
   ( RedactionType
       ( ..,
-        Pii
+        RedactionTypePII
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RedactionType = RedactionType' (CI Text)
+newtype RedactionType = RedactionType'
+  { fromRedactionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Pii :: RedactionType
-pattern Pii = RedactionType' "PII"
+pattern RedactionTypePII :: RedactionType
+pattern RedactionTypePII = RedactionType' "PII"
 
 {-# COMPLETE
-  Pii,
+  RedactionTypePII,
   RedactionType'
   #-}
 
-instance FromText RedactionType where
-  parser = (RedactionType' . mk) <$> takeText
+instance Prelude.FromText RedactionType where
+  parser = RedactionType' Prelude.<$> Prelude.takeText
 
-instance ToText RedactionType where
-  toText (RedactionType' ci) = original ci
+instance Prelude.ToText RedactionType where
+  toText (RedactionType' x) = x
 
-instance Hashable RedactionType
+instance Prelude.Hashable RedactionType
 
-instance NFData RedactionType
+instance Prelude.NFData RedactionType
 
-instance ToByteString RedactionType
+instance Prelude.ToByteString RedactionType
 
-instance ToQuery RedactionType
+instance Prelude.ToQuery RedactionType
 
-instance ToHeader RedactionType
+instance Prelude.ToHeader RedactionType
 
-instance ToJSON RedactionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RedactionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RedactionType where
-  parseJSON = parseJSONText "RedactionType"
+instance Prelude.FromJSON RedactionType where
+  parseJSON = Prelude.parseJSONText "RedactionType"

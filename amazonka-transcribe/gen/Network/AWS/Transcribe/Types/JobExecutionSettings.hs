@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,114 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.JobExecutionSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about when a transcription job should be executed.
 --
---
---
--- /See:/ 'jobExecutionSettings' smart constructor.
+-- /See:/ 'newJobExecutionSettings' smart constructor.
 data JobExecutionSettings = JobExecutionSettings'
-  { _jesAllowDeferredExecution ::
-      !(Maybe Bool),
-    _jesDataAccessRoleARN ::
-      !(Maybe Text)
+  { -- | Indicates whether a job should be queued by Amazon Transcribe when the
+    -- concurrent execution limit is exceeded. When the
+    -- @AllowDeferredExecution@ field is true, jobs are queued and executed
+    -- when the number of executing jobs falls below the concurrent execution
+    -- limit. If the field is false, Amazon Transcribe returns a
+    -- @LimitExceededException@ exception.
+    --
+    -- If you specify the @AllowDeferredExecution@ field, you must specify the
+    -- @DataAccessRoleArn@ field.
+    allowDeferredExecution :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of a role that has access to the S3
+    -- bucket that contains the input files. Amazon Transcribe assumes this
+    -- role to read queued media files. If you have specified an output S3
+    -- bucket for the transcription results, this role should have access to
+    -- the output bucket as well.
+    --
+    -- If you specify the @AllowDeferredExecution@ field, you must specify the
+    -- @DataAccessRoleArn@ field.
+    dataAccessRoleArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobExecutionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobExecutionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jesAllowDeferredExecution' - Indicates whether a job should be queued by Amazon Transcribe when the concurrent execution limit is exceeded. When the @AllowDeferredExecution@ field is true, jobs are queued and executed when the number of executing jobs falls below the concurrent execution limit. If the field is false, Amazon Transcribe returns a @LimitExceededException@ exception. If you specify the @AllowDeferredExecution@ field, you must specify the @DataAccessRoleArn@ field.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jesDataAccessRoleARN' - The Amazon Resource Name (ARN) of a role that has access to the S3 bucket that contains the input files. Amazon Transcribe assumes this role to read queued media files. If you have specified an output S3 bucket for the transcription results, this role should have access to the output bucket as well. If you specify the @AllowDeferredExecution@ field, you must specify the @DataAccessRoleArn@ field.
-jobExecutionSettings ::
+-- 'allowDeferredExecution', 'jobExecutionSettings_allowDeferredExecution' - Indicates whether a job should be queued by Amazon Transcribe when the
+-- concurrent execution limit is exceeded. When the
+-- @AllowDeferredExecution@ field is true, jobs are queued and executed
+-- when the number of executing jobs falls below the concurrent execution
+-- limit. If the field is false, Amazon Transcribe returns a
+-- @LimitExceededException@ exception.
+--
+-- If you specify the @AllowDeferredExecution@ field, you must specify the
+-- @DataAccessRoleArn@ field.
+--
+-- 'dataAccessRoleArn', 'jobExecutionSettings_dataAccessRoleArn' - The Amazon Resource Name (ARN) of a role that has access to the S3
+-- bucket that contains the input files. Amazon Transcribe assumes this
+-- role to read queued media files. If you have specified an output S3
+-- bucket for the transcription results, this role should have access to
+-- the output bucket as well.
+--
+-- If you specify the @AllowDeferredExecution@ field, you must specify the
+-- @DataAccessRoleArn@ field.
+newJobExecutionSettings ::
   JobExecutionSettings
-jobExecutionSettings =
+newJobExecutionSettings =
   JobExecutionSettings'
-    { _jesAllowDeferredExecution =
-        Nothing,
-      _jesDataAccessRoleARN = Nothing
+    { allowDeferredExecution =
+        Prelude.Nothing,
+      dataAccessRoleArn = Prelude.Nothing
     }
 
--- | Indicates whether a job should be queued by Amazon Transcribe when the concurrent execution limit is exceeded. When the @AllowDeferredExecution@ field is true, jobs are queued and executed when the number of executing jobs falls below the concurrent execution limit. If the field is false, Amazon Transcribe returns a @LimitExceededException@ exception. If you specify the @AllowDeferredExecution@ field, you must specify the @DataAccessRoleArn@ field.
-jesAllowDeferredExecution :: Lens' JobExecutionSettings (Maybe Bool)
-jesAllowDeferredExecution = lens _jesAllowDeferredExecution (\s a -> s {_jesAllowDeferredExecution = a})
+-- | Indicates whether a job should be queued by Amazon Transcribe when the
+-- concurrent execution limit is exceeded. When the
+-- @AllowDeferredExecution@ field is true, jobs are queued and executed
+-- when the number of executing jobs falls below the concurrent execution
+-- limit. If the field is false, Amazon Transcribe returns a
+-- @LimitExceededException@ exception.
+--
+-- If you specify the @AllowDeferredExecution@ field, you must specify the
+-- @DataAccessRoleArn@ field.
+jobExecutionSettings_allowDeferredExecution :: Lens.Lens' JobExecutionSettings (Prelude.Maybe Prelude.Bool)
+jobExecutionSettings_allowDeferredExecution = Lens.lens (\JobExecutionSettings' {allowDeferredExecution} -> allowDeferredExecution) (\s@JobExecutionSettings' {} a -> s {allowDeferredExecution = a} :: JobExecutionSettings)
 
--- | The Amazon Resource Name (ARN) of a role that has access to the S3 bucket that contains the input files. Amazon Transcribe assumes this role to read queued media files. If you have specified an output S3 bucket for the transcription results, this role should have access to the output bucket as well. If you specify the @AllowDeferredExecution@ field, you must specify the @DataAccessRoleArn@ field.
-jesDataAccessRoleARN :: Lens' JobExecutionSettings (Maybe Text)
-jesDataAccessRoleARN = lens _jesDataAccessRoleARN (\s a -> s {_jesDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) of a role that has access to the S3
+-- bucket that contains the input files. Amazon Transcribe assumes this
+-- role to read queued media files. If you have specified an output S3
+-- bucket for the transcription results, this role should have access to
+-- the output bucket as well.
+--
+-- If you specify the @AllowDeferredExecution@ field, you must specify the
+-- @DataAccessRoleArn@ field.
+jobExecutionSettings_dataAccessRoleArn :: Lens.Lens' JobExecutionSettings (Prelude.Maybe Prelude.Text)
+jobExecutionSettings_dataAccessRoleArn = Lens.lens (\JobExecutionSettings' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@JobExecutionSettings' {} a -> s {dataAccessRoleArn = a} :: JobExecutionSettings)
 
-instance FromJSON JobExecutionSettings where
+instance Prelude.FromJSON JobExecutionSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobExecutionSettings"
       ( \x ->
           JobExecutionSettings'
-            <$> (x .:? "AllowDeferredExecution")
-            <*> (x .:? "DataAccessRoleArn")
+            Prelude.<$> (x Prelude..:? "AllowDeferredExecution")
+            Prelude.<*> (x Prelude..:? "DataAccessRoleArn")
       )
 
-instance Hashable JobExecutionSettings
+instance Prelude.Hashable JobExecutionSettings
 
-instance NFData JobExecutionSettings
+instance Prelude.NFData JobExecutionSettings
 
-instance ToJSON JobExecutionSettings where
+instance Prelude.ToJSON JobExecutionSettings where
   toJSON JobExecutionSettings' {..} =
-    object
-      ( catMaybes
-          [ ("AllowDeferredExecution" .=)
-              <$> _jesAllowDeferredExecution,
-            ("DataAccessRoleArn" .=) <$> _jesDataAccessRoleARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AllowDeferredExecution" Prelude..=)
+              Prelude.<$> allowDeferredExecution,
+            ("DataAccessRoleArn" Prelude..=)
+              Prelude.<$> dataAccessRoleArn
           ]
       )

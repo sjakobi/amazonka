@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.InputDataConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The object that contains the Amazon S3 object location and access role required to train and tune your custom language model.
+-- | The object that contains the Amazon S3 object location and access role
+-- required to train and tune your custom language model.
 --
---
---
--- /See:/ 'inputDataConfig' smart constructor.
+-- /See:/ 'newInputDataConfig' smart constructor.
 data InputDataConfig = InputDataConfig'
-  { _idcTuningDataS3URI ::
-      !(Maybe Text),
-    _idcS3URI :: !Text,
-    _idcDataAccessRoleARN :: !Text
+  { -- | The Amazon S3 prefix you specify to access the plain text files that you
+    -- use to tune your custom language model.
+    tuningDataS3Uri :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 prefix you specify to access the plain text files that you
+    -- use to train your custom language model.
+    s3Uri :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that uniquely identifies the permissions
+    -- you\'ve given Amazon Transcribe to access your Amazon S3 buckets
+    -- containing your media files or text data.
+    dataAccessRoleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputDataConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputDataConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idcTuningDataS3URI' - The Amazon S3 prefix you specify to access the plain text files that you use to tune your custom language model.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idcS3URI' - The Amazon S3 prefix you specify to access the plain text files that you use to train your custom language model.
+-- 'tuningDataS3Uri', 'inputDataConfig_tuningDataS3Uri' - The Amazon S3 prefix you specify to access the plain text files that you
+-- use to tune your custom language model.
 --
--- * 'idcDataAccessRoleARN' - The Amazon Resource Name (ARN) that uniquely identifies the permissions you've given Amazon Transcribe to access your Amazon S3 buckets containing your media files or text data.
-inputDataConfig ::
-  -- | 'idcS3URI'
-  Text ->
-  -- | 'idcDataAccessRoleARN'
-  Text ->
+-- 's3Uri', 'inputDataConfig_s3Uri' - The Amazon S3 prefix you specify to access the plain text files that you
+-- use to train your custom language model.
+--
+-- 'dataAccessRoleArn', 'inputDataConfig_dataAccessRoleArn' - The Amazon Resource Name (ARN) that uniquely identifies the permissions
+-- you\'ve given Amazon Transcribe to access your Amazon S3 buckets
+-- containing your media files or text data.
+newInputDataConfig ::
+  -- | 's3Uri'
+  Prelude.Text ->
+  -- | 'dataAccessRoleArn'
+  Prelude.Text ->
   InputDataConfig
-inputDataConfig pS3URI_ pDataAccessRoleARN_ =
+newInputDataConfig pS3Uri_ pDataAccessRoleArn_ =
   InputDataConfig'
-    { _idcTuningDataS3URI = Nothing,
-      _idcS3URI = pS3URI_,
-      _idcDataAccessRoleARN = pDataAccessRoleARN_
+    { tuningDataS3Uri = Prelude.Nothing,
+      s3Uri = pS3Uri_,
+      dataAccessRoleArn = pDataAccessRoleArn_
     }
 
--- | The Amazon S3 prefix you specify to access the plain text files that you use to tune your custom language model.
-idcTuningDataS3URI :: Lens' InputDataConfig (Maybe Text)
-idcTuningDataS3URI = lens _idcTuningDataS3URI (\s a -> s {_idcTuningDataS3URI = a})
+-- | The Amazon S3 prefix you specify to access the plain text files that you
+-- use to tune your custom language model.
+inputDataConfig_tuningDataS3Uri :: Lens.Lens' InputDataConfig (Prelude.Maybe Prelude.Text)
+inputDataConfig_tuningDataS3Uri = Lens.lens (\InputDataConfig' {tuningDataS3Uri} -> tuningDataS3Uri) (\s@InputDataConfig' {} a -> s {tuningDataS3Uri = a} :: InputDataConfig)
 
--- | The Amazon S3 prefix you specify to access the plain text files that you use to train your custom language model.
-idcS3URI :: Lens' InputDataConfig Text
-idcS3URI = lens _idcS3URI (\s a -> s {_idcS3URI = a})
+-- | The Amazon S3 prefix you specify to access the plain text files that you
+-- use to train your custom language model.
+inputDataConfig_s3Uri :: Lens.Lens' InputDataConfig Prelude.Text
+inputDataConfig_s3Uri = Lens.lens (\InputDataConfig' {s3Uri} -> s3Uri) (\s@InputDataConfig' {} a -> s {s3Uri = a} :: InputDataConfig)
 
--- | The Amazon Resource Name (ARN) that uniquely identifies the permissions you've given Amazon Transcribe to access your Amazon S3 buckets containing your media files or text data.
-idcDataAccessRoleARN :: Lens' InputDataConfig Text
-idcDataAccessRoleARN = lens _idcDataAccessRoleARN (\s a -> s {_idcDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) that uniquely identifies the permissions
+-- you\'ve given Amazon Transcribe to access your Amazon S3 buckets
+-- containing your media files or text data.
+inputDataConfig_dataAccessRoleArn :: Lens.Lens' InputDataConfig Prelude.Text
+inputDataConfig_dataAccessRoleArn = Lens.lens (\InputDataConfig' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@InputDataConfig' {} a -> s {dataAccessRoleArn = a} :: InputDataConfig)
 
-instance FromJSON InputDataConfig where
+instance Prelude.FromJSON InputDataConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputDataConfig"
       ( \x ->
           InputDataConfig'
-            <$> (x .:? "TuningDataS3Uri")
-            <*> (x .: "S3Uri")
-            <*> (x .: "DataAccessRoleArn")
+            Prelude.<$> (x Prelude..:? "TuningDataS3Uri")
+            Prelude.<*> (x Prelude..: "S3Uri")
+            Prelude.<*> (x Prelude..: "DataAccessRoleArn")
       )
 
-instance Hashable InputDataConfig
+instance Prelude.Hashable InputDataConfig
 
-instance NFData InputDataConfig
+instance Prelude.NFData InputDataConfig
 
-instance ToJSON InputDataConfig where
+instance Prelude.ToJSON InputDataConfig where
   toJSON InputDataConfig' {..} =
-    object
-      ( catMaybes
-          [ ("TuningDataS3Uri" .=) <$> _idcTuningDataS3URI,
-            Just ("S3Uri" .= _idcS3URI),
-            Just ("DataAccessRoleArn" .= _idcDataAccessRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TuningDataS3Uri" Prelude..=)
+              Prelude.<$> tuningDataS3Uri,
+            Prelude.Just ("S3Uri" Prelude..= s3Uri),
+            Prelude.Just
+              ("DataAccessRoleArn" Prelude..= dataAccessRoleArn)
           ]
       )

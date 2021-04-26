@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,141 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a single custom language model. Use this information to see details about the language model in your AWS account. You can also see whether the base language model used to create your custom language model has been updated. If Amazon Transcribe has updated the base model, you can create a new custom language model using the updated base model. If the language model wasn't created, you can use this operation to understand why Amazon Transcribe couldn't create it.
+-- Gets information about a single custom language model. Use this
+-- information to see details about the language model in your AWS account.
+-- You can also see whether the base language model used to create your
+-- custom language model has been updated. If Amazon Transcribe has updated
+-- the base model, you can create a new custom language model using the
+-- updated base model. If the language model wasn\'t created, you can use
+-- this operation to understand why Amazon Transcribe couldn\'t create it.
 module Network.AWS.Transcribe.DescribeLanguageModel
   ( -- * Creating a Request
-    describeLanguageModel,
-    DescribeLanguageModel,
+    DescribeLanguageModel (..),
+    newDescribeLanguageModel,
 
     -- * Request Lenses
-    dModelName,
+    describeLanguageModel_modelName,
 
     -- * Destructuring the Response
-    describeLanguageModelResponse,
-    DescribeLanguageModelResponse,
+    DescribeLanguageModelResponse (..),
+    newDescribeLanguageModelResponse,
 
     -- * Response Lenses
-    dlmrrsLanguageModel,
-    dlmrrsResponseStatus,
+    describeLanguageModelResponse_languageModel,
+    describeLanguageModelResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
+import Network.AWS.Transcribe.Types.LanguageModel
 
--- | /See:/ 'describeLanguageModel' smart constructor.
-newtype DescribeLanguageModel = DescribeLanguageModel'
-  { _dModelName ::
-      Text
+-- | /See:/ 'newDescribeLanguageModel' smart constructor.
+data DescribeLanguageModel = DescribeLanguageModel'
+  { -- | The name of the custom language model you submit to get more
+    -- information.
+    modelName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLanguageModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLanguageModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dModelName' - The name of the custom language model you submit to get more information.
-describeLanguageModel ::
-  -- | 'dModelName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelName', 'describeLanguageModel_modelName' - The name of the custom language model you submit to get more
+-- information.
+newDescribeLanguageModel ::
+  -- | 'modelName'
+  Prelude.Text ->
   DescribeLanguageModel
-describeLanguageModel pModelName_ =
-  DescribeLanguageModel' {_dModelName = pModelName_}
+newDescribeLanguageModel pModelName_ =
+  DescribeLanguageModel' {modelName = pModelName_}
 
--- | The name of the custom language model you submit to get more information.
-dModelName :: Lens' DescribeLanguageModel Text
-dModelName = lens _dModelName (\s a -> s {_dModelName = a})
+-- | The name of the custom language model you submit to get more
+-- information.
+describeLanguageModel_modelName :: Lens.Lens' DescribeLanguageModel Prelude.Text
+describeLanguageModel_modelName = Lens.lens (\DescribeLanguageModel' {modelName} -> modelName) (\s@DescribeLanguageModel' {} a -> s {modelName = a} :: DescribeLanguageModel)
 
-instance AWSRequest DescribeLanguageModel where
+instance Prelude.AWSRequest DescribeLanguageModel where
   type
     Rs DescribeLanguageModel =
       DescribeLanguageModelResponse
-  request = postJSON transcribe
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeLanguageModelResponse'
-            <$> (x .?> "LanguageModel") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "LanguageModel")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLanguageModel
+instance Prelude.Hashable DescribeLanguageModel
 
-instance NFData DescribeLanguageModel
+instance Prelude.NFData DescribeLanguageModel
 
-instance ToHeaders DescribeLanguageModel where
+instance Prelude.ToHeaders DescribeLanguageModel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.DescribeLanguageModel" :: ByteString),
+              Prelude.=# ( "Transcribe.DescribeLanguageModel" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeLanguageModel where
+instance Prelude.ToJSON DescribeLanguageModel where
   toJSON DescribeLanguageModel' {..} =
-    object
-      (catMaybes [Just ("ModelName" .= _dModelName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ModelName" Prelude..= modelName)]
+      )
 
-instance ToPath DescribeLanguageModel where
-  toPath = const "/"
+instance Prelude.ToPath DescribeLanguageModel where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeLanguageModel where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeLanguageModel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeLanguageModelResponse' smart constructor.
+-- | /See:/ 'newDescribeLanguageModelResponse' smart constructor.
 data DescribeLanguageModelResponse = DescribeLanguageModelResponse'
-  { _dlmrrsLanguageModel ::
-      !( Maybe
-           LanguageModel
-       ),
-    _dlmrrsResponseStatus ::
-      !Int
+  { -- | The name of the custom language model you requested more information
+    -- about.
+    languageModel :: Prelude.Maybe LanguageModel,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLanguageModelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLanguageModelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlmrrsLanguageModel' - The name of the custom language model you requested more information about.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlmrrsResponseStatus' - -- | The response status code.
-describeLanguageModelResponse ::
-  -- | 'dlmrrsResponseStatus'
-  Int ->
+-- 'languageModel', 'describeLanguageModelResponse_languageModel' - The name of the custom language model you requested more information
+-- about.
+--
+-- 'httpStatus', 'describeLanguageModelResponse_httpStatus' - The response's http status code.
+newDescribeLanguageModelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLanguageModelResponse
-describeLanguageModelResponse pResponseStatus_ =
+newDescribeLanguageModelResponse pHttpStatus_ =
   DescribeLanguageModelResponse'
-    { _dlmrrsLanguageModel =
-        Nothing,
-      _dlmrrsResponseStatus = pResponseStatus_
+    { languageModel =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The name of the custom language model you requested more information about.
-dlmrrsLanguageModel :: Lens' DescribeLanguageModelResponse (Maybe LanguageModel)
-dlmrrsLanguageModel = lens _dlmrrsLanguageModel (\s a -> s {_dlmrrsLanguageModel = a})
+-- | The name of the custom language model you requested more information
+-- about.
+describeLanguageModelResponse_languageModel :: Lens.Lens' DescribeLanguageModelResponse (Prelude.Maybe LanguageModel)
+describeLanguageModelResponse_languageModel = Lens.lens (\DescribeLanguageModelResponse' {languageModel} -> languageModel) (\s@DescribeLanguageModelResponse' {} a -> s {languageModel = a} :: DescribeLanguageModelResponse)
 
--- | -- | The response status code.
-dlmrrsResponseStatus :: Lens' DescribeLanguageModelResponse Int
-dlmrrsResponseStatus = lens _dlmrrsResponseStatus (\s a -> s {_dlmrrsResponseStatus = a})
+-- | The response's http status code.
+describeLanguageModelResponse_httpStatus :: Lens.Lens' DescribeLanguageModelResponse Prelude.Int
+describeLanguageModelResponse_httpStatus = Lens.lens (\DescribeLanguageModelResponse' {httpStatus} -> httpStatus) (\s@DescribeLanguageModelResponse' {} a -> s {httpStatus = a} :: DescribeLanguageModelResponse)
 
-instance NFData DescribeLanguageModelResponse
+instance Prelude.NFData DescribeLanguageModelResponse

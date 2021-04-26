@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Transcribe.Types.CLMLanguageCode
   ( CLMLanguageCode
       ( ..,
-        CLMLCEnUs
+        CLMLanguageCodeEnUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CLMLanguageCode = CLMLanguageCode' (CI Text)
+newtype CLMLanguageCode = CLMLanguageCode'
+  { fromCLMLanguageCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CLMLCEnUs :: CLMLanguageCode
-pattern CLMLCEnUs = CLMLanguageCode' "en-US"
+pattern CLMLanguageCodeEnUS :: CLMLanguageCode
+pattern CLMLanguageCodeEnUS = CLMLanguageCode' "en-US"
 
 {-# COMPLETE
-  CLMLCEnUs,
+  CLMLanguageCodeEnUS,
   CLMLanguageCode'
   #-}
 
-instance FromText CLMLanguageCode where
-  parser = (CLMLanguageCode' . mk) <$> takeText
+instance Prelude.FromText CLMLanguageCode where
+  parser = CLMLanguageCode' Prelude.<$> Prelude.takeText
 
-instance ToText CLMLanguageCode where
-  toText (CLMLanguageCode' ci) = original ci
+instance Prelude.ToText CLMLanguageCode where
+  toText (CLMLanguageCode' x) = x
 
-instance Hashable CLMLanguageCode
+instance Prelude.Hashable CLMLanguageCode
 
-instance NFData CLMLanguageCode
+instance Prelude.NFData CLMLanguageCode
 
-instance ToByteString CLMLanguageCode
+instance Prelude.ToByteString CLMLanguageCode
 
-instance ToQuery CLMLanguageCode
+instance Prelude.ToQuery CLMLanguageCode
 
-instance ToHeader CLMLanguageCode
+instance Prelude.ToHeader CLMLanguageCode
 
-instance ToJSON CLMLanguageCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON CLMLanguageCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CLMLanguageCode where
-  parseJSON = parseJSONText "CLMLanguageCode"
+instance Prelude.FromJSON CLMLanguageCode where
+  parseJSON = Prelude.parseJSONText "CLMLanguageCode"

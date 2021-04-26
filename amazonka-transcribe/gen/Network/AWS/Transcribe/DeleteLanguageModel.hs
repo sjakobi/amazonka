@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,102 +24,104 @@
 -- Deletes a custom language model using its name.
 module Network.AWS.Transcribe.DeleteLanguageModel
   ( -- * Creating a Request
-    deleteLanguageModel,
-    DeleteLanguageModel,
+    DeleteLanguageModel (..),
+    newDeleteLanguageModel,
 
     -- * Request Lenses
-    dlmModelName,
+    deleteLanguageModel_modelName,
 
     -- * Destructuring the Response
-    deleteLanguageModelResponse,
-    DeleteLanguageModelResponse,
+    DeleteLanguageModelResponse (..),
+    newDeleteLanguageModelResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
 
--- | /See:/ 'deleteLanguageModel' smart constructor.
-newtype DeleteLanguageModel = DeleteLanguageModel'
-  { _dlmModelName ::
-      Text
+-- | /See:/ 'newDeleteLanguageModel' smart constructor.
+data DeleteLanguageModel = DeleteLanguageModel'
+  { -- | The name of the model you\'re choosing to delete.
+    modelName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLanguageModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLanguageModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlmModelName' - The name of the model you're choosing to delete.
-deleteLanguageModel ::
-  -- | 'dlmModelName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelName', 'deleteLanguageModel_modelName' - The name of the model you\'re choosing to delete.
+newDeleteLanguageModel ::
+  -- | 'modelName'
+  Prelude.Text ->
   DeleteLanguageModel
-deleteLanguageModel pModelName_ =
-  DeleteLanguageModel' {_dlmModelName = pModelName_}
+newDeleteLanguageModel pModelName_ =
+  DeleteLanguageModel' {modelName = pModelName_}
 
--- | The name of the model you're choosing to delete.
-dlmModelName :: Lens' DeleteLanguageModel Text
-dlmModelName = lens _dlmModelName (\s a -> s {_dlmModelName = a})
+-- | The name of the model you\'re choosing to delete.
+deleteLanguageModel_modelName :: Lens.Lens' DeleteLanguageModel Prelude.Text
+deleteLanguageModel_modelName = Lens.lens (\DeleteLanguageModel' {modelName} -> modelName) (\s@DeleteLanguageModel' {} a -> s {modelName = a} :: DeleteLanguageModel)
 
-instance AWSRequest DeleteLanguageModel where
+instance Prelude.AWSRequest DeleteLanguageModel where
   type
     Rs DeleteLanguageModel =
       DeleteLanguageModelResponse
-  request = postJSON transcribe
-  response = receiveNull DeleteLanguageModelResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteLanguageModelResponse'
 
-instance Hashable DeleteLanguageModel
+instance Prelude.Hashable DeleteLanguageModel
 
-instance NFData DeleteLanguageModel
+instance Prelude.NFData DeleteLanguageModel
 
-instance ToHeaders DeleteLanguageModel where
+instance Prelude.ToHeaders DeleteLanguageModel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.DeleteLanguageModel" :: ByteString),
+              Prelude.=# ( "Transcribe.DeleteLanguageModel" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLanguageModel where
+instance Prelude.ToJSON DeleteLanguageModel where
   toJSON DeleteLanguageModel' {..} =
-    object
-      (catMaybes [Just ("ModelName" .= _dlmModelName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ModelName" Prelude..= modelName)]
+      )
 
-instance ToPath DeleteLanguageModel where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLanguageModel where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLanguageModel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLanguageModel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLanguageModelResponse' smart constructor.
+-- | /See:/ 'newDeleteLanguageModelResponse' smart constructor.
 data DeleteLanguageModelResponse = DeleteLanguageModelResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLanguageModelResponse' with the minimum fields required to make a request.
-deleteLanguageModelResponse ::
+-- |
+-- Create a value of 'DeleteLanguageModelResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLanguageModelResponse ::
   DeleteLanguageModelResponse
-deleteLanguageModelResponse =
+newDeleteLanguageModelResponse =
   DeleteLanguageModelResponse'
 
-instance NFData DeleteLanguageModelResponse
+instance Prelude.NFData DeleteLanguageModelResponse

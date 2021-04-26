@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,97 +24,107 @@
 -- Deletes a vocabulary from Amazon Transcribe.
 module Network.AWS.Transcribe.DeleteVocabulary
   ( -- * Creating a Request
-    deleteVocabulary,
-    DeleteVocabulary,
+    DeleteVocabulary (..),
+    newDeleteVocabulary,
 
     -- * Request Lenses
-    dvVocabularyName,
+    deleteVocabulary_vocabularyName,
 
     -- * Destructuring the Response
-    deleteVocabularyResponse,
-    DeleteVocabularyResponse,
+    DeleteVocabularyResponse (..),
+    newDeleteVocabularyResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
 
--- | /See:/ 'deleteVocabulary' smart constructor.
-newtype DeleteVocabulary = DeleteVocabulary'
-  { _dvVocabularyName ::
-      Text
+-- | /See:/ 'newDeleteVocabulary' smart constructor.
+data DeleteVocabulary = DeleteVocabulary'
+  { -- | The name of the vocabulary to delete.
+    vocabularyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVocabulary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVocabulary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvVocabularyName' - The name of the vocabulary to delete.
-deleteVocabulary ::
-  -- | 'dvVocabularyName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'vocabularyName', 'deleteVocabulary_vocabularyName' - The name of the vocabulary to delete.
+newDeleteVocabulary ::
+  -- | 'vocabularyName'
+  Prelude.Text ->
   DeleteVocabulary
-deleteVocabulary pVocabularyName_ =
+newDeleteVocabulary pVocabularyName_ =
   DeleteVocabulary'
-    { _dvVocabularyName =
+    { vocabularyName =
         pVocabularyName_
     }
 
 -- | The name of the vocabulary to delete.
-dvVocabularyName :: Lens' DeleteVocabulary Text
-dvVocabularyName = lens _dvVocabularyName (\s a -> s {_dvVocabularyName = a})
+deleteVocabulary_vocabularyName :: Lens.Lens' DeleteVocabulary Prelude.Text
+deleteVocabulary_vocabularyName = Lens.lens (\DeleteVocabulary' {vocabularyName} -> vocabularyName) (\s@DeleteVocabulary' {} a -> s {vocabularyName = a} :: DeleteVocabulary)
 
-instance AWSRequest DeleteVocabulary where
+instance Prelude.AWSRequest DeleteVocabulary where
   type Rs DeleteVocabulary = DeleteVocabularyResponse
-  request = postJSON transcribe
-  response = receiveNull DeleteVocabularyResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteVocabularyResponse'
 
-instance Hashable DeleteVocabulary
+instance Prelude.Hashable DeleteVocabulary
 
-instance NFData DeleteVocabulary
+instance Prelude.NFData DeleteVocabulary
 
-instance ToHeaders DeleteVocabulary where
+instance Prelude.ToHeaders DeleteVocabulary where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.DeleteVocabulary" :: ByteString),
+              Prelude.=# ( "Transcribe.DeleteVocabulary" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteVocabulary where
+instance Prelude.ToJSON DeleteVocabulary where
   toJSON DeleteVocabulary' {..} =
-    object
-      ( catMaybes
-          [Just ("VocabularyName" .= _dvVocabularyName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("VocabularyName" Prelude..= vocabularyName)
+          ]
       )
 
-instance ToPath DeleteVocabulary where
-  toPath = const "/"
+instance Prelude.ToPath DeleteVocabulary where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteVocabulary where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteVocabulary where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteVocabularyResponse' smart constructor.
+-- | /See:/ 'newDeleteVocabularyResponse' smart constructor.
 data DeleteVocabularyResponse = DeleteVocabularyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVocabularyResponse' with the minimum fields required to make a request.
-deleteVocabularyResponse ::
+-- |
+-- Create a value of 'DeleteVocabularyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteVocabularyResponse ::
   DeleteVocabularyResponse
-deleteVocabularyResponse = DeleteVocabularyResponse'
+newDeleteVocabularyResponse =
+  DeleteVocabularyResponse'
 
-instance NFData DeleteVocabularyResponse
+instance Prelude.NFData DeleteVocabularyResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.LanguageModel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Transcribe.Types.BaseModelName
 import Network.AWS.Transcribe.Types.CLMLanguageCode
 import Network.AWS.Transcribe.Types.InputDataConfig
@@ -24,113 +28,137 @@ import Network.AWS.Transcribe.Types.ModelStatus
 
 -- | The structure used to describe a custom language model.
 --
---
---
--- /See:/ 'languageModel' smart constructor.
+-- /See:/ 'newLanguageModel' smart constructor.
 data LanguageModel = LanguageModel'
-  { _lmLanguageCode ::
-      !(Maybe CLMLanguageCode),
-    _lmInputDataConfig ::
-      !(Maybe InputDataConfig),
-    _lmModelStatus :: !(Maybe ModelStatus),
-    _lmFailureReason :: !(Maybe Text),
-    _lmUpgradeAvailability :: !(Maybe Bool),
-    _lmCreateTime :: !(Maybe POSIX),
-    _lmLastModifiedTime :: !(Maybe POSIX),
-    _lmModelName :: !(Maybe Text),
-    _lmBaseModelName :: !(Maybe BaseModelName)
+  { -- | The language code you used to create your custom language model.
+    languageCode :: Prelude.Maybe CLMLanguageCode,
+    -- | The data access role and Amazon S3 prefixes for the input files used to
+    -- train the custom language model.
+    inputDataConfig :: Prelude.Maybe InputDataConfig,
+    -- | The creation status of a custom language model. When the status is
+    -- @COMPLETED@ the model is ready for use.
+    modelStatus :: Prelude.Maybe ModelStatus,
+    -- | The reason why the custom language model couldn\'t be created.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | Whether the base model used for the custom language model is up to date.
+    -- If this field is @true@ then you are running the most up-to-date version
+    -- of the base model in your custom language model.
+    upgradeAvailability :: Prelude.Maybe Prelude.Bool,
+    -- | The time the custom language model was created.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The most recent time the custom language model was modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the custom language model.
+    modelName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Transcribe standard language model, or base model used to
+    -- create the custom language model.
+    baseModelName :: Prelude.Maybe BaseModelName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LanguageModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LanguageModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmLanguageCode' - The language code you used to create your custom language model.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmInputDataConfig' - The data access role and Amazon S3 prefixes for the input files used to train the custom language model.
+-- 'languageCode', 'languageModel_languageCode' - The language code you used to create your custom language model.
 --
--- * 'lmModelStatus' - The creation status of a custom language model. When the status is @COMPLETED@ the model is ready for use.
+-- 'inputDataConfig', 'languageModel_inputDataConfig' - The data access role and Amazon S3 prefixes for the input files used to
+-- train the custom language model.
 --
--- * 'lmFailureReason' - The reason why the custom language model couldn't be created.
+-- 'modelStatus', 'languageModel_modelStatus' - The creation status of a custom language model. When the status is
+-- @COMPLETED@ the model is ready for use.
 --
--- * 'lmUpgradeAvailability' - Whether the base model used for the custom language model is up to date. If this field is @true@ then you are running the most up-to-date version of the base model in your custom language model.
+-- 'failureReason', 'languageModel_failureReason' - The reason why the custom language model couldn\'t be created.
 --
--- * 'lmCreateTime' - The time the custom language model was created.
+-- 'upgradeAvailability', 'languageModel_upgradeAvailability' - Whether the base model used for the custom language model is up to date.
+-- If this field is @true@ then you are running the most up-to-date version
+-- of the base model in your custom language model.
 --
--- * 'lmLastModifiedTime' - The most recent time the custom language model was modified.
+-- 'createTime', 'languageModel_createTime' - The time the custom language model was created.
 --
--- * 'lmModelName' - The name of the custom language model.
+-- 'lastModifiedTime', 'languageModel_lastModifiedTime' - The most recent time the custom language model was modified.
 --
--- * 'lmBaseModelName' - The Amazon Transcribe standard language model, or base model used to create the custom language model.
-languageModel ::
+-- 'modelName', 'languageModel_modelName' - The name of the custom language model.
+--
+-- 'baseModelName', 'languageModel_baseModelName' - The Amazon Transcribe standard language model, or base model used to
+-- create the custom language model.
+newLanguageModel ::
   LanguageModel
-languageModel =
+newLanguageModel =
   LanguageModel'
-    { _lmLanguageCode = Nothing,
-      _lmInputDataConfig = Nothing,
-      _lmModelStatus = Nothing,
-      _lmFailureReason = Nothing,
-      _lmUpgradeAvailability = Nothing,
-      _lmCreateTime = Nothing,
-      _lmLastModifiedTime = Nothing,
-      _lmModelName = Nothing,
-      _lmBaseModelName = Nothing
+    { languageCode = Prelude.Nothing,
+      inputDataConfig = Prelude.Nothing,
+      modelStatus = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      upgradeAvailability = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      modelName = Prelude.Nothing,
+      baseModelName = Prelude.Nothing
     }
 
 -- | The language code you used to create your custom language model.
-lmLanguageCode :: Lens' LanguageModel (Maybe CLMLanguageCode)
-lmLanguageCode = lens _lmLanguageCode (\s a -> s {_lmLanguageCode = a})
+languageModel_languageCode :: Lens.Lens' LanguageModel (Prelude.Maybe CLMLanguageCode)
+languageModel_languageCode = Lens.lens (\LanguageModel' {languageCode} -> languageCode) (\s@LanguageModel' {} a -> s {languageCode = a} :: LanguageModel)
 
--- | The data access role and Amazon S3 prefixes for the input files used to train the custom language model.
-lmInputDataConfig :: Lens' LanguageModel (Maybe InputDataConfig)
-lmInputDataConfig = lens _lmInputDataConfig (\s a -> s {_lmInputDataConfig = a})
+-- | The data access role and Amazon S3 prefixes for the input files used to
+-- train the custom language model.
+languageModel_inputDataConfig :: Lens.Lens' LanguageModel (Prelude.Maybe InputDataConfig)
+languageModel_inputDataConfig = Lens.lens (\LanguageModel' {inputDataConfig} -> inputDataConfig) (\s@LanguageModel' {} a -> s {inputDataConfig = a} :: LanguageModel)
 
--- | The creation status of a custom language model. When the status is @COMPLETED@ the model is ready for use.
-lmModelStatus :: Lens' LanguageModel (Maybe ModelStatus)
-lmModelStatus = lens _lmModelStatus (\s a -> s {_lmModelStatus = a})
+-- | The creation status of a custom language model. When the status is
+-- @COMPLETED@ the model is ready for use.
+languageModel_modelStatus :: Lens.Lens' LanguageModel (Prelude.Maybe ModelStatus)
+languageModel_modelStatus = Lens.lens (\LanguageModel' {modelStatus} -> modelStatus) (\s@LanguageModel' {} a -> s {modelStatus = a} :: LanguageModel)
 
--- | The reason why the custom language model couldn't be created.
-lmFailureReason :: Lens' LanguageModel (Maybe Text)
-lmFailureReason = lens _lmFailureReason (\s a -> s {_lmFailureReason = a})
+-- | The reason why the custom language model couldn\'t be created.
+languageModel_failureReason :: Lens.Lens' LanguageModel (Prelude.Maybe Prelude.Text)
+languageModel_failureReason = Lens.lens (\LanguageModel' {failureReason} -> failureReason) (\s@LanguageModel' {} a -> s {failureReason = a} :: LanguageModel)
 
--- | Whether the base model used for the custom language model is up to date. If this field is @true@ then you are running the most up-to-date version of the base model in your custom language model.
-lmUpgradeAvailability :: Lens' LanguageModel (Maybe Bool)
-lmUpgradeAvailability = lens _lmUpgradeAvailability (\s a -> s {_lmUpgradeAvailability = a})
+-- | Whether the base model used for the custom language model is up to date.
+-- If this field is @true@ then you are running the most up-to-date version
+-- of the base model in your custom language model.
+languageModel_upgradeAvailability :: Lens.Lens' LanguageModel (Prelude.Maybe Prelude.Bool)
+languageModel_upgradeAvailability = Lens.lens (\LanguageModel' {upgradeAvailability} -> upgradeAvailability) (\s@LanguageModel' {} a -> s {upgradeAvailability = a} :: LanguageModel)
 
 -- | The time the custom language model was created.
-lmCreateTime :: Lens' LanguageModel (Maybe UTCTime)
-lmCreateTime = lens _lmCreateTime (\s a -> s {_lmCreateTime = a}) . mapping _Time
+languageModel_createTime :: Lens.Lens' LanguageModel (Prelude.Maybe Prelude.UTCTime)
+languageModel_createTime = Lens.lens (\LanguageModel' {createTime} -> createTime) (\s@LanguageModel' {} a -> s {createTime = a} :: LanguageModel) Prelude.. Lens.mapping Prelude._Time
 
 -- | The most recent time the custom language model was modified.
-lmLastModifiedTime :: Lens' LanguageModel (Maybe UTCTime)
-lmLastModifiedTime = lens _lmLastModifiedTime (\s a -> s {_lmLastModifiedTime = a}) . mapping _Time
+languageModel_lastModifiedTime :: Lens.Lens' LanguageModel (Prelude.Maybe Prelude.UTCTime)
+languageModel_lastModifiedTime = Lens.lens (\LanguageModel' {lastModifiedTime} -> lastModifiedTime) (\s@LanguageModel' {} a -> s {lastModifiedTime = a} :: LanguageModel) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the custom language model.
-lmModelName :: Lens' LanguageModel (Maybe Text)
-lmModelName = lens _lmModelName (\s a -> s {_lmModelName = a})
+languageModel_modelName :: Lens.Lens' LanguageModel (Prelude.Maybe Prelude.Text)
+languageModel_modelName = Lens.lens (\LanguageModel' {modelName} -> modelName) (\s@LanguageModel' {} a -> s {modelName = a} :: LanguageModel)
 
--- | The Amazon Transcribe standard language model, or base model used to create the custom language model.
-lmBaseModelName :: Lens' LanguageModel (Maybe BaseModelName)
-lmBaseModelName = lens _lmBaseModelName (\s a -> s {_lmBaseModelName = a})
+-- | The Amazon Transcribe standard language model, or base model used to
+-- create the custom language model.
+languageModel_baseModelName :: Lens.Lens' LanguageModel (Prelude.Maybe BaseModelName)
+languageModel_baseModelName = Lens.lens (\LanguageModel' {baseModelName} -> baseModelName) (\s@LanguageModel' {} a -> s {baseModelName = a} :: LanguageModel)
 
-instance FromJSON LanguageModel where
+instance Prelude.FromJSON LanguageModel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LanguageModel"
       ( \x ->
           LanguageModel'
-            <$> (x .:? "LanguageCode")
-            <*> (x .:? "InputDataConfig")
-            <*> (x .:? "ModelStatus")
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "UpgradeAvailability")
-            <*> (x .:? "CreateTime")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "ModelName")
-            <*> (x .:? "BaseModelName")
+            Prelude.<$> (x Prelude..:? "LanguageCode")
+            Prelude.<*> (x Prelude..:? "InputDataConfig")
+            Prelude.<*> (x Prelude..:? "ModelStatus")
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "UpgradeAvailability")
+            Prelude.<*> (x Prelude..:? "CreateTime")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "ModelName")
+            Prelude.<*> (x Prelude..:? "BaseModelName")
       )
 
-instance Hashable LanguageModel
+instance Prelude.Hashable LanguageModel
 
-instance NFData LanguageModel
+instance Prelude.NFData LanguageModel

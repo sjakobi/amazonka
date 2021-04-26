@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Transcribe.Types.RedactionOutput
   ( RedactionOutput
       ( ..,
-        Redacted,
-        RedactedAndUnredacted
+        RedactionOutputRedacted,
+        RedactionOutputRedactedAndUnredacted
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RedactionOutput = RedactionOutput' (CI Text)
+newtype RedactionOutput = RedactionOutput'
+  { fromRedactionOutput ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Redacted :: RedactionOutput
-pattern Redacted = RedactionOutput' "redacted"
+pattern RedactionOutputRedacted :: RedactionOutput
+pattern RedactionOutputRedacted = RedactionOutput' "redacted"
 
-pattern RedactedAndUnredacted :: RedactionOutput
-pattern RedactedAndUnredacted = RedactionOutput' "redacted_and_unredacted"
+pattern RedactionOutputRedactedAndUnredacted :: RedactionOutput
+pattern RedactionOutputRedactedAndUnredacted = RedactionOutput' "redacted_and_unredacted"
 
 {-# COMPLETE
-  Redacted,
-  RedactedAndUnredacted,
+  RedactionOutputRedacted,
+  RedactionOutputRedactedAndUnredacted,
   RedactionOutput'
   #-}
 
-instance FromText RedactionOutput where
-  parser = (RedactionOutput' . mk) <$> takeText
+instance Prelude.FromText RedactionOutput where
+  parser = RedactionOutput' Prelude.<$> Prelude.takeText
 
-instance ToText RedactionOutput where
-  toText (RedactionOutput' ci) = original ci
+instance Prelude.ToText RedactionOutput where
+  toText (RedactionOutput' x) = x
 
-instance Hashable RedactionOutput
+instance Prelude.Hashable RedactionOutput
 
-instance NFData RedactionOutput
+instance Prelude.NFData RedactionOutput
 
-instance ToByteString RedactionOutput
+instance Prelude.ToByteString RedactionOutput
 
-instance ToQuery RedactionOutput
+instance Prelude.ToQuery RedactionOutput
 
-instance ToHeader RedactionOutput
+instance Prelude.ToHeader RedactionOutput
 
-instance ToJSON RedactionOutput where
-  toJSON = toJSONText
+instance Prelude.ToJSON RedactionOutput where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RedactionOutput where
-  parseJSON = parseJSONText "RedactionOutput"
+instance Prelude.FromJSON RedactionOutput where
+  parseJSON = Prelude.parseJSONText "RedactionOutput"

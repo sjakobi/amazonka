@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,118 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a previously submitted transcription job along with any other generated results such as the transcription, models, and so on.
+-- Deletes a previously submitted transcription job along with any other
+-- generated results such as the transcription, models, and so on.
 module Network.AWS.Transcribe.DeleteTranscriptionJob
   ( -- * Creating a Request
-    deleteTranscriptionJob,
-    DeleteTranscriptionJob,
+    DeleteTranscriptionJob (..),
+    newDeleteTranscriptionJob,
 
     -- * Request Lenses
-    dtjTranscriptionJobName,
+    deleteTranscriptionJob_transcriptionJobName,
 
     -- * Destructuring the Response
-    deleteTranscriptionJobResponse,
-    DeleteTranscriptionJobResponse,
+    DeleteTranscriptionJobResponse (..),
+    newDeleteTranscriptionJobResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
 
--- | /See:/ 'deleteTranscriptionJob' smart constructor.
-newtype DeleteTranscriptionJob = DeleteTranscriptionJob'
-  { _dtjTranscriptionJobName ::
-      Text
+-- | /See:/ 'newDeleteTranscriptionJob' smart constructor.
+data DeleteTranscriptionJob = DeleteTranscriptionJob'
+  { -- | The name of the transcription job to be deleted.
+    transcriptionJobName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTranscriptionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTranscriptionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtjTranscriptionJobName' - The name of the transcription job to be deleted.
-deleteTranscriptionJob ::
-  -- | 'dtjTranscriptionJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'transcriptionJobName', 'deleteTranscriptionJob_transcriptionJobName' - The name of the transcription job to be deleted.
+newDeleteTranscriptionJob ::
+  -- | 'transcriptionJobName'
+  Prelude.Text ->
   DeleteTranscriptionJob
-deleteTranscriptionJob pTranscriptionJobName_ =
+newDeleteTranscriptionJob pTranscriptionJobName_ =
   DeleteTranscriptionJob'
-    { _dtjTranscriptionJobName =
+    { transcriptionJobName =
         pTranscriptionJobName_
     }
 
 -- | The name of the transcription job to be deleted.
-dtjTranscriptionJobName :: Lens' DeleteTranscriptionJob Text
-dtjTranscriptionJobName = lens _dtjTranscriptionJobName (\s a -> s {_dtjTranscriptionJobName = a})
+deleteTranscriptionJob_transcriptionJobName :: Lens.Lens' DeleteTranscriptionJob Prelude.Text
+deleteTranscriptionJob_transcriptionJobName = Lens.lens (\DeleteTranscriptionJob' {transcriptionJobName} -> transcriptionJobName) (\s@DeleteTranscriptionJob' {} a -> s {transcriptionJobName = a} :: DeleteTranscriptionJob)
 
-instance AWSRequest DeleteTranscriptionJob where
+instance Prelude.AWSRequest DeleteTranscriptionJob where
   type
     Rs DeleteTranscriptionJob =
       DeleteTranscriptionJobResponse
-  request = postJSON transcribe
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteTranscriptionJobResponse'
+    Response.receiveNull
+      DeleteTranscriptionJobResponse'
 
-instance Hashable DeleteTranscriptionJob
+instance Prelude.Hashable DeleteTranscriptionJob
 
-instance NFData DeleteTranscriptionJob
+instance Prelude.NFData DeleteTranscriptionJob
 
-instance ToHeaders DeleteTranscriptionJob where
+instance Prelude.ToHeaders DeleteTranscriptionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.DeleteTranscriptionJob" :: ByteString),
+              Prelude.=# ( "Transcribe.DeleteTranscriptionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTranscriptionJob where
+instance Prelude.ToJSON DeleteTranscriptionJob where
   toJSON DeleteTranscriptionJob' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "TranscriptionJobName"
-                  .= _dtjTranscriptionJobName
+                  Prelude..= transcriptionJobName
               )
           ]
       )
 
-instance ToPath DeleteTranscriptionJob where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTranscriptionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTranscriptionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTranscriptionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTranscriptionJobResponse' smart constructor.
+-- | /See:/ 'newDeleteTranscriptionJobResponse' smart constructor.
 data DeleteTranscriptionJobResponse = DeleteTranscriptionJobResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTranscriptionJobResponse' with the minimum fields required to make a request.
-deleteTranscriptionJobResponse ::
+-- |
+-- Create a value of 'DeleteTranscriptionJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteTranscriptionJobResponse ::
   DeleteTranscriptionJobResponse
-deleteTranscriptionJobResponse =
+newDeleteTranscriptionJobResponse =
   DeleteTranscriptionJobResponse'
 
-instance NFData DeleteTranscriptionJobResponse
+instance
+  Prelude.NFData
+    DeleteTranscriptionJobResponse

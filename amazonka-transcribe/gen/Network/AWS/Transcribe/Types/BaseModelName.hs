@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Transcribe.Types.BaseModelName
   ( BaseModelName
       ( ..,
-        NarrowBand,
-        WideBand
+        BaseModelNameNarrowBand,
+        BaseModelNameWideBand
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BaseModelName = BaseModelName' (CI Text)
+newtype BaseModelName = BaseModelName'
+  { fromBaseModelName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NarrowBand :: BaseModelName
-pattern NarrowBand = BaseModelName' "NarrowBand"
+pattern BaseModelNameNarrowBand :: BaseModelName
+pattern BaseModelNameNarrowBand = BaseModelName' "NarrowBand"
 
-pattern WideBand :: BaseModelName
-pattern WideBand = BaseModelName' "WideBand"
+pattern BaseModelNameWideBand :: BaseModelName
+pattern BaseModelNameWideBand = BaseModelName' "WideBand"
 
 {-# COMPLETE
-  NarrowBand,
-  WideBand,
+  BaseModelNameNarrowBand,
+  BaseModelNameWideBand,
   BaseModelName'
   #-}
 
-instance FromText BaseModelName where
-  parser = (BaseModelName' . mk) <$> takeText
+instance Prelude.FromText BaseModelName where
+  parser = BaseModelName' Prelude.<$> Prelude.takeText
 
-instance ToText BaseModelName where
-  toText (BaseModelName' ci) = original ci
+instance Prelude.ToText BaseModelName where
+  toText (BaseModelName' x) = x
 
-instance Hashable BaseModelName
+instance Prelude.Hashable BaseModelName
 
-instance NFData BaseModelName
+instance Prelude.NFData BaseModelName
 
-instance ToByteString BaseModelName
+instance Prelude.ToByteString BaseModelName
 
-instance ToQuery BaseModelName
+instance Prelude.ToQuery BaseModelName
 
-instance ToHeader BaseModelName
+instance Prelude.ToHeader BaseModelName
 
-instance ToJSON BaseModelName where
-  toJSON = toJSONText
+instance Prelude.ToJSON BaseModelName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BaseModelName where
-  parseJSON = parseJSONText "BaseModelName"
+instance Prelude.FromJSON BaseModelName where
+  parseJSON = Prelude.parseJSONText "BaseModelName"

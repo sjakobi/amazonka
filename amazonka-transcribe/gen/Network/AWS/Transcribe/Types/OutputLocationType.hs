@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Transcribe.Types.OutputLocationType
   ( OutputLocationType
       ( ..,
-        CustomerBucket,
-        ServiceBucket
+        OutputLocationTypeCUSTOMERBUCKET,
+        OutputLocationTypeSERVICEBUCKET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OutputLocationType
-  = OutputLocationType'
-      ( CI
-          Text
-      )
+newtype OutputLocationType = OutputLocationType'
+  { fromOutputLocationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CustomerBucket :: OutputLocationType
-pattern CustomerBucket = OutputLocationType' "CUSTOMER_BUCKET"
+pattern OutputLocationTypeCUSTOMERBUCKET :: OutputLocationType
+pattern OutputLocationTypeCUSTOMERBUCKET = OutputLocationType' "CUSTOMER_BUCKET"
 
-pattern ServiceBucket :: OutputLocationType
-pattern ServiceBucket = OutputLocationType' "SERVICE_BUCKET"
+pattern OutputLocationTypeSERVICEBUCKET :: OutputLocationType
+pattern OutputLocationTypeSERVICEBUCKET = OutputLocationType' "SERVICE_BUCKET"
 
 {-# COMPLETE
-  CustomerBucket,
-  ServiceBucket,
+  OutputLocationTypeCUSTOMERBUCKET,
+  OutputLocationTypeSERVICEBUCKET,
   OutputLocationType'
   #-}
 
-instance FromText OutputLocationType where
-  parser = (OutputLocationType' . mk) <$> takeText
+instance Prelude.FromText OutputLocationType where
+  parser = OutputLocationType' Prelude.<$> Prelude.takeText
 
-instance ToText OutputLocationType where
-  toText (OutputLocationType' ci) = original ci
+instance Prelude.ToText OutputLocationType where
+  toText (OutputLocationType' x) = x
 
-instance Hashable OutputLocationType
+instance Prelude.Hashable OutputLocationType
 
-instance NFData OutputLocationType
+instance Prelude.NFData OutputLocationType
 
-instance ToByteString OutputLocationType
+instance Prelude.ToByteString OutputLocationType
 
-instance ToQuery OutputLocationType
+instance Prelude.ToQuery OutputLocationType
 
-instance ToHeader OutputLocationType
+instance Prelude.ToHeader OutputLocationType
 
-instance FromJSON OutputLocationType where
-  parseJSON = parseJSONText "OutputLocationType"
+instance Prelude.FromJSON OutputLocationType where
+  parseJSON = Prelude.parseJSONText "OutputLocationType"

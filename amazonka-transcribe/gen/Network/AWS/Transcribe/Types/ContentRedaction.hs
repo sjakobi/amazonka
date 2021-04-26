@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Transcribe.Types.ContentRedaction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Transcribe.Types.RedactionOutput
 import Network.AWS.Transcribe.Types.RedactionType
 
 -- | Settings for content redaction within a transcription job.
 --
---
---
--- /See:/ 'contentRedaction' smart constructor.
+-- /See:/ 'newContentRedaction' smart constructor.
 data ContentRedaction = ContentRedaction'
-  { _crRedactionType ::
-      !RedactionType,
-    _crRedactionOutput ::
-      !RedactionOutput
+  { -- | Request parameter that defines the entities to be redacted. The only
+    -- accepted value is @PII@.
+    redactionType :: RedactionType,
+    -- | The output transcript file stored in either the default S3 bucket or in
+    -- a bucket you specify.
+    --
+    -- When you choose @redacted@ Amazon Transcribe outputs only the redacted
+    -- transcript.
+    --
+    -- When you choose @redacted_and_unredacted@ Amazon Transcribe outputs both
+    -- the redacted and unredacted transcripts.
+    redactionOutput :: RedactionOutput
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContentRedaction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContentRedaction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crRedactionType' - Request parameter that defines the entities to be redacted. The only accepted value is @PII@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crRedactionOutput' - The output transcript file stored in either the default S3 bucket or in a bucket you specify. When you choose @redacted@ Amazon Transcribe outputs only the redacted transcript. When you choose @redacted_and_unredacted@ Amazon Transcribe outputs both the redacted and unredacted transcripts.
-contentRedaction ::
-  -- | 'crRedactionType'
+-- 'redactionType', 'contentRedaction_redactionType' - Request parameter that defines the entities to be redacted. The only
+-- accepted value is @PII@.
+--
+-- 'redactionOutput', 'contentRedaction_redactionOutput' - The output transcript file stored in either the default S3 bucket or in
+-- a bucket you specify.
+--
+-- When you choose @redacted@ Amazon Transcribe outputs only the redacted
+-- transcript.
+--
+-- When you choose @redacted_and_unredacted@ Amazon Transcribe outputs both
+-- the redacted and unredacted transcripts.
+newContentRedaction ::
+  -- | 'redactionType'
   RedactionType ->
-  -- | 'crRedactionOutput'
+  -- | 'redactionOutput'
   RedactionOutput ->
   ContentRedaction
-contentRedaction pRedactionType_ pRedactionOutput_ =
+newContentRedaction pRedactionType_ pRedactionOutput_ =
   ContentRedaction'
-    { _crRedactionType =
-        pRedactionType_,
-      _crRedactionOutput = pRedactionOutput_
+    { redactionType = pRedactionType_,
+      redactionOutput = pRedactionOutput_
     }
 
--- | Request parameter that defines the entities to be redacted. The only accepted value is @PII@ .
-crRedactionType :: Lens' ContentRedaction RedactionType
-crRedactionType = lens _crRedactionType (\s a -> s {_crRedactionType = a})
+-- | Request parameter that defines the entities to be redacted. The only
+-- accepted value is @PII@.
+contentRedaction_redactionType :: Lens.Lens' ContentRedaction RedactionType
+contentRedaction_redactionType = Lens.lens (\ContentRedaction' {redactionType} -> redactionType) (\s@ContentRedaction' {} a -> s {redactionType = a} :: ContentRedaction)
 
--- | The output transcript file stored in either the default S3 bucket or in a bucket you specify. When you choose @redacted@ Amazon Transcribe outputs only the redacted transcript. When you choose @redacted_and_unredacted@ Amazon Transcribe outputs both the redacted and unredacted transcripts.
-crRedactionOutput :: Lens' ContentRedaction RedactionOutput
-crRedactionOutput = lens _crRedactionOutput (\s a -> s {_crRedactionOutput = a})
+-- | The output transcript file stored in either the default S3 bucket or in
+-- a bucket you specify.
+--
+-- When you choose @redacted@ Amazon Transcribe outputs only the redacted
+-- transcript.
+--
+-- When you choose @redacted_and_unredacted@ Amazon Transcribe outputs both
+-- the redacted and unredacted transcripts.
+contentRedaction_redactionOutput :: Lens.Lens' ContentRedaction RedactionOutput
+contentRedaction_redactionOutput = Lens.lens (\ContentRedaction' {redactionOutput} -> redactionOutput) (\s@ContentRedaction' {} a -> s {redactionOutput = a} :: ContentRedaction)
 
-instance FromJSON ContentRedaction where
+instance Prelude.FromJSON ContentRedaction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContentRedaction"
       ( \x ->
           ContentRedaction'
-            <$> (x .: "RedactionType") <*> (x .: "RedactionOutput")
+            Prelude.<$> (x Prelude..: "RedactionType")
+            Prelude.<*> (x Prelude..: "RedactionOutput")
       )
 
-instance Hashable ContentRedaction
+instance Prelude.Hashable ContentRedaction
 
-instance NFData ContentRedaction
+instance Prelude.NFData ContentRedaction
 
-instance ToJSON ContentRedaction where
+instance Prelude.ToJSON ContentRedaction where
   toJSON ContentRedaction' {..} =
-    object
-      ( catMaybes
-          [ Just ("RedactionType" .= _crRedactionType),
-            Just ("RedactionOutput" .= _crRedactionOutput)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RedactionType" Prelude..= redactionType),
+            Prelude.Just
+              ("RedactionOutput" Prelude..= redactionOutput)
           ]
       )

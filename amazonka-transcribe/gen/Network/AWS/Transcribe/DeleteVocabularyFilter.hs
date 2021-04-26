@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,112 +24,114 @@
 -- Removes a vocabulary filter.
 module Network.AWS.Transcribe.DeleteVocabularyFilter
   ( -- * Creating a Request
-    deleteVocabularyFilter,
-    DeleteVocabularyFilter,
+    DeleteVocabularyFilter (..),
+    newDeleteVocabularyFilter,
 
     -- * Request Lenses
-    dvfVocabularyFilterName,
+    deleteVocabularyFilter_vocabularyFilterName,
 
     -- * Destructuring the Response
-    deleteVocabularyFilterResponse,
-    DeleteVocabularyFilterResponse,
+    DeleteVocabularyFilterResponse (..),
+    newDeleteVocabularyFilterResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
 
--- | /See:/ 'deleteVocabularyFilter' smart constructor.
-newtype DeleteVocabularyFilter = DeleteVocabularyFilter'
-  { _dvfVocabularyFilterName ::
-      Text
+-- | /See:/ 'newDeleteVocabularyFilter' smart constructor.
+data DeleteVocabularyFilter = DeleteVocabularyFilter'
+  { -- | The name of the vocabulary filter to remove.
+    vocabularyFilterName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVocabularyFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVocabularyFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvfVocabularyFilterName' - The name of the vocabulary filter to remove.
-deleteVocabularyFilter ::
-  -- | 'dvfVocabularyFilterName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'vocabularyFilterName', 'deleteVocabularyFilter_vocabularyFilterName' - The name of the vocabulary filter to remove.
+newDeleteVocabularyFilter ::
+  -- | 'vocabularyFilterName'
+  Prelude.Text ->
   DeleteVocabularyFilter
-deleteVocabularyFilter pVocabularyFilterName_ =
+newDeleteVocabularyFilter pVocabularyFilterName_ =
   DeleteVocabularyFilter'
-    { _dvfVocabularyFilterName =
+    { vocabularyFilterName =
         pVocabularyFilterName_
     }
 
 -- | The name of the vocabulary filter to remove.
-dvfVocabularyFilterName :: Lens' DeleteVocabularyFilter Text
-dvfVocabularyFilterName = lens _dvfVocabularyFilterName (\s a -> s {_dvfVocabularyFilterName = a})
+deleteVocabularyFilter_vocabularyFilterName :: Lens.Lens' DeleteVocabularyFilter Prelude.Text
+deleteVocabularyFilter_vocabularyFilterName = Lens.lens (\DeleteVocabularyFilter' {vocabularyFilterName} -> vocabularyFilterName) (\s@DeleteVocabularyFilter' {} a -> s {vocabularyFilterName = a} :: DeleteVocabularyFilter)
 
-instance AWSRequest DeleteVocabularyFilter where
+instance Prelude.AWSRequest DeleteVocabularyFilter where
   type
     Rs DeleteVocabularyFilter =
       DeleteVocabularyFilterResponse
-  request = postJSON transcribe
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteVocabularyFilterResponse'
+    Response.receiveNull
+      DeleteVocabularyFilterResponse'
 
-instance Hashable DeleteVocabularyFilter
+instance Prelude.Hashable DeleteVocabularyFilter
 
-instance NFData DeleteVocabularyFilter
+instance Prelude.NFData DeleteVocabularyFilter
 
-instance ToHeaders DeleteVocabularyFilter where
+instance Prelude.ToHeaders DeleteVocabularyFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.DeleteVocabularyFilter" :: ByteString),
+              Prelude.=# ( "Transcribe.DeleteVocabularyFilter" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteVocabularyFilter where
+instance Prelude.ToJSON DeleteVocabularyFilter where
   toJSON DeleteVocabularyFilter' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "VocabularyFilterName"
-                  .= _dvfVocabularyFilterName
+                  Prelude..= vocabularyFilterName
               )
           ]
       )
 
-instance ToPath DeleteVocabularyFilter where
-  toPath = const "/"
+instance Prelude.ToPath DeleteVocabularyFilter where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteVocabularyFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteVocabularyFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteVocabularyFilterResponse' smart constructor.
+-- | /See:/ 'newDeleteVocabularyFilterResponse' smart constructor.
 data DeleteVocabularyFilterResponse = DeleteVocabularyFilterResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVocabularyFilterResponse' with the minimum fields required to make a request.
-deleteVocabularyFilterResponse ::
+-- |
+-- Create a value of 'DeleteVocabularyFilterResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteVocabularyFilterResponse ::
   DeleteVocabularyFilterResponse
-deleteVocabularyFilterResponse =
+newDeleteVocabularyFilterResponse =
   DeleteVocabularyFilterResponse'
 
-instance NFData DeleteVocabularyFilterResponse
+instance
+  Prelude.NFData
+    DeleteVocabularyFilterResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,188 +24,201 @@
 -- Gets information about a vocabulary.
 module Network.AWS.Transcribe.GetVocabulary
   ( -- * Creating a Request
-    getVocabulary,
-    GetVocabulary,
+    GetVocabulary (..),
+    newGetVocabulary,
 
     -- * Request Lenses
-    gvVocabularyName,
+    getVocabulary_vocabularyName,
 
     -- * Destructuring the Response
-    getVocabularyResponse,
-    GetVocabularyResponse,
+    GetVocabularyResponse (..),
+    newGetVocabularyResponse,
 
     -- * Response Lenses
-    gvrrsLanguageCode,
-    gvrrsFailureReason,
-    gvrrsLastModifiedTime,
-    gvrrsVocabularyState,
-    gvrrsVocabularyName,
-    gvrrsDownloadURI,
-    gvrrsResponseStatus,
+    getVocabularyResponse_languageCode,
+    getVocabularyResponse_failureReason,
+    getVocabularyResponse_lastModifiedTime,
+    getVocabularyResponse_vocabularyState,
+    getVocabularyResponse_vocabularyName,
+    getVocabularyResponse_downloadUri,
+    getVocabularyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Transcribe.Types
+import Network.AWS.Transcribe.Types.LanguageCode
+import Network.AWS.Transcribe.Types.VocabularyState
 
--- | /See:/ 'getVocabulary' smart constructor.
-newtype GetVocabulary = GetVocabulary'
-  { _gvVocabularyName ::
-      Text
+-- | /See:/ 'newGetVocabulary' smart constructor.
+data GetVocabulary = GetVocabulary'
+  { -- | The name of the vocabulary to return information about. The name is case
+    -- sensitive.
+    vocabularyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVocabulary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVocabulary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvVocabularyName' - The name of the vocabulary to return information about. The name is case sensitive.
-getVocabulary ::
-  -- | 'gvVocabularyName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'vocabularyName', 'getVocabulary_vocabularyName' - The name of the vocabulary to return information about. The name is case
+-- sensitive.
+newGetVocabulary ::
+  -- | 'vocabularyName'
+  Prelude.Text ->
   GetVocabulary
-getVocabulary pVocabularyName_ =
-  GetVocabulary'
-    { _gvVocabularyName =
-        pVocabularyName_
-    }
+newGetVocabulary pVocabularyName_ =
+  GetVocabulary' {vocabularyName = pVocabularyName_}
 
--- | The name of the vocabulary to return information about. The name is case sensitive.
-gvVocabularyName :: Lens' GetVocabulary Text
-gvVocabularyName = lens _gvVocabularyName (\s a -> s {_gvVocabularyName = a})
+-- | The name of the vocabulary to return information about. The name is case
+-- sensitive.
+getVocabulary_vocabularyName :: Lens.Lens' GetVocabulary Prelude.Text
+getVocabulary_vocabularyName = Lens.lens (\GetVocabulary' {vocabularyName} -> vocabularyName) (\s@GetVocabulary' {} a -> s {vocabularyName = a} :: GetVocabulary)
 
-instance AWSRequest GetVocabulary where
+instance Prelude.AWSRequest GetVocabulary where
   type Rs GetVocabulary = GetVocabularyResponse
-  request = postJSON transcribe
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetVocabularyResponse'
-            <$> (x .?> "LanguageCode")
-            <*> (x .?> "FailureReason")
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "VocabularyState")
-            <*> (x .?> "VocabularyName")
-            <*> (x .?> "DownloadUri")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "LanguageCode")
+            Prelude.<*> (x Prelude..?> "FailureReason")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "VocabularyState")
+            Prelude.<*> (x Prelude..?> "VocabularyName")
+            Prelude.<*> (x Prelude..?> "DownloadUri")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetVocabulary
+instance Prelude.Hashable GetVocabulary
 
-instance NFData GetVocabulary
+instance Prelude.NFData GetVocabulary
 
-instance ToHeaders GetVocabulary where
+instance Prelude.ToHeaders GetVocabulary where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Transcribe.GetVocabulary" :: ByteString),
+              Prelude.=# ("Transcribe.GetVocabulary" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetVocabulary where
+instance Prelude.ToJSON GetVocabulary where
   toJSON GetVocabulary' {..} =
-    object
-      ( catMaybes
-          [Just ("VocabularyName" .= _gvVocabularyName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("VocabularyName" Prelude..= vocabularyName)
+          ]
       )
 
-instance ToPath GetVocabulary where
-  toPath = const "/"
+instance Prelude.ToPath GetVocabulary where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetVocabulary where
-  toQuery = const mempty
+instance Prelude.ToQuery GetVocabulary where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getVocabularyResponse' smart constructor.
+-- | /See:/ 'newGetVocabularyResponse' smart constructor.
 data GetVocabularyResponse = GetVocabularyResponse'
-  { _gvrrsLanguageCode ::
-      !(Maybe LanguageCode),
-    _gvrrsFailureReason ::
-      !(Maybe Text),
-    _gvrrsLastModifiedTime ::
-      !(Maybe POSIX),
-    _gvrrsVocabularyState ::
-      !(Maybe VocabularyState),
-    _gvrrsVocabularyName ::
-      !(Maybe Text),
-    _gvrrsDownloadURI ::
-      !(Maybe Text),
-    _gvrrsResponseStatus ::
-      !Int
+  { -- | The language code of the vocabulary entries.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | If the @VocabularyState@ field is @FAILED@, this field contains
+    -- information about why the job failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the vocabulary was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The processing state of the vocabulary.
+    vocabularyState :: Prelude.Maybe VocabularyState,
+    -- | The name of the vocabulary to return.
+    vocabularyName :: Prelude.Maybe Prelude.Text,
+    -- | The S3 location where the vocabulary is stored. Use this URI to get the
+    -- contents of the vocabulary. The URI is available for a limited time.
+    downloadUri :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetVocabularyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetVocabularyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gvrrsLanguageCode' - The language code of the vocabulary entries.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gvrrsFailureReason' - If the @VocabularyState@ field is @FAILED@ , this field contains information about why the job failed.
+-- 'languageCode', 'getVocabularyResponse_languageCode' - The language code of the vocabulary entries.
 --
--- * 'gvrrsLastModifiedTime' - The date and time that the vocabulary was last modified.
+-- 'failureReason', 'getVocabularyResponse_failureReason' - If the @VocabularyState@ field is @FAILED@, this field contains
+-- information about why the job failed.
 --
--- * 'gvrrsVocabularyState' - The processing state of the vocabulary.
+-- 'lastModifiedTime', 'getVocabularyResponse_lastModifiedTime' - The date and time that the vocabulary was last modified.
 --
--- * 'gvrrsVocabularyName' - The name of the vocabulary to return.
+-- 'vocabularyState', 'getVocabularyResponse_vocabularyState' - The processing state of the vocabulary.
 --
--- * 'gvrrsDownloadURI' - The S3 location where the vocabulary is stored. Use this URI to get the contents of the vocabulary. The URI is available for a limited time.
+-- 'vocabularyName', 'getVocabularyResponse_vocabularyName' - The name of the vocabulary to return.
 --
--- * 'gvrrsResponseStatus' - -- | The response status code.
-getVocabularyResponse ::
-  -- | 'gvrrsResponseStatus'
-  Int ->
+-- 'downloadUri', 'getVocabularyResponse_downloadUri' - The S3 location where the vocabulary is stored. Use this URI to get the
+-- contents of the vocabulary. The URI is available for a limited time.
+--
+-- 'httpStatus', 'getVocabularyResponse_httpStatus' - The response's http status code.
+newGetVocabularyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetVocabularyResponse
-getVocabularyResponse pResponseStatus_ =
+newGetVocabularyResponse pHttpStatus_ =
   GetVocabularyResponse'
-    { _gvrrsLanguageCode =
-        Nothing,
-      _gvrrsFailureReason = Nothing,
-      _gvrrsLastModifiedTime = Nothing,
-      _gvrrsVocabularyState = Nothing,
-      _gvrrsVocabularyName = Nothing,
-      _gvrrsDownloadURI = Nothing,
-      _gvrrsResponseStatus = pResponseStatus_
+    { languageCode =
+        Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      vocabularyState = Prelude.Nothing,
+      vocabularyName = Prelude.Nothing,
+      downloadUri = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The language code of the vocabulary entries.
-gvrrsLanguageCode :: Lens' GetVocabularyResponse (Maybe LanguageCode)
-gvrrsLanguageCode = lens _gvrrsLanguageCode (\s a -> s {_gvrrsLanguageCode = a})
+getVocabularyResponse_languageCode :: Lens.Lens' GetVocabularyResponse (Prelude.Maybe LanguageCode)
+getVocabularyResponse_languageCode = Lens.lens (\GetVocabularyResponse' {languageCode} -> languageCode) (\s@GetVocabularyResponse' {} a -> s {languageCode = a} :: GetVocabularyResponse)
 
--- | If the @VocabularyState@ field is @FAILED@ , this field contains information about why the job failed.
-gvrrsFailureReason :: Lens' GetVocabularyResponse (Maybe Text)
-gvrrsFailureReason = lens _gvrrsFailureReason (\s a -> s {_gvrrsFailureReason = a})
+-- | If the @VocabularyState@ field is @FAILED@, this field contains
+-- information about why the job failed.
+getVocabularyResponse_failureReason :: Lens.Lens' GetVocabularyResponse (Prelude.Maybe Prelude.Text)
+getVocabularyResponse_failureReason = Lens.lens (\GetVocabularyResponse' {failureReason} -> failureReason) (\s@GetVocabularyResponse' {} a -> s {failureReason = a} :: GetVocabularyResponse)
 
 -- | The date and time that the vocabulary was last modified.
-gvrrsLastModifiedTime :: Lens' GetVocabularyResponse (Maybe UTCTime)
-gvrrsLastModifiedTime = lens _gvrrsLastModifiedTime (\s a -> s {_gvrrsLastModifiedTime = a}) . mapping _Time
+getVocabularyResponse_lastModifiedTime :: Lens.Lens' GetVocabularyResponse (Prelude.Maybe Prelude.UTCTime)
+getVocabularyResponse_lastModifiedTime = Lens.lens (\GetVocabularyResponse' {lastModifiedTime} -> lastModifiedTime) (\s@GetVocabularyResponse' {} a -> s {lastModifiedTime = a} :: GetVocabularyResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The processing state of the vocabulary.
-gvrrsVocabularyState :: Lens' GetVocabularyResponse (Maybe VocabularyState)
-gvrrsVocabularyState = lens _gvrrsVocabularyState (\s a -> s {_gvrrsVocabularyState = a})
+getVocabularyResponse_vocabularyState :: Lens.Lens' GetVocabularyResponse (Prelude.Maybe VocabularyState)
+getVocabularyResponse_vocabularyState = Lens.lens (\GetVocabularyResponse' {vocabularyState} -> vocabularyState) (\s@GetVocabularyResponse' {} a -> s {vocabularyState = a} :: GetVocabularyResponse)
 
 -- | The name of the vocabulary to return.
-gvrrsVocabularyName :: Lens' GetVocabularyResponse (Maybe Text)
-gvrrsVocabularyName = lens _gvrrsVocabularyName (\s a -> s {_gvrrsVocabularyName = a})
+getVocabularyResponse_vocabularyName :: Lens.Lens' GetVocabularyResponse (Prelude.Maybe Prelude.Text)
+getVocabularyResponse_vocabularyName = Lens.lens (\GetVocabularyResponse' {vocabularyName} -> vocabularyName) (\s@GetVocabularyResponse' {} a -> s {vocabularyName = a} :: GetVocabularyResponse)
 
--- | The S3 location where the vocabulary is stored. Use this URI to get the contents of the vocabulary. The URI is available for a limited time.
-gvrrsDownloadURI :: Lens' GetVocabularyResponse (Maybe Text)
-gvrrsDownloadURI = lens _gvrrsDownloadURI (\s a -> s {_gvrrsDownloadURI = a})
+-- | The S3 location where the vocabulary is stored. Use this URI to get the
+-- contents of the vocabulary. The URI is available for a limited time.
+getVocabularyResponse_downloadUri :: Lens.Lens' GetVocabularyResponse (Prelude.Maybe Prelude.Text)
+getVocabularyResponse_downloadUri = Lens.lens (\GetVocabularyResponse' {downloadUri} -> downloadUri) (\s@GetVocabularyResponse' {} a -> s {downloadUri = a} :: GetVocabularyResponse)
 
--- | -- | The response status code.
-gvrrsResponseStatus :: Lens' GetVocabularyResponse Int
-gvrrsResponseStatus = lens _gvrrsResponseStatus (\s a -> s {_gvrrsResponseStatus = a})
+-- | The response's http status code.
+getVocabularyResponse_httpStatus :: Lens.Lens' GetVocabularyResponse Prelude.Int
+getVocabularyResponse_httpStatus = Lens.lens (\GetVocabularyResponse' {httpStatus} -> httpStatus) (\s@GetVocabularyResponse' {} a -> s {httpStatus = a} :: GetVocabularyResponse)
 
-instance NFData GetVocabularyResponse
+instance Prelude.NFData GetVocabularyResponse

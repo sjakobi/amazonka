@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Transcribe.Types.VocabularyState
   ( VocabularyState
       ( ..,
-        VSFailed,
-        VSPending,
-        VSReady
+        VocabularyStateFAILED,
+        VocabularyStatePENDING,
+        VocabularyStateREADY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VocabularyState = VocabularyState' (CI Text)
+newtype VocabularyState = VocabularyState'
+  { fromVocabularyState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VSFailed :: VocabularyState
-pattern VSFailed = VocabularyState' "FAILED"
+pattern VocabularyStateFAILED :: VocabularyState
+pattern VocabularyStateFAILED = VocabularyState' "FAILED"
 
-pattern VSPending :: VocabularyState
-pattern VSPending = VocabularyState' "PENDING"
+pattern VocabularyStatePENDING :: VocabularyState
+pattern VocabularyStatePENDING = VocabularyState' "PENDING"
 
-pattern VSReady :: VocabularyState
-pattern VSReady = VocabularyState' "READY"
+pattern VocabularyStateREADY :: VocabularyState
+pattern VocabularyStateREADY = VocabularyState' "READY"
 
 {-# COMPLETE
-  VSFailed,
-  VSPending,
-  VSReady,
+  VocabularyStateFAILED,
+  VocabularyStatePENDING,
+  VocabularyStateREADY,
   VocabularyState'
   #-}
 
-instance FromText VocabularyState where
-  parser = (VocabularyState' . mk) <$> takeText
+instance Prelude.FromText VocabularyState where
+  parser = VocabularyState' Prelude.<$> Prelude.takeText
 
-instance ToText VocabularyState where
-  toText (VocabularyState' ci) = original ci
+instance Prelude.ToText VocabularyState where
+  toText (VocabularyState' x) = x
 
-instance Hashable VocabularyState
+instance Prelude.Hashable VocabularyState
 
-instance NFData VocabularyState
+instance Prelude.NFData VocabularyState
 
-instance ToByteString VocabularyState
+instance Prelude.ToByteString VocabularyState
 
-instance ToQuery VocabularyState
+instance Prelude.ToQuery VocabularyState
 
-instance ToHeader VocabularyState
+instance Prelude.ToHeader VocabularyState
 
-instance ToJSON VocabularyState where
-  toJSON = toJSONText
+instance Prelude.ToJSON VocabularyState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VocabularyState where
-  parseJSON = parseJSONText "VocabularyState"
+instance Prelude.FromJSON VocabularyState where
+  parseJSON = Prelude.parseJSONText "VocabularyState"

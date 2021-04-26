@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Transcribe.Types.MediaFormat
   ( MediaFormat
       ( ..,
-        Amr,
-        Flac,
-        MP3,
-        MP4,
-        Ogg,
-        Wav,
-        Webm
+        MediaFormatAmr,
+        MediaFormatFlac,
+        MediaFormatMP3,
+        MediaFormatMP4,
+        MediaFormatOgg,
+        MediaFormatWav,
+        MediaFormatWebm
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MediaFormat = MediaFormat' (CI Text)
+newtype MediaFormat = MediaFormat'
+  { fromMediaFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Amr :: MediaFormat
-pattern Amr = MediaFormat' "amr"
+pattern MediaFormatAmr :: MediaFormat
+pattern MediaFormatAmr = MediaFormat' "amr"
 
-pattern Flac :: MediaFormat
-pattern Flac = MediaFormat' "flac"
+pattern MediaFormatFlac :: MediaFormat
+pattern MediaFormatFlac = MediaFormat' "flac"
 
-pattern MP3 :: MediaFormat
-pattern MP3 = MediaFormat' "mp3"
+pattern MediaFormatMP3 :: MediaFormat
+pattern MediaFormatMP3 = MediaFormat' "mp3"
 
-pattern MP4 :: MediaFormat
-pattern MP4 = MediaFormat' "mp4"
+pattern MediaFormatMP4 :: MediaFormat
+pattern MediaFormatMP4 = MediaFormat' "mp4"
 
-pattern Ogg :: MediaFormat
-pattern Ogg = MediaFormat' "ogg"
+pattern MediaFormatOgg :: MediaFormat
+pattern MediaFormatOgg = MediaFormat' "ogg"
 
-pattern Wav :: MediaFormat
-pattern Wav = MediaFormat' "wav"
+pattern MediaFormatWav :: MediaFormat
+pattern MediaFormatWav = MediaFormat' "wav"
 
-pattern Webm :: MediaFormat
-pattern Webm = MediaFormat' "webm"
+pattern MediaFormatWebm :: MediaFormat
+pattern MediaFormatWebm = MediaFormat' "webm"
 
 {-# COMPLETE
-  Amr,
-  Flac,
-  MP3,
-  MP4,
-  Ogg,
-  Wav,
-  Webm,
+  MediaFormatAmr,
+  MediaFormatFlac,
+  MediaFormatMP3,
+  MediaFormatMP4,
+  MediaFormatOgg,
+  MediaFormatWav,
+  MediaFormatWebm,
   MediaFormat'
   #-}
 
-instance FromText MediaFormat where
-  parser = (MediaFormat' . mk) <$> takeText
+instance Prelude.FromText MediaFormat where
+  parser = MediaFormat' Prelude.<$> Prelude.takeText
 
-instance ToText MediaFormat where
-  toText (MediaFormat' ci) = original ci
+instance Prelude.ToText MediaFormat where
+  toText (MediaFormat' x) = x
 
-instance Hashable MediaFormat
+instance Prelude.Hashable MediaFormat
 
-instance NFData MediaFormat
+instance Prelude.NFData MediaFormat
 
-instance ToByteString MediaFormat
+instance Prelude.ToByteString MediaFormat
 
-instance ToQuery MediaFormat
+instance Prelude.ToQuery MediaFormat
 
-instance ToHeader MediaFormat
+instance Prelude.ToHeader MediaFormat
 
-instance ToJSON MediaFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON MediaFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MediaFormat where
-  parseJSON = parseJSONText "MediaFormat"
+instance Prelude.FromJSON MediaFormat where
+  parseJSON = Prelude.parseJSONText "MediaFormat"

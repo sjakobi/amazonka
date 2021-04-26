@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.Transcribe.Types.TranscriptionJobStatus
   ( TranscriptionJobStatus
       ( ..,
-        TJSCompleted,
-        TJSFailed,
-        TJSInProgress,
-        TJSQueued
+        TranscriptionJobStatusCOMPLETED,
+        TranscriptionJobStatusFAILED,
+        TranscriptionJobStatusINPROGRESS,
+        TranscriptionJobStatusQUEUED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TranscriptionJobStatus
-  = TranscriptionJobStatus'
-      ( CI
-          Text
-      )
+newtype TranscriptionJobStatus = TranscriptionJobStatus'
+  { fromTranscriptionJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TJSCompleted :: TranscriptionJobStatus
-pattern TJSCompleted = TranscriptionJobStatus' "COMPLETED"
+pattern TranscriptionJobStatusCOMPLETED :: TranscriptionJobStatus
+pattern TranscriptionJobStatusCOMPLETED = TranscriptionJobStatus' "COMPLETED"
 
-pattern TJSFailed :: TranscriptionJobStatus
-pattern TJSFailed = TranscriptionJobStatus' "FAILED"
+pattern TranscriptionJobStatusFAILED :: TranscriptionJobStatus
+pattern TranscriptionJobStatusFAILED = TranscriptionJobStatus' "FAILED"
 
-pattern TJSInProgress :: TranscriptionJobStatus
-pattern TJSInProgress = TranscriptionJobStatus' "IN_PROGRESS"
+pattern TranscriptionJobStatusINPROGRESS :: TranscriptionJobStatus
+pattern TranscriptionJobStatusINPROGRESS = TranscriptionJobStatus' "IN_PROGRESS"
 
-pattern TJSQueued :: TranscriptionJobStatus
-pattern TJSQueued = TranscriptionJobStatus' "QUEUED"
+pattern TranscriptionJobStatusQUEUED :: TranscriptionJobStatus
+pattern TranscriptionJobStatusQUEUED = TranscriptionJobStatus' "QUEUED"
 
 {-# COMPLETE
-  TJSCompleted,
-  TJSFailed,
-  TJSInProgress,
-  TJSQueued,
+  TranscriptionJobStatusCOMPLETED,
+  TranscriptionJobStatusFAILED,
+  TranscriptionJobStatusINPROGRESS,
+  TranscriptionJobStatusQUEUED,
   TranscriptionJobStatus'
   #-}
 
-instance FromText TranscriptionJobStatus where
-  parser = (TranscriptionJobStatus' . mk) <$> takeText
+instance Prelude.FromText TranscriptionJobStatus where
+  parser = TranscriptionJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TranscriptionJobStatus where
-  toText (TranscriptionJobStatus' ci) = original ci
+instance Prelude.ToText TranscriptionJobStatus where
+  toText (TranscriptionJobStatus' x) = x
 
-instance Hashable TranscriptionJobStatus
+instance Prelude.Hashable TranscriptionJobStatus
 
-instance NFData TranscriptionJobStatus
+instance Prelude.NFData TranscriptionJobStatus
 
-instance ToByteString TranscriptionJobStatus
+instance Prelude.ToByteString TranscriptionJobStatus
 
-instance ToQuery TranscriptionJobStatus
+instance Prelude.ToQuery TranscriptionJobStatus
 
-instance ToHeader TranscriptionJobStatus
+instance Prelude.ToHeader TranscriptionJobStatus
 
-instance ToJSON TranscriptionJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TranscriptionJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TranscriptionJobStatus where
-  parseJSON = parseJSONText "TranscriptionJobStatus"
+instance Prelude.FromJSON TranscriptionJobStatus where
+  parseJSON = Prelude.parseJSONText "TranscriptionJobStatus"
