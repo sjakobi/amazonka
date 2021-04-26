@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Lightsail.Types.NetworkProtocol
   ( NetworkProtocol
       ( ..,
-        NPAll,
-        NPICMP,
-        NPTCP,
-        NPUdp
+        NetworkProtocolAll,
+        NetworkProtocolIcmp,
+        NetworkProtocolTcp,
+        NetworkProtocolUdp
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkProtocol = NetworkProtocol' (CI Text)
+newtype NetworkProtocol = NetworkProtocol'
+  { fromNetworkProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NPAll :: NetworkProtocol
-pattern NPAll = NetworkProtocol' "all"
+pattern NetworkProtocolAll :: NetworkProtocol
+pattern NetworkProtocolAll = NetworkProtocol' "all"
 
-pattern NPICMP :: NetworkProtocol
-pattern NPICMP = NetworkProtocol' "icmp"
+pattern NetworkProtocolIcmp :: NetworkProtocol
+pattern NetworkProtocolIcmp = NetworkProtocol' "icmp"
 
-pattern NPTCP :: NetworkProtocol
-pattern NPTCP = NetworkProtocol' "tcp"
+pattern NetworkProtocolTcp :: NetworkProtocol
+pattern NetworkProtocolTcp = NetworkProtocol' "tcp"
 
-pattern NPUdp :: NetworkProtocol
-pattern NPUdp = NetworkProtocol' "udp"
+pattern NetworkProtocolUdp :: NetworkProtocol
+pattern NetworkProtocolUdp = NetworkProtocol' "udp"
 
 {-# COMPLETE
-  NPAll,
-  NPICMP,
-  NPTCP,
-  NPUdp,
+  NetworkProtocolAll,
+  NetworkProtocolIcmp,
+  NetworkProtocolTcp,
+  NetworkProtocolUdp,
   NetworkProtocol'
   #-}
 
-instance FromText NetworkProtocol where
-  parser = (NetworkProtocol' . mk) <$> takeText
+instance Prelude.FromText NetworkProtocol where
+  parser = NetworkProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkProtocol where
-  toText (NetworkProtocol' ci) = original ci
+instance Prelude.ToText NetworkProtocol where
+  toText (NetworkProtocol' x) = x
 
-instance Hashable NetworkProtocol
+instance Prelude.Hashable NetworkProtocol
 
-instance NFData NetworkProtocol
+instance Prelude.NFData NetworkProtocol
 
-instance ToByteString NetworkProtocol
+instance Prelude.ToByteString NetworkProtocol
 
-instance ToQuery NetworkProtocol
+instance Prelude.ToQuery NetworkProtocol
 
-instance ToHeader NetworkProtocol
+instance Prelude.ToHeader NetworkProtocol
 
-instance ToJSON NetworkProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON NetworkProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NetworkProtocol where
-  parseJSON = parseJSONText "NetworkProtocol"
+instance Prelude.FromJSON NetworkProtocol where
+  parseJSON = Prelude.parseJSONText "NetworkProtocol"

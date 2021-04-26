@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Lightsail.Types.CertificateStatus
   ( CertificateStatus
       ( ..,
-        CSExpired,
-        CSFailed,
-        CSInactive,
-        CSIssued,
-        CSPendingValidation,
-        CSRevoked,
-        CSValidationTimedOut
+        CertificateStatusEXPIRED,
+        CertificateStatusFAILED,
+        CertificateStatusINACTIVE,
+        CertificateStatusISSUED,
+        CertificateStatusPENDINGVALIDATION,
+        CertificateStatusREVOKED,
+        CertificateStatusVALIDATIONTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateStatus = CertificateStatus' (CI Text)
+newtype CertificateStatus = CertificateStatus'
+  { fromCertificateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSExpired :: CertificateStatus
-pattern CSExpired = CertificateStatus' "EXPIRED"
+pattern CertificateStatusEXPIRED :: CertificateStatus
+pattern CertificateStatusEXPIRED = CertificateStatus' "EXPIRED"
 
-pattern CSFailed :: CertificateStatus
-pattern CSFailed = CertificateStatus' "FAILED"
+pattern CertificateStatusFAILED :: CertificateStatus
+pattern CertificateStatusFAILED = CertificateStatus' "FAILED"
 
-pattern CSInactive :: CertificateStatus
-pattern CSInactive = CertificateStatus' "INACTIVE"
+pattern CertificateStatusINACTIVE :: CertificateStatus
+pattern CertificateStatusINACTIVE = CertificateStatus' "INACTIVE"
 
-pattern CSIssued :: CertificateStatus
-pattern CSIssued = CertificateStatus' "ISSUED"
+pattern CertificateStatusISSUED :: CertificateStatus
+pattern CertificateStatusISSUED = CertificateStatus' "ISSUED"
 
-pattern CSPendingValidation :: CertificateStatus
-pattern CSPendingValidation = CertificateStatus' "PENDING_VALIDATION"
+pattern CertificateStatusPENDINGVALIDATION :: CertificateStatus
+pattern CertificateStatusPENDINGVALIDATION = CertificateStatus' "PENDING_VALIDATION"
 
-pattern CSRevoked :: CertificateStatus
-pattern CSRevoked = CertificateStatus' "REVOKED"
+pattern CertificateStatusREVOKED :: CertificateStatus
+pattern CertificateStatusREVOKED = CertificateStatus' "REVOKED"
 
-pattern CSValidationTimedOut :: CertificateStatus
-pattern CSValidationTimedOut = CertificateStatus' "VALIDATION_TIMED_OUT"
+pattern CertificateStatusVALIDATIONTIMEDOUT :: CertificateStatus
+pattern CertificateStatusVALIDATIONTIMEDOUT = CertificateStatus' "VALIDATION_TIMED_OUT"
 
 {-# COMPLETE
-  CSExpired,
-  CSFailed,
-  CSInactive,
-  CSIssued,
-  CSPendingValidation,
-  CSRevoked,
-  CSValidationTimedOut,
+  CertificateStatusEXPIRED,
+  CertificateStatusFAILED,
+  CertificateStatusINACTIVE,
+  CertificateStatusISSUED,
+  CertificateStatusPENDINGVALIDATION,
+  CertificateStatusREVOKED,
+  CertificateStatusVALIDATIONTIMEDOUT,
   CertificateStatus'
   #-}
 
-instance FromText CertificateStatus where
-  parser = (CertificateStatus' . mk) <$> takeText
+instance Prelude.FromText CertificateStatus where
+  parser = CertificateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateStatus where
-  toText (CertificateStatus' ci) = original ci
+instance Prelude.ToText CertificateStatus where
+  toText (CertificateStatus' x) = x
 
-instance Hashable CertificateStatus
+instance Prelude.Hashable CertificateStatus
 
-instance NFData CertificateStatus
+instance Prelude.NFData CertificateStatus
 
-instance ToByteString CertificateStatus
+instance Prelude.ToByteString CertificateStatus
 
-instance ToQuery CertificateStatus
+instance Prelude.ToQuery CertificateStatus
 
-instance ToHeader CertificateStatus
+instance Prelude.ToHeader CertificateStatus
 
-instance ToJSON CertificateStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CertificateStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CertificateStatus where
-  parseJSON = parseJSONText "CertificateStatus"
+instance Prelude.FromJSON CertificateStatus where
+  parseJSON = Prelude.parseJSONText "CertificateStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,219 @@
 --
 -- Returns information about all of your databases in Amazon Lightsail.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetRelationalDatabases
   ( -- * Creating a Request
-    getRelationalDatabases,
-    GetRelationalDatabases,
+    GetRelationalDatabases (..),
+    newGetRelationalDatabases,
 
     -- * Request Lenses
-    grdPageToken,
+    getRelationalDatabases_pageToken,
 
     -- * Destructuring the Response
-    getRelationalDatabasesResponse,
-    GetRelationalDatabasesResponse,
+    GetRelationalDatabasesResponse (..),
+    newGetRelationalDatabasesResponse,
 
     -- * Response Lenses
-    grdrrrsNextPageToken,
-    grdrrrsRelationalDatabases,
-    grdrrrsResponseStatus,
+    getRelationalDatabasesResponse_nextPageToken,
+    getRelationalDatabasesResponse_relationalDatabases,
+    getRelationalDatabasesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.RelationalDatabase
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRelationalDatabases' smart constructor.
-newtype GetRelationalDatabases = GetRelationalDatabases'
-  { _grdPageToken ::
-      Maybe Text
+-- | /See:/ 'newGetRelationalDatabases' smart constructor.
+data GetRelationalDatabases = GetRelationalDatabases'
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetRelationalDatabases@
+    -- request. If your results are paginated, the response will return a next
+    -- page token that you can specify as the page token in a subsequent
+    -- request.
+    pageToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabases' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabases' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetRelationalDatabases@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-getRelationalDatabases ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pageToken', 'getRelationalDatabases_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetRelationalDatabases@
+-- request. If your results are paginated, the response will return a next
+-- page token that you can specify as the page token in a subsequent
+-- request.
+newGetRelationalDatabases ::
   GetRelationalDatabases
-getRelationalDatabases =
-  GetRelationalDatabases' {_grdPageToken = Nothing}
+newGetRelationalDatabases =
+  GetRelationalDatabases'
+    { pageToken =
+        Prelude.Nothing
+    }
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetRelationalDatabases@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-grdPageToken :: Lens' GetRelationalDatabases (Maybe Text)
-grdPageToken = lens _grdPageToken (\s a -> s {_grdPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetRelationalDatabases@
+-- request. If your results are paginated, the response will return a next
+-- page token that you can specify as the page token in a subsequent
+-- request.
+getRelationalDatabases_pageToken :: Lens.Lens' GetRelationalDatabases (Prelude.Maybe Prelude.Text)
+getRelationalDatabases_pageToken = Lens.lens (\GetRelationalDatabases' {pageToken} -> pageToken) (\s@GetRelationalDatabases' {} a -> s {pageToken = a} :: GetRelationalDatabases)
 
-instance AWSPager GetRelationalDatabases where
+instance Pager.AWSPager GetRelationalDatabases where
   page rq rs
-    | stop (rs ^. grdrrrsNextPageToken) = Nothing
-    | stop (rs ^. grdrrrsRelationalDatabases) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getRelationalDatabasesResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getRelationalDatabasesResponse_relationalDatabases
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & grdPageToken .~ rs ^. grdrrrsNextPageToken
+          Lens.& getRelationalDatabases_pageToken
+          Lens..~ rs
+          Lens.^? getRelationalDatabasesResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetRelationalDatabases where
+instance Prelude.AWSRequest GetRelationalDatabases where
   type
     Rs GetRelationalDatabases =
       GetRelationalDatabasesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabasesResponse'
-            <$> (x .?> "nextPageToken")
-            <*> (x .?> "relationalDatabases" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextPageToken")
+            Prelude.<*> ( x Prelude..?> "relationalDatabases"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRelationalDatabases
+instance Prelude.Hashable GetRelationalDatabases
 
-instance NFData GetRelationalDatabases
+instance Prelude.NFData GetRelationalDatabases
 
-instance ToHeaders GetRelationalDatabases where
+instance Prelude.ToHeaders GetRelationalDatabases where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetRelationalDatabases" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetRelationalDatabases" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRelationalDatabases where
+instance Prelude.ToJSON GetRelationalDatabases where
   toJSON GetRelationalDatabases' {..} =
-    object
-      (catMaybes [("pageToken" .=) <$> _grdPageToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pageToken" Prelude..=) Prelude.<$> pageToken]
+      )
 
-instance ToPath GetRelationalDatabases where
-  toPath = const "/"
+instance Prelude.ToPath GetRelationalDatabases where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRelationalDatabases where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRelationalDatabases where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRelationalDatabasesResponse' smart constructor.
+-- | /See:/ 'newGetRelationalDatabasesResponse' smart constructor.
 data GetRelationalDatabasesResponse = GetRelationalDatabasesResponse'
-  { _grdrrrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _grdrrrsRelationalDatabases ::
-      !( Maybe
-           [RelationalDatabase]
-       ),
-    _grdrrrsResponseStatus ::
-      !Int
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another
+    -- @GetRelationalDatabases@ request and specify the next page token using
+    -- the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | An object describing the result of your get relational databases
+    -- request.
+    relationalDatabases :: Prelude.Maybe [RelationalDatabase],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabasesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabasesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdrrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetRelationalDatabases@ request and specify the next page token using the @pageToken@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdrrrsRelationalDatabases' - An object describing the result of your get relational databases request.
+-- 'nextPageToken', 'getRelationalDatabasesResponse_nextPageToken' - The token to advance to the next page of results from your request.
 --
--- * 'grdrrrsResponseStatus' - -- | The response status code.
-getRelationalDatabasesResponse ::
-  -- | 'grdrrrsResponseStatus'
-  Int ->
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetRelationalDatabases@ request and specify the next page token using
+-- the @pageToken@ parameter.
+--
+-- 'relationalDatabases', 'getRelationalDatabasesResponse_relationalDatabases' - An object describing the result of your get relational databases
+-- request.
+--
+-- 'httpStatus', 'getRelationalDatabasesResponse_httpStatus' - The response's http status code.
+newGetRelationalDatabasesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRelationalDatabasesResponse
-getRelationalDatabasesResponse pResponseStatus_ =
+newGetRelationalDatabasesResponse pHttpStatus_ =
   GetRelationalDatabasesResponse'
-    { _grdrrrsNextPageToken =
-        Nothing,
-      _grdrrrsRelationalDatabases = Nothing,
-      _grdrrrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      relationalDatabases = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetRelationalDatabases@ request and specify the next page token using the @pageToken@ parameter.
-grdrrrsNextPageToken :: Lens' GetRelationalDatabasesResponse (Maybe Text)
-grdrrrsNextPageToken = lens _grdrrrsNextPageToken (\s a -> s {_grdrrrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetRelationalDatabases@ request and specify the next page token using
+-- the @pageToken@ parameter.
+getRelationalDatabasesResponse_nextPageToken :: Lens.Lens' GetRelationalDatabasesResponse (Prelude.Maybe Prelude.Text)
+getRelationalDatabasesResponse_nextPageToken = Lens.lens (\GetRelationalDatabasesResponse' {nextPageToken} -> nextPageToken) (\s@GetRelationalDatabasesResponse' {} a -> s {nextPageToken = a} :: GetRelationalDatabasesResponse)
 
--- | An object describing the result of your get relational databases request.
-grdrrrsRelationalDatabases :: Lens' GetRelationalDatabasesResponse [RelationalDatabase]
-grdrrrsRelationalDatabases = lens _grdrrrsRelationalDatabases (\s a -> s {_grdrrrsRelationalDatabases = a}) . _Default . _Coerce
+-- | An object describing the result of your get relational databases
+-- request.
+getRelationalDatabasesResponse_relationalDatabases :: Lens.Lens' GetRelationalDatabasesResponse (Prelude.Maybe [RelationalDatabase])
+getRelationalDatabasesResponse_relationalDatabases = Lens.lens (\GetRelationalDatabasesResponse' {relationalDatabases} -> relationalDatabases) (\s@GetRelationalDatabasesResponse' {} a -> s {relationalDatabases = a} :: GetRelationalDatabasesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-grdrrrsResponseStatus :: Lens' GetRelationalDatabasesResponse Int
-grdrrrsResponseStatus = lens _grdrrrsResponseStatus (\s a -> s {_grdrrrsResponseStatus = a})
+-- | The response's http status code.
+getRelationalDatabasesResponse_httpStatus :: Lens.Lens' GetRelationalDatabasesResponse Prelude.Int
+getRelationalDatabasesResponse_httpStatus = Lens.lens (\GetRelationalDatabasesResponse' {httpStatus} -> httpStatus) (\s@GetRelationalDatabasesResponse' {} a -> s {httpStatus = a} :: GetRelationalDatabasesResponse)
 
-instance NFData GetRelationalDatabasesResponse
+instance
+  Prelude.NFData
+    GetRelationalDatabasesResponse

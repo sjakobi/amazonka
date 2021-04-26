@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Lightsail.Types.AlarmState
   ( AlarmState
       ( ..,
-        ASAlarm,
-        ASInsufficientData,
-        ASOK
+        AlarmStateALARM,
+        AlarmStateINSUFFICIENTDATA,
+        AlarmStateOK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AlarmState = AlarmState' (CI Text)
+newtype AlarmState = AlarmState'
+  { fromAlarmState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASAlarm :: AlarmState
-pattern ASAlarm = AlarmState' "ALARM"
+pattern AlarmStateALARM :: AlarmState
+pattern AlarmStateALARM = AlarmState' "ALARM"
 
-pattern ASInsufficientData :: AlarmState
-pattern ASInsufficientData = AlarmState' "INSUFFICIENT_DATA"
+pattern AlarmStateINSUFFICIENTDATA :: AlarmState
+pattern AlarmStateINSUFFICIENTDATA = AlarmState' "INSUFFICIENT_DATA"
 
-pattern ASOK :: AlarmState
-pattern ASOK = AlarmState' "OK"
+pattern AlarmStateOK :: AlarmState
+pattern AlarmStateOK = AlarmState' "OK"
 
 {-# COMPLETE
-  ASAlarm,
-  ASInsufficientData,
-  ASOK,
+  AlarmStateALARM,
+  AlarmStateINSUFFICIENTDATA,
+  AlarmStateOK,
   AlarmState'
   #-}
 
-instance FromText AlarmState where
-  parser = (AlarmState' . mk) <$> takeText
+instance Prelude.FromText AlarmState where
+  parser = AlarmState' Prelude.<$> Prelude.takeText
 
-instance ToText AlarmState where
-  toText (AlarmState' ci) = original ci
+instance Prelude.ToText AlarmState where
+  toText (AlarmState' x) = x
 
-instance Hashable AlarmState
+instance Prelude.Hashable AlarmState
 
-instance NFData AlarmState
+instance Prelude.NFData AlarmState
 
-instance ToByteString AlarmState
+instance Prelude.ToByteString AlarmState
 
-instance ToQuery AlarmState
+instance Prelude.ToQuery AlarmState
 
-instance ToHeader AlarmState
+instance Prelude.ToHeader AlarmState
 
-instance ToJSON AlarmState where
-  toJSON = toJSONText
+instance Prelude.ToJSON AlarmState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AlarmState where
-  parseJSON = parseJSONText "AlarmState"
+instance Prelude.FromJSON AlarmState where
+  parseJSON = Prelude.parseJSONText "AlarmState"

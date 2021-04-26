@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.Lightsail.Types.DiskSnapshotState
   ( DiskSnapshotState
       ( ..,
-        DSSCompleted,
-        DSSError',
-        DSSPending,
-        DSSUnknown
+        DiskSnapshotStateCompleted,
+        DiskSnapshotStateError,
+        DiskSnapshotStatePending,
+        DiskSnapshotStateUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DiskSnapshotState = DiskSnapshotState' (CI Text)
+newtype DiskSnapshotState = DiskSnapshotState'
+  { fromDiskSnapshotState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSSCompleted :: DiskSnapshotState
-pattern DSSCompleted = DiskSnapshotState' "completed"
+pattern DiskSnapshotStateCompleted :: DiskSnapshotState
+pattern DiskSnapshotStateCompleted = DiskSnapshotState' "completed"
 
-pattern DSSError' :: DiskSnapshotState
-pattern DSSError' = DiskSnapshotState' "error"
+pattern DiskSnapshotStateError :: DiskSnapshotState
+pattern DiskSnapshotStateError = DiskSnapshotState' "error"
 
-pattern DSSPending :: DiskSnapshotState
-pattern DSSPending = DiskSnapshotState' "pending"
+pattern DiskSnapshotStatePending :: DiskSnapshotState
+pattern DiskSnapshotStatePending = DiskSnapshotState' "pending"
 
-pattern DSSUnknown :: DiskSnapshotState
-pattern DSSUnknown = DiskSnapshotState' "unknown"
+pattern DiskSnapshotStateUnknown :: DiskSnapshotState
+pattern DiskSnapshotStateUnknown = DiskSnapshotState' "unknown"
 
 {-# COMPLETE
-  DSSCompleted,
-  DSSError',
-  DSSPending,
-  DSSUnknown,
+  DiskSnapshotStateCompleted,
+  DiskSnapshotStateError,
+  DiskSnapshotStatePending,
+  DiskSnapshotStateUnknown,
   DiskSnapshotState'
   #-}
 
-instance FromText DiskSnapshotState where
-  parser = (DiskSnapshotState' . mk) <$> takeText
+instance Prelude.FromText DiskSnapshotState where
+  parser = DiskSnapshotState' Prelude.<$> Prelude.takeText
 
-instance ToText DiskSnapshotState where
-  toText (DiskSnapshotState' ci) = original ci
+instance Prelude.ToText DiskSnapshotState where
+  toText (DiskSnapshotState' x) = x
 
-instance Hashable DiskSnapshotState
+instance Prelude.Hashable DiskSnapshotState
 
-instance NFData DiskSnapshotState
+instance Prelude.NFData DiskSnapshotState
 
-instance ToByteString DiskSnapshotState
+instance Prelude.ToByteString DiskSnapshotState
 
-instance ToQuery DiskSnapshotState
+instance Prelude.ToQuery DiskSnapshotState
 
-instance ToHeader DiskSnapshotState
+instance Prelude.ToHeader DiskSnapshotState
 
-instance FromJSON DiskSnapshotState where
-  parseJSON = parseJSONText "DiskSnapshotState"
+instance Prelude.FromJSON DiskSnapshotState where
+  parseJSON = Prelude.parseJSONText "DiskSnapshotState"

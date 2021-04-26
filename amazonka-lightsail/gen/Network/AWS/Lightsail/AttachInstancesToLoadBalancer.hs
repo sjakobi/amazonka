@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,166 +23,209 @@
 --
 -- Attaches one or more Lightsail instances to a load balancer.
 --
+-- After some time, the instances are attached to the load balancer and the
+-- health check status is available.
 --
--- After some time, the instances are attached to the load balancer and the health check status is available.
---
--- The @attach instances to load balancer@ operation supports tag-based access control via resource tags applied to the resource identified by @load balancer name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @attach instances to load balancer@ operation supports tag-based
+-- access control via resource tags applied to the resource identified by
+-- @load balancer name@. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.AttachInstancesToLoadBalancer
   ( -- * Creating a Request
-    attachInstancesToLoadBalancer,
-    AttachInstancesToLoadBalancer,
+    AttachInstancesToLoadBalancer (..),
+    newAttachInstancesToLoadBalancer,
 
     -- * Request Lenses
-    aitlbLoadBalancerName,
-    aitlbInstanceNames,
+    attachInstancesToLoadBalancer_loadBalancerName,
+    attachInstancesToLoadBalancer_instanceNames,
 
     -- * Destructuring the Response
-    attachInstancesToLoadBalancerResponse,
-    AttachInstancesToLoadBalancerResponse,
+    AttachInstancesToLoadBalancerResponse (..),
+    newAttachInstancesToLoadBalancerResponse,
 
     -- * Response Lenses
-    aitlbrrsOperations,
-    aitlbrrsResponseStatus,
+    attachInstancesToLoadBalancerResponse_operations,
+    attachInstancesToLoadBalancerResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachInstancesToLoadBalancer' smart constructor.
+-- | /See:/ 'newAttachInstancesToLoadBalancer' smart constructor.
 data AttachInstancesToLoadBalancer = AttachInstancesToLoadBalancer'
-  { _aitlbLoadBalancerName ::
-      !Text,
-    _aitlbInstanceNames ::
-      ![Text]
+  { -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Text,
+    -- | An array of strings representing the instance name(s) you want to attach
+    -- to your load balancer.
+    --
+    -- An instance must be @running@ before you can attach it to your load
+    -- balancer.
+    --
+    -- There are no additional limits on the number of instances you can attach
+    -- to your load balancer, aside from the limit of Lightsail instances you
+    -- can create in your account (20).
+    instanceNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachInstancesToLoadBalancer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachInstancesToLoadBalancer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aitlbLoadBalancerName' - The name of the load balancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aitlbInstanceNames' - An array of strings representing the instance name(s) you want to attach to your load balancer. An instance must be @running@ before you can attach it to your load balancer. There are no additional limits on the number of instances you can attach to your load balancer, aside from the limit of Lightsail instances you can create in your account (20).
-attachInstancesToLoadBalancer ::
-  -- | 'aitlbLoadBalancerName'
-  Text ->
+-- 'loadBalancerName', 'attachInstancesToLoadBalancer_loadBalancerName' - The name of the load balancer.
+--
+-- 'instanceNames', 'attachInstancesToLoadBalancer_instanceNames' - An array of strings representing the instance name(s) you want to attach
+-- to your load balancer.
+--
+-- An instance must be @running@ before you can attach it to your load
+-- balancer.
+--
+-- There are no additional limits on the number of instances you can attach
+-- to your load balancer, aside from the limit of Lightsail instances you
+-- can create in your account (20).
+newAttachInstancesToLoadBalancer ::
+  -- | 'loadBalancerName'
+  Prelude.Text ->
   AttachInstancesToLoadBalancer
-attachInstancesToLoadBalancer pLoadBalancerName_ =
+newAttachInstancesToLoadBalancer pLoadBalancerName_ =
   AttachInstancesToLoadBalancer'
-    { _aitlbLoadBalancerName =
+    { loadBalancerName =
         pLoadBalancerName_,
-      _aitlbInstanceNames = mempty
+      instanceNames = Prelude.mempty
     }
 
 -- | The name of the load balancer.
-aitlbLoadBalancerName :: Lens' AttachInstancesToLoadBalancer Text
-aitlbLoadBalancerName = lens _aitlbLoadBalancerName (\s a -> s {_aitlbLoadBalancerName = a})
+attachInstancesToLoadBalancer_loadBalancerName :: Lens.Lens' AttachInstancesToLoadBalancer Prelude.Text
+attachInstancesToLoadBalancer_loadBalancerName = Lens.lens (\AttachInstancesToLoadBalancer' {loadBalancerName} -> loadBalancerName) (\s@AttachInstancesToLoadBalancer' {} a -> s {loadBalancerName = a} :: AttachInstancesToLoadBalancer)
 
--- | An array of strings representing the instance name(s) you want to attach to your load balancer. An instance must be @running@ before you can attach it to your load balancer. There are no additional limits on the number of instances you can attach to your load balancer, aside from the limit of Lightsail instances you can create in your account (20).
-aitlbInstanceNames :: Lens' AttachInstancesToLoadBalancer [Text]
-aitlbInstanceNames = lens _aitlbInstanceNames (\s a -> s {_aitlbInstanceNames = a}) . _Coerce
+-- | An array of strings representing the instance name(s) you want to attach
+-- to your load balancer.
+--
+-- An instance must be @running@ before you can attach it to your load
+-- balancer.
+--
+-- There are no additional limits on the number of instances you can attach
+-- to your load balancer, aside from the limit of Lightsail instances you
+-- can create in your account (20).
+attachInstancesToLoadBalancer_instanceNames :: Lens.Lens' AttachInstancesToLoadBalancer [Prelude.Text]
+attachInstancesToLoadBalancer_instanceNames = Lens.lens (\AttachInstancesToLoadBalancer' {instanceNames} -> instanceNames) (\s@AttachInstancesToLoadBalancer' {} a -> s {instanceNames = a} :: AttachInstancesToLoadBalancer) Prelude.. Prelude._Coerce
 
-instance AWSRequest AttachInstancesToLoadBalancer where
+instance
+  Prelude.AWSRequest
+    AttachInstancesToLoadBalancer
+  where
   type
     Rs AttachInstancesToLoadBalancer =
       AttachInstancesToLoadBalancerResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AttachInstancesToLoadBalancerResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AttachInstancesToLoadBalancer
+instance
+  Prelude.Hashable
+    AttachInstancesToLoadBalancer
 
-instance NFData AttachInstancesToLoadBalancer
+instance Prelude.NFData AttachInstancesToLoadBalancer
 
-instance ToHeaders AttachInstancesToLoadBalancer where
+instance
+  Prelude.ToHeaders
+    AttachInstancesToLoadBalancer
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.AttachInstancesToLoadBalancer" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.AttachInstancesToLoadBalancer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AttachInstancesToLoadBalancer where
+instance Prelude.ToJSON AttachInstancesToLoadBalancer where
   toJSON AttachInstancesToLoadBalancer' {..} =
-    object
-      ( catMaybes
-          [ Just ("loadBalancerName" .= _aitlbLoadBalancerName),
-            Just ("instanceNames" .= _aitlbInstanceNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("loadBalancerName" Prelude..= loadBalancerName),
+            Prelude.Just
+              ("instanceNames" Prelude..= instanceNames)
           ]
       )
 
-instance ToPath AttachInstancesToLoadBalancer where
-  toPath = const "/"
+instance Prelude.ToPath AttachInstancesToLoadBalancer where
+  toPath = Prelude.const "/"
 
-instance ToQuery AttachInstancesToLoadBalancer where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    AttachInstancesToLoadBalancer
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'attachInstancesToLoadBalancerResponse' smart constructor.
+-- | /See:/ 'newAttachInstancesToLoadBalancerResponse' smart constructor.
 data AttachInstancesToLoadBalancerResponse = AttachInstancesToLoadBalancerResponse'
-  { _aitlbrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _aitlbrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachInstancesToLoadBalancerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachInstancesToLoadBalancerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aitlbrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aitlbrrsResponseStatus' - -- | The response status code.
-attachInstancesToLoadBalancerResponse ::
-  -- | 'aitlbrrsResponseStatus'
-  Int ->
+-- 'operations', 'attachInstancesToLoadBalancerResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'attachInstancesToLoadBalancerResponse_httpStatus' - The response's http status code.
+newAttachInstancesToLoadBalancerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AttachInstancesToLoadBalancerResponse
-attachInstancesToLoadBalancerResponse
-  pResponseStatus_ =
-    AttachInstancesToLoadBalancerResponse'
-      { _aitlbrrsOperations =
-          Nothing,
-        _aitlbrrsResponseStatus =
-          pResponseStatus_
-      }
+newAttachInstancesToLoadBalancerResponse pHttpStatus_ =
+  AttachInstancesToLoadBalancerResponse'
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-aitlbrrsOperations :: Lens' AttachInstancesToLoadBalancerResponse [Operation]
-aitlbrrsOperations = lens _aitlbrrsOperations (\s a -> s {_aitlbrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+attachInstancesToLoadBalancerResponse_operations :: Lens.Lens' AttachInstancesToLoadBalancerResponse (Prelude.Maybe [Operation])
+attachInstancesToLoadBalancerResponse_operations = Lens.lens (\AttachInstancesToLoadBalancerResponse' {operations} -> operations) (\s@AttachInstancesToLoadBalancerResponse' {} a -> s {operations = a} :: AttachInstancesToLoadBalancerResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-aitlbrrsResponseStatus :: Lens' AttachInstancesToLoadBalancerResponse Int
-aitlbrrsResponseStatus = lens _aitlbrrsResponseStatus (\s a -> s {_aitlbrrsResponseStatus = a})
+-- | The response's http status code.
+attachInstancesToLoadBalancerResponse_httpStatus :: Lens.Lens' AttachInstancesToLoadBalancerResponse Prelude.Int
+attachInstancesToLoadBalancerResponse_httpStatus = Lens.lens (\AttachInstancesToLoadBalancerResponse' {httpStatus} -> httpStatus) (\s@AttachInstancesToLoadBalancerResponse' {} a -> s {httpStatus = a} :: AttachInstancesToLoadBalancerResponse)
 
-instance NFData AttachInstancesToLoadBalancerResponse
+instance
+  Prelude.NFData
+    AttachInstancesToLoadBalancerResponse

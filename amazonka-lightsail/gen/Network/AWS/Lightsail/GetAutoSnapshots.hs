@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the available automatic snapshots for an instance or disk. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- Returns the available automatic snapshots for an instance or disk. For
+-- more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
 module Network.AWS.Lightsail.GetAutoSnapshots
   ( -- * Creating a Request
-    getAutoSnapshots,
-    GetAutoSnapshots,
+    GetAutoSnapshots (..),
+    newGetAutoSnapshots,
 
     -- * Request Lenses
-    gasResourceName,
+    getAutoSnapshots_resourceName,
 
     -- * Destructuring the Response
-    getAutoSnapshotsResponse,
-    GetAutoSnapshotsResponse,
+    GetAutoSnapshotsResponse (..),
+    newGetAutoSnapshotsResponse,
 
     -- * Response Lenses
-    gasrrsResourceType,
-    gasrrsAutoSnapshots,
-    gasrrsResourceName,
-    gasrrsResponseStatus,
+    getAutoSnapshotsResponse_resourceType,
+    getAutoSnapshotsResponse_autoSnapshots,
+    getAutoSnapshotsResponse_resourceName,
+    getAutoSnapshotsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.AutoSnapshotDetails
+import Network.AWS.Lightsail.Types.ResourceType
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAutoSnapshots' smart constructor.
-newtype GetAutoSnapshots = GetAutoSnapshots'
-  { _gasResourceName ::
-      Text
+-- | /See:/ 'newGetAutoSnapshots' smart constructor.
+data GetAutoSnapshots = GetAutoSnapshots'
+  { -- | The name of the source instance or disk from which to get automatic
+    -- snapshot information.
+    resourceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAutoSnapshots' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAutoSnapshots' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gasResourceName' - The name of the source instance or disk from which to get automatic snapshot information.
-getAutoSnapshots ::
-  -- | 'gasResourceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceName', 'getAutoSnapshots_resourceName' - The name of the source instance or disk from which to get automatic
+-- snapshot information.
+newGetAutoSnapshots ::
+  -- | 'resourceName'
+  Prelude.Text ->
   GetAutoSnapshots
-getAutoSnapshots pResourceName_ =
-  GetAutoSnapshots'
-    { _gasResourceName =
-        pResourceName_
-    }
+newGetAutoSnapshots pResourceName_ =
+  GetAutoSnapshots' {resourceName = pResourceName_}
 
--- | The name of the source instance or disk from which to get automatic snapshot information.
-gasResourceName :: Lens' GetAutoSnapshots Text
-gasResourceName = lens _gasResourceName (\s a -> s {_gasResourceName = a})
+-- | The name of the source instance or disk from which to get automatic
+-- snapshot information.
+getAutoSnapshots_resourceName :: Lens.Lens' GetAutoSnapshots Prelude.Text
+getAutoSnapshots_resourceName = Lens.lens (\GetAutoSnapshots' {resourceName} -> resourceName) (\s@GetAutoSnapshots' {} a -> s {resourceName = a} :: GetAutoSnapshots)
 
-instance AWSRequest GetAutoSnapshots where
+instance Prelude.AWSRequest GetAutoSnapshots where
   type Rs GetAutoSnapshots = GetAutoSnapshotsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAutoSnapshotsResponse'
-            <$> (x .?> "resourceType")
-            <*> (x .?> "autoSnapshots" .!@ mempty)
-            <*> (x .?> "resourceName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "resourceType")
+            Prelude.<*> ( x Prelude..?> "autoSnapshots"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "resourceName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAutoSnapshots
+instance Prelude.Hashable GetAutoSnapshots
 
-instance NFData GetAutoSnapshots
+instance Prelude.NFData GetAutoSnapshots
 
-instance ToHeaders GetAutoSnapshots where
+instance Prelude.ToHeaders GetAutoSnapshots where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetAutoSnapshots" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetAutoSnapshots" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAutoSnapshots where
+instance Prelude.ToJSON GetAutoSnapshots where
   toJSON GetAutoSnapshots' {..} =
-    object
-      ( catMaybes
-          [Just ("resourceName" .= _gasResourceName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceName" Prelude..= resourceName)
+          ]
       )
 
-instance ToPath GetAutoSnapshots where
-  toPath = const "/"
+instance Prelude.ToPath GetAutoSnapshots where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAutoSnapshots where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAutoSnapshots where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAutoSnapshotsResponse' smart constructor.
+-- | /See:/ 'newGetAutoSnapshotsResponse' smart constructor.
 data GetAutoSnapshotsResponse = GetAutoSnapshotsResponse'
-  { _gasrrsResourceType ::
-      !(Maybe ResourceType),
-    _gasrrsAutoSnapshots ::
-      !( Maybe
-           [AutoSnapshotDetails]
-       ),
-    _gasrrsResourceName ::
-      !(Maybe Text),
-    _gasrrsResponseStatus ::
-      !Int
+  { -- | The resource type (e.g., @Instance@ or @Disk@).
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | An array of objects that describe the automatic snapshots that are
+    -- available for the specified source instance or disk.
+    autoSnapshots :: Prelude.Maybe [AutoSnapshotDetails],
+    -- | The name of the source instance or disk for the automatic snapshots.
+    resourceName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAutoSnapshotsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAutoSnapshotsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gasrrsResourceType' - The resource type (e.g., @Instance@ or @Disk@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gasrrsAutoSnapshots' - An array of objects that describe the automatic snapshots that are available for the specified source instance or disk.
+-- 'resourceType', 'getAutoSnapshotsResponse_resourceType' - The resource type (e.g., @Instance@ or @Disk@).
 --
--- * 'gasrrsResourceName' - The name of the source instance or disk for the automatic snapshots.
+-- 'autoSnapshots', 'getAutoSnapshotsResponse_autoSnapshots' - An array of objects that describe the automatic snapshots that are
+-- available for the specified source instance or disk.
 --
--- * 'gasrrsResponseStatus' - -- | The response status code.
-getAutoSnapshotsResponse ::
-  -- | 'gasrrsResponseStatus'
-  Int ->
+-- 'resourceName', 'getAutoSnapshotsResponse_resourceName' - The name of the source instance or disk for the automatic snapshots.
+--
+-- 'httpStatus', 'getAutoSnapshotsResponse_httpStatus' - The response's http status code.
+newGetAutoSnapshotsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAutoSnapshotsResponse
-getAutoSnapshotsResponse pResponseStatus_ =
+newGetAutoSnapshotsResponse pHttpStatus_ =
   GetAutoSnapshotsResponse'
-    { _gasrrsResourceType =
-        Nothing,
-      _gasrrsAutoSnapshots = Nothing,
-      _gasrrsResourceName = Nothing,
-      _gasrrsResponseStatus = pResponseStatus_
+    { resourceType =
+        Prelude.Nothing,
+      autoSnapshots = Prelude.Nothing,
+      resourceName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The resource type (e.g., @Instance@ or @Disk@ ).
-gasrrsResourceType :: Lens' GetAutoSnapshotsResponse (Maybe ResourceType)
-gasrrsResourceType = lens _gasrrsResourceType (\s a -> s {_gasrrsResourceType = a})
+-- | The resource type (e.g., @Instance@ or @Disk@).
+getAutoSnapshotsResponse_resourceType :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe ResourceType)
+getAutoSnapshotsResponse_resourceType = Lens.lens (\GetAutoSnapshotsResponse' {resourceType} -> resourceType) (\s@GetAutoSnapshotsResponse' {} a -> s {resourceType = a} :: GetAutoSnapshotsResponse)
 
--- | An array of objects that describe the automatic snapshots that are available for the specified source instance or disk.
-gasrrsAutoSnapshots :: Lens' GetAutoSnapshotsResponse [AutoSnapshotDetails]
-gasrrsAutoSnapshots = lens _gasrrsAutoSnapshots (\s a -> s {_gasrrsAutoSnapshots = a}) . _Default . _Coerce
+-- | An array of objects that describe the automatic snapshots that are
+-- available for the specified source instance or disk.
+getAutoSnapshotsResponse_autoSnapshots :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe [AutoSnapshotDetails])
+getAutoSnapshotsResponse_autoSnapshots = Lens.lens (\GetAutoSnapshotsResponse' {autoSnapshots} -> autoSnapshots) (\s@GetAutoSnapshotsResponse' {} a -> s {autoSnapshots = a} :: GetAutoSnapshotsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the source instance or disk for the automatic snapshots.
-gasrrsResourceName :: Lens' GetAutoSnapshotsResponse (Maybe Text)
-gasrrsResourceName = lens _gasrrsResourceName (\s a -> s {_gasrrsResourceName = a})
+getAutoSnapshotsResponse_resourceName :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe Prelude.Text)
+getAutoSnapshotsResponse_resourceName = Lens.lens (\GetAutoSnapshotsResponse' {resourceName} -> resourceName) (\s@GetAutoSnapshotsResponse' {} a -> s {resourceName = a} :: GetAutoSnapshotsResponse)
 
--- | -- | The response status code.
-gasrrsResponseStatus :: Lens' GetAutoSnapshotsResponse Int
-gasrrsResponseStatus = lens _gasrrsResponseStatus (\s a -> s {_gasrrsResponseStatus = a})
+-- | The response's http status code.
+getAutoSnapshotsResponse_httpStatus :: Lens.Lens' GetAutoSnapshotsResponse Prelude.Int
+getAutoSnapshotsResponse_httpStatus = Lens.lens (\GetAutoSnapshotsResponse' {httpStatus} -> httpStatus) (\s@GetAutoSnapshotsResponse' {} a -> s {httpStatus = a} :: GetAutoSnapshotsResponse)
 
-instance NFData GetAutoSnapshotsResponse
+instance Prelude.NFData GetAutoSnapshotsResponse

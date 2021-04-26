@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an automatic snapshot of an instance or disk. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- Deletes an automatic snapshot of an instance or disk. For more
+-- information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
 module Network.AWS.Lightsail.DeleteAutoSnapshot
   ( -- * Creating a Request
-    deleteAutoSnapshot,
-    DeleteAutoSnapshot,
+    DeleteAutoSnapshot (..),
+    newDeleteAutoSnapshot,
 
     -- * Request Lenses
-    dasResourceName,
-    dasDate,
+    deleteAutoSnapshot_resourceName,
+    deleteAutoSnapshot_date,
 
     -- * Destructuring the Response
-    deleteAutoSnapshotResponse,
-    DeleteAutoSnapshotResponse,
+    DeleteAutoSnapshotResponse (..),
+    newDeleteAutoSnapshotResponse,
 
     -- * Response Lenses
-    dasrrsOperations,
-    dasrrsResponseStatus,
+    deleteAutoSnapshotResponse_operations,
+    deleteAutoSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAutoSnapshot' smart constructor.
+-- | /See:/ 'newDeleteAutoSnapshot' smart constructor.
 data DeleteAutoSnapshot = DeleteAutoSnapshot'
-  { _dasResourceName ::
-      !Text,
-    _dasDate :: !Text
+  { -- | The name of the source instance or disk from which to delete the
+    -- automatic snapshot.
+    resourceName :: Prelude.Text,
+    -- | The date of the automatic snapshot to delete in @YYYY-MM-DD@ format. Use
+    -- the @get auto snapshots@ operation to get the available automatic
+    -- snapshots for a resource.
+    date :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAutoSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAutoSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasResourceName' - The name of the source instance or disk from which to delete the automatic snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasDate' - The date of the automatic snapshot to delete in @YYYY-MM-DD@ format. Use the @get auto snapshots@ operation to get the available automatic snapshots for a resource.
-deleteAutoSnapshot ::
-  -- | 'dasResourceName'
-  Text ->
-  -- | 'dasDate'
-  Text ->
+-- 'resourceName', 'deleteAutoSnapshot_resourceName' - The name of the source instance or disk from which to delete the
+-- automatic snapshot.
+--
+-- 'date', 'deleteAutoSnapshot_date' - The date of the automatic snapshot to delete in @YYYY-MM-DD@ format. Use
+-- the @get auto snapshots@ operation to get the available automatic
+-- snapshots for a resource.
+newDeleteAutoSnapshot ::
+  -- | 'resourceName'
+  Prelude.Text ->
+  -- | 'date'
+  Prelude.Text ->
   DeleteAutoSnapshot
-deleteAutoSnapshot pResourceName_ pDate_ =
+newDeleteAutoSnapshot pResourceName_ pDate_ =
   DeleteAutoSnapshot'
-    { _dasResourceName =
-        pResourceName_,
-      _dasDate = pDate_
+    { resourceName = pResourceName_,
+      date = pDate_
     }
 
--- | The name of the source instance or disk from which to delete the automatic snapshot.
-dasResourceName :: Lens' DeleteAutoSnapshot Text
-dasResourceName = lens _dasResourceName (\s a -> s {_dasResourceName = a})
+-- | The name of the source instance or disk from which to delete the
+-- automatic snapshot.
+deleteAutoSnapshot_resourceName :: Lens.Lens' DeleteAutoSnapshot Prelude.Text
+deleteAutoSnapshot_resourceName = Lens.lens (\DeleteAutoSnapshot' {resourceName} -> resourceName) (\s@DeleteAutoSnapshot' {} a -> s {resourceName = a} :: DeleteAutoSnapshot)
 
--- | The date of the automatic snapshot to delete in @YYYY-MM-DD@ format. Use the @get auto snapshots@ operation to get the available automatic snapshots for a resource.
-dasDate :: Lens' DeleteAutoSnapshot Text
-dasDate = lens _dasDate (\s a -> s {_dasDate = a})
+-- | The date of the automatic snapshot to delete in @YYYY-MM-DD@ format. Use
+-- the @get auto snapshots@ operation to get the available automatic
+-- snapshots for a resource.
+deleteAutoSnapshot_date :: Lens.Lens' DeleteAutoSnapshot Prelude.Text
+deleteAutoSnapshot_date = Lens.lens (\DeleteAutoSnapshot' {date} -> date) (\s@DeleteAutoSnapshot' {} a -> s {date = a} :: DeleteAutoSnapshot)
 
-instance AWSRequest DeleteAutoSnapshot where
+instance Prelude.AWSRequest DeleteAutoSnapshot where
   type
     Rs DeleteAutoSnapshot =
       DeleteAutoSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteAutoSnapshotResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAutoSnapshot
+instance Prelude.Hashable DeleteAutoSnapshot
 
-instance NFData DeleteAutoSnapshot
+instance Prelude.NFData DeleteAutoSnapshot
 
-instance ToHeaders DeleteAutoSnapshot where
+instance Prelude.ToHeaders DeleteAutoSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteAutoSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteAutoSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAutoSnapshot where
+instance Prelude.ToJSON DeleteAutoSnapshot where
   toJSON DeleteAutoSnapshot' {..} =
-    object
-      ( catMaybes
-          [ Just ("resourceName" .= _dasResourceName),
-            Just ("date" .= _dasDate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceName" Prelude..= resourceName),
+            Prelude.Just ("date" Prelude..= date)
           ]
       )
 
-instance ToPath DeleteAutoSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAutoSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAutoSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAutoSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAutoSnapshotResponse' smart constructor.
+-- | /See:/ 'newDeleteAutoSnapshotResponse' smart constructor.
 data DeleteAutoSnapshotResponse = DeleteAutoSnapshotResponse'
-  { _dasrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _dasrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAutoSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAutoSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasrrsResponseStatus' - -- | The response status code.
-deleteAutoSnapshotResponse ::
-  -- | 'dasrrsResponseStatus'
-  Int ->
+-- 'operations', 'deleteAutoSnapshotResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteAutoSnapshotResponse_httpStatus' - The response's http status code.
+newDeleteAutoSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAutoSnapshotResponse
-deleteAutoSnapshotResponse pResponseStatus_ =
+newDeleteAutoSnapshotResponse pHttpStatus_ =
   DeleteAutoSnapshotResponse'
-    { _dasrrsOperations =
-        Nothing,
-      _dasrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-dasrrsOperations :: Lens' DeleteAutoSnapshotResponse [Operation]
-dasrrsOperations = lens _dasrrsOperations (\s a -> s {_dasrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteAutoSnapshotResponse_operations :: Lens.Lens' DeleteAutoSnapshotResponse (Prelude.Maybe [Operation])
+deleteAutoSnapshotResponse_operations = Lens.lens (\DeleteAutoSnapshotResponse' {operations} -> operations) (\s@DeleteAutoSnapshotResponse' {} a -> s {operations = a} :: DeleteAutoSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dasrrsResponseStatus :: Lens' DeleteAutoSnapshotResponse Int
-dasrrsResponseStatus = lens _dasrrsResponseStatus (\s a -> s {_dasrrsResponseStatus = a})
+-- | The response's http status code.
+deleteAutoSnapshotResponse_httpStatus :: Lens.Lens' DeleteAutoSnapshotResponse Prelude.Int
+deleteAutoSnapshotResponse_httpStatus = Lens.lens (\DeleteAutoSnapshotResponse' {httpStatus} -> httpStatus) (\s@DeleteAutoSnapshotResponse' {} a -> s {httpStatus = a} :: DeleteAutoSnapshotResponse)
 
-instance NFData DeleteAutoSnapshotResponse
+instance Prelude.NFData DeleteAutoSnapshotResponse

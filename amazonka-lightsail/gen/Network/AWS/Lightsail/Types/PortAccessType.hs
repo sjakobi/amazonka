@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Lightsail.Types.PortAccessType
   ( PortAccessType
       ( ..,
-        Private,
-        Public
+        PortAccessTypePrivate,
+        PortAccessTypePublic
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PortAccessType = PortAccessType' (CI Text)
+newtype PortAccessType = PortAccessType'
+  { fromPortAccessType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Private :: PortAccessType
-pattern Private = PortAccessType' "Private"
+pattern PortAccessTypePrivate :: PortAccessType
+pattern PortAccessTypePrivate = PortAccessType' "Private"
 
-pattern Public :: PortAccessType
-pattern Public = PortAccessType' "Public"
+pattern PortAccessTypePublic :: PortAccessType
+pattern PortAccessTypePublic = PortAccessType' "Public"
 
 {-# COMPLETE
-  Private,
-  Public,
+  PortAccessTypePrivate,
+  PortAccessTypePublic,
   PortAccessType'
   #-}
 
-instance FromText PortAccessType where
-  parser = (PortAccessType' . mk) <$> takeText
+instance Prelude.FromText PortAccessType where
+  parser = PortAccessType' Prelude.<$> Prelude.takeText
 
-instance ToText PortAccessType where
-  toText (PortAccessType' ci) = original ci
+instance Prelude.ToText PortAccessType where
+  toText (PortAccessType' x) = x
 
-instance Hashable PortAccessType
+instance Prelude.Hashable PortAccessType
 
-instance NFData PortAccessType
+instance Prelude.NFData PortAccessType
 
-instance ToByteString PortAccessType
+instance Prelude.ToByteString PortAccessType
 
-instance ToQuery PortAccessType
+instance Prelude.ToQuery PortAccessType
 
-instance ToHeader PortAccessType
+instance Prelude.ToHeader PortAccessType
 
-instance FromJSON PortAccessType where
-  parseJSON = parseJSONText "PortAccessType"
+instance Prelude.FromJSON PortAccessType where
+  parseJSON = Prelude.parseJSONText "PortAccessType"

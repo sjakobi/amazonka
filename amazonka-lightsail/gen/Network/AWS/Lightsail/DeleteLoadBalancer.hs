@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a Lightsail load balancer and all its associated SSL/TLS certificates. Once the load balancer is deleted, you will need to create a new load balancer, create a new certificate, and verify domain ownership again.
+-- Deletes a Lightsail load balancer and all its associated SSL\/TLS
+-- certificates. Once the load balancer is deleted, you will need to create
+-- a new load balancer, create a new certificate, and verify domain
+-- ownership again.
 --
---
--- The @delete load balancer@ operation supports tag-based access control via resource tags applied to the resource identified by @load balancer name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @delete load balancer@ operation supports tag-based access control
+-- via resource tags applied to the resource identified by
+-- @load balancer name@. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.DeleteLoadBalancer
   ( -- * Creating a Request
-    deleteLoadBalancer,
-    DeleteLoadBalancer,
+    DeleteLoadBalancer (..),
+    newDeleteLoadBalancer,
 
     -- * Request Lenses
-    dlbLoadBalancerName,
+    deleteLoadBalancer_loadBalancerName,
 
     -- * Destructuring the Response
-    deleteLoadBalancerResponse,
-    DeleteLoadBalancerResponse,
+    DeleteLoadBalancerResponse (..),
+    newDeleteLoadBalancerResponse,
 
     -- * Response Lenses
-    dlbrrsOperations,
-    dlbrrsResponseStatus,
+    deleteLoadBalancerResponse_operations,
+    deleteLoadBalancerResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLoadBalancer' smart constructor.
-newtype DeleteLoadBalancer = DeleteLoadBalancer'
-  { _dlbLoadBalancerName ::
-      Text
+-- | /See:/ 'newDeleteLoadBalancer' smart constructor.
+data DeleteLoadBalancer = DeleteLoadBalancer'
+  { -- | The name of the load balancer you want to delete.
+    loadBalancerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLoadBalancer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLoadBalancer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlbLoadBalancerName' - The name of the load balancer you want to delete.
-deleteLoadBalancer ::
-  -- | 'dlbLoadBalancerName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'loadBalancerName', 'deleteLoadBalancer_loadBalancerName' - The name of the load balancer you want to delete.
+newDeleteLoadBalancer ::
+  -- | 'loadBalancerName'
+  Prelude.Text ->
   DeleteLoadBalancer
-deleteLoadBalancer pLoadBalancerName_ =
+newDeleteLoadBalancer pLoadBalancerName_ =
   DeleteLoadBalancer'
-    { _dlbLoadBalancerName =
+    { loadBalancerName =
         pLoadBalancerName_
     }
 
 -- | The name of the load balancer you want to delete.
-dlbLoadBalancerName :: Lens' DeleteLoadBalancer Text
-dlbLoadBalancerName = lens _dlbLoadBalancerName (\s a -> s {_dlbLoadBalancerName = a})
+deleteLoadBalancer_loadBalancerName :: Lens.Lens' DeleteLoadBalancer Prelude.Text
+deleteLoadBalancer_loadBalancerName = Lens.lens (\DeleteLoadBalancer' {loadBalancerName} -> loadBalancerName) (\s@DeleteLoadBalancer' {} a -> s {loadBalancerName = a} :: DeleteLoadBalancer)
 
-instance AWSRequest DeleteLoadBalancer where
+instance Prelude.AWSRequest DeleteLoadBalancer where
   type
     Rs DeleteLoadBalancer =
       DeleteLoadBalancerResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteLoadBalancerResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteLoadBalancer
+instance Prelude.Hashable DeleteLoadBalancer
 
-instance NFData DeleteLoadBalancer
+instance Prelude.NFData DeleteLoadBalancer
 
-instance ToHeaders DeleteLoadBalancer where
+instance Prelude.ToHeaders DeleteLoadBalancer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteLoadBalancer" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteLoadBalancer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLoadBalancer where
+instance Prelude.ToJSON DeleteLoadBalancer where
   toJSON DeleteLoadBalancer' {..} =
-    object
-      ( catMaybes
-          [Just ("loadBalancerName" .= _dlbLoadBalancerName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("loadBalancerName" Prelude..= loadBalancerName)
+          ]
       )
 
-instance ToPath DeleteLoadBalancer where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLoadBalancer where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLoadBalancer where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLoadBalancer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLoadBalancerResponse' smart constructor.
+-- | /See:/ 'newDeleteLoadBalancerResponse' smart constructor.
 data DeleteLoadBalancerResponse = DeleteLoadBalancerResponse'
-  { _dlbrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _dlbrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLoadBalancerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLoadBalancerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlbrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlbrrsResponseStatus' - -- | The response status code.
-deleteLoadBalancerResponse ::
-  -- | 'dlbrrsResponseStatus'
-  Int ->
+-- 'operations', 'deleteLoadBalancerResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteLoadBalancerResponse_httpStatus' - The response's http status code.
+newDeleteLoadBalancerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteLoadBalancerResponse
-deleteLoadBalancerResponse pResponseStatus_ =
+newDeleteLoadBalancerResponse pHttpStatus_ =
   DeleteLoadBalancerResponse'
-    { _dlbrrsOperations =
-        Nothing,
-      _dlbrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-dlbrrsOperations :: Lens' DeleteLoadBalancerResponse [Operation]
-dlbrrsOperations = lens _dlbrrsOperations (\s a -> s {_dlbrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteLoadBalancerResponse_operations :: Lens.Lens' DeleteLoadBalancerResponse (Prelude.Maybe [Operation])
+deleteLoadBalancerResponse_operations = Lens.lens (\DeleteLoadBalancerResponse' {operations} -> operations) (\s@DeleteLoadBalancerResponse' {} a -> s {operations = a} :: DeleteLoadBalancerResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dlbrrsResponseStatus :: Lens' DeleteLoadBalancerResponse Int
-dlbrrsResponseStatus = lens _dlbrrsResponseStatus (\s a -> s {_dlbrrsResponseStatus = a})
+-- | The response's http status code.
+deleteLoadBalancerResponse_httpStatus :: Lens.Lens' DeleteLoadBalancerResponse Prelude.Int
+deleteLoadBalancerResponse_httpStatus = Lens.lens (\DeleteLoadBalancerResponse' {httpStatus} -> httpStatus) (\s@DeleteLoadBalancerResponse' {} a -> s {httpStatus = a} :: DeleteLoadBalancerResponse)
 
-instance NFData DeleteLoadBalancerResponse
+instance Prelude.NFData DeleteLoadBalancerResponse

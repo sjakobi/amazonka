@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.Lightsail.Types.CloudFormationStackRecordSourceType
   ( CloudFormationStackRecordSourceType
       ( ..,
-        CFSRSTExportSnapshotRecord
+        CloudFormationStackRecordSourceTypeExportSnapshotRecord
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CloudFormationStackRecordSourceType
-  = CloudFormationStackRecordSourceType'
-      ( CI
-          Text
-      )
+newtype CloudFormationStackRecordSourceType = CloudFormationStackRecordSourceType'
+  { fromCloudFormationStackRecordSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CFSRSTExportSnapshotRecord :: CloudFormationStackRecordSourceType
-pattern CFSRSTExportSnapshotRecord = CloudFormationStackRecordSourceType' "ExportSnapshotRecord"
+pattern CloudFormationStackRecordSourceTypeExportSnapshotRecord :: CloudFormationStackRecordSourceType
+pattern CloudFormationStackRecordSourceTypeExportSnapshotRecord = CloudFormationStackRecordSourceType' "ExportSnapshotRecord"
 
 {-# COMPLETE
-  CFSRSTExportSnapshotRecord,
+  CloudFormationStackRecordSourceTypeExportSnapshotRecord,
   CloudFormationStackRecordSourceType'
   #-}
 
-instance FromText CloudFormationStackRecordSourceType where
-  parser = (CloudFormationStackRecordSourceType' . mk) <$> takeText
+instance Prelude.FromText CloudFormationStackRecordSourceType where
+  parser = CloudFormationStackRecordSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText CloudFormationStackRecordSourceType where
-  toText (CloudFormationStackRecordSourceType' ci) = original ci
+instance Prelude.ToText CloudFormationStackRecordSourceType where
+  toText (CloudFormationStackRecordSourceType' x) = x
 
-instance Hashable CloudFormationStackRecordSourceType
+instance Prelude.Hashable CloudFormationStackRecordSourceType
 
-instance NFData CloudFormationStackRecordSourceType
+instance Prelude.NFData CloudFormationStackRecordSourceType
 
-instance ToByteString CloudFormationStackRecordSourceType
+instance Prelude.ToByteString CloudFormationStackRecordSourceType
 
-instance ToQuery CloudFormationStackRecordSourceType
+instance Prelude.ToQuery CloudFormationStackRecordSourceType
 
-instance ToHeader CloudFormationStackRecordSourceType
+instance Prelude.ToHeader CloudFormationStackRecordSourceType
 
-instance FromJSON CloudFormationStackRecordSourceType where
-  parseJSON = parseJSONText "CloudFormationStackRecordSourceType"
+instance Prelude.FromJSON CloudFormationStackRecordSourceType where
+  parseJSON = Prelude.parseJSONText "CloudFormationStackRecordSourceType"

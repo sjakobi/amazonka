@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.AddOnRequest where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.AddOnType
 import Network.AWS.Lightsail.Types.AutoSnapshotAddOnRequest
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a request to enable, modify, or disable an add-on for an Amazon Lightsail resource.
+-- | Describes a request to enable, modify, or disable an add-on for an
+-- Amazon Lightsail resource.
 --
+-- An additional cost may be associated with enabling add-ons. For more
+-- information, see the
+-- <https://aws.amazon.com/lightsail/pricing/ Lightsail pricing page>.
 --
---
--- /See:/ 'addOnRequest' smart constructor.
+-- /See:/ 'newAddOnRequest' smart constructor.
 data AddOnRequest = AddOnRequest'
-  { _aorAutoSnapshotAddOnRequest ::
-      !(Maybe AutoSnapshotAddOnRequest),
-    _aorAddOnType :: !AddOnType
+  { -- | An object that represents additional parameters when enabling or
+    -- modifying the automatic snapshot add-on.
+    autoSnapshotAddOnRequest :: Prelude.Maybe AutoSnapshotAddOnRequest,
+    -- | The add-on type.
+    addOnType :: AddOnType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddOnRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddOnRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aorAutoSnapshotAddOnRequest' - An object that represents additional parameters when enabling or modifying the automatic snapshot add-on.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aorAddOnType' - The add-on type.
-addOnRequest ::
-  -- | 'aorAddOnType'
+-- 'autoSnapshotAddOnRequest', 'addOnRequest_autoSnapshotAddOnRequest' - An object that represents additional parameters when enabling or
+-- modifying the automatic snapshot add-on.
+--
+-- 'addOnType', 'addOnRequest_addOnType' - The add-on type.
+newAddOnRequest ::
+  -- | 'addOnType'
   AddOnType ->
   AddOnRequest
-addOnRequest pAddOnType_ =
+newAddOnRequest pAddOnType_ =
   AddOnRequest'
-    { _aorAutoSnapshotAddOnRequest =
-        Nothing,
-      _aorAddOnType = pAddOnType_
+    { autoSnapshotAddOnRequest =
+        Prelude.Nothing,
+      addOnType = pAddOnType_
     }
 
--- | An object that represents additional parameters when enabling or modifying the automatic snapshot add-on.
-aorAutoSnapshotAddOnRequest :: Lens' AddOnRequest (Maybe AutoSnapshotAddOnRequest)
-aorAutoSnapshotAddOnRequest = lens _aorAutoSnapshotAddOnRequest (\s a -> s {_aorAutoSnapshotAddOnRequest = a})
+-- | An object that represents additional parameters when enabling or
+-- modifying the automatic snapshot add-on.
+addOnRequest_autoSnapshotAddOnRequest :: Lens.Lens' AddOnRequest (Prelude.Maybe AutoSnapshotAddOnRequest)
+addOnRequest_autoSnapshotAddOnRequest = Lens.lens (\AddOnRequest' {autoSnapshotAddOnRequest} -> autoSnapshotAddOnRequest) (\s@AddOnRequest' {} a -> s {autoSnapshotAddOnRequest = a} :: AddOnRequest)
 
 -- | The add-on type.
-aorAddOnType :: Lens' AddOnRequest AddOnType
-aorAddOnType = lens _aorAddOnType (\s a -> s {_aorAddOnType = a})
+addOnRequest_addOnType :: Lens.Lens' AddOnRequest AddOnType
+addOnRequest_addOnType = Lens.lens (\AddOnRequest' {addOnType} -> addOnType) (\s@AddOnRequest' {} a -> s {addOnType = a} :: AddOnRequest)
 
-instance Hashable AddOnRequest
+instance Prelude.Hashable AddOnRequest
 
-instance NFData AddOnRequest
+instance Prelude.NFData AddOnRequest
 
-instance ToJSON AddOnRequest where
+instance Prelude.ToJSON AddOnRequest where
   toJSON AddOnRequest' {..} =
-    object
-      ( catMaybes
-          [ ("autoSnapshotAddOnRequest" .=)
-              <$> _aorAutoSnapshotAddOnRequest,
-            Just ("addOnType" .= _aorAddOnType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("autoSnapshotAddOnRequest" Prelude..=)
+              Prelude.<$> autoSnapshotAddOnRequest,
+            Prelude.Just ("addOnType" Prelude..= addOnType)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.DestinationInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the destination of a record.
 --
---
---
--- /See:/ 'destinationInfo' smart constructor.
+-- /See:/ 'newDestinationInfo' smart constructor.
 data DestinationInfo = DestinationInfo'
-  { _diId ::
-      !(Maybe Text),
-    _diService :: !(Maybe Text)
+  { -- | The ID of the resource created at the destination.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The destination service of the record.
+    service :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DestinationInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DestinationInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diId' - The ID of the resource created at the destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diService' - The destination service of the record.
-destinationInfo ::
+-- 'id', 'destinationInfo_id' - The ID of the resource created at the destination.
+--
+-- 'service', 'destinationInfo_service' - The destination service of the record.
+newDestinationInfo ::
   DestinationInfo
-destinationInfo =
+newDestinationInfo =
   DestinationInfo'
-    { _diId = Nothing,
-      _diService = Nothing
+    { id = Prelude.Nothing,
+      service = Prelude.Nothing
     }
 
 -- | The ID of the resource created at the destination.
-diId :: Lens' DestinationInfo (Maybe Text)
-diId = lens _diId (\s a -> s {_diId = a})
+destinationInfo_id :: Lens.Lens' DestinationInfo (Prelude.Maybe Prelude.Text)
+destinationInfo_id = Lens.lens (\DestinationInfo' {id} -> id) (\s@DestinationInfo' {} a -> s {id = a} :: DestinationInfo)
 
 -- | The destination service of the record.
-diService :: Lens' DestinationInfo (Maybe Text)
-diService = lens _diService (\s a -> s {_diService = a})
+destinationInfo_service :: Lens.Lens' DestinationInfo (Prelude.Maybe Prelude.Text)
+destinationInfo_service = Lens.lens (\DestinationInfo' {service} -> service) (\s@DestinationInfo' {} a -> s {service = a} :: DestinationInfo)
 
-instance FromJSON DestinationInfo where
+instance Prelude.FromJSON DestinationInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DestinationInfo"
       ( \x ->
           DestinationInfo'
-            <$> (x .:? "id") <*> (x .:? "service")
+            Prelude.<$> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "service")
       )
 
-instance Hashable DestinationInfo
+instance Prelude.Hashable DestinationInfo
 
-instance NFData DestinationInfo
+instance Prelude.NFData DestinationInfo

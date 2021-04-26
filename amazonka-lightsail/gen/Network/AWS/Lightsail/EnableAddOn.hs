@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables or modifies an add-on for an Amazon Lightsail resource. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- Enables or modifies an add-on for an Amazon Lightsail resource. For more
+-- information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
 module Network.AWS.Lightsail.EnableAddOn
   ( -- * Creating a Request
-    enableAddOn,
-    EnableAddOn,
+    EnableAddOn (..),
+    newEnableAddOn,
 
     -- * Request Lenses
-    eaoResourceName,
-    eaoAddOnRequest,
+    enableAddOn_resourceName,
+    enableAddOn_addOnRequest,
 
     -- * Destructuring the Response
-    enableAddOnResponse,
-    EnableAddOnResponse,
+    EnableAddOnResponse (..),
+    newEnableAddOnResponse,
 
     -- * Response Lenses
-    eaorrsOperations,
-    eaorrsResponseStatus,
+    enableAddOnResponse_operations,
+    enableAddOnResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableAddOn' smart constructor.
+-- | /See:/ 'newEnableAddOn' smart constructor.
 data EnableAddOn = EnableAddOn'
-  { _eaoResourceName ::
-      !Text,
-    _eaoAddOnRequest :: !AddOnRequest
+  { -- | The name of the source resource for which to enable or modify the
+    -- add-on.
+    resourceName :: Prelude.Text,
+    -- | An array of strings representing the add-on to enable or modify.
+    addOnRequest :: AddOnRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAddOn' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableAddOn' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eaoResourceName' - The name of the source resource for which to enable or modify the add-on.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eaoAddOnRequest' - An array of strings representing the add-on to enable or modify.
-enableAddOn ::
-  -- | 'eaoResourceName'
-  Text ->
-  -- | 'eaoAddOnRequest'
+-- 'resourceName', 'enableAddOn_resourceName' - The name of the source resource for which to enable or modify the
+-- add-on.
+--
+-- 'addOnRequest', 'enableAddOn_addOnRequest' - An array of strings representing the add-on to enable or modify.
+newEnableAddOn ::
+  -- | 'resourceName'
+  Prelude.Text ->
+  -- | 'addOnRequest'
   AddOnRequest ->
   EnableAddOn
-enableAddOn pResourceName_ pAddOnRequest_ =
+newEnableAddOn pResourceName_ pAddOnRequest_ =
   EnableAddOn'
-    { _eaoResourceName = pResourceName_,
-      _eaoAddOnRequest = pAddOnRequest_
+    { resourceName = pResourceName_,
+      addOnRequest = pAddOnRequest_
     }
 
--- | The name of the source resource for which to enable or modify the add-on.
-eaoResourceName :: Lens' EnableAddOn Text
-eaoResourceName = lens _eaoResourceName (\s a -> s {_eaoResourceName = a})
+-- | The name of the source resource for which to enable or modify the
+-- add-on.
+enableAddOn_resourceName :: Lens.Lens' EnableAddOn Prelude.Text
+enableAddOn_resourceName = Lens.lens (\EnableAddOn' {resourceName} -> resourceName) (\s@EnableAddOn' {} a -> s {resourceName = a} :: EnableAddOn)
 
 -- | An array of strings representing the add-on to enable or modify.
-eaoAddOnRequest :: Lens' EnableAddOn AddOnRequest
-eaoAddOnRequest = lens _eaoAddOnRequest (\s a -> s {_eaoAddOnRequest = a})
+enableAddOn_addOnRequest :: Lens.Lens' EnableAddOn AddOnRequest
+enableAddOn_addOnRequest = Lens.lens (\EnableAddOn' {addOnRequest} -> addOnRequest) (\s@EnableAddOn' {} a -> s {addOnRequest = a} :: EnableAddOn)
 
-instance AWSRequest EnableAddOn where
+instance Prelude.AWSRequest EnableAddOn where
   type Rs EnableAddOn = EnableAddOnResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           EnableAddOnResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableAddOn
+instance Prelude.Hashable EnableAddOn
 
-instance NFData EnableAddOn
+instance Prelude.NFData EnableAddOn
 
-instance ToHeaders EnableAddOn where
+instance Prelude.ToHeaders EnableAddOn where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.EnableAddOn" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.EnableAddOn" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableAddOn where
+instance Prelude.ToJSON EnableAddOn where
   toJSON EnableAddOn' {..} =
-    object
-      ( catMaybes
-          [ Just ("resourceName" .= _eaoResourceName),
-            Just ("addOnRequest" .= _eaoAddOnRequest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("resourceName" Prelude..= resourceName),
+            Prelude.Just
+              ("addOnRequest" Prelude..= addOnRequest)
           ]
       )
 
-instance ToPath EnableAddOn where
-  toPath = const "/"
+instance Prelude.ToPath EnableAddOn where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableAddOn where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableAddOn where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableAddOnResponse' smart constructor.
+-- | /See:/ 'newEnableAddOnResponse' smart constructor.
 data EnableAddOnResponse = EnableAddOnResponse'
-  { _eaorrsOperations ::
-      !(Maybe [Operation]),
-    _eaorrsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableAddOnResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableAddOnResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eaorrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eaorrsResponseStatus' - -- | The response status code.
-enableAddOnResponse ::
-  -- | 'eaorrsResponseStatus'
-  Int ->
+-- 'operations', 'enableAddOnResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'enableAddOnResponse_httpStatus' - The response's http status code.
+newEnableAddOnResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableAddOnResponse
-enableAddOnResponse pResponseStatus_ =
+newEnableAddOnResponse pHttpStatus_ =
   EnableAddOnResponse'
-    { _eaorrsOperations = Nothing,
-      _eaorrsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-eaorrsOperations :: Lens' EnableAddOnResponse [Operation]
-eaorrsOperations = lens _eaorrsOperations (\s a -> s {_eaorrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+enableAddOnResponse_operations :: Lens.Lens' EnableAddOnResponse (Prelude.Maybe [Operation])
+enableAddOnResponse_operations = Lens.lens (\EnableAddOnResponse' {operations} -> operations) (\s@EnableAddOnResponse' {} a -> s {operations = a} :: EnableAddOnResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-eaorrsResponseStatus :: Lens' EnableAddOnResponse Int
-eaorrsResponseStatus = lens _eaorrsResponseStatus (\s a -> s {_eaorrsResponseStatus = a})
+-- | The response's http status code.
+enableAddOnResponse_httpStatus :: Lens.Lens' EnableAddOnResponse Prelude.Int
+enableAddOnResponse_httpStatus = Lens.lens (\EnableAddOnResponse' {httpStatus} -> httpStatus) (\s@EnableAddOnResponse' {} a -> s {httpStatus = a} :: EnableAddOnResponse)
 
-instance NFData EnableAddOnResponse
+instance Prelude.NFData EnableAddOnResponse

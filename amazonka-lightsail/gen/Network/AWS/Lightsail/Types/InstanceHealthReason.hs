@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,102 +19,100 @@
 module Network.AWS.Lightsail.Types.InstanceHealthReason
   ( InstanceHealthReason
       ( ..,
-        Instance_DeregistrationInProgress,
-        Instance_FailedHealthChecks,
-        Instance_IPUnusable,
-        Instance_InvalidState,
-        Instance_NotInUse,
-        Instance_NotRegistered,
-        Instance_ResponseCodeMismatch,
-        Instance_Timeout,
-        Lb_InitialHealthChecking,
-        Lb_InternalError,
-        Lb_RegistrationInProgress
+        InstanceHealthReasonInstance_DeregistrationInProgress,
+        InstanceHealthReasonInstance_FailedHealthChecks,
+        InstanceHealthReasonInstance_InvalidState,
+        InstanceHealthReasonInstance_IpUnusable,
+        InstanceHealthReasonInstance_NotInUse,
+        InstanceHealthReasonInstance_NotRegistered,
+        InstanceHealthReasonInstance_ResponseCodeMismatch,
+        InstanceHealthReasonInstance_Timeout,
+        InstanceHealthReasonLb_InitialHealthChecking,
+        InstanceHealthReasonLb_InternalError,
+        InstanceHealthReasonLb_RegistrationInProgress
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceHealthReason
-  = InstanceHealthReason'
-      ( CI
-          Text
-      )
+newtype InstanceHealthReason = InstanceHealthReason'
+  { fromInstanceHealthReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Instance_DeregistrationInProgress :: InstanceHealthReason
-pattern Instance_DeregistrationInProgress = InstanceHealthReason' "Instance.DeregistrationInProgress"
+pattern InstanceHealthReasonInstance_DeregistrationInProgress :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_DeregistrationInProgress = InstanceHealthReason' "Instance.DeregistrationInProgress"
 
-pattern Instance_FailedHealthChecks :: InstanceHealthReason
-pattern Instance_FailedHealthChecks = InstanceHealthReason' "Instance.FailedHealthChecks"
+pattern InstanceHealthReasonInstance_FailedHealthChecks :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_FailedHealthChecks = InstanceHealthReason' "Instance.FailedHealthChecks"
 
-pattern Instance_IPUnusable :: InstanceHealthReason
-pattern Instance_IPUnusable = InstanceHealthReason' "Instance.IpUnusable"
+pattern InstanceHealthReasonInstance_InvalidState :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_InvalidState = InstanceHealthReason' "Instance.InvalidState"
 
-pattern Instance_InvalidState :: InstanceHealthReason
-pattern Instance_InvalidState = InstanceHealthReason' "Instance.InvalidState"
+pattern InstanceHealthReasonInstance_IpUnusable :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_IpUnusable = InstanceHealthReason' "Instance.IpUnusable"
 
-pattern Instance_NotInUse :: InstanceHealthReason
-pattern Instance_NotInUse = InstanceHealthReason' "Instance.NotInUse"
+pattern InstanceHealthReasonInstance_NotInUse :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_NotInUse = InstanceHealthReason' "Instance.NotInUse"
 
-pattern Instance_NotRegistered :: InstanceHealthReason
-pattern Instance_NotRegistered = InstanceHealthReason' "Instance.NotRegistered"
+pattern InstanceHealthReasonInstance_NotRegistered :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_NotRegistered = InstanceHealthReason' "Instance.NotRegistered"
 
-pattern Instance_ResponseCodeMismatch :: InstanceHealthReason
-pattern Instance_ResponseCodeMismatch = InstanceHealthReason' "Instance.ResponseCodeMismatch"
+pattern InstanceHealthReasonInstance_ResponseCodeMismatch :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_ResponseCodeMismatch = InstanceHealthReason' "Instance.ResponseCodeMismatch"
 
-pattern Instance_Timeout :: InstanceHealthReason
-pattern Instance_Timeout = InstanceHealthReason' "Instance.Timeout"
+pattern InstanceHealthReasonInstance_Timeout :: InstanceHealthReason
+pattern InstanceHealthReasonInstance_Timeout = InstanceHealthReason' "Instance.Timeout"
 
-pattern Lb_InitialHealthChecking :: InstanceHealthReason
-pattern Lb_InitialHealthChecking = InstanceHealthReason' "Lb.InitialHealthChecking"
+pattern InstanceHealthReasonLb_InitialHealthChecking :: InstanceHealthReason
+pattern InstanceHealthReasonLb_InitialHealthChecking = InstanceHealthReason' "Lb.InitialHealthChecking"
 
-pattern Lb_InternalError :: InstanceHealthReason
-pattern Lb_InternalError = InstanceHealthReason' "Lb.InternalError"
+pattern InstanceHealthReasonLb_InternalError :: InstanceHealthReason
+pattern InstanceHealthReasonLb_InternalError = InstanceHealthReason' "Lb.InternalError"
 
-pattern Lb_RegistrationInProgress :: InstanceHealthReason
-pattern Lb_RegistrationInProgress = InstanceHealthReason' "Lb.RegistrationInProgress"
+pattern InstanceHealthReasonLb_RegistrationInProgress :: InstanceHealthReason
+pattern InstanceHealthReasonLb_RegistrationInProgress = InstanceHealthReason' "Lb.RegistrationInProgress"
 
 {-# COMPLETE
-  Instance_DeregistrationInProgress,
-  Instance_FailedHealthChecks,
-  Instance_IPUnusable,
-  Instance_InvalidState,
-  Instance_NotInUse,
-  Instance_NotRegistered,
-  Instance_ResponseCodeMismatch,
-  Instance_Timeout,
-  Lb_InitialHealthChecking,
-  Lb_InternalError,
-  Lb_RegistrationInProgress,
+  InstanceHealthReasonInstance_DeregistrationInProgress,
+  InstanceHealthReasonInstance_FailedHealthChecks,
+  InstanceHealthReasonInstance_InvalidState,
+  InstanceHealthReasonInstance_IpUnusable,
+  InstanceHealthReasonInstance_NotInUse,
+  InstanceHealthReasonInstance_NotRegistered,
+  InstanceHealthReasonInstance_ResponseCodeMismatch,
+  InstanceHealthReasonInstance_Timeout,
+  InstanceHealthReasonLb_InitialHealthChecking,
+  InstanceHealthReasonLb_InternalError,
+  InstanceHealthReasonLb_RegistrationInProgress,
   InstanceHealthReason'
   #-}
 
-instance FromText InstanceHealthReason where
-  parser = (InstanceHealthReason' . mk) <$> takeText
+instance Prelude.FromText InstanceHealthReason where
+  parser = InstanceHealthReason' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceHealthReason where
-  toText (InstanceHealthReason' ci) = original ci
+instance Prelude.ToText InstanceHealthReason where
+  toText (InstanceHealthReason' x) = x
 
-instance Hashable InstanceHealthReason
+instance Prelude.Hashable InstanceHealthReason
 
-instance NFData InstanceHealthReason
+instance Prelude.NFData InstanceHealthReason
 
-instance ToByteString InstanceHealthReason
+instance Prelude.ToByteString InstanceHealthReason
 
-instance ToQuery InstanceHealthReason
+instance Prelude.ToQuery InstanceHealthReason
 
-instance ToHeader InstanceHealthReason
+instance Prelude.ToHeader InstanceHealthReason
 
-instance FromJSON InstanceHealthReason where
-  parseJSON = parseJSONText "InstanceHealthReason"
+instance Prelude.FromJSON InstanceHealthReason where
+  parseJSON = Prelude.parseJSONText "InstanceHealthReason"

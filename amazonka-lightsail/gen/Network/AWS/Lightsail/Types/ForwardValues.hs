@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Lightsail.Types.ForwardValues
   ( ForwardValues
       ( ..,
-        All,
-        AllowList,
-        None
+        ForwardValuesAll,
+        ForwardValuesAllowList,
+        ForwardValuesNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ForwardValues = ForwardValues' (CI Text)
+newtype ForwardValues = ForwardValues'
+  { fromForwardValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: ForwardValues
-pattern All = ForwardValues' "all"
+pattern ForwardValuesAll :: ForwardValues
+pattern ForwardValuesAll = ForwardValues' "all"
 
-pattern AllowList :: ForwardValues
-pattern AllowList = ForwardValues' "allow-list"
+pattern ForwardValuesAllowList :: ForwardValues
+pattern ForwardValuesAllowList = ForwardValues' "allow-list"
 
-pattern None :: ForwardValues
-pattern None = ForwardValues' "none"
+pattern ForwardValuesNone :: ForwardValues
+pattern ForwardValuesNone = ForwardValues' "none"
 
 {-# COMPLETE
-  All,
-  AllowList,
-  None,
+  ForwardValuesAll,
+  ForwardValuesAllowList,
+  ForwardValuesNone,
   ForwardValues'
   #-}
 
-instance FromText ForwardValues where
-  parser = (ForwardValues' . mk) <$> takeText
+instance Prelude.FromText ForwardValues where
+  parser = ForwardValues' Prelude.<$> Prelude.takeText
 
-instance ToText ForwardValues where
-  toText (ForwardValues' ci) = original ci
+instance Prelude.ToText ForwardValues where
+  toText (ForwardValues' x) = x
 
-instance Hashable ForwardValues
+instance Prelude.Hashable ForwardValues
 
-instance NFData ForwardValues
+instance Prelude.NFData ForwardValues
 
-instance ToByteString ForwardValues
+instance Prelude.ToByteString ForwardValues
 
-instance ToQuery ForwardValues
+instance Prelude.ToQuery ForwardValues
 
-instance ToHeader ForwardValues
+instance Prelude.ToHeader ForwardValues
 
-instance ToJSON ForwardValues where
-  toJSON = toJSONText
+instance Prelude.ToJSON ForwardValues where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ForwardValues where
-  parseJSON = parseJSONText "ForwardValues"
+instance Prelude.FromJSON ForwardValues where
+  parseJSON = Prelude.parseJSONText "ForwardValues"

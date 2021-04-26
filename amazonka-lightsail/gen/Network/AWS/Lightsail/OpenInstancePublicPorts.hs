@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,173 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Opens ports for a specific Amazon Lightsail instance, and specifies the IP addresses allowed to connect to the instance through the ports, and the protocol.
+-- Opens ports for a specific Amazon Lightsail instance, and specifies the
+-- IP addresses allowed to connect to the instance through the ports, and
+-- the protocol.
 --
---
--- The @OpenInstancePublicPorts@ action supports tag-based access control via resource tags applied to the resource identified by @instanceName@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @OpenInstancePublicPorts@ action supports tag-based access control
+-- via resource tags applied to the resource identified by @instanceName@.
+-- For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.OpenInstancePublicPorts
   ( -- * Creating a Request
-    openInstancePublicPorts,
-    OpenInstancePublicPorts,
+    OpenInstancePublicPorts (..),
+    newOpenInstancePublicPorts,
 
     -- * Request Lenses
-    oippPortInfo,
-    oippInstanceName,
+    openInstancePublicPorts_portInfo,
+    openInstancePublicPorts_instanceName,
 
     -- * Destructuring the Response
-    openInstancePublicPortsResponse,
-    OpenInstancePublicPortsResponse,
+    OpenInstancePublicPortsResponse (..),
+    newOpenInstancePublicPortsResponse,
 
     -- * Response Lenses
-    oipprrsOperation,
-    oipprrsResponseStatus,
+    openInstancePublicPortsResponse_operation,
+    openInstancePublicPortsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'openInstancePublicPorts' smart constructor.
+-- | /See:/ 'newOpenInstancePublicPorts' smart constructor.
 data OpenInstancePublicPorts = OpenInstancePublicPorts'
-  { _oippPortInfo ::
-      !PortInfo,
-    _oippInstanceName ::
-      !Text
+  { -- | An object to describe the ports to open for the specified instance.
+    portInfo :: PortInfo,
+    -- | The name of the instance for which to open ports.
+    instanceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpenInstancePublicPorts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpenInstancePublicPorts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oippPortInfo' - An object to describe the ports to open for the specified instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oippInstanceName' - The name of the instance for which to open ports.
-openInstancePublicPorts ::
-  -- | 'oippPortInfo'
+-- 'portInfo', 'openInstancePublicPorts_portInfo' - An object to describe the ports to open for the specified instance.
+--
+-- 'instanceName', 'openInstancePublicPorts_instanceName' - The name of the instance for which to open ports.
+newOpenInstancePublicPorts ::
+  -- | 'portInfo'
   PortInfo ->
-  -- | 'oippInstanceName'
-  Text ->
+  -- | 'instanceName'
+  Prelude.Text ->
   OpenInstancePublicPorts
-openInstancePublicPorts pPortInfo_ pInstanceName_ =
+newOpenInstancePublicPorts pPortInfo_ pInstanceName_ =
   OpenInstancePublicPorts'
-    { _oippPortInfo =
-        pPortInfo_,
-      _oippInstanceName = pInstanceName_
+    { portInfo = pPortInfo_,
+      instanceName = pInstanceName_
     }
 
 -- | An object to describe the ports to open for the specified instance.
-oippPortInfo :: Lens' OpenInstancePublicPorts PortInfo
-oippPortInfo = lens _oippPortInfo (\s a -> s {_oippPortInfo = a})
+openInstancePublicPorts_portInfo :: Lens.Lens' OpenInstancePublicPorts PortInfo
+openInstancePublicPorts_portInfo = Lens.lens (\OpenInstancePublicPorts' {portInfo} -> portInfo) (\s@OpenInstancePublicPorts' {} a -> s {portInfo = a} :: OpenInstancePublicPorts)
 
 -- | The name of the instance for which to open ports.
-oippInstanceName :: Lens' OpenInstancePublicPorts Text
-oippInstanceName = lens _oippInstanceName (\s a -> s {_oippInstanceName = a})
+openInstancePublicPorts_instanceName :: Lens.Lens' OpenInstancePublicPorts Prelude.Text
+openInstancePublicPorts_instanceName = Lens.lens (\OpenInstancePublicPorts' {instanceName} -> instanceName) (\s@OpenInstancePublicPorts' {} a -> s {instanceName = a} :: OpenInstancePublicPorts)
 
-instance AWSRequest OpenInstancePublicPorts where
+instance Prelude.AWSRequest OpenInstancePublicPorts where
   type
     Rs OpenInstancePublicPorts =
       OpenInstancePublicPortsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           OpenInstancePublicPortsResponse'
-            <$> (x .?> "operation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "operation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable OpenInstancePublicPorts
+instance Prelude.Hashable OpenInstancePublicPorts
 
-instance NFData OpenInstancePublicPorts
+instance Prelude.NFData OpenInstancePublicPorts
 
-instance ToHeaders OpenInstancePublicPorts where
+instance Prelude.ToHeaders OpenInstancePublicPorts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.OpenInstancePublicPorts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.OpenInstancePublicPorts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON OpenInstancePublicPorts where
+instance Prelude.ToJSON OpenInstancePublicPorts where
   toJSON OpenInstancePublicPorts' {..} =
-    object
-      ( catMaybes
-          [ Just ("portInfo" .= _oippPortInfo),
-            Just ("instanceName" .= _oippInstanceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("portInfo" Prelude..= portInfo),
+            Prelude.Just
+              ("instanceName" Prelude..= instanceName)
           ]
       )
 
-instance ToPath OpenInstancePublicPorts where
-  toPath = const "/"
+instance Prelude.ToPath OpenInstancePublicPorts where
+  toPath = Prelude.const "/"
 
-instance ToQuery OpenInstancePublicPorts where
-  toQuery = const mempty
+instance Prelude.ToQuery OpenInstancePublicPorts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'openInstancePublicPortsResponse' smart constructor.
+-- | /See:/ 'newOpenInstancePublicPortsResponse' smart constructor.
 data OpenInstancePublicPortsResponse = OpenInstancePublicPortsResponse'
-  { _oipprrsOperation ::
-      !( Maybe
-           Operation
-       ),
-    _oipprrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpenInstancePublicPortsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpenInstancePublicPortsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oipprrsOperation' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oipprrsResponseStatus' - -- | The response status code.
-openInstancePublicPortsResponse ::
-  -- | 'oipprrsResponseStatus'
-  Int ->
+-- 'operation', 'openInstancePublicPortsResponse_operation' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'openInstancePublicPortsResponse_httpStatus' - The response's http status code.
+newOpenInstancePublicPortsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   OpenInstancePublicPortsResponse
-openInstancePublicPortsResponse pResponseStatus_ =
+newOpenInstancePublicPortsResponse pHttpStatus_ =
   OpenInstancePublicPortsResponse'
-    { _oipprrsOperation =
-        Nothing,
-      _oipprrsResponseStatus = pResponseStatus_
+    { operation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-oipprrsOperation :: Lens' OpenInstancePublicPortsResponse (Maybe Operation)
-oipprrsOperation = lens _oipprrsOperation (\s a -> s {_oipprrsOperation = a})
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+openInstancePublicPortsResponse_operation :: Lens.Lens' OpenInstancePublicPortsResponse (Prelude.Maybe Operation)
+openInstancePublicPortsResponse_operation = Lens.lens (\OpenInstancePublicPortsResponse' {operation} -> operation) (\s@OpenInstancePublicPortsResponse' {} a -> s {operation = a} :: OpenInstancePublicPortsResponse)
 
--- | -- | The response status code.
-oipprrsResponseStatus :: Lens' OpenInstancePublicPortsResponse Int
-oipprrsResponseStatus = lens _oipprrsResponseStatus (\s a -> s {_oipprrsResponseStatus = a})
+-- | The response's http status code.
+openInstancePublicPortsResponse_httpStatus :: Lens.Lens' OpenInstancePublicPortsResponse Prelude.Int
+openInstancePublicPortsResponse_httpStatus = Lens.lens (\OpenInstancePublicPortsResponse' {httpStatus} -> httpStatus) (\s@OpenInstancePublicPortsResponse' {} a -> s {httpStatus = a} :: OpenInstancePublicPortsResponse)
 
-instance NFData OpenInstancePublicPortsResponse
+instance
+  Prelude.NFData
+    OpenInstancePublicPortsResponse

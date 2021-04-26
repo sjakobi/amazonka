@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes currently cached content from your Amazon Lightsail content delivery network (CDN) distribution.
+-- Deletes currently cached content from your Amazon Lightsail content
+-- delivery network (CDN) distribution.
 --
---
--- After resetting the cache, the next time a content request is made, your distribution pulls, serves, and caches it from the origin.
+-- After resetting the cache, the next time a content request is made, your
+-- distribution pulls, serves, and caches it from the origin.
 module Network.AWS.Lightsail.ResetDistributionCache
   ( -- * Creating a Request
-    resetDistributionCache,
-    ResetDistributionCache,
+    ResetDistributionCache (..),
+    newResetDistributionCache,
 
     -- * Request Lenses
-    rdcDistributionName,
+    resetDistributionCache_distributionName,
 
     -- * Destructuring the Response
-    resetDistributionCacheResponse,
-    ResetDistributionCacheResponse,
+    ResetDistributionCacheResponse (..),
+    newResetDistributionCacheResponse,
 
     -- * Response Lenses
-    rdcrrsStatus,
-    rdcrrsOperation,
-    rdcrrsCreateTime,
-    rdcrrsResponseStatus,
+    resetDistributionCacheResponse_status,
+    resetDistributionCacheResponse_operation,
+    resetDistributionCacheResponse_createTime,
+    resetDistributionCacheResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resetDistributionCache' smart constructor.
-newtype ResetDistributionCache = ResetDistributionCache'
-  { _rdcDistributionName ::
-      Maybe Text
+-- | /See:/ 'newResetDistributionCache' smart constructor.
+data ResetDistributionCache = ResetDistributionCache'
+  { -- | The name of the distribution for which to reset cache.
+    --
+    -- Use the @GetDistributions@ action to get a list of distribution names
+    -- that you can specify.
+    distributionName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetDistributionCache' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetDistributionCache' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdcDistributionName' - The name of the distribution for which to reset cache. Use the @GetDistributions@ action to get a list of distribution names that you can specify.
-resetDistributionCache ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'distributionName', 'resetDistributionCache_distributionName' - The name of the distribution for which to reset cache.
+--
+-- Use the @GetDistributions@ action to get a list of distribution names
+-- that you can specify.
+newResetDistributionCache ::
   ResetDistributionCache
-resetDistributionCache =
+newResetDistributionCache =
   ResetDistributionCache'
-    { _rdcDistributionName =
-        Nothing
+    { distributionName =
+        Prelude.Nothing
     }
 
--- | The name of the distribution for which to reset cache. Use the @GetDistributions@ action to get a list of distribution names that you can specify.
-rdcDistributionName :: Lens' ResetDistributionCache (Maybe Text)
-rdcDistributionName = lens _rdcDistributionName (\s a -> s {_rdcDistributionName = a})
+-- | The name of the distribution for which to reset cache.
+--
+-- Use the @GetDistributions@ action to get a list of distribution names
+-- that you can specify.
+resetDistributionCache_distributionName :: Lens.Lens' ResetDistributionCache (Prelude.Maybe Prelude.Text)
+resetDistributionCache_distributionName = Lens.lens (\ResetDistributionCache' {distributionName} -> distributionName) (\s@ResetDistributionCache' {} a -> s {distributionName = a} :: ResetDistributionCache)
 
-instance AWSRequest ResetDistributionCache where
+instance Prelude.AWSRequest ResetDistributionCache where
   type
     Rs ResetDistributionCache =
       ResetDistributionCacheResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ResetDistributionCacheResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "operation")
-            <*> (x .?> "createTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "operation")
+            Prelude.<*> (x Prelude..?> "createTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResetDistributionCache
+instance Prelude.Hashable ResetDistributionCache
 
-instance NFData ResetDistributionCache
+instance Prelude.NFData ResetDistributionCache
 
-instance ToHeaders ResetDistributionCache where
+instance Prelude.ToHeaders ResetDistributionCache where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.ResetDistributionCache" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.ResetDistributionCache" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResetDistributionCache where
+instance Prelude.ToJSON ResetDistributionCache where
   toJSON ResetDistributionCache' {..} =
-    object
-      ( catMaybes
-          [("distributionName" .=) <$> _rdcDistributionName]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("distributionName" Prelude..=)
+              Prelude.<$> distributionName
+          ]
       )
 
-instance ToPath ResetDistributionCache where
-  toPath = const "/"
+instance Prelude.ToPath ResetDistributionCache where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResetDistributionCache where
-  toQuery = const mempty
+instance Prelude.ToQuery ResetDistributionCache where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resetDistributionCacheResponse' smart constructor.
+-- | /See:/ 'newResetDistributionCacheResponse' smart constructor.
 data ResetDistributionCacheResponse = ResetDistributionCacheResponse'
-  { _rdcrrsStatus ::
-      !( Maybe
-           Text
-       ),
-    _rdcrrsOperation ::
-      !( Maybe
-           Operation
-       ),
-    _rdcrrsCreateTime ::
-      !( Maybe
-           POSIX
-       ),
-    _rdcrrsResponseStatus ::
-      !Int
+  { -- | The status of the reset cache request.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
+    -- time format.
+    createTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResetDistributionCacheResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResetDistributionCacheResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdcrrsStatus' - The status of the reset cache request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdcrrsOperation' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- 'status', 'resetDistributionCacheResponse_status' - The status of the reset cache request.
 --
--- * 'rdcrrsCreateTime' - The timestamp of the reset cache request (e.g., @1479734909.17@ ) in Unix time format.
+-- 'operation', 'resetDistributionCacheResponse_operation' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
 --
--- * 'rdcrrsResponseStatus' - -- | The response status code.
-resetDistributionCacheResponse ::
-  -- | 'rdcrrsResponseStatus'
-  Int ->
+-- 'createTime', 'resetDistributionCacheResponse_createTime' - The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
+-- time format.
+--
+-- 'httpStatus', 'resetDistributionCacheResponse_httpStatus' - The response's http status code.
+newResetDistributionCacheResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResetDistributionCacheResponse
-resetDistributionCacheResponse pResponseStatus_ =
+newResetDistributionCacheResponse pHttpStatus_ =
   ResetDistributionCacheResponse'
-    { _rdcrrsStatus =
-        Nothing,
-      _rdcrrsOperation = Nothing,
-      _rdcrrsCreateTime = Nothing,
-      _rdcrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      operation = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the reset cache request.
-rdcrrsStatus :: Lens' ResetDistributionCacheResponse (Maybe Text)
-rdcrrsStatus = lens _rdcrrsStatus (\s a -> s {_rdcrrsStatus = a})
+resetDistributionCacheResponse_status :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Prelude.Text)
+resetDistributionCacheResponse_status = Lens.lens (\ResetDistributionCacheResponse' {status} -> status) (\s@ResetDistributionCacheResponse' {} a -> s {status = a} :: ResetDistributionCacheResponse)
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-rdcrrsOperation :: Lens' ResetDistributionCacheResponse (Maybe Operation)
-rdcrrsOperation = lens _rdcrrsOperation (\s a -> s {_rdcrrsOperation = a})
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+resetDistributionCacheResponse_operation :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Operation)
+resetDistributionCacheResponse_operation = Lens.lens (\ResetDistributionCacheResponse' {operation} -> operation) (\s@ResetDistributionCacheResponse' {} a -> s {operation = a} :: ResetDistributionCacheResponse)
 
--- | The timestamp of the reset cache request (e.g., @1479734909.17@ ) in Unix time format.
-rdcrrsCreateTime :: Lens' ResetDistributionCacheResponse (Maybe UTCTime)
-rdcrrsCreateTime = lens _rdcrrsCreateTime (\s a -> s {_rdcrrsCreateTime = a}) . mapping _Time
+-- | The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
+-- time format.
+resetDistributionCacheResponse_createTime :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Prelude.UTCTime)
+resetDistributionCacheResponse_createTime = Lens.lens (\ResetDistributionCacheResponse' {createTime} -> createTime) (\s@ResetDistributionCacheResponse' {} a -> s {createTime = a} :: ResetDistributionCacheResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-rdcrrsResponseStatus :: Lens' ResetDistributionCacheResponse Int
-rdcrrsResponseStatus = lens _rdcrrsResponseStatus (\s a -> s {_rdcrrsResponseStatus = a})
+-- | The response's http status code.
+resetDistributionCacheResponse_httpStatus :: Lens.Lens' ResetDistributionCacheResponse Prelude.Int
+resetDistributionCacheResponse_httpStatus = Lens.lens (\ResetDistributionCacheResponse' {httpStatus} -> httpStatus) (\s@ResetDistributionCacheResponse' {} a -> s {httpStatus = a} :: ResetDistributionCacheResponse)
 
-instance NFData ResetDistributionCacheResponse
+instance
+  Prelude.NFData
+    ResetDistributionCacheResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts a specific database from a stopped state in Amazon Lightsail. To restart a database, use the @reboot relational database@ operation.
+-- Starts a specific database from a stopped state in Amazon Lightsail. To
+-- restart a database, use the @reboot relational database@ operation.
 --
---
--- The @start relational database@ operation supports tag-based access control via resource tags applied to the resource identified by relationalDatabaseName. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @start relational database@ operation supports tag-based access
+-- control via resource tags applied to the resource identified by
+-- relationalDatabaseName. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.StartRelationalDatabase
   ( -- * Creating a Request
-    startRelationalDatabase,
-    StartRelationalDatabase,
+    StartRelationalDatabase (..),
+    newStartRelationalDatabase,
 
     -- * Request Lenses
-    srdRelationalDatabaseName,
+    startRelationalDatabase_relationalDatabaseName,
 
     -- * Destructuring the Response
-    startRelationalDatabaseResponse,
-    StartRelationalDatabaseResponse,
+    StartRelationalDatabaseResponse (..),
+    newStartRelationalDatabaseResponse,
 
     -- * Response Lenses
-    srdrrsOperations,
-    srdrrsResponseStatus,
+    startRelationalDatabaseResponse_operations,
+    startRelationalDatabaseResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startRelationalDatabase' smart constructor.
-newtype StartRelationalDatabase = StartRelationalDatabase'
-  { _srdRelationalDatabaseName ::
-      Text
+-- | /See:/ 'newStartRelationalDatabase' smart constructor.
+data StartRelationalDatabase = StartRelationalDatabase'
+  { -- | The name of your database to start.
+    relationalDatabaseName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartRelationalDatabase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartRelationalDatabase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srdRelationalDatabaseName' - The name of your database to start.
-startRelationalDatabase ::
-  -- | 'srdRelationalDatabaseName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'relationalDatabaseName', 'startRelationalDatabase_relationalDatabaseName' - The name of your database to start.
+newStartRelationalDatabase ::
+  -- | 'relationalDatabaseName'
+  Prelude.Text ->
   StartRelationalDatabase
-startRelationalDatabase pRelationalDatabaseName_ =
+newStartRelationalDatabase pRelationalDatabaseName_ =
   StartRelationalDatabase'
-    { _srdRelationalDatabaseName =
+    { relationalDatabaseName =
         pRelationalDatabaseName_
     }
 
 -- | The name of your database to start.
-srdRelationalDatabaseName :: Lens' StartRelationalDatabase Text
-srdRelationalDatabaseName = lens _srdRelationalDatabaseName (\s a -> s {_srdRelationalDatabaseName = a})
+startRelationalDatabase_relationalDatabaseName :: Lens.Lens' StartRelationalDatabase Prelude.Text
+startRelationalDatabase_relationalDatabaseName = Lens.lens (\StartRelationalDatabase' {relationalDatabaseName} -> relationalDatabaseName) (\s@StartRelationalDatabase' {} a -> s {relationalDatabaseName = a} :: StartRelationalDatabase)
 
-instance AWSRequest StartRelationalDatabase where
+instance Prelude.AWSRequest StartRelationalDatabase where
   type
     Rs StartRelationalDatabase =
       StartRelationalDatabaseResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartRelationalDatabaseResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartRelationalDatabase
+instance Prelude.Hashable StartRelationalDatabase
 
-instance NFData StartRelationalDatabase
+instance Prelude.NFData StartRelationalDatabase
 
-instance ToHeaders StartRelationalDatabase where
+instance Prelude.ToHeaders StartRelationalDatabase where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.StartRelationalDatabase" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.StartRelationalDatabase" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartRelationalDatabase where
+instance Prelude.ToJSON StartRelationalDatabase where
   toJSON StartRelationalDatabase' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "relationalDatabaseName"
-                  .= _srdRelationalDatabaseName
+                  Prelude..= relationalDatabaseName
               )
           ]
       )
 
-instance ToPath StartRelationalDatabase where
-  toPath = const "/"
+instance Prelude.ToPath StartRelationalDatabase where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartRelationalDatabase where
-  toQuery = const mempty
+instance Prelude.ToQuery StartRelationalDatabase where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startRelationalDatabaseResponse' smart constructor.
+-- | /See:/ 'newStartRelationalDatabaseResponse' smart constructor.
 data StartRelationalDatabaseResponse = StartRelationalDatabaseResponse'
-  { _srdrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _srdrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartRelationalDatabaseResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartRelationalDatabaseResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srdrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srdrrsResponseStatus' - -- | The response status code.
-startRelationalDatabaseResponse ::
-  -- | 'srdrrsResponseStatus'
-  Int ->
+-- 'operations', 'startRelationalDatabaseResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'startRelationalDatabaseResponse_httpStatus' - The response's http status code.
+newStartRelationalDatabaseResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartRelationalDatabaseResponse
-startRelationalDatabaseResponse pResponseStatus_ =
+newStartRelationalDatabaseResponse pHttpStatus_ =
   StartRelationalDatabaseResponse'
-    { _srdrrsOperations =
-        Nothing,
-      _srdrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-srdrrsOperations :: Lens' StartRelationalDatabaseResponse [Operation]
-srdrrsOperations = lens _srdrrsOperations (\s a -> s {_srdrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+startRelationalDatabaseResponse_operations :: Lens.Lens' StartRelationalDatabaseResponse (Prelude.Maybe [Operation])
+startRelationalDatabaseResponse_operations = Lens.lens (\StartRelationalDatabaseResponse' {operations} -> operations) (\s@StartRelationalDatabaseResponse' {} a -> s {operations = a} :: StartRelationalDatabaseResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-srdrrsResponseStatus :: Lens' StartRelationalDatabaseResponse Int
-srdrrsResponseStatus = lens _srdrrsResponseStatus (\s a -> s {_srdrrsResponseStatus = a})
+-- | The response's http status code.
+startRelationalDatabaseResponse_httpStatus :: Lens.Lens' StartRelationalDatabaseResponse Prelude.Int
+startRelationalDatabaseResponse_httpStatus = Lens.lens (\StartRelationalDatabaseResponse' {httpStatus} -> httpStatus) (\s@StartRelationalDatabaseResponse' {} a -> s {httpStatus = a} :: StartRelationalDatabaseResponse)
 
-instance NFData StartRelationalDatabaseResponse
+instance
+  Prelude.NFData
+    StartRelationalDatabaseResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Lightsail.Types.AccessDirection
   ( AccessDirection
       ( ..,
-        Inbound,
-        Outbound
+        AccessDirectionInbound,
+        AccessDirectionOutbound
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccessDirection = AccessDirection' (CI Text)
+newtype AccessDirection = AccessDirection'
+  { fromAccessDirection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Inbound :: AccessDirection
-pattern Inbound = AccessDirection' "inbound"
+pattern AccessDirectionInbound :: AccessDirection
+pattern AccessDirectionInbound = AccessDirection' "inbound"
 
-pattern Outbound :: AccessDirection
-pattern Outbound = AccessDirection' "outbound"
+pattern AccessDirectionOutbound :: AccessDirection
+pattern AccessDirectionOutbound = AccessDirection' "outbound"
 
 {-# COMPLETE
-  Inbound,
-  Outbound,
+  AccessDirectionInbound,
+  AccessDirectionOutbound,
   AccessDirection'
   #-}
 
-instance FromText AccessDirection where
-  parser = (AccessDirection' . mk) <$> takeText
+instance Prelude.FromText AccessDirection where
+  parser = AccessDirection' Prelude.<$> Prelude.takeText
 
-instance ToText AccessDirection where
-  toText (AccessDirection' ci) = original ci
+instance Prelude.ToText AccessDirection where
+  toText (AccessDirection' x) = x
 
-instance Hashable AccessDirection
+instance Prelude.Hashable AccessDirection
 
-instance NFData AccessDirection
+instance Prelude.NFData AccessDirection
 
-instance ToByteString AccessDirection
+instance Prelude.ToByteString AccessDirection
 
-instance ToQuery AccessDirection
+instance Prelude.ToQuery AccessDirection
 
-instance ToHeader AccessDirection
+instance Prelude.ToHeader AccessDirection
 
-instance FromJSON AccessDirection where
-  parseJSON = parseJSONText "AccessDirection"
+instance Prelude.FromJSON AccessDirection where
+  parseJSON = Prelude.parseJSONText "AccessDirection"

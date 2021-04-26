@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,153 +23,169 @@
 --
 -- Updates a domain recordset after it is created.
 --
---
--- The @update domain entry@ operation supports tag-based access control via resource tags applied to the resource identified by @domain name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @update domain entry@ operation supports tag-based access control
+-- via resource tags applied to the resource identified by @domain name@.
+-- For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.UpdateDomainEntry
   ( -- * Creating a Request
-    updateDomainEntry,
-    UpdateDomainEntry,
+    UpdateDomainEntry (..),
+    newUpdateDomainEntry,
 
     -- * Request Lenses
-    udeDomainName,
-    udeDomainEntry,
+    updateDomainEntry_domainName,
+    updateDomainEntry_domainEntry,
 
     -- * Destructuring the Response
-    updateDomainEntryResponse,
-    UpdateDomainEntryResponse,
+    UpdateDomainEntryResponse (..),
+    newUpdateDomainEntryResponse,
 
     -- * Response Lenses
-    uderrsOperations,
-    uderrsResponseStatus,
+    updateDomainEntryResponse_operations,
+    updateDomainEntryResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDomainEntry' smart constructor.
+-- | /See:/ 'newUpdateDomainEntry' smart constructor.
 data UpdateDomainEntry = UpdateDomainEntry'
-  { _udeDomainName ::
-      !Text,
-    _udeDomainEntry :: !DomainEntry
+  { -- | The name of the domain recordset to update.
+    domainName :: Prelude.Text,
+    -- | An array of key-value pairs containing information about the domain
+    -- entry.
+    domainEntry :: DomainEntry
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udeDomainName' - The name of the domain recordset to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udeDomainEntry' - An array of key-value pairs containing information about the domain entry.
-updateDomainEntry ::
-  -- | 'udeDomainName'
-  Text ->
-  -- | 'udeDomainEntry'
+-- 'domainName', 'updateDomainEntry_domainName' - The name of the domain recordset to update.
+--
+-- 'domainEntry', 'updateDomainEntry_domainEntry' - An array of key-value pairs containing information about the domain
+-- entry.
+newUpdateDomainEntry ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'domainEntry'
   DomainEntry ->
   UpdateDomainEntry
-updateDomainEntry pDomainName_ pDomainEntry_ =
+newUpdateDomainEntry pDomainName_ pDomainEntry_ =
   UpdateDomainEntry'
-    { _udeDomainName = pDomainName_,
-      _udeDomainEntry = pDomainEntry_
+    { domainName = pDomainName_,
+      domainEntry = pDomainEntry_
     }
 
 -- | The name of the domain recordset to update.
-udeDomainName :: Lens' UpdateDomainEntry Text
-udeDomainName = lens _udeDomainName (\s a -> s {_udeDomainName = a})
+updateDomainEntry_domainName :: Lens.Lens' UpdateDomainEntry Prelude.Text
+updateDomainEntry_domainName = Lens.lens (\UpdateDomainEntry' {domainName} -> domainName) (\s@UpdateDomainEntry' {} a -> s {domainName = a} :: UpdateDomainEntry)
 
--- | An array of key-value pairs containing information about the domain entry.
-udeDomainEntry :: Lens' UpdateDomainEntry DomainEntry
-udeDomainEntry = lens _udeDomainEntry (\s a -> s {_udeDomainEntry = a})
+-- | An array of key-value pairs containing information about the domain
+-- entry.
+updateDomainEntry_domainEntry :: Lens.Lens' UpdateDomainEntry DomainEntry
+updateDomainEntry_domainEntry = Lens.lens (\UpdateDomainEntry' {domainEntry} -> domainEntry) (\s@UpdateDomainEntry' {} a -> s {domainEntry = a} :: UpdateDomainEntry)
 
-instance AWSRequest UpdateDomainEntry where
+instance Prelude.AWSRequest UpdateDomainEntry where
   type Rs UpdateDomainEntry = UpdateDomainEntryResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateDomainEntryResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDomainEntry
+instance Prelude.Hashable UpdateDomainEntry
 
-instance NFData UpdateDomainEntry
+instance Prelude.NFData UpdateDomainEntry
 
-instance ToHeaders UpdateDomainEntry where
+instance Prelude.ToHeaders UpdateDomainEntry where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.UpdateDomainEntry" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.UpdateDomainEntry" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDomainEntry where
+instance Prelude.ToJSON UpdateDomainEntry where
   toJSON UpdateDomainEntry' {..} =
-    object
-      ( catMaybes
-          [ Just ("domainName" .= _udeDomainName),
-            Just ("domainEntry" .= _udeDomainEntry)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("domainName" Prelude..= domainName),
+            Prelude.Just ("domainEntry" Prelude..= domainEntry)
           ]
       )
 
-instance ToPath UpdateDomainEntry where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDomainEntry where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDomainEntry where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDomainEntry where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDomainEntryResponse' smart constructor.
+-- | /See:/ 'newUpdateDomainEntryResponse' smart constructor.
 data UpdateDomainEntryResponse = UpdateDomainEntryResponse'
-  { _uderrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _uderrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainEntryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainEntryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uderrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uderrsResponseStatus' - -- | The response status code.
-updateDomainEntryResponse ::
-  -- | 'uderrsResponseStatus'
-  Int ->
+-- 'operations', 'updateDomainEntryResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'updateDomainEntryResponse_httpStatus' - The response's http status code.
+newUpdateDomainEntryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDomainEntryResponse
-updateDomainEntryResponse pResponseStatus_ =
+newUpdateDomainEntryResponse pHttpStatus_ =
   UpdateDomainEntryResponse'
-    { _uderrsOperations =
-        Nothing,
-      _uderrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-uderrsOperations :: Lens' UpdateDomainEntryResponse [Operation]
-uderrsOperations = lens _uderrsOperations (\s a -> s {_uderrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+updateDomainEntryResponse_operations :: Lens.Lens' UpdateDomainEntryResponse (Prelude.Maybe [Operation])
+updateDomainEntryResponse_operations = Lens.lens (\UpdateDomainEntryResponse' {operations} -> operations) (\s@UpdateDomainEntryResponse' {} a -> s {operations = a} :: UpdateDomainEntryResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-uderrsResponseStatus :: Lens' UpdateDomainEntryResponse Int
-uderrsResponseStatus = lens _uderrsResponseStatus (\s a -> s {_uderrsResponseStatus = a})
+-- | The response's http status code.
+updateDomainEntryResponse_httpStatus :: Lens.Lens' UpdateDomainEntryResponse Prelude.Int
+updateDomainEntryResponse_httpStatus = Lens.lens (\UpdateDomainEntryResponse' {httpStatus} -> httpStatus) (\s@UpdateDomainEntryResponse' {} a -> s {httpStatus = a} :: UpdateDomainEntryResponse)
 
-instance NFData UpdateDomainEntryResponse
+instance Prelude.NFData UpdateDomainEntryResponse

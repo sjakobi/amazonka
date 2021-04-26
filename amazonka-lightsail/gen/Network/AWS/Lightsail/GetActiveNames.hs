@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,150 +23,202 @@
 --
 -- Returns the names of all active (not deleted) resources.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetActiveNames
   ( -- * Creating a Request
-    getActiveNames,
-    GetActiveNames,
+    GetActiveNames (..),
+    newGetActiveNames,
 
     -- * Request Lenses
-    ganPageToken,
+    getActiveNames_pageToken,
 
     -- * Destructuring the Response
-    getActiveNamesResponse,
-    GetActiveNamesResponse,
+    GetActiveNamesResponse (..),
+    newGetActiveNamesResponse,
 
     -- * Response Lenses
-    ganrrsNextPageToken,
-    ganrrsActiveNames,
-    ganrrsResponseStatus,
+    getActiveNamesResponse_nextPageToken,
+    getActiveNamesResponse_activeNames,
+    getActiveNamesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getActiveNames' smart constructor.
-newtype GetActiveNames = GetActiveNames'
-  { _ganPageToken ::
-      Maybe Text
+-- | /See:/ 'newGetActiveNames' smart constructor.
+data GetActiveNames = GetActiveNames'
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetActiveNames@ request. If
+    -- your results are paginated, the response will return a next page token
+    -- that you can specify as the page token in a subsequent request.
+    pageToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetActiveNames' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetActiveNames' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ganPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetActiveNames@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-getActiveNames ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pageToken', 'getActiveNames_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetActiveNames@ request. If
+-- your results are paginated, the response will return a next page token
+-- that you can specify as the page token in a subsequent request.
+newGetActiveNames ::
   GetActiveNames
-getActiveNames =
-  GetActiveNames' {_ganPageToken = Nothing}
+newGetActiveNames =
+  GetActiveNames' {pageToken = Prelude.Nothing}
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetActiveNames@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-ganPageToken :: Lens' GetActiveNames (Maybe Text)
-ganPageToken = lens _ganPageToken (\s a -> s {_ganPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetActiveNames@ request. If
+-- your results are paginated, the response will return a next page token
+-- that you can specify as the page token in a subsequent request.
+getActiveNames_pageToken :: Lens.Lens' GetActiveNames (Prelude.Maybe Prelude.Text)
+getActiveNames_pageToken = Lens.lens (\GetActiveNames' {pageToken} -> pageToken) (\s@GetActiveNames' {} a -> s {pageToken = a} :: GetActiveNames)
 
-instance AWSPager GetActiveNames where
+instance Pager.AWSPager GetActiveNames where
   page rq rs
-    | stop (rs ^. ganrrsNextPageToken) = Nothing
-    | stop (rs ^. ganrrsActiveNames) = Nothing
-    | otherwise =
-      Just $ rq & ganPageToken .~ rs ^. ganrrsNextPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? getActiveNamesResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getActiveNamesResponse_activeNames
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getActiveNames_pageToken
+          Lens..~ rs
+          Lens.^? getActiveNamesResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetActiveNames where
+instance Prelude.AWSRequest GetActiveNames where
   type Rs GetActiveNames = GetActiveNamesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetActiveNamesResponse'
-            <$> (x .?> "nextPageToken")
-            <*> (x .?> "activeNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextPageToken")
+            Prelude.<*> ( x Prelude..?> "activeNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetActiveNames
+instance Prelude.Hashable GetActiveNames
 
-instance NFData GetActiveNames
+instance Prelude.NFData GetActiveNames
 
-instance ToHeaders GetActiveNames where
+instance Prelude.ToHeaders GetActiveNames where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetActiveNames" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetActiveNames" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetActiveNames where
+instance Prelude.ToJSON GetActiveNames where
   toJSON GetActiveNames' {..} =
-    object
-      (catMaybes [("pageToken" .=) <$> _ganPageToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pageToken" Prelude..=) Prelude.<$> pageToken]
+      )
 
-instance ToPath GetActiveNames where
-  toPath = const "/"
+instance Prelude.ToPath GetActiveNames where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetActiveNames where
-  toQuery = const mempty
+instance Prelude.ToQuery GetActiveNames where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getActiveNamesResponse' smart constructor.
+-- | /See:/ 'newGetActiveNamesResponse' smart constructor.
 data GetActiveNamesResponse = GetActiveNamesResponse'
-  { _ganrrsNextPageToken ::
-      !(Maybe Text),
-    _ganrrsActiveNames ::
-      !(Maybe [Text]),
-    _ganrrsResponseStatus ::
-      !Int
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another @GetActiveNames@
+    -- request and specify the next page token using the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of active names returned by the get active names request.
+    activeNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetActiveNamesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetActiveNamesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ganrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetActiveNames@ request and specify the next page token using the @pageToken@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ganrrsActiveNames' - The list of active names returned by the get active names request.
+-- 'nextPageToken', 'getActiveNamesResponse_nextPageToken' - The token to advance to the next page of results from your request.
 --
--- * 'ganrrsResponseStatus' - -- | The response status code.
-getActiveNamesResponse ::
-  -- | 'ganrrsResponseStatus'
-  Int ->
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetActiveNames@
+-- request and specify the next page token using the @pageToken@ parameter.
+--
+-- 'activeNames', 'getActiveNamesResponse_activeNames' - The list of active names returned by the get active names request.
+--
+-- 'httpStatus', 'getActiveNamesResponse_httpStatus' - The response's http status code.
+newGetActiveNamesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetActiveNamesResponse
-getActiveNamesResponse pResponseStatus_ =
+newGetActiveNamesResponse pHttpStatus_ =
   GetActiveNamesResponse'
-    { _ganrrsNextPageToken =
-        Nothing,
-      _ganrrsActiveNames = Nothing,
-      _ganrrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      activeNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetActiveNames@ request and specify the next page token using the @pageToken@ parameter.
-ganrrsNextPageToken :: Lens' GetActiveNamesResponse (Maybe Text)
-ganrrsNextPageToken = lens _ganrrsNextPageToken (\s a -> s {_ganrrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetActiveNames@
+-- request and specify the next page token using the @pageToken@ parameter.
+getActiveNamesResponse_nextPageToken :: Lens.Lens' GetActiveNamesResponse (Prelude.Maybe Prelude.Text)
+getActiveNamesResponse_nextPageToken = Lens.lens (\GetActiveNamesResponse' {nextPageToken} -> nextPageToken) (\s@GetActiveNamesResponse' {} a -> s {nextPageToken = a} :: GetActiveNamesResponse)
 
 -- | The list of active names returned by the get active names request.
-ganrrsActiveNames :: Lens' GetActiveNamesResponse [Text]
-ganrrsActiveNames = lens _ganrrsActiveNames (\s a -> s {_ganrrsActiveNames = a}) . _Default . _Coerce
+getActiveNamesResponse_activeNames :: Lens.Lens' GetActiveNamesResponse (Prelude.Maybe [Prelude.Text])
+getActiveNamesResponse_activeNames = Lens.lens (\GetActiveNamesResponse' {activeNames} -> activeNames) (\s@GetActiveNamesResponse' {} a -> s {activeNames = a} :: GetActiveNamesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ganrrsResponseStatus :: Lens' GetActiveNamesResponse Int
-ganrrsResponseStatus = lens _ganrrsResponseStatus (\s a -> s {_ganrrsResponseStatus = a})
+-- | The response's http status code.
+getActiveNamesResponse_httpStatus :: Lens.Lens' GetActiveNamesResponse Prelude.Int
+getActiveNamesResponse_httpStatus = Lens.lens (\GetActiveNamesResponse' {httpStatus} -> httpStatus) (\s@GetActiveNamesResponse' {} a -> s {httpStatus = a} :: GetActiveNamesResponse)
 
-instance NFData GetActiveNamesResponse
+instance Prelude.NFData GetActiveNamesResponse

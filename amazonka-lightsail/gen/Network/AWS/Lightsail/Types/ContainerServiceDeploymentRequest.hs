@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ContainerServiceDeploymentRequest where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.Container
 import Network.AWS.Lightsail.Types.EndpointRequest
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a container deployment configuration of an Amazon Lightsail container service.
+-- | Describes a container deployment configuration of an Amazon Lightsail
+-- container service.
 --
+-- A deployment specifies the settings, such as the ports and launch
+-- command, of containers that are deployed to your container service.
 --
--- A deployment specifies the settings, such as the ports and launch command, of containers that are deployed to your container service.
---
---
--- /See:/ 'containerServiceDeploymentRequest' smart constructor.
+-- /See:/ 'newContainerServiceDeploymentRequest' smart constructor.
 data ContainerServiceDeploymentRequest = ContainerServiceDeploymentRequest'
-  { _csdrPublicEndpoint ::
-      !( Maybe
-           EndpointRequest
-       ),
-    _csdrContainers ::
-      !( Maybe
-           ( Map
-               Text
-               Container
-           )
-       )
+  { -- | An object that describes the endpoint of the deployment.
+    publicEndpoint :: Prelude.Maybe EndpointRequest,
+    -- | An object that describes the configuration for the containers of the
+    -- deployment.
+    containers :: Prelude.Maybe (Prelude.Map Prelude.Text Container)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerServiceDeploymentRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerServiceDeploymentRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdrPublicEndpoint' - An object that describes the endpoint of the deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdrContainers' - An object that describes the configuration for the containers of the deployment.
-containerServiceDeploymentRequest ::
+-- 'publicEndpoint', 'containerServiceDeploymentRequest_publicEndpoint' - An object that describes the endpoint of the deployment.
+--
+-- 'containers', 'containerServiceDeploymentRequest_containers' - An object that describes the configuration for the containers of the
+-- deployment.
+newContainerServiceDeploymentRequest ::
   ContainerServiceDeploymentRequest
-containerServiceDeploymentRequest =
+newContainerServiceDeploymentRequest =
   ContainerServiceDeploymentRequest'
-    { _csdrPublicEndpoint =
-        Nothing,
-      _csdrContainers = Nothing
+    { publicEndpoint =
+        Prelude.Nothing,
+      containers = Prelude.Nothing
     }
 
 -- | An object that describes the endpoint of the deployment.
-csdrPublicEndpoint :: Lens' ContainerServiceDeploymentRequest (Maybe EndpointRequest)
-csdrPublicEndpoint = lens _csdrPublicEndpoint (\s a -> s {_csdrPublicEndpoint = a})
+containerServiceDeploymentRequest_publicEndpoint :: Lens.Lens' ContainerServiceDeploymentRequest (Prelude.Maybe EndpointRequest)
+containerServiceDeploymentRequest_publicEndpoint = Lens.lens (\ContainerServiceDeploymentRequest' {publicEndpoint} -> publicEndpoint) (\s@ContainerServiceDeploymentRequest' {} a -> s {publicEndpoint = a} :: ContainerServiceDeploymentRequest)
 
--- | An object that describes the configuration for the containers of the deployment.
-csdrContainers :: Lens' ContainerServiceDeploymentRequest (HashMap Text Container)
-csdrContainers = lens _csdrContainers (\s a -> s {_csdrContainers = a}) . _Default . _Map
+-- | An object that describes the configuration for the containers of the
+-- deployment.
+containerServiceDeploymentRequest_containers :: Lens.Lens' ContainerServiceDeploymentRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Container))
+containerServiceDeploymentRequest_containers = Lens.lens (\ContainerServiceDeploymentRequest' {containers} -> containers) (\s@ContainerServiceDeploymentRequest' {} a -> s {containers = a} :: ContainerServiceDeploymentRequest) Prelude.. Lens.mapping Prelude._Map
 
-instance Hashable ContainerServiceDeploymentRequest
+instance
+  Prelude.Hashable
+    ContainerServiceDeploymentRequest
 
-instance NFData ContainerServiceDeploymentRequest
+instance
+  Prelude.NFData
+    ContainerServiceDeploymentRequest
 
-instance ToJSON ContainerServiceDeploymentRequest where
+instance
+  Prelude.ToJSON
+    ContainerServiceDeploymentRequest
+  where
   toJSON ContainerServiceDeploymentRequest' {..} =
-    object
-      ( catMaybes
-          [ ("publicEndpoint" .=) <$> _csdrPublicEndpoint,
-            ("containers" .=) <$> _csdrContainers
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("publicEndpoint" Prelude..=)
+              Prelude.<$> publicEndpoint,
+            ("containers" Prelude..=) Prelude.<$> containers
           ]
       )

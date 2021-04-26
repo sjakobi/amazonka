@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,178 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Opens ports for a specific Amazon Lightsail instance, and specifies the IP addresses allowed to connect to the instance through the ports, and the protocol. This action also closes all currently open ports that are not included in the request. Include all of the ports and the protocols you want to open in your @PutInstancePublicPorts@ request. Or use the @OpenInstancePublicPorts@ action to open ports without closing currently open ports.
+-- Opens ports for a specific Amazon Lightsail instance, and specifies the
+-- IP addresses allowed to connect to the instance through the ports, and
+-- the protocol. This action also closes all currently open ports that are
+-- not included in the request. Include all of the ports and the protocols
+-- you want to open in your @PutInstancePublicPorts@request. Or use the
+-- @OpenInstancePublicPorts@ action to open ports without closing currently
+-- open ports.
 --
---
--- The @PutInstancePublicPorts@ action supports tag-based access control via resource tags applied to the resource identified by @instanceName@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @PutInstancePublicPorts@ action supports tag-based access control
+-- via resource tags applied to the resource identified by @instanceName@.
+-- For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.PutInstancePublicPorts
   ( -- * Creating a Request
-    putInstancePublicPorts,
-    PutInstancePublicPorts,
+    PutInstancePublicPorts (..),
+    newPutInstancePublicPorts,
 
     -- * Request Lenses
-    pippPortInfos,
-    pippInstanceName,
+    putInstancePublicPorts_portInfos,
+    putInstancePublicPorts_instanceName,
 
     -- * Destructuring the Response
-    putInstancePublicPortsResponse,
-    PutInstancePublicPortsResponse,
+    PutInstancePublicPortsResponse (..),
+    newPutInstancePublicPortsResponse,
 
     -- * Response Lenses
-    pipprrsOperation,
-    pipprrsResponseStatus,
+    putInstancePublicPortsResponse_operation,
+    putInstancePublicPortsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putInstancePublicPorts' smart constructor.
+-- | /See:/ 'newPutInstancePublicPorts' smart constructor.
 data PutInstancePublicPorts = PutInstancePublicPorts'
-  { _pippPortInfos ::
-      ![PortInfo],
-    _pippInstanceName ::
-      !Text
+  { -- | An array of objects to describe the ports to open for the specified
+    -- instance.
+    portInfos :: [PortInfo],
+    -- | The name of the instance for which to open ports.
+    instanceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutInstancePublicPorts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutInstancePublicPorts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pippPortInfos' - An array of objects to describe the ports to open for the specified instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pippInstanceName' - The name of the instance for which to open ports.
-putInstancePublicPorts ::
-  -- | 'pippInstanceName'
-  Text ->
+-- 'portInfos', 'putInstancePublicPorts_portInfos' - An array of objects to describe the ports to open for the specified
+-- instance.
+--
+-- 'instanceName', 'putInstancePublicPorts_instanceName' - The name of the instance for which to open ports.
+newPutInstancePublicPorts ::
+  -- | 'instanceName'
+  Prelude.Text ->
   PutInstancePublicPorts
-putInstancePublicPorts pInstanceName_ =
+newPutInstancePublicPorts pInstanceName_ =
   PutInstancePublicPorts'
-    { _pippPortInfos = mempty,
-      _pippInstanceName = pInstanceName_
+    { portInfos = Prelude.mempty,
+      instanceName = pInstanceName_
     }
 
--- | An array of objects to describe the ports to open for the specified instance.
-pippPortInfos :: Lens' PutInstancePublicPorts [PortInfo]
-pippPortInfos = lens _pippPortInfos (\s a -> s {_pippPortInfos = a}) . _Coerce
+-- | An array of objects to describe the ports to open for the specified
+-- instance.
+putInstancePublicPorts_portInfos :: Lens.Lens' PutInstancePublicPorts [PortInfo]
+putInstancePublicPorts_portInfos = Lens.lens (\PutInstancePublicPorts' {portInfos} -> portInfos) (\s@PutInstancePublicPorts' {} a -> s {portInfos = a} :: PutInstancePublicPorts) Prelude.. Prelude._Coerce
 
 -- | The name of the instance for which to open ports.
-pippInstanceName :: Lens' PutInstancePublicPorts Text
-pippInstanceName = lens _pippInstanceName (\s a -> s {_pippInstanceName = a})
+putInstancePublicPorts_instanceName :: Lens.Lens' PutInstancePublicPorts Prelude.Text
+putInstancePublicPorts_instanceName = Lens.lens (\PutInstancePublicPorts' {instanceName} -> instanceName) (\s@PutInstancePublicPorts' {} a -> s {instanceName = a} :: PutInstancePublicPorts)
 
-instance AWSRequest PutInstancePublicPorts where
+instance Prelude.AWSRequest PutInstancePublicPorts where
   type
     Rs PutInstancePublicPorts =
       PutInstancePublicPortsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutInstancePublicPortsResponse'
-            <$> (x .?> "operation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "operation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutInstancePublicPorts
+instance Prelude.Hashable PutInstancePublicPorts
 
-instance NFData PutInstancePublicPorts
+instance Prelude.NFData PutInstancePublicPorts
 
-instance ToHeaders PutInstancePublicPorts where
+instance Prelude.ToHeaders PutInstancePublicPorts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.PutInstancePublicPorts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.PutInstancePublicPorts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutInstancePublicPorts where
+instance Prelude.ToJSON PutInstancePublicPorts where
   toJSON PutInstancePublicPorts' {..} =
-    object
-      ( catMaybes
-          [ Just ("portInfos" .= _pippPortInfos),
-            Just ("instanceName" .= _pippInstanceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("portInfos" Prelude..= portInfos),
+            Prelude.Just
+              ("instanceName" Prelude..= instanceName)
           ]
       )
 
-instance ToPath PutInstancePublicPorts where
-  toPath = const "/"
+instance Prelude.ToPath PutInstancePublicPorts where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutInstancePublicPorts where
-  toQuery = const mempty
+instance Prelude.ToQuery PutInstancePublicPorts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putInstancePublicPortsResponse' smart constructor.
+-- | /See:/ 'newPutInstancePublicPortsResponse' smart constructor.
 data PutInstancePublicPortsResponse = PutInstancePublicPortsResponse'
-  { _pipprrsOperation ::
-      !( Maybe
-           Operation
-       ),
-    _pipprrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutInstancePublicPortsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutInstancePublicPortsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pipprrsOperation' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pipprrsResponseStatus' - -- | The response status code.
-putInstancePublicPortsResponse ::
-  -- | 'pipprrsResponseStatus'
-  Int ->
+-- 'operation', 'putInstancePublicPortsResponse_operation' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'putInstancePublicPortsResponse_httpStatus' - The response's http status code.
+newPutInstancePublicPortsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutInstancePublicPortsResponse
-putInstancePublicPortsResponse pResponseStatus_ =
+newPutInstancePublicPortsResponse pHttpStatus_ =
   PutInstancePublicPortsResponse'
-    { _pipprrsOperation =
-        Nothing,
-      _pipprrsResponseStatus = pResponseStatus_
+    { operation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-pipprrsOperation :: Lens' PutInstancePublicPortsResponse (Maybe Operation)
-pipprrsOperation = lens _pipprrsOperation (\s a -> s {_pipprrsOperation = a})
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+putInstancePublicPortsResponse_operation :: Lens.Lens' PutInstancePublicPortsResponse (Prelude.Maybe Operation)
+putInstancePublicPortsResponse_operation = Lens.lens (\PutInstancePublicPortsResponse' {operation} -> operation) (\s@PutInstancePublicPortsResponse' {} a -> s {operation = a} :: PutInstancePublicPortsResponse)
 
--- | -- | The response status code.
-pipprrsResponseStatus :: Lens' PutInstancePublicPortsResponse Int
-pipprrsResponseStatus = lens _pipprrsResponseStatus (\s a -> s {_pipprrsResponseStatus = a})
+-- | The response's http status code.
+putInstancePublicPortsResponse_httpStatus :: Lens.Lens' PutInstancePublicPortsResponse Prelude.Int
+putInstancePublicPortsResponse_httpStatus = Lens.lens (\PutInstancePublicPortsResponse' {httpStatus} -> httpStatus) (\s@PutInstancePublicPortsResponse' {} a -> s {httpStatus = a} :: PutInstancePublicPortsResponse)
 
-instance NFData PutInstancePublicPortsResponse
+instance
+  Prelude.NFData
+    PutInstancePublicPortsResponse

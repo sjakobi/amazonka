@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ResourceLocation where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.RegionName
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the resource location.
 --
---
---
--- /See:/ 'resourceLocation' smart constructor.
+-- /See:/ 'newResourceLocation' smart constructor.
 data ResourceLocation = ResourceLocation'
-  { _rlRegionName ::
-      !(Maybe RegionName),
-    _rlAvailabilityZone :: !(Maybe Text)
+  { -- | The AWS Region name.
+    regionName :: Prelude.Maybe RegionName,
+    -- | The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
+    availabilityZone :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rlRegionName' - The AWS Region name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rlAvailabilityZone' - The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
-resourceLocation ::
+-- 'regionName', 'resourceLocation_regionName' - The AWS Region name.
+--
+-- 'availabilityZone', 'resourceLocation_availabilityZone' - The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
+newResourceLocation ::
   ResourceLocation
-resourceLocation =
+newResourceLocation =
   ResourceLocation'
-    { _rlRegionName = Nothing,
-      _rlAvailabilityZone = Nothing
+    { regionName = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing
     }
 
 -- | The AWS Region name.
-rlRegionName :: Lens' ResourceLocation (Maybe RegionName)
-rlRegionName = lens _rlRegionName (\s a -> s {_rlRegionName = a})
+resourceLocation_regionName :: Lens.Lens' ResourceLocation (Prelude.Maybe RegionName)
+resourceLocation_regionName = Lens.lens (\ResourceLocation' {regionName} -> regionName) (\s@ResourceLocation' {} a -> s {regionName = a} :: ResourceLocation)
 
 -- | The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
-rlAvailabilityZone :: Lens' ResourceLocation (Maybe Text)
-rlAvailabilityZone = lens _rlAvailabilityZone (\s a -> s {_rlAvailabilityZone = a})
+resourceLocation_availabilityZone :: Lens.Lens' ResourceLocation (Prelude.Maybe Prelude.Text)
+resourceLocation_availabilityZone = Lens.lens (\ResourceLocation' {availabilityZone} -> availabilityZone) (\s@ResourceLocation' {} a -> s {availabilityZone = a} :: ResourceLocation)
 
-instance FromJSON ResourceLocation where
+instance Prelude.FromJSON ResourceLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceLocation"
       ( \x ->
           ResourceLocation'
-            <$> (x .:? "regionName") <*> (x .:? "availabilityZone")
+            Prelude.<$> (x Prelude..:? "regionName")
+            Prelude.<*> (x Prelude..:? "availabilityZone")
       )
 
-instance Hashable ResourceLocation
+instance Prelude.Hashable ResourceLocation
 
-instance NFData ResourceLocation
+instance Prelude.NFData ResourceLocation

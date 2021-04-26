@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Lightsail.Types.AutoSnapshotStatus
   ( AutoSnapshotStatus
       ( ..,
-        ASSFailed,
-        ASSInProgress,
-        ASSNotFound,
-        ASSSuccess
+        AutoSnapshotStatusFailed,
+        AutoSnapshotStatusInProgress,
+        AutoSnapshotStatusNotFound,
+        AutoSnapshotStatusSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoSnapshotStatus
-  = AutoSnapshotStatus'
-      ( CI
-          Text
-      )
+newtype AutoSnapshotStatus = AutoSnapshotStatus'
+  { fromAutoSnapshotStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASSFailed :: AutoSnapshotStatus
-pattern ASSFailed = AutoSnapshotStatus' "Failed"
+pattern AutoSnapshotStatusFailed :: AutoSnapshotStatus
+pattern AutoSnapshotStatusFailed = AutoSnapshotStatus' "Failed"
 
-pattern ASSInProgress :: AutoSnapshotStatus
-pattern ASSInProgress = AutoSnapshotStatus' "InProgress"
+pattern AutoSnapshotStatusInProgress :: AutoSnapshotStatus
+pattern AutoSnapshotStatusInProgress = AutoSnapshotStatus' "InProgress"
 
-pattern ASSNotFound :: AutoSnapshotStatus
-pattern ASSNotFound = AutoSnapshotStatus' "NotFound"
+pattern AutoSnapshotStatusNotFound :: AutoSnapshotStatus
+pattern AutoSnapshotStatusNotFound = AutoSnapshotStatus' "NotFound"
 
-pattern ASSSuccess :: AutoSnapshotStatus
-pattern ASSSuccess = AutoSnapshotStatus' "Success"
+pattern AutoSnapshotStatusSuccess :: AutoSnapshotStatus
+pattern AutoSnapshotStatusSuccess = AutoSnapshotStatus' "Success"
 
 {-# COMPLETE
-  ASSFailed,
-  ASSInProgress,
-  ASSNotFound,
-  ASSSuccess,
+  AutoSnapshotStatusFailed,
+  AutoSnapshotStatusInProgress,
+  AutoSnapshotStatusNotFound,
+  AutoSnapshotStatusSuccess,
   AutoSnapshotStatus'
   #-}
 
-instance FromText AutoSnapshotStatus where
-  parser = (AutoSnapshotStatus' . mk) <$> takeText
+instance Prelude.FromText AutoSnapshotStatus where
+  parser = AutoSnapshotStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AutoSnapshotStatus where
-  toText (AutoSnapshotStatus' ci) = original ci
+instance Prelude.ToText AutoSnapshotStatus where
+  toText (AutoSnapshotStatus' x) = x
 
-instance Hashable AutoSnapshotStatus
+instance Prelude.Hashable AutoSnapshotStatus
 
-instance NFData AutoSnapshotStatus
+instance Prelude.NFData AutoSnapshotStatus
 
-instance ToByteString AutoSnapshotStatus
+instance Prelude.ToByteString AutoSnapshotStatus
 
-instance ToQuery AutoSnapshotStatus
+instance Prelude.ToQuery AutoSnapshotStatus
 
-instance ToHeader AutoSnapshotStatus
+instance Prelude.ToHeader AutoSnapshotStatus
 
-instance FromJSON AutoSnapshotStatus where
-  parseJSON = parseJSONText "AutoSnapshotStatus"
+instance Prelude.FromJSON AutoSnapshotStatus where
+  parseJSON = Prelude.parseJSONText "AutoSnapshotStatus"

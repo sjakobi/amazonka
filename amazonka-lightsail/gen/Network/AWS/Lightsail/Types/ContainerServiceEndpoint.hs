@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ContainerServiceEndpoint where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.ContainerServiceHealthCheckConfig
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the public endpoint configuration of a deployment of an Amazon Lightsail container service.
+-- | Describes the public endpoint configuration of a deployment of an Amazon
+-- Lightsail container service.
 --
---
---
--- /See:/ 'containerServiceEndpoint' smart constructor.
+-- /See:/ 'newContainerServiceEndpoint' smart constructor.
 data ContainerServiceEndpoint = ContainerServiceEndpoint'
-  { _cseContainerPort ::
-      !(Maybe Int),
-    _cseContainerName ::
-      !(Maybe Text),
-    _cseHealthCheck ::
-      !( Maybe
-           ContainerServiceHealthCheckConfig
-       )
+  { -- | The port of the specified container to which traffic is forwarded to.
+    containerPort :: Prelude.Maybe Prelude.Int,
+    -- | The name of the container entry of the deployment that the endpoint
+    -- configuration applies to.
+    containerName :: Prelude.Maybe Prelude.Text,
+    -- | An object that describes the health check configuration of the
+    -- container.
+    healthCheck :: Prelude.Maybe ContainerServiceHealthCheckConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerServiceEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerServiceEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cseContainerPort' - The port of the specified container to which traffic is forwarded to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cseContainerName' - The name of the container entry of the deployment that the endpoint configuration applies to.
+-- 'containerPort', 'containerServiceEndpoint_containerPort' - The port of the specified container to which traffic is forwarded to.
 --
--- * 'cseHealthCheck' - An object that describes the health check configuration of the container.
-containerServiceEndpoint ::
+-- 'containerName', 'containerServiceEndpoint_containerName' - The name of the container entry of the deployment that the endpoint
+-- configuration applies to.
+--
+-- 'healthCheck', 'containerServiceEndpoint_healthCheck' - An object that describes the health check configuration of the
+-- container.
+newContainerServiceEndpoint ::
   ContainerServiceEndpoint
-containerServiceEndpoint =
+newContainerServiceEndpoint =
   ContainerServiceEndpoint'
-    { _cseContainerPort =
-        Nothing,
-      _cseContainerName = Nothing,
-      _cseHealthCheck = Nothing
+    { containerPort =
+        Prelude.Nothing,
+      containerName = Prelude.Nothing,
+      healthCheck = Prelude.Nothing
     }
 
 -- | The port of the specified container to which traffic is forwarded to.
-cseContainerPort :: Lens' ContainerServiceEndpoint (Maybe Int)
-cseContainerPort = lens _cseContainerPort (\s a -> s {_cseContainerPort = a})
+containerServiceEndpoint_containerPort :: Lens.Lens' ContainerServiceEndpoint (Prelude.Maybe Prelude.Int)
+containerServiceEndpoint_containerPort = Lens.lens (\ContainerServiceEndpoint' {containerPort} -> containerPort) (\s@ContainerServiceEndpoint' {} a -> s {containerPort = a} :: ContainerServiceEndpoint)
 
--- | The name of the container entry of the deployment that the endpoint configuration applies to.
-cseContainerName :: Lens' ContainerServiceEndpoint (Maybe Text)
-cseContainerName = lens _cseContainerName (\s a -> s {_cseContainerName = a})
+-- | The name of the container entry of the deployment that the endpoint
+-- configuration applies to.
+containerServiceEndpoint_containerName :: Lens.Lens' ContainerServiceEndpoint (Prelude.Maybe Prelude.Text)
+containerServiceEndpoint_containerName = Lens.lens (\ContainerServiceEndpoint' {containerName} -> containerName) (\s@ContainerServiceEndpoint' {} a -> s {containerName = a} :: ContainerServiceEndpoint)
 
--- | An object that describes the health check configuration of the container.
-cseHealthCheck :: Lens' ContainerServiceEndpoint (Maybe ContainerServiceHealthCheckConfig)
-cseHealthCheck = lens _cseHealthCheck (\s a -> s {_cseHealthCheck = a})
+-- | An object that describes the health check configuration of the
+-- container.
+containerServiceEndpoint_healthCheck :: Lens.Lens' ContainerServiceEndpoint (Prelude.Maybe ContainerServiceHealthCheckConfig)
+containerServiceEndpoint_healthCheck = Lens.lens (\ContainerServiceEndpoint' {healthCheck} -> healthCheck) (\s@ContainerServiceEndpoint' {} a -> s {healthCheck = a} :: ContainerServiceEndpoint)
 
-instance FromJSON ContainerServiceEndpoint where
+instance Prelude.FromJSON ContainerServiceEndpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContainerServiceEndpoint"
       ( \x ->
           ContainerServiceEndpoint'
-            <$> (x .:? "containerPort")
-            <*> (x .:? "containerName")
-            <*> (x .:? "healthCheck")
+            Prelude.<$> (x Prelude..:? "containerPort")
+            Prelude.<*> (x Prelude..:? "containerName")
+            Prelude.<*> (x Prelude..:? "healthCheck")
       )
 
-instance Hashable ContainerServiceEndpoint
+instance Prelude.Hashable ContainerServiceEndpoint
 
-instance NFData ContainerServiceEndpoint
+instance Prelude.NFData ContainerServiceEndpoint

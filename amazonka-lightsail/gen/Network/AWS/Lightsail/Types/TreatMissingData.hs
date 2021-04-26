@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.Lightsail.Types.TreatMissingData
   ( TreatMissingData
       ( ..,
-        Breaching,
-        Ignore,
-        Missing,
-        NotBreaching
+        TreatMissingDataBreaching,
+        TreatMissingDataIgnore,
+        TreatMissingDataMissing,
+        TreatMissingDataNotBreaching
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TreatMissingData = TreatMissingData' (CI Text)
+newtype TreatMissingData = TreatMissingData'
+  { fromTreatMissingData ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Breaching :: TreatMissingData
-pattern Breaching = TreatMissingData' "breaching"
+pattern TreatMissingDataBreaching :: TreatMissingData
+pattern TreatMissingDataBreaching = TreatMissingData' "breaching"
 
-pattern Ignore :: TreatMissingData
-pattern Ignore = TreatMissingData' "ignore"
+pattern TreatMissingDataIgnore :: TreatMissingData
+pattern TreatMissingDataIgnore = TreatMissingData' "ignore"
 
-pattern Missing :: TreatMissingData
-pattern Missing = TreatMissingData' "missing"
+pattern TreatMissingDataMissing :: TreatMissingData
+pattern TreatMissingDataMissing = TreatMissingData' "missing"
 
-pattern NotBreaching :: TreatMissingData
-pattern NotBreaching = TreatMissingData' "notBreaching"
+pattern TreatMissingDataNotBreaching :: TreatMissingData
+pattern TreatMissingDataNotBreaching = TreatMissingData' "notBreaching"
 
 {-# COMPLETE
-  Breaching,
-  Ignore,
-  Missing,
-  NotBreaching,
+  TreatMissingDataBreaching,
+  TreatMissingDataIgnore,
+  TreatMissingDataMissing,
+  TreatMissingDataNotBreaching,
   TreatMissingData'
   #-}
 
-instance FromText TreatMissingData where
-  parser = (TreatMissingData' . mk) <$> takeText
+instance Prelude.FromText TreatMissingData where
+  parser = TreatMissingData' Prelude.<$> Prelude.takeText
 
-instance ToText TreatMissingData where
-  toText (TreatMissingData' ci) = original ci
+instance Prelude.ToText TreatMissingData where
+  toText (TreatMissingData' x) = x
 
-instance Hashable TreatMissingData
+instance Prelude.Hashable TreatMissingData
 
-instance NFData TreatMissingData
+instance Prelude.NFData TreatMissingData
 
-instance ToByteString TreatMissingData
+instance Prelude.ToByteString TreatMissingData
 
-instance ToQuery TreatMissingData
+instance Prelude.ToQuery TreatMissingData
 
-instance ToHeader TreatMissingData
+instance Prelude.ToHeader TreatMissingData
 
-instance ToJSON TreatMissingData where
-  toJSON = toJSONText
+instance Prelude.ToJSON TreatMissingData where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TreatMissingData where
-  parseJSON = parseJSONText "TreatMissingData"
+instance Prelude.FromJSON TreatMissingData where
+  parseJSON = Prelude.parseJSONText "TreatMissingData"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,141 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Tests an alarm by displaying a banner on the Amazon Lightsail console. If a notification trigger is configured for the specified alarm, the test also sends a notification to the notification protocol (@Email@ and/or @SMS@ ) configured for the alarm.
+-- Tests an alarm by displaying a banner on the Amazon Lightsail console.
+-- If a notification trigger is configured for the specified alarm, the
+-- test also sends a notification to the notification protocol (@Email@
+-- and\/or @SMS@) configured for the alarm.
 --
---
--- An alarm is used to monitor a single metric for one of your resources. When a metric condition is met, the alarm can notify you by email, SMS text message, and a banner displayed on the Amazon Lightsail console. For more information, see <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms Alarms in Amazon Lightsail> .
+-- An alarm is used to monitor a single metric for one of your resources.
+-- When a metric condition is met, the alarm can notify you by email, SMS
+-- text message, and a banner displayed on the Amazon Lightsail console.
+-- For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms Alarms in Amazon Lightsail>.
 module Network.AWS.Lightsail.TestAlarm
   ( -- * Creating a Request
-    testAlarm,
-    TestAlarm,
+    TestAlarm (..),
+    newTestAlarm,
 
     -- * Request Lenses
-    taAlarmName,
-    taState,
+    testAlarm_alarmName,
+    testAlarm_state,
 
     -- * Destructuring the Response
-    testAlarmResponse,
-    TestAlarmResponse,
+    TestAlarmResponse (..),
+    newTestAlarmResponse,
 
     -- * Response Lenses
-    tarrsOperations,
-    tarrsResponseStatus,
+    testAlarmResponse_operations,
+    testAlarmResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'testAlarm' smart constructor.
+-- | /See:/ 'newTestAlarm' smart constructor.
 data TestAlarm = TestAlarm'
-  { _taAlarmName :: !Text,
-    _taState :: !AlarmState
+  { -- | The name of the alarm to test.
+    alarmName :: Prelude.Text,
+    -- | The alarm state to test.
+    --
+    -- An alarm has the following possible states that can be tested:
+    --
+    -- -   @ALARM@ - The metric is outside of the defined threshold.
+    --
+    -- -   @INSUFFICIENT_DATA@ - The alarm has just started, the metric is not
+    --     available, or not enough data is available for the metric to
+    --     determine the alarm state.
+    --
+    -- -   @OK@ - The metric is within the defined threshold.
+    state :: AlarmState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestAlarm' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestAlarm' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'taAlarmName' - The name of the alarm to test.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'taState' - The alarm state to test. An alarm has the following possible states that can be tested:     * @ALARM@ - The metric is outside of the defined threshold.     * @INSUFFICIENT_DATA@ - The alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state.     * @OK@ - The metric is within the defined threshold.
-testAlarm ::
-  -- | 'taAlarmName'
-  Text ->
-  -- | 'taState'
+-- 'alarmName', 'testAlarm_alarmName' - The name of the alarm to test.
+--
+-- 'state', 'testAlarm_state' - The alarm state to test.
+--
+-- An alarm has the following possible states that can be tested:
+--
+-- -   @ALARM@ - The metric is outside of the defined threshold.
+--
+-- -   @INSUFFICIENT_DATA@ - The alarm has just started, the metric is not
+--     available, or not enough data is available for the metric to
+--     determine the alarm state.
+--
+-- -   @OK@ - The metric is within the defined threshold.
+newTestAlarm ::
+  -- | 'alarmName'
+  Prelude.Text ->
+  -- | 'state'
   AlarmState ->
   TestAlarm
-testAlarm pAlarmName_ pState_ =
+newTestAlarm pAlarmName_ pState_ =
   TestAlarm'
-    { _taAlarmName = pAlarmName_,
-      _taState = pState_
+    { alarmName = pAlarmName_,
+      state = pState_
     }
 
 -- | The name of the alarm to test.
-taAlarmName :: Lens' TestAlarm Text
-taAlarmName = lens _taAlarmName (\s a -> s {_taAlarmName = a})
+testAlarm_alarmName :: Lens.Lens' TestAlarm Prelude.Text
+testAlarm_alarmName = Lens.lens (\TestAlarm' {alarmName} -> alarmName) (\s@TestAlarm' {} a -> s {alarmName = a} :: TestAlarm)
 
--- | The alarm state to test. An alarm has the following possible states that can be tested:     * @ALARM@ - The metric is outside of the defined threshold.     * @INSUFFICIENT_DATA@ - The alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state.     * @OK@ - The metric is within the defined threshold.
-taState :: Lens' TestAlarm AlarmState
-taState = lens _taState (\s a -> s {_taState = a})
+-- | The alarm state to test.
+--
+-- An alarm has the following possible states that can be tested:
+--
+-- -   @ALARM@ - The metric is outside of the defined threshold.
+--
+-- -   @INSUFFICIENT_DATA@ - The alarm has just started, the metric is not
+--     available, or not enough data is available for the metric to
+--     determine the alarm state.
+--
+-- -   @OK@ - The metric is within the defined threshold.
+testAlarm_state :: Lens.Lens' TestAlarm AlarmState
+testAlarm_state = Lens.lens (\TestAlarm' {state} -> state) (\s@TestAlarm' {} a -> s {state = a} :: TestAlarm)
 
-instance AWSRequest TestAlarm where
+instance Prelude.AWSRequest TestAlarm where
   type Rs TestAlarm = TestAlarmResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TestAlarmResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestAlarm
+instance Prelude.Hashable TestAlarm
 
-instance NFData TestAlarm
+instance Prelude.NFData TestAlarm
 
-instance ToHeaders TestAlarm where
+instance Prelude.ToHeaders TestAlarm where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.TestAlarm" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.TestAlarm" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TestAlarm where
+instance Prelude.ToJSON TestAlarm where
   toJSON TestAlarm' {..} =
-    object
-      ( catMaybes
-          [ Just ("alarmName" .= _taAlarmName),
-            Just ("state" .= _taState)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("alarmName" Prelude..= alarmName),
+            Prelude.Just ("state" Prelude..= state)
           ]
       )
 
-instance ToPath TestAlarm where
-  toPath = const "/"
+instance Prelude.ToPath TestAlarm where
+  toPath = Prelude.const "/"
 
-instance ToQuery TestAlarm where
-  toQuery = const mempty
+instance Prelude.ToQuery TestAlarm where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'testAlarmResponse' smart constructor.
+-- | /See:/ 'newTestAlarmResponse' smart constructor.
 data TestAlarmResponse = TestAlarmResponse'
-  { _tarrsOperations ::
-      !(Maybe [Operation]),
-    _tarrsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestAlarmResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestAlarmResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tarrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tarrsResponseStatus' - -- | The response status code.
-testAlarmResponse ::
-  -- | 'tarrsResponseStatus'
-  Int ->
+-- 'operations', 'testAlarmResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'testAlarmResponse_httpStatus' - The response's http status code.
+newTestAlarmResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestAlarmResponse
-testAlarmResponse pResponseStatus_ =
+newTestAlarmResponse pHttpStatus_ =
   TestAlarmResponse'
-    { _tarrsOperations = Nothing,
-      _tarrsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-tarrsOperations :: Lens' TestAlarmResponse [Operation]
-tarrsOperations = lens _tarrsOperations (\s a -> s {_tarrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+testAlarmResponse_operations :: Lens.Lens' TestAlarmResponse (Prelude.Maybe [Operation])
+testAlarmResponse_operations = Lens.lens (\TestAlarmResponse' {operations} -> operations) (\s@TestAlarmResponse' {} a -> s {operations = a} :: TestAlarmResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-tarrsResponseStatus :: Lens' TestAlarmResponse Int
-tarrsResponseStatus = lens _tarrsResponseStatus (\s a -> s {_tarrsResponseStatus = a})
+-- | The response's http status code.
+testAlarmResponse_httpStatus :: Lens.Lens' TestAlarmResponse Prelude.Int
+testAlarmResponse_httpStatus = Lens.lens (\TestAlarmResponse' {httpStatus} -> httpStatus) (\s@TestAlarmResponse' {} a -> s {httpStatus = a} :: TestAlarmResponse)
 
-instance NFData TestAlarmResponse
+instance Prelude.NFData TestAlarmResponse

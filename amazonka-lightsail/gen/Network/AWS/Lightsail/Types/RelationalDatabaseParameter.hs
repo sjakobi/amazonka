@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,138 +19,142 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.RelationalDatabaseParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the parameters of a database.
 --
---
---
--- /See:/ 'relationalDatabaseParameter' smart constructor.
+-- /See:/ 'newRelationalDatabaseParameter' smart constructor.
 data RelationalDatabaseParameter = RelationalDatabaseParameter'
-  { _rdpAllowedValues ::
-      !(Maybe Text),
-    _rdpParameterValue ::
-      !(Maybe Text),
-    _rdpApplyType ::
-      !(Maybe Text),
-    _rdpParameterName ::
-      !(Maybe Text),
-    _rdpDescription ::
-      !(Maybe Text),
-    _rdpApplyMethod ::
-      !(Maybe Text),
-    _rdpIsModifiable ::
-      !(Maybe Bool),
-    _rdpDataType ::
-      !(Maybe Text)
+  { -- | Specifies the valid range of values for the parameter.
+    allowedValues :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the value of the parameter.
+    parameterValue :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the engine-specific parameter type.
+    applyType :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | Provides a description of the parameter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates when parameter updates are applied.
+    --
+    -- Can be @immediate@ or @pending-reboot@.
+    applyMethod :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value indicating whether the parameter can be modified.
+    isModifiable :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the valid data type for the parameter.
+    dataType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RelationalDatabaseParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RelationalDatabaseParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdpAllowedValues' - Specifies the valid range of values for the parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdpParameterValue' - Specifies the value of the parameter.
+-- 'allowedValues', 'relationalDatabaseParameter_allowedValues' - Specifies the valid range of values for the parameter.
 --
--- * 'rdpApplyType' - Specifies the engine-specific parameter type.
+-- 'parameterValue', 'relationalDatabaseParameter_parameterValue' - Specifies the value of the parameter.
 --
--- * 'rdpParameterName' - Specifies the name of the parameter.
+-- 'applyType', 'relationalDatabaseParameter_applyType' - Specifies the engine-specific parameter type.
 --
--- * 'rdpDescription' - Provides a description of the parameter.
+-- 'parameterName', 'relationalDatabaseParameter_parameterName' - Specifies the name of the parameter.
 --
--- * 'rdpApplyMethod' - Indicates when parameter updates are applied. Can be @immediate@ or @pending-reboot@ .
+-- 'description', 'relationalDatabaseParameter_description' - Provides a description of the parameter.
 --
--- * 'rdpIsModifiable' - A Boolean value indicating whether the parameter can be modified.
+-- 'applyMethod', 'relationalDatabaseParameter_applyMethod' - Indicates when parameter updates are applied.
 --
--- * 'rdpDataType' - Specifies the valid data type for the parameter.
-relationalDatabaseParameter ::
+-- Can be @immediate@ or @pending-reboot@.
+--
+-- 'isModifiable', 'relationalDatabaseParameter_isModifiable' - A Boolean value indicating whether the parameter can be modified.
+--
+-- 'dataType', 'relationalDatabaseParameter_dataType' - Specifies the valid data type for the parameter.
+newRelationalDatabaseParameter ::
   RelationalDatabaseParameter
-relationalDatabaseParameter =
+newRelationalDatabaseParameter =
   RelationalDatabaseParameter'
-    { _rdpAllowedValues =
-        Nothing,
-      _rdpParameterValue = Nothing,
-      _rdpApplyType = Nothing,
-      _rdpParameterName = Nothing,
-      _rdpDescription = Nothing,
-      _rdpApplyMethod = Nothing,
-      _rdpIsModifiable = Nothing,
-      _rdpDataType = Nothing
+    { allowedValues =
+        Prelude.Nothing,
+      parameterValue = Prelude.Nothing,
+      applyType = Prelude.Nothing,
+      parameterName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      applyMethod = Prelude.Nothing,
+      isModifiable = Prelude.Nothing,
+      dataType = Prelude.Nothing
     }
 
 -- | Specifies the valid range of values for the parameter.
-rdpAllowedValues :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpAllowedValues = lens _rdpAllowedValues (\s a -> s {_rdpAllowedValues = a})
+relationalDatabaseParameter_allowedValues :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_allowedValues = Lens.lens (\RelationalDatabaseParameter' {allowedValues} -> allowedValues) (\s@RelationalDatabaseParameter' {} a -> s {allowedValues = a} :: RelationalDatabaseParameter)
 
 -- | Specifies the value of the parameter.
-rdpParameterValue :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpParameterValue = lens _rdpParameterValue (\s a -> s {_rdpParameterValue = a})
+relationalDatabaseParameter_parameterValue :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_parameterValue = Lens.lens (\RelationalDatabaseParameter' {parameterValue} -> parameterValue) (\s@RelationalDatabaseParameter' {} a -> s {parameterValue = a} :: RelationalDatabaseParameter)
 
 -- | Specifies the engine-specific parameter type.
-rdpApplyType :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpApplyType = lens _rdpApplyType (\s a -> s {_rdpApplyType = a})
+relationalDatabaseParameter_applyType :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_applyType = Lens.lens (\RelationalDatabaseParameter' {applyType} -> applyType) (\s@RelationalDatabaseParameter' {} a -> s {applyType = a} :: RelationalDatabaseParameter)
 
 -- | Specifies the name of the parameter.
-rdpParameterName :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpParameterName = lens _rdpParameterName (\s a -> s {_rdpParameterName = a})
+relationalDatabaseParameter_parameterName :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_parameterName = Lens.lens (\RelationalDatabaseParameter' {parameterName} -> parameterName) (\s@RelationalDatabaseParameter' {} a -> s {parameterName = a} :: RelationalDatabaseParameter)
 
 -- | Provides a description of the parameter.
-rdpDescription :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpDescription = lens _rdpDescription (\s a -> s {_rdpDescription = a})
+relationalDatabaseParameter_description :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_description = Lens.lens (\RelationalDatabaseParameter' {description} -> description) (\s@RelationalDatabaseParameter' {} a -> s {description = a} :: RelationalDatabaseParameter)
 
--- | Indicates when parameter updates are applied. Can be @immediate@ or @pending-reboot@ .
-rdpApplyMethod :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpApplyMethod = lens _rdpApplyMethod (\s a -> s {_rdpApplyMethod = a})
+-- | Indicates when parameter updates are applied.
+--
+-- Can be @immediate@ or @pending-reboot@.
+relationalDatabaseParameter_applyMethod :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_applyMethod = Lens.lens (\RelationalDatabaseParameter' {applyMethod} -> applyMethod) (\s@RelationalDatabaseParameter' {} a -> s {applyMethod = a} :: RelationalDatabaseParameter)
 
 -- | A Boolean value indicating whether the parameter can be modified.
-rdpIsModifiable :: Lens' RelationalDatabaseParameter (Maybe Bool)
-rdpIsModifiable = lens _rdpIsModifiable (\s a -> s {_rdpIsModifiable = a})
+relationalDatabaseParameter_isModifiable :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Bool)
+relationalDatabaseParameter_isModifiable = Lens.lens (\RelationalDatabaseParameter' {isModifiable} -> isModifiable) (\s@RelationalDatabaseParameter' {} a -> s {isModifiable = a} :: RelationalDatabaseParameter)
 
 -- | Specifies the valid data type for the parameter.
-rdpDataType :: Lens' RelationalDatabaseParameter (Maybe Text)
-rdpDataType = lens _rdpDataType (\s a -> s {_rdpDataType = a})
+relationalDatabaseParameter_dataType :: Lens.Lens' RelationalDatabaseParameter (Prelude.Maybe Prelude.Text)
+relationalDatabaseParameter_dataType = Lens.lens (\RelationalDatabaseParameter' {dataType} -> dataType) (\s@RelationalDatabaseParameter' {} a -> s {dataType = a} :: RelationalDatabaseParameter)
 
-instance FromJSON RelationalDatabaseParameter where
+instance Prelude.FromJSON RelationalDatabaseParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RelationalDatabaseParameter"
       ( \x ->
           RelationalDatabaseParameter'
-            <$> (x .:? "allowedValues")
-            <*> (x .:? "parameterValue")
-            <*> (x .:? "applyType")
-            <*> (x .:? "parameterName")
-            <*> (x .:? "description")
-            <*> (x .:? "applyMethod")
-            <*> (x .:? "isModifiable")
-            <*> (x .:? "dataType")
+            Prelude.<$> (x Prelude..:? "allowedValues")
+            Prelude.<*> (x Prelude..:? "parameterValue")
+            Prelude.<*> (x Prelude..:? "applyType")
+            Prelude.<*> (x Prelude..:? "parameterName")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "applyMethod")
+            Prelude.<*> (x Prelude..:? "isModifiable")
+            Prelude.<*> (x Prelude..:? "dataType")
       )
 
-instance Hashable RelationalDatabaseParameter
+instance Prelude.Hashable RelationalDatabaseParameter
 
-instance NFData RelationalDatabaseParameter
+instance Prelude.NFData RelationalDatabaseParameter
 
-instance ToJSON RelationalDatabaseParameter where
+instance Prelude.ToJSON RelationalDatabaseParameter where
   toJSON RelationalDatabaseParameter' {..} =
-    object
-      ( catMaybes
-          [ ("allowedValues" .=) <$> _rdpAllowedValues,
-            ("parameterValue" .=) <$> _rdpParameterValue,
-            ("applyType" .=) <$> _rdpApplyType,
-            ("parameterName" .=) <$> _rdpParameterName,
-            ("description" .=) <$> _rdpDescription,
-            ("applyMethod" .=) <$> _rdpApplyMethod,
-            ("isModifiable" .=) <$> _rdpIsModifiable,
-            ("dataType" .=) <$> _rdpDataType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("allowedValues" Prelude..=)
+              Prelude.<$> allowedValues,
+            ("parameterValue" Prelude..=)
+              Prelude.<$> parameterValue,
+            ("applyType" Prelude..=) Prelude.<$> applyType,
+            ("parameterName" Prelude..=)
+              Prelude.<$> parameterName,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("applyMethod" Prelude..=) Prelude.<$> applyMethod,
+            ("isModifiable" Prelude..=) Prelude.<$> isModifiable,
+            ("dataType" Prelude..=) Prelude.<$> dataType
           ]
       )

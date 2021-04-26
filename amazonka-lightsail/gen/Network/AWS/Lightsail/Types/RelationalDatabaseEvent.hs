@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.RelationalDatabaseEvent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an event for a database.
 --
---
---
--- /See:/ 'relationalDatabaseEvent' smart constructor.
+-- /See:/ 'newRelationalDatabaseEvent' smart constructor.
 data RelationalDatabaseEvent = RelationalDatabaseEvent'
-  { _rdeMessage ::
-      !(Maybe Text),
-    _rdeCreatedAt ::
-      !(Maybe POSIX),
-    _rdeEventCategories ::
-      !(Maybe [Text]),
-    _rdeResource ::
-      !(Maybe Text)
+  { -- | The message of the database event.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the database event was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The category that the database event belongs to.
+    eventCategories :: Prelude.Maybe [Prelude.Text],
+    -- | The database that the database event relates to.
+    resource :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RelationalDatabaseEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RelationalDatabaseEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdeMessage' - The message of the database event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdeCreatedAt' - The timestamp when the database event was created.
+-- 'message', 'relationalDatabaseEvent_message' - The message of the database event.
 --
--- * 'rdeEventCategories' - The category that the database event belongs to.
+-- 'createdAt', 'relationalDatabaseEvent_createdAt' - The timestamp when the database event was created.
 --
--- * 'rdeResource' - The database that the database event relates to.
-relationalDatabaseEvent ::
+-- 'eventCategories', 'relationalDatabaseEvent_eventCategories' - The category that the database event belongs to.
+--
+-- 'resource', 'relationalDatabaseEvent_resource' - The database that the database event relates to.
+newRelationalDatabaseEvent ::
   RelationalDatabaseEvent
-relationalDatabaseEvent =
+newRelationalDatabaseEvent =
   RelationalDatabaseEvent'
-    { _rdeMessage = Nothing,
-      _rdeCreatedAt = Nothing,
-      _rdeEventCategories = Nothing,
-      _rdeResource = Nothing
+    { message = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      eventCategories = Prelude.Nothing,
+      resource = Prelude.Nothing
     }
 
 -- | The message of the database event.
-rdeMessage :: Lens' RelationalDatabaseEvent (Maybe Text)
-rdeMessage = lens _rdeMessage (\s a -> s {_rdeMessage = a})
+relationalDatabaseEvent_message :: Lens.Lens' RelationalDatabaseEvent (Prelude.Maybe Prelude.Text)
+relationalDatabaseEvent_message = Lens.lens (\RelationalDatabaseEvent' {message} -> message) (\s@RelationalDatabaseEvent' {} a -> s {message = a} :: RelationalDatabaseEvent)
 
 -- | The timestamp when the database event was created.
-rdeCreatedAt :: Lens' RelationalDatabaseEvent (Maybe UTCTime)
-rdeCreatedAt = lens _rdeCreatedAt (\s a -> s {_rdeCreatedAt = a}) . mapping _Time
+relationalDatabaseEvent_createdAt :: Lens.Lens' RelationalDatabaseEvent (Prelude.Maybe Prelude.UTCTime)
+relationalDatabaseEvent_createdAt = Lens.lens (\RelationalDatabaseEvent' {createdAt} -> createdAt) (\s@RelationalDatabaseEvent' {} a -> s {createdAt = a} :: RelationalDatabaseEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | The category that the database event belongs to.
-rdeEventCategories :: Lens' RelationalDatabaseEvent [Text]
-rdeEventCategories = lens _rdeEventCategories (\s a -> s {_rdeEventCategories = a}) . _Default . _Coerce
+relationalDatabaseEvent_eventCategories :: Lens.Lens' RelationalDatabaseEvent (Prelude.Maybe [Prelude.Text])
+relationalDatabaseEvent_eventCategories = Lens.lens (\RelationalDatabaseEvent' {eventCategories} -> eventCategories) (\s@RelationalDatabaseEvent' {} a -> s {eventCategories = a} :: RelationalDatabaseEvent) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The database that the database event relates to.
-rdeResource :: Lens' RelationalDatabaseEvent (Maybe Text)
-rdeResource = lens _rdeResource (\s a -> s {_rdeResource = a})
+relationalDatabaseEvent_resource :: Lens.Lens' RelationalDatabaseEvent (Prelude.Maybe Prelude.Text)
+relationalDatabaseEvent_resource = Lens.lens (\RelationalDatabaseEvent' {resource} -> resource) (\s@RelationalDatabaseEvent' {} a -> s {resource = a} :: RelationalDatabaseEvent)
 
-instance FromJSON RelationalDatabaseEvent where
+instance Prelude.FromJSON RelationalDatabaseEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RelationalDatabaseEvent"
       ( \x ->
           RelationalDatabaseEvent'
-            <$> (x .:? "message")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "eventCategories" .!= mempty)
-            <*> (x .:? "resource")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> ( x Prelude..:? "eventCategories"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "resource")
       )
 
-instance Hashable RelationalDatabaseEvent
+instance Prelude.Hashable RelationalDatabaseEvent
 
-instance NFData RelationalDatabaseEvent
+instance Prelude.NFData RelationalDatabaseEvent

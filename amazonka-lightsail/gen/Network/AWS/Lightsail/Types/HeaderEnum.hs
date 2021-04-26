@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,121 +19,123 @@
 module Network.AWS.Lightsail.Types.HeaderEnum
   ( HeaderEnum
       ( ..,
-        Accept,
-        AcceptCharset,
-        AcceptDatetime,
-        AcceptEncoding,
-        AcceptLanguage,
-        Authorization,
-        CloudFrontForwardedProto,
-        CloudFrontIsDesktopViewer,
-        CloudFrontIsMobileViewer,
-        CloudFrontIsSmartTVViewer,
-        CloudFrontIsTabletViewer,
-        CloudFrontViewerCountry,
-        Host,
-        Origin,
-        Referer
+        HeaderEnumAccept,
+        HeaderEnumAcceptCharset,
+        HeaderEnumAcceptDatetime,
+        HeaderEnumAcceptEncoding,
+        HeaderEnumAcceptLanguage,
+        HeaderEnumAuthorization,
+        HeaderEnumCloudFrontForwardedProto,
+        HeaderEnumCloudFrontIsDesktopViewer,
+        HeaderEnumCloudFrontIsMobileViewer,
+        HeaderEnumCloudFrontIsSmartTVViewer,
+        HeaderEnumCloudFrontIsTabletViewer,
+        HeaderEnumCloudFrontViewerCountry,
+        HeaderEnumHost,
+        HeaderEnumOrigin,
+        HeaderEnumReferer
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HeaderEnum = HeaderEnum' (CI Text)
+newtype HeaderEnum = HeaderEnum'
+  { fromHeaderEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Accept :: HeaderEnum
-pattern Accept = HeaderEnum' "Accept"
+pattern HeaderEnumAccept :: HeaderEnum
+pattern HeaderEnumAccept = HeaderEnum' "Accept"
 
-pattern AcceptCharset :: HeaderEnum
-pattern AcceptCharset = HeaderEnum' "Accept-Charset"
+pattern HeaderEnumAcceptCharset :: HeaderEnum
+pattern HeaderEnumAcceptCharset = HeaderEnum' "Accept-Charset"
 
-pattern AcceptDatetime :: HeaderEnum
-pattern AcceptDatetime = HeaderEnum' "Accept-Datetime"
+pattern HeaderEnumAcceptDatetime :: HeaderEnum
+pattern HeaderEnumAcceptDatetime = HeaderEnum' "Accept-Datetime"
 
-pattern AcceptEncoding :: HeaderEnum
-pattern AcceptEncoding = HeaderEnum' "Accept-Encoding"
+pattern HeaderEnumAcceptEncoding :: HeaderEnum
+pattern HeaderEnumAcceptEncoding = HeaderEnum' "Accept-Encoding"
 
-pattern AcceptLanguage :: HeaderEnum
-pattern AcceptLanguage = HeaderEnum' "Accept-Language"
+pattern HeaderEnumAcceptLanguage :: HeaderEnum
+pattern HeaderEnumAcceptLanguage = HeaderEnum' "Accept-Language"
 
-pattern Authorization :: HeaderEnum
-pattern Authorization = HeaderEnum' "Authorization"
+pattern HeaderEnumAuthorization :: HeaderEnum
+pattern HeaderEnumAuthorization = HeaderEnum' "Authorization"
 
-pattern CloudFrontForwardedProto :: HeaderEnum
-pattern CloudFrontForwardedProto = HeaderEnum' "CloudFront-Forwarded-Proto"
+pattern HeaderEnumCloudFrontForwardedProto :: HeaderEnum
+pattern HeaderEnumCloudFrontForwardedProto = HeaderEnum' "CloudFront-Forwarded-Proto"
 
-pattern CloudFrontIsDesktopViewer :: HeaderEnum
-pattern CloudFrontIsDesktopViewer = HeaderEnum' "CloudFront-Is-Desktop-Viewer"
+pattern HeaderEnumCloudFrontIsDesktopViewer :: HeaderEnum
+pattern HeaderEnumCloudFrontIsDesktopViewer = HeaderEnum' "CloudFront-Is-Desktop-Viewer"
 
-pattern CloudFrontIsMobileViewer :: HeaderEnum
-pattern CloudFrontIsMobileViewer = HeaderEnum' "CloudFront-Is-Mobile-Viewer"
+pattern HeaderEnumCloudFrontIsMobileViewer :: HeaderEnum
+pattern HeaderEnumCloudFrontIsMobileViewer = HeaderEnum' "CloudFront-Is-Mobile-Viewer"
 
-pattern CloudFrontIsSmartTVViewer :: HeaderEnum
-pattern CloudFrontIsSmartTVViewer = HeaderEnum' "CloudFront-Is-SmartTV-Viewer"
+pattern HeaderEnumCloudFrontIsSmartTVViewer :: HeaderEnum
+pattern HeaderEnumCloudFrontIsSmartTVViewer = HeaderEnum' "CloudFront-Is-SmartTV-Viewer"
 
-pattern CloudFrontIsTabletViewer :: HeaderEnum
-pattern CloudFrontIsTabletViewer = HeaderEnum' "CloudFront-Is-Tablet-Viewer"
+pattern HeaderEnumCloudFrontIsTabletViewer :: HeaderEnum
+pattern HeaderEnumCloudFrontIsTabletViewer = HeaderEnum' "CloudFront-Is-Tablet-Viewer"
 
-pattern CloudFrontViewerCountry :: HeaderEnum
-pattern CloudFrontViewerCountry = HeaderEnum' "CloudFront-Viewer-Country"
+pattern HeaderEnumCloudFrontViewerCountry :: HeaderEnum
+pattern HeaderEnumCloudFrontViewerCountry = HeaderEnum' "CloudFront-Viewer-Country"
 
-pattern Host :: HeaderEnum
-pattern Host = HeaderEnum' "Host"
+pattern HeaderEnumHost :: HeaderEnum
+pattern HeaderEnumHost = HeaderEnum' "Host"
 
-pattern Origin :: HeaderEnum
-pattern Origin = HeaderEnum' "Origin"
+pattern HeaderEnumOrigin :: HeaderEnum
+pattern HeaderEnumOrigin = HeaderEnum' "Origin"
 
-pattern Referer :: HeaderEnum
-pattern Referer = HeaderEnum' "Referer"
+pattern HeaderEnumReferer :: HeaderEnum
+pattern HeaderEnumReferer = HeaderEnum' "Referer"
 
 {-# COMPLETE
-  Accept,
-  AcceptCharset,
-  AcceptDatetime,
-  AcceptEncoding,
-  AcceptLanguage,
-  Authorization,
-  CloudFrontForwardedProto,
-  CloudFrontIsDesktopViewer,
-  CloudFrontIsMobileViewer,
-  CloudFrontIsSmartTVViewer,
-  CloudFrontIsTabletViewer,
-  CloudFrontViewerCountry,
-  Host,
-  Origin,
-  Referer,
+  HeaderEnumAccept,
+  HeaderEnumAcceptCharset,
+  HeaderEnumAcceptDatetime,
+  HeaderEnumAcceptEncoding,
+  HeaderEnumAcceptLanguage,
+  HeaderEnumAuthorization,
+  HeaderEnumCloudFrontForwardedProto,
+  HeaderEnumCloudFrontIsDesktopViewer,
+  HeaderEnumCloudFrontIsMobileViewer,
+  HeaderEnumCloudFrontIsSmartTVViewer,
+  HeaderEnumCloudFrontIsTabletViewer,
+  HeaderEnumCloudFrontViewerCountry,
+  HeaderEnumHost,
+  HeaderEnumOrigin,
+  HeaderEnumReferer,
   HeaderEnum'
   #-}
 
-instance FromText HeaderEnum where
-  parser = (HeaderEnum' . mk) <$> takeText
+instance Prelude.FromText HeaderEnum where
+  parser = HeaderEnum' Prelude.<$> Prelude.takeText
 
-instance ToText HeaderEnum where
-  toText (HeaderEnum' ci) = original ci
+instance Prelude.ToText HeaderEnum where
+  toText (HeaderEnum' x) = x
 
-instance Hashable HeaderEnum
+instance Prelude.Hashable HeaderEnum
 
-instance NFData HeaderEnum
+instance Prelude.NFData HeaderEnum
 
-instance ToByteString HeaderEnum
+instance Prelude.ToByteString HeaderEnum
 
-instance ToQuery HeaderEnum
+instance Prelude.ToQuery HeaderEnum
 
-instance ToHeader HeaderEnum
+instance Prelude.ToHeader HeaderEnum
 
-instance ToJSON HeaderEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON HeaderEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HeaderEnum where
-  parseJSON = parseJSONText "HeaderEnum"
+instance Prelude.FromJSON HeaderEnum where
+  parseJSON = Prelude.parseJSONText "HeaderEnum"

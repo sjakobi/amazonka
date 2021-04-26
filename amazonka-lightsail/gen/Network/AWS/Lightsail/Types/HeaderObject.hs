@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.HeaderObject where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.ForwardValues
 import Network.AWS.Lightsail.Types.HeaderEnum
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the request headers that a Lightsail distribution bases caching on.
+-- | Describes the request headers that a Lightsail distribution bases
+-- caching on.
 --
+-- For the headers that you specify, your distribution caches separate
+-- versions of the specified content based on the header values in viewer
+-- requests. For example, suppose viewer requests for @logo.jpg@ contain a
+-- custom @product@ header that has a value of either @acme@ or @apex@, and
+-- you configure your distribution to cache your content based on values in
+-- the @product@ header. Your distribution forwards the @product@ header to
+-- the origin and caches the response from the origin once for each header
+-- value.
 --
--- For the headers that you specify, your distribution caches separate versions of the specified content based on the header values in viewer requests. For example, suppose viewer requests for @logo.jpg@ contain a custom @product@ header that has a value of either @acme@ or @apex@ , and you configure your distribution to cache your content based on values in the @product@ header. Your distribution forwards the @product@ header to the origin and caches the response from the origin once for each header value.
---
---
--- /See:/ 'headerObject' smart constructor.
+-- /See:/ 'newHeaderObject' smart constructor.
 data HeaderObject = HeaderObject'
-  { _hoHeadersAllowList ::
-      !(Maybe [HeaderEnum]),
-    _hoOption :: !(Maybe ForwardValues)
+  { -- | The specific headers to forward to your distribution\'s origin.
+    headersAllowList :: Prelude.Maybe [HeaderEnum],
+    -- | The headers that you want your distribution to forward to your origin
+    -- and base caching on.
+    --
+    -- You can configure your distribution to do one of the following:
+    --
+    -- -   __@all@__ - Forward all headers to your origin.
+    --
+    -- -   __@none@__ - Forward only the default headers.
+    --
+    -- -   __@allow-list@__ - Forward only the headers you specify using the
+    --     @headersAllowList@ parameter.
+    option :: Prelude.Maybe ForwardValues
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HeaderObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HeaderObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hoHeadersAllowList' - The specific headers to forward to your distribution's origin.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hoOption' - The headers that you want your distribution to forward to your origin and base caching on. You can configure your distribution to do one of the following:     * __@all@ __ - Forward all headers to your origin.     * __@none@ __ - Forward only the default headers.     * __@allow-list@ __ - Forward only the headers you specify using the @headersAllowList@ parameter.
-headerObject ::
+-- 'headersAllowList', 'headerObject_headersAllowList' - The specific headers to forward to your distribution\'s origin.
+--
+-- 'option', 'headerObject_option' - The headers that you want your distribution to forward to your origin
+-- and base caching on.
+--
+-- You can configure your distribution to do one of the following:
+--
+-- -   __@all@__ - Forward all headers to your origin.
+--
+-- -   __@none@__ - Forward only the default headers.
+--
+-- -   __@allow-list@__ - Forward only the headers you specify using the
+--     @headersAllowList@ parameter.
+newHeaderObject ::
   HeaderObject
-headerObject =
+newHeaderObject =
   HeaderObject'
-    { _hoHeadersAllowList = Nothing,
-      _hoOption = Nothing
+    { headersAllowList = Prelude.Nothing,
+      option = Prelude.Nothing
     }
 
--- | The specific headers to forward to your distribution's origin.
-hoHeadersAllowList :: Lens' HeaderObject [HeaderEnum]
-hoHeadersAllowList = lens _hoHeadersAllowList (\s a -> s {_hoHeadersAllowList = a}) . _Default . _Coerce
+-- | The specific headers to forward to your distribution\'s origin.
+headerObject_headersAllowList :: Lens.Lens' HeaderObject (Prelude.Maybe [HeaderEnum])
+headerObject_headersAllowList = Lens.lens (\HeaderObject' {headersAllowList} -> headersAllowList) (\s@HeaderObject' {} a -> s {headersAllowList = a} :: HeaderObject) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The headers that you want your distribution to forward to your origin and base caching on. You can configure your distribution to do one of the following:     * __@all@ __ - Forward all headers to your origin.     * __@none@ __ - Forward only the default headers.     * __@allow-list@ __ - Forward only the headers you specify using the @headersAllowList@ parameter.
-hoOption :: Lens' HeaderObject (Maybe ForwardValues)
-hoOption = lens _hoOption (\s a -> s {_hoOption = a})
+-- | The headers that you want your distribution to forward to your origin
+-- and base caching on.
+--
+-- You can configure your distribution to do one of the following:
+--
+-- -   __@all@__ - Forward all headers to your origin.
+--
+-- -   __@none@__ - Forward only the default headers.
+--
+-- -   __@allow-list@__ - Forward only the headers you specify using the
+--     @headersAllowList@ parameter.
+headerObject_option :: Lens.Lens' HeaderObject (Prelude.Maybe ForwardValues)
+headerObject_option = Lens.lens (\HeaderObject' {option} -> option) (\s@HeaderObject' {} a -> s {option = a} :: HeaderObject)
 
-instance FromJSON HeaderObject where
+instance Prelude.FromJSON HeaderObject where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HeaderObject"
       ( \x ->
           HeaderObject'
-            <$> (x .:? "headersAllowList" .!= mempty)
-            <*> (x .:? "option")
+            Prelude.<$> ( x Prelude..:? "headersAllowList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "option")
       )
 
-instance Hashable HeaderObject
+instance Prelude.Hashable HeaderObject
 
-instance NFData HeaderObject
+instance Prelude.NFData HeaderObject
 
-instance ToJSON HeaderObject where
+instance Prelude.ToJSON HeaderObject where
   toJSON HeaderObject' {..} =
-    object
-      ( catMaybes
-          [ ("headersAllowList" .=) <$> _hoHeadersAllowList,
-            ("option" .=) <$> _hoOption
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("headersAllowList" Prelude..=)
+              Prelude.<$> headersAllowList,
+            ("option" Prelude..=) Prelude.<$> option
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.Lightsail.Types.OperationStatus
   ( OperationStatus
       ( ..,
-        Completed,
-        Failed,
-        NotStarted,
-        Started,
-        Succeeded
+        OperationStatusCompleted,
+        OperationStatusFailed,
+        OperationStatusNotStarted,
+        OperationStatusStarted,
+        OperationStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationStatus = OperationStatus' (CI Text)
+newtype OperationStatus = OperationStatus'
+  { fromOperationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: OperationStatus
-pattern Completed = OperationStatus' "Completed"
+pattern OperationStatusCompleted :: OperationStatus
+pattern OperationStatusCompleted = OperationStatus' "Completed"
 
-pattern Failed :: OperationStatus
-pattern Failed = OperationStatus' "Failed"
+pattern OperationStatusFailed :: OperationStatus
+pattern OperationStatusFailed = OperationStatus' "Failed"
 
-pattern NotStarted :: OperationStatus
-pattern NotStarted = OperationStatus' "NotStarted"
+pattern OperationStatusNotStarted :: OperationStatus
+pattern OperationStatusNotStarted = OperationStatus' "NotStarted"
 
-pattern Started :: OperationStatus
-pattern Started = OperationStatus' "Started"
+pattern OperationStatusStarted :: OperationStatus
+pattern OperationStatusStarted = OperationStatus' "Started"
 
-pattern Succeeded :: OperationStatus
-pattern Succeeded = OperationStatus' "Succeeded"
+pattern OperationStatusSucceeded :: OperationStatus
+pattern OperationStatusSucceeded = OperationStatus' "Succeeded"
 
 {-# COMPLETE
-  Completed,
-  Failed,
-  NotStarted,
-  Started,
-  Succeeded,
+  OperationStatusCompleted,
+  OperationStatusFailed,
+  OperationStatusNotStarted,
+  OperationStatusStarted,
+  OperationStatusSucceeded,
   OperationStatus'
   #-}
 
-instance FromText OperationStatus where
-  parser = (OperationStatus' . mk) <$> takeText
+instance Prelude.FromText OperationStatus where
+  parser = OperationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText OperationStatus where
-  toText (OperationStatus' ci) = original ci
+instance Prelude.ToText OperationStatus where
+  toText (OperationStatus' x) = x
 
-instance Hashable OperationStatus
+instance Prelude.Hashable OperationStatus
 
-instance NFData OperationStatus
+instance Prelude.NFData OperationStatus
 
-instance ToByteString OperationStatus
+instance Prelude.ToByteString OperationStatus
 
-instance ToQuery OperationStatus
+instance Prelude.ToQuery OperationStatus
 
-instance ToHeader OperationStatus
+instance Prelude.ToHeader OperationStatus
 
-instance FromJSON OperationStatus where
-  parseJSON = parseJSONText "OperationStatus"
+instance Prelude.FromJSON OperationStatus where
+  parseJSON = Prelude.parseJSONText "OperationStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.RelationalDatabaseEndpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an endpoint for a database.
 --
---
---
--- /See:/ 'relationalDatabaseEndpoint' smart constructor.
+-- /See:/ 'newRelationalDatabaseEndpoint' smart constructor.
 data RelationalDatabaseEndpoint = RelationalDatabaseEndpoint'
-  { _rdeAddress ::
-      !(Maybe Text),
-    _rdePort ::
-      !(Maybe Int)
+  { -- | Specifies the DNS address of the database.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the port that the database is listening on.
+    port :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RelationalDatabaseEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RelationalDatabaseEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdeAddress' - Specifies the DNS address of the database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdePort' - Specifies the port that the database is listening on.
-relationalDatabaseEndpoint ::
+-- 'address', 'relationalDatabaseEndpoint_address' - Specifies the DNS address of the database.
+--
+-- 'port', 'relationalDatabaseEndpoint_port' - Specifies the port that the database is listening on.
+newRelationalDatabaseEndpoint ::
   RelationalDatabaseEndpoint
-relationalDatabaseEndpoint =
+newRelationalDatabaseEndpoint =
   RelationalDatabaseEndpoint'
-    { _rdeAddress = Nothing,
-      _rdePort = Nothing
+    { address =
+        Prelude.Nothing,
+      port = Prelude.Nothing
     }
 
 -- | Specifies the DNS address of the database.
-rdeAddress :: Lens' RelationalDatabaseEndpoint (Maybe Text)
-rdeAddress = lens _rdeAddress (\s a -> s {_rdeAddress = a})
+relationalDatabaseEndpoint_address :: Lens.Lens' RelationalDatabaseEndpoint (Prelude.Maybe Prelude.Text)
+relationalDatabaseEndpoint_address = Lens.lens (\RelationalDatabaseEndpoint' {address} -> address) (\s@RelationalDatabaseEndpoint' {} a -> s {address = a} :: RelationalDatabaseEndpoint)
 
 -- | Specifies the port that the database is listening on.
-rdePort :: Lens' RelationalDatabaseEndpoint (Maybe Int)
-rdePort = lens _rdePort (\s a -> s {_rdePort = a})
+relationalDatabaseEndpoint_port :: Lens.Lens' RelationalDatabaseEndpoint (Prelude.Maybe Prelude.Int)
+relationalDatabaseEndpoint_port = Lens.lens (\RelationalDatabaseEndpoint' {port} -> port) (\s@RelationalDatabaseEndpoint' {} a -> s {port = a} :: RelationalDatabaseEndpoint)
 
-instance FromJSON RelationalDatabaseEndpoint where
+instance Prelude.FromJSON RelationalDatabaseEndpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RelationalDatabaseEndpoint"
       ( \x ->
           RelationalDatabaseEndpoint'
-            <$> (x .:? "address") <*> (x .:? "port")
+            Prelude.<$> (x Prelude..:? "address")
+            Prelude.<*> (x Prelude..:? "port")
       )
 
-instance Hashable RelationalDatabaseEndpoint
+instance Prelude.Hashable RelationalDatabaseEndpoint
 
-instance NFData RelationalDatabaseEndpoint
+instance Prelude.NFData RelationalDatabaseEndpoint

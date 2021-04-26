@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,201 +19,287 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.LoadBalancer where
 
-import Network.AWS.Lens
-import Network.AWS.Lightsail.Types.IPAddressType
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.InstanceHealthSummary
+import Network.AWS.Lightsail.Types.IpAddressType
 import Network.AWS.Lightsail.Types.LoadBalancerAttributeName
 import Network.AWS.Lightsail.Types.LoadBalancerProtocol
 import Network.AWS.Lightsail.Types.LoadBalancerState
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateSummary
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateSummary
 import Network.AWS.Lightsail.Types.ResourceLocation
 import Network.AWS.Lightsail.Types.ResourceType
 import Network.AWS.Lightsail.Types.Tag
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the Lightsail load balancer.
 --
---
---
--- /See:/ 'loadBalancer' smart constructor.
+-- /See:/ 'newLoadBalancer' smart constructor.
 data LoadBalancer = LoadBalancer'
-  { _lbIpAddressType ::
-      !(Maybe IPAddressType),
-    _lbTlsCertificateSummaries ::
-      !(Maybe [LoadBalancerTLSCertificateSummary]),
-    _lbInstanceHealthSummary ::
-      !(Maybe [InstanceHealthSummary]),
-    _lbPublicPorts :: !(Maybe [Int]),
-    _lbConfigurationOptions ::
-      !(Maybe (Map LoadBalancerAttributeName Text)),
-    _lbInstancePort :: !(Maybe Int),
-    _lbCreatedAt :: !(Maybe POSIX),
-    _lbArn :: !(Maybe Text),
-    _lbResourceType :: !(Maybe ResourceType),
-    _lbSupportCode :: !(Maybe Text),
-    _lbState :: !(Maybe LoadBalancerState),
-    _lbName :: !(Maybe Text),
-    _lbHealthCheckPath :: !(Maybe Text),
-    _lbTags :: !(Maybe [Tag]),
-    _lbDnsName :: !(Maybe Text),
-    _lbProtocol :: !(Maybe LoadBalancerProtocol),
-    _lbLocation :: !(Maybe ResourceLocation)
+  { -- | The IP address type of the load balancer.
+    --
+    -- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
+    -- and IPv6.
+    ipAddressType :: Prelude.Maybe IpAddressType,
+    -- | An array of LoadBalancerTlsCertificateSummary objects that provide
+    -- additional information about the SSL\/TLS certificates. For example, if
+    -- @true@, the certificate is attached to the load balancer.
+    tlsCertificateSummaries :: Prelude.Maybe [LoadBalancerTlsCertificateSummary],
+    -- | An array of InstanceHealthSummary objects describing the health of the
+    -- load balancer.
+    instanceHealthSummary :: Prelude.Maybe [InstanceHealthSummary],
+    -- | An array of public port settings for your load balancer. For HTTP, use
+    -- port 80. For HTTPS, use port 443.
+    publicPorts :: Prelude.Maybe [Prelude.Int],
+    -- | A string to string map of the configuration options for your load
+    -- balancer. Valid values are listed below.
+    configurationOptions :: Prelude.Maybe (Prelude.Map LoadBalancerAttributeName Prelude.Text),
+    -- | The port where the load balancer will direct traffic to your Lightsail
+    -- instances. For HTTP traffic, it\'s port 80. For HTTPS traffic, it\'s
+    -- port 443.
+    instancePort :: Prelude.Maybe Prelude.Int,
+    -- | The date when your load balancer was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the load balancer.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The resource type (e.g., @LoadBalancer@.
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The support code. Include this code in your email to support when you
+    -- have questions about your Lightsail load balancer. This code enables our
+    -- support team to look up your Lightsail information more easily.
+    supportCode :: Prelude.Maybe Prelude.Text,
+    -- | The status of your load balancer. Valid values are below.
+    state :: Prelude.Maybe LoadBalancerState,
+    -- | The name of the load balancer (e.g., @my-load-balancer@).
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The path you specified to perform your health checks. If no path is
+    -- specified, the load balancer tries to make a request to the default
+    -- (root) page.
+    healthCheckPath :: Prelude.Maybe Prelude.Text,
+    -- | The tag keys and optional values for the resource. For more information
+    -- about tags in Lightsail, see the
+    -- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide>.
+    tags :: Prelude.Maybe [Tag],
+    -- | The DNS name of your Lightsail load balancer.
+    dnsName :: Prelude.Maybe Prelude.Text,
+    -- | The protocol you have enabled for your load balancer. Valid values are
+    -- below.
+    --
+    -- You can\'t just have @HTTP_HTTPS@, but you can have just @HTTP@.
+    protocol :: Prelude.Maybe LoadBalancerProtocol,
+    -- | The AWS Region where your load balancer was created (e.g.,
+    -- @us-east-2a@). Lightsail automatically creates your load balancer across
+    -- Availability Zones.
+    location :: Prelude.Maybe ResourceLocation
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadBalancer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadBalancer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbIpAddressType' - The IP address type of the load balancer. The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4 and IPv6.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbTlsCertificateSummaries' - An array of LoadBalancerTlsCertificateSummary objects that provide additional information about the SSL/TLS certificates. For example, if @true@ , the certificate is attached to the load balancer.
+-- 'ipAddressType', 'loadBalancer_ipAddressType' - The IP address type of the load balancer.
 --
--- * 'lbInstanceHealthSummary' - An array of InstanceHealthSummary objects describing the health of the load balancer.
+-- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
+-- and IPv6.
 --
--- * 'lbPublicPorts' - An array of public port settings for your load balancer. For HTTP, use port 80. For HTTPS, use port 443.
+-- 'tlsCertificateSummaries', 'loadBalancer_tlsCertificateSummaries' - An array of LoadBalancerTlsCertificateSummary objects that provide
+-- additional information about the SSL\/TLS certificates. For example, if
+-- @true@, the certificate is attached to the load balancer.
 --
--- * 'lbConfigurationOptions' - A string to string map of the configuration options for your load balancer. Valid values are listed below.
+-- 'instanceHealthSummary', 'loadBalancer_instanceHealthSummary' - An array of InstanceHealthSummary objects describing the health of the
+-- load balancer.
 --
--- * 'lbInstancePort' - The port where the load balancer will direct traffic to your Lightsail instances. For HTTP traffic, it's port 80. For HTTPS traffic, it's port 443.
+-- 'publicPorts', 'loadBalancer_publicPorts' - An array of public port settings for your load balancer. For HTTP, use
+-- port 80. For HTTPS, use port 443.
 --
--- * 'lbCreatedAt' - The date when your load balancer was created.
+-- 'configurationOptions', 'loadBalancer_configurationOptions' - A string to string map of the configuration options for your load
+-- balancer. Valid values are listed below.
 --
--- * 'lbArn' - The Amazon Resource Name (ARN) of the load balancer.
+-- 'instancePort', 'loadBalancer_instancePort' - The port where the load balancer will direct traffic to your Lightsail
+-- instances. For HTTP traffic, it\'s port 80. For HTTPS traffic, it\'s
+-- port 443.
 --
--- * 'lbResourceType' - The resource type (e.g., @LoadBalancer@ .
+-- 'createdAt', 'loadBalancer_createdAt' - The date when your load balancer was created.
 --
--- * 'lbSupportCode' - The support code. Include this code in your email to support when you have questions about your Lightsail load balancer. This code enables our support team to look up your Lightsail information more easily.
+-- 'arn', 'loadBalancer_arn' - The Amazon Resource Name (ARN) of the load balancer.
 --
--- * 'lbState' - The status of your load balancer. Valid values are below.
+-- 'resourceType', 'loadBalancer_resourceType' - The resource type (e.g., @LoadBalancer@.
 --
--- * 'lbName' - The name of the load balancer (e.g., @my-load-balancer@ ).
+-- 'supportCode', 'loadBalancer_supportCode' - The support code. Include this code in your email to support when you
+-- have questions about your Lightsail load balancer. This code enables our
+-- support team to look up your Lightsail information more easily.
 --
--- * 'lbHealthCheckPath' - The path you specified to perform your health checks. If no path is specified, the load balancer tries to make a request to the default (root) page.
+-- 'state', 'loadBalancer_state' - The status of your load balancer. Valid values are below.
 --
--- * 'lbTags' - The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide> .
+-- 'name', 'loadBalancer_name' - The name of the load balancer (e.g., @my-load-balancer@).
 --
--- * 'lbDnsName' - The DNS name of your Lightsail load balancer.
+-- 'healthCheckPath', 'loadBalancer_healthCheckPath' - The path you specified to perform your health checks. If no path is
+-- specified, the load balancer tries to make a request to the default
+-- (root) page.
 --
--- * 'lbProtocol' - The protocol you have enabled for your load balancer. Valid values are below. You can't just have @HTTP_HTTPS@ , but you can have just @HTTP@ .
+-- 'tags', 'loadBalancer_tags' - The tag keys and optional values for the resource. For more information
+-- about tags in Lightsail, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide>.
 --
--- * 'lbLocation' - The AWS Region where your load balancer was created (e.g., @us-east-2a@ ). Lightsail automatically creates your load balancer across Availability Zones.
-loadBalancer ::
+-- 'dnsName', 'loadBalancer_dnsName' - The DNS name of your Lightsail load balancer.
+--
+-- 'protocol', 'loadBalancer_protocol' - The protocol you have enabled for your load balancer. Valid values are
+-- below.
+--
+-- You can\'t just have @HTTP_HTTPS@, but you can have just @HTTP@.
+--
+-- 'location', 'loadBalancer_location' - The AWS Region where your load balancer was created (e.g.,
+-- @us-east-2a@). Lightsail automatically creates your load balancer across
+-- Availability Zones.
+newLoadBalancer ::
   LoadBalancer
-loadBalancer =
+newLoadBalancer =
   LoadBalancer'
-    { _lbIpAddressType = Nothing,
-      _lbTlsCertificateSummaries = Nothing,
-      _lbInstanceHealthSummary = Nothing,
-      _lbPublicPorts = Nothing,
-      _lbConfigurationOptions = Nothing,
-      _lbInstancePort = Nothing,
-      _lbCreatedAt = Nothing,
-      _lbArn = Nothing,
-      _lbResourceType = Nothing,
-      _lbSupportCode = Nothing,
-      _lbState = Nothing,
-      _lbName = Nothing,
-      _lbHealthCheckPath = Nothing,
-      _lbTags = Nothing,
-      _lbDnsName = Nothing,
-      _lbProtocol = Nothing,
-      _lbLocation = Nothing
+    { ipAddressType = Prelude.Nothing,
+      tlsCertificateSummaries = Prelude.Nothing,
+      instanceHealthSummary = Prelude.Nothing,
+      publicPorts = Prelude.Nothing,
+      configurationOptions = Prelude.Nothing,
+      instancePort = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      supportCode = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      healthCheckPath = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      dnsName = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      location = Prelude.Nothing
     }
 
--- | The IP address type of the load balancer. The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4 and IPv6.
-lbIpAddressType :: Lens' LoadBalancer (Maybe IPAddressType)
-lbIpAddressType = lens _lbIpAddressType (\s a -> s {_lbIpAddressType = a})
+-- | The IP address type of the load balancer.
+--
+-- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
+-- and IPv6.
+loadBalancer_ipAddressType :: Lens.Lens' LoadBalancer (Prelude.Maybe IpAddressType)
+loadBalancer_ipAddressType = Lens.lens (\LoadBalancer' {ipAddressType} -> ipAddressType) (\s@LoadBalancer' {} a -> s {ipAddressType = a} :: LoadBalancer)
 
--- | An array of LoadBalancerTlsCertificateSummary objects that provide additional information about the SSL/TLS certificates. For example, if @true@ , the certificate is attached to the load balancer.
-lbTlsCertificateSummaries :: Lens' LoadBalancer [LoadBalancerTLSCertificateSummary]
-lbTlsCertificateSummaries = lens _lbTlsCertificateSummaries (\s a -> s {_lbTlsCertificateSummaries = a}) . _Default . _Coerce
+-- | An array of LoadBalancerTlsCertificateSummary objects that provide
+-- additional information about the SSL\/TLS certificates. For example, if
+-- @true@, the certificate is attached to the load balancer.
+loadBalancer_tlsCertificateSummaries :: Lens.Lens' LoadBalancer (Prelude.Maybe [LoadBalancerTlsCertificateSummary])
+loadBalancer_tlsCertificateSummaries = Lens.lens (\LoadBalancer' {tlsCertificateSummaries} -> tlsCertificateSummaries) (\s@LoadBalancer' {} a -> s {tlsCertificateSummaries = a} :: LoadBalancer) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An array of InstanceHealthSummary objects describing the health of the load balancer.
-lbInstanceHealthSummary :: Lens' LoadBalancer [InstanceHealthSummary]
-lbInstanceHealthSummary = lens _lbInstanceHealthSummary (\s a -> s {_lbInstanceHealthSummary = a}) . _Default . _Coerce
+-- | An array of InstanceHealthSummary objects describing the health of the
+-- load balancer.
+loadBalancer_instanceHealthSummary :: Lens.Lens' LoadBalancer (Prelude.Maybe [InstanceHealthSummary])
+loadBalancer_instanceHealthSummary = Lens.lens (\LoadBalancer' {instanceHealthSummary} -> instanceHealthSummary) (\s@LoadBalancer' {} a -> s {instanceHealthSummary = a} :: LoadBalancer) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An array of public port settings for your load balancer. For HTTP, use port 80. For HTTPS, use port 443.
-lbPublicPorts :: Lens' LoadBalancer [Int]
-lbPublicPorts = lens _lbPublicPorts (\s a -> s {_lbPublicPorts = a}) . _Default . _Coerce
+-- | An array of public port settings for your load balancer. For HTTP, use
+-- port 80. For HTTPS, use port 443.
+loadBalancer_publicPorts :: Lens.Lens' LoadBalancer (Prelude.Maybe [Prelude.Int])
+loadBalancer_publicPorts = Lens.lens (\LoadBalancer' {publicPorts} -> publicPorts) (\s@LoadBalancer' {} a -> s {publicPorts = a} :: LoadBalancer) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A string to string map of the configuration options for your load balancer. Valid values are listed below.
-lbConfigurationOptions :: Lens' LoadBalancer (HashMap LoadBalancerAttributeName Text)
-lbConfigurationOptions = lens _lbConfigurationOptions (\s a -> s {_lbConfigurationOptions = a}) . _Default . _Map
+-- | A string to string map of the configuration options for your load
+-- balancer. Valid values are listed below.
+loadBalancer_configurationOptions :: Lens.Lens' LoadBalancer (Prelude.Maybe (Prelude.HashMap LoadBalancerAttributeName Prelude.Text))
+loadBalancer_configurationOptions = Lens.lens (\LoadBalancer' {configurationOptions} -> configurationOptions) (\s@LoadBalancer' {} a -> s {configurationOptions = a} :: LoadBalancer) Prelude.. Lens.mapping Prelude._Map
 
--- | The port where the load balancer will direct traffic to your Lightsail instances. For HTTP traffic, it's port 80. For HTTPS traffic, it's port 443.
-lbInstancePort :: Lens' LoadBalancer (Maybe Int)
-lbInstancePort = lens _lbInstancePort (\s a -> s {_lbInstancePort = a})
+-- | The port where the load balancer will direct traffic to your Lightsail
+-- instances. For HTTP traffic, it\'s port 80. For HTTPS traffic, it\'s
+-- port 443.
+loadBalancer_instancePort :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Int)
+loadBalancer_instancePort = Lens.lens (\LoadBalancer' {instancePort} -> instancePort) (\s@LoadBalancer' {} a -> s {instancePort = a} :: LoadBalancer)
 
 -- | The date when your load balancer was created.
-lbCreatedAt :: Lens' LoadBalancer (Maybe UTCTime)
-lbCreatedAt = lens _lbCreatedAt (\s a -> s {_lbCreatedAt = a}) . mapping _Time
+loadBalancer_createdAt :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.UTCTime)
+loadBalancer_createdAt = Lens.lens (\LoadBalancer' {createdAt} -> createdAt) (\s@LoadBalancer' {} a -> s {createdAt = a} :: LoadBalancer) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the load balancer.
-lbArn :: Lens' LoadBalancer (Maybe Text)
-lbArn = lens _lbArn (\s a -> s {_lbArn = a})
+loadBalancer_arn :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Text)
+loadBalancer_arn = Lens.lens (\LoadBalancer' {arn} -> arn) (\s@LoadBalancer' {} a -> s {arn = a} :: LoadBalancer)
 
--- | The resource type (e.g., @LoadBalancer@ .
-lbResourceType :: Lens' LoadBalancer (Maybe ResourceType)
-lbResourceType = lens _lbResourceType (\s a -> s {_lbResourceType = a})
+-- | The resource type (e.g., @LoadBalancer@.
+loadBalancer_resourceType :: Lens.Lens' LoadBalancer (Prelude.Maybe ResourceType)
+loadBalancer_resourceType = Lens.lens (\LoadBalancer' {resourceType} -> resourceType) (\s@LoadBalancer' {} a -> s {resourceType = a} :: LoadBalancer)
 
--- | The support code. Include this code in your email to support when you have questions about your Lightsail load balancer. This code enables our support team to look up your Lightsail information more easily.
-lbSupportCode :: Lens' LoadBalancer (Maybe Text)
-lbSupportCode = lens _lbSupportCode (\s a -> s {_lbSupportCode = a})
+-- | The support code. Include this code in your email to support when you
+-- have questions about your Lightsail load balancer. This code enables our
+-- support team to look up your Lightsail information more easily.
+loadBalancer_supportCode :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Text)
+loadBalancer_supportCode = Lens.lens (\LoadBalancer' {supportCode} -> supportCode) (\s@LoadBalancer' {} a -> s {supportCode = a} :: LoadBalancer)
 
 -- | The status of your load balancer. Valid values are below.
-lbState :: Lens' LoadBalancer (Maybe LoadBalancerState)
-lbState = lens _lbState (\s a -> s {_lbState = a})
+loadBalancer_state :: Lens.Lens' LoadBalancer (Prelude.Maybe LoadBalancerState)
+loadBalancer_state = Lens.lens (\LoadBalancer' {state} -> state) (\s@LoadBalancer' {} a -> s {state = a} :: LoadBalancer)
 
--- | The name of the load balancer (e.g., @my-load-balancer@ ).
-lbName :: Lens' LoadBalancer (Maybe Text)
-lbName = lens _lbName (\s a -> s {_lbName = a})
+-- | The name of the load balancer (e.g., @my-load-balancer@).
+loadBalancer_name :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Text)
+loadBalancer_name = Lens.lens (\LoadBalancer' {name} -> name) (\s@LoadBalancer' {} a -> s {name = a} :: LoadBalancer)
 
--- | The path you specified to perform your health checks. If no path is specified, the load balancer tries to make a request to the default (root) page.
-lbHealthCheckPath :: Lens' LoadBalancer (Maybe Text)
-lbHealthCheckPath = lens _lbHealthCheckPath (\s a -> s {_lbHealthCheckPath = a})
+-- | The path you specified to perform your health checks. If no path is
+-- specified, the load balancer tries to make a request to the default
+-- (root) page.
+loadBalancer_healthCheckPath :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Text)
+loadBalancer_healthCheckPath = Lens.lens (\LoadBalancer' {healthCheckPath} -> healthCheckPath) (\s@LoadBalancer' {} a -> s {healthCheckPath = a} :: LoadBalancer)
 
--- | The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide> .
-lbTags :: Lens' LoadBalancer [Tag]
-lbTags = lens _lbTags (\s a -> s {_lbTags = a}) . _Default . _Coerce
+-- | The tag keys and optional values for the resource. For more information
+-- about tags in Lightsail, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide>.
+loadBalancer_tags :: Lens.Lens' LoadBalancer (Prelude.Maybe [Tag])
+loadBalancer_tags = Lens.lens (\LoadBalancer' {tags} -> tags) (\s@LoadBalancer' {} a -> s {tags = a} :: LoadBalancer) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The DNS name of your Lightsail load balancer.
-lbDnsName :: Lens' LoadBalancer (Maybe Text)
-lbDnsName = lens _lbDnsName (\s a -> s {_lbDnsName = a})
+loadBalancer_dnsName :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Text)
+loadBalancer_dnsName = Lens.lens (\LoadBalancer' {dnsName} -> dnsName) (\s@LoadBalancer' {} a -> s {dnsName = a} :: LoadBalancer)
 
--- | The protocol you have enabled for your load balancer. Valid values are below. You can't just have @HTTP_HTTPS@ , but you can have just @HTTP@ .
-lbProtocol :: Lens' LoadBalancer (Maybe LoadBalancerProtocol)
-lbProtocol = lens _lbProtocol (\s a -> s {_lbProtocol = a})
+-- | The protocol you have enabled for your load balancer. Valid values are
+-- below.
+--
+-- You can\'t just have @HTTP_HTTPS@, but you can have just @HTTP@.
+loadBalancer_protocol :: Lens.Lens' LoadBalancer (Prelude.Maybe LoadBalancerProtocol)
+loadBalancer_protocol = Lens.lens (\LoadBalancer' {protocol} -> protocol) (\s@LoadBalancer' {} a -> s {protocol = a} :: LoadBalancer)
 
--- | The AWS Region where your load balancer was created (e.g., @us-east-2a@ ). Lightsail automatically creates your load balancer across Availability Zones.
-lbLocation :: Lens' LoadBalancer (Maybe ResourceLocation)
-lbLocation = lens _lbLocation (\s a -> s {_lbLocation = a})
+-- | The AWS Region where your load balancer was created (e.g.,
+-- @us-east-2a@). Lightsail automatically creates your load balancer across
+-- Availability Zones.
+loadBalancer_location :: Lens.Lens' LoadBalancer (Prelude.Maybe ResourceLocation)
+loadBalancer_location = Lens.lens (\LoadBalancer' {location} -> location) (\s@LoadBalancer' {} a -> s {location = a} :: LoadBalancer)
 
-instance FromJSON LoadBalancer where
+instance Prelude.FromJSON LoadBalancer where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LoadBalancer"
       ( \x ->
           LoadBalancer'
-            <$> (x .:? "ipAddressType")
-            <*> (x .:? "tlsCertificateSummaries" .!= mempty)
-            <*> (x .:? "instanceHealthSummary" .!= mempty)
-            <*> (x .:? "publicPorts" .!= mempty)
-            <*> (x .:? "configurationOptions" .!= mempty)
-            <*> (x .:? "instancePort")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "arn")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "supportCode")
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "healthCheckPath")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "dnsName")
-            <*> (x .:? "protocol")
-            <*> (x .:? "location")
+            Prelude.<$> (x Prelude..:? "ipAddressType")
+            Prelude.<*> ( x Prelude..:? "tlsCertificateSummaries"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "instanceHealthSummary"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "publicPorts"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "configurationOptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "instancePort")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "supportCode")
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "healthCheckPath")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "dnsName")
+            Prelude.<*> (x Prelude..:? "protocol")
+            Prelude.<*> (x Prelude..:? "location")
       )
 
-instance Hashable LoadBalancer
+instance Prelude.Hashable LoadBalancer
 
-instance NFData LoadBalancer
+instance Prelude.NFData LoadBalancer

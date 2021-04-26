@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a container image that is registered to your Amazon Lightsail container service.
+-- Deletes a container image that is registered to your Amazon Lightsail
+-- container service.
 module Network.AWS.Lightsail.DeleteContainerImage
   ( -- * Creating a Request
-    deleteContainerImage,
-    DeleteContainerImage,
+    DeleteContainerImage (..),
+    newDeleteContainerImage,
 
     -- * Request Lenses
-    dciServiceName,
-    dciImage,
+    deleteContainerImage_serviceName,
+    deleteContainerImage_image,
 
     -- * Destructuring the Response
-    deleteContainerImageResponse,
-    DeleteContainerImageResponse,
+    DeleteContainerImageResponse (..),
+    newDeleteContainerImageResponse,
 
     -- * Response Lenses
-    dcirrsResponseStatus,
+    deleteContainerImageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteContainerImage' smart constructor.
+-- | /See:/ 'newDeleteContainerImage' smart constructor.
 data DeleteContainerImage = DeleteContainerImage'
-  { _dciServiceName ::
-      !Text,
-    _dciImage :: !Text
+  { -- | The name of the container service for which to delete a registered
+    -- container image.
+    serviceName :: Prelude.Text,
+    -- | The name of the container image to delete from the container service.
+    --
+    -- Use the @GetContainerImages@ action to get the name of the container
+    -- images that are registered to a container service.
+    --
+    -- Container images sourced from your Lightsail container service, that are
+    -- registered and stored on your service, start with a colon (@:@). For
+    -- example, @:container-service-1.mystaticwebsite.1@. Container images
+    -- sourced from a public registry like Docker Hub don\'t start with a
+    -- colon. For example, @nginx:latest@ or @nginx@.
+    image :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteContainerImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteContainerImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dciServiceName' - The name of the container service for which to delete a registered container image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dciImage' - The name of the container image to delete from the container service. Use the @GetContainerImages@ action to get the name of the container images that are registered to a container service.
-deleteContainerImage ::
-  -- | 'dciServiceName'
-  Text ->
-  -- | 'dciImage'
-  Text ->
+-- 'serviceName', 'deleteContainerImage_serviceName' - The name of the container service for which to delete a registered
+-- container image.
+--
+-- 'image', 'deleteContainerImage_image' - The name of the container image to delete from the container service.
+--
+-- Use the @GetContainerImages@ action to get the name of the container
+-- images that are registered to a container service.
+--
+-- Container images sourced from your Lightsail container service, that are
+-- registered and stored on your service, start with a colon (@:@). For
+-- example, @:container-service-1.mystaticwebsite.1@. Container images
+-- sourced from a public registry like Docker Hub don\'t start with a
+-- colon. For example, @nginx:latest@ or @nginx@.
+newDeleteContainerImage ::
+  -- | 'serviceName'
+  Prelude.Text ->
+  -- | 'image'
+  Prelude.Text ->
   DeleteContainerImage
-deleteContainerImage pServiceName_ pImage_ =
+newDeleteContainerImage pServiceName_ pImage_ =
   DeleteContainerImage'
-    { _dciServiceName =
-        pServiceName_,
-      _dciImage = pImage_
+    { serviceName = pServiceName_,
+      image = pImage_
     }
 
--- | The name of the container service for which to delete a registered container image.
-dciServiceName :: Lens' DeleteContainerImage Text
-dciServiceName = lens _dciServiceName (\s a -> s {_dciServiceName = a})
+-- | The name of the container service for which to delete a registered
+-- container image.
+deleteContainerImage_serviceName :: Lens.Lens' DeleteContainerImage Prelude.Text
+deleteContainerImage_serviceName = Lens.lens (\DeleteContainerImage' {serviceName} -> serviceName) (\s@DeleteContainerImage' {} a -> s {serviceName = a} :: DeleteContainerImage)
 
--- | The name of the container image to delete from the container service. Use the @GetContainerImages@ action to get the name of the container images that are registered to a container service.
-dciImage :: Lens' DeleteContainerImage Text
-dciImage = lens _dciImage (\s a -> s {_dciImage = a})
+-- | The name of the container image to delete from the container service.
+--
+-- Use the @GetContainerImages@ action to get the name of the container
+-- images that are registered to a container service.
+--
+-- Container images sourced from your Lightsail container service, that are
+-- registered and stored on your service, start with a colon (@:@). For
+-- example, @:container-service-1.mystaticwebsite.1@. Container images
+-- sourced from a public registry like Docker Hub don\'t start with a
+-- colon. For example, @nginx:latest@ or @nginx@.
+deleteContainerImage_image :: Lens.Lens' DeleteContainerImage Prelude.Text
+deleteContainerImage_image = Lens.lens (\DeleteContainerImage' {image} -> image) (\s@DeleteContainerImage' {} a -> s {image = a} :: DeleteContainerImage)
 
-instance AWSRequest DeleteContainerImage where
+instance Prelude.AWSRequest DeleteContainerImage where
   type
     Rs DeleteContainerImage =
       DeleteContainerImageResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteContainerImageResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteContainerImage
+instance Prelude.Hashable DeleteContainerImage
 
-instance NFData DeleteContainerImage
+instance Prelude.NFData DeleteContainerImage
 
-instance ToHeaders DeleteContainerImage where
+instance Prelude.ToHeaders DeleteContainerImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteContainerImage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteContainerImage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteContainerImage where
+instance Prelude.ToJSON DeleteContainerImage where
   toJSON DeleteContainerImage' {..} =
-    object
-      ( catMaybes
-          [ Just ("serviceName" .= _dciServiceName),
-            Just ("image" .= _dciImage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("serviceName" Prelude..= serviceName),
+            Prelude.Just ("image" Prelude..= image)
           ]
       )
 
-instance ToPath DeleteContainerImage where
-  toPath = const "/"
+instance Prelude.ToPath DeleteContainerImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteContainerImage where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteContainerImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteContainerImageResponse' smart constructor.
-newtype DeleteContainerImageResponse = DeleteContainerImageResponse'
-  { _dcirrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteContainerImageResponse' smart constructor.
+data DeleteContainerImageResponse = DeleteContainerImageResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteContainerImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteContainerImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcirrsResponseStatus' - -- | The response status code.
-deleteContainerImageResponse ::
-  -- | 'dcirrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteContainerImageResponse_httpStatus' - The response's http status code.
+newDeleteContainerImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteContainerImageResponse
-deleteContainerImageResponse pResponseStatus_ =
+newDeleteContainerImageResponse pHttpStatus_ =
   DeleteContainerImageResponse'
-    { _dcirrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcirrsResponseStatus :: Lens' DeleteContainerImageResponse Int
-dcirrsResponseStatus = lens _dcirrsResponseStatus (\s a -> s {_dcirrsResponseStatus = a})
+-- | The response's http status code.
+deleteContainerImageResponse_httpStatus :: Lens.Lens' DeleteContainerImageResponse Prelude.Int
+deleteContainerImageResponse_httpStatus = Lens.lens (\DeleteContainerImageResponse' {httpStatus} -> httpStatus) (\s@DeleteContainerImageResponse' {} a -> s {httpStatus = a} :: DeleteContainerImageResponse)
 
-instance NFData DeleteContainerImageResponse
+instance Prelude.NFData DeleteContainerImageResponse

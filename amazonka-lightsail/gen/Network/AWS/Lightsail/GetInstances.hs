@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about all Amazon Lightsail virtual private servers, or /instances/ .
---
---
+-- Returns information about all Amazon Lightsail virtual private servers,
+-- or /instances/.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetInstances
   ( -- * Creating a Request
-    getInstances,
-    GetInstances,
+    GetInstances (..),
+    newGetInstances,
 
     -- * Request Lenses
-    giPageToken,
+    getInstances_pageToken,
 
     -- * Destructuring the Response
-    getInstancesResponse,
-    GetInstancesResponse,
+    GetInstancesResponse (..),
+    newGetInstancesResponse,
 
     -- * Response Lenses
-    girrsInstances,
-    girrsNextPageToken,
-    girrsResponseStatus,
+    getInstancesResponse_instances,
+    getInstancesResponse_nextPageToken,
+    getInstancesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Instance
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getInstances' smart constructor.
-newtype GetInstances = GetInstances'
-  { _giPageToken ::
-      Maybe Text
+-- | /See:/ 'newGetInstances' smart constructor.
+data GetInstances = GetInstances'
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetInstances@ request. If your
+    -- results are paginated, the response will return a next page token that
+    -- you can specify as the page token in a subsequent request.
+    pageToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetInstances@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-getInstances ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pageToken', 'getInstances_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetInstances@ request. If your
+-- results are paginated, the response will return a next page token that
+-- you can specify as the page token in a subsequent request.
+newGetInstances ::
   GetInstances
-getInstances = GetInstances' {_giPageToken = Nothing}
+newGetInstances =
+  GetInstances' {pageToken = Prelude.Nothing}
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetInstances@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-giPageToken :: Lens' GetInstances (Maybe Text)
-giPageToken = lens _giPageToken (\s a -> s {_giPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetInstances@ request. If your
+-- results are paginated, the response will return a next page token that
+-- you can specify as the page token in a subsequent request.
+getInstances_pageToken :: Lens.Lens' GetInstances (Prelude.Maybe Prelude.Text)
+getInstances_pageToken = Lens.lens (\GetInstances' {pageToken} -> pageToken) (\s@GetInstances' {} a -> s {pageToken = a} :: GetInstances)
 
-instance AWSPager GetInstances where
+instance Pager.AWSPager GetInstances where
   page rq rs
-    | stop (rs ^. girrsNextPageToken) = Nothing
-    | stop (rs ^. girrsInstances) = Nothing
-    | otherwise =
-      Just $ rq & giPageToken .~ rs ^. girrsNextPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? getInstancesResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getInstancesResponse_instances Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getInstances_pageToken
+          Lens..~ rs
+          Lens.^? getInstancesResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetInstances where
+instance Prelude.AWSRequest GetInstances where
   type Rs GetInstances = GetInstancesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInstancesResponse'
-            <$> (x .?> "instances" .!@ mempty)
-            <*> (x .?> "nextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "instances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInstances
+instance Prelude.Hashable GetInstances
 
-instance NFData GetInstances
+instance Prelude.NFData GetInstances
 
-instance ToHeaders GetInstances where
+instance Prelude.ToHeaders GetInstances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetInstances" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetInstances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInstances where
+instance Prelude.ToJSON GetInstances where
   toJSON GetInstances' {..} =
-    object
-      (catMaybes [("pageToken" .=) <$> _giPageToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pageToken" Prelude..=) Prelude.<$> pageToken]
+      )
 
-instance ToPath GetInstances where
-  toPath = const "/"
+instance Prelude.ToPath GetInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInstances where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInstances where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInstancesResponse' smart constructor.
+-- | /See:/ 'newGetInstancesResponse' smart constructor.
 data GetInstancesResponse = GetInstancesResponse'
-  { _girrsInstances ::
-      !(Maybe [Instance]),
-    _girrsNextPageToken ::
-      !(Maybe Text),
-    _girrsResponseStatus :: !Int
+  { -- | An array of key-value pairs containing information about your instances.
+    instances :: Prelude.Maybe [Instance],
+    -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another @GetInstances@ request
+    -- and specify the next page token using the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'girrsInstances' - An array of key-value pairs containing information about your instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'girrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetInstances@ request and specify the next page token using the @pageToken@ parameter.
+-- 'instances', 'getInstancesResponse_instances' - An array of key-value pairs containing information about your instances.
 --
--- * 'girrsResponseStatus' - -- | The response status code.
-getInstancesResponse ::
-  -- | 'girrsResponseStatus'
-  Int ->
+-- 'nextPageToken', 'getInstancesResponse_nextPageToken' - The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetInstances@ request
+-- and specify the next page token using the @pageToken@ parameter.
+--
+-- 'httpStatus', 'getInstancesResponse_httpStatus' - The response's http status code.
+newGetInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInstancesResponse
-getInstancesResponse pResponseStatus_ =
+newGetInstancesResponse pHttpStatus_ =
   GetInstancesResponse'
-    { _girrsInstances = Nothing,
-      _girrsNextPageToken = Nothing,
-      _girrsResponseStatus = pResponseStatus_
+    { instances = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array of key-value pairs containing information about your instances.
-girrsInstances :: Lens' GetInstancesResponse [Instance]
-girrsInstances = lens _girrsInstances (\s a -> s {_girrsInstances = a}) . _Default . _Coerce
+getInstancesResponse_instances :: Lens.Lens' GetInstancesResponse (Prelude.Maybe [Instance])
+getInstancesResponse_instances = Lens.lens (\GetInstancesResponse' {instances} -> instances) (\s@GetInstancesResponse' {} a -> s {instances = a} :: GetInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetInstances@ request and specify the next page token using the @pageToken@ parameter.
-girrsNextPageToken :: Lens' GetInstancesResponse (Maybe Text)
-girrsNextPageToken = lens _girrsNextPageToken (\s a -> s {_girrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetInstances@ request
+-- and specify the next page token using the @pageToken@ parameter.
+getInstancesResponse_nextPageToken :: Lens.Lens' GetInstancesResponse (Prelude.Maybe Prelude.Text)
+getInstancesResponse_nextPageToken = Lens.lens (\GetInstancesResponse' {nextPageToken} -> nextPageToken) (\s@GetInstancesResponse' {} a -> s {nextPageToken = a} :: GetInstancesResponse)
 
--- | -- | The response status code.
-girrsResponseStatus :: Lens' GetInstancesResponse Int
-girrsResponseStatus = lens _girrsResponseStatus (\s a -> s {_girrsResponseStatus = a})
+-- | The response's http status code.
+getInstancesResponse_httpStatus :: Lens.Lens' GetInstancesResponse Prelude.Int
+getInstancesResponse_httpStatus = Lens.lens (\GetInstancesResponse' {httpStatus} -> httpStatus) (\s@GetInstancesResponse' {} a -> s {httpStatus = a} :: GetInstancesResponse)
 
-instance NFData GetInstancesResponse
+instance Prelude.NFData GetInstancesResponse

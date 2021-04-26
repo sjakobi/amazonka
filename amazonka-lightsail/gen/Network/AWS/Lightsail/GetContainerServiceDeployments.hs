@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,156 +23,179 @@
 --
 -- Returns the deployments for your Amazon Lightsail container service
 --
+-- A deployment specifies the settings, such as the ports and launch
+-- command, of containers that are deployed to your container service.
 --
--- A deployment specifies the settings, such as the ports and launch command, of containers that are deployed to your container service.
+-- The deployments are ordered by version in ascending order. The newest
+-- version is listed at the top of the response.
 --
--- The deployments are ordered by version in ascending order. The newest version is listed at the top of the response.
+-- A set number of deployments are kept before the oldest one is replaced
+-- with the newest one. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/lightsail.html Amazon Lightsail endpoints and quotas>
+-- in the /AWS General Reference/.
 module Network.AWS.Lightsail.GetContainerServiceDeployments
   ( -- * Creating a Request
-    getContainerServiceDeployments,
-    GetContainerServiceDeployments,
+    GetContainerServiceDeployments (..),
+    newGetContainerServiceDeployments,
 
     -- * Request Lenses
-    gcsdServiceName,
+    getContainerServiceDeployments_serviceName,
 
     -- * Destructuring the Response
-    getContainerServiceDeploymentsResponse,
-    GetContainerServiceDeploymentsResponse,
+    GetContainerServiceDeploymentsResponse (..),
+    newGetContainerServiceDeploymentsResponse,
 
     -- * Response Lenses
-    gcsdrrsDeployments,
-    gcsdrrsResponseStatus,
+    getContainerServiceDeploymentsResponse_deployments,
+    getContainerServiceDeploymentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerServiceDeployment
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerServiceDeployments' smart constructor.
-newtype GetContainerServiceDeployments = GetContainerServiceDeployments'
-  { _gcsdServiceName ::
-      Text
+-- | /See:/ 'newGetContainerServiceDeployments' smart constructor.
+data GetContainerServiceDeployments = GetContainerServiceDeployments'
+  { -- | The name of the container service for which to return deployments.
+    serviceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServiceDeployments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServiceDeployments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsdServiceName' - The name of the container service for which to return deployments.
-getContainerServiceDeployments ::
-  -- | 'gcsdServiceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'serviceName', 'getContainerServiceDeployments_serviceName' - The name of the container service for which to return deployments.
+newGetContainerServiceDeployments ::
+  -- | 'serviceName'
+  Prelude.Text ->
   GetContainerServiceDeployments
-getContainerServiceDeployments pServiceName_ =
+newGetContainerServiceDeployments pServiceName_ =
   GetContainerServiceDeployments'
-    { _gcsdServiceName =
+    { serviceName =
         pServiceName_
     }
 
 -- | The name of the container service for which to return deployments.
-gcsdServiceName :: Lens' GetContainerServiceDeployments Text
-gcsdServiceName = lens _gcsdServiceName (\s a -> s {_gcsdServiceName = a})
+getContainerServiceDeployments_serviceName :: Lens.Lens' GetContainerServiceDeployments Prelude.Text
+getContainerServiceDeployments_serviceName = Lens.lens (\GetContainerServiceDeployments' {serviceName} -> serviceName) (\s@GetContainerServiceDeployments' {} a -> s {serviceName = a} :: GetContainerServiceDeployments)
 
-instance AWSRequest GetContainerServiceDeployments where
+instance
+  Prelude.AWSRequest
+    GetContainerServiceDeployments
+  where
   type
     Rs GetContainerServiceDeployments =
       GetContainerServiceDeploymentsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerServiceDeploymentsResponse'
-            <$> (x .?> "deployments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "deployments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerServiceDeployments
+instance
+  Prelude.Hashable
+    GetContainerServiceDeployments
 
-instance NFData GetContainerServiceDeployments
+instance
+  Prelude.NFData
+    GetContainerServiceDeployments
 
-instance ToHeaders GetContainerServiceDeployments where
+instance
+  Prelude.ToHeaders
+    GetContainerServiceDeployments
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetContainerServiceDeployments" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetContainerServiceDeployments" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerServiceDeployments where
+instance
+  Prelude.ToJSON
+    GetContainerServiceDeployments
+  where
   toJSON GetContainerServiceDeployments' {..} =
-    object
-      ( catMaybes
-          [Just ("serviceName" .= _gcsdServiceName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("serviceName" Prelude..= serviceName)
+          ]
       )
 
-instance ToPath GetContainerServiceDeployments where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetContainerServiceDeployments
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerServiceDeployments where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetContainerServiceDeployments
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerServiceDeploymentsResponse' smart constructor.
+-- | /See:/ 'newGetContainerServiceDeploymentsResponse' smart constructor.
 data GetContainerServiceDeploymentsResponse = GetContainerServiceDeploymentsResponse'
-  { _gcsdrrsDeployments ::
-      !( Maybe
-           [ContainerServiceDeployment]
-       ),
-    _gcsdrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe deployments for a container service.
+    deployments :: Prelude.Maybe [ContainerServiceDeployment],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServiceDeploymentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServiceDeploymentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsdrrsDeployments' - An array of objects that describe deployments for a container service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsdrrsResponseStatus' - -- | The response status code.
-getContainerServiceDeploymentsResponse ::
-  -- | 'gcsdrrsResponseStatus'
-  Int ->
+-- 'deployments', 'getContainerServiceDeploymentsResponse_deployments' - An array of objects that describe deployments for a container service.
+--
+-- 'httpStatus', 'getContainerServiceDeploymentsResponse_httpStatus' - The response's http status code.
+newGetContainerServiceDeploymentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerServiceDeploymentsResponse
-getContainerServiceDeploymentsResponse
-  pResponseStatus_ =
+newGetContainerServiceDeploymentsResponse
+  pHttpStatus_ =
     GetContainerServiceDeploymentsResponse'
-      { _gcsdrrsDeployments =
-          Nothing,
-        _gcsdrrsResponseStatus =
-          pResponseStatus_
+      { deployments =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | An array of objects that describe deployments for a container service.
-gcsdrrsDeployments :: Lens' GetContainerServiceDeploymentsResponse [ContainerServiceDeployment]
-gcsdrrsDeployments = lens _gcsdrrsDeployments (\s a -> s {_gcsdrrsDeployments = a}) . _Default . _Coerce
+getContainerServiceDeploymentsResponse_deployments :: Lens.Lens' GetContainerServiceDeploymentsResponse (Prelude.Maybe [ContainerServiceDeployment])
+getContainerServiceDeploymentsResponse_deployments = Lens.lens (\GetContainerServiceDeploymentsResponse' {deployments} -> deployments) (\s@GetContainerServiceDeploymentsResponse' {} a -> s {deployments = a} :: GetContainerServiceDeploymentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsdrrsResponseStatus :: Lens' GetContainerServiceDeploymentsResponse Int
-gcsdrrsResponseStatus = lens _gcsdrrsResponseStatus (\s a -> s {_gcsdrrsResponseStatus = a})
+-- | The response's http status code.
+getContainerServiceDeploymentsResponse_httpStatus :: Lens.Lens' GetContainerServiceDeploymentsResponse Prelude.Int
+getContainerServiceDeploymentsResponse_httpStatus = Lens.lens (\GetContainerServiceDeploymentsResponse' {httpStatus} -> httpStatus) (\s@GetContainerServiceDeploymentsResponse' {} a -> s {httpStatus = a} :: GetContainerServiceDeploymentsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetContainerServiceDeploymentsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.AttachedDisk where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a block storage disk that is attached to an instance, and is included in an automatic snapshot.
+-- | Describes a block storage disk that is attached to an instance, and is
+-- included in an automatic snapshot.
 --
---
---
--- /See:/ 'attachedDisk' smart constructor.
+-- /See:/ 'newAttachedDisk' smart constructor.
 data AttachedDisk = AttachedDisk'
-  { _adSizeInGb ::
-      !(Maybe Int),
-    _adPath :: !(Maybe Text)
+  { -- | The size of the disk in GB.
+    sizeInGb :: Prelude.Maybe Prelude.Int,
+    -- | The path of the disk (e.g., @\/dev\/xvdf@).
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachedDisk' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachedDisk' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adSizeInGb' - The size of the disk in GB.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adPath' - The path of the disk (e.g., @/dev/xvdf@ ).
-attachedDisk ::
+-- 'sizeInGb', 'attachedDisk_sizeInGb' - The size of the disk in GB.
+--
+-- 'path', 'attachedDisk_path' - The path of the disk (e.g., @\/dev\/xvdf@).
+newAttachedDisk ::
   AttachedDisk
-attachedDisk =
+newAttachedDisk =
   AttachedDisk'
-    { _adSizeInGb = Nothing,
-      _adPath = Nothing
+    { sizeInGb = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
 -- | The size of the disk in GB.
-adSizeInGb :: Lens' AttachedDisk (Maybe Int)
-adSizeInGb = lens _adSizeInGb (\s a -> s {_adSizeInGb = a})
+attachedDisk_sizeInGb :: Lens.Lens' AttachedDisk (Prelude.Maybe Prelude.Int)
+attachedDisk_sizeInGb = Lens.lens (\AttachedDisk' {sizeInGb} -> sizeInGb) (\s@AttachedDisk' {} a -> s {sizeInGb = a} :: AttachedDisk)
 
--- | The path of the disk (e.g., @/dev/xvdf@ ).
-adPath :: Lens' AttachedDisk (Maybe Text)
-adPath = lens _adPath (\s a -> s {_adPath = a})
+-- | The path of the disk (e.g., @\/dev\/xvdf@).
+attachedDisk_path :: Lens.Lens' AttachedDisk (Prelude.Maybe Prelude.Text)
+attachedDisk_path = Lens.lens (\AttachedDisk' {path} -> path) (\s@AttachedDisk' {} a -> s {path = a} :: AttachedDisk)
 
-instance FromJSON AttachedDisk where
+instance Prelude.FromJSON AttachedDisk where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttachedDisk"
       ( \x ->
           AttachedDisk'
-            <$> (x .:? "sizeInGb") <*> (x .:? "path")
+            Prelude.<$> (x Prelude..:? "sizeInGb")
+            Prelude.<*> (x Prelude..:? "path")
       )
 
-instance Hashable AttachedDisk
+instance Prelude.Hashable AttachedDisk
 
-instance NFData AttachedDisk
+instance Prelude.NFData AttachedDisk

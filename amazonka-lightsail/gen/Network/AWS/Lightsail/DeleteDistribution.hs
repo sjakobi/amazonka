@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes your Amazon Lightsail content delivery network (CDN) distribution.
+-- Deletes your Amazon Lightsail content delivery network (CDN)
+-- distribution.
 module Network.AWS.Lightsail.DeleteDistribution
   ( -- * Creating a Request
-    deleteDistribution,
-    DeleteDistribution,
+    DeleteDistribution (..),
+    newDeleteDistribution,
 
     -- * Request Lenses
-    ddDistributionName,
+    deleteDistribution_distributionName,
 
     -- * Destructuring the Response
-    deleteDistributionResponse,
-    DeleteDistributionResponse,
+    DeleteDistributionResponse (..),
+    newDeleteDistributionResponse,
 
     -- * Response Lenses
-    delrsOperation,
-    delrsResponseStatus,
+    deleteDistributionResponse_operation,
+    deleteDistributionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDistribution' smart constructor.
-newtype DeleteDistribution = DeleteDistribution'
-  { _ddDistributionName ::
-      Maybe Text
+-- | /See:/ 'newDeleteDistribution' smart constructor.
+data DeleteDistribution = DeleteDistribution'
+  { -- | The name of the distribution to delete.
+    --
+    -- Use the @GetDistributions@ action to get a list of distribution names
+    -- that you can specify.
+    distributionName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDistribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDistribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDistributionName' - The name of the distribution to delete. Use the @GetDistributions@ action to get a list of distribution names that you can specify.
-deleteDistribution ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'distributionName', 'deleteDistribution_distributionName' - The name of the distribution to delete.
+--
+-- Use the @GetDistributions@ action to get a list of distribution names
+-- that you can specify.
+newDeleteDistribution ::
   DeleteDistribution
-deleteDistribution =
-  DeleteDistribution' {_ddDistributionName = Nothing}
+newDeleteDistribution =
+  DeleteDistribution'
+    { distributionName =
+        Prelude.Nothing
+    }
 
--- | The name of the distribution to delete. Use the @GetDistributions@ action to get a list of distribution names that you can specify.
-ddDistributionName :: Lens' DeleteDistribution (Maybe Text)
-ddDistributionName = lens _ddDistributionName (\s a -> s {_ddDistributionName = a})
+-- | The name of the distribution to delete.
+--
+-- Use the @GetDistributions@ action to get a list of distribution names
+-- that you can specify.
+deleteDistribution_distributionName :: Lens.Lens' DeleteDistribution (Prelude.Maybe Prelude.Text)
+deleteDistribution_distributionName = Lens.lens (\DeleteDistribution' {distributionName} -> distributionName) (\s@DeleteDistribution' {} a -> s {distributionName = a} :: DeleteDistribution)
 
-instance AWSRequest DeleteDistribution where
+instance Prelude.AWSRequest DeleteDistribution where
   type
     Rs DeleteDistribution =
       DeleteDistributionResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDistributionResponse'
-            <$> (x .?> "operation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "operation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDistribution
+instance Prelude.Hashable DeleteDistribution
 
-instance NFData DeleteDistribution
+instance Prelude.NFData DeleteDistribution
 
-instance ToHeaders DeleteDistribution where
+instance Prelude.ToHeaders DeleteDistribution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteDistribution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteDistribution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDistribution where
+instance Prelude.ToJSON DeleteDistribution where
   toJSON DeleteDistribution' {..} =
-    object
-      ( catMaybes
-          [("distributionName" .=) <$> _ddDistributionName]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("distributionName" Prelude..=)
+              Prelude.<$> distributionName
+          ]
       )
 
-instance ToPath DeleteDistribution where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDistribution where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDistribution where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDistribution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDistributionResponse' smart constructor.
+-- | /See:/ 'newDeleteDistributionResponse' smart constructor.
 data DeleteDistributionResponse = DeleteDistributionResponse'
-  { _delrsOperation ::
-      !( Maybe
-           Operation
-       ),
-    _delrsResponseStatus ::
-      !Int
+  { -- | An object that describes the result of the action, such as the status of
+    -- the request, the timestamp of the request, and the resources affected by
+    -- the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDistributionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDistributionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsOperation' - An object that describes the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteDistributionResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'operation', 'deleteDistributionResponse_operation' - An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
+--
+-- 'httpStatus', 'deleteDistributionResponse_httpStatus' - The response's http status code.
+newDeleteDistributionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDistributionResponse
-deleteDistributionResponse pResponseStatus_ =
+newDeleteDistributionResponse pHttpStatus_ =
   DeleteDistributionResponse'
-    { _delrsOperation =
-        Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { operation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that describes the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-delrsOperation :: Lens' DeleteDistributionResponse (Maybe Operation)
-delrsOperation = lens _delrsOperation (\s a -> s {_delrsOperation = a})
+-- | An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
+deleteDistributionResponse_operation :: Lens.Lens' DeleteDistributionResponse (Prelude.Maybe Operation)
+deleteDistributionResponse_operation = Lens.lens (\DeleteDistributionResponse' {operation} -> operation) (\s@DeleteDistributionResponse' {} a -> s {operation = a} :: DeleteDistributionResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteDistributionResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteDistributionResponse_httpStatus :: Lens.Lens' DeleteDistributionResponse Prelude.Int
+deleteDistributionResponse_httpStatus = Lens.lens (\DeleteDistributionResponse' {httpStatus} -> httpStatus) (\s@DeleteDistributionResponse' {} a -> s {httpStatus = a} :: DeleteDistributionResponse)
 
-instance NFData DeleteDistributionResponse
+instance Prelude.NFData DeleteDistributionResponse

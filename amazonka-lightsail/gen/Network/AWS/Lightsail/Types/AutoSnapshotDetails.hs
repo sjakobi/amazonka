@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.AutoSnapshotDetails where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.AttachedDisk
 import Network.AWS.Lightsail.Types.AutoSnapshotStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an automatic snapshot.
 --
---
---
--- /See:/ 'autoSnapshotDetails' smart constructor.
+-- /See:/ 'newAutoSnapshotDetails' smart constructor.
 data AutoSnapshotDetails = AutoSnapshotDetails'
-  { _asdStatus ::
-      !(Maybe AutoSnapshotStatus),
-    _asdCreatedAt :: !(Maybe POSIX),
-    _asdDate :: !(Maybe Text),
-    _asdFromAttachedDisks ::
-      !(Maybe [AttachedDisk])
+  { -- | The status of the automatic snapshot.
+    status :: Prelude.Maybe AutoSnapshotStatus,
+    -- | The timestamp when the automatic snapshot was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The date of the automatic snapshot in @YYYY-MM-DD@ format.
+    date :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that describe the block storage disks attached to
+    -- the instance when the automatic snapshot was created.
+    fromAttachedDisks :: Prelude.Maybe [AttachedDisk]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoSnapshotDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoSnapshotDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asdStatus' - The status of the automatic snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asdCreatedAt' - The timestamp when the automatic snapshot was created.
+-- 'status', 'autoSnapshotDetails_status' - The status of the automatic snapshot.
 --
--- * 'asdDate' - The date of the automatic snapshot in @YYYY-MM-DD@ format.
+-- 'createdAt', 'autoSnapshotDetails_createdAt' - The timestamp when the automatic snapshot was created.
 --
--- * 'asdFromAttachedDisks' - An array of objects that describe the block storage disks attached to the instance when the automatic snapshot was created.
-autoSnapshotDetails ::
+-- 'date', 'autoSnapshotDetails_date' - The date of the automatic snapshot in @YYYY-MM-DD@ format.
+--
+-- 'fromAttachedDisks', 'autoSnapshotDetails_fromAttachedDisks' - An array of objects that describe the block storage disks attached to
+-- the instance when the automatic snapshot was created.
+newAutoSnapshotDetails ::
   AutoSnapshotDetails
-autoSnapshotDetails =
+newAutoSnapshotDetails =
   AutoSnapshotDetails'
-    { _asdStatus = Nothing,
-      _asdCreatedAt = Nothing,
-      _asdDate = Nothing,
-      _asdFromAttachedDisks = Nothing
+    { status = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      date = Prelude.Nothing,
+      fromAttachedDisks = Prelude.Nothing
     }
 
 -- | The status of the automatic snapshot.
-asdStatus :: Lens' AutoSnapshotDetails (Maybe AutoSnapshotStatus)
-asdStatus = lens _asdStatus (\s a -> s {_asdStatus = a})
+autoSnapshotDetails_status :: Lens.Lens' AutoSnapshotDetails (Prelude.Maybe AutoSnapshotStatus)
+autoSnapshotDetails_status = Lens.lens (\AutoSnapshotDetails' {status} -> status) (\s@AutoSnapshotDetails' {} a -> s {status = a} :: AutoSnapshotDetails)
 
 -- | The timestamp when the automatic snapshot was created.
-asdCreatedAt :: Lens' AutoSnapshotDetails (Maybe UTCTime)
-asdCreatedAt = lens _asdCreatedAt (\s a -> s {_asdCreatedAt = a}) . mapping _Time
+autoSnapshotDetails_createdAt :: Lens.Lens' AutoSnapshotDetails (Prelude.Maybe Prelude.UTCTime)
+autoSnapshotDetails_createdAt = Lens.lens (\AutoSnapshotDetails' {createdAt} -> createdAt) (\s@AutoSnapshotDetails' {} a -> s {createdAt = a} :: AutoSnapshotDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date of the automatic snapshot in @YYYY-MM-DD@ format.
-asdDate :: Lens' AutoSnapshotDetails (Maybe Text)
-asdDate = lens _asdDate (\s a -> s {_asdDate = a})
+autoSnapshotDetails_date :: Lens.Lens' AutoSnapshotDetails (Prelude.Maybe Prelude.Text)
+autoSnapshotDetails_date = Lens.lens (\AutoSnapshotDetails' {date} -> date) (\s@AutoSnapshotDetails' {} a -> s {date = a} :: AutoSnapshotDetails)
 
--- | An array of objects that describe the block storage disks attached to the instance when the automatic snapshot was created.
-asdFromAttachedDisks :: Lens' AutoSnapshotDetails [AttachedDisk]
-asdFromAttachedDisks = lens _asdFromAttachedDisks (\s a -> s {_asdFromAttachedDisks = a}) . _Default . _Coerce
+-- | An array of objects that describe the block storage disks attached to
+-- the instance when the automatic snapshot was created.
+autoSnapshotDetails_fromAttachedDisks :: Lens.Lens' AutoSnapshotDetails (Prelude.Maybe [AttachedDisk])
+autoSnapshotDetails_fromAttachedDisks = Lens.lens (\AutoSnapshotDetails' {fromAttachedDisks} -> fromAttachedDisks) (\s@AutoSnapshotDetails' {} a -> s {fromAttachedDisks = a} :: AutoSnapshotDetails) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON AutoSnapshotDetails where
+instance Prelude.FromJSON AutoSnapshotDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoSnapshotDetails"
       ( \x ->
           AutoSnapshotDetails'
-            <$> (x .:? "status")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "date")
-            <*> (x .:? "fromAttachedDisks" .!= mempty)
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "date")
+            Prelude.<*> ( x Prelude..:? "fromAttachedDisks"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AutoSnapshotDetails
+instance Prelude.Hashable AutoSnapshotDetails
 
-instance NFData AutoSnapshotDetails
+instance Prelude.NFData AutoSnapshotDetails

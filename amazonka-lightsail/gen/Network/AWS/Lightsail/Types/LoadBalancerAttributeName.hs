@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Lightsail.Types.LoadBalancerAttributeName
   ( LoadBalancerAttributeName
       ( ..,
-        HealthCheckPath,
-        SessionStickinessEnabled,
-        SessionStickinessLbCookieDurationSeconds
+        LoadBalancerAttributeNameHealthCheckPath,
+        LoadBalancerAttributeNameSessionStickinessEnabled,
+        LoadBalancerAttributeNameSessionStickinessLBCookieDurationSeconds
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadBalancerAttributeName
-  = LoadBalancerAttributeName'
-      ( CI
-          Text
-      )
+newtype LoadBalancerAttributeName = LoadBalancerAttributeName'
+  { fromLoadBalancerAttributeName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HealthCheckPath :: LoadBalancerAttributeName
-pattern HealthCheckPath = LoadBalancerAttributeName' "HealthCheckPath"
+pattern LoadBalancerAttributeNameHealthCheckPath :: LoadBalancerAttributeName
+pattern LoadBalancerAttributeNameHealthCheckPath = LoadBalancerAttributeName' "HealthCheckPath"
 
-pattern SessionStickinessEnabled :: LoadBalancerAttributeName
-pattern SessionStickinessEnabled = LoadBalancerAttributeName' "SessionStickinessEnabled"
+pattern LoadBalancerAttributeNameSessionStickinessEnabled :: LoadBalancerAttributeName
+pattern LoadBalancerAttributeNameSessionStickinessEnabled = LoadBalancerAttributeName' "SessionStickinessEnabled"
 
-pattern SessionStickinessLbCookieDurationSeconds :: LoadBalancerAttributeName
-pattern SessionStickinessLbCookieDurationSeconds = LoadBalancerAttributeName' "SessionStickiness_LB_CookieDurationSeconds"
+pattern LoadBalancerAttributeNameSessionStickinessLBCookieDurationSeconds :: LoadBalancerAttributeName
+pattern LoadBalancerAttributeNameSessionStickinessLBCookieDurationSeconds = LoadBalancerAttributeName' "SessionStickiness_LB_CookieDurationSeconds"
 
 {-# COMPLETE
-  HealthCheckPath,
-  SessionStickinessEnabled,
-  SessionStickinessLbCookieDurationSeconds,
+  LoadBalancerAttributeNameHealthCheckPath,
+  LoadBalancerAttributeNameSessionStickinessEnabled,
+  LoadBalancerAttributeNameSessionStickinessLBCookieDurationSeconds,
   LoadBalancerAttributeName'
   #-}
 
-instance FromText LoadBalancerAttributeName where
-  parser = (LoadBalancerAttributeName' . mk) <$> takeText
+instance Prelude.FromText LoadBalancerAttributeName where
+  parser = LoadBalancerAttributeName' Prelude.<$> Prelude.takeText
 
-instance ToText LoadBalancerAttributeName where
-  toText (LoadBalancerAttributeName' ci) = original ci
+instance Prelude.ToText LoadBalancerAttributeName where
+  toText (LoadBalancerAttributeName' x) = x
 
-instance Hashable LoadBalancerAttributeName
+instance Prelude.Hashable LoadBalancerAttributeName
 
-instance NFData LoadBalancerAttributeName
+instance Prelude.NFData LoadBalancerAttributeName
 
-instance ToByteString LoadBalancerAttributeName
+instance Prelude.ToByteString LoadBalancerAttributeName
 
-instance ToQuery LoadBalancerAttributeName
+instance Prelude.ToQuery LoadBalancerAttributeName
 
-instance ToHeader LoadBalancerAttributeName
+instance Prelude.ToHeader LoadBalancerAttributeName
 
-instance ToJSON LoadBalancerAttributeName where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoadBalancerAttributeName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoadBalancerAttributeName where
-  parseJSON = parseJSONText "LoadBalancerAttributeName"
+instance Prelude.FromJSON LoadBalancerAttributeName where
+  parseJSON = Prelude.parseJSONText "LoadBalancerAttributeName"

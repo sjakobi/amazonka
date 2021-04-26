@@ -11,15 +11,29 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Lightsail is the easiest way to get started with Amazon Web Services (AWS) for developers who need to build websites or web applications. It includes everything you need to launch your project quickly - instances (virtual private servers), container services, managed databases, SSD-based block storage, static IP addresses, load balancers, content delivery network (CDN) distributions, DNS management of registered domains, and resource snapshots (backups) - for a low, predictable monthly price.
+-- Amazon Lightsail is the easiest way to get started with Amazon Web
+-- Services (AWS) for developers who need to build websites or web
+-- applications. It includes everything you need to launch your project
+-- quickly - instances (virtual private servers), container services,
+-- managed databases, SSD-based block storage, static IP addresses, load
+-- balancers, content delivery network (CDN) distributions, DNS management
+-- of registered domains, and resource snapshots (backups) - for a low,
+-- predictable monthly price.
 --
+-- You can manage your Lightsail resources using the Lightsail console,
+-- Lightsail API, AWS Command Line Interface (AWS CLI), or SDKs. For more
+-- information about Lightsail concepts and tasks, see the
+-- <http://lightsail.aws.amazon.com/ls/docs/how-to/article/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli Lightsail Dev Guide>.
 --
--- You can manage your Lightsail resources using the Lightsail console, Lightsail API, AWS Command Line Interface (AWS CLI), or SDKs. For more information about Lightsail concepts and tasks, see the <http://lightsail.aws.amazon.com/ls/docs/how-to/article/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli Lightsail Dev Guide> .
---
--- This API Reference provides detailed information about the actions, data types, parameters, and errors of the Lightsail service. For more information about the supported AWS Regions, endpoints, and service quotas of the Lightsail service, see <https://docs.aws.amazon.com/general/latest/gr/lightsail.html Amazon Lightsail Endpoints and Quotas> in the /AWS General Reference/ .
+-- This API Reference provides detailed information about the actions, data
+-- types, parameters, and errors of the Lightsail service. For more
+-- information about the supported AWS Regions, endpoints, and service
+-- quotas of the Lightsail service, see
+-- <https://docs.aws.amazon.com/general/latest/gr/lightsail.html Amazon Lightsail Endpoints and Quotas>
+-- in the /AWS General Reference/.
 module Network.AWS.Lightsail
   ( -- * Service Configuration
-    lightsail,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -52,430 +66,856 @@ module Network.AWS.Lightsail
     -- $operations
 
     -- ** GetContainerServices
-    module Network.AWS.Lightsail.GetContainerServices,
+    GetContainerServices (GetContainerServices'),
+    newGetContainerServices,
+    GetContainerServicesResponse (GetContainerServicesResponse'),
+    newGetContainerServicesResponse,
 
-    -- ** GetStaticIP
-    module Network.AWS.Lightsail.GetStaticIP,
+    -- ** GetStaticIp
+    GetStaticIp (GetStaticIp'),
+    newGetStaticIp,
+    GetStaticIpResponse (GetStaticIpResponse'),
+    newGetStaticIpResponse,
 
     -- ** GetRelationalDatabaseSnapshots (Paginated)
-    module Network.AWS.Lightsail.GetRelationalDatabaseSnapshots,
+    GetRelationalDatabaseSnapshots (GetRelationalDatabaseSnapshots'),
+    newGetRelationalDatabaseSnapshots,
+    GetRelationalDatabaseSnapshotsResponse (GetRelationalDatabaseSnapshotsResponse'),
+    newGetRelationalDatabaseSnapshotsResponse,
 
     -- ** GetDistributions
-    module Network.AWS.Lightsail.GetDistributions,
+    GetDistributions (GetDistributions'),
+    newGetDistributions,
+    GetDistributionsResponse (GetDistributionsResponse'),
+    newGetDistributionsResponse,
 
     -- ** GetDiskSnapshot
-    module Network.AWS.Lightsail.GetDiskSnapshot,
+    GetDiskSnapshot (GetDiskSnapshot'),
+    newGetDiskSnapshot,
+    GetDiskSnapshotResponse (GetDiskSnapshotResponse'),
+    newGetDiskSnapshotResponse,
 
     -- ** CreateContainerServiceDeployment
-    module Network.AWS.Lightsail.CreateContainerServiceDeployment,
+    CreateContainerServiceDeployment (CreateContainerServiceDeployment'),
+    newCreateContainerServiceDeployment,
+    CreateContainerServiceDeploymentResponse (CreateContainerServiceDeploymentResponse'),
+    newCreateContainerServiceDeploymentResponse,
 
-    -- ** PeerVPC
-    module Network.AWS.Lightsail.PeerVPC,
+    -- ** PeerVpc
+    PeerVpc (PeerVpc'),
+    newPeerVpc,
+    PeerVpcResponse (PeerVpcResponse'),
+    newPeerVpcResponse,
 
     -- ** UpdateLoadBalancerAttribute
-    module Network.AWS.Lightsail.UpdateLoadBalancerAttribute,
+    UpdateLoadBalancerAttribute (UpdateLoadBalancerAttribute'),
+    newUpdateLoadBalancerAttribute,
+    UpdateLoadBalancerAttributeResponse (UpdateLoadBalancerAttributeResponse'),
+    newUpdateLoadBalancerAttributeResponse,
 
     -- ** UpdateDistributionBundle
-    module Network.AWS.Lightsail.UpdateDistributionBundle,
+    UpdateDistributionBundle (UpdateDistributionBundle'),
+    newUpdateDistributionBundle,
+    UpdateDistributionBundleResponse (UpdateDistributionBundleResponse'),
+    newUpdateDistributionBundleResponse,
 
-    -- ** AllocateStaticIP
-    module Network.AWS.Lightsail.AllocateStaticIP,
+    -- ** AllocateStaticIp
+    AllocateStaticIp (AllocateStaticIp'),
+    newAllocateStaticIp,
+    AllocateStaticIpResponse (AllocateStaticIpResponse'),
+    newAllocateStaticIpResponse,
 
     -- ** CloseInstancePublicPorts
-    module Network.AWS.Lightsail.CloseInstancePublicPorts,
+    CloseInstancePublicPorts (CloseInstancePublicPorts'),
+    newCloseInstancePublicPorts,
+    CloseInstancePublicPortsResponse (CloseInstancePublicPortsResponse'),
+    newCloseInstancePublicPortsResponse,
 
     -- ** DeleteCertificate
-    module Network.AWS.Lightsail.DeleteCertificate,
+    DeleteCertificate (DeleteCertificate'),
+    newDeleteCertificate,
+    DeleteCertificateResponse (DeleteCertificateResponse'),
+    newDeleteCertificateResponse,
 
     -- ** DisableAddOn
-    module Network.AWS.Lightsail.DisableAddOn,
+    DisableAddOn (DisableAddOn'),
+    newDisableAddOn,
+    DisableAddOnResponse (DisableAddOnResponse'),
+    newDisableAddOnResponse,
 
     -- ** GetCloudFormationStackRecords (Paginated)
-    module Network.AWS.Lightsail.GetCloudFormationStackRecords,
+    GetCloudFormationStackRecords (GetCloudFormationStackRecords'),
+    newGetCloudFormationStackRecords,
+    GetCloudFormationStackRecordsResponse (GetCloudFormationStackRecordsResponse'),
+    newGetCloudFormationStackRecordsResponse,
 
-    -- ** IsVPCPeered
-    module Network.AWS.Lightsail.IsVPCPeered,
+    -- ** IsVpcPeered
+    IsVpcPeered (IsVpcPeered'),
+    newIsVpcPeered,
+    IsVpcPeeredResponse (IsVpcPeeredResponse'),
+    newIsVpcPeeredResponse,
 
     -- ** GetRelationalDatabaseSnapshot
-    module Network.AWS.Lightsail.GetRelationalDatabaseSnapshot,
+    GetRelationalDatabaseSnapshot (GetRelationalDatabaseSnapshot'),
+    newGetRelationalDatabaseSnapshot,
+    GetRelationalDatabaseSnapshotResponse (GetRelationalDatabaseSnapshotResponse'),
+    newGetRelationalDatabaseSnapshotResponse,
 
     -- ** GetRelationalDatabaseBlueprints (Paginated)
-    module Network.AWS.Lightsail.GetRelationalDatabaseBlueprints,
+    GetRelationalDatabaseBlueprints (GetRelationalDatabaseBlueprints'),
+    newGetRelationalDatabaseBlueprints,
+    GetRelationalDatabaseBlueprintsResponse (GetRelationalDatabaseBlueprintsResponse'),
+    newGetRelationalDatabaseBlueprintsResponse,
 
     -- ** DeleteInstanceSnapshot
-    module Network.AWS.Lightsail.DeleteInstanceSnapshot,
+    DeleteInstanceSnapshot (DeleteInstanceSnapshot'),
+    newDeleteInstanceSnapshot,
+    DeleteInstanceSnapshotResponse (DeleteInstanceSnapshotResponse'),
+    newDeleteInstanceSnapshotResponse,
 
-    -- ** UnpeerVPC
-    module Network.AWS.Lightsail.UnpeerVPC,
+    -- ** UnpeerVpc
+    UnpeerVpc (UnpeerVpc'),
+    newUnpeerVpc,
+    UnpeerVpcResponse (UnpeerVpcResponse'),
+    newUnpeerVpcResponse,
 
     -- ** GetContainerAPIMetadata
-    module Network.AWS.Lightsail.GetContainerAPIMetadata,
+    GetContainerAPIMetadata (GetContainerAPIMetadata'),
+    newGetContainerAPIMetadata,
+    GetContainerAPIMetadataResponse (GetContainerAPIMetadataResponse'),
+    newGetContainerAPIMetadataResponse,
 
     -- ** GetInstances (Paginated)
-    module Network.AWS.Lightsail.GetInstances,
+    GetInstances (GetInstances'),
+    newGetInstances,
+    GetInstancesResponse (GetInstancesResponse'),
+    newGetInstancesResponse,
 
     -- ** CreateInstancesFromSnapshot
-    module Network.AWS.Lightsail.CreateInstancesFromSnapshot,
+    CreateInstancesFromSnapshot (CreateInstancesFromSnapshot'),
+    newCreateInstancesFromSnapshot,
+    CreateInstancesFromSnapshotResponse (CreateInstancesFromSnapshotResponse'),
+    newCreateInstancesFromSnapshotResponse,
 
     -- ** StartInstance
-    module Network.AWS.Lightsail.StartInstance,
+    StartInstance (StartInstance'),
+    newStartInstance,
+    StartInstanceResponse (StartInstanceResponse'),
+    newStartInstanceResponse,
 
     -- ** CreateKeyPair
-    module Network.AWS.Lightsail.CreateKeyPair,
+    CreateKeyPair (CreateKeyPair'),
+    newCreateKeyPair,
+    CreateKeyPairResponse (CreateKeyPairResponse'),
+    newCreateKeyPairResponse,
 
     -- ** GetInstanceAccessDetails
-    module Network.AWS.Lightsail.GetInstanceAccessDetails,
+    GetInstanceAccessDetails (GetInstanceAccessDetails'),
+    newGetInstanceAccessDetails,
+    GetInstanceAccessDetailsResponse (GetInstanceAccessDetailsResponse'),
+    newGetInstanceAccessDetailsResponse,
 
     -- ** CopySnapshot
-    module Network.AWS.Lightsail.CopySnapshot,
+    CopySnapshot (CopySnapshot'),
+    newCopySnapshot,
+    CopySnapshotResponse (CopySnapshotResponse'),
+    newCopySnapshotResponse,
 
     -- ** CreateInstanceSnapshot
-    module Network.AWS.Lightsail.CreateInstanceSnapshot,
+    CreateInstanceSnapshot (CreateInstanceSnapshot'),
+    newCreateInstanceSnapshot,
+    CreateInstanceSnapshotResponse (CreateInstanceSnapshotResponse'),
+    newCreateInstanceSnapshotResponse,
 
     -- ** StopInstance
-    module Network.AWS.Lightsail.StopInstance,
+    StopInstance (StopInstance'),
+    newStopInstance,
+    StopInstanceResponse (StopInstanceResponse'),
+    newStopInstanceResponse,
 
     -- ** RegisterContainerImage
-    module Network.AWS.Lightsail.RegisterContainerImage,
+    RegisterContainerImage (RegisterContainerImage'),
+    newRegisterContainerImage,
+    RegisterContainerImageResponse (RegisterContainerImageResponse'),
+    newRegisterContainerImageResponse,
 
     -- ** DetachCertificateFromDistribution
-    module Network.AWS.Lightsail.DetachCertificateFromDistribution,
+    DetachCertificateFromDistribution (DetachCertificateFromDistribution'),
+    newDetachCertificateFromDistribution,
+    DetachCertificateFromDistributionResponse (DetachCertificateFromDistributionResponse'),
+    newDetachCertificateFromDistributionResponse,
 
     -- ** CreateLoadBalancer
-    module Network.AWS.Lightsail.CreateLoadBalancer,
+    CreateLoadBalancer (CreateLoadBalancer'),
+    newCreateLoadBalancer,
+    CreateLoadBalancerResponse (CreateLoadBalancerResponse'),
+    newCreateLoadBalancerResponse,
 
     -- ** GetContainerServiceDeployments
-    module Network.AWS.Lightsail.GetContainerServiceDeployments,
+    GetContainerServiceDeployments (GetContainerServiceDeployments'),
+    newGetContainerServiceDeployments,
+    GetContainerServiceDeploymentsResponse (GetContainerServiceDeploymentsResponse'),
+    newGetContainerServiceDeploymentsResponse,
 
     -- ** DeleteContactMethod
-    module Network.AWS.Lightsail.DeleteContactMethod,
+    DeleteContactMethod (DeleteContactMethod'),
+    newDeleteContactMethod,
+    DeleteContactMethodResponse (DeleteContactMethodResponse'),
+    newDeleteContactMethodResponse,
 
     -- ** GetDomain
-    module Network.AWS.Lightsail.GetDomain,
+    GetDomain (GetDomain'),
+    newGetDomain,
+    GetDomainResponse (GetDomainResponse'),
+    newGetDomainResponse,
 
-    -- ** DetachStaticIP
-    module Network.AWS.Lightsail.DetachStaticIP,
+    -- ** DetachStaticIp
+    DetachStaticIp (DetachStaticIp'),
+    newDetachStaticIp,
+    DetachStaticIpResponse (DetachStaticIpResponse'),
+    newDetachStaticIpResponse,
 
     -- ** AttachDisk
-    module Network.AWS.Lightsail.AttachDisk,
+    AttachDisk (AttachDisk'),
+    newAttachDisk,
+    AttachDiskResponse (AttachDiskResponse'),
+    newAttachDiskResponse,
 
     -- ** GetDisk
-    module Network.AWS.Lightsail.GetDisk,
+    GetDisk (GetDisk'),
+    newGetDisk,
+    GetDiskResponse (GetDiskResponse'),
+    newGetDiskResponse,
 
     -- ** GetRelationalDatabaseLogEvents
-    module Network.AWS.Lightsail.GetRelationalDatabaseLogEvents,
+    GetRelationalDatabaseLogEvents (GetRelationalDatabaseLogEvents'),
+    newGetRelationalDatabaseLogEvents,
+    GetRelationalDatabaseLogEventsResponse (GetRelationalDatabaseLogEventsResponse'),
+    newGetRelationalDatabaseLogEventsResponse,
 
     -- ** GetRelationalDatabases (Paginated)
-    module Network.AWS.Lightsail.GetRelationalDatabases,
+    GetRelationalDatabases (GetRelationalDatabases'),
+    newGetRelationalDatabases,
+    GetRelationalDatabasesResponse (GetRelationalDatabasesResponse'),
+    newGetRelationalDatabasesResponse,
 
     -- ** UntagResource
-    module Network.AWS.Lightsail.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** CreateDiskFromSnapshot
-    module Network.AWS.Lightsail.CreateDiskFromSnapshot,
+    CreateDiskFromSnapshot (CreateDiskFromSnapshot'),
+    newCreateDiskFromSnapshot,
+    CreateDiskFromSnapshotResponse (CreateDiskFromSnapshotResponse'),
+    newCreateDiskFromSnapshotResponse,
 
     -- ** GetInstanceMetricData
-    module Network.AWS.Lightsail.GetInstanceMetricData,
+    GetInstanceMetricData (GetInstanceMetricData'),
+    newGetInstanceMetricData,
+    GetInstanceMetricDataResponse (GetInstanceMetricDataResponse'),
+    newGetInstanceMetricDataResponse,
 
     -- ** DeleteLoadBalancer
-    module Network.AWS.Lightsail.DeleteLoadBalancer,
+    DeleteLoadBalancer (DeleteLoadBalancer'),
+    newDeleteLoadBalancer,
+    DeleteLoadBalancerResponse (DeleteLoadBalancerResponse'),
+    newDeleteLoadBalancerResponse,
 
     -- ** ExportSnapshot
-    module Network.AWS.Lightsail.ExportSnapshot,
+    ExportSnapshot (ExportSnapshot'),
+    newExportSnapshot,
+    ExportSnapshotResponse (ExportSnapshotResponse'),
+    newExportSnapshotResponse,
 
     -- ** CreateRelationalDatabaseFromSnapshot
-    module Network.AWS.Lightsail.CreateRelationalDatabaseFromSnapshot,
+    CreateRelationalDatabaseFromSnapshot (CreateRelationalDatabaseFromSnapshot'),
+    newCreateRelationalDatabaseFromSnapshot,
+    CreateRelationalDatabaseFromSnapshotResponse (CreateRelationalDatabaseFromSnapshotResponse'),
+    newCreateRelationalDatabaseFromSnapshotResponse,
 
     -- ** GetOperations (Paginated)
-    module Network.AWS.Lightsail.GetOperations,
+    GetOperations (GetOperations'),
+    newGetOperations,
+    GetOperationsResponse (GetOperationsResponse'),
+    newGetOperationsResponse,
 
     -- ** GetExportSnapshotRecords (Paginated)
-    module Network.AWS.Lightsail.GetExportSnapshotRecords,
+    GetExportSnapshotRecords (GetExportSnapshotRecords'),
+    newGetExportSnapshotRecords,
+    GetExportSnapshotRecordsResponse (GetExportSnapshotRecordsResponse'),
+    newGetExportSnapshotRecordsResponse,
 
     -- ** GetLoadBalancerMetricData
-    module Network.AWS.Lightsail.GetLoadBalancerMetricData,
+    GetLoadBalancerMetricData (GetLoadBalancerMetricData'),
+    newGetLoadBalancerMetricData,
+    GetLoadBalancerMetricDataResponse (GetLoadBalancerMetricDataResponse'),
+    newGetLoadBalancerMetricDataResponse,
 
     -- ** GetInstanceSnapshots (Paginated)
-    module Network.AWS.Lightsail.GetInstanceSnapshots,
+    GetInstanceSnapshots (GetInstanceSnapshots'),
+    newGetInstanceSnapshots,
+    GetInstanceSnapshotsResponse (GetInstanceSnapshotsResponse'),
+    newGetInstanceSnapshotsResponse,
 
     -- ** DeleteInstance
-    module Network.AWS.Lightsail.DeleteInstance,
+    DeleteInstance (DeleteInstance'),
+    newDeleteInstance,
+    DeleteInstanceResponse (DeleteInstanceResponse'),
+    newDeleteInstanceResponse,
 
-    -- ** CreateLoadBalancerTLSCertificate
-    module Network.AWS.Lightsail.CreateLoadBalancerTLSCertificate,
+    -- ** CreateLoadBalancerTlsCertificate
+    CreateLoadBalancerTlsCertificate (CreateLoadBalancerTlsCertificate'),
+    newCreateLoadBalancerTlsCertificate,
+    CreateLoadBalancerTlsCertificateResponse (CreateLoadBalancerTlsCertificateResponse'),
+    newCreateLoadBalancerTlsCertificateResponse,
 
     -- ** RebootInstance
-    module Network.AWS.Lightsail.RebootInstance,
+    RebootInstance (RebootInstance'),
+    newRebootInstance,
+    RebootInstanceResponse (RebootInstanceResponse'),
+    newRebootInstanceResponse,
 
     -- ** TagResource
-    module Network.AWS.Lightsail.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** GetRelationalDatabase
-    module Network.AWS.Lightsail.GetRelationalDatabase,
+    GetRelationalDatabase (GetRelationalDatabase'),
+    newGetRelationalDatabase,
+    GetRelationalDatabaseResponse (GetRelationalDatabaseResponse'),
+    newGetRelationalDatabaseResponse,
 
     -- ** GetKeyPairs (Paginated)
-    module Network.AWS.Lightsail.GetKeyPairs,
+    GetKeyPairs (GetKeyPairs'),
+    newGetKeyPairs,
+    GetKeyPairsResponse (GetKeyPairsResponse'),
+    newGetKeyPairsResponse,
 
     -- ** AttachInstancesToLoadBalancer
-    module Network.AWS.Lightsail.AttachInstancesToLoadBalancer,
+    AttachInstancesToLoadBalancer (AttachInstancesToLoadBalancer'),
+    newAttachInstancesToLoadBalancer,
+    AttachInstancesToLoadBalancerResponse (AttachInstancesToLoadBalancerResponse'),
+    newAttachInstancesToLoadBalancerResponse,
 
     -- ** GetRegions
-    module Network.AWS.Lightsail.GetRegions,
+    GetRegions (GetRegions'),
+    newGetRegions,
+    GetRegionsResponse (GetRegionsResponse'),
+    newGetRegionsResponse,
 
     -- ** TestAlarm
-    module Network.AWS.Lightsail.TestAlarm,
+    TestAlarm (TestAlarm'),
+    newTestAlarm,
+    TestAlarmResponse (TestAlarmResponse'),
+    newTestAlarmResponse,
 
     -- ** CreateDiskSnapshot
-    module Network.AWS.Lightsail.CreateDiskSnapshot,
+    CreateDiskSnapshot (CreateDiskSnapshot'),
+    newCreateDiskSnapshot,
+    CreateDiskSnapshotResponse (CreateDiskSnapshotResponse'),
+    newCreateDiskSnapshotResponse,
 
-    -- ** SetIPAddressType
-    module Network.AWS.Lightsail.SetIPAddressType,
+    -- ** SetIpAddressType
+    SetIpAddressType (SetIpAddressType'),
+    newSetIpAddressType,
+    SetIpAddressTypeResponse (SetIpAddressTypeResponse'),
+    newSetIpAddressTypeResponse,
 
     -- ** DeleteAlarm
-    module Network.AWS.Lightsail.DeleteAlarm,
+    DeleteAlarm (DeleteAlarm'),
+    newDeleteAlarm,
+    DeleteAlarmResponse (DeleteAlarmResponse'),
+    newDeleteAlarmResponse,
 
     -- ** SendContactMethodVerification
-    module Network.AWS.Lightsail.SendContactMethodVerification,
+    SendContactMethodVerification (SendContactMethodVerification'),
+    newSendContactMethodVerification,
+    SendContactMethodVerificationResponse (SendContactMethodVerificationResponse'),
+    newSendContactMethodVerificationResponse,
 
     -- ** GetRelationalDatabaseMasterUserPassword
-    module Network.AWS.Lightsail.GetRelationalDatabaseMasterUserPassword,
+    GetRelationalDatabaseMasterUserPassword (GetRelationalDatabaseMasterUserPassword'),
+    newGetRelationalDatabaseMasterUserPassword,
+    GetRelationalDatabaseMasterUserPasswordResponse (GetRelationalDatabaseMasterUserPasswordResponse'),
+    newGetRelationalDatabaseMasterUserPasswordResponse,
 
     -- ** GetBlueprints (Paginated)
-    module Network.AWS.Lightsail.GetBlueprints,
+    GetBlueprints (GetBlueprints'),
+    newGetBlueprints,
+    GetBlueprintsResponse (GetBlueprintsResponse'),
+    newGetBlueprintsResponse,
 
     -- ** DetachDisk
-    module Network.AWS.Lightsail.DetachDisk,
+    DetachDisk (DetachDisk'),
+    newDetachDisk,
+    DetachDiskResponse (DetachDiskResponse'),
+    newDetachDiskResponse,
 
     -- ** GetInstancePortStates
-    module Network.AWS.Lightsail.GetInstancePortStates,
+    GetInstancePortStates (GetInstancePortStates'),
+    newGetInstancePortStates,
+    GetInstancePortStatesResponse (GetInstancePortStatesResponse'),
+    newGetInstancePortStatesResponse,
 
-    -- ** AttachStaticIP
-    module Network.AWS.Lightsail.AttachStaticIP,
+    -- ** AttachStaticIp
+    AttachStaticIp (AttachStaticIp'),
+    newAttachStaticIp,
+    AttachStaticIpResponse (AttachStaticIpResponse'),
+    newAttachStaticIpResponse,
 
     -- ** DownloadDefaultKeyPair
-    module Network.AWS.Lightsail.DownloadDefaultKeyPair,
+    DownloadDefaultKeyPair (DownloadDefaultKeyPair'),
+    newDownloadDefaultKeyPair,
+    DownloadDefaultKeyPairResponse (DownloadDefaultKeyPairResponse'),
+    newDownloadDefaultKeyPairResponse,
 
     -- ** GetLoadBalancers (Paginated)
-    module Network.AWS.Lightsail.GetLoadBalancers,
+    GetLoadBalancers (GetLoadBalancers'),
+    newGetLoadBalancers,
+    GetLoadBalancersResponse (GetLoadBalancersResponse'),
+    newGetLoadBalancersResponse,
 
     -- ** UpdateRelationalDatabase
-    module Network.AWS.Lightsail.UpdateRelationalDatabase,
+    UpdateRelationalDatabase (UpdateRelationalDatabase'),
+    newUpdateRelationalDatabase,
+    UpdateRelationalDatabaseResponse (UpdateRelationalDatabaseResponse'),
+    newUpdateRelationalDatabaseResponse,
 
     -- ** GetRelationalDatabaseBundles (Paginated)
-    module Network.AWS.Lightsail.GetRelationalDatabaseBundles,
+    GetRelationalDatabaseBundles (GetRelationalDatabaseBundles'),
+    newGetRelationalDatabaseBundles,
+    GetRelationalDatabaseBundlesResponse (GetRelationalDatabaseBundlesResponse'),
+    newGetRelationalDatabaseBundlesResponse,
 
-    -- ** AttachLoadBalancerTLSCertificate
-    module Network.AWS.Lightsail.AttachLoadBalancerTLSCertificate,
+    -- ** AttachLoadBalancerTlsCertificate
+    AttachLoadBalancerTlsCertificate (AttachLoadBalancerTlsCertificate'),
+    newAttachLoadBalancerTlsCertificate,
+    AttachLoadBalancerTlsCertificateResponse (AttachLoadBalancerTlsCertificateResponse'),
+    newAttachLoadBalancerTlsCertificateResponse,
 
     -- ** AttachCertificateToDistribution
-    module Network.AWS.Lightsail.AttachCertificateToDistribution,
+    AttachCertificateToDistribution (AttachCertificateToDistribution'),
+    newAttachCertificateToDistribution,
+    AttachCertificateToDistributionResponse (AttachCertificateToDistributionResponse'),
+    newAttachCertificateToDistributionResponse,
 
     -- ** DeleteRelationalDatabase
-    module Network.AWS.Lightsail.DeleteRelationalDatabase,
+    DeleteRelationalDatabase (DeleteRelationalDatabase'),
+    newDeleteRelationalDatabase,
+    DeleteRelationalDatabaseResponse (DeleteRelationalDatabaseResponse'),
+    newDeleteRelationalDatabaseResponse,
 
     -- ** GetInstance
-    module Network.AWS.Lightsail.GetInstance,
+    GetInstance (GetInstance'),
+    newGetInstance,
+    GetInstanceResponse (GetInstanceResponse'),
+    newGetInstanceResponse,
 
     -- ** RebootRelationalDatabase
-    module Network.AWS.Lightsail.RebootRelationalDatabase,
+    RebootRelationalDatabase (RebootRelationalDatabase'),
+    newRebootRelationalDatabase,
+    RebootRelationalDatabaseResponse (RebootRelationalDatabaseResponse'),
+    newRebootRelationalDatabaseResponse,
 
     -- ** GetRelationalDatabaseEvents (Paginated)
-    module Network.AWS.Lightsail.GetRelationalDatabaseEvents,
+    GetRelationalDatabaseEvents (GetRelationalDatabaseEvents'),
+    newGetRelationalDatabaseEvents,
+    GetRelationalDatabaseEventsResponse (GetRelationalDatabaseEventsResponse'),
+    newGetRelationalDatabaseEventsResponse,
 
     -- ** CreateDomain
-    module Network.AWS.Lightsail.CreateDomain,
+    CreateDomain (CreateDomain'),
+    newCreateDomain,
+    CreateDomainResponse (CreateDomainResponse'),
+    newCreateDomainResponse,
 
-    -- ** GetStaticIPs (Paginated)
-    module Network.AWS.Lightsail.GetStaticIPs,
+    -- ** GetStaticIps (Paginated)
+    GetStaticIps (GetStaticIps'),
+    newGetStaticIps,
+    GetStaticIpsResponse (GetStaticIpsResponse'),
+    newGetStaticIpsResponse,
 
     -- ** DeleteDisk
-    module Network.AWS.Lightsail.DeleteDisk,
+    DeleteDisk (DeleteDisk'),
+    newDeleteDisk,
+    DeleteDiskResponse (DeleteDiskResponse'),
+    newDeleteDiskResponse,
 
     -- ** GetRelationalDatabaseMetricData
-    module Network.AWS.Lightsail.GetRelationalDatabaseMetricData,
+    GetRelationalDatabaseMetricData (GetRelationalDatabaseMetricData'),
+    newGetRelationalDatabaseMetricData,
+    GetRelationalDatabaseMetricDataResponse (GetRelationalDatabaseMetricDataResponse'),
+    newGetRelationalDatabaseMetricDataResponse,
 
     -- ** GetDiskSnapshots (Paginated)
-    module Network.AWS.Lightsail.GetDiskSnapshots,
+    GetDiskSnapshots (GetDiskSnapshots'),
+    newGetDiskSnapshots,
+    GetDiskSnapshotsResponse (GetDiskSnapshotsResponse'),
+    newGetDiskSnapshotsResponse,
 
     -- ** DeleteKeyPair
-    module Network.AWS.Lightsail.DeleteKeyPair,
+    DeleteKeyPair (DeleteKeyPair'),
+    newDeleteKeyPair,
+    DeleteKeyPairResponse (DeleteKeyPairResponse'),
+    newDeleteKeyPairResponse,
 
     -- ** GetLoadBalancer
-    module Network.AWS.Lightsail.GetLoadBalancer,
+    GetLoadBalancer (GetLoadBalancer'),
+    newGetLoadBalancer,
+    GetLoadBalancerResponse (GetLoadBalancerResponse'),
+    newGetLoadBalancerResponse,
 
     -- ** GetBundles (Paginated)
-    module Network.AWS.Lightsail.GetBundles,
+    GetBundles (GetBundles'),
+    newGetBundles,
+    GetBundlesResponse (GetBundlesResponse'),
+    newGetBundlesResponse,
 
     -- ** CreateCertificate
-    module Network.AWS.Lightsail.CreateCertificate,
+    CreateCertificate (CreateCertificate'),
+    newCreateCertificate,
+    CreateCertificateResponse (CreateCertificateResponse'),
+    newCreateCertificateResponse,
 
     -- ** DetachInstancesFromLoadBalancer
-    module Network.AWS.Lightsail.DetachInstancesFromLoadBalancer,
+    DetachInstancesFromLoadBalancer (DetachInstancesFromLoadBalancer'),
+    newDetachInstancesFromLoadBalancer,
+    DetachInstancesFromLoadBalancerResponse (DetachInstancesFromLoadBalancerResponse'),
+    newDetachInstancesFromLoadBalancerResponse,
 
-    -- ** GetLoadBalancerTLSCertificates
-    module Network.AWS.Lightsail.GetLoadBalancerTLSCertificates,
+    -- ** GetLoadBalancerTlsCertificates
+    GetLoadBalancerTlsCertificates (GetLoadBalancerTlsCertificates'),
+    newGetLoadBalancerTlsCertificates,
+    GetLoadBalancerTlsCertificatesResponse (GetLoadBalancerTlsCertificatesResponse'),
+    newGetLoadBalancerTlsCertificatesResponse,
 
     -- ** DeleteContainerImage
-    module Network.AWS.Lightsail.DeleteContainerImage,
+    DeleteContainerImage (DeleteContainerImage'),
+    newDeleteContainerImage,
+    DeleteContainerImageResponse (DeleteContainerImageResponse'),
+    newDeleteContainerImageResponse,
 
     -- ** GetOperationsForResource
-    module Network.AWS.Lightsail.GetOperationsForResource,
+    GetOperationsForResource (GetOperationsForResource'),
+    newGetOperationsForResource,
+    GetOperationsForResourceResponse (GetOperationsForResourceResponse'),
+    newGetOperationsForResourceResponse,
 
     -- ** CreateDisk
-    module Network.AWS.Lightsail.CreateDisk,
+    CreateDisk (CreateDisk'),
+    newCreateDisk,
+    CreateDiskResponse (CreateDiskResponse'),
+    newCreateDiskResponse,
 
     -- ** EnableAddOn
-    module Network.AWS.Lightsail.EnableAddOn,
+    EnableAddOn (EnableAddOn'),
+    newEnableAddOn,
+    EnableAddOnResponse (EnableAddOnResponse'),
+    newEnableAddOnResponse,
 
     -- ** DeleteDomain
-    module Network.AWS.Lightsail.DeleteDomain,
+    DeleteDomain (DeleteDomain'),
+    newDeleteDomain,
+    DeleteDomainResponse (DeleteDomainResponse'),
+    newDeleteDomainResponse,
 
     -- ** StartRelationalDatabase
-    module Network.AWS.Lightsail.StartRelationalDatabase,
+    StartRelationalDatabase (StartRelationalDatabase'),
+    newStartRelationalDatabase,
+    StartRelationalDatabaseResponse (StartRelationalDatabaseResponse'),
+    newStartRelationalDatabaseResponse,
 
     -- ** CreateRelationalDatabaseSnapshot
-    module Network.AWS.Lightsail.CreateRelationalDatabaseSnapshot,
+    CreateRelationalDatabaseSnapshot (CreateRelationalDatabaseSnapshot'),
+    newCreateRelationalDatabaseSnapshot,
+    CreateRelationalDatabaseSnapshotResponse (CreateRelationalDatabaseSnapshotResponse'),
+    newCreateRelationalDatabaseSnapshotResponse,
 
     -- ** GetAlarms
-    module Network.AWS.Lightsail.GetAlarms,
+    GetAlarms (GetAlarms'),
+    newGetAlarms,
+    GetAlarmsResponse (GetAlarmsResponse'),
+    newGetAlarmsResponse,
 
     -- ** CreateDistribution
-    module Network.AWS.Lightsail.CreateDistribution,
+    CreateDistribution (CreateDistribution'),
+    newCreateDistribution,
+    CreateDistributionResponse (CreateDistributionResponse'),
+    newCreateDistributionResponse,
 
     -- ** CreateInstances
-    module Network.AWS.Lightsail.CreateInstances,
+    CreateInstances (CreateInstances'),
+    newCreateInstances,
+    CreateInstancesResponse (CreateInstancesResponse'),
+    newCreateInstancesResponse,
 
     -- ** CreateContainerService
-    module Network.AWS.Lightsail.CreateContainerService,
+    CreateContainerService (CreateContainerService'),
+    newCreateContainerService,
+    CreateContainerServiceResponse (CreateContainerServiceResponse'),
+    newCreateContainerServiceResponse,
 
     -- ** GetDistributionLatestCacheReset
-    module Network.AWS.Lightsail.GetDistributionLatestCacheReset,
+    GetDistributionLatestCacheReset (GetDistributionLatestCacheReset'),
+    newGetDistributionLatestCacheReset,
+    GetDistributionLatestCacheResetResponse (GetDistributionLatestCacheResetResponse'),
+    newGetDistributionLatestCacheResetResponse,
 
     -- ** StopRelationalDatabase
-    module Network.AWS.Lightsail.StopRelationalDatabase,
+    StopRelationalDatabase (StopRelationalDatabase'),
+    newStopRelationalDatabase,
+    StopRelationalDatabaseResponse (StopRelationalDatabaseResponse'),
+    newStopRelationalDatabaseResponse,
 
     -- ** DeleteKnownHostKeys
-    module Network.AWS.Lightsail.DeleteKnownHostKeys,
+    DeleteKnownHostKeys (DeleteKnownHostKeys'),
+    newDeleteKnownHostKeys,
+    DeleteKnownHostKeysResponse (DeleteKnownHostKeysResponse'),
+    newDeleteKnownHostKeysResponse,
 
     -- ** OpenInstancePublicPorts
-    module Network.AWS.Lightsail.OpenInstancePublicPorts,
+    OpenInstancePublicPorts (OpenInstancePublicPorts'),
+    newOpenInstancePublicPorts,
+    OpenInstancePublicPortsResponse (OpenInstancePublicPortsResponse'),
+    newOpenInstancePublicPortsResponse,
 
     -- ** GetActiveNames (Paginated)
-    module Network.AWS.Lightsail.GetActiveNames,
+    GetActiveNames (GetActiveNames'),
+    newGetActiveNames,
+    GetActiveNamesResponse (GetActiveNamesResponse'),
+    newGetActiveNamesResponse,
 
     -- ** GetAutoSnapshots
-    module Network.AWS.Lightsail.GetAutoSnapshots,
+    GetAutoSnapshots (GetAutoSnapshots'),
+    newGetAutoSnapshots,
+    GetAutoSnapshotsResponse (GetAutoSnapshotsResponse'),
+    newGetAutoSnapshotsResponse,
 
     -- ** GetRelationalDatabaseLogStreams
-    module Network.AWS.Lightsail.GetRelationalDatabaseLogStreams,
+    GetRelationalDatabaseLogStreams (GetRelationalDatabaseLogStreams'),
+    newGetRelationalDatabaseLogStreams,
+    GetRelationalDatabaseLogStreamsResponse (GetRelationalDatabaseLogStreamsResponse'),
+    newGetRelationalDatabaseLogStreamsResponse,
 
     -- ** GetDistributionBundles
-    module Network.AWS.Lightsail.GetDistributionBundles,
+    GetDistributionBundles (GetDistributionBundles'),
+    newGetDistributionBundles,
+    GetDistributionBundlesResponse (GetDistributionBundlesResponse'),
+    newGetDistributionBundlesResponse,
 
     -- ** GetOperation
-    module Network.AWS.Lightsail.GetOperation,
+    GetOperation (GetOperation'),
+    newGetOperation,
+    GetOperationResponse (GetOperationResponse'),
+    newGetOperationResponse,
 
     -- ** DeleteRelationalDatabaseSnapshot
-    module Network.AWS.Lightsail.DeleteRelationalDatabaseSnapshot,
+    DeleteRelationalDatabaseSnapshot (DeleteRelationalDatabaseSnapshot'),
+    newDeleteRelationalDatabaseSnapshot,
+    DeleteRelationalDatabaseSnapshotResponse (DeleteRelationalDatabaseSnapshotResponse'),
+    newDeleteRelationalDatabaseSnapshotResponse,
 
     -- ** GetInstanceSnapshot
-    module Network.AWS.Lightsail.GetInstanceSnapshot,
+    GetInstanceSnapshot (GetInstanceSnapshot'),
+    newGetInstanceSnapshot,
+    GetInstanceSnapshotResponse (GetInstanceSnapshotResponse'),
+    newGetInstanceSnapshotResponse,
 
     -- ** DeleteContainerService
-    module Network.AWS.Lightsail.DeleteContainerService,
+    DeleteContainerService (DeleteContainerService'),
+    newDeleteContainerService,
+    DeleteContainerServiceResponse (DeleteContainerServiceResponse'),
+    newDeleteContainerServiceResponse,
 
     -- ** UpdateDistribution
-    module Network.AWS.Lightsail.UpdateDistribution,
+    UpdateDistribution (UpdateDistribution'),
+    newUpdateDistribution,
+    UpdateDistributionResponse (UpdateDistributionResponse'),
+    newUpdateDistributionResponse,
 
     -- ** PutInstancePublicPorts
-    module Network.AWS.Lightsail.PutInstancePublicPorts,
+    PutInstancePublicPorts (PutInstancePublicPorts'),
+    newPutInstancePublicPorts,
+    PutInstancePublicPortsResponse (PutInstancePublicPortsResponse'),
+    newPutInstancePublicPortsResponse,
 
     -- ** ResetDistributionCache
-    module Network.AWS.Lightsail.ResetDistributionCache,
+    ResetDistributionCache (ResetDistributionCache'),
+    newResetDistributionCache,
+    ResetDistributionCacheResponse (ResetDistributionCacheResponse'),
+    newResetDistributionCacheResponse,
 
     -- ** CreateContactMethod
-    module Network.AWS.Lightsail.CreateContactMethod,
+    CreateContactMethod (CreateContactMethod'),
+    newCreateContactMethod,
+    CreateContactMethodResponse (CreateContactMethodResponse'),
+    newCreateContactMethodResponse,
 
     -- ** DeleteDistribution
-    module Network.AWS.Lightsail.DeleteDistribution,
+    DeleteDistribution (DeleteDistribution'),
+    newDeleteDistribution,
+    DeleteDistributionResponse (DeleteDistributionResponse'),
+    newDeleteDistributionResponse,
 
     -- ** UpdateContainerService
-    module Network.AWS.Lightsail.UpdateContainerService,
+    UpdateContainerService (UpdateContainerService'),
+    newUpdateContainerService,
+    UpdateContainerServiceResponse (UpdateContainerServiceResponse'),
+    newUpdateContainerServiceResponse,
 
     -- ** GetKeyPair
-    module Network.AWS.Lightsail.GetKeyPair,
+    GetKeyPair (GetKeyPair'),
+    newGetKeyPair,
+    GetKeyPairResponse (GetKeyPairResponse'),
+    newGetKeyPairResponse,
 
     -- ** CreateCloudFormationStack
-    module Network.AWS.Lightsail.CreateCloudFormationStack,
+    CreateCloudFormationStack (CreateCloudFormationStack'),
+    newCreateCloudFormationStack,
+    CreateCloudFormationStackResponse (CreateCloudFormationStackResponse'),
+    newCreateCloudFormationStackResponse,
 
     -- ** CreateDomainEntry
-    module Network.AWS.Lightsail.CreateDomainEntry,
+    CreateDomainEntry (CreateDomainEntry'),
+    newCreateDomainEntry,
+    CreateDomainEntryResponse (CreateDomainEntryResponse'),
+    newCreateDomainEntryResponse,
 
     -- ** GetInstanceState
-    module Network.AWS.Lightsail.GetInstanceState,
+    GetInstanceState (GetInstanceState'),
+    newGetInstanceState,
+    GetInstanceStateResponse (GetInstanceStateResponse'),
+    newGetInstanceStateResponse,
 
     -- ** GetDistributionMetricData
-    module Network.AWS.Lightsail.GetDistributionMetricData,
+    GetDistributionMetricData (GetDistributionMetricData'),
+    newGetDistributionMetricData,
+    GetDistributionMetricDataResponse (GetDistributionMetricDataResponse'),
+    newGetDistributionMetricDataResponse,
 
     -- ** GetDisks (Paginated)
-    module Network.AWS.Lightsail.GetDisks,
+    GetDisks (GetDisks'),
+    newGetDisks,
+    GetDisksResponse (GetDisksResponse'),
+    newGetDisksResponse,
 
     -- ** GetContainerServiceMetricData
-    module Network.AWS.Lightsail.GetContainerServiceMetricData,
+    GetContainerServiceMetricData (GetContainerServiceMetricData'),
+    newGetContainerServiceMetricData,
+    GetContainerServiceMetricDataResponse (GetContainerServiceMetricDataResponse'),
+    newGetContainerServiceMetricDataResponse,
 
     -- ** CreateContainerServiceRegistryLogin
-    module Network.AWS.Lightsail.CreateContainerServiceRegistryLogin,
+    CreateContainerServiceRegistryLogin (CreateContainerServiceRegistryLogin'),
+    newCreateContainerServiceRegistryLogin,
+    CreateContainerServiceRegistryLoginResponse (CreateContainerServiceRegistryLoginResponse'),
+    newCreateContainerServiceRegistryLoginResponse,
 
     -- ** ImportKeyPair
-    module Network.AWS.Lightsail.ImportKeyPair,
+    ImportKeyPair (ImportKeyPair'),
+    newImportKeyPair,
+    ImportKeyPairResponse (ImportKeyPairResponse'),
+    newImportKeyPairResponse,
 
     -- ** GetContainerServicePowers
-    module Network.AWS.Lightsail.GetContainerServicePowers,
+    GetContainerServicePowers (GetContainerServicePowers'),
+    newGetContainerServicePowers,
+    GetContainerServicePowersResponse (GetContainerServicePowersResponse'),
+    newGetContainerServicePowersResponse,
 
     -- ** DeleteDiskSnapshot
-    module Network.AWS.Lightsail.DeleteDiskSnapshot,
+    DeleteDiskSnapshot (DeleteDiskSnapshot'),
+    newDeleteDiskSnapshot,
+    DeleteDiskSnapshotResponse (DeleteDiskSnapshotResponse'),
+    newDeleteDiskSnapshotResponse,
 
     -- ** GetCertificates
-    module Network.AWS.Lightsail.GetCertificates,
+    GetCertificates (GetCertificates'),
+    newGetCertificates,
+    GetCertificatesResponse (GetCertificatesResponse'),
+    newGetCertificatesResponse,
 
-    -- ** ReleaseStaticIP
-    module Network.AWS.Lightsail.ReleaseStaticIP,
+    -- ** ReleaseStaticIp
+    ReleaseStaticIp (ReleaseStaticIp'),
+    newReleaseStaticIp,
+    ReleaseStaticIpResponse (ReleaseStaticIpResponse'),
+    newReleaseStaticIpResponse,
 
     -- ** UpdateRelationalDatabaseParameters
-    module Network.AWS.Lightsail.UpdateRelationalDatabaseParameters,
+    UpdateRelationalDatabaseParameters (UpdateRelationalDatabaseParameters'),
+    newUpdateRelationalDatabaseParameters,
+    UpdateRelationalDatabaseParametersResponse (UpdateRelationalDatabaseParametersResponse'),
+    newUpdateRelationalDatabaseParametersResponse,
 
-    -- ** DeleteLoadBalancerTLSCertificate
-    module Network.AWS.Lightsail.DeleteLoadBalancerTLSCertificate,
+    -- ** DeleteLoadBalancerTlsCertificate
+    DeleteLoadBalancerTlsCertificate (DeleteLoadBalancerTlsCertificate'),
+    newDeleteLoadBalancerTlsCertificate,
+    DeleteLoadBalancerTlsCertificateResponse (DeleteLoadBalancerTlsCertificateResponse'),
+    newDeleteLoadBalancerTlsCertificateResponse,
 
     -- ** UpdateDomainEntry
-    module Network.AWS.Lightsail.UpdateDomainEntry,
+    UpdateDomainEntry (UpdateDomainEntry'),
+    newUpdateDomainEntry,
+    UpdateDomainEntryResponse (UpdateDomainEntryResponse'),
+    newUpdateDomainEntryResponse,
 
     -- ** GetContainerLog
-    module Network.AWS.Lightsail.GetContainerLog,
+    GetContainerLog (GetContainerLog'),
+    newGetContainerLog,
+    GetContainerLogResponse (GetContainerLogResponse'),
+    newGetContainerLogResponse,
 
     -- ** DeleteDomainEntry
-    module Network.AWS.Lightsail.DeleteDomainEntry,
+    DeleteDomainEntry (DeleteDomainEntry'),
+    newDeleteDomainEntry,
+    DeleteDomainEntryResponse (DeleteDomainEntryResponse'),
+    newDeleteDomainEntryResponse,
 
     -- ** GetContainerImages
-    module Network.AWS.Lightsail.GetContainerImages,
+    GetContainerImages (GetContainerImages'),
+    newGetContainerImages,
+    GetContainerImagesResponse (GetContainerImagesResponse'),
+    newGetContainerImagesResponse,
 
     -- ** GetDomains (Paginated)
-    module Network.AWS.Lightsail.GetDomains,
+    GetDomains (GetDomains'),
+    newGetDomains,
+    GetDomainsResponse (GetDomainsResponse'),
+    newGetDomainsResponse,
 
     -- ** PutAlarm
-    module Network.AWS.Lightsail.PutAlarm,
+    PutAlarm (PutAlarm'),
+    newPutAlarm,
+    PutAlarmResponse (PutAlarmResponse'),
+    newPutAlarmResponse,
 
     -- ** DeleteAutoSnapshot
-    module Network.AWS.Lightsail.DeleteAutoSnapshot,
+    DeleteAutoSnapshot (DeleteAutoSnapshot'),
+    newDeleteAutoSnapshot,
+    DeleteAutoSnapshotResponse (DeleteAutoSnapshotResponse'),
+    newDeleteAutoSnapshotResponse,
 
     -- ** GetContactMethods
-    module Network.AWS.Lightsail.GetContactMethods,
+    GetContactMethods (GetContactMethods'),
+    newGetContactMethods,
+    GetContactMethodsResponse (GetContactMethodsResponse'),
+    newGetContactMethodsResponse,
 
     -- ** GetRelationalDatabaseParameters (Paginated)
-    module Network.AWS.Lightsail.GetRelationalDatabaseParameters,
+    GetRelationalDatabaseParameters (GetRelationalDatabaseParameters'),
+    newGetRelationalDatabaseParameters,
+    GetRelationalDatabaseParametersResponse (GetRelationalDatabaseParametersResponse'),
+    newGetRelationalDatabaseParametersResponse,
 
     -- ** CreateRelationalDatabase
-    module Network.AWS.Lightsail.CreateRelationalDatabase,
+    CreateRelationalDatabase (CreateRelationalDatabase'),
+    newCreateRelationalDatabase,
+    CreateRelationalDatabaseResponse (CreateRelationalDatabaseResponse'),
+    newCreateRelationalDatabaseResponse,
 
     -- * Types
 
@@ -548,9 +988,6 @@ module Network.AWS.Lightsail
     -- ** HeaderEnum
     HeaderEnum (..),
 
-    -- ** IPAddressType
-    IPAddressType (..),
-
     -- ** InstanceAccessProtocol
     InstanceAccessProtocol (..),
 
@@ -569,6 +1006,9 @@ module Network.AWS.Lightsail
     -- ** InstanceSnapshotState
     InstanceSnapshotState (..),
 
+    -- ** IpAddressType
+    IpAddressType (..),
+
     -- ** LoadBalancerAttributeName
     LoadBalancerAttributeName (..),
 
@@ -581,20 +1021,20 @@ module Network.AWS.Lightsail
     -- ** LoadBalancerState
     LoadBalancerState (..),
 
-    -- ** LoadBalancerTLSCertificateDomainStatus
-    LoadBalancerTLSCertificateDomainStatus (..),
+    -- ** LoadBalancerTlsCertificateDomainStatus
+    LoadBalancerTlsCertificateDomainStatus (..),
 
-    -- ** LoadBalancerTLSCertificateFailureReason
-    LoadBalancerTLSCertificateFailureReason (..),
+    -- ** LoadBalancerTlsCertificateFailureReason
+    LoadBalancerTlsCertificateFailureReason (..),
 
-    -- ** LoadBalancerTLSCertificateRenewalStatus
-    LoadBalancerTLSCertificateRenewalStatus (..),
+    -- ** LoadBalancerTlsCertificateRenewalStatus
+    LoadBalancerTlsCertificateRenewalStatus (..),
 
-    -- ** LoadBalancerTLSCertificateRevocationReason
-    LoadBalancerTLSCertificateRevocationReason (..),
+    -- ** LoadBalancerTlsCertificateRevocationReason
+    LoadBalancerTlsCertificateRevocationReason (..),
 
-    -- ** LoadBalancerTLSCertificateStatus
-    LoadBalancerTLSCertificateStatus (..),
+    -- ** LoadBalancerTlsCertificateStatus
+    LoadBalancerTlsCertificateStatus (..),
 
     -- ** MetricName
     MetricName (..),
@@ -651,934 +1091,365 @@ module Network.AWS.Lightsail
     TreatMissingData (..),
 
     -- ** AddOn
-    AddOn,
-    addOn,
-    aoSnapshotTimeOfDay,
-    aoStatus,
-    aoName,
-    aoNextSnapshotTimeOfDay,
+    AddOn (AddOn'),
+    newAddOn,
 
     -- ** AddOnRequest
-    AddOnRequest,
-    addOnRequest,
-    aorAutoSnapshotAddOnRequest,
-    aorAddOnType,
+    AddOnRequest (AddOnRequest'),
+    newAddOnRequest,
 
     -- ** Alarm
-    Alarm,
-    alarm,
-    aDatapointsToAlarm,
-    aThreshold,
-    aComparisonOperator,
-    aMonitoredResourceInfo,
-    aNotificationTriggers,
-    aUnit,
-    aMetricName,
-    aNotificationEnabled,
-    aCreatedAt,
-    aArn,
-    aTreatMissingData,
-    aResourceType,
-    aSupportCode,
-    aState,
-    aName,
-    aStatistic,
-    aEvaluationPeriods,
-    aPeriod,
-    aLocation,
-    aContactProtocols,
+    Alarm (Alarm'),
+    newAlarm,
 
     -- ** AttachedDisk
-    AttachedDisk,
-    attachedDisk,
-    adSizeInGb,
-    adPath,
+    AttachedDisk (AttachedDisk'),
+    newAttachedDisk,
 
     -- ** AutoSnapshotAddOnRequest
-    AutoSnapshotAddOnRequest,
-    autoSnapshotAddOnRequest,
-    asaorSnapshotTimeOfDay,
+    AutoSnapshotAddOnRequest (AutoSnapshotAddOnRequest'),
+    newAutoSnapshotAddOnRequest,
 
     -- ** AutoSnapshotDetails
-    AutoSnapshotDetails,
-    autoSnapshotDetails,
-    asdStatus,
-    asdCreatedAt,
-    asdDate,
-    asdFromAttachedDisks,
+    AutoSnapshotDetails (AutoSnapshotDetails'),
+    newAutoSnapshotDetails,
 
     -- ** AvailabilityZone
-    AvailabilityZone,
-    availabilityZone,
-    azZoneName,
-    azState,
+    AvailabilityZone (AvailabilityZone'),
+    newAvailabilityZone,
 
     -- ** Blueprint
-    Blueprint,
-    blueprint,
-    bPlatform,
-    bIsActive,
-    bLicenseURL,
-    bProductURL,
-    bVersion,
-    bBlueprintId,
-    bVersionCode,
-    bName,
-    bGroup,
-    bDescription,
-    bType,
-    bMinPower,
+    Blueprint (Blueprint'),
+    newBlueprint,
 
     -- ** Bundle
-    Bundle,
-    bundle,
-    bunPower,
-    bunInstanceType,
-    bunRamSizeInGb,
-    bunBundleId,
-    bunIsActive,
-    bunName,
-    bunTransferPerMonthInGb,
-    bunCpuCount,
-    bunPrice,
-    bunSupportedPlatforms,
-    bunDiskSizeInGb,
+    Bundle (Bundle'),
+    newBundle,
 
     -- ** CacheBehavior
-    CacheBehavior,
-    cacheBehavior,
-    cbBehavior,
+    CacheBehavior (CacheBehavior'),
+    newCacheBehavior,
 
     -- ** CacheBehaviorPerPath
-    CacheBehaviorPerPath,
-    cacheBehaviorPerPath,
-    cbppBehavior,
-    cbppPath,
+    CacheBehaviorPerPath (CacheBehaviorPerPath'),
+    newCacheBehaviorPerPath,
 
     -- ** CacheSettings
-    CacheSettings,
-    cacheSettings,
-    csMaximumTTL,
-    csForwardedHeaders,
-    csDefaultTTL,
-    csCachedHTTPMethods,
-    csAllowedHTTPMethods,
-    csForwardedQueryStrings,
-    csForwardedCookies,
-    csMinimumTTL,
+    CacheSettings (CacheSettings'),
+    newCacheSettings,
 
     -- ** Certificate
-    Certificate,
-    certificate,
-    cerStatus,
-    cerNotBefore,
-    cerInUseResourceCount,
-    cerCreatedAt,
-    cerArn,
-    cerEligibleToRenew,
-    cerSupportCode,
-    cerSubjectAlternativeNames,
-    cerName,
-    cerDomainName,
-    cerRevocationReason,
-    cerRevokedAt,
-    cerIssuerCA,
-    cerNotAfter,
-    cerTags,
-    cerSerialNumber,
-    cerIssuedAt,
-    cerKeyAlgorithm,
-    cerDomainValidationRecords,
-    cerRequestFailureReason,
-    cerRenewalSummary,
+    Certificate (Certificate'),
+    newCertificate,
 
     -- ** CertificateSummary
-    CertificateSummary,
-    certificateSummary,
-    cCertificateARN,
-    cDomainName,
-    cCertificateDetail,
-    cTags,
-    cCertificateName,
+    CertificateSummary (CertificateSummary'),
+    newCertificateSummary,
 
     -- ** CloudFormationStackRecord
-    CloudFormationStackRecord,
-    cloudFormationStackRecord,
-    cfsrCreatedAt,
-    cfsrArn,
-    cfsrResourceType,
-    cfsrState,
-    cfsrName,
-    cfsrSourceInfo,
-    cfsrLocation,
-    cfsrDestinationInfo,
+    CloudFormationStackRecord (CloudFormationStackRecord'),
+    newCloudFormationStackRecord,
 
     -- ** CloudFormationStackRecordSourceInfo
-    CloudFormationStackRecordSourceInfo,
-    cloudFormationStackRecordSourceInfo,
-    cfsrsiArn,
-    cfsrsiResourceType,
-    cfsrsiName,
+    CloudFormationStackRecordSourceInfo (CloudFormationStackRecordSourceInfo'),
+    newCloudFormationStackRecordSourceInfo,
 
     -- ** ContactMethod
-    ContactMethod,
-    contactMethod,
-    cmStatus,
-    cmContactEndpoint,
-    cmCreatedAt,
-    cmArn,
-    cmResourceType,
-    cmSupportCode,
-    cmName,
-    cmProtocol,
-    cmLocation,
+    ContactMethod (ContactMethod'),
+    newContactMethod,
 
     -- ** Container
-    Container,
-    container,
-    cEnvironment,
-    cPorts,
-    cImage,
-    cCommand,
+    Container (Container'),
+    newContainer,
 
     -- ** ContainerImage
-    ContainerImage,
-    containerImage,
-    ciCreatedAt,
-    ciImage,
-    ciDigest,
+    ContainerImage (ContainerImage'),
+    newContainerImage,
 
     -- ** ContainerService
-    ContainerService,
-    containerService,
-    csPower,
-    csCurrentDeployment,
-    csCreatedAt,
-    csArn,
-    csContainerServiceName,
-    csPrivateDomainName,
-    csResourceType,
-    csState,
-    csPrincipalARN,
-    csTags,
-    csNextDeployment,
-    csUrl,
-    csScale,
-    csPublicDomainNames,
-    csLocation,
-    csPowerId,
-    csIsDisabled,
+    ContainerService (ContainerService'),
+    newContainerService,
 
     -- ** ContainerServiceDeployment
-    ContainerServiceDeployment,
-    containerServiceDeployment,
-    csdCreatedAt,
-    csdVersion,
-    csdPublicEndpoint,
-    csdState,
-    csdContainers,
+    ContainerServiceDeployment (ContainerServiceDeployment'),
+    newContainerServiceDeployment,
 
     -- ** ContainerServiceDeploymentRequest
-    ContainerServiceDeploymentRequest,
-    containerServiceDeploymentRequest,
-    csdrPublicEndpoint,
-    csdrContainers,
+    ContainerServiceDeploymentRequest (ContainerServiceDeploymentRequest'),
+    newContainerServiceDeploymentRequest,
 
     -- ** ContainerServiceEndpoint
-    ContainerServiceEndpoint,
-    containerServiceEndpoint,
-    cseContainerPort,
-    cseContainerName,
-    cseHealthCheck,
+    ContainerServiceEndpoint (ContainerServiceEndpoint'),
+    newContainerServiceEndpoint,
 
     -- ** ContainerServiceHealthCheckConfig
-    ContainerServiceHealthCheckConfig,
-    containerServiceHealthCheckConfig,
-    cshccIntervalSeconds,
-    cshccHealthyThreshold,
-    cshccUnhealthyThreshold,
-    cshccTimeoutSeconds,
-    cshccPath,
-    cshccSuccessCodes,
+    ContainerServiceHealthCheckConfig (ContainerServiceHealthCheckConfig'),
+    newContainerServiceHealthCheckConfig,
 
     -- ** ContainerServiceLogEvent
-    ContainerServiceLogEvent,
-    containerServiceLogEvent,
-    csleMessage,
-    csleCreatedAt,
+    ContainerServiceLogEvent (ContainerServiceLogEvent'),
+    newContainerServiceLogEvent,
 
     -- ** ContainerServicePower
-    ContainerServicePower,
-    containerServicePower,
-    cspRamSizeInGb,
-    cspIsActive,
-    cspName,
-    cspCpuCount,
-    cspPrice,
-    cspPowerId,
+    ContainerServicePower (ContainerServicePower'),
+    newContainerServicePower,
 
     -- ** ContainerServiceRegistryLogin
-    ContainerServiceRegistryLogin,
-    containerServiceRegistryLogin,
-    csrlExpiresAt,
-    csrlRegistry,
-    csrlPassword,
-    csrlUsername,
+    ContainerServiceRegistryLogin (ContainerServiceRegistryLogin'),
+    newContainerServiceRegistryLogin,
 
     -- ** CookieObject
-    CookieObject,
-    cookieObject,
-    coCookiesAllowList,
-    coOption,
+    CookieObject (CookieObject'),
+    newCookieObject,
 
     -- ** DestinationInfo
-    DestinationInfo,
-    destinationInfo,
-    diId,
-    diService,
+    DestinationInfo (DestinationInfo'),
+    newDestinationInfo,
 
     -- ** Disk
-    Disk,
-    disk,
-    dGbInUse,
-    dAttachmentState,
-    dAddOns,
-    dIsAttached,
-    dCreatedAt,
-    dArn,
-    dResourceType,
-    dSupportCode,
-    dSizeInGb,
-    dState,
-    dName,
-    dAttachedTo,
-    dTags,
-    dIops,
-    dLocation,
-    dPath,
-    dIsSystemDisk,
+    Disk (Disk'),
+    newDisk,
 
     -- ** DiskInfo
-    DiskInfo,
-    diskInfo,
-    diSizeInGb,
-    diName,
-    diPath,
-    diIsSystemDisk,
+    DiskInfo (DiskInfo'),
+    newDiskInfo,
 
     -- ** DiskMap
-    DiskMap,
-    diskMap,
-    dmOriginalDiskPath,
-    dmNewDiskName,
+    DiskMap (DiskMap'),
+    newDiskMap,
 
     -- ** DiskSnapshot
-    DiskSnapshot,
-    diskSnapshot,
-    dsIsFromAutoSnapshot,
-    dsFromDiskName,
-    dsCreatedAt,
-    dsArn,
-    dsFromInstanceARN,
-    dsResourceType,
-    dsSupportCode,
-    dsSizeInGb,
-    dsState,
-    dsName,
-    dsTags,
-    dsFromDiskARN,
-    dsFromInstanceName,
-    dsLocation,
-    dsProgress,
+    DiskSnapshot (DiskSnapshot'),
+    newDiskSnapshot,
 
     -- ** DiskSnapshotInfo
-    DiskSnapshotInfo,
-    diskSnapshotInfo,
-    dsiSizeInGb,
+    DiskSnapshotInfo (DiskSnapshotInfo'),
+    newDiskSnapshotInfo,
 
     -- ** DistributionBundle
-    DistributionBundle,
-    distributionBundle,
-    dbBundleId,
-    dbIsActive,
-    dbName,
-    dbTransferPerMonthInGb,
-    dbPrice,
+    DistributionBundle (DistributionBundle'),
+    newDistributionBundle,
 
     -- ** Domain
-    Domain,
-    domain,
-    domCreatedAt,
-    domArn,
-    domResourceType,
-    domSupportCode,
-    domName,
-    domTags,
-    domLocation,
-    domDomainEntries,
+    Domain (Domain'),
+    newDomain,
 
     -- ** DomainEntry
-    DomainEntry,
-    domainEntry,
-    deOptions,
-    deId,
-    deName,
-    deIsAlias,
-    deTarget,
-    deType,
+    DomainEntry (DomainEntry'),
+    newDomainEntry,
 
     -- ** DomainValidationRecord
-    DomainValidationRecord,
-    domainValidationRecord,
-    dvrResourceRecord,
-    dvrDomainName,
+    DomainValidationRecord (DomainValidationRecord'),
+    newDomainValidationRecord,
 
     -- ** EndpointRequest
-    EndpointRequest,
-    endpointRequest,
-    erHealthCheck,
-    erContainerName,
-    erContainerPort,
+    EndpointRequest (EndpointRequest'),
+    newEndpointRequest,
 
     -- ** ExportSnapshotRecord
-    ExportSnapshotRecord,
-    exportSnapshotRecord,
-    esrCreatedAt,
-    esrArn,
-    esrResourceType,
-    esrState,
-    esrName,
-    esrSourceInfo,
-    esrLocation,
-    esrDestinationInfo,
+    ExportSnapshotRecord (ExportSnapshotRecord'),
+    newExportSnapshotRecord,
 
     -- ** ExportSnapshotRecordSourceInfo
-    ExportSnapshotRecordSourceInfo,
-    exportSnapshotRecordSourceInfo,
-    esrsiDiskSnapshotInfo,
-    esrsiCreatedAt,
-    esrsiArn,
-    esrsiResourceType,
-    esrsiName,
-    esrsiFromResourceARN,
-    esrsiInstanceSnapshotInfo,
-    esrsiFromResourceName,
+    ExportSnapshotRecordSourceInfo (ExportSnapshotRecordSourceInfo'),
+    newExportSnapshotRecordSourceInfo,
 
     -- ** HeaderObject
-    HeaderObject,
-    headerObject,
-    hoHeadersAllowList,
-    hoOption,
+    HeaderObject (HeaderObject'),
+    newHeaderObject,
 
     -- ** HostKeyAttributes
-    HostKeyAttributes,
-    hostKeyAttributes,
-    hkaAlgorithm,
-    hkaPublicKey,
-    hkaFingerprintSHA256,
-    hkaNotValidBefore,
-    hkaNotValidAfter,
-    hkaFingerprintSHA1,
-    hkaWitnessedAt,
+    HostKeyAttributes (HostKeyAttributes'),
+    newHostKeyAttributes,
 
     -- ** InputOrigin
-    InputOrigin,
-    inputOrigin,
-    ioRegionName,
-    ioProtocolPolicy,
-    ioName,
+    InputOrigin (InputOrigin'),
+    newInputOrigin,
 
     -- ** Instance
-    Instance,
-    instance',
-    iIpAddressType,
-    iIpv6Addresses,
-    iBundleId,
-    iHardware,
-    iAddOns,
-    iBlueprintName,
-    iSshKeyName,
-    iCreatedAt,
-    iArn,
-    iBlueprintId,
-    iResourceType,
-    iSupportCode,
-    iState,
-    iName,
-    iTags,
-    iNetworking,
-    iUsername,
-    iPublicIPAddress,
-    iIsStaticIP,
-    iLocation,
-    iPrivateIPAddress,
+    Instance (Instance'),
+    newInstance,
 
     -- ** InstanceAccessDetails
-    InstanceAccessDetails,
-    instanceAccessDetails,
-    iadHostKeys,
-    iadInstanceName,
-    iadExpiresAt,
-    iadPrivateKey,
-    iadCertKey,
-    iadPasswordData,
-    iadIpAddress,
-    iadPassword,
-    iadUsername,
-    iadProtocol,
+    InstanceAccessDetails (InstanceAccessDetails'),
+    newInstanceAccessDetails,
 
     -- ** InstanceEntry
-    InstanceEntry,
-    instanceEntry,
-    ieUserData,
-    ieSourceName,
-    ieInstanceType,
-    iePortInfoSource,
-    ieAvailabilityZone,
+    InstanceEntry (InstanceEntry'),
+    newInstanceEntry,
 
     -- ** InstanceHardware
-    InstanceHardware,
-    instanceHardware,
-    ihRamSizeInGb,
-    ihDisks,
-    ihCpuCount,
+    InstanceHardware (InstanceHardware'),
+    newInstanceHardware,
 
     -- ** InstanceHealthSummary
-    InstanceHealthSummary,
-    instanceHealthSummary,
-    ihsInstanceName,
-    ihsInstanceHealthReason,
-    ihsInstanceHealth,
+    InstanceHealthSummary (InstanceHealthSummary'),
+    newInstanceHealthSummary,
 
     -- ** InstanceNetworking
-    InstanceNetworking,
-    instanceNetworking,
-    inMonthlyTransfer,
-    inPorts,
+    InstanceNetworking (InstanceNetworking'),
+    newInstanceNetworking,
 
     -- ** InstancePortInfo
-    InstancePortInfo,
-    instancePortInfo,
-    ipiFromPort,
-    ipiCidrListAliases,
-    ipiIpv6Cidrs,
-    ipiCommonName,
-    ipiCidrs,
-    ipiAccessType,
-    ipiAccessDirection,
-    ipiProtocol,
-    ipiToPort,
-    ipiAccessFrom,
+    InstancePortInfo (InstancePortInfo'),
+    newInstancePortInfo,
 
     -- ** InstancePortState
-    InstancePortState,
-    instancePortState,
-    ipsFromPort,
-    ipsCidrListAliases,
-    ipsIpv6Cidrs,
-    ipsState,
-    ipsCidrs,
-    ipsProtocol,
-    ipsToPort,
+    InstancePortState (InstancePortState'),
+    newInstancePortState,
 
     -- ** InstanceSnapshot
-    InstanceSnapshot,
-    instanceSnapshot,
-    insIsFromAutoSnapshot,
-    insCreatedAt,
-    insArn,
-    insFromInstanceARN,
-    insResourceType,
-    insSupportCode,
-    insSizeInGb,
-    insFromBundleId,
-    insState,
-    insName,
-    insFromBlueprintId,
-    insTags,
-    insFromInstanceName,
-    insLocation,
-    insProgress,
-    insFromAttachedDisks,
+    InstanceSnapshot (InstanceSnapshot'),
+    newInstanceSnapshot,
 
     -- ** InstanceSnapshotInfo
-    InstanceSnapshotInfo,
-    instanceSnapshotInfo,
-    isiFromDiskInfo,
-    isiFromBundleId,
-    isiFromBlueprintId,
+    InstanceSnapshotInfo (InstanceSnapshotInfo'),
+    newInstanceSnapshotInfo,
 
     -- ** InstanceState
-    InstanceState,
-    instanceState,
-    isCode,
-    isName,
+    InstanceState (InstanceState'),
+    newInstanceState,
 
     -- ** KeyPair
-    KeyPair,
-    keyPair,
-    kpCreatedAt,
-    kpArn,
-    kpResourceType,
-    kpSupportCode,
-    kpName,
-    kpTags,
-    kpFingerprint,
-    kpLocation,
+    KeyPair (KeyPair'),
+    newKeyPair,
 
     -- ** LightsailDistribution
-    LightsailDistribution,
-    lightsailDistribution,
-    ldIsEnabled,
-    ldIpAddressType,
-    ldOrigin,
-    ldStatus,
-    ldOriginPublicDNS,
-    ldBundleId,
-    ldAlternativeDomainNames,
-    ldCreatedAt,
-    ldCacheBehaviorSettings,
-    ldArn,
-    ldResourceType,
-    ldSupportCode,
-    ldName,
-    ldDomainName,
-    ldAbleToUpdateBundle,
-    ldTags,
-    ldCacheBehaviors,
-    ldDefaultCacheBehavior,
-    ldLocation,
-    ldCertificateName,
+    LightsailDistribution (LightsailDistribution'),
+    newLightsailDistribution,
 
     -- ** LoadBalancer
-    LoadBalancer,
-    loadBalancer,
-    lbIpAddressType,
-    lbTlsCertificateSummaries,
-    lbInstanceHealthSummary,
-    lbPublicPorts,
-    lbConfigurationOptions,
-    lbInstancePort,
-    lbCreatedAt,
-    lbArn,
-    lbResourceType,
-    lbSupportCode,
-    lbState,
-    lbName,
-    lbHealthCheckPath,
-    lbTags,
-    lbDnsName,
-    lbProtocol,
-    lbLocation,
+    LoadBalancer (LoadBalancer'),
+    newLoadBalancer,
 
-    -- ** LoadBalancerTLSCertificate
-    LoadBalancerTLSCertificate,
-    loadBalancerTLSCertificate,
-    lbtcStatus,
-    lbtcNotBefore,
-    lbtcSerial,
-    lbtcIsAttached,
-    lbtcCreatedAt,
-    lbtcArn,
-    lbtcResourceType,
-    lbtcSupportCode,
-    lbtcSubjectAlternativeNames,
-    lbtcName,
-    lbtcDomainName,
-    lbtcSubject,
-    lbtcFailureReason,
-    lbtcRevocationReason,
-    lbtcRevokedAt,
-    lbtcNotAfter,
-    lbtcTags,
-    lbtcSignatureAlgorithm,
-    lbtcIssuer,
-    lbtcIssuedAt,
-    lbtcKeyAlgorithm,
-    lbtcDomainValidationRecords,
-    lbtcLocation,
-    lbtcLoadBalancerName,
-    lbtcRenewalSummary,
+    -- ** LoadBalancerTlsCertificate
+    LoadBalancerTlsCertificate (LoadBalancerTlsCertificate'),
+    newLoadBalancerTlsCertificate,
 
-    -- ** LoadBalancerTLSCertificateDomainValidationOption
-    LoadBalancerTLSCertificateDomainValidationOption,
-    loadBalancerTLSCertificateDomainValidationOption,
-    lbtcdvoDomainName,
-    lbtcdvoValidationStatus,
+    -- ** LoadBalancerTlsCertificateDomainValidationOption
+    LoadBalancerTlsCertificateDomainValidationOption (LoadBalancerTlsCertificateDomainValidationOption'),
+    newLoadBalancerTlsCertificateDomainValidationOption,
 
-    -- ** LoadBalancerTLSCertificateDomainValidationRecord
-    LoadBalancerTLSCertificateDomainValidationRecord,
-    loadBalancerTLSCertificateDomainValidationRecord,
-    lbtcdvrName,
-    lbtcdvrDomainName,
-    lbtcdvrValidationStatus,
-    lbtcdvrValue,
-    lbtcdvrType,
+    -- ** LoadBalancerTlsCertificateDomainValidationRecord
+    LoadBalancerTlsCertificateDomainValidationRecord (LoadBalancerTlsCertificateDomainValidationRecord'),
+    newLoadBalancerTlsCertificateDomainValidationRecord,
 
-    -- ** LoadBalancerTLSCertificateRenewalSummary
-    LoadBalancerTLSCertificateRenewalSummary,
-    loadBalancerTLSCertificateRenewalSummary,
-    lbtcrsDomainValidationOptions,
-    lbtcrsRenewalStatus,
+    -- ** LoadBalancerTlsCertificateRenewalSummary
+    LoadBalancerTlsCertificateRenewalSummary (LoadBalancerTlsCertificateRenewalSummary'),
+    newLoadBalancerTlsCertificateRenewalSummary,
 
-    -- ** LoadBalancerTLSCertificateSummary
-    LoadBalancerTLSCertificateSummary,
-    loadBalancerTLSCertificateSummary,
-    lbtcsIsAttached,
-    lbtcsName,
+    -- ** LoadBalancerTlsCertificateSummary
+    LoadBalancerTlsCertificateSummary (LoadBalancerTlsCertificateSummary'),
+    newLoadBalancerTlsCertificateSummary,
 
     -- ** LogEvent
-    LogEvent,
-    logEvent,
-    leMessage,
-    leCreatedAt,
+    LogEvent (LogEvent'),
+    newLogEvent,
 
     -- ** MetricDatapoint
-    MetricDatapoint,
-    metricDatapoint,
-    mdMinimum,
-    mdUnit,
-    mdSum,
-    mdSampleCount,
-    mdTimestamp,
-    mdAverage,
-    mdMaximum,
+    MetricDatapoint (MetricDatapoint'),
+    newMetricDatapoint,
 
     -- ** MonitoredResourceInfo
-    MonitoredResourceInfo,
-    monitoredResourceInfo,
-    mriArn,
-    mriResourceType,
-    mriName,
+    MonitoredResourceInfo (MonitoredResourceInfo'),
+    newMonitoredResourceInfo,
 
     -- ** MonthlyTransfer
-    MonthlyTransfer,
-    monthlyTransfer,
-    mtGbPerMonthAllocated,
+    MonthlyTransfer (MonthlyTransfer'),
+    newMonthlyTransfer,
 
     -- ** Operation
-    Operation,
-    operation,
-    oOperationDetails,
-    oStatus,
-    oIsTerminal,
-    oCreatedAt,
-    oId,
-    oResourceType,
-    oStatusChangedAt,
-    oLocation,
-    oResourceName,
-    oOperationType,
-    oErrorCode,
-    oErrorDetails,
+    Operation (Operation'),
+    newOperation,
 
     -- ** Origin
-    Origin,
-    origin,
-    oriRegionName,
-    oriProtocolPolicy,
-    oriResourceType,
-    oriName,
+    Origin (Origin'),
+    newOrigin,
 
     -- ** PasswordData
-    PasswordData,
-    passwordData,
-    pdKeyPairName,
-    pdCiphertext,
+    PasswordData (PasswordData'),
+    newPasswordData,
 
     -- ** PendingMaintenanceAction
-    PendingMaintenanceAction,
-    pendingMaintenanceAction,
-    pmaCurrentApplyDate,
-    pmaAction,
-    pmaDescription,
+    PendingMaintenanceAction (PendingMaintenanceAction'),
+    newPendingMaintenanceAction,
 
     -- ** PendingModifiedRelationalDatabaseValues
-    PendingModifiedRelationalDatabaseValues,
-    pendingModifiedRelationalDatabaseValues,
-    pmrdvMasterUserPassword,
-    pmrdvBackupRetentionEnabled,
-    pmrdvEngineVersion,
+    PendingModifiedRelationalDatabaseValues (PendingModifiedRelationalDatabaseValues'),
+    newPendingModifiedRelationalDatabaseValues,
 
     -- ** PortInfo
-    PortInfo,
-    portInfo,
-    piFromPort,
-    piCidrListAliases,
-    piIpv6Cidrs,
-    piCidrs,
-    piProtocol,
-    piToPort,
+    PortInfo (PortInfo'),
+    newPortInfo,
 
     -- ** QueryStringObject
-    QueryStringObject,
-    queryStringObject,
-    qsoQueryStringsAllowList,
-    qsoOption,
+    QueryStringObject (QueryStringObject'),
+    newQueryStringObject,
 
     -- ** RegionInfo
-    RegionInfo,
-    regionInfo,
-    riAvailabilityZones,
-    riContinentCode,
-    riRelationalDatabaseAvailabilityZones,
-    riName,
-    riDescription,
-    riDisplayName,
+    RegionInfo (RegionInfo'),
+    newRegionInfo,
 
     -- ** RelationalDatabase
-    RelationalDatabase,
-    relationalDatabase,
-    rdRelationalDatabaseBundleId,
-    rdMasterEndpoint,
-    rdPendingMaintenanceActions,
-    rdPreferredBackupWindow,
-    rdCaCertificateIdentifier,
-    rdRelationalDatabaseBlueprintId,
-    rdLatestRestorableTime,
-    rdMasterDatabaseName,
-    rdHardware,
-    rdCreatedAt,
-    rdArn,
-    rdMasterUsername,
-    rdResourceType,
-    rdPubliclyAccessible,
-    rdSupportCode,
-    rdState,
-    rdName,
-    rdBackupRetentionEnabled,
-    rdEngineVersion,
-    rdPreferredMaintenanceWindow,
-    rdTags,
-    rdParameterApplyStatus,
-    rdPendingModifiedValues,
-    rdEngine,
-    rdSecondaryAvailabilityZone,
-    rdLocation,
+    RelationalDatabase (RelationalDatabase'),
+    newRelationalDatabase,
 
     -- ** RelationalDatabaseBlueprint
-    RelationalDatabaseBlueprint,
-    relationalDatabaseBlueprint,
-    rdbEngineDescription,
-    rdbBlueprintId,
-    rdbEngineVersionDescription,
-    rdbIsEngineDefault,
-    rdbEngineVersion,
-    rdbEngine,
+    RelationalDatabaseBlueprint (RelationalDatabaseBlueprint'),
+    newRelationalDatabaseBlueprint,
 
     -- ** RelationalDatabaseBundle
-    RelationalDatabaseBundle,
-    relationalDatabaseBundle,
-    rdbRamSizeInGb,
-    rdbBundleId,
-    rdbIsActive,
-    rdbName,
-    rdbIsEncrypted,
-    rdbTransferPerMonthInGb,
-    rdbCpuCount,
-    rdbPrice,
-    rdbDiskSizeInGb,
+    RelationalDatabaseBundle (RelationalDatabaseBundle'),
+    newRelationalDatabaseBundle,
 
     -- ** RelationalDatabaseEndpoint
-    RelationalDatabaseEndpoint,
-    relationalDatabaseEndpoint,
-    rdeAddress,
-    rdePort,
+    RelationalDatabaseEndpoint (RelationalDatabaseEndpoint'),
+    newRelationalDatabaseEndpoint,
 
     -- ** RelationalDatabaseEvent
-    RelationalDatabaseEvent,
-    relationalDatabaseEvent,
-    rdeMessage,
-    rdeCreatedAt,
-    rdeEventCategories,
-    rdeResource,
+    RelationalDatabaseEvent (RelationalDatabaseEvent'),
+    newRelationalDatabaseEvent,
 
     -- ** RelationalDatabaseHardware
-    RelationalDatabaseHardware,
-    relationalDatabaseHardware,
-    rdhRamSizeInGb,
-    rdhCpuCount,
-    rdhDiskSizeInGb,
+    RelationalDatabaseHardware (RelationalDatabaseHardware'),
+    newRelationalDatabaseHardware,
 
     -- ** RelationalDatabaseParameter
-    RelationalDatabaseParameter,
-    relationalDatabaseParameter,
-    rdpAllowedValues,
-    rdpParameterValue,
-    rdpApplyType,
-    rdpParameterName,
-    rdpDescription,
-    rdpApplyMethod,
-    rdpIsModifiable,
-    rdpDataType,
+    RelationalDatabaseParameter (RelationalDatabaseParameter'),
+    newRelationalDatabaseParameter,
 
     -- ** RelationalDatabaseSnapshot
-    RelationalDatabaseSnapshot,
-    relationalDatabaseSnapshot,
-    rdsFromRelationalDatabaseName,
-    rdsCreatedAt,
-    rdsArn,
-    rdsResourceType,
-    rdsSupportCode,
-    rdsSizeInGb,
-    rdsState,
-    rdsName,
-    rdsEngineVersion,
-    rdsFromRelationalDatabaseBundleId,
-    rdsTags,
-    rdsEngine,
-    rdsFromRelationalDatabaseARN,
-    rdsLocation,
-    rdsFromRelationalDatabaseBlueprintId,
+    RelationalDatabaseSnapshot (RelationalDatabaseSnapshot'),
+    newRelationalDatabaseSnapshot,
 
     -- ** RenewalSummary
-    RenewalSummary,
-    renewalSummary,
-    rsUpdatedAt,
-    rsRenewalStatus,
-    rsRenewalStatusReason,
-    rsDomainValidationRecords,
+    RenewalSummary (RenewalSummary'),
+    newRenewalSummary,
 
     -- ** ResourceLocation
-    ResourceLocation,
-    resourceLocation,
-    rlRegionName,
-    rlAvailabilityZone,
+    ResourceLocation (ResourceLocation'),
+    newResourceLocation,
 
     -- ** ResourceRecord
-    ResourceRecord,
-    resourceRecord,
-    rrName,
-    rrValue,
-    rrType,
+    ResourceRecord (ResourceRecord'),
+    newResourceRecord,
 
-    -- ** StaticIP
-    StaticIP,
-    staticIP,
-    siIsAttached,
-    siCreatedAt,
-    siArn,
-    siResourceType,
-    siSupportCode,
-    siName,
-    siIpAddress,
-    siAttachedTo,
-    siLocation,
+    -- ** StaticIp
+    StaticIp (StaticIp'),
+    newStaticIp,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
-import Network.AWS.Lightsail.AllocateStaticIP
+import Network.AWS.Lightsail.AllocateStaticIp
 import Network.AWS.Lightsail.AttachCertificateToDistribution
 import Network.AWS.Lightsail.AttachDisk
 import Network.AWS.Lightsail.AttachInstancesToLoadBalancer
-import Network.AWS.Lightsail.AttachLoadBalancerTLSCertificate
-import Network.AWS.Lightsail.AttachStaticIP
+import Network.AWS.Lightsail.AttachLoadBalancerTlsCertificate
+import Network.AWS.Lightsail.AttachStaticIp
 import Network.AWS.Lightsail.CloseInstancePublicPorts
 import Network.AWS.Lightsail.CopySnapshot
 import Network.AWS.Lightsail.CreateCertificate
@@ -1598,7 +1469,7 @@ import Network.AWS.Lightsail.CreateInstances
 import Network.AWS.Lightsail.CreateInstancesFromSnapshot
 import Network.AWS.Lightsail.CreateKeyPair
 import Network.AWS.Lightsail.CreateLoadBalancer
-import Network.AWS.Lightsail.CreateLoadBalancerTLSCertificate
+import Network.AWS.Lightsail.CreateLoadBalancerTlsCertificate
 import Network.AWS.Lightsail.CreateRelationalDatabase
 import Network.AWS.Lightsail.CreateRelationalDatabaseFromSnapshot
 import Network.AWS.Lightsail.CreateRelationalDatabaseSnapshot
@@ -1618,13 +1489,13 @@ import Network.AWS.Lightsail.DeleteInstanceSnapshot
 import Network.AWS.Lightsail.DeleteKeyPair
 import Network.AWS.Lightsail.DeleteKnownHostKeys
 import Network.AWS.Lightsail.DeleteLoadBalancer
-import Network.AWS.Lightsail.DeleteLoadBalancerTLSCertificate
+import Network.AWS.Lightsail.DeleteLoadBalancerTlsCertificate
 import Network.AWS.Lightsail.DeleteRelationalDatabase
 import Network.AWS.Lightsail.DeleteRelationalDatabaseSnapshot
 import Network.AWS.Lightsail.DetachCertificateFromDistribution
 import Network.AWS.Lightsail.DetachDisk
 import Network.AWS.Lightsail.DetachInstancesFromLoadBalancer
-import Network.AWS.Lightsail.DetachStaticIP
+import Network.AWS.Lightsail.DetachStaticIp
 import Network.AWS.Lightsail.DisableAddOn
 import Network.AWS.Lightsail.DownloadDefaultKeyPair
 import Network.AWS.Lightsail.EnableAddOn
@@ -1667,7 +1538,7 @@ import Network.AWS.Lightsail.GetKeyPair
 import Network.AWS.Lightsail.GetKeyPairs
 import Network.AWS.Lightsail.GetLoadBalancer
 import Network.AWS.Lightsail.GetLoadBalancerMetricData
-import Network.AWS.Lightsail.GetLoadBalancerTLSCertificates
+import Network.AWS.Lightsail.GetLoadBalancerTlsCertificates
 import Network.AWS.Lightsail.GetLoadBalancers
 import Network.AWS.Lightsail.GetOperation
 import Network.AWS.Lightsail.GetOperations
@@ -1685,21 +1556,22 @@ import Network.AWS.Lightsail.GetRelationalDatabaseParameters
 import Network.AWS.Lightsail.GetRelationalDatabaseSnapshot
 import Network.AWS.Lightsail.GetRelationalDatabaseSnapshots
 import Network.AWS.Lightsail.GetRelationalDatabases
-import Network.AWS.Lightsail.GetStaticIP
-import Network.AWS.Lightsail.GetStaticIPs
+import Network.AWS.Lightsail.GetStaticIp
+import Network.AWS.Lightsail.GetStaticIps
 import Network.AWS.Lightsail.ImportKeyPair
-import Network.AWS.Lightsail.IsVPCPeered
+import Network.AWS.Lightsail.IsVpcPeered
+import Network.AWS.Lightsail.Lens
 import Network.AWS.Lightsail.OpenInstancePublicPorts
-import Network.AWS.Lightsail.PeerVPC
+import Network.AWS.Lightsail.PeerVpc
 import Network.AWS.Lightsail.PutAlarm
 import Network.AWS.Lightsail.PutInstancePublicPorts
 import Network.AWS.Lightsail.RebootInstance
 import Network.AWS.Lightsail.RebootRelationalDatabase
 import Network.AWS.Lightsail.RegisterContainerImage
-import Network.AWS.Lightsail.ReleaseStaticIP
+import Network.AWS.Lightsail.ReleaseStaticIp
 import Network.AWS.Lightsail.ResetDistributionCache
 import Network.AWS.Lightsail.SendContactMethodVerification
-import Network.AWS.Lightsail.SetIPAddressType
+import Network.AWS.Lightsail.SetIpAddressType
 import Network.AWS.Lightsail.StartInstance
 import Network.AWS.Lightsail.StartRelationalDatabase
 import Network.AWS.Lightsail.StopInstance
@@ -1707,7 +1579,7 @@ import Network.AWS.Lightsail.StopRelationalDatabase
 import Network.AWS.Lightsail.TagResource
 import Network.AWS.Lightsail.TestAlarm
 import Network.AWS.Lightsail.Types
-import Network.AWS.Lightsail.UnpeerVPC
+import Network.AWS.Lightsail.UnpeerVpc
 import Network.AWS.Lightsail.UntagResource
 import Network.AWS.Lightsail.UpdateContainerService
 import Network.AWS.Lightsail.UpdateDistribution

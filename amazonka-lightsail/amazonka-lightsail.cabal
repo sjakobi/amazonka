@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.Lightsail" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.Lightsail.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.Lightsail" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,20 +37,20 @@ source-repository head
   subdir:   amazonka-lightsail
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
 
   exposed-modules:
     Network.AWS.Lightsail
-    Network.AWS.Lightsail.AllocateStaticIP
+    Network.AWS.Lightsail.AllocateStaticIp
     Network.AWS.Lightsail.AttachCertificateToDistribution
     Network.AWS.Lightsail.AttachDisk
     Network.AWS.Lightsail.AttachInstancesToLoadBalancer
-    Network.AWS.Lightsail.AttachLoadBalancerTLSCertificate
-    Network.AWS.Lightsail.AttachStaticIP
+    Network.AWS.Lightsail.AttachLoadBalancerTlsCertificate
+    Network.AWS.Lightsail.AttachStaticIp
     Network.AWS.Lightsail.CloseInstancePublicPorts
     Network.AWS.Lightsail.CopySnapshot
     Network.AWS.Lightsail.CreateCertificate
@@ -72,7 +70,7 @@ library
     Network.AWS.Lightsail.CreateInstanceSnapshot
     Network.AWS.Lightsail.CreateKeyPair
     Network.AWS.Lightsail.CreateLoadBalancer
-    Network.AWS.Lightsail.CreateLoadBalancerTLSCertificate
+    Network.AWS.Lightsail.CreateLoadBalancerTlsCertificate
     Network.AWS.Lightsail.CreateRelationalDatabase
     Network.AWS.Lightsail.CreateRelationalDatabaseFromSnapshot
     Network.AWS.Lightsail.CreateRelationalDatabaseSnapshot
@@ -92,13 +90,13 @@ library
     Network.AWS.Lightsail.DeleteKeyPair
     Network.AWS.Lightsail.DeleteKnownHostKeys
     Network.AWS.Lightsail.DeleteLoadBalancer
-    Network.AWS.Lightsail.DeleteLoadBalancerTLSCertificate
+    Network.AWS.Lightsail.DeleteLoadBalancerTlsCertificate
     Network.AWS.Lightsail.DeleteRelationalDatabase
     Network.AWS.Lightsail.DeleteRelationalDatabaseSnapshot
     Network.AWS.Lightsail.DetachCertificateFromDistribution
     Network.AWS.Lightsail.DetachDisk
     Network.AWS.Lightsail.DetachInstancesFromLoadBalancer
-    Network.AWS.Lightsail.DetachStaticIP
+    Network.AWS.Lightsail.DetachStaticIp
     Network.AWS.Lightsail.DisableAddOn
     Network.AWS.Lightsail.DownloadDefaultKeyPair
     Network.AWS.Lightsail.EnableAddOn
@@ -142,7 +140,7 @@ library
     Network.AWS.Lightsail.GetLoadBalancer
     Network.AWS.Lightsail.GetLoadBalancerMetricData
     Network.AWS.Lightsail.GetLoadBalancers
-    Network.AWS.Lightsail.GetLoadBalancerTLSCertificates
+    Network.AWS.Lightsail.GetLoadBalancerTlsCertificates
     Network.AWS.Lightsail.GetOperation
     Network.AWS.Lightsail.GetOperations
     Network.AWS.Lightsail.GetOperationsForResource
@@ -159,21 +157,22 @@ library
     Network.AWS.Lightsail.GetRelationalDatabases
     Network.AWS.Lightsail.GetRelationalDatabaseSnapshot
     Network.AWS.Lightsail.GetRelationalDatabaseSnapshots
-    Network.AWS.Lightsail.GetStaticIP
-    Network.AWS.Lightsail.GetStaticIPs
+    Network.AWS.Lightsail.GetStaticIp
+    Network.AWS.Lightsail.GetStaticIps
     Network.AWS.Lightsail.ImportKeyPair
-    Network.AWS.Lightsail.IsVPCPeered
+    Network.AWS.Lightsail.IsVpcPeered
+    Network.AWS.Lightsail.Lens
     Network.AWS.Lightsail.OpenInstancePublicPorts
-    Network.AWS.Lightsail.PeerVPC
+    Network.AWS.Lightsail.PeerVpc
     Network.AWS.Lightsail.PutAlarm
     Network.AWS.Lightsail.PutInstancePublicPorts
     Network.AWS.Lightsail.RebootInstance
     Network.AWS.Lightsail.RebootRelationalDatabase
     Network.AWS.Lightsail.RegisterContainerImage
-    Network.AWS.Lightsail.ReleaseStaticIP
+    Network.AWS.Lightsail.ReleaseStaticIp
     Network.AWS.Lightsail.ResetDistributionCache
     Network.AWS.Lightsail.SendContactMethodVerification
-    Network.AWS.Lightsail.SetIPAddressType
+    Network.AWS.Lightsail.SetIpAddressType
     Network.AWS.Lightsail.StartInstance
     Network.AWS.Lightsail.StartRelationalDatabase
     Network.AWS.Lightsail.StopInstance
@@ -181,18 +180,6 @@ library
     Network.AWS.Lightsail.TagResource
     Network.AWS.Lightsail.TestAlarm
     Network.AWS.Lightsail.Types
-    Network.AWS.Lightsail.UnpeerVPC
-    Network.AWS.Lightsail.UntagResource
-    Network.AWS.Lightsail.UpdateContainerService
-    Network.AWS.Lightsail.UpdateDistribution
-    Network.AWS.Lightsail.UpdateDistributionBundle
-    Network.AWS.Lightsail.UpdateDomainEntry
-    Network.AWS.Lightsail.UpdateLoadBalancerAttribute
-    Network.AWS.Lightsail.UpdateRelationalDatabase
-    Network.AWS.Lightsail.UpdateRelationalDatabaseParameters
-    Network.AWS.Lightsail.Waiters
-
-  other-modules:
     Network.AWS.Lightsail.Types.AccessDirection
     Network.AWS.Lightsail.Types.AddOn
     Network.AWS.Lightsail.Types.AddOnRequest
@@ -277,7 +264,7 @@ library
     Network.AWS.Lightsail.Types.InstanceSnapshotInfo
     Network.AWS.Lightsail.Types.InstanceSnapshotState
     Network.AWS.Lightsail.Types.InstanceState
-    Network.AWS.Lightsail.Types.IPAddressType
+    Network.AWS.Lightsail.Types.IpAddressType
     Network.AWS.Lightsail.Types.KeyPair
     Network.AWS.Lightsail.Types.LightsailDistribution
     Network.AWS.Lightsail.Types.LoadBalancer
@@ -285,16 +272,16 @@ library
     Network.AWS.Lightsail.Types.LoadBalancerMetricName
     Network.AWS.Lightsail.Types.LoadBalancerProtocol
     Network.AWS.Lightsail.Types.LoadBalancerState
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificate
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateDomainStatus
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateDomainValidationOption
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateDomainValidationRecord
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateFailureReason
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateRenewalStatus
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateRenewalSummary
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateRevocationReason
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateStatus
-    Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateSummary
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificate
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateDomainStatus
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationRecord
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateFailureReason
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateRenewalStatus
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateRenewalSummary
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateRevocationReason
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateStatus
+    Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateSummary
     Network.AWS.Lightsail.Types.LogEvent
     Network.AWS.Lightsail.Types.MetricDatapoint
     Network.AWS.Lightsail.Types.MetricName
@@ -335,14 +322,24 @@ library
     Network.AWS.Lightsail.Types.ResourceLocation
     Network.AWS.Lightsail.Types.ResourceRecord
     Network.AWS.Lightsail.Types.ResourceType
-    Network.AWS.Lightsail.Types.StaticIP
+    Network.AWS.Lightsail.Types.StaticIp
     Network.AWS.Lightsail.Types.Tag
     Network.AWS.Lightsail.Types.TreatMissingData
+    Network.AWS.Lightsail.UnpeerVpc
+    Network.AWS.Lightsail.UntagResource
+    Network.AWS.Lightsail.UpdateContainerService
+    Network.AWS.Lightsail.UpdateDistribution
+    Network.AWS.Lightsail.UpdateDistributionBundle
+    Network.AWS.Lightsail.UpdateDomainEntry
+    Network.AWS.Lightsail.UpdateLoadBalancerAttribute
+    Network.AWS.Lightsail.UpdateRelationalDatabase
+    Network.AWS.Lightsail.UpdateRelationalDatabaseParameters
+    Network.AWS.Lightsail.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-lightsail-test
   type:             exitcode-stdio-1.0

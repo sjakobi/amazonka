@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.Lightsail.Types.RelationalDatabaseEngine
   ( RelationalDatabaseEngine
       ( ..,
-        Mysql
+        RelationalDatabaseEngineMysql
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RelationalDatabaseEngine
-  = RelationalDatabaseEngine'
-      ( CI
-          Text
-      )
+newtype RelationalDatabaseEngine = RelationalDatabaseEngine'
+  { fromRelationalDatabaseEngine ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mysql :: RelationalDatabaseEngine
-pattern Mysql = RelationalDatabaseEngine' "mysql"
+pattern RelationalDatabaseEngineMysql :: RelationalDatabaseEngine
+pattern RelationalDatabaseEngineMysql = RelationalDatabaseEngine' "mysql"
 
 {-# COMPLETE
-  Mysql,
+  RelationalDatabaseEngineMysql,
   RelationalDatabaseEngine'
   #-}
 
-instance FromText RelationalDatabaseEngine where
-  parser = (RelationalDatabaseEngine' . mk) <$> takeText
+instance Prelude.FromText RelationalDatabaseEngine where
+  parser = RelationalDatabaseEngine' Prelude.<$> Prelude.takeText
 
-instance ToText RelationalDatabaseEngine where
-  toText (RelationalDatabaseEngine' ci) = original ci
+instance Prelude.ToText RelationalDatabaseEngine where
+  toText (RelationalDatabaseEngine' x) = x
 
-instance Hashable RelationalDatabaseEngine
+instance Prelude.Hashable RelationalDatabaseEngine
 
-instance NFData RelationalDatabaseEngine
+instance Prelude.NFData RelationalDatabaseEngine
 
-instance ToByteString RelationalDatabaseEngine
+instance Prelude.ToByteString RelationalDatabaseEngine
 
-instance ToQuery RelationalDatabaseEngine
+instance Prelude.ToQuery RelationalDatabaseEngine
 
-instance ToHeader RelationalDatabaseEngine
+instance Prelude.ToHeader RelationalDatabaseEngine
 
-instance FromJSON RelationalDatabaseEngine where
-  parseJSON = parseJSONText "RelationalDatabaseEngine"
+instance Prelude.FromJSON RelationalDatabaseEngine where
+  parseJSON = Prelude.parseJSONText "RelationalDatabaseEngine"

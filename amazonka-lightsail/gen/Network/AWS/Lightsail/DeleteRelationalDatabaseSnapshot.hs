@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,159 +23,182 @@
 --
 -- Deletes a database snapshot in Amazon Lightsail.
 --
---
--- The @delete relational database snapshot@ operation supports tag-based access control via resource tags applied to the resource identified by relationalDatabaseName. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @delete relational database snapshot@ operation supports tag-based
+-- access control via resource tags applied to the resource identified by
+-- relationalDatabaseName. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.DeleteRelationalDatabaseSnapshot
   ( -- * Creating a Request
-    deleteRelationalDatabaseSnapshot,
-    DeleteRelationalDatabaseSnapshot,
+    DeleteRelationalDatabaseSnapshot (..),
+    newDeleteRelationalDatabaseSnapshot,
 
     -- * Request Lenses
-    drdsRelationalDatabaseSnapshotName,
+    deleteRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
 
     -- * Destructuring the Response
-    deleteRelationalDatabaseSnapshotResponse,
-    DeleteRelationalDatabaseSnapshotResponse,
+    DeleteRelationalDatabaseSnapshotResponse (..),
+    newDeleteRelationalDatabaseSnapshotResponse,
 
     -- * Response Lenses
-    drdsrrsOperations,
-    drdsrrsResponseStatus,
+    deleteRelationalDatabaseSnapshotResponse_operations,
+    deleteRelationalDatabaseSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRelationalDatabaseSnapshot' smart constructor.
-newtype DeleteRelationalDatabaseSnapshot = DeleteRelationalDatabaseSnapshot'
-  { _drdsRelationalDatabaseSnapshotName ::
-      Text
+-- | /See:/ 'newDeleteRelationalDatabaseSnapshot' smart constructor.
+data DeleteRelationalDatabaseSnapshot = DeleteRelationalDatabaseSnapshot'
+  { -- | The name of the database snapshot that you are deleting.
+    relationalDatabaseSnapshotName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRelationalDatabaseSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRelationalDatabaseSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drdsRelationalDatabaseSnapshotName' - The name of the database snapshot that you are deleting.
-deleteRelationalDatabaseSnapshot ::
-  -- | 'drdsRelationalDatabaseSnapshotName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'relationalDatabaseSnapshotName', 'deleteRelationalDatabaseSnapshot_relationalDatabaseSnapshotName' - The name of the database snapshot that you are deleting.
+newDeleteRelationalDatabaseSnapshot ::
+  -- | 'relationalDatabaseSnapshotName'
+  Prelude.Text ->
   DeleteRelationalDatabaseSnapshot
-deleteRelationalDatabaseSnapshot
+newDeleteRelationalDatabaseSnapshot
   pRelationalDatabaseSnapshotName_ =
     DeleteRelationalDatabaseSnapshot'
-      { _drdsRelationalDatabaseSnapshotName =
+      { relationalDatabaseSnapshotName =
           pRelationalDatabaseSnapshotName_
       }
 
 -- | The name of the database snapshot that you are deleting.
-drdsRelationalDatabaseSnapshotName :: Lens' DeleteRelationalDatabaseSnapshot Text
-drdsRelationalDatabaseSnapshotName = lens _drdsRelationalDatabaseSnapshotName (\s a -> s {_drdsRelationalDatabaseSnapshotName = a})
+deleteRelationalDatabaseSnapshot_relationalDatabaseSnapshotName :: Lens.Lens' DeleteRelationalDatabaseSnapshot Prelude.Text
+deleteRelationalDatabaseSnapshot_relationalDatabaseSnapshotName = Lens.lens (\DeleteRelationalDatabaseSnapshot' {relationalDatabaseSnapshotName} -> relationalDatabaseSnapshotName) (\s@DeleteRelationalDatabaseSnapshot' {} a -> s {relationalDatabaseSnapshotName = a} :: DeleteRelationalDatabaseSnapshot)
 
-instance AWSRequest DeleteRelationalDatabaseSnapshot where
+instance
+  Prelude.AWSRequest
+    DeleteRelationalDatabaseSnapshot
+  where
   type
     Rs DeleteRelationalDatabaseSnapshot =
       DeleteRelationalDatabaseSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteRelationalDatabaseSnapshotResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRelationalDatabaseSnapshot
+instance
+  Prelude.Hashable
+    DeleteRelationalDatabaseSnapshot
 
-instance NFData DeleteRelationalDatabaseSnapshot
+instance
+  Prelude.NFData
+    DeleteRelationalDatabaseSnapshot
 
-instance ToHeaders DeleteRelationalDatabaseSnapshot where
+instance
+  Prelude.ToHeaders
+    DeleteRelationalDatabaseSnapshot
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteRelationalDatabaseSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteRelationalDatabaseSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRelationalDatabaseSnapshot where
+instance
+  Prelude.ToJSON
+    DeleteRelationalDatabaseSnapshot
+  where
   toJSON DeleteRelationalDatabaseSnapshot' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "relationalDatabaseSnapshotName"
-                  .= _drdsRelationalDatabaseSnapshotName
+                  Prelude..= relationalDatabaseSnapshotName
               )
           ]
       )
 
-instance ToPath DeleteRelationalDatabaseSnapshot where
-  toPath = const "/"
-
-instance ToQuery DeleteRelationalDatabaseSnapshot where
-  toQuery = const mempty
-
--- | /See:/ 'deleteRelationalDatabaseSnapshotResponse' smart constructor.
-data DeleteRelationalDatabaseSnapshotResponse = DeleteRelationalDatabaseSnapshotResponse'
-  { _drdsrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _drdsrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DeleteRelationalDatabaseSnapshotResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'drdsrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
---
--- * 'drdsrrsResponseStatus' - -- | The response status code.
-deleteRelationalDatabaseSnapshotResponse ::
-  -- | 'drdsrrsResponseStatus'
-  Int ->
-  DeleteRelationalDatabaseSnapshotResponse
-deleteRelationalDatabaseSnapshotResponse
-  pResponseStatus_ =
-    DeleteRelationalDatabaseSnapshotResponse'
-      { _drdsrrsOperations =
-          Nothing,
-        _drdsrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-drdsrrsOperations :: Lens' DeleteRelationalDatabaseSnapshotResponse [Operation]
-drdsrrsOperations = lens _drdsrrsOperations (\s a -> s {_drdsrrsOperations = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-drdsrrsResponseStatus :: Lens' DeleteRelationalDatabaseSnapshotResponse Int
-drdsrrsResponseStatus = lens _drdsrrsResponseStatus (\s a -> s {_drdsrrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    DeleteRelationalDatabaseSnapshot
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    DeleteRelationalDatabaseSnapshot
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDeleteRelationalDatabaseSnapshotResponse' smart constructor.
+data DeleteRelationalDatabaseSnapshotResponse = DeleteRelationalDatabaseSnapshotResponse'
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DeleteRelationalDatabaseSnapshotResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'operations', 'deleteRelationalDatabaseSnapshotResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteRelationalDatabaseSnapshotResponse_httpStatus' - The response's http status code.
+newDeleteRelationalDatabaseSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DeleteRelationalDatabaseSnapshotResponse
+newDeleteRelationalDatabaseSnapshotResponse
+  pHttpStatus_ =
+    DeleteRelationalDatabaseSnapshotResponse'
+      { operations =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteRelationalDatabaseSnapshotResponse_operations :: Lens.Lens' DeleteRelationalDatabaseSnapshotResponse (Prelude.Maybe [Operation])
+deleteRelationalDatabaseSnapshotResponse_operations = Lens.lens (\DeleteRelationalDatabaseSnapshotResponse' {operations} -> operations) (\s@DeleteRelationalDatabaseSnapshotResponse' {} a -> s {operations = a} :: DeleteRelationalDatabaseSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+deleteRelationalDatabaseSnapshotResponse_httpStatus :: Lens.Lens' DeleteRelationalDatabaseSnapshotResponse Prelude.Int
+deleteRelationalDatabaseSnapshotResponse_httpStatus = Lens.lens (\DeleteRelationalDatabaseSnapshotResponse' {httpStatus} -> httpStatus) (\s@DeleteRelationalDatabaseSnapshotResponse' {} a -> s {httpStatus = a} :: DeleteRelationalDatabaseSnapshotResponse)
+
+instance
+  Prelude.NFData
     DeleteRelationalDatabaseSnapshotResponse

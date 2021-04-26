@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified block storage disk. The disk must be in the @available@ state (not attached to a Lightsail instance).
+-- Deletes the specified block storage disk. The disk must be in the
+-- @available@ state (not attached to a Lightsail instance).
 --
+-- The disk may remain in the @deleting@ state for several minutes.
 --
--- The @delete disk@ operation supports tag-based access control via resource tags applied to the resource identified by @disk name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @delete disk@ operation supports tag-based access control via
+-- resource tags applied to the resource identified by @disk name@. For
+-- more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.DeleteDisk
   ( -- * Creating a Request
-    deleteDisk,
-    DeleteDisk,
+    DeleteDisk (..),
+    newDeleteDisk,
 
     -- * Request Lenses
-    dForceDeleteAddOns,
-    dDiskName,
+    deleteDisk_forceDeleteAddOns,
+    deleteDisk_diskName,
 
     -- * Destructuring the Response
-    deleteDiskResponse,
-    DeleteDiskResponse,
+    DeleteDiskResponse (..),
+    newDeleteDiskResponse,
 
     -- * Response Lenses
-    drsOperations,
-    drsResponseStatus,
+    deleteDiskResponse_operations,
+    deleteDiskResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDisk' smart constructor.
+-- | /See:/ 'newDeleteDisk' smart constructor.
 data DeleteDisk = DeleteDisk'
-  { _dForceDeleteAddOns ::
-      !(Maybe Bool),
-    _dDiskName :: !Text
+  { -- | A Boolean value to indicate whether to delete the enabled add-ons for
+    -- the disk.
+    forceDeleteAddOns :: Prelude.Maybe Prelude.Bool,
+    -- | The unique name of the disk you want to delete (e.g., @my-disk@).
+    diskName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDisk' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDisk' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dForceDeleteAddOns' - A Boolean value to indicate whether to delete the enabled add-ons for the disk.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dDiskName' - The unique name of the disk you want to delete (e.g., @my-disk@ ).
-deleteDisk ::
-  -- | 'dDiskName'
-  Text ->
+-- 'forceDeleteAddOns', 'deleteDisk_forceDeleteAddOns' - A Boolean value to indicate whether to delete the enabled add-ons for
+-- the disk.
+--
+-- 'diskName', 'deleteDisk_diskName' - The unique name of the disk you want to delete (e.g., @my-disk@).
+newDeleteDisk ::
+  -- | 'diskName'
+  Prelude.Text ->
   DeleteDisk
-deleteDisk pDiskName_ =
+newDeleteDisk pDiskName_ =
   DeleteDisk'
-    { _dForceDeleteAddOns = Nothing,
-      _dDiskName = pDiskName_
+    { forceDeleteAddOns = Prelude.Nothing,
+      diskName = pDiskName_
     }
 
--- | A Boolean value to indicate whether to delete the enabled add-ons for the disk.
-dForceDeleteAddOns :: Lens' DeleteDisk (Maybe Bool)
-dForceDeleteAddOns = lens _dForceDeleteAddOns (\s a -> s {_dForceDeleteAddOns = a})
+-- | A Boolean value to indicate whether to delete the enabled add-ons for
+-- the disk.
+deleteDisk_forceDeleteAddOns :: Lens.Lens' DeleteDisk (Prelude.Maybe Prelude.Bool)
+deleteDisk_forceDeleteAddOns = Lens.lens (\DeleteDisk' {forceDeleteAddOns} -> forceDeleteAddOns) (\s@DeleteDisk' {} a -> s {forceDeleteAddOns = a} :: DeleteDisk)
 
--- | The unique name of the disk you want to delete (e.g., @my-disk@ ).
-dDiskName :: Lens' DeleteDisk Text
-dDiskName = lens _dDiskName (\s a -> s {_dDiskName = a})
+-- | The unique name of the disk you want to delete (e.g., @my-disk@).
+deleteDisk_diskName :: Lens.Lens' DeleteDisk Prelude.Text
+deleteDisk_diskName = Lens.lens (\DeleteDisk' {diskName} -> diskName) (\s@DeleteDisk' {} a -> s {diskName = a} :: DeleteDisk)
 
-instance AWSRequest DeleteDisk where
+instance Prelude.AWSRequest DeleteDisk where
   type Rs DeleteDisk = DeleteDiskResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDiskResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDisk
+instance Prelude.Hashable DeleteDisk
 
-instance NFData DeleteDisk
+instance Prelude.NFData DeleteDisk
 
-instance ToHeaders DeleteDisk where
+instance Prelude.ToHeaders DeleteDisk where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.DeleteDisk" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.DeleteDisk" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDisk where
+instance Prelude.ToJSON DeleteDisk where
   toJSON DeleteDisk' {..} =
-    object
-      ( catMaybes
-          [ ("forceDeleteAddOns" .=) <$> _dForceDeleteAddOns,
-            Just ("diskName" .= _dDiskName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("forceDeleteAddOns" Prelude..=)
+              Prelude.<$> forceDeleteAddOns,
+            Prelude.Just ("diskName" Prelude..= diskName)
           ]
       )
 
-instance ToPath DeleteDisk where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDisk where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDisk where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDisk where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDiskResponse' smart constructor.
+-- | /See:/ 'newDeleteDiskResponse' smart constructor.
 data DeleteDiskResponse = DeleteDiskResponse'
-  { _drsOperations ::
-      !(Maybe [Operation]),
-    _drsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDiskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDiskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteDiskResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'operations', 'deleteDiskResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteDiskResponse_httpStatus' - The response's http status code.
+newDeleteDiskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDiskResponse
-deleteDiskResponse pResponseStatus_ =
+newDeleteDiskResponse pHttpStatus_ =
   DeleteDiskResponse'
-    { _drsOperations = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-drsOperations :: Lens' DeleteDiskResponse [Operation]
-drsOperations = lens _drsOperations (\s a -> s {_drsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteDiskResponse_operations :: Lens.Lens' DeleteDiskResponse (Prelude.Maybe [Operation])
+deleteDiskResponse_operations = Lens.lens (\DeleteDiskResponse' {operations} -> operations) (\s@DeleteDiskResponse' {} a -> s {operations = a} :: DeleteDiskResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteDiskResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteDiskResponse_httpStatus :: Lens.Lens' DeleteDiskResponse Prelude.Int
+deleteDiskResponse_httpStatus = Lens.lens (\DeleteDiskResponse' {httpStatus} -> httpStatus) (\s@DeleteDiskResponse' {} a -> s {httpStatus = a} :: DeleteDiskResponse)
 
-instance NFData DeleteDiskResponse
+instance Prelude.NFData DeleteDiskResponse

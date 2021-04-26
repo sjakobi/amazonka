@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.QueryStringObject where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the query string parameters that an Amazon Lightsail content delivery network (CDN) distribution to bases caching on.
+-- | Describes the query string parameters that an Amazon Lightsail content
+-- delivery network (CDN) distribution to bases caching on.
 --
+-- For the query strings that you specify, your distribution caches
+-- separate versions of the specified content based on the query string
+-- values in viewer requests.
 --
--- For the query strings that you specify, your distribution caches separate versions of the specified content based on the query string values in viewer requests.
---
---
--- /See:/ 'queryStringObject' smart constructor.
+-- /See:/ 'newQueryStringObject' smart constructor.
 data QueryStringObject = QueryStringObject'
-  { _qsoQueryStringsAllowList ::
-      !(Maybe [Text]),
-    _qsoOption :: !(Maybe Bool)
+  { -- | The specific query strings that the distribution forwards to the origin.
+    --
+    -- Your distribution will cache content based on the specified query
+    -- strings.
+    --
+    -- If the @option@ parameter is true, then your distribution forwards all
+    -- query strings, regardless of what you specify using the
+    -- @queryStringsAllowList@ parameter.
+    queryStringsAllowList :: Prelude.Maybe [Prelude.Text],
+    -- | Indicates whether the distribution forwards and caches based on query
+    -- strings.
+    option :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryStringObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryStringObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qsoQueryStringsAllowList' - The specific query strings that the distribution forwards to the origin. Your distribution will cache content based on the specified query strings. If the @option@ parameter is true, then your distribution forwards all query strings, regardless of what you specify using the @queryStringsAllowList@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qsoOption' - Indicates whether the distribution forwards and caches based on query strings.
-queryStringObject ::
+-- 'queryStringsAllowList', 'queryStringObject_queryStringsAllowList' - The specific query strings that the distribution forwards to the origin.
+--
+-- Your distribution will cache content based on the specified query
+-- strings.
+--
+-- If the @option@ parameter is true, then your distribution forwards all
+-- query strings, regardless of what you specify using the
+-- @queryStringsAllowList@ parameter.
+--
+-- 'option', 'queryStringObject_option' - Indicates whether the distribution forwards and caches based on query
+-- strings.
+newQueryStringObject ::
   QueryStringObject
-queryStringObject =
+newQueryStringObject =
   QueryStringObject'
-    { _qsoQueryStringsAllowList =
-        Nothing,
-      _qsoOption = Nothing
+    { queryStringsAllowList =
+        Prelude.Nothing,
+      option = Prelude.Nothing
     }
 
--- | The specific query strings that the distribution forwards to the origin. Your distribution will cache content based on the specified query strings. If the @option@ parameter is true, then your distribution forwards all query strings, regardless of what you specify using the @queryStringsAllowList@ parameter.
-qsoQueryStringsAllowList :: Lens' QueryStringObject [Text]
-qsoQueryStringsAllowList = lens _qsoQueryStringsAllowList (\s a -> s {_qsoQueryStringsAllowList = a}) . _Default . _Coerce
+-- | The specific query strings that the distribution forwards to the origin.
+--
+-- Your distribution will cache content based on the specified query
+-- strings.
+--
+-- If the @option@ parameter is true, then your distribution forwards all
+-- query strings, regardless of what you specify using the
+-- @queryStringsAllowList@ parameter.
+queryStringObject_queryStringsAllowList :: Lens.Lens' QueryStringObject (Prelude.Maybe [Prelude.Text])
+queryStringObject_queryStringsAllowList = Lens.lens (\QueryStringObject' {queryStringsAllowList} -> queryStringsAllowList) (\s@QueryStringObject' {} a -> s {queryStringsAllowList = a} :: QueryStringObject) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates whether the distribution forwards and caches based on query strings.
-qsoOption :: Lens' QueryStringObject (Maybe Bool)
-qsoOption = lens _qsoOption (\s a -> s {_qsoOption = a})
+-- | Indicates whether the distribution forwards and caches based on query
+-- strings.
+queryStringObject_option :: Lens.Lens' QueryStringObject (Prelude.Maybe Prelude.Bool)
+queryStringObject_option = Lens.lens (\QueryStringObject' {option} -> option) (\s@QueryStringObject' {} a -> s {option = a} :: QueryStringObject)
 
-instance FromJSON QueryStringObject where
+instance Prelude.FromJSON QueryStringObject where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryStringObject"
       ( \x ->
           QueryStringObject'
-            <$> (x .:? "queryStringsAllowList" .!= mempty)
-            <*> (x .:? "option")
+            Prelude.<$> ( x Prelude..:? "queryStringsAllowList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "option")
       )
 
-instance Hashable QueryStringObject
+instance Prelude.Hashable QueryStringObject
 
-instance NFData QueryStringObject
+instance Prelude.NFData QueryStringObject
 
-instance ToJSON QueryStringObject where
+instance Prelude.ToJSON QueryStringObject where
   toJSON QueryStringObject' {..} =
-    object
-      ( catMaybes
-          [ ("queryStringsAllowList" .=)
-              <$> _qsoQueryStringsAllowList,
-            ("option" .=) <$> _qsoOption
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("queryStringsAllowList" Prelude..=)
+              Prelude.<$> queryStringsAllowList,
+            ("option" Prelude..=) Prelude.<$> option
           ]
       )

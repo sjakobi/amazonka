@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Lightsail.Types.OriginProtocolPolicyEnum
   ( OriginProtocolPolicyEnum
       ( ..,
-        HTTPOnly,
-        HTTPSOnly
+        OriginProtocolPolicyEnumHttpOnly,
+        OriginProtocolPolicyEnumHttpsOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginProtocolPolicyEnum
-  = OriginProtocolPolicyEnum'
-      ( CI
-          Text
-      )
+newtype OriginProtocolPolicyEnum = OriginProtocolPolicyEnum'
+  { fromOriginProtocolPolicyEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTPOnly :: OriginProtocolPolicyEnum
-pattern HTTPOnly = OriginProtocolPolicyEnum' "http-only"
+pattern OriginProtocolPolicyEnumHttpOnly :: OriginProtocolPolicyEnum
+pattern OriginProtocolPolicyEnumHttpOnly = OriginProtocolPolicyEnum' "http-only"
 
-pattern HTTPSOnly :: OriginProtocolPolicyEnum
-pattern HTTPSOnly = OriginProtocolPolicyEnum' "https-only"
+pattern OriginProtocolPolicyEnumHttpsOnly :: OriginProtocolPolicyEnum
+pattern OriginProtocolPolicyEnumHttpsOnly = OriginProtocolPolicyEnum' "https-only"
 
 {-# COMPLETE
-  HTTPOnly,
-  HTTPSOnly,
+  OriginProtocolPolicyEnumHttpOnly,
+  OriginProtocolPolicyEnumHttpsOnly,
   OriginProtocolPolicyEnum'
   #-}
 
-instance FromText OriginProtocolPolicyEnum where
-  parser = (OriginProtocolPolicyEnum' . mk) <$> takeText
+instance Prelude.FromText OriginProtocolPolicyEnum where
+  parser = OriginProtocolPolicyEnum' Prelude.<$> Prelude.takeText
 
-instance ToText OriginProtocolPolicyEnum where
-  toText (OriginProtocolPolicyEnum' ci) = original ci
+instance Prelude.ToText OriginProtocolPolicyEnum where
+  toText (OriginProtocolPolicyEnum' x) = x
 
-instance Hashable OriginProtocolPolicyEnum
+instance Prelude.Hashable OriginProtocolPolicyEnum
 
-instance NFData OriginProtocolPolicyEnum
+instance Prelude.NFData OriginProtocolPolicyEnum
 
-instance ToByteString OriginProtocolPolicyEnum
+instance Prelude.ToByteString OriginProtocolPolicyEnum
 
-instance ToQuery OriginProtocolPolicyEnum
+instance Prelude.ToQuery OriginProtocolPolicyEnum
 
-instance ToHeader OriginProtocolPolicyEnum
+instance Prelude.ToHeader OriginProtocolPolicyEnum
 
-instance ToJSON OriginProtocolPolicyEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON OriginProtocolPolicyEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OriginProtocolPolicyEnum where
-  parseJSON = parseJSONText "OriginProtocolPolicyEnum"
+instance Prelude.FromJSON OriginProtocolPolicyEnum where
+  parseJSON = Prelude.parseJSONText "OriginProtocolPolicyEnum"

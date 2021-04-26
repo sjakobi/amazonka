@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.Lightsail.Types.ContainerServicePowerName
   ( ContainerServicePowerName
       ( ..,
-        Large,
-        Medium,
-        Micro,
-        Nano,
-        Small,
-        XLarge
+        ContainerServicePowerNameLarge,
+        ContainerServicePowerNameMedium,
+        ContainerServicePowerNameMicro,
+        ContainerServicePowerNameNano,
+        ContainerServicePowerNameSmall,
+        ContainerServicePowerNameXlarge
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerServicePowerName
-  = ContainerServicePowerName'
-      ( CI
-          Text
-      )
+newtype ContainerServicePowerName = ContainerServicePowerName'
+  { fromContainerServicePowerName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Large :: ContainerServicePowerName
-pattern Large = ContainerServicePowerName' "large"
+pattern ContainerServicePowerNameLarge :: ContainerServicePowerName
+pattern ContainerServicePowerNameLarge = ContainerServicePowerName' "large"
 
-pattern Medium :: ContainerServicePowerName
-pattern Medium = ContainerServicePowerName' "medium"
+pattern ContainerServicePowerNameMedium :: ContainerServicePowerName
+pattern ContainerServicePowerNameMedium = ContainerServicePowerName' "medium"
 
-pattern Micro :: ContainerServicePowerName
-pattern Micro = ContainerServicePowerName' "micro"
+pattern ContainerServicePowerNameMicro :: ContainerServicePowerName
+pattern ContainerServicePowerNameMicro = ContainerServicePowerName' "micro"
 
-pattern Nano :: ContainerServicePowerName
-pattern Nano = ContainerServicePowerName' "nano"
+pattern ContainerServicePowerNameNano :: ContainerServicePowerName
+pattern ContainerServicePowerNameNano = ContainerServicePowerName' "nano"
 
-pattern Small :: ContainerServicePowerName
-pattern Small = ContainerServicePowerName' "small"
+pattern ContainerServicePowerNameSmall :: ContainerServicePowerName
+pattern ContainerServicePowerNameSmall = ContainerServicePowerName' "small"
 
-pattern XLarge :: ContainerServicePowerName
-pattern XLarge = ContainerServicePowerName' "xlarge"
+pattern ContainerServicePowerNameXlarge :: ContainerServicePowerName
+pattern ContainerServicePowerNameXlarge = ContainerServicePowerName' "xlarge"
 
 {-# COMPLETE
-  Large,
-  Medium,
-  Micro,
-  Nano,
-  Small,
-  XLarge,
+  ContainerServicePowerNameLarge,
+  ContainerServicePowerNameMedium,
+  ContainerServicePowerNameMicro,
+  ContainerServicePowerNameNano,
+  ContainerServicePowerNameSmall,
+  ContainerServicePowerNameXlarge,
   ContainerServicePowerName'
   #-}
 
-instance FromText ContainerServicePowerName where
-  parser = (ContainerServicePowerName' . mk) <$> takeText
+instance Prelude.FromText ContainerServicePowerName where
+  parser = ContainerServicePowerName' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerServicePowerName where
-  toText (ContainerServicePowerName' ci) = original ci
+instance Prelude.ToText ContainerServicePowerName where
+  toText (ContainerServicePowerName' x) = x
 
-instance Hashable ContainerServicePowerName
+instance Prelude.Hashable ContainerServicePowerName
 
-instance NFData ContainerServicePowerName
+instance Prelude.NFData ContainerServicePowerName
 
-instance ToByteString ContainerServicePowerName
+instance Prelude.ToByteString ContainerServicePowerName
 
-instance ToQuery ContainerServicePowerName
+instance Prelude.ToQuery ContainerServicePowerName
 
-instance ToHeader ContainerServicePowerName
+instance Prelude.ToHeader ContainerServicePowerName
 
-instance ToJSON ContainerServicePowerName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerServicePowerName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContainerServicePowerName where
-  parseJSON = parseJSONText "ContainerServicePowerName"
+instance Prelude.FromJSON ContainerServicePowerName where
+  parseJSON = Prelude.parseJSONText "ContainerServicePowerName"

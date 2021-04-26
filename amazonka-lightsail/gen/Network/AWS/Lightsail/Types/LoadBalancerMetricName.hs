@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,108 @@
 module Network.AWS.Lightsail.Types.LoadBalancerMetricName
   ( LoadBalancerMetricName
       ( ..,
-        ClientTLSNegotiationErrorCount,
-        HTTPCodeInstance2XXCount,
-        HTTPCodeInstance3XXCount,
-        HTTPCodeInstance4XXCount,
-        HTTPCodeInstance5XXCount,
-        HTTPCodeLb4XXCount,
-        HTTPCodeLb5XXCount,
-        HealthyHostCount,
-        InstanceResponseTime,
-        RejectedConnectionCount,
-        RequestCount,
-        UnhealthyHostCount
+        LoadBalancerMetricNameClientTLSNegotiationErrorCount,
+        LoadBalancerMetricNameHTTPCodeInstance2XXCount,
+        LoadBalancerMetricNameHTTPCodeInstance3XXCount,
+        LoadBalancerMetricNameHTTPCodeInstance4XXCount,
+        LoadBalancerMetricNameHTTPCodeInstance5XXCount,
+        LoadBalancerMetricNameHTTPCodeLB4XXCount,
+        LoadBalancerMetricNameHTTPCodeLB5XXCount,
+        LoadBalancerMetricNameHealthyHostCount,
+        LoadBalancerMetricNameInstanceResponseTime,
+        LoadBalancerMetricNameRejectedConnectionCount,
+        LoadBalancerMetricNameRequestCount,
+        LoadBalancerMetricNameUnhealthyHostCount
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadBalancerMetricName
-  = LoadBalancerMetricName'
-      ( CI
-          Text
-      )
+newtype LoadBalancerMetricName = LoadBalancerMetricName'
+  { fromLoadBalancerMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClientTLSNegotiationErrorCount :: LoadBalancerMetricName
-pattern ClientTLSNegotiationErrorCount = LoadBalancerMetricName' "ClientTLSNegotiationErrorCount"
+pattern LoadBalancerMetricNameClientTLSNegotiationErrorCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameClientTLSNegotiationErrorCount = LoadBalancerMetricName' "ClientTLSNegotiationErrorCount"
 
-pattern HTTPCodeInstance2XXCount :: LoadBalancerMetricName
-pattern HTTPCodeInstance2XXCount = LoadBalancerMetricName' "HTTPCode_Instance_2XX_Count"
+pattern LoadBalancerMetricNameHTTPCodeInstance2XXCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHTTPCodeInstance2XXCount = LoadBalancerMetricName' "HTTPCode_Instance_2XX_Count"
 
-pattern HTTPCodeInstance3XXCount :: LoadBalancerMetricName
-pattern HTTPCodeInstance3XXCount = LoadBalancerMetricName' "HTTPCode_Instance_3XX_Count"
+pattern LoadBalancerMetricNameHTTPCodeInstance3XXCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHTTPCodeInstance3XXCount = LoadBalancerMetricName' "HTTPCode_Instance_3XX_Count"
 
-pattern HTTPCodeInstance4XXCount :: LoadBalancerMetricName
-pattern HTTPCodeInstance4XXCount = LoadBalancerMetricName' "HTTPCode_Instance_4XX_Count"
+pattern LoadBalancerMetricNameHTTPCodeInstance4XXCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHTTPCodeInstance4XXCount = LoadBalancerMetricName' "HTTPCode_Instance_4XX_Count"
 
-pattern HTTPCodeInstance5XXCount :: LoadBalancerMetricName
-pattern HTTPCodeInstance5XXCount = LoadBalancerMetricName' "HTTPCode_Instance_5XX_Count"
+pattern LoadBalancerMetricNameHTTPCodeInstance5XXCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHTTPCodeInstance5XXCount = LoadBalancerMetricName' "HTTPCode_Instance_5XX_Count"
 
-pattern HTTPCodeLb4XXCount :: LoadBalancerMetricName
-pattern HTTPCodeLb4XXCount = LoadBalancerMetricName' "HTTPCode_LB_4XX_Count"
+pattern LoadBalancerMetricNameHTTPCodeLB4XXCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHTTPCodeLB4XXCount = LoadBalancerMetricName' "HTTPCode_LB_4XX_Count"
 
-pattern HTTPCodeLb5XXCount :: LoadBalancerMetricName
-pattern HTTPCodeLb5XXCount = LoadBalancerMetricName' "HTTPCode_LB_5XX_Count"
+pattern LoadBalancerMetricNameHTTPCodeLB5XXCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHTTPCodeLB5XXCount = LoadBalancerMetricName' "HTTPCode_LB_5XX_Count"
 
-pattern HealthyHostCount :: LoadBalancerMetricName
-pattern HealthyHostCount = LoadBalancerMetricName' "HealthyHostCount"
+pattern LoadBalancerMetricNameHealthyHostCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameHealthyHostCount = LoadBalancerMetricName' "HealthyHostCount"
 
-pattern InstanceResponseTime :: LoadBalancerMetricName
-pattern InstanceResponseTime = LoadBalancerMetricName' "InstanceResponseTime"
+pattern LoadBalancerMetricNameInstanceResponseTime :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameInstanceResponseTime = LoadBalancerMetricName' "InstanceResponseTime"
 
-pattern RejectedConnectionCount :: LoadBalancerMetricName
-pattern RejectedConnectionCount = LoadBalancerMetricName' "RejectedConnectionCount"
+pattern LoadBalancerMetricNameRejectedConnectionCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameRejectedConnectionCount = LoadBalancerMetricName' "RejectedConnectionCount"
 
-pattern RequestCount :: LoadBalancerMetricName
-pattern RequestCount = LoadBalancerMetricName' "RequestCount"
+pattern LoadBalancerMetricNameRequestCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameRequestCount = LoadBalancerMetricName' "RequestCount"
 
-pattern UnhealthyHostCount :: LoadBalancerMetricName
-pattern UnhealthyHostCount = LoadBalancerMetricName' "UnhealthyHostCount"
+pattern LoadBalancerMetricNameUnhealthyHostCount :: LoadBalancerMetricName
+pattern LoadBalancerMetricNameUnhealthyHostCount = LoadBalancerMetricName' "UnhealthyHostCount"
 
 {-# COMPLETE
-  ClientTLSNegotiationErrorCount,
-  HTTPCodeInstance2XXCount,
-  HTTPCodeInstance3XXCount,
-  HTTPCodeInstance4XXCount,
-  HTTPCodeInstance5XXCount,
-  HTTPCodeLb4XXCount,
-  HTTPCodeLb5XXCount,
-  HealthyHostCount,
-  InstanceResponseTime,
-  RejectedConnectionCount,
-  RequestCount,
-  UnhealthyHostCount,
+  LoadBalancerMetricNameClientTLSNegotiationErrorCount,
+  LoadBalancerMetricNameHTTPCodeInstance2XXCount,
+  LoadBalancerMetricNameHTTPCodeInstance3XXCount,
+  LoadBalancerMetricNameHTTPCodeInstance4XXCount,
+  LoadBalancerMetricNameHTTPCodeInstance5XXCount,
+  LoadBalancerMetricNameHTTPCodeLB4XXCount,
+  LoadBalancerMetricNameHTTPCodeLB5XXCount,
+  LoadBalancerMetricNameHealthyHostCount,
+  LoadBalancerMetricNameInstanceResponseTime,
+  LoadBalancerMetricNameRejectedConnectionCount,
+  LoadBalancerMetricNameRequestCount,
+  LoadBalancerMetricNameUnhealthyHostCount,
   LoadBalancerMetricName'
   #-}
 
-instance FromText LoadBalancerMetricName where
-  parser = (LoadBalancerMetricName' . mk) <$> takeText
+instance Prelude.FromText LoadBalancerMetricName where
+  parser = LoadBalancerMetricName' Prelude.<$> Prelude.takeText
 
-instance ToText LoadBalancerMetricName where
-  toText (LoadBalancerMetricName' ci) = original ci
+instance Prelude.ToText LoadBalancerMetricName where
+  toText (LoadBalancerMetricName' x) = x
 
-instance Hashable LoadBalancerMetricName
+instance Prelude.Hashable LoadBalancerMetricName
 
-instance NFData LoadBalancerMetricName
+instance Prelude.NFData LoadBalancerMetricName
 
-instance ToByteString LoadBalancerMetricName
+instance Prelude.ToByteString LoadBalancerMetricName
 
-instance ToQuery LoadBalancerMetricName
+instance Prelude.ToQuery LoadBalancerMetricName
 
-instance ToHeader LoadBalancerMetricName
+instance Prelude.ToHeader LoadBalancerMetricName
 
-instance ToJSON LoadBalancerMetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON LoadBalancerMetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LoadBalancerMetricName where
-  parseJSON = parseJSONText "LoadBalancerMetricName"
+instance Prelude.FromJSON LoadBalancerMetricName where
+  parseJSON = Prelude.parseJSONText "LoadBalancerMetricName"

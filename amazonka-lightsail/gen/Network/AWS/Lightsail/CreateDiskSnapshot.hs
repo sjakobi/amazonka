@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,253 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a snapshot of a block storage disk. You can use snapshots for backups, to make copies of disks, and to save data before shutting down a Lightsail instance.
+-- Creates a snapshot of a block storage disk. You can use snapshots for
+-- backups, to make copies of disks, and to save data before shutting down
+-- a Lightsail instance.
 --
+-- You can take a snapshot of an attached disk that is in use; however,
+-- snapshots only capture data that has been written to your disk at the
+-- time the snapshot command is issued. This may exclude any data that has
+-- been cached by any applications or the operating system. If you can
+-- pause any file systems on the disk long enough to take a snapshot, your
+-- snapshot should be complete. Nevertheless, if you cannot pause all file
+-- writes to the disk, you should unmount the disk from within the
+-- Lightsail instance, issue the create disk snapshot command, and then
+-- remount the disk to ensure a consistent and complete snapshot. You may
+-- remount and use your disk while the snapshot status is pending.
 --
--- You can take a snapshot of an attached disk that is in use; however, snapshots only capture data that has been written to your disk at the time the snapshot command is issued. This may exclude any data that has been cached by any applications or the operating system. If you can pause any file systems on the disk long enough to take a snapshot, your snapshot should be complete. Nevertheless, if you cannot pause all file writes to the disk, you should unmount the disk from within the Lightsail instance, issue the create disk snapshot command, and then remount the disk to ensure a consistent and complete snapshot. You may remount and use your disk while the snapshot status is pending.
+-- You can also use this operation to create a snapshot of an instance\'s
+-- system volume. You might want to do this, for example, to recover data
+-- from the system volume of a botched instance or to create a backup of
+-- the system volume like you would for a block storage disk. To create a
+-- snapshot of a system volume, just define the @instance name@ parameter
+-- when issuing the snapshot command, and a snapshot of the defined
+-- instance\'s system volume will be created. After the snapshot is
+-- available, you can create a block storage disk from the snapshot and
+-- attach it to a running instance to access the data on the disk.
 --
--- You can also use this operation to create a snapshot of an instance's system volume. You might want to do this, for example, to recover data from the system volume of a botched instance or to create a backup of the system volume like you would for a block storage disk. To create a snapshot of a system volume, just define the @instance name@ parameter when issuing the snapshot command, and a snapshot of the defined instance's system volume will be created. After the snapshot is available, you can create a block storage disk from the snapshot and attach it to a running instance to access the data on the disk.
---
--- The @create disk snapshot@ operation supports tag-based access control via request tags. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @create disk snapshot@ operation supports tag-based access control
+-- via request tags. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.CreateDiskSnapshot
   ( -- * Creating a Request
-    createDiskSnapshot,
-    CreateDiskSnapshot,
+    CreateDiskSnapshot (..),
+    newCreateDiskSnapshot,
 
     -- * Request Lenses
-    cdsInstanceName,
-    cdsTags,
-    cdsDiskName,
-    cdsDiskSnapshotName,
+    createDiskSnapshot_instanceName,
+    createDiskSnapshot_tags,
+    createDiskSnapshot_diskName,
+    createDiskSnapshot_diskSnapshotName,
 
     -- * Destructuring the Response
-    createDiskSnapshotResponse,
-    CreateDiskSnapshotResponse,
+    CreateDiskSnapshotResponse (..),
+    newCreateDiskSnapshotResponse,
 
     -- * Response Lenses
-    cdsrrsOperations,
-    cdsrrsResponseStatus,
+    createDiskSnapshotResponse_operations,
+    createDiskSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDiskSnapshot' smart constructor.
+-- | /See:/ 'newCreateDiskSnapshot' smart constructor.
 data CreateDiskSnapshot = CreateDiskSnapshot'
-  { _cdsInstanceName ::
-      !(Maybe Text),
-    _cdsTags :: !(Maybe [Tag]),
-    _cdsDiskName :: !(Maybe Text),
-    _cdsDiskSnapshotName :: !Text
+  { -- | The unique name of the source instance (e.g.,
+    -- @Amazon_Linux-512MB-Virginia-1@). When this is defined, a snapshot of
+    -- the instance\'s system volume is created.
+    --
+    -- This parameter cannot be defined together with the @disk name@
+    -- parameter. The @instance name@ and @disk name@ parameters are mutually
+    -- exclusive.
+    instanceName :: Prelude.Maybe Prelude.Text,
+    -- | The tag keys and optional values to add to the resource during create.
+    --
+    -- Use the @TagResource@ action to tag a resource after it\'s created.
+    tags :: Prelude.Maybe [Tag],
+    -- | The unique name of the source disk (e.g., @Disk-Virginia-1@).
+    --
+    -- This parameter cannot be defined together with the @instance name@
+    -- parameter. The @disk name@ and @instance name@ parameters are mutually
+    -- exclusive.
+    diskName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the destination disk snapshot (e.g., @my-disk-snapshot@)
+    -- based on the source disk.
+    diskSnapshotName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDiskSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDiskSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsInstanceName' - The unique name of the source instance (e.g., @Amazon_Linux-512MB-Virginia-1@ ). When this is defined, a snapshot of the instance's system volume is created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsTags' - The tag keys and optional values to add to the resource during create. Use the @TagResource@ action to tag a resource after it's created.
+-- 'instanceName', 'createDiskSnapshot_instanceName' - The unique name of the source instance (e.g.,
+-- @Amazon_Linux-512MB-Virginia-1@). When this is defined, a snapshot of
+-- the instance\'s system volume is created.
 --
--- * 'cdsDiskName' - The unique name of the source disk (e.g., @Disk-Virginia-1@ ).
+-- This parameter cannot be defined together with the @disk name@
+-- parameter. The @instance name@ and @disk name@ parameters are mutually
+-- exclusive.
 --
--- * 'cdsDiskSnapshotName' - The name of the destination disk snapshot (e.g., @my-disk-snapshot@ ) based on the source disk.
-createDiskSnapshot ::
-  -- | 'cdsDiskSnapshotName'
-  Text ->
+-- 'tags', 'createDiskSnapshot_tags' - The tag keys and optional values to add to the resource during create.
+--
+-- Use the @TagResource@ action to tag a resource after it\'s created.
+--
+-- 'diskName', 'createDiskSnapshot_diskName' - The unique name of the source disk (e.g., @Disk-Virginia-1@).
+--
+-- This parameter cannot be defined together with the @instance name@
+-- parameter. The @disk name@ and @instance name@ parameters are mutually
+-- exclusive.
+--
+-- 'diskSnapshotName', 'createDiskSnapshot_diskSnapshotName' - The name of the destination disk snapshot (e.g., @my-disk-snapshot@)
+-- based on the source disk.
+newCreateDiskSnapshot ::
+  -- | 'diskSnapshotName'
+  Prelude.Text ->
   CreateDiskSnapshot
-createDiskSnapshot pDiskSnapshotName_ =
+newCreateDiskSnapshot pDiskSnapshotName_ =
   CreateDiskSnapshot'
-    { _cdsInstanceName = Nothing,
-      _cdsTags = Nothing,
-      _cdsDiskName = Nothing,
-      _cdsDiskSnapshotName = pDiskSnapshotName_
+    { instanceName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      diskName = Prelude.Nothing,
+      diskSnapshotName = pDiskSnapshotName_
     }
 
--- | The unique name of the source instance (e.g., @Amazon_Linux-512MB-Virginia-1@ ). When this is defined, a snapshot of the instance's system volume is created.
-cdsInstanceName :: Lens' CreateDiskSnapshot (Maybe Text)
-cdsInstanceName = lens _cdsInstanceName (\s a -> s {_cdsInstanceName = a})
+-- | The unique name of the source instance (e.g.,
+-- @Amazon_Linux-512MB-Virginia-1@). When this is defined, a snapshot of
+-- the instance\'s system volume is created.
+--
+-- This parameter cannot be defined together with the @disk name@
+-- parameter. The @instance name@ and @disk name@ parameters are mutually
+-- exclusive.
+createDiskSnapshot_instanceName :: Lens.Lens' CreateDiskSnapshot (Prelude.Maybe Prelude.Text)
+createDiskSnapshot_instanceName = Lens.lens (\CreateDiskSnapshot' {instanceName} -> instanceName) (\s@CreateDiskSnapshot' {} a -> s {instanceName = a} :: CreateDiskSnapshot)
 
--- | The tag keys and optional values to add to the resource during create. Use the @TagResource@ action to tag a resource after it's created.
-cdsTags :: Lens' CreateDiskSnapshot [Tag]
-cdsTags = lens _cdsTags (\s a -> s {_cdsTags = a}) . _Default . _Coerce
+-- | The tag keys and optional values to add to the resource during create.
+--
+-- Use the @TagResource@ action to tag a resource after it\'s created.
+createDiskSnapshot_tags :: Lens.Lens' CreateDiskSnapshot (Prelude.Maybe [Tag])
+createDiskSnapshot_tags = Lens.lens (\CreateDiskSnapshot' {tags} -> tags) (\s@CreateDiskSnapshot' {} a -> s {tags = a} :: CreateDiskSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The unique name of the source disk (e.g., @Disk-Virginia-1@ ).
-cdsDiskName :: Lens' CreateDiskSnapshot (Maybe Text)
-cdsDiskName = lens _cdsDiskName (\s a -> s {_cdsDiskName = a})
+-- | The unique name of the source disk (e.g., @Disk-Virginia-1@).
+--
+-- This parameter cannot be defined together with the @instance name@
+-- parameter. The @disk name@ and @instance name@ parameters are mutually
+-- exclusive.
+createDiskSnapshot_diskName :: Lens.Lens' CreateDiskSnapshot (Prelude.Maybe Prelude.Text)
+createDiskSnapshot_diskName = Lens.lens (\CreateDiskSnapshot' {diskName} -> diskName) (\s@CreateDiskSnapshot' {} a -> s {diskName = a} :: CreateDiskSnapshot)
 
--- | The name of the destination disk snapshot (e.g., @my-disk-snapshot@ ) based on the source disk.
-cdsDiskSnapshotName :: Lens' CreateDiskSnapshot Text
-cdsDiskSnapshotName = lens _cdsDiskSnapshotName (\s a -> s {_cdsDiskSnapshotName = a})
+-- | The name of the destination disk snapshot (e.g., @my-disk-snapshot@)
+-- based on the source disk.
+createDiskSnapshot_diskSnapshotName :: Lens.Lens' CreateDiskSnapshot Prelude.Text
+createDiskSnapshot_diskSnapshotName = Lens.lens (\CreateDiskSnapshot' {diskSnapshotName} -> diskSnapshotName) (\s@CreateDiskSnapshot' {} a -> s {diskSnapshotName = a} :: CreateDiskSnapshot)
 
-instance AWSRequest CreateDiskSnapshot where
+instance Prelude.AWSRequest CreateDiskSnapshot where
   type
     Rs CreateDiskSnapshot =
       CreateDiskSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDiskSnapshotResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDiskSnapshot
+instance Prelude.Hashable CreateDiskSnapshot
 
-instance NFData CreateDiskSnapshot
+instance Prelude.NFData CreateDiskSnapshot
 
-instance ToHeaders CreateDiskSnapshot where
+instance Prelude.ToHeaders CreateDiskSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.CreateDiskSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.CreateDiskSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateDiskSnapshot where
+instance Prelude.ToJSON CreateDiskSnapshot where
   toJSON CreateDiskSnapshot' {..} =
-    object
-      ( catMaybes
-          [ ("instanceName" .=) <$> _cdsInstanceName,
-            ("tags" .=) <$> _cdsTags,
-            ("diskName" .=) <$> _cdsDiskName,
-            Just ("diskSnapshotName" .= _cdsDiskSnapshotName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("instanceName" Prelude..=)
+              Prelude.<$> instanceName,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("diskName" Prelude..=) Prelude.<$> diskName,
+            Prelude.Just
+              ("diskSnapshotName" Prelude..= diskSnapshotName)
           ]
       )
 
-instance ToPath CreateDiskSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateDiskSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDiskSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDiskSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDiskSnapshotResponse' smart constructor.
+-- | /See:/ 'newCreateDiskSnapshotResponse' smart constructor.
 data CreateDiskSnapshotResponse = CreateDiskSnapshotResponse'
-  { _cdsrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _cdsrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDiskSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDiskSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsrrsResponseStatus' - -- | The response status code.
-createDiskSnapshotResponse ::
-  -- | 'cdsrrsResponseStatus'
-  Int ->
+-- 'operations', 'createDiskSnapshotResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'createDiskSnapshotResponse_httpStatus' - The response's http status code.
+newCreateDiskSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDiskSnapshotResponse
-createDiskSnapshotResponse pResponseStatus_ =
+newCreateDiskSnapshotResponse pHttpStatus_ =
   CreateDiskSnapshotResponse'
-    { _cdsrrsOperations =
-        Nothing,
-      _cdsrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-cdsrrsOperations :: Lens' CreateDiskSnapshotResponse [Operation]
-cdsrrsOperations = lens _cdsrrsOperations (\s a -> s {_cdsrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+createDiskSnapshotResponse_operations :: Lens.Lens' CreateDiskSnapshotResponse (Prelude.Maybe [Operation])
+createDiskSnapshotResponse_operations = Lens.lens (\CreateDiskSnapshotResponse' {operations} -> operations) (\s@CreateDiskSnapshotResponse' {} a -> s {operations = a} :: CreateDiskSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cdsrrsResponseStatus :: Lens' CreateDiskSnapshotResponse Int
-cdsrrsResponseStatus = lens _cdsrrsResponseStatus (\s a -> s {_cdsrrsResponseStatus = a})
+-- | The response's http status code.
+createDiskSnapshotResponse_httpStatus :: Lens.Lens' CreateDiskSnapshotResponse Prelude.Int
+createDiskSnapshotResponse_httpStatus = Lens.lens (\CreateDiskSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateDiskSnapshotResponse' {} a -> s {httpStatus = a} :: CreateDiskSnapshotResponse)
 
-instance NFData CreateDiskSnapshotResponse
+instance Prelude.NFData CreateDiskSnapshotResponse

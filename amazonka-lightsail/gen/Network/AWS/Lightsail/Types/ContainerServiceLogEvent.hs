@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ContainerServiceLogEvent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the log events of a container of an Amazon Lightsail container service.
+-- | Describes the log events of a container of an Amazon Lightsail container
+-- service.
 --
---
---
--- /See:/ 'containerServiceLogEvent' smart constructor.
+-- /See:/ 'newContainerServiceLogEvent' smart constructor.
 data ContainerServiceLogEvent = ContainerServiceLogEvent'
-  { _csleMessage ::
-      !(Maybe Text),
-    _csleCreatedAt ::
-      !(Maybe POSIX)
+  { -- | The message of the container service log event.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the container service log event was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerServiceLogEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerServiceLogEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csleMessage' - The message of the container service log event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csleCreatedAt' - The timestamp when the container service log event was created.
-containerServiceLogEvent ::
+-- 'message', 'containerServiceLogEvent_message' - The message of the container service log event.
+--
+-- 'createdAt', 'containerServiceLogEvent_createdAt' - The timestamp when the container service log event was created.
+newContainerServiceLogEvent ::
   ContainerServiceLogEvent
-containerServiceLogEvent =
+newContainerServiceLogEvent =
   ContainerServiceLogEvent'
-    { _csleMessage = Nothing,
-      _csleCreatedAt = Nothing
+    { message =
+        Prelude.Nothing,
+      createdAt = Prelude.Nothing
     }
 
 -- | The message of the container service log event.
-csleMessage :: Lens' ContainerServiceLogEvent (Maybe Text)
-csleMessage = lens _csleMessage (\s a -> s {_csleMessage = a})
+containerServiceLogEvent_message :: Lens.Lens' ContainerServiceLogEvent (Prelude.Maybe Prelude.Text)
+containerServiceLogEvent_message = Lens.lens (\ContainerServiceLogEvent' {message} -> message) (\s@ContainerServiceLogEvent' {} a -> s {message = a} :: ContainerServiceLogEvent)
 
 -- | The timestamp when the container service log event was created.
-csleCreatedAt :: Lens' ContainerServiceLogEvent (Maybe UTCTime)
-csleCreatedAt = lens _csleCreatedAt (\s a -> s {_csleCreatedAt = a}) . mapping _Time
+containerServiceLogEvent_createdAt :: Lens.Lens' ContainerServiceLogEvent (Prelude.Maybe Prelude.UTCTime)
+containerServiceLogEvent_createdAt = Lens.lens (\ContainerServiceLogEvent' {createdAt} -> createdAt) (\s@ContainerServiceLogEvent' {} a -> s {createdAt = a} :: ContainerServiceLogEvent) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ContainerServiceLogEvent where
+instance Prelude.FromJSON ContainerServiceLogEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContainerServiceLogEvent"
       ( \x ->
           ContainerServiceLogEvent'
-            <$> (x .:? "message") <*> (x .:? "createdAt")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "createdAt")
       )
 
-instance Hashable ContainerServiceLogEvent
+instance Prelude.Hashable ContainerServiceLogEvent
 
-instance NFData ContainerServiceLogEvent
+instance Prelude.NFData ContainerServiceLogEvent

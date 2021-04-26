@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,142 +19,134 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ExportSnapshotRecordSourceInfo where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.DiskSnapshotInfo
 import Network.AWS.Lightsail.Types.ExportSnapshotRecordSourceType
 import Network.AWS.Lightsail.Types.InstanceSnapshotInfo
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the source of an export snapshot record.
 --
---
---
--- /See:/ 'exportSnapshotRecordSourceInfo' smart constructor.
+-- /See:/ 'newExportSnapshotRecordSourceInfo' smart constructor.
 data ExportSnapshotRecordSourceInfo = ExportSnapshotRecordSourceInfo'
-  { _esrsiDiskSnapshotInfo ::
-      !( Maybe
-           DiskSnapshotInfo
-       ),
-    _esrsiCreatedAt ::
-      !( Maybe
-           POSIX
-       ),
-    _esrsiArn ::
-      !( Maybe
-           Text
-       ),
-    _esrsiResourceType ::
-      !( Maybe
-           ExportSnapshotRecordSourceType
-       ),
-    _esrsiName ::
-      !( Maybe
-           Text
-       ),
-    _esrsiFromResourceARN ::
-      !( Maybe
-           Text
-       ),
-    _esrsiInstanceSnapshotInfo ::
-      !( Maybe
-           InstanceSnapshotInfo
-       ),
-    _esrsiFromResourceName ::
-      !( Maybe
-           Text
-       )
+  { -- | A list of objects describing a disk snapshot.
+    diskSnapshotInfo :: Prelude.Maybe DiskSnapshotInfo,
+    -- | The date when the source instance or disk snapshot was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the source instance or disk snapshot.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The Lightsail resource type (e.g., @InstanceSnapshot@ or
+    -- @DiskSnapshot@).
+    resourceType :: Prelude.Maybe ExportSnapshotRecordSourceType,
+    -- | The name of the source instance or disk snapshot.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the snapshot\'s source instance or
+    -- disk.
+    fromResourceArn :: Prelude.Maybe Prelude.Text,
+    -- | A list of objects describing an instance snapshot.
+    instanceSnapshotInfo :: Prelude.Maybe InstanceSnapshotInfo,
+    -- | The name of the snapshot\'s source instance or disk.
+    fromResourceName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportSnapshotRecordSourceInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportSnapshotRecordSourceInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esrsiDiskSnapshotInfo' - A list of objects describing a disk snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esrsiCreatedAt' - The date when the source instance or disk snapshot was created.
+-- 'diskSnapshotInfo', 'exportSnapshotRecordSourceInfo_diskSnapshotInfo' - A list of objects describing a disk snapshot.
 --
--- * 'esrsiArn' - The Amazon Resource Name (ARN) of the source instance or disk snapshot.
+-- 'createdAt', 'exportSnapshotRecordSourceInfo_createdAt' - The date when the source instance or disk snapshot was created.
 --
--- * 'esrsiResourceType' - The Lightsail resource type (e.g., @InstanceSnapshot@ or @DiskSnapshot@ ).
+-- 'arn', 'exportSnapshotRecordSourceInfo_arn' - The Amazon Resource Name (ARN) of the source instance or disk snapshot.
 --
--- * 'esrsiName' - The name of the source instance or disk snapshot.
+-- 'resourceType', 'exportSnapshotRecordSourceInfo_resourceType' - The Lightsail resource type (e.g., @InstanceSnapshot@ or
+-- @DiskSnapshot@).
 --
--- * 'esrsiFromResourceARN' - The Amazon Resource Name (ARN) of the snapshot's source instance or disk.
+-- 'name', 'exportSnapshotRecordSourceInfo_name' - The name of the source instance or disk snapshot.
 --
--- * 'esrsiInstanceSnapshotInfo' - A list of objects describing an instance snapshot.
+-- 'fromResourceArn', 'exportSnapshotRecordSourceInfo_fromResourceArn' - The Amazon Resource Name (ARN) of the snapshot\'s source instance or
+-- disk.
 --
--- * 'esrsiFromResourceName' - The name of the snapshot's source instance or disk.
-exportSnapshotRecordSourceInfo ::
+-- 'instanceSnapshotInfo', 'exportSnapshotRecordSourceInfo_instanceSnapshotInfo' - A list of objects describing an instance snapshot.
+--
+-- 'fromResourceName', 'exportSnapshotRecordSourceInfo_fromResourceName' - The name of the snapshot\'s source instance or disk.
+newExportSnapshotRecordSourceInfo ::
   ExportSnapshotRecordSourceInfo
-exportSnapshotRecordSourceInfo =
+newExportSnapshotRecordSourceInfo =
   ExportSnapshotRecordSourceInfo'
-    { _esrsiDiskSnapshotInfo =
-        Nothing,
-      _esrsiCreatedAt = Nothing,
-      _esrsiArn = Nothing,
-      _esrsiResourceType = Nothing,
-      _esrsiName = Nothing,
-      _esrsiFromResourceARN = Nothing,
-      _esrsiInstanceSnapshotInfo = Nothing,
-      _esrsiFromResourceName = Nothing
+    { diskSnapshotInfo =
+        Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      name = Prelude.Nothing,
+      fromResourceArn = Prelude.Nothing,
+      instanceSnapshotInfo = Prelude.Nothing,
+      fromResourceName = Prelude.Nothing
     }
 
 -- | A list of objects describing a disk snapshot.
-esrsiDiskSnapshotInfo :: Lens' ExportSnapshotRecordSourceInfo (Maybe DiskSnapshotInfo)
-esrsiDiskSnapshotInfo = lens _esrsiDiskSnapshotInfo (\s a -> s {_esrsiDiskSnapshotInfo = a})
+exportSnapshotRecordSourceInfo_diskSnapshotInfo :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe DiskSnapshotInfo)
+exportSnapshotRecordSourceInfo_diskSnapshotInfo = Lens.lens (\ExportSnapshotRecordSourceInfo' {diskSnapshotInfo} -> diskSnapshotInfo) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {diskSnapshotInfo = a} :: ExportSnapshotRecordSourceInfo)
 
 -- | The date when the source instance or disk snapshot was created.
-esrsiCreatedAt :: Lens' ExportSnapshotRecordSourceInfo (Maybe UTCTime)
-esrsiCreatedAt = lens _esrsiCreatedAt (\s a -> s {_esrsiCreatedAt = a}) . mapping _Time
+exportSnapshotRecordSourceInfo_createdAt :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe Prelude.UTCTime)
+exportSnapshotRecordSourceInfo_createdAt = Lens.lens (\ExportSnapshotRecordSourceInfo' {createdAt} -> createdAt) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {createdAt = a} :: ExportSnapshotRecordSourceInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the source instance or disk snapshot.
-esrsiArn :: Lens' ExportSnapshotRecordSourceInfo (Maybe Text)
-esrsiArn = lens _esrsiArn (\s a -> s {_esrsiArn = a})
+exportSnapshotRecordSourceInfo_arn :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe Prelude.Text)
+exportSnapshotRecordSourceInfo_arn = Lens.lens (\ExportSnapshotRecordSourceInfo' {arn} -> arn) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {arn = a} :: ExportSnapshotRecordSourceInfo)
 
--- | The Lightsail resource type (e.g., @InstanceSnapshot@ or @DiskSnapshot@ ).
-esrsiResourceType :: Lens' ExportSnapshotRecordSourceInfo (Maybe ExportSnapshotRecordSourceType)
-esrsiResourceType = lens _esrsiResourceType (\s a -> s {_esrsiResourceType = a})
+-- | The Lightsail resource type (e.g., @InstanceSnapshot@ or
+-- @DiskSnapshot@).
+exportSnapshotRecordSourceInfo_resourceType :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe ExportSnapshotRecordSourceType)
+exportSnapshotRecordSourceInfo_resourceType = Lens.lens (\ExportSnapshotRecordSourceInfo' {resourceType} -> resourceType) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {resourceType = a} :: ExportSnapshotRecordSourceInfo)
 
 -- | The name of the source instance or disk snapshot.
-esrsiName :: Lens' ExportSnapshotRecordSourceInfo (Maybe Text)
-esrsiName = lens _esrsiName (\s a -> s {_esrsiName = a})
+exportSnapshotRecordSourceInfo_name :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe Prelude.Text)
+exportSnapshotRecordSourceInfo_name = Lens.lens (\ExportSnapshotRecordSourceInfo' {name} -> name) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {name = a} :: ExportSnapshotRecordSourceInfo)
 
--- | The Amazon Resource Name (ARN) of the snapshot's source instance or disk.
-esrsiFromResourceARN :: Lens' ExportSnapshotRecordSourceInfo (Maybe Text)
-esrsiFromResourceARN = lens _esrsiFromResourceARN (\s a -> s {_esrsiFromResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the snapshot\'s source instance or
+-- disk.
+exportSnapshotRecordSourceInfo_fromResourceArn :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe Prelude.Text)
+exportSnapshotRecordSourceInfo_fromResourceArn = Lens.lens (\ExportSnapshotRecordSourceInfo' {fromResourceArn} -> fromResourceArn) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {fromResourceArn = a} :: ExportSnapshotRecordSourceInfo)
 
 -- | A list of objects describing an instance snapshot.
-esrsiInstanceSnapshotInfo :: Lens' ExportSnapshotRecordSourceInfo (Maybe InstanceSnapshotInfo)
-esrsiInstanceSnapshotInfo = lens _esrsiInstanceSnapshotInfo (\s a -> s {_esrsiInstanceSnapshotInfo = a})
+exportSnapshotRecordSourceInfo_instanceSnapshotInfo :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe InstanceSnapshotInfo)
+exportSnapshotRecordSourceInfo_instanceSnapshotInfo = Lens.lens (\ExportSnapshotRecordSourceInfo' {instanceSnapshotInfo} -> instanceSnapshotInfo) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {instanceSnapshotInfo = a} :: ExportSnapshotRecordSourceInfo)
 
--- | The name of the snapshot's source instance or disk.
-esrsiFromResourceName :: Lens' ExportSnapshotRecordSourceInfo (Maybe Text)
-esrsiFromResourceName = lens _esrsiFromResourceName (\s a -> s {_esrsiFromResourceName = a})
+-- | The name of the snapshot\'s source instance or disk.
+exportSnapshotRecordSourceInfo_fromResourceName :: Lens.Lens' ExportSnapshotRecordSourceInfo (Prelude.Maybe Prelude.Text)
+exportSnapshotRecordSourceInfo_fromResourceName = Lens.lens (\ExportSnapshotRecordSourceInfo' {fromResourceName} -> fromResourceName) (\s@ExportSnapshotRecordSourceInfo' {} a -> s {fromResourceName = a} :: ExportSnapshotRecordSourceInfo)
 
-instance FromJSON ExportSnapshotRecordSourceInfo where
+instance
+  Prelude.FromJSON
+    ExportSnapshotRecordSourceInfo
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExportSnapshotRecordSourceInfo"
       ( \x ->
           ExportSnapshotRecordSourceInfo'
-            <$> (x .:? "diskSnapshotInfo")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "arn")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "name")
-            <*> (x .:? "fromResourceArn")
-            <*> (x .:? "instanceSnapshotInfo")
-            <*> (x .:? "fromResourceName")
+            Prelude.<$> (x Prelude..:? "diskSnapshotInfo")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "fromResourceArn")
+            Prelude.<*> (x Prelude..:? "instanceSnapshotInfo")
+            Prelude.<*> (x Prelude..:? "fromResourceName")
       )
 
-instance Hashable ExportSnapshotRecordSourceInfo
+instance
+  Prelude.Hashable
+    ExportSnapshotRecordSourceInfo
 
-instance NFData ExportSnapshotRecordSourceInfo
+instance
+  Prelude.NFData
+    ExportSnapshotRecordSourceInfo

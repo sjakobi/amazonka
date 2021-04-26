@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.Lightsail.Types.InstanceHealthState
   ( InstanceHealthState
       ( ..,
-        Draining,
-        Healthy,
-        Initial,
-        Unavailable,
-        Unhealthy,
-        Unused
+        InstanceHealthStateDraining,
+        InstanceHealthStateHealthy,
+        InstanceHealthStateInitial,
+        InstanceHealthStateUnavailable,
+        InstanceHealthStateUnhealthy,
+        InstanceHealthStateUnused
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceHealthState
-  = InstanceHealthState'
-      ( CI
-          Text
-      )
+newtype InstanceHealthState = InstanceHealthState'
+  { fromInstanceHealthState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Draining :: InstanceHealthState
-pattern Draining = InstanceHealthState' "draining"
+pattern InstanceHealthStateDraining :: InstanceHealthState
+pattern InstanceHealthStateDraining = InstanceHealthState' "draining"
 
-pattern Healthy :: InstanceHealthState
-pattern Healthy = InstanceHealthState' "healthy"
+pattern InstanceHealthStateHealthy :: InstanceHealthState
+pattern InstanceHealthStateHealthy = InstanceHealthState' "healthy"
 
-pattern Initial :: InstanceHealthState
-pattern Initial = InstanceHealthState' "initial"
+pattern InstanceHealthStateInitial :: InstanceHealthState
+pattern InstanceHealthStateInitial = InstanceHealthState' "initial"
 
-pattern Unavailable :: InstanceHealthState
-pattern Unavailable = InstanceHealthState' "unavailable"
+pattern InstanceHealthStateUnavailable :: InstanceHealthState
+pattern InstanceHealthStateUnavailable = InstanceHealthState' "unavailable"
 
-pattern Unhealthy :: InstanceHealthState
-pattern Unhealthy = InstanceHealthState' "unhealthy"
+pattern InstanceHealthStateUnhealthy :: InstanceHealthState
+pattern InstanceHealthStateUnhealthy = InstanceHealthState' "unhealthy"
 
-pattern Unused :: InstanceHealthState
-pattern Unused = InstanceHealthState' "unused"
+pattern InstanceHealthStateUnused :: InstanceHealthState
+pattern InstanceHealthStateUnused = InstanceHealthState' "unused"
 
 {-# COMPLETE
-  Draining,
-  Healthy,
-  Initial,
-  Unavailable,
-  Unhealthy,
-  Unused,
+  InstanceHealthStateDraining,
+  InstanceHealthStateHealthy,
+  InstanceHealthStateInitial,
+  InstanceHealthStateUnavailable,
+  InstanceHealthStateUnhealthy,
+  InstanceHealthStateUnused,
   InstanceHealthState'
   #-}
 
-instance FromText InstanceHealthState where
-  parser = (InstanceHealthState' . mk) <$> takeText
+instance Prelude.FromText InstanceHealthState where
+  parser = InstanceHealthState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceHealthState where
-  toText (InstanceHealthState' ci) = original ci
+instance Prelude.ToText InstanceHealthState where
+  toText (InstanceHealthState' x) = x
 
-instance Hashable InstanceHealthState
+instance Prelude.Hashable InstanceHealthState
 
-instance NFData InstanceHealthState
+instance Prelude.NFData InstanceHealthState
 
-instance ToByteString InstanceHealthState
+instance Prelude.ToByteString InstanceHealthState
 
-instance ToQuery InstanceHealthState
+instance Prelude.ToQuery InstanceHealthState
 
-instance ToHeader InstanceHealthState
+instance Prelude.ToHeader InstanceHealthState
 
-instance FromJSON InstanceHealthState where
-  parseJSON = parseJSONText "InstanceHealthState"
+instance Prelude.FromJSON InstanceHealthState where
+  parseJSON = Prelude.parseJSONText "InstanceHealthState"

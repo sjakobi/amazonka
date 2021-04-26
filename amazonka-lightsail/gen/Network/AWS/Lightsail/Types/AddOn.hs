@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.AddOn where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an add-on that is enabled for an Amazon Lightsail resource.
 --
---
---
--- /See:/ 'addOn' smart constructor.
+-- /See:/ 'newAddOn' smart constructor.
 data AddOn = AddOn'
-  { _aoSnapshotTimeOfDay ::
-      !(Maybe Text),
-    _aoStatus :: !(Maybe Text),
-    _aoName :: !(Maybe Text),
-    _aoNextSnapshotTimeOfDay :: !(Maybe Text)
+  { -- | The daily time when an automatic snapshot is created.
+    --
+    -- The time shown is in @HH:00@ format, and in Coordinated Universal Time
+    -- (UTC).
+    --
+    -- The snapshot is automatically created between the time shown and up to
+    -- 45 minutes after.
+    snapshotTimeOfDay :: Prelude.Maybe Prelude.Text,
+    -- | The status of the add-on.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The name of the add-on.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The next daily time an automatic snapshot will be created.
+    --
+    -- The time shown is in @HH:00@ format, and in Coordinated Universal Time
+    -- (UTC).
+    --
+    -- The snapshot is automatically created between the time shown and up to
+    -- 45 minutes after.
+    nextSnapshotTimeOfDay :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddOn' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddOn' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aoSnapshotTimeOfDay' - The daily time when an automatic snapshot is created. The time shown is in @HH:00@ format, and in Coordinated Universal Time (UTC). The snapshot is automatically created between the time shown and up to 45 minutes after.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aoStatus' - The status of the add-on.
+-- 'snapshotTimeOfDay', 'addOn_snapshotTimeOfDay' - The daily time when an automatic snapshot is created.
 --
--- * 'aoName' - The name of the add-on.
+-- The time shown is in @HH:00@ format, and in Coordinated Universal Time
+-- (UTC).
 --
--- * 'aoNextSnapshotTimeOfDay' - The next daily time an automatic snapshot will be created. The time shown is in @HH:00@ format, and in Coordinated Universal Time (UTC). The snapshot is automatically created between the time shown and up to 45 minutes after.
-addOn ::
+-- The snapshot is automatically created between the time shown and up to
+-- 45 minutes after.
+--
+-- 'status', 'addOn_status' - The status of the add-on.
+--
+-- 'name', 'addOn_name' - The name of the add-on.
+--
+-- 'nextSnapshotTimeOfDay', 'addOn_nextSnapshotTimeOfDay' - The next daily time an automatic snapshot will be created.
+--
+-- The time shown is in @HH:00@ format, and in Coordinated Universal Time
+-- (UTC).
+--
+-- The snapshot is automatically created between the time shown and up to
+-- 45 minutes after.
+newAddOn ::
   AddOn
-addOn =
+newAddOn =
   AddOn'
-    { _aoSnapshotTimeOfDay = Nothing,
-      _aoStatus = Nothing,
-      _aoName = Nothing,
-      _aoNextSnapshotTimeOfDay = Nothing
+    { snapshotTimeOfDay = Prelude.Nothing,
+      status = Prelude.Nothing,
+      name = Prelude.Nothing,
+      nextSnapshotTimeOfDay = Prelude.Nothing
     }
 
--- | The daily time when an automatic snapshot is created. The time shown is in @HH:00@ format, and in Coordinated Universal Time (UTC). The snapshot is automatically created between the time shown and up to 45 minutes after.
-aoSnapshotTimeOfDay :: Lens' AddOn (Maybe Text)
-aoSnapshotTimeOfDay = lens _aoSnapshotTimeOfDay (\s a -> s {_aoSnapshotTimeOfDay = a})
+-- | The daily time when an automatic snapshot is created.
+--
+-- The time shown is in @HH:00@ format, and in Coordinated Universal Time
+-- (UTC).
+--
+-- The snapshot is automatically created between the time shown and up to
+-- 45 minutes after.
+addOn_snapshotTimeOfDay :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
+addOn_snapshotTimeOfDay = Lens.lens (\AddOn' {snapshotTimeOfDay} -> snapshotTimeOfDay) (\s@AddOn' {} a -> s {snapshotTimeOfDay = a} :: AddOn)
 
 -- | The status of the add-on.
-aoStatus :: Lens' AddOn (Maybe Text)
-aoStatus = lens _aoStatus (\s a -> s {_aoStatus = a})
+addOn_status :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
+addOn_status = Lens.lens (\AddOn' {status} -> status) (\s@AddOn' {} a -> s {status = a} :: AddOn)
 
 -- | The name of the add-on.
-aoName :: Lens' AddOn (Maybe Text)
-aoName = lens _aoName (\s a -> s {_aoName = a})
+addOn_name :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
+addOn_name = Lens.lens (\AddOn' {name} -> name) (\s@AddOn' {} a -> s {name = a} :: AddOn)
 
--- | The next daily time an automatic snapshot will be created. The time shown is in @HH:00@ format, and in Coordinated Universal Time (UTC). The snapshot is automatically created between the time shown and up to 45 minutes after.
-aoNextSnapshotTimeOfDay :: Lens' AddOn (Maybe Text)
-aoNextSnapshotTimeOfDay = lens _aoNextSnapshotTimeOfDay (\s a -> s {_aoNextSnapshotTimeOfDay = a})
+-- | The next daily time an automatic snapshot will be created.
+--
+-- The time shown is in @HH:00@ format, and in Coordinated Universal Time
+-- (UTC).
+--
+-- The snapshot is automatically created between the time shown and up to
+-- 45 minutes after.
+addOn_nextSnapshotTimeOfDay :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
+addOn_nextSnapshotTimeOfDay = Lens.lens (\AddOn' {nextSnapshotTimeOfDay} -> nextSnapshotTimeOfDay) (\s@AddOn' {} a -> s {nextSnapshotTimeOfDay = a} :: AddOn)
 
-instance FromJSON AddOn where
+instance Prelude.FromJSON AddOn where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AddOn"
       ( \x ->
           AddOn'
-            <$> (x .:? "snapshotTimeOfDay")
-            <*> (x .:? "status")
-            <*> (x .:? "name")
-            <*> (x .:? "nextSnapshotTimeOfDay")
+            Prelude.<$> (x Prelude..:? "snapshotTimeOfDay")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "nextSnapshotTimeOfDay")
       )
 
-instance Hashable AddOn
+instance Prelude.Hashable AddOn
 
-instance NFData AddOn
+instance Prelude.NFData AddOn

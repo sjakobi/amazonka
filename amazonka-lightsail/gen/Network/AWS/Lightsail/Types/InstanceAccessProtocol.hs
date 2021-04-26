@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Lightsail.Types.InstanceAccessProtocol
   ( InstanceAccessProtocol
       ( ..,
-        Rdp,
-        SSH
+        InstanceAccessProtocolRdp,
+        InstanceAccessProtocolSsh
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceAccessProtocol
-  = InstanceAccessProtocol'
-      ( CI
-          Text
-      )
+newtype InstanceAccessProtocol = InstanceAccessProtocol'
+  { fromInstanceAccessProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Rdp :: InstanceAccessProtocol
-pattern Rdp = InstanceAccessProtocol' "rdp"
+pattern InstanceAccessProtocolRdp :: InstanceAccessProtocol
+pattern InstanceAccessProtocolRdp = InstanceAccessProtocol' "rdp"
 
-pattern SSH :: InstanceAccessProtocol
-pattern SSH = InstanceAccessProtocol' "ssh"
+pattern InstanceAccessProtocolSsh :: InstanceAccessProtocol
+pattern InstanceAccessProtocolSsh = InstanceAccessProtocol' "ssh"
 
 {-# COMPLETE
-  Rdp,
-  SSH,
+  InstanceAccessProtocolRdp,
+  InstanceAccessProtocolSsh,
   InstanceAccessProtocol'
   #-}
 
-instance FromText InstanceAccessProtocol where
-  parser = (InstanceAccessProtocol' . mk) <$> takeText
+instance Prelude.FromText InstanceAccessProtocol where
+  parser = InstanceAccessProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceAccessProtocol where
-  toText (InstanceAccessProtocol' ci) = original ci
+instance Prelude.ToText InstanceAccessProtocol where
+  toText (InstanceAccessProtocol' x) = x
 
-instance Hashable InstanceAccessProtocol
+instance Prelude.Hashable InstanceAccessProtocol
 
-instance NFData InstanceAccessProtocol
+instance Prelude.NFData InstanceAccessProtocol
 
-instance ToByteString InstanceAccessProtocol
+instance Prelude.ToByteString InstanceAccessProtocol
 
-instance ToQuery InstanceAccessProtocol
+instance Prelude.ToQuery InstanceAccessProtocol
 
-instance ToHeader InstanceAccessProtocol
+instance Prelude.ToHeader InstanceAccessProtocol
 
-instance ToJSON InstanceAccessProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceAccessProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceAccessProtocol where
-  parseJSON = parseJSONText "InstanceAccessProtocol"
+instance Prelude.FromJSON InstanceAccessProtocol where
+  parseJSON = Prelude.parseJSONText "InstanceAccessProtocol"

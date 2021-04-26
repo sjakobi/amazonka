@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,197 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.DomainEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a domain recordset entry.
 --
---
---
--- /See:/ 'domainEntry' smart constructor.
+-- /See:/ 'newDomainEntry' smart constructor.
 data DomainEntry = DomainEntry'
-  { _deOptions ::
-      !(Maybe (Map Text Text)),
-    _deId :: !(Maybe Text),
-    _deName :: !(Maybe Text),
-    _deIsAlias :: !(Maybe Bool),
-    _deTarget :: !(Maybe Text),
-    _deType :: !(Maybe Text)
+  { -- | (Deprecated) The options for the domain entry.
+    --
+    -- In releases prior to November 29, 2017, this parameter was not included
+    -- in the API response. It is now deprecated.
+    options :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The ID of the domain recordset entry.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the domain.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | When @true@, specifies whether the domain entry is an alias used by the
+    -- Lightsail load balancer. You can include an alias (A type) record in
+    -- your request, which points to a load balancer DNS name and routes
+    -- traffic to your load balancer.
+    isAlias :: Prelude.Maybe Prelude.Bool,
+    -- | The target AWS name server (e.g., @ns-111.awsdns-22.com.@).
+    --
+    -- For Lightsail load balancers, the value looks like
+    -- @ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com@.
+    -- Be sure to also set @isAlias@ to @true@ when setting up an A record for
+    -- a load balancer.
+    target :: Prelude.Maybe Prelude.Text,
+    -- | The type of domain entry, such as address (A), canonical name (CNAME),
+    -- mail exchanger (MX), name server (NS), start of authority (SOA), service
+    -- locator (SRV), or text (TXT).
+    --
+    -- The following domain entry types can be used:
+    --
+    -- -   @A@
+    --
+    -- -   @CNAME@
+    --
+    -- -   @MX@
+    --
+    -- -   @NS@
+    --
+    -- -   @SOA@
+    --
+    -- -   @SRV@
+    --
+    -- -   @TXT@
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deOptions' - (Deprecated) The options for the domain entry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deId' - The ID of the domain recordset entry.
+-- 'options', 'domainEntry_options' - (Deprecated) The options for the domain entry.
 --
--- * 'deName' - The name of the domain.
+-- In releases prior to November 29, 2017, this parameter was not included
+-- in the API response. It is now deprecated.
 --
--- * 'deIsAlias' - When @true@ , specifies whether the domain entry is an alias used by the Lightsail load balancer. You can include an alias (A type) record in your request, which points to a load balancer DNS name and routes traffic to your load balancer.
+-- 'id', 'domainEntry_id' - The ID of the domain recordset entry.
 --
--- * 'deTarget' - The target AWS name server (e.g., @ns-111.awsdns-22.com.@ ). For Lightsail load balancers, the value looks like @ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com@ . Be sure to also set @isAlias@ to @true@ when setting up an A record for a load balancer.
+-- 'name', 'domainEntry_name' - The name of the domain.
 --
--- * 'deType' - The type of domain entry, such as address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority (SOA), service locator (SRV), or text (TXT). The following domain entry types can be used:     * @A@      * @CNAME@      * @MX@      * @NS@      * @SOA@      * @SRV@      * @TXT@
-domainEntry ::
+-- 'isAlias', 'domainEntry_isAlias' - When @true@, specifies whether the domain entry is an alias used by the
+-- Lightsail load balancer. You can include an alias (A type) record in
+-- your request, which points to a load balancer DNS name and routes
+-- traffic to your load balancer.
+--
+-- 'target', 'domainEntry_target' - The target AWS name server (e.g., @ns-111.awsdns-22.com.@).
+--
+-- For Lightsail load balancers, the value looks like
+-- @ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com@.
+-- Be sure to also set @isAlias@ to @true@ when setting up an A record for
+-- a load balancer.
+--
+-- 'type'', 'domainEntry_type' - The type of domain entry, such as address (A), canonical name (CNAME),
+-- mail exchanger (MX), name server (NS), start of authority (SOA), service
+-- locator (SRV), or text (TXT).
+--
+-- The following domain entry types can be used:
+--
+-- -   @A@
+--
+-- -   @CNAME@
+--
+-- -   @MX@
+--
+-- -   @NS@
+--
+-- -   @SOA@
+--
+-- -   @SRV@
+--
+-- -   @TXT@
+newDomainEntry ::
   DomainEntry
-domainEntry =
+newDomainEntry =
   DomainEntry'
-    { _deOptions = Nothing,
-      _deId = Nothing,
-      _deName = Nothing,
-      _deIsAlias = Nothing,
-      _deTarget = Nothing,
-      _deType = Nothing
+    { options = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      isAlias = Prelude.Nothing,
+      target = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | (Deprecated) The options for the domain entry.
-deOptions :: Lens' DomainEntry (HashMap Text Text)
-deOptions = lens _deOptions (\s a -> s {_deOptions = a}) . _Default . _Map
+--
+-- In releases prior to November 29, 2017, this parameter was not included
+-- in the API response. It is now deprecated.
+domainEntry_options :: Lens.Lens' DomainEntry (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+domainEntry_options = Lens.lens (\DomainEntry' {options} -> options) (\s@DomainEntry' {} a -> s {options = a} :: DomainEntry) Prelude.. Lens.mapping Prelude._Map
 
 -- | The ID of the domain recordset entry.
-deId :: Lens' DomainEntry (Maybe Text)
-deId = lens _deId (\s a -> s {_deId = a})
+domainEntry_id :: Lens.Lens' DomainEntry (Prelude.Maybe Prelude.Text)
+domainEntry_id = Lens.lens (\DomainEntry' {id} -> id) (\s@DomainEntry' {} a -> s {id = a} :: DomainEntry)
 
 -- | The name of the domain.
-deName :: Lens' DomainEntry (Maybe Text)
-deName = lens _deName (\s a -> s {_deName = a})
+domainEntry_name :: Lens.Lens' DomainEntry (Prelude.Maybe Prelude.Text)
+domainEntry_name = Lens.lens (\DomainEntry' {name} -> name) (\s@DomainEntry' {} a -> s {name = a} :: DomainEntry)
 
--- | When @true@ , specifies whether the domain entry is an alias used by the Lightsail load balancer. You can include an alias (A type) record in your request, which points to a load balancer DNS name and routes traffic to your load balancer.
-deIsAlias :: Lens' DomainEntry (Maybe Bool)
-deIsAlias = lens _deIsAlias (\s a -> s {_deIsAlias = a})
+-- | When @true@, specifies whether the domain entry is an alias used by the
+-- Lightsail load balancer. You can include an alias (A type) record in
+-- your request, which points to a load balancer DNS name and routes
+-- traffic to your load balancer.
+domainEntry_isAlias :: Lens.Lens' DomainEntry (Prelude.Maybe Prelude.Bool)
+domainEntry_isAlias = Lens.lens (\DomainEntry' {isAlias} -> isAlias) (\s@DomainEntry' {} a -> s {isAlias = a} :: DomainEntry)
 
--- | The target AWS name server (e.g., @ns-111.awsdns-22.com.@ ). For Lightsail load balancers, the value looks like @ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com@ . Be sure to also set @isAlias@ to @true@ when setting up an A record for a load balancer.
-deTarget :: Lens' DomainEntry (Maybe Text)
-deTarget = lens _deTarget (\s a -> s {_deTarget = a})
+-- | The target AWS name server (e.g., @ns-111.awsdns-22.com.@).
+--
+-- For Lightsail load balancers, the value looks like
+-- @ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com@.
+-- Be sure to also set @isAlias@ to @true@ when setting up an A record for
+-- a load balancer.
+domainEntry_target :: Lens.Lens' DomainEntry (Prelude.Maybe Prelude.Text)
+domainEntry_target = Lens.lens (\DomainEntry' {target} -> target) (\s@DomainEntry' {} a -> s {target = a} :: DomainEntry)
 
--- | The type of domain entry, such as address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority (SOA), service locator (SRV), or text (TXT). The following domain entry types can be used:     * @A@      * @CNAME@      * @MX@      * @NS@      * @SOA@      * @SRV@      * @TXT@
-deType :: Lens' DomainEntry (Maybe Text)
-deType = lens _deType (\s a -> s {_deType = a})
+-- | The type of domain entry, such as address (A), canonical name (CNAME),
+-- mail exchanger (MX), name server (NS), start of authority (SOA), service
+-- locator (SRV), or text (TXT).
+--
+-- The following domain entry types can be used:
+--
+-- -   @A@
+--
+-- -   @CNAME@
+--
+-- -   @MX@
+--
+-- -   @NS@
+--
+-- -   @SOA@
+--
+-- -   @SRV@
+--
+-- -   @TXT@
+domainEntry_type :: Lens.Lens' DomainEntry (Prelude.Maybe Prelude.Text)
+domainEntry_type = Lens.lens (\DomainEntry' {type'} -> type') (\s@DomainEntry' {} a -> s {type' = a} :: DomainEntry)
 
-instance FromJSON DomainEntry where
+instance Prelude.FromJSON DomainEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainEntry"
       ( \x ->
           DomainEntry'
-            <$> (x .:? "options" .!= mempty)
-            <*> (x .:? "id")
-            <*> (x .:? "name")
-            <*> (x .:? "isAlias")
-            <*> (x .:? "target")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "options" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "isAlias")
+            Prelude.<*> (x Prelude..:? "target")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable DomainEntry
+instance Prelude.Hashable DomainEntry
 
-instance NFData DomainEntry
+instance Prelude.NFData DomainEntry
 
-instance ToJSON DomainEntry where
+instance Prelude.ToJSON DomainEntry where
   toJSON DomainEntry' {..} =
-    object
-      ( catMaybes
-          [ ("options" .=) <$> _deOptions,
-            ("id" .=) <$> _deId,
-            ("name" .=) <$> _deName,
-            ("isAlias" .=) <$> _deIsAlias,
-            ("target" .=) <$> _deTarget,
-            ("type" .=) <$> _deType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("options" Prelude..=) Prelude.<$> options,
+            ("id" Prelude..=) Prelude.<$> id,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("isAlias" Prelude..=) Prelude.<$> isAlias,
+            ("target" Prelude..=) Prelude.<$> target,
+            ("type" Prelude..=) Prelude.<$> type'
           ]
       )

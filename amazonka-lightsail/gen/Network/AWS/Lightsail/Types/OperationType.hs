@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,403 +19,405 @@
 module Network.AWS.Lightsail.Types.OperationType
   ( OperationType
       ( ..,
-        AllocateStaticIP,
-        AttachCertificateToDistribution,
-        AttachDisk,
-        AttachInstancesToLoadBalancer,
-        AttachLoadBalancerTLSCertificate,
-        AttachStaticIP,
-        CloseInstancePublicPorts,
-        CreateCertificate,
-        CreateContactMethod,
-        CreateContainerService,
-        CreateContainerServiceDeployment,
-        CreateContainerServiceRegistryLogin,
-        CreateDisk,
-        CreateDiskFromSnapshot,
-        CreateDiskSnapshot,
-        CreateDistribution,
-        CreateDomain,
-        CreateInstance,
-        CreateInstanceSnapshot,
-        CreateInstancesFromSnapshot,
-        CreateLoadBalancer,
-        CreateLoadBalancerTLSCertificate,
-        CreateRelationalDatabase,
-        CreateRelationalDatabaseFromSnapshot,
-        CreateRelationalDatabaseSnapshot,
-        DeleteAlarm,
-        DeleteCertificate,
-        DeleteContactMethod,
-        DeleteContainerImage,
-        DeleteContainerService,
-        DeleteDisk,
-        DeleteDiskSnapshot,
-        DeleteDistribution,
-        DeleteDomain,
-        DeleteDomainEntry,
-        DeleteInstance,
-        DeleteInstanceSnapshot,
-        DeleteKnownHostKeys,
-        DeleteLoadBalancer,
-        DeleteLoadBalancerTLSCertificate,
-        DeleteRelationalDatabase,
-        DeleteRelationalDatabaseSnapshot,
-        DetachCertificateFromDistribution,
-        DetachDisk,
-        DetachInstancesFromLoadBalancer,
-        DetachStaticIP,
-        DisableAddOn,
-        EnableAddOn,
-        GetAlarms,
-        GetContactMethods,
-        OpenInstancePublicPorts,
-        PutAlarm,
-        PutInstancePublicPorts,
-        RebootInstance,
-        RebootRelationalDatabase,
-        RegisterContainerImage,
-        ReleaseStaticIP,
-        ResetDistributionCache,
-        SendContactMethodVerification,
-        SetIPAddressType,
-        StartInstance,
-        StartRelationalDatabase,
-        StopInstance,
-        StopRelationalDatabase,
-        TestAlarm,
-        UpdateContainerService,
-        UpdateDistribution,
-        UpdateDistributionBundle,
-        UpdateDomainEntry,
-        UpdateLoadBalancerAttribute,
-        UpdateRelationalDatabase,
-        UpdateRelationalDatabaseParameters
+        OperationTypeAllocateStaticIp,
+        OperationTypeAttachCertificateToDistribution,
+        OperationTypeAttachDisk,
+        OperationTypeAttachInstancesToLoadBalancer,
+        OperationTypeAttachLoadBalancerTlsCertificate,
+        OperationTypeAttachStaticIp,
+        OperationTypeCloseInstancePublicPorts,
+        OperationTypeCreateCertificate,
+        OperationTypeCreateContactMethod,
+        OperationTypeCreateContainerService,
+        OperationTypeCreateContainerServiceDeployment,
+        OperationTypeCreateContainerServiceRegistryLogin,
+        OperationTypeCreateDisk,
+        OperationTypeCreateDiskFromSnapshot,
+        OperationTypeCreateDiskSnapshot,
+        OperationTypeCreateDistribution,
+        OperationTypeCreateDomain,
+        OperationTypeCreateInstance,
+        OperationTypeCreateInstanceSnapshot,
+        OperationTypeCreateInstancesFromSnapshot,
+        OperationTypeCreateLoadBalancer,
+        OperationTypeCreateLoadBalancerTlsCertificate,
+        OperationTypeCreateRelationalDatabase,
+        OperationTypeCreateRelationalDatabaseFromSnapshot,
+        OperationTypeCreateRelationalDatabaseSnapshot,
+        OperationTypeDeleteAlarm,
+        OperationTypeDeleteCertificate,
+        OperationTypeDeleteContactMethod,
+        OperationTypeDeleteContainerImage,
+        OperationTypeDeleteContainerService,
+        OperationTypeDeleteDisk,
+        OperationTypeDeleteDiskSnapshot,
+        OperationTypeDeleteDistribution,
+        OperationTypeDeleteDomain,
+        OperationTypeDeleteDomainEntry,
+        OperationTypeDeleteInstance,
+        OperationTypeDeleteInstanceSnapshot,
+        OperationTypeDeleteKnownHostKeys,
+        OperationTypeDeleteLoadBalancer,
+        OperationTypeDeleteLoadBalancerTlsCertificate,
+        OperationTypeDeleteRelationalDatabase,
+        OperationTypeDeleteRelationalDatabaseSnapshot,
+        OperationTypeDetachCertificateFromDistribution,
+        OperationTypeDetachDisk,
+        OperationTypeDetachInstancesFromLoadBalancer,
+        OperationTypeDetachStaticIp,
+        OperationTypeDisableAddOn,
+        OperationTypeEnableAddOn,
+        OperationTypeGetAlarms,
+        OperationTypeGetContactMethods,
+        OperationTypeOpenInstancePublicPorts,
+        OperationTypePutAlarm,
+        OperationTypePutInstancePublicPorts,
+        OperationTypeRebootInstance,
+        OperationTypeRebootRelationalDatabase,
+        OperationTypeRegisterContainerImage,
+        OperationTypeReleaseStaticIp,
+        OperationTypeResetDistributionCache,
+        OperationTypeSendContactMethodVerification,
+        OperationTypeSetIpAddressType,
+        OperationTypeStartInstance,
+        OperationTypeStartRelationalDatabase,
+        OperationTypeStopInstance,
+        OperationTypeStopRelationalDatabase,
+        OperationTypeTestAlarm,
+        OperationTypeUpdateContainerService,
+        OperationTypeUpdateDistribution,
+        OperationTypeUpdateDistributionBundle,
+        OperationTypeUpdateDomainEntry,
+        OperationTypeUpdateLoadBalancerAttribute,
+        OperationTypeUpdateRelationalDatabase,
+        OperationTypeUpdateRelationalDatabaseParameters
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperationType = OperationType' (CI Text)
+newtype OperationType = OperationType'
+  { fromOperationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllocateStaticIP :: OperationType
-pattern AllocateStaticIP = OperationType' "AllocateStaticIp"
+pattern OperationTypeAllocateStaticIp :: OperationType
+pattern OperationTypeAllocateStaticIp = OperationType' "AllocateStaticIp"
 
-pattern AttachCertificateToDistribution :: OperationType
-pattern AttachCertificateToDistribution = OperationType' "AttachCertificateToDistribution"
+pattern OperationTypeAttachCertificateToDistribution :: OperationType
+pattern OperationTypeAttachCertificateToDistribution = OperationType' "AttachCertificateToDistribution"
 
-pattern AttachDisk :: OperationType
-pattern AttachDisk = OperationType' "AttachDisk"
+pattern OperationTypeAttachDisk :: OperationType
+pattern OperationTypeAttachDisk = OperationType' "AttachDisk"
 
-pattern AttachInstancesToLoadBalancer :: OperationType
-pattern AttachInstancesToLoadBalancer = OperationType' "AttachInstancesToLoadBalancer"
+pattern OperationTypeAttachInstancesToLoadBalancer :: OperationType
+pattern OperationTypeAttachInstancesToLoadBalancer = OperationType' "AttachInstancesToLoadBalancer"
 
-pattern AttachLoadBalancerTLSCertificate :: OperationType
-pattern AttachLoadBalancerTLSCertificate = OperationType' "AttachLoadBalancerTlsCertificate"
+pattern OperationTypeAttachLoadBalancerTlsCertificate :: OperationType
+pattern OperationTypeAttachLoadBalancerTlsCertificate = OperationType' "AttachLoadBalancerTlsCertificate"
 
-pattern AttachStaticIP :: OperationType
-pattern AttachStaticIP = OperationType' "AttachStaticIp"
+pattern OperationTypeAttachStaticIp :: OperationType
+pattern OperationTypeAttachStaticIp = OperationType' "AttachStaticIp"
 
-pattern CloseInstancePublicPorts :: OperationType
-pattern CloseInstancePublicPorts = OperationType' "CloseInstancePublicPorts"
+pattern OperationTypeCloseInstancePublicPorts :: OperationType
+pattern OperationTypeCloseInstancePublicPorts = OperationType' "CloseInstancePublicPorts"
 
-pattern CreateCertificate :: OperationType
-pattern CreateCertificate = OperationType' "CreateCertificate"
+pattern OperationTypeCreateCertificate :: OperationType
+pattern OperationTypeCreateCertificate = OperationType' "CreateCertificate"
 
-pattern CreateContactMethod :: OperationType
-pattern CreateContactMethod = OperationType' "CreateContactMethod"
+pattern OperationTypeCreateContactMethod :: OperationType
+pattern OperationTypeCreateContactMethod = OperationType' "CreateContactMethod"
 
-pattern CreateContainerService :: OperationType
-pattern CreateContainerService = OperationType' "CreateContainerService"
+pattern OperationTypeCreateContainerService :: OperationType
+pattern OperationTypeCreateContainerService = OperationType' "CreateContainerService"
 
-pattern CreateContainerServiceDeployment :: OperationType
-pattern CreateContainerServiceDeployment = OperationType' "CreateContainerServiceDeployment"
+pattern OperationTypeCreateContainerServiceDeployment :: OperationType
+pattern OperationTypeCreateContainerServiceDeployment = OperationType' "CreateContainerServiceDeployment"
 
-pattern CreateContainerServiceRegistryLogin :: OperationType
-pattern CreateContainerServiceRegistryLogin = OperationType' "CreateContainerServiceRegistryLogin"
+pattern OperationTypeCreateContainerServiceRegistryLogin :: OperationType
+pattern OperationTypeCreateContainerServiceRegistryLogin = OperationType' "CreateContainerServiceRegistryLogin"
 
-pattern CreateDisk :: OperationType
-pattern CreateDisk = OperationType' "CreateDisk"
+pattern OperationTypeCreateDisk :: OperationType
+pattern OperationTypeCreateDisk = OperationType' "CreateDisk"
 
-pattern CreateDiskFromSnapshot :: OperationType
-pattern CreateDiskFromSnapshot = OperationType' "CreateDiskFromSnapshot"
+pattern OperationTypeCreateDiskFromSnapshot :: OperationType
+pattern OperationTypeCreateDiskFromSnapshot = OperationType' "CreateDiskFromSnapshot"
 
-pattern CreateDiskSnapshot :: OperationType
-pattern CreateDiskSnapshot = OperationType' "CreateDiskSnapshot"
+pattern OperationTypeCreateDiskSnapshot :: OperationType
+pattern OperationTypeCreateDiskSnapshot = OperationType' "CreateDiskSnapshot"
 
-pattern CreateDistribution :: OperationType
-pattern CreateDistribution = OperationType' "CreateDistribution"
+pattern OperationTypeCreateDistribution :: OperationType
+pattern OperationTypeCreateDistribution = OperationType' "CreateDistribution"
 
-pattern CreateDomain :: OperationType
-pattern CreateDomain = OperationType' "CreateDomain"
+pattern OperationTypeCreateDomain :: OperationType
+pattern OperationTypeCreateDomain = OperationType' "CreateDomain"
 
-pattern CreateInstance :: OperationType
-pattern CreateInstance = OperationType' "CreateInstance"
+pattern OperationTypeCreateInstance :: OperationType
+pattern OperationTypeCreateInstance = OperationType' "CreateInstance"
 
-pattern CreateInstanceSnapshot :: OperationType
-pattern CreateInstanceSnapshot = OperationType' "CreateInstanceSnapshot"
+pattern OperationTypeCreateInstanceSnapshot :: OperationType
+pattern OperationTypeCreateInstanceSnapshot = OperationType' "CreateInstanceSnapshot"
 
-pattern CreateInstancesFromSnapshot :: OperationType
-pattern CreateInstancesFromSnapshot = OperationType' "CreateInstancesFromSnapshot"
+pattern OperationTypeCreateInstancesFromSnapshot :: OperationType
+pattern OperationTypeCreateInstancesFromSnapshot = OperationType' "CreateInstancesFromSnapshot"
 
-pattern CreateLoadBalancer :: OperationType
-pattern CreateLoadBalancer = OperationType' "CreateLoadBalancer"
+pattern OperationTypeCreateLoadBalancer :: OperationType
+pattern OperationTypeCreateLoadBalancer = OperationType' "CreateLoadBalancer"
 
-pattern CreateLoadBalancerTLSCertificate :: OperationType
-pattern CreateLoadBalancerTLSCertificate = OperationType' "CreateLoadBalancerTlsCertificate"
+pattern OperationTypeCreateLoadBalancerTlsCertificate :: OperationType
+pattern OperationTypeCreateLoadBalancerTlsCertificate = OperationType' "CreateLoadBalancerTlsCertificate"
 
-pattern CreateRelationalDatabase :: OperationType
-pattern CreateRelationalDatabase = OperationType' "CreateRelationalDatabase"
+pattern OperationTypeCreateRelationalDatabase :: OperationType
+pattern OperationTypeCreateRelationalDatabase = OperationType' "CreateRelationalDatabase"
 
-pattern CreateRelationalDatabaseFromSnapshot :: OperationType
-pattern CreateRelationalDatabaseFromSnapshot = OperationType' "CreateRelationalDatabaseFromSnapshot"
+pattern OperationTypeCreateRelationalDatabaseFromSnapshot :: OperationType
+pattern OperationTypeCreateRelationalDatabaseFromSnapshot = OperationType' "CreateRelationalDatabaseFromSnapshot"
 
-pattern CreateRelationalDatabaseSnapshot :: OperationType
-pattern CreateRelationalDatabaseSnapshot = OperationType' "CreateRelationalDatabaseSnapshot"
+pattern OperationTypeCreateRelationalDatabaseSnapshot :: OperationType
+pattern OperationTypeCreateRelationalDatabaseSnapshot = OperationType' "CreateRelationalDatabaseSnapshot"
 
-pattern DeleteAlarm :: OperationType
-pattern DeleteAlarm = OperationType' "DeleteAlarm"
+pattern OperationTypeDeleteAlarm :: OperationType
+pattern OperationTypeDeleteAlarm = OperationType' "DeleteAlarm"
 
-pattern DeleteCertificate :: OperationType
-pattern DeleteCertificate = OperationType' "DeleteCertificate"
+pattern OperationTypeDeleteCertificate :: OperationType
+pattern OperationTypeDeleteCertificate = OperationType' "DeleteCertificate"
 
-pattern DeleteContactMethod :: OperationType
-pattern DeleteContactMethod = OperationType' "DeleteContactMethod"
+pattern OperationTypeDeleteContactMethod :: OperationType
+pattern OperationTypeDeleteContactMethod = OperationType' "DeleteContactMethod"
 
-pattern DeleteContainerImage :: OperationType
-pattern DeleteContainerImage = OperationType' "DeleteContainerImage"
+pattern OperationTypeDeleteContainerImage :: OperationType
+pattern OperationTypeDeleteContainerImage = OperationType' "DeleteContainerImage"
 
-pattern DeleteContainerService :: OperationType
-pattern DeleteContainerService = OperationType' "DeleteContainerService"
+pattern OperationTypeDeleteContainerService :: OperationType
+pattern OperationTypeDeleteContainerService = OperationType' "DeleteContainerService"
 
-pattern DeleteDisk :: OperationType
-pattern DeleteDisk = OperationType' "DeleteDisk"
+pattern OperationTypeDeleteDisk :: OperationType
+pattern OperationTypeDeleteDisk = OperationType' "DeleteDisk"
 
-pattern DeleteDiskSnapshot :: OperationType
-pattern DeleteDiskSnapshot = OperationType' "DeleteDiskSnapshot"
+pattern OperationTypeDeleteDiskSnapshot :: OperationType
+pattern OperationTypeDeleteDiskSnapshot = OperationType' "DeleteDiskSnapshot"
 
-pattern DeleteDistribution :: OperationType
-pattern DeleteDistribution = OperationType' "DeleteDistribution"
+pattern OperationTypeDeleteDistribution :: OperationType
+pattern OperationTypeDeleteDistribution = OperationType' "DeleteDistribution"
 
-pattern DeleteDomain :: OperationType
-pattern DeleteDomain = OperationType' "DeleteDomain"
+pattern OperationTypeDeleteDomain :: OperationType
+pattern OperationTypeDeleteDomain = OperationType' "DeleteDomain"
 
-pattern DeleteDomainEntry :: OperationType
-pattern DeleteDomainEntry = OperationType' "DeleteDomainEntry"
+pattern OperationTypeDeleteDomainEntry :: OperationType
+pattern OperationTypeDeleteDomainEntry = OperationType' "DeleteDomainEntry"
 
-pattern DeleteInstance :: OperationType
-pattern DeleteInstance = OperationType' "DeleteInstance"
+pattern OperationTypeDeleteInstance :: OperationType
+pattern OperationTypeDeleteInstance = OperationType' "DeleteInstance"
 
-pattern DeleteInstanceSnapshot :: OperationType
-pattern DeleteInstanceSnapshot = OperationType' "DeleteInstanceSnapshot"
+pattern OperationTypeDeleteInstanceSnapshot :: OperationType
+pattern OperationTypeDeleteInstanceSnapshot = OperationType' "DeleteInstanceSnapshot"
 
-pattern DeleteKnownHostKeys :: OperationType
-pattern DeleteKnownHostKeys = OperationType' "DeleteKnownHostKeys"
+pattern OperationTypeDeleteKnownHostKeys :: OperationType
+pattern OperationTypeDeleteKnownHostKeys = OperationType' "DeleteKnownHostKeys"
 
-pattern DeleteLoadBalancer :: OperationType
-pattern DeleteLoadBalancer = OperationType' "DeleteLoadBalancer"
+pattern OperationTypeDeleteLoadBalancer :: OperationType
+pattern OperationTypeDeleteLoadBalancer = OperationType' "DeleteLoadBalancer"
 
-pattern DeleteLoadBalancerTLSCertificate :: OperationType
-pattern DeleteLoadBalancerTLSCertificate = OperationType' "DeleteLoadBalancerTlsCertificate"
+pattern OperationTypeDeleteLoadBalancerTlsCertificate :: OperationType
+pattern OperationTypeDeleteLoadBalancerTlsCertificate = OperationType' "DeleteLoadBalancerTlsCertificate"
 
-pattern DeleteRelationalDatabase :: OperationType
-pattern DeleteRelationalDatabase = OperationType' "DeleteRelationalDatabase"
+pattern OperationTypeDeleteRelationalDatabase :: OperationType
+pattern OperationTypeDeleteRelationalDatabase = OperationType' "DeleteRelationalDatabase"
 
-pattern DeleteRelationalDatabaseSnapshot :: OperationType
-pattern DeleteRelationalDatabaseSnapshot = OperationType' "DeleteRelationalDatabaseSnapshot"
+pattern OperationTypeDeleteRelationalDatabaseSnapshot :: OperationType
+pattern OperationTypeDeleteRelationalDatabaseSnapshot = OperationType' "DeleteRelationalDatabaseSnapshot"
 
-pattern DetachCertificateFromDistribution :: OperationType
-pattern DetachCertificateFromDistribution = OperationType' "DetachCertificateFromDistribution"
+pattern OperationTypeDetachCertificateFromDistribution :: OperationType
+pattern OperationTypeDetachCertificateFromDistribution = OperationType' "DetachCertificateFromDistribution"
 
-pattern DetachDisk :: OperationType
-pattern DetachDisk = OperationType' "DetachDisk"
+pattern OperationTypeDetachDisk :: OperationType
+pattern OperationTypeDetachDisk = OperationType' "DetachDisk"
 
-pattern DetachInstancesFromLoadBalancer :: OperationType
-pattern DetachInstancesFromLoadBalancer = OperationType' "DetachInstancesFromLoadBalancer"
+pattern OperationTypeDetachInstancesFromLoadBalancer :: OperationType
+pattern OperationTypeDetachInstancesFromLoadBalancer = OperationType' "DetachInstancesFromLoadBalancer"
 
-pattern DetachStaticIP :: OperationType
-pattern DetachStaticIP = OperationType' "DetachStaticIp"
+pattern OperationTypeDetachStaticIp :: OperationType
+pattern OperationTypeDetachStaticIp = OperationType' "DetachStaticIp"
 
-pattern DisableAddOn :: OperationType
-pattern DisableAddOn = OperationType' "DisableAddOn"
+pattern OperationTypeDisableAddOn :: OperationType
+pattern OperationTypeDisableAddOn = OperationType' "DisableAddOn"
 
-pattern EnableAddOn :: OperationType
-pattern EnableAddOn = OperationType' "EnableAddOn"
+pattern OperationTypeEnableAddOn :: OperationType
+pattern OperationTypeEnableAddOn = OperationType' "EnableAddOn"
 
-pattern GetAlarms :: OperationType
-pattern GetAlarms = OperationType' "GetAlarms"
+pattern OperationTypeGetAlarms :: OperationType
+pattern OperationTypeGetAlarms = OperationType' "GetAlarms"
 
-pattern GetContactMethods :: OperationType
-pattern GetContactMethods = OperationType' "GetContactMethods"
+pattern OperationTypeGetContactMethods :: OperationType
+pattern OperationTypeGetContactMethods = OperationType' "GetContactMethods"
 
-pattern OpenInstancePublicPorts :: OperationType
-pattern OpenInstancePublicPorts = OperationType' "OpenInstancePublicPorts"
+pattern OperationTypeOpenInstancePublicPorts :: OperationType
+pattern OperationTypeOpenInstancePublicPorts = OperationType' "OpenInstancePublicPorts"
 
-pattern PutAlarm :: OperationType
-pattern PutAlarm = OperationType' "PutAlarm"
+pattern OperationTypePutAlarm :: OperationType
+pattern OperationTypePutAlarm = OperationType' "PutAlarm"
 
-pattern PutInstancePublicPorts :: OperationType
-pattern PutInstancePublicPorts = OperationType' "PutInstancePublicPorts"
+pattern OperationTypePutInstancePublicPorts :: OperationType
+pattern OperationTypePutInstancePublicPorts = OperationType' "PutInstancePublicPorts"
 
-pattern RebootInstance :: OperationType
-pattern RebootInstance = OperationType' "RebootInstance"
+pattern OperationTypeRebootInstance :: OperationType
+pattern OperationTypeRebootInstance = OperationType' "RebootInstance"
 
-pattern RebootRelationalDatabase :: OperationType
-pattern RebootRelationalDatabase = OperationType' "RebootRelationalDatabase"
+pattern OperationTypeRebootRelationalDatabase :: OperationType
+pattern OperationTypeRebootRelationalDatabase = OperationType' "RebootRelationalDatabase"
 
-pattern RegisterContainerImage :: OperationType
-pattern RegisterContainerImage = OperationType' "RegisterContainerImage"
+pattern OperationTypeRegisterContainerImage :: OperationType
+pattern OperationTypeRegisterContainerImage = OperationType' "RegisterContainerImage"
 
-pattern ReleaseStaticIP :: OperationType
-pattern ReleaseStaticIP = OperationType' "ReleaseStaticIp"
+pattern OperationTypeReleaseStaticIp :: OperationType
+pattern OperationTypeReleaseStaticIp = OperationType' "ReleaseStaticIp"
 
-pattern ResetDistributionCache :: OperationType
-pattern ResetDistributionCache = OperationType' "ResetDistributionCache"
+pattern OperationTypeResetDistributionCache :: OperationType
+pattern OperationTypeResetDistributionCache = OperationType' "ResetDistributionCache"
 
-pattern SendContactMethodVerification :: OperationType
-pattern SendContactMethodVerification = OperationType' "SendContactMethodVerification"
+pattern OperationTypeSendContactMethodVerification :: OperationType
+pattern OperationTypeSendContactMethodVerification = OperationType' "SendContactMethodVerification"
 
-pattern SetIPAddressType :: OperationType
-pattern SetIPAddressType = OperationType' "SetIpAddressType"
+pattern OperationTypeSetIpAddressType :: OperationType
+pattern OperationTypeSetIpAddressType = OperationType' "SetIpAddressType"
 
-pattern StartInstance :: OperationType
-pattern StartInstance = OperationType' "StartInstance"
+pattern OperationTypeStartInstance :: OperationType
+pattern OperationTypeStartInstance = OperationType' "StartInstance"
 
-pattern StartRelationalDatabase :: OperationType
-pattern StartRelationalDatabase = OperationType' "StartRelationalDatabase"
+pattern OperationTypeStartRelationalDatabase :: OperationType
+pattern OperationTypeStartRelationalDatabase = OperationType' "StartRelationalDatabase"
 
-pattern StopInstance :: OperationType
-pattern StopInstance = OperationType' "StopInstance"
+pattern OperationTypeStopInstance :: OperationType
+pattern OperationTypeStopInstance = OperationType' "StopInstance"
 
-pattern StopRelationalDatabase :: OperationType
-pattern StopRelationalDatabase = OperationType' "StopRelationalDatabase"
+pattern OperationTypeStopRelationalDatabase :: OperationType
+pattern OperationTypeStopRelationalDatabase = OperationType' "StopRelationalDatabase"
 
-pattern TestAlarm :: OperationType
-pattern TestAlarm = OperationType' "TestAlarm"
+pattern OperationTypeTestAlarm :: OperationType
+pattern OperationTypeTestAlarm = OperationType' "TestAlarm"
 
-pattern UpdateContainerService :: OperationType
-pattern UpdateContainerService = OperationType' "UpdateContainerService"
+pattern OperationTypeUpdateContainerService :: OperationType
+pattern OperationTypeUpdateContainerService = OperationType' "UpdateContainerService"
 
-pattern UpdateDistribution :: OperationType
-pattern UpdateDistribution = OperationType' "UpdateDistribution"
+pattern OperationTypeUpdateDistribution :: OperationType
+pattern OperationTypeUpdateDistribution = OperationType' "UpdateDistribution"
 
-pattern UpdateDistributionBundle :: OperationType
-pattern UpdateDistributionBundle = OperationType' "UpdateDistributionBundle"
+pattern OperationTypeUpdateDistributionBundle :: OperationType
+pattern OperationTypeUpdateDistributionBundle = OperationType' "UpdateDistributionBundle"
 
-pattern UpdateDomainEntry :: OperationType
-pattern UpdateDomainEntry = OperationType' "UpdateDomainEntry"
+pattern OperationTypeUpdateDomainEntry :: OperationType
+pattern OperationTypeUpdateDomainEntry = OperationType' "UpdateDomainEntry"
 
-pattern UpdateLoadBalancerAttribute :: OperationType
-pattern UpdateLoadBalancerAttribute = OperationType' "UpdateLoadBalancerAttribute"
+pattern OperationTypeUpdateLoadBalancerAttribute :: OperationType
+pattern OperationTypeUpdateLoadBalancerAttribute = OperationType' "UpdateLoadBalancerAttribute"
 
-pattern UpdateRelationalDatabase :: OperationType
-pattern UpdateRelationalDatabase = OperationType' "UpdateRelationalDatabase"
+pattern OperationTypeUpdateRelationalDatabase :: OperationType
+pattern OperationTypeUpdateRelationalDatabase = OperationType' "UpdateRelationalDatabase"
 
-pattern UpdateRelationalDatabaseParameters :: OperationType
-pattern UpdateRelationalDatabaseParameters = OperationType' "UpdateRelationalDatabaseParameters"
+pattern OperationTypeUpdateRelationalDatabaseParameters :: OperationType
+pattern OperationTypeUpdateRelationalDatabaseParameters = OperationType' "UpdateRelationalDatabaseParameters"
 
 {-# COMPLETE
-  AllocateStaticIP,
-  AttachCertificateToDistribution,
-  AttachDisk,
-  AttachInstancesToLoadBalancer,
-  AttachLoadBalancerTLSCertificate,
-  AttachStaticIP,
-  CloseInstancePublicPorts,
-  CreateCertificate,
-  CreateContactMethod,
-  CreateContainerService,
-  CreateContainerServiceDeployment,
-  CreateContainerServiceRegistryLogin,
-  CreateDisk,
-  CreateDiskFromSnapshot,
-  CreateDiskSnapshot,
-  CreateDistribution,
-  CreateDomain,
-  CreateInstance,
-  CreateInstanceSnapshot,
-  CreateInstancesFromSnapshot,
-  CreateLoadBalancer,
-  CreateLoadBalancerTLSCertificate,
-  CreateRelationalDatabase,
-  CreateRelationalDatabaseFromSnapshot,
-  CreateRelationalDatabaseSnapshot,
-  DeleteAlarm,
-  DeleteCertificate,
-  DeleteContactMethod,
-  DeleteContainerImage,
-  DeleteContainerService,
-  DeleteDisk,
-  DeleteDiskSnapshot,
-  DeleteDistribution,
-  DeleteDomain,
-  DeleteDomainEntry,
-  DeleteInstance,
-  DeleteInstanceSnapshot,
-  DeleteKnownHostKeys,
-  DeleteLoadBalancer,
-  DeleteLoadBalancerTLSCertificate,
-  DeleteRelationalDatabase,
-  DeleteRelationalDatabaseSnapshot,
-  DetachCertificateFromDistribution,
-  DetachDisk,
-  DetachInstancesFromLoadBalancer,
-  DetachStaticIP,
-  DisableAddOn,
-  EnableAddOn,
-  GetAlarms,
-  GetContactMethods,
-  OpenInstancePublicPorts,
-  PutAlarm,
-  PutInstancePublicPorts,
-  RebootInstance,
-  RebootRelationalDatabase,
-  RegisterContainerImage,
-  ReleaseStaticIP,
-  ResetDistributionCache,
-  SendContactMethodVerification,
-  SetIPAddressType,
-  StartInstance,
-  StartRelationalDatabase,
-  StopInstance,
-  StopRelationalDatabase,
-  TestAlarm,
-  UpdateContainerService,
-  UpdateDistribution,
-  UpdateDistributionBundle,
-  UpdateDomainEntry,
-  UpdateLoadBalancerAttribute,
-  UpdateRelationalDatabase,
-  UpdateRelationalDatabaseParameters,
+  OperationTypeAllocateStaticIp,
+  OperationTypeAttachCertificateToDistribution,
+  OperationTypeAttachDisk,
+  OperationTypeAttachInstancesToLoadBalancer,
+  OperationTypeAttachLoadBalancerTlsCertificate,
+  OperationTypeAttachStaticIp,
+  OperationTypeCloseInstancePublicPorts,
+  OperationTypeCreateCertificate,
+  OperationTypeCreateContactMethod,
+  OperationTypeCreateContainerService,
+  OperationTypeCreateContainerServiceDeployment,
+  OperationTypeCreateContainerServiceRegistryLogin,
+  OperationTypeCreateDisk,
+  OperationTypeCreateDiskFromSnapshot,
+  OperationTypeCreateDiskSnapshot,
+  OperationTypeCreateDistribution,
+  OperationTypeCreateDomain,
+  OperationTypeCreateInstance,
+  OperationTypeCreateInstanceSnapshot,
+  OperationTypeCreateInstancesFromSnapshot,
+  OperationTypeCreateLoadBalancer,
+  OperationTypeCreateLoadBalancerTlsCertificate,
+  OperationTypeCreateRelationalDatabase,
+  OperationTypeCreateRelationalDatabaseFromSnapshot,
+  OperationTypeCreateRelationalDatabaseSnapshot,
+  OperationTypeDeleteAlarm,
+  OperationTypeDeleteCertificate,
+  OperationTypeDeleteContactMethod,
+  OperationTypeDeleteContainerImage,
+  OperationTypeDeleteContainerService,
+  OperationTypeDeleteDisk,
+  OperationTypeDeleteDiskSnapshot,
+  OperationTypeDeleteDistribution,
+  OperationTypeDeleteDomain,
+  OperationTypeDeleteDomainEntry,
+  OperationTypeDeleteInstance,
+  OperationTypeDeleteInstanceSnapshot,
+  OperationTypeDeleteKnownHostKeys,
+  OperationTypeDeleteLoadBalancer,
+  OperationTypeDeleteLoadBalancerTlsCertificate,
+  OperationTypeDeleteRelationalDatabase,
+  OperationTypeDeleteRelationalDatabaseSnapshot,
+  OperationTypeDetachCertificateFromDistribution,
+  OperationTypeDetachDisk,
+  OperationTypeDetachInstancesFromLoadBalancer,
+  OperationTypeDetachStaticIp,
+  OperationTypeDisableAddOn,
+  OperationTypeEnableAddOn,
+  OperationTypeGetAlarms,
+  OperationTypeGetContactMethods,
+  OperationTypeOpenInstancePublicPorts,
+  OperationTypePutAlarm,
+  OperationTypePutInstancePublicPorts,
+  OperationTypeRebootInstance,
+  OperationTypeRebootRelationalDatabase,
+  OperationTypeRegisterContainerImage,
+  OperationTypeReleaseStaticIp,
+  OperationTypeResetDistributionCache,
+  OperationTypeSendContactMethodVerification,
+  OperationTypeSetIpAddressType,
+  OperationTypeStartInstance,
+  OperationTypeStartRelationalDatabase,
+  OperationTypeStopInstance,
+  OperationTypeStopRelationalDatabase,
+  OperationTypeTestAlarm,
+  OperationTypeUpdateContainerService,
+  OperationTypeUpdateDistribution,
+  OperationTypeUpdateDistributionBundle,
+  OperationTypeUpdateDomainEntry,
+  OperationTypeUpdateLoadBalancerAttribute,
+  OperationTypeUpdateRelationalDatabase,
+  OperationTypeUpdateRelationalDatabaseParameters,
   OperationType'
   #-}
 
-instance FromText OperationType where
-  parser = (OperationType' . mk) <$> takeText
+instance Prelude.FromText OperationType where
+  parser = OperationType' Prelude.<$> Prelude.takeText
 
-instance ToText OperationType where
-  toText (OperationType' ci) = original ci
+instance Prelude.ToText OperationType where
+  toText (OperationType' x) = x
 
-instance Hashable OperationType
+instance Prelude.Hashable OperationType
 
-instance NFData OperationType
+instance Prelude.NFData OperationType
 
-instance ToByteString OperationType
+instance Prelude.ToByteString OperationType
 
-instance ToQuery OperationType
+instance Prelude.ToQuery OperationType
 
-instance ToHeader OperationType
+instance Prelude.ToHeader OperationType
 
-instance FromJSON OperationType where
-  parseJSON = parseJSONText "OperationType"
+instance Prelude.FromJSON OperationType where
+  parseJSON = Prelude.parseJSONText "OperationType"

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types
   ( -- * Service Configuration
-    lightsail,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -91,9 +94,6 @@ module Network.AWS.Lightsail.Types
     -- * HeaderEnum
     HeaderEnum (..),
 
-    -- * IPAddressType
-    IPAddressType (..),
-
     -- * InstanceAccessProtocol
     InstanceAccessProtocol (..),
 
@@ -112,6 +112,9 @@ module Network.AWS.Lightsail.Types
     -- * InstanceSnapshotState
     InstanceSnapshotState (..),
 
+    -- * IpAddressType
+    IpAddressType (..),
+
     -- * LoadBalancerAttributeName
     LoadBalancerAttributeName (..),
 
@@ -124,20 +127,20 @@ module Network.AWS.Lightsail.Types
     -- * LoadBalancerState
     LoadBalancerState (..),
 
-    -- * LoadBalancerTLSCertificateDomainStatus
-    LoadBalancerTLSCertificateDomainStatus (..),
+    -- * LoadBalancerTlsCertificateDomainStatus
+    LoadBalancerTlsCertificateDomainStatus (..),
 
-    -- * LoadBalancerTLSCertificateFailureReason
-    LoadBalancerTLSCertificateFailureReason (..),
+    -- * LoadBalancerTlsCertificateFailureReason
+    LoadBalancerTlsCertificateFailureReason (..),
 
-    -- * LoadBalancerTLSCertificateRenewalStatus
-    LoadBalancerTLSCertificateRenewalStatus (..),
+    -- * LoadBalancerTlsCertificateRenewalStatus
+    LoadBalancerTlsCertificateRenewalStatus (..),
 
-    -- * LoadBalancerTLSCertificateRevocationReason
-    LoadBalancerTLSCertificateRevocationReason (..),
+    -- * LoadBalancerTlsCertificateRevocationReason
+    LoadBalancerTlsCertificateRevocationReason (..),
 
-    -- * LoadBalancerTLSCertificateStatus
-    LoadBalancerTLSCertificateStatus (..),
+    -- * LoadBalancerTlsCertificateStatus
+    LoadBalancerTlsCertificateStatus (..),
 
     -- * MetricName
     MetricName (..),
@@ -195,928 +198,359 @@ module Network.AWS.Lightsail.Types
 
     -- * AddOn
     AddOn (..),
-    addOn,
-    aoSnapshotTimeOfDay,
-    aoStatus,
-    aoName,
-    aoNextSnapshotTimeOfDay,
+    newAddOn,
 
     -- * AddOnRequest
     AddOnRequest (..),
-    addOnRequest,
-    aorAutoSnapshotAddOnRequest,
-    aorAddOnType,
+    newAddOnRequest,
 
     -- * Alarm
     Alarm (..),
-    alarm,
-    aDatapointsToAlarm,
-    aThreshold,
-    aComparisonOperator,
-    aMonitoredResourceInfo,
-    aNotificationTriggers,
-    aUnit,
-    aMetricName,
-    aNotificationEnabled,
-    aCreatedAt,
-    aArn,
-    aTreatMissingData,
-    aResourceType,
-    aSupportCode,
-    aState,
-    aName,
-    aStatistic,
-    aEvaluationPeriods,
-    aPeriod,
-    aLocation,
-    aContactProtocols,
+    newAlarm,
 
     -- * AttachedDisk
     AttachedDisk (..),
-    attachedDisk,
-    adSizeInGb,
-    adPath,
+    newAttachedDisk,
 
     -- * AutoSnapshotAddOnRequest
     AutoSnapshotAddOnRequest (..),
-    autoSnapshotAddOnRequest,
-    asaorSnapshotTimeOfDay,
+    newAutoSnapshotAddOnRequest,
 
     -- * AutoSnapshotDetails
     AutoSnapshotDetails (..),
-    autoSnapshotDetails,
-    asdStatus,
-    asdCreatedAt,
-    asdDate,
-    asdFromAttachedDisks,
+    newAutoSnapshotDetails,
 
     -- * AvailabilityZone
     AvailabilityZone (..),
-    availabilityZone,
-    azZoneName,
-    azState,
+    newAvailabilityZone,
 
     -- * Blueprint
     Blueprint (..),
-    blueprint,
-    bPlatform,
-    bIsActive,
-    bLicenseURL,
-    bProductURL,
-    bVersion,
-    bBlueprintId,
-    bVersionCode,
-    bName,
-    bGroup,
-    bDescription,
-    bType,
-    bMinPower,
+    newBlueprint,
 
     -- * Bundle
     Bundle (..),
-    bundle,
-    bunPower,
-    bunInstanceType,
-    bunRamSizeInGb,
-    bunBundleId,
-    bunIsActive,
-    bunName,
-    bunTransferPerMonthInGb,
-    bunCpuCount,
-    bunPrice,
-    bunSupportedPlatforms,
-    bunDiskSizeInGb,
+    newBundle,
 
     -- * CacheBehavior
     CacheBehavior (..),
-    cacheBehavior,
-    cbBehavior,
+    newCacheBehavior,
 
     -- * CacheBehaviorPerPath
     CacheBehaviorPerPath (..),
-    cacheBehaviorPerPath,
-    cbppBehavior,
-    cbppPath,
+    newCacheBehaviorPerPath,
 
     -- * CacheSettings
     CacheSettings (..),
-    cacheSettings,
-    csMaximumTTL,
-    csForwardedHeaders,
-    csDefaultTTL,
-    csCachedHTTPMethods,
-    csAllowedHTTPMethods,
-    csForwardedQueryStrings,
-    csForwardedCookies,
-    csMinimumTTL,
+    newCacheSettings,
 
     -- * Certificate
     Certificate (..),
-    certificate,
-    cerStatus,
-    cerNotBefore,
-    cerInUseResourceCount,
-    cerCreatedAt,
-    cerArn,
-    cerEligibleToRenew,
-    cerSupportCode,
-    cerSubjectAlternativeNames,
-    cerName,
-    cerDomainName,
-    cerRevocationReason,
-    cerRevokedAt,
-    cerIssuerCA,
-    cerNotAfter,
-    cerTags,
-    cerSerialNumber,
-    cerIssuedAt,
-    cerKeyAlgorithm,
-    cerDomainValidationRecords,
-    cerRequestFailureReason,
-    cerRenewalSummary,
+    newCertificate,
 
     -- * CertificateSummary
     CertificateSummary (..),
-    certificateSummary,
-    cCertificateARN,
-    cDomainName,
-    cCertificateDetail,
-    cTags,
-    cCertificateName,
+    newCertificateSummary,
 
     -- * CloudFormationStackRecord
     CloudFormationStackRecord (..),
-    cloudFormationStackRecord,
-    cfsrCreatedAt,
-    cfsrArn,
-    cfsrResourceType,
-    cfsrState,
-    cfsrName,
-    cfsrSourceInfo,
-    cfsrLocation,
-    cfsrDestinationInfo,
+    newCloudFormationStackRecord,
 
     -- * CloudFormationStackRecordSourceInfo
     CloudFormationStackRecordSourceInfo (..),
-    cloudFormationStackRecordSourceInfo,
-    cfsrsiArn,
-    cfsrsiResourceType,
-    cfsrsiName,
+    newCloudFormationStackRecordSourceInfo,
 
     -- * ContactMethod
     ContactMethod (..),
-    contactMethod,
-    cmStatus,
-    cmContactEndpoint,
-    cmCreatedAt,
-    cmArn,
-    cmResourceType,
-    cmSupportCode,
-    cmName,
-    cmProtocol,
-    cmLocation,
+    newContactMethod,
 
     -- * Container
     Container (..),
-    container,
-    cEnvironment,
-    cPorts,
-    cImage,
-    cCommand,
+    newContainer,
 
     -- * ContainerImage
     ContainerImage (..),
-    containerImage,
-    ciCreatedAt,
-    ciImage,
-    ciDigest,
+    newContainerImage,
 
     -- * ContainerService
     ContainerService (..),
-    containerService,
-    csPower,
-    csCurrentDeployment,
-    csCreatedAt,
-    csArn,
-    csContainerServiceName,
-    csPrivateDomainName,
-    csResourceType,
-    csState,
-    csPrincipalARN,
-    csTags,
-    csNextDeployment,
-    csUrl,
-    csScale,
-    csPublicDomainNames,
-    csLocation,
-    csPowerId,
-    csIsDisabled,
+    newContainerService,
 
     -- * ContainerServiceDeployment
     ContainerServiceDeployment (..),
-    containerServiceDeployment,
-    csdCreatedAt,
-    csdVersion,
-    csdPublicEndpoint,
-    csdState,
-    csdContainers,
+    newContainerServiceDeployment,
 
     -- * ContainerServiceDeploymentRequest
     ContainerServiceDeploymentRequest (..),
-    containerServiceDeploymentRequest,
-    csdrPublicEndpoint,
-    csdrContainers,
+    newContainerServiceDeploymentRequest,
 
     -- * ContainerServiceEndpoint
     ContainerServiceEndpoint (..),
-    containerServiceEndpoint,
-    cseContainerPort,
-    cseContainerName,
-    cseHealthCheck,
+    newContainerServiceEndpoint,
 
     -- * ContainerServiceHealthCheckConfig
     ContainerServiceHealthCheckConfig (..),
-    containerServiceHealthCheckConfig,
-    cshccIntervalSeconds,
-    cshccHealthyThreshold,
-    cshccUnhealthyThreshold,
-    cshccTimeoutSeconds,
-    cshccPath,
-    cshccSuccessCodes,
+    newContainerServiceHealthCheckConfig,
 
     -- * ContainerServiceLogEvent
     ContainerServiceLogEvent (..),
-    containerServiceLogEvent,
-    csleMessage,
-    csleCreatedAt,
+    newContainerServiceLogEvent,
 
     -- * ContainerServicePower
     ContainerServicePower (..),
-    containerServicePower,
-    cspRamSizeInGb,
-    cspIsActive,
-    cspName,
-    cspCpuCount,
-    cspPrice,
-    cspPowerId,
+    newContainerServicePower,
 
     -- * ContainerServiceRegistryLogin
     ContainerServiceRegistryLogin (..),
-    containerServiceRegistryLogin,
-    csrlExpiresAt,
-    csrlRegistry,
-    csrlPassword,
-    csrlUsername,
+    newContainerServiceRegistryLogin,
 
     -- * CookieObject
     CookieObject (..),
-    cookieObject,
-    coCookiesAllowList,
-    coOption,
+    newCookieObject,
 
     -- * DestinationInfo
     DestinationInfo (..),
-    destinationInfo,
-    diId,
-    diService,
+    newDestinationInfo,
 
     -- * Disk
     Disk (..),
-    disk,
-    dGbInUse,
-    dAttachmentState,
-    dAddOns,
-    dIsAttached,
-    dCreatedAt,
-    dArn,
-    dResourceType,
-    dSupportCode,
-    dSizeInGb,
-    dState,
-    dName,
-    dAttachedTo,
-    dTags,
-    dIops,
-    dLocation,
-    dPath,
-    dIsSystemDisk,
+    newDisk,
 
     -- * DiskInfo
     DiskInfo (..),
-    diskInfo,
-    diSizeInGb,
-    diName,
-    diPath,
-    diIsSystemDisk,
+    newDiskInfo,
 
     -- * DiskMap
     DiskMap (..),
-    diskMap,
-    dmOriginalDiskPath,
-    dmNewDiskName,
+    newDiskMap,
 
     -- * DiskSnapshot
     DiskSnapshot (..),
-    diskSnapshot,
-    dsIsFromAutoSnapshot,
-    dsFromDiskName,
-    dsCreatedAt,
-    dsArn,
-    dsFromInstanceARN,
-    dsResourceType,
-    dsSupportCode,
-    dsSizeInGb,
-    dsState,
-    dsName,
-    dsTags,
-    dsFromDiskARN,
-    dsFromInstanceName,
-    dsLocation,
-    dsProgress,
+    newDiskSnapshot,
 
     -- * DiskSnapshotInfo
     DiskSnapshotInfo (..),
-    diskSnapshotInfo,
-    dsiSizeInGb,
+    newDiskSnapshotInfo,
 
     -- * DistributionBundle
     DistributionBundle (..),
-    distributionBundle,
-    dbBundleId,
-    dbIsActive,
-    dbName,
-    dbTransferPerMonthInGb,
-    dbPrice,
+    newDistributionBundle,
 
     -- * Domain
     Domain (..),
-    domain,
-    domCreatedAt,
-    domArn,
-    domResourceType,
-    domSupportCode,
-    domName,
-    domTags,
-    domLocation,
-    domDomainEntries,
+    newDomain,
 
     -- * DomainEntry
     DomainEntry (..),
-    domainEntry,
-    deOptions,
-    deId,
-    deName,
-    deIsAlias,
-    deTarget,
-    deType,
+    newDomainEntry,
 
     -- * DomainValidationRecord
     DomainValidationRecord (..),
-    domainValidationRecord,
-    dvrResourceRecord,
-    dvrDomainName,
+    newDomainValidationRecord,
 
     -- * EndpointRequest
     EndpointRequest (..),
-    endpointRequest,
-    erHealthCheck,
-    erContainerName,
-    erContainerPort,
+    newEndpointRequest,
 
     -- * ExportSnapshotRecord
     ExportSnapshotRecord (..),
-    exportSnapshotRecord,
-    esrCreatedAt,
-    esrArn,
-    esrResourceType,
-    esrState,
-    esrName,
-    esrSourceInfo,
-    esrLocation,
-    esrDestinationInfo,
+    newExportSnapshotRecord,
 
     -- * ExportSnapshotRecordSourceInfo
     ExportSnapshotRecordSourceInfo (..),
-    exportSnapshotRecordSourceInfo,
-    esrsiDiskSnapshotInfo,
-    esrsiCreatedAt,
-    esrsiArn,
-    esrsiResourceType,
-    esrsiName,
-    esrsiFromResourceARN,
-    esrsiInstanceSnapshotInfo,
-    esrsiFromResourceName,
+    newExportSnapshotRecordSourceInfo,
 
     -- * HeaderObject
     HeaderObject (..),
-    headerObject,
-    hoHeadersAllowList,
-    hoOption,
+    newHeaderObject,
 
     -- * HostKeyAttributes
     HostKeyAttributes (..),
-    hostKeyAttributes,
-    hkaAlgorithm,
-    hkaPublicKey,
-    hkaFingerprintSHA256,
-    hkaNotValidBefore,
-    hkaNotValidAfter,
-    hkaFingerprintSHA1,
-    hkaWitnessedAt,
+    newHostKeyAttributes,
 
     -- * InputOrigin
     InputOrigin (..),
-    inputOrigin,
-    ioRegionName,
-    ioProtocolPolicy,
-    ioName,
+    newInputOrigin,
 
     -- * Instance
     Instance (..),
-    instance',
-    iIpAddressType,
-    iIpv6Addresses,
-    iBundleId,
-    iHardware,
-    iAddOns,
-    iBlueprintName,
-    iSshKeyName,
-    iCreatedAt,
-    iArn,
-    iBlueprintId,
-    iResourceType,
-    iSupportCode,
-    iState,
-    iName,
-    iTags,
-    iNetworking,
-    iUsername,
-    iPublicIPAddress,
-    iIsStaticIP,
-    iLocation,
-    iPrivateIPAddress,
+    newInstance,
 
     -- * InstanceAccessDetails
     InstanceAccessDetails (..),
-    instanceAccessDetails,
-    iadHostKeys,
-    iadInstanceName,
-    iadExpiresAt,
-    iadPrivateKey,
-    iadCertKey,
-    iadPasswordData,
-    iadIpAddress,
-    iadPassword,
-    iadUsername,
-    iadProtocol,
+    newInstanceAccessDetails,
 
     -- * InstanceEntry
     InstanceEntry (..),
-    instanceEntry,
-    ieUserData,
-    ieSourceName,
-    ieInstanceType,
-    iePortInfoSource,
-    ieAvailabilityZone,
+    newInstanceEntry,
 
     -- * InstanceHardware
     InstanceHardware (..),
-    instanceHardware,
-    ihRamSizeInGb,
-    ihDisks,
-    ihCpuCount,
+    newInstanceHardware,
 
     -- * InstanceHealthSummary
     InstanceHealthSummary (..),
-    instanceHealthSummary,
-    ihsInstanceName,
-    ihsInstanceHealthReason,
-    ihsInstanceHealth,
+    newInstanceHealthSummary,
 
     -- * InstanceNetworking
     InstanceNetworking (..),
-    instanceNetworking,
-    inMonthlyTransfer,
-    inPorts,
+    newInstanceNetworking,
 
     -- * InstancePortInfo
     InstancePortInfo (..),
-    instancePortInfo,
-    ipiFromPort,
-    ipiCidrListAliases,
-    ipiIpv6Cidrs,
-    ipiCommonName,
-    ipiCidrs,
-    ipiAccessType,
-    ipiAccessDirection,
-    ipiProtocol,
-    ipiToPort,
-    ipiAccessFrom,
+    newInstancePortInfo,
 
     -- * InstancePortState
     InstancePortState (..),
-    instancePortState,
-    ipsFromPort,
-    ipsCidrListAliases,
-    ipsIpv6Cidrs,
-    ipsState,
-    ipsCidrs,
-    ipsProtocol,
-    ipsToPort,
+    newInstancePortState,
 
     -- * InstanceSnapshot
     InstanceSnapshot (..),
-    instanceSnapshot,
-    insIsFromAutoSnapshot,
-    insCreatedAt,
-    insArn,
-    insFromInstanceARN,
-    insResourceType,
-    insSupportCode,
-    insSizeInGb,
-    insFromBundleId,
-    insState,
-    insName,
-    insFromBlueprintId,
-    insTags,
-    insFromInstanceName,
-    insLocation,
-    insProgress,
-    insFromAttachedDisks,
+    newInstanceSnapshot,
 
     -- * InstanceSnapshotInfo
     InstanceSnapshotInfo (..),
-    instanceSnapshotInfo,
-    isiFromDiskInfo,
-    isiFromBundleId,
-    isiFromBlueprintId,
+    newInstanceSnapshotInfo,
 
     -- * InstanceState
     InstanceState (..),
-    instanceState,
-    isCode,
-    isName,
+    newInstanceState,
 
     -- * KeyPair
     KeyPair (..),
-    keyPair,
-    kpCreatedAt,
-    kpArn,
-    kpResourceType,
-    kpSupportCode,
-    kpName,
-    kpTags,
-    kpFingerprint,
-    kpLocation,
+    newKeyPair,
 
     -- * LightsailDistribution
     LightsailDistribution (..),
-    lightsailDistribution,
-    ldIsEnabled,
-    ldIpAddressType,
-    ldOrigin,
-    ldStatus,
-    ldOriginPublicDNS,
-    ldBundleId,
-    ldAlternativeDomainNames,
-    ldCreatedAt,
-    ldCacheBehaviorSettings,
-    ldArn,
-    ldResourceType,
-    ldSupportCode,
-    ldName,
-    ldDomainName,
-    ldAbleToUpdateBundle,
-    ldTags,
-    ldCacheBehaviors,
-    ldDefaultCacheBehavior,
-    ldLocation,
-    ldCertificateName,
+    newLightsailDistribution,
 
     -- * LoadBalancer
     LoadBalancer (..),
-    loadBalancer,
-    lbIpAddressType,
-    lbTlsCertificateSummaries,
-    lbInstanceHealthSummary,
-    lbPublicPorts,
-    lbConfigurationOptions,
-    lbInstancePort,
-    lbCreatedAt,
-    lbArn,
-    lbResourceType,
-    lbSupportCode,
-    lbState,
-    lbName,
-    lbHealthCheckPath,
-    lbTags,
-    lbDnsName,
-    lbProtocol,
-    lbLocation,
+    newLoadBalancer,
 
-    -- * LoadBalancerTLSCertificate
-    LoadBalancerTLSCertificate (..),
-    loadBalancerTLSCertificate,
-    lbtcStatus,
-    lbtcNotBefore,
-    lbtcSerial,
-    lbtcIsAttached,
-    lbtcCreatedAt,
-    lbtcArn,
-    lbtcResourceType,
-    lbtcSupportCode,
-    lbtcSubjectAlternativeNames,
-    lbtcName,
-    lbtcDomainName,
-    lbtcSubject,
-    lbtcFailureReason,
-    lbtcRevocationReason,
-    lbtcRevokedAt,
-    lbtcNotAfter,
-    lbtcTags,
-    lbtcSignatureAlgorithm,
-    lbtcIssuer,
-    lbtcIssuedAt,
-    lbtcKeyAlgorithm,
-    lbtcDomainValidationRecords,
-    lbtcLocation,
-    lbtcLoadBalancerName,
-    lbtcRenewalSummary,
+    -- * LoadBalancerTlsCertificate
+    LoadBalancerTlsCertificate (..),
+    newLoadBalancerTlsCertificate,
 
-    -- * LoadBalancerTLSCertificateDomainValidationOption
-    LoadBalancerTLSCertificateDomainValidationOption (..),
-    loadBalancerTLSCertificateDomainValidationOption,
-    lbtcdvoDomainName,
-    lbtcdvoValidationStatus,
+    -- * LoadBalancerTlsCertificateDomainValidationOption
+    LoadBalancerTlsCertificateDomainValidationOption (..),
+    newLoadBalancerTlsCertificateDomainValidationOption,
 
-    -- * LoadBalancerTLSCertificateDomainValidationRecord
-    LoadBalancerTLSCertificateDomainValidationRecord (..),
-    loadBalancerTLSCertificateDomainValidationRecord,
-    lbtcdvrName,
-    lbtcdvrDomainName,
-    lbtcdvrValidationStatus,
-    lbtcdvrValue,
-    lbtcdvrType,
+    -- * LoadBalancerTlsCertificateDomainValidationRecord
+    LoadBalancerTlsCertificateDomainValidationRecord (..),
+    newLoadBalancerTlsCertificateDomainValidationRecord,
 
-    -- * LoadBalancerTLSCertificateRenewalSummary
-    LoadBalancerTLSCertificateRenewalSummary (..),
-    loadBalancerTLSCertificateRenewalSummary,
-    lbtcrsDomainValidationOptions,
-    lbtcrsRenewalStatus,
+    -- * LoadBalancerTlsCertificateRenewalSummary
+    LoadBalancerTlsCertificateRenewalSummary (..),
+    newLoadBalancerTlsCertificateRenewalSummary,
 
-    -- * LoadBalancerTLSCertificateSummary
-    LoadBalancerTLSCertificateSummary (..),
-    loadBalancerTLSCertificateSummary,
-    lbtcsIsAttached,
-    lbtcsName,
+    -- * LoadBalancerTlsCertificateSummary
+    LoadBalancerTlsCertificateSummary (..),
+    newLoadBalancerTlsCertificateSummary,
 
     -- * LogEvent
     LogEvent (..),
-    logEvent,
-    leMessage,
-    leCreatedAt,
+    newLogEvent,
 
     -- * MetricDatapoint
     MetricDatapoint (..),
-    metricDatapoint,
-    mdMinimum,
-    mdUnit,
-    mdSum,
-    mdSampleCount,
-    mdTimestamp,
-    mdAverage,
-    mdMaximum,
+    newMetricDatapoint,
 
     -- * MonitoredResourceInfo
     MonitoredResourceInfo (..),
-    monitoredResourceInfo,
-    mriArn,
-    mriResourceType,
-    mriName,
+    newMonitoredResourceInfo,
 
     -- * MonthlyTransfer
     MonthlyTransfer (..),
-    monthlyTransfer,
-    mtGbPerMonthAllocated,
+    newMonthlyTransfer,
 
     -- * Operation
     Operation (..),
-    operation,
-    oOperationDetails,
-    oStatus,
-    oIsTerminal,
-    oCreatedAt,
-    oId,
-    oResourceType,
-    oStatusChangedAt,
-    oLocation,
-    oResourceName,
-    oOperationType,
-    oErrorCode,
-    oErrorDetails,
+    newOperation,
 
     -- * Origin
     Origin (..),
-    origin,
-    oriRegionName,
-    oriProtocolPolicy,
-    oriResourceType,
-    oriName,
+    newOrigin,
 
     -- * PasswordData
     PasswordData (..),
-    passwordData,
-    pdKeyPairName,
-    pdCiphertext,
+    newPasswordData,
 
     -- * PendingMaintenanceAction
     PendingMaintenanceAction (..),
-    pendingMaintenanceAction,
-    pmaCurrentApplyDate,
-    pmaAction,
-    pmaDescription,
+    newPendingMaintenanceAction,
 
     -- * PendingModifiedRelationalDatabaseValues
     PendingModifiedRelationalDatabaseValues (..),
-    pendingModifiedRelationalDatabaseValues,
-    pmrdvMasterUserPassword,
-    pmrdvBackupRetentionEnabled,
-    pmrdvEngineVersion,
+    newPendingModifiedRelationalDatabaseValues,
 
     -- * PortInfo
     PortInfo (..),
-    portInfo,
-    piFromPort,
-    piCidrListAliases,
-    piIpv6Cidrs,
-    piCidrs,
-    piProtocol,
-    piToPort,
+    newPortInfo,
 
     -- * QueryStringObject
     QueryStringObject (..),
-    queryStringObject,
-    qsoQueryStringsAllowList,
-    qsoOption,
+    newQueryStringObject,
 
     -- * RegionInfo
     RegionInfo (..),
-    regionInfo,
-    riAvailabilityZones,
-    riContinentCode,
-    riRelationalDatabaseAvailabilityZones,
-    riName,
-    riDescription,
-    riDisplayName,
+    newRegionInfo,
 
     -- * RelationalDatabase
     RelationalDatabase (..),
-    relationalDatabase,
-    rdRelationalDatabaseBundleId,
-    rdMasterEndpoint,
-    rdPendingMaintenanceActions,
-    rdPreferredBackupWindow,
-    rdCaCertificateIdentifier,
-    rdRelationalDatabaseBlueprintId,
-    rdLatestRestorableTime,
-    rdMasterDatabaseName,
-    rdHardware,
-    rdCreatedAt,
-    rdArn,
-    rdMasterUsername,
-    rdResourceType,
-    rdPubliclyAccessible,
-    rdSupportCode,
-    rdState,
-    rdName,
-    rdBackupRetentionEnabled,
-    rdEngineVersion,
-    rdPreferredMaintenanceWindow,
-    rdTags,
-    rdParameterApplyStatus,
-    rdPendingModifiedValues,
-    rdEngine,
-    rdSecondaryAvailabilityZone,
-    rdLocation,
+    newRelationalDatabase,
 
     -- * RelationalDatabaseBlueprint
     RelationalDatabaseBlueprint (..),
-    relationalDatabaseBlueprint,
-    rdbEngineDescription,
-    rdbBlueprintId,
-    rdbEngineVersionDescription,
-    rdbIsEngineDefault,
-    rdbEngineVersion,
-    rdbEngine,
+    newRelationalDatabaseBlueprint,
 
     -- * RelationalDatabaseBundle
     RelationalDatabaseBundle (..),
-    relationalDatabaseBundle,
-    rdbRamSizeInGb,
-    rdbBundleId,
-    rdbIsActive,
-    rdbName,
-    rdbIsEncrypted,
-    rdbTransferPerMonthInGb,
-    rdbCpuCount,
-    rdbPrice,
-    rdbDiskSizeInGb,
+    newRelationalDatabaseBundle,
 
     -- * RelationalDatabaseEndpoint
     RelationalDatabaseEndpoint (..),
-    relationalDatabaseEndpoint,
-    rdeAddress,
-    rdePort,
+    newRelationalDatabaseEndpoint,
 
     -- * RelationalDatabaseEvent
     RelationalDatabaseEvent (..),
-    relationalDatabaseEvent,
-    rdeMessage,
-    rdeCreatedAt,
-    rdeEventCategories,
-    rdeResource,
+    newRelationalDatabaseEvent,
 
     -- * RelationalDatabaseHardware
     RelationalDatabaseHardware (..),
-    relationalDatabaseHardware,
-    rdhRamSizeInGb,
-    rdhCpuCount,
-    rdhDiskSizeInGb,
+    newRelationalDatabaseHardware,
 
     -- * RelationalDatabaseParameter
     RelationalDatabaseParameter (..),
-    relationalDatabaseParameter,
-    rdpAllowedValues,
-    rdpParameterValue,
-    rdpApplyType,
-    rdpParameterName,
-    rdpDescription,
-    rdpApplyMethod,
-    rdpIsModifiable,
-    rdpDataType,
+    newRelationalDatabaseParameter,
 
     -- * RelationalDatabaseSnapshot
     RelationalDatabaseSnapshot (..),
-    relationalDatabaseSnapshot,
-    rdsFromRelationalDatabaseName,
-    rdsCreatedAt,
-    rdsArn,
-    rdsResourceType,
-    rdsSupportCode,
-    rdsSizeInGb,
-    rdsState,
-    rdsName,
-    rdsEngineVersion,
-    rdsFromRelationalDatabaseBundleId,
-    rdsTags,
-    rdsEngine,
-    rdsFromRelationalDatabaseARN,
-    rdsLocation,
-    rdsFromRelationalDatabaseBlueprintId,
+    newRelationalDatabaseSnapshot,
 
     -- * RenewalSummary
     RenewalSummary (..),
-    renewalSummary,
-    rsUpdatedAt,
-    rsRenewalStatus,
-    rsRenewalStatusReason,
-    rsDomainValidationRecords,
+    newRenewalSummary,
 
     -- * ResourceLocation
     ResourceLocation (..),
-    resourceLocation,
-    rlRegionName,
-    rlAvailabilityZone,
+    newResourceLocation,
 
     -- * ResourceRecord
     ResourceRecord (..),
-    resourceRecord,
-    rrName,
-    rrValue,
-    rrType,
+    newResourceRecord,
 
-    -- * StaticIP
-    StaticIP (..),
-    staticIP,
-    siIsAttached,
-    siCreatedAt,
-    siArn,
-    siResourceType,
-    siSupportCode,
-    siName,
-    siIpAddress,
-    siAttachedTo,
-    siLocation,
+    -- * StaticIp
+    StaticIp (..),
+    newStaticIp,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.AccessDirection
 import Network.AWS.Lightsail.Types.AddOn
 import Network.AWS.Lightsail.Types.AddOnRequest
@@ -1183,7 +617,6 @@ import Network.AWS.Lightsail.Types.ForwardValues
 import Network.AWS.Lightsail.Types.HeaderEnum
 import Network.AWS.Lightsail.Types.HeaderObject
 import Network.AWS.Lightsail.Types.HostKeyAttributes
-import Network.AWS.Lightsail.Types.IPAddressType
 import Network.AWS.Lightsail.Types.InputOrigin
 import Network.AWS.Lightsail.Types.Instance
 import Network.AWS.Lightsail.Types.InstanceAccessDetails
@@ -1202,6 +635,7 @@ import Network.AWS.Lightsail.Types.InstanceSnapshot
 import Network.AWS.Lightsail.Types.InstanceSnapshotInfo
 import Network.AWS.Lightsail.Types.InstanceSnapshotState
 import Network.AWS.Lightsail.Types.InstanceState
+import Network.AWS.Lightsail.Types.IpAddressType
 import Network.AWS.Lightsail.Types.KeyPair
 import Network.AWS.Lightsail.Types.LightsailDistribution
 import Network.AWS.Lightsail.Types.LoadBalancer
@@ -1209,16 +643,16 @@ import Network.AWS.Lightsail.Types.LoadBalancerAttributeName
 import Network.AWS.Lightsail.Types.LoadBalancerMetricName
 import Network.AWS.Lightsail.Types.LoadBalancerProtocol
 import Network.AWS.Lightsail.Types.LoadBalancerState
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificate
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateDomainStatus
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateDomainValidationOption
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateDomainValidationRecord
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateFailureReason
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateRenewalStatus
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateRenewalSummary
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateRevocationReason
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateStatus
-import Network.AWS.Lightsail.Types.LoadBalancerTLSCertificateSummary
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificate
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateDomainStatus
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationRecord
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateFailureReason
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateRenewalStatus
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateRenewalSummary
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateRevocationReason
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateStatus
+import Network.AWS.Lightsail.Types.LoadBalancerTlsCertificateSummary
 import Network.AWS.Lightsail.Types.LogEvent
 import Network.AWS.Lightsail.Types.MetricDatapoint
 import Network.AWS.Lightsail.Types.MetricName
@@ -1259,104 +693,135 @@ import Network.AWS.Lightsail.Types.RenewalSummary
 import Network.AWS.Lightsail.Types.ResourceLocation
 import Network.AWS.Lightsail.Types.ResourceRecord
 import Network.AWS.Lightsail.Types.ResourceType
-import Network.AWS.Lightsail.Types.StaticIP
+import Network.AWS.Lightsail.Types.StaticIp
 import Network.AWS.Lightsail.Types.Tag
 import Network.AWS.Lightsail.Types.TreatMissingData
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-11-28@ of the Amazon Lightsail SDK configuration.
-lightsail :: Service
-lightsail =
-  Service
-    { _svcAbbrev = "Lightsail",
-      _svcSigner = v4,
-      _svcPrefix = "lightsail",
-      _svcVersion = "2016-11-28",
-      _svcEndpoint = defaultEndpoint lightsail,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Lightsail",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Lightsail",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "lightsail",
+      Prelude._svcVersion = "2016-11-28",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "Lightsail",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Lightsail throws this exception when it cannot find a resource.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError lightsail "NotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
 
--- | Lightsail throws this exception when user input does not conform to the validation rules of an input field.
-_InvalidInputException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Lightsail throws this exception when user input does not conform to the
+-- validation rules of an input field.
+--
+-- Domain and distribution APIs are only available in the N. Virginia
+-- (@us-east-1@) AWS Region. Please set your AWS Region configuration to
+-- @us-east-1@ to create, view, or edit these resources.
+_InvalidInputException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidInputException =
-  _MatchServiceError
-    lightsail
+  Prelude._MatchServiceError
+    defaultService
     "InvalidInputException"
 
--- | Lightsail throws this exception when the user has not been authenticated.
-_UnauthenticatedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Lightsail throws this exception when the user has not been
+-- authenticated.
+_UnauthenticatedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthenticatedException =
-  _MatchServiceError
-    lightsail
+  Prelude._MatchServiceError
+    defaultService
     "UnauthenticatedException"
 
 -- | Lightsail throws this exception when an operation fails to execute.
-_OperationFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationFailureException =
-  _MatchServiceError
-    lightsail
+  Prelude._MatchServiceError
+    defaultService
     "OperationFailureException"
 
--- | Lightsail throws this exception when the user cannot be authenticated or uses invalid credentials to access a resource.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Lightsail throws this exception when the user cannot be authenticated or
+-- uses invalid credentials to access a resource.
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError
-    lightsail
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedException"
 
--- | Lightsail throws this exception when an account is still in the setup in progress state.
-_AccountSetupInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Lightsail throws this exception when an account is still in the setup in
+-- progress state.
+_AccountSetupInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccountSetupInProgressException =
-  _MatchServiceError
-    lightsail
+  Prelude._MatchServiceError
+    defaultService
     "AccountSetupInProgressException"
 
 -- | A general service exception.
-_ServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceException =
-  _MatchServiceError lightsail "ServiceException"
+  Prelude._MatchServiceError
+    defaultService
+    "ServiceException"

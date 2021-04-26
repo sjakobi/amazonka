@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.Lightsail.Types.ContactMethodVerificationProtocol
   ( ContactMethodVerificationProtocol
       ( ..,
-        CMVPEmail
+        ContactMethodVerificationProtocolEmail
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContactMethodVerificationProtocol
-  = ContactMethodVerificationProtocol'
-      ( CI
-          Text
-      )
+newtype ContactMethodVerificationProtocol = ContactMethodVerificationProtocol'
+  { fromContactMethodVerificationProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMVPEmail :: ContactMethodVerificationProtocol
-pattern CMVPEmail = ContactMethodVerificationProtocol' "Email"
+pattern ContactMethodVerificationProtocolEmail :: ContactMethodVerificationProtocol
+pattern ContactMethodVerificationProtocolEmail = ContactMethodVerificationProtocol' "Email"
 
 {-# COMPLETE
-  CMVPEmail,
+  ContactMethodVerificationProtocolEmail,
   ContactMethodVerificationProtocol'
   #-}
 
-instance FromText ContactMethodVerificationProtocol where
-  parser = (ContactMethodVerificationProtocol' . mk) <$> takeText
+instance Prelude.FromText ContactMethodVerificationProtocol where
+  parser = ContactMethodVerificationProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText ContactMethodVerificationProtocol where
-  toText (ContactMethodVerificationProtocol' ci) = original ci
+instance Prelude.ToText ContactMethodVerificationProtocol where
+  toText (ContactMethodVerificationProtocol' x) = x
 
-instance Hashable ContactMethodVerificationProtocol
+instance Prelude.Hashable ContactMethodVerificationProtocol
 
-instance NFData ContactMethodVerificationProtocol
+instance Prelude.NFData ContactMethodVerificationProtocol
 
-instance ToByteString ContactMethodVerificationProtocol
+instance Prelude.ToByteString ContactMethodVerificationProtocol
 
-instance ToQuery ContactMethodVerificationProtocol
+instance Prelude.ToQuery ContactMethodVerificationProtocol
 
-instance ToHeader ContactMethodVerificationProtocol
+instance Prelude.ToHeader ContactMethodVerificationProtocol
 
-instance ToJSON ContactMethodVerificationProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContactMethodVerificationProtocol where
+  toJSON = Prelude.toJSONText

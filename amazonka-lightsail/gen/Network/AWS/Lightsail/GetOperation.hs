@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a specific operation. Operations include events such as when you create an instance, allocate a static IP, attach a static IP, and so on.
+-- Returns information about a specific operation. Operations include
+-- events such as when you create an instance, allocate a static IP, attach
+-- a static IP, and so on.
 module Network.AWS.Lightsail.GetOperation
   ( -- * Creating a Request
-    getOperation,
-    GetOperation,
+    GetOperation (..),
+    newGetOperation,
 
     -- * Request Lenses
-    goOperationId,
+    getOperation_operationId,
 
     -- * Destructuring the Response
-    getOperationResponse,
-    GetOperationResponse,
+    GetOperationResponse (..),
+    newGetOperationResponse,
 
     -- * Response Lenses
-    gororsOperation,
-    gororsResponseStatus,
+    getOperationResponse_operation,
+    getOperationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getOperation' smart constructor.
-newtype GetOperation = GetOperation'
-  { _goOperationId ::
-      Text
+-- | /See:/ 'newGetOperation' smart constructor.
+data GetOperation = GetOperation'
+  { -- | A GUID used to identify the operation.
+    operationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOperation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOperation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'goOperationId' - A GUID used to identify the operation.
-getOperation ::
-  -- | 'goOperationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'operationId', 'getOperation_operationId' - A GUID used to identify the operation.
+newGetOperation ::
+  -- | 'operationId'
+  Prelude.Text ->
   GetOperation
-getOperation pOperationId_ =
-  GetOperation' {_goOperationId = pOperationId_}
+newGetOperation pOperationId_ =
+  GetOperation' {operationId = pOperationId_}
 
 -- | A GUID used to identify the operation.
-goOperationId :: Lens' GetOperation Text
-goOperationId = lens _goOperationId (\s a -> s {_goOperationId = a})
+getOperation_operationId :: Lens.Lens' GetOperation Prelude.Text
+getOperation_operationId = Lens.lens (\GetOperation' {operationId} -> operationId) (\s@GetOperation' {} a -> s {operationId = a} :: GetOperation)
 
-instance AWSRequest GetOperation where
+instance Prelude.AWSRequest GetOperation where
   type Rs GetOperation = GetOperationResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOperationResponse'
-            <$> (x .?> "operation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "operation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOperation
+instance Prelude.Hashable GetOperation
 
-instance NFData GetOperation
+instance Prelude.NFData GetOperation
 
-instance ToHeaders GetOperation where
+instance Prelude.ToHeaders GetOperation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetOperation" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetOperation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOperation where
+instance Prelude.ToJSON GetOperation where
   toJSON GetOperation' {..} =
-    object
-      (catMaybes [Just ("operationId" .= _goOperationId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("operationId" Prelude..= operationId)
+          ]
+      )
 
-instance ToPath GetOperation where
-  toPath = const "/"
+instance Prelude.ToPath GetOperation where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOperation where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOperation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getOperationResponse' smart constructor.
+-- | /See:/ 'newGetOperationResponse' smart constructor.
 data GetOperationResponse = GetOperationResponse'
-  { _gororsOperation ::
-      !(Maybe Operation),
-    _gororsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOperationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOperationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gororsOperation' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gororsResponseStatus' - -- | The response status code.
-getOperationResponse ::
-  -- | 'gororsResponseStatus'
-  Int ->
+-- 'operation', 'getOperationResponse_operation' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'getOperationResponse_httpStatus' - The response's http status code.
+newGetOperationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOperationResponse
-getOperationResponse pResponseStatus_ =
+newGetOperationResponse pHttpStatus_ =
   GetOperationResponse'
-    { _gororsOperation = Nothing,
-      _gororsResponseStatus = pResponseStatus_
+    { operation = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-gororsOperation :: Lens' GetOperationResponse (Maybe Operation)
-gororsOperation = lens _gororsOperation (\s a -> s {_gororsOperation = a})
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+getOperationResponse_operation :: Lens.Lens' GetOperationResponse (Prelude.Maybe Operation)
+getOperationResponse_operation = Lens.lens (\GetOperationResponse' {operation} -> operation) (\s@GetOperationResponse' {} a -> s {operation = a} :: GetOperationResponse)
 
--- | -- | The response status code.
-gororsResponseStatus :: Lens' GetOperationResponse Int
-gororsResponseStatus = lens _gororsResponseStatus (\s a -> s {_gororsResponseStatus = a})
+-- | The response's http status code.
+getOperationResponse_httpStatus :: Lens.Lens' GetOperationResponse Prelude.Int
+getOperationResponse_httpStatus = Lens.lens (\GetOperationResponse' {httpStatus} -> httpStatus) (\s@GetOperationResponse' {} a -> s {httpStatus = a} :: GetOperationResponse)
 
-instance NFData GetOperationResponse
+instance Prelude.NFData GetOperationResponse

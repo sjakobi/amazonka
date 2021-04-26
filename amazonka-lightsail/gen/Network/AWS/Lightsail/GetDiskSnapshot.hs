@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,132 +24,141 @@
 -- Returns information about a specific block storage disk snapshot.
 module Network.AWS.Lightsail.GetDiskSnapshot
   ( -- * Creating a Request
-    getDiskSnapshot,
-    GetDiskSnapshot,
+    GetDiskSnapshot (..),
+    newGetDiskSnapshot,
 
     -- * Request Lenses
-    gdsDiskSnapshotName,
+    getDiskSnapshot_diskSnapshotName,
 
     -- * Destructuring the Response
-    getDiskSnapshotResponse,
-    GetDiskSnapshotResponse,
+    GetDiskSnapshotResponse (..),
+    newGetDiskSnapshotResponse,
 
     -- * Response Lenses
-    gdsrrsDiskSnapshot,
-    gdsrrsResponseStatus,
+    getDiskSnapshotResponse_diskSnapshot,
+    getDiskSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.DiskSnapshot
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDiskSnapshot' smart constructor.
-newtype GetDiskSnapshot = GetDiskSnapshot'
-  { _gdsDiskSnapshotName ::
-      Text
+-- | /See:/ 'newGetDiskSnapshot' smart constructor.
+data GetDiskSnapshot = GetDiskSnapshot'
+  { -- | The name of the disk snapshot (e.g., @my-disk-snapshot@).
+    diskSnapshotName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDiskSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDiskSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsDiskSnapshotName' - The name of the disk snapshot (e.g., @my-disk-snapshot@ ).
-getDiskSnapshot ::
-  -- | 'gdsDiskSnapshotName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'diskSnapshotName', 'getDiskSnapshot_diskSnapshotName' - The name of the disk snapshot (e.g., @my-disk-snapshot@).
+newGetDiskSnapshot ::
+  -- | 'diskSnapshotName'
+  Prelude.Text ->
   GetDiskSnapshot
-getDiskSnapshot pDiskSnapshotName_ =
+newGetDiskSnapshot pDiskSnapshotName_ =
   GetDiskSnapshot'
-    { _gdsDiskSnapshotName =
+    { diskSnapshotName =
         pDiskSnapshotName_
     }
 
--- | The name of the disk snapshot (e.g., @my-disk-snapshot@ ).
-gdsDiskSnapshotName :: Lens' GetDiskSnapshot Text
-gdsDiskSnapshotName = lens _gdsDiskSnapshotName (\s a -> s {_gdsDiskSnapshotName = a})
+-- | The name of the disk snapshot (e.g., @my-disk-snapshot@).
+getDiskSnapshot_diskSnapshotName :: Lens.Lens' GetDiskSnapshot Prelude.Text
+getDiskSnapshot_diskSnapshotName = Lens.lens (\GetDiskSnapshot' {diskSnapshotName} -> diskSnapshotName) (\s@GetDiskSnapshot' {} a -> s {diskSnapshotName = a} :: GetDiskSnapshot)
 
-instance AWSRequest GetDiskSnapshot where
+instance Prelude.AWSRequest GetDiskSnapshot where
   type Rs GetDiskSnapshot = GetDiskSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDiskSnapshotResponse'
-            <$> (x .?> "diskSnapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "diskSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDiskSnapshot
+instance Prelude.Hashable GetDiskSnapshot
 
-instance NFData GetDiskSnapshot
+instance Prelude.NFData GetDiskSnapshot
 
-instance ToHeaders GetDiskSnapshot where
+instance Prelude.ToHeaders GetDiskSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetDiskSnapshot" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetDiskSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDiskSnapshot where
+instance Prelude.ToJSON GetDiskSnapshot where
   toJSON GetDiskSnapshot' {..} =
-    object
-      ( catMaybes
-          [Just ("diskSnapshotName" .= _gdsDiskSnapshotName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("diskSnapshotName" Prelude..= diskSnapshotName)
+          ]
       )
 
-instance ToPath GetDiskSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath GetDiskSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDiskSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDiskSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDiskSnapshotResponse' smart constructor.
+-- | /See:/ 'newGetDiskSnapshotResponse' smart constructor.
 data GetDiskSnapshotResponse = GetDiskSnapshotResponse'
-  { _gdsrrsDiskSnapshot ::
-      !(Maybe DiskSnapshot),
-    _gdsrrsResponseStatus ::
-      !Int
+  { -- | An object containing information about the disk snapshot.
+    diskSnapshot :: Prelude.Maybe DiskSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDiskSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDiskSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsrrsDiskSnapshot' - An object containing information about the disk snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsrrsResponseStatus' - -- | The response status code.
-getDiskSnapshotResponse ::
-  -- | 'gdsrrsResponseStatus'
-  Int ->
+-- 'diskSnapshot', 'getDiskSnapshotResponse_diskSnapshot' - An object containing information about the disk snapshot.
+--
+-- 'httpStatus', 'getDiskSnapshotResponse_httpStatus' - The response's http status code.
+newGetDiskSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDiskSnapshotResponse
-getDiskSnapshotResponse pResponseStatus_ =
+newGetDiskSnapshotResponse pHttpStatus_ =
   GetDiskSnapshotResponse'
-    { _gdsrrsDiskSnapshot =
-        Nothing,
-      _gdsrrsResponseStatus = pResponseStatus_
+    { diskSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object containing information about the disk snapshot.
-gdsrrsDiskSnapshot :: Lens' GetDiskSnapshotResponse (Maybe DiskSnapshot)
-gdsrrsDiskSnapshot = lens _gdsrrsDiskSnapshot (\s a -> s {_gdsrrsDiskSnapshot = a})
+getDiskSnapshotResponse_diskSnapshot :: Lens.Lens' GetDiskSnapshotResponse (Prelude.Maybe DiskSnapshot)
+getDiskSnapshotResponse_diskSnapshot = Lens.lens (\GetDiskSnapshotResponse' {diskSnapshot} -> diskSnapshot) (\s@GetDiskSnapshotResponse' {} a -> s {diskSnapshot = a} :: GetDiskSnapshotResponse)
 
--- | -- | The response status code.
-gdsrrsResponseStatus :: Lens' GetDiskSnapshotResponse Int
-gdsrrsResponseStatus = lens _gdsrrsResponseStatus (\s a -> s {_gdsrrsResponseStatus = a})
+-- | The response's http status code.
+getDiskSnapshotResponse_httpStatus :: Lens.Lens' GetDiskSnapshotResponse Prelude.Int
+getDiskSnapshotResponse_httpStatus = Lens.lens (\GetDiskSnapshotResponse' {httpStatus} -> httpStatus) (\s@GetDiskSnapshotResponse' {} a -> s {httpStatus = a} :: GetDiskSnapshotResponse)
 
-instance NFData GetDiskSnapshotResponse
+instance Prelude.NFData GetDiskSnapshotResponse

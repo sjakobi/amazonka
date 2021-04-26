@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,138 @@
 -- Returns information about a specific domain recordset.
 module Network.AWS.Lightsail.GetDomain
   ( -- * Creating a Request
-    getDomain,
-    GetDomain,
+    GetDomain (..),
+    newGetDomain,
 
     -- * Request Lenses
-    gdDomainName,
+    getDomain_domainName,
 
     -- * Destructuring the Response
-    getDomainResponse,
-    GetDomainResponse,
+    GetDomainResponse (..),
+    newGetDomainResponse,
 
     -- * Response Lenses
-    getdomainresponseersDomain,
-    getdomainresponseersResponseStatus,
+    getDomainResponse_domain,
+    getDomainResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Domain
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDomain' smart constructor.
-newtype GetDomain = GetDomain' {_gdDomainName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetDomain' smart constructor.
+data GetDomain = GetDomain'
+  { -- | The domain name for which your want to return information about.
+    domainName :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdDomainName' - The domain name for which your want to return information about.
-getDomain ::
-  -- | 'gdDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'getDomain_domainName' - The domain name for which your want to return information about.
+newGetDomain ::
+  -- | 'domainName'
+  Prelude.Text ->
   GetDomain
-getDomain pDomainName_ =
-  GetDomain' {_gdDomainName = pDomainName_}
+newGetDomain pDomainName_ =
+  GetDomain' {domainName = pDomainName_}
 
 -- | The domain name for which your want to return information about.
-gdDomainName :: Lens' GetDomain Text
-gdDomainName = lens _gdDomainName (\s a -> s {_gdDomainName = a})
+getDomain_domainName :: Lens.Lens' GetDomain Prelude.Text
+getDomain_domainName = Lens.lens (\GetDomain' {domainName} -> domainName) (\s@GetDomain' {} a -> s {domainName = a} :: GetDomain)
 
-instance AWSRequest GetDomain where
+instance Prelude.AWSRequest GetDomain where
   type Rs GetDomain = GetDomainResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDomainResponse'
-            <$> (x .?> "domain") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "domain")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDomain
+instance Prelude.Hashable GetDomain
 
-instance NFData GetDomain
+instance Prelude.NFData GetDomain
 
-instance ToHeaders GetDomain where
+instance Prelude.ToHeaders GetDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetDomain" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetDomain" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDomain where
+instance Prelude.ToJSON GetDomain where
   toJSON GetDomain' {..} =
-    object
-      (catMaybes [Just ("domainName" .= _gdDomainName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("domainName" Prelude..= domainName)]
+      )
 
-instance ToPath GetDomain where
-  toPath = const "/"
+instance Prelude.ToPath GetDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDomain where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDomainResponse' smart constructor.
+-- | /See:/ 'newGetDomainResponse' smart constructor.
 data GetDomainResponse = GetDomainResponse'
-  { _getdomainresponseersDomain ::
-      !(Maybe Domain),
-    _getdomainresponseersResponseStatus ::
-      !Int
+  { -- | An array of key-value pairs containing information about your get domain
+    -- request.
+    domain :: Prelude.Maybe Domain,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getdomainresponseersDomain' - An array of key-value pairs containing information about your get domain request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getdomainresponseersResponseStatus' - -- | The response status code.
-getDomainResponse ::
-  -- | 'getdomainresponseersResponseStatus'
-  Int ->
+-- 'domain', 'getDomainResponse_domain' - An array of key-value pairs containing information about your get domain
+-- request.
+--
+-- 'httpStatus', 'getDomainResponse_httpStatus' - The response's http status code.
+newGetDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDomainResponse
-getDomainResponse pResponseStatus_ =
+newGetDomainResponse pHttpStatus_ =
   GetDomainResponse'
-    { _getdomainresponseersDomain =
-        Nothing,
-      _getdomainresponseersResponseStatus =
-        pResponseStatus_
+    { domain = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of key-value pairs containing information about your get domain request.
-getdomainresponseersDomain :: Lens' GetDomainResponse (Maybe Domain)
-getdomainresponseersDomain = lens _getdomainresponseersDomain (\s a -> s {_getdomainresponseersDomain = a})
+-- | An array of key-value pairs containing information about your get domain
+-- request.
+getDomainResponse_domain :: Lens.Lens' GetDomainResponse (Prelude.Maybe Domain)
+getDomainResponse_domain = Lens.lens (\GetDomainResponse' {domain} -> domain) (\s@GetDomainResponse' {} a -> s {domain = a} :: GetDomainResponse)
 
--- | -- | The response status code.
-getdomainresponseersResponseStatus :: Lens' GetDomainResponse Int
-getdomainresponseersResponseStatus = lens _getdomainresponseersResponseStatus (\s a -> s {_getdomainresponseersResponseStatus = a})
+-- | The response's http status code.
+getDomainResponse_httpStatus :: Lens.Lens' GetDomainResponse Prelude.Int
+getDomainResponse_httpStatus = Lens.lens (\GetDomainResponse' {httpStatus} -> httpStatus) (\s@GetDomainResponse' {} a -> s {httpStatus = a} :: GetDomainResponse)
 
-instance NFData GetDomainResponse
+instance Prelude.NFData GetDomainResponse

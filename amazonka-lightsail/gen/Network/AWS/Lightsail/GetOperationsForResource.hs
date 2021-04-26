@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,186 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets operations for a specific resource (e.g., an instance or a static IP).
+-- Gets operations for a specific resource (e.g., an instance or a static
+-- IP).
 module Network.AWS.Lightsail.GetOperationsForResource
   ( -- * Creating a Request
-    getOperationsForResource,
-    GetOperationsForResource,
+    GetOperationsForResource (..),
+    newGetOperationsForResource,
 
     -- * Request Lenses
-    gofrPageToken,
-    gofrResourceName,
+    getOperationsForResource_pageToken,
+    getOperationsForResource_resourceName,
 
     -- * Destructuring the Response
-    getOperationsForResourceResponse,
-    GetOperationsForResourceResponse,
+    GetOperationsForResourceResponse (..),
+    newGetOperationsForResourceResponse,
 
     -- * Response Lenses
-    gofrrrsOperations,
-    gofrrrsNextPageCount,
-    gofrrrsNextPageToken,
-    gofrrrsResponseStatus,
+    getOperationsForResourceResponse_operations,
+    getOperationsForResourceResponse_nextPageCount,
+    getOperationsForResourceResponse_nextPageToken,
+    getOperationsForResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getOperationsForResource' smart constructor.
+-- | /See:/ 'newGetOperationsForResource' smart constructor.
 data GetOperationsForResource = GetOperationsForResource'
-  { _gofrPageToken ::
-      !(Maybe Text),
-    _gofrResourceName ::
-      !Text
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetOperationsForResource@
+    -- request. If your results are paginated, the response will return a next
+    -- page token that you can specify as the page token in a subsequent
+    -- request.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource for which you are requesting information.
+    resourceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOperationsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOperationsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gofrPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetOperationsForResource@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gofrResourceName' - The name of the resource for which you are requesting information.
-getOperationsForResource ::
-  -- | 'gofrResourceName'
-  Text ->
+-- 'pageToken', 'getOperationsForResource_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetOperationsForResource@
+-- request. If your results are paginated, the response will return a next
+-- page token that you can specify as the page token in a subsequent
+-- request.
+--
+-- 'resourceName', 'getOperationsForResource_resourceName' - The name of the resource for which you are requesting information.
+newGetOperationsForResource ::
+  -- | 'resourceName'
+  Prelude.Text ->
   GetOperationsForResource
-getOperationsForResource pResourceName_ =
+newGetOperationsForResource pResourceName_ =
   GetOperationsForResource'
-    { _gofrPageToken = Nothing,
-      _gofrResourceName = pResourceName_
+    { pageToken =
+        Prelude.Nothing,
+      resourceName = pResourceName_
     }
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetOperationsForResource@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-gofrPageToken :: Lens' GetOperationsForResource (Maybe Text)
-gofrPageToken = lens _gofrPageToken (\s a -> s {_gofrPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetOperationsForResource@
+-- request. If your results are paginated, the response will return a next
+-- page token that you can specify as the page token in a subsequent
+-- request.
+getOperationsForResource_pageToken :: Lens.Lens' GetOperationsForResource (Prelude.Maybe Prelude.Text)
+getOperationsForResource_pageToken = Lens.lens (\GetOperationsForResource' {pageToken} -> pageToken) (\s@GetOperationsForResource' {} a -> s {pageToken = a} :: GetOperationsForResource)
 
 -- | The name of the resource for which you are requesting information.
-gofrResourceName :: Lens' GetOperationsForResource Text
-gofrResourceName = lens _gofrResourceName (\s a -> s {_gofrResourceName = a})
+getOperationsForResource_resourceName :: Lens.Lens' GetOperationsForResource Prelude.Text
+getOperationsForResource_resourceName = Lens.lens (\GetOperationsForResource' {resourceName} -> resourceName) (\s@GetOperationsForResource' {} a -> s {resourceName = a} :: GetOperationsForResource)
 
-instance AWSRequest GetOperationsForResource where
+instance Prelude.AWSRequest GetOperationsForResource where
   type
     Rs GetOperationsForResource =
       GetOperationsForResourceResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOperationsForResourceResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (x .?> "nextPageCount")
-            <*> (x .?> "nextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextPageCount")
+            Prelude.<*> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOperationsForResource
+instance Prelude.Hashable GetOperationsForResource
 
-instance NFData GetOperationsForResource
+instance Prelude.NFData GetOperationsForResource
 
-instance ToHeaders GetOperationsForResource where
+instance Prelude.ToHeaders GetOperationsForResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetOperationsForResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetOperationsForResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOperationsForResource where
+instance Prelude.ToJSON GetOperationsForResource where
   toJSON GetOperationsForResource' {..} =
-    object
-      ( catMaybes
-          [ ("pageToken" .=) <$> _gofrPageToken,
-            Just ("resourceName" .= _gofrResourceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("pageToken" Prelude..=) Prelude.<$> pageToken,
+            Prelude.Just
+              ("resourceName" Prelude..= resourceName)
           ]
       )
 
-instance ToPath GetOperationsForResource where
-  toPath = const "/"
+instance Prelude.ToPath GetOperationsForResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOperationsForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOperationsForResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getOperationsForResourceResponse' smart constructor.
+-- | /See:/ 'newGetOperationsForResourceResponse' smart constructor.
 data GetOperationsForResourceResponse = GetOperationsForResourceResponse'
-  { _gofrrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _gofrrrsNextPageCount ::
-      !( Maybe
-           Text
-       ),
-    _gofrrrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _gofrrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | (Deprecated) Returns the number of pages of results that remain.
+    --
+    -- In releases prior to June 12, 2017, this parameter returned @null@ by
+    -- the API. It is now deprecated, and the API returns the @next page token@
+    -- parameter instead.
+    nextPageCount :: Prelude.Maybe Prelude.Text,
+    -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another
+    -- @GetOperationsForResource@ request and specify the next page token using
+    -- the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOperationsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOperationsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gofrrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gofrrrsNextPageCount' - (Deprecated) Returns the number of pages of results that remain.
+-- 'operations', 'getOperationsForResourceResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
 --
--- * 'gofrrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetOperationsForResource@ request and specify the next page token using the @pageToken@ parameter.
+-- 'nextPageCount', 'getOperationsForResourceResponse_nextPageCount' - (Deprecated) Returns the number of pages of results that remain.
 --
--- * 'gofrrrsResponseStatus' - -- | The response status code.
-getOperationsForResourceResponse ::
-  -- | 'gofrrrsResponseStatus'
-  Int ->
+-- In releases prior to June 12, 2017, this parameter returned @null@ by
+-- the API. It is now deprecated, and the API returns the @next page token@
+-- parameter instead.
+--
+-- 'nextPageToken', 'getOperationsForResourceResponse_nextPageToken' - The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetOperationsForResource@ request and specify the next page token using
+-- the @pageToken@ parameter.
+--
+-- 'httpStatus', 'getOperationsForResourceResponse_httpStatus' - The response's http status code.
+newGetOperationsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOperationsForResourceResponse
-getOperationsForResourceResponse pResponseStatus_ =
+newGetOperationsForResourceResponse pHttpStatus_ =
   GetOperationsForResourceResponse'
-    { _gofrrrsOperations =
-        Nothing,
-      _gofrrrsNextPageCount = Nothing,
-      _gofrrrsNextPageToken = Nothing,
-      _gofrrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      nextPageCount = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-gofrrrsOperations :: Lens' GetOperationsForResourceResponse [Operation]
-gofrrrsOperations = lens _gofrrrsOperations (\s a -> s {_gofrrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+getOperationsForResourceResponse_operations :: Lens.Lens' GetOperationsForResourceResponse (Prelude.Maybe [Operation])
+getOperationsForResourceResponse_operations = Lens.lens (\GetOperationsForResourceResponse' {operations} -> operations) (\s@GetOperationsForResourceResponse' {} a -> s {operations = a} :: GetOperationsForResourceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | (Deprecated) Returns the number of pages of results that remain.
-gofrrrsNextPageCount :: Lens' GetOperationsForResourceResponse (Maybe Text)
-gofrrrsNextPageCount = lens _gofrrrsNextPageCount (\s a -> s {_gofrrrsNextPageCount = a})
+--
+-- In releases prior to June 12, 2017, this parameter returned @null@ by
+-- the API. It is now deprecated, and the API returns the @next page token@
+-- parameter instead.
+getOperationsForResourceResponse_nextPageCount :: Lens.Lens' GetOperationsForResourceResponse (Prelude.Maybe Prelude.Text)
+getOperationsForResourceResponse_nextPageCount = Lens.lens (\GetOperationsForResourceResponse' {nextPageCount} -> nextPageCount) (\s@GetOperationsForResourceResponse' {} a -> s {nextPageCount = a} :: GetOperationsForResourceResponse)
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetOperationsForResource@ request and specify the next page token using the @pageToken@ parameter.
-gofrrrsNextPageToken :: Lens' GetOperationsForResourceResponse (Maybe Text)
-gofrrrsNextPageToken = lens _gofrrrsNextPageToken (\s a -> s {_gofrrrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetOperationsForResource@ request and specify the next page token using
+-- the @pageToken@ parameter.
+getOperationsForResourceResponse_nextPageToken :: Lens.Lens' GetOperationsForResourceResponse (Prelude.Maybe Prelude.Text)
+getOperationsForResourceResponse_nextPageToken = Lens.lens (\GetOperationsForResourceResponse' {nextPageToken} -> nextPageToken) (\s@GetOperationsForResourceResponse' {} a -> s {nextPageToken = a} :: GetOperationsForResourceResponse)
 
--- | -- | The response status code.
-gofrrrsResponseStatus :: Lens' GetOperationsForResourceResponse Int
-gofrrrsResponseStatus = lens _gofrrrsResponseStatus (\s a -> s {_gofrrrsResponseStatus = a})
+-- | The response's http status code.
+getOperationsForResourceResponse_httpStatus :: Lens.Lens' GetOperationsForResourceResponse Prelude.Int
+getOperationsForResourceResponse_httpStatus = Lens.lens (\GetOperationsForResourceResponse' {httpStatus} -> httpStatus) (\s@GetOperationsForResourceResponse' {} a -> s {httpStatus = a} :: GetOperationsForResourceResponse)
 
-instance NFData GetOperationsForResourceResponse
+instance
+  Prelude.NFData
+    GetOperationsForResourceResponse

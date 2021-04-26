@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.CloudFormationStackRecordSourceInfo where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.CloudFormationStackRecordSourceType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the source of a CloudFormation stack record (i.e., the export snapshot record).
+-- | Describes the source of a CloudFormation stack record (i.e., the export
+-- snapshot record).
 --
---
---
--- /See:/ 'cloudFormationStackRecordSourceInfo' smart constructor.
+-- /See:/ 'newCloudFormationStackRecordSourceInfo' smart constructor.
 data CloudFormationStackRecordSourceInfo = CloudFormationStackRecordSourceInfo'
-  { _cfsrsiArn ::
-      !( Maybe
-           Text
-       ),
-    _cfsrsiResourceType ::
-      !( Maybe
-           CloudFormationStackRecordSourceType
-       ),
-    _cfsrsiName ::
-      !( Maybe
-           Text
-       )
+  { -- | The Amazon Resource Name (ARN) of the export snapshot record.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The Lightsail resource type (e.g., @ExportSnapshotRecord@).
+    resourceType :: Prelude.Maybe CloudFormationStackRecordSourceType,
+    -- | The name of the record.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudFormationStackRecordSourceInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudFormationStackRecordSourceInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfsrsiArn' - The Amazon Resource Name (ARN) of the export snapshot record.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfsrsiResourceType' - The Lightsail resource type (e.g., @ExportSnapshotRecord@ ).
+-- 'arn', 'cloudFormationStackRecordSourceInfo_arn' - The Amazon Resource Name (ARN) of the export snapshot record.
 --
--- * 'cfsrsiName' - The name of the record.
-cloudFormationStackRecordSourceInfo ::
+-- 'resourceType', 'cloudFormationStackRecordSourceInfo_resourceType' - The Lightsail resource type (e.g., @ExportSnapshotRecord@).
+--
+-- 'name', 'cloudFormationStackRecordSourceInfo_name' - The name of the record.
+newCloudFormationStackRecordSourceInfo ::
   CloudFormationStackRecordSourceInfo
-cloudFormationStackRecordSourceInfo =
+newCloudFormationStackRecordSourceInfo =
   CloudFormationStackRecordSourceInfo'
-    { _cfsrsiArn =
-        Nothing,
-      _cfsrsiResourceType = Nothing,
-      _cfsrsiName = Nothing
+    { arn =
+        Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the export snapshot record.
-cfsrsiArn :: Lens' CloudFormationStackRecordSourceInfo (Maybe Text)
-cfsrsiArn = lens _cfsrsiArn (\s a -> s {_cfsrsiArn = a})
+cloudFormationStackRecordSourceInfo_arn :: Lens.Lens' CloudFormationStackRecordSourceInfo (Prelude.Maybe Prelude.Text)
+cloudFormationStackRecordSourceInfo_arn = Lens.lens (\CloudFormationStackRecordSourceInfo' {arn} -> arn) (\s@CloudFormationStackRecordSourceInfo' {} a -> s {arn = a} :: CloudFormationStackRecordSourceInfo)
 
--- | The Lightsail resource type (e.g., @ExportSnapshotRecord@ ).
-cfsrsiResourceType :: Lens' CloudFormationStackRecordSourceInfo (Maybe CloudFormationStackRecordSourceType)
-cfsrsiResourceType = lens _cfsrsiResourceType (\s a -> s {_cfsrsiResourceType = a})
+-- | The Lightsail resource type (e.g., @ExportSnapshotRecord@).
+cloudFormationStackRecordSourceInfo_resourceType :: Lens.Lens' CloudFormationStackRecordSourceInfo (Prelude.Maybe CloudFormationStackRecordSourceType)
+cloudFormationStackRecordSourceInfo_resourceType = Lens.lens (\CloudFormationStackRecordSourceInfo' {resourceType} -> resourceType) (\s@CloudFormationStackRecordSourceInfo' {} a -> s {resourceType = a} :: CloudFormationStackRecordSourceInfo)
 
 -- | The name of the record.
-cfsrsiName :: Lens' CloudFormationStackRecordSourceInfo (Maybe Text)
-cfsrsiName = lens _cfsrsiName (\s a -> s {_cfsrsiName = a})
+cloudFormationStackRecordSourceInfo_name :: Lens.Lens' CloudFormationStackRecordSourceInfo (Prelude.Maybe Prelude.Text)
+cloudFormationStackRecordSourceInfo_name = Lens.lens (\CloudFormationStackRecordSourceInfo' {name} -> name) (\s@CloudFormationStackRecordSourceInfo' {} a -> s {name = a} :: CloudFormationStackRecordSourceInfo)
 
-instance FromJSON CloudFormationStackRecordSourceInfo where
+instance
+  Prelude.FromJSON
+    CloudFormationStackRecordSourceInfo
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudFormationStackRecordSourceInfo"
       ( \x ->
           CloudFormationStackRecordSourceInfo'
-            <$> (x .:? "arn")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable CloudFormationStackRecordSourceInfo
+instance
+  Prelude.Hashable
+    CloudFormationStackRecordSourceInfo
 
-instance NFData CloudFormationStackRecordSourceInfo
+instance
+  Prelude.NFData
+    CloudFormationStackRecordSourceInfo

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,151 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.RenewalSummary where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.DomainValidationRecord
 import Network.AWS.Lightsail.Types.RenewalStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the status of a SSL/TLS certificate renewal managed by Amazon Lightsail.
+-- | Describes the status of a SSL\/TLS certificate renewal managed by Amazon
+-- Lightsail.
 --
---
---
--- /See:/ 'renewalSummary' smart constructor.
+-- /See:/ 'newRenewalSummary' smart constructor.
 data RenewalSummary = RenewalSummary'
-  { _rsUpdatedAt ::
-      !(Maybe POSIX),
-    _rsRenewalStatus ::
-      !(Maybe RenewalStatus),
-    _rsRenewalStatusReason :: !(Maybe Text),
-    _rsDomainValidationRecords ::
-      !(Maybe [DomainValidationRecord])
+  { -- | The timestamp when the certificate was last updated.
+    updatedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The renewal status of the certificate.
+    --
+    -- The following renewal status are possible:
+    --
+    -- -   __@PendingAutoRenewal@__ - Lightsail is attempting to automatically
+    --     validate the domain names of the certificate. No further action is
+    --     required.
+    --
+    -- -   __@PendingValidation@__ - Lightsail couldn\'t automatically validate
+    --     one or more domain names of the certificate. You must take action to
+    --     validate these domain names or the certificate won\'t be renewed.
+    --     Check to make sure your certificate\'s domain validation records
+    --     exist in your domain\'s DNS, and that your certificate remains in
+    --     use.
+    --
+    -- -   __@Success@__ - All domain names in the certificate are validated,
+    --     and Lightsail renewed the certificate. No further action is
+    --     required.
+    --
+    -- -   __@Failed@__ - One or more domain names were not validated before
+    --     the certificate expired, and Lightsail did not renew the
+    --     certificate. You can request a new certificate using the
+    --     @CreateCertificate@ action.
+    renewalStatus :: Prelude.Maybe RenewalStatus,
+    -- | The reason for the renewal status of the certificate.
+    renewalStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that describe the domain validation records of the
+    -- certificate.
+    domainValidationRecords :: Prelude.Maybe [DomainValidationRecord]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RenewalSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RenewalSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsUpdatedAt' - The timestamp when the certificate was last updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsRenewalStatus' - The renewal status of the certificate. The following renewal status are possible:     * __@PendingAutoRenewal@ __ - Lightsail is attempting to automatically validate the domain names of the certificate. No further action is required.      * __@PendingValidation@ __ - Lightsail couldn't automatically validate one or more domain names of the certificate. You must take action to validate these domain names or the certificate won't be renewed. Check to make sure your certificate's domain validation records exist in your domain's DNS, and that your certificate remains in use.     * __@Success@ __ - All domain names in the certificate are validated, and Lightsail renewed the certificate. No further action is required.      * __@Failed@ __ - One or more domain names were not validated before the certificate expired, and Lightsail did not renew the certificate. You can request a new certificate using the @CreateCertificate@ action.
+-- 'updatedAt', 'renewalSummary_updatedAt' - The timestamp when the certificate was last updated.
 --
--- * 'rsRenewalStatusReason' - The reason for the renewal status of the certificate.
+-- 'renewalStatus', 'renewalSummary_renewalStatus' - The renewal status of the certificate.
 --
--- * 'rsDomainValidationRecords' - An array of objects that describe the domain validation records of the certificate.
-renewalSummary ::
+-- The following renewal status are possible:
+--
+-- -   __@PendingAutoRenewal@__ - Lightsail is attempting to automatically
+--     validate the domain names of the certificate. No further action is
+--     required.
+--
+-- -   __@PendingValidation@__ - Lightsail couldn\'t automatically validate
+--     one or more domain names of the certificate. You must take action to
+--     validate these domain names or the certificate won\'t be renewed.
+--     Check to make sure your certificate\'s domain validation records
+--     exist in your domain\'s DNS, and that your certificate remains in
+--     use.
+--
+-- -   __@Success@__ - All domain names in the certificate are validated,
+--     and Lightsail renewed the certificate. No further action is
+--     required.
+--
+-- -   __@Failed@__ - One or more domain names were not validated before
+--     the certificate expired, and Lightsail did not renew the
+--     certificate. You can request a new certificate using the
+--     @CreateCertificate@ action.
+--
+-- 'renewalStatusReason', 'renewalSummary_renewalStatusReason' - The reason for the renewal status of the certificate.
+--
+-- 'domainValidationRecords', 'renewalSummary_domainValidationRecords' - An array of objects that describe the domain validation records of the
+-- certificate.
+newRenewalSummary ::
   RenewalSummary
-renewalSummary =
+newRenewalSummary =
   RenewalSummary'
-    { _rsUpdatedAt = Nothing,
-      _rsRenewalStatus = Nothing,
-      _rsRenewalStatusReason = Nothing,
-      _rsDomainValidationRecords = Nothing
+    { updatedAt = Prelude.Nothing,
+      renewalStatus = Prelude.Nothing,
+      renewalStatusReason = Prelude.Nothing,
+      domainValidationRecords = Prelude.Nothing
     }
 
 -- | The timestamp when the certificate was last updated.
-rsUpdatedAt :: Lens' RenewalSummary (Maybe UTCTime)
-rsUpdatedAt = lens _rsUpdatedAt (\s a -> s {_rsUpdatedAt = a}) . mapping _Time
+renewalSummary_updatedAt :: Lens.Lens' RenewalSummary (Prelude.Maybe Prelude.UTCTime)
+renewalSummary_updatedAt = Lens.lens (\RenewalSummary' {updatedAt} -> updatedAt) (\s@RenewalSummary' {} a -> s {updatedAt = a} :: RenewalSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The renewal status of the certificate. The following renewal status are possible:     * __@PendingAutoRenewal@ __ - Lightsail is attempting to automatically validate the domain names of the certificate. No further action is required.      * __@PendingValidation@ __ - Lightsail couldn't automatically validate one or more domain names of the certificate. You must take action to validate these domain names or the certificate won't be renewed. Check to make sure your certificate's domain validation records exist in your domain's DNS, and that your certificate remains in use.     * __@Success@ __ - All domain names in the certificate are validated, and Lightsail renewed the certificate. No further action is required.      * __@Failed@ __ - One or more domain names were not validated before the certificate expired, and Lightsail did not renew the certificate. You can request a new certificate using the @CreateCertificate@ action.
-rsRenewalStatus :: Lens' RenewalSummary (Maybe RenewalStatus)
-rsRenewalStatus = lens _rsRenewalStatus (\s a -> s {_rsRenewalStatus = a})
+-- | The renewal status of the certificate.
+--
+-- The following renewal status are possible:
+--
+-- -   __@PendingAutoRenewal@__ - Lightsail is attempting to automatically
+--     validate the domain names of the certificate. No further action is
+--     required.
+--
+-- -   __@PendingValidation@__ - Lightsail couldn\'t automatically validate
+--     one or more domain names of the certificate. You must take action to
+--     validate these domain names or the certificate won\'t be renewed.
+--     Check to make sure your certificate\'s domain validation records
+--     exist in your domain\'s DNS, and that your certificate remains in
+--     use.
+--
+-- -   __@Success@__ - All domain names in the certificate are validated,
+--     and Lightsail renewed the certificate. No further action is
+--     required.
+--
+-- -   __@Failed@__ - One or more domain names were not validated before
+--     the certificate expired, and Lightsail did not renew the
+--     certificate. You can request a new certificate using the
+--     @CreateCertificate@ action.
+renewalSummary_renewalStatus :: Lens.Lens' RenewalSummary (Prelude.Maybe RenewalStatus)
+renewalSummary_renewalStatus = Lens.lens (\RenewalSummary' {renewalStatus} -> renewalStatus) (\s@RenewalSummary' {} a -> s {renewalStatus = a} :: RenewalSummary)
 
 -- | The reason for the renewal status of the certificate.
-rsRenewalStatusReason :: Lens' RenewalSummary (Maybe Text)
-rsRenewalStatusReason = lens _rsRenewalStatusReason (\s a -> s {_rsRenewalStatusReason = a})
+renewalSummary_renewalStatusReason :: Lens.Lens' RenewalSummary (Prelude.Maybe Prelude.Text)
+renewalSummary_renewalStatusReason = Lens.lens (\RenewalSummary' {renewalStatusReason} -> renewalStatusReason) (\s@RenewalSummary' {} a -> s {renewalStatusReason = a} :: RenewalSummary)
 
--- | An array of objects that describe the domain validation records of the certificate.
-rsDomainValidationRecords :: Lens' RenewalSummary [DomainValidationRecord]
-rsDomainValidationRecords = lens _rsDomainValidationRecords (\s a -> s {_rsDomainValidationRecords = a}) . _Default . _Coerce
+-- | An array of objects that describe the domain validation records of the
+-- certificate.
+renewalSummary_domainValidationRecords :: Lens.Lens' RenewalSummary (Prelude.Maybe [DomainValidationRecord])
+renewalSummary_domainValidationRecords = Lens.lens (\RenewalSummary' {domainValidationRecords} -> domainValidationRecords) (\s@RenewalSummary' {} a -> s {domainValidationRecords = a} :: RenewalSummary) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON RenewalSummary where
+instance Prelude.FromJSON RenewalSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RenewalSummary"
       ( \x ->
           RenewalSummary'
-            <$> (x .:? "updatedAt")
-            <*> (x .:? "renewalStatus")
-            <*> (x .:? "renewalStatusReason")
-            <*> (x .:? "domainValidationRecords" .!= mempty)
+            Prelude.<$> (x Prelude..:? "updatedAt")
+            Prelude.<*> (x Prelude..:? "renewalStatus")
+            Prelude.<*> (x Prelude..:? "renewalStatusReason")
+            Prelude.<*> ( x Prelude..:? "domainValidationRecords"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable RenewalSummary
+instance Prelude.Hashable RenewalSummary
 
-instance NFData RenewalSummary
+instance Prelude.NFData RenewalSummary

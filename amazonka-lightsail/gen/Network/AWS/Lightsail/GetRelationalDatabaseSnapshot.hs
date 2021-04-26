@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a specific database snapshot in Amazon Lightsail.
+-- Returns information about a specific database snapshot in Amazon
+-- Lightsail.
 module Network.AWS.Lightsail.GetRelationalDatabaseSnapshot
   ( -- * Creating a Request
-    getRelationalDatabaseSnapshot,
-    GetRelationalDatabaseSnapshot,
+    GetRelationalDatabaseSnapshot (..),
+    newGetRelationalDatabaseSnapshot,
 
     -- * Request Lenses
-    grdsRelationalDatabaseSnapshotName,
+    getRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
 
     -- * Destructuring the Response
-    getRelationalDatabaseSnapshotResponse,
-    GetRelationalDatabaseSnapshotResponse,
+    GetRelationalDatabaseSnapshotResponse (..),
+    newGetRelationalDatabaseSnapshotResponse,
 
     -- * Response Lenses
-    grdsrrsRelationalDatabaseSnapshot,
-    grdsrrsResponseStatus,
+    getRelationalDatabaseSnapshotResponse_relationalDatabaseSnapshot,
+    getRelationalDatabaseSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.RelationalDatabaseSnapshot
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRelationalDatabaseSnapshot' smart constructor.
-newtype GetRelationalDatabaseSnapshot = GetRelationalDatabaseSnapshot'
-  { _grdsRelationalDatabaseSnapshotName ::
-      Text
+-- | /See:/ 'newGetRelationalDatabaseSnapshot' smart constructor.
+data GetRelationalDatabaseSnapshot = GetRelationalDatabaseSnapshot'
+  { -- | The name of the database snapshot for which to get information.
+    relationalDatabaseSnapshotName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabaseSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabaseSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdsRelationalDatabaseSnapshotName' - The name of the database snapshot for which to get information.
-getRelationalDatabaseSnapshot ::
-  -- | 'grdsRelationalDatabaseSnapshotName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'relationalDatabaseSnapshotName', 'getRelationalDatabaseSnapshot_relationalDatabaseSnapshotName' - The name of the database snapshot for which to get information.
+newGetRelationalDatabaseSnapshot ::
+  -- | 'relationalDatabaseSnapshotName'
+  Prelude.Text ->
   GetRelationalDatabaseSnapshot
-getRelationalDatabaseSnapshot
+newGetRelationalDatabaseSnapshot
   pRelationalDatabaseSnapshotName_ =
     GetRelationalDatabaseSnapshot'
-      { _grdsRelationalDatabaseSnapshotName =
+      { relationalDatabaseSnapshotName =
           pRelationalDatabaseSnapshotName_
       }
 
 -- | The name of the database snapshot for which to get information.
-grdsRelationalDatabaseSnapshotName :: Lens' GetRelationalDatabaseSnapshot Text
-grdsRelationalDatabaseSnapshotName = lens _grdsRelationalDatabaseSnapshotName (\s a -> s {_grdsRelationalDatabaseSnapshotName = a})
+getRelationalDatabaseSnapshot_relationalDatabaseSnapshotName :: Lens.Lens' GetRelationalDatabaseSnapshot Prelude.Text
+getRelationalDatabaseSnapshot_relationalDatabaseSnapshotName = Lens.lens (\GetRelationalDatabaseSnapshot' {relationalDatabaseSnapshotName} -> relationalDatabaseSnapshotName) (\s@GetRelationalDatabaseSnapshot' {} a -> s {relationalDatabaseSnapshotName = a} :: GetRelationalDatabaseSnapshot)
 
-instance AWSRequest GetRelationalDatabaseSnapshot where
+instance
+  Prelude.AWSRequest
+    GetRelationalDatabaseSnapshot
+  where
   type
     Rs GetRelationalDatabaseSnapshot =
       GetRelationalDatabaseSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseSnapshotResponse'
-            <$> (x .?> "relationalDatabaseSnapshot")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "relationalDatabaseSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRelationalDatabaseSnapshot
+instance
+  Prelude.Hashable
+    GetRelationalDatabaseSnapshot
 
-instance NFData GetRelationalDatabaseSnapshot
+instance Prelude.NFData GetRelationalDatabaseSnapshot
 
-instance ToHeaders GetRelationalDatabaseSnapshot where
+instance
+  Prelude.ToHeaders
+    GetRelationalDatabaseSnapshot
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetRelationalDatabaseSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetRelationalDatabaseSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRelationalDatabaseSnapshot where
+instance Prelude.ToJSON GetRelationalDatabaseSnapshot where
   toJSON GetRelationalDatabaseSnapshot' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "relationalDatabaseSnapshotName"
-                  .= _grdsRelationalDatabaseSnapshotName
+                  Prelude..= relationalDatabaseSnapshotName
               )
           ]
       )
 
-instance ToPath GetRelationalDatabaseSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath GetRelationalDatabaseSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRelationalDatabaseSnapshot where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetRelationalDatabaseSnapshot
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRelationalDatabaseSnapshotResponse' smart constructor.
+-- | /See:/ 'newGetRelationalDatabaseSnapshotResponse' smart constructor.
 data GetRelationalDatabaseSnapshotResponse = GetRelationalDatabaseSnapshotResponse'
-  { _grdsrrsRelationalDatabaseSnapshot ::
-      !( Maybe
-           RelationalDatabaseSnapshot
-       ),
-    _grdsrrsResponseStatus ::
-      !Int
+  { -- | An object describing the specified database snapshot.
+    relationalDatabaseSnapshot :: Prelude.Maybe RelationalDatabaseSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabaseSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabaseSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdsrrsRelationalDatabaseSnapshot' - An object describing the specified database snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdsrrsResponseStatus' - -- | The response status code.
-getRelationalDatabaseSnapshotResponse ::
-  -- | 'grdsrrsResponseStatus'
-  Int ->
+-- 'relationalDatabaseSnapshot', 'getRelationalDatabaseSnapshotResponse_relationalDatabaseSnapshot' - An object describing the specified database snapshot.
+--
+-- 'httpStatus', 'getRelationalDatabaseSnapshotResponse_httpStatus' - The response's http status code.
+newGetRelationalDatabaseSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRelationalDatabaseSnapshotResponse
-getRelationalDatabaseSnapshotResponse
-  pResponseStatus_ =
-    GetRelationalDatabaseSnapshotResponse'
-      { _grdsrrsRelationalDatabaseSnapshot =
-          Nothing,
-        _grdsrrsResponseStatus =
-          pResponseStatus_
-      }
+newGetRelationalDatabaseSnapshotResponse pHttpStatus_ =
+  GetRelationalDatabaseSnapshotResponse'
+    { relationalDatabaseSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | An object describing the specified database snapshot.
-grdsrrsRelationalDatabaseSnapshot :: Lens' GetRelationalDatabaseSnapshotResponse (Maybe RelationalDatabaseSnapshot)
-grdsrrsRelationalDatabaseSnapshot = lens _grdsrrsRelationalDatabaseSnapshot (\s a -> s {_grdsrrsRelationalDatabaseSnapshot = a})
+getRelationalDatabaseSnapshotResponse_relationalDatabaseSnapshot :: Lens.Lens' GetRelationalDatabaseSnapshotResponse (Prelude.Maybe RelationalDatabaseSnapshot)
+getRelationalDatabaseSnapshotResponse_relationalDatabaseSnapshot = Lens.lens (\GetRelationalDatabaseSnapshotResponse' {relationalDatabaseSnapshot} -> relationalDatabaseSnapshot) (\s@GetRelationalDatabaseSnapshotResponse' {} a -> s {relationalDatabaseSnapshot = a} :: GetRelationalDatabaseSnapshotResponse)
 
--- | -- | The response status code.
-grdsrrsResponseStatus :: Lens' GetRelationalDatabaseSnapshotResponse Int
-grdsrrsResponseStatus = lens _grdsrrsResponseStatus (\s a -> s {_grdsrrsResponseStatus = a})
+-- | The response's http status code.
+getRelationalDatabaseSnapshotResponse_httpStatus :: Lens.Lens' GetRelationalDatabaseSnapshotResponse Prelude.Int
+getRelationalDatabaseSnapshotResponse_httpStatus = Lens.lens (\GetRelationalDatabaseSnapshotResponse' {httpStatus} -> httpStatus) (\s@GetRelationalDatabaseSnapshotResponse' {} a -> s {httpStatus = a} :: GetRelationalDatabaseSnapshotResponse)
 
-instance NFData GetRelationalDatabaseSnapshotResponse
+instance
+  Prelude.NFData
+    GetRelationalDatabaseSnapshotResponse

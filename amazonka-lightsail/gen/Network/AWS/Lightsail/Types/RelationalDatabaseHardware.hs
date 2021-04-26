@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.RelationalDatabaseHardware where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the hardware of a database.
 --
---
---
--- /See:/ 'relationalDatabaseHardware' smart constructor.
+-- /See:/ 'newRelationalDatabaseHardware' smart constructor.
 data RelationalDatabaseHardware = RelationalDatabaseHardware'
-  { _rdhRamSizeInGb ::
-      !(Maybe Double),
-    _rdhCpuCount ::
-      !(Maybe Int),
-    _rdhDiskSizeInGb ::
-      !(Maybe Int)
+  { -- | The amount of RAM in GB for the database.
+    ramSizeInGb :: Prelude.Maybe Prelude.Double,
+    -- | The number of vCPUs for the database.
+    cpuCount :: Prelude.Maybe Prelude.Int,
+    -- | The size of the disk for the database.
+    diskSizeInGb :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RelationalDatabaseHardware' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RelationalDatabaseHardware' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdhRamSizeInGb' - The amount of RAM in GB for the database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdhCpuCount' - The number of vCPUs for the database.
+-- 'ramSizeInGb', 'relationalDatabaseHardware_ramSizeInGb' - The amount of RAM in GB for the database.
 --
--- * 'rdhDiskSizeInGb' - The size of the disk for the database.
-relationalDatabaseHardware ::
+-- 'cpuCount', 'relationalDatabaseHardware_cpuCount' - The number of vCPUs for the database.
+--
+-- 'diskSizeInGb', 'relationalDatabaseHardware_diskSizeInGb' - The size of the disk for the database.
+newRelationalDatabaseHardware ::
   RelationalDatabaseHardware
-relationalDatabaseHardware =
+newRelationalDatabaseHardware =
   RelationalDatabaseHardware'
-    { _rdhRamSizeInGb =
-        Nothing,
-      _rdhCpuCount = Nothing,
-      _rdhDiskSizeInGb = Nothing
+    { ramSizeInGb =
+        Prelude.Nothing,
+      cpuCount = Prelude.Nothing,
+      diskSizeInGb = Prelude.Nothing
     }
 
 -- | The amount of RAM in GB for the database.
-rdhRamSizeInGb :: Lens' RelationalDatabaseHardware (Maybe Double)
-rdhRamSizeInGb = lens _rdhRamSizeInGb (\s a -> s {_rdhRamSizeInGb = a})
+relationalDatabaseHardware_ramSizeInGb :: Lens.Lens' RelationalDatabaseHardware (Prelude.Maybe Prelude.Double)
+relationalDatabaseHardware_ramSizeInGb = Lens.lens (\RelationalDatabaseHardware' {ramSizeInGb} -> ramSizeInGb) (\s@RelationalDatabaseHardware' {} a -> s {ramSizeInGb = a} :: RelationalDatabaseHardware)
 
 -- | The number of vCPUs for the database.
-rdhCpuCount :: Lens' RelationalDatabaseHardware (Maybe Int)
-rdhCpuCount = lens _rdhCpuCount (\s a -> s {_rdhCpuCount = a})
+relationalDatabaseHardware_cpuCount :: Lens.Lens' RelationalDatabaseHardware (Prelude.Maybe Prelude.Int)
+relationalDatabaseHardware_cpuCount = Lens.lens (\RelationalDatabaseHardware' {cpuCount} -> cpuCount) (\s@RelationalDatabaseHardware' {} a -> s {cpuCount = a} :: RelationalDatabaseHardware)
 
 -- | The size of the disk for the database.
-rdhDiskSizeInGb :: Lens' RelationalDatabaseHardware (Maybe Int)
-rdhDiskSizeInGb = lens _rdhDiskSizeInGb (\s a -> s {_rdhDiskSizeInGb = a})
+relationalDatabaseHardware_diskSizeInGb :: Lens.Lens' RelationalDatabaseHardware (Prelude.Maybe Prelude.Int)
+relationalDatabaseHardware_diskSizeInGb = Lens.lens (\RelationalDatabaseHardware' {diskSizeInGb} -> diskSizeInGb) (\s@RelationalDatabaseHardware' {} a -> s {diskSizeInGb = a} :: RelationalDatabaseHardware)
 
-instance FromJSON RelationalDatabaseHardware where
+instance Prelude.FromJSON RelationalDatabaseHardware where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RelationalDatabaseHardware"
       ( \x ->
           RelationalDatabaseHardware'
-            <$> (x .:? "ramSizeInGb")
-            <*> (x .:? "cpuCount")
-            <*> (x .:? "diskSizeInGb")
+            Prelude.<$> (x Prelude..:? "ramSizeInGb")
+            Prelude.<*> (x Prelude..:? "cpuCount")
+            Prelude.<*> (x Prelude..:? "diskSizeInGb")
       )
 
-instance Hashable RelationalDatabaseHardware
+instance Prelude.Hashable RelationalDatabaseHardware
 
-instance NFData RelationalDatabaseHardware
+instance Prelude.NFData RelationalDatabaseHardware

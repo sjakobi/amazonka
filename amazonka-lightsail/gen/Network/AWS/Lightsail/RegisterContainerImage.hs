@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,172 +22,249 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Registers a container image to your Amazon Lightsail container service.
+--
+-- This action is not required if you install and use the Lightsail Control
+-- (lightsailctl) plugin to push container images to your Lightsail
+-- container service. For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-pushing-container-images Pushing and managing container images on your Amazon Lightsail container services>
+-- in the /Lightsail Dev Guide/.
 module Network.AWS.Lightsail.RegisterContainerImage
   ( -- * Creating a Request
-    registerContainerImage,
-    RegisterContainerImage,
+    RegisterContainerImage (..),
+    newRegisterContainerImage,
 
     -- * Request Lenses
-    rciServiceName,
-    rciLabel,
-    rciDigest,
+    registerContainerImage_serviceName,
+    registerContainerImage_label,
+    registerContainerImage_digest,
 
     -- * Destructuring the Response
-    registerContainerImageResponse,
-    RegisterContainerImageResponse,
+    RegisterContainerImageResponse (..),
+    newRegisterContainerImageResponse,
 
     -- * Response Lenses
-    rcirrsContainerImage,
-    rcirrsResponseStatus,
+    registerContainerImageResponse_containerImage,
+    registerContainerImageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerImage
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerContainerImage' smart constructor.
+-- | /See:/ 'newRegisterContainerImage' smart constructor.
 data RegisterContainerImage = RegisterContainerImage'
-  { _rciServiceName ::
-      !Text,
-    _rciLabel :: !Text,
-    _rciDigest :: !Text
+  { -- | The name of the container service for which to register a container
+    -- image.
+    serviceName :: Prelude.Text,
+    -- | The label for the container image when it\'s registered to the container
+    -- service.
+    --
+    -- Use a descriptive label that you can use to track the different versions
+    -- of your registered container images.
+    --
+    -- Use the @GetContainerImages@ action to return the container images
+    -- registered to a Lightsail container service. The label is the
+    -- @\<imagelabel>@ portion of the following image name example:
+    --
+    -- -   @:container-service-1.\<imagelabel>.1@
+    --
+    -- If the name of your container service is @mycontainerservice@, and the
+    -- label that you specify is @mystaticwebsite@, then the name of the
+    -- registered container image will be
+    -- @:mycontainerservice.mystaticwebsite.1@.
+    --
+    -- The number at the end of these image name examples represents the
+    -- version of the registered container image. If you push and register
+    -- another container image to the same Lightsail container service, with
+    -- the same label, then the version number for the new registered container
+    -- image will be @2@. If you push and register another container image, the
+    -- version number will be @3@, and so on.
+    label :: Prelude.Text,
+    -- | The digest of the container image to be registered.
+    digest :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterContainerImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterContainerImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rciServiceName' - The name of the container service for which to register a container image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rciLabel' - The label for the container image when it's registered to the container service. Use a descriptive label that you can use to track the different versions of your registered container images. Use the @GetContainerImages@ action to return the container images registered to a Lightsail container service. The label is the @<imagelabel>@ portion of the following image name example:     * @:container-service-1.<imagelabel>.1@  If the name of your container service is @mycontainerservice@ , and the label that you specify is @mystaticwebsite@ , then the name of the registered container image will be @:mycontainerservice.mystaticwebsite.1@ . The number at the end of these image name examples represents the version of the registered container image. If you push and register another container image to the same Lightsail container service, with the same label, then the version number for the new registered container image will be @2@ . If you push and register another container image, the version number will be @3@ , and so on.
+-- 'serviceName', 'registerContainerImage_serviceName' - The name of the container service for which to register a container
+-- image.
 --
--- * 'rciDigest' - The digest of the container image to be registered.
-registerContainerImage ::
-  -- | 'rciServiceName'
-  Text ->
-  -- | 'rciLabel'
-  Text ->
-  -- | 'rciDigest'
-  Text ->
+-- 'label', 'registerContainerImage_label' - The label for the container image when it\'s registered to the container
+-- service.
+--
+-- Use a descriptive label that you can use to track the different versions
+-- of your registered container images.
+--
+-- Use the @GetContainerImages@ action to return the container images
+-- registered to a Lightsail container service. The label is the
+-- @\<imagelabel>@ portion of the following image name example:
+--
+-- -   @:container-service-1.\<imagelabel>.1@
+--
+-- If the name of your container service is @mycontainerservice@, and the
+-- label that you specify is @mystaticwebsite@, then the name of the
+-- registered container image will be
+-- @:mycontainerservice.mystaticwebsite.1@.
+--
+-- The number at the end of these image name examples represents the
+-- version of the registered container image. If you push and register
+-- another container image to the same Lightsail container service, with
+-- the same label, then the version number for the new registered container
+-- image will be @2@. If you push and register another container image, the
+-- version number will be @3@, and so on.
+--
+-- 'digest', 'registerContainerImage_digest' - The digest of the container image to be registered.
+newRegisterContainerImage ::
+  -- | 'serviceName'
+  Prelude.Text ->
+  -- | 'label'
+  Prelude.Text ->
+  -- | 'digest'
+  Prelude.Text ->
   RegisterContainerImage
-registerContainerImage pServiceName_ pLabel_ pDigest_ =
-  RegisterContainerImage'
-    { _rciServiceName =
-        pServiceName_,
-      _rciLabel = pLabel_,
-      _rciDigest = pDigest_
-    }
+newRegisterContainerImage
+  pServiceName_
+  pLabel_
+  pDigest_ =
+    RegisterContainerImage'
+      { serviceName =
+          pServiceName_,
+        label = pLabel_,
+        digest = pDigest_
+      }
 
--- | The name of the container service for which to register a container image.
-rciServiceName :: Lens' RegisterContainerImage Text
-rciServiceName = lens _rciServiceName (\s a -> s {_rciServiceName = a})
+-- | The name of the container service for which to register a container
+-- image.
+registerContainerImage_serviceName :: Lens.Lens' RegisterContainerImage Prelude.Text
+registerContainerImage_serviceName = Lens.lens (\RegisterContainerImage' {serviceName} -> serviceName) (\s@RegisterContainerImage' {} a -> s {serviceName = a} :: RegisterContainerImage)
 
--- | The label for the container image when it's registered to the container service. Use a descriptive label that you can use to track the different versions of your registered container images. Use the @GetContainerImages@ action to return the container images registered to a Lightsail container service. The label is the @<imagelabel>@ portion of the following image name example:     * @:container-service-1.<imagelabel>.1@  If the name of your container service is @mycontainerservice@ , and the label that you specify is @mystaticwebsite@ , then the name of the registered container image will be @:mycontainerservice.mystaticwebsite.1@ . The number at the end of these image name examples represents the version of the registered container image. If you push and register another container image to the same Lightsail container service, with the same label, then the version number for the new registered container image will be @2@ . If you push and register another container image, the version number will be @3@ , and so on.
-rciLabel :: Lens' RegisterContainerImage Text
-rciLabel = lens _rciLabel (\s a -> s {_rciLabel = a})
+-- | The label for the container image when it\'s registered to the container
+-- service.
+--
+-- Use a descriptive label that you can use to track the different versions
+-- of your registered container images.
+--
+-- Use the @GetContainerImages@ action to return the container images
+-- registered to a Lightsail container service. The label is the
+-- @\<imagelabel>@ portion of the following image name example:
+--
+-- -   @:container-service-1.\<imagelabel>.1@
+--
+-- If the name of your container service is @mycontainerservice@, and the
+-- label that you specify is @mystaticwebsite@, then the name of the
+-- registered container image will be
+-- @:mycontainerservice.mystaticwebsite.1@.
+--
+-- The number at the end of these image name examples represents the
+-- version of the registered container image. If you push and register
+-- another container image to the same Lightsail container service, with
+-- the same label, then the version number for the new registered container
+-- image will be @2@. If you push and register another container image, the
+-- version number will be @3@, and so on.
+registerContainerImage_label :: Lens.Lens' RegisterContainerImage Prelude.Text
+registerContainerImage_label = Lens.lens (\RegisterContainerImage' {label} -> label) (\s@RegisterContainerImage' {} a -> s {label = a} :: RegisterContainerImage)
 
 -- | The digest of the container image to be registered.
-rciDigest :: Lens' RegisterContainerImage Text
-rciDigest = lens _rciDigest (\s a -> s {_rciDigest = a})
+registerContainerImage_digest :: Lens.Lens' RegisterContainerImage Prelude.Text
+registerContainerImage_digest = Lens.lens (\RegisterContainerImage' {digest} -> digest) (\s@RegisterContainerImage' {} a -> s {digest = a} :: RegisterContainerImage)
 
-instance AWSRequest RegisterContainerImage where
+instance Prelude.AWSRequest RegisterContainerImage where
   type
     Rs RegisterContainerImage =
       RegisterContainerImageResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterContainerImageResponse'
-            <$> (x .?> "containerImage") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "containerImage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterContainerImage
+instance Prelude.Hashable RegisterContainerImage
 
-instance NFData RegisterContainerImage
+instance Prelude.NFData RegisterContainerImage
 
-instance ToHeaders RegisterContainerImage where
+instance Prelude.ToHeaders RegisterContainerImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.RegisterContainerImage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.RegisterContainerImage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterContainerImage where
+instance Prelude.ToJSON RegisterContainerImage where
   toJSON RegisterContainerImage' {..} =
-    object
-      ( catMaybes
-          [ Just ("serviceName" .= _rciServiceName),
-            Just ("label" .= _rciLabel),
-            Just ("digest" .= _rciDigest)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("serviceName" Prelude..= serviceName),
+            Prelude.Just ("label" Prelude..= label),
+            Prelude.Just ("digest" Prelude..= digest)
           ]
       )
 
-instance ToPath RegisterContainerImage where
-  toPath = const "/"
+instance Prelude.ToPath RegisterContainerImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterContainerImage where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterContainerImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerContainerImageResponse' smart constructor.
+-- | /See:/ 'newRegisterContainerImageResponse' smart constructor.
 data RegisterContainerImageResponse = RegisterContainerImageResponse'
-  { _rcirrsContainerImage ::
-      !( Maybe
-           ContainerImage
-       ),
-    _rcirrsResponseStatus ::
-      !Int
+  { containerImage :: Prelude.Maybe ContainerImage,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterContainerImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterContainerImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcirrsContainerImage' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcirrsResponseStatus' - -- | The response status code.
-registerContainerImageResponse ::
-  -- | 'rcirrsResponseStatus'
-  Int ->
+-- 'containerImage', 'registerContainerImageResponse_containerImage' - Undocumented member.
+--
+-- 'httpStatus', 'registerContainerImageResponse_httpStatus' - The response's http status code.
+newRegisterContainerImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterContainerImageResponse
-registerContainerImageResponse pResponseStatus_ =
+newRegisterContainerImageResponse pHttpStatus_ =
   RegisterContainerImageResponse'
-    { _rcirrsContainerImage =
-        Nothing,
-      _rcirrsResponseStatus = pResponseStatus_
+    { containerImage =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-rcirrsContainerImage :: Lens' RegisterContainerImageResponse (Maybe ContainerImage)
-rcirrsContainerImage = lens _rcirrsContainerImage (\s a -> s {_rcirrsContainerImage = a})
+registerContainerImageResponse_containerImage :: Lens.Lens' RegisterContainerImageResponse (Prelude.Maybe ContainerImage)
+registerContainerImageResponse_containerImage = Lens.lens (\RegisterContainerImageResponse' {containerImage} -> containerImage) (\s@RegisterContainerImageResponse' {} a -> s {containerImage = a} :: RegisterContainerImageResponse)
 
--- | -- | The response status code.
-rcirrsResponseStatus :: Lens' RegisterContainerImageResponse Int
-rcirrsResponseStatus = lens _rcirrsResponseStatus (\s a -> s {_rcirrsResponseStatus = a})
+-- | The response's http status code.
+registerContainerImageResponse_httpStatus :: Lens.Lens' RegisterContainerImageResponse Prelude.Int
+registerContainerImageResponse_httpStatus = Lens.lens (\RegisterContainerImageResponse' {httpStatus} -> httpStatus) (\s@RegisterContainerImageResponse' {} a -> s {httpStatus = a} :: RegisterContainerImageResponse)
 
-instance NFData RegisterContainerImageResponse
+instance
+  Prelude.NFData
+    RegisterContainerImageResponse

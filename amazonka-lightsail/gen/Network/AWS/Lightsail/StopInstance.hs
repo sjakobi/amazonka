@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,138 +23,185 @@
 --
 -- Stops a specific Amazon Lightsail instance that is currently running.
 --
+-- When you start a stopped instance, Lightsail assigns a new public IP
+-- address to the instance. To use the same IP address after stopping and
+-- starting an instance, create a static IP address and attach it to the
+-- instance. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip Lightsail Dev Guide>.
 --
--- The @stop instance@ operation supports tag-based access control via resource tags applied to the resource identified by @instance name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @stop instance@ operation supports tag-based access control via
+-- resource tags applied to the resource identified by @instance name@. For
+-- more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.StopInstance
   ( -- * Creating a Request
-    stopInstance,
-    StopInstance,
+    StopInstance (..),
+    newStopInstance,
 
     -- * Request Lenses
-    sForce,
-    sInstanceName,
+    stopInstance_force,
+    stopInstance_instanceName,
 
     -- * Destructuring the Response
-    stopInstanceResponse,
-    StopInstanceResponse,
+    StopInstanceResponse (..),
+    newStopInstanceResponse,
 
     -- * Response Lenses
-    storsOperations,
-    storsResponseStatus,
+    stopInstanceResponse_operations,
+    stopInstanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopInstance' smart constructor.
+-- | /See:/ 'newStopInstance' smart constructor.
 data StopInstance = StopInstance'
-  { _sForce ::
-      !(Maybe Bool),
-    _sInstanceName :: !Text
+  { -- | When set to @True@, forces a Lightsail instance that is stuck in a
+    -- @stopping@ state to stop.
+    --
+    -- Only use the @force@ parameter if your instance is stuck in the
+    -- @stopping@ state. In any other state, your instance should stop normally
+    -- without adding this parameter to your API request.
+    force :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the instance (a virtual private server) to stop.
+    instanceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sForce' - When set to @True@ , forces a Lightsail instance that is stuck in a @stopping@ state to stop. /Important:/ Only use the @force@ parameter if your instance is stuck in the @stopping@ state. In any other state, your instance should stop normally without adding this parameter to your API request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sInstanceName' - The name of the instance (a virtual private server) to stop.
-stopInstance ::
-  -- | 'sInstanceName'
-  Text ->
+-- 'force', 'stopInstance_force' - When set to @True@, forces a Lightsail instance that is stuck in a
+-- @stopping@ state to stop.
+--
+-- Only use the @force@ parameter if your instance is stuck in the
+-- @stopping@ state. In any other state, your instance should stop normally
+-- without adding this parameter to your API request.
+--
+-- 'instanceName', 'stopInstance_instanceName' - The name of the instance (a virtual private server) to stop.
+newStopInstance ::
+  -- | 'instanceName'
+  Prelude.Text ->
   StopInstance
-stopInstance pInstanceName_ =
+newStopInstance pInstanceName_ =
   StopInstance'
-    { _sForce = Nothing,
-      _sInstanceName = pInstanceName_
+    { force = Prelude.Nothing,
+      instanceName = pInstanceName_
     }
 
--- | When set to @True@ , forces a Lightsail instance that is stuck in a @stopping@ state to stop. /Important:/ Only use the @force@ parameter if your instance is stuck in the @stopping@ state. In any other state, your instance should stop normally without adding this parameter to your API request.
-sForce :: Lens' StopInstance (Maybe Bool)
-sForce = lens _sForce (\s a -> s {_sForce = a})
+-- | When set to @True@, forces a Lightsail instance that is stuck in a
+-- @stopping@ state to stop.
+--
+-- Only use the @force@ parameter if your instance is stuck in the
+-- @stopping@ state. In any other state, your instance should stop normally
+-- without adding this parameter to your API request.
+stopInstance_force :: Lens.Lens' StopInstance (Prelude.Maybe Prelude.Bool)
+stopInstance_force = Lens.lens (\StopInstance' {force} -> force) (\s@StopInstance' {} a -> s {force = a} :: StopInstance)
 
 -- | The name of the instance (a virtual private server) to stop.
-sInstanceName :: Lens' StopInstance Text
-sInstanceName = lens _sInstanceName (\s a -> s {_sInstanceName = a})
+stopInstance_instanceName :: Lens.Lens' StopInstance Prelude.Text
+stopInstance_instanceName = Lens.lens (\StopInstance' {instanceName} -> instanceName) (\s@StopInstance' {} a -> s {instanceName = a} :: StopInstance)
 
-instance AWSRequest StopInstance where
+instance Prelude.AWSRequest StopInstance where
   type Rs StopInstance = StopInstanceResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopInstanceResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopInstance
+instance Prelude.Hashable StopInstance
 
-instance NFData StopInstance
+instance Prelude.NFData StopInstance
 
-instance ToHeaders StopInstance where
+instance Prelude.ToHeaders StopInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.StopInstance" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.StopInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopInstance where
+instance Prelude.ToJSON StopInstance where
   toJSON StopInstance' {..} =
-    object
-      ( catMaybes
-          [ ("force" .=) <$> _sForce,
-            Just ("instanceName" .= _sInstanceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("force" Prelude..=) Prelude.<$> force,
+            Prelude.Just
+              ("instanceName" Prelude..= instanceName)
           ]
       )
 
-instance ToPath StopInstance where
-  toPath = const "/"
+instance Prelude.ToPath StopInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery StopInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopInstanceResponse' smart constructor.
+-- | /See:/ 'newStopInstanceResponse' smart constructor.
 data StopInstanceResponse = StopInstanceResponse'
-  { _storsOperations ::
-      !(Maybe [Operation]),
-    _storsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'storsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'storsResponseStatus' - -- | The response status code.
-stopInstanceResponse ::
-  -- | 'storsResponseStatus'
-  Int ->
+-- 'operations', 'stopInstanceResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'stopInstanceResponse_httpStatus' - The response's http status code.
+newStopInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopInstanceResponse
-stopInstanceResponse pResponseStatus_ =
+newStopInstanceResponse pHttpStatus_ =
   StopInstanceResponse'
-    { _storsOperations = Nothing,
-      _storsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-storsOperations :: Lens' StopInstanceResponse [Operation]
-storsOperations = lens _storsOperations (\s a -> s {_storsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+stopInstanceResponse_operations :: Lens.Lens' StopInstanceResponse (Prelude.Maybe [Operation])
+stopInstanceResponse_operations = Lens.lens (\StopInstanceResponse' {operations} -> operations) (\s@StopInstanceResponse' {} a -> s {operations = a} :: StopInstanceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-storsResponseStatus :: Lens' StopInstanceResponse Int
-storsResponseStatus = lens _storsResponseStatus (\s a -> s {_storsResponseStatus = a})
+-- | The response's http status code.
+stopInstanceResponse_httpStatus :: Lens.Lens' StopInstanceResponse Prelude.Int
+stopInstanceResponse_httpStatus = Lens.lens (\StopInstanceResponse' {httpStatus} -> httpStatus) (\s@StopInstanceResponse' {} a -> s {httpStatus = a} :: StopInstanceResponse)
 
-instance NFData StopInstanceResponse
+instance Prelude.NFData StopInstanceResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.Lightsail.Types.DistributionMetricName
   ( DistributionMetricName
       ( ..,
-        BytesDownloaded,
-        BytesUploaded,
-        HTTP4xxErrorRate,
-        HTTP5xxErrorRate,
-        Requests,
-        TotalErrorRate
+        DistributionMetricNameBytesDownloaded,
+        DistributionMetricNameBytesUploaded,
+        DistributionMetricNameHttp4xxErrorRate,
+        DistributionMetricNameHttp5xxErrorRate,
+        DistributionMetricNameRequests,
+        DistributionMetricNameTotalErrorRate
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DistributionMetricName
-  = DistributionMetricName'
-      ( CI
-          Text
-      )
+newtype DistributionMetricName = DistributionMetricName'
+  { fromDistributionMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BytesDownloaded :: DistributionMetricName
-pattern BytesDownloaded = DistributionMetricName' "BytesDownloaded"
+pattern DistributionMetricNameBytesDownloaded :: DistributionMetricName
+pattern DistributionMetricNameBytesDownloaded = DistributionMetricName' "BytesDownloaded"
 
-pattern BytesUploaded :: DistributionMetricName
-pattern BytesUploaded = DistributionMetricName' "BytesUploaded"
+pattern DistributionMetricNameBytesUploaded :: DistributionMetricName
+pattern DistributionMetricNameBytesUploaded = DistributionMetricName' "BytesUploaded"
 
-pattern HTTP4xxErrorRate :: DistributionMetricName
-pattern HTTP4xxErrorRate = DistributionMetricName' "Http4xxErrorRate"
+pattern DistributionMetricNameHttp4xxErrorRate :: DistributionMetricName
+pattern DistributionMetricNameHttp4xxErrorRate = DistributionMetricName' "Http4xxErrorRate"
 
-pattern HTTP5xxErrorRate :: DistributionMetricName
-pattern HTTP5xxErrorRate = DistributionMetricName' "Http5xxErrorRate"
+pattern DistributionMetricNameHttp5xxErrorRate :: DistributionMetricName
+pattern DistributionMetricNameHttp5xxErrorRate = DistributionMetricName' "Http5xxErrorRate"
 
-pattern Requests :: DistributionMetricName
-pattern Requests = DistributionMetricName' "Requests"
+pattern DistributionMetricNameRequests :: DistributionMetricName
+pattern DistributionMetricNameRequests = DistributionMetricName' "Requests"
 
-pattern TotalErrorRate :: DistributionMetricName
-pattern TotalErrorRate = DistributionMetricName' "TotalErrorRate"
+pattern DistributionMetricNameTotalErrorRate :: DistributionMetricName
+pattern DistributionMetricNameTotalErrorRate = DistributionMetricName' "TotalErrorRate"
 
 {-# COMPLETE
-  BytesDownloaded,
-  BytesUploaded,
-  HTTP4xxErrorRate,
-  HTTP5xxErrorRate,
-  Requests,
-  TotalErrorRate,
+  DistributionMetricNameBytesDownloaded,
+  DistributionMetricNameBytesUploaded,
+  DistributionMetricNameHttp4xxErrorRate,
+  DistributionMetricNameHttp5xxErrorRate,
+  DistributionMetricNameRequests,
+  DistributionMetricNameTotalErrorRate,
   DistributionMetricName'
   #-}
 
-instance FromText DistributionMetricName where
-  parser = (DistributionMetricName' . mk) <$> takeText
+instance Prelude.FromText DistributionMetricName where
+  parser = DistributionMetricName' Prelude.<$> Prelude.takeText
 
-instance ToText DistributionMetricName where
-  toText (DistributionMetricName' ci) = original ci
+instance Prelude.ToText DistributionMetricName where
+  toText (DistributionMetricName' x) = x
 
-instance Hashable DistributionMetricName
+instance Prelude.Hashable DistributionMetricName
 
-instance NFData DistributionMetricName
+instance Prelude.NFData DistributionMetricName
 
-instance ToByteString DistributionMetricName
+instance Prelude.ToByteString DistributionMetricName
 
-instance ToQuery DistributionMetricName
+instance Prelude.ToQuery DistributionMetricName
 
-instance ToHeader DistributionMetricName
+instance Prelude.ToHeader DistributionMetricName
 
-instance ToJSON DistributionMetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON DistributionMetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DistributionMetricName where
-  parseJSON = parseJSONText "DistributionMetricName"
+instance Prelude.FromJSON DistributionMetricName where
+  parseJSON = Prelude.parseJSONText "DistributionMetricName"

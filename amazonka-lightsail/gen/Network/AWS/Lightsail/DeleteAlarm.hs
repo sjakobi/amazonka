@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,123 +23,150 @@
 --
 -- Deletes an alarm.
 --
---
--- An alarm is used to monitor a single metric for one of your resources. When a metric condition is met, the alarm can notify you by email, SMS text message, and a banner displayed on the Amazon Lightsail console. For more information, see <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms Alarms in Amazon Lightsail> .
+-- An alarm is used to monitor a single metric for one of your resources.
+-- When a metric condition is met, the alarm can notify you by email, SMS
+-- text message, and a banner displayed on the Amazon Lightsail console.
+-- For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms Alarms in Amazon Lightsail>.
 module Network.AWS.Lightsail.DeleteAlarm
   ( -- * Creating a Request
-    deleteAlarm,
-    DeleteAlarm,
+    DeleteAlarm (..),
+    newDeleteAlarm,
 
     -- * Request Lenses
-    daAlarmName,
+    deleteAlarm_alarmName,
 
     -- * Destructuring the Response
-    deleteAlarmResponse,
-    DeleteAlarmResponse,
+    DeleteAlarmResponse (..),
+    newDeleteAlarmResponse,
 
     -- * Response Lenses
-    darrsOperations,
-    darrsResponseStatus,
+    deleteAlarmResponse_operations,
+    deleteAlarmResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAlarm' smart constructor.
-newtype DeleteAlarm = DeleteAlarm'
-  { _daAlarmName ::
-      Text
+-- | /See:/ 'newDeleteAlarm' smart constructor.
+data DeleteAlarm = DeleteAlarm'
+  { -- | The name of the alarm to delete.
+    alarmName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlarm' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAlarm' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAlarmName' - The name of the alarm to delete.
-deleteAlarm ::
-  -- | 'daAlarmName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'alarmName', 'deleteAlarm_alarmName' - The name of the alarm to delete.
+newDeleteAlarm ::
+  -- | 'alarmName'
+  Prelude.Text ->
   DeleteAlarm
-deleteAlarm pAlarmName_ =
-  DeleteAlarm' {_daAlarmName = pAlarmName_}
+newDeleteAlarm pAlarmName_ =
+  DeleteAlarm' {alarmName = pAlarmName_}
 
 -- | The name of the alarm to delete.
-daAlarmName :: Lens' DeleteAlarm Text
-daAlarmName = lens _daAlarmName (\s a -> s {_daAlarmName = a})
+deleteAlarm_alarmName :: Lens.Lens' DeleteAlarm Prelude.Text
+deleteAlarm_alarmName = Lens.lens (\DeleteAlarm' {alarmName} -> alarmName) (\s@DeleteAlarm' {} a -> s {alarmName = a} :: DeleteAlarm)
 
-instance AWSRequest DeleteAlarm where
+instance Prelude.AWSRequest DeleteAlarm where
   type Rs DeleteAlarm = DeleteAlarmResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteAlarmResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAlarm
+instance Prelude.Hashable DeleteAlarm
 
-instance NFData DeleteAlarm
+instance Prelude.NFData DeleteAlarm
 
-instance ToHeaders DeleteAlarm where
+instance Prelude.ToHeaders DeleteAlarm where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.DeleteAlarm" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.DeleteAlarm" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAlarm where
+instance Prelude.ToJSON DeleteAlarm where
   toJSON DeleteAlarm' {..} =
-    object
-      (catMaybes [Just ("alarmName" .= _daAlarmName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("alarmName" Prelude..= alarmName)]
+      )
 
-instance ToPath DeleteAlarm where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAlarm where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAlarm where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAlarm where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAlarmResponse' smart constructor.
+-- | /See:/ 'newDeleteAlarmResponse' smart constructor.
 data DeleteAlarmResponse = DeleteAlarmResponse'
-  { _darrsOperations ::
-      !(Maybe [Operation]),
-    _darrsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlarmResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAlarmResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-deleteAlarmResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'operations', 'deleteAlarmResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteAlarmResponse_httpStatus' - The response's http status code.
+newDeleteAlarmResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAlarmResponse
-deleteAlarmResponse pResponseStatus_ =
+newDeleteAlarmResponse pHttpStatus_ =
   DeleteAlarmResponse'
-    { _darrsOperations = Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-darrsOperations :: Lens' DeleteAlarmResponse [Operation]
-darrsOperations = lens _darrsOperations (\s a -> s {_darrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteAlarmResponse_operations :: Lens.Lens' DeleteAlarmResponse (Prelude.Maybe [Operation])
+deleteAlarmResponse_operations = Lens.lens (\DeleteAlarmResponse' {operations} -> operations) (\s@DeleteAlarmResponse' {} a -> s {operations = a} :: DeleteAlarmResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DeleteAlarmResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+deleteAlarmResponse_httpStatus :: Lens.Lens' DeleteAlarmResponse Prelude.Int
+deleteAlarmResponse_httpStatus = Lens.lens (\DeleteAlarmResponse' {httpStatus} -> httpStatus) (\s@DeleteAlarmResponse' {} a -> s {httpStatus = a} :: DeleteAlarmResponse)
 
-instance NFData DeleteAlarmResponse
+instance Prelude.NFData DeleteAlarmResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Lightsail.Types.BehaviorEnum
   ( BehaviorEnum
       ( ..,
-        Cache,
-        DontCache
+        BehaviorEnumCache,
+        BehaviorEnumDontCache
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BehaviorEnum = BehaviorEnum' (CI Text)
+newtype BehaviorEnum = BehaviorEnum'
+  { fromBehaviorEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cache :: BehaviorEnum
-pattern Cache = BehaviorEnum' "cache"
+pattern BehaviorEnumCache :: BehaviorEnum
+pattern BehaviorEnumCache = BehaviorEnum' "cache"
 
-pattern DontCache :: BehaviorEnum
-pattern DontCache = BehaviorEnum' "dont-cache"
+pattern BehaviorEnumDontCache :: BehaviorEnum
+pattern BehaviorEnumDontCache = BehaviorEnum' "dont-cache"
 
 {-# COMPLETE
-  Cache,
-  DontCache,
+  BehaviorEnumCache,
+  BehaviorEnumDontCache,
   BehaviorEnum'
   #-}
 
-instance FromText BehaviorEnum where
-  parser = (BehaviorEnum' . mk) <$> takeText
+instance Prelude.FromText BehaviorEnum where
+  parser = BehaviorEnum' Prelude.<$> Prelude.takeText
 
-instance ToText BehaviorEnum where
-  toText (BehaviorEnum' ci) = original ci
+instance Prelude.ToText BehaviorEnum where
+  toText (BehaviorEnum' x) = x
 
-instance Hashable BehaviorEnum
+instance Prelude.Hashable BehaviorEnum
 
-instance NFData BehaviorEnum
+instance Prelude.NFData BehaviorEnum
 
-instance ToByteString BehaviorEnum
+instance Prelude.ToByteString BehaviorEnum
 
-instance ToQuery BehaviorEnum
+instance Prelude.ToQuery BehaviorEnum
 
-instance ToHeader BehaviorEnum
+instance Prelude.ToHeader BehaviorEnum
 
-instance ToJSON BehaviorEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON BehaviorEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BehaviorEnum where
-  parseJSON = parseJSONText "BehaviorEnum"
+instance Prelude.FromJSON BehaviorEnum where
+  parseJSON = Prelude.parseJSONText "BehaviorEnum"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the list of powers that can be specified for your Amazon Lightsail container services.
+-- Returns the list of powers that can be specified for your Amazon
+-- Lightsail container services.
 --
---
--- The power specifies the amount of memory, the number of vCPUs, and the base price of the container service.
+-- The power specifies the amount of memory, the number of vCPUs, and the
+-- base price of the container service.
 module Network.AWS.Lightsail.GetContainerServicePowers
   ( -- * Creating a Request
-    getContainerServicePowers,
-    GetContainerServicePowers,
+    GetContainerServicePowers (..),
+    newGetContainerServicePowers,
 
     -- * Destructuring the Response
-    getContainerServicePowersResponse,
-    GetContainerServicePowersResponse,
+    GetContainerServicePowersResponse (..),
+    newGetContainerServicePowersResponse,
 
     -- * Response Lenses
-    gcsprrsPowers,
-    gcsprrsResponseStatus,
+    getContainerServicePowersResponse_powers,
+    getContainerServicePowersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerServicePower
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerServicePowers' smart constructor.
+-- | /See:/ 'newGetContainerServicePowers' smart constructor.
 data GetContainerServicePowers = GetContainerServicePowers'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServicePowers' with the minimum fields required to make a request.
-getContainerServicePowers ::
+-- |
+-- Create a value of 'GetContainerServicePowers' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetContainerServicePowers ::
   GetContainerServicePowers
-getContainerServicePowers =
+newGetContainerServicePowers =
   GetContainerServicePowers'
 
-instance AWSRequest GetContainerServicePowers where
+instance Prelude.AWSRequest GetContainerServicePowers where
   type
     Rs GetContainerServicePowers =
       GetContainerServicePowersResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerServicePowersResponse'
-            <$> (x .?> "powers" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "powers" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerServicePowers
+instance Prelude.Hashable GetContainerServicePowers
 
-instance NFData GetContainerServicePowers
+instance Prelude.NFData GetContainerServicePowers
 
-instance ToHeaders GetContainerServicePowers where
+instance Prelude.ToHeaders GetContainerServicePowers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetContainerServicePowers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetContainerServicePowers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerServicePowers where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetContainerServicePowers where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetContainerServicePowers where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerServicePowers where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerServicePowers where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContainerServicePowers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerServicePowersResponse' smart constructor.
+-- | /See:/ 'newGetContainerServicePowersResponse' smart constructor.
 data GetContainerServicePowersResponse = GetContainerServicePowersResponse'
-  { _gcsprrsPowers ::
-      !( Maybe
-           [ContainerServicePower]
-       ),
-    _gcsprrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the powers that can be specified for a
+    -- container service.
+    powers :: Prelude.Maybe [ContainerServicePower],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServicePowersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServicePowersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsprrsPowers' - An array of objects that describe the powers that can be specified for a container service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsprrsResponseStatus' - -- | The response status code.
-getContainerServicePowersResponse ::
-  -- | 'gcsprrsResponseStatus'
-  Int ->
+-- 'powers', 'getContainerServicePowersResponse_powers' - An array of objects that describe the powers that can be specified for a
+-- container service.
+--
+-- 'httpStatus', 'getContainerServicePowersResponse_httpStatus' - The response's http status code.
+newGetContainerServicePowersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerServicePowersResponse
-getContainerServicePowersResponse pResponseStatus_ =
+newGetContainerServicePowersResponse pHttpStatus_ =
   GetContainerServicePowersResponse'
-    { _gcsprrsPowers =
-        Nothing,
-      _gcsprrsResponseStatus =
-        pResponseStatus_
+    { powers =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the powers that can be specified for a container service.
-gcsprrsPowers :: Lens' GetContainerServicePowersResponse [ContainerServicePower]
-gcsprrsPowers = lens _gcsprrsPowers (\s a -> s {_gcsprrsPowers = a}) . _Default . _Coerce
+-- | An array of objects that describe the powers that can be specified for a
+-- container service.
+getContainerServicePowersResponse_powers :: Lens.Lens' GetContainerServicePowersResponse (Prelude.Maybe [ContainerServicePower])
+getContainerServicePowersResponse_powers = Lens.lens (\GetContainerServicePowersResponse' {powers} -> powers) (\s@GetContainerServicePowersResponse' {} a -> s {powers = a} :: GetContainerServicePowersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsprrsResponseStatus :: Lens' GetContainerServicePowersResponse Int
-gcsprrsResponseStatus = lens _gcsprrsResponseStatus (\s a -> s {_gcsprrsResponseStatus = a})
+-- | The response's http status code.
+getContainerServicePowersResponse_httpStatus :: Lens.Lens' GetContainerServicePowersResponse Prelude.Int
+getContainerServicePowersResponse_httpStatus = Lens.lens (\GetContainerServicePowersResponse' {httpStatus} -> httpStatus) (\s@GetContainerServicePowersResponse' {} a -> s {httpStatus = a} :: GetContainerServicePowersResponse)
 
-instance NFData GetContainerServicePowersResponse
+instance
+  Prelude.NFData
+    GetContainerServicePowersResponse

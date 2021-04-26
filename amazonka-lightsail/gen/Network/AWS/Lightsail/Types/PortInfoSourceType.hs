@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.Lightsail.Types.PortInfoSourceType
   ( PortInfoSourceType
       ( ..,
-        PISTClosed,
-        PISTDefault,
-        PISTInstance,
-        PISTNone
+        PortInfoSourceTypeCLOSED,
+        PortInfoSourceTypeDEFAULT,
+        PortInfoSourceTypeINSTANCE,
+        PortInfoSourceTypeNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PortInfoSourceType
-  = PortInfoSourceType'
-      ( CI
-          Text
-      )
+newtype PortInfoSourceType = PortInfoSourceType'
+  { fromPortInfoSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PISTClosed :: PortInfoSourceType
-pattern PISTClosed = PortInfoSourceType' "CLOSED"
+pattern PortInfoSourceTypeCLOSED :: PortInfoSourceType
+pattern PortInfoSourceTypeCLOSED = PortInfoSourceType' "CLOSED"
 
-pattern PISTDefault :: PortInfoSourceType
-pattern PISTDefault = PortInfoSourceType' "DEFAULT"
+pattern PortInfoSourceTypeDEFAULT :: PortInfoSourceType
+pattern PortInfoSourceTypeDEFAULT = PortInfoSourceType' "DEFAULT"
 
-pattern PISTInstance :: PortInfoSourceType
-pattern PISTInstance = PortInfoSourceType' "INSTANCE"
+pattern PortInfoSourceTypeINSTANCE :: PortInfoSourceType
+pattern PortInfoSourceTypeINSTANCE = PortInfoSourceType' "INSTANCE"
 
-pattern PISTNone :: PortInfoSourceType
-pattern PISTNone = PortInfoSourceType' "NONE"
+pattern PortInfoSourceTypeNONE :: PortInfoSourceType
+pattern PortInfoSourceTypeNONE = PortInfoSourceType' "NONE"
 
 {-# COMPLETE
-  PISTClosed,
-  PISTDefault,
-  PISTInstance,
-  PISTNone,
+  PortInfoSourceTypeCLOSED,
+  PortInfoSourceTypeDEFAULT,
+  PortInfoSourceTypeINSTANCE,
+  PortInfoSourceTypeNONE,
   PortInfoSourceType'
   #-}
 
-instance FromText PortInfoSourceType where
-  parser = (PortInfoSourceType' . mk) <$> takeText
+instance Prelude.FromText PortInfoSourceType where
+  parser = PortInfoSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText PortInfoSourceType where
-  toText (PortInfoSourceType' ci) = original ci
+instance Prelude.ToText PortInfoSourceType where
+  toText (PortInfoSourceType' x) = x
 
-instance Hashable PortInfoSourceType
+instance Prelude.Hashable PortInfoSourceType
 
-instance NFData PortInfoSourceType
+instance Prelude.NFData PortInfoSourceType
 
-instance ToByteString PortInfoSourceType
+instance Prelude.ToByteString PortInfoSourceType
 
-instance ToQuery PortInfoSourceType
+instance Prelude.ToQuery PortInfoSourceType
 
-instance ToHeader PortInfoSourceType
+instance Prelude.ToHeader PortInfoSourceType
 
-instance ToJSON PortInfoSourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PortInfoSourceType where
+  toJSON = Prelude.toJSONText

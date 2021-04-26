@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Lightsail.Types.ExportSnapshotRecordSourceType
   ( ExportSnapshotRecordSourceType
       ( ..,
-        ESRSTDiskSnapshot,
-        ESRSTInstanceSnapshot
+        ExportSnapshotRecordSourceTypeDiskSnapshot,
+        ExportSnapshotRecordSourceTypeInstanceSnapshot
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExportSnapshotRecordSourceType
-  = ExportSnapshotRecordSourceType'
-      ( CI
-          Text
-      )
+newtype ExportSnapshotRecordSourceType = ExportSnapshotRecordSourceType'
+  { fromExportSnapshotRecordSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESRSTDiskSnapshot :: ExportSnapshotRecordSourceType
-pattern ESRSTDiskSnapshot = ExportSnapshotRecordSourceType' "DiskSnapshot"
+pattern ExportSnapshotRecordSourceTypeDiskSnapshot :: ExportSnapshotRecordSourceType
+pattern ExportSnapshotRecordSourceTypeDiskSnapshot = ExportSnapshotRecordSourceType' "DiskSnapshot"
 
-pattern ESRSTInstanceSnapshot :: ExportSnapshotRecordSourceType
-pattern ESRSTInstanceSnapshot = ExportSnapshotRecordSourceType' "InstanceSnapshot"
+pattern ExportSnapshotRecordSourceTypeInstanceSnapshot :: ExportSnapshotRecordSourceType
+pattern ExportSnapshotRecordSourceTypeInstanceSnapshot = ExportSnapshotRecordSourceType' "InstanceSnapshot"
 
 {-# COMPLETE
-  ESRSTDiskSnapshot,
-  ESRSTInstanceSnapshot,
+  ExportSnapshotRecordSourceTypeDiskSnapshot,
+  ExportSnapshotRecordSourceTypeInstanceSnapshot,
   ExportSnapshotRecordSourceType'
   #-}
 
-instance FromText ExportSnapshotRecordSourceType where
-  parser = (ExportSnapshotRecordSourceType' . mk) <$> takeText
+instance Prelude.FromText ExportSnapshotRecordSourceType where
+  parser = ExportSnapshotRecordSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ExportSnapshotRecordSourceType where
-  toText (ExportSnapshotRecordSourceType' ci) = original ci
+instance Prelude.ToText ExportSnapshotRecordSourceType where
+  toText (ExportSnapshotRecordSourceType' x) = x
 
-instance Hashable ExportSnapshotRecordSourceType
+instance Prelude.Hashable ExportSnapshotRecordSourceType
 
-instance NFData ExportSnapshotRecordSourceType
+instance Prelude.NFData ExportSnapshotRecordSourceType
 
-instance ToByteString ExportSnapshotRecordSourceType
+instance Prelude.ToByteString ExportSnapshotRecordSourceType
 
-instance ToQuery ExportSnapshotRecordSourceType
+instance Prelude.ToQuery ExportSnapshotRecordSourceType
 
-instance ToHeader ExportSnapshotRecordSourceType
+instance Prelude.ToHeader ExportSnapshotRecordSourceType
 
-instance FromJSON ExportSnapshotRecordSourceType where
-  parseJSON = parseJSONText "ExportSnapshotRecordSourceType"
+instance Prelude.FromJSON ExportSnapshotRecordSourceType where
+  parseJSON = Prelude.parseJSONText "ExportSnapshotRecordSourceType"

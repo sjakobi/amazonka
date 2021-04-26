@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,227 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current, previous, or pending versions of the master user password for a Lightsail database.
+-- Returns the current, previous, or pending versions of the master user
+-- password for a Lightsail database.
 --
---
--- The @GetRelationalDatabaseMasterUserPassword@ operation supports tag-based access control via resource tags applied to the resource identified by relationalDatabaseName.
+-- The @GetRelationalDatabaseMasterUserPassword@ operation supports
+-- tag-based access control via resource tags applied to the resource
+-- identified by relationalDatabaseName.
 module Network.AWS.Lightsail.GetRelationalDatabaseMasterUserPassword
   ( -- * Creating a Request
-    getRelationalDatabaseMasterUserPassword,
-    GetRelationalDatabaseMasterUserPassword,
+    GetRelationalDatabaseMasterUserPassword (..),
+    newGetRelationalDatabaseMasterUserPassword,
 
     -- * Request Lenses
-    grdmupPasswordVersion,
-    grdmupRelationalDatabaseName,
+    getRelationalDatabaseMasterUserPassword_passwordVersion,
+    getRelationalDatabaseMasterUserPassword_relationalDatabaseName,
 
     -- * Destructuring the Response
-    getRelationalDatabaseMasterUserPasswordResponse,
-    GetRelationalDatabaseMasterUserPasswordResponse,
+    GetRelationalDatabaseMasterUserPasswordResponse (..),
+    newGetRelationalDatabaseMasterUserPasswordResponse,
 
     -- * Response Lenses
-    grdmuprrsCreatedAt,
-    grdmuprrsMasterUserPassword,
-    grdmuprrsResponseStatus,
+    getRelationalDatabaseMasterUserPasswordResponse_createdAt,
+    getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword,
+    getRelationalDatabaseMasterUserPasswordResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRelationalDatabaseMasterUserPassword' smart constructor.
+-- | /See:/ 'newGetRelationalDatabaseMasterUserPassword' smart constructor.
 data GetRelationalDatabaseMasterUserPassword = GetRelationalDatabaseMasterUserPassword'
-  { _grdmupPasswordVersion ::
-      !( Maybe
-           RelationalDatabasePasswordVersion
-       ),
-    _grdmupRelationalDatabaseName ::
-      !Text
+  { -- | The password version to return.
+    --
+    -- Specifying @CURRENT@ or @PREVIOUS@ returns the current or previous
+    -- passwords respectively. Specifying @PENDING@ returns the newest version
+    -- of the password that will rotate to @CURRENT@. After the @PENDING@
+    -- password rotates to @CURRENT@, the @PENDING@ password is no longer
+    -- available.
+    --
+    -- Default: @CURRENT@
+    passwordVersion :: Prelude.Maybe RelationalDatabasePasswordVersion,
+    -- | The name of your database for which to get the master user password.
+    relationalDatabaseName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabaseMasterUserPassword' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabaseMasterUserPassword' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdmupPasswordVersion' - The password version to return. Specifying @CURRENT@ or @PREVIOUS@ returns the current or previous passwords respectively. Specifying @PENDING@ returns the newest version of the password that will rotate to @CURRENT@ . After the @PENDING@ password rotates to @CURRENT@ , the @PENDING@ password is no longer available. Default: @CURRENT@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdmupRelationalDatabaseName' - The name of your database for which to get the master user password.
-getRelationalDatabaseMasterUserPassword ::
-  -- | 'grdmupRelationalDatabaseName'
-  Text ->
+-- 'passwordVersion', 'getRelationalDatabaseMasterUserPassword_passwordVersion' - The password version to return.
+--
+-- Specifying @CURRENT@ or @PREVIOUS@ returns the current or previous
+-- passwords respectively. Specifying @PENDING@ returns the newest version
+-- of the password that will rotate to @CURRENT@. After the @PENDING@
+-- password rotates to @CURRENT@, the @PENDING@ password is no longer
+-- available.
+--
+-- Default: @CURRENT@
+--
+-- 'relationalDatabaseName', 'getRelationalDatabaseMasterUserPassword_relationalDatabaseName' - The name of your database for which to get the master user password.
+newGetRelationalDatabaseMasterUserPassword ::
+  -- | 'relationalDatabaseName'
+  Prelude.Text ->
   GetRelationalDatabaseMasterUserPassword
-getRelationalDatabaseMasterUserPassword
+newGetRelationalDatabaseMasterUserPassword
   pRelationalDatabaseName_ =
     GetRelationalDatabaseMasterUserPassword'
-      { _grdmupPasswordVersion =
-          Nothing,
-        _grdmupRelationalDatabaseName =
+      { passwordVersion =
+          Prelude.Nothing,
+        relationalDatabaseName =
           pRelationalDatabaseName_
       }
 
--- | The password version to return. Specifying @CURRENT@ or @PREVIOUS@ returns the current or previous passwords respectively. Specifying @PENDING@ returns the newest version of the password that will rotate to @CURRENT@ . After the @PENDING@ password rotates to @CURRENT@ , the @PENDING@ password is no longer available. Default: @CURRENT@
-grdmupPasswordVersion :: Lens' GetRelationalDatabaseMasterUserPassword (Maybe RelationalDatabasePasswordVersion)
-grdmupPasswordVersion = lens _grdmupPasswordVersion (\s a -> s {_grdmupPasswordVersion = a})
+-- | The password version to return.
+--
+-- Specifying @CURRENT@ or @PREVIOUS@ returns the current or previous
+-- passwords respectively. Specifying @PENDING@ returns the newest version
+-- of the password that will rotate to @CURRENT@. After the @PENDING@
+-- password rotates to @CURRENT@, the @PENDING@ password is no longer
+-- available.
+--
+-- Default: @CURRENT@
+getRelationalDatabaseMasterUserPassword_passwordVersion :: Lens.Lens' GetRelationalDatabaseMasterUserPassword (Prelude.Maybe RelationalDatabasePasswordVersion)
+getRelationalDatabaseMasterUserPassword_passwordVersion = Lens.lens (\GetRelationalDatabaseMasterUserPassword' {passwordVersion} -> passwordVersion) (\s@GetRelationalDatabaseMasterUserPassword' {} a -> s {passwordVersion = a} :: GetRelationalDatabaseMasterUserPassword)
 
 -- | The name of your database for which to get the master user password.
-grdmupRelationalDatabaseName :: Lens' GetRelationalDatabaseMasterUserPassword Text
-grdmupRelationalDatabaseName = lens _grdmupRelationalDatabaseName (\s a -> s {_grdmupRelationalDatabaseName = a})
+getRelationalDatabaseMasterUserPassword_relationalDatabaseName :: Lens.Lens' GetRelationalDatabaseMasterUserPassword Prelude.Text
+getRelationalDatabaseMasterUserPassword_relationalDatabaseName = Lens.lens (\GetRelationalDatabaseMasterUserPassword' {relationalDatabaseName} -> relationalDatabaseName) (\s@GetRelationalDatabaseMasterUserPassword' {} a -> s {relationalDatabaseName = a} :: GetRelationalDatabaseMasterUserPassword)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetRelationalDatabaseMasterUserPassword
   where
   type
     Rs GetRelationalDatabaseMasterUserPassword =
       GetRelationalDatabaseMasterUserPasswordResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseMasterUserPasswordResponse'
-            <$> (x .?> "createdAt")
-            <*> (x .?> "masterUserPassword")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "createdAt")
+              Prelude.<*> (x Prelude..?> "masterUserPassword")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetRelationalDatabaseMasterUserPassword
 
 instance
-  NFData
+  Prelude.NFData
     GetRelationalDatabaseMasterUserPassword
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     GetRelationalDatabaseMasterUserPassword
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetRelationalDatabaseMasterUserPassword" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetRelationalDatabaseMasterUserPassword" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     GetRelationalDatabaseMasterUserPassword
   where
   toJSON GetRelationalDatabaseMasterUserPassword' {..} =
-    object
-      ( catMaybes
-          [ ("passwordVersion" .=) <$> _grdmupPasswordVersion,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("passwordVersion" Prelude..=)
+              Prelude.<$> passwordVersion,
+            Prelude.Just
               ( "relationalDatabaseName"
-                  .= _grdmupRelationalDatabaseName
+                  Prelude..= relationalDatabaseName
               )
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     GetRelationalDatabaseMasterUserPassword
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     GetRelationalDatabaseMasterUserPassword
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRelationalDatabaseMasterUserPasswordResponse' smart constructor.
+-- | /See:/ 'newGetRelationalDatabaseMasterUserPasswordResponse' smart constructor.
 data GetRelationalDatabaseMasterUserPasswordResponse = GetRelationalDatabaseMasterUserPasswordResponse'
-  { _grdmuprrsCreatedAt ::
-      !( Maybe
-           POSIX
-       ),
-    _grdmuprrsMasterUserPassword ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _grdmuprrsResponseStatus ::
-      !Int
+  { -- | The timestamp when the specified version of the master user password was
+    -- created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The master user password for the @password version@ specified.
+    masterUserPassword :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabaseMasterUserPasswordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabaseMasterUserPasswordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdmuprrsCreatedAt' - The timestamp when the specified version of the master user password was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdmuprrsMasterUserPassword' - The master user password for the @password version@ specified.
+-- 'createdAt', 'getRelationalDatabaseMasterUserPasswordResponse_createdAt' - The timestamp when the specified version of the master user password was
+-- created.
 --
--- * 'grdmuprrsResponseStatus' - -- | The response status code.
-getRelationalDatabaseMasterUserPasswordResponse ::
-  -- | 'grdmuprrsResponseStatus'
-  Int ->
+-- 'masterUserPassword', 'getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword' - The master user password for the @password version@ specified.
+--
+-- 'httpStatus', 'getRelationalDatabaseMasterUserPasswordResponse_httpStatus' - The response's http status code.
+newGetRelationalDatabaseMasterUserPasswordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRelationalDatabaseMasterUserPasswordResponse
-getRelationalDatabaseMasterUserPasswordResponse
-  pResponseStatus_ =
+newGetRelationalDatabaseMasterUserPasswordResponse
+  pHttpStatus_ =
     GetRelationalDatabaseMasterUserPasswordResponse'
-      { _grdmuprrsCreatedAt =
-          Nothing,
-        _grdmuprrsMasterUserPassword =
-          Nothing,
-        _grdmuprrsResponseStatus =
-          pResponseStatus_
+      { createdAt =
+          Prelude.Nothing,
+        masterUserPassword =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The timestamp when the specified version of the master user password was created.
-grdmuprrsCreatedAt :: Lens' GetRelationalDatabaseMasterUserPasswordResponse (Maybe UTCTime)
-grdmuprrsCreatedAt = lens _grdmuprrsCreatedAt (\s a -> s {_grdmuprrsCreatedAt = a}) . mapping _Time
+-- | The timestamp when the specified version of the master user password was
+-- created.
+getRelationalDatabaseMasterUserPasswordResponse_createdAt :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse (Prelude.Maybe Prelude.UTCTime)
+getRelationalDatabaseMasterUserPasswordResponse_createdAt = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {createdAt} -> createdAt) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {createdAt = a} :: GetRelationalDatabaseMasterUserPasswordResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The master user password for the @password version@ specified.
-grdmuprrsMasterUserPassword :: Lens' GetRelationalDatabaseMasterUserPasswordResponse (Maybe Text)
-grdmuprrsMasterUserPassword = lens _grdmuprrsMasterUserPassword (\s a -> s {_grdmuprrsMasterUserPassword = a}) . mapping _Sensitive
+getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse (Prelude.Maybe Prelude.Text)
+getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {masterUserPassword} -> masterUserPassword) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {masterUserPassword = a} :: GetRelationalDatabaseMasterUserPasswordResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | -- | The response status code.
-grdmuprrsResponseStatus :: Lens' GetRelationalDatabaseMasterUserPasswordResponse Int
-grdmuprrsResponseStatus = lens _grdmuprrsResponseStatus (\s a -> s {_grdmuprrsResponseStatus = a})
+-- | The response's http status code.
+getRelationalDatabaseMasterUserPasswordResponse_httpStatus :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse Prelude.Int
+getRelationalDatabaseMasterUserPasswordResponse_httpStatus = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {httpStatus} -> httpStatus) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {httpStatus = a} :: GetRelationalDatabaseMasterUserPasswordResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetRelationalDatabaseMasterUserPasswordResponse

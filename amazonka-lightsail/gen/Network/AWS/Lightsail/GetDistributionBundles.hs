@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the list bundles that can be applied to you Amazon Lightsail content delivery network (CDN) distributions.
+-- Returns the list bundles that can be applied to you Amazon Lightsail
+-- content delivery network (CDN) distributions.
 --
---
--- A distribution bundle specifies the monthly network transfer quota and monthly cost of your dsitribution.
+-- A distribution bundle specifies the monthly network transfer quota and
+-- monthly cost of your dsitribution.
 module Network.AWS.Lightsail.GetDistributionBundles
   ( -- * Creating a Request
-    getDistributionBundles,
-    GetDistributionBundles,
+    GetDistributionBundles (..),
+    newGetDistributionBundles,
 
     -- * Destructuring the Response
-    getDistributionBundlesResponse,
-    GetDistributionBundlesResponse,
+    GetDistributionBundlesResponse (..),
+    newGetDistributionBundlesResponse,
 
     -- * Response Lenses
-    gdbrrsBundles,
-    gdbrrsResponseStatus,
+    getDistributionBundlesResponse_bundles,
+    getDistributionBundlesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.DistributionBundle
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDistributionBundles' smart constructor.
+-- | /See:/ 'newGetDistributionBundles' smart constructor.
 data GetDistributionBundles = GetDistributionBundles'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDistributionBundles' with the minimum fields required to make a request.
-getDistributionBundles ::
+-- |
+-- Create a value of 'GetDistributionBundles' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetDistributionBundles ::
   GetDistributionBundles
-getDistributionBundles = GetDistributionBundles'
+newGetDistributionBundles = GetDistributionBundles'
 
-instance AWSRequest GetDistributionBundles where
+instance Prelude.AWSRequest GetDistributionBundles where
   type
     Rs GetDistributionBundles =
       GetDistributionBundlesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDistributionBundlesResponse'
-            <$> (x .?> "bundles" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "bundles" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDistributionBundles
+instance Prelude.Hashable GetDistributionBundles
 
-instance NFData GetDistributionBundles
+instance Prelude.NFData GetDistributionBundles
 
-instance ToHeaders GetDistributionBundles where
+instance Prelude.ToHeaders GetDistributionBundles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetDistributionBundles" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetDistributionBundles" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDistributionBundles where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetDistributionBundles where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetDistributionBundles where
-  toPath = const "/"
+instance Prelude.ToPath GetDistributionBundles where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDistributionBundles where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDistributionBundles where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDistributionBundlesResponse' smart constructor.
+-- | /See:/ 'newGetDistributionBundlesResponse' smart constructor.
 data GetDistributionBundlesResponse = GetDistributionBundlesResponse'
-  { _gdbrrsBundles ::
-      !( Maybe
-           [DistributionBundle]
-       ),
-    _gdbrrsResponseStatus ::
-      !Int
+  { -- | An object that describes a distribution bundle.
+    bundles :: Prelude.Maybe [DistributionBundle],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDistributionBundlesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDistributionBundlesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdbrrsBundles' - An object that describes a distribution bundle.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdbrrsResponseStatus' - -- | The response status code.
-getDistributionBundlesResponse ::
-  -- | 'gdbrrsResponseStatus'
-  Int ->
+-- 'bundles', 'getDistributionBundlesResponse_bundles' - An object that describes a distribution bundle.
+--
+-- 'httpStatus', 'getDistributionBundlesResponse_httpStatus' - The response's http status code.
+newGetDistributionBundlesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDistributionBundlesResponse
-getDistributionBundlesResponse pResponseStatus_ =
+newGetDistributionBundlesResponse pHttpStatus_ =
   GetDistributionBundlesResponse'
-    { _gdbrrsBundles =
-        Nothing,
-      _gdbrrsResponseStatus = pResponseStatus_
+    { bundles =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object that describes a distribution bundle.
-gdbrrsBundles :: Lens' GetDistributionBundlesResponse [DistributionBundle]
-gdbrrsBundles = lens _gdbrrsBundles (\s a -> s {_gdbrrsBundles = a}) . _Default . _Coerce
+getDistributionBundlesResponse_bundles :: Lens.Lens' GetDistributionBundlesResponse (Prelude.Maybe [DistributionBundle])
+getDistributionBundlesResponse_bundles = Lens.lens (\GetDistributionBundlesResponse' {bundles} -> bundles) (\s@GetDistributionBundlesResponse' {} a -> s {bundles = a} :: GetDistributionBundlesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gdbrrsResponseStatus :: Lens' GetDistributionBundlesResponse Int
-gdbrrsResponseStatus = lens _gdbrrsResponseStatus (\s a -> s {_gdbrrsResponseStatus = a})
+-- | The response's http status code.
+getDistributionBundlesResponse_httpStatus :: Lens.Lens' GetDistributionBundlesResponse Prelude.Int
+getDistributionBundlesResponse_httpStatus = Lens.lens (\GetDistributionBundlesResponse' {httpStatus} -> httpStatus) (\s@GetDistributionBundlesResponse' {} a -> s {httpStatus = a} :: GetDistributionBundlesResponse)
 
-instance NFData GetDistributionBundlesResponse
+instance
+  Prelude.NFData
+    GetDistributionBundlesResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Lightsail.Types.ContactMethodStatus
   ( ContactMethodStatus
       ( ..,
-        Invalid,
-        PendingVerification,
-        Valid
+        ContactMethodStatusInvalid,
+        ContactMethodStatusPendingVerification,
+        ContactMethodStatusValid
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContactMethodStatus
-  = ContactMethodStatus'
-      ( CI
-          Text
-      )
+newtype ContactMethodStatus = ContactMethodStatus'
+  { fromContactMethodStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Invalid :: ContactMethodStatus
-pattern Invalid = ContactMethodStatus' "Invalid"
+pattern ContactMethodStatusInvalid :: ContactMethodStatus
+pattern ContactMethodStatusInvalid = ContactMethodStatus' "Invalid"
 
-pattern PendingVerification :: ContactMethodStatus
-pattern PendingVerification = ContactMethodStatus' "PendingVerification"
+pattern ContactMethodStatusPendingVerification :: ContactMethodStatus
+pattern ContactMethodStatusPendingVerification = ContactMethodStatus' "PendingVerification"
 
-pattern Valid :: ContactMethodStatus
-pattern Valid = ContactMethodStatus' "Valid"
+pattern ContactMethodStatusValid :: ContactMethodStatus
+pattern ContactMethodStatusValid = ContactMethodStatus' "Valid"
 
 {-# COMPLETE
-  Invalid,
-  PendingVerification,
-  Valid,
+  ContactMethodStatusInvalid,
+  ContactMethodStatusPendingVerification,
+  ContactMethodStatusValid,
   ContactMethodStatus'
   #-}
 
-instance FromText ContactMethodStatus where
-  parser = (ContactMethodStatus' . mk) <$> takeText
+instance Prelude.FromText ContactMethodStatus where
+  parser = ContactMethodStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ContactMethodStatus where
-  toText (ContactMethodStatus' ci) = original ci
+instance Prelude.ToText ContactMethodStatus where
+  toText (ContactMethodStatus' x) = x
 
-instance Hashable ContactMethodStatus
+instance Prelude.Hashable ContactMethodStatus
 
-instance NFData ContactMethodStatus
+instance Prelude.NFData ContactMethodStatus
 
-instance ToByteString ContactMethodStatus
+instance Prelude.ToByteString ContactMethodStatus
 
-instance ToQuery ContactMethodStatus
+instance Prelude.ToQuery ContactMethodStatus
 
-instance ToHeader ContactMethodStatus
+instance Prelude.ToHeader ContactMethodStatus
 
-instance FromJSON ContactMethodStatus where
-  parseJSON = parseJSONText "ContactMethodStatus"
+instance Prelude.FromJSON ContactMethodStatus where
+  parseJSON = Prelude.parseJSONText "ContactMethodStatus"

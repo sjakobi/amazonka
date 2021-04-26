@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Lightsail.Types.AddOnType
   ( AddOnType
       ( ..,
-        AutoSnapshot
+        AddOnTypeAutoSnapshot
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AddOnType = AddOnType' (CI Text)
+newtype AddOnType = AddOnType'
+  { fromAddOnType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AutoSnapshot :: AddOnType
-pattern AutoSnapshot = AddOnType' "AutoSnapshot"
+pattern AddOnTypeAutoSnapshot :: AddOnType
+pattern AddOnTypeAutoSnapshot = AddOnType' "AutoSnapshot"
 
 {-# COMPLETE
-  AutoSnapshot,
+  AddOnTypeAutoSnapshot,
   AddOnType'
   #-}
 
-instance FromText AddOnType where
-  parser = (AddOnType' . mk) <$> takeText
+instance Prelude.FromText AddOnType where
+  parser = AddOnType' Prelude.<$> Prelude.takeText
 
-instance ToText AddOnType where
-  toText (AddOnType' ci) = original ci
+instance Prelude.ToText AddOnType where
+  toText (AddOnType' x) = x
 
-instance Hashable AddOnType
+instance Prelude.Hashable AddOnType
 
-instance NFData AddOnType
+instance Prelude.NFData AddOnType
 
-instance ToByteString AddOnType
+instance Prelude.ToByteString AddOnType
 
-instance ToQuery AddOnType
+instance Prelude.ToQuery AddOnType
 
-instance ToHeader AddOnType
+instance Prelude.ToHeader AddOnType
 
-instance ToJSON AddOnType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AddOnType where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,163 +23,169 @@
 --
 -- Closes ports for a specific Amazon Lightsail instance.
 --
---
--- The @CloseInstancePublicPorts@ action supports tag-based access control via resource tags applied to the resource identified by @instanceName@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @CloseInstancePublicPorts@ action supports tag-based access control
+-- via resource tags applied to the resource identified by @instanceName@.
+-- For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.CloseInstancePublicPorts
   ( -- * Creating a Request
-    closeInstancePublicPorts,
-    CloseInstancePublicPorts,
+    CloseInstancePublicPorts (..),
+    newCloseInstancePublicPorts,
 
     -- * Request Lenses
-    cippPortInfo,
-    cippInstanceName,
+    closeInstancePublicPorts_portInfo,
+    closeInstancePublicPorts_instanceName,
 
     -- * Destructuring the Response
-    closeInstancePublicPortsResponse,
-    CloseInstancePublicPortsResponse,
+    CloseInstancePublicPortsResponse (..),
+    newCloseInstancePublicPortsResponse,
 
     -- * Response Lenses
-    cipprrsOperation,
-    cipprrsResponseStatus,
+    closeInstancePublicPortsResponse_operation,
+    closeInstancePublicPortsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'closeInstancePublicPorts' smart constructor.
+-- | /See:/ 'newCloseInstancePublicPorts' smart constructor.
 data CloseInstancePublicPorts = CloseInstancePublicPorts'
-  { _cippPortInfo ::
-      !PortInfo,
-    _cippInstanceName ::
-      !Text
+  { -- | An object to describe the ports to close for the specified instance.
+    portInfo :: PortInfo,
+    -- | The name of the instance for which to close ports.
+    instanceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloseInstancePublicPorts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloseInstancePublicPorts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cippPortInfo' - An object to describe the ports to close for the specified instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cippInstanceName' - The name of the instance for which to close ports.
-closeInstancePublicPorts ::
-  -- | 'cippPortInfo'
+-- 'portInfo', 'closeInstancePublicPorts_portInfo' - An object to describe the ports to close for the specified instance.
+--
+-- 'instanceName', 'closeInstancePublicPorts_instanceName' - The name of the instance for which to close ports.
+newCloseInstancePublicPorts ::
+  -- | 'portInfo'
   PortInfo ->
-  -- | 'cippInstanceName'
-  Text ->
+  -- | 'instanceName'
+  Prelude.Text ->
   CloseInstancePublicPorts
-closeInstancePublicPorts pPortInfo_ pInstanceName_ =
+newCloseInstancePublicPorts pPortInfo_ pInstanceName_ =
   CloseInstancePublicPorts'
-    { _cippPortInfo =
-        pPortInfo_,
-      _cippInstanceName = pInstanceName_
+    { portInfo = pPortInfo_,
+      instanceName = pInstanceName_
     }
 
 -- | An object to describe the ports to close for the specified instance.
-cippPortInfo :: Lens' CloseInstancePublicPorts PortInfo
-cippPortInfo = lens _cippPortInfo (\s a -> s {_cippPortInfo = a})
+closeInstancePublicPorts_portInfo :: Lens.Lens' CloseInstancePublicPorts PortInfo
+closeInstancePublicPorts_portInfo = Lens.lens (\CloseInstancePublicPorts' {portInfo} -> portInfo) (\s@CloseInstancePublicPorts' {} a -> s {portInfo = a} :: CloseInstancePublicPorts)
 
 -- | The name of the instance for which to close ports.
-cippInstanceName :: Lens' CloseInstancePublicPorts Text
-cippInstanceName = lens _cippInstanceName (\s a -> s {_cippInstanceName = a})
+closeInstancePublicPorts_instanceName :: Lens.Lens' CloseInstancePublicPorts Prelude.Text
+closeInstancePublicPorts_instanceName = Lens.lens (\CloseInstancePublicPorts' {instanceName} -> instanceName) (\s@CloseInstancePublicPorts' {} a -> s {instanceName = a} :: CloseInstancePublicPorts)
 
-instance AWSRequest CloseInstancePublicPorts where
+instance Prelude.AWSRequest CloseInstancePublicPorts where
   type
     Rs CloseInstancePublicPorts =
       CloseInstancePublicPortsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CloseInstancePublicPortsResponse'
-            <$> (x .?> "operation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "operation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CloseInstancePublicPorts
+instance Prelude.Hashable CloseInstancePublicPorts
 
-instance NFData CloseInstancePublicPorts
+instance Prelude.NFData CloseInstancePublicPorts
 
-instance ToHeaders CloseInstancePublicPorts where
+instance Prelude.ToHeaders CloseInstancePublicPorts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.CloseInstancePublicPorts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.CloseInstancePublicPorts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CloseInstancePublicPorts where
+instance Prelude.ToJSON CloseInstancePublicPorts where
   toJSON CloseInstancePublicPorts' {..} =
-    object
-      ( catMaybes
-          [ Just ("portInfo" .= _cippPortInfo),
-            Just ("instanceName" .= _cippInstanceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("portInfo" Prelude..= portInfo),
+            Prelude.Just
+              ("instanceName" Prelude..= instanceName)
           ]
       )
 
-instance ToPath CloseInstancePublicPorts where
-  toPath = const "/"
+instance Prelude.ToPath CloseInstancePublicPorts where
+  toPath = Prelude.const "/"
 
-instance ToQuery CloseInstancePublicPorts where
-  toQuery = const mempty
+instance Prelude.ToQuery CloseInstancePublicPorts where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'closeInstancePublicPortsResponse' smart constructor.
+-- | /See:/ 'newCloseInstancePublicPortsResponse' smart constructor.
 data CloseInstancePublicPortsResponse = CloseInstancePublicPortsResponse'
-  { _cipprrsOperation ::
-      !( Maybe
-           Operation
-       ),
-    _cipprrsResponseStatus ::
-      !Int
+  { -- | An object that describes the result of the action, such as the status of
+    -- the request, the timestamp of the request, and the resources affected by
+    -- the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloseInstancePublicPortsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloseInstancePublicPortsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cipprrsOperation' - An object that describes the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cipprrsResponseStatus' - -- | The response status code.
-closeInstancePublicPortsResponse ::
-  -- | 'cipprrsResponseStatus'
-  Int ->
+-- 'operation', 'closeInstancePublicPortsResponse_operation' - An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
+--
+-- 'httpStatus', 'closeInstancePublicPortsResponse_httpStatus' - The response's http status code.
+newCloseInstancePublicPortsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CloseInstancePublicPortsResponse
-closeInstancePublicPortsResponse pResponseStatus_ =
+newCloseInstancePublicPortsResponse pHttpStatus_ =
   CloseInstancePublicPortsResponse'
-    { _cipprrsOperation =
-        Nothing,
-      _cipprrsResponseStatus = pResponseStatus_
+    { operation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that describes the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-cipprrsOperation :: Lens' CloseInstancePublicPortsResponse (Maybe Operation)
-cipprrsOperation = lens _cipprrsOperation (\s a -> s {_cipprrsOperation = a})
+-- | An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
+closeInstancePublicPortsResponse_operation :: Lens.Lens' CloseInstancePublicPortsResponse (Prelude.Maybe Operation)
+closeInstancePublicPortsResponse_operation = Lens.lens (\CloseInstancePublicPortsResponse' {operation} -> operation) (\s@CloseInstancePublicPortsResponse' {} a -> s {operation = a} :: CloseInstancePublicPortsResponse)
 
--- | -- | The response status code.
-cipprrsResponseStatus :: Lens' CloseInstancePublicPortsResponse Int
-cipprrsResponseStatus = lens _cipprrsResponseStatus (\s a -> s {_cipprrsResponseStatus = a})
+-- | The response's http status code.
+closeInstancePublicPortsResponse_httpStatus :: Lens.Lens' CloseInstancePublicPortsResponse Prelude.Int
+closeInstancePublicPortsResponse_httpStatus = Lens.lens (\CloseInstancePublicPortsResponse' {httpStatus} -> httpStatus) (\s@CloseInstancePublicPortsResponse' {} a -> s {httpStatus = a} :: CloseInstancePublicPortsResponse)
 
-instance NFData CloseInstancePublicPortsResponse
+instance
+  Prelude.NFData
+    CloseInstancePublicPortsResponse

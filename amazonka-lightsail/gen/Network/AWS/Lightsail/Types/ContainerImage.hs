@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ContainerImage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a container image that is registered to an Amazon Lightsail container service.
+-- | Describes a container image that is registered to an Amazon Lightsail
+-- container service.
 --
---
---
--- /See:/ 'containerImage' smart constructor.
+-- /See:/ 'newContainerImage' smart constructor.
 data ContainerImage = ContainerImage'
-  { _ciCreatedAt ::
-      !(Maybe POSIX),
-    _ciImage :: !(Maybe Text),
-    _ciDigest :: !(Maybe Text)
+  { -- | The timestamp when the container image was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the container image.
+    image :: Prelude.Maybe Prelude.Text,
+    -- | The digest of the container image.
+    digest :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciCreatedAt' - The timestamp when the container image was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciImage' - The name of the container image.
+-- 'createdAt', 'containerImage_createdAt' - The timestamp when the container image was created.
 --
--- * 'ciDigest' - The digest of the container image.
-containerImage ::
+-- 'image', 'containerImage_image' - The name of the container image.
+--
+-- 'digest', 'containerImage_digest' - The digest of the container image.
+newContainerImage ::
   ContainerImage
-containerImage =
+newContainerImage =
   ContainerImage'
-    { _ciCreatedAt = Nothing,
-      _ciImage = Nothing,
-      _ciDigest = Nothing
+    { createdAt = Prelude.Nothing,
+      image = Prelude.Nothing,
+      digest = Prelude.Nothing
     }
 
 -- | The timestamp when the container image was created.
-ciCreatedAt :: Lens' ContainerImage (Maybe UTCTime)
-ciCreatedAt = lens _ciCreatedAt (\s a -> s {_ciCreatedAt = a}) . mapping _Time
+containerImage_createdAt :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.UTCTime)
+containerImage_createdAt = Lens.lens (\ContainerImage' {createdAt} -> createdAt) (\s@ContainerImage' {} a -> s {createdAt = a} :: ContainerImage) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the container image.
-ciImage :: Lens' ContainerImage (Maybe Text)
-ciImage = lens _ciImage (\s a -> s {_ciImage = a})
+containerImage_image :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.Text)
+containerImage_image = Lens.lens (\ContainerImage' {image} -> image) (\s@ContainerImage' {} a -> s {image = a} :: ContainerImage)
 
 -- | The digest of the container image.
-ciDigest :: Lens' ContainerImage (Maybe Text)
-ciDigest = lens _ciDigest (\s a -> s {_ciDigest = a})
+containerImage_digest :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.Text)
+containerImage_digest = Lens.lens (\ContainerImage' {digest} -> digest) (\s@ContainerImage' {} a -> s {digest = a} :: ContainerImage)
 
-instance FromJSON ContainerImage where
+instance Prelude.FromJSON ContainerImage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContainerImage"
       ( \x ->
           ContainerImage'
-            <$> (x .:? "createdAt")
-            <*> (x .:? "image")
-            <*> (x .:? "digest")
+            Prelude.<$> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "image")
+            Prelude.<*> (x Prelude..:? "digest")
       )
 
-instance Hashable ContainerImage
+instance Prelude.Hashable ContainerImage
 
-instance NFData ContainerImage
+instance Prelude.NFData ContainerImage

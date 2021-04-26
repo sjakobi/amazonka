@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified set of tag keys and their values from the specified Amazon Lightsail resource.
+-- Deletes the specified set of tag keys and their values from the
+-- specified Amazon Lightsail resource.
 --
---
--- The @untag resource@ operation supports tag-based access control via request tags and resource tags applied to the resource identified by @resource name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @untag resource@ operation supports tag-based access control via
+-- request tags and resource tags applied to the resource identified by
+-- @resource name@. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.UntagResource
   ( -- * Creating a Request
-    untagResource,
-    UntagResource,
+    UntagResource (..),
+    newUntagResource,
 
     -- * Request Lenses
-    urResourceARN,
-    urResourceName,
-    urTagKeys,
+    untagResource_resourceArn,
+    untagResource_resourceName,
+    untagResource_tagKeys,
 
     -- * Destructuring the Response
-    untagResourceResponse,
-    UntagResourceResponse,
+    UntagResourceResponse (..),
+    newUntagResourceResponse,
 
     -- * Response Lenses
-    urrrsOperations,
-    urrrsResponseStatus,
+    untagResourceResponse_operations,
+    untagResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagResource' smart constructor.
+-- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { _urResourceARN ::
-      !(Maybe Text),
-    _urResourceName :: !Text,
-    _urTagKeys :: ![Text]
+  { -- | The Amazon Resource Name (ARN) of the resource from which you want to
+    -- remove a tag.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource from which you are removing a tag.
+    resourceName :: Prelude.Text,
+    -- | The tag keys to delete from the specified resource.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urResourceARN' - The Amazon Resource Name (ARN) of the resource from which you want to remove a tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urResourceName' - The name of the resource from which you are removing a tag.
+-- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource from which you want to
+-- remove a tag.
 --
--- * 'urTagKeys' - The tag keys to delete from the specified resource.
-untagResource ::
-  -- | 'urResourceName'
-  Text ->
+-- 'resourceName', 'untagResource_resourceName' - The name of the resource from which you are removing a tag.
+--
+-- 'tagKeys', 'untagResource_tagKeys' - The tag keys to delete from the specified resource.
+newUntagResource ::
+  -- | 'resourceName'
+  Prelude.Text ->
   UntagResource
-untagResource pResourceName_ =
+newUntagResource pResourceName_ =
   UntagResource'
-    { _urResourceARN = Nothing,
-      _urResourceName = pResourceName_,
-      _urTagKeys = mempty
+    { resourceArn = Prelude.Nothing,
+      resourceName = pResourceName_,
+      tagKeys = Prelude.mempty
     }
 
--- | The Amazon Resource Name (ARN) of the resource from which you want to remove a tag.
-urResourceARN :: Lens' UntagResource (Maybe Text)
-urResourceARN = lens _urResourceARN (\s a -> s {_urResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the resource from which you want to
+-- remove a tag.
+untagResource_resourceArn :: Lens.Lens' UntagResource (Prelude.Maybe Prelude.Text)
+untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
 -- | The name of the resource from which you are removing a tag.
-urResourceName :: Lens' UntagResource Text
-urResourceName = lens _urResourceName (\s a -> s {_urResourceName = a})
+untagResource_resourceName :: Lens.Lens' UntagResource Prelude.Text
+untagResource_resourceName = Lens.lens (\UntagResource' {resourceName} -> resourceName) (\s@UntagResource' {} a -> s {resourceName = a} :: UntagResource)
 
 -- | The tag keys to delete from the specified resource.
-urTagKeys :: Lens' UntagResource [Text]
-urTagKeys = lens _urTagKeys (\s a -> s {_urTagKeys = a}) . _Coerce
+untagResource_tagKeys :: Lens.Lens' UntagResource [Prelude.Text]
+untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagResource where
+instance Prelude.AWSRequest UntagResource where
   type Rs UntagResource = UntagResourceResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UntagResourceResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UntagResource
+instance Prelude.Hashable UntagResource
 
-instance NFData UntagResource
+instance Prelude.NFData UntagResource
 
-instance ToHeaders UntagResource where
+instance Prelude.ToHeaders UntagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.UntagResource" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.UntagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UntagResource where
+instance Prelude.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    object
-      ( catMaybes
-          [ ("resourceArn" .=) <$> _urResourceARN,
-            Just ("resourceName" .= _urResourceName),
-            Just ("tagKeys" .= _urTagKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("resourceArn" Prelude..=) Prelude.<$> resourceArn,
+            Prelude.Just
+              ("resourceName" Prelude..= resourceName),
+            Prelude.Just ("tagKeys" Prelude..= tagKeys)
           ]
       )
 
-instance ToPath UntagResource where
-  toPath = const "/"
+instance Prelude.ToPath UntagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagResourceResponse' smart constructor.
+-- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'
-  { _urrrsOperations ::
-      !(Maybe [Operation]),
-    _urrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-untagResourceResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- 'operations', 'untagResourceResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'untagResourceResponse_httpStatus' - The response's http status code.
+newUntagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UntagResourceResponse
-untagResourceResponse pResponseStatus_ =
+newUntagResourceResponse pHttpStatus_ =
   UntagResourceResponse'
-    { _urrrsOperations = Nothing,
-      _urrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-urrrsOperations :: Lens' UntagResourceResponse [Operation]
-urrrsOperations = lens _urrrsOperations (\s a -> s {_urrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+untagResourceResponse_operations :: Lens.Lens' UntagResourceResponse (Prelude.Maybe [Operation])
+untagResourceResponse_operations = Lens.lens (\UntagResourceResponse' {operations} -> operations) (\s@UntagResourceResponse' {} a -> s {operations = a} :: UntagResourceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UntagResourceResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+untagResourceResponse_httpStatus :: Lens.Lens' UntagResourceResponse Prelude.Int
+untagResourceResponse_httpStatus = Lens.lens (\UntagResourceResponse' {httpStatus} -> httpStatus) (\s@UntagResourceResponse' {} a -> s {httpStatus = a} :: UntagResourceResponse)
 
-instance NFData UntagResourceResponse
+instance Prelude.NFData UntagResourceResponse

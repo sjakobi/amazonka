@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Lightsail.Types.MetricStatistic
   ( MetricStatistic
       ( ..,
-        Average,
-        Maximum,
-        Minimum,
-        SampleCount,
-        Sum
+        MetricStatisticAverage,
+        MetricStatisticMaximum,
+        MetricStatisticMinimum,
+        MetricStatisticSampleCount,
+        MetricStatisticSum
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MetricStatistic = MetricStatistic' (CI Text)
+newtype MetricStatistic = MetricStatistic'
+  { fromMetricStatistic ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Average :: MetricStatistic
-pattern Average = MetricStatistic' "Average"
+pattern MetricStatisticAverage :: MetricStatistic
+pattern MetricStatisticAverage = MetricStatistic' "Average"
 
-pattern Maximum :: MetricStatistic
-pattern Maximum = MetricStatistic' "Maximum"
+pattern MetricStatisticMaximum :: MetricStatistic
+pattern MetricStatisticMaximum = MetricStatistic' "Maximum"
 
-pattern Minimum :: MetricStatistic
-pattern Minimum = MetricStatistic' "Minimum"
+pattern MetricStatisticMinimum :: MetricStatistic
+pattern MetricStatisticMinimum = MetricStatistic' "Minimum"
 
-pattern SampleCount :: MetricStatistic
-pattern SampleCount = MetricStatistic' "SampleCount"
+pattern MetricStatisticSampleCount :: MetricStatistic
+pattern MetricStatisticSampleCount = MetricStatistic' "SampleCount"
 
-pattern Sum :: MetricStatistic
-pattern Sum = MetricStatistic' "Sum"
+pattern MetricStatisticSum :: MetricStatistic
+pattern MetricStatisticSum = MetricStatistic' "Sum"
 
 {-# COMPLETE
-  Average,
-  Maximum,
-  Minimum,
-  SampleCount,
-  Sum,
+  MetricStatisticAverage,
+  MetricStatisticMaximum,
+  MetricStatisticMinimum,
+  MetricStatisticSampleCount,
+  MetricStatisticSum,
   MetricStatistic'
   #-}
 
-instance FromText MetricStatistic where
-  parser = (MetricStatistic' . mk) <$> takeText
+instance Prelude.FromText MetricStatistic where
+  parser = MetricStatistic' Prelude.<$> Prelude.takeText
 
-instance ToText MetricStatistic where
-  toText (MetricStatistic' ci) = original ci
+instance Prelude.ToText MetricStatistic where
+  toText (MetricStatistic' x) = x
 
-instance Hashable MetricStatistic
+instance Prelude.Hashable MetricStatistic
 
-instance NFData MetricStatistic
+instance Prelude.NFData MetricStatistic
 
-instance ToByteString MetricStatistic
+instance Prelude.ToByteString MetricStatistic
 
-instance ToQuery MetricStatistic
+instance Prelude.ToQuery MetricStatistic
 
-instance ToHeader MetricStatistic
+instance Prelude.ToHeader MetricStatistic
 
-instance ToJSON MetricStatistic where
-  toJSON = toJSONText
+instance Prelude.ToJSON MetricStatistic where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MetricStatistic where
-  parseJSON = parseJSONText "MetricStatistic"
+instance Prelude.FromJSON MetricStatistic where
+  parseJSON = Prelude.parseJSONText "MetricStatistic"

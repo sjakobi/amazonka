@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,171 +19,173 @@
 module Network.AWS.Lightsail.Types.MetricName
   ( MetricName
       ( ..,
-        MNBurstCapacityPercentage,
-        MNBurstCapacityTime,
-        MNCPUUtilization,
-        MNClientTLSNegotiationErrorCount,
-        MNDatabaseConnections,
-        MNDiskQueueDepth,
-        MNFreeStorageSpace,
-        MNHTTPCodeInstance2XXCount,
-        MNHTTPCodeInstance3XXCount,
-        MNHTTPCodeInstance4XXCount,
-        MNHTTPCodeInstance5XXCount,
-        MNHTTPCodeLb4XXCount,
-        MNHTTPCodeLb5XXCount,
-        MNHealthyHostCount,
-        MNInstanceResponseTime,
-        MNNetworkIn,
-        MNNetworkOut,
-        MNNetworkReceiveThroughput,
-        MNNetworkTransmitThroughput,
-        MNRejectedConnectionCount,
-        MNRequestCount,
-        MNStatusCheckFailed,
-        MNStatusCheckFailedInstance,
-        MNStatusCheckFailedSystem,
-        MNUnhealthyHostCount
+        MetricNameBurstCapacityPercentage,
+        MetricNameBurstCapacityTime,
+        MetricNameCPUUtilization,
+        MetricNameClientTLSNegotiationErrorCount,
+        MetricNameDatabaseConnections,
+        MetricNameDiskQueueDepth,
+        MetricNameFreeStorageSpace,
+        MetricNameHTTPCodeInstance2XXCount,
+        MetricNameHTTPCodeInstance3XXCount,
+        MetricNameHTTPCodeInstance4XXCount,
+        MetricNameHTTPCodeInstance5XXCount,
+        MetricNameHTTPCodeLB4XXCount,
+        MetricNameHTTPCodeLB5XXCount,
+        MetricNameHealthyHostCount,
+        MetricNameInstanceResponseTime,
+        MetricNameNetworkIn,
+        MetricNameNetworkOut,
+        MetricNameNetworkReceiveThroughput,
+        MetricNameNetworkTransmitThroughput,
+        MetricNameRejectedConnectionCount,
+        MetricNameRequestCount,
+        MetricNameStatusCheckFailed,
+        MetricNameStatusCheckFailedInstance,
+        MetricNameStatusCheckFailedSystem,
+        MetricNameUnhealthyHostCount
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MetricName = MetricName' (CI Text)
+newtype MetricName = MetricName'
+  { fromMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MNBurstCapacityPercentage :: MetricName
-pattern MNBurstCapacityPercentage = MetricName' "BurstCapacityPercentage"
+pattern MetricNameBurstCapacityPercentage :: MetricName
+pattern MetricNameBurstCapacityPercentage = MetricName' "BurstCapacityPercentage"
 
-pattern MNBurstCapacityTime :: MetricName
-pattern MNBurstCapacityTime = MetricName' "BurstCapacityTime"
+pattern MetricNameBurstCapacityTime :: MetricName
+pattern MetricNameBurstCapacityTime = MetricName' "BurstCapacityTime"
 
-pattern MNCPUUtilization :: MetricName
-pattern MNCPUUtilization = MetricName' "CPUUtilization"
+pattern MetricNameCPUUtilization :: MetricName
+pattern MetricNameCPUUtilization = MetricName' "CPUUtilization"
 
-pattern MNClientTLSNegotiationErrorCount :: MetricName
-pattern MNClientTLSNegotiationErrorCount = MetricName' "ClientTLSNegotiationErrorCount"
+pattern MetricNameClientTLSNegotiationErrorCount :: MetricName
+pattern MetricNameClientTLSNegotiationErrorCount = MetricName' "ClientTLSNegotiationErrorCount"
 
-pattern MNDatabaseConnections :: MetricName
-pattern MNDatabaseConnections = MetricName' "DatabaseConnections"
+pattern MetricNameDatabaseConnections :: MetricName
+pattern MetricNameDatabaseConnections = MetricName' "DatabaseConnections"
 
-pattern MNDiskQueueDepth :: MetricName
-pattern MNDiskQueueDepth = MetricName' "DiskQueueDepth"
+pattern MetricNameDiskQueueDepth :: MetricName
+pattern MetricNameDiskQueueDepth = MetricName' "DiskQueueDepth"
 
-pattern MNFreeStorageSpace :: MetricName
-pattern MNFreeStorageSpace = MetricName' "FreeStorageSpace"
+pattern MetricNameFreeStorageSpace :: MetricName
+pattern MetricNameFreeStorageSpace = MetricName' "FreeStorageSpace"
 
-pattern MNHTTPCodeInstance2XXCount :: MetricName
-pattern MNHTTPCodeInstance2XXCount = MetricName' "HTTPCode_Instance_2XX_Count"
+pattern MetricNameHTTPCodeInstance2XXCount :: MetricName
+pattern MetricNameHTTPCodeInstance2XXCount = MetricName' "HTTPCode_Instance_2XX_Count"
 
-pattern MNHTTPCodeInstance3XXCount :: MetricName
-pattern MNHTTPCodeInstance3XXCount = MetricName' "HTTPCode_Instance_3XX_Count"
+pattern MetricNameHTTPCodeInstance3XXCount :: MetricName
+pattern MetricNameHTTPCodeInstance3XXCount = MetricName' "HTTPCode_Instance_3XX_Count"
 
-pattern MNHTTPCodeInstance4XXCount :: MetricName
-pattern MNHTTPCodeInstance4XXCount = MetricName' "HTTPCode_Instance_4XX_Count"
+pattern MetricNameHTTPCodeInstance4XXCount :: MetricName
+pattern MetricNameHTTPCodeInstance4XXCount = MetricName' "HTTPCode_Instance_4XX_Count"
 
-pattern MNHTTPCodeInstance5XXCount :: MetricName
-pattern MNHTTPCodeInstance5XXCount = MetricName' "HTTPCode_Instance_5XX_Count"
+pattern MetricNameHTTPCodeInstance5XXCount :: MetricName
+pattern MetricNameHTTPCodeInstance5XXCount = MetricName' "HTTPCode_Instance_5XX_Count"
 
-pattern MNHTTPCodeLb4XXCount :: MetricName
-pattern MNHTTPCodeLb4XXCount = MetricName' "HTTPCode_LB_4XX_Count"
+pattern MetricNameHTTPCodeLB4XXCount :: MetricName
+pattern MetricNameHTTPCodeLB4XXCount = MetricName' "HTTPCode_LB_4XX_Count"
 
-pattern MNHTTPCodeLb5XXCount :: MetricName
-pattern MNHTTPCodeLb5XXCount = MetricName' "HTTPCode_LB_5XX_Count"
+pattern MetricNameHTTPCodeLB5XXCount :: MetricName
+pattern MetricNameHTTPCodeLB5XXCount = MetricName' "HTTPCode_LB_5XX_Count"
 
-pattern MNHealthyHostCount :: MetricName
-pattern MNHealthyHostCount = MetricName' "HealthyHostCount"
+pattern MetricNameHealthyHostCount :: MetricName
+pattern MetricNameHealthyHostCount = MetricName' "HealthyHostCount"
 
-pattern MNInstanceResponseTime :: MetricName
-pattern MNInstanceResponseTime = MetricName' "InstanceResponseTime"
+pattern MetricNameInstanceResponseTime :: MetricName
+pattern MetricNameInstanceResponseTime = MetricName' "InstanceResponseTime"
 
-pattern MNNetworkIn :: MetricName
-pattern MNNetworkIn = MetricName' "NetworkIn"
+pattern MetricNameNetworkIn :: MetricName
+pattern MetricNameNetworkIn = MetricName' "NetworkIn"
 
-pattern MNNetworkOut :: MetricName
-pattern MNNetworkOut = MetricName' "NetworkOut"
+pattern MetricNameNetworkOut :: MetricName
+pattern MetricNameNetworkOut = MetricName' "NetworkOut"
 
-pattern MNNetworkReceiveThroughput :: MetricName
-pattern MNNetworkReceiveThroughput = MetricName' "NetworkReceiveThroughput"
+pattern MetricNameNetworkReceiveThroughput :: MetricName
+pattern MetricNameNetworkReceiveThroughput = MetricName' "NetworkReceiveThroughput"
 
-pattern MNNetworkTransmitThroughput :: MetricName
-pattern MNNetworkTransmitThroughput = MetricName' "NetworkTransmitThroughput"
+pattern MetricNameNetworkTransmitThroughput :: MetricName
+pattern MetricNameNetworkTransmitThroughput = MetricName' "NetworkTransmitThroughput"
 
-pattern MNRejectedConnectionCount :: MetricName
-pattern MNRejectedConnectionCount = MetricName' "RejectedConnectionCount"
+pattern MetricNameRejectedConnectionCount :: MetricName
+pattern MetricNameRejectedConnectionCount = MetricName' "RejectedConnectionCount"
 
-pattern MNRequestCount :: MetricName
-pattern MNRequestCount = MetricName' "RequestCount"
+pattern MetricNameRequestCount :: MetricName
+pattern MetricNameRequestCount = MetricName' "RequestCount"
 
-pattern MNStatusCheckFailed :: MetricName
-pattern MNStatusCheckFailed = MetricName' "StatusCheckFailed"
+pattern MetricNameStatusCheckFailed :: MetricName
+pattern MetricNameStatusCheckFailed = MetricName' "StatusCheckFailed"
 
-pattern MNStatusCheckFailedInstance :: MetricName
-pattern MNStatusCheckFailedInstance = MetricName' "StatusCheckFailed_Instance"
+pattern MetricNameStatusCheckFailedInstance :: MetricName
+pattern MetricNameStatusCheckFailedInstance = MetricName' "StatusCheckFailed_Instance"
 
-pattern MNStatusCheckFailedSystem :: MetricName
-pattern MNStatusCheckFailedSystem = MetricName' "StatusCheckFailed_System"
+pattern MetricNameStatusCheckFailedSystem :: MetricName
+pattern MetricNameStatusCheckFailedSystem = MetricName' "StatusCheckFailed_System"
 
-pattern MNUnhealthyHostCount :: MetricName
-pattern MNUnhealthyHostCount = MetricName' "UnhealthyHostCount"
+pattern MetricNameUnhealthyHostCount :: MetricName
+pattern MetricNameUnhealthyHostCount = MetricName' "UnhealthyHostCount"
 
 {-# COMPLETE
-  MNBurstCapacityPercentage,
-  MNBurstCapacityTime,
-  MNCPUUtilization,
-  MNClientTLSNegotiationErrorCount,
-  MNDatabaseConnections,
-  MNDiskQueueDepth,
-  MNFreeStorageSpace,
-  MNHTTPCodeInstance2XXCount,
-  MNHTTPCodeInstance3XXCount,
-  MNHTTPCodeInstance4XXCount,
-  MNHTTPCodeInstance5XXCount,
-  MNHTTPCodeLb4XXCount,
-  MNHTTPCodeLb5XXCount,
-  MNHealthyHostCount,
-  MNInstanceResponseTime,
-  MNNetworkIn,
-  MNNetworkOut,
-  MNNetworkReceiveThroughput,
-  MNNetworkTransmitThroughput,
-  MNRejectedConnectionCount,
-  MNRequestCount,
-  MNStatusCheckFailed,
-  MNStatusCheckFailedInstance,
-  MNStatusCheckFailedSystem,
-  MNUnhealthyHostCount,
+  MetricNameBurstCapacityPercentage,
+  MetricNameBurstCapacityTime,
+  MetricNameCPUUtilization,
+  MetricNameClientTLSNegotiationErrorCount,
+  MetricNameDatabaseConnections,
+  MetricNameDiskQueueDepth,
+  MetricNameFreeStorageSpace,
+  MetricNameHTTPCodeInstance2XXCount,
+  MetricNameHTTPCodeInstance3XXCount,
+  MetricNameHTTPCodeInstance4XXCount,
+  MetricNameHTTPCodeInstance5XXCount,
+  MetricNameHTTPCodeLB4XXCount,
+  MetricNameHTTPCodeLB5XXCount,
+  MetricNameHealthyHostCount,
+  MetricNameInstanceResponseTime,
+  MetricNameNetworkIn,
+  MetricNameNetworkOut,
+  MetricNameNetworkReceiveThroughput,
+  MetricNameNetworkTransmitThroughput,
+  MetricNameRejectedConnectionCount,
+  MetricNameRequestCount,
+  MetricNameStatusCheckFailed,
+  MetricNameStatusCheckFailedInstance,
+  MetricNameStatusCheckFailedSystem,
+  MetricNameUnhealthyHostCount,
   MetricName'
   #-}
 
-instance FromText MetricName where
-  parser = (MetricName' . mk) <$> takeText
+instance Prelude.FromText MetricName where
+  parser = MetricName' Prelude.<$> Prelude.takeText
 
-instance ToText MetricName where
-  toText (MetricName' ci) = original ci
+instance Prelude.ToText MetricName where
+  toText (MetricName' x) = x
 
-instance Hashable MetricName
+instance Prelude.Hashable MetricName
 
-instance NFData MetricName
+instance Prelude.NFData MetricName
 
-instance ToByteString MetricName
+instance Prelude.ToByteString MetricName
 
-instance ToQuery MetricName
+instance Prelude.ToQuery MetricName
 
-instance ToHeader MetricName
+instance Prelude.ToHeader MetricName
 
-instance ToJSON MetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON MetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MetricName where
-  parseJSON = parseJSONText "MetricName"
+instance Prelude.FromJSON MetricName where
+  parseJSON = Prelude.parseJSONText "MetricName"

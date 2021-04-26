@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the known host key or certificate used by the Amazon Lightsail browser-based SSH or RDP clients to authenticate an instance. This operation enables the Lightsail browser-based SSH or RDP clients to connect to the instance after a host key mismatch.
+-- Deletes the known host key or certificate used by the Amazon Lightsail
+-- browser-based SSH or RDP clients to authenticate an instance. This
+-- operation enables the Lightsail browser-based SSH or RDP clients to
+-- connect to the instance after a host key mismatch.
 --
---
--- /Important:/ Perform this operation only if you were expecting the host key or certificate mismatch or if you are familiar with the new host key or certificate on the instance. For more information, see <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-troubleshooting-browser-based-ssh-rdp-client-connection Troubleshooting connection issues when using the Amazon Lightsail browser-based SSH or RDP client> .
+-- Perform this operation only if you were expecting the host key or
+-- certificate mismatch or if you are familiar with the new host key or
+-- certificate on the instance. For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-troubleshooting-browser-based-ssh-rdp-client-connection Troubleshooting connection issues when using the Amazon Lightsail browser-based SSH or RDP client>.
 module Network.AWS.Lightsail.DeleteKnownHostKeys
   ( -- * Creating a Request
-    deleteKnownHostKeys,
-    DeleteKnownHostKeys,
+    DeleteKnownHostKeys (..),
+    newDeleteKnownHostKeys,
 
     -- * Request Lenses
-    dkhkInstanceName,
+    deleteKnownHostKeys_instanceName,
 
     -- * Destructuring the Response
-    deleteKnownHostKeysResponse,
-    DeleteKnownHostKeysResponse,
+    DeleteKnownHostKeysResponse (..),
+    newDeleteKnownHostKeysResponse,
 
     -- * Response Lenses
-    dkhkrrsOperations,
-    dkhkrrsResponseStatus,
+    deleteKnownHostKeysResponse_operations,
+    deleteKnownHostKeysResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteKnownHostKeys' smart constructor.
-newtype DeleteKnownHostKeys = DeleteKnownHostKeys'
-  { _dkhkInstanceName ::
-      Text
+-- | /See:/ 'newDeleteKnownHostKeys' smart constructor.
+data DeleteKnownHostKeys = DeleteKnownHostKeys'
+  { -- | The name of the instance for which you want to reset the host key or
+    -- certificate.
+    instanceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteKnownHostKeys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteKnownHostKeys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkhkInstanceName' - The name of the instance for which you want to reset the host key or certificate.
-deleteKnownHostKeys ::
-  -- | 'dkhkInstanceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceName', 'deleteKnownHostKeys_instanceName' - The name of the instance for which you want to reset the host key or
+-- certificate.
+newDeleteKnownHostKeys ::
+  -- | 'instanceName'
+  Prelude.Text ->
   DeleteKnownHostKeys
-deleteKnownHostKeys pInstanceName_ =
-  DeleteKnownHostKeys'
-    { _dkhkInstanceName =
-        pInstanceName_
-    }
+newDeleteKnownHostKeys pInstanceName_ =
+  DeleteKnownHostKeys' {instanceName = pInstanceName_}
 
--- | The name of the instance for which you want to reset the host key or certificate.
-dkhkInstanceName :: Lens' DeleteKnownHostKeys Text
-dkhkInstanceName = lens _dkhkInstanceName (\s a -> s {_dkhkInstanceName = a})
+-- | The name of the instance for which you want to reset the host key or
+-- certificate.
+deleteKnownHostKeys_instanceName :: Lens.Lens' DeleteKnownHostKeys Prelude.Text
+deleteKnownHostKeys_instanceName = Lens.lens (\DeleteKnownHostKeys' {instanceName} -> instanceName) (\s@DeleteKnownHostKeys' {} a -> s {instanceName = a} :: DeleteKnownHostKeys)
 
-instance AWSRequest DeleteKnownHostKeys where
+instance Prelude.AWSRequest DeleteKnownHostKeys where
   type
     Rs DeleteKnownHostKeys =
       DeleteKnownHostKeysResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteKnownHostKeysResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteKnownHostKeys
+instance Prelude.Hashable DeleteKnownHostKeys
 
-instance NFData DeleteKnownHostKeys
+instance Prelude.NFData DeleteKnownHostKeys
 
-instance ToHeaders DeleteKnownHostKeys where
+instance Prelude.ToHeaders DeleteKnownHostKeys where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteKnownHostKeys" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteKnownHostKeys" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteKnownHostKeys where
+instance Prelude.ToJSON DeleteKnownHostKeys where
   toJSON DeleteKnownHostKeys' {..} =
-    object
-      ( catMaybes
-          [Just ("instanceName" .= _dkhkInstanceName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("instanceName" Prelude..= instanceName)
+          ]
       )
 
-instance ToPath DeleteKnownHostKeys where
-  toPath = const "/"
+instance Prelude.ToPath DeleteKnownHostKeys where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteKnownHostKeys where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteKnownHostKeys where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteKnownHostKeysResponse' smart constructor.
+-- | /See:/ 'newDeleteKnownHostKeysResponse' smart constructor.
 data DeleteKnownHostKeysResponse = DeleteKnownHostKeysResponse'
-  { _dkhkrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _dkhkrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteKnownHostKeysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteKnownHostKeysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dkhkrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dkhkrrsResponseStatus' - -- | The response status code.
-deleteKnownHostKeysResponse ::
-  -- | 'dkhkrrsResponseStatus'
-  Int ->
+-- 'operations', 'deleteKnownHostKeysResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteKnownHostKeysResponse_httpStatus' - The response's http status code.
+newDeleteKnownHostKeysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteKnownHostKeysResponse
-deleteKnownHostKeysResponse pResponseStatus_ =
+newDeleteKnownHostKeysResponse pHttpStatus_ =
   DeleteKnownHostKeysResponse'
-    { _dkhkrrsOperations =
-        Nothing,
-      _dkhkrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-dkhkrrsOperations :: Lens' DeleteKnownHostKeysResponse [Operation]
-dkhkrrsOperations = lens _dkhkrrsOperations (\s a -> s {_dkhkrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteKnownHostKeysResponse_operations :: Lens.Lens' DeleteKnownHostKeysResponse (Prelude.Maybe [Operation])
+deleteKnownHostKeysResponse_operations = Lens.lens (\DeleteKnownHostKeysResponse' {operations} -> operations) (\s@DeleteKnownHostKeysResponse' {} a -> s {operations = a} :: DeleteKnownHostKeysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dkhkrrsResponseStatus :: Lens' DeleteKnownHostKeysResponse Int
-dkhkrrsResponseStatus = lens _dkhkrrsResponseStatus (\s a -> s {_dkhkrrsResponseStatus = a})
+-- | The response's http status code.
+deleteKnownHostKeysResponse_httpStatus :: Lens.Lens' DeleteKnownHostKeysResponse Prelude.Int
+deleteKnownHostKeysResponse_httpStatus = Lens.lens (\DeleteKnownHostKeysResponse' {httpStatus} -> httpStatus) (\s@DeleteKnownHostKeysResponse' {} a -> s {httpStatus = a} :: DeleteKnownHostKeysResponse)
 
-instance NFData DeleteKnownHostKeysResponse
+instance Prelude.NFData DeleteKnownHostKeysResponse

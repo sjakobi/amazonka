@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,204 +21,380 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the log events of a container of your Amazon Lightsail container service.
+-- Returns the log events of a container of your Amazon Lightsail container
+-- service.
 --
+-- If your container service has more than one node (i.e., a scale greater
+-- than 1), then the log events that are returned for the specified
+-- container are merged from all nodes on your container service.
 --
--- If your container service has more than one node (i.e., a scale greater than 1), then the log events that are returned for the specified container are merged from all nodes on your container service.
+-- Container logs are retained for a certain amount of time. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/lightsail.html Amazon Lightsail endpoints and quotas>
+-- in the /AWS General Reference/.
 module Network.AWS.Lightsail.GetContainerLog
   ( -- * Creating a Request
-    getContainerLog,
-    GetContainerLog,
+    GetContainerLog (..),
+    newGetContainerLog,
 
     -- * Request Lenses
-    gclPageToken,
-    gclFilterPattern,
-    gclStartTime,
-    gclEndTime,
-    gclServiceName,
-    gclContainerName,
+    getContainerLog_pageToken,
+    getContainerLog_filterPattern,
+    getContainerLog_startTime,
+    getContainerLog_endTime,
+    getContainerLog_serviceName,
+    getContainerLog_containerName,
 
     -- * Destructuring the Response
-    getContainerLogResponse,
-    GetContainerLogResponse,
+    GetContainerLogResponse (..),
+    newGetContainerLogResponse,
 
     -- * Response Lenses
-    gclrrsLogEvents,
-    gclrrsNextPageToken,
-    gclrrsResponseStatus,
+    getContainerLogResponse_logEvents,
+    getContainerLogResponse_nextPageToken,
+    getContainerLogResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerServiceLogEvent
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerLog' smart constructor.
+-- | /See:/ 'newGetContainerLog' smart constructor.
 data GetContainerLog = GetContainerLog'
-  { _gclPageToken ::
-      !(Maybe Text),
-    _gclFilterPattern :: !(Maybe Text),
-    _gclStartTime :: !(Maybe POSIX),
-    _gclEndTime :: !(Maybe POSIX),
-    _gclServiceName :: !Text,
-    _gclContainerName :: !Text
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetContainerLog@ request. If
+    -- your results are paginated, the response will return a next page token
+    -- that you can specify as the page token in a subsequent request.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The pattern to use to filter the returned log events to a specific term.
+    --
+    -- The following are a few examples of filter patterns that you can
+    -- specify:
+    --
+    -- -   To return all log events, specify a filter pattern of @\"\"@.
+    --
+    -- -   To exclude log events that contain the @ERROR@ term, and return all
+    --     other log events, specify a filter pattern of @\"-ERROR\"@.
+    --
+    -- -   To return log events that contain the @ERROR@ term, specify a filter
+    --     pattern of @\"ERROR\"@.
+    --
+    -- -   To return log events that contain both the @ERROR@ and @Exception@
+    --     terms, specify a filter pattern of @\"ERROR Exception\"@.
+    --
+    -- -   To return log events that contain the @ERROR@ /or/ the @Exception@
+    --     term, specify a filter pattern of @\"?ERROR ?Exception\"@.
+    filterPattern :: Prelude.Maybe Prelude.Text,
+    -- | The start of the time interval for which to get log data.
+    --
+    -- Constraints:
+    --
+    -- -   Specified in Coordinated Universal Time (UTC).
+    --
+    -- -   Specified in the Unix time format.
+    --
+    --     For example, if you wish to use a start time of October 1, 2018, at
+    --     8 PM UTC, specify @1538424000@ as the start time.
+    --
+    -- You can convert a human-friendly time to Unix time format using a
+    -- converter like <https://www.epochconverter.com/ Epoch converter>.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The end of the time interval for which to get log data.
+    --
+    -- Constraints:
+    --
+    -- -   Specified in Coordinated Universal Time (UTC).
+    --
+    -- -   Specified in the Unix time format.
+    --
+    --     For example, if you wish to use an end time of October 1, 2018, at 9
+    --     PM UTC, specify @1538427600@ as the end time.
+    --
+    -- You can convert a human-friendly time to Unix time format using a
+    -- converter like <https://www.epochconverter.com/ Epoch converter>.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the container service for which to get a container log.
+    serviceName :: Prelude.Text,
+    -- | The name of the container that is either running or previously ran on
+    -- the container service for which to return a log.
+    containerName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerLog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerLog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gclPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetContainerLog@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gclFilterPattern' - The pattern to use to filter the returned log events to a specific term. The following are a few examples of filter patterns that you can specify:     * To return all log events, specify a filter pattern of @""@ .     * To exclude log events that contain the @ERROR@ term, and return all other log events, specify a filter pattern of @"-ERROR"@ .     * To return log events that contain the @ERROR@ term, specify a filter pattern of @"ERROR"@ .     * To return log events that contain both the @ERROR@ and @Exception@ terms, specify a filter pattern of @"ERROR Exception"@ .     * To return log events that contain the @ERROR@ /or/ the @Exception@ term, specify a filter pattern of @"?ERROR ?Exception"@ .
+-- 'pageToken', 'getContainerLog_pageToken' - The token to advance to the next page of results from your request.
 --
--- * 'gclStartTime' - The start of the time interval for which to get log data. Constraints:     * Specified in Coordinated Universal Time (UTC).     * Specified in the Unix time format. For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify @1538424000@ as the start time. You can convert a human-friendly time to Unix time format using a converter like <https://www.epochconverter.com/ Epoch converter> .
+-- To get a page token, perform an initial @GetContainerLog@ request. If
+-- your results are paginated, the response will return a next page token
+-- that you can specify as the page token in a subsequent request.
 --
--- * 'gclEndTime' - The end of the time interval for which to get log data. Constraints:     * Specified in Coordinated Universal Time (UTC).     * Specified in the Unix time format. For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify @1538427600@ as the end time. You can convert a human-friendly time to Unix time format using a converter like <https://www.epochconverter.com/ Epoch converter> .
+-- 'filterPattern', 'getContainerLog_filterPattern' - The pattern to use to filter the returned log events to a specific term.
 --
--- * 'gclServiceName' - The name of the container service for which to get a container log.
+-- The following are a few examples of filter patterns that you can
+-- specify:
 --
--- * 'gclContainerName' - The name of the container that is either running or previously ran on the container service for which to return a log.
-getContainerLog ::
-  -- | 'gclServiceName'
-  Text ->
-  -- | 'gclContainerName'
-  Text ->
+-- -   To return all log events, specify a filter pattern of @\"\"@.
+--
+-- -   To exclude log events that contain the @ERROR@ term, and return all
+--     other log events, specify a filter pattern of @\"-ERROR\"@.
+--
+-- -   To return log events that contain the @ERROR@ term, specify a filter
+--     pattern of @\"ERROR\"@.
+--
+-- -   To return log events that contain both the @ERROR@ and @Exception@
+--     terms, specify a filter pattern of @\"ERROR Exception\"@.
+--
+-- -   To return log events that contain the @ERROR@ /or/ the @Exception@
+--     term, specify a filter pattern of @\"?ERROR ?Exception\"@.
+--
+-- 'startTime', 'getContainerLog_startTime' - The start of the time interval for which to get log data.
+--
+-- Constraints:
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Specified in the Unix time format.
+--
+--     For example, if you wish to use a start time of October 1, 2018, at
+--     8 PM UTC, specify @1538424000@ as the start time.
+--
+-- You can convert a human-friendly time to Unix time format using a
+-- converter like <https://www.epochconverter.com/ Epoch converter>.
+--
+-- 'endTime', 'getContainerLog_endTime' - The end of the time interval for which to get log data.
+--
+-- Constraints:
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Specified in the Unix time format.
+--
+--     For example, if you wish to use an end time of October 1, 2018, at 9
+--     PM UTC, specify @1538427600@ as the end time.
+--
+-- You can convert a human-friendly time to Unix time format using a
+-- converter like <https://www.epochconverter.com/ Epoch converter>.
+--
+-- 'serviceName', 'getContainerLog_serviceName' - The name of the container service for which to get a container log.
+--
+-- 'containerName', 'getContainerLog_containerName' - The name of the container that is either running or previously ran on
+-- the container service for which to return a log.
+newGetContainerLog ::
+  -- | 'serviceName'
+  Prelude.Text ->
+  -- | 'containerName'
+  Prelude.Text ->
   GetContainerLog
-getContainerLog pServiceName_ pContainerName_ =
+newGetContainerLog pServiceName_ pContainerName_ =
   GetContainerLog'
-    { _gclPageToken = Nothing,
-      _gclFilterPattern = Nothing,
-      _gclStartTime = Nothing,
-      _gclEndTime = Nothing,
-      _gclServiceName = pServiceName_,
-      _gclContainerName = pContainerName_
+    { pageToken = Prelude.Nothing,
+      filterPattern = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      serviceName = pServiceName_,
+      containerName = pContainerName_
     }
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetContainerLog@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-gclPageToken :: Lens' GetContainerLog (Maybe Text)
-gclPageToken = lens _gclPageToken (\s a -> s {_gclPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetContainerLog@ request. If
+-- your results are paginated, the response will return a next page token
+-- that you can specify as the page token in a subsequent request.
+getContainerLog_pageToken :: Lens.Lens' GetContainerLog (Prelude.Maybe Prelude.Text)
+getContainerLog_pageToken = Lens.lens (\GetContainerLog' {pageToken} -> pageToken) (\s@GetContainerLog' {} a -> s {pageToken = a} :: GetContainerLog)
 
--- | The pattern to use to filter the returned log events to a specific term. The following are a few examples of filter patterns that you can specify:     * To return all log events, specify a filter pattern of @""@ .     * To exclude log events that contain the @ERROR@ term, and return all other log events, specify a filter pattern of @"-ERROR"@ .     * To return log events that contain the @ERROR@ term, specify a filter pattern of @"ERROR"@ .     * To return log events that contain both the @ERROR@ and @Exception@ terms, specify a filter pattern of @"ERROR Exception"@ .     * To return log events that contain the @ERROR@ /or/ the @Exception@ term, specify a filter pattern of @"?ERROR ?Exception"@ .
-gclFilterPattern :: Lens' GetContainerLog (Maybe Text)
-gclFilterPattern = lens _gclFilterPattern (\s a -> s {_gclFilterPattern = a})
+-- | The pattern to use to filter the returned log events to a specific term.
+--
+-- The following are a few examples of filter patterns that you can
+-- specify:
+--
+-- -   To return all log events, specify a filter pattern of @\"\"@.
+--
+-- -   To exclude log events that contain the @ERROR@ term, and return all
+--     other log events, specify a filter pattern of @\"-ERROR\"@.
+--
+-- -   To return log events that contain the @ERROR@ term, specify a filter
+--     pattern of @\"ERROR\"@.
+--
+-- -   To return log events that contain both the @ERROR@ and @Exception@
+--     terms, specify a filter pattern of @\"ERROR Exception\"@.
+--
+-- -   To return log events that contain the @ERROR@ /or/ the @Exception@
+--     term, specify a filter pattern of @\"?ERROR ?Exception\"@.
+getContainerLog_filterPattern :: Lens.Lens' GetContainerLog (Prelude.Maybe Prelude.Text)
+getContainerLog_filterPattern = Lens.lens (\GetContainerLog' {filterPattern} -> filterPattern) (\s@GetContainerLog' {} a -> s {filterPattern = a} :: GetContainerLog)
 
--- | The start of the time interval for which to get log data. Constraints:     * Specified in Coordinated Universal Time (UTC).     * Specified in the Unix time format. For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify @1538424000@ as the start time. You can convert a human-friendly time to Unix time format using a converter like <https://www.epochconverter.com/ Epoch converter> .
-gclStartTime :: Lens' GetContainerLog (Maybe UTCTime)
-gclStartTime = lens _gclStartTime (\s a -> s {_gclStartTime = a}) . mapping _Time
+-- | The start of the time interval for which to get log data.
+--
+-- Constraints:
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Specified in the Unix time format.
+--
+--     For example, if you wish to use a start time of October 1, 2018, at
+--     8 PM UTC, specify @1538424000@ as the start time.
+--
+-- You can convert a human-friendly time to Unix time format using a
+-- converter like <https://www.epochconverter.com/ Epoch converter>.
+getContainerLog_startTime :: Lens.Lens' GetContainerLog (Prelude.Maybe Prelude.UTCTime)
+getContainerLog_startTime = Lens.lens (\GetContainerLog' {startTime} -> startTime) (\s@GetContainerLog' {} a -> s {startTime = a} :: GetContainerLog) Prelude.. Lens.mapping Prelude._Time
 
--- | The end of the time interval for which to get log data. Constraints:     * Specified in Coordinated Universal Time (UTC).     * Specified in the Unix time format. For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify @1538427600@ as the end time. You can convert a human-friendly time to Unix time format using a converter like <https://www.epochconverter.com/ Epoch converter> .
-gclEndTime :: Lens' GetContainerLog (Maybe UTCTime)
-gclEndTime = lens _gclEndTime (\s a -> s {_gclEndTime = a}) . mapping _Time
+-- | The end of the time interval for which to get log data.
+--
+-- Constraints:
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Specified in the Unix time format.
+--
+--     For example, if you wish to use an end time of October 1, 2018, at 9
+--     PM UTC, specify @1538427600@ as the end time.
+--
+-- You can convert a human-friendly time to Unix time format using a
+-- converter like <https://www.epochconverter.com/ Epoch converter>.
+getContainerLog_endTime :: Lens.Lens' GetContainerLog (Prelude.Maybe Prelude.UTCTime)
+getContainerLog_endTime = Lens.lens (\GetContainerLog' {endTime} -> endTime) (\s@GetContainerLog' {} a -> s {endTime = a} :: GetContainerLog) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the container service for which to get a container log.
-gclServiceName :: Lens' GetContainerLog Text
-gclServiceName = lens _gclServiceName (\s a -> s {_gclServiceName = a})
+getContainerLog_serviceName :: Lens.Lens' GetContainerLog Prelude.Text
+getContainerLog_serviceName = Lens.lens (\GetContainerLog' {serviceName} -> serviceName) (\s@GetContainerLog' {} a -> s {serviceName = a} :: GetContainerLog)
 
--- | The name of the container that is either running or previously ran on the container service for which to return a log.
-gclContainerName :: Lens' GetContainerLog Text
-gclContainerName = lens _gclContainerName (\s a -> s {_gclContainerName = a})
+-- | The name of the container that is either running or previously ran on
+-- the container service for which to return a log.
+getContainerLog_containerName :: Lens.Lens' GetContainerLog Prelude.Text
+getContainerLog_containerName = Lens.lens (\GetContainerLog' {containerName} -> containerName) (\s@GetContainerLog' {} a -> s {containerName = a} :: GetContainerLog)
 
-instance AWSRequest GetContainerLog where
+instance Prelude.AWSRequest GetContainerLog where
   type Rs GetContainerLog = GetContainerLogResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerLogResponse'
-            <$> (x .?> "logEvents" .!@ mempty)
-            <*> (x .?> "nextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "logEvents"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerLog
+instance Prelude.Hashable GetContainerLog
 
-instance NFData GetContainerLog
+instance Prelude.NFData GetContainerLog
 
-instance ToHeaders GetContainerLog where
+instance Prelude.ToHeaders GetContainerLog where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetContainerLog" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetContainerLog" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerLog where
+instance Prelude.ToJSON GetContainerLog where
   toJSON GetContainerLog' {..} =
-    object
-      ( catMaybes
-          [ ("pageToken" .=) <$> _gclPageToken,
-            ("filterPattern" .=) <$> _gclFilterPattern,
-            ("startTime" .=) <$> _gclStartTime,
-            ("endTime" .=) <$> _gclEndTime,
-            Just ("serviceName" .= _gclServiceName),
-            Just ("containerName" .= _gclContainerName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("pageToken" Prelude..=) Prelude.<$> pageToken,
+            ("filterPattern" Prelude..=)
+              Prelude.<$> filterPattern,
+            ("startTime" Prelude..=) Prelude.<$> startTime,
+            ("endTime" Prelude..=) Prelude.<$> endTime,
+            Prelude.Just ("serviceName" Prelude..= serviceName),
+            Prelude.Just
+              ("containerName" Prelude..= containerName)
           ]
       )
 
-instance ToPath GetContainerLog where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerLog where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerLog where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContainerLog where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerLogResponse' smart constructor.
+-- | /See:/ 'newGetContainerLogResponse' smart constructor.
 data GetContainerLogResponse = GetContainerLogResponse'
-  { _gclrrsLogEvents ::
-      !( Maybe
-           [ContainerServiceLogEvent]
-       ),
-    _gclrrsNextPageToken ::
-      !(Maybe Text),
-    _gclrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the log events of a container.
+    logEvents :: Prelude.Maybe [ContainerServiceLogEvent],
+    -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another @GetContainerLog@
+    -- request and specify the next page token using the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerLogResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerLogResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gclrrsLogEvents' - An array of objects that describe the log events of a container.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gclrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetContainerLog@ request and specify the next page token using the @pageToken@ parameter.
+-- 'logEvents', 'getContainerLogResponse_logEvents' - An array of objects that describe the log events of a container.
 --
--- * 'gclrrsResponseStatus' - -- | The response status code.
-getContainerLogResponse ::
-  -- | 'gclrrsResponseStatus'
-  Int ->
+-- 'nextPageToken', 'getContainerLogResponse_nextPageToken' - The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetContainerLog@
+-- request and specify the next page token using the @pageToken@ parameter.
+--
+-- 'httpStatus', 'getContainerLogResponse_httpStatus' - The response's http status code.
+newGetContainerLogResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerLogResponse
-getContainerLogResponse pResponseStatus_ =
+newGetContainerLogResponse pHttpStatus_ =
   GetContainerLogResponse'
-    { _gclrrsLogEvents =
-        Nothing,
-      _gclrrsNextPageToken = Nothing,
-      _gclrrsResponseStatus = pResponseStatus_
+    { logEvents =
+        Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array of objects that describe the log events of a container.
-gclrrsLogEvents :: Lens' GetContainerLogResponse [ContainerServiceLogEvent]
-gclrrsLogEvents = lens _gclrrsLogEvents (\s a -> s {_gclrrsLogEvents = a}) . _Default . _Coerce
+getContainerLogResponse_logEvents :: Lens.Lens' GetContainerLogResponse (Prelude.Maybe [ContainerServiceLogEvent])
+getContainerLogResponse_logEvents = Lens.lens (\GetContainerLogResponse' {logEvents} -> logEvents) (\s@GetContainerLogResponse' {} a -> s {logEvents = a} :: GetContainerLogResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetContainerLog@ request and specify the next page token using the @pageToken@ parameter.
-gclrrsNextPageToken :: Lens' GetContainerLogResponse (Maybe Text)
-gclrrsNextPageToken = lens _gclrrsNextPageToken (\s a -> s {_gclrrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetContainerLog@
+-- request and specify the next page token using the @pageToken@ parameter.
+getContainerLogResponse_nextPageToken :: Lens.Lens' GetContainerLogResponse (Prelude.Maybe Prelude.Text)
+getContainerLogResponse_nextPageToken = Lens.lens (\GetContainerLogResponse' {nextPageToken} -> nextPageToken) (\s@GetContainerLogResponse' {} a -> s {nextPageToken = a} :: GetContainerLogResponse)
 
--- | -- | The response status code.
-gclrrsResponseStatus :: Lens' GetContainerLogResponse Int
-gclrrsResponseStatus = lens _gclrrsResponseStatus (\s a -> s {_gclrrsResponseStatus = a})
+-- | The response's http status code.
+getContainerLogResponse_httpStatus :: Lens.Lens' GetContainerLogResponse Prelude.Int
+getContainerLogResponse_httpStatus = Lens.lens (\GetContainerLogResponse' {httpStatus} -> httpStatus) (\s@GetContainerLogResponse' {} a -> s {httpStatus = a} :: GetContainerLogResponse)
 
-instance NFData GetContainerLogResponse
+instance Prelude.NFData GetContainerLogResponse

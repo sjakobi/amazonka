@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ResourceRecord where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the domain name system (DNS) records to add to your domain's DNS to validate it for an Amazon Lightsail certificate.
+-- | Describes the domain name system (DNS) records to add to your domain\'s
+-- DNS to validate it for an Amazon Lightsail certificate.
 --
---
---
--- /See:/ 'resourceRecord' smart constructor.
+-- /See:/ 'newResourceRecord' smart constructor.
 data ResourceRecord = ResourceRecord'
-  { _rrName ::
-      !(Maybe Text),
-    _rrValue :: !(Maybe Text),
-    _rrType :: !(Maybe Text)
+  { -- | The name of the record.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value for the DNS record.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The DNS record type.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrName' - The name of the record.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrValue' - The value for the DNS record.
+-- 'name', 'resourceRecord_name' - The name of the record.
 --
--- * 'rrType' - The DNS record type.
-resourceRecord ::
+-- 'value', 'resourceRecord_value' - The value for the DNS record.
+--
+-- 'type'', 'resourceRecord_type' - The DNS record type.
+newResourceRecord ::
   ResourceRecord
-resourceRecord =
+newResourceRecord =
   ResourceRecord'
-    { _rrName = Nothing,
-      _rrValue = Nothing,
-      _rrType = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The name of the record.
-rrName :: Lens' ResourceRecord (Maybe Text)
-rrName = lens _rrName (\s a -> s {_rrName = a})
+resourceRecord_name :: Lens.Lens' ResourceRecord (Prelude.Maybe Prelude.Text)
+resourceRecord_name = Lens.lens (\ResourceRecord' {name} -> name) (\s@ResourceRecord' {} a -> s {name = a} :: ResourceRecord)
 
 -- | The value for the DNS record.
-rrValue :: Lens' ResourceRecord (Maybe Text)
-rrValue = lens _rrValue (\s a -> s {_rrValue = a})
+resourceRecord_value :: Lens.Lens' ResourceRecord (Prelude.Maybe Prelude.Text)
+resourceRecord_value = Lens.lens (\ResourceRecord' {value} -> value) (\s@ResourceRecord' {} a -> s {value = a} :: ResourceRecord)
 
 -- | The DNS record type.
-rrType :: Lens' ResourceRecord (Maybe Text)
-rrType = lens _rrType (\s a -> s {_rrType = a})
+resourceRecord_type :: Lens.Lens' ResourceRecord (Prelude.Maybe Prelude.Text)
+resourceRecord_type = Lens.lens (\ResourceRecord' {type'} -> type') (\s@ResourceRecord' {} a -> s {type' = a} :: ResourceRecord)
 
-instance FromJSON ResourceRecord where
+instance Prelude.FromJSON ResourceRecord where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceRecord"
       ( \x ->
           ResourceRecord'
-            <$> (x .:? "name")
-            <*> (x .:? "value")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "value")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable ResourceRecord
+instance Prelude.Hashable ResourceRecord
 
-instance NFData ResourceRecord
+instance Prelude.NFData ResourceRecord

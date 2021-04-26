@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Lightsail.Types.PortState
   ( PortState
       ( ..,
-        Closed,
-        Open
+        PortStateClosed,
+        PortStateOpen
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PortState = PortState' (CI Text)
+newtype PortState = PortState'
+  { fromPortState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Closed :: PortState
-pattern Closed = PortState' "closed"
+pattern PortStateClosed :: PortState
+pattern PortStateClosed = PortState' "closed"
 
-pattern Open :: PortState
-pattern Open = PortState' "open"
+pattern PortStateOpen :: PortState
+pattern PortStateOpen = PortState' "open"
 
 {-# COMPLETE
-  Closed,
-  Open,
+  PortStateClosed,
+  PortStateOpen,
   PortState'
   #-}
 
-instance FromText PortState where
-  parser = (PortState' . mk) <$> takeText
+instance Prelude.FromText PortState where
+  parser = PortState' Prelude.<$> Prelude.takeText
 
-instance ToText PortState where
-  toText (PortState' ci) = original ci
+instance Prelude.ToText PortState where
+  toText (PortState' x) = x
 
-instance Hashable PortState
+instance Prelude.Hashable PortState
 
-instance NFData PortState
+instance Prelude.NFData PortState
 
-instance ToByteString PortState
+instance Prelude.ToByteString PortState
 
-instance ToQuery PortState
+instance Prelude.ToQuery PortState
 
-instance ToHeader PortState
+instance Prelude.ToHeader PortState
 
-instance FromJSON PortState where
-  parseJSON = parseJSONText "PortState"
+instance Prelude.FromJSON PortState where
+  parseJSON = Prelude.parseJSONText "PortState"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.Container where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.ContainerServiceProtocol
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the settings of a container that will be launched, or that is launched, to an Amazon Lightsail container service.
+-- | Describes the settings of a container that will be launched, or that is
+-- launched, to an Amazon Lightsail container service.
 --
---
---
--- /See:/ 'container' smart constructor.
+-- /See:/ 'newContainer' smart constructor.
 data Container = Container'
-  { _cEnvironment ::
-      !(Maybe (Map Text Text)),
-    _cPorts ::
-      !(Maybe (Map Text ContainerServiceProtocol)),
-    _cImage :: !(Maybe Text),
-    _cCommand :: !(Maybe [Text])
+  { -- | The environment variables of the container.
+    environment :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The open firewall ports of the container.
+    ports :: Prelude.Maybe (Prelude.Map Prelude.Text ContainerServiceProtocol),
+    -- | The name of the image used for the container.
+    --
+    -- Container images sourced from your Lightsail container service, that are
+    -- registered and stored on your service, start with a colon (@:@). For
+    -- example, @:container-service-1.mystaticwebsite.1@. Container images
+    -- sourced from a public registry like Docker Hub don\'t start with a
+    -- colon. For example, @nginx:latest@ or @nginx@.
+    image :: Prelude.Maybe Prelude.Text,
+    -- | The launch command for the container.
+    command :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Container' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Container' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cEnvironment' - The environment variables of the container.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cPorts' - The open firewall ports of the container.
+-- 'environment', 'container_environment' - The environment variables of the container.
 --
--- * 'cImage' - The name of the image used for the container. Container images sourced from your Lightsail container service, that are registered and stored on your service, start with a colon (@:@ ). For example, @:container-service-1.mystaticwebsite.1@ . Container images sourced from a public registry like Docker Hub don't start with a colon. For example, @nginx:latest@ or @nginx@ .
+-- 'ports', 'container_ports' - The open firewall ports of the container.
 --
--- * 'cCommand' - The launch command for the container.
-container ::
+-- 'image', 'container_image' - The name of the image used for the container.
+--
+-- Container images sourced from your Lightsail container service, that are
+-- registered and stored on your service, start with a colon (@:@). For
+-- example, @:container-service-1.mystaticwebsite.1@. Container images
+-- sourced from a public registry like Docker Hub don\'t start with a
+-- colon. For example, @nginx:latest@ or @nginx@.
+--
+-- 'command', 'container_command' - The launch command for the container.
+newContainer ::
   Container
-container =
+newContainer =
   Container'
-    { _cEnvironment = Nothing,
-      _cPorts = Nothing,
-      _cImage = Nothing,
-      _cCommand = Nothing
+    { environment = Prelude.Nothing,
+      ports = Prelude.Nothing,
+      image = Prelude.Nothing,
+      command = Prelude.Nothing
     }
 
 -- | The environment variables of the container.
-cEnvironment :: Lens' Container (HashMap Text Text)
-cEnvironment = lens _cEnvironment (\s a -> s {_cEnvironment = a}) . _Default . _Map
+container_environment :: Lens.Lens' Container (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+container_environment = Lens.lens (\Container' {environment} -> environment) (\s@Container' {} a -> s {environment = a} :: Container) Prelude.. Lens.mapping Prelude._Map
 
 -- | The open firewall ports of the container.
-cPorts :: Lens' Container (HashMap Text ContainerServiceProtocol)
-cPorts = lens _cPorts (\s a -> s {_cPorts = a}) . _Default . _Map
+container_ports :: Lens.Lens' Container (Prelude.Maybe (Prelude.HashMap Prelude.Text ContainerServiceProtocol))
+container_ports = Lens.lens (\Container' {ports} -> ports) (\s@Container' {} a -> s {ports = a} :: Container) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the image used for the container. Container images sourced from your Lightsail container service, that are registered and stored on your service, start with a colon (@:@ ). For example, @:container-service-1.mystaticwebsite.1@ . Container images sourced from a public registry like Docker Hub don't start with a colon. For example, @nginx:latest@ or @nginx@ .
-cImage :: Lens' Container (Maybe Text)
-cImage = lens _cImage (\s a -> s {_cImage = a})
+-- | The name of the image used for the container.
+--
+-- Container images sourced from your Lightsail container service, that are
+-- registered and stored on your service, start with a colon (@:@). For
+-- example, @:container-service-1.mystaticwebsite.1@. Container images
+-- sourced from a public registry like Docker Hub don\'t start with a
+-- colon. For example, @nginx:latest@ or @nginx@.
+container_image :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
+container_image = Lens.lens (\Container' {image} -> image) (\s@Container' {} a -> s {image = a} :: Container)
 
 -- | The launch command for the container.
-cCommand :: Lens' Container [Text]
-cCommand = lens _cCommand (\s a -> s {_cCommand = a}) . _Default . _Coerce
+container_command :: Lens.Lens' Container (Prelude.Maybe [Prelude.Text])
+container_command = Lens.lens (\Container' {command} -> command) (\s@Container' {} a -> s {command = a} :: Container) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Container where
+instance Prelude.FromJSON Container where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Container"
       ( \x ->
           Container'
-            <$> (x .:? "environment" .!= mempty)
-            <*> (x .:? "ports" .!= mempty)
-            <*> (x .:? "image")
-            <*> (x .:? "command" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "environment"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ports" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "image")
+            Prelude.<*> (x Prelude..:? "command" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable Container
+instance Prelude.Hashable Container
 
-instance NFData Container
+instance Prelude.NFData Container
 
-instance ToJSON Container where
+instance Prelude.ToJSON Container where
   toJSON Container' {..} =
-    object
-      ( catMaybes
-          [ ("environment" .=) <$> _cEnvironment,
-            ("ports" .=) <$> _cPorts,
-            ("image" .=) <$> _cImage,
-            ("command" .=) <$> _cCommand
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("environment" Prelude..=) Prelude.<$> environment,
+            ("ports" Prelude..=) Prelude.<$> ports,
+            ("image" Prelude..=) Prelude.<$> image,
+            ("command" Prelude..=) Prelude.<$> command
           ]
       )

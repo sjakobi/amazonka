@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,127 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about Amazon Lightsail containers, such as the current version of the Lightsail Control (lightsailctl) plugin.
+-- Returns information about Amazon Lightsail containers, such as the
+-- current version of the Lightsail Control (lightsailctl) plugin.
 module Network.AWS.Lightsail.GetContainerAPIMetadata
   ( -- * Creating a Request
-    getContainerAPIMetadata,
-    GetContainerAPIMetadata,
+    GetContainerAPIMetadata (..),
+    newGetContainerAPIMetadata,
 
     -- * Destructuring the Response
-    getContainerAPIMetadataResponse,
-    GetContainerAPIMetadataResponse,
+    GetContainerAPIMetadataResponse (..),
+    newGetContainerAPIMetadataResponse,
 
     -- * Response Lenses
-    gcamrrsMetadata,
-    gcamrrsResponseStatus,
+    getContainerAPIMetadataResponse_metadata,
+    getContainerAPIMetadataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerAPIMetadata' smart constructor.
+-- | /See:/ 'newGetContainerAPIMetadata' smart constructor.
 data GetContainerAPIMetadata = GetContainerAPIMetadata'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerAPIMetadata' with the minimum fields required to make a request.
-getContainerAPIMetadata ::
+-- |
+-- Create a value of 'GetContainerAPIMetadata' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetContainerAPIMetadata ::
   GetContainerAPIMetadata
-getContainerAPIMetadata = GetContainerAPIMetadata'
+newGetContainerAPIMetadata = GetContainerAPIMetadata'
 
-instance AWSRequest GetContainerAPIMetadata where
+instance Prelude.AWSRequest GetContainerAPIMetadata where
   type
     Rs GetContainerAPIMetadata =
       GetContainerAPIMetadataResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerAPIMetadataResponse'
-            <$> (x .?> "metadata" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "metadata" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerAPIMetadata
+instance Prelude.Hashable GetContainerAPIMetadata
 
-instance NFData GetContainerAPIMetadata
+instance Prelude.NFData GetContainerAPIMetadata
 
-instance ToHeaders GetContainerAPIMetadata where
+instance Prelude.ToHeaders GetContainerAPIMetadata where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetContainerAPIMetadata" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetContainerAPIMetadata" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerAPIMetadata where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetContainerAPIMetadata where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetContainerAPIMetadata where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerAPIMetadata where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerAPIMetadata where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContainerAPIMetadata where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerAPIMetadataResponse' smart constructor.
+-- | /See:/ 'newGetContainerAPIMetadataResponse' smart constructor.
 data GetContainerAPIMetadataResponse = GetContainerAPIMetadataResponse'
-  { _gcamrrsMetadata ::
-      !( Maybe
-           [ Map
-               Text
-               Text
-           ]
-       ),
-    _gcamrrsResponseStatus ::
-      !Int
+  { -- | Metadata about Lightsail containers, such as the current version of the
+    -- Lightsail Control (lightsailctl) plugin.
+    metadata :: Prelude.Maybe [Prelude.Map Prelude.Text Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerAPIMetadataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerAPIMetadataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcamrrsMetadata' - Metadata about Lightsail containers, such as the current version of the Lightsail Control (lightsailctl) plugin.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcamrrsResponseStatus' - -- | The response status code.
-getContainerAPIMetadataResponse ::
-  -- | 'gcamrrsResponseStatus'
-  Int ->
+-- 'metadata', 'getContainerAPIMetadataResponse_metadata' - Metadata about Lightsail containers, such as the current version of the
+-- Lightsail Control (lightsailctl) plugin.
+--
+-- 'httpStatus', 'getContainerAPIMetadataResponse_httpStatus' - The response's http status code.
+newGetContainerAPIMetadataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerAPIMetadataResponse
-getContainerAPIMetadataResponse pResponseStatus_ =
+newGetContainerAPIMetadataResponse pHttpStatus_ =
   GetContainerAPIMetadataResponse'
-    { _gcamrrsMetadata =
-        Nothing,
-      _gcamrrsResponseStatus = pResponseStatus_
+    { metadata =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Metadata about Lightsail containers, such as the current version of the Lightsail Control (lightsailctl) plugin.
-gcamrrsMetadata :: Lens' GetContainerAPIMetadataResponse [HashMap Text Text]
-gcamrrsMetadata = lens _gcamrrsMetadata (\s a -> s {_gcamrrsMetadata = a}) . _Default . _Coerce
+-- | Metadata about Lightsail containers, such as the current version of the
+-- Lightsail Control (lightsailctl) plugin.
+getContainerAPIMetadataResponse_metadata :: Lens.Lens' GetContainerAPIMetadataResponse (Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text])
+getContainerAPIMetadataResponse_metadata = Lens.lens (\GetContainerAPIMetadataResponse' {metadata} -> metadata) (\s@GetContainerAPIMetadataResponse' {} a -> s {metadata = a} :: GetContainerAPIMetadataResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcamrrsResponseStatus :: Lens' GetContainerAPIMetadataResponse Int
-gcamrrsResponseStatus = lens _gcamrrsResponseStatus (\s a -> s {_gcamrrsResponseStatus = a})
+-- | The response's http status code.
+getContainerAPIMetadataResponse_httpStatus :: Lens.Lens' GetContainerAPIMetadataResponse Prelude.Int
+getContainerAPIMetadataResponse_httpStatus = Lens.lens (\GetContainerAPIMetadataResponse' {httpStatus} -> httpStatus) (\s@GetContainerAPIMetadataResponse' {} a -> s {httpStatus = a} :: GetContainerAPIMetadataResponse)
 
-instance NFData GetContainerAPIMetadataResponse
+instance
+  Prelude.NFData
+    GetContainerAPIMetadataResponse

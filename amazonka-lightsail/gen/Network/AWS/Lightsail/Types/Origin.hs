@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.Origin where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.OriginProtocolPolicyEnum
 import Network.AWS.Lightsail.Types.RegionName
 import Network.AWS.Lightsail.Types.ResourceType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the origin resource of an Amazon Lightsail content delivery network (CDN) distribution.
+-- | Describes the origin resource of an Amazon Lightsail content delivery
+-- network (CDN) distribution.
 --
+-- An origin can be a Lightsail instance or load balancer. A distribution
+-- pulls content from an origin, caches it, and serves it to viewers via a
+-- worldwide network of edge servers.
 --
--- An origin can be a Lightsail instance or load balancer. A distribution pulls content from an origin, caches it, and serves it to viewers via a worldwide network of edge servers.
---
---
--- /See:/ 'origin' smart constructor.
+-- /See:/ 'newOrigin' smart constructor.
 data Origin = Origin'
-  { _oriRegionName ::
-      !(Maybe RegionName),
-    _oriProtocolPolicy ::
-      !(Maybe OriginProtocolPolicyEnum),
-    _oriResourceType :: !(Maybe ResourceType),
-    _oriName :: !(Maybe Text)
+  { -- | The AWS Region name of the origin resource.
+    regionName :: Prelude.Maybe RegionName,
+    -- | The protocol that your Amazon Lightsail distribution uses when
+    -- establishing a connection with your origin to pull content.
+    protocolPolicy :: Prelude.Maybe OriginProtocolPolicyEnum,
+    -- | The resource type of the origin resource (e.g., /Instance/).
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The name of the origin resource.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Origin' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Origin' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oriRegionName' - The AWS Region name of the origin resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oriProtocolPolicy' - The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content.
+-- 'regionName', 'origin_regionName' - The AWS Region name of the origin resource.
 --
--- * 'oriResourceType' - The resource type of the origin resource (e.g., /Instance/ ).
+-- 'protocolPolicy', 'origin_protocolPolicy' - The protocol that your Amazon Lightsail distribution uses when
+-- establishing a connection with your origin to pull content.
 --
--- * 'oriName' - The name of the origin resource.
-origin ::
+-- 'resourceType', 'origin_resourceType' - The resource type of the origin resource (e.g., /Instance/).
+--
+-- 'name', 'origin_name' - The name of the origin resource.
+newOrigin ::
   Origin
-origin =
+newOrigin =
   Origin'
-    { _oriRegionName = Nothing,
-      _oriProtocolPolicy = Nothing,
-      _oriResourceType = Nothing,
-      _oriName = Nothing
+    { regionName = Prelude.Nothing,
+      protocolPolicy = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The AWS Region name of the origin resource.
-oriRegionName :: Lens' Origin (Maybe RegionName)
-oriRegionName = lens _oriRegionName (\s a -> s {_oriRegionName = a})
+origin_regionName :: Lens.Lens' Origin (Prelude.Maybe RegionName)
+origin_regionName = Lens.lens (\Origin' {regionName} -> regionName) (\s@Origin' {} a -> s {regionName = a} :: Origin)
 
--- | The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content.
-oriProtocolPolicy :: Lens' Origin (Maybe OriginProtocolPolicyEnum)
-oriProtocolPolicy = lens _oriProtocolPolicy (\s a -> s {_oriProtocolPolicy = a})
+-- | The protocol that your Amazon Lightsail distribution uses when
+-- establishing a connection with your origin to pull content.
+origin_protocolPolicy :: Lens.Lens' Origin (Prelude.Maybe OriginProtocolPolicyEnum)
+origin_protocolPolicy = Lens.lens (\Origin' {protocolPolicy} -> protocolPolicy) (\s@Origin' {} a -> s {protocolPolicy = a} :: Origin)
 
--- | The resource type of the origin resource (e.g., /Instance/ ).
-oriResourceType :: Lens' Origin (Maybe ResourceType)
-oriResourceType = lens _oriResourceType (\s a -> s {_oriResourceType = a})
+-- | The resource type of the origin resource (e.g., /Instance/).
+origin_resourceType :: Lens.Lens' Origin (Prelude.Maybe ResourceType)
+origin_resourceType = Lens.lens (\Origin' {resourceType} -> resourceType) (\s@Origin' {} a -> s {resourceType = a} :: Origin)
 
 -- | The name of the origin resource.
-oriName :: Lens' Origin (Maybe Text)
-oriName = lens _oriName (\s a -> s {_oriName = a})
+origin_name :: Lens.Lens' Origin (Prelude.Maybe Prelude.Text)
+origin_name = Lens.lens (\Origin' {name} -> name) (\s@Origin' {} a -> s {name = a} :: Origin)
 
-instance FromJSON Origin where
+instance Prelude.FromJSON Origin where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Origin"
       ( \x ->
           Origin'
-            <$> (x .:? "regionName")
-            <*> (x .:? "protocolPolicy")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "regionName")
+            Prelude.<*> (x Prelude..:? "protocolPolicy")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable Origin
+instance Prelude.Hashable Origin
 
-instance NFData Origin
+instance Prelude.NFData Origin

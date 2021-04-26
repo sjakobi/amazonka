@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,141 +19,143 @@
 module Network.AWS.Lightsail.Types.ResourceType
   ( ResourceType
       ( ..,
-        Alarm,
-        Certificate,
-        CloudFormationStackRecord,
-        ContactMethod,
-        ContainerService,
-        Disk,
-        DiskSnapshot,
-        Distribution,
-        Domain,
-        ExportSnapshotRecord,
-        Instance,
-        InstanceSnapshot,
-        KeyPair,
-        LoadBalancer,
-        LoadBalancerTLSCertificate,
-        PeeredVPC,
-        RelationalDatabase,
-        RelationalDatabaseSnapshot,
-        StaticIP
+        ResourceTypeAlarm,
+        ResourceTypeCertificate,
+        ResourceTypeCloudFormationStackRecord,
+        ResourceTypeContactMethod,
+        ResourceTypeContainerService,
+        ResourceTypeDisk,
+        ResourceTypeDiskSnapshot,
+        ResourceTypeDistribution,
+        ResourceTypeDomain,
+        ResourceTypeExportSnapshotRecord,
+        ResourceTypeInstance,
+        ResourceTypeInstanceSnapshot,
+        ResourceTypeKeyPair,
+        ResourceTypeLoadBalancer,
+        ResourceTypeLoadBalancerTlsCertificate,
+        ResourceTypePeeredVpc,
+        ResourceTypeRelationalDatabase,
+        ResourceTypeRelationalDatabaseSnapshot,
+        ResourceTypeStaticIp
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceType = ResourceType' (CI Text)
+newtype ResourceType = ResourceType'
+  { fromResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Alarm :: ResourceType
-pattern Alarm = ResourceType' "Alarm"
+pattern ResourceTypeAlarm :: ResourceType
+pattern ResourceTypeAlarm = ResourceType' "Alarm"
 
-pattern Certificate :: ResourceType
-pattern Certificate = ResourceType' "Certificate"
+pattern ResourceTypeCertificate :: ResourceType
+pattern ResourceTypeCertificate = ResourceType' "Certificate"
 
-pattern CloudFormationStackRecord :: ResourceType
-pattern CloudFormationStackRecord = ResourceType' "CloudFormationStackRecord"
+pattern ResourceTypeCloudFormationStackRecord :: ResourceType
+pattern ResourceTypeCloudFormationStackRecord = ResourceType' "CloudFormationStackRecord"
 
-pattern ContactMethod :: ResourceType
-pattern ContactMethod = ResourceType' "ContactMethod"
+pattern ResourceTypeContactMethod :: ResourceType
+pattern ResourceTypeContactMethod = ResourceType' "ContactMethod"
 
-pattern ContainerService :: ResourceType
-pattern ContainerService = ResourceType' "ContainerService"
+pattern ResourceTypeContainerService :: ResourceType
+pattern ResourceTypeContainerService = ResourceType' "ContainerService"
 
-pattern Disk :: ResourceType
-pattern Disk = ResourceType' "Disk"
+pattern ResourceTypeDisk :: ResourceType
+pattern ResourceTypeDisk = ResourceType' "Disk"
 
-pattern DiskSnapshot :: ResourceType
-pattern DiskSnapshot = ResourceType' "DiskSnapshot"
+pattern ResourceTypeDiskSnapshot :: ResourceType
+pattern ResourceTypeDiskSnapshot = ResourceType' "DiskSnapshot"
 
-pattern Distribution :: ResourceType
-pattern Distribution = ResourceType' "Distribution"
+pattern ResourceTypeDistribution :: ResourceType
+pattern ResourceTypeDistribution = ResourceType' "Distribution"
 
-pattern Domain :: ResourceType
-pattern Domain = ResourceType' "Domain"
+pattern ResourceTypeDomain :: ResourceType
+pattern ResourceTypeDomain = ResourceType' "Domain"
 
-pattern ExportSnapshotRecord :: ResourceType
-pattern ExportSnapshotRecord = ResourceType' "ExportSnapshotRecord"
+pattern ResourceTypeExportSnapshotRecord :: ResourceType
+pattern ResourceTypeExportSnapshotRecord = ResourceType' "ExportSnapshotRecord"
 
-pattern Instance :: ResourceType
-pattern Instance = ResourceType' "Instance"
+pattern ResourceTypeInstance :: ResourceType
+pattern ResourceTypeInstance = ResourceType' "Instance"
 
-pattern InstanceSnapshot :: ResourceType
-pattern InstanceSnapshot = ResourceType' "InstanceSnapshot"
+pattern ResourceTypeInstanceSnapshot :: ResourceType
+pattern ResourceTypeInstanceSnapshot = ResourceType' "InstanceSnapshot"
 
-pattern KeyPair :: ResourceType
-pattern KeyPair = ResourceType' "KeyPair"
+pattern ResourceTypeKeyPair :: ResourceType
+pattern ResourceTypeKeyPair = ResourceType' "KeyPair"
 
-pattern LoadBalancer :: ResourceType
-pattern LoadBalancer = ResourceType' "LoadBalancer"
+pattern ResourceTypeLoadBalancer :: ResourceType
+pattern ResourceTypeLoadBalancer = ResourceType' "LoadBalancer"
 
-pattern LoadBalancerTLSCertificate :: ResourceType
-pattern LoadBalancerTLSCertificate = ResourceType' "LoadBalancerTlsCertificate"
+pattern ResourceTypeLoadBalancerTlsCertificate :: ResourceType
+pattern ResourceTypeLoadBalancerTlsCertificate = ResourceType' "LoadBalancerTlsCertificate"
 
-pattern PeeredVPC :: ResourceType
-pattern PeeredVPC = ResourceType' "PeeredVpc"
+pattern ResourceTypePeeredVpc :: ResourceType
+pattern ResourceTypePeeredVpc = ResourceType' "PeeredVpc"
 
-pattern RelationalDatabase :: ResourceType
-pattern RelationalDatabase = ResourceType' "RelationalDatabase"
+pattern ResourceTypeRelationalDatabase :: ResourceType
+pattern ResourceTypeRelationalDatabase = ResourceType' "RelationalDatabase"
 
-pattern RelationalDatabaseSnapshot :: ResourceType
-pattern RelationalDatabaseSnapshot = ResourceType' "RelationalDatabaseSnapshot"
+pattern ResourceTypeRelationalDatabaseSnapshot :: ResourceType
+pattern ResourceTypeRelationalDatabaseSnapshot = ResourceType' "RelationalDatabaseSnapshot"
 
-pattern StaticIP :: ResourceType
-pattern StaticIP = ResourceType' "StaticIp"
+pattern ResourceTypeStaticIp :: ResourceType
+pattern ResourceTypeStaticIp = ResourceType' "StaticIp"
 
 {-# COMPLETE
-  Alarm,
-  Certificate,
-  CloudFormationStackRecord,
-  ContactMethod,
-  ContainerService,
-  Disk,
-  DiskSnapshot,
-  Distribution,
-  Domain,
-  ExportSnapshotRecord,
-  Instance,
-  InstanceSnapshot,
-  KeyPair,
-  LoadBalancer,
-  LoadBalancerTLSCertificate,
-  PeeredVPC,
-  RelationalDatabase,
-  RelationalDatabaseSnapshot,
-  StaticIP,
+  ResourceTypeAlarm,
+  ResourceTypeCertificate,
+  ResourceTypeCloudFormationStackRecord,
+  ResourceTypeContactMethod,
+  ResourceTypeContainerService,
+  ResourceTypeDisk,
+  ResourceTypeDiskSnapshot,
+  ResourceTypeDistribution,
+  ResourceTypeDomain,
+  ResourceTypeExportSnapshotRecord,
+  ResourceTypeInstance,
+  ResourceTypeInstanceSnapshot,
+  ResourceTypeKeyPair,
+  ResourceTypeLoadBalancer,
+  ResourceTypeLoadBalancerTlsCertificate,
+  ResourceTypePeeredVpc,
+  ResourceTypeRelationalDatabase,
+  ResourceTypeRelationalDatabaseSnapshot,
+  ResourceTypeStaticIp,
   ResourceType'
   #-}
 
-instance FromText ResourceType where
-  parser = (ResourceType' . mk) <$> takeText
+instance Prelude.FromText ResourceType where
+  parser = ResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceType where
-  toText (ResourceType' ci) = original ci
+instance Prelude.ToText ResourceType where
+  toText (ResourceType' x) = x
 
-instance Hashable ResourceType
+instance Prelude.Hashable ResourceType
 
-instance NFData ResourceType
+instance Prelude.NFData ResourceType
 
-instance ToByteString ResourceType
+instance Prelude.ToByteString ResourceType
 
-instance ToQuery ResourceType
+instance Prelude.ToQuery ResourceType
 
-instance ToHeader ResourceType
+instance Prelude.ToHeader ResourceType
 
-instance ToJSON ResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ResourceType where
-  parseJSON = parseJSONText "ResourceType"
+instance Prelude.FromJSON ResourceType where
+  parseJSON = Prelude.parseJSONText "ResourceType"

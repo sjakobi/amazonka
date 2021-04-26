@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches a block storage disk to a running or stopped Lightsail instance and exposes it to the instance with the specified disk name.
+-- Attaches a block storage disk to a running or stopped Lightsail instance
+-- and exposes it to the instance with the specified disk name.
 --
---
--- The @attach disk@ operation supports tag-based access control via resource tags applied to the resource identified by @disk name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @attach disk@ operation supports tag-based access control via
+-- resource tags applied to the resource identified by @disk name@. For
+-- more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.AttachDisk
   ( -- * Creating a Request
-    attachDisk,
-    AttachDisk,
+    AttachDisk (..),
+    newAttachDisk,
 
     -- * Request Lenses
-    adDiskName,
-    adInstanceName,
-    adDiskPath,
+    attachDisk_diskName,
+    attachDisk_instanceName,
+    attachDisk_diskPath,
 
     -- * Destructuring the Response
-    attachDiskResponse,
-    AttachDiskResponse,
+    AttachDiskResponse (..),
+    newAttachDiskResponse,
 
     -- * Response Lenses
-    adrrsOperations,
-    adrrsResponseStatus,
+    attachDiskResponse_operations,
+    attachDiskResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachDisk' smart constructor.
+-- | /See:/ 'newAttachDisk' smart constructor.
 data AttachDisk = AttachDisk'
-  { _adDiskName :: !Text,
-    _adInstanceName :: !Text,
-    _adDiskPath :: !Text
+  { -- | The unique Lightsail disk name (e.g., @my-disk@).
+    diskName :: Prelude.Text,
+    -- | The name of the Lightsail instance where you want to utilize the storage
+    -- disk.
+    instanceName :: Prelude.Text,
+    -- | The disk path to expose to the instance (e.g., @\/dev\/xvdf@).
+    diskPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachDisk' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachDisk' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adDiskName' - The unique Lightsail disk name (e.g., @my-disk@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adInstanceName' - The name of the Lightsail instance where you want to utilize the storage disk.
+-- 'diskName', 'attachDisk_diskName' - The unique Lightsail disk name (e.g., @my-disk@).
 --
--- * 'adDiskPath' - The disk path to expose to the instance (e.g., @/dev/xvdf@ ).
-attachDisk ::
-  -- | 'adDiskName'
-  Text ->
-  -- | 'adInstanceName'
-  Text ->
-  -- | 'adDiskPath'
-  Text ->
+-- 'instanceName', 'attachDisk_instanceName' - The name of the Lightsail instance where you want to utilize the storage
+-- disk.
+--
+-- 'diskPath', 'attachDisk_diskPath' - The disk path to expose to the instance (e.g., @\/dev\/xvdf@).
+newAttachDisk ::
+  -- | 'diskName'
+  Prelude.Text ->
+  -- | 'instanceName'
+  Prelude.Text ->
+  -- | 'diskPath'
+  Prelude.Text ->
   AttachDisk
-attachDisk pDiskName_ pInstanceName_ pDiskPath_ =
+newAttachDisk pDiskName_ pInstanceName_ pDiskPath_ =
   AttachDisk'
-    { _adDiskName = pDiskName_,
-      _adInstanceName = pInstanceName_,
-      _adDiskPath = pDiskPath_
+    { diskName = pDiskName_,
+      instanceName = pInstanceName_,
+      diskPath = pDiskPath_
     }
 
--- | The unique Lightsail disk name (e.g., @my-disk@ ).
-adDiskName :: Lens' AttachDisk Text
-adDiskName = lens _adDiskName (\s a -> s {_adDiskName = a})
+-- | The unique Lightsail disk name (e.g., @my-disk@).
+attachDisk_diskName :: Lens.Lens' AttachDisk Prelude.Text
+attachDisk_diskName = Lens.lens (\AttachDisk' {diskName} -> diskName) (\s@AttachDisk' {} a -> s {diskName = a} :: AttachDisk)
 
--- | The name of the Lightsail instance where you want to utilize the storage disk.
-adInstanceName :: Lens' AttachDisk Text
-adInstanceName = lens _adInstanceName (\s a -> s {_adInstanceName = a})
+-- | The name of the Lightsail instance where you want to utilize the storage
+-- disk.
+attachDisk_instanceName :: Lens.Lens' AttachDisk Prelude.Text
+attachDisk_instanceName = Lens.lens (\AttachDisk' {instanceName} -> instanceName) (\s@AttachDisk' {} a -> s {instanceName = a} :: AttachDisk)
 
--- | The disk path to expose to the instance (e.g., @/dev/xvdf@ ).
-adDiskPath :: Lens' AttachDisk Text
-adDiskPath = lens _adDiskPath (\s a -> s {_adDiskPath = a})
+-- | The disk path to expose to the instance (e.g., @\/dev\/xvdf@).
+attachDisk_diskPath :: Lens.Lens' AttachDisk Prelude.Text
+attachDisk_diskPath = Lens.lens (\AttachDisk' {diskPath} -> diskPath) (\s@AttachDisk' {} a -> s {diskPath = a} :: AttachDisk)
 
-instance AWSRequest AttachDisk where
+instance Prelude.AWSRequest AttachDisk where
   type Rs AttachDisk = AttachDiskResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AttachDiskResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AttachDisk
+instance Prelude.Hashable AttachDisk
 
-instance NFData AttachDisk
+instance Prelude.NFData AttachDisk
 
-instance ToHeaders AttachDisk where
+instance Prelude.ToHeaders AttachDisk where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.AttachDisk" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.AttachDisk" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AttachDisk where
+instance Prelude.ToJSON AttachDisk where
   toJSON AttachDisk' {..} =
-    object
-      ( catMaybes
-          [ Just ("diskName" .= _adDiskName),
-            Just ("instanceName" .= _adInstanceName),
-            Just ("diskPath" .= _adDiskPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("diskName" Prelude..= diskName),
+            Prelude.Just
+              ("instanceName" Prelude..= instanceName),
+            Prelude.Just ("diskPath" Prelude..= diskPath)
           ]
       )
 
-instance ToPath AttachDisk where
-  toPath = const "/"
+instance Prelude.ToPath AttachDisk where
+  toPath = Prelude.const "/"
 
-instance ToQuery AttachDisk where
-  toQuery = const mempty
+instance Prelude.ToQuery AttachDisk where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'attachDiskResponse' smart constructor.
+-- | /See:/ 'newAttachDiskResponse' smart constructor.
 data AttachDiskResponse = AttachDiskResponse'
-  { _adrrsOperations ::
-      !(Maybe [Operation]),
-    _adrrsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachDiskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachDiskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adrrsResponseStatus' - -- | The response status code.
-attachDiskResponse ::
-  -- | 'adrrsResponseStatus'
-  Int ->
+-- 'operations', 'attachDiskResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'attachDiskResponse_httpStatus' - The response's http status code.
+newAttachDiskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AttachDiskResponse
-attachDiskResponse pResponseStatus_ =
+newAttachDiskResponse pHttpStatus_ =
   AttachDiskResponse'
-    { _adrrsOperations = Nothing,
-      _adrrsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-adrrsOperations :: Lens' AttachDiskResponse [Operation]
-adrrsOperations = lens _adrrsOperations (\s a -> s {_adrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+attachDiskResponse_operations :: Lens.Lens' AttachDiskResponse (Prelude.Maybe [Operation])
+attachDiskResponse_operations = Lens.lens (\AttachDiskResponse' {operations} -> operations) (\s@AttachDiskResponse' {} a -> s {operations = a} :: AttachDiskResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-adrrsResponseStatus :: Lens' AttachDiskResponse Int
-adrrsResponseStatus = lens _adrrsResponseStatus (\s a -> s {_adrrsResponseStatus = a})
+-- | The response's http status code.
+attachDiskResponse_httpStatus :: Lens.Lens' AttachDiskResponse Prelude.Int
+attachDiskResponse_httpStatus = Lens.lens (\AttachDiskResponse' {httpStatus} -> httpStatus) (\s@AttachDiskResponse' {} a -> s {httpStatus = a} :: AttachDiskResponse)
 
-instance NFData AttachDiskResponse
+instance Prelude.NFData AttachDiskResponse

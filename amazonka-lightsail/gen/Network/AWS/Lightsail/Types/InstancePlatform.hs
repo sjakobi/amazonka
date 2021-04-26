@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.Lightsail.Types.InstancePlatform
   ( InstancePlatform
       ( ..,
-        LinuxUnix,
-        Windows
+        InstancePlatformLINUXUNIX,
+        InstancePlatformWINDOWS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstancePlatform = InstancePlatform' (CI Text)
+newtype InstancePlatform = InstancePlatform'
+  { fromInstancePlatform ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LinuxUnix :: InstancePlatform
-pattern LinuxUnix = InstancePlatform' "LINUX_UNIX"
+pattern InstancePlatformLINUXUNIX :: InstancePlatform
+pattern InstancePlatformLINUXUNIX = InstancePlatform' "LINUX_UNIX"
 
-pattern Windows :: InstancePlatform
-pattern Windows = InstancePlatform' "WINDOWS"
+pattern InstancePlatformWINDOWS :: InstancePlatform
+pattern InstancePlatformWINDOWS = InstancePlatform' "WINDOWS"
 
 {-# COMPLETE
-  LinuxUnix,
-  Windows,
+  InstancePlatformLINUXUNIX,
+  InstancePlatformWINDOWS,
   InstancePlatform'
   #-}
 
-instance FromText InstancePlatform where
-  parser = (InstancePlatform' . mk) <$> takeText
+instance Prelude.FromText InstancePlatform where
+  parser = InstancePlatform' Prelude.<$> Prelude.takeText
 
-instance ToText InstancePlatform where
-  toText (InstancePlatform' ci) = original ci
+instance Prelude.ToText InstancePlatform where
+  toText (InstancePlatform' x) = x
 
-instance Hashable InstancePlatform
+instance Prelude.Hashable InstancePlatform
 
-instance NFData InstancePlatform
+instance Prelude.NFData InstancePlatform
 
-instance ToByteString InstancePlatform
+instance Prelude.ToByteString InstancePlatform
 
-instance ToQuery InstancePlatform
+instance Prelude.ToQuery InstancePlatform
 
-instance ToHeader InstancePlatform
+instance Prelude.ToHeader InstancePlatform
 
-instance FromJSON InstancePlatform where
-  parseJSON = parseJSONText "InstancePlatform"
+instance Prelude.FromJSON InstancePlatform where
+  parseJSON = Prelude.parseJSONText "InstancePlatform"

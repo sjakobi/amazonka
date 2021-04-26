@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Lightsail.Types.RelationalDatabasePasswordVersion
   ( RelationalDatabasePasswordVersion
       ( ..,
-        RDPVCurrent,
-        RDPVPending,
-        RDPVPrevious
+        RelationalDatabasePasswordVersionCURRENT,
+        RelationalDatabasePasswordVersionPENDING,
+        RelationalDatabasePasswordVersionPREVIOUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RelationalDatabasePasswordVersion
-  = RelationalDatabasePasswordVersion'
-      ( CI
-          Text
-      )
+newtype RelationalDatabasePasswordVersion = RelationalDatabasePasswordVersion'
+  { fromRelationalDatabasePasswordVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RDPVCurrent :: RelationalDatabasePasswordVersion
-pattern RDPVCurrent = RelationalDatabasePasswordVersion' "CURRENT"
+pattern RelationalDatabasePasswordVersionCURRENT :: RelationalDatabasePasswordVersion
+pattern RelationalDatabasePasswordVersionCURRENT = RelationalDatabasePasswordVersion' "CURRENT"
 
-pattern RDPVPending :: RelationalDatabasePasswordVersion
-pattern RDPVPending = RelationalDatabasePasswordVersion' "PENDING"
+pattern RelationalDatabasePasswordVersionPENDING :: RelationalDatabasePasswordVersion
+pattern RelationalDatabasePasswordVersionPENDING = RelationalDatabasePasswordVersion' "PENDING"
 
-pattern RDPVPrevious :: RelationalDatabasePasswordVersion
-pattern RDPVPrevious = RelationalDatabasePasswordVersion' "PREVIOUS"
+pattern RelationalDatabasePasswordVersionPREVIOUS :: RelationalDatabasePasswordVersion
+pattern RelationalDatabasePasswordVersionPREVIOUS = RelationalDatabasePasswordVersion' "PREVIOUS"
 
 {-# COMPLETE
-  RDPVCurrent,
-  RDPVPending,
-  RDPVPrevious,
+  RelationalDatabasePasswordVersionCURRENT,
+  RelationalDatabasePasswordVersionPENDING,
+  RelationalDatabasePasswordVersionPREVIOUS,
   RelationalDatabasePasswordVersion'
   #-}
 
-instance FromText RelationalDatabasePasswordVersion where
-  parser = (RelationalDatabasePasswordVersion' . mk) <$> takeText
+instance Prelude.FromText RelationalDatabasePasswordVersion where
+  parser = RelationalDatabasePasswordVersion' Prelude.<$> Prelude.takeText
 
-instance ToText RelationalDatabasePasswordVersion where
-  toText (RelationalDatabasePasswordVersion' ci) = original ci
+instance Prelude.ToText RelationalDatabasePasswordVersion where
+  toText (RelationalDatabasePasswordVersion' x) = x
 
-instance Hashable RelationalDatabasePasswordVersion
+instance Prelude.Hashable RelationalDatabasePasswordVersion
 
-instance NFData RelationalDatabasePasswordVersion
+instance Prelude.NFData RelationalDatabasePasswordVersion
 
-instance ToByteString RelationalDatabasePasswordVersion
+instance Prelude.ToByteString RelationalDatabasePasswordVersion
 
-instance ToQuery RelationalDatabasePasswordVersion
+instance Prelude.ToQuery RelationalDatabasePasswordVersion
 
-instance ToHeader RelationalDatabasePasswordVersion
+instance Prelude.ToHeader RelationalDatabasePasswordVersion
 
-instance ToJSON RelationalDatabasePasswordVersion where
-  toJSON = toJSONText
+instance Prelude.ToJSON RelationalDatabasePasswordVersion where
+  toJSON = Prelude.toJSONText

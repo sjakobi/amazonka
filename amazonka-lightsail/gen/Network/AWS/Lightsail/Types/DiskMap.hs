@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.DiskMap where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a block storage disk mapping.
 --
---
---
--- /See:/ 'diskMap' smart constructor.
+-- /See:/ 'newDiskMap' smart constructor.
 data DiskMap = DiskMap'
-  { _dmOriginalDiskPath ::
-      !(Maybe Text),
-    _dmNewDiskName :: !(Maybe Text)
+  { -- | The original disk path exposed to the instance (for example,
+    -- @\/dev\/sdh@).
+    originalDiskPath :: Prelude.Maybe Prelude.Text,
+    -- | The new disk name (e.g., @my-new-disk@).
+    newDiskName' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiskMap' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiskMap' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmOriginalDiskPath' - The original disk path exposed to the instance (for example, @/dev/sdh@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmNewDiskName' - The new disk name (e.g., @my-new-disk@ ).
-diskMap ::
+-- 'originalDiskPath', 'diskMap_originalDiskPath' - The original disk path exposed to the instance (for example,
+-- @\/dev\/sdh@).
+--
+-- 'newDiskName'', 'diskMap_newDiskName' - The new disk name (e.g., @my-new-disk@).
+newDiskMap ::
   DiskMap
-diskMap =
+newDiskMap =
   DiskMap'
-    { _dmOriginalDiskPath = Nothing,
-      _dmNewDiskName = Nothing
+    { originalDiskPath = Prelude.Nothing,
+      newDiskName' = Prelude.Nothing
     }
 
--- | The original disk path exposed to the instance (for example, @/dev/sdh@ ).
-dmOriginalDiskPath :: Lens' DiskMap (Maybe Text)
-dmOriginalDiskPath = lens _dmOriginalDiskPath (\s a -> s {_dmOriginalDiskPath = a})
+-- | The original disk path exposed to the instance (for example,
+-- @\/dev\/sdh@).
+diskMap_originalDiskPath :: Lens.Lens' DiskMap (Prelude.Maybe Prelude.Text)
+diskMap_originalDiskPath = Lens.lens (\DiskMap' {originalDiskPath} -> originalDiskPath) (\s@DiskMap' {} a -> s {originalDiskPath = a} :: DiskMap)
 
--- | The new disk name (e.g., @my-new-disk@ ).
-dmNewDiskName :: Lens' DiskMap (Maybe Text)
-dmNewDiskName = lens _dmNewDiskName (\s a -> s {_dmNewDiskName = a})
+-- | The new disk name (e.g., @my-new-disk@).
+diskMap_newDiskName :: Lens.Lens' DiskMap (Prelude.Maybe Prelude.Text)
+diskMap_newDiskName = Lens.lens (\DiskMap' {newDiskName'} -> newDiskName') (\s@DiskMap' {} a -> s {newDiskName' = a} :: DiskMap)
 
-instance Hashable DiskMap
+instance Prelude.Hashable DiskMap
 
-instance NFData DiskMap
+instance Prelude.NFData DiskMap
 
-instance ToJSON DiskMap where
+instance Prelude.ToJSON DiskMap where
   toJSON DiskMap' {..} =
-    object
-      ( catMaybes
-          [ ("originalDiskPath" .=) <$> _dmOriginalDiskPath,
-            ("newDiskName" .=) <$> _dmNewDiskName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("originalDiskPath" Prelude..=)
+              Prelude.<$> originalDiskPath,
+            ("newDiskName" Prelude..=) Prelude.<$> newDiskName'
           ]
       )

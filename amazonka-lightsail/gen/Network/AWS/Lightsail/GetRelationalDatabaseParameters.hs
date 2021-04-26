@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,201 +21,269 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all of the runtime parameters offered by the underlying database software, or engine, for a specific database in Amazon Lightsail.
+-- Returns all of the runtime parameters offered by the underlying database
+-- software, or engine, for a specific database in Amazon Lightsail.
 --
---
--- In addition to the parameter names and values, this operation returns other information about each parameter. This information includes whether changes require a reboot, whether the parameter is modifiable, the allowed values, and the data types.
---
+-- In addition to the parameter names and values, this operation returns
+-- other information about each parameter. This information includes
+-- whether changes require a reboot, whether the parameter is modifiable,
+-- the allowed values, and the data types.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetRelationalDatabaseParameters
   ( -- * Creating a Request
-    getRelationalDatabaseParameters,
-    GetRelationalDatabaseParameters,
+    GetRelationalDatabaseParameters (..),
+    newGetRelationalDatabaseParameters,
 
     -- * Request Lenses
-    grdpPageToken,
-    grdpRelationalDatabaseName,
+    getRelationalDatabaseParameters_pageToken,
+    getRelationalDatabaseParameters_relationalDatabaseName,
 
     -- * Destructuring the Response
-    getRelationalDatabaseParametersResponse,
-    GetRelationalDatabaseParametersResponse,
+    GetRelationalDatabaseParametersResponse (..),
+    newGetRelationalDatabaseParametersResponse,
 
     -- * Response Lenses
-    grdprrsNextPageToken,
-    grdprrsParameters,
-    grdprrsResponseStatus,
+    getRelationalDatabaseParametersResponse_nextPageToken,
+    getRelationalDatabaseParametersResponse_parameters,
+    getRelationalDatabaseParametersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.RelationalDatabaseParameter
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRelationalDatabaseParameters' smart constructor.
+-- | /See:/ 'newGetRelationalDatabaseParameters' smart constructor.
 data GetRelationalDatabaseParameters = GetRelationalDatabaseParameters'
-  { _grdpPageToken ::
-      !( Maybe
-           Text
-       ),
-    _grdpRelationalDatabaseName ::
-      !Text
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial
+    -- @GetRelationalDatabaseParameters@ request. If your results are
+    -- paginated, the response will return a next page token that you can
+    -- specify as the page token in a subsequent request.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of your database for which to get parameters.
+    relationalDatabaseName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRelationalDatabaseParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRelationalDatabaseParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grdpPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetRelationalDatabaseParameters@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grdpRelationalDatabaseName' - The name of your database for which to get parameters.
-getRelationalDatabaseParameters ::
-  -- | 'grdpRelationalDatabaseName'
-  Text ->
+-- 'pageToken', 'getRelationalDatabaseParameters_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial
+-- @GetRelationalDatabaseParameters@ request. If your results are
+-- paginated, the response will return a next page token that you can
+-- specify as the page token in a subsequent request.
+--
+-- 'relationalDatabaseName', 'getRelationalDatabaseParameters_relationalDatabaseName' - The name of your database for which to get parameters.
+newGetRelationalDatabaseParameters ::
+  -- | 'relationalDatabaseName'
+  Prelude.Text ->
   GetRelationalDatabaseParameters
-getRelationalDatabaseParameters
+newGetRelationalDatabaseParameters
   pRelationalDatabaseName_ =
     GetRelationalDatabaseParameters'
-      { _grdpPageToken =
-          Nothing,
-        _grdpRelationalDatabaseName =
+      { pageToken =
+          Prelude.Nothing,
+        relationalDatabaseName =
           pRelationalDatabaseName_
       }
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetRelationalDatabaseParameters@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-grdpPageToken :: Lens' GetRelationalDatabaseParameters (Maybe Text)
-grdpPageToken = lens _grdpPageToken (\s a -> s {_grdpPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial
+-- @GetRelationalDatabaseParameters@ request. If your results are
+-- paginated, the response will return a next page token that you can
+-- specify as the page token in a subsequent request.
+getRelationalDatabaseParameters_pageToken :: Lens.Lens' GetRelationalDatabaseParameters (Prelude.Maybe Prelude.Text)
+getRelationalDatabaseParameters_pageToken = Lens.lens (\GetRelationalDatabaseParameters' {pageToken} -> pageToken) (\s@GetRelationalDatabaseParameters' {} a -> s {pageToken = a} :: GetRelationalDatabaseParameters)
 
 -- | The name of your database for which to get parameters.
-grdpRelationalDatabaseName :: Lens' GetRelationalDatabaseParameters Text
-grdpRelationalDatabaseName = lens _grdpRelationalDatabaseName (\s a -> s {_grdpRelationalDatabaseName = a})
+getRelationalDatabaseParameters_relationalDatabaseName :: Lens.Lens' GetRelationalDatabaseParameters Prelude.Text
+getRelationalDatabaseParameters_relationalDatabaseName = Lens.lens (\GetRelationalDatabaseParameters' {relationalDatabaseName} -> relationalDatabaseName) (\s@GetRelationalDatabaseParameters' {} a -> s {relationalDatabaseName = a} :: GetRelationalDatabaseParameters)
 
-instance AWSPager GetRelationalDatabaseParameters where
+instance
+  Pager.AWSPager
+    GetRelationalDatabaseParameters
+  where
   page rq rs
-    | stop (rs ^. grdprrsNextPageToken) = Nothing
-    | stop (rs ^. grdprrsParameters) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getRelationalDatabaseParametersResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getRelationalDatabaseParametersResponse_parameters
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & grdpPageToken .~ rs ^. grdprrsNextPageToken
+          Lens.& getRelationalDatabaseParameters_pageToken
+          Lens..~ rs
+          Lens.^? getRelationalDatabaseParametersResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetRelationalDatabaseParameters where
+instance
+  Prelude.AWSRequest
+    GetRelationalDatabaseParameters
+  where
   type
     Rs GetRelationalDatabaseParameters =
       GetRelationalDatabaseParametersResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseParametersResponse'
-            <$> (x .?> "nextPageToken")
-            <*> (x .?> "parameters" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextPageToken")
+            Prelude.<*> ( x Prelude..?> "parameters"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRelationalDatabaseParameters
+instance
+  Prelude.Hashable
+    GetRelationalDatabaseParameters
 
-instance NFData GetRelationalDatabaseParameters
+instance
+  Prelude.NFData
+    GetRelationalDatabaseParameters
 
-instance ToHeaders GetRelationalDatabaseParameters where
+instance
+  Prelude.ToHeaders
+    GetRelationalDatabaseParameters
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetRelationalDatabaseParameters" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetRelationalDatabaseParameters" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRelationalDatabaseParameters where
+instance
+  Prelude.ToJSON
+    GetRelationalDatabaseParameters
+  where
   toJSON GetRelationalDatabaseParameters' {..} =
-    object
-      ( catMaybes
-          [ ("pageToken" .=) <$> _grdpPageToken,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("pageToken" Prelude..=) Prelude.<$> pageToken,
+            Prelude.Just
               ( "relationalDatabaseName"
-                  .= _grdpRelationalDatabaseName
+                  Prelude..= relationalDatabaseName
               )
           ]
       )
 
-instance ToPath GetRelationalDatabaseParameters where
-  toPath = const "/"
-
-instance ToQuery GetRelationalDatabaseParameters where
-  toQuery = const mempty
-
--- | /See:/ 'getRelationalDatabaseParametersResponse' smart constructor.
-data GetRelationalDatabaseParametersResponse = GetRelationalDatabaseParametersResponse'
-  { _grdprrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _grdprrsParameters ::
-      !( Maybe
-           [RelationalDatabaseParameter]
-       ),
-    _grdprrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetRelationalDatabaseParametersResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'grdprrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetRelationalDatabaseParameters@ request and specify the next page token using the @pageToken@ parameter.
---
--- * 'grdprrsParameters' - An object describing the result of your get relational database parameters request.
---
--- * 'grdprrsResponseStatus' - -- | The response status code.
-getRelationalDatabaseParametersResponse ::
-  -- | 'grdprrsResponseStatus'
-  Int ->
-  GetRelationalDatabaseParametersResponse
-getRelationalDatabaseParametersResponse
-  pResponseStatus_ =
-    GetRelationalDatabaseParametersResponse'
-      { _grdprrsNextPageToken =
-          Nothing,
-        _grdprrsParameters = Nothing,
-        _grdprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetRelationalDatabaseParameters@ request and specify the next page token using the @pageToken@ parameter.
-grdprrsNextPageToken :: Lens' GetRelationalDatabaseParametersResponse (Maybe Text)
-grdprrsNextPageToken = lens _grdprrsNextPageToken (\s a -> s {_grdprrsNextPageToken = a})
-
--- | An object describing the result of your get relational database parameters request.
-grdprrsParameters :: Lens' GetRelationalDatabaseParametersResponse [RelationalDatabaseParameter]
-grdprrsParameters = lens _grdprrsParameters (\s a -> s {_grdprrsParameters = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-grdprrsResponseStatus :: Lens' GetRelationalDatabaseParametersResponse Int
-grdprrsResponseStatus = lens _grdprrsResponseStatus (\s a -> s {_grdprrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    GetRelationalDatabaseParameters
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    GetRelationalDatabaseParameters
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newGetRelationalDatabaseParametersResponse' smart constructor.
+data GetRelationalDatabaseParametersResponse = GetRelationalDatabaseParametersResponse'
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another
+    -- @GetRelationalDatabaseParameters@ request and specify the next page
+    -- token using the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | An object describing the result of your get relational database
+    -- parameters request.
+    parameters :: Prelude.Maybe [RelationalDatabaseParameter],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetRelationalDatabaseParametersResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextPageToken', 'getRelationalDatabaseParametersResponse_nextPageToken' - The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetRelationalDatabaseParameters@ request and specify the next page
+-- token using the @pageToken@ parameter.
+--
+-- 'parameters', 'getRelationalDatabaseParametersResponse_parameters' - An object describing the result of your get relational database
+-- parameters request.
+--
+-- 'httpStatus', 'getRelationalDatabaseParametersResponse_httpStatus' - The response's http status code.
+newGetRelationalDatabaseParametersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetRelationalDatabaseParametersResponse
+newGetRelationalDatabaseParametersResponse
+  pHttpStatus_ =
+    GetRelationalDatabaseParametersResponse'
+      { nextPageToken =
+          Prelude.Nothing,
+        parameters = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetRelationalDatabaseParameters@ request and specify the next page
+-- token using the @pageToken@ parameter.
+getRelationalDatabaseParametersResponse_nextPageToken :: Lens.Lens' GetRelationalDatabaseParametersResponse (Prelude.Maybe Prelude.Text)
+getRelationalDatabaseParametersResponse_nextPageToken = Lens.lens (\GetRelationalDatabaseParametersResponse' {nextPageToken} -> nextPageToken) (\s@GetRelationalDatabaseParametersResponse' {} a -> s {nextPageToken = a} :: GetRelationalDatabaseParametersResponse)
+
+-- | An object describing the result of your get relational database
+-- parameters request.
+getRelationalDatabaseParametersResponse_parameters :: Lens.Lens' GetRelationalDatabaseParametersResponse (Prelude.Maybe [RelationalDatabaseParameter])
+getRelationalDatabaseParametersResponse_parameters = Lens.lens (\GetRelationalDatabaseParametersResponse' {parameters} -> parameters) (\s@GetRelationalDatabaseParametersResponse' {} a -> s {parameters = a} :: GetRelationalDatabaseParametersResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+getRelationalDatabaseParametersResponse_httpStatus :: Lens.Lens' GetRelationalDatabaseParametersResponse Prelude.Int
+getRelationalDatabaseParametersResponse_httpStatus = Lens.lens (\GetRelationalDatabaseParametersResponse' {httpStatus} -> httpStatus) (\s@GetRelationalDatabaseParametersResponse' {} a -> s {httpStatus = a} :: GetRelationalDatabaseParametersResponse)
+
+instance
+  Prelude.NFData
     GetRelationalDatabaseParametersResponse

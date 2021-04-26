@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,181 +19,183 @@
 module Network.AWS.Lightsail.Types.MetricUnit
   ( MetricUnit
       ( ..,
-        MUBits,
-        MUBitsSecond,
-        MUBytes,
-        MUBytesSecond,
-        MUCount,
-        MUCountSecond,
-        MUGigabits,
-        MUGigabitsSecond,
-        MUGigabytes,
-        MUGigabytesSecond,
-        MUKilobits,
-        MUKilobitsSecond,
-        MUKilobytes,
-        MUKilobytesSecond,
-        MUMegabits,
-        MUMegabitsSecond,
-        MUMegabytes,
-        MUMegabytesSecond,
-        MUMicroseconds,
-        MUMilliseconds,
-        MUNone,
-        MUPercent,
-        MUSeconds,
-        MUTerabits,
-        MUTerabitsSecond,
-        MUTerabytes,
-        MUTerabytesSecond
+        MetricUnitBits,
+        MetricUnitBitsSecond,
+        MetricUnitBytes,
+        MetricUnitBytesSecond,
+        MetricUnitCount,
+        MetricUnitCountSecond,
+        MetricUnitGigabits,
+        MetricUnitGigabitsSecond,
+        MetricUnitGigabytes,
+        MetricUnitGigabytesSecond,
+        MetricUnitKilobits,
+        MetricUnitKilobitsSecond,
+        MetricUnitKilobytes,
+        MetricUnitKilobytesSecond,
+        MetricUnitMegabits,
+        MetricUnitMegabitsSecond,
+        MetricUnitMegabytes,
+        MetricUnitMegabytesSecond,
+        MetricUnitMicroseconds,
+        MetricUnitMilliseconds,
+        MetricUnitNone,
+        MetricUnitPercent,
+        MetricUnitSeconds,
+        MetricUnitTerabits,
+        MetricUnitTerabitsSecond,
+        MetricUnitTerabytes,
+        MetricUnitTerabytesSecond
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MetricUnit = MetricUnit' (CI Text)
+newtype MetricUnit = MetricUnit'
+  { fromMetricUnit ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MUBits :: MetricUnit
-pattern MUBits = MetricUnit' "Bits"
+pattern MetricUnitBits :: MetricUnit
+pattern MetricUnitBits = MetricUnit' "Bits"
 
-pattern MUBitsSecond :: MetricUnit
-pattern MUBitsSecond = MetricUnit' "Bits/Second"
+pattern MetricUnitBitsSecond :: MetricUnit
+pattern MetricUnitBitsSecond = MetricUnit' "Bits/Second"
 
-pattern MUBytes :: MetricUnit
-pattern MUBytes = MetricUnit' "Bytes"
+pattern MetricUnitBytes :: MetricUnit
+pattern MetricUnitBytes = MetricUnit' "Bytes"
 
-pattern MUBytesSecond :: MetricUnit
-pattern MUBytesSecond = MetricUnit' "Bytes/Second"
+pattern MetricUnitBytesSecond :: MetricUnit
+pattern MetricUnitBytesSecond = MetricUnit' "Bytes/Second"
 
-pattern MUCount :: MetricUnit
-pattern MUCount = MetricUnit' "Count"
+pattern MetricUnitCount :: MetricUnit
+pattern MetricUnitCount = MetricUnit' "Count"
 
-pattern MUCountSecond :: MetricUnit
-pattern MUCountSecond = MetricUnit' "Count/Second"
+pattern MetricUnitCountSecond :: MetricUnit
+pattern MetricUnitCountSecond = MetricUnit' "Count/Second"
 
-pattern MUGigabits :: MetricUnit
-pattern MUGigabits = MetricUnit' "Gigabits"
+pattern MetricUnitGigabits :: MetricUnit
+pattern MetricUnitGigabits = MetricUnit' "Gigabits"
 
-pattern MUGigabitsSecond :: MetricUnit
-pattern MUGigabitsSecond = MetricUnit' "Gigabits/Second"
+pattern MetricUnitGigabitsSecond :: MetricUnit
+pattern MetricUnitGigabitsSecond = MetricUnit' "Gigabits/Second"
 
-pattern MUGigabytes :: MetricUnit
-pattern MUGigabytes = MetricUnit' "Gigabytes"
+pattern MetricUnitGigabytes :: MetricUnit
+pattern MetricUnitGigabytes = MetricUnit' "Gigabytes"
 
-pattern MUGigabytesSecond :: MetricUnit
-pattern MUGigabytesSecond = MetricUnit' "Gigabytes/Second"
+pattern MetricUnitGigabytesSecond :: MetricUnit
+pattern MetricUnitGigabytesSecond = MetricUnit' "Gigabytes/Second"
 
-pattern MUKilobits :: MetricUnit
-pattern MUKilobits = MetricUnit' "Kilobits"
+pattern MetricUnitKilobits :: MetricUnit
+pattern MetricUnitKilobits = MetricUnit' "Kilobits"
 
-pattern MUKilobitsSecond :: MetricUnit
-pattern MUKilobitsSecond = MetricUnit' "Kilobits/Second"
+pattern MetricUnitKilobitsSecond :: MetricUnit
+pattern MetricUnitKilobitsSecond = MetricUnit' "Kilobits/Second"
 
-pattern MUKilobytes :: MetricUnit
-pattern MUKilobytes = MetricUnit' "Kilobytes"
+pattern MetricUnitKilobytes :: MetricUnit
+pattern MetricUnitKilobytes = MetricUnit' "Kilobytes"
 
-pattern MUKilobytesSecond :: MetricUnit
-pattern MUKilobytesSecond = MetricUnit' "Kilobytes/Second"
+pattern MetricUnitKilobytesSecond :: MetricUnit
+pattern MetricUnitKilobytesSecond = MetricUnit' "Kilobytes/Second"
 
-pattern MUMegabits :: MetricUnit
-pattern MUMegabits = MetricUnit' "Megabits"
+pattern MetricUnitMegabits :: MetricUnit
+pattern MetricUnitMegabits = MetricUnit' "Megabits"
 
-pattern MUMegabitsSecond :: MetricUnit
-pattern MUMegabitsSecond = MetricUnit' "Megabits/Second"
+pattern MetricUnitMegabitsSecond :: MetricUnit
+pattern MetricUnitMegabitsSecond = MetricUnit' "Megabits/Second"
 
-pattern MUMegabytes :: MetricUnit
-pattern MUMegabytes = MetricUnit' "Megabytes"
+pattern MetricUnitMegabytes :: MetricUnit
+pattern MetricUnitMegabytes = MetricUnit' "Megabytes"
 
-pattern MUMegabytesSecond :: MetricUnit
-pattern MUMegabytesSecond = MetricUnit' "Megabytes/Second"
+pattern MetricUnitMegabytesSecond :: MetricUnit
+pattern MetricUnitMegabytesSecond = MetricUnit' "Megabytes/Second"
 
-pattern MUMicroseconds :: MetricUnit
-pattern MUMicroseconds = MetricUnit' "Microseconds"
+pattern MetricUnitMicroseconds :: MetricUnit
+pattern MetricUnitMicroseconds = MetricUnit' "Microseconds"
 
-pattern MUMilliseconds :: MetricUnit
-pattern MUMilliseconds = MetricUnit' "Milliseconds"
+pattern MetricUnitMilliseconds :: MetricUnit
+pattern MetricUnitMilliseconds = MetricUnit' "Milliseconds"
 
-pattern MUNone :: MetricUnit
-pattern MUNone = MetricUnit' "None"
+pattern MetricUnitNone :: MetricUnit
+pattern MetricUnitNone = MetricUnit' "None"
 
-pattern MUPercent :: MetricUnit
-pattern MUPercent = MetricUnit' "Percent"
+pattern MetricUnitPercent :: MetricUnit
+pattern MetricUnitPercent = MetricUnit' "Percent"
 
-pattern MUSeconds :: MetricUnit
-pattern MUSeconds = MetricUnit' "Seconds"
+pattern MetricUnitSeconds :: MetricUnit
+pattern MetricUnitSeconds = MetricUnit' "Seconds"
 
-pattern MUTerabits :: MetricUnit
-pattern MUTerabits = MetricUnit' "Terabits"
+pattern MetricUnitTerabits :: MetricUnit
+pattern MetricUnitTerabits = MetricUnit' "Terabits"
 
-pattern MUTerabitsSecond :: MetricUnit
-pattern MUTerabitsSecond = MetricUnit' "Terabits/Second"
+pattern MetricUnitTerabitsSecond :: MetricUnit
+pattern MetricUnitTerabitsSecond = MetricUnit' "Terabits/Second"
 
-pattern MUTerabytes :: MetricUnit
-pattern MUTerabytes = MetricUnit' "Terabytes"
+pattern MetricUnitTerabytes :: MetricUnit
+pattern MetricUnitTerabytes = MetricUnit' "Terabytes"
 
-pattern MUTerabytesSecond :: MetricUnit
-pattern MUTerabytesSecond = MetricUnit' "Terabytes/Second"
+pattern MetricUnitTerabytesSecond :: MetricUnit
+pattern MetricUnitTerabytesSecond = MetricUnit' "Terabytes/Second"
 
 {-# COMPLETE
-  MUBits,
-  MUBitsSecond,
-  MUBytes,
-  MUBytesSecond,
-  MUCount,
-  MUCountSecond,
-  MUGigabits,
-  MUGigabitsSecond,
-  MUGigabytes,
-  MUGigabytesSecond,
-  MUKilobits,
-  MUKilobitsSecond,
-  MUKilobytes,
-  MUKilobytesSecond,
-  MUMegabits,
-  MUMegabitsSecond,
-  MUMegabytes,
-  MUMegabytesSecond,
-  MUMicroseconds,
-  MUMilliseconds,
-  MUNone,
-  MUPercent,
-  MUSeconds,
-  MUTerabits,
-  MUTerabitsSecond,
-  MUTerabytes,
-  MUTerabytesSecond,
+  MetricUnitBits,
+  MetricUnitBitsSecond,
+  MetricUnitBytes,
+  MetricUnitBytesSecond,
+  MetricUnitCount,
+  MetricUnitCountSecond,
+  MetricUnitGigabits,
+  MetricUnitGigabitsSecond,
+  MetricUnitGigabytes,
+  MetricUnitGigabytesSecond,
+  MetricUnitKilobits,
+  MetricUnitKilobitsSecond,
+  MetricUnitKilobytes,
+  MetricUnitKilobytesSecond,
+  MetricUnitMegabits,
+  MetricUnitMegabitsSecond,
+  MetricUnitMegabytes,
+  MetricUnitMegabytesSecond,
+  MetricUnitMicroseconds,
+  MetricUnitMilliseconds,
+  MetricUnitNone,
+  MetricUnitPercent,
+  MetricUnitSeconds,
+  MetricUnitTerabits,
+  MetricUnitTerabitsSecond,
+  MetricUnitTerabytes,
+  MetricUnitTerabytesSecond,
   MetricUnit'
   #-}
 
-instance FromText MetricUnit where
-  parser = (MetricUnit' . mk) <$> takeText
+instance Prelude.FromText MetricUnit where
+  parser = MetricUnit' Prelude.<$> Prelude.takeText
 
-instance ToText MetricUnit where
-  toText (MetricUnit' ci) = original ci
+instance Prelude.ToText MetricUnit where
+  toText (MetricUnit' x) = x
 
-instance Hashable MetricUnit
+instance Prelude.Hashable MetricUnit
 
-instance NFData MetricUnit
+instance Prelude.NFData MetricUnit
 
-instance ToByteString MetricUnit
+instance Prelude.ToByteString MetricUnit
 
-instance ToQuery MetricUnit
+instance Prelude.ToQuery MetricUnit
 
-instance ToHeader MetricUnit
+instance Prelude.ToHeader MetricUnit
 
-instance ToJSON MetricUnit where
-  toJSON = toJSONText
+instance Prelude.ToJSON MetricUnit where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MetricUnit where
-  parseJSON = parseJSONText "MetricUnit"
+instance Prelude.FromJSON MetricUnit where
+  parseJSON = Prelude.parseJSONText "MetricUnit"

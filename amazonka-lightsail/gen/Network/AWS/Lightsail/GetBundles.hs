@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the list of bundles that are available for purchase. A bundle describes the specs for your virtual private server (or /instance/ ).
---
---
+-- Returns the list of bundles that are available for purchase. A bundle
+-- describes the specs for your virtual private server (or /instance/).
 --
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetBundles
   ( -- * Creating a Request
-    getBundles,
-    GetBundles,
+    GetBundles (..),
+    newGetBundles,
 
     -- * Request Lenses
-    gbsPageToken,
-    gbsIncludeInactive,
+    getBundles_pageToken,
+    getBundles_includeInactive,
 
     -- * Destructuring the Response
-    getBundlesResponse,
-    GetBundlesResponse,
+    GetBundlesResponse (..),
+    newGetBundlesResponse,
 
     -- * Response Lenses
-    gbrbrsNextPageToken,
-    gbrbrsBundles,
-    gbrbrsResponseStatus,
+    getBundlesResponse_nextPageToken,
+    getBundlesResponse_bundles,
+    getBundlesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Bundle
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getBundles' smart constructor.
+-- | /See:/ 'newGetBundles' smart constructor.
 data GetBundles = GetBundles'
-  { _gbsPageToken ::
-      !(Maybe Text),
-    _gbsIncludeInactive :: !(Maybe Bool)
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetBundles@ request. If your
+    -- results are paginated, the response will return a next page token that
+    -- you can specify as the page token in a subsequent request.
+    pageToken :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value that indicates whether to include inactive bundle
+    -- results in your request.
+    includeInactive :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBundles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBundles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbsPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetBundles@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbsIncludeInactive' - A Boolean value that indicates whether to include inactive bundle results in your request.
-getBundles ::
+-- 'pageToken', 'getBundles_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetBundles@ request. If your
+-- results are paginated, the response will return a next page token that
+-- you can specify as the page token in a subsequent request.
+--
+-- 'includeInactive', 'getBundles_includeInactive' - A Boolean value that indicates whether to include inactive bundle
+-- results in your request.
+newGetBundles ::
   GetBundles
-getBundles =
+newGetBundles =
   GetBundles'
-    { _gbsPageToken = Nothing,
-      _gbsIncludeInactive = Nothing
+    { pageToken = Prelude.Nothing,
+      includeInactive = Prelude.Nothing
     }
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetBundles@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-gbsPageToken :: Lens' GetBundles (Maybe Text)
-gbsPageToken = lens _gbsPageToken (\s a -> s {_gbsPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetBundles@ request. If your
+-- results are paginated, the response will return a next page token that
+-- you can specify as the page token in a subsequent request.
+getBundles_pageToken :: Lens.Lens' GetBundles (Prelude.Maybe Prelude.Text)
+getBundles_pageToken = Lens.lens (\GetBundles' {pageToken} -> pageToken) (\s@GetBundles' {} a -> s {pageToken = a} :: GetBundles)
 
--- | A Boolean value that indicates whether to include inactive bundle results in your request.
-gbsIncludeInactive :: Lens' GetBundles (Maybe Bool)
-gbsIncludeInactive = lens _gbsIncludeInactive (\s a -> s {_gbsIncludeInactive = a})
+-- | A Boolean value that indicates whether to include inactive bundle
+-- results in your request.
+getBundles_includeInactive :: Lens.Lens' GetBundles (Prelude.Maybe Prelude.Bool)
+getBundles_includeInactive = Lens.lens (\GetBundles' {includeInactive} -> includeInactive) (\s@GetBundles' {} a -> s {includeInactive = a} :: GetBundles)
 
-instance AWSPager GetBundles where
+instance Pager.AWSPager GetBundles where
   page rq rs
-    | stop (rs ^. gbrbrsNextPageToken) = Nothing
-    | stop (rs ^. gbrbrsBundles) = Nothing
-    | otherwise =
-      Just $ rq & gbsPageToken .~ rs ^. gbrbrsNextPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? getBundlesResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getBundlesResponse_bundles Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getBundles_pageToken
+          Lens..~ rs
+          Lens.^? getBundlesResponse_nextPageToken Prelude.. Lens._Just
 
-instance AWSRequest GetBundles where
+instance Prelude.AWSRequest GetBundles where
   type Rs GetBundles = GetBundlesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBundlesResponse'
-            <$> (x .?> "nextPageToken")
-            <*> (x .?> "bundles" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (x Prelude..?> "bundles" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBundles
+instance Prelude.Hashable GetBundles
 
-instance NFData GetBundles
+instance Prelude.NFData GetBundles
 
-instance ToHeaders GetBundles where
+instance Prelude.ToHeaders GetBundles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetBundles" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetBundles" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetBundles where
+instance Prelude.ToJSON GetBundles where
   toJSON GetBundles' {..} =
-    object
-      ( catMaybes
-          [ ("pageToken" .=) <$> _gbsPageToken,
-            ("includeInactive" .=) <$> _gbsIncludeInactive
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("pageToken" Prelude..=) Prelude.<$> pageToken,
+            ("includeInactive" Prelude..=)
+              Prelude.<$> includeInactive
           ]
       )
 
-instance ToPath GetBundles where
-  toPath = const "/"
+instance Prelude.ToPath GetBundles where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetBundles where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBundles where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getBundlesResponse' smart constructor.
+-- | /See:/ 'newGetBundlesResponse' smart constructor.
 data GetBundlesResponse = GetBundlesResponse'
-  { _gbrbrsNextPageToken ::
-      !(Maybe Text),
-    _gbrbrsBundles ::
-      !(Maybe [Bundle]),
-    _gbrbrsResponseStatus :: !Int
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another @GetBundles@ request
+    -- and specify the next page token using the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of key-value pairs that contains information about the
+    -- available bundles.
+    bundles :: Prelude.Maybe [Bundle],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBundlesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBundlesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbrbrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetBundles@ request and specify the next page token using the @pageToken@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbrbrsBundles' - An array of key-value pairs that contains information about the available bundles.
+-- 'nextPageToken', 'getBundlesResponse_nextPageToken' - The token to advance to the next page of results from your request.
 --
--- * 'gbrbrsResponseStatus' - -- | The response status code.
-getBundlesResponse ::
-  -- | 'gbrbrsResponseStatus'
-  Int ->
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetBundles@ request
+-- and specify the next page token using the @pageToken@ parameter.
+--
+-- 'bundles', 'getBundlesResponse_bundles' - An array of key-value pairs that contains information about the
+-- available bundles.
+--
+-- 'httpStatus', 'getBundlesResponse_httpStatus' - The response's http status code.
+newGetBundlesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBundlesResponse
-getBundlesResponse pResponseStatus_ =
+newGetBundlesResponse pHttpStatus_ =
   GetBundlesResponse'
-    { _gbrbrsNextPageToken = Nothing,
-      _gbrbrsBundles = Nothing,
-      _gbrbrsResponseStatus = pResponseStatus_
+    { nextPageToken =
+        Prelude.Nothing,
+      bundles = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetBundles@ request and specify the next page token using the @pageToken@ parameter.
-gbrbrsNextPageToken :: Lens' GetBundlesResponse (Maybe Text)
-gbrbrsNextPageToken = lens _gbrbrsNextPageToken (\s a -> s {_gbrbrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetBundles@ request
+-- and specify the next page token using the @pageToken@ parameter.
+getBundlesResponse_nextPageToken :: Lens.Lens' GetBundlesResponse (Prelude.Maybe Prelude.Text)
+getBundlesResponse_nextPageToken = Lens.lens (\GetBundlesResponse' {nextPageToken} -> nextPageToken) (\s@GetBundlesResponse' {} a -> s {nextPageToken = a} :: GetBundlesResponse)
 
--- | An array of key-value pairs that contains information about the available bundles.
-gbrbrsBundles :: Lens' GetBundlesResponse [Bundle]
-gbrbrsBundles = lens _gbrbrsBundles (\s a -> s {_gbrbrsBundles = a}) . _Default . _Coerce
+-- | An array of key-value pairs that contains information about the
+-- available bundles.
+getBundlesResponse_bundles :: Lens.Lens' GetBundlesResponse (Prelude.Maybe [Bundle])
+getBundlesResponse_bundles = Lens.lens (\GetBundlesResponse' {bundles} -> bundles) (\s@GetBundlesResponse' {} a -> s {bundles = a} :: GetBundlesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gbrbrsResponseStatus :: Lens' GetBundlesResponse Int
-gbrbrsResponseStatus = lens _gbrbrsResponseStatus (\s a -> s {_gbrbrsResponseStatus = a})
+-- | The response's http status code.
+getBundlesResponse_httpStatus :: Lens.Lens' GetBundlesResponse Prelude.Int
+getBundlesResponse_httpStatus = Lens.lens (\GetBundlesResponse' {httpStatus} -> httpStatus) (\s@GetBundlesResponse' {} a -> s {httpStatus = a} :: GetBundlesResponse)
 
-instance NFData GetBundlesResponse
+instance Prelude.NFData GetBundlesResponse

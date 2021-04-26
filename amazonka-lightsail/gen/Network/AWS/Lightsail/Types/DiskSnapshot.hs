@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,175 +19,224 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.DiskSnapshot where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.DiskSnapshotState
 import Network.AWS.Lightsail.Types.ResourceLocation
 import Network.AWS.Lightsail.Types.ResourceType
 import Network.AWS.Lightsail.Types.Tag
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a block storage disk snapshot.
 --
---
---
--- /See:/ 'diskSnapshot' smart constructor.
+-- /See:/ 'newDiskSnapshot' smart constructor.
 data DiskSnapshot = DiskSnapshot'
-  { _dsIsFromAutoSnapshot ::
-      !(Maybe Bool),
-    _dsFromDiskName :: !(Maybe Text),
-    _dsCreatedAt :: !(Maybe POSIX),
-    _dsArn :: !(Maybe Text),
-    _dsFromInstanceARN :: !(Maybe Text),
-    _dsResourceType :: !(Maybe ResourceType),
-    _dsSupportCode :: !(Maybe Text),
-    _dsSizeInGb :: !(Maybe Int),
-    _dsState :: !(Maybe DiskSnapshotState),
-    _dsName :: !(Maybe Text),
-    _dsTags :: !(Maybe [Tag]),
-    _dsFromDiskARN :: !(Maybe Text),
-    _dsFromInstanceName :: !(Maybe Text),
-    _dsLocation :: !(Maybe ResourceLocation),
-    _dsProgress :: !(Maybe Text)
+  { -- | A Boolean value indicating whether the snapshot was created from an
+    -- automatic snapshot.
+    isFromAutoSnapshot :: Prelude.Maybe Prelude.Bool,
+    -- | The unique name of the source disk from which the disk snapshot was
+    -- created.
+    fromDiskName :: Prelude.Maybe Prelude.Text,
+    -- | The date when the disk snapshot was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the disk snapshot.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the source instance from which the
+    -- disk (system volume) snapshot was created.
+    fromInstanceArn :: Prelude.Maybe Prelude.Text,
+    -- | The Lightsail resource type (e.g., @DiskSnapshot@).
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The support code. Include this code in your email to support when you
+    -- have questions about an instance or another resource in Lightsail. This
+    -- code enables our support team to look up your Lightsail information more
+    -- easily.
+    supportCode :: Prelude.Maybe Prelude.Text,
+    -- | The size of the disk in GB.
+    sizeInGb :: Prelude.Maybe Prelude.Int,
+    -- | The status of the disk snapshot operation.
+    state :: Prelude.Maybe DiskSnapshotState,
+    -- | The name of the disk snapshot (e.g., @my-disk-snapshot@).
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The tag keys and optional values for the resource. For more information
+    -- about tags in Lightsail, see the
+    -- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide>.
+    tags :: Prelude.Maybe [Tag],
+    -- | The Amazon Resource Name (ARN) of the source disk from which the disk
+    -- snapshot was created.
+    fromDiskArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique name of the source instance from which the disk (system
+    -- volume) snapshot was created.
+    fromInstanceName :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region and Availability Zone where the disk snapshot was
+    -- created.
+    location :: Prelude.Maybe ResourceLocation,
+    -- | The progress of the snapshot.
+    progress :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DiskSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DiskSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsIsFromAutoSnapshot' - A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsFromDiskName' - The unique name of the source disk from which the disk snapshot was created.
+-- 'isFromAutoSnapshot', 'diskSnapshot_isFromAutoSnapshot' - A Boolean value indicating whether the snapshot was created from an
+-- automatic snapshot.
 --
--- * 'dsCreatedAt' - The date when the disk snapshot was created.
+-- 'fromDiskName', 'diskSnapshot_fromDiskName' - The unique name of the source disk from which the disk snapshot was
+-- created.
 --
--- * 'dsArn' - The Amazon Resource Name (ARN) of the disk snapshot.
+-- 'createdAt', 'diskSnapshot_createdAt' - The date when the disk snapshot was created.
 --
--- * 'dsFromInstanceARN' - The Amazon Resource Name (ARN) of the source instance from which the disk (system volume) snapshot was created.
+-- 'arn', 'diskSnapshot_arn' - The Amazon Resource Name (ARN) of the disk snapshot.
 --
--- * 'dsResourceType' - The Lightsail resource type (e.g., @DiskSnapshot@ ).
+-- 'fromInstanceArn', 'diskSnapshot_fromInstanceArn' - The Amazon Resource Name (ARN) of the source instance from which the
+-- disk (system volume) snapshot was created.
 --
--- * 'dsSupportCode' - The support code. Include this code in your email to support when you have questions about an instance or another resource in Lightsail. This code enables our support team to look up your Lightsail information more easily.
+-- 'resourceType', 'diskSnapshot_resourceType' - The Lightsail resource type (e.g., @DiskSnapshot@).
 --
--- * 'dsSizeInGb' - The size of the disk in GB.
+-- 'supportCode', 'diskSnapshot_supportCode' - The support code. Include this code in your email to support when you
+-- have questions about an instance or another resource in Lightsail. This
+-- code enables our support team to look up your Lightsail information more
+-- easily.
 --
--- * 'dsState' - The status of the disk snapshot operation.
+-- 'sizeInGb', 'diskSnapshot_sizeInGb' - The size of the disk in GB.
 --
--- * 'dsName' - The name of the disk snapshot (e.g., @my-disk-snapshot@ ).
+-- 'state', 'diskSnapshot_state' - The status of the disk snapshot operation.
 --
--- * 'dsTags' - The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide> .
+-- 'name', 'diskSnapshot_name' - The name of the disk snapshot (e.g., @my-disk-snapshot@).
 --
--- * 'dsFromDiskARN' - The Amazon Resource Name (ARN) of the source disk from which the disk snapshot was created.
+-- 'tags', 'diskSnapshot_tags' - The tag keys and optional values for the resource. For more information
+-- about tags in Lightsail, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide>.
 --
--- * 'dsFromInstanceName' - The unique name of the source instance from which the disk (system volume) snapshot was created.
+-- 'fromDiskArn', 'diskSnapshot_fromDiskArn' - The Amazon Resource Name (ARN) of the source disk from which the disk
+-- snapshot was created.
 --
--- * 'dsLocation' - The AWS Region and Availability Zone where the disk snapshot was created.
+-- 'fromInstanceName', 'diskSnapshot_fromInstanceName' - The unique name of the source instance from which the disk (system
+-- volume) snapshot was created.
 --
--- * 'dsProgress' - The progress of the snapshot.
-diskSnapshot ::
+-- 'location', 'diskSnapshot_location' - The AWS Region and Availability Zone where the disk snapshot was
+-- created.
+--
+-- 'progress', 'diskSnapshot_progress' - The progress of the snapshot.
+newDiskSnapshot ::
   DiskSnapshot
-diskSnapshot =
+newDiskSnapshot =
   DiskSnapshot'
-    { _dsIsFromAutoSnapshot = Nothing,
-      _dsFromDiskName = Nothing,
-      _dsCreatedAt = Nothing,
-      _dsArn = Nothing,
-      _dsFromInstanceARN = Nothing,
-      _dsResourceType = Nothing,
-      _dsSupportCode = Nothing,
-      _dsSizeInGb = Nothing,
-      _dsState = Nothing,
-      _dsName = Nothing,
-      _dsTags = Nothing,
-      _dsFromDiskARN = Nothing,
-      _dsFromInstanceName = Nothing,
-      _dsLocation = Nothing,
-      _dsProgress = Nothing
+    { isFromAutoSnapshot = Prelude.Nothing,
+      fromDiskName = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      fromInstanceArn = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      supportCode = Prelude.Nothing,
+      sizeInGb = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      fromDiskArn = Prelude.Nothing,
+      fromInstanceName = Prelude.Nothing,
+      location = Prelude.Nothing,
+      progress = Prelude.Nothing
     }
 
--- | A Boolean value indicating whether the snapshot was created from an automatic snapshot.
-dsIsFromAutoSnapshot :: Lens' DiskSnapshot (Maybe Bool)
-dsIsFromAutoSnapshot = lens _dsIsFromAutoSnapshot (\s a -> s {_dsIsFromAutoSnapshot = a})
+-- | A Boolean value indicating whether the snapshot was created from an
+-- automatic snapshot.
+diskSnapshot_isFromAutoSnapshot :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Bool)
+diskSnapshot_isFromAutoSnapshot = Lens.lens (\DiskSnapshot' {isFromAutoSnapshot} -> isFromAutoSnapshot) (\s@DiskSnapshot' {} a -> s {isFromAutoSnapshot = a} :: DiskSnapshot)
 
--- | The unique name of the source disk from which the disk snapshot was created.
-dsFromDiskName :: Lens' DiskSnapshot (Maybe Text)
-dsFromDiskName = lens _dsFromDiskName (\s a -> s {_dsFromDiskName = a})
+-- | The unique name of the source disk from which the disk snapshot was
+-- created.
+diskSnapshot_fromDiskName :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_fromDiskName = Lens.lens (\DiskSnapshot' {fromDiskName} -> fromDiskName) (\s@DiskSnapshot' {} a -> s {fromDiskName = a} :: DiskSnapshot)
 
 -- | The date when the disk snapshot was created.
-dsCreatedAt :: Lens' DiskSnapshot (Maybe UTCTime)
-dsCreatedAt = lens _dsCreatedAt (\s a -> s {_dsCreatedAt = a}) . mapping _Time
+diskSnapshot_createdAt :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.UTCTime)
+diskSnapshot_createdAt = Lens.lens (\DiskSnapshot' {createdAt} -> createdAt) (\s@DiskSnapshot' {} a -> s {createdAt = a} :: DiskSnapshot) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the disk snapshot.
-dsArn :: Lens' DiskSnapshot (Maybe Text)
-dsArn = lens _dsArn (\s a -> s {_dsArn = a})
+diskSnapshot_arn :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_arn = Lens.lens (\DiskSnapshot' {arn} -> arn) (\s@DiskSnapshot' {} a -> s {arn = a} :: DiskSnapshot)
 
--- | The Amazon Resource Name (ARN) of the source instance from which the disk (system volume) snapshot was created.
-dsFromInstanceARN :: Lens' DiskSnapshot (Maybe Text)
-dsFromInstanceARN = lens _dsFromInstanceARN (\s a -> s {_dsFromInstanceARN = a})
+-- | The Amazon Resource Name (ARN) of the source instance from which the
+-- disk (system volume) snapshot was created.
+diskSnapshot_fromInstanceArn :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_fromInstanceArn = Lens.lens (\DiskSnapshot' {fromInstanceArn} -> fromInstanceArn) (\s@DiskSnapshot' {} a -> s {fromInstanceArn = a} :: DiskSnapshot)
 
--- | The Lightsail resource type (e.g., @DiskSnapshot@ ).
-dsResourceType :: Lens' DiskSnapshot (Maybe ResourceType)
-dsResourceType = lens _dsResourceType (\s a -> s {_dsResourceType = a})
+-- | The Lightsail resource type (e.g., @DiskSnapshot@).
+diskSnapshot_resourceType :: Lens.Lens' DiskSnapshot (Prelude.Maybe ResourceType)
+diskSnapshot_resourceType = Lens.lens (\DiskSnapshot' {resourceType} -> resourceType) (\s@DiskSnapshot' {} a -> s {resourceType = a} :: DiskSnapshot)
 
--- | The support code. Include this code in your email to support when you have questions about an instance or another resource in Lightsail. This code enables our support team to look up your Lightsail information more easily.
-dsSupportCode :: Lens' DiskSnapshot (Maybe Text)
-dsSupportCode = lens _dsSupportCode (\s a -> s {_dsSupportCode = a})
+-- | The support code. Include this code in your email to support when you
+-- have questions about an instance or another resource in Lightsail. This
+-- code enables our support team to look up your Lightsail information more
+-- easily.
+diskSnapshot_supportCode :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_supportCode = Lens.lens (\DiskSnapshot' {supportCode} -> supportCode) (\s@DiskSnapshot' {} a -> s {supportCode = a} :: DiskSnapshot)
 
 -- | The size of the disk in GB.
-dsSizeInGb :: Lens' DiskSnapshot (Maybe Int)
-dsSizeInGb = lens _dsSizeInGb (\s a -> s {_dsSizeInGb = a})
+diskSnapshot_sizeInGb :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Int)
+diskSnapshot_sizeInGb = Lens.lens (\DiskSnapshot' {sizeInGb} -> sizeInGb) (\s@DiskSnapshot' {} a -> s {sizeInGb = a} :: DiskSnapshot)
 
 -- | The status of the disk snapshot operation.
-dsState :: Lens' DiskSnapshot (Maybe DiskSnapshotState)
-dsState = lens _dsState (\s a -> s {_dsState = a})
+diskSnapshot_state :: Lens.Lens' DiskSnapshot (Prelude.Maybe DiskSnapshotState)
+diskSnapshot_state = Lens.lens (\DiskSnapshot' {state} -> state) (\s@DiskSnapshot' {} a -> s {state = a} :: DiskSnapshot)
 
--- | The name of the disk snapshot (e.g., @my-disk-snapshot@ ).
-dsName :: Lens' DiskSnapshot (Maybe Text)
-dsName = lens _dsName (\s a -> s {_dsName = a})
+-- | The name of the disk snapshot (e.g., @my-disk-snapshot@).
+diskSnapshot_name :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_name = Lens.lens (\DiskSnapshot' {name} -> name) (\s@DiskSnapshot' {} a -> s {name = a} :: DiskSnapshot)
 
--- | The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide> .
-dsTags :: Lens' DiskSnapshot [Tag]
-dsTags = lens _dsTags (\s a -> s {_dsTags = a}) . _Default . _Coerce
+-- | The tag keys and optional values for the resource. For more information
+-- about tags in Lightsail, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags Lightsail Dev Guide>.
+diskSnapshot_tags :: Lens.Lens' DiskSnapshot (Prelude.Maybe [Tag])
+diskSnapshot_tags = Lens.lens (\DiskSnapshot' {tags} -> tags) (\s@DiskSnapshot' {} a -> s {tags = a} :: DiskSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of the source disk from which the disk snapshot was created.
-dsFromDiskARN :: Lens' DiskSnapshot (Maybe Text)
-dsFromDiskARN = lens _dsFromDiskARN (\s a -> s {_dsFromDiskARN = a})
+-- | The Amazon Resource Name (ARN) of the source disk from which the disk
+-- snapshot was created.
+diskSnapshot_fromDiskArn :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_fromDiskArn = Lens.lens (\DiskSnapshot' {fromDiskArn} -> fromDiskArn) (\s@DiskSnapshot' {} a -> s {fromDiskArn = a} :: DiskSnapshot)
 
--- | The unique name of the source instance from which the disk (system volume) snapshot was created.
-dsFromInstanceName :: Lens' DiskSnapshot (Maybe Text)
-dsFromInstanceName = lens _dsFromInstanceName (\s a -> s {_dsFromInstanceName = a})
+-- | The unique name of the source instance from which the disk (system
+-- volume) snapshot was created.
+diskSnapshot_fromInstanceName :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_fromInstanceName = Lens.lens (\DiskSnapshot' {fromInstanceName} -> fromInstanceName) (\s@DiskSnapshot' {} a -> s {fromInstanceName = a} :: DiskSnapshot)
 
--- | The AWS Region and Availability Zone where the disk snapshot was created.
-dsLocation :: Lens' DiskSnapshot (Maybe ResourceLocation)
-dsLocation = lens _dsLocation (\s a -> s {_dsLocation = a})
+-- | The AWS Region and Availability Zone where the disk snapshot was
+-- created.
+diskSnapshot_location :: Lens.Lens' DiskSnapshot (Prelude.Maybe ResourceLocation)
+diskSnapshot_location = Lens.lens (\DiskSnapshot' {location} -> location) (\s@DiskSnapshot' {} a -> s {location = a} :: DiskSnapshot)
 
 -- | The progress of the snapshot.
-dsProgress :: Lens' DiskSnapshot (Maybe Text)
-dsProgress = lens _dsProgress (\s a -> s {_dsProgress = a})
+diskSnapshot_progress :: Lens.Lens' DiskSnapshot (Prelude.Maybe Prelude.Text)
+diskSnapshot_progress = Lens.lens (\DiskSnapshot' {progress} -> progress) (\s@DiskSnapshot' {} a -> s {progress = a} :: DiskSnapshot)
 
-instance FromJSON DiskSnapshot where
+instance Prelude.FromJSON DiskSnapshot where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DiskSnapshot"
       ( \x ->
           DiskSnapshot'
-            <$> (x .:? "isFromAutoSnapshot")
-            <*> (x .:? "fromDiskName")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "arn")
-            <*> (x .:? "fromInstanceArn")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "supportCode")
-            <*> (x .:? "sizeInGb")
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "fromDiskArn")
-            <*> (x .:? "fromInstanceName")
-            <*> (x .:? "location")
-            <*> (x .:? "progress")
+            Prelude.<$> (x Prelude..:? "isFromAutoSnapshot")
+            Prelude.<*> (x Prelude..:? "fromDiskName")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "fromInstanceArn")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "supportCode")
+            Prelude.<*> (x Prelude..:? "sizeInGb")
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "fromDiskArn")
+            Prelude.<*> (x Prelude..:? "fromInstanceName")
+            Prelude.<*> (x Prelude..:? "location")
+            Prelude.<*> (x Prelude..:? "progress")
       )
 
-instance Hashable DiskSnapshot
+instance Prelude.Hashable DiskSnapshot
 
-instance NFData DiskSnapshot
+instance Prelude.NFData DiskSnapshot

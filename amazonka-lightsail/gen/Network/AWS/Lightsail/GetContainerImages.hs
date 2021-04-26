@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the container images that are registered to your Amazon Lightsail container service.
+-- Returns the container images that are registered to your Amazon
+-- Lightsail container service.
+--
+-- If you created a deployment on your Lightsail container service that
+-- uses container images from a public registry like Docker Hub, those
+-- images are not returned as part of this action. Those images are not
+-- registered to your Lightsail container service.
 module Network.AWS.Lightsail.GetContainerImages
   ( -- * Creating a Request
-    getContainerImages,
-    GetContainerImages,
+    GetContainerImages (..),
+    newGetContainerImages,
 
     -- * Request Lenses
-    gciServiceName,
+    getContainerImages_serviceName,
 
     -- * Destructuring the Response
-    getContainerImagesResponse,
-    GetContainerImagesResponse,
+    GetContainerImagesResponse (..),
+    newGetContainerImagesResponse,
 
     -- * Response Lenses
-    gcirrsContainerImages,
-    gcirrsResponseStatus,
+    getContainerImagesResponse_containerImages,
+    getContainerImagesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerImage
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerImages' smart constructor.
-newtype GetContainerImages = GetContainerImages'
-  { _gciServiceName ::
-      Text
+-- | /See:/ 'newGetContainerImages' smart constructor.
+data GetContainerImages = GetContainerImages'
+  { -- | The name of the container service for which to return registered
+    -- container images.
+    serviceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerImages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerImages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gciServiceName' - The name of the container service for which to return registered container images.
-getContainerImages ::
-  -- | 'gciServiceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'serviceName', 'getContainerImages_serviceName' - The name of the container service for which to return registered
+-- container images.
+newGetContainerImages ::
+  -- | 'serviceName'
+  Prelude.Text ->
   GetContainerImages
-getContainerImages pServiceName_ =
-  GetContainerImages'
-    { _gciServiceName =
-        pServiceName_
-    }
+newGetContainerImages pServiceName_ =
+  GetContainerImages' {serviceName = pServiceName_}
 
--- | The name of the container service for which to return registered container images.
-gciServiceName :: Lens' GetContainerImages Text
-gciServiceName = lens _gciServiceName (\s a -> s {_gciServiceName = a})
+-- | The name of the container service for which to return registered
+-- container images.
+getContainerImages_serviceName :: Lens.Lens' GetContainerImages Prelude.Text
+getContainerImages_serviceName = Lens.lens (\GetContainerImages' {serviceName} -> serviceName) (\s@GetContainerImages' {} a -> s {serviceName = a} :: GetContainerImages)
 
-instance AWSRequest GetContainerImages where
+instance Prelude.AWSRequest GetContainerImages where
   type
     Rs GetContainerImages =
       GetContainerImagesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerImagesResponse'
-            <$> (x .?> "containerImages" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "containerImages"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerImages
+instance Prelude.Hashable GetContainerImages
 
-instance NFData GetContainerImages
+instance Prelude.NFData GetContainerImages
 
-instance ToHeaders GetContainerImages where
+instance Prelude.ToHeaders GetContainerImages where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetContainerImages" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetContainerImages" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerImages where
+instance Prelude.ToJSON GetContainerImages where
   toJSON GetContainerImages' {..} =
-    object
-      (catMaybes [Just ("serviceName" .= _gciServiceName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("serviceName" Prelude..= serviceName)
+          ]
+      )
 
-instance ToPath GetContainerImages where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerImages where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerImages where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContainerImages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerImagesResponse' smart constructor.
+-- | /See:/ 'newGetContainerImagesResponse' smart constructor.
 data GetContainerImagesResponse = GetContainerImagesResponse'
-  { _gcirrsContainerImages ::
-      !( Maybe
-           [ContainerImage]
-       ),
-    _gcirrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe container images that are registered
+    -- to the container service.
+    containerImages :: Prelude.Maybe [ContainerImage],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerImagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerImagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcirrsContainerImages' - An array of objects that describe container images that are registered to the container service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcirrsResponseStatus' - -- | The response status code.
-getContainerImagesResponse ::
-  -- | 'gcirrsResponseStatus'
-  Int ->
+-- 'containerImages', 'getContainerImagesResponse_containerImages' - An array of objects that describe container images that are registered
+-- to the container service.
+--
+-- 'httpStatus', 'getContainerImagesResponse_httpStatus' - The response's http status code.
+newGetContainerImagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerImagesResponse
-getContainerImagesResponse pResponseStatus_ =
+newGetContainerImagesResponse pHttpStatus_ =
   GetContainerImagesResponse'
-    { _gcirrsContainerImages =
-        Nothing,
-      _gcirrsResponseStatus = pResponseStatus_
+    { containerImages =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe container images that are registered to the container service.
-gcirrsContainerImages :: Lens' GetContainerImagesResponse [ContainerImage]
-gcirrsContainerImages = lens _gcirrsContainerImages (\s a -> s {_gcirrsContainerImages = a}) . _Default . _Coerce
+-- | An array of objects that describe container images that are registered
+-- to the container service.
+getContainerImagesResponse_containerImages :: Lens.Lens' GetContainerImagesResponse (Prelude.Maybe [ContainerImage])
+getContainerImagesResponse_containerImages = Lens.lens (\GetContainerImagesResponse' {containerImages} -> containerImages) (\s@GetContainerImagesResponse' {} a -> s {containerImages = a} :: GetContainerImagesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcirrsResponseStatus :: Lens' GetContainerImagesResponse Int
-gcirrsResponseStatus = lens _gcirrsResponseStatus (\s a -> s {_gcirrsResponseStatus = a})
+-- | The response's http status code.
+getContainerImagesResponse_httpStatus :: Lens.Lens' GetContainerImagesResponse Prelude.Int
+getContainerImagesResponse_httpStatus = Lens.lens (\GetContainerImagesResponse' {httpStatus} -> httpStatus) (\s@GetContainerImagesResponse' {} a -> s {httpStatus = a} :: GetContainerImagesResponse)
 
-instance NFData GetContainerImagesResponse
+instance Prelude.NFData GetContainerImagesResponse

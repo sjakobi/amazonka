@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a snapshot of a specific virtual private server, or /instance/ . You can use a snapshot to create a new instance that is based on that snapshot.
+-- Creates a snapshot of a specific virtual private server, or /instance/.
+-- You can use a snapshot to create a new instance that is based on that
+-- snapshot.
 --
---
--- The @create instance snapshot@ operation supports tag-based access control via request tags. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @create instance snapshot@ operation supports tag-based access
+-- control via request tags. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.CreateInstanceSnapshot
   ( -- * Creating a Request
-    createInstanceSnapshot,
-    CreateInstanceSnapshot,
+    CreateInstanceSnapshot (..),
+    newCreateInstanceSnapshot,
 
     -- * Request Lenses
-    cisTags,
-    cisInstanceSnapshotName,
-    cisInstanceName,
+    createInstanceSnapshot_tags,
+    createInstanceSnapshot_instanceSnapshotName,
+    createInstanceSnapshot_instanceName,
 
     -- * Destructuring the Response
-    createInstanceSnapshotResponse,
-    CreateInstanceSnapshotResponse,
+    CreateInstanceSnapshotResponse (..),
+    newCreateInstanceSnapshotResponse,
 
     -- * Response Lenses
-    cisrrsOperations,
-    cisrrsResponseStatus,
+    createInstanceSnapshotResponse_operations,
+    createInstanceSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createInstanceSnapshot' smart constructor.
+-- | /See:/ 'newCreateInstanceSnapshot' smart constructor.
 data CreateInstanceSnapshot = CreateInstanceSnapshot'
-  { _cisTags ::
-      !(Maybe [Tag]),
-    _cisInstanceSnapshotName ::
-      !Text,
-    _cisInstanceName :: !Text
+  { -- | The tag keys and optional values to add to the resource during create.
+    --
+    -- Use the @TagResource@ action to tag a resource after it\'s created.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name for your new snapshot.
+    instanceSnapshotName :: Prelude.Text,
+    -- | The Lightsail instance on which to base your snapshot.
+    instanceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstanceSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstanceSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisTags' - The tag keys and optional values to add to the resource during create. Use the @TagResource@ action to tag a resource after it's created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisInstanceSnapshotName' - The name for your new snapshot.
+-- 'tags', 'createInstanceSnapshot_tags' - The tag keys and optional values to add to the resource during create.
 --
--- * 'cisInstanceName' - The Lightsail instance on which to base your snapshot.
-createInstanceSnapshot ::
-  -- | 'cisInstanceSnapshotName'
-  Text ->
-  -- | 'cisInstanceName'
-  Text ->
+-- Use the @TagResource@ action to tag a resource after it\'s created.
+--
+-- 'instanceSnapshotName', 'createInstanceSnapshot_instanceSnapshotName' - The name for your new snapshot.
+--
+-- 'instanceName', 'createInstanceSnapshot_instanceName' - The Lightsail instance on which to base your snapshot.
+newCreateInstanceSnapshot ::
+  -- | 'instanceSnapshotName'
+  Prelude.Text ->
+  -- | 'instanceName'
+  Prelude.Text ->
   CreateInstanceSnapshot
-createInstanceSnapshot
+newCreateInstanceSnapshot
   pInstanceSnapshotName_
   pInstanceName_ =
     CreateInstanceSnapshot'
-      { _cisTags = Nothing,
-        _cisInstanceSnapshotName = pInstanceSnapshotName_,
-        _cisInstanceName = pInstanceName_
+      { tags = Prelude.Nothing,
+        instanceSnapshotName = pInstanceSnapshotName_,
+        instanceName = pInstanceName_
       }
 
--- | The tag keys and optional values to add to the resource during create. Use the @TagResource@ action to tag a resource after it's created.
-cisTags :: Lens' CreateInstanceSnapshot [Tag]
-cisTags = lens _cisTags (\s a -> s {_cisTags = a}) . _Default . _Coerce
+-- | The tag keys and optional values to add to the resource during create.
+--
+-- Use the @TagResource@ action to tag a resource after it\'s created.
+createInstanceSnapshot_tags :: Lens.Lens' CreateInstanceSnapshot (Prelude.Maybe [Tag])
+createInstanceSnapshot_tags = Lens.lens (\CreateInstanceSnapshot' {tags} -> tags) (\s@CreateInstanceSnapshot' {} a -> s {tags = a} :: CreateInstanceSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name for your new snapshot.
-cisInstanceSnapshotName :: Lens' CreateInstanceSnapshot Text
-cisInstanceSnapshotName = lens _cisInstanceSnapshotName (\s a -> s {_cisInstanceSnapshotName = a})
+createInstanceSnapshot_instanceSnapshotName :: Lens.Lens' CreateInstanceSnapshot Prelude.Text
+createInstanceSnapshot_instanceSnapshotName = Lens.lens (\CreateInstanceSnapshot' {instanceSnapshotName} -> instanceSnapshotName) (\s@CreateInstanceSnapshot' {} a -> s {instanceSnapshotName = a} :: CreateInstanceSnapshot)
 
 -- | The Lightsail instance on which to base your snapshot.
-cisInstanceName :: Lens' CreateInstanceSnapshot Text
-cisInstanceName = lens _cisInstanceName (\s a -> s {_cisInstanceName = a})
+createInstanceSnapshot_instanceName :: Lens.Lens' CreateInstanceSnapshot Prelude.Text
+createInstanceSnapshot_instanceName = Lens.lens (\CreateInstanceSnapshot' {instanceName} -> instanceName) (\s@CreateInstanceSnapshot' {} a -> s {instanceName = a} :: CreateInstanceSnapshot)
 
-instance AWSRequest CreateInstanceSnapshot where
+instance Prelude.AWSRequest CreateInstanceSnapshot where
   type
     Rs CreateInstanceSnapshot =
       CreateInstanceSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateInstanceSnapshotResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateInstanceSnapshot
+instance Prelude.Hashable CreateInstanceSnapshot
 
-instance NFData CreateInstanceSnapshot
+instance Prelude.NFData CreateInstanceSnapshot
 
-instance ToHeaders CreateInstanceSnapshot where
+instance Prelude.ToHeaders CreateInstanceSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.CreateInstanceSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.CreateInstanceSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateInstanceSnapshot where
+instance Prelude.ToJSON CreateInstanceSnapshot where
   toJSON CreateInstanceSnapshot' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _cisTags,
-            Just
-              ("instanceSnapshotName" .= _cisInstanceSnapshotName),
-            Just ("instanceName" .= _cisInstanceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ( "instanceSnapshotName"
+                  Prelude..= instanceSnapshotName
+              ),
+            Prelude.Just
+              ("instanceName" Prelude..= instanceName)
           ]
       )
 
-instance ToPath CreateInstanceSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateInstanceSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateInstanceSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateInstanceSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createInstanceSnapshotResponse' smart constructor.
+-- | /See:/ 'newCreateInstanceSnapshotResponse' smart constructor.
 data CreateInstanceSnapshotResponse = CreateInstanceSnapshotResponse'
-  { _cisrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _cisrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstanceSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstanceSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisrrsResponseStatus' - -- | The response status code.
-createInstanceSnapshotResponse ::
-  -- | 'cisrrsResponseStatus'
-  Int ->
+-- 'operations', 'createInstanceSnapshotResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'createInstanceSnapshotResponse_httpStatus' - The response's http status code.
+newCreateInstanceSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateInstanceSnapshotResponse
-createInstanceSnapshotResponse pResponseStatus_ =
+newCreateInstanceSnapshotResponse pHttpStatus_ =
   CreateInstanceSnapshotResponse'
-    { _cisrrsOperations =
-        Nothing,
-      _cisrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-cisrrsOperations :: Lens' CreateInstanceSnapshotResponse [Operation]
-cisrrsOperations = lens _cisrrsOperations (\s a -> s {_cisrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+createInstanceSnapshotResponse_operations :: Lens.Lens' CreateInstanceSnapshotResponse (Prelude.Maybe [Operation])
+createInstanceSnapshotResponse_operations = Lens.lens (\CreateInstanceSnapshotResponse' {operations} -> operations) (\s@CreateInstanceSnapshotResponse' {} a -> s {operations = a} :: CreateInstanceSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cisrrsResponseStatus :: Lens' CreateInstanceSnapshotResponse Int
-cisrrsResponseStatus = lens _cisrrsResponseStatus (\s a -> s {_cisrrsResponseStatus = a})
+-- | The response's http status code.
+createInstanceSnapshotResponse_httpStatus :: Lens.Lens' CreateInstanceSnapshotResponse Prelude.Int
+createInstanceSnapshotResponse_httpStatus = Lens.lens (\CreateInstanceSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateInstanceSnapshotResponse' {} a -> s {httpStatus = a} :: CreateInstanceSnapshotResponse)
 
-instance NFData CreateInstanceSnapshotResponse
+instance
+  Prelude.NFData
+    CreateInstanceSnapshotResponse

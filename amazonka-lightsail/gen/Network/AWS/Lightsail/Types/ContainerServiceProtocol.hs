@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.Lightsail.Types.ContainerServiceProtocol
   ( ContainerServiceProtocol
       ( ..,
-        HTTP,
-        HTTPS,
-        TCP,
-        Udp
+        ContainerServiceProtocolHTTP,
+        ContainerServiceProtocolHTTPS,
+        ContainerServiceProtocolTCP,
+        ContainerServiceProtocolUDP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerServiceProtocol
-  = ContainerServiceProtocol'
-      ( CI
-          Text
-      )
+newtype ContainerServiceProtocol = ContainerServiceProtocol'
+  { fromContainerServiceProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTTP :: ContainerServiceProtocol
-pattern HTTP = ContainerServiceProtocol' "HTTP"
+pattern ContainerServiceProtocolHTTP :: ContainerServiceProtocol
+pattern ContainerServiceProtocolHTTP = ContainerServiceProtocol' "HTTP"
 
-pattern HTTPS :: ContainerServiceProtocol
-pattern HTTPS = ContainerServiceProtocol' "HTTPS"
+pattern ContainerServiceProtocolHTTPS :: ContainerServiceProtocol
+pattern ContainerServiceProtocolHTTPS = ContainerServiceProtocol' "HTTPS"
 
-pattern TCP :: ContainerServiceProtocol
-pattern TCP = ContainerServiceProtocol' "TCP"
+pattern ContainerServiceProtocolTCP :: ContainerServiceProtocol
+pattern ContainerServiceProtocolTCP = ContainerServiceProtocol' "TCP"
 
-pattern Udp :: ContainerServiceProtocol
-pattern Udp = ContainerServiceProtocol' "UDP"
+pattern ContainerServiceProtocolUDP :: ContainerServiceProtocol
+pattern ContainerServiceProtocolUDP = ContainerServiceProtocol' "UDP"
 
 {-# COMPLETE
-  HTTP,
-  HTTPS,
-  TCP,
-  Udp,
+  ContainerServiceProtocolHTTP,
+  ContainerServiceProtocolHTTPS,
+  ContainerServiceProtocolTCP,
+  ContainerServiceProtocolUDP,
   ContainerServiceProtocol'
   #-}
 
-instance FromText ContainerServiceProtocol where
-  parser = (ContainerServiceProtocol' . mk) <$> takeText
+instance Prelude.FromText ContainerServiceProtocol where
+  parser = ContainerServiceProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerServiceProtocol where
-  toText (ContainerServiceProtocol' ci) = original ci
+instance Prelude.ToText ContainerServiceProtocol where
+  toText (ContainerServiceProtocol' x) = x
 
-instance Hashable ContainerServiceProtocol
+instance Prelude.Hashable ContainerServiceProtocol
 
-instance NFData ContainerServiceProtocol
+instance Prelude.NFData ContainerServiceProtocol
 
-instance ToByteString ContainerServiceProtocol
+instance Prelude.ToByteString ContainerServiceProtocol
 
-instance ToQuery ContainerServiceProtocol
+instance Prelude.ToQuery ContainerServiceProtocol
 
-instance ToHeader ContainerServiceProtocol
+instance Prelude.ToHeader ContainerServiceProtocol
 
-instance ToJSON ContainerServiceProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerServiceProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContainerServiceProtocol where
-  parseJSON = parseJSONText "ContainerServiceProtocol"
+instance Prelude.FromJSON ContainerServiceProtocol where
+  parseJSON = Prelude.parseJSONText "ContainerServiceProtocol"

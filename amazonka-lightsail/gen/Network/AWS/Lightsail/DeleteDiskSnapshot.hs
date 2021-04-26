@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,152 +23,168 @@
 --
 -- Deletes the specified disk snapshot.
 --
+-- When you make periodic snapshots of a disk, the snapshots are
+-- incremental, and only the blocks on the device that have changed since
+-- your last snapshot are saved in the new snapshot. When you delete a
+-- snapshot, only the data not needed for any other snapshot is removed. So
+-- regardless of which prior snapshots have been deleted, all active
+-- snapshots will have access to all the information needed to restore the
+-- disk.
 --
--- When you make periodic snapshots of a disk, the snapshots are incremental, and only the blocks on the device that have changed since your last snapshot are saved in the new snapshot. When you delete a snapshot, only the data not needed for any other snapshot is removed. So regardless of which prior snapshots have been deleted, all active snapshots will have access to all the information needed to restore the disk.
---
--- The @delete disk snapshot@ operation supports tag-based access control via resource tags applied to the resource identified by @disk snapshot name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @delete disk snapshot@ operation supports tag-based access control
+-- via resource tags applied to the resource identified by
+-- @disk snapshot name@. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.DeleteDiskSnapshot
   ( -- * Creating a Request
-    deleteDiskSnapshot,
-    DeleteDiskSnapshot,
+    DeleteDiskSnapshot (..),
+    newDeleteDiskSnapshot,
 
     -- * Request Lenses
-    ddsDiskSnapshotName,
+    deleteDiskSnapshot_diskSnapshotName,
 
     -- * Destructuring the Response
-    deleteDiskSnapshotResponse,
-    DeleteDiskSnapshotResponse,
+    DeleteDiskSnapshotResponse (..),
+    newDeleteDiskSnapshotResponse,
 
     -- * Response Lenses
-    ddsrrsOperations,
-    ddsrrsResponseStatus,
+    deleteDiskSnapshotResponse_operations,
+    deleteDiskSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDiskSnapshot' smart constructor.
-newtype DeleteDiskSnapshot = DeleteDiskSnapshot'
-  { _ddsDiskSnapshotName ::
-      Text
+-- | /See:/ 'newDeleteDiskSnapshot' smart constructor.
+data DeleteDiskSnapshot = DeleteDiskSnapshot'
+  { -- | The name of the disk snapshot you want to delete (e.g.,
+    -- @my-disk-snapshot@).
+    diskSnapshotName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDiskSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDiskSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddsDiskSnapshotName' - The name of the disk snapshot you want to delete (e.g., @my-disk-snapshot@ ).
-deleteDiskSnapshot ::
-  -- | 'ddsDiskSnapshotName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'diskSnapshotName', 'deleteDiskSnapshot_diskSnapshotName' - The name of the disk snapshot you want to delete (e.g.,
+-- @my-disk-snapshot@).
+newDeleteDiskSnapshot ::
+  -- | 'diskSnapshotName'
+  Prelude.Text ->
   DeleteDiskSnapshot
-deleteDiskSnapshot pDiskSnapshotName_ =
+newDeleteDiskSnapshot pDiskSnapshotName_ =
   DeleteDiskSnapshot'
-    { _ddsDiskSnapshotName =
+    { diskSnapshotName =
         pDiskSnapshotName_
     }
 
--- | The name of the disk snapshot you want to delete (e.g., @my-disk-snapshot@ ).
-ddsDiskSnapshotName :: Lens' DeleteDiskSnapshot Text
-ddsDiskSnapshotName = lens _ddsDiskSnapshotName (\s a -> s {_ddsDiskSnapshotName = a})
+-- | The name of the disk snapshot you want to delete (e.g.,
+-- @my-disk-snapshot@).
+deleteDiskSnapshot_diskSnapshotName :: Lens.Lens' DeleteDiskSnapshot Prelude.Text
+deleteDiskSnapshot_diskSnapshotName = Lens.lens (\DeleteDiskSnapshot' {diskSnapshotName} -> diskSnapshotName) (\s@DeleteDiskSnapshot' {} a -> s {diskSnapshotName = a} :: DeleteDiskSnapshot)
 
-instance AWSRequest DeleteDiskSnapshot where
+instance Prelude.AWSRequest DeleteDiskSnapshot where
   type
     Rs DeleteDiskSnapshot =
       DeleteDiskSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDiskSnapshotResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDiskSnapshot
+instance Prelude.Hashable DeleteDiskSnapshot
 
-instance NFData DeleteDiskSnapshot
+instance Prelude.NFData DeleteDiskSnapshot
 
-instance ToHeaders DeleteDiskSnapshot where
+instance Prelude.ToHeaders DeleteDiskSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DeleteDiskSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DeleteDiskSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDiskSnapshot where
+instance Prelude.ToJSON DeleteDiskSnapshot where
   toJSON DeleteDiskSnapshot' {..} =
-    object
-      ( catMaybes
-          [Just ("diskSnapshotName" .= _ddsDiskSnapshotName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("diskSnapshotName" Prelude..= diskSnapshotName)
+          ]
       )
 
-instance ToPath DeleteDiskSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDiskSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDiskSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDiskSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDiskSnapshotResponse' smart constructor.
+-- | /See:/ 'newDeleteDiskSnapshotResponse' smart constructor.
 data DeleteDiskSnapshotResponse = DeleteDiskSnapshotResponse'
-  { _ddsrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _ddsrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDiskSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDiskSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddsrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddsrrsResponseStatus' - -- | The response status code.
-deleteDiskSnapshotResponse ::
-  -- | 'ddsrrsResponseStatus'
-  Int ->
+-- 'operations', 'deleteDiskSnapshotResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'deleteDiskSnapshotResponse_httpStatus' - The response's http status code.
+newDeleteDiskSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDiskSnapshotResponse
-deleteDiskSnapshotResponse pResponseStatus_ =
+newDeleteDiskSnapshotResponse pHttpStatus_ =
   DeleteDiskSnapshotResponse'
-    { _ddsrrsOperations =
-        Nothing,
-      _ddsrrsResponseStatus = pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-ddsrrsOperations :: Lens' DeleteDiskSnapshotResponse [Operation]
-ddsrrsOperations = lens _ddsrrsOperations (\s a -> s {_ddsrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+deleteDiskSnapshotResponse_operations :: Lens.Lens' DeleteDiskSnapshotResponse (Prelude.Maybe [Operation])
+deleteDiskSnapshotResponse_operations = Lens.lens (\DeleteDiskSnapshotResponse' {operations} -> operations) (\s@DeleteDiskSnapshotResponse' {} a -> s {operations = a} :: DeleteDiskSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ddsrrsResponseStatus :: Lens' DeleteDiskSnapshotResponse Int
-ddsrrsResponseStatus = lens _ddsrrsResponseStatus (\s a -> s {_ddsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDiskSnapshotResponse_httpStatus :: Lens.Lens' DeleteDiskSnapshotResponse Prelude.Int
+deleteDiskSnapshotResponse_httpStatus = Lens.lens (\DeleteDiskSnapshotResponse' {httpStatus} -> httpStatus) (\s@DeleteDiskSnapshotResponse' {} a -> s {httpStatus = a} :: DeleteDiskSnapshotResponse)
 
-instance NFData DeleteDiskSnapshotResponse
+instance Prelude.NFData DeleteDiskSnapshotResponse

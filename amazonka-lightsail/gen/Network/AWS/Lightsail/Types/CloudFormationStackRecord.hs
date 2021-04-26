@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,140 +19,145 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.CloudFormationStackRecord where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.CloudFormationStackRecordSourceInfo
 import Network.AWS.Lightsail.Types.DestinationInfo
 import Network.AWS.Lightsail.Types.RecordState
 import Network.AWS.Lightsail.Types.ResourceLocation
 import Network.AWS.Lightsail.Types.ResourceType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a CloudFormation stack record created as a result of the @create cloud formation stack@ operation.
+-- | Describes a CloudFormation stack record created as a result of the
+-- @create cloud formation stack@ operation.
 --
+-- A CloudFormation stack record provides information about the AWS
+-- CloudFormation stack used to create a new Amazon Elastic Compute Cloud
+-- instance from an exported Lightsail instance snapshot.
 --
--- A CloudFormation stack record provides information about the AWS CloudFormation stack used to create a new Amazon Elastic Compute Cloud instance from an exported Lightsail instance snapshot.
---
---
--- /See:/ 'cloudFormationStackRecord' smart constructor.
+-- /See:/ 'newCloudFormationStackRecord' smart constructor.
 data CloudFormationStackRecord = CloudFormationStackRecord'
-  { _cfsrCreatedAt ::
-      !(Maybe POSIX),
-    _cfsrArn ::
-      !(Maybe Text),
-    _cfsrResourceType ::
-      !( Maybe
-           ResourceType
-       ),
-    _cfsrState ::
-      !( Maybe
-           RecordState
-       ),
-    _cfsrName ::
-      !(Maybe Text),
-    _cfsrSourceInfo ::
-      !( Maybe
-           [CloudFormationStackRecordSourceInfo]
-       ),
-    _cfsrLocation ::
-      !( Maybe
-           ResourceLocation
-       ),
-    _cfsrDestinationInfo ::
-      !( Maybe
-           DestinationInfo
-       )
+  { -- | The date when the CloudFormation stack record was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the CloudFormation stack record.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The Lightsail resource type (e.g., @CloudFormationStackRecord@).
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The current state of the CloudFormation stack record.
+    state :: Prelude.Maybe RecordState,
+    -- | The name of the CloudFormation stack record. It starts with
+    -- @CloudFormationStackRecord@ followed by a GUID.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A list of objects describing the source of the CloudFormation stack
+    -- record.
+    sourceInfo :: Prelude.Maybe [CloudFormationStackRecordSourceInfo],
+    -- | A list of objects describing the Availability Zone and AWS Region of the
+    -- CloudFormation stack record.
+    location :: Prelude.Maybe ResourceLocation,
+    -- | A list of objects describing the destination service, which is AWS
+    -- CloudFormation, and the Amazon Resource Name (ARN) of the AWS
+    -- CloudFormation stack.
+    destinationInfo :: Prelude.Maybe DestinationInfo
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudFormationStackRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudFormationStackRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfsrCreatedAt' - The date when the CloudFormation stack record was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfsrArn' - The Amazon Resource Name (ARN) of the CloudFormation stack record.
+-- 'createdAt', 'cloudFormationStackRecord_createdAt' - The date when the CloudFormation stack record was created.
 --
--- * 'cfsrResourceType' - The Lightsail resource type (e.g., @CloudFormationStackRecord@ ).
+-- 'arn', 'cloudFormationStackRecord_arn' - The Amazon Resource Name (ARN) of the CloudFormation stack record.
 --
--- * 'cfsrState' - The current state of the CloudFormation stack record.
+-- 'resourceType', 'cloudFormationStackRecord_resourceType' - The Lightsail resource type (e.g., @CloudFormationStackRecord@).
 --
--- * 'cfsrName' - The name of the CloudFormation stack record. It starts with @CloudFormationStackRecord@ followed by a GUID.
+-- 'state', 'cloudFormationStackRecord_state' - The current state of the CloudFormation stack record.
 --
--- * 'cfsrSourceInfo' - A list of objects describing the source of the CloudFormation stack record.
+-- 'name', 'cloudFormationStackRecord_name' - The name of the CloudFormation stack record. It starts with
+-- @CloudFormationStackRecord@ followed by a GUID.
 --
--- * 'cfsrLocation' - A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+-- 'sourceInfo', 'cloudFormationStackRecord_sourceInfo' - A list of objects describing the source of the CloudFormation stack
+-- record.
 --
--- * 'cfsrDestinationInfo' - A list of objects describing the destination service, which is AWS CloudFormation, and the Amazon Resource Name (ARN) of the AWS CloudFormation stack.
-cloudFormationStackRecord ::
+-- 'location', 'cloudFormationStackRecord_location' - A list of objects describing the Availability Zone and AWS Region of the
+-- CloudFormation stack record.
+--
+-- 'destinationInfo', 'cloudFormationStackRecord_destinationInfo' - A list of objects describing the destination service, which is AWS
+-- CloudFormation, and the Amazon Resource Name (ARN) of the AWS
+-- CloudFormation stack.
+newCloudFormationStackRecord ::
   CloudFormationStackRecord
-cloudFormationStackRecord =
+newCloudFormationStackRecord =
   CloudFormationStackRecord'
-    { _cfsrCreatedAt =
-        Nothing,
-      _cfsrArn = Nothing,
-      _cfsrResourceType = Nothing,
-      _cfsrState = Nothing,
-      _cfsrName = Nothing,
-      _cfsrSourceInfo = Nothing,
-      _cfsrLocation = Nothing,
-      _cfsrDestinationInfo = Nothing
+    { createdAt =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      sourceInfo = Prelude.Nothing,
+      location = Prelude.Nothing,
+      destinationInfo = Prelude.Nothing
     }
 
 -- | The date when the CloudFormation stack record was created.
-cfsrCreatedAt :: Lens' CloudFormationStackRecord (Maybe UTCTime)
-cfsrCreatedAt = lens _cfsrCreatedAt (\s a -> s {_cfsrCreatedAt = a}) . mapping _Time
+cloudFormationStackRecord_createdAt :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe Prelude.UTCTime)
+cloudFormationStackRecord_createdAt = Lens.lens (\CloudFormationStackRecord' {createdAt} -> createdAt) (\s@CloudFormationStackRecord' {} a -> s {createdAt = a} :: CloudFormationStackRecord) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the CloudFormation stack record.
-cfsrArn :: Lens' CloudFormationStackRecord (Maybe Text)
-cfsrArn = lens _cfsrArn (\s a -> s {_cfsrArn = a})
+cloudFormationStackRecord_arn :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe Prelude.Text)
+cloudFormationStackRecord_arn = Lens.lens (\CloudFormationStackRecord' {arn} -> arn) (\s@CloudFormationStackRecord' {} a -> s {arn = a} :: CloudFormationStackRecord)
 
--- | The Lightsail resource type (e.g., @CloudFormationStackRecord@ ).
-cfsrResourceType :: Lens' CloudFormationStackRecord (Maybe ResourceType)
-cfsrResourceType = lens _cfsrResourceType (\s a -> s {_cfsrResourceType = a})
+-- | The Lightsail resource type (e.g., @CloudFormationStackRecord@).
+cloudFormationStackRecord_resourceType :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe ResourceType)
+cloudFormationStackRecord_resourceType = Lens.lens (\CloudFormationStackRecord' {resourceType} -> resourceType) (\s@CloudFormationStackRecord' {} a -> s {resourceType = a} :: CloudFormationStackRecord)
 
 -- | The current state of the CloudFormation stack record.
-cfsrState :: Lens' CloudFormationStackRecord (Maybe RecordState)
-cfsrState = lens _cfsrState (\s a -> s {_cfsrState = a})
+cloudFormationStackRecord_state :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe RecordState)
+cloudFormationStackRecord_state = Lens.lens (\CloudFormationStackRecord' {state} -> state) (\s@CloudFormationStackRecord' {} a -> s {state = a} :: CloudFormationStackRecord)
 
--- | The name of the CloudFormation stack record. It starts with @CloudFormationStackRecord@ followed by a GUID.
-cfsrName :: Lens' CloudFormationStackRecord (Maybe Text)
-cfsrName = lens _cfsrName (\s a -> s {_cfsrName = a})
+-- | The name of the CloudFormation stack record. It starts with
+-- @CloudFormationStackRecord@ followed by a GUID.
+cloudFormationStackRecord_name :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe Prelude.Text)
+cloudFormationStackRecord_name = Lens.lens (\CloudFormationStackRecord' {name} -> name) (\s@CloudFormationStackRecord' {} a -> s {name = a} :: CloudFormationStackRecord)
 
--- | A list of objects describing the source of the CloudFormation stack record.
-cfsrSourceInfo :: Lens' CloudFormationStackRecord [CloudFormationStackRecordSourceInfo]
-cfsrSourceInfo = lens _cfsrSourceInfo (\s a -> s {_cfsrSourceInfo = a}) . _Default . _Coerce
+-- | A list of objects describing the source of the CloudFormation stack
+-- record.
+cloudFormationStackRecord_sourceInfo :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe [CloudFormationStackRecordSourceInfo])
+cloudFormationStackRecord_sourceInfo = Lens.lens (\CloudFormationStackRecord' {sourceInfo} -> sourceInfo) (\s@CloudFormationStackRecord' {} a -> s {sourceInfo = a} :: CloudFormationStackRecord) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
-cfsrLocation :: Lens' CloudFormationStackRecord (Maybe ResourceLocation)
-cfsrLocation = lens _cfsrLocation (\s a -> s {_cfsrLocation = a})
+-- | A list of objects describing the Availability Zone and AWS Region of the
+-- CloudFormation stack record.
+cloudFormationStackRecord_location :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe ResourceLocation)
+cloudFormationStackRecord_location = Lens.lens (\CloudFormationStackRecord' {location} -> location) (\s@CloudFormationStackRecord' {} a -> s {location = a} :: CloudFormationStackRecord)
 
--- | A list of objects describing the destination service, which is AWS CloudFormation, and the Amazon Resource Name (ARN) of the AWS CloudFormation stack.
-cfsrDestinationInfo :: Lens' CloudFormationStackRecord (Maybe DestinationInfo)
-cfsrDestinationInfo = lens _cfsrDestinationInfo (\s a -> s {_cfsrDestinationInfo = a})
+-- | A list of objects describing the destination service, which is AWS
+-- CloudFormation, and the Amazon Resource Name (ARN) of the AWS
+-- CloudFormation stack.
+cloudFormationStackRecord_destinationInfo :: Lens.Lens' CloudFormationStackRecord (Prelude.Maybe DestinationInfo)
+cloudFormationStackRecord_destinationInfo = Lens.lens (\CloudFormationStackRecord' {destinationInfo} -> destinationInfo) (\s@CloudFormationStackRecord' {} a -> s {destinationInfo = a} :: CloudFormationStackRecord)
 
-instance FromJSON CloudFormationStackRecord where
+instance Prelude.FromJSON CloudFormationStackRecord where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudFormationStackRecord"
       ( \x ->
           CloudFormationStackRecord'
-            <$> (x .:? "createdAt")
-            <*> (x .:? "arn")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "sourceInfo" .!= mempty)
-            <*> (x .:? "location")
-            <*> (x .:? "destinationInfo")
+            Prelude.<$> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "sourceInfo"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "location")
+            Prelude.<*> (x Prelude..:? "destinationInfo")
       )
 
-instance Hashable CloudFormationStackRecord
+instance Prelude.Hashable CloudFormationStackRecord
 
-instance NFData CloudFormationStackRecord
+instance Prelude.NFData CloudFormationStackRecord

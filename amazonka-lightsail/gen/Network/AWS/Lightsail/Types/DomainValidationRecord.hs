@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.DomainValidationRecord where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.ResourceRecord
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the domain validation records of an Amazon Lightsail SSL/TLS certificate.
+-- | Describes the domain validation records of an Amazon Lightsail SSL\/TLS
+-- certificate.
 --
---
---
--- /See:/ 'domainValidationRecord' smart constructor.
+-- /See:/ 'newDomainValidationRecord' smart constructor.
 data DomainValidationRecord = DomainValidationRecord'
-  { _dvrResourceRecord ::
-      !(Maybe ResourceRecord),
-    _dvrDomainName ::
-      !(Maybe Text)
+  { -- | An object that describes the DNS records to add to your domain\'s DNS to
+    -- validate it for the certificate.
+    resourceRecord :: Prelude.Maybe ResourceRecord,
+    -- | The domain name of the certificate validation record. For example,
+    -- @example.com@ or @www.example.com@.
+    domainName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainValidationRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainValidationRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvrResourceRecord' - An object that describes the DNS records to add to your domain's DNS to validate it for the certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvrDomainName' - The domain name of the certificate validation record. For example, @example.com@ or @www.example.com@ .
-domainValidationRecord ::
+-- 'resourceRecord', 'domainValidationRecord_resourceRecord' - An object that describes the DNS records to add to your domain\'s DNS to
+-- validate it for the certificate.
+--
+-- 'domainName', 'domainValidationRecord_domainName' - The domain name of the certificate validation record. For example,
+-- @example.com@ or @www.example.com@.
+newDomainValidationRecord ::
   DomainValidationRecord
-domainValidationRecord =
+newDomainValidationRecord =
   DomainValidationRecord'
-    { _dvrResourceRecord =
-        Nothing,
-      _dvrDomainName = Nothing
+    { resourceRecord =
+        Prelude.Nothing,
+      domainName = Prelude.Nothing
     }
 
--- | An object that describes the DNS records to add to your domain's DNS to validate it for the certificate.
-dvrResourceRecord :: Lens' DomainValidationRecord (Maybe ResourceRecord)
-dvrResourceRecord = lens _dvrResourceRecord (\s a -> s {_dvrResourceRecord = a})
+-- | An object that describes the DNS records to add to your domain\'s DNS to
+-- validate it for the certificate.
+domainValidationRecord_resourceRecord :: Lens.Lens' DomainValidationRecord (Prelude.Maybe ResourceRecord)
+domainValidationRecord_resourceRecord = Lens.lens (\DomainValidationRecord' {resourceRecord} -> resourceRecord) (\s@DomainValidationRecord' {} a -> s {resourceRecord = a} :: DomainValidationRecord)
 
--- | The domain name of the certificate validation record. For example, @example.com@ or @www.example.com@ .
-dvrDomainName :: Lens' DomainValidationRecord (Maybe Text)
-dvrDomainName = lens _dvrDomainName (\s a -> s {_dvrDomainName = a})
+-- | The domain name of the certificate validation record. For example,
+-- @example.com@ or @www.example.com@.
+domainValidationRecord_domainName :: Lens.Lens' DomainValidationRecord (Prelude.Maybe Prelude.Text)
+domainValidationRecord_domainName = Lens.lens (\DomainValidationRecord' {domainName} -> domainName) (\s@DomainValidationRecord' {} a -> s {domainName = a} :: DomainValidationRecord)
 
-instance FromJSON DomainValidationRecord where
+instance Prelude.FromJSON DomainValidationRecord where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainValidationRecord"
       ( \x ->
           DomainValidationRecord'
-            <$> (x .:? "resourceRecord") <*> (x .:? "domainName")
+            Prelude.<$> (x Prelude..:? "resourceRecord")
+            Prelude.<*> (x Prelude..:? "domainName")
       )
 
-instance Hashable DomainValidationRecord
+instance Prelude.Hashable DomainValidationRecord
 
-instance NFData DomainValidationRecord
+instance Prelude.NFData DomainValidationRecord

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Lightsail.Types.ContainerServiceMetricName
   ( ContainerServiceMetricName
       ( ..,
-        CPUUtilization,
-        MemoryUtilization
+        ContainerServiceMetricNameCPUUtilization,
+        ContainerServiceMetricNameMemoryUtilization
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerServiceMetricName
-  = ContainerServiceMetricName'
-      ( CI
-          Text
-      )
+newtype ContainerServiceMetricName = ContainerServiceMetricName'
+  { fromContainerServiceMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPUUtilization :: ContainerServiceMetricName
-pattern CPUUtilization = ContainerServiceMetricName' "CPUUtilization"
+pattern ContainerServiceMetricNameCPUUtilization :: ContainerServiceMetricName
+pattern ContainerServiceMetricNameCPUUtilization = ContainerServiceMetricName' "CPUUtilization"
 
-pattern MemoryUtilization :: ContainerServiceMetricName
-pattern MemoryUtilization = ContainerServiceMetricName' "MemoryUtilization"
+pattern ContainerServiceMetricNameMemoryUtilization :: ContainerServiceMetricName
+pattern ContainerServiceMetricNameMemoryUtilization = ContainerServiceMetricName' "MemoryUtilization"
 
 {-# COMPLETE
-  CPUUtilization,
-  MemoryUtilization,
+  ContainerServiceMetricNameCPUUtilization,
+  ContainerServiceMetricNameMemoryUtilization,
   ContainerServiceMetricName'
   #-}
 
-instance FromText ContainerServiceMetricName where
-  parser = (ContainerServiceMetricName' . mk) <$> takeText
+instance Prelude.FromText ContainerServiceMetricName where
+  parser = ContainerServiceMetricName' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerServiceMetricName where
-  toText (ContainerServiceMetricName' ci) = original ci
+instance Prelude.ToText ContainerServiceMetricName where
+  toText (ContainerServiceMetricName' x) = x
 
-instance Hashable ContainerServiceMetricName
+instance Prelude.Hashable ContainerServiceMetricName
 
-instance NFData ContainerServiceMetricName
+instance Prelude.NFData ContainerServiceMetricName
 
-instance ToByteString ContainerServiceMetricName
+instance Prelude.ToByteString ContainerServiceMetricName
 
-instance ToQuery ContainerServiceMetricName
+instance Prelude.ToQuery ContainerServiceMetricName
 
-instance ToHeader ContainerServiceMetricName
+instance Prelude.ToHeader ContainerServiceMetricName
 
-instance ToJSON ContainerServiceMetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerServiceMetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContainerServiceMetricName where
-  parseJSON = parseJSONText "ContainerServiceMetricName"
+instance Prelude.FromJSON ContainerServiceMetricName where
+  parseJSON = Prelude.parseJSONText "ContainerServiceMetricName"

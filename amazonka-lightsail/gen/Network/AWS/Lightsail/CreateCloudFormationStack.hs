@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an AWS CloudFormation stack, which creates a new Amazon EC2 instance from an exported Amazon Lightsail snapshot. This operation results in a CloudFormation stack record that can be used to track the AWS CloudFormation stack created. Use the @get cloud formation stack records@ operation to get a list of the CloudFormation stacks created.
+-- Creates an AWS CloudFormation stack, which creates a new Amazon EC2
+-- instance from an exported Amazon Lightsail snapshot. This operation
+-- results in a CloudFormation stack record that can be used to track the
+-- AWS CloudFormation stack created. Use the
+-- @get cloud formation stack records@ operation to get a list of the
+-- CloudFormation stacks created.
 --
---
--- /Important:/ Wait until after your new Amazon EC2 instance is created before running the @create cloud formation stack@ operation again with the same export snapshot record.
+-- Wait until after your new Amazon EC2 instance is created before running
+-- the @create cloud formation stack@ operation again with the same export
+-- snapshot record.
 module Network.AWS.Lightsail.CreateCloudFormationStack
   ( -- * Creating a Request
-    createCloudFormationStack,
-    CreateCloudFormationStack,
+    CreateCloudFormationStack (..),
+    newCreateCloudFormationStack,
 
     -- * Request Lenses
-    ccfsInstances,
+    createCloudFormationStack_instances,
 
     -- * Destructuring the Response
-    createCloudFormationStackResponse,
-    CreateCloudFormationStackResponse,
+    CreateCloudFormationStackResponse (..),
+    newCreateCloudFormationStackResponse,
 
     -- * Response Lenses
-    ccfsrrsOperations,
-    ccfsrrsResponseStatus,
+    createCloudFormationStackResponse_operations,
+    createCloudFormationStackResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCloudFormationStack' smart constructor.
-newtype CreateCloudFormationStack = CreateCloudFormationStack'
-  { _ccfsInstances ::
-      [InstanceEntry]
+-- | /See:/ 'newCreateCloudFormationStack' smart constructor.
+data CreateCloudFormationStack = CreateCloudFormationStack'
+  { -- | An array of parameters that will be used to create the new Amazon EC2
+    -- instance. You can only pass one instance entry at a time in this array.
+    -- You will get an invalid parameter error if you pass more than one
+    -- instance entry in this array.
+    instances :: [InstanceEntry]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCloudFormationStack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCloudFormationStack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccfsInstances' - An array of parameters that will be used to create the new Amazon EC2 instance. You can only pass one instance entry at a time in this array. You will get an invalid parameter error if you pass more than one instance entry in this array.
-createCloudFormationStack ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instances', 'createCloudFormationStack_instances' - An array of parameters that will be used to create the new Amazon EC2
+-- instance. You can only pass one instance entry at a time in this array.
+-- You will get an invalid parameter error if you pass more than one
+-- instance entry in this array.
+newCreateCloudFormationStack ::
   CreateCloudFormationStack
-createCloudFormationStack =
-  CreateCloudFormationStack' {_ccfsInstances = mempty}
+newCreateCloudFormationStack =
+  CreateCloudFormationStack'
+    { instances =
+        Prelude.mempty
+    }
 
--- | An array of parameters that will be used to create the new Amazon EC2 instance. You can only pass one instance entry at a time in this array. You will get an invalid parameter error if you pass more than one instance entry in this array.
-ccfsInstances :: Lens' CreateCloudFormationStack [InstanceEntry]
-ccfsInstances = lens _ccfsInstances (\s a -> s {_ccfsInstances = a}) . _Coerce
+-- | An array of parameters that will be used to create the new Amazon EC2
+-- instance. You can only pass one instance entry at a time in this array.
+-- You will get an invalid parameter error if you pass more than one
+-- instance entry in this array.
+createCloudFormationStack_instances :: Lens.Lens' CreateCloudFormationStack [InstanceEntry]
+createCloudFormationStack_instances = Lens.lens (\CreateCloudFormationStack' {instances} -> instances) (\s@CreateCloudFormationStack' {} a -> s {instances = a} :: CreateCloudFormationStack) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateCloudFormationStack where
+instance Prelude.AWSRequest CreateCloudFormationStack where
   type
     Rs CreateCloudFormationStack =
       CreateCloudFormationStackResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateCloudFormationStackResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCloudFormationStack
+instance Prelude.Hashable CreateCloudFormationStack
 
-instance NFData CreateCloudFormationStack
+instance Prelude.NFData CreateCloudFormationStack
 
-instance ToHeaders CreateCloudFormationStack where
+instance Prelude.ToHeaders CreateCloudFormationStack where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.CreateCloudFormationStack" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.CreateCloudFormationStack" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateCloudFormationStack where
+instance Prelude.ToJSON CreateCloudFormationStack where
   toJSON CreateCloudFormationStack' {..} =
-    object
-      (catMaybes [Just ("instances" .= _ccfsInstances)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("instances" Prelude..= instances)]
+      )
 
-instance ToPath CreateCloudFormationStack where
-  toPath = const "/"
+instance Prelude.ToPath CreateCloudFormationStack where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateCloudFormationStack where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateCloudFormationStack where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createCloudFormationStackResponse' smart constructor.
+-- | /See:/ 'newCreateCloudFormationStackResponse' smart constructor.
 data CreateCloudFormationStackResponse = CreateCloudFormationStackResponse'
-  { _ccfsrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _ccfsrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCloudFormationStackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCloudFormationStackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccfsrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccfsrrsResponseStatus' - -- | The response status code.
-createCloudFormationStackResponse ::
-  -- | 'ccfsrrsResponseStatus'
-  Int ->
+-- 'operations', 'createCloudFormationStackResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'createCloudFormationStackResponse_httpStatus' - The response's http status code.
+newCreateCloudFormationStackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCloudFormationStackResponse
-createCloudFormationStackResponse pResponseStatus_ =
+newCreateCloudFormationStackResponse pHttpStatus_ =
   CreateCloudFormationStackResponse'
-    { _ccfsrrsOperations =
-        Nothing,
-      _ccfsrrsResponseStatus =
-        pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-ccfsrrsOperations :: Lens' CreateCloudFormationStackResponse [Operation]
-ccfsrrsOperations = lens _ccfsrrsOperations (\s a -> s {_ccfsrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+createCloudFormationStackResponse_operations :: Lens.Lens' CreateCloudFormationStackResponse (Prelude.Maybe [Operation])
+createCloudFormationStackResponse_operations = Lens.lens (\CreateCloudFormationStackResponse' {operations} -> operations) (\s@CreateCloudFormationStackResponse' {} a -> s {operations = a} :: CreateCloudFormationStackResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ccfsrrsResponseStatus :: Lens' CreateCloudFormationStackResponse Int
-ccfsrrsResponseStatus = lens _ccfsrrsResponseStatus (\s a -> s {_ccfsrrsResponseStatus = a})
+-- | The response's http status code.
+createCloudFormationStackResponse_httpStatus :: Lens.Lens' CreateCloudFormationStackResponse Prelude.Int
+createCloudFormationStackResponse_httpStatus = Lens.lens (\CreateCloudFormationStackResponse' {httpStatus} -> httpStatus) (\s@CreateCloudFormationStackResponse' {} a -> s {httpStatus = a} :: CreateCloudFormationStackResponse)
 
-instance NFData CreateCloudFormationStackResponse
+instance
+  Prelude.NFData
+    CreateCloudFormationStackResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,139 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables an add-on for an Amazon Lightsail resource. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- Disables an add-on for an Amazon Lightsail resource. For more
+-- information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
 module Network.AWS.Lightsail.DisableAddOn
   ( -- * Creating a Request
-    disableAddOn,
-    DisableAddOn,
+    DisableAddOn (..),
+    newDisableAddOn,
 
     -- * Request Lenses
-    daoAddOnType,
-    daoResourceName,
+    disableAddOn_addOnType,
+    disableAddOn_resourceName,
 
     -- * Destructuring the Response
-    disableAddOnResponse,
-    DisableAddOnResponse,
+    DisableAddOnResponse (..),
+    newDisableAddOnResponse,
 
     -- * Response Lenses
-    daorrsOperations,
-    daorrsResponseStatus,
+    disableAddOnResponse_operations,
+    disableAddOnResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableAddOn' smart constructor.
+-- | /See:/ 'newDisableAddOn' smart constructor.
 data DisableAddOn = DisableAddOn'
-  { _daoAddOnType ::
-      !AddOnType,
-    _daoResourceName :: !Text
+  { -- | The add-on type to disable.
+    addOnType :: AddOnType,
+    -- | The name of the source resource for which to disable the add-on.
+    resourceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableAddOn' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableAddOn' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daoAddOnType' - The add-on type to disable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daoResourceName' - The name of the source resource for which to disable the add-on.
-disableAddOn ::
-  -- | 'daoAddOnType'
+-- 'addOnType', 'disableAddOn_addOnType' - The add-on type to disable.
+--
+-- 'resourceName', 'disableAddOn_resourceName' - The name of the source resource for which to disable the add-on.
+newDisableAddOn ::
+  -- | 'addOnType'
   AddOnType ->
-  -- | 'daoResourceName'
-  Text ->
+  -- | 'resourceName'
+  Prelude.Text ->
   DisableAddOn
-disableAddOn pAddOnType_ pResourceName_ =
+newDisableAddOn pAddOnType_ pResourceName_ =
   DisableAddOn'
-    { _daoAddOnType = pAddOnType_,
-      _daoResourceName = pResourceName_
+    { addOnType = pAddOnType_,
+      resourceName = pResourceName_
     }
 
 -- | The add-on type to disable.
-daoAddOnType :: Lens' DisableAddOn AddOnType
-daoAddOnType = lens _daoAddOnType (\s a -> s {_daoAddOnType = a})
+disableAddOn_addOnType :: Lens.Lens' DisableAddOn AddOnType
+disableAddOn_addOnType = Lens.lens (\DisableAddOn' {addOnType} -> addOnType) (\s@DisableAddOn' {} a -> s {addOnType = a} :: DisableAddOn)
 
 -- | The name of the source resource for which to disable the add-on.
-daoResourceName :: Lens' DisableAddOn Text
-daoResourceName = lens _daoResourceName (\s a -> s {_daoResourceName = a})
+disableAddOn_resourceName :: Lens.Lens' DisableAddOn Prelude.Text
+disableAddOn_resourceName = Lens.lens (\DisableAddOn' {resourceName} -> resourceName) (\s@DisableAddOn' {} a -> s {resourceName = a} :: DisableAddOn)
 
-instance AWSRequest DisableAddOn where
+instance Prelude.AWSRequest DisableAddOn where
   type Rs DisableAddOn = DisableAddOnResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DisableAddOnResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisableAddOn
+instance Prelude.Hashable DisableAddOn
 
-instance NFData DisableAddOn
+instance Prelude.NFData DisableAddOn
 
-instance ToHeaders DisableAddOn where
+instance Prelude.ToHeaders DisableAddOn where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.DisableAddOn" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.DisableAddOn" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisableAddOn where
+instance Prelude.ToJSON DisableAddOn where
   toJSON DisableAddOn' {..} =
-    object
-      ( catMaybes
-          [ Just ("addOnType" .= _daoAddOnType),
-            Just ("resourceName" .= _daoResourceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("addOnType" Prelude..= addOnType),
+            Prelude.Just
+              ("resourceName" Prelude..= resourceName)
           ]
       )
 
-instance ToPath DisableAddOn where
-  toPath = const "/"
+instance Prelude.ToPath DisableAddOn where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableAddOn where
-  toQuery = const mempty
+instance Prelude.ToQuery DisableAddOn where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disableAddOnResponse' smart constructor.
+-- | /See:/ 'newDisableAddOnResponse' smart constructor.
 data DisableAddOnResponse = DisableAddOnResponse'
-  { _daorrsOperations ::
-      !(Maybe [Operation]),
-    _daorrsResponseStatus :: !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableAddOnResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableAddOnResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daorrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daorrsResponseStatus' - -- | The response status code.
-disableAddOnResponse ::
-  -- | 'daorrsResponseStatus'
-  Int ->
+-- 'operations', 'disableAddOnResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'disableAddOnResponse_httpStatus' - The response's http status code.
+newDisableAddOnResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisableAddOnResponse
-disableAddOnResponse pResponseStatus_ =
+newDisableAddOnResponse pHttpStatus_ =
   DisableAddOnResponse'
-    { _daorrsOperations = Nothing,
-      _daorrsResponseStatus = pResponseStatus_
+    { operations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-daorrsOperations :: Lens' DisableAddOnResponse [Operation]
-daorrsOperations = lens _daorrsOperations (\s a -> s {_daorrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+disableAddOnResponse_operations :: Lens.Lens' DisableAddOnResponse (Prelude.Maybe [Operation])
+disableAddOnResponse_operations = Lens.lens (\DisableAddOnResponse' {operations} -> operations) (\s@DisableAddOnResponse' {} a -> s {operations = a} :: DisableAddOnResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-daorrsResponseStatus :: Lens' DisableAddOnResponse Int
-daorrsResponseStatus = lens _daorrsResponseStatus (\s a -> s {_daorrsResponseStatus = a})
+-- | The response's http status code.
+disableAddOnResponse_httpStatus :: Lens.Lens' DisableAddOnResponse Prelude.Int
+disableAddOnResponse_httpStatus = Lens.lens (\DisableAddOnResponse' {httpStatus} -> httpStatus) (\s@DisableAddOnResponse' {} a -> s {httpStatus = a} :: DisableAddOnResponse)
 
-instance NFData DisableAddOnResponse
+instance Prelude.NFData DisableAddOnResponse

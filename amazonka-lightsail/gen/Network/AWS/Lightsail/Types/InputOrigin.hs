@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.InputOrigin where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.OriginProtocolPolicyEnum
 import Network.AWS.Lightsail.Types.RegionName
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the origin resource of an Amazon Lightsail content delivery network (CDN) distribution.
+-- | Describes the origin resource of an Amazon Lightsail content delivery
+-- network (CDN) distribution.
 --
+-- An origin can be a Lightsail instance or load balancer. A distribution
+-- pulls content from an origin, caches it, and serves it to viewers via a
+-- worldwide network of edge servers.
 --
--- An origin can be a Lightsail instance or load balancer. A distribution pulls content from an origin, caches it, and serves it to viewers via a worldwide network of edge servers.
---
---
--- /See:/ 'inputOrigin' smart constructor.
+-- /See:/ 'newInputOrigin' smart constructor.
 data InputOrigin = InputOrigin'
-  { _ioRegionName ::
-      !(Maybe RegionName),
-    _ioProtocolPolicy ::
-      !(Maybe OriginProtocolPolicyEnum),
-    _ioName :: !(Maybe Text)
+  { -- | The AWS Region name of the origin resource.
+    regionName :: Prelude.Maybe RegionName,
+    -- | The protocol that your Amazon Lightsail distribution uses when
+    -- establishing a connection with your origin to pull content.
+    protocolPolicy :: Prelude.Maybe OriginProtocolPolicyEnum,
+    -- | The name of the origin resource.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputOrigin' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputOrigin' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ioRegionName' - The AWS Region name of the origin resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ioProtocolPolicy' - The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content.
+-- 'regionName', 'inputOrigin_regionName' - The AWS Region name of the origin resource.
 --
--- * 'ioName' - The name of the origin resource.
-inputOrigin ::
+-- 'protocolPolicy', 'inputOrigin_protocolPolicy' - The protocol that your Amazon Lightsail distribution uses when
+-- establishing a connection with your origin to pull content.
+--
+-- 'name', 'inputOrigin_name' - The name of the origin resource.
+newInputOrigin ::
   InputOrigin
-inputOrigin =
+newInputOrigin =
   InputOrigin'
-    { _ioRegionName = Nothing,
-      _ioProtocolPolicy = Nothing,
-      _ioName = Nothing
+    { regionName = Prelude.Nothing,
+      protocolPolicy = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The AWS Region name of the origin resource.
-ioRegionName :: Lens' InputOrigin (Maybe RegionName)
-ioRegionName = lens _ioRegionName (\s a -> s {_ioRegionName = a})
+inputOrigin_regionName :: Lens.Lens' InputOrigin (Prelude.Maybe RegionName)
+inputOrigin_regionName = Lens.lens (\InputOrigin' {regionName} -> regionName) (\s@InputOrigin' {} a -> s {regionName = a} :: InputOrigin)
 
--- | The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content.
-ioProtocolPolicy :: Lens' InputOrigin (Maybe OriginProtocolPolicyEnum)
-ioProtocolPolicy = lens _ioProtocolPolicy (\s a -> s {_ioProtocolPolicy = a})
+-- | The protocol that your Amazon Lightsail distribution uses when
+-- establishing a connection with your origin to pull content.
+inputOrigin_protocolPolicy :: Lens.Lens' InputOrigin (Prelude.Maybe OriginProtocolPolicyEnum)
+inputOrigin_protocolPolicy = Lens.lens (\InputOrigin' {protocolPolicy} -> protocolPolicy) (\s@InputOrigin' {} a -> s {protocolPolicy = a} :: InputOrigin)
 
 -- | The name of the origin resource.
-ioName :: Lens' InputOrigin (Maybe Text)
-ioName = lens _ioName (\s a -> s {_ioName = a})
+inputOrigin_name :: Lens.Lens' InputOrigin (Prelude.Maybe Prelude.Text)
+inputOrigin_name = Lens.lens (\InputOrigin' {name} -> name) (\s@InputOrigin' {} a -> s {name = a} :: InputOrigin)
 
-instance Hashable InputOrigin
+instance Prelude.Hashable InputOrigin
 
-instance NFData InputOrigin
+instance Prelude.NFData InputOrigin
 
-instance ToJSON InputOrigin where
+instance Prelude.ToJSON InputOrigin where
   toJSON InputOrigin' {..} =
-    object
-      ( catMaybes
-          [ ("regionName" .=) <$> _ioRegionName,
-            ("protocolPolicy" .=) <$> _ioProtocolPolicy,
-            ("name" .=) <$> _ioName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("regionName" Prelude..=) Prelude.<$> regionName,
+            ("protocolPolicy" Prelude..=)
+              Prelude.<$> protocolPolicy,
+            ("name" Prelude..=) Prelude.<$> name
           ]
       )

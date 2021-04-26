@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,236 +21,392 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the data points of a specific metric of your Amazon Lightsail container service.
+-- Returns the data points of a specific metric of your Amazon Lightsail
+-- container service.
 --
---
--- Metrics report the utilization of your resources. Monitor and collect metric data regularly to maintain the reliability, availability, and performance of your resources.
+-- Metrics report the utilization of your resources. Monitor and collect
+-- metric data regularly to maintain the reliability, availability, and
+-- performance of your resources.
 module Network.AWS.Lightsail.GetContainerServiceMetricData
   ( -- * Creating a Request
-    getContainerServiceMetricData,
-    GetContainerServiceMetricData,
+    GetContainerServiceMetricData (..),
+    newGetContainerServiceMetricData,
 
     -- * Request Lenses
-    gcsmdServiceName,
-    gcsmdMetricName,
-    gcsmdStartTime,
-    gcsmdEndTime,
-    gcsmdPeriod,
-    gcsmdStatistics,
+    getContainerServiceMetricData_serviceName,
+    getContainerServiceMetricData_metricName,
+    getContainerServiceMetricData_startTime,
+    getContainerServiceMetricData_endTime,
+    getContainerServiceMetricData_period,
+    getContainerServiceMetricData_statistics,
 
     -- * Destructuring the Response
-    getContainerServiceMetricDataResponse,
-    GetContainerServiceMetricDataResponse,
+    GetContainerServiceMetricDataResponse (..),
+    newGetContainerServiceMetricDataResponse,
 
     -- * Response Lenses
-    gcsmdrrsMetricName,
-    gcsmdrrsMetricData,
-    gcsmdrrsResponseStatus,
+    getContainerServiceMetricDataResponse_metricName,
+    getContainerServiceMetricDataResponse_metricData,
+    getContainerServiceMetricDataResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerServiceMetricName
+import Network.AWS.Lightsail.Types.MetricDatapoint
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerServiceMetricData' smart constructor.
+-- | /See:/ 'newGetContainerServiceMetricData' smart constructor.
 data GetContainerServiceMetricData = GetContainerServiceMetricData'
-  { _gcsmdServiceName ::
-      !Text,
-    _gcsmdMetricName ::
-      !ContainerServiceMetricName,
-    _gcsmdStartTime ::
-      !POSIX,
-    _gcsmdEndTime ::
-      !POSIX,
-    _gcsmdPeriod ::
-      !Nat,
-    _gcsmdStatistics ::
-      ![MetricStatistic]
+  { -- | The name of the container service for which to get metric data.
+    serviceName :: Prelude.Text,
+    -- | The metric for which you want to return information.
+    --
+    -- Valid container service metric names are listed below, along with the
+    -- most useful statistics to include in your request, and the published
+    -- unit value.
+    --
+    -- -   @CPUUtilization@ - The average percentage of compute units that are
+    --     currently in use across all nodes of the container service. This
+    --     metric identifies the processing power required to run containers on
+    --     each node of the container service.
+    --
+    --     Statistics: The most useful statistics are @Maximum@ and @Average@.
+    --
+    --     Unit: The published unit is @Percent@.
+    --
+    -- -   @MemoryUtilization@ - The average percentage of available memory
+    --     that is currently in use across all nodes of the container service.
+    --     This metric identifies the memory required to run containers on each
+    --     node of the container service.
+    --
+    --     Statistics: The most useful statistics are @Maximum@ and @Average@.
+    --
+    --     Unit: The published unit is @Percent@.
+    metricName :: ContainerServiceMetricName,
+    -- | The start time of the time period.
+    startTime :: Prelude.POSIX,
+    -- | The end time of the time period.
+    endTime :: Prelude.POSIX,
+    -- | The granularity, in seconds, of the returned data points.
+    --
+    -- All container service metric data is available in 5-minute (300 seconds)
+    -- granularity.
+    period :: Prelude.Nat,
+    -- | The statistic for the metric.
+    --
+    -- The following statistics are available:
+    --
+    -- -   @Minimum@ - The lowest value observed during the specified period.
+    --     Use this value to determine low volumes of activity for your
+    --     application.
+    --
+    -- -   @Maximum@ - The highest value observed during the specified period.
+    --     Use this value to determine high volumes of activity for your
+    --     application.
+    --
+    -- -   @Sum@ - All values submitted for the matching metric added together.
+    --     You can use this statistic to determine the total volume of a
+    --     metric.
+    --
+    -- -   @Average@ - The value of @Sum@ \/ @SampleCount@ during the specified
+    --     period. By comparing this statistic with the @Minimum@ and @Maximum@
+    --     values, you can determine the full scope of a metric and how close
+    --     the average use is to the @Minimum@ and @Maximum@ values. This
+    --     comparison helps you to know when to increase or decrease your
+    --     resources.
+    --
+    -- -   @SampleCount@ - The count, or number, of data points used for the
+    --     statistical calculation.
+    statistics :: [MetricStatistic]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServiceMetricData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServiceMetricData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsmdServiceName' - The name of the container service for which to get metric data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsmdMetricName' - The metric for which you want to return information. Valid container service metric names are listed below, along with the most useful statistics to include in your request, and the published unit value.     * @CPUUtilization@ - The average percentage of compute units that are currently in use across all nodes of the container service. This metric identifies the processing power required to run containers on each node of the container service. Statistics: The most useful statistics are @Maximum@ and @Average@ . Unit: The published unit is @Percent@ .     * @MemoryUtilization@ - The average percentage of available memory that is currently in use across all nodes of the container service. This metric identifies the memory required to run containers on each node of the container service. Statistics: The most useful statistics are @Maximum@ and @Average@ . Unit: The published unit is @Percent@ .
+-- 'serviceName', 'getContainerServiceMetricData_serviceName' - The name of the container service for which to get metric data.
 --
--- * 'gcsmdStartTime' - The start time of the time period.
+-- 'metricName', 'getContainerServiceMetricData_metricName' - The metric for which you want to return information.
 --
--- * 'gcsmdEndTime' - The end time of the time period.
+-- Valid container service metric names are listed below, along with the
+-- most useful statistics to include in your request, and the published
+-- unit value.
 --
--- * 'gcsmdPeriod' - The granularity, in seconds, of the returned data points. All container service metric data is available in 5-minute (300 seconds) granularity.
+-- -   @CPUUtilization@ - The average percentage of compute units that are
+--     currently in use across all nodes of the container service. This
+--     metric identifies the processing power required to run containers on
+--     each node of the container service.
 --
--- * 'gcsmdStatistics' - The statistic for the metric. The following statistics are available:     * @Minimum@ - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.     * @Maximum@ - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.     * @Sum@ - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.     * @Average@ - The value of @Sum@ / @SampleCount@ during the specified period. By comparing this statistic with the @Minimum@ and @Maximum@ values, you can determine the full scope of a metric and how close the average use is to the @Minimum@ and @Maximum@ values. This comparison helps you to know when to increase or decrease your resources.     * @SampleCount@ - The count, or number, of data points used for the statistical calculation.
-getContainerServiceMetricData ::
-  -- | 'gcsmdServiceName'
-  Text ->
-  -- | 'gcsmdMetricName'
+--     Statistics: The most useful statistics are @Maximum@ and @Average@.
+--
+--     Unit: The published unit is @Percent@.
+--
+-- -   @MemoryUtilization@ - The average percentage of available memory
+--     that is currently in use across all nodes of the container service.
+--     This metric identifies the memory required to run containers on each
+--     node of the container service.
+--
+--     Statistics: The most useful statistics are @Maximum@ and @Average@.
+--
+--     Unit: The published unit is @Percent@.
+--
+-- 'startTime', 'getContainerServiceMetricData_startTime' - The start time of the time period.
+--
+-- 'endTime', 'getContainerServiceMetricData_endTime' - The end time of the time period.
+--
+-- 'period', 'getContainerServiceMetricData_period' - The granularity, in seconds, of the returned data points.
+--
+-- All container service metric data is available in 5-minute (300 seconds)
+-- granularity.
+--
+-- 'statistics', 'getContainerServiceMetricData_statistics' - The statistic for the metric.
+--
+-- The following statistics are available:
+--
+-- -   @Minimum@ - The lowest value observed during the specified period.
+--     Use this value to determine low volumes of activity for your
+--     application.
+--
+-- -   @Maximum@ - The highest value observed during the specified period.
+--     Use this value to determine high volumes of activity for your
+--     application.
+--
+-- -   @Sum@ - All values submitted for the matching metric added together.
+--     You can use this statistic to determine the total volume of a
+--     metric.
+--
+-- -   @Average@ - The value of @Sum@ \/ @SampleCount@ during the specified
+--     period. By comparing this statistic with the @Minimum@ and @Maximum@
+--     values, you can determine the full scope of a metric and how close
+--     the average use is to the @Minimum@ and @Maximum@ values. This
+--     comparison helps you to know when to increase or decrease your
+--     resources.
+--
+-- -   @SampleCount@ - The count, or number, of data points used for the
+--     statistical calculation.
+newGetContainerServiceMetricData ::
+  -- | 'serviceName'
+  Prelude.Text ->
+  -- | 'metricName'
   ContainerServiceMetricName ->
-  -- | 'gcsmdStartTime'
-  UTCTime ->
-  -- | 'gcsmdEndTime'
-  UTCTime ->
-  -- | 'gcsmdPeriod'
-  Natural ->
+  -- | 'startTime'
+  Prelude.UTCTime ->
+  -- | 'endTime'
+  Prelude.UTCTime ->
+  -- | 'period'
+  Prelude.Natural ->
   GetContainerServiceMetricData
-getContainerServiceMetricData
+newGetContainerServiceMetricData
   pServiceName_
   pMetricName_
   pStartTime_
   pEndTime_
   pPeriod_ =
     GetContainerServiceMetricData'
-      { _gcsmdServiceName =
+      { serviceName =
           pServiceName_,
-        _gcsmdMetricName = pMetricName_,
-        _gcsmdStartTime = _Time # pStartTime_,
-        _gcsmdEndTime = _Time # pEndTime_,
-        _gcsmdPeriod = _Nat # pPeriod_,
-        _gcsmdStatistics = mempty
+        metricName = pMetricName_,
+        startTime = Prelude._Time Lens.# pStartTime_,
+        endTime = Prelude._Time Lens.# pEndTime_,
+        period = Prelude._Nat Lens.# pPeriod_,
+        statistics = Prelude.mempty
       }
 
 -- | The name of the container service for which to get metric data.
-gcsmdServiceName :: Lens' GetContainerServiceMetricData Text
-gcsmdServiceName = lens _gcsmdServiceName (\s a -> s {_gcsmdServiceName = a})
+getContainerServiceMetricData_serviceName :: Lens.Lens' GetContainerServiceMetricData Prelude.Text
+getContainerServiceMetricData_serviceName = Lens.lens (\GetContainerServiceMetricData' {serviceName} -> serviceName) (\s@GetContainerServiceMetricData' {} a -> s {serviceName = a} :: GetContainerServiceMetricData)
 
--- | The metric for which you want to return information. Valid container service metric names are listed below, along with the most useful statistics to include in your request, and the published unit value.     * @CPUUtilization@ - The average percentage of compute units that are currently in use across all nodes of the container service. This metric identifies the processing power required to run containers on each node of the container service. Statistics: The most useful statistics are @Maximum@ and @Average@ . Unit: The published unit is @Percent@ .     * @MemoryUtilization@ - The average percentage of available memory that is currently in use across all nodes of the container service. This metric identifies the memory required to run containers on each node of the container service. Statistics: The most useful statistics are @Maximum@ and @Average@ . Unit: The published unit is @Percent@ .
-gcsmdMetricName :: Lens' GetContainerServiceMetricData ContainerServiceMetricName
-gcsmdMetricName = lens _gcsmdMetricName (\s a -> s {_gcsmdMetricName = a})
+-- | The metric for which you want to return information.
+--
+-- Valid container service metric names are listed below, along with the
+-- most useful statistics to include in your request, and the published
+-- unit value.
+--
+-- -   @CPUUtilization@ - The average percentage of compute units that are
+--     currently in use across all nodes of the container service. This
+--     metric identifies the processing power required to run containers on
+--     each node of the container service.
+--
+--     Statistics: The most useful statistics are @Maximum@ and @Average@.
+--
+--     Unit: The published unit is @Percent@.
+--
+-- -   @MemoryUtilization@ - The average percentage of available memory
+--     that is currently in use across all nodes of the container service.
+--     This metric identifies the memory required to run containers on each
+--     node of the container service.
+--
+--     Statistics: The most useful statistics are @Maximum@ and @Average@.
+--
+--     Unit: The published unit is @Percent@.
+getContainerServiceMetricData_metricName :: Lens.Lens' GetContainerServiceMetricData ContainerServiceMetricName
+getContainerServiceMetricData_metricName = Lens.lens (\GetContainerServiceMetricData' {metricName} -> metricName) (\s@GetContainerServiceMetricData' {} a -> s {metricName = a} :: GetContainerServiceMetricData)
 
 -- | The start time of the time period.
-gcsmdStartTime :: Lens' GetContainerServiceMetricData UTCTime
-gcsmdStartTime = lens _gcsmdStartTime (\s a -> s {_gcsmdStartTime = a}) . _Time
+getContainerServiceMetricData_startTime :: Lens.Lens' GetContainerServiceMetricData Prelude.UTCTime
+getContainerServiceMetricData_startTime = Lens.lens (\GetContainerServiceMetricData' {startTime} -> startTime) (\s@GetContainerServiceMetricData' {} a -> s {startTime = a} :: GetContainerServiceMetricData) Prelude.. Prelude._Time
 
 -- | The end time of the time period.
-gcsmdEndTime :: Lens' GetContainerServiceMetricData UTCTime
-gcsmdEndTime = lens _gcsmdEndTime (\s a -> s {_gcsmdEndTime = a}) . _Time
+getContainerServiceMetricData_endTime :: Lens.Lens' GetContainerServiceMetricData Prelude.UTCTime
+getContainerServiceMetricData_endTime = Lens.lens (\GetContainerServiceMetricData' {endTime} -> endTime) (\s@GetContainerServiceMetricData' {} a -> s {endTime = a} :: GetContainerServiceMetricData) Prelude.. Prelude._Time
 
--- | The granularity, in seconds, of the returned data points. All container service metric data is available in 5-minute (300 seconds) granularity.
-gcsmdPeriod :: Lens' GetContainerServiceMetricData Natural
-gcsmdPeriod = lens _gcsmdPeriod (\s a -> s {_gcsmdPeriod = a}) . _Nat
+-- | The granularity, in seconds, of the returned data points.
+--
+-- All container service metric data is available in 5-minute (300 seconds)
+-- granularity.
+getContainerServiceMetricData_period :: Lens.Lens' GetContainerServiceMetricData Prelude.Natural
+getContainerServiceMetricData_period = Lens.lens (\GetContainerServiceMetricData' {period} -> period) (\s@GetContainerServiceMetricData' {} a -> s {period = a} :: GetContainerServiceMetricData) Prelude.. Prelude._Nat
 
--- | The statistic for the metric. The following statistics are available:     * @Minimum@ - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.     * @Maximum@ - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.     * @Sum@ - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.     * @Average@ - The value of @Sum@ / @SampleCount@ during the specified period. By comparing this statistic with the @Minimum@ and @Maximum@ values, you can determine the full scope of a metric and how close the average use is to the @Minimum@ and @Maximum@ values. This comparison helps you to know when to increase or decrease your resources.     * @SampleCount@ - The count, or number, of data points used for the statistical calculation.
-gcsmdStatistics :: Lens' GetContainerServiceMetricData [MetricStatistic]
-gcsmdStatistics = lens _gcsmdStatistics (\s a -> s {_gcsmdStatistics = a}) . _Coerce
+-- | The statistic for the metric.
+--
+-- The following statistics are available:
+--
+-- -   @Minimum@ - The lowest value observed during the specified period.
+--     Use this value to determine low volumes of activity for your
+--     application.
+--
+-- -   @Maximum@ - The highest value observed during the specified period.
+--     Use this value to determine high volumes of activity for your
+--     application.
+--
+-- -   @Sum@ - All values submitted for the matching metric added together.
+--     You can use this statistic to determine the total volume of a
+--     metric.
+--
+-- -   @Average@ - The value of @Sum@ \/ @SampleCount@ during the specified
+--     period. By comparing this statistic with the @Minimum@ and @Maximum@
+--     values, you can determine the full scope of a metric and how close
+--     the average use is to the @Minimum@ and @Maximum@ values. This
+--     comparison helps you to know when to increase or decrease your
+--     resources.
+--
+-- -   @SampleCount@ - The count, or number, of data points used for the
+--     statistical calculation.
+getContainerServiceMetricData_statistics :: Lens.Lens' GetContainerServiceMetricData [MetricStatistic]
+getContainerServiceMetricData_statistics = Lens.lens (\GetContainerServiceMetricData' {statistics} -> statistics) (\s@GetContainerServiceMetricData' {} a -> s {statistics = a} :: GetContainerServiceMetricData) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetContainerServiceMetricData where
+instance
+  Prelude.AWSRequest
+    GetContainerServiceMetricData
+  where
   type
     Rs GetContainerServiceMetricData =
       GetContainerServiceMetricDataResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerServiceMetricDataResponse'
-            <$> (x .?> "metricName")
-            <*> (x .?> "metricData" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "metricName")
+            Prelude.<*> ( x Prelude..?> "metricData"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerServiceMetricData
+instance
+  Prelude.Hashable
+    GetContainerServiceMetricData
 
-instance NFData GetContainerServiceMetricData
+instance Prelude.NFData GetContainerServiceMetricData
 
-instance ToHeaders GetContainerServiceMetricData where
+instance
+  Prelude.ToHeaders
+    GetContainerServiceMetricData
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetContainerServiceMetricData" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetContainerServiceMetricData" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerServiceMetricData where
+instance Prelude.ToJSON GetContainerServiceMetricData where
   toJSON GetContainerServiceMetricData' {..} =
-    object
-      ( catMaybes
-          [ Just ("serviceName" .= _gcsmdServiceName),
-            Just ("metricName" .= _gcsmdMetricName),
-            Just ("startTime" .= _gcsmdStartTime),
-            Just ("endTime" .= _gcsmdEndTime),
-            Just ("period" .= _gcsmdPeriod),
-            Just ("statistics" .= _gcsmdStatistics)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("serviceName" Prelude..= serviceName),
+            Prelude.Just ("metricName" Prelude..= metricName),
+            Prelude.Just ("startTime" Prelude..= startTime),
+            Prelude.Just ("endTime" Prelude..= endTime),
+            Prelude.Just ("period" Prelude..= period),
+            Prelude.Just ("statistics" Prelude..= statistics)
           ]
       )
 
-instance ToPath GetContainerServiceMetricData where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerServiceMetricData where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerServiceMetricData where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetContainerServiceMetricData
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerServiceMetricDataResponse' smart constructor.
+-- | /See:/ 'newGetContainerServiceMetricDataResponse' smart constructor.
 data GetContainerServiceMetricDataResponse = GetContainerServiceMetricDataResponse'
-  { _gcsmdrrsMetricName ::
-      !( Maybe
-           ContainerServiceMetricName
-       ),
-    _gcsmdrrsMetricData ::
-      !( Maybe
-           [MetricDatapoint]
-       ),
-    _gcsmdrrsResponseStatus ::
-      !Int
+  { -- | The name of the metric returned.
+    metricName :: Prelude.Maybe ContainerServiceMetricName,
+    -- | An array of objects that describe the metric data returned.
+    metricData :: Prelude.Maybe [MetricDatapoint],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServiceMetricDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServiceMetricDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsmdrrsMetricName' - The name of the metric returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsmdrrsMetricData' - An array of objects that describe the metric data returned.
+-- 'metricName', 'getContainerServiceMetricDataResponse_metricName' - The name of the metric returned.
 --
--- * 'gcsmdrrsResponseStatus' - -- | The response status code.
-getContainerServiceMetricDataResponse ::
-  -- | 'gcsmdrrsResponseStatus'
-  Int ->
+-- 'metricData', 'getContainerServiceMetricDataResponse_metricData' - An array of objects that describe the metric data returned.
+--
+-- 'httpStatus', 'getContainerServiceMetricDataResponse_httpStatus' - The response's http status code.
+newGetContainerServiceMetricDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerServiceMetricDataResponse
-getContainerServiceMetricDataResponse
-  pResponseStatus_ =
-    GetContainerServiceMetricDataResponse'
-      { _gcsmdrrsMetricName =
-          Nothing,
-        _gcsmdrrsMetricData = Nothing,
-        _gcsmdrrsResponseStatus =
-          pResponseStatus_
-      }
+newGetContainerServiceMetricDataResponse pHttpStatus_ =
+  GetContainerServiceMetricDataResponse'
+    { metricName =
+        Prelude.Nothing,
+      metricData = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The name of the metric returned.
-gcsmdrrsMetricName :: Lens' GetContainerServiceMetricDataResponse (Maybe ContainerServiceMetricName)
-gcsmdrrsMetricName = lens _gcsmdrrsMetricName (\s a -> s {_gcsmdrrsMetricName = a})
+getContainerServiceMetricDataResponse_metricName :: Lens.Lens' GetContainerServiceMetricDataResponse (Prelude.Maybe ContainerServiceMetricName)
+getContainerServiceMetricDataResponse_metricName = Lens.lens (\GetContainerServiceMetricDataResponse' {metricName} -> metricName) (\s@GetContainerServiceMetricDataResponse' {} a -> s {metricName = a} :: GetContainerServiceMetricDataResponse)
 
 -- | An array of objects that describe the metric data returned.
-gcsmdrrsMetricData :: Lens' GetContainerServiceMetricDataResponse [MetricDatapoint]
-gcsmdrrsMetricData = lens _gcsmdrrsMetricData (\s a -> s {_gcsmdrrsMetricData = a}) . _Default . _Coerce
+getContainerServiceMetricDataResponse_metricData :: Lens.Lens' GetContainerServiceMetricDataResponse (Prelude.Maybe [MetricDatapoint])
+getContainerServiceMetricDataResponse_metricData = Lens.lens (\GetContainerServiceMetricDataResponse' {metricData} -> metricData) (\s@GetContainerServiceMetricDataResponse' {} a -> s {metricData = a} :: GetContainerServiceMetricDataResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsmdrrsResponseStatus :: Lens' GetContainerServiceMetricDataResponse Int
-gcsmdrrsResponseStatus = lens _gcsmdrrsResponseStatus (\s a -> s {_gcsmdrrsResponseStatus = a})
+-- | The response's http status code.
+getContainerServiceMetricDataResponse_httpStatus :: Lens.Lens' GetContainerServiceMetricDataResponse Prelude.Int
+getContainerServiceMetricDataResponse_httpStatus = Lens.lens (\GetContainerServiceMetricDataResponse' {httpStatus} -> httpStatus) (\s@GetContainerServiceMetricDataResponse' {} a -> s {httpStatus = a} :: GetContainerServiceMetricDataResponse)
 
-instance NFData GetContainerServiceMetricDataResponse
+instance
+  Prelude.NFData
+    GetContainerServiceMetricDataResponse

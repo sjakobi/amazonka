@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.Lightsail.Types.LoadBalancerProtocol
   ( LoadBalancerProtocol
       ( ..,
-        LBPHTTP,
-        LBPHTTPHTTPS
+        LoadBalancerProtocolHTTP,
+        LoadBalancerProtocolHTTPHTTPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LoadBalancerProtocol
-  = LoadBalancerProtocol'
-      ( CI
-          Text
-      )
+newtype LoadBalancerProtocol = LoadBalancerProtocol'
+  { fromLoadBalancerProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LBPHTTP :: LoadBalancerProtocol
-pattern LBPHTTP = LoadBalancerProtocol' "HTTP"
+pattern LoadBalancerProtocolHTTP :: LoadBalancerProtocol
+pattern LoadBalancerProtocolHTTP = LoadBalancerProtocol' "HTTP"
 
-pattern LBPHTTPHTTPS :: LoadBalancerProtocol
-pattern LBPHTTPHTTPS = LoadBalancerProtocol' "HTTP_HTTPS"
+pattern LoadBalancerProtocolHTTPHTTPS :: LoadBalancerProtocol
+pattern LoadBalancerProtocolHTTPHTTPS = LoadBalancerProtocol' "HTTP_HTTPS"
 
 {-# COMPLETE
-  LBPHTTP,
-  LBPHTTPHTTPS,
+  LoadBalancerProtocolHTTP,
+  LoadBalancerProtocolHTTPHTTPS,
   LoadBalancerProtocol'
   #-}
 
-instance FromText LoadBalancerProtocol where
-  parser = (LoadBalancerProtocol' . mk) <$> takeText
+instance Prelude.FromText LoadBalancerProtocol where
+  parser = LoadBalancerProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText LoadBalancerProtocol where
-  toText (LoadBalancerProtocol' ci) = original ci
+instance Prelude.ToText LoadBalancerProtocol where
+  toText (LoadBalancerProtocol' x) = x
 
-instance Hashable LoadBalancerProtocol
+instance Prelude.Hashable LoadBalancerProtocol
 
-instance NFData LoadBalancerProtocol
+instance Prelude.NFData LoadBalancerProtocol
 
-instance ToByteString LoadBalancerProtocol
+instance Prelude.ToByteString LoadBalancerProtocol
 
-instance ToQuery LoadBalancerProtocol
+instance Prelude.ToQuery LoadBalancerProtocol
 
-instance ToHeader LoadBalancerProtocol
+instance Prelude.ToHeader LoadBalancerProtocol
 
-instance FromJSON LoadBalancerProtocol where
-  parseJSON = parseJSONText "LoadBalancerProtocol"
+instance Prelude.FromJSON LoadBalancerProtocol where
+  parseJSON = Prelude.parseJSONText "LoadBalancerProtocol"

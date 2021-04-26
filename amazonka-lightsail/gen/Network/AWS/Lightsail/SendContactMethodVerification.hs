@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sends a verification request to an email contact method to ensure it's owned by the requester. SMS contact methods don't need to be verified.
+-- Sends a verification request to an email contact method to ensure it\'s
+-- owned by the requester. SMS contact methods don\'t need to be verified.
 --
+-- A contact method is used to send you notifications about your Amazon
+-- Lightsail resources. You can add one email address and one mobile phone
+-- number contact method in each AWS Region. However, SMS text messaging is
+-- not supported in some AWS Regions, and SMS text messages cannot be sent
+-- to some countries\/regions. For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications Notifications in Amazon Lightsail>.
 --
--- A contact method is used to send you notifications about your Amazon Lightsail resources. You can add one email address and one mobile phone number contact method in each AWS Region. However, SMS text messaging is not supported in some AWS Regions, and SMS text messages cannot be sent to some countries/regions. For more information, see <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications Notifications in Amazon Lightsail> .
+-- A verification request is sent to the contact method when you initially
+-- create it. Use this action to send another verification request if a
+-- previous verification request was deleted, or has expired.
 --
--- A verification request is sent to the contact method when you initially create it. Use this action to send another verification request if a previous verification request was deleted, or has expired.
---
--- /Important:/ Notifications are not sent to an email contact method until after it is verified, and confirmed as valid.
+-- Notifications are not sent to an email contact method until after it is
+-- verified, and confirmed as valid.
 module Network.AWS.Lightsail.SendContactMethodVerification
   ( -- * Creating a Request
-    sendContactMethodVerification,
-    SendContactMethodVerification,
+    SendContactMethodVerification (..),
+    newSendContactMethodVerification,
 
     -- * Request Lenses
-    scmvProtocol,
+    sendContactMethodVerification_protocol,
 
     -- * Destructuring the Response
-    sendContactMethodVerificationResponse,
-    SendContactMethodVerificationResponse,
+    SendContactMethodVerificationResponse (..),
+    newSendContactMethodVerificationResponse,
 
     -- * Response Lenses
-    scmvrrsOperations,
-    scmvrrsResponseStatus,
+    sendContactMethodVerificationResponse_operations,
+    sendContactMethodVerificationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'sendContactMethodVerification' smart constructor.
-newtype SendContactMethodVerification = SendContactMethodVerification'
-  { _scmvProtocol ::
-      ContactMethodVerificationProtocol
+-- | /See:/ 'newSendContactMethodVerification' smart constructor.
+data SendContactMethodVerification = SendContactMethodVerification'
+  { -- | The protocol to verify, such as @Email@ or @SMS@ (text messaging).
+    protocol :: ContactMethodVerificationProtocol
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendContactMethodVerification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendContactMethodVerification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scmvProtocol' - The protocol to verify, such as @Email@ or @SMS@ (text messaging).
-sendContactMethodVerification ::
-  -- | 'scmvProtocol'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'protocol', 'sendContactMethodVerification_protocol' - The protocol to verify, such as @Email@ or @SMS@ (text messaging).
+newSendContactMethodVerification ::
+  -- | 'protocol'
   ContactMethodVerificationProtocol ->
   SendContactMethodVerification
-sendContactMethodVerification pProtocol_ =
+newSendContactMethodVerification pProtocol_ =
   SendContactMethodVerification'
-    { _scmvProtocol =
+    { protocol =
         pProtocol_
     }
 
 -- | The protocol to verify, such as @Email@ or @SMS@ (text messaging).
-scmvProtocol :: Lens' SendContactMethodVerification ContactMethodVerificationProtocol
-scmvProtocol = lens _scmvProtocol (\s a -> s {_scmvProtocol = a})
+sendContactMethodVerification_protocol :: Lens.Lens' SendContactMethodVerification ContactMethodVerificationProtocol
+sendContactMethodVerification_protocol = Lens.lens (\SendContactMethodVerification' {protocol} -> protocol) (\s@SendContactMethodVerification' {} a -> s {protocol = a} :: SendContactMethodVerification)
 
-instance AWSRequest SendContactMethodVerification where
+instance
+  Prelude.AWSRequest
+    SendContactMethodVerification
+  where
   type
     Rs SendContactMethodVerification =
       SendContactMethodVerificationResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SendContactMethodVerificationResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SendContactMethodVerification
+instance
+  Prelude.Hashable
+    SendContactMethodVerification
 
-instance NFData SendContactMethodVerification
+instance Prelude.NFData SendContactMethodVerification
 
-instance ToHeaders SendContactMethodVerification where
+instance
+  Prelude.ToHeaders
+    SendContactMethodVerification
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.SendContactMethodVerification" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.SendContactMethodVerification" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SendContactMethodVerification where
+instance Prelude.ToJSON SendContactMethodVerification where
   toJSON SendContactMethodVerification' {..} =
-    object
-      (catMaybes [Just ("protocol" .= _scmvProtocol)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("protocol" Prelude..= protocol)]
+      )
 
-instance ToPath SendContactMethodVerification where
-  toPath = const "/"
+instance Prelude.ToPath SendContactMethodVerification where
+  toPath = Prelude.const "/"
 
-instance ToQuery SendContactMethodVerification where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    SendContactMethodVerification
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'sendContactMethodVerificationResponse' smart constructor.
+-- | /See:/ 'newSendContactMethodVerificationResponse' smart constructor.
 data SendContactMethodVerificationResponse = SendContactMethodVerificationResponse'
-  { _scmvrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _scmvrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendContactMethodVerificationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendContactMethodVerificationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scmvrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scmvrrsResponseStatus' - -- | The response status code.
-sendContactMethodVerificationResponse ::
-  -- | 'scmvrrsResponseStatus'
-  Int ->
+-- 'operations', 'sendContactMethodVerificationResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'sendContactMethodVerificationResponse_httpStatus' - The response's http status code.
+newSendContactMethodVerificationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SendContactMethodVerificationResponse
-sendContactMethodVerificationResponse
-  pResponseStatus_ =
-    SendContactMethodVerificationResponse'
-      { _scmvrrsOperations =
-          Nothing,
-        _scmvrrsResponseStatus =
-          pResponseStatus_
-      }
+newSendContactMethodVerificationResponse pHttpStatus_ =
+  SendContactMethodVerificationResponse'
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-scmvrrsOperations :: Lens' SendContactMethodVerificationResponse [Operation]
-scmvrrsOperations = lens _scmvrrsOperations (\s a -> s {_scmvrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+sendContactMethodVerificationResponse_operations :: Lens.Lens' SendContactMethodVerificationResponse (Prelude.Maybe [Operation])
+sendContactMethodVerificationResponse_operations = Lens.lens (\SendContactMethodVerificationResponse' {operations} -> operations) (\s@SendContactMethodVerificationResponse' {} a -> s {operations = a} :: SendContactMethodVerificationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-scmvrrsResponseStatus :: Lens' SendContactMethodVerificationResponse Int
-scmvrrsResponseStatus = lens _scmvrrsResponseStatus (\s a -> s {_scmvrrsResponseStatus = a})
+-- | The response's http status code.
+sendContactMethodVerificationResponse_httpStatus :: Lens.Lens' SendContactMethodVerificationResponse Prelude.Int
+sendContactMethodVerificationResponse_httpStatus = Lens.lens (\SendContactMethodVerificationResponse' {httpStatus} -> httpStatus) (\s@SendContactMethodVerificationResponse' {} a -> s {httpStatus = a} :: SendContactMethodVerificationResponse)
 
-instance NFData SendContactMethodVerificationResponse
+instance
+  Prelude.NFData
+    SendContactMethodVerificationResponse

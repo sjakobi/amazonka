@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detaches an SSL/TLS certificate from your Amazon Lightsail content delivery network (CDN) distribution.
+-- Detaches an SSL\/TLS certificate from your Amazon Lightsail content
+-- delivery network (CDN) distribution.
 --
---
--- After the certificate is detached, your distribution stops accepting traffic for all of the domains that are associated with the certificate.
+-- After the certificate is detached, your distribution stops accepting
+-- traffic for all of the domains that are associated with the certificate.
 module Network.AWS.Lightsail.DetachCertificateFromDistribution
   ( -- * Creating a Request
-    detachCertificateFromDistribution,
-    DetachCertificateFromDistribution,
+    DetachCertificateFromDistribution (..),
+    newDetachCertificateFromDistribution,
 
     -- * Request Lenses
-    dcfdDistributionName,
+    detachCertificateFromDistribution_distributionName,
 
     -- * Destructuring the Response
-    detachCertificateFromDistributionResponse,
-    DetachCertificateFromDistributionResponse,
+    DetachCertificateFromDistributionResponse (..),
+    newDetachCertificateFromDistributionResponse,
 
     -- * Response Lenses
-    dcfdrrsOperation,
-    dcfdrrsResponseStatus,
+    detachCertificateFromDistributionResponse_operation,
+    detachCertificateFromDistributionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detachCertificateFromDistribution' smart constructor.
-newtype DetachCertificateFromDistribution = DetachCertificateFromDistribution'
-  { _dcfdDistributionName ::
-      Text
+-- | /See:/ 'newDetachCertificateFromDistribution' smart constructor.
+data DetachCertificateFromDistribution = DetachCertificateFromDistribution'
+  { -- | The name of the distribution from which to detach the certificate.
+    --
+    -- Use the @GetDistributions@ action to get a list of distribution names
+    -- that you can specify.
+    distributionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetachCertificateFromDistribution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetachCertificateFromDistribution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcfdDistributionName' - The name of the distribution from which to detach the certificate. Use the @GetDistributions@ action to get a list of distribution names that you can specify.
-detachCertificateFromDistribution ::
-  -- | 'dcfdDistributionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'distributionName', 'detachCertificateFromDistribution_distributionName' - The name of the distribution from which to detach the certificate.
+--
+-- Use the @GetDistributions@ action to get a list of distribution names
+-- that you can specify.
+newDetachCertificateFromDistribution ::
+  -- | 'distributionName'
+  Prelude.Text ->
   DetachCertificateFromDistribution
-detachCertificateFromDistribution pDistributionName_ =
-  DetachCertificateFromDistribution'
-    { _dcfdDistributionName =
-        pDistributionName_
-    }
+newDetachCertificateFromDistribution
+  pDistributionName_ =
+    DetachCertificateFromDistribution'
+      { distributionName =
+          pDistributionName_
+      }
 
--- | The name of the distribution from which to detach the certificate. Use the @GetDistributions@ action to get a list of distribution names that you can specify.
-dcfdDistributionName :: Lens' DetachCertificateFromDistribution Text
-dcfdDistributionName = lens _dcfdDistributionName (\s a -> s {_dcfdDistributionName = a})
+-- | The name of the distribution from which to detach the certificate.
+--
+-- Use the @GetDistributions@ action to get a list of distribution names
+-- that you can specify.
+detachCertificateFromDistribution_distributionName :: Lens.Lens' DetachCertificateFromDistribution Prelude.Text
+detachCertificateFromDistribution_distributionName = Lens.lens (\DetachCertificateFromDistribution' {distributionName} -> distributionName) (\s@DetachCertificateFromDistribution' {} a -> s {distributionName = a} :: DetachCertificateFromDistribution)
 
-instance AWSRequest DetachCertificateFromDistribution where
+instance
+  Prelude.AWSRequest
+    DetachCertificateFromDistribution
+  where
   type
     Rs DetachCertificateFromDistribution =
       DetachCertificateFromDistributionResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DetachCertificateFromDistributionResponse'
-            <$> (x .?> "operation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "operation")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetachCertificateFromDistribution
+instance
+  Prelude.Hashable
+    DetachCertificateFromDistribution
 
-instance NFData DetachCertificateFromDistribution
+instance
+  Prelude.NFData
+    DetachCertificateFromDistribution
 
-instance ToHeaders DetachCertificateFromDistribution where
+instance
+  Prelude.ToHeaders
+    DetachCertificateFromDistribution
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.DetachCertificateFromDistribution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.DetachCertificateFromDistribution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DetachCertificateFromDistribution where
+instance
+  Prelude.ToJSON
+    DetachCertificateFromDistribution
+  where
   toJSON DetachCertificateFromDistribution' {..} =
-    object
-      ( catMaybes
-          [Just ("distributionName" .= _dcfdDistributionName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("distributionName" Prelude..= distributionName)
+          ]
       )
 
-instance ToPath DetachCertificateFromDistribution where
-  toPath = const "/"
-
-instance ToQuery DetachCertificateFromDistribution where
-  toQuery = const mempty
-
--- | /See:/ 'detachCertificateFromDistributionResponse' smart constructor.
-data DetachCertificateFromDistributionResponse = DetachCertificateFromDistributionResponse'
-  { _dcfdrrsOperation ::
-      !( Maybe
-           Operation
-       ),
-    _dcfdrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DetachCertificateFromDistributionResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dcfdrrsOperation' - An object that describes the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
---
--- * 'dcfdrrsResponseStatus' - -- | The response status code.
-detachCertificateFromDistributionResponse ::
-  -- | 'dcfdrrsResponseStatus'
-  Int ->
-  DetachCertificateFromDistributionResponse
-detachCertificateFromDistributionResponse
-  pResponseStatus_ =
-    DetachCertificateFromDistributionResponse'
-      { _dcfdrrsOperation =
-          Nothing,
-        _dcfdrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | An object that describes the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-dcfdrrsOperation :: Lens' DetachCertificateFromDistributionResponse (Maybe Operation)
-dcfdrrsOperation = lens _dcfdrrsOperation (\s a -> s {_dcfdrrsOperation = a})
-
--- | -- | The response status code.
-dcfdrrsResponseStatus :: Lens' DetachCertificateFromDistributionResponse Int
-dcfdrrsResponseStatus = lens _dcfdrrsResponseStatus (\s a -> s {_dcfdrrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    DetachCertificateFromDistribution
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    DetachCertificateFromDistribution
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDetachCertificateFromDistributionResponse' smart constructor.
+data DetachCertificateFromDistributionResponse = DetachCertificateFromDistributionResponse'
+  { -- | An object that describes the result of the action, such as the status of
+    -- the request, the timestamp of the request, and the resources affected by
+    -- the request.
+    operation :: Prelude.Maybe Operation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DetachCertificateFromDistributionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'operation', 'detachCertificateFromDistributionResponse_operation' - An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
+--
+-- 'httpStatus', 'detachCertificateFromDistributionResponse_httpStatus' - The response's http status code.
+newDetachCertificateFromDistributionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DetachCertificateFromDistributionResponse
+newDetachCertificateFromDistributionResponse
+  pHttpStatus_ =
+    DetachCertificateFromDistributionResponse'
+      { operation =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
+detachCertificateFromDistributionResponse_operation :: Lens.Lens' DetachCertificateFromDistributionResponse (Prelude.Maybe Operation)
+detachCertificateFromDistributionResponse_operation = Lens.lens (\DetachCertificateFromDistributionResponse' {operation} -> operation) (\s@DetachCertificateFromDistributionResponse' {} a -> s {operation = a} :: DetachCertificateFromDistributionResponse)
+
+-- | The response's http status code.
+detachCertificateFromDistributionResponse_httpStatus :: Lens.Lens' DetachCertificateFromDistributionResponse Prelude.Int
+detachCertificateFromDistributionResponse_httpStatus = Lens.lens (\DetachCertificateFromDistributionResponse' {httpStatus} -> httpStatus) (\s@DetachCertificateFromDistributionResponse' {} a -> s {httpStatus = a} :: DetachCertificateFromDistributionResponse)
+
+instance
+  Prelude.NFData
     DetachCertificateFromDistributionResponse

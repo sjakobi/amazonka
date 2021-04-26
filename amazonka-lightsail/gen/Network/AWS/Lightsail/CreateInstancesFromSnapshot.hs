@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,303 +21,509 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates one or more new instances from a manual or automatic snapshot of an instance.
+-- Creates one or more new instances from a manual or automatic snapshot of
+-- an instance.
 --
---
--- The @create instances from snapshot@ operation supports tag-based access control via request tags and resource tags applied to the resource identified by @instance snapshot name@ . For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide> .
+-- The @create instances from snapshot@ operation supports tag-based access
+-- control via request tags and resource tags applied to the resource
+-- identified by @instance snapshot name@. For more information, see the
+-- <https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags Lightsail Dev Guide>.
 module Network.AWS.Lightsail.CreateInstancesFromSnapshot
   ( -- * Creating a Request
-    createInstancesFromSnapshot,
-    CreateInstancesFromSnapshot,
+    CreateInstancesFromSnapshot (..),
+    newCreateInstancesFromSnapshot,
 
     -- * Request Lenses
-    cifsIpAddressType,
-    cifsRestoreDate,
-    cifsUserData,
-    cifsAddOns,
-    cifsAttachedDiskMapping,
-    cifsInstanceSnapshotName,
-    cifsKeyPairName,
-    cifsUseLatestRestorableAutoSnapshot,
-    cifsTags,
-    cifsSourceInstanceName,
-    cifsInstanceNames,
-    cifsAvailabilityZone,
-    cifsBundleId,
+    createInstancesFromSnapshot_ipAddressType,
+    createInstancesFromSnapshot_restoreDate,
+    createInstancesFromSnapshot_userData,
+    createInstancesFromSnapshot_addOns,
+    createInstancesFromSnapshot_attachedDiskMapping,
+    createInstancesFromSnapshot_instanceSnapshotName,
+    createInstancesFromSnapshot_keyPairName,
+    createInstancesFromSnapshot_useLatestRestorableAutoSnapshot,
+    createInstancesFromSnapshot_tags,
+    createInstancesFromSnapshot_sourceInstanceName,
+    createInstancesFromSnapshot_instanceNames,
+    createInstancesFromSnapshot_availabilityZone,
+    createInstancesFromSnapshot_bundleId,
 
     -- * Destructuring the Response
-    createInstancesFromSnapshotResponse,
-    CreateInstancesFromSnapshotResponse,
+    CreateInstancesFromSnapshotResponse (..),
+    newCreateInstancesFromSnapshotResponse,
 
     -- * Response Lenses
-    cifsrrsOperations,
-    cifsrrsResponseStatus,
+    createInstancesFromSnapshotResponse_operations,
+    createInstancesFromSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.Operation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createInstancesFromSnapshot' smart constructor.
+-- | /See:/ 'newCreateInstancesFromSnapshot' smart constructor.
 data CreateInstancesFromSnapshot = CreateInstancesFromSnapshot'
-  { _cifsIpAddressType ::
-      !( Maybe
-           IPAddressType
-       ),
-    _cifsRestoreDate ::
-      !(Maybe Text),
-    _cifsUserData ::
-      !(Maybe Text),
-    _cifsAddOns ::
-      !( Maybe
-           [AddOnRequest]
-       ),
-    _cifsAttachedDiskMapping ::
-      !( Maybe
-           ( Map
-               Text
-               [DiskMap]
-           )
-       ),
-    _cifsInstanceSnapshotName ::
-      !(Maybe Text),
-    _cifsKeyPairName ::
-      !(Maybe Text),
-    _cifsUseLatestRestorableAutoSnapshot ::
-      !(Maybe Bool),
-    _cifsTags ::
-      !(Maybe [Tag]),
-    _cifsSourceInstanceName ::
-      !(Maybe Text),
-    _cifsInstanceNames ::
-      ![Text],
-    _cifsAvailabilityZone ::
-      !Text,
-    _cifsBundleId ::
-      !Text
+  { -- | The IP address type for the instance.
+    --
+    -- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
+    -- and IPv6.
+    --
+    -- The default value is @dualstack@.
+    ipAddressType :: Prelude.Maybe IpAddressType,
+    -- | The date of the automatic snapshot to use for the new instance. Use the
+    -- @get auto snapshots@ operation to identify the dates of the available
+    -- automatic snapshots.
+    --
+    -- Constraints:
+    --
+    -- -   Must be specified in @YYYY-MM-DD@ format.
+    --
+    -- -   This parameter cannot be defined together with the
+    --     @use latest restorable auto snapshot@ parameter. The @restore date@
+    --     and @use latest restorable auto snapshot@ parameters are mutually
+    --     exclusive.
+    --
+    -- -   Define this parameter only when creating a new instance from an
+    --     automatic snapshot. For more information, see the
+    --     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+    restoreDate :: Prelude.Maybe Prelude.Text,
+    -- | You can create a launch script that configures a server with additional
+    -- user data. For example, @apt-get -y update@.
+    --
+    -- Depending on the machine image you choose, the command to get software
+    -- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
+    -- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
+    -- the
+    -- <https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image Dev Guide>.
+    userData :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects representing the add-ons to enable for the new
+    -- instance.
+    addOns :: Prelude.Maybe [AddOnRequest],
+    -- | An object containing information about one or more disk mappings.
+    attachedDiskMapping :: Prelude.Maybe (Prelude.Map Prelude.Text [DiskMap]),
+    -- | The name of the instance snapshot on which you are basing your new
+    -- instances. Use the get instance snapshots operation to return
+    -- information about your existing snapshots.
+    --
+    -- Constraint:
+    --
+    -- -   This parameter cannot be defined together with the
+    --     @source instance name@ parameter. The @instance snapshot name@ and
+    --     @source instance name@ parameters are mutually exclusive.
+    instanceSnapshotName :: Prelude.Maybe Prelude.Text,
+    -- | The name for your key pair.
+    keyPairName :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value to indicate whether to use the latest available
+    -- automatic snapshot.
+    --
+    -- Constraints:
+    --
+    -- -   This parameter cannot be defined together with the @restore date@
+    --     parameter. The @use latest restorable auto snapshot@ and
+    --     @restore date@ parameters are mutually exclusive.
+    --
+    -- -   Define this parameter only when creating a new instance from an
+    --     automatic snapshot. For more information, see the
+    --     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+    useLatestRestorableAutoSnapshot :: Prelude.Maybe Prelude.Bool,
+    -- | The tag keys and optional values to add to the resource during create.
+    --
+    -- Use the @TagResource@ action to tag a resource after it\'s created.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the source instance from which the source automatic snapshot
+    -- was created.
+    --
+    -- Constraints:
+    --
+    -- -   This parameter cannot be defined together with the
+    --     @instance snapshot name@ parameter. The @source instance name@ and
+    --     @instance snapshot name@ parameters are mutually exclusive.
+    --
+    -- -   Define this parameter only when creating a new instance from an
+    --     automatic snapshot. For more information, see the
+    --     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+    sourceInstanceName :: Prelude.Maybe Prelude.Text,
+    -- | The names for your new instances.
+    instanceNames :: [Prelude.Text],
+    -- | The Availability Zone where you want to create your instances. Use the
+    -- following formatting: @us-east-2a@ (case sensitive). You can get a list
+    -- of Availability Zones by using the
+    -- <http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html get regions>
+    -- operation. Be sure to add the @include Availability Zones@ parameter to
+    -- your request.
+    availabilityZone :: Prelude.Text,
+    -- | The bundle of specification information for your virtual private server
+    -- (or /instance/), including the pricing plan (e.g., @micro_1_0@).
+    bundleId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstancesFromSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstancesFromSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cifsIpAddressType' - The IP address type for the instance. The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4 and IPv6. The default value is @dualstack@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cifsRestoreDate' - The date of the automatic snapshot to use for the new instance. Use the @get auto snapshots@ operation to identify the dates of the available automatic snapshots. Constraints:     * Must be specified in @YYYY-MM-DD@ format.     * This parameter cannot be defined together with the @use latest restorable auto snapshot@ parameter. The @restore date@ and @use latest restorable auto snapshot@ parameters are mutually exclusive.     * Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- 'ipAddressType', 'createInstancesFromSnapshot_ipAddressType' - The IP address type for the instance.
 --
--- * 'cifsUserData' - You can create a launch script that configures a server with additional user data. For example, @apt-get -y update@ .
+-- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
+-- and IPv6.
 --
--- * 'cifsAddOns' - An array of objects representing the add-ons to enable for the new instance.
+-- The default value is @dualstack@.
 --
--- * 'cifsAttachedDiskMapping' - An object containing information about one or more disk mappings.
+-- 'restoreDate', 'createInstancesFromSnapshot_restoreDate' - The date of the automatic snapshot to use for the new instance. Use the
+-- @get auto snapshots@ operation to identify the dates of the available
+-- automatic snapshots.
 --
--- * 'cifsInstanceSnapshotName' - The name of the instance snapshot on which you are basing your new instances. Use the get instance snapshots operation to return information about your existing snapshots. Constraint:     * This parameter cannot be defined together with the @source instance name@ parameter. The @instance snapshot name@ and @source instance name@ parameters are mutually exclusive.
+-- Constraints:
 --
--- * 'cifsKeyPairName' - The name for your key pair.
+-- -   Must be specified in @YYYY-MM-DD@ format.
 --
--- * 'cifsUseLatestRestorableAutoSnapshot' - A Boolean value to indicate whether to use the latest available automatic snapshot. Constraints:     * This parameter cannot be defined together with the @restore date@ parameter. The @use latest restorable auto snapshot@ and @restore date@ parameters are mutually exclusive.     * Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- -   This parameter cannot be defined together with the
+--     @use latest restorable auto snapshot@ parameter. The @restore date@
+--     and @use latest restorable auto snapshot@ parameters are mutually
+--     exclusive.
 --
--- * 'cifsTags' - The tag keys and optional values to add to the resource during create. Use the @TagResource@ action to tag a resource after it's created.
+-- -   Define this parameter only when creating a new instance from an
+--     automatic snapshot. For more information, see the
+--     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
 --
--- * 'cifsSourceInstanceName' - The name of the source instance from which the source automatic snapshot was created. Constraints:     * This parameter cannot be defined together with the @instance snapshot name@ parameter. The @source instance name@ and @instance snapshot name@ parameters are mutually exclusive.     * Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
+-- 'userData', 'createInstancesFromSnapshot_userData' - You can create a launch script that configures a server with additional
+-- user data. For example, @apt-get -y update@.
 --
--- * 'cifsInstanceNames' - The names for your new instances.
+-- Depending on the machine image you choose, the command to get software
+-- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
+-- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
+-- the
+-- <https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image Dev Guide>.
 --
--- * 'cifsAvailabilityZone' - The Availability Zone where you want to create your instances. Use the following formatting: @us-east-2a@ (case sensitive). You can get a list of Availability Zones by using the <http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html get regions> operation. Be sure to add the @include Availability Zones@ parameter to your request.
+-- 'addOns', 'createInstancesFromSnapshot_addOns' - An array of objects representing the add-ons to enable for the new
+-- instance.
 --
--- * 'cifsBundleId' - The bundle of specification information for your virtual private server (or /instance/ ), including the pricing plan (e.g., @micro_1_0@ ).
-createInstancesFromSnapshot ::
-  -- | 'cifsAvailabilityZone'
-  Text ->
-  -- | 'cifsBundleId'
-  Text ->
+-- 'attachedDiskMapping', 'createInstancesFromSnapshot_attachedDiskMapping' - An object containing information about one or more disk mappings.
+--
+-- 'instanceSnapshotName', 'createInstancesFromSnapshot_instanceSnapshotName' - The name of the instance snapshot on which you are basing your new
+-- instances. Use the get instance snapshots operation to return
+-- information about your existing snapshots.
+--
+-- Constraint:
+--
+-- -   This parameter cannot be defined together with the
+--     @source instance name@ parameter. The @instance snapshot name@ and
+--     @source instance name@ parameters are mutually exclusive.
+--
+-- 'keyPairName', 'createInstancesFromSnapshot_keyPairName' - The name for your key pair.
+--
+-- 'useLatestRestorableAutoSnapshot', 'createInstancesFromSnapshot_useLatestRestorableAutoSnapshot' - A Boolean value to indicate whether to use the latest available
+-- automatic snapshot.
+--
+-- Constraints:
+--
+-- -   This parameter cannot be defined together with the @restore date@
+--     parameter. The @use latest restorable auto snapshot@ and
+--     @restore date@ parameters are mutually exclusive.
+--
+-- -   Define this parameter only when creating a new instance from an
+--     automatic snapshot. For more information, see the
+--     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+--
+-- 'tags', 'createInstancesFromSnapshot_tags' - The tag keys and optional values to add to the resource during create.
+--
+-- Use the @TagResource@ action to tag a resource after it\'s created.
+--
+-- 'sourceInstanceName', 'createInstancesFromSnapshot_sourceInstanceName' - The name of the source instance from which the source automatic snapshot
+-- was created.
+--
+-- Constraints:
+--
+-- -   This parameter cannot be defined together with the
+--     @instance snapshot name@ parameter. The @source instance name@ and
+--     @instance snapshot name@ parameters are mutually exclusive.
+--
+-- -   Define this parameter only when creating a new instance from an
+--     automatic snapshot. For more information, see the
+--     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+--
+-- 'instanceNames', 'createInstancesFromSnapshot_instanceNames' - The names for your new instances.
+--
+-- 'availabilityZone', 'createInstancesFromSnapshot_availabilityZone' - The Availability Zone where you want to create your instances. Use the
+-- following formatting: @us-east-2a@ (case sensitive). You can get a list
+-- of Availability Zones by using the
+-- <http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html get regions>
+-- operation. Be sure to add the @include Availability Zones@ parameter to
+-- your request.
+--
+-- 'bundleId', 'createInstancesFromSnapshot_bundleId' - The bundle of specification information for your virtual private server
+-- (or /instance/), including the pricing plan (e.g., @micro_1_0@).
+newCreateInstancesFromSnapshot ::
+  -- | 'availabilityZone'
+  Prelude.Text ->
+  -- | 'bundleId'
+  Prelude.Text ->
   CreateInstancesFromSnapshot
-createInstancesFromSnapshot
+newCreateInstancesFromSnapshot
   pAvailabilityZone_
   pBundleId_ =
     CreateInstancesFromSnapshot'
-      { _cifsIpAddressType =
-          Nothing,
-        _cifsRestoreDate = Nothing,
-        _cifsUserData = Nothing,
-        _cifsAddOns = Nothing,
-        _cifsAttachedDiskMapping = Nothing,
-        _cifsInstanceSnapshotName = Nothing,
-        _cifsKeyPairName = Nothing,
-        _cifsUseLatestRestorableAutoSnapshot = Nothing,
-        _cifsTags = Nothing,
-        _cifsSourceInstanceName = Nothing,
-        _cifsInstanceNames = mempty,
-        _cifsAvailabilityZone = pAvailabilityZone_,
-        _cifsBundleId = pBundleId_
+      { ipAddressType =
+          Prelude.Nothing,
+        restoreDate = Prelude.Nothing,
+        userData = Prelude.Nothing,
+        addOns = Prelude.Nothing,
+        attachedDiskMapping = Prelude.Nothing,
+        instanceSnapshotName = Prelude.Nothing,
+        keyPairName = Prelude.Nothing,
+        useLatestRestorableAutoSnapshot =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        sourceInstanceName = Prelude.Nothing,
+        instanceNames = Prelude.mempty,
+        availabilityZone = pAvailabilityZone_,
+        bundleId = pBundleId_
       }
 
--- | The IP address type for the instance. The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4 and IPv6. The default value is @dualstack@ .
-cifsIpAddressType :: Lens' CreateInstancesFromSnapshot (Maybe IPAddressType)
-cifsIpAddressType = lens _cifsIpAddressType (\s a -> s {_cifsIpAddressType = a})
+-- | The IP address type for the instance.
+--
+-- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
+-- and IPv6.
+--
+-- The default value is @dualstack@.
+createInstancesFromSnapshot_ipAddressType :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe IpAddressType)
+createInstancesFromSnapshot_ipAddressType = Lens.lens (\CreateInstancesFromSnapshot' {ipAddressType} -> ipAddressType) (\s@CreateInstancesFromSnapshot' {} a -> s {ipAddressType = a} :: CreateInstancesFromSnapshot)
 
--- | The date of the automatic snapshot to use for the new instance. Use the @get auto snapshots@ operation to identify the dates of the available automatic snapshots. Constraints:     * Must be specified in @YYYY-MM-DD@ format.     * This parameter cannot be defined together with the @use latest restorable auto snapshot@ parameter. The @restore date@ and @use latest restorable auto snapshot@ parameters are mutually exclusive.     * Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
-cifsRestoreDate :: Lens' CreateInstancesFromSnapshot (Maybe Text)
-cifsRestoreDate = lens _cifsRestoreDate (\s a -> s {_cifsRestoreDate = a})
+-- | The date of the automatic snapshot to use for the new instance. Use the
+-- @get auto snapshots@ operation to identify the dates of the available
+-- automatic snapshots.
+--
+-- Constraints:
+--
+-- -   Must be specified in @YYYY-MM-DD@ format.
+--
+-- -   This parameter cannot be defined together with the
+--     @use latest restorable auto snapshot@ parameter. The @restore date@
+--     and @use latest restorable auto snapshot@ parameters are mutually
+--     exclusive.
+--
+-- -   Define this parameter only when creating a new instance from an
+--     automatic snapshot. For more information, see the
+--     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+createInstancesFromSnapshot_restoreDate :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe Prelude.Text)
+createInstancesFromSnapshot_restoreDate = Lens.lens (\CreateInstancesFromSnapshot' {restoreDate} -> restoreDate) (\s@CreateInstancesFromSnapshot' {} a -> s {restoreDate = a} :: CreateInstancesFromSnapshot)
 
--- | You can create a launch script that configures a server with additional user data. For example, @apt-get -y update@ .
-cifsUserData :: Lens' CreateInstancesFromSnapshot (Maybe Text)
-cifsUserData = lens _cifsUserData (\s a -> s {_cifsUserData = a})
+-- | You can create a launch script that configures a server with additional
+-- user data. For example, @apt-get -y update@.
+--
+-- Depending on the machine image you choose, the command to get software
+-- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
+-- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
+-- the
+-- <https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image Dev Guide>.
+createInstancesFromSnapshot_userData :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe Prelude.Text)
+createInstancesFromSnapshot_userData = Lens.lens (\CreateInstancesFromSnapshot' {userData} -> userData) (\s@CreateInstancesFromSnapshot' {} a -> s {userData = a} :: CreateInstancesFromSnapshot)
 
--- | An array of objects representing the add-ons to enable for the new instance.
-cifsAddOns :: Lens' CreateInstancesFromSnapshot [AddOnRequest]
-cifsAddOns = lens _cifsAddOns (\s a -> s {_cifsAddOns = a}) . _Default . _Coerce
+-- | An array of objects representing the add-ons to enable for the new
+-- instance.
+createInstancesFromSnapshot_addOns :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe [AddOnRequest])
+createInstancesFromSnapshot_addOns = Lens.lens (\CreateInstancesFromSnapshot' {addOns} -> addOns) (\s@CreateInstancesFromSnapshot' {} a -> s {addOns = a} :: CreateInstancesFromSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | An object containing information about one or more disk mappings.
-cifsAttachedDiskMapping :: Lens' CreateInstancesFromSnapshot (HashMap Text [DiskMap])
-cifsAttachedDiskMapping = lens _cifsAttachedDiskMapping (\s a -> s {_cifsAttachedDiskMapping = a}) . _Default . _Map
+createInstancesFromSnapshot_attachedDiskMapping :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe (Prelude.HashMap Prelude.Text [DiskMap]))
+createInstancesFromSnapshot_attachedDiskMapping = Lens.lens (\CreateInstancesFromSnapshot' {attachedDiskMapping} -> attachedDiskMapping) (\s@CreateInstancesFromSnapshot' {} a -> s {attachedDiskMapping = a} :: CreateInstancesFromSnapshot) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the instance snapshot on which you are basing your new instances. Use the get instance snapshots operation to return information about your existing snapshots. Constraint:     * This parameter cannot be defined together with the @source instance name@ parameter. The @instance snapshot name@ and @source instance name@ parameters are mutually exclusive.
-cifsInstanceSnapshotName :: Lens' CreateInstancesFromSnapshot (Maybe Text)
-cifsInstanceSnapshotName = lens _cifsInstanceSnapshotName (\s a -> s {_cifsInstanceSnapshotName = a})
+-- | The name of the instance snapshot on which you are basing your new
+-- instances. Use the get instance snapshots operation to return
+-- information about your existing snapshots.
+--
+-- Constraint:
+--
+-- -   This parameter cannot be defined together with the
+--     @source instance name@ parameter. The @instance snapshot name@ and
+--     @source instance name@ parameters are mutually exclusive.
+createInstancesFromSnapshot_instanceSnapshotName :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe Prelude.Text)
+createInstancesFromSnapshot_instanceSnapshotName = Lens.lens (\CreateInstancesFromSnapshot' {instanceSnapshotName} -> instanceSnapshotName) (\s@CreateInstancesFromSnapshot' {} a -> s {instanceSnapshotName = a} :: CreateInstancesFromSnapshot)
 
 -- | The name for your key pair.
-cifsKeyPairName :: Lens' CreateInstancesFromSnapshot (Maybe Text)
-cifsKeyPairName = lens _cifsKeyPairName (\s a -> s {_cifsKeyPairName = a})
+createInstancesFromSnapshot_keyPairName :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe Prelude.Text)
+createInstancesFromSnapshot_keyPairName = Lens.lens (\CreateInstancesFromSnapshot' {keyPairName} -> keyPairName) (\s@CreateInstancesFromSnapshot' {} a -> s {keyPairName = a} :: CreateInstancesFromSnapshot)
 
--- | A Boolean value to indicate whether to use the latest available automatic snapshot. Constraints:     * This parameter cannot be defined together with the @restore date@ parameter. The @use latest restorable auto snapshot@ and @restore date@ parameters are mutually exclusive.     * Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
-cifsUseLatestRestorableAutoSnapshot :: Lens' CreateInstancesFromSnapshot (Maybe Bool)
-cifsUseLatestRestorableAutoSnapshot = lens _cifsUseLatestRestorableAutoSnapshot (\s a -> s {_cifsUseLatestRestorableAutoSnapshot = a})
+-- | A Boolean value to indicate whether to use the latest available
+-- automatic snapshot.
+--
+-- Constraints:
+--
+-- -   This parameter cannot be defined together with the @restore date@
+--     parameter. The @use latest restorable auto snapshot@ and
+--     @restore date@ parameters are mutually exclusive.
+--
+-- -   Define this parameter only when creating a new instance from an
+--     automatic snapshot. For more information, see the
+--     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+createInstancesFromSnapshot_useLatestRestorableAutoSnapshot :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe Prelude.Bool)
+createInstancesFromSnapshot_useLatestRestorableAutoSnapshot = Lens.lens (\CreateInstancesFromSnapshot' {useLatestRestorableAutoSnapshot} -> useLatestRestorableAutoSnapshot) (\s@CreateInstancesFromSnapshot' {} a -> s {useLatestRestorableAutoSnapshot = a} :: CreateInstancesFromSnapshot)
 
--- | The tag keys and optional values to add to the resource during create. Use the @TagResource@ action to tag a resource after it's created.
-cifsTags :: Lens' CreateInstancesFromSnapshot [Tag]
-cifsTags = lens _cifsTags (\s a -> s {_cifsTags = a}) . _Default . _Coerce
+-- | The tag keys and optional values to add to the resource during create.
+--
+-- Use the @TagResource@ action to tag a resource after it\'s created.
+createInstancesFromSnapshot_tags :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe [Tag])
+createInstancesFromSnapshot_tags = Lens.lens (\CreateInstancesFromSnapshot' {tags} -> tags) (\s@CreateInstancesFromSnapshot' {} a -> s {tags = a} :: CreateInstancesFromSnapshot) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the source instance from which the source automatic snapshot was created. Constraints:     * This parameter cannot be defined together with the @instance snapshot name@ parameter. The @source instance name@ and @instance snapshot name@ parameters are mutually exclusive.     * Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide> .
-cifsSourceInstanceName :: Lens' CreateInstancesFromSnapshot (Maybe Text)
-cifsSourceInstanceName = lens _cifsSourceInstanceName (\s a -> s {_cifsSourceInstanceName = a})
+-- | The name of the source instance from which the source automatic snapshot
+-- was created.
+--
+-- Constraints:
+--
+-- -   This parameter cannot be defined together with the
+--     @instance snapshot name@ parameter. The @source instance name@ and
+--     @instance snapshot name@ parameters are mutually exclusive.
+--
+-- -   Define this parameter only when creating a new instance from an
+--     automatic snapshot. For more information, see the
+--     <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots Lightsail Dev Guide>.
+createInstancesFromSnapshot_sourceInstanceName :: Lens.Lens' CreateInstancesFromSnapshot (Prelude.Maybe Prelude.Text)
+createInstancesFromSnapshot_sourceInstanceName = Lens.lens (\CreateInstancesFromSnapshot' {sourceInstanceName} -> sourceInstanceName) (\s@CreateInstancesFromSnapshot' {} a -> s {sourceInstanceName = a} :: CreateInstancesFromSnapshot)
 
 -- | The names for your new instances.
-cifsInstanceNames :: Lens' CreateInstancesFromSnapshot [Text]
-cifsInstanceNames = lens _cifsInstanceNames (\s a -> s {_cifsInstanceNames = a}) . _Coerce
+createInstancesFromSnapshot_instanceNames :: Lens.Lens' CreateInstancesFromSnapshot [Prelude.Text]
+createInstancesFromSnapshot_instanceNames = Lens.lens (\CreateInstancesFromSnapshot' {instanceNames} -> instanceNames) (\s@CreateInstancesFromSnapshot' {} a -> s {instanceNames = a} :: CreateInstancesFromSnapshot) Prelude.. Prelude._Coerce
 
--- | The Availability Zone where you want to create your instances. Use the following formatting: @us-east-2a@ (case sensitive). You can get a list of Availability Zones by using the <http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html get regions> operation. Be sure to add the @include Availability Zones@ parameter to your request.
-cifsAvailabilityZone :: Lens' CreateInstancesFromSnapshot Text
-cifsAvailabilityZone = lens _cifsAvailabilityZone (\s a -> s {_cifsAvailabilityZone = a})
+-- | The Availability Zone where you want to create your instances. Use the
+-- following formatting: @us-east-2a@ (case sensitive). You can get a list
+-- of Availability Zones by using the
+-- <http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html get regions>
+-- operation. Be sure to add the @include Availability Zones@ parameter to
+-- your request.
+createInstancesFromSnapshot_availabilityZone :: Lens.Lens' CreateInstancesFromSnapshot Prelude.Text
+createInstancesFromSnapshot_availabilityZone = Lens.lens (\CreateInstancesFromSnapshot' {availabilityZone} -> availabilityZone) (\s@CreateInstancesFromSnapshot' {} a -> s {availabilityZone = a} :: CreateInstancesFromSnapshot)
 
--- | The bundle of specification information for your virtual private server (or /instance/ ), including the pricing plan (e.g., @micro_1_0@ ).
-cifsBundleId :: Lens' CreateInstancesFromSnapshot Text
-cifsBundleId = lens _cifsBundleId (\s a -> s {_cifsBundleId = a})
+-- | The bundle of specification information for your virtual private server
+-- (or /instance/), including the pricing plan (e.g., @micro_1_0@).
+createInstancesFromSnapshot_bundleId :: Lens.Lens' CreateInstancesFromSnapshot Prelude.Text
+createInstancesFromSnapshot_bundleId = Lens.lens (\CreateInstancesFromSnapshot' {bundleId} -> bundleId) (\s@CreateInstancesFromSnapshot' {} a -> s {bundleId = a} :: CreateInstancesFromSnapshot)
 
-instance AWSRequest CreateInstancesFromSnapshot where
+instance
+  Prelude.AWSRequest
+    CreateInstancesFromSnapshot
+  where
   type
     Rs CreateInstancesFromSnapshot =
       CreateInstancesFromSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateInstancesFromSnapshotResponse'
-            <$> (x .?> "operations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "operations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateInstancesFromSnapshot
+instance Prelude.Hashable CreateInstancesFromSnapshot
 
-instance NFData CreateInstancesFromSnapshot
+instance Prelude.NFData CreateInstancesFromSnapshot
 
-instance ToHeaders CreateInstancesFromSnapshot where
+instance
+  Prelude.ToHeaders
+    CreateInstancesFromSnapshot
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.CreateInstancesFromSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.CreateInstancesFromSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateInstancesFromSnapshot where
+instance Prelude.ToJSON CreateInstancesFromSnapshot where
   toJSON CreateInstancesFromSnapshot' {..} =
-    object
-      ( catMaybes
-          [ ("ipAddressType" .=) <$> _cifsIpAddressType,
-            ("restoreDate" .=) <$> _cifsRestoreDate,
-            ("userData" .=) <$> _cifsUserData,
-            ("addOns" .=) <$> _cifsAddOns,
-            ("attachedDiskMapping" .=)
-              <$> _cifsAttachedDiskMapping,
-            ("instanceSnapshotName" .=)
-              <$> _cifsInstanceSnapshotName,
-            ("keyPairName" .=) <$> _cifsKeyPairName,
-            ("useLatestRestorableAutoSnapshot" .=)
-              <$> _cifsUseLatestRestorableAutoSnapshot,
-            ("tags" .=) <$> _cifsTags,
-            ("sourceInstanceName" .=)
-              <$> _cifsSourceInstanceName,
-            Just ("instanceNames" .= _cifsInstanceNames),
-            Just ("availabilityZone" .= _cifsAvailabilityZone),
-            Just ("bundleId" .= _cifsBundleId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ipAddressType" Prelude..=)
+              Prelude.<$> ipAddressType,
+            ("restoreDate" Prelude..=) Prelude.<$> restoreDate,
+            ("userData" Prelude..=) Prelude.<$> userData,
+            ("addOns" Prelude..=) Prelude.<$> addOns,
+            ("attachedDiskMapping" Prelude..=)
+              Prelude.<$> attachedDiskMapping,
+            ("instanceSnapshotName" Prelude..=)
+              Prelude.<$> instanceSnapshotName,
+            ("keyPairName" Prelude..=) Prelude.<$> keyPairName,
+            ("useLatestRestorableAutoSnapshot" Prelude..=)
+              Prelude.<$> useLatestRestorableAutoSnapshot,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("sourceInstanceName" Prelude..=)
+              Prelude.<$> sourceInstanceName,
+            Prelude.Just
+              ("instanceNames" Prelude..= instanceNames),
+            Prelude.Just
+              ("availabilityZone" Prelude..= availabilityZone),
+            Prelude.Just ("bundleId" Prelude..= bundleId)
           ]
       )
 
-instance ToPath CreateInstancesFromSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateInstancesFromSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateInstancesFromSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateInstancesFromSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createInstancesFromSnapshotResponse' smart constructor.
+-- | /See:/ 'newCreateInstancesFromSnapshotResponse' smart constructor.
 data CreateInstancesFromSnapshotResponse = CreateInstancesFromSnapshotResponse'
-  { _cifsrrsOperations ::
-      !( Maybe
-           [Operation]
-       ),
-    _cifsrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe the result of the action, such as the
+    -- status of the request, the timestamp of the request, and the resources
+    -- affected by the request.
+    operations :: Prelude.Maybe [Operation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstancesFromSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstancesFromSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cifsrrsOperations' - An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cifsrrsResponseStatus' - -- | The response status code.
-createInstancesFromSnapshotResponse ::
-  -- | 'cifsrrsResponseStatus'
-  Int ->
+-- 'operations', 'createInstancesFromSnapshotResponse_operations' - An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+--
+-- 'httpStatus', 'createInstancesFromSnapshotResponse_httpStatus' - The response's http status code.
+newCreateInstancesFromSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateInstancesFromSnapshotResponse
-createInstancesFromSnapshotResponse pResponseStatus_ =
+newCreateInstancesFromSnapshotResponse pHttpStatus_ =
   CreateInstancesFromSnapshotResponse'
-    { _cifsrrsOperations =
-        Nothing,
-      _cifsrrsResponseStatus =
-        pResponseStatus_
+    { operations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of objects that describe the result of the action, such as the status of the request, the timestamp of the request, and the resources affected by the request.
-cifsrrsOperations :: Lens' CreateInstancesFromSnapshotResponse [Operation]
-cifsrrsOperations = lens _cifsrrsOperations (\s a -> s {_cifsrrsOperations = a}) . _Default . _Coerce
+-- | An array of objects that describe the result of the action, such as the
+-- status of the request, the timestamp of the request, and the resources
+-- affected by the request.
+createInstancesFromSnapshotResponse_operations :: Lens.Lens' CreateInstancesFromSnapshotResponse (Prelude.Maybe [Operation])
+createInstancesFromSnapshotResponse_operations = Lens.lens (\CreateInstancesFromSnapshotResponse' {operations} -> operations) (\s@CreateInstancesFromSnapshotResponse' {} a -> s {operations = a} :: CreateInstancesFromSnapshotResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cifsrrsResponseStatus :: Lens' CreateInstancesFromSnapshotResponse Int
-cifsrrsResponseStatus = lens _cifsrrsResponseStatus (\s a -> s {_cifsrrsResponseStatus = a})
+-- | The response's http status code.
+createInstancesFromSnapshotResponse_httpStatus :: Lens.Lens' CreateInstancesFromSnapshotResponse Prelude.Int
+createInstancesFromSnapshotResponse_httpStatus = Lens.lens (\CreateInstancesFromSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateInstancesFromSnapshotResponse' {} a -> s {httpStatus = a} :: CreateInstancesFromSnapshotResponse)
 
-instance NFData CreateInstancesFromSnapshotResponse
+instance
+  Prelude.NFData
+    CreateInstancesFromSnapshotResponse

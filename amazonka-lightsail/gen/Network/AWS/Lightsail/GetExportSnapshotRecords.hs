@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the export snapshot record created as a result of the @export snapshot@ operation.
+-- Returns the export snapshot record created as a result of the
+-- @export snapshot@ operation.
 --
---
--- An export snapshot record can be used to create a new Amazon EC2 instance and its related resources with the @create cloud formation stack@ operation.
---
+-- An export snapshot record can be used to create a new Amazon EC2
+-- instance and its related resources with the
+-- @create cloud formation stack@ operation.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetExportSnapshotRecords
   ( -- * Creating a Request
-    getExportSnapshotRecords,
-    GetExportSnapshotRecords,
+    GetExportSnapshotRecords (..),
+    newGetExportSnapshotRecords,
 
     -- * Request Lenses
-    gesrPageToken,
+    getExportSnapshotRecords_pageToken,
 
     -- * Destructuring the Response
-    getExportSnapshotRecordsResponse,
-    GetExportSnapshotRecordsResponse,
+    GetExportSnapshotRecordsResponse (..),
+    newGetExportSnapshotRecordsResponse,
 
     -- * Response Lenses
-    gesrrrsExportSnapshotRecords,
-    gesrrrsNextPageToken,
-    gesrrrsResponseStatus,
+    getExportSnapshotRecordsResponse_exportSnapshotRecords,
+    getExportSnapshotRecordsResponse_nextPageToken,
+    getExportSnapshotRecordsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ExportSnapshotRecord
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getExportSnapshotRecords' smart constructor.
-newtype GetExportSnapshotRecords = GetExportSnapshotRecords'
-  { _gesrPageToken ::
-      Maybe Text
+-- | /See:/ 'newGetExportSnapshotRecords' smart constructor.
+data GetExportSnapshotRecords = GetExportSnapshotRecords'
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetExportSnapshotRecords@
+    -- request. If your results are paginated, the response will return a next
+    -- page token that you can specify as the page token in a subsequent
+    -- request.
+    pageToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetExportSnapshotRecords' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetExportSnapshotRecords' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gesrPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetExportSnapshotRecords@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-getExportSnapshotRecords ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pageToken', 'getExportSnapshotRecords_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetExportSnapshotRecords@
+-- request. If your results are paginated, the response will return a next
+-- page token that you can specify as the page token in a subsequent
+-- request.
+newGetExportSnapshotRecords ::
   GetExportSnapshotRecords
-getExportSnapshotRecords =
-  GetExportSnapshotRecords' {_gesrPageToken = Nothing}
+newGetExportSnapshotRecords =
+  GetExportSnapshotRecords'
+    { pageToken =
+        Prelude.Nothing
+    }
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetExportSnapshotRecords@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-gesrPageToken :: Lens' GetExportSnapshotRecords (Maybe Text)
-gesrPageToken = lens _gesrPageToken (\s a -> s {_gesrPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetExportSnapshotRecords@
+-- request. If your results are paginated, the response will return a next
+-- page token that you can specify as the page token in a subsequent
+-- request.
+getExportSnapshotRecords_pageToken :: Lens.Lens' GetExportSnapshotRecords (Prelude.Maybe Prelude.Text)
+getExportSnapshotRecords_pageToken = Lens.lens (\GetExportSnapshotRecords' {pageToken} -> pageToken) (\s@GetExportSnapshotRecords' {} a -> s {pageToken = a} :: GetExportSnapshotRecords)
 
-instance AWSPager GetExportSnapshotRecords where
+instance Pager.AWSPager GetExportSnapshotRecords where
   page rq rs
-    | stop (rs ^. gesrrrsNextPageToken) = Nothing
-    | stop (rs ^. gesrrrsExportSnapshotRecords) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? getExportSnapshotRecordsResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getExportSnapshotRecordsResponse_exportSnapshotRecords
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & gesrPageToken .~ rs ^. gesrrrsNextPageToken
+          Lens.& getExportSnapshotRecords_pageToken
+          Lens..~ rs
+          Lens.^? getExportSnapshotRecordsResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetExportSnapshotRecords where
+instance Prelude.AWSRequest GetExportSnapshotRecords where
   type
     Rs GetExportSnapshotRecords =
       GetExportSnapshotRecordsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetExportSnapshotRecordsResponse'
-            <$> (x .?> "exportSnapshotRecords" .!@ mempty)
-            <*> (x .?> "nextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "exportSnapshotRecords"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetExportSnapshotRecords
+instance Prelude.Hashable GetExportSnapshotRecords
 
-instance NFData GetExportSnapshotRecords
+instance Prelude.NFData GetExportSnapshotRecords
 
-instance ToHeaders GetExportSnapshotRecords where
+instance Prelude.ToHeaders GetExportSnapshotRecords where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetExportSnapshotRecords" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetExportSnapshotRecords" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetExportSnapshotRecords where
+instance Prelude.ToJSON GetExportSnapshotRecords where
   toJSON GetExportSnapshotRecords' {..} =
-    object
-      (catMaybes [("pageToken" .=) <$> _gesrPageToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pageToken" Prelude..=) Prelude.<$> pageToken]
+      )
 
-instance ToPath GetExportSnapshotRecords where
-  toPath = const "/"
+instance Prelude.ToPath GetExportSnapshotRecords where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetExportSnapshotRecords where
-  toQuery = const mempty
+instance Prelude.ToQuery GetExportSnapshotRecords where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getExportSnapshotRecordsResponse' smart constructor.
+-- | /See:/ 'newGetExportSnapshotRecordsResponse' smart constructor.
 data GetExportSnapshotRecordsResponse = GetExportSnapshotRecordsResponse'
-  { _gesrrrsExportSnapshotRecords ::
-      !( Maybe
-           [ExportSnapshotRecord]
-       ),
-    _gesrrrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _gesrrrsResponseStatus ::
-      !Int
+  { -- | A list of objects describing the export snapshot records.
+    exportSnapshotRecords :: Prelude.Maybe [ExportSnapshotRecord],
+    -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another
+    -- @GetExportSnapshotRecords@ request and specify the next page token using
+    -- the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetExportSnapshotRecordsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetExportSnapshotRecordsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gesrrrsExportSnapshotRecords' - A list of objects describing the export snapshot records.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gesrrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetExportSnapshotRecords@ request and specify the next page token using the @pageToken@ parameter.
+-- 'exportSnapshotRecords', 'getExportSnapshotRecordsResponse_exportSnapshotRecords' - A list of objects describing the export snapshot records.
 --
--- * 'gesrrrsResponseStatus' - -- | The response status code.
-getExportSnapshotRecordsResponse ::
-  -- | 'gesrrrsResponseStatus'
-  Int ->
+-- 'nextPageToken', 'getExportSnapshotRecordsResponse_nextPageToken' - The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetExportSnapshotRecords@ request and specify the next page token using
+-- the @pageToken@ parameter.
+--
+-- 'httpStatus', 'getExportSnapshotRecordsResponse_httpStatus' - The response's http status code.
+newGetExportSnapshotRecordsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetExportSnapshotRecordsResponse
-getExportSnapshotRecordsResponse pResponseStatus_ =
+newGetExportSnapshotRecordsResponse pHttpStatus_ =
   GetExportSnapshotRecordsResponse'
-    { _gesrrrsExportSnapshotRecords =
-        Nothing,
-      _gesrrrsNextPageToken = Nothing,
-      _gesrrrsResponseStatus = pResponseStatus_
+    { exportSnapshotRecords =
+        Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of objects describing the export snapshot records.
-gesrrrsExportSnapshotRecords :: Lens' GetExportSnapshotRecordsResponse [ExportSnapshotRecord]
-gesrrrsExportSnapshotRecords = lens _gesrrrsExportSnapshotRecords (\s a -> s {_gesrrrsExportSnapshotRecords = a}) . _Default . _Coerce
+getExportSnapshotRecordsResponse_exportSnapshotRecords :: Lens.Lens' GetExportSnapshotRecordsResponse (Prelude.Maybe [ExportSnapshotRecord])
+getExportSnapshotRecordsResponse_exportSnapshotRecords = Lens.lens (\GetExportSnapshotRecordsResponse' {exportSnapshotRecords} -> exportSnapshotRecords) (\s@GetExportSnapshotRecordsResponse' {} a -> s {exportSnapshotRecords = a} :: GetExportSnapshotRecordsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetExportSnapshotRecords@ request and specify the next page token using the @pageToken@ parameter.
-gesrrrsNextPageToken :: Lens' GetExportSnapshotRecordsResponse (Maybe Text)
-gesrrrsNextPageToken = lens _gesrrrsNextPageToken (\s a -> s {_gesrrrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another
+-- @GetExportSnapshotRecords@ request and specify the next page token using
+-- the @pageToken@ parameter.
+getExportSnapshotRecordsResponse_nextPageToken :: Lens.Lens' GetExportSnapshotRecordsResponse (Prelude.Maybe Prelude.Text)
+getExportSnapshotRecordsResponse_nextPageToken = Lens.lens (\GetExportSnapshotRecordsResponse' {nextPageToken} -> nextPageToken) (\s@GetExportSnapshotRecordsResponse' {} a -> s {nextPageToken = a} :: GetExportSnapshotRecordsResponse)
 
--- | -- | The response status code.
-gesrrrsResponseStatus :: Lens' GetExportSnapshotRecordsResponse Int
-gesrrrsResponseStatus = lens _gesrrrsResponseStatus (\s a -> s {_gesrrrsResponseStatus = a})
+-- | The response's http status code.
+getExportSnapshotRecordsResponse_httpStatus :: Lens.Lens' GetExportSnapshotRecordsResponse Prelude.Int
+getExportSnapshotRecordsResponse_httpStatus = Lens.lens (\GetExportSnapshotRecordsResponse' {httpStatus} -> httpStatus) (\s@GetExportSnapshotRecordsResponse' {} a -> s {httpStatus = a} :: GetExportSnapshotRecordsResponse)
 
-instance NFData GetExportSnapshotRecordsResponse
+instance
+  Prelude.NFData
+    GetExportSnapshotRecordsResponse

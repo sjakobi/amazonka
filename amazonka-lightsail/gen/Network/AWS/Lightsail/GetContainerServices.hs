@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about one or more of your Amazon Lightsail container services.
+-- Returns information about one or more of your Amazon Lightsail container
+-- services.
 module Network.AWS.Lightsail.GetContainerServices
   ( -- * Creating a Request
-    getContainerServices,
-    GetContainerServices,
+    GetContainerServices (..),
+    newGetContainerServices,
 
     -- * Request Lenses
-    gcsServiceName,
+    getContainerServices_serviceName,
 
     -- * Destructuring the Response
-    getContainerServicesResponse,
-    GetContainerServicesResponse,
+    GetContainerServicesResponse (..),
+    newGetContainerServicesResponse,
 
     -- * Response Lenses
-    gcsrrsContainerServices,
-    gcsrrsResponseStatus,
+    getContainerServicesResponse_containerServices,
+    getContainerServicesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.ContainerService
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerServices' smart constructor.
-newtype GetContainerServices = GetContainerServices'
-  { _gcsServiceName ::
-      Maybe Text
+-- | /See:/ 'newGetContainerServices' smart constructor.
+data GetContainerServices = GetContainerServices'
+  { -- | The name of the container service for which to return information.
+    --
+    -- When omitted, the response includes all of your container services in
+    -- the AWS Region where the request is made.
+    serviceName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsServiceName' - The name of the container service for which to return information. When omitted, the response includes all of your container services in the AWS Region where the request is made.
-getContainerServices ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'serviceName', 'getContainerServices_serviceName' - The name of the container service for which to return information.
+--
+-- When omitted, the response includes all of your container services in
+-- the AWS Region where the request is made.
+newGetContainerServices ::
   GetContainerServices
-getContainerServices =
-  GetContainerServices' {_gcsServiceName = Nothing}
+newGetContainerServices =
+  GetContainerServices'
+    { serviceName =
+        Prelude.Nothing
+    }
 
--- | The name of the container service for which to return information. When omitted, the response includes all of your container services in the AWS Region where the request is made.
-gcsServiceName :: Lens' GetContainerServices (Maybe Text)
-gcsServiceName = lens _gcsServiceName (\s a -> s {_gcsServiceName = a})
+-- | The name of the container service for which to return information.
+--
+-- When omitted, the response includes all of your container services in
+-- the AWS Region where the request is made.
+getContainerServices_serviceName :: Lens.Lens' GetContainerServices (Prelude.Maybe Prelude.Text)
+getContainerServices_serviceName = Lens.lens (\GetContainerServices' {serviceName} -> serviceName) (\s@GetContainerServices' {} a -> s {serviceName = a} :: GetContainerServices)
 
-instance AWSRequest GetContainerServices where
+instance Prelude.AWSRequest GetContainerServices where
   type
     Rs GetContainerServices =
       GetContainerServicesResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerServicesResponse'
-            <$> (x .?> "containerServices" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "containerServices"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContainerServices
+instance Prelude.Hashable GetContainerServices
 
-instance NFData GetContainerServices
+instance Prelude.NFData GetContainerServices
 
-instance ToHeaders GetContainerServices where
+instance Prelude.ToHeaders GetContainerServices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetContainerServices" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetContainerServices" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerServices where
+instance Prelude.ToJSON GetContainerServices where
   toJSON GetContainerServices' {..} =
-    object
-      (catMaybes [("serviceName" .=) <$> _gcsServiceName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("serviceName" Prelude..=) Prelude.<$> serviceName]
+      )
 
-instance ToPath GetContainerServices where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerServices where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerServices where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContainerServices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerServicesResponse' smart constructor.
+-- | /See:/ 'newGetContainerServicesResponse' smart constructor.
 data GetContainerServicesResponse = GetContainerServicesResponse'
-  { _gcsrrsContainerServices ::
-      !( Maybe
-           [ContainerService]
-       ),
-    _gcsrrsResponseStatus ::
-      !Int
+  { -- | An array of objects that describe one or more container services.
+    containerServices :: Prelude.Maybe [ContainerService],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerServicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerServicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsrrsContainerServices' - An array of objects that describe one or more container services.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsrrsResponseStatus' - -- | The response status code.
-getContainerServicesResponse ::
-  -- | 'gcsrrsResponseStatus'
-  Int ->
+-- 'containerServices', 'getContainerServicesResponse_containerServices' - An array of objects that describe one or more container services.
+--
+-- 'httpStatus', 'getContainerServicesResponse_httpStatus' - The response's http status code.
+newGetContainerServicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContainerServicesResponse
-getContainerServicesResponse pResponseStatus_ =
+newGetContainerServicesResponse pHttpStatus_ =
   GetContainerServicesResponse'
-    { _gcsrrsContainerServices =
-        Nothing,
-      _gcsrrsResponseStatus = pResponseStatus_
+    { containerServices =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array of objects that describe one or more container services.
-gcsrrsContainerServices :: Lens' GetContainerServicesResponse [ContainerService]
-gcsrrsContainerServices = lens _gcsrrsContainerServices (\s a -> s {_gcsrrsContainerServices = a}) . _Default . _Coerce
+getContainerServicesResponse_containerServices :: Lens.Lens' GetContainerServicesResponse (Prelude.Maybe [ContainerService])
+getContainerServicesResponse_containerServices = Lens.lens (\GetContainerServicesResponse' {containerServices} -> containerServices) (\s@GetContainerServicesResponse' {} a -> s {containerServices = a} :: GetContainerServicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gcsrrsResponseStatus :: Lens' GetContainerServicesResponse Int
-gcsrrsResponseStatus = lens _gcsrrsResponseStatus (\s a -> s {_gcsrrsResponseStatus = a})
+-- | The response's http status code.
+getContainerServicesResponse_httpStatus :: Lens.Lens' GetContainerServicesResponse Prelude.Int
+getContainerServicesResponse_httpStatus = Lens.lens (\GetContainerServicesResponse' {httpStatus} -> httpStatus) (\s@GetContainerServicesResponse' {} a -> s {httpStatus = a} :: GetContainerServicesResponse)
 
-instance NFData GetContainerServicesResponse
+instance Prelude.NFData GetContainerServicesResponse

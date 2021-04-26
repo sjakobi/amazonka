@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,149 +24,148 @@
 -- Returns information about a specific instance snapshot.
 module Network.AWS.Lightsail.GetInstanceSnapshot
   ( -- * Creating a Request
-    getInstanceSnapshot,
-    GetInstanceSnapshot,
+    GetInstanceSnapshot (..),
+    newGetInstanceSnapshot,
 
     -- * Request Lenses
-    gisInstanceSnapshotName,
+    getInstanceSnapshot_instanceSnapshotName,
 
     -- * Destructuring the Response
-    getInstanceSnapshotResponse,
-    GetInstanceSnapshotResponse,
+    GetInstanceSnapshotResponse (..),
+    newGetInstanceSnapshotResponse,
 
     -- * Response Lenses
-    getersInstanceSnapshot,
-    getersResponseStatus,
+    getInstanceSnapshotResponse_instanceSnapshot,
+    getInstanceSnapshotResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.InstanceSnapshot
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getInstanceSnapshot' smart constructor.
-newtype GetInstanceSnapshot = GetInstanceSnapshot'
-  { _gisInstanceSnapshotName ::
-      Text
+-- | /See:/ 'newGetInstanceSnapshot' smart constructor.
+data GetInstanceSnapshot = GetInstanceSnapshot'
+  { -- | The name of the snapshot for which you are requesting information.
+    instanceSnapshotName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisInstanceSnapshotName' - The name of the snapshot for which you are requesting information.
-getInstanceSnapshot ::
-  -- | 'gisInstanceSnapshotName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceSnapshotName', 'getInstanceSnapshot_instanceSnapshotName' - The name of the snapshot for which you are requesting information.
+newGetInstanceSnapshot ::
+  -- | 'instanceSnapshotName'
+  Prelude.Text ->
   GetInstanceSnapshot
-getInstanceSnapshot pInstanceSnapshotName_ =
+newGetInstanceSnapshot pInstanceSnapshotName_ =
   GetInstanceSnapshot'
-    { _gisInstanceSnapshotName =
+    { instanceSnapshotName =
         pInstanceSnapshotName_
     }
 
 -- | The name of the snapshot for which you are requesting information.
-gisInstanceSnapshotName :: Lens' GetInstanceSnapshot Text
-gisInstanceSnapshotName = lens _gisInstanceSnapshotName (\s a -> s {_gisInstanceSnapshotName = a})
+getInstanceSnapshot_instanceSnapshotName :: Lens.Lens' GetInstanceSnapshot Prelude.Text
+getInstanceSnapshot_instanceSnapshotName = Lens.lens (\GetInstanceSnapshot' {instanceSnapshotName} -> instanceSnapshotName) (\s@GetInstanceSnapshot' {} a -> s {instanceSnapshotName = a} :: GetInstanceSnapshot)
 
-instance AWSRequest GetInstanceSnapshot where
+instance Prelude.AWSRequest GetInstanceSnapshot where
   type
     Rs GetInstanceSnapshot =
       GetInstanceSnapshotResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInstanceSnapshotResponse'
-            <$> (x .?> "instanceSnapshot") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "instanceSnapshot")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInstanceSnapshot
+instance Prelude.Hashable GetInstanceSnapshot
 
-instance NFData GetInstanceSnapshot
+instance Prelude.NFData GetInstanceSnapshot
 
-instance ToHeaders GetInstanceSnapshot where
+instance Prelude.ToHeaders GetInstanceSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetInstanceSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetInstanceSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInstanceSnapshot where
+instance Prelude.ToJSON GetInstanceSnapshot where
   toJSON GetInstanceSnapshot' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "instanceSnapshotName"
-                  .= _gisInstanceSnapshotName
+                  Prelude..= instanceSnapshotName
               )
           ]
       )
 
-instance ToPath GetInstanceSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath GetInstanceSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInstanceSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInstanceSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInstanceSnapshotResponse' smart constructor.
+-- | /See:/ 'newGetInstanceSnapshotResponse' smart constructor.
 data GetInstanceSnapshotResponse = GetInstanceSnapshotResponse'
-  { _getersInstanceSnapshot ::
-      !( Maybe
-           InstanceSnapshot
-       ),
-    _getersResponseStatus ::
-      !Int
+  { -- | An array of key-value pairs containing information about the results of
+    -- your get instance snapshot request.
+    instanceSnapshot :: Prelude.Maybe InstanceSnapshot,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getersInstanceSnapshot' - An array of key-value pairs containing information about the results of your get instance snapshot request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getersResponseStatus' - -- | The response status code.
-getInstanceSnapshotResponse ::
-  -- | 'getersResponseStatus'
-  Int ->
+-- 'instanceSnapshot', 'getInstanceSnapshotResponse_instanceSnapshot' - An array of key-value pairs containing information about the results of
+-- your get instance snapshot request.
+--
+-- 'httpStatus', 'getInstanceSnapshotResponse_httpStatus' - The response's http status code.
+newGetInstanceSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInstanceSnapshotResponse
-getInstanceSnapshotResponse pResponseStatus_ =
+newGetInstanceSnapshotResponse pHttpStatus_ =
   GetInstanceSnapshotResponse'
-    { _getersInstanceSnapshot =
-        Nothing,
-      _getersResponseStatus = pResponseStatus_
+    { instanceSnapshot =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of key-value pairs containing information about the results of your get instance snapshot request.
-getersInstanceSnapshot :: Lens' GetInstanceSnapshotResponse (Maybe InstanceSnapshot)
-getersInstanceSnapshot = lens _getersInstanceSnapshot (\s a -> s {_getersInstanceSnapshot = a})
+-- | An array of key-value pairs containing information about the results of
+-- your get instance snapshot request.
+getInstanceSnapshotResponse_instanceSnapshot :: Lens.Lens' GetInstanceSnapshotResponse (Prelude.Maybe InstanceSnapshot)
+getInstanceSnapshotResponse_instanceSnapshot = Lens.lens (\GetInstanceSnapshotResponse' {instanceSnapshot} -> instanceSnapshot) (\s@GetInstanceSnapshotResponse' {} a -> s {instanceSnapshot = a} :: GetInstanceSnapshotResponse)
 
--- | -- | The response status code.
-getersResponseStatus :: Lens' GetInstanceSnapshotResponse Int
-getersResponseStatus = lens _getersResponseStatus (\s a -> s {_getersResponseStatus = a})
+-- | The response's http status code.
+getInstanceSnapshotResponse_httpStatus :: Lens.Lens' GetInstanceSnapshotResponse Prelude.Int
+getInstanceSnapshotResponse_httpStatus = Lens.lens (\GetInstanceSnapshotResponse' {httpStatus} -> httpStatus) (\s@GetInstanceSnapshotResponse' {} a -> s {httpStatus = a} :: GetInstanceSnapshotResponse)
 
-instance NFData GetInstanceSnapshotResponse
+instance Prelude.NFData GetInstanceSnapshotResponse

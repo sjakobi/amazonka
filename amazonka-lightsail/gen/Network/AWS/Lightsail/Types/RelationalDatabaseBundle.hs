@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,133 +19,129 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.RelationalDatabaseBundle where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a database bundle. A bundle describes the performance specifications of the database.
+-- | Describes a database bundle. A bundle describes the performance
+-- specifications of the database.
 --
---
---
--- /See:/ 'relationalDatabaseBundle' smart constructor.
+-- /See:/ 'newRelationalDatabaseBundle' smart constructor.
 data RelationalDatabaseBundle = RelationalDatabaseBundle'
-  { _rdbRamSizeInGb ::
-      !(Maybe Double),
-    _rdbBundleId ::
-      !(Maybe Text),
-    _rdbIsActive ::
-      !(Maybe Bool),
-    _rdbName ::
-      !(Maybe Text),
-    _rdbIsEncrypted ::
-      !(Maybe Bool),
-    _rdbTransferPerMonthInGb ::
-      !(Maybe Int),
-    _rdbCpuCount ::
-      !(Maybe Int),
-    _rdbPrice ::
-      !(Maybe Double),
-    _rdbDiskSizeInGb ::
-      !(Maybe Int)
+  { -- | The amount of RAM in GB (for example, @2.0@) for the database bundle.
+    ramSizeInGb :: Prelude.Maybe Prelude.Double,
+    -- | The ID for the database bundle.
+    bundleId :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value indicating whether the database bundle is active.
+    isActive :: Prelude.Maybe Prelude.Bool,
+    -- | The name for the database bundle.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value indicating whether the database bundle is encrypted.
+    isEncrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The data transfer rate per month in GB for the database bundle.
+    transferPerMonthInGb :: Prelude.Maybe Prelude.Int,
+    -- | The number of virtual CPUs (vCPUs) for the database bundle.
+    cpuCount :: Prelude.Maybe Prelude.Int,
+    -- | The cost of the database bundle in US currency.
+    price :: Prelude.Maybe Prelude.Double,
+    -- | The size of the disk for the database bundle.
+    diskSizeInGb :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RelationalDatabaseBundle' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RelationalDatabaseBundle' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdbRamSizeInGb' - The amount of RAM in GB (for example, @2.0@ ) for the database bundle.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdbBundleId' - The ID for the database bundle.
+-- 'ramSizeInGb', 'relationalDatabaseBundle_ramSizeInGb' - The amount of RAM in GB (for example, @2.0@) for the database bundle.
 --
--- * 'rdbIsActive' - A Boolean value indicating whether the database bundle is active.
+-- 'bundleId', 'relationalDatabaseBundle_bundleId' - The ID for the database bundle.
 --
--- * 'rdbName' - The name for the database bundle.
+-- 'isActive', 'relationalDatabaseBundle_isActive' - A Boolean value indicating whether the database bundle is active.
 --
--- * 'rdbIsEncrypted' - A Boolean value indicating whether the database bundle is encrypted.
+-- 'name', 'relationalDatabaseBundle_name' - The name for the database bundle.
 --
--- * 'rdbTransferPerMonthInGb' - The data transfer rate per month in GB for the database bundle.
+-- 'isEncrypted', 'relationalDatabaseBundle_isEncrypted' - A Boolean value indicating whether the database bundle is encrypted.
 --
--- * 'rdbCpuCount' - The number of virtual CPUs (vCPUs) for the database bundle.
+-- 'transferPerMonthInGb', 'relationalDatabaseBundle_transferPerMonthInGb' - The data transfer rate per month in GB for the database bundle.
 --
--- * 'rdbPrice' - The cost of the database bundle in US currency.
+-- 'cpuCount', 'relationalDatabaseBundle_cpuCount' - The number of virtual CPUs (vCPUs) for the database bundle.
 --
--- * 'rdbDiskSizeInGb' - The size of the disk for the database bundle.
-relationalDatabaseBundle ::
+-- 'price', 'relationalDatabaseBundle_price' - The cost of the database bundle in US currency.
+--
+-- 'diskSizeInGb', 'relationalDatabaseBundle_diskSizeInGb' - The size of the disk for the database bundle.
+newRelationalDatabaseBundle ::
   RelationalDatabaseBundle
-relationalDatabaseBundle =
+newRelationalDatabaseBundle =
   RelationalDatabaseBundle'
-    { _rdbRamSizeInGb =
-        Nothing,
-      _rdbBundleId = Nothing,
-      _rdbIsActive = Nothing,
-      _rdbName = Nothing,
-      _rdbIsEncrypted = Nothing,
-      _rdbTransferPerMonthInGb = Nothing,
-      _rdbCpuCount = Nothing,
-      _rdbPrice = Nothing,
-      _rdbDiskSizeInGb = Nothing
+    { ramSizeInGb =
+        Prelude.Nothing,
+      bundleId = Prelude.Nothing,
+      isActive = Prelude.Nothing,
+      name = Prelude.Nothing,
+      isEncrypted = Prelude.Nothing,
+      transferPerMonthInGb = Prelude.Nothing,
+      cpuCount = Prelude.Nothing,
+      price = Prelude.Nothing,
+      diskSizeInGb = Prelude.Nothing
     }
 
--- | The amount of RAM in GB (for example, @2.0@ ) for the database bundle.
-rdbRamSizeInGb :: Lens' RelationalDatabaseBundle (Maybe Double)
-rdbRamSizeInGb = lens _rdbRamSizeInGb (\s a -> s {_rdbRamSizeInGb = a})
+-- | The amount of RAM in GB (for example, @2.0@) for the database bundle.
+relationalDatabaseBundle_ramSizeInGb :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Double)
+relationalDatabaseBundle_ramSizeInGb = Lens.lens (\RelationalDatabaseBundle' {ramSizeInGb} -> ramSizeInGb) (\s@RelationalDatabaseBundle' {} a -> s {ramSizeInGb = a} :: RelationalDatabaseBundle)
 
 -- | The ID for the database bundle.
-rdbBundleId :: Lens' RelationalDatabaseBundle (Maybe Text)
-rdbBundleId = lens _rdbBundleId (\s a -> s {_rdbBundleId = a})
+relationalDatabaseBundle_bundleId :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Text)
+relationalDatabaseBundle_bundleId = Lens.lens (\RelationalDatabaseBundle' {bundleId} -> bundleId) (\s@RelationalDatabaseBundle' {} a -> s {bundleId = a} :: RelationalDatabaseBundle)
 
 -- | A Boolean value indicating whether the database bundle is active.
-rdbIsActive :: Lens' RelationalDatabaseBundle (Maybe Bool)
-rdbIsActive = lens _rdbIsActive (\s a -> s {_rdbIsActive = a})
+relationalDatabaseBundle_isActive :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Bool)
+relationalDatabaseBundle_isActive = Lens.lens (\RelationalDatabaseBundle' {isActive} -> isActive) (\s@RelationalDatabaseBundle' {} a -> s {isActive = a} :: RelationalDatabaseBundle)
 
 -- | The name for the database bundle.
-rdbName :: Lens' RelationalDatabaseBundle (Maybe Text)
-rdbName = lens _rdbName (\s a -> s {_rdbName = a})
+relationalDatabaseBundle_name :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Text)
+relationalDatabaseBundle_name = Lens.lens (\RelationalDatabaseBundle' {name} -> name) (\s@RelationalDatabaseBundle' {} a -> s {name = a} :: RelationalDatabaseBundle)
 
 -- | A Boolean value indicating whether the database bundle is encrypted.
-rdbIsEncrypted :: Lens' RelationalDatabaseBundle (Maybe Bool)
-rdbIsEncrypted = lens _rdbIsEncrypted (\s a -> s {_rdbIsEncrypted = a})
+relationalDatabaseBundle_isEncrypted :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Bool)
+relationalDatabaseBundle_isEncrypted = Lens.lens (\RelationalDatabaseBundle' {isEncrypted} -> isEncrypted) (\s@RelationalDatabaseBundle' {} a -> s {isEncrypted = a} :: RelationalDatabaseBundle)
 
 -- | The data transfer rate per month in GB for the database bundle.
-rdbTransferPerMonthInGb :: Lens' RelationalDatabaseBundle (Maybe Int)
-rdbTransferPerMonthInGb = lens _rdbTransferPerMonthInGb (\s a -> s {_rdbTransferPerMonthInGb = a})
+relationalDatabaseBundle_transferPerMonthInGb :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Int)
+relationalDatabaseBundle_transferPerMonthInGb = Lens.lens (\RelationalDatabaseBundle' {transferPerMonthInGb} -> transferPerMonthInGb) (\s@RelationalDatabaseBundle' {} a -> s {transferPerMonthInGb = a} :: RelationalDatabaseBundle)
 
 -- | The number of virtual CPUs (vCPUs) for the database bundle.
-rdbCpuCount :: Lens' RelationalDatabaseBundle (Maybe Int)
-rdbCpuCount = lens _rdbCpuCount (\s a -> s {_rdbCpuCount = a})
+relationalDatabaseBundle_cpuCount :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Int)
+relationalDatabaseBundle_cpuCount = Lens.lens (\RelationalDatabaseBundle' {cpuCount} -> cpuCount) (\s@RelationalDatabaseBundle' {} a -> s {cpuCount = a} :: RelationalDatabaseBundle)
 
 -- | The cost of the database bundle in US currency.
-rdbPrice :: Lens' RelationalDatabaseBundle (Maybe Double)
-rdbPrice = lens _rdbPrice (\s a -> s {_rdbPrice = a})
+relationalDatabaseBundle_price :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Double)
+relationalDatabaseBundle_price = Lens.lens (\RelationalDatabaseBundle' {price} -> price) (\s@RelationalDatabaseBundle' {} a -> s {price = a} :: RelationalDatabaseBundle)
 
 -- | The size of the disk for the database bundle.
-rdbDiskSizeInGb :: Lens' RelationalDatabaseBundle (Maybe Int)
-rdbDiskSizeInGb = lens _rdbDiskSizeInGb (\s a -> s {_rdbDiskSizeInGb = a})
+relationalDatabaseBundle_diskSizeInGb :: Lens.Lens' RelationalDatabaseBundle (Prelude.Maybe Prelude.Int)
+relationalDatabaseBundle_diskSizeInGb = Lens.lens (\RelationalDatabaseBundle' {diskSizeInGb} -> diskSizeInGb) (\s@RelationalDatabaseBundle' {} a -> s {diskSizeInGb = a} :: RelationalDatabaseBundle)
 
-instance FromJSON RelationalDatabaseBundle where
+instance Prelude.FromJSON RelationalDatabaseBundle where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RelationalDatabaseBundle"
       ( \x ->
           RelationalDatabaseBundle'
-            <$> (x .:? "ramSizeInGb")
-            <*> (x .:? "bundleId")
-            <*> (x .:? "isActive")
-            <*> (x .:? "name")
-            <*> (x .:? "isEncrypted")
-            <*> (x .:? "transferPerMonthInGb")
-            <*> (x .:? "cpuCount")
-            <*> (x .:? "price")
-            <*> (x .:? "diskSizeInGb")
+            Prelude.<$> (x Prelude..:? "ramSizeInGb")
+            Prelude.<*> (x Prelude..:? "bundleId")
+            Prelude.<*> (x Prelude..:? "isActive")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "isEncrypted")
+            Prelude.<*> (x Prelude..:? "transferPerMonthInGb")
+            Prelude.<*> (x Prelude..:? "cpuCount")
+            Prelude.<*> (x Prelude..:? "price")
+            Prelude.<*> (x Prelude..:? "diskSizeInGb")
       )
 
-instance Hashable RelationalDatabaseBundle
+instance Prelude.Hashable RelationalDatabaseBundle
 
-instance NFData RelationalDatabaseBundle
+instance Prelude.NFData RelationalDatabaseBundle

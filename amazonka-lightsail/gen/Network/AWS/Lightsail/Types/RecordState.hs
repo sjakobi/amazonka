@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Lightsail.Types.RecordState
   ( RecordState
       ( ..,
-        RSFailed,
-        RSStarted,
-        RSSucceeded
+        RecordStateFailed,
+        RecordStateStarted,
+        RecordStateSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecordState = RecordState' (CI Text)
+newtype RecordState = RecordState'
+  { fromRecordState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSFailed :: RecordState
-pattern RSFailed = RecordState' "Failed"
+pattern RecordStateFailed :: RecordState
+pattern RecordStateFailed = RecordState' "Failed"
 
-pattern RSStarted :: RecordState
-pattern RSStarted = RecordState' "Started"
+pattern RecordStateStarted :: RecordState
+pattern RecordStateStarted = RecordState' "Started"
 
-pattern RSSucceeded :: RecordState
-pattern RSSucceeded = RecordState' "Succeeded"
+pattern RecordStateSucceeded :: RecordState
+pattern RecordStateSucceeded = RecordState' "Succeeded"
 
 {-# COMPLETE
-  RSFailed,
-  RSStarted,
-  RSSucceeded,
+  RecordStateFailed,
+  RecordStateStarted,
+  RecordStateSucceeded,
   RecordState'
   #-}
 
-instance FromText RecordState where
-  parser = (RecordState' . mk) <$> takeText
+instance Prelude.FromText RecordState where
+  parser = RecordState' Prelude.<$> Prelude.takeText
 
-instance ToText RecordState where
-  toText (RecordState' ci) = original ci
+instance Prelude.ToText RecordState where
+  toText (RecordState' x) = x
 
-instance Hashable RecordState
+instance Prelude.Hashable RecordState
 
-instance NFData RecordState
+instance Prelude.NFData RecordState
 
-instance ToByteString RecordState
+instance Prelude.ToByteString RecordState
 
-instance ToQuery RecordState
+instance Prelude.ToQuery RecordState
 
-instance ToHeader RecordState
+instance Prelude.ToHeader RecordState
 
-instance FromJSON RecordState where
-  parseJSON = parseJSONText "RecordState"
+instance Prelude.FromJSON RecordState where
+  parseJSON = Prelude.parseJSONText "RecordState"

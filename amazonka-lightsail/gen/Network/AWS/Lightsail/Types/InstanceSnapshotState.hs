@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.Lightsail.Types.InstanceSnapshotState
   ( InstanceSnapshotState
       ( ..,
-        ISSAvailable,
-        ISSError',
-        ISSPending
+        InstanceSnapshotStateAvailable,
+        InstanceSnapshotStateError,
+        InstanceSnapshotStatePending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceSnapshotState
-  = InstanceSnapshotState'
-      ( CI
-          Text
-      )
+newtype InstanceSnapshotState = InstanceSnapshotState'
+  { fromInstanceSnapshotState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISSAvailable :: InstanceSnapshotState
-pattern ISSAvailable = InstanceSnapshotState' "available"
+pattern InstanceSnapshotStateAvailable :: InstanceSnapshotState
+pattern InstanceSnapshotStateAvailable = InstanceSnapshotState' "available"
 
-pattern ISSError' :: InstanceSnapshotState
-pattern ISSError' = InstanceSnapshotState' "error"
+pattern InstanceSnapshotStateError :: InstanceSnapshotState
+pattern InstanceSnapshotStateError = InstanceSnapshotState' "error"
 
-pattern ISSPending :: InstanceSnapshotState
-pattern ISSPending = InstanceSnapshotState' "pending"
+pattern InstanceSnapshotStatePending :: InstanceSnapshotState
+pattern InstanceSnapshotStatePending = InstanceSnapshotState' "pending"
 
 {-# COMPLETE
-  ISSAvailable,
-  ISSError',
-  ISSPending,
+  InstanceSnapshotStateAvailable,
+  InstanceSnapshotStateError,
+  InstanceSnapshotStatePending,
   InstanceSnapshotState'
   #-}
 
-instance FromText InstanceSnapshotState where
-  parser = (InstanceSnapshotState' . mk) <$> takeText
+instance Prelude.FromText InstanceSnapshotState where
+  parser = InstanceSnapshotState' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceSnapshotState where
-  toText (InstanceSnapshotState' ci) = original ci
+instance Prelude.ToText InstanceSnapshotState where
+  toText (InstanceSnapshotState' x) = x
 
-instance Hashable InstanceSnapshotState
+instance Prelude.Hashable InstanceSnapshotState
 
-instance NFData InstanceSnapshotState
+instance Prelude.NFData InstanceSnapshotState
 
-instance ToByteString InstanceSnapshotState
+instance Prelude.ToByteString InstanceSnapshotState
 
-instance ToQuery InstanceSnapshotState
+instance Prelude.ToQuery InstanceSnapshotState
 
-instance ToHeader InstanceSnapshotState
+instance Prelude.ToHeader InstanceSnapshotState
 
-instance FromJSON InstanceSnapshotState where
-  parseJSON = parseJSONText "InstanceSnapshotState"
+instance Prelude.FromJSON InstanceSnapshotState where
+  parseJSON = Prelude.parseJSONText "InstanceSnapshotState"

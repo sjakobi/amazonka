@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.PendingMaintenanceAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a pending database maintenance action.
 --
---
---
--- /See:/ 'pendingMaintenanceAction' smart constructor.
+-- /See:/ 'newPendingMaintenanceAction' smart constructor.
 data PendingMaintenanceAction = PendingMaintenanceAction'
-  { _pmaCurrentApplyDate ::
-      !(Maybe POSIX),
-    _pmaAction ::
-      !(Maybe Text),
-    _pmaDescription ::
-      !(Maybe Text)
+  { -- | The effective date of the pending database maintenance action.
+    currentApplyDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of pending database maintenance action.
+    action :: Prelude.Maybe Prelude.Text,
+    -- | Additional detail about the pending database maintenance action.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingMaintenanceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingMaintenanceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmaCurrentApplyDate' - The effective date of the pending database maintenance action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmaAction' - The type of pending database maintenance action.
+-- 'currentApplyDate', 'pendingMaintenanceAction_currentApplyDate' - The effective date of the pending database maintenance action.
 --
--- * 'pmaDescription' - Additional detail about the pending database maintenance action.
-pendingMaintenanceAction ::
+-- 'action', 'pendingMaintenanceAction_action' - The type of pending database maintenance action.
+--
+-- 'description', 'pendingMaintenanceAction_description' - Additional detail about the pending database maintenance action.
+newPendingMaintenanceAction ::
   PendingMaintenanceAction
-pendingMaintenanceAction =
+newPendingMaintenanceAction =
   PendingMaintenanceAction'
-    { _pmaCurrentApplyDate =
-        Nothing,
-      _pmaAction = Nothing,
-      _pmaDescription = Nothing
+    { currentApplyDate =
+        Prelude.Nothing,
+      action = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The effective date of the pending database maintenance action.
-pmaCurrentApplyDate :: Lens' PendingMaintenanceAction (Maybe UTCTime)
-pmaCurrentApplyDate = lens _pmaCurrentApplyDate (\s a -> s {_pmaCurrentApplyDate = a}) . mapping _Time
+pendingMaintenanceAction_currentApplyDate :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.UTCTime)
+pendingMaintenanceAction_currentApplyDate = Lens.lens (\PendingMaintenanceAction' {currentApplyDate} -> currentApplyDate) (\s@PendingMaintenanceAction' {} a -> s {currentApplyDate = a} :: PendingMaintenanceAction) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of pending database maintenance action.
-pmaAction :: Lens' PendingMaintenanceAction (Maybe Text)
-pmaAction = lens _pmaAction (\s a -> s {_pmaAction = a})
+pendingMaintenanceAction_action :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.Text)
+pendingMaintenanceAction_action = Lens.lens (\PendingMaintenanceAction' {action} -> action) (\s@PendingMaintenanceAction' {} a -> s {action = a} :: PendingMaintenanceAction)
 
 -- | Additional detail about the pending database maintenance action.
-pmaDescription :: Lens' PendingMaintenanceAction (Maybe Text)
-pmaDescription = lens _pmaDescription (\s a -> s {_pmaDescription = a})
+pendingMaintenanceAction_description :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.Text)
+pendingMaintenanceAction_description = Lens.lens (\PendingMaintenanceAction' {description} -> description) (\s@PendingMaintenanceAction' {} a -> s {description = a} :: PendingMaintenanceAction)
 
-instance FromJSON PendingMaintenanceAction where
+instance Prelude.FromJSON PendingMaintenanceAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PendingMaintenanceAction"
       ( \x ->
           PendingMaintenanceAction'
-            <$> (x .:? "currentApplyDate")
-            <*> (x .:? "action")
-            <*> (x .:? "description")
+            Prelude.<$> (x Prelude..:? "currentApplyDate")
+            Prelude.<*> (x Prelude..:? "action")
+            Prelude.<*> (x Prelude..:? "description")
       )
 
-instance Hashable PendingMaintenanceAction
+instance Prelude.Hashable PendingMaintenanceAction
 
-instance NFData PendingMaintenanceAction
+instance Prelude.NFData PendingMaintenanceAction

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.PendingModifiedRelationalDatabaseValues where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a pending database value modification.
 --
---
---
--- /See:/ 'pendingModifiedRelationalDatabaseValues' smart constructor.
+-- /See:/ 'newPendingModifiedRelationalDatabaseValues' smart constructor.
 data PendingModifiedRelationalDatabaseValues = PendingModifiedRelationalDatabaseValues'
-  { _pmrdvMasterUserPassword ::
-      !( Maybe
-           Text
-       ),
-    _pmrdvBackupRetentionEnabled ::
-      !( Maybe
-           Bool
-       ),
-    _pmrdvEngineVersion ::
-      !( Maybe
-           Text
-       )
+  { -- | The password for the master user of the database.
+    masterUserPassword :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value indicating whether automated backup retention is
+    -- enabled.
+    backupRetentionEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The database engine version.
+    engineVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingModifiedRelationalDatabaseValues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingModifiedRelationalDatabaseValues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmrdvMasterUserPassword' - The password for the master user of the database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmrdvBackupRetentionEnabled' - A Boolean value indicating whether automated backup retention is enabled.
+-- 'masterUserPassword', 'pendingModifiedRelationalDatabaseValues_masterUserPassword' - The password for the master user of the database.
 --
--- * 'pmrdvEngineVersion' - The database engine version.
-pendingModifiedRelationalDatabaseValues ::
+-- 'backupRetentionEnabled', 'pendingModifiedRelationalDatabaseValues_backupRetentionEnabled' - A Boolean value indicating whether automated backup retention is
+-- enabled.
+--
+-- 'engineVersion', 'pendingModifiedRelationalDatabaseValues_engineVersion' - The database engine version.
+newPendingModifiedRelationalDatabaseValues ::
   PendingModifiedRelationalDatabaseValues
-pendingModifiedRelationalDatabaseValues =
+newPendingModifiedRelationalDatabaseValues =
   PendingModifiedRelationalDatabaseValues'
-    { _pmrdvMasterUserPassword =
-        Nothing,
-      _pmrdvBackupRetentionEnabled =
-        Nothing,
-      _pmrdvEngineVersion = Nothing
+    { masterUserPassword =
+        Prelude.Nothing,
+      backupRetentionEnabled =
+        Prelude.Nothing,
+      engineVersion = Prelude.Nothing
     }
 
 -- | The password for the master user of the database.
-pmrdvMasterUserPassword :: Lens' PendingModifiedRelationalDatabaseValues (Maybe Text)
-pmrdvMasterUserPassword = lens _pmrdvMasterUserPassword (\s a -> s {_pmrdvMasterUserPassword = a})
+pendingModifiedRelationalDatabaseValues_masterUserPassword :: Lens.Lens' PendingModifiedRelationalDatabaseValues (Prelude.Maybe Prelude.Text)
+pendingModifiedRelationalDatabaseValues_masterUserPassword = Lens.lens (\PendingModifiedRelationalDatabaseValues' {masterUserPassword} -> masterUserPassword) (\s@PendingModifiedRelationalDatabaseValues' {} a -> s {masterUserPassword = a} :: PendingModifiedRelationalDatabaseValues)
 
--- | A Boolean value indicating whether automated backup retention is enabled.
-pmrdvBackupRetentionEnabled :: Lens' PendingModifiedRelationalDatabaseValues (Maybe Bool)
-pmrdvBackupRetentionEnabled = lens _pmrdvBackupRetentionEnabled (\s a -> s {_pmrdvBackupRetentionEnabled = a})
+-- | A Boolean value indicating whether automated backup retention is
+-- enabled.
+pendingModifiedRelationalDatabaseValues_backupRetentionEnabled :: Lens.Lens' PendingModifiedRelationalDatabaseValues (Prelude.Maybe Prelude.Bool)
+pendingModifiedRelationalDatabaseValues_backupRetentionEnabled = Lens.lens (\PendingModifiedRelationalDatabaseValues' {backupRetentionEnabled} -> backupRetentionEnabled) (\s@PendingModifiedRelationalDatabaseValues' {} a -> s {backupRetentionEnabled = a} :: PendingModifiedRelationalDatabaseValues)
 
 -- | The database engine version.
-pmrdvEngineVersion :: Lens' PendingModifiedRelationalDatabaseValues (Maybe Text)
-pmrdvEngineVersion = lens _pmrdvEngineVersion (\s a -> s {_pmrdvEngineVersion = a})
+pendingModifiedRelationalDatabaseValues_engineVersion :: Lens.Lens' PendingModifiedRelationalDatabaseValues (Prelude.Maybe Prelude.Text)
+pendingModifiedRelationalDatabaseValues_engineVersion = Lens.lens (\PendingModifiedRelationalDatabaseValues' {engineVersion} -> engineVersion) (\s@PendingModifiedRelationalDatabaseValues' {} a -> s {engineVersion = a} :: PendingModifiedRelationalDatabaseValues)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     PendingModifiedRelationalDatabaseValues
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PendingModifiedRelationalDatabaseValues"
       ( \x ->
           PendingModifiedRelationalDatabaseValues'
-            <$> (x .:? "masterUserPassword")
-            <*> (x .:? "backupRetentionEnabled")
-            <*> (x .:? "engineVersion")
+            Prelude.<$> (x Prelude..:? "masterUserPassword")
+            Prelude.<*> (x Prelude..:? "backupRetentionEnabled")
+            Prelude.<*> (x Prelude..:? "engineVersion")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     PendingModifiedRelationalDatabaseValues
 
 instance
-  NFData
+  Prelude.NFData
     PendingModifiedRelationalDatabaseValues

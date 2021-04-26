@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,105 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.ContainerServicePower where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the powers that can be specified for an Amazon Lightsail container service.
+-- | Describes the powers that can be specified for an Amazon Lightsail
+-- container service.
 --
+-- The power specifies the amount of RAM, the number of vCPUs, and the base
+-- price of the container service.
 --
--- The power specifies the amount of RAM, the number of vCPUs, and the base price of the container service.
---
---
--- /See:/ 'containerServicePower' smart constructor.
+-- /See:/ 'newContainerServicePower' smart constructor.
 data ContainerServicePower = ContainerServicePower'
-  { _cspRamSizeInGb ::
-      !(Maybe Double),
-    _cspIsActive ::
-      !(Maybe Bool),
-    _cspName :: !(Maybe Text),
-    _cspCpuCount ::
-      !(Maybe Double),
-    _cspPrice ::
-      !(Maybe Double),
-    _cspPowerId ::
-      !(Maybe Text)
+  { -- | The amount of RAM (in GB) of the power.
+    ramSizeInGb :: Prelude.Maybe Prelude.Double,
+    -- | A Boolean value indicating whether the power is active and can be
+    -- specified for container services.
+    isActive :: Prelude.Maybe Prelude.Bool,
+    -- | The friendly name of the power (e.g., @nano@).
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The number of vCPUs included in the power.
+    cpuCount :: Prelude.Maybe Prelude.Double,
+    -- | The monthly price of the power in USD.
+    price :: Prelude.Maybe Prelude.Double,
+    -- | The ID of the power (e.g., @nano-1@).
+    powerId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContainerServicePower' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContainerServicePower' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cspRamSizeInGb' - The amount of RAM (in GB) of the power.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cspIsActive' - A Boolean value indicating whether the power is active and can be specified for container services.
+-- 'ramSizeInGb', 'containerServicePower_ramSizeInGb' - The amount of RAM (in GB) of the power.
 --
--- * 'cspName' - The friendly name of the power (e.g., @nano@ ).
+-- 'isActive', 'containerServicePower_isActive' - A Boolean value indicating whether the power is active and can be
+-- specified for container services.
 --
--- * 'cspCpuCount' - The number of vCPUs included in the power.
+-- 'name', 'containerServicePower_name' - The friendly name of the power (e.g., @nano@).
 --
--- * 'cspPrice' - The monthly price of the power in USD.
+-- 'cpuCount', 'containerServicePower_cpuCount' - The number of vCPUs included in the power.
 --
--- * 'cspPowerId' - The ID of the power (e.g., @nano-1@ ).
-containerServicePower ::
+-- 'price', 'containerServicePower_price' - The monthly price of the power in USD.
+--
+-- 'powerId', 'containerServicePower_powerId' - The ID of the power (e.g., @nano-1@).
+newContainerServicePower ::
   ContainerServicePower
-containerServicePower =
+newContainerServicePower =
   ContainerServicePower'
-    { _cspRamSizeInGb = Nothing,
-      _cspIsActive = Nothing,
-      _cspName = Nothing,
-      _cspCpuCount = Nothing,
-      _cspPrice = Nothing,
-      _cspPowerId = Nothing
+    { ramSizeInGb =
+        Prelude.Nothing,
+      isActive = Prelude.Nothing,
+      name = Prelude.Nothing,
+      cpuCount = Prelude.Nothing,
+      price = Prelude.Nothing,
+      powerId = Prelude.Nothing
     }
 
 -- | The amount of RAM (in GB) of the power.
-cspRamSizeInGb :: Lens' ContainerServicePower (Maybe Double)
-cspRamSizeInGb = lens _cspRamSizeInGb (\s a -> s {_cspRamSizeInGb = a})
+containerServicePower_ramSizeInGb :: Lens.Lens' ContainerServicePower (Prelude.Maybe Prelude.Double)
+containerServicePower_ramSizeInGb = Lens.lens (\ContainerServicePower' {ramSizeInGb} -> ramSizeInGb) (\s@ContainerServicePower' {} a -> s {ramSizeInGb = a} :: ContainerServicePower)
 
--- | A Boolean value indicating whether the power is active and can be specified for container services.
-cspIsActive :: Lens' ContainerServicePower (Maybe Bool)
-cspIsActive = lens _cspIsActive (\s a -> s {_cspIsActive = a})
+-- | A Boolean value indicating whether the power is active and can be
+-- specified for container services.
+containerServicePower_isActive :: Lens.Lens' ContainerServicePower (Prelude.Maybe Prelude.Bool)
+containerServicePower_isActive = Lens.lens (\ContainerServicePower' {isActive} -> isActive) (\s@ContainerServicePower' {} a -> s {isActive = a} :: ContainerServicePower)
 
--- | The friendly name of the power (e.g., @nano@ ).
-cspName :: Lens' ContainerServicePower (Maybe Text)
-cspName = lens _cspName (\s a -> s {_cspName = a})
+-- | The friendly name of the power (e.g., @nano@).
+containerServicePower_name :: Lens.Lens' ContainerServicePower (Prelude.Maybe Prelude.Text)
+containerServicePower_name = Lens.lens (\ContainerServicePower' {name} -> name) (\s@ContainerServicePower' {} a -> s {name = a} :: ContainerServicePower)
 
 -- | The number of vCPUs included in the power.
-cspCpuCount :: Lens' ContainerServicePower (Maybe Double)
-cspCpuCount = lens _cspCpuCount (\s a -> s {_cspCpuCount = a})
+containerServicePower_cpuCount :: Lens.Lens' ContainerServicePower (Prelude.Maybe Prelude.Double)
+containerServicePower_cpuCount = Lens.lens (\ContainerServicePower' {cpuCount} -> cpuCount) (\s@ContainerServicePower' {} a -> s {cpuCount = a} :: ContainerServicePower)
 
 -- | The monthly price of the power in USD.
-cspPrice :: Lens' ContainerServicePower (Maybe Double)
-cspPrice = lens _cspPrice (\s a -> s {_cspPrice = a})
+containerServicePower_price :: Lens.Lens' ContainerServicePower (Prelude.Maybe Prelude.Double)
+containerServicePower_price = Lens.lens (\ContainerServicePower' {price} -> price) (\s@ContainerServicePower' {} a -> s {price = a} :: ContainerServicePower)
 
--- | The ID of the power (e.g., @nano-1@ ).
-cspPowerId :: Lens' ContainerServicePower (Maybe Text)
-cspPowerId = lens _cspPowerId (\s a -> s {_cspPowerId = a})
+-- | The ID of the power (e.g., @nano-1@).
+containerServicePower_powerId :: Lens.Lens' ContainerServicePower (Prelude.Maybe Prelude.Text)
+containerServicePower_powerId = Lens.lens (\ContainerServicePower' {powerId} -> powerId) (\s@ContainerServicePower' {} a -> s {powerId = a} :: ContainerServicePower)
 
-instance FromJSON ContainerServicePower where
+instance Prelude.FromJSON ContainerServicePower where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContainerServicePower"
       ( \x ->
           ContainerServicePower'
-            <$> (x .:? "ramSizeInGb")
-            <*> (x .:? "isActive")
-            <*> (x .:? "name")
-            <*> (x .:? "cpuCount")
-            <*> (x .:? "price")
-            <*> (x .:? "powerId")
+            Prelude.<$> (x Prelude..:? "ramSizeInGb")
+            Prelude.<*> (x Prelude..:? "isActive")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "cpuCount")
+            Prelude.<*> (x Prelude..:? "price")
+            Prelude.<*> (x Prelude..:? "powerId")
       )
 
-instance Hashable ContainerServicePower
+instance Prelude.Hashable ContainerServicePower
 
-instance NFData ContainerServicePower
+instance Prelude.NFData ContainerServicePower

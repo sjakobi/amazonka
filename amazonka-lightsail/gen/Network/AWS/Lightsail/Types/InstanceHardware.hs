@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Lightsail.Types.InstanceHardware where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types.Disk
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the hardware for the instance.
 --
---
---
--- /See:/ 'instanceHardware' smart constructor.
+-- /See:/ 'newInstanceHardware' smart constructor.
 data InstanceHardware = InstanceHardware'
-  { _ihRamSizeInGb ::
-      !(Maybe Double),
-    _ihDisks :: !(Maybe [Disk]),
-    _ihCpuCount :: !(Maybe Int)
+  { -- | The amount of RAM in GB on the instance (e.g., @1.0@).
+    ramSizeInGb :: Prelude.Maybe Prelude.Double,
+    -- | The disks attached to the instance.
+    disks :: Prelude.Maybe [Disk],
+    -- | The number of vCPUs the instance has.
+    cpuCount :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceHardware' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceHardware' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ihRamSizeInGb' - The amount of RAM in GB on the instance (e.g., @1.0@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ihDisks' - The disks attached to the instance.
+-- 'ramSizeInGb', 'instanceHardware_ramSizeInGb' - The amount of RAM in GB on the instance (e.g., @1.0@).
 --
--- * 'ihCpuCount' - The number of vCPUs the instance has.
-instanceHardware ::
+-- 'disks', 'instanceHardware_disks' - The disks attached to the instance.
+--
+-- 'cpuCount', 'instanceHardware_cpuCount' - The number of vCPUs the instance has.
+newInstanceHardware ::
   InstanceHardware
-instanceHardware =
+newInstanceHardware =
   InstanceHardware'
-    { _ihRamSizeInGb = Nothing,
-      _ihDisks = Nothing,
-      _ihCpuCount = Nothing
+    { ramSizeInGb = Prelude.Nothing,
+      disks = Prelude.Nothing,
+      cpuCount = Prelude.Nothing
     }
 
--- | The amount of RAM in GB on the instance (e.g., @1.0@ ).
-ihRamSizeInGb :: Lens' InstanceHardware (Maybe Double)
-ihRamSizeInGb = lens _ihRamSizeInGb (\s a -> s {_ihRamSizeInGb = a})
+-- | The amount of RAM in GB on the instance (e.g., @1.0@).
+instanceHardware_ramSizeInGb :: Lens.Lens' InstanceHardware (Prelude.Maybe Prelude.Double)
+instanceHardware_ramSizeInGb = Lens.lens (\InstanceHardware' {ramSizeInGb} -> ramSizeInGb) (\s@InstanceHardware' {} a -> s {ramSizeInGb = a} :: InstanceHardware)
 
 -- | The disks attached to the instance.
-ihDisks :: Lens' InstanceHardware [Disk]
-ihDisks = lens _ihDisks (\s a -> s {_ihDisks = a}) . _Default . _Coerce
+instanceHardware_disks :: Lens.Lens' InstanceHardware (Prelude.Maybe [Disk])
+instanceHardware_disks = Lens.lens (\InstanceHardware' {disks} -> disks) (\s@InstanceHardware' {} a -> s {disks = a} :: InstanceHardware) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of vCPUs the instance has.
-ihCpuCount :: Lens' InstanceHardware (Maybe Int)
-ihCpuCount = lens _ihCpuCount (\s a -> s {_ihCpuCount = a})
+instanceHardware_cpuCount :: Lens.Lens' InstanceHardware (Prelude.Maybe Prelude.Int)
+instanceHardware_cpuCount = Lens.lens (\InstanceHardware' {cpuCount} -> cpuCount) (\s@InstanceHardware' {} a -> s {cpuCount = a} :: InstanceHardware)
 
-instance FromJSON InstanceHardware where
+instance Prelude.FromJSON InstanceHardware where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceHardware"
       ( \x ->
           InstanceHardware'
-            <$> (x .:? "ramSizeInGb")
-            <*> (x .:? "disks" .!= mempty)
-            <*> (x .:? "cpuCount")
+            Prelude.<$> (x Prelude..:? "ramSizeInGb")
+            Prelude.<*> (x Prelude..:? "disks" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "cpuCount")
       )
 
-instance Hashable InstanceHardware
+instance Prelude.Hashable InstanceHardware
 
-instance NFData InstanceHardware
+instance Prelude.NFData InstanceHardware

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,137 @@
 -- Returns information about a specific key pair.
 module Network.AWS.Lightsail.GetKeyPair
   ( -- * Creating a Request
-    getKeyPair,
-    GetKeyPair,
+    GetKeyPair (..),
+    newGetKeyPair,
 
     -- * Request Lenses
-    gkpKeyPairName,
+    getKeyPair_keyPairName,
 
     -- * Destructuring the Response
-    getKeyPairResponse,
-    GetKeyPairResponse,
+    GetKeyPairResponse (..),
+    newGetKeyPairResponse,
 
     -- * Response Lenses
-    gkprkrsKeyPair,
-    gkprkrsResponseStatus,
+    getKeyPairResponse_keyPair,
+    getKeyPairResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.KeyPair
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getKeyPair' smart constructor.
-newtype GetKeyPair = GetKeyPair'
-  { _gkpKeyPairName ::
-      Text
+-- | /See:/ 'newGetKeyPair' smart constructor.
+data GetKeyPair = GetKeyPair'
+  { -- | The name of the key pair for which you are requesting information.
+    keyPairName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetKeyPair' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetKeyPair' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gkpKeyPairName' - The name of the key pair for which you are requesting information.
-getKeyPair ::
-  -- | 'gkpKeyPairName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'keyPairName', 'getKeyPair_keyPairName' - The name of the key pair for which you are requesting information.
+newGetKeyPair ::
+  -- | 'keyPairName'
+  Prelude.Text ->
   GetKeyPair
-getKeyPair pKeyPairName_ =
-  GetKeyPair' {_gkpKeyPairName = pKeyPairName_}
+newGetKeyPair pKeyPairName_ =
+  GetKeyPair' {keyPairName = pKeyPairName_}
 
 -- | The name of the key pair for which you are requesting information.
-gkpKeyPairName :: Lens' GetKeyPair Text
-gkpKeyPairName = lens _gkpKeyPairName (\s a -> s {_gkpKeyPairName = a})
+getKeyPair_keyPairName :: Lens.Lens' GetKeyPair Prelude.Text
+getKeyPair_keyPairName = Lens.lens (\GetKeyPair' {keyPairName} -> keyPairName) (\s@GetKeyPair' {} a -> s {keyPairName = a} :: GetKeyPair)
 
-instance AWSRequest GetKeyPair where
+instance Prelude.AWSRequest GetKeyPair where
   type Rs GetKeyPair = GetKeyPairResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetKeyPairResponse'
-            <$> (x .?> "keyPair") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "keyPair")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetKeyPair
+instance Prelude.Hashable GetKeyPair
 
-instance NFData GetKeyPair
+instance Prelude.NFData GetKeyPair
 
-instance ToHeaders GetKeyPair where
+instance Prelude.ToHeaders GetKeyPair where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Lightsail_20161128.GetKeyPair" :: ByteString),
+              Prelude.=# ( "Lightsail_20161128.GetKeyPair" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetKeyPair where
+instance Prelude.ToJSON GetKeyPair where
   toJSON GetKeyPair' {..} =
-    object
-      (catMaybes [Just ("keyPairName" .= _gkpKeyPairName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("keyPairName" Prelude..= keyPairName)
+          ]
+      )
 
-instance ToPath GetKeyPair where
-  toPath = const "/"
+instance Prelude.ToPath GetKeyPair where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetKeyPair where
-  toQuery = const mempty
+instance Prelude.ToQuery GetKeyPair where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getKeyPairResponse' smart constructor.
+-- | /See:/ 'newGetKeyPairResponse' smart constructor.
 data GetKeyPairResponse = GetKeyPairResponse'
-  { _gkprkrsKeyPair ::
-      !(Maybe KeyPair),
-    _gkprkrsResponseStatus :: !Int
+  { -- | An array of key-value pairs containing information about the key pair.
+    keyPair :: Prelude.Maybe KeyPair,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetKeyPairResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetKeyPairResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gkprkrsKeyPair' - An array of key-value pairs containing information about the key pair.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gkprkrsResponseStatus' - -- | The response status code.
-getKeyPairResponse ::
-  -- | 'gkprkrsResponseStatus'
-  Int ->
+-- 'keyPair', 'getKeyPairResponse_keyPair' - An array of key-value pairs containing information about the key pair.
+--
+-- 'httpStatus', 'getKeyPairResponse_httpStatus' - The response's http status code.
+newGetKeyPairResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetKeyPairResponse
-getKeyPairResponse pResponseStatus_ =
+newGetKeyPairResponse pHttpStatus_ =
   GetKeyPairResponse'
-    { _gkprkrsKeyPair = Nothing,
-      _gkprkrsResponseStatus = pResponseStatus_
+    { keyPair = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An array of key-value pairs containing information about the key pair.
-gkprkrsKeyPair :: Lens' GetKeyPairResponse (Maybe KeyPair)
-gkprkrsKeyPair = lens _gkprkrsKeyPair (\s a -> s {_gkprkrsKeyPair = a})
+getKeyPairResponse_keyPair :: Lens.Lens' GetKeyPairResponse (Prelude.Maybe KeyPair)
+getKeyPairResponse_keyPair = Lens.lens (\GetKeyPairResponse' {keyPair} -> keyPair) (\s@GetKeyPairResponse' {} a -> s {keyPair = a} :: GetKeyPairResponse)
 
--- | -- | The response status code.
-gkprkrsResponseStatus :: Lens' GetKeyPairResponse Int
-gkprkrsResponseStatus = lens _gkprkrsResponseStatus (\s a -> s {_gkprkrsResponseStatus = a})
+-- | The response's http status code.
+getKeyPairResponse_httpStatus :: Lens.Lens' GetKeyPairResponse Prelude.Int
+getKeyPairResponse_httpStatus = Lens.lens (\GetKeyPairResponse' {httpStatus} -> httpStatus) (\s@GetKeyPairResponse' {} a -> s {httpStatus = a} :: GetKeyPairResponse)
 
-instance NFData GetKeyPairResponse
+instance Prelude.NFData GetKeyPairResponse

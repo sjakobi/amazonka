@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,90 +19,88 @@
 module Network.AWS.Lightsail.Types.InstanceMetricName
   ( InstanceMetricName
       ( ..,
-        IMNBurstCapacityPercentage,
-        IMNBurstCapacityTime,
-        IMNCPUUtilization,
-        IMNNetworkIn,
-        IMNNetworkOut,
-        IMNStatusCheckFailed,
-        IMNStatusCheckFailedInstance,
-        IMNStatusCheckFailedSystem
+        InstanceMetricNameBurstCapacityPercentage,
+        InstanceMetricNameBurstCapacityTime,
+        InstanceMetricNameCPUUtilization,
+        InstanceMetricNameNetworkIn,
+        InstanceMetricNameNetworkOut,
+        InstanceMetricNameStatusCheckFailed,
+        InstanceMetricNameStatusCheckFailedInstance,
+        InstanceMetricNameStatusCheckFailedSystem
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceMetricName
-  = InstanceMetricName'
-      ( CI
-          Text
-      )
+newtype InstanceMetricName = InstanceMetricName'
+  { fromInstanceMetricName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IMNBurstCapacityPercentage :: InstanceMetricName
-pattern IMNBurstCapacityPercentage = InstanceMetricName' "BurstCapacityPercentage"
+pattern InstanceMetricNameBurstCapacityPercentage :: InstanceMetricName
+pattern InstanceMetricNameBurstCapacityPercentage = InstanceMetricName' "BurstCapacityPercentage"
 
-pattern IMNBurstCapacityTime :: InstanceMetricName
-pattern IMNBurstCapacityTime = InstanceMetricName' "BurstCapacityTime"
+pattern InstanceMetricNameBurstCapacityTime :: InstanceMetricName
+pattern InstanceMetricNameBurstCapacityTime = InstanceMetricName' "BurstCapacityTime"
 
-pattern IMNCPUUtilization :: InstanceMetricName
-pattern IMNCPUUtilization = InstanceMetricName' "CPUUtilization"
+pattern InstanceMetricNameCPUUtilization :: InstanceMetricName
+pattern InstanceMetricNameCPUUtilization = InstanceMetricName' "CPUUtilization"
 
-pattern IMNNetworkIn :: InstanceMetricName
-pattern IMNNetworkIn = InstanceMetricName' "NetworkIn"
+pattern InstanceMetricNameNetworkIn :: InstanceMetricName
+pattern InstanceMetricNameNetworkIn = InstanceMetricName' "NetworkIn"
 
-pattern IMNNetworkOut :: InstanceMetricName
-pattern IMNNetworkOut = InstanceMetricName' "NetworkOut"
+pattern InstanceMetricNameNetworkOut :: InstanceMetricName
+pattern InstanceMetricNameNetworkOut = InstanceMetricName' "NetworkOut"
 
-pattern IMNStatusCheckFailed :: InstanceMetricName
-pattern IMNStatusCheckFailed = InstanceMetricName' "StatusCheckFailed"
+pattern InstanceMetricNameStatusCheckFailed :: InstanceMetricName
+pattern InstanceMetricNameStatusCheckFailed = InstanceMetricName' "StatusCheckFailed"
 
-pattern IMNStatusCheckFailedInstance :: InstanceMetricName
-pattern IMNStatusCheckFailedInstance = InstanceMetricName' "StatusCheckFailed_Instance"
+pattern InstanceMetricNameStatusCheckFailedInstance :: InstanceMetricName
+pattern InstanceMetricNameStatusCheckFailedInstance = InstanceMetricName' "StatusCheckFailed_Instance"
 
-pattern IMNStatusCheckFailedSystem :: InstanceMetricName
-pattern IMNStatusCheckFailedSystem = InstanceMetricName' "StatusCheckFailed_System"
+pattern InstanceMetricNameStatusCheckFailedSystem :: InstanceMetricName
+pattern InstanceMetricNameStatusCheckFailedSystem = InstanceMetricName' "StatusCheckFailed_System"
 
 {-# COMPLETE
-  IMNBurstCapacityPercentage,
-  IMNBurstCapacityTime,
-  IMNCPUUtilization,
-  IMNNetworkIn,
-  IMNNetworkOut,
-  IMNStatusCheckFailed,
-  IMNStatusCheckFailedInstance,
-  IMNStatusCheckFailedSystem,
+  InstanceMetricNameBurstCapacityPercentage,
+  InstanceMetricNameBurstCapacityTime,
+  InstanceMetricNameCPUUtilization,
+  InstanceMetricNameNetworkIn,
+  InstanceMetricNameNetworkOut,
+  InstanceMetricNameStatusCheckFailed,
+  InstanceMetricNameStatusCheckFailedInstance,
+  InstanceMetricNameStatusCheckFailedSystem,
   InstanceMetricName'
   #-}
 
-instance FromText InstanceMetricName where
-  parser = (InstanceMetricName' . mk) <$> takeText
+instance Prelude.FromText InstanceMetricName where
+  parser = InstanceMetricName' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceMetricName where
-  toText (InstanceMetricName' ci) = original ci
+instance Prelude.ToText InstanceMetricName where
+  toText (InstanceMetricName' x) = x
 
-instance Hashable InstanceMetricName
+instance Prelude.Hashable InstanceMetricName
 
-instance NFData InstanceMetricName
+instance Prelude.NFData InstanceMetricName
 
-instance ToByteString InstanceMetricName
+instance Prelude.ToByteString InstanceMetricName
 
-instance ToQuery InstanceMetricName
+instance Prelude.ToQuery InstanceMetricName
 
-instance ToHeader InstanceMetricName
+instance Prelude.ToHeader InstanceMetricName
 
-instance ToJSON InstanceMetricName where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceMetricName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceMetricName where
-  parseJSON = parseJSONText "InstanceMetricName"
+instance Prelude.FromJSON InstanceMetricName where
+  parseJSON = Prelude.parseJSONText "InstanceMetricName"

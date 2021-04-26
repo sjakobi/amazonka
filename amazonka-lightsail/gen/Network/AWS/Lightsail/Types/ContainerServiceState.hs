@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.Lightsail.Types.ContainerServiceState
   ( ContainerServiceState
       ( ..,
-        CSSDeleting,
-        CSSDisabled,
-        CSSPending,
-        CSSReady,
-        CSSRunning,
-        CSSUpdating
+        ContainerServiceStateDELETING,
+        ContainerServiceStateDISABLED,
+        ContainerServiceStatePENDING,
+        ContainerServiceStateREADY,
+        ContainerServiceStateRUNNING,
+        ContainerServiceStateUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerServiceState
-  = ContainerServiceState'
-      ( CI
-          Text
-      )
+newtype ContainerServiceState = ContainerServiceState'
+  { fromContainerServiceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSSDeleting :: ContainerServiceState
-pattern CSSDeleting = ContainerServiceState' "DELETING"
+pattern ContainerServiceStateDELETING :: ContainerServiceState
+pattern ContainerServiceStateDELETING = ContainerServiceState' "DELETING"
 
-pattern CSSDisabled :: ContainerServiceState
-pattern CSSDisabled = ContainerServiceState' "DISABLED"
+pattern ContainerServiceStateDISABLED :: ContainerServiceState
+pattern ContainerServiceStateDISABLED = ContainerServiceState' "DISABLED"
 
-pattern CSSPending :: ContainerServiceState
-pattern CSSPending = ContainerServiceState' "PENDING"
+pattern ContainerServiceStatePENDING :: ContainerServiceState
+pattern ContainerServiceStatePENDING = ContainerServiceState' "PENDING"
 
-pattern CSSReady :: ContainerServiceState
-pattern CSSReady = ContainerServiceState' "READY"
+pattern ContainerServiceStateREADY :: ContainerServiceState
+pattern ContainerServiceStateREADY = ContainerServiceState' "READY"
 
-pattern CSSRunning :: ContainerServiceState
-pattern CSSRunning = ContainerServiceState' "RUNNING"
+pattern ContainerServiceStateRUNNING :: ContainerServiceState
+pattern ContainerServiceStateRUNNING = ContainerServiceState' "RUNNING"
 
-pattern CSSUpdating :: ContainerServiceState
-pattern CSSUpdating = ContainerServiceState' "UPDATING"
+pattern ContainerServiceStateUPDATING :: ContainerServiceState
+pattern ContainerServiceStateUPDATING = ContainerServiceState' "UPDATING"
 
 {-# COMPLETE
-  CSSDeleting,
-  CSSDisabled,
-  CSSPending,
-  CSSReady,
-  CSSRunning,
-  CSSUpdating,
+  ContainerServiceStateDELETING,
+  ContainerServiceStateDISABLED,
+  ContainerServiceStatePENDING,
+  ContainerServiceStateREADY,
+  ContainerServiceStateRUNNING,
+  ContainerServiceStateUPDATING,
   ContainerServiceState'
   #-}
 
-instance FromText ContainerServiceState where
-  parser = (ContainerServiceState' . mk) <$> takeText
+instance Prelude.FromText ContainerServiceState where
+  parser = ContainerServiceState' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerServiceState where
-  toText (ContainerServiceState' ci) = original ci
+instance Prelude.ToText ContainerServiceState where
+  toText (ContainerServiceState' x) = x
 
-instance Hashable ContainerServiceState
+instance Prelude.Hashable ContainerServiceState
 
-instance NFData ContainerServiceState
+instance Prelude.NFData ContainerServiceState
 
-instance ToByteString ContainerServiceState
+instance Prelude.ToByteString ContainerServiceState
 
-instance ToQuery ContainerServiceState
+instance Prelude.ToQuery ContainerServiceState
 
-instance ToHeader ContainerServiceState
+instance Prelude.ToHeader ContainerServiceState
 
-instance FromJSON ContainerServiceState where
-  parseJSON = parseJSONText "ContainerServiceState"
+instance Prelude.FromJSON ContainerServiceState where
+  parseJSON = Prelude.parseJSONText "ContainerServiceState"

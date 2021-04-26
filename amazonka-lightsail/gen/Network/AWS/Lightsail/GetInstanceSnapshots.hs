@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all instance snapshots for the user's account.
---
---
+-- Returns all instance snapshots for the user\'s account.
 --
 -- This operation returns paginated results.
 module Network.AWS.Lightsail.GetInstanceSnapshots
   ( -- * Creating a Request
-    getInstanceSnapshots,
-    GetInstanceSnapshots,
+    GetInstanceSnapshots (..),
+    newGetInstanceSnapshots,
 
     -- * Request Lenses
-    gisPageToken,
+    getInstanceSnapshots_pageToken,
 
     -- * Destructuring the Response
-    getInstanceSnapshotsResponse,
-    GetInstanceSnapshotsResponse,
+    GetInstanceSnapshotsResponse (..),
+    newGetInstanceSnapshotsResponse,
 
     -- * Response Lenses
-    gisrrsInstanceSnapshots,
-    gisrrsNextPageToken,
-    gisrrsResponseStatus,
+    getInstanceSnapshotsResponse_instanceSnapshots,
+    getInstanceSnapshotsResponse_nextPageToken,
+    getInstanceSnapshotsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Lightsail.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Lightsail.Types.InstanceSnapshot
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getInstanceSnapshots' smart constructor.
-newtype GetInstanceSnapshots = GetInstanceSnapshots'
-  { _gisPageToken ::
-      Maybe Text
+-- | /See:/ 'newGetInstanceSnapshots' smart constructor.
+data GetInstanceSnapshots = GetInstanceSnapshots'
+  { -- | The token to advance to the next page of results from your request.
+    --
+    -- To get a page token, perform an initial @GetInstanceSnapshots@ request.
+    -- If your results are paginated, the response will return a next page
+    -- token that you can specify as the page token in a subsequent request.
+    pageToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceSnapshots' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceSnapshots' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisPageToken' - The token to advance to the next page of results from your request. To get a page token, perform an initial @GetInstanceSnapshots@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-getInstanceSnapshots ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pageToken', 'getInstanceSnapshots_pageToken' - The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetInstanceSnapshots@ request.
+-- If your results are paginated, the response will return a next page
+-- token that you can specify as the page token in a subsequent request.
+newGetInstanceSnapshots ::
   GetInstanceSnapshots
-getInstanceSnapshots =
-  GetInstanceSnapshots' {_gisPageToken = Nothing}
+newGetInstanceSnapshots =
+  GetInstanceSnapshots' {pageToken = Prelude.Nothing}
 
--- | The token to advance to the next page of results from your request. To get a page token, perform an initial @GetInstanceSnapshots@ request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
-gisPageToken :: Lens' GetInstanceSnapshots (Maybe Text)
-gisPageToken = lens _gisPageToken (\s a -> s {_gisPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- To get a page token, perform an initial @GetInstanceSnapshots@ request.
+-- If your results are paginated, the response will return a next page
+-- token that you can specify as the page token in a subsequent request.
+getInstanceSnapshots_pageToken :: Lens.Lens' GetInstanceSnapshots (Prelude.Maybe Prelude.Text)
+getInstanceSnapshots_pageToken = Lens.lens (\GetInstanceSnapshots' {pageToken} -> pageToken) (\s@GetInstanceSnapshots' {} a -> s {pageToken = a} :: GetInstanceSnapshots)
 
-instance AWSPager GetInstanceSnapshots where
+instance Pager.AWSPager GetInstanceSnapshots where
   page rq rs
-    | stop (rs ^. gisrrsNextPageToken) = Nothing
-    | stop (rs ^. gisrrsInstanceSnapshots) = Nothing
-    | otherwise =
-      Just $ rq & gisPageToken .~ rs ^. gisrrsNextPageToken
+    | Pager.stop
+        ( rs
+            Lens.^? getInstanceSnapshotsResponse_nextPageToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getInstanceSnapshotsResponse_instanceSnapshots
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getInstanceSnapshots_pageToken
+          Lens..~ rs
+          Lens.^? getInstanceSnapshotsResponse_nextPageToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetInstanceSnapshots where
+instance Prelude.AWSRequest GetInstanceSnapshots where
   type
     Rs GetInstanceSnapshots =
       GetInstanceSnapshotsResponse
-  request = postJSON lightsail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInstanceSnapshotsResponse'
-            <$> (x .?> "instanceSnapshots" .!@ mempty)
-            <*> (x .?> "nextPageToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "instanceSnapshots"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInstanceSnapshots
+instance Prelude.Hashable GetInstanceSnapshots
 
-instance NFData GetInstanceSnapshots
+instance Prelude.NFData GetInstanceSnapshots
 
-instance ToHeaders GetInstanceSnapshots where
+instance Prelude.ToHeaders GetInstanceSnapshots where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Lightsail_20161128.GetInstanceSnapshots" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Lightsail_20161128.GetInstanceSnapshots" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInstanceSnapshots where
+instance Prelude.ToJSON GetInstanceSnapshots where
   toJSON GetInstanceSnapshots' {..} =
-    object
-      (catMaybes [("pageToken" .=) <$> _gisPageToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pageToken" Prelude..=) Prelude.<$> pageToken]
+      )
 
-instance ToPath GetInstanceSnapshots where
-  toPath = const "/"
+instance Prelude.ToPath GetInstanceSnapshots where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInstanceSnapshots where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInstanceSnapshots where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInstanceSnapshotsResponse' smart constructor.
+-- | /See:/ 'newGetInstanceSnapshotsResponse' smart constructor.
 data GetInstanceSnapshotsResponse = GetInstanceSnapshotsResponse'
-  { _gisrrsInstanceSnapshots ::
-      !( Maybe
-           [InstanceSnapshot]
-       ),
-    _gisrrsNextPageToken ::
-      !(Maybe Text),
-    _gisrrsResponseStatus ::
-      !Int
+  { -- | An array of key-value pairs containing information about the results of
+    -- your get instance snapshots request.
+    instanceSnapshots :: Prelude.Maybe [InstanceSnapshot],
+    -- | The token to advance to the next page of results from your request.
+    --
+    -- A next page token is not returned if there are no more results to
+    -- display.
+    --
+    -- To get the next page of results, perform another @GetInstanceSnapshots@
+    -- request and specify the next page token using the @pageToken@ parameter.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceSnapshotsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceSnapshotsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisrrsInstanceSnapshots' - An array of key-value pairs containing information about the results of your get instance snapshots request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gisrrsNextPageToken' - The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetInstanceSnapshots@ request and specify the next page token using the @pageToken@ parameter.
+-- 'instanceSnapshots', 'getInstanceSnapshotsResponse_instanceSnapshots' - An array of key-value pairs containing information about the results of
+-- your get instance snapshots request.
 --
--- * 'gisrrsResponseStatus' - -- | The response status code.
-getInstanceSnapshotsResponse ::
-  -- | 'gisrrsResponseStatus'
-  Int ->
+-- 'nextPageToken', 'getInstanceSnapshotsResponse_nextPageToken' - The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetInstanceSnapshots@
+-- request and specify the next page token using the @pageToken@ parameter.
+--
+-- 'httpStatus', 'getInstanceSnapshotsResponse_httpStatus' - The response's http status code.
+newGetInstanceSnapshotsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInstanceSnapshotsResponse
-getInstanceSnapshotsResponse pResponseStatus_ =
+newGetInstanceSnapshotsResponse pHttpStatus_ =
   GetInstanceSnapshotsResponse'
-    { _gisrrsInstanceSnapshots =
-        Nothing,
-      _gisrrsNextPageToken = Nothing,
-      _gisrrsResponseStatus = pResponseStatus_
+    { instanceSnapshots =
+        Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of key-value pairs containing information about the results of your get instance snapshots request.
-gisrrsInstanceSnapshots :: Lens' GetInstanceSnapshotsResponse [InstanceSnapshot]
-gisrrsInstanceSnapshots = lens _gisrrsInstanceSnapshots (\s a -> s {_gisrrsInstanceSnapshots = a}) . _Default . _Coerce
+-- | An array of key-value pairs containing information about the results of
+-- your get instance snapshots request.
+getInstanceSnapshotsResponse_instanceSnapshots :: Lens.Lens' GetInstanceSnapshotsResponse (Prelude.Maybe [InstanceSnapshot])
+getInstanceSnapshotsResponse_instanceSnapshots = Lens.lens (\GetInstanceSnapshotsResponse' {instanceSnapshots} -> instanceSnapshots) (\s@GetInstanceSnapshotsResponse' {} a -> s {instanceSnapshots = a} :: GetInstanceSnapshotsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to advance to the next page of results from your request. A next page token is not returned if there are no more results to display. To get the next page of results, perform another @GetInstanceSnapshots@ request and specify the next page token using the @pageToken@ parameter.
-gisrrsNextPageToken :: Lens' GetInstanceSnapshotsResponse (Maybe Text)
-gisrrsNextPageToken = lens _gisrrsNextPageToken (\s a -> s {_gisrrsNextPageToken = a})
+-- | The token to advance to the next page of results from your request.
+--
+-- A next page token is not returned if there are no more results to
+-- display.
+--
+-- To get the next page of results, perform another @GetInstanceSnapshots@
+-- request and specify the next page token using the @pageToken@ parameter.
+getInstanceSnapshotsResponse_nextPageToken :: Lens.Lens' GetInstanceSnapshotsResponse (Prelude.Maybe Prelude.Text)
+getInstanceSnapshotsResponse_nextPageToken = Lens.lens (\GetInstanceSnapshotsResponse' {nextPageToken} -> nextPageToken) (\s@GetInstanceSnapshotsResponse' {} a -> s {nextPageToken = a} :: GetInstanceSnapshotsResponse)
 
--- | -- | The response status code.
-gisrrsResponseStatus :: Lens' GetInstanceSnapshotsResponse Int
-gisrrsResponseStatus = lens _gisrrsResponseStatus (\s a -> s {_gisrrsResponseStatus = a})
+-- | The response's http status code.
+getInstanceSnapshotsResponse_httpStatus :: Lens.Lens' GetInstanceSnapshotsResponse Prelude.Int
+getInstanceSnapshotsResponse_httpStatus = Lens.lens (\GetInstanceSnapshotsResponse' {httpStatus} -> httpStatus) (\s@GetInstanceSnapshotsResponse' {} a -> s {httpStatus = a} :: GetInstanceSnapshotsResponse)
 
-instance NFData GetInstanceSnapshotsResponse
+instance Prelude.NFData GetInstanceSnapshotsResponse
