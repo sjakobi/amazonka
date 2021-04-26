@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAF.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A tag associated with an AWS resource. Tags are key:value pairs that you can use to categorize and manage your resources, for purposes like billing. For example, you might set the tag key to "customer" and the value to the customer name or ID. You can specify one or more tags to add to each AWS resource, up to 50 tags for a resource.
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- Tagging is only available through the API, SDKs, and CLI. You can't manage or view tags through the AWS WAF Classic console. You can tag the AWS resources that you manage through AWS WAF Classic: web ACLs, rule groups, and rules.
+-- A tag associated with an AWS resource. Tags are key:value pairs that you
+-- can use to categorize and manage your resources, for purposes like
+-- billing. For example, you might set the tag key to \"customer\" and the
+-- value to the customer name or ID. You can specify one or more tags to
+-- add to each AWS resource, up to 50 tags for a resource.
 --
+-- Tagging is only available through the API, SDKs, and CLI. You can\'t
+-- manage or view tags through the AWS WAF Classic console. You can tag the
+-- AWS resources that you manage through AWS WAF Classic: web ACLs, rule
+-- groups, and rules.
 --
--- /See:/ 'tag' smart constructor.
-data Tag = Tag' {_tagKey :: !Text, _tagValue :: !Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTag' smart constructor.
+data Tag = Tag'
+  { key :: Prelude.Text,
+    value :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagKey' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagValue' -
-tag ::
-  -- | 'tagKey'
-  Text ->
-  -- | 'tagValue'
-  Text ->
+-- 'key', 'tag_key' -
+--
+-- 'value', 'tag_value' -
+newTag ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Tag
-tag pKey_ pValue_ =
-  Tag' {_tagKey = pKey_, _tagValue = pValue_}
+newTag pKey_ pValue_ =
+  Tag' {key = pKey_, value = pValue_}
 
 -- |
-tagKey :: Lens' Tag Text
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+tag_key :: Lens.Lens' Tag Prelude.Text
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
 -- |
-tagValue :: Lens' Tag Text
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+tag_value :: Lens.Lens' Tag Prelude.Text
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance FromJSON Tag where
+instance Prelude.FromJSON Tag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tag"
-      (\x -> Tag' <$> (x .: "Key") <*> (x .: "Value"))
+      ( \x ->
+          Tag'
+            Prelude.<$> (x Prelude..: "Key")
+            Prelude.<*> (x Prelude..: "Value")
+      )
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [ Just ("Key" .= _tagKey),
-            Just ("Value" .= _tagValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,250 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an array of 'SqlInjectionMatchSet' objects.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Returns an array of SqlInjectionMatchSet objects.
 --
 -- This operation returns paginated results.
 module Network.AWS.WAF.ListSqlInjectionMatchSets
   ( -- * Creating a Request
-    listSqlInjectionMatchSets,
-    ListSqlInjectionMatchSets,
+    ListSqlInjectionMatchSets (..),
+    newListSqlInjectionMatchSets,
 
     -- * Request Lenses
-    lsimsNextMarker,
-    lsimsLimit,
+    listSqlInjectionMatchSets_nextMarker,
+    listSqlInjectionMatchSets_limit,
 
     -- * Destructuring the Response
-    listSqlInjectionMatchSetsResponse,
-    ListSqlInjectionMatchSetsResponse,
+    ListSqlInjectionMatchSetsResponse (..),
+    newListSqlInjectionMatchSetsResponse,
 
     -- * Response Lenses
-    lsimsrrsSqlInjectionMatchSets,
-    lsimsrrsNextMarker,
-    lsimsrrsResponseStatus,
+    listSqlInjectionMatchSetsResponse_sqlInjectionMatchSets,
+    listSqlInjectionMatchSetsResponse_nextMarker,
+    listSqlInjectionMatchSetsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.SqlInjectionMatchSetSummary
 
--- | A request to list the 'SqlInjectionMatchSet' objects created by the current AWS account.
+-- | A request to list the SqlInjectionMatchSet objects created by the
+-- current AWS account.
 --
---
---
--- /See:/ 'listSqlInjectionMatchSets' smart constructor.
+-- /See:/ 'newListSqlInjectionMatchSets' smart constructor.
 data ListSqlInjectionMatchSets = ListSqlInjectionMatchSets'
-  { _lsimsNextMarker ::
-      !(Maybe Text),
-    _lsimsLimit ::
-      !(Maybe Nat)
+  { -- | If you specify a value for @Limit@ and you have more
+    -- SqlInjectionMatchSet objects than the value of @Limit@, AWS WAF returns
+    -- a @NextMarker@ value in the response that allows you to list another
+    -- group of @SqlInjectionMatchSets@. For the second and subsequent
+    -- @ListSqlInjectionMatchSets@ requests, specify the value of @NextMarker@
+    -- from the previous response to get information about another batch of
+    -- @SqlInjectionMatchSets@.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the number of SqlInjectionMatchSet objects that you want AWS
+    -- WAF to return for this request. If you have more @SqlInjectionMatchSet@
+    -- objects than the number you specify for @Limit@, the response includes a
+    -- @NextMarker@ value that you can use to get another batch of @Rules@.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSqlInjectionMatchSets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSqlInjectionMatchSets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsimsNextMarker' - If you specify a value for @Limit@ and you have more 'SqlInjectionMatchSet' objects than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @SqlInjectionMatchSets@ . For the second and subsequent @ListSqlInjectionMatchSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @SqlInjectionMatchSets@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsimsLimit' - Specifies the number of 'SqlInjectionMatchSet' objects that you want AWS WAF to return for this request. If you have more @SqlInjectionMatchSet@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @Rules@ .
-listSqlInjectionMatchSets ::
+-- 'nextMarker', 'listSqlInjectionMatchSets_nextMarker' - If you specify a value for @Limit@ and you have more
+-- SqlInjectionMatchSet objects than the value of @Limit@, AWS WAF returns
+-- a @NextMarker@ value in the response that allows you to list another
+-- group of @SqlInjectionMatchSets@. For the second and subsequent
+-- @ListSqlInjectionMatchSets@ requests, specify the value of @NextMarker@
+-- from the previous response to get information about another batch of
+-- @SqlInjectionMatchSets@.
+--
+-- 'limit', 'listSqlInjectionMatchSets_limit' - Specifies the number of SqlInjectionMatchSet objects that you want AWS
+-- WAF to return for this request. If you have more @SqlInjectionMatchSet@
+-- objects than the number you specify for @Limit@, the response includes a
+-- @NextMarker@ value that you can use to get another batch of @Rules@.
+newListSqlInjectionMatchSets ::
   ListSqlInjectionMatchSets
-listSqlInjectionMatchSets =
+newListSqlInjectionMatchSets =
   ListSqlInjectionMatchSets'
-    { _lsimsNextMarker =
-        Nothing,
-      _lsimsLimit = Nothing
+    { nextMarker =
+        Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | If you specify a value for @Limit@ and you have more 'SqlInjectionMatchSet' objects than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @SqlInjectionMatchSets@ . For the second and subsequent @ListSqlInjectionMatchSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @SqlInjectionMatchSets@ .
-lsimsNextMarker :: Lens' ListSqlInjectionMatchSets (Maybe Text)
-lsimsNextMarker = lens _lsimsNextMarker (\s a -> s {_lsimsNextMarker = a})
+-- | If you specify a value for @Limit@ and you have more
+-- SqlInjectionMatchSet objects than the value of @Limit@, AWS WAF returns
+-- a @NextMarker@ value in the response that allows you to list another
+-- group of @SqlInjectionMatchSets@. For the second and subsequent
+-- @ListSqlInjectionMatchSets@ requests, specify the value of @NextMarker@
+-- from the previous response to get information about another batch of
+-- @SqlInjectionMatchSets@.
+listSqlInjectionMatchSets_nextMarker :: Lens.Lens' ListSqlInjectionMatchSets (Prelude.Maybe Prelude.Text)
+listSqlInjectionMatchSets_nextMarker = Lens.lens (\ListSqlInjectionMatchSets' {nextMarker} -> nextMarker) (\s@ListSqlInjectionMatchSets' {} a -> s {nextMarker = a} :: ListSqlInjectionMatchSets)
 
--- | Specifies the number of 'SqlInjectionMatchSet' objects that you want AWS WAF to return for this request. If you have more @SqlInjectionMatchSet@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @Rules@ .
-lsimsLimit :: Lens' ListSqlInjectionMatchSets (Maybe Natural)
-lsimsLimit = lens _lsimsLimit (\s a -> s {_lsimsLimit = a}) . mapping _Nat
+-- | Specifies the number of SqlInjectionMatchSet objects that you want AWS
+-- WAF to return for this request. If you have more @SqlInjectionMatchSet@
+-- objects than the number you specify for @Limit@, the response includes a
+-- @NextMarker@ value that you can use to get another batch of @Rules@.
+listSqlInjectionMatchSets_limit :: Lens.Lens' ListSqlInjectionMatchSets (Prelude.Maybe Prelude.Natural)
+listSqlInjectionMatchSets_limit = Lens.lens (\ListSqlInjectionMatchSets' {limit} -> limit) (\s@ListSqlInjectionMatchSets' {} a -> s {limit = a} :: ListSqlInjectionMatchSets) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListSqlInjectionMatchSets where
+instance Pager.AWSPager ListSqlInjectionMatchSets where
   page rq rs
-    | stop (rs ^. lsimsrrsNextMarker) = Nothing
-    | stop (rs ^. lsimsrrsSqlInjectionMatchSets) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listSqlInjectionMatchSetsResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSqlInjectionMatchSetsResponse_sqlInjectionMatchSets
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & lsimsNextMarker .~ rs ^. lsimsrrsNextMarker
+          Lens.& listSqlInjectionMatchSets_nextMarker
+          Lens..~ rs
+          Lens.^? listSqlInjectionMatchSetsResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSqlInjectionMatchSets where
+instance Prelude.AWSRequest ListSqlInjectionMatchSets where
   type
     Rs ListSqlInjectionMatchSets =
       ListSqlInjectionMatchSetsResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSqlInjectionMatchSetsResponse'
-            <$> (x .?> "SqlInjectionMatchSets" .!@ mempty)
-            <*> (x .?> "NextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SqlInjectionMatchSets"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSqlInjectionMatchSets
+instance Prelude.Hashable ListSqlInjectionMatchSets
 
-instance NFData ListSqlInjectionMatchSets
+instance Prelude.NFData ListSqlInjectionMatchSets
 
-instance ToHeaders ListSqlInjectionMatchSets where
+instance Prelude.ToHeaders ListSqlInjectionMatchSets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_20150824.ListSqlInjectionMatchSets" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_20150824.ListSqlInjectionMatchSets" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSqlInjectionMatchSets where
+instance Prelude.ToJSON ListSqlInjectionMatchSets where
   toJSON ListSqlInjectionMatchSets' {..} =
-    object
-      ( catMaybes
-          [ ("NextMarker" .=) <$> _lsimsNextMarker,
-            ("Limit" .=) <$> _lsimsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextMarker" Prelude..=) Prelude.<$> nextMarker,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListSqlInjectionMatchSets where
-  toPath = const "/"
+instance Prelude.ToPath ListSqlInjectionMatchSets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSqlInjectionMatchSets where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSqlInjectionMatchSets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The response to a 'ListSqlInjectionMatchSets' request.
+-- | The response to a ListSqlInjectionMatchSets request.
 --
---
---
--- /See:/ 'listSqlInjectionMatchSetsResponse' smart constructor.
+-- /See:/ 'newListSqlInjectionMatchSetsResponse' smart constructor.
 data ListSqlInjectionMatchSetsResponse = ListSqlInjectionMatchSetsResponse'
-  { _lsimsrrsSqlInjectionMatchSets ::
-      !( Maybe
-           [SqlInjectionMatchSetSummary]
-       ),
-    _lsimsrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _lsimsrrsResponseStatus ::
-      !Int
+  { -- | An array of SqlInjectionMatchSetSummary objects.
+    sqlInjectionMatchSets :: Prelude.Maybe [SqlInjectionMatchSetSummary],
+    -- | If you have more SqlInjectionMatchSet objects than the number that you
+    -- specified for @Limit@ in the request, the response includes a
+    -- @NextMarker@ value. To list more @SqlInjectionMatchSet@ objects, submit
+    -- another @ListSqlInjectionMatchSets@ request, and specify the
+    -- @NextMarker@ value from the response in the @NextMarker@ value in the
+    -- next request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSqlInjectionMatchSetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSqlInjectionMatchSetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsimsrrsSqlInjectionMatchSets' - An array of 'SqlInjectionMatchSetSummary' objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsimsrrsNextMarker' - If you have more 'SqlInjectionMatchSet' objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @SqlInjectionMatchSet@ objects, submit another @ListSqlInjectionMatchSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
+-- 'sqlInjectionMatchSets', 'listSqlInjectionMatchSetsResponse_sqlInjectionMatchSets' - An array of SqlInjectionMatchSetSummary objects.
 --
--- * 'lsimsrrsResponseStatus' - -- | The response status code.
-listSqlInjectionMatchSetsResponse ::
-  -- | 'lsimsrrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'listSqlInjectionMatchSetsResponse_nextMarker' - If you have more SqlInjectionMatchSet objects than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @SqlInjectionMatchSet@ objects, submit
+-- another @ListSqlInjectionMatchSets@ request, and specify the
+-- @NextMarker@ value from the response in the @NextMarker@ value in the
+-- next request.
+--
+-- 'httpStatus', 'listSqlInjectionMatchSetsResponse_httpStatus' - The response's http status code.
+newListSqlInjectionMatchSetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSqlInjectionMatchSetsResponse
-listSqlInjectionMatchSetsResponse pResponseStatus_ =
+newListSqlInjectionMatchSetsResponse pHttpStatus_ =
   ListSqlInjectionMatchSetsResponse'
-    { _lsimsrrsSqlInjectionMatchSets =
-        Nothing,
-      _lsimsrrsNextMarker = Nothing,
-      _lsimsrrsResponseStatus =
-        pResponseStatus_
+    { sqlInjectionMatchSets =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of 'SqlInjectionMatchSetSummary' objects.
-lsimsrrsSqlInjectionMatchSets :: Lens' ListSqlInjectionMatchSetsResponse [SqlInjectionMatchSetSummary]
-lsimsrrsSqlInjectionMatchSets = lens _lsimsrrsSqlInjectionMatchSets (\s a -> s {_lsimsrrsSqlInjectionMatchSets = a}) . _Default . _Coerce
+-- | An array of SqlInjectionMatchSetSummary objects.
+listSqlInjectionMatchSetsResponse_sqlInjectionMatchSets :: Lens.Lens' ListSqlInjectionMatchSetsResponse (Prelude.Maybe [SqlInjectionMatchSetSummary])
+listSqlInjectionMatchSetsResponse_sqlInjectionMatchSets = Lens.lens (\ListSqlInjectionMatchSetsResponse' {sqlInjectionMatchSets} -> sqlInjectionMatchSets) (\s@ListSqlInjectionMatchSetsResponse' {} a -> s {sqlInjectionMatchSets = a} :: ListSqlInjectionMatchSetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If you have more 'SqlInjectionMatchSet' objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @SqlInjectionMatchSet@ objects, submit another @ListSqlInjectionMatchSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
-lsimsrrsNextMarker :: Lens' ListSqlInjectionMatchSetsResponse (Maybe Text)
-lsimsrrsNextMarker = lens _lsimsrrsNextMarker (\s a -> s {_lsimsrrsNextMarker = a})
+-- | If you have more SqlInjectionMatchSet objects than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @SqlInjectionMatchSet@ objects, submit
+-- another @ListSqlInjectionMatchSets@ request, and specify the
+-- @NextMarker@ value from the response in the @NextMarker@ value in the
+-- next request.
+listSqlInjectionMatchSetsResponse_nextMarker :: Lens.Lens' ListSqlInjectionMatchSetsResponse (Prelude.Maybe Prelude.Text)
+listSqlInjectionMatchSetsResponse_nextMarker = Lens.lens (\ListSqlInjectionMatchSetsResponse' {nextMarker} -> nextMarker) (\s@ListSqlInjectionMatchSetsResponse' {} a -> s {nextMarker = a} :: ListSqlInjectionMatchSetsResponse)
 
--- | -- | The response status code.
-lsimsrrsResponseStatus :: Lens' ListSqlInjectionMatchSetsResponse Int
-lsimsrrsResponseStatus = lens _lsimsrrsResponseStatus (\s a -> s {_lsimsrrsResponseStatus = a})
+-- | The response's http status code.
+listSqlInjectionMatchSetsResponse_httpStatus :: Lens.Lens' ListSqlInjectionMatchSetsResponse Prelude.Int
+listSqlInjectionMatchSetsResponse_httpStatus = Lens.lens (\ListSqlInjectionMatchSetsResponse' {httpStatus} -> httpStatus) (\s@ListSqlInjectionMatchSetsResponse' {} a -> s {httpStatus = a} :: ListSqlInjectionMatchSetsResponse)
 
-instance NFData ListSqlInjectionMatchSetsResponse
+instance
+  Prelude.NFData
+    ListSqlInjectionMatchSetsResponse

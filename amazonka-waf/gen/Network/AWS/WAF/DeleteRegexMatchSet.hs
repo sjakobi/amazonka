@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes a 'RegexMatchSet' . You can't delete a @RegexMatchSet@ if it's still used in any @Rules@ or if it still includes any @RegexMatchTuples@ objects (any filters).
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- If you just want to remove a @RegexMatchSet@ from a @Rule@ , use 'UpdateRule' .
+-- Permanently deletes a RegexMatchSet. You can\'t delete a @RegexMatchSet@
+-- if it\'s still used in any @Rules@ or if it still includes any
+-- @RegexMatchTuples@ objects (any filters).
 --
--- To permanently delete a @RegexMatchSet@ , perform the following steps:
+-- If you just want to remove a @RegexMatchSet@ from a @Rule@, use
+-- UpdateRule.
 --
---     * Update the @RegexMatchSet@ to remove filters, if any. For more information, see 'UpdateRegexMatchSet' .
+-- To permanently delete a @RegexMatchSet@, perform the following steps:
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @DeleteRegexMatchSet@ request.
+-- 1.  Update the @RegexMatchSet@ to remove filters, if any. For more
+--     information, see UpdateRegexMatchSet.
 --
---     * Submit a @DeleteRegexMatchSet@ request.
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @DeleteRegexMatchSet@ request.
+--
+-- 3.  Submit a @DeleteRegexMatchSet@ request.
 module Network.AWS.WAF.DeleteRegexMatchSet
   ( -- * Creating a Request
-    deleteRegexMatchSet,
-    DeleteRegexMatchSet,
+    DeleteRegexMatchSet (..),
+    newDeleteRegexMatchSet,
 
     -- * Request Lenses
-    drmsRegexMatchSetId,
-    drmsChangeToken,
+    deleteRegexMatchSet_regexMatchSetId,
+    deleteRegexMatchSet_changeToken,
 
     -- * Destructuring the Response
-    deleteRegexMatchSetResponse,
-    DeleteRegexMatchSetResponse,
+    DeleteRegexMatchSetResponse (..),
+    newDeleteRegexMatchSetResponse,
 
     -- * Response Lenses
-    drmsrrsChangeToken,
-    drmsrrsResponseStatus,
+    deleteRegexMatchSetResponse_changeToken,
+    deleteRegexMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
 
--- | /See:/ 'deleteRegexMatchSet' smart constructor.
+-- | /See:/ 'newDeleteRegexMatchSet' smart constructor.
 data DeleteRegexMatchSet = DeleteRegexMatchSet'
-  { _drmsRegexMatchSetId ::
-      !Text,
-    _drmsChangeToken :: !Text
+  { -- | The @RegexMatchSetId@ of the RegexMatchSet that you want to delete.
+    -- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+    -- ListRegexMatchSets.
+    regexMatchSetId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRegexMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRegexMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drmsRegexMatchSetId' - The @RegexMatchSetId@ of the 'RegexMatchSet' that you want to delete. @RegexMatchSetId@ is returned by 'CreateRegexMatchSet' and by 'ListRegexMatchSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drmsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-deleteRegexMatchSet ::
-  -- | 'drmsRegexMatchSetId'
-  Text ->
-  -- | 'drmsChangeToken'
-  Text ->
+-- 'regexMatchSetId', 'deleteRegexMatchSet_regexMatchSetId' - The @RegexMatchSetId@ of the RegexMatchSet that you want to delete.
+-- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+-- ListRegexMatchSets.
+--
+-- 'changeToken', 'deleteRegexMatchSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newDeleteRegexMatchSet ::
+  -- | 'regexMatchSetId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   DeleteRegexMatchSet
-deleteRegexMatchSet pRegexMatchSetId_ pChangeToken_ =
-  DeleteRegexMatchSet'
-    { _drmsRegexMatchSetId =
-        pRegexMatchSetId_,
-      _drmsChangeToken = pChangeToken_
-    }
+newDeleteRegexMatchSet
+  pRegexMatchSetId_
+  pChangeToken_ =
+    DeleteRegexMatchSet'
+      { regexMatchSetId =
+          pRegexMatchSetId_,
+        changeToken = pChangeToken_
+      }
 
--- | The @RegexMatchSetId@ of the 'RegexMatchSet' that you want to delete. @RegexMatchSetId@ is returned by 'CreateRegexMatchSet' and by 'ListRegexMatchSets' .
-drmsRegexMatchSetId :: Lens' DeleteRegexMatchSet Text
-drmsRegexMatchSetId = lens _drmsRegexMatchSetId (\s a -> s {_drmsRegexMatchSetId = a})
+-- | The @RegexMatchSetId@ of the RegexMatchSet that you want to delete.
+-- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+-- ListRegexMatchSets.
+deleteRegexMatchSet_regexMatchSetId :: Lens.Lens' DeleteRegexMatchSet Prelude.Text
+deleteRegexMatchSet_regexMatchSetId = Lens.lens (\DeleteRegexMatchSet' {regexMatchSetId} -> regexMatchSetId) (\s@DeleteRegexMatchSet' {} a -> s {regexMatchSetId = a} :: DeleteRegexMatchSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-drmsChangeToken :: Lens' DeleteRegexMatchSet Text
-drmsChangeToken = lens _drmsChangeToken (\s a -> s {_drmsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+deleteRegexMatchSet_changeToken :: Lens.Lens' DeleteRegexMatchSet Prelude.Text
+deleteRegexMatchSet_changeToken = Lens.lens (\DeleteRegexMatchSet' {changeToken} -> changeToken) (\s@DeleteRegexMatchSet' {} a -> s {changeToken = a} :: DeleteRegexMatchSet)
 
-instance AWSRequest DeleteRegexMatchSet where
+instance Prelude.AWSRequest DeleteRegexMatchSet where
   type
     Rs DeleteRegexMatchSet =
       DeleteRegexMatchSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteRegexMatchSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRegexMatchSet
+instance Prelude.Hashable DeleteRegexMatchSet
 
-instance NFData DeleteRegexMatchSet
+instance Prelude.NFData DeleteRegexMatchSet
 
-instance ToHeaders DeleteRegexMatchSet where
+instance Prelude.ToHeaders DeleteRegexMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_20150824.DeleteRegexMatchSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_20150824.DeleteRegexMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRegexMatchSet where
+instance Prelude.ToJSON DeleteRegexMatchSet where
   toJSON DeleteRegexMatchSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("RegexMatchSetId" .= _drmsRegexMatchSetId),
-            Just ("ChangeToken" .= _drmsChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RegexMatchSetId" Prelude..= regexMatchSetId),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath DeleteRegexMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRegexMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRegexMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRegexMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteRegexMatchSetResponse' smart constructor.
+-- | /See:/ 'newDeleteRegexMatchSetResponse' smart constructor.
 data DeleteRegexMatchSetResponse = DeleteRegexMatchSetResponse'
-  { _drmsrrsChangeToken ::
-      !(Maybe Text),
-    _drmsrrsResponseStatus ::
-      !Int
+  { -- | The @ChangeToken@ that you used to submit the @DeleteRegexMatchSet@
+    -- request. You can also use this value to query the status of the request.
+    -- For more information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRegexMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRegexMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drmsrrsChangeToken' - The @ChangeToken@ that you used to submit the @DeleteRegexMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drmsrrsResponseStatus' - -- | The response status code.
-deleteRegexMatchSetResponse ::
-  -- | 'drmsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'deleteRegexMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @DeleteRegexMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'deleteRegexMatchSetResponse_httpStatus' - The response's http status code.
+newDeleteRegexMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRegexMatchSetResponse
-deleteRegexMatchSetResponse pResponseStatus_ =
+newDeleteRegexMatchSetResponse pHttpStatus_ =
   DeleteRegexMatchSetResponse'
-    { _drmsrrsChangeToken =
-        Nothing,
-      _drmsrrsResponseStatus = pResponseStatus_
+    { changeToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @DeleteRegexMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-drmsrrsChangeToken :: Lens' DeleteRegexMatchSetResponse (Maybe Text)
-drmsrrsChangeToken = lens _drmsrrsChangeToken (\s a -> s {_drmsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @DeleteRegexMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+deleteRegexMatchSetResponse_changeToken :: Lens.Lens' DeleteRegexMatchSetResponse (Prelude.Maybe Prelude.Text)
+deleteRegexMatchSetResponse_changeToken = Lens.lens (\DeleteRegexMatchSetResponse' {changeToken} -> changeToken) (\s@DeleteRegexMatchSetResponse' {} a -> s {changeToken = a} :: DeleteRegexMatchSetResponse)
 
--- | -- | The response status code.
-drmsrrsResponseStatus :: Lens' DeleteRegexMatchSetResponse Int
-drmsrrsResponseStatus = lens _drmsrrsResponseStatus (\s a -> s {_drmsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteRegexMatchSetResponse_httpStatus :: Lens.Lens' DeleteRegexMatchSetResponse Prelude.Int
+deleteRegexMatchSetResponse_httpStatus = Lens.lens (\DeleteRegexMatchSetResponse' {httpStatus} -> httpStatus) (\s@DeleteRegexMatchSetResponse' {} a -> s {httpStatus = a} :: DeleteRegexMatchSetResponse)
 
-instance NFData DeleteRegexMatchSetResponse
+instance Prelude.NFData DeleteRegexMatchSetResponse

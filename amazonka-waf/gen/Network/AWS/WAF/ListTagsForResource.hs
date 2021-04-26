@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the tags associated with the specified AWS resource. Tags are key:value pairs that you can use to categorize and manage your resources, for purposes like billing. For example, you might set the tag key to "customer" and the value to the customer name or ID. You can specify one or more tags to add to each AWS resource, up to 50 tags for a resource.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- Tagging is only available through the API, SDKs, and CLI. You can't manage or view tags through the AWS WAF Classic console. You can tag the AWS resources that you manage through AWS WAF Classic: web ACLs, rule groups, and rules.
+-- Retrieves the tags associated with the specified AWS resource. Tags are
+-- key:value pairs that you can use to categorize and manage your
+-- resources, for purposes like billing. For example, you might set the tag
+-- key to \"customer\" and the value to the customer name or ID. You can
+-- specify one or more tags to add to each AWS resource, up to 50 tags for
+-- a resource.
+--
+-- Tagging is only available through the API, SDKs, and CLI. You can\'t
+-- manage or view tags through the AWS WAF Classic console. You can tag the
+-- AWS resources that you manage through AWS WAF Classic: web ACLs, rule
+-- groups, and rules.
 module Network.AWS.WAF.ListTagsForResource
   ( -- * Creating a Request
-    listTagsForResource,
-    ListTagsForResource,
+    ListTagsForResource (..),
+    newListTagsForResource,
 
     -- * Request Lenses
-    ltfrNextMarker,
-    ltfrLimit,
-    ltfrResourceARN,
+    listTagsForResource_nextMarker,
+    listTagsForResource_limit,
+    listTagsForResource_resourceARN,
 
     -- * Destructuring the Response
-    listTagsForResourceResponse,
-    ListTagsForResourceResponse,
+    ListTagsForResourceResponse (..),
+    newListTagsForResourceResponse,
 
     -- * Response Lenses
-    ltfrrrsNextMarker,
-    ltfrrrsTagInfoForResource,
-    ltfrrrsResponseStatus,
+    listTagsForResourceResponse_nextMarker,
+    listTagsForResourceResponse_tagInfoForResource,
+    listTagsForResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.TagInfoForResource
 
--- | /See:/ 'listTagsForResource' smart constructor.
+-- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { _ltfrNextMarker ::
-      !(Maybe Text),
-    _ltfrLimit :: !(Maybe Nat),
-    _ltfrResourceARN :: !Text
+  { nextMarker :: Prelude.Maybe Prelude.Text,
+    limit :: Prelude.Maybe Prelude.Nat,
+    resourceARN :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrNextMarker' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrLimit' -
+-- 'nextMarker', 'listTagsForResource_nextMarker' -
 --
--- * 'ltfrResourceARN' -
-listTagsForResource ::
-  -- | 'ltfrResourceARN'
-  Text ->
+-- 'limit', 'listTagsForResource_limit' -
+--
+-- 'resourceARN', 'listTagsForResource_resourceARN' -
+newListTagsForResource ::
+  -- | 'resourceARN'
+  Prelude.Text ->
   ListTagsForResource
-listTagsForResource pResourceARN_ =
+newListTagsForResource pResourceARN_ =
   ListTagsForResource'
-    { _ltfrNextMarker = Nothing,
-      _ltfrLimit = Nothing,
-      _ltfrResourceARN = pResourceARN_
+    { nextMarker = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      resourceARN = pResourceARN_
     }
 
 -- |
-ltfrNextMarker :: Lens' ListTagsForResource (Maybe Text)
-ltfrNextMarker = lens _ltfrNextMarker (\s a -> s {_ltfrNextMarker = a})
+listTagsForResource_nextMarker :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
+listTagsForResource_nextMarker = Lens.lens (\ListTagsForResource' {nextMarker} -> nextMarker) (\s@ListTagsForResource' {} a -> s {nextMarker = a} :: ListTagsForResource)
 
 -- |
-ltfrLimit :: Lens' ListTagsForResource (Maybe Natural)
-ltfrLimit = lens _ltfrLimit (\s a -> s {_ltfrLimit = a}) . mapping _Nat
+listTagsForResource_limit :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
+listTagsForResource_limit = Lens.lens (\ListTagsForResource' {limit} -> limit) (\s@ListTagsForResource' {} a -> s {limit = a} :: ListTagsForResource) Prelude.. Lens.mapping Prelude._Nat
 
 -- |
-ltfrResourceARN :: Lens' ListTagsForResource Text
-ltfrResourceARN = lens _ltfrResourceARN (\s a -> s {_ltfrResourceARN = a})
+listTagsForResource_resourceARN :: Lens.Lens' ListTagsForResource Prelude.Text
+listTagsForResource_resourceARN = Lens.lens (\ListTagsForResource' {resourceARN} -> resourceARN) (\s@ListTagsForResource' {} a -> s {resourceARN = a} :: ListTagsForResource)
 
-instance AWSRequest ListTagsForResource where
+instance Prelude.AWSRequest ListTagsForResource where
   type
     Rs ListTagsForResource =
       ListTagsForResourceResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "TagInfoForResource")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> (x Prelude..?> "TagInfoForResource")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagsForResource
+instance Prelude.Hashable ListTagsForResource
 
-instance NFData ListTagsForResource
+instance Prelude.NFData ListTagsForResource
 
-instance ToHeaders ListTagsForResource where
+instance Prelude.ToHeaders ListTagsForResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_20150824.ListTagsForResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_20150824.ListTagsForResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTagsForResource where
+instance Prelude.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    object
-      ( catMaybes
-          [ ("NextMarker" .=) <$> _ltfrNextMarker,
-            ("Limit" .=) <$> _ltfrLimit,
-            Just ("ResourceARN" .= _ltfrResourceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextMarker" Prelude..=) Prelude.<$> nextMarker,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just ("ResourceARN" Prelude..= resourceARN)
           ]
       )
 
-instance ToPath ListTagsForResource where
-  toPath = const "/"
+instance Prelude.ToPath ListTagsForResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTagsForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTagsForResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsForResourceResponse' smart constructor.
+-- | /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'
-  { _ltfrrrsNextMarker ::
-      !(Maybe Text),
-    _ltfrrrsTagInfoForResource ::
-      !( Maybe
-           TagInfoForResource
-       ),
-    _ltfrrrsResponseStatus ::
-      !Int
+  { nextMarker :: Prelude.Maybe Prelude.Text,
+    tagInfoForResource :: Prelude.Maybe TagInfoForResource,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrrrsNextMarker' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrrrsTagInfoForResource' -
+-- 'nextMarker', 'listTagsForResourceResponse_nextMarker' -
 --
--- * 'ltfrrrsResponseStatus' - -- | The response status code.
-listTagsForResourceResponse ::
-  -- | 'ltfrrrsResponseStatus'
-  Int ->
+-- 'tagInfoForResource', 'listTagsForResourceResponse_tagInfoForResource' -
+--
+-- 'httpStatus', 'listTagsForResourceResponse_httpStatus' - The response's http status code.
+newListTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsForResourceResponse
-listTagsForResourceResponse pResponseStatus_ =
+newListTagsForResourceResponse pHttpStatus_ =
   ListTagsForResourceResponse'
-    { _ltfrrrsNextMarker =
-        Nothing,
-      _ltfrrrsTagInfoForResource = Nothing,
-      _ltfrrrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      tagInfoForResource = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- |
-ltfrrrsNextMarker :: Lens' ListTagsForResourceResponse (Maybe Text)
-ltfrrrsNextMarker = lens _ltfrrrsNextMarker (\s a -> s {_ltfrrrsNextMarker = a})
+listTagsForResourceResponse_nextMarker :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe Prelude.Text)
+listTagsForResourceResponse_nextMarker = Lens.lens (\ListTagsForResourceResponse' {nextMarker} -> nextMarker) (\s@ListTagsForResourceResponse' {} a -> s {nextMarker = a} :: ListTagsForResourceResponse)
 
 -- |
-ltfrrrsTagInfoForResource :: Lens' ListTagsForResourceResponse (Maybe TagInfoForResource)
-ltfrrrsTagInfoForResource = lens _ltfrrrsTagInfoForResource (\s a -> s {_ltfrrrsTagInfoForResource = a})
+listTagsForResourceResponse_tagInfoForResource :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe TagInfoForResource)
+listTagsForResourceResponse_tagInfoForResource = Lens.lens (\ListTagsForResourceResponse' {tagInfoForResource} -> tagInfoForResource) (\s@ListTagsForResourceResponse' {} a -> s {tagInfoForResource = a} :: ListTagsForResourceResponse)
 
--- | -- | The response status code.
-ltfrrrsResponseStatus :: Lens' ListTagsForResourceResponse Int
-ltfrrrsResponseStatus = lens _ltfrrrsResponseStatus (\s a -> s {_ltfrrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsForResourceResponse_httpStatus :: Lens.Lens' ListTagsForResourceResponse Prelude.Int
+listTagsForResourceResponse_httpStatus = Lens.lens (\ListTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ListTagsForResourceResponse' {} a -> s {httpStatus = a} :: ListTagsForResourceResponse)
 
-instance NFData ListTagsForResourceResponse
+instance Prelude.NFData ListTagsForResourceResponse

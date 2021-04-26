@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an array of 'RuleSummary' objects.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Returns an array of RuleSummary objects.
 --
 -- This operation returns paginated results.
 module Network.AWS.WAF.ListRules
   ( -- * Creating a Request
-    listRules,
-    ListRules,
+    ListRules (..),
+    newListRules,
 
     -- * Request Lenses
-    lrNextMarker,
-    lrLimit,
+    listRules_nextMarker,
+    listRules_limit,
 
     -- * Destructuring the Response
-    listRulesResponse,
-    ListRulesResponse,
+    ListRulesResponse (..),
+    newListRulesResponse,
 
     -- * Response Lenses
-    lrrrsNextMarker,
-    lrrrsRules,
-    lrrrsResponseStatus,
+    listRulesResponse_nextMarker,
+    listRulesResponse_rules,
+    listRulesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.RuleSummary
 
--- | /See:/ 'listRules' smart constructor.
+-- | /See:/ 'newListRules' smart constructor.
 data ListRules = ListRules'
-  { _lrNextMarker ::
-      !(Maybe Text),
-    _lrLimit :: !(Maybe Nat)
+  { -- | If you specify a value for @Limit@ and you have more @Rules@ than the
+    -- value of @Limit@, AWS WAF returns a @NextMarker@ value in the response
+    -- that allows you to list another group of @Rules@. For the second and
+    -- subsequent @ListRules@ requests, specify the value of @NextMarker@ from
+    -- the previous response to get information about another batch of @Rules@.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the number of @Rules@ that you want AWS WAF to return for this
+    -- request. If you have more @Rules@ than the number that you specify for
+    -- @Limit@, the response includes a @NextMarker@ value that you can use to
+    -- get another batch of @Rules@.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRules' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRules' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrNextMarker' - If you specify a value for @Limit@ and you have more @Rules@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @Rules@ . For the second and subsequent @ListRules@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @Rules@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrLimit' - Specifies the number of @Rules@ that you want AWS WAF to return for this request. If you have more @Rules@ than the number that you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @Rules@ .
-listRules ::
+-- 'nextMarker', 'listRules_nextMarker' - If you specify a value for @Limit@ and you have more @Rules@ than the
+-- value of @Limit@, AWS WAF returns a @NextMarker@ value in the response
+-- that allows you to list another group of @Rules@. For the second and
+-- subsequent @ListRules@ requests, specify the value of @NextMarker@ from
+-- the previous response to get information about another batch of @Rules@.
+--
+-- 'limit', 'listRules_limit' - Specifies the number of @Rules@ that you want AWS WAF to return for this
+-- request. If you have more @Rules@ than the number that you specify for
+-- @Limit@, the response includes a @NextMarker@ value that you can use to
+-- get another batch of @Rules@.
+newListRules ::
   ListRules
-listRules =
+newListRules =
   ListRules'
-    { _lrNextMarker = Nothing,
-      _lrLimit = Nothing
+    { nextMarker = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | If you specify a value for @Limit@ and you have more @Rules@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @Rules@ . For the second and subsequent @ListRules@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @Rules@ .
-lrNextMarker :: Lens' ListRules (Maybe Text)
-lrNextMarker = lens _lrNextMarker (\s a -> s {_lrNextMarker = a})
+-- | If you specify a value for @Limit@ and you have more @Rules@ than the
+-- value of @Limit@, AWS WAF returns a @NextMarker@ value in the response
+-- that allows you to list another group of @Rules@. For the second and
+-- subsequent @ListRules@ requests, specify the value of @NextMarker@ from
+-- the previous response to get information about another batch of @Rules@.
+listRules_nextMarker :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Text)
+listRules_nextMarker = Lens.lens (\ListRules' {nextMarker} -> nextMarker) (\s@ListRules' {} a -> s {nextMarker = a} :: ListRules)
 
--- | Specifies the number of @Rules@ that you want AWS WAF to return for this request. If you have more @Rules@ than the number that you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @Rules@ .
-lrLimit :: Lens' ListRules (Maybe Natural)
-lrLimit = lens _lrLimit (\s a -> s {_lrLimit = a}) . mapping _Nat
+-- | Specifies the number of @Rules@ that you want AWS WAF to return for this
+-- request. If you have more @Rules@ than the number that you specify for
+-- @Limit@, the response includes a @NextMarker@ value that you can use to
+-- get another batch of @Rules@.
+listRules_limit :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Natural)
+listRules_limit = Lens.lens (\ListRules' {limit} -> limit) (\s@ListRules' {} a -> s {limit = a} :: ListRules) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListRules where
+instance Pager.AWSPager ListRules where
   page rq rs
-    | stop (rs ^. lrrrsNextMarker) = Nothing
-    | stop (rs ^. lrrrsRules) = Nothing
-    | otherwise =
-      Just $ rq & lrNextMarker .~ rs ^. lrrrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listRulesResponse_nextMarker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listRulesResponse_rules Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listRules_nextMarker
+          Lens..~ rs
+          Lens.^? listRulesResponse_nextMarker Prelude.. Lens._Just
 
-instance AWSRequest ListRules where
+instance Prelude.AWSRequest ListRules where
   type Rs ListRules = ListRulesResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListRulesResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "Rules" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> (x Prelude..?> "Rules" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListRules
+instance Prelude.Hashable ListRules
 
-instance NFData ListRules
+instance Prelude.NFData ListRules
 
-instance ToHeaders ListRules where
+instance Prelude.ToHeaders ListRules where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.ListRules" :: ByteString),
+              Prelude.=# ("AWSWAF_20150824.ListRules" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListRules where
+instance Prelude.ToJSON ListRules where
   toJSON ListRules' {..} =
-    object
-      ( catMaybes
-          [ ("NextMarker" .=) <$> _lrNextMarker,
-            ("Limit" .=) <$> _lrLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextMarker" Prelude..=) Prelude.<$> nextMarker,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListRules where
-  toPath = const "/"
+instance Prelude.ToPath ListRules where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListRules where
-  toQuery = const mempty
+instance Prelude.ToQuery ListRules where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listRulesResponse' smart constructor.
+-- | /See:/ 'newListRulesResponse' smart constructor.
 data ListRulesResponse = ListRulesResponse'
-  { _lrrrsNextMarker ::
-      !(Maybe Text),
-    _lrrrsRules ::
-      !(Maybe [RuleSummary]),
-    _lrrrsResponseStatus :: !Int
+  { -- | If you have more @Rules@ than the number that you specified for @Limit@
+    -- in the request, the response includes a @NextMarker@ value. To list more
+    -- @Rules@, submit another @ListRules@ request, and specify the
+    -- @NextMarker@ value from the response in the @NextMarker@ value in the
+    -- next request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | An array of RuleSummary objects.
+    rules :: Prelude.Maybe [RuleSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRulesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRulesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsNextMarker' - If you have more @Rules@ than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @Rules@ , submit another @ListRules@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsRules' - An array of 'RuleSummary' objects.
+-- 'nextMarker', 'listRulesResponse_nextMarker' - If you have more @Rules@ than the number that you specified for @Limit@
+-- in the request, the response includes a @NextMarker@ value. To list more
+-- @Rules@, submit another @ListRules@ request, and specify the
+-- @NextMarker@ value from the response in the @NextMarker@ value in the
+-- next request.
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
-listRulesResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'rules', 'listRulesResponse_rules' - An array of RuleSummary objects.
+--
+-- 'httpStatus', 'listRulesResponse_httpStatus' - The response's http status code.
+newListRulesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListRulesResponse
-listRulesResponse pResponseStatus_ =
+newListRulesResponse pHttpStatus_ =
   ListRulesResponse'
-    { _lrrrsNextMarker = Nothing,
-      _lrrrsRules = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_
+    { nextMarker = Prelude.Nothing,
+      rules = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If you have more @Rules@ than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @Rules@ , submit another @ListRules@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
-lrrrsNextMarker :: Lens' ListRulesResponse (Maybe Text)
-lrrrsNextMarker = lens _lrrrsNextMarker (\s a -> s {_lrrrsNextMarker = a})
+-- | If you have more @Rules@ than the number that you specified for @Limit@
+-- in the request, the response includes a @NextMarker@ value. To list more
+-- @Rules@, submit another @ListRules@ request, and specify the
+-- @NextMarker@ value from the response in the @NextMarker@ value in the
+-- next request.
+listRulesResponse_nextMarker :: Lens.Lens' ListRulesResponse (Prelude.Maybe Prelude.Text)
+listRulesResponse_nextMarker = Lens.lens (\ListRulesResponse' {nextMarker} -> nextMarker) (\s@ListRulesResponse' {} a -> s {nextMarker = a} :: ListRulesResponse)
 
--- | An array of 'RuleSummary' objects.
-lrrrsRules :: Lens' ListRulesResponse [RuleSummary]
-lrrrsRules = lens _lrrrsRules (\s a -> s {_lrrrsRules = a}) . _Default . _Coerce
+-- | An array of RuleSummary objects.
+listRulesResponse_rules :: Lens.Lens' ListRulesResponse (Prelude.Maybe [RuleSummary])
+listRulesResponse_rules = Lens.lens (\ListRulesResponse' {rules} -> rules) (\s@ListRulesResponse' {} a -> s {rules = a} :: ListRulesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListRulesResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listRulesResponse_httpStatus :: Lens.Lens' ListRulesResponse Prelude.Int
+listRulesResponse_httpStatus = Lens.lens (\ListRulesResponse' {httpStatus} -> httpStatus) (\s@ListRulesResponse' {} a -> s {httpStatus = a} :: ListRulesResponse)
 
-instance NFData ListRulesResponse
+instance Prelude.NFData ListRulesResponse

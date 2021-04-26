@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.WAF.Types.WafRuleType
   ( WafRuleType
       ( ..,
-        Group,
-        RateBased,
-        Regular
+        WafRuleTypeGROUP,
+        WafRuleTypeRATEBASED,
+        WafRuleTypeREGULAR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WafRuleType = WafRuleType' (CI Text)
+newtype WafRuleType = WafRuleType'
+  { fromWafRuleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Group :: WafRuleType
-pattern Group = WafRuleType' "GROUP"
+pattern WafRuleTypeGROUP :: WafRuleType
+pattern WafRuleTypeGROUP = WafRuleType' "GROUP"
 
-pattern RateBased :: WafRuleType
-pattern RateBased = WafRuleType' "RATE_BASED"
+pattern WafRuleTypeRATEBASED :: WafRuleType
+pattern WafRuleTypeRATEBASED = WafRuleType' "RATE_BASED"
 
-pattern Regular :: WafRuleType
-pattern Regular = WafRuleType' "REGULAR"
+pattern WafRuleTypeREGULAR :: WafRuleType
+pattern WafRuleTypeREGULAR = WafRuleType' "REGULAR"
 
 {-# COMPLETE
-  Group,
-  RateBased,
-  Regular,
+  WafRuleTypeGROUP,
+  WafRuleTypeRATEBASED,
+  WafRuleTypeREGULAR,
   WafRuleType'
   #-}
 
-instance FromText WafRuleType where
-  parser = (WafRuleType' . mk) <$> takeText
+instance Prelude.FromText WafRuleType where
+  parser = WafRuleType' Prelude.<$> Prelude.takeText
 
-instance ToText WafRuleType where
-  toText (WafRuleType' ci) = original ci
+instance Prelude.ToText WafRuleType where
+  toText (WafRuleType' x) = x
 
-instance Hashable WafRuleType
+instance Prelude.Hashable WafRuleType
 
-instance NFData WafRuleType
+instance Prelude.NFData WafRuleType
 
-instance ToByteString WafRuleType
+instance Prelude.ToByteString WafRuleType
 
-instance ToQuery WafRuleType
+instance Prelude.ToQuery WafRuleType
 
-instance ToHeader WafRuleType
+instance Prelude.ToHeader WafRuleType
 
-instance ToJSON WafRuleType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WafRuleType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WafRuleType where
-  parseJSON = parseJSONText "WafRuleType"
+instance Prelude.FromJSON WafRuleType where
+  parseJSON = Prelude.parseJSONText "WafRuleType"

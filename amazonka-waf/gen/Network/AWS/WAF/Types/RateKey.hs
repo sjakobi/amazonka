@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.WAF.Types.RateKey
   ( RateKey
       ( ..,
-        IP
+        RateKeyIP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RateKey = RateKey' (CI Text)
+newtype RateKey = RateKey'
+  { fromRateKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IP :: RateKey
-pattern IP = RateKey' "IP"
+pattern RateKeyIP :: RateKey
+pattern RateKeyIP = RateKey' "IP"
 
 {-# COMPLETE
-  IP,
+  RateKeyIP,
   RateKey'
   #-}
 
-instance FromText RateKey where
-  parser = (RateKey' . mk) <$> takeText
+instance Prelude.FromText RateKey where
+  parser = RateKey' Prelude.<$> Prelude.takeText
 
-instance ToText RateKey where
-  toText (RateKey' ci) = original ci
+instance Prelude.ToText RateKey where
+  toText (RateKey' x) = x
 
-instance Hashable RateKey
+instance Prelude.Hashable RateKey
 
-instance NFData RateKey
+instance Prelude.NFData RateKey
 
-instance ToByteString RateKey
+instance Prelude.ToByteString RateKey
 
-instance ToQuery RateKey
+instance Prelude.ToQuery RateKey
 
-instance ToHeader RateKey
+instance Prelude.ToHeader RateKey
 
-instance ToJSON RateKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON RateKey where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RateKey where
-  parseJSON = parseJSONText "RateKey"
+instance Prelude.FromJSON RateKey where
+  parseJSON = Prelude.parseJSONText "RateKey"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the 'Rule' that is specified by the @RuleId@ that you included in the @GetRule@ request.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns the Rule that is specified by the @RuleId@ that you included in
+-- the @GetRule@ request.
 module Network.AWS.WAF.GetRule
   ( -- * Creating a Request
-    getRule,
-    GetRule,
+    GetRule (..),
+    newGetRule,
 
     -- * Request Lenses
-    grRuleId,
+    getRule_ruleId,
 
     -- * Destructuring the Response
-    getRuleResponse,
-    GetRuleResponse,
+    GetRuleResponse (..),
+    newGetRuleResponse,
 
     -- * Response Lenses
-    grrrsRule,
-    grrrsResponseStatus,
+    getRuleResponse_rule,
+    getRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.Rule
 
--- | /See:/ 'getRule' smart constructor.
-newtype GetRule = GetRule' {_grRuleId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetRule' smart constructor.
+data GetRule = GetRule'
+  { -- | The @RuleId@ of the Rule that you want to get. @RuleId@ is returned by
+    -- CreateRule and by ListRules.
+    ruleId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grRuleId' - The @RuleId@ of the 'Rule' that you want to get. @RuleId@ is returned by 'CreateRule' and by 'ListRules' .
-getRule ::
-  -- | 'grRuleId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleId', 'getRule_ruleId' - The @RuleId@ of the Rule that you want to get. @RuleId@ is returned by
+-- CreateRule and by ListRules.
+newGetRule ::
+  -- | 'ruleId'
+  Prelude.Text ->
   GetRule
-getRule pRuleId_ = GetRule' {_grRuleId = pRuleId_}
+newGetRule pRuleId_ = GetRule' {ruleId = pRuleId_}
 
--- | The @RuleId@ of the 'Rule' that you want to get. @RuleId@ is returned by 'CreateRule' and by 'ListRules' .
-grRuleId :: Lens' GetRule Text
-grRuleId = lens _grRuleId (\s a -> s {_grRuleId = a})
+-- | The @RuleId@ of the Rule that you want to get. @RuleId@ is returned by
+-- CreateRule and by ListRules.
+getRule_ruleId :: Lens.Lens' GetRule Prelude.Text
+getRule_ruleId = Lens.lens (\GetRule' {ruleId} -> ruleId) (\s@GetRule' {} a -> s {ruleId = a} :: GetRule)
 
-instance AWSRequest GetRule where
+instance Prelude.AWSRequest GetRule where
   type Rs GetRule = GetRuleResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRuleResponse'
-            <$> (x .?> "Rule") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Rule")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRule
+instance Prelude.Hashable GetRule
 
-instance NFData GetRule
+instance Prelude.NFData GetRule
 
-instance ToHeaders GetRule where
+instance Prelude.ToHeaders GetRule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.GetRule" :: ByteString),
+              Prelude.=# ("AWSWAF_20150824.GetRule" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRule where
+instance Prelude.ToJSON GetRule where
   toJSON GetRule' {..} =
-    object (catMaybes [Just ("RuleId" .= _grRuleId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RuleId" Prelude..= ruleId)]
+      )
 
-instance ToPath GetRule where
-  toPath = const "/"
+instance Prelude.ToPath GetRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRule where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRuleResponse' smart constructor.
+-- | /See:/ 'newGetRuleResponse' smart constructor.
 data GetRuleResponse = GetRuleResponse'
-  { _grrrsRule ::
-      !(Maybe Rule),
-    _grrrsResponseStatus :: !Int
+  { -- | Information about the Rule that you specified in the @GetRule@ request.
+    -- For more information, see the following topics:
+    --
+    -- -   Rule: Contains @MetricName@, @Name@, an array of @Predicate@
+    --     objects, and @RuleId@
+    --
+    -- -   Predicate: Each @Predicate@ object contains @DataId@, @Negated@, and
+    --     @Type@
+    rule :: Prelude.Maybe Rule,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrsRule' - Information about the 'Rule' that you specified in the @GetRule@ request. For more information, see the following topics:     * 'Rule' : Contains @MetricName@ , @Name@ , an array of @Predicate@ objects, and @RuleId@      * 'Predicate' : Each @Predicate@ object contains @DataId@ , @Negated@ , and @Type@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrsResponseStatus' - -- | The response status code.
-getRuleResponse ::
-  -- | 'grrrsResponseStatus'
-  Int ->
+-- 'rule', 'getRuleResponse_rule' - Information about the Rule that you specified in the @GetRule@ request.
+-- For more information, see the following topics:
+--
+-- -   Rule: Contains @MetricName@, @Name@, an array of @Predicate@
+--     objects, and @RuleId@
+--
+-- -   Predicate: Each @Predicate@ object contains @DataId@, @Negated@, and
+--     @Type@
+--
+-- 'httpStatus', 'getRuleResponse_httpStatus' - The response's http status code.
+newGetRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRuleResponse
-getRuleResponse pResponseStatus_ =
+newGetRuleResponse pHttpStatus_ =
   GetRuleResponse'
-    { _grrrsRule = Nothing,
-      _grrrsResponseStatus = pResponseStatus_
+    { rule = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the 'Rule' that you specified in the @GetRule@ request. For more information, see the following topics:     * 'Rule' : Contains @MetricName@ , @Name@ , an array of @Predicate@ objects, and @RuleId@      * 'Predicate' : Each @Predicate@ object contains @DataId@ , @Negated@ , and @Type@
-grrrsRule :: Lens' GetRuleResponse (Maybe Rule)
-grrrsRule = lens _grrrsRule (\s a -> s {_grrrsRule = a})
+-- | Information about the Rule that you specified in the @GetRule@ request.
+-- For more information, see the following topics:
+--
+-- -   Rule: Contains @MetricName@, @Name@, an array of @Predicate@
+--     objects, and @RuleId@
+--
+-- -   Predicate: Each @Predicate@ object contains @DataId@, @Negated@, and
+--     @Type@
+getRuleResponse_rule :: Lens.Lens' GetRuleResponse (Prelude.Maybe Rule)
+getRuleResponse_rule = Lens.lens (\GetRuleResponse' {rule} -> rule) (\s@GetRuleResponse' {} a -> s {rule = a} :: GetRuleResponse)
 
--- | -- | The response status code.
-grrrsResponseStatus :: Lens' GetRuleResponse Int
-grrrsResponseStatus = lens _grrrsResponseStatus (\s a -> s {_grrrsResponseStatus = a})
+-- | The response's http status code.
+getRuleResponse_httpStatus :: Lens.Lens' GetRuleResponse Prelude.Int
+getRuleResponse_httpStatus = Lens.lens (\GetRuleResponse' {httpStatus} -> httpStatus) (\s@GetRuleResponse' {} a -> s {httpStatus = a} :: GetRuleResponse)
 
-instance NFData GetRuleResponse
+instance Prelude.NFData GetRuleResponse

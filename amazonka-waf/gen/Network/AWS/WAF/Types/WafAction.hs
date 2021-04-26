@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAF.Types.WafAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WAF.Types.WafActionType
 
--- | For the action that is associated with a rule in a @WebACL@ , specifies the action that you want AWS WAF to perform when a web request matches all of the conditions in a rule. For the default action in a @WebACL@ , specifies the action that you want AWS WAF to take when a web request doesn't match all of the conditions in any of the rules in a @WebACL@ .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- For the action that is associated with a rule in a @WebACL@, specifies
+-- the action that you want AWS WAF to perform when a web request matches
+-- all of the conditions in a rule. For the default action in a @WebACL@,
+-- specifies the action that you want AWS WAF to take when a web request
+-- doesn\'t match all of the conditions in any of the rules in a @WebACL@.
 --
--- /See:/ 'wafAction' smart constructor.
-newtype WafAction = WafAction'
-  { _waType ::
-      WafActionType
+-- /See:/ 'newWafAction' smart constructor.
+data WafAction = WafAction'
+  { -- | Specifies how you want AWS WAF to respond to requests that match the
+    -- settings in a @Rule@. Valid settings include the following:
+    --
+    -- -   @ALLOW@: AWS WAF allows requests
+    --
+    -- -   @BLOCK@: AWS WAF blocks requests
+    --
+    -- -   @COUNT@: AWS WAF increments a counter of the requests that match all
+    --     of the conditions in the rule. AWS WAF then continues to inspect the
+    --     web request based on the remaining rules in the web ACL. You can\'t
+    --     specify @COUNT@ for the default action for a @WebACL@.
+    type' :: WafActionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WafAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WafAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'waType' - Specifies how you want AWS WAF to respond to requests that match the settings in a @Rule@ . Valid settings include the following:     * @ALLOW@ : AWS WAF allows requests     * @BLOCK@ : AWS WAF blocks requests     * @COUNT@ : AWS WAF increments a counter of the requests that match all of the conditions in the rule. AWS WAF then continues to inspect the web request based on the remaining rules in the web ACL. You can't specify @COUNT@ for the default action for a @WebACL@ .
-wafAction ::
-  -- | 'waType'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'type'', 'wafAction_type' - Specifies how you want AWS WAF to respond to requests that match the
+-- settings in a @Rule@. Valid settings include the following:
+--
+-- -   @ALLOW@: AWS WAF allows requests
+--
+-- -   @BLOCK@: AWS WAF blocks requests
+--
+-- -   @COUNT@: AWS WAF increments a counter of the requests that match all
+--     of the conditions in the rule. AWS WAF then continues to inspect the
+--     web request based on the remaining rules in the web ACL. You can\'t
+--     specify @COUNT@ for the default action for a @WebACL@.
+newWafAction ::
+  -- | 'type''
   WafActionType ->
   WafAction
-wafAction pType_ = WafAction' {_waType = pType_}
+newWafAction pType_ = WafAction' {type' = pType_}
 
--- | Specifies how you want AWS WAF to respond to requests that match the settings in a @Rule@ . Valid settings include the following:     * @ALLOW@ : AWS WAF allows requests     * @BLOCK@ : AWS WAF blocks requests     * @COUNT@ : AWS WAF increments a counter of the requests that match all of the conditions in the rule. AWS WAF then continues to inspect the web request based on the remaining rules in the web ACL. You can't specify @COUNT@ for the default action for a @WebACL@ .
-waType :: Lens' WafAction WafActionType
-waType = lens _waType (\s a -> s {_waType = a})
+-- | Specifies how you want AWS WAF to respond to requests that match the
+-- settings in a @Rule@. Valid settings include the following:
+--
+-- -   @ALLOW@: AWS WAF allows requests
+--
+-- -   @BLOCK@: AWS WAF blocks requests
+--
+-- -   @COUNT@: AWS WAF increments a counter of the requests that match all
+--     of the conditions in the rule. AWS WAF then continues to inspect the
+--     web request based on the remaining rules in the web ACL. You can\'t
+--     specify @COUNT@ for the default action for a @WebACL@.
+wafAction_type :: Lens.Lens' WafAction WafActionType
+wafAction_type = Lens.lens (\WafAction' {type'} -> type') (\s@WafAction' {} a -> s {type' = a} :: WafAction)
 
-instance FromJSON WafAction where
+instance Prelude.FromJSON WafAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WafAction"
-      (\x -> WafAction' <$> (x .: "Type"))
+      (\x -> WafAction' Prelude.<$> (x Prelude..: "Type"))
 
-instance Hashable WafAction
+instance Prelude.Hashable WafAction
 
-instance NFData WafAction
+instance Prelude.NFData WafAction
 
-instance ToJSON WafAction where
+instance Prelude.ToJSON WafAction where
   toJSON WafAction' {..} =
-    object (catMaybes [Just ("Type" .= _waType)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Type" Prelude..= type')]
+      )

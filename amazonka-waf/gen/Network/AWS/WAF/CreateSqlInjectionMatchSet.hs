@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,199 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a 'SqlInjectionMatchSet' , which you use to allow, block, or count requests that contain snippets of SQL code in a specified part of web requests. AWS WAF searches for character sequences that are likely to be malicious strings.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- To create and configure a @SqlInjectionMatchSet@ , perform the following steps:
+-- Creates a SqlInjectionMatchSet, which you use to allow, block, or count
+-- requests that contain snippets of SQL code in a specified part of web
+-- requests. AWS WAF searches for character sequences that are likely to be
+-- malicious strings.
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @CreateSqlInjectionMatchSet@ request.
+-- To create and configure a @SqlInjectionMatchSet@, perform the following
+-- steps:
 --
---     * Submit a @CreateSqlInjectionMatchSet@ request.
+-- 1.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @CreateSqlInjectionMatchSet@ request.
 --
---     * Use @GetChangeToken@ to get the change token that you provide in the @ChangeToken@ parameter of an 'UpdateSqlInjectionMatchSet' request.
+-- 2.  Submit a @CreateSqlInjectionMatchSet@ request.
 --
---     * Submit an 'UpdateSqlInjectionMatchSet' request to specify the parts of web requests in which you want to allow, block, or count malicious SQL code.
+-- 3.  Use @GetChangeToken@ to get the change token that you provide in the
+--     @ChangeToken@ parameter of an UpdateSqlInjectionMatchSet request.
 --
+-- 4.  Submit an UpdateSqlInjectionMatchSet request to specify the parts of
+--     web requests in which you want to allow, block, or count malicious
+--     SQL code.
 --
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAF.CreateSqlInjectionMatchSet
   ( -- * Creating a Request
-    createSqlInjectionMatchSet,
-    CreateSqlInjectionMatchSet,
+    CreateSqlInjectionMatchSet (..),
+    newCreateSqlInjectionMatchSet,
 
     -- * Request Lenses
-    csimsName,
-    csimsChangeToken,
+    createSqlInjectionMatchSet_name,
+    createSqlInjectionMatchSet_changeToken,
 
     -- * Destructuring the Response
-    createSqlInjectionMatchSetResponse,
-    CreateSqlInjectionMatchSetResponse,
+    CreateSqlInjectionMatchSetResponse (..),
+    newCreateSqlInjectionMatchSetResponse,
 
     -- * Response Lenses
-    csimsrrsSqlInjectionMatchSet,
-    csimsrrsChangeToken,
-    csimsrrsResponseStatus,
+    createSqlInjectionMatchSetResponse_sqlInjectionMatchSet,
+    createSqlInjectionMatchSetResponse_changeToken,
+    createSqlInjectionMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.SqlInjectionMatchSet
 
--- | A request to create a 'SqlInjectionMatchSet' .
+-- | A request to create a SqlInjectionMatchSet.
 --
---
---
--- /See:/ 'createSqlInjectionMatchSet' smart constructor.
+-- /See:/ 'newCreateSqlInjectionMatchSet' smart constructor.
 data CreateSqlInjectionMatchSet = CreateSqlInjectionMatchSet'
-  { _csimsName ::
-      !Text,
-    _csimsChangeToken ::
-      !Text
+  { -- | A friendly name or description for the SqlInjectionMatchSet that you\'re
+    -- creating. You can\'t change @Name@ after you create the
+    -- @SqlInjectionMatchSet@.
+    name :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSqlInjectionMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSqlInjectionMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csimsName' - A friendly name or description for the 'SqlInjectionMatchSet' that you're creating. You can't change @Name@ after you create the @SqlInjectionMatchSet@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csimsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-createSqlInjectionMatchSet ::
-  -- | 'csimsName'
-  Text ->
-  -- | 'csimsChangeToken'
-  Text ->
+-- 'name', 'createSqlInjectionMatchSet_name' - A friendly name or description for the SqlInjectionMatchSet that you\'re
+-- creating. You can\'t change @Name@ after you create the
+-- @SqlInjectionMatchSet@.
+--
+-- 'changeToken', 'createSqlInjectionMatchSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newCreateSqlInjectionMatchSet ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   CreateSqlInjectionMatchSet
-createSqlInjectionMatchSet pName_ pChangeToken_ =
+newCreateSqlInjectionMatchSet pName_ pChangeToken_ =
   CreateSqlInjectionMatchSet'
-    { _csimsName = pName_,
-      _csimsChangeToken = pChangeToken_
+    { name = pName_,
+      changeToken = pChangeToken_
     }
 
--- | A friendly name or description for the 'SqlInjectionMatchSet' that you're creating. You can't change @Name@ after you create the @SqlInjectionMatchSet@ .
-csimsName :: Lens' CreateSqlInjectionMatchSet Text
-csimsName = lens _csimsName (\s a -> s {_csimsName = a})
+-- | A friendly name or description for the SqlInjectionMatchSet that you\'re
+-- creating. You can\'t change @Name@ after you create the
+-- @SqlInjectionMatchSet@.
+createSqlInjectionMatchSet_name :: Lens.Lens' CreateSqlInjectionMatchSet Prelude.Text
+createSqlInjectionMatchSet_name = Lens.lens (\CreateSqlInjectionMatchSet' {name} -> name) (\s@CreateSqlInjectionMatchSet' {} a -> s {name = a} :: CreateSqlInjectionMatchSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-csimsChangeToken :: Lens' CreateSqlInjectionMatchSet Text
-csimsChangeToken = lens _csimsChangeToken (\s a -> s {_csimsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+createSqlInjectionMatchSet_changeToken :: Lens.Lens' CreateSqlInjectionMatchSet Prelude.Text
+createSqlInjectionMatchSet_changeToken = Lens.lens (\CreateSqlInjectionMatchSet' {changeToken} -> changeToken) (\s@CreateSqlInjectionMatchSet' {} a -> s {changeToken = a} :: CreateSqlInjectionMatchSet)
 
-instance AWSRequest CreateSqlInjectionMatchSet where
+instance
+  Prelude.AWSRequest
+    CreateSqlInjectionMatchSet
+  where
   type
     Rs CreateSqlInjectionMatchSet =
       CreateSqlInjectionMatchSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSqlInjectionMatchSetResponse'
-            <$> (x .?> "SqlInjectionMatchSet")
-            <*> (x .?> "ChangeToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SqlInjectionMatchSet")
+            Prelude.<*> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSqlInjectionMatchSet
+instance Prelude.Hashable CreateSqlInjectionMatchSet
 
-instance NFData CreateSqlInjectionMatchSet
+instance Prelude.NFData CreateSqlInjectionMatchSet
 
-instance ToHeaders CreateSqlInjectionMatchSet where
+instance Prelude.ToHeaders CreateSqlInjectionMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_20150824.CreateSqlInjectionMatchSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_20150824.CreateSqlInjectionMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateSqlInjectionMatchSet where
+instance Prelude.ToJSON CreateSqlInjectionMatchSet where
   toJSON CreateSqlInjectionMatchSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _csimsName),
-            Just ("ChangeToken" .= _csimsChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath CreateSqlInjectionMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath CreateSqlInjectionMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSqlInjectionMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSqlInjectionMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The response to a @CreateSqlInjectionMatchSet@ request.
 --
---
---
--- /See:/ 'createSqlInjectionMatchSetResponse' smart constructor.
+-- /See:/ 'newCreateSqlInjectionMatchSetResponse' smart constructor.
 data CreateSqlInjectionMatchSetResponse = CreateSqlInjectionMatchSetResponse'
-  { _csimsrrsSqlInjectionMatchSet ::
-      !( Maybe
-           SqlInjectionMatchSet
-       ),
-    _csimsrrsChangeToken ::
-      !( Maybe
-           Text
-       ),
-    _csimsrrsResponseStatus ::
-      !Int
+  { -- | A SqlInjectionMatchSet.
+    sqlInjectionMatchSet :: Prelude.Maybe SqlInjectionMatchSet,
+    -- | The @ChangeToken@ that you used to submit the
+    -- @CreateSqlInjectionMatchSet@ request. You can also use this value to
+    -- query the status of the request. For more information, see
+    -- GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSqlInjectionMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSqlInjectionMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csimsrrsSqlInjectionMatchSet' - A 'SqlInjectionMatchSet' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csimsrrsChangeToken' - The @ChangeToken@ that you used to submit the @CreateSqlInjectionMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- 'sqlInjectionMatchSet', 'createSqlInjectionMatchSetResponse_sqlInjectionMatchSet' - A SqlInjectionMatchSet.
 --
--- * 'csimsrrsResponseStatus' - -- | The response status code.
-createSqlInjectionMatchSetResponse ::
-  -- | 'csimsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'createSqlInjectionMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the
+-- @CreateSqlInjectionMatchSet@ request. You can also use this value to
+-- query the status of the request. For more information, see
+-- GetChangeTokenStatus.
+--
+-- 'httpStatus', 'createSqlInjectionMatchSetResponse_httpStatus' - The response's http status code.
+newCreateSqlInjectionMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSqlInjectionMatchSetResponse
-createSqlInjectionMatchSetResponse pResponseStatus_ =
+newCreateSqlInjectionMatchSetResponse pHttpStatus_ =
   CreateSqlInjectionMatchSetResponse'
-    { _csimsrrsSqlInjectionMatchSet =
-        Nothing,
-      _csimsrrsChangeToken = Nothing,
-      _csimsrrsResponseStatus =
-        pResponseStatus_
+    { sqlInjectionMatchSet =
+        Prelude.Nothing,
+      changeToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A 'SqlInjectionMatchSet' .
-csimsrrsSqlInjectionMatchSet :: Lens' CreateSqlInjectionMatchSetResponse (Maybe SqlInjectionMatchSet)
-csimsrrsSqlInjectionMatchSet = lens _csimsrrsSqlInjectionMatchSet (\s a -> s {_csimsrrsSqlInjectionMatchSet = a})
+-- | A SqlInjectionMatchSet.
+createSqlInjectionMatchSetResponse_sqlInjectionMatchSet :: Lens.Lens' CreateSqlInjectionMatchSetResponse (Prelude.Maybe SqlInjectionMatchSet)
+createSqlInjectionMatchSetResponse_sqlInjectionMatchSet = Lens.lens (\CreateSqlInjectionMatchSetResponse' {sqlInjectionMatchSet} -> sqlInjectionMatchSet) (\s@CreateSqlInjectionMatchSetResponse' {} a -> s {sqlInjectionMatchSet = a} :: CreateSqlInjectionMatchSetResponse)
 
--- | The @ChangeToken@ that you used to submit the @CreateSqlInjectionMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-csimsrrsChangeToken :: Lens' CreateSqlInjectionMatchSetResponse (Maybe Text)
-csimsrrsChangeToken = lens _csimsrrsChangeToken (\s a -> s {_csimsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the
+-- @CreateSqlInjectionMatchSet@ request. You can also use this value to
+-- query the status of the request. For more information, see
+-- GetChangeTokenStatus.
+createSqlInjectionMatchSetResponse_changeToken :: Lens.Lens' CreateSqlInjectionMatchSetResponse (Prelude.Maybe Prelude.Text)
+createSqlInjectionMatchSetResponse_changeToken = Lens.lens (\CreateSqlInjectionMatchSetResponse' {changeToken} -> changeToken) (\s@CreateSqlInjectionMatchSetResponse' {} a -> s {changeToken = a} :: CreateSqlInjectionMatchSetResponse)
 
--- | -- | The response status code.
-csimsrrsResponseStatus :: Lens' CreateSqlInjectionMatchSetResponse Int
-csimsrrsResponseStatus = lens _csimsrrsResponseStatus (\s a -> s {_csimsrrsResponseStatus = a})
+-- | The response's http status code.
+createSqlInjectionMatchSetResponse_httpStatus :: Lens.Lens' CreateSqlInjectionMatchSetResponse Prelude.Int
+createSqlInjectionMatchSetResponse_httpStatus = Lens.lens (\CreateSqlInjectionMatchSetResponse' {httpStatus} -> httpStatus) (\s@CreateSqlInjectionMatchSetResponse' {} a -> s {httpStatus = a} :: CreateSqlInjectionMatchSetResponse)
 
-instance NFData CreateSqlInjectionMatchSetResponse
+instance
+  Prelude.NFData
+    CreateSqlInjectionMatchSetResponse

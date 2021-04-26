@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAF.Types.RuleUpdate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WAF.Types.ChangeAction
 import Network.AWS.WAF.Types.Predicate
 
--- | Specifies a @Predicate@ (such as an @IPSet@ ) and indicates whether you want to add it to a @Rule@ or delete it from a @Rule@ .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Specifies a @Predicate@ (such as an @IPSet@) and indicates whether you
+-- want to add it to a @Rule@ or delete it from a @Rule@.
 --
--- /See:/ 'ruleUpdate' smart constructor.
+-- /See:/ 'newRuleUpdate' smart constructor.
 data RuleUpdate = RuleUpdate'
-  { _ruAction ::
-      !ChangeAction,
-    _ruPredicate :: !Predicate
+  { -- | Specify @INSERT@ to add a @Predicate@ to a @Rule@. Use @DELETE@ to
+    -- remove a @Predicate@ from a @Rule@.
+    action :: ChangeAction,
+    -- | The ID of the @Predicate@ (such as an @IPSet@) that you want to add to a
+    -- @Rule@.
+    predicate :: Predicate
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RuleUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RuleUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ruAction' - Specify @INSERT@ to add a @Predicate@ to a @Rule@ . Use @DELETE@ to remove a @Predicate@ from a @Rule@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ruPredicate' - The ID of the @Predicate@ (such as an @IPSet@ ) that you want to add to a @Rule@ .
-ruleUpdate ::
-  -- | 'ruAction'
+-- 'action', 'ruleUpdate_action' - Specify @INSERT@ to add a @Predicate@ to a @Rule@. Use @DELETE@ to
+-- remove a @Predicate@ from a @Rule@.
+--
+-- 'predicate', 'ruleUpdate_predicate' - The ID of the @Predicate@ (such as an @IPSet@) that you want to add to a
+-- @Rule@.
+newRuleUpdate ::
+  -- | 'action'
   ChangeAction ->
-  -- | 'ruPredicate'
+  -- | 'predicate'
   Predicate ->
   RuleUpdate
-ruleUpdate pAction_ pPredicate_ =
+newRuleUpdate pAction_ pPredicate_ =
   RuleUpdate'
-    { _ruAction = pAction_,
-      _ruPredicate = pPredicate_
+    { action = pAction_,
+      predicate = pPredicate_
     }
 
--- | Specify @INSERT@ to add a @Predicate@ to a @Rule@ . Use @DELETE@ to remove a @Predicate@ from a @Rule@ .
-ruAction :: Lens' RuleUpdate ChangeAction
-ruAction = lens _ruAction (\s a -> s {_ruAction = a})
+-- | Specify @INSERT@ to add a @Predicate@ to a @Rule@. Use @DELETE@ to
+-- remove a @Predicate@ from a @Rule@.
+ruleUpdate_action :: Lens.Lens' RuleUpdate ChangeAction
+ruleUpdate_action = Lens.lens (\RuleUpdate' {action} -> action) (\s@RuleUpdate' {} a -> s {action = a} :: RuleUpdate)
 
--- | The ID of the @Predicate@ (such as an @IPSet@ ) that you want to add to a @Rule@ .
-ruPredicate :: Lens' RuleUpdate Predicate
-ruPredicate = lens _ruPredicate (\s a -> s {_ruPredicate = a})
+-- | The ID of the @Predicate@ (such as an @IPSet@) that you want to add to a
+-- @Rule@.
+ruleUpdate_predicate :: Lens.Lens' RuleUpdate Predicate
+ruleUpdate_predicate = Lens.lens (\RuleUpdate' {predicate} -> predicate) (\s@RuleUpdate' {} a -> s {predicate = a} :: RuleUpdate)
 
-instance Hashable RuleUpdate
+instance Prelude.Hashable RuleUpdate
 
-instance NFData RuleUpdate
+instance Prelude.NFData RuleUpdate
 
-instance ToJSON RuleUpdate where
+instance Prelude.ToJSON RuleUpdate where
   toJSON RuleUpdate' {..} =
-    object
-      ( catMaybes
-          [ Just ("Action" .= _ruAction),
-            Just ("Predicate" .= _ruPredicate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Action" Prelude..= action),
+            Prelude.Just ("Predicate" Prelude..= predicate)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes a 'SizeConstraintSet' . You can't delete a @SizeConstraintSet@ if it's still used in any @Rules@ or if it still includes any 'SizeConstraint' objects (any filters).
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- If you just want to remove a @SizeConstraintSet@ from a @Rule@ , use 'UpdateRule' .
+-- Permanently deletes a SizeConstraintSet. You can\'t delete a
+-- @SizeConstraintSet@ if it\'s still used in any @Rules@ or if it still
+-- includes any SizeConstraint objects (any filters).
 --
--- To permanently delete a @SizeConstraintSet@ , perform the following steps:
+-- If you just want to remove a @SizeConstraintSet@ from a @Rule@, use
+-- UpdateRule.
 --
---     * Update the @SizeConstraintSet@ to remove filters, if any. For more information, see 'UpdateSizeConstraintSet' .
+-- To permanently delete a @SizeConstraintSet@, perform the following
+-- steps:
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @DeleteSizeConstraintSet@ request.
+-- 1.  Update the @SizeConstraintSet@ to remove filters, if any. For more
+--     information, see UpdateSizeConstraintSet.
 --
---     * Submit a @DeleteSizeConstraintSet@ request.
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @DeleteSizeConstraintSet@ request.
+--
+-- 3.  Submit a @DeleteSizeConstraintSet@ request.
 module Network.AWS.WAF.DeleteSizeConstraintSet
   ( -- * Creating a Request
-    deleteSizeConstraintSet,
-    DeleteSizeConstraintSet,
+    DeleteSizeConstraintSet (..),
+    newDeleteSizeConstraintSet,
 
     -- * Request Lenses
-    dscsSizeConstraintSetId,
-    dscsChangeToken,
+    deleteSizeConstraintSet_sizeConstraintSetId,
+    deleteSizeConstraintSet_changeToken,
 
     -- * Destructuring the Response
-    deleteSizeConstraintSetResponse,
-    DeleteSizeConstraintSetResponse,
+    DeleteSizeConstraintSetResponse (..),
+    newDeleteSizeConstraintSetResponse,
 
     -- * Response Lenses
-    dscsrrsChangeToken,
-    dscsrrsResponseStatus,
+    deleteSizeConstraintSetResponse_changeToken,
+    deleteSizeConstraintSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
 
--- | /See:/ 'deleteSizeConstraintSet' smart constructor.
+-- | /See:/ 'newDeleteSizeConstraintSet' smart constructor.
 data DeleteSizeConstraintSet = DeleteSizeConstraintSet'
-  { _dscsSizeConstraintSetId ::
-      !Text,
-    _dscsChangeToken ::
-      !Text
+  { -- | The @SizeConstraintSetId@ of the SizeConstraintSet that you want to
+    -- delete. @SizeConstraintSetId@ is returned by CreateSizeConstraintSet and
+    -- by ListSizeConstraintSets.
+    sizeConstraintSetId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSizeConstraintSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSizeConstraintSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscsSizeConstraintSetId' - The @SizeConstraintSetId@ of the 'SizeConstraintSet' that you want to delete. @SizeConstraintSetId@ is returned by 'CreateSizeConstraintSet' and by 'ListSizeConstraintSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-deleteSizeConstraintSet ::
-  -- | 'dscsSizeConstraintSetId'
-  Text ->
-  -- | 'dscsChangeToken'
-  Text ->
+-- 'sizeConstraintSetId', 'deleteSizeConstraintSet_sizeConstraintSetId' - The @SizeConstraintSetId@ of the SizeConstraintSet that you want to
+-- delete. @SizeConstraintSetId@ is returned by CreateSizeConstraintSet and
+-- by ListSizeConstraintSets.
+--
+-- 'changeToken', 'deleteSizeConstraintSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newDeleteSizeConstraintSet ::
+  -- | 'sizeConstraintSetId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   DeleteSizeConstraintSet
-deleteSizeConstraintSet
+newDeleteSizeConstraintSet
   pSizeConstraintSetId_
   pChangeToken_ =
     DeleteSizeConstraintSet'
-      { _dscsSizeConstraintSetId =
+      { sizeConstraintSetId =
           pSizeConstraintSetId_,
-        _dscsChangeToken = pChangeToken_
+        changeToken = pChangeToken_
       }
 
--- | The @SizeConstraintSetId@ of the 'SizeConstraintSet' that you want to delete. @SizeConstraintSetId@ is returned by 'CreateSizeConstraintSet' and by 'ListSizeConstraintSets' .
-dscsSizeConstraintSetId :: Lens' DeleteSizeConstraintSet Text
-dscsSizeConstraintSetId = lens _dscsSizeConstraintSetId (\s a -> s {_dscsSizeConstraintSetId = a})
+-- | The @SizeConstraintSetId@ of the SizeConstraintSet that you want to
+-- delete. @SizeConstraintSetId@ is returned by CreateSizeConstraintSet and
+-- by ListSizeConstraintSets.
+deleteSizeConstraintSet_sizeConstraintSetId :: Lens.Lens' DeleteSizeConstraintSet Prelude.Text
+deleteSizeConstraintSet_sizeConstraintSetId = Lens.lens (\DeleteSizeConstraintSet' {sizeConstraintSetId} -> sizeConstraintSetId) (\s@DeleteSizeConstraintSet' {} a -> s {sizeConstraintSetId = a} :: DeleteSizeConstraintSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-dscsChangeToken :: Lens' DeleteSizeConstraintSet Text
-dscsChangeToken = lens _dscsChangeToken (\s a -> s {_dscsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+deleteSizeConstraintSet_changeToken :: Lens.Lens' DeleteSizeConstraintSet Prelude.Text
+deleteSizeConstraintSet_changeToken = Lens.lens (\DeleteSizeConstraintSet' {changeToken} -> changeToken) (\s@DeleteSizeConstraintSet' {} a -> s {changeToken = a} :: DeleteSizeConstraintSet)
 
-instance AWSRequest DeleteSizeConstraintSet where
+instance Prelude.AWSRequest DeleteSizeConstraintSet where
   type
     Rs DeleteSizeConstraintSet =
       DeleteSizeConstraintSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSizeConstraintSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSizeConstraintSet
+instance Prelude.Hashable DeleteSizeConstraintSet
 
-instance NFData DeleteSizeConstraintSet
+instance Prelude.NFData DeleteSizeConstraintSet
 
-instance ToHeaders DeleteSizeConstraintSet where
+instance Prelude.ToHeaders DeleteSizeConstraintSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_20150824.DeleteSizeConstraintSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_20150824.DeleteSizeConstraintSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteSizeConstraintSet where
+instance Prelude.ToJSON DeleteSizeConstraintSet where
   toJSON DeleteSizeConstraintSet' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("SizeConstraintSetId" .= _dscsSizeConstraintSetId),
-            Just ("ChangeToken" .= _dscsChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "SizeConstraintSetId"
+                  Prelude..= sizeConstraintSetId
+              ),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath DeleteSizeConstraintSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSizeConstraintSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSizeConstraintSet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSizeConstraintSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSizeConstraintSetResponse' smart constructor.
+-- | /See:/ 'newDeleteSizeConstraintSetResponse' smart constructor.
 data DeleteSizeConstraintSetResponse = DeleteSizeConstraintSetResponse'
-  { _dscsrrsChangeToken ::
-      !( Maybe
-           Text
-       ),
-    _dscsrrsResponseStatus ::
-      !Int
+  { -- | The @ChangeToken@ that you used to submit the @DeleteSizeConstraintSet@
+    -- request. You can also use this value to query the status of the request.
+    -- For more information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSizeConstraintSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSizeConstraintSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscsrrsChangeToken' - The @ChangeToken@ that you used to submit the @DeleteSizeConstraintSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscsrrsResponseStatus' - -- | The response status code.
-deleteSizeConstraintSetResponse ::
-  -- | 'dscsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'deleteSizeConstraintSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @DeleteSizeConstraintSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'deleteSizeConstraintSetResponse_httpStatus' - The response's http status code.
+newDeleteSizeConstraintSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSizeConstraintSetResponse
-deleteSizeConstraintSetResponse pResponseStatus_ =
+newDeleteSizeConstraintSetResponse pHttpStatus_ =
   DeleteSizeConstraintSetResponse'
-    { _dscsrrsChangeToken =
-        Nothing,
-      _dscsrrsResponseStatus = pResponseStatus_
+    { changeToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @DeleteSizeConstraintSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-dscsrrsChangeToken :: Lens' DeleteSizeConstraintSetResponse (Maybe Text)
-dscsrrsChangeToken = lens _dscsrrsChangeToken (\s a -> s {_dscsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @DeleteSizeConstraintSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+deleteSizeConstraintSetResponse_changeToken :: Lens.Lens' DeleteSizeConstraintSetResponse (Prelude.Maybe Prelude.Text)
+deleteSizeConstraintSetResponse_changeToken = Lens.lens (\DeleteSizeConstraintSetResponse' {changeToken} -> changeToken) (\s@DeleteSizeConstraintSetResponse' {} a -> s {changeToken = a} :: DeleteSizeConstraintSetResponse)
 
--- | -- | The response status code.
-dscsrrsResponseStatus :: Lens' DeleteSizeConstraintSetResponse Int
-dscsrrsResponseStatus = lens _dscsrrsResponseStatus (\s a -> s {_dscsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSizeConstraintSetResponse_httpStatus :: Lens.Lens' DeleteSizeConstraintSetResponse Prelude.Int
+deleteSizeConstraintSetResponse_httpStatus = Lens.lens (\DeleteSizeConstraintSetResponse' {httpStatus} -> httpStatus) (\s@DeleteSizeConstraintSetResponse' {} a -> s {httpStatus = a} :: DeleteSizeConstraintSetResponse)
 
-instance NFData DeleteSizeConstraintSetResponse
+instance
+  Prelude.NFData
+    DeleteSizeConstraintSetResponse

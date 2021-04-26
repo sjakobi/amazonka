@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the 'ByteMatchSet' specified by @ByteMatchSetId@ .
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns the ByteMatchSet specified by @ByteMatchSetId@.
 module Network.AWS.WAF.GetByteMatchSet
   ( -- * Creating a Request
-    getByteMatchSet,
-    GetByteMatchSet,
+    GetByteMatchSet (..),
+    newGetByteMatchSet,
 
     -- * Request Lenses
-    gbmsByteMatchSetId,
+    getByteMatchSet_byteMatchSetId,
 
     -- * Destructuring the Response
-    getByteMatchSetResponse,
-    GetByteMatchSetResponse,
+    GetByteMatchSetResponse (..),
+    newGetByteMatchSetResponse,
 
     -- * Response Lenses
-    gbmsrrsByteMatchSet,
-    gbmsrrsResponseStatus,
+    getByteMatchSetResponse_byteMatchSet,
+    getByteMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.ByteMatchSet
 
--- | /See:/ 'getByteMatchSet' smart constructor.
-newtype GetByteMatchSet = GetByteMatchSet'
-  { _gbmsByteMatchSetId ::
-      Text
+-- | /See:/ 'newGetByteMatchSet' smart constructor.
+data GetByteMatchSet = GetByteMatchSet'
+  { -- | The @ByteMatchSetId@ of the ByteMatchSet that you want to get.
+    -- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+    -- ListByteMatchSets.
+    byteMatchSetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetByteMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetByteMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbmsByteMatchSetId' - The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to get. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
-getByteMatchSet ::
-  -- | 'gbmsByteMatchSetId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'byteMatchSetId', 'getByteMatchSet_byteMatchSetId' - The @ByteMatchSetId@ of the ByteMatchSet that you want to get.
+-- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+-- ListByteMatchSets.
+newGetByteMatchSet ::
+  -- | 'byteMatchSetId'
+  Prelude.Text ->
   GetByteMatchSet
-getByteMatchSet pByteMatchSetId_ =
-  GetByteMatchSet'
-    { _gbmsByteMatchSetId =
-        pByteMatchSetId_
-    }
+newGetByteMatchSet pByteMatchSetId_ =
+  GetByteMatchSet' {byteMatchSetId = pByteMatchSetId_}
 
--- | The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to get. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
-gbmsByteMatchSetId :: Lens' GetByteMatchSet Text
-gbmsByteMatchSetId = lens _gbmsByteMatchSetId (\s a -> s {_gbmsByteMatchSetId = a})
+-- | The @ByteMatchSetId@ of the ByteMatchSet that you want to get.
+-- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+-- ListByteMatchSets.
+getByteMatchSet_byteMatchSetId :: Lens.Lens' GetByteMatchSet Prelude.Text
+getByteMatchSet_byteMatchSetId = Lens.lens (\GetByteMatchSet' {byteMatchSetId} -> byteMatchSetId) (\s@GetByteMatchSet' {} a -> s {byteMatchSetId = a} :: GetByteMatchSet)
 
-instance AWSRequest GetByteMatchSet where
+instance Prelude.AWSRequest GetByteMatchSet where
   type Rs GetByteMatchSet = GetByteMatchSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetByteMatchSetResponse'
-            <$> (x .?> "ByteMatchSet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ByteMatchSet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetByteMatchSet
+instance Prelude.Hashable GetByteMatchSet
 
-instance NFData GetByteMatchSet
+instance Prelude.NFData GetByteMatchSet
 
-instance ToHeaders GetByteMatchSet where
+instance Prelude.ToHeaders GetByteMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.GetByteMatchSet" :: ByteString),
+              Prelude.=# ( "AWSWAF_20150824.GetByteMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetByteMatchSet where
+instance Prelude.ToJSON GetByteMatchSet where
   toJSON GetByteMatchSet' {..} =
-    object
-      ( catMaybes
-          [Just ("ByteMatchSetId" .= _gbmsByteMatchSetId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ByteMatchSetId" Prelude..= byteMatchSetId)
+          ]
       )
 
-instance ToPath GetByteMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath GetByteMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetByteMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery GetByteMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getByteMatchSetResponse' smart constructor.
+-- | /See:/ 'newGetByteMatchSetResponse' smart constructor.
 data GetByteMatchSetResponse = GetByteMatchSetResponse'
-  { _gbmsrrsByteMatchSet ::
-      !(Maybe ByteMatchSet),
-    _gbmsrrsResponseStatus ::
-      !Int
+  { -- | Information about the ByteMatchSet that you specified in the
+    -- @GetByteMatchSet@ request. For more information, see the following
+    -- topics:
+    --
+    -- -   ByteMatchSet: Contains @ByteMatchSetId@, @ByteMatchTuples@, and
+    --     @Name@
+    --
+    -- -   @ByteMatchTuples@: Contains an array of ByteMatchTuple objects. Each
+    --     @ByteMatchTuple@ object contains FieldToMatch,
+    --     @PositionalConstraint@, @TargetString@, and @TextTransformation@
+    --
+    -- -   FieldToMatch: Contains @Data@ and @Type@
+    byteMatchSet :: Prelude.Maybe ByteMatchSet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetByteMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetByteMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbmsrrsByteMatchSet' - Information about the 'ByteMatchSet' that you specified in the @GetByteMatchSet@ request. For more information, see the following topics:     * 'ByteMatchSet' : Contains @ByteMatchSetId@ , @ByteMatchTuples@ , and @Name@      * @ByteMatchTuples@ : Contains an array of 'ByteMatchTuple' objects. Each @ByteMatchTuple@ object contains 'FieldToMatch' , @PositionalConstraint@ , @TargetString@ , and @TextTransformation@      * 'FieldToMatch' : Contains @Data@ and @Type@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbmsrrsResponseStatus' - -- | The response status code.
-getByteMatchSetResponse ::
-  -- | 'gbmsrrsResponseStatus'
-  Int ->
+-- 'byteMatchSet', 'getByteMatchSetResponse_byteMatchSet' - Information about the ByteMatchSet that you specified in the
+-- @GetByteMatchSet@ request. For more information, see the following
+-- topics:
+--
+-- -   ByteMatchSet: Contains @ByteMatchSetId@, @ByteMatchTuples@, and
+--     @Name@
+--
+-- -   @ByteMatchTuples@: Contains an array of ByteMatchTuple objects. Each
+--     @ByteMatchTuple@ object contains FieldToMatch,
+--     @PositionalConstraint@, @TargetString@, and @TextTransformation@
+--
+-- -   FieldToMatch: Contains @Data@ and @Type@
+--
+-- 'httpStatus', 'getByteMatchSetResponse_httpStatus' - The response's http status code.
+newGetByteMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetByteMatchSetResponse
-getByteMatchSetResponse pResponseStatus_ =
+newGetByteMatchSetResponse pHttpStatus_ =
   GetByteMatchSetResponse'
-    { _gbmsrrsByteMatchSet =
-        Nothing,
-      _gbmsrrsResponseStatus = pResponseStatus_
+    { byteMatchSet =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the 'ByteMatchSet' that you specified in the @GetByteMatchSet@ request. For more information, see the following topics:     * 'ByteMatchSet' : Contains @ByteMatchSetId@ , @ByteMatchTuples@ , and @Name@      * @ByteMatchTuples@ : Contains an array of 'ByteMatchTuple' objects. Each @ByteMatchTuple@ object contains 'FieldToMatch' , @PositionalConstraint@ , @TargetString@ , and @TextTransformation@      * 'FieldToMatch' : Contains @Data@ and @Type@
-gbmsrrsByteMatchSet :: Lens' GetByteMatchSetResponse (Maybe ByteMatchSet)
-gbmsrrsByteMatchSet = lens _gbmsrrsByteMatchSet (\s a -> s {_gbmsrrsByteMatchSet = a})
+-- | Information about the ByteMatchSet that you specified in the
+-- @GetByteMatchSet@ request. For more information, see the following
+-- topics:
+--
+-- -   ByteMatchSet: Contains @ByteMatchSetId@, @ByteMatchTuples@, and
+--     @Name@
+--
+-- -   @ByteMatchTuples@: Contains an array of ByteMatchTuple objects. Each
+--     @ByteMatchTuple@ object contains FieldToMatch,
+--     @PositionalConstraint@, @TargetString@, and @TextTransformation@
+--
+-- -   FieldToMatch: Contains @Data@ and @Type@
+getByteMatchSetResponse_byteMatchSet :: Lens.Lens' GetByteMatchSetResponse (Prelude.Maybe ByteMatchSet)
+getByteMatchSetResponse_byteMatchSet = Lens.lens (\GetByteMatchSetResponse' {byteMatchSet} -> byteMatchSet) (\s@GetByteMatchSetResponse' {} a -> s {byteMatchSet = a} :: GetByteMatchSetResponse)
 
--- | -- | The response status code.
-gbmsrrsResponseStatus :: Lens' GetByteMatchSetResponse Int
-gbmsrrsResponseStatus = lens _gbmsrrsResponseStatus (\s a -> s {_gbmsrrsResponseStatus = a})
+-- | The response's http status code.
+getByteMatchSetResponse_httpStatus :: Lens.Lens' GetByteMatchSetResponse Prelude.Int
+getByteMatchSetResponse_httpStatus = Lens.lens (\GetByteMatchSetResponse' {httpStatus} -> httpStatus) (\s@GetByteMatchSetResponse' {} a -> s {httpStatus = a} :: GetByteMatchSetResponse)
 
-instance NFData GetByteMatchSetResponse
+instance Prelude.NFData GetByteMatchSetResponse

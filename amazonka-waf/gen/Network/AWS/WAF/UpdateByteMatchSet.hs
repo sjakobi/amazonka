@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,193 +21,262 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inserts or deletes 'ByteMatchTuple' objects (filters) in a 'ByteMatchSet' . For each @ByteMatchTuple@ object, you specify the following values:
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
---     * Whether to insert or delete the object from the array. If you want to change a @ByteMatchSetUpdate@ object, you delete the existing object and add a new one.
+-- Inserts or deletes ByteMatchTuple objects (filters) in a ByteMatchSet.
+-- For each @ByteMatchTuple@ object, you specify the following values:
 --
---     * The part of a web request that you want AWS WAF to inspect, such as a query string or the value of the @User-Agent@ header.
+-- -   Whether to insert or delete the object from the array. If you want
+--     to change a @ByteMatchSetUpdate@ object, you delete the existing
+--     object and add a new one.
 --
---     * The bytes (typically a string that corresponds with ASCII characters) that you want AWS WAF to look for. For more information, including how you specify the values for the AWS WAF API and the AWS CLI or SDKs, see @TargetString@ in the 'ByteMatchTuple' data type.
+-- -   The part of a web request that you want AWS WAF to inspect, such as
+--     a query string or the value of the @User-Agent@ header.
 --
---     * Where to look, such as at the beginning or the end of a query string.
+-- -   The bytes (typically a string that corresponds with ASCII
+--     characters) that you want AWS WAF to look for. For more information,
+--     including how you specify the values for the AWS WAF API and the AWS
+--     CLI or SDKs, see @TargetString@ in the ByteMatchTuple data type.
 --
---     * Whether to perform any conversions on the request, such as converting it to lowercase, before inspecting it for the specified string.
+-- -   Where to look, such as at the beginning or the end of a query
+--     string.
 --
+-- -   Whether to perform any conversions on the request, such as
+--     converting it to lowercase, before inspecting it for the specified
+--     string.
 --
+-- For example, you can add a @ByteMatchSetUpdate@ object that matches web
+-- requests in which @User-Agent@ headers contain the string @BadBot@. You
+-- can then configure AWS WAF to block those requests.
 --
--- For example, you can add a @ByteMatchSetUpdate@ object that matches web requests in which @User-Agent@ headers contain the string @BadBot@ . You can then configure AWS WAF to block those requests.
+-- To create and configure a @ByteMatchSet@, perform the following steps:
 --
--- To create and configure a @ByteMatchSet@ , perform the following steps:
+-- 1.  Create a @ByteMatchSet.@ For more information, see
+--     CreateByteMatchSet.
 --
---     * Create a @ByteMatchSet.@ For more information, see 'CreateByteMatchSet' .
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of an @UpdateByteMatchSet@ request.
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of an @UpdateByteMatchSet@ request.
+-- 3.  Submit an @UpdateByteMatchSet@ request to specify the part of the
+--     request that you want AWS WAF to inspect (for example, the header or
+--     the URI) and the value that you want AWS WAF to watch for.
 --
---     * Submit an @UpdateByteMatchSet@ request to specify the part of the request that you want AWS WAF to inspect (for example, the header or the URI) and the value that you want AWS WAF to watch for.
---
---
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAF.UpdateByteMatchSet
   ( -- * Creating a Request
-    updateByteMatchSet,
-    UpdateByteMatchSet,
+    UpdateByteMatchSet (..),
+    newUpdateByteMatchSet,
 
     -- * Request Lenses
-    ubmsByteMatchSetId,
-    ubmsChangeToken,
-    ubmsUpdates,
+    updateByteMatchSet_byteMatchSetId,
+    updateByteMatchSet_changeToken,
+    updateByteMatchSet_updates,
 
     -- * Destructuring the Response
-    updateByteMatchSetResponse,
-    UpdateByteMatchSetResponse,
+    UpdateByteMatchSetResponse (..),
+    newUpdateByteMatchSetResponse,
 
     -- * Response Lenses
-    ubmsrrsChangeToken,
-    ubmsrrsResponseStatus,
+    updateByteMatchSetResponse_changeToken,
+    updateByteMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
 
--- | /See:/ 'updateByteMatchSet' smart constructor.
+-- | /See:/ 'newUpdateByteMatchSet' smart constructor.
 data UpdateByteMatchSet = UpdateByteMatchSet'
-  { _ubmsByteMatchSetId ::
-      !Text,
-    _ubmsChangeToken :: !Text,
-    _ubmsUpdates ::
-      !(List1 ByteMatchSetUpdate)
+  { -- | The @ByteMatchSetId@ of the ByteMatchSet that you want to update.
+    -- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+    -- ListByteMatchSets.
+    byteMatchSetId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text,
+    -- | An array of @ByteMatchSetUpdate@ objects that you want to insert into or
+    -- delete from a ByteMatchSet. For more information, see the applicable
+    -- data types:
+    --
+    -- -   ByteMatchSetUpdate: Contains @Action@ and @ByteMatchTuple@
+    --
+    -- -   ByteMatchTuple: Contains @FieldToMatch@, @PositionalConstraint@,
+    --     @TargetString@, and @TextTransformation@
+    --
+    -- -   FieldToMatch: Contains @Data@ and @Type@
+    updates :: Prelude.List1 ByteMatchSetUpdate
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateByteMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateByteMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubmsByteMatchSetId' - The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to update. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubmsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
+-- 'byteMatchSetId', 'updateByteMatchSet_byteMatchSetId' - The @ByteMatchSetId@ of the ByteMatchSet that you want to update.
+-- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+-- ListByteMatchSets.
 --
--- * 'ubmsUpdates' - An array of @ByteMatchSetUpdate@ objects that you want to insert into or delete from a 'ByteMatchSet' . For more information, see the applicable data types:     * 'ByteMatchSetUpdate' : Contains @Action@ and @ByteMatchTuple@      * 'ByteMatchTuple' : Contains @FieldToMatch@ , @PositionalConstraint@ , @TargetString@ , and @TextTransformation@      * 'FieldToMatch' : Contains @Data@ and @Type@
-updateByteMatchSet ::
-  -- | 'ubmsByteMatchSetId'
-  Text ->
-  -- | 'ubmsChangeToken'
-  Text ->
-  -- | 'ubmsUpdates'
-  NonEmpty ByteMatchSetUpdate ->
+-- 'changeToken', 'updateByteMatchSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+--
+-- 'updates', 'updateByteMatchSet_updates' - An array of @ByteMatchSetUpdate@ objects that you want to insert into or
+-- delete from a ByteMatchSet. For more information, see the applicable
+-- data types:
+--
+-- -   ByteMatchSetUpdate: Contains @Action@ and @ByteMatchTuple@
+--
+-- -   ByteMatchTuple: Contains @FieldToMatch@, @PositionalConstraint@,
+--     @TargetString@, and @TextTransformation@
+--
+-- -   FieldToMatch: Contains @Data@ and @Type@
+newUpdateByteMatchSet ::
+  -- | 'byteMatchSetId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
+  -- | 'updates'
+  Prelude.NonEmpty ByteMatchSetUpdate ->
   UpdateByteMatchSet
-updateByteMatchSet
+newUpdateByteMatchSet
   pByteMatchSetId_
   pChangeToken_
   pUpdates_ =
     UpdateByteMatchSet'
-      { _ubmsByteMatchSetId =
+      { byteMatchSetId =
           pByteMatchSetId_,
-        _ubmsChangeToken = pChangeToken_,
-        _ubmsUpdates = _List1 # pUpdates_
+        changeToken = pChangeToken_,
+        updates = Prelude._List1 Lens.# pUpdates_
       }
 
--- | The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to update. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
-ubmsByteMatchSetId :: Lens' UpdateByteMatchSet Text
-ubmsByteMatchSetId = lens _ubmsByteMatchSetId (\s a -> s {_ubmsByteMatchSetId = a})
+-- | The @ByteMatchSetId@ of the ByteMatchSet that you want to update.
+-- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+-- ListByteMatchSets.
+updateByteMatchSet_byteMatchSetId :: Lens.Lens' UpdateByteMatchSet Prelude.Text
+updateByteMatchSet_byteMatchSetId = Lens.lens (\UpdateByteMatchSet' {byteMatchSetId} -> byteMatchSetId) (\s@UpdateByteMatchSet' {} a -> s {byteMatchSetId = a} :: UpdateByteMatchSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-ubmsChangeToken :: Lens' UpdateByteMatchSet Text
-ubmsChangeToken = lens _ubmsChangeToken (\s a -> s {_ubmsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+updateByteMatchSet_changeToken :: Lens.Lens' UpdateByteMatchSet Prelude.Text
+updateByteMatchSet_changeToken = Lens.lens (\UpdateByteMatchSet' {changeToken} -> changeToken) (\s@UpdateByteMatchSet' {} a -> s {changeToken = a} :: UpdateByteMatchSet)
 
--- | An array of @ByteMatchSetUpdate@ objects that you want to insert into or delete from a 'ByteMatchSet' . For more information, see the applicable data types:     * 'ByteMatchSetUpdate' : Contains @Action@ and @ByteMatchTuple@      * 'ByteMatchTuple' : Contains @FieldToMatch@ , @PositionalConstraint@ , @TargetString@ , and @TextTransformation@      * 'FieldToMatch' : Contains @Data@ and @Type@
-ubmsUpdates :: Lens' UpdateByteMatchSet (NonEmpty ByteMatchSetUpdate)
-ubmsUpdates = lens _ubmsUpdates (\s a -> s {_ubmsUpdates = a}) . _List1
+-- | An array of @ByteMatchSetUpdate@ objects that you want to insert into or
+-- delete from a ByteMatchSet. For more information, see the applicable
+-- data types:
+--
+-- -   ByteMatchSetUpdate: Contains @Action@ and @ByteMatchTuple@
+--
+-- -   ByteMatchTuple: Contains @FieldToMatch@, @PositionalConstraint@,
+--     @TargetString@, and @TextTransformation@
+--
+-- -   FieldToMatch: Contains @Data@ and @Type@
+updateByteMatchSet_updates :: Lens.Lens' UpdateByteMatchSet (Prelude.NonEmpty ByteMatchSetUpdate)
+updateByteMatchSet_updates = Lens.lens (\UpdateByteMatchSet' {updates} -> updates) (\s@UpdateByteMatchSet' {} a -> s {updates = a} :: UpdateByteMatchSet) Prelude.. Prelude._List1
 
-instance AWSRequest UpdateByteMatchSet where
+instance Prelude.AWSRequest UpdateByteMatchSet where
   type
     Rs UpdateByteMatchSet =
       UpdateByteMatchSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateByteMatchSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateByteMatchSet
+instance Prelude.Hashable UpdateByteMatchSet
 
-instance NFData UpdateByteMatchSet
+instance Prelude.NFData UpdateByteMatchSet
 
-instance ToHeaders UpdateByteMatchSet where
+instance Prelude.ToHeaders UpdateByteMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.UpdateByteMatchSet" :: ByteString),
+              Prelude.=# ( "AWSWAF_20150824.UpdateByteMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateByteMatchSet where
+instance Prelude.ToJSON UpdateByteMatchSet where
   toJSON UpdateByteMatchSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("ByteMatchSetId" .= _ubmsByteMatchSetId),
-            Just ("ChangeToken" .= _ubmsChangeToken),
-            Just ("Updates" .= _ubmsUpdates)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ByteMatchSetId" Prelude..= byteMatchSetId),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken),
+            Prelude.Just ("Updates" Prelude..= updates)
           ]
       )
 
-instance ToPath UpdateByteMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath UpdateByteMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateByteMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateByteMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateByteMatchSetResponse' smart constructor.
+-- | /See:/ 'newUpdateByteMatchSetResponse' smart constructor.
 data UpdateByteMatchSetResponse = UpdateByteMatchSetResponse'
-  { _ubmsrrsChangeToken ::
-      !(Maybe Text),
-    _ubmsrrsResponseStatus ::
-      !Int
+  { -- | The @ChangeToken@ that you used to submit the @UpdateByteMatchSet@
+    -- request. You can also use this value to query the status of the request.
+    -- For more information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateByteMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateByteMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubmsrrsChangeToken' - The @ChangeToken@ that you used to submit the @UpdateByteMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubmsrrsResponseStatus' - -- | The response status code.
-updateByteMatchSetResponse ::
-  -- | 'ubmsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'updateByteMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @UpdateByteMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'updateByteMatchSetResponse_httpStatus' - The response's http status code.
+newUpdateByteMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateByteMatchSetResponse
-updateByteMatchSetResponse pResponseStatus_ =
+newUpdateByteMatchSetResponse pHttpStatus_ =
   UpdateByteMatchSetResponse'
-    { _ubmsrrsChangeToken =
-        Nothing,
-      _ubmsrrsResponseStatus = pResponseStatus_
+    { changeToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @UpdateByteMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-ubmsrrsChangeToken :: Lens' UpdateByteMatchSetResponse (Maybe Text)
-ubmsrrsChangeToken = lens _ubmsrrsChangeToken (\s a -> s {_ubmsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @UpdateByteMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+updateByteMatchSetResponse_changeToken :: Lens.Lens' UpdateByteMatchSetResponse (Prelude.Maybe Prelude.Text)
+updateByteMatchSetResponse_changeToken = Lens.lens (\UpdateByteMatchSetResponse' {changeToken} -> changeToken) (\s@UpdateByteMatchSetResponse' {} a -> s {changeToken = a} :: UpdateByteMatchSetResponse)
 
--- | -- | The response status code.
-ubmsrrsResponseStatus :: Lens' UpdateByteMatchSetResponse Int
-ubmsrrsResponseStatus = lens _ubmsrrsResponseStatus (\s a -> s {_ubmsrrsResponseStatus = a})
+-- | The response's http status code.
+updateByteMatchSetResponse_httpStatus :: Lens.Lens' UpdateByteMatchSetResponse Prelude.Int
+updateByteMatchSetResponse_httpStatus = Lens.lens (\UpdateByteMatchSetResponse' {httpStatus} -> httpStatus) (\s@UpdateByteMatchSetResponse' {} a -> s {httpStatus = a} :: UpdateByteMatchSetResponse)
 
-instance NFData UpdateByteMatchSetResponse
+instance Prelude.NFData UpdateByteMatchSetResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,193 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inserts or deletes 'RegexMatchTuple' objects (filters) in a 'RegexMatchSet' . For each @RegexMatchSetUpdate@ object, you specify the following values:
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
---     * Whether to insert or delete the object from the array. If you want to change a @RegexMatchSetUpdate@ object, you delete the existing object and add a new one.
+-- Inserts or deletes RegexMatchTuple objects (filters) in a RegexMatchSet.
+-- For each @RegexMatchSetUpdate@ object, you specify the following values:
 --
---     * The part of a web request that you want AWS WAF to inspectupdate, such as a query string or the value of the @User-Agent@ header.
+-- -   Whether to insert or delete the object from the array. If you want
+--     to change a @RegexMatchSetUpdate@ object, you delete the existing
+--     object and add a new one.
 --
---     * The identifier of the pattern (a regular expression) that you want AWS WAF to look for. For more information, see 'RegexPatternSet' .
+-- -   The part of a web request that you want AWS WAF to inspectupdate,
+--     such as a query string or the value of the @User-Agent@ header.
 --
---     * Whether to perform any conversions on the request, such as converting it to lowercase, before inspecting it for the specified string.
+-- -   The identifier of the pattern (a regular expression) that you want
+--     AWS WAF to look for. For more information, see RegexPatternSet.
 --
+-- -   Whether to perform any conversions on the request, such as
+--     converting it to lowercase, before inspecting it for the specified
+--     string.
 --
+-- For example, you can create a @RegexPatternSet@ that matches any
+-- requests with @User-Agent@ headers that contain the string
+-- @B[a\@]dB[o0]t@. You can then configure AWS WAF to reject those
+-- requests.
 --
--- For example, you can create a @RegexPatternSet@ that matches any requests with @User-Agent@ headers that contain the string @B[a@]dB[o0]t@ . You can then configure AWS WAF to reject those requests.
+-- To create and configure a @RegexMatchSet@, perform the following steps:
 --
--- To create and configure a @RegexMatchSet@ , perform the following steps:
+-- 1.  Create a @RegexMatchSet.@ For more information, see
+--     CreateRegexMatchSet.
 --
---     * Create a @RegexMatchSet.@ For more information, see 'CreateRegexMatchSet' .
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of an @UpdateRegexMatchSet@ request.
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of an @UpdateRegexMatchSet@ request.
+-- 3.  Submit an @UpdateRegexMatchSet@ request to specify the part of the
+--     request that you want AWS WAF to inspect (for example, the header or
+--     the URI) and the identifier of the @RegexPatternSet@ that contain
+--     the regular expression patters you want AWS WAF to watch for.
 --
---     * Submit an @UpdateRegexMatchSet@ request to specify the part of the request that you want AWS WAF to inspect (for example, the header or the URI) and the identifier of the @RegexPatternSet@ that contain the regular expression patters you want AWS WAF to watch for.
---
---
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAF.UpdateRegexMatchSet
   ( -- * Creating a Request
-    updateRegexMatchSet,
-    UpdateRegexMatchSet,
+    UpdateRegexMatchSet (..),
+    newUpdateRegexMatchSet,
 
     -- * Request Lenses
-    urmsRegexMatchSetId,
-    urmsUpdates,
-    urmsChangeToken,
+    updateRegexMatchSet_regexMatchSetId,
+    updateRegexMatchSet_updates,
+    updateRegexMatchSet_changeToken,
 
     -- * Destructuring the Response
-    updateRegexMatchSetResponse,
-    UpdateRegexMatchSetResponse,
+    UpdateRegexMatchSetResponse (..),
+    newUpdateRegexMatchSetResponse,
 
     -- * Response Lenses
-    urmsrrsChangeToken,
-    urmsrrsResponseStatus,
+    updateRegexMatchSetResponse_changeToken,
+    updateRegexMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
 
--- | /See:/ 'updateRegexMatchSet' smart constructor.
+-- | /See:/ 'newUpdateRegexMatchSet' smart constructor.
 data UpdateRegexMatchSet = UpdateRegexMatchSet'
-  { _urmsRegexMatchSetId ::
-      !Text,
-    _urmsUpdates ::
-      !(List1 RegexMatchSetUpdate),
-    _urmsChangeToken :: !Text
+  { -- | The @RegexMatchSetId@ of the RegexMatchSet that you want to update.
+    -- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+    -- ListRegexMatchSets.
+    regexMatchSetId :: Prelude.Text,
+    -- | An array of @RegexMatchSetUpdate@ objects that you want to insert into
+    -- or delete from a RegexMatchSet. For more information, see
+    -- RegexMatchTuple.
+    updates :: Prelude.List1 RegexMatchSetUpdate,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRegexMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRegexMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urmsRegexMatchSetId' - The @RegexMatchSetId@ of the 'RegexMatchSet' that you want to update. @RegexMatchSetId@ is returned by 'CreateRegexMatchSet' and by 'ListRegexMatchSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urmsUpdates' - An array of @RegexMatchSetUpdate@ objects that you want to insert into or delete from a 'RegexMatchSet' . For more information, see 'RegexMatchTuple' .
+-- 'regexMatchSetId', 'updateRegexMatchSet_regexMatchSetId' - The @RegexMatchSetId@ of the RegexMatchSet that you want to update.
+-- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+-- ListRegexMatchSets.
 --
--- * 'urmsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-updateRegexMatchSet ::
-  -- | 'urmsRegexMatchSetId'
-  Text ->
-  -- | 'urmsUpdates'
-  NonEmpty RegexMatchSetUpdate ->
-  -- | 'urmsChangeToken'
-  Text ->
+-- 'updates', 'updateRegexMatchSet_updates' - An array of @RegexMatchSetUpdate@ objects that you want to insert into
+-- or delete from a RegexMatchSet. For more information, see
+-- RegexMatchTuple.
+--
+-- 'changeToken', 'updateRegexMatchSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newUpdateRegexMatchSet ::
+  -- | 'regexMatchSetId'
+  Prelude.Text ->
+  -- | 'updates'
+  Prelude.NonEmpty RegexMatchSetUpdate ->
+  -- | 'changeToken'
+  Prelude.Text ->
   UpdateRegexMatchSet
-updateRegexMatchSet
+newUpdateRegexMatchSet
   pRegexMatchSetId_
   pUpdates_
   pChangeToken_ =
     UpdateRegexMatchSet'
-      { _urmsRegexMatchSetId =
+      { regexMatchSetId =
           pRegexMatchSetId_,
-        _urmsUpdates = _List1 # pUpdates_,
-        _urmsChangeToken = pChangeToken_
+        updates = Prelude._List1 Lens.# pUpdates_,
+        changeToken = pChangeToken_
       }
 
--- | The @RegexMatchSetId@ of the 'RegexMatchSet' that you want to update. @RegexMatchSetId@ is returned by 'CreateRegexMatchSet' and by 'ListRegexMatchSets' .
-urmsRegexMatchSetId :: Lens' UpdateRegexMatchSet Text
-urmsRegexMatchSetId = lens _urmsRegexMatchSetId (\s a -> s {_urmsRegexMatchSetId = a})
+-- | The @RegexMatchSetId@ of the RegexMatchSet that you want to update.
+-- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+-- ListRegexMatchSets.
+updateRegexMatchSet_regexMatchSetId :: Lens.Lens' UpdateRegexMatchSet Prelude.Text
+updateRegexMatchSet_regexMatchSetId = Lens.lens (\UpdateRegexMatchSet' {regexMatchSetId} -> regexMatchSetId) (\s@UpdateRegexMatchSet' {} a -> s {regexMatchSetId = a} :: UpdateRegexMatchSet)
 
--- | An array of @RegexMatchSetUpdate@ objects that you want to insert into or delete from a 'RegexMatchSet' . For more information, see 'RegexMatchTuple' .
-urmsUpdates :: Lens' UpdateRegexMatchSet (NonEmpty RegexMatchSetUpdate)
-urmsUpdates = lens _urmsUpdates (\s a -> s {_urmsUpdates = a}) . _List1
+-- | An array of @RegexMatchSetUpdate@ objects that you want to insert into
+-- or delete from a RegexMatchSet. For more information, see
+-- RegexMatchTuple.
+updateRegexMatchSet_updates :: Lens.Lens' UpdateRegexMatchSet (Prelude.NonEmpty RegexMatchSetUpdate)
+updateRegexMatchSet_updates = Lens.lens (\UpdateRegexMatchSet' {updates} -> updates) (\s@UpdateRegexMatchSet' {} a -> s {updates = a} :: UpdateRegexMatchSet) Prelude.. Prelude._List1
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-urmsChangeToken :: Lens' UpdateRegexMatchSet Text
-urmsChangeToken = lens _urmsChangeToken (\s a -> s {_urmsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+updateRegexMatchSet_changeToken :: Lens.Lens' UpdateRegexMatchSet Prelude.Text
+updateRegexMatchSet_changeToken = Lens.lens (\UpdateRegexMatchSet' {changeToken} -> changeToken) (\s@UpdateRegexMatchSet' {} a -> s {changeToken = a} :: UpdateRegexMatchSet)
 
-instance AWSRequest UpdateRegexMatchSet where
+instance Prelude.AWSRequest UpdateRegexMatchSet where
   type
     Rs UpdateRegexMatchSet =
       UpdateRegexMatchSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateRegexMatchSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateRegexMatchSet
+instance Prelude.Hashable UpdateRegexMatchSet
 
-instance NFData UpdateRegexMatchSet
+instance Prelude.NFData UpdateRegexMatchSet
 
-instance ToHeaders UpdateRegexMatchSet where
+instance Prelude.ToHeaders UpdateRegexMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_20150824.UpdateRegexMatchSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_20150824.UpdateRegexMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRegexMatchSet where
+instance Prelude.ToJSON UpdateRegexMatchSet where
   toJSON UpdateRegexMatchSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("RegexMatchSetId" .= _urmsRegexMatchSetId),
-            Just ("Updates" .= _urmsUpdates),
-            Just ("ChangeToken" .= _urmsChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RegexMatchSetId" Prelude..= regexMatchSetId),
+            Prelude.Just ("Updates" Prelude..= updates),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath UpdateRegexMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRegexMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRegexMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRegexMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRegexMatchSetResponse' smart constructor.
+-- | /See:/ 'newUpdateRegexMatchSetResponse' smart constructor.
 data UpdateRegexMatchSetResponse = UpdateRegexMatchSetResponse'
-  { _urmsrrsChangeToken ::
-      !(Maybe Text),
-    _urmsrrsResponseStatus ::
-      !Int
+  { -- | The @ChangeToken@ that you used to submit the @UpdateRegexMatchSet@
+    -- request. You can also use this value to query the status of the request.
+    -- For more information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRegexMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRegexMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urmsrrsChangeToken' - The @ChangeToken@ that you used to submit the @UpdateRegexMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urmsrrsResponseStatus' - -- | The response status code.
-updateRegexMatchSetResponse ::
-  -- | 'urmsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'updateRegexMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @UpdateRegexMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'updateRegexMatchSetResponse_httpStatus' - The response's http status code.
+newUpdateRegexMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateRegexMatchSetResponse
-updateRegexMatchSetResponse pResponseStatus_ =
+newUpdateRegexMatchSetResponse pHttpStatus_ =
   UpdateRegexMatchSetResponse'
-    { _urmsrrsChangeToken =
-        Nothing,
-      _urmsrrsResponseStatus = pResponseStatus_
+    { changeToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @UpdateRegexMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-urmsrrsChangeToken :: Lens' UpdateRegexMatchSetResponse (Maybe Text)
-urmsrrsChangeToken = lens _urmsrrsChangeToken (\s a -> s {_urmsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @UpdateRegexMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+updateRegexMatchSetResponse_changeToken :: Lens.Lens' UpdateRegexMatchSetResponse (Prelude.Maybe Prelude.Text)
+updateRegexMatchSetResponse_changeToken = Lens.lens (\UpdateRegexMatchSetResponse' {changeToken} -> changeToken) (\s@UpdateRegexMatchSetResponse' {} a -> s {changeToken = a} :: UpdateRegexMatchSetResponse)
 
--- | -- | The response status code.
-urmsrrsResponseStatus :: Lens' UpdateRegexMatchSetResponse Int
-urmsrrsResponseStatus = lens _urmsrrsResponseStatus (\s a -> s {_urmsrrsResponseStatus = a})
+-- | The response's http status code.
+updateRegexMatchSetResponse_httpStatus :: Lens.Lens' UpdateRegexMatchSetResponse Prelude.Int
+updateRegexMatchSetResponse_httpStatus = Lens.lens (\UpdateRegexMatchSetResponse' {httpStatus} -> httpStatus) (\s@UpdateRegexMatchSetResponse' {} a -> s {httpStatus = a} :: UpdateRegexMatchSetResponse)
 
-instance NFData UpdateRegexMatchSetResponse
+instance Prelude.NFData UpdateRegexMatchSetResponse

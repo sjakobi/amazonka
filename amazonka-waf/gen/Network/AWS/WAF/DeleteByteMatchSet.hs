@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes a 'ByteMatchSet' . You can't delete a @ByteMatchSet@ if it's still used in any @Rules@ or if it still includes any 'ByteMatchTuple' objects (any filters).
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- If you just want to remove a @ByteMatchSet@ from a @Rule@ , use 'UpdateRule' .
+-- Permanently deletes a ByteMatchSet. You can\'t delete a @ByteMatchSet@
+-- if it\'s still used in any @Rules@ or if it still includes any
+-- ByteMatchTuple objects (any filters).
 --
--- To permanently delete a @ByteMatchSet@ , perform the following steps:
+-- If you just want to remove a @ByteMatchSet@ from a @Rule@, use
+-- UpdateRule.
 --
---     * Update the @ByteMatchSet@ to remove filters, if any. For more information, see 'UpdateByteMatchSet' .
+-- To permanently delete a @ByteMatchSet@, perform the following steps:
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @DeleteByteMatchSet@ request.
+-- 1.  Update the @ByteMatchSet@ to remove filters, if any. For more
+--     information, see UpdateByteMatchSet.
 --
---     * Submit a @DeleteByteMatchSet@ request.
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @DeleteByteMatchSet@ request.
+--
+-- 3.  Submit a @DeleteByteMatchSet@ request.
 module Network.AWS.WAF.DeleteByteMatchSet
   ( -- * Creating a Request
-    deleteByteMatchSet,
-    DeleteByteMatchSet,
+    DeleteByteMatchSet (..),
+    newDeleteByteMatchSet,
 
     -- * Request Lenses
-    dbmsByteMatchSetId,
-    dbmsChangeToken,
+    deleteByteMatchSet_byteMatchSetId,
+    deleteByteMatchSet_changeToken,
 
     -- * Destructuring the Response
-    deleteByteMatchSetResponse,
-    DeleteByteMatchSetResponse,
+    DeleteByteMatchSetResponse (..),
+    newDeleteByteMatchSetResponse,
 
     -- * Response Lenses
-    dbmsrrsChangeToken,
-    dbmsrrsResponseStatus,
+    deleteByteMatchSetResponse_changeToken,
+    deleteByteMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
 
--- | /See:/ 'deleteByteMatchSet' smart constructor.
+-- | /See:/ 'newDeleteByteMatchSet' smart constructor.
 data DeleteByteMatchSet = DeleteByteMatchSet'
-  { _dbmsByteMatchSetId ::
-      !Text,
-    _dbmsChangeToken :: !Text
+  { -- | The @ByteMatchSetId@ of the ByteMatchSet that you want to delete.
+    -- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+    -- ListByteMatchSets.
+    byteMatchSetId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteByteMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteByteMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbmsByteMatchSetId' - The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to delete. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbmsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-deleteByteMatchSet ::
-  -- | 'dbmsByteMatchSetId'
-  Text ->
-  -- | 'dbmsChangeToken'
-  Text ->
+-- 'byteMatchSetId', 'deleteByteMatchSet_byteMatchSetId' - The @ByteMatchSetId@ of the ByteMatchSet that you want to delete.
+-- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+-- ListByteMatchSets.
+--
+-- 'changeToken', 'deleteByteMatchSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newDeleteByteMatchSet ::
+  -- | 'byteMatchSetId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   DeleteByteMatchSet
-deleteByteMatchSet pByteMatchSetId_ pChangeToken_ =
+newDeleteByteMatchSet pByteMatchSetId_ pChangeToken_ =
   DeleteByteMatchSet'
-    { _dbmsByteMatchSetId =
+    { byteMatchSetId =
         pByteMatchSetId_,
-      _dbmsChangeToken = pChangeToken_
+      changeToken = pChangeToken_
     }
 
--- | The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to delete. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
-dbmsByteMatchSetId :: Lens' DeleteByteMatchSet Text
-dbmsByteMatchSetId = lens _dbmsByteMatchSetId (\s a -> s {_dbmsByteMatchSetId = a})
+-- | The @ByteMatchSetId@ of the ByteMatchSet that you want to delete.
+-- @ByteMatchSetId@ is returned by CreateByteMatchSet and by
+-- ListByteMatchSets.
+deleteByteMatchSet_byteMatchSetId :: Lens.Lens' DeleteByteMatchSet Prelude.Text
+deleteByteMatchSet_byteMatchSetId = Lens.lens (\DeleteByteMatchSet' {byteMatchSetId} -> byteMatchSetId) (\s@DeleteByteMatchSet' {} a -> s {byteMatchSetId = a} :: DeleteByteMatchSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-dbmsChangeToken :: Lens' DeleteByteMatchSet Text
-dbmsChangeToken = lens _dbmsChangeToken (\s a -> s {_dbmsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+deleteByteMatchSet_changeToken :: Lens.Lens' DeleteByteMatchSet Prelude.Text
+deleteByteMatchSet_changeToken = Lens.lens (\DeleteByteMatchSet' {changeToken} -> changeToken) (\s@DeleteByteMatchSet' {} a -> s {changeToken = a} :: DeleteByteMatchSet)
 
-instance AWSRequest DeleteByteMatchSet where
+instance Prelude.AWSRequest DeleteByteMatchSet where
   type
     Rs DeleteByteMatchSet =
       DeleteByteMatchSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteByteMatchSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteByteMatchSet
+instance Prelude.Hashable DeleteByteMatchSet
 
-instance NFData DeleteByteMatchSet
+instance Prelude.NFData DeleteByteMatchSet
 
-instance ToHeaders DeleteByteMatchSet where
+instance Prelude.ToHeaders DeleteByteMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.DeleteByteMatchSet" :: ByteString),
+              Prelude.=# ( "AWSWAF_20150824.DeleteByteMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteByteMatchSet where
+instance Prelude.ToJSON DeleteByteMatchSet where
   toJSON DeleteByteMatchSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("ByteMatchSetId" .= _dbmsByteMatchSetId),
-            Just ("ChangeToken" .= _dbmsChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ByteMatchSetId" Prelude..= byteMatchSetId),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath DeleteByteMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteByteMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteByteMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteByteMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteByteMatchSetResponse' smart constructor.
+-- | /See:/ 'newDeleteByteMatchSetResponse' smart constructor.
 data DeleteByteMatchSetResponse = DeleteByteMatchSetResponse'
-  { _dbmsrrsChangeToken ::
-      !(Maybe Text),
-    _dbmsrrsResponseStatus ::
-      !Int
+  { -- | The @ChangeToken@ that you used to submit the @DeleteByteMatchSet@
+    -- request. You can also use this value to query the status of the request.
+    -- For more information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteByteMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteByteMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbmsrrsChangeToken' - The @ChangeToken@ that you used to submit the @DeleteByteMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbmsrrsResponseStatus' - -- | The response status code.
-deleteByteMatchSetResponse ::
-  -- | 'dbmsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'deleteByteMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @DeleteByteMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'deleteByteMatchSetResponse_httpStatus' - The response's http status code.
+newDeleteByteMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteByteMatchSetResponse
-deleteByteMatchSetResponse pResponseStatus_ =
+newDeleteByteMatchSetResponse pHttpStatus_ =
   DeleteByteMatchSetResponse'
-    { _dbmsrrsChangeToken =
-        Nothing,
-      _dbmsrrsResponseStatus = pResponseStatus_
+    { changeToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @DeleteByteMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-dbmsrrsChangeToken :: Lens' DeleteByteMatchSetResponse (Maybe Text)
-dbmsrrsChangeToken = lens _dbmsrrsChangeToken (\s a -> s {_dbmsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @DeleteByteMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+deleteByteMatchSetResponse_changeToken :: Lens.Lens' DeleteByteMatchSetResponse (Prelude.Maybe Prelude.Text)
+deleteByteMatchSetResponse_changeToken = Lens.lens (\DeleteByteMatchSetResponse' {changeToken} -> changeToken) (\s@DeleteByteMatchSetResponse' {} a -> s {changeToken = a} :: DeleteByteMatchSetResponse)
 
--- | -- | The response status code.
-dbmsrrsResponseStatus :: Lens' DeleteByteMatchSetResponse Int
-dbmsrrsResponseStatus = lens _dbmsrrsResponseStatus (\s a -> s {_dbmsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteByteMatchSetResponse_httpStatus :: Lens.Lens' DeleteByteMatchSetResponse Prelude.Int
+deleteByteMatchSetResponse_httpStatus = Lens.lens (\DeleteByteMatchSetResponse' {httpStatus} -> httpStatus) (\s@DeleteByteMatchSetResponse' {} a -> s {httpStatus = a} :: DeleteByteMatchSetResponse)
 
-instance NFData DeleteByteMatchSetResponse
+instance Prelude.NFData DeleteByteMatchSetResponse

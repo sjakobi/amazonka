@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.WAF.Types.WafOverrideActionType
   ( WafOverrideActionType
       ( ..,
-        WOATCount,
-        WOATNone
+        WafOverrideActionTypeCOUNT,
+        WafOverrideActionTypeNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WafOverrideActionType
-  = WafOverrideActionType'
-      ( CI
-          Text
-      )
+newtype WafOverrideActionType = WafOverrideActionType'
+  { fromWafOverrideActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WOATCount :: WafOverrideActionType
-pattern WOATCount = WafOverrideActionType' "COUNT"
+pattern WafOverrideActionTypeCOUNT :: WafOverrideActionType
+pattern WafOverrideActionTypeCOUNT = WafOverrideActionType' "COUNT"
 
-pattern WOATNone :: WafOverrideActionType
-pattern WOATNone = WafOverrideActionType' "NONE"
+pattern WafOverrideActionTypeNONE :: WafOverrideActionType
+pattern WafOverrideActionTypeNONE = WafOverrideActionType' "NONE"
 
 {-# COMPLETE
-  WOATCount,
-  WOATNone,
+  WafOverrideActionTypeCOUNT,
+  WafOverrideActionTypeNONE,
   WafOverrideActionType'
   #-}
 
-instance FromText WafOverrideActionType where
-  parser = (WafOverrideActionType' . mk) <$> takeText
+instance Prelude.FromText WafOverrideActionType where
+  parser = WafOverrideActionType' Prelude.<$> Prelude.takeText
 
-instance ToText WafOverrideActionType where
-  toText (WafOverrideActionType' ci) = original ci
+instance Prelude.ToText WafOverrideActionType where
+  toText (WafOverrideActionType' x) = x
 
-instance Hashable WafOverrideActionType
+instance Prelude.Hashable WafOverrideActionType
 
-instance NFData WafOverrideActionType
+instance Prelude.NFData WafOverrideActionType
 
-instance ToByteString WafOverrideActionType
+instance Prelude.ToByteString WafOverrideActionType
 
-instance ToQuery WafOverrideActionType
+instance Prelude.ToQuery WafOverrideActionType
 
-instance ToHeader WafOverrideActionType
+instance Prelude.ToHeader WafOverrideActionType
 
-instance ToJSON WafOverrideActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WafOverrideActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WafOverrideActionType where
-  parseJSON = parseJSONText "WafOverrideActionType"
+instance Prelude.FromJSON WafOverrideActionType where
+  parseJSON = Prelude.parseJSONText "WafOverrideActionType"

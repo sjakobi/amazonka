@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the 'RegexPatternSet' specified by @RegexPatternSetId@ .
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns the RegexPatternSet specified by @RegexPatternSetId@.
 module Network.AWS.WAF.GetRegexPatternSet
   ( -- * Creating a Request
-    getRegexPatternSet,
-    GetRegexPatternSet,
+    GetRegexPatternSet (..),
+    newGetRegexPatternSet,
 
     -- * Request Lenses
-    grpsRegexPatternSetId,
+    getRegexPatternSet_regexPatternSetId,
 
     -- * Destructuring the Response
-    getRegexPatternSetResponse,
-    GetRegexPatternSetResponse,
+    GetRegexPatternSetResponse (..),
+    newGetRegexPatternSetResponse,
 
     -- * Response Lenses
-    grpsrrsRegexPatternSet,
-    grpsrrsResponseStatus,
+    getRegexPatternSetResponse_regexPatternSet,
+    getRegexPatternSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.RegexPatternSet
 
--- | /See:/ 'getRegexPatternSet' smart constructor.
-newtype GetRegexPatternSet = GetRegexPatternSet'
-  { _grpsRegexPatternSetId ::
-      Text
+-- | /See:/ 'newGetRegexPatternSet' smart constructor.
+data GetRegexPatternSet = GetRegexPatternSet'
+  { -- | The @RegexPatternSetId@ of the RegexPatternSet that you want to get.
+    -- @RegexPatternSetId@ is returned by CreateRegexPatternSet and by
+    -- ListRegexPatternSets.
+    regexPatternSetId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRegexPatternSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRegexPatternSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grpsRegexPatternSetId' - The @RegexPatternSetId@ of the 'RegexPatternSet' that you want to get. @RegexPatternSetId@ is returned by 'CreateRegexPatternSet' and by 'ListRegexPatternSets' .
-getRegexPatternSet ::
-  -- | 'grpsRegexPatternSetId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'regexPatternSetId', 'getRegexPatternSet_regexPatternSetId' - The @RegexPatternSetId@ of the RegexPatternSet that you want to get.
+-- @RegexPatternSetId@ is returned by CreateRegexPatternSet and by
+-- ListRegexPatternSets.
+newGetRegexPatternSet ::
+  -- | 'regexPatternSetId'
+  Prelude.Text ->
   GetRegexPatternSet
-getRegexPatternSet pRegexPatternSetId_ =
+newGetRegexPatternSet pRegexPatternSetId_ =
   GetRegexPatternSet'
-    { _grpsRegexPatternSetId =
+    { regexPatternSetId =
         pRegexPatternSetId_
     }
 
--- | The @RegexPatternSetId@ of the 'RegexPatternSet' that you want to get. @RegexPatternSetId@ is returned by 'CreateRegexPatternSet' and by 'ListRegexPatternSets' .
-grpsRegexPatternSetId :: Lens' GetRegexPatternSet Text
-grpsRegexPatternSetId = lens _grpsRegexPatternSetId (\s a -> s {_grpsRegexPatternSetId = a})
+-- | The @RegexPatternSetId@ of the RegexPatternSet that you want to get.
+-- @RegexPatternSetId@ is returned by CreateRegexPatternSet and by
+-- ListRegexPatternSets.
+getRegexPatternSet_regexPatternSetId :: Lens.Lens' GetRegexPatternSet Prelude.Text
+getRegexPatternSet_regexPatternSetId = Lens.lens (\GetRegexPatternSet' {regexPatternSetId} -> regexPatternSetId) (\s@GetRegexPatternSet' {} a -> s {regexPatternSetId = a} :: GetRegexPatternSet)
 
-instance AWSRequest GetRegexPatternSet where
+instance Prelude.AWSRequest GetRegexPatternSet where
   type
     Rs GetRegexPatternSet =
       GetRegexPatternSetResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRegexPatternSetResponse'
-            <$> (x .?> "RegexPatternSet") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RegexPatternSet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRegexPatternSet
+instance Prelude.Hashable GetRegexPatternSet
 
-instance NFData GetRegexPatternSet
+instance Prelude.NFData GetRegexPatternSet
 
-instance ToHeaders GetRegexPatternSet where
+instance Prelude.ToHeaders GetRegexPatternSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.GetRegexPatternSet" :: ByteString),
+              Prelude.=# ( "AWSWAF_20150824.GetRegexPatternSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRegexPatternSet where
+instance Prelude.ToJSON GetRegexPatternSet where
   toJSON GetRegexPatternSet' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("RegexPatternSetId" .= _grpsRegexPatternSetId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RegexPatternSetId" Prelude..= regexPatternSetId)
           ]
       )
 
-instance ToPath GetRegexPatternSet where
-  toPath = const "/"
+instance Prelude.ToPath GetRegexPatternSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRegexPatternSet where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRegexPatternSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRegexPatternSetResponse' smart constructor.
+-- | /See:/ 'newGetRegexPatternSetResponse' smart constructor.
 data GetRegexPatternSetResponse = GetRegexPatternSetResponse'
-  { _grpsrrsRegexPatternSet ::
-      !( Maybe
-           RegexPatternSet
-       ),
-    _grpsrrsResponseStatus ::
-      !Int
+  { -- | Information about the RegexPatternSet that you specified in the
+    -- @GetRegexPatternSet@ request, including the identifier of the pattern
+    -- set and the regular expression patterns you want AWS WAF to search for.
+    regexPatternSet :: Prelude.Maybe RegexPatternSet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRegexPatternSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRegexPatternSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grpsrrsRegexPatternSet' - Information about the 'RegexPatternSet' that you specified in the @GetRegexPatternSet@ request, including the identifier of the pattern set and the regular expression patterns you want AWS WAF to search for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grpsrrsResponseStatus' - -- | The response status code.
-getRegexPatternSetResponse ::
-  -- | 'grpsrrsResponseStatus'
-  Int ->
+-- 'regexPatternSet', 'getRegexPatternSetResponse_regexPatternSet' - Information about the RegexPatternSet that you specified in the
+-- @GetRegexPatternSet@ request, including the identifier of the pattern
+-- set and the regular expression patterns you want AWS WAF to search for.
+--
+-- 'httpStatus', 'getRegexPatternSetResponse_httpStatus' - The response's http status code.
+newGetRegexPatternSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRegexPatternSetResponse
-getRegexPatternSetResponse pResponseStatus_ =
+newGetRegexPatternSetResponse pHttpStatus_ =
   GetRegexPatternSetResponse'
-    { _grpsrrsRegexPatternSet =
-        Nothing,
-      _grpsrrsResponseStatus = pResponseStatus_
+    { regexPatternSet =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the 'RegexPatternSet' that you specified in the @GetRegexPatternSet@ request, including the identifier of the pattern set and the regular expression patterns you want AWS WAF to search for.
-grpsrrsRegexPatternSet :: Lens' GetRegexPatternSetResponse (Maybe RegexPatternSet)
-grpsrrsRegexPatternSet = lens _grpsrrsRegexPatternSet (\s a -> s {_grpsrrsRegexPatternSet = a})
+-- | Information about the RegexPatternSet that you specified in the
+-- @GetRegexPatternSet@ request, including the identifier of the pattern
+-- set and the regular expression patterns you want AWS WAF to search for.
+getRegexPatternSetResponse_regexPatternSet :: Lens.Lens' GetRegexPatternSetResponse (Prelude.Maybe RegexPatternSet)
+getRegexPatternSetResponse_regexPatternSet = Lens.lens (\GetRegexPatternSetResponse' {regexPatternSet} -> regexPatternSet) (\s@GetRegexPatternSetResponse' {} a -> s {regexPatternSet = a} :: GetRegexPatternSetResponse)
 
--- | -- | The response status code.
-grpsrrsResponseStatus :: Lens' GetRegexPatternSetResponse Int
-grpsrrsResponseStatus = lens _grpsrrsResponseStatus (\s a -> s {_grpsrrsResponseStatus = a})
+-- | The response's http status code.
+getRegexPatternSetResponse_httpStatus :: Lens.Lens' GetRegexPatternSetResponse Prelude.Int
+getRegexPatternSetResponse_httpStatus = Lens.lens (\GetRegexPatternSetResponse' {httpStatus} -> httpStatus) (\s@GetRegexPatternSetResponse' {} a -> s {httpStatus = a} :: GetRegexPatternSetResponse)
 
-instance NFData GetRegexPatternSetResponse
+instance Prelude.NFData GetRegexPatternSetResponse

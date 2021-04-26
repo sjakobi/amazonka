@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,139 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAF.Types.Predicate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WAF.Types.PredicateType
 
--- | Specifies the 'ByteMatchSet' , 'IPSet' , 'SqlInjectionMatchSet' , 'XssMatchSet' , 'RegexMatchSet' , 'GeoMatchSet' , and 'SizeConstraintSet' objects that you want to add to a @Rule@ and, for each object, indicates whether you want to negate the settings, for example, requests that do NOT originate from the IP address 192.0.2.44.
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Specifies the ByteMatchSet, IPSet, SqlInjectionMatchSet, XssMatchSet,
+-- RegexMatchSet, GeoMatchSet, and SizeConstraintSet objects that you want
+-- to add to a @Rule@ and, for each object, indicates whether you want to
+-- negate the settings, for example, requests that do NOT originate from
+-- the IP address 192.0.2.44.
 --
--- /See:/ 'predicate' smart constructor.
+-- /See:/ 'newPredicate' smart constructor.
 data Predicate = Predicate'
-  { _pNegated :: !Bool,
-    _pType :: !PredicateType,
-    _pDataId :: !Text
+  { -- | Set @Negated@ to @False@ if you want AWS WAF to allow, block, or count
+    -- requests based on the settings in the specified ByteMatchSet, IPSet,
+    -- SqlInjectionMatchSet, XssMatchSet, RegexMatchSet, GeoMatchSet, or
+    -- SizeConstraintSet. For example, if an @IPSet@ includes the IP address
+    -- @192.0.2.44@, AWS WAF will allow or block requests based on that IP
+    -- address.
+    --
+    -- Set @Negated@ to @True@ if you want AWS WAF to allow or block a request
+    -- based on the negation of the settings in the ByteMatchSet, IPSet,
+    -- SqlInjectionMatchSet, XssMatchSet, RegexMatchSet, GeoMatchSet, or
+    -- SizeConstraintSet. For example, if an @IPSet@ includes the IP address
+    -- @192.0.2.44@, AWS WAF will allow, block, or count requests based on all
+    -- IP addresses /except/ @192.0.2.44@.
+    negated :: Prelude.Bool,
+    -- | The type of predicate in a @Rule@, such as @ByteMatch@ or @IPSet@.
+    type' :: PredicateType,
+    -- | A unique identifier for a predicate in a @Rule@, such as
+    -- @ByteMatchSetId@ or @IPSetId@. The ID is returned by the corresponding
+    -- @Create@ or @List@ command.
+    dataId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Predicate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Predicate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pNegated' - Set @Negated@ to @False@ if you want AWS WAF to allow, block, or count requests based on the settings in the specified 'ByteMatchSet' , 'IPSet' , 'SqlInjectionMatchSet' , 'XssMatchSet' , 'RegexMatchSet' , 'GeoMatchSet' , or 'SizeConstraintSet' . For example, if an @IPSet@ includes the IP address @192.0.2.44@ , AWS WAF will allow or block requests based on that IP address. Set @Negated@ to @True@ if you want AWS WAF to allow or block a request based on the negation of the settings in the 'ByteMatchSet' , 'IPSet' , 'SqlInjectionMatchSet' , 'XssMatchSet' , 'RegexMatchSet' , 'GeoMatchSet' , or 'SizeConstraintSet' . For example, if an @IPSet@ includes the IP address @192.0.2.44@ , AWS WAF will allow, block, or count requests based on all IP addresses /except/ @192.0.2.44@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pType' - The type of predicate in a @Rule@ , such as @ByteMatch@ or @IPSet@ .
+-- 'negated', 'predicate_negated' - Set @Negated@ to @False@ if you want AWS WAF to allow, block, or count
+-- requests based on the settings in the specified ByteMatchSet, IPSet,
+-- SqlInjectionMatchSet, XssMatchSet, RegexMatchSet, GeoMatchSet, or
+-- SizeConstraintSet. For example, if an @IPSet@ includes the IP address
+-- @192.0.2.44@, AWS WAF will allow or block requests based on that IP
+-- address.
 --
--- * 'pDataId' - A unique identifier for a predicate in a @Rule@ , such as @ByteMatchSetId@ or @IPSetId@ . The ID is returned by the corresponding @Create@ or @List@ command.
-predicate ::
-  -- | 'pNegated'
-  Bool ->
-  -- | 'pType'
+-- Set @Negated@ to @True@ if you want AWS WAF to allow or block a request
+-- based on the negation of the settings in the ByteMatchSet, IPSet,
+-- SqlInjectionMatchSet, XssMatchSet, RegexMatchSet, GeoMatchSet, or
+-- SizeConstraintSet. For example, if an @IPSet@ includes the IP address
+-- @192.0.2.44@, AWS WAF will allow, block, or count requests based on all
+-- IP addresses /except/ @192.0.2.44@.
+--
+-- 'type'', 'predicate_type' - The type of predicate in a @Rule@, such as @ByteMatch@ or @IPSet@.
+--
+-- 'dataId', 'predicate_dataId' - A unique identifier for a predicate in a @Rule@, such as
+-- @ByteMatchSetId@ or @IPSetId@. The ID is returned by the corresponding
+-- @Create@ or @List@ command.
+newPredicate ::
+  -- | 'negated'
+  Prelude.Bool ->
+  -- | 'type''
   PredicateType ->
-  -- | 'pDataId'
-  Text ->
+  -- | 'dataId'
+  Prelude.Text ->
   Predicate
-predicate pNegated_ pType_ pDataId_ =
+newPredicate pNegated_ pType_ pDataId_ =
   Predicate'
-    { _pNegated = pNegated_,
-      _pType = pType_,
-      _pDataId = pDataId_
+    { negated = pNegated_,
+      type' = pType_,
+      dataId = pDataId_
     }
 
--- | Set @Negated@ to @False@ if you want AWS WAF to allow, block, or count requests based on the settings in the specified 'ByteMatchSet' , 'IPSet' , 'SqlInjectionMatchSet' , 'XssMatchSet' , 'RegexMatchSet' , 'GeoMatchSet' , or 'SizeConstraintSet' . For example, if an @IPSet@ includes the IP address @192.0.2.44@ , AWS WAF will allow or block requests based on that IP address. Set @Negated@ to @True@ if you want AWS WAF to allow or block a request based on the negation of the settings in the 'ByteMatchSet' , 'IPSet' , 'SqlInjectionMatchSet' , 'XssMatchSet' , 'RegexMatchSet' , 'GeoMatchSet' , or 'SizeConstraintSet' . For example, if an @IPSet@ includes the IP address @192.0.2.44@ , AWS WAF will allow, block, or count requests based on all IP addresses /except/ @192.0.2.44@ .
-pNegated :: Lens' Predicate Bool
-pNegated = lens _pNegated (\s a -> s {_pNegated = a})
+-- | Set @Negated@ to @False@ if you want AWS WAF to allow, block, or count
+-- requests based on the settings in the specified ByteMatchSet, IPSet,
+-- SqlInjectionMatchSet, XssMatchSet, RegexMatchSet, GeoMatchSet, or
+-- SizeConstraintSet. For example, if an @IPSet@ includes the IP address
+-- @192.0.2.44@, AWS WAF will allow or block requests based on that IP
+-- address.
+--
+-- Set @Negated@ to @True@ if you want AWS WAF to allow or block a request
+-- based on the negation of the settings in the ByteMatchSet, IPSet,
+-- SqlInjectionMatchSet, XssMatchSet, RegexMatchSet, GeoMatchSet, or
+-- SizeConstraintSet. For example, if an @IPSet@ includes the IP address
+-- @192.0.2.44@, AWS WAF will allow, block, or count requests based on all
+-- IP addresses /except/ @192.0.2.44@.
+predicate_negated :: Lens.Lens' Predicate Prelude.Bool
+predicate_negated = Lens.lens (\Predicate' {negated} -> negated) (\s@Predicate' {} a -> s {negated = a} :: Predicate)
 
--- | The type of predicate in a @Rule@ , such as @ByteMatch@ or @IPSet@ .
-pType :: Lens' Predicate PredicateType
-pType = lens _pType (\s a -> s {_pType = a})
+-- | The type of predicate in a @Rule@, such as @ByteMatch@ or @IPSet@.
+predicate_type :: Lens.Lens' Predicate PredicateType
+predicate_type = Lens.lens (\Predicate' {type'} -> type') (\s@Predicate' {} a -> s {type' = a} :: Predicate)
 
--- | A unique identifier for a predicate in a @Rule@ , such as @ByteMatchSetId@ or @IPSetId@ . The ID is returned by the corresponding @Create@ or @List@ command.
-pDataId :: Lens' Predicate Text
-pDataId = lens _pDataId (\s a -> s {_pDataId = a})
+-- | A unique identifier for a predicate in a @Rule@, such as
+-- @ByteMatchSetId@ or @IPSetId@. The ID is returned by the corresponding
+-- @Create@ or @List@ command.
+predicate_dataId :: Lens.Lens' Predicate Prelude.Text
+predicate_dataId = Lens.lens (\Predicate' {dataId} -> dataId) (\s@Predicate' {} a -> s {dataId = a} :: Predicate)
 
-instance FromJSON Predicate where
+instance Prelude.FromJSON Predicate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Predicate"
       ( \x ->
           Predicate'
-            <$> (x .: "Negated")
-            <*> (x .: "Type")
-            <*> (x .: "DataId")
+            Prelude.<$> (x Prelude..: "Negated")
+            Prelude.<*> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "DataId")
       )
 
-instance Hashable Predicate
+instance Prelude.Hashable Predicate
 
-instance NFData Predicate
+instance Prelude.NFData Predicate
 
-instance ToJSON Predicate where
+instance Prelude.ToJSON Predicate where
   toJSON Predicate' {..} =
-    object
-      ( catMaybes
-          [ Just ("Negated" .= _pNegated),
-            Just ("Type" .= _pType),
-            Just ("DataId" .= _pDataId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Negated" Prelude..= negated),
+            Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just ("DataId" Prelude..= dataId)
           ]
       )

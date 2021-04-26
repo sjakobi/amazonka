@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inserts or deletes 'Predicate' objects in a @Rule@ . Each @Predicate@ object identifies a predicate, such as a 'ByteMatchSet' or an 'IPSet' , that specifies the web requests that you want to allow, block, or count. If you add more than one predicate to a @Rule@ , a request must match all of the specifications to be allowed, blocked, or counted. For example, suppose that you add the following to a @Rule@ :
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
---     * A @ByteMatchSet@ that matches the value @BadBot@ in the @User-Agent@ header
+-- Inserts or deletes Predicate objects in a @Rule@. Each @Predicate@
+-- object identifies a predicate, such as a ByteMatchSet or an IPSet, that
+-- specifies the web requests that you want to allow, block, or count. If
+-- you add more than one predicate to a @Rule@, a request must match all of
+-- the specifications to be allowed, blocked, or counted. For example,
+-- suppose that you add the following to a @Rule@:
 --
---     * An @IPSet@ that matches the IP address @192.0.2.44@
+-- -   A @ByteMatchSet@ that matches the value @BadBot@ in the @User-Agent@
+--     header
 --
+-- -   An @IPSet@ that matches the IP address @192.0.2.44@
 --
+-- You then add the @Rule@ to a @WebACL@ and specify that you want to block
+-- requests that satisfy the @Rule@. For a request to be blocked, the
+-- @User-Agent@ header in the request must contain the value @BadBot@ /and/
+-- the request must originate from the IP address 192.0.2.44.
 --
--- You then add the @Rule@ to a @WebACL@ and specify that you want to block requests that satisfy the @Rule@ . For a request to be blocked, the @User-Agent@ header in the request must contain the value @BadBot@ /and/ the request must originate from the IP address 192.0.2.44.
+-- To create and configure a @Rule@, perform the following steps:
 --
--- To create and configure a @Rule@ , perform the following steps:
+-- 1.  Create and update the predicates that you want to include in the
+--     @Rule@.
 --
---     * Create and update the predicates that you want to include in the @Rule@ .
+-- 2.  Create the @Rule@. See CreateRule.
 --
---     * Create the @Rule@ . See 'CreateRule' .
+-- 3.  Use @GetChangeToken@ to get the change token that you provide in the
+--     @ChangeToken@ parameter of an UpdateRule request.
 --
---     * Use @GetChangeToken@ to get the change token that you provide in the @ChangeToken@ parameter of an 'UpdateRule' request.
+-- 4.  Submit an @UpdateRule@ request to add predicates to the @Rule@.
 --
---     * Submit an @UpdateRule@ request to add predicates to the @Rule@ .
+-- 5.  Create and update a @WebACL@ that contains the @Rule@. See
+--     CreateWebACL.
 --
---     * Create and update a @WebACL@ that contains the @Rule@ . See 'CreateWebACL' .
+-- If you want to replace one @ByteMatchSet@ or @IPSet@ with another, you
+-- delete the existing one and add the new one.
 --
---
---
--- If you want to replace one @ByteMatchSet@ or @IPSet@ with another, you delete the existing one and add the new one.
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAF.UpdateRule
   ( -- * Creating a Request
-    updateRule,
-    UpdateRule,
+    UpdateRule (..),
+    newUpdateRule,
 
     -- * Request Lenses
-    urRuleId,
-    urChangeToken,
-    urUpdates,
+    updateRule_ruleId,
+    updateRule_changeToken,
+    updateRule_updates,
 
     -- * Destructuring the Response
-    updateRuleResponse,
-    UpdateRuleResponse,
+    UpdateRuleResponse (..),
+    newUpdateRuleResponse,
 
     -- * Response Lenses
-    urrrsChangeToken,
-    urrrsResponseStatus,
+    updateRuleResponse_changeToken,
+    updateRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAF.Types
 
--- | /See:/ 'updateRule' smart constructor.
+-- | /See:/ 'newUpdateRule' smart constructor.
 data UpdateRule = UpdateRule'
-  { _urRuleId :: !Text,
-    _urChangeToken :: !Text,
-    _urUpdates :: ![RuleUpdate]
+  { -- | The @RuleId@ of the @Rule@ that you want to update. @RuleId@ is returned
+    -- by @CreateRule@ and by ListRules.
+    ruleId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text,
+    -- | An array of @RuleUpdate@ objects that you want to insert into or delete
+    -- from a Rule. For more information, see the applicable data types:
+    --
+    -- -   RuleUpdate: Contains @Action@ and @Predicate@
+    --
+    -- -   Predicate: Contains @DataId@, @Negated@, and @Type@
+    --
+    -- -   FieldToMatch: Contains @Data@ and @Type@
+    updates :: [RuleUpdate]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urRuleId' - The @RuleId@ of the @Rule@ that you want to update. @RuleId@ is returned by @CreateRule@ and by 'ListRules' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
+-- 'ruleId', 'updateRule_ruleId' - The @RuleId@ of the @Rule@ that you want to update. @RuleId@ is returned
+-- by @CreateRule@ and by ListRules.
 --
--- * 'urUpdates' - An array of @RuleUpdate@ objects that you want to insert into or delete from a 'Rule' . For more information, see the applicable data types:     * 'RuleUpdate' : Contains @Action@ and @Predicate@      * 'Predicate' : Contains @DataId@ , @Negated@ , and @Type@      * 'FieldToMatch' : Contains @Data@ and @Type@
-updateRule ::
-  -- | 'urRuleId'
-  Text ->
-  -- | 'urChangeToken'
-  Text ->
+-- 'changeToken', 'updateRule_changeToken' - The value returned by the most recent call to GetChangeToken.
+--
+-- 'updates', 'updateRule_updates' - An array of @RuleUpdate@ objects that you want to insert into or delete
+-- from a Rule. For more information, see the applicable data types:
+--
+-- -   RuleUpdate: Contains @Action@ and @Predicate@
+--
+-- -   Predicate: Contains @DataId@, @Negated@, and @Type@
+--
+-- -   FieldToMatch: Contains @Data@ and @Type@
+newUpdateRule ::
+  -- | 'ruleId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   UpdateRule
-updateRule pRuleId_ pChangeToken_ =
+newUpdateRule pRuleId_ pChangeToken_ =
   UpdateRule'
-    { _urRuleId = pRuleId_,
-      _urChangeToken = pChangeToken_,
-      _urUpdates = mempty
+    { ruleId = pRuleId_,
+      changeToken = pChangeToken_,
+      updates = Prelude.mempty
     }
 
--- | The @RuleId@ of the @Rule@ that you want to update. @RuleId@ is returned by @CreateRule@ and by 'ListRules' .
-urRuleId :: Lens' UpdateRule Text
-urRuleId = lens _urRuleId (\s a -> s {_urRuleId = a})
+-- | The @RuleId@ of the @Rule@ that you want to update. @RuleId@ is returned
+-- by @CreateRule@ and by ListRules.
+updateRule_ruleId :: Lens.Lens' UpdateRule Prelude.Text
+updateRule_ruleId = Lens.lens (\UpdateRule' {ruleId} -> ruleId) (\s@UpdateRule' {} a -> s {ruleId = a} :: UpdateRule)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-urChangeToken :: Lens' UpdateRule Text
-urChangeToken = lens _urChangeToken (\s a -> s {_urChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+updateRule_changeToken :: Lens.Lens' UpdateRule Prelude.Text
+updateRule_changeToken = Lens.lens (\UpdateRule' {changeToken} -> changeToken) (\s@UpdateRule' {} a -> s {changeToken = a} :: UpdateRule)
 
--- | An array of @RuleUpdate@ objects that you want to insert into or delete from a 'Rule' . For more information, see the applicable data types:     * 'RuleUpdate' : Contains @Action@ and @Predicate@      * 'Predicate' : Contains @DataId@ , @Negated@ , and @Type@      * 'FieldToMatch' : Contains @Data@ and @Type@
-urUpdates :: Lens' UpdateRule [RuleUpdate]
-urUpdates = lens _urUpdates (\s a -> s {_urUpdates = a}) . _Coerce
+-- | An array of @RuleUpdate@ objects that you want to insert into or delete
+-- from a Rule. For more information, see the applicable data types:
+--
+-- -   RuleUpdate: Contains @Action@ and @Predicate@
+--
+-- -   Predicate: Contains @DataId@, @Negated@, and @Type@
+--
+-- -   FieldToMatch: Contains @Data@ and @Type@
+updateRule_updates :: Lens.Lens' UpdateRule [RuleUpdate]
+updateRule_updates = Lens.lens (\UpdateRule' {updates} -> updates) (\s@UpdateRule' {} a -> s {updates = a} :: UpdateRule) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateRule where
+instance Prelude.AWSRequest UpdateRule where
   type Rs UpdateRule = UpdateRuleResponse
-  request = postJSON waf
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateRuleResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateRule
+instance Prelude.Hashable UpdateRule
 
-instance NFData UpdateRule
+instance Prelude.NFData UpdateRule
 
-instance ToHeaders UpdateRule where
+instance Prelude.ToHeaders UpdateRule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSWAF_20150824.UpdateRule" :: ByteString),
+              Prelude.=# ("AWSWAF_20150824.UpdateRule" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRule where
+instance Prelude.ToJSON UpdateRule where
   toJSON UpdateRule' {..} =
-    object
-      ( catMaybes
-          [ Just ("RuleId" .= _urRuleId),
-            Just ("ChangeToken" .= _urChangeToken),
-            Just ("Updates" .= _urUpdates)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("RuleId" Prelude..= ruleId),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken),
+            Prelude.Just ("Updates" Prelude..= updates)
           ]
       )
 
-instance ToPath UpdateRule where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRule where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRuleResponse' smart constructor.
+-- | /See:/ 'newUpdateRuleResponse' smart constructor.
 data UpdateRuleResponse = UpdateRuleResponse'
-  { _urrrsChangeToken ::
-      !(Maybe Text),
-    _urrrsResponseStatus :: !Int
+  { -- | The @ChangeToken@ that you used to submit the @UpdateRule@ request. You
+    -- can also use this value to query the status of the request. For more
+    -- information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsChangeToken' - The @ChangeToken@ that you used to submit the @UpdateRule@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-updateRuleResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'updateRuleResponse_changeToken' - The @ChangeToken@ that you used to submit the @UpdateRule@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'updateRuleResponse_httpStatus' - The response's http status code.
+newUpdateRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateRuleResponse
-updateRuleResponse pResponseStatus_ =
+newUpdateRuleResponse pHttpStatus_ =
   UpdateRuleResponse'
-    { _urrrsChangeToken = Nothing,
-      _urrrsResponseStatus = pResponseStatus_
+    { changeToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @UpdateRule@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-urrrsChangeToken :: Lens' UpdateRuleResponse (Maybe Text)
-urrrsChangeToken = lens _urrrsChangeToken (\s a -> s {_urrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @UpdateRule@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+updateRuleResponse_changeToken :: Lens.Lens' UpdateRuleResponse (Prelude.Maybe Prelude.Text)
+updateRuleResponse_changeToken = Lens.lens (\UpdateRuleResponse' {changeToken} -> changeToken) (\s@UpdateRuleResponse' {} a -> s {changeToken = a} :: UpdateRuleResponse)
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UpdateRuleResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+updateRuleResponse_httpStatus :: Lens.Lens' UpdateRuleResponse Prelude.Int
+updateRuleResponse_httpStatus = Lens.lens (\UpdateRuleResponse' {httpStatus} -> httpStatus) (\s@UpdateRuleResponse' {} a -> s {httpStatus = a} :: UpdateRuleResponse)
 
-instance NFData UpdateRuleResponse
+instance Prelude.NFData UpdateRuleResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.WAF.Types.PredicateType
   ( PredicateType
       ( ..,
-        ByteMatch,
-        GeoMatch,
-        IPMatch,
-        RegexMatch,
-        SizeConstraint,
-        SqlInjectionMatch,
-        XSSMatch
+        PredicateTypeByteMatch,
+        PredicateTypeGeoMatch,
+        PredicateTypeIPMatch,
+        PredicateTypeRegexMatch,
+        PredicateTypeSizeConstraint,
+        PredicateTypeSqlInjectionMatch,
+        PredicateTypeXssMatch
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PredicateType = PredicateType' (CI Text)
+newtype PredicateType = PredicateType'
+  { fromPredicateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ByteMatch :: PredicateType
-pattern ByteMatch = PredicateType' "ByteMatch"
+pattern PredicateTypeByteMatch :: PredicateType
+pattern PredicateTypeByteMatch = PredicateType' "ByteMatch"
 
-pattern GeoMatch :: PredicateType
-pattern GeoMatch = PredicateType' "GeoMatch"
+pattern PredicateTypeGeoMatch :: PredicateType
+pattern PredicateTypeGeoMatch = PredicateType' "GeoMatch"
 
-pattern IPMatch :: PredicateType
-pattern IPMatch = PredicateType' "IPMatch"
+pattern PredicateTypeIPMatch :: PredicateType
+pattern PredicateTypeIPMatch = PredicateType' "IPMatch"
 
-pattern RegexMatch :: PredicateType
-pattern RegexMatch = PredicateType' "RegexMatch"
+pattern PredicateTypeRegexMatch :: PredicateType
+pattern PredicateTypeRegexMatch = PredicateType' "RegexMatch"
 
-pattern SizeConstraint :: PredicateType
-pattern SizeConstraint = PredicateType' "SizeConstraint"
+pattern PredicateTypeSizeConstraint :: PredicateType
+pattern PredicateTypeSizeConstraint = PredicateType' "SizeConstraint"
 
-pattern SqlInjectionMatch :: PredicateType
-pattern SqlInjectionMatch = PredicateType' "SqlInjectionMatch"
+pattern PredicateTypeSqlInjectionMatch :: PredicateType
+pattern PredicateTypeSqlInjectionMatch = PredicateType' "SqlInjectionMatch"
 
-pattern XSSMatch :: PredicateType
-pattern XSSMatch = PredicateType' "XssMatch"
+pattern PredicateTypeXssMatch :: PredicateType
+pattern PredicateTypeXssMatch = PredicateType' "XssMatch"
 
 {-# COMPLETE
-  ByteMatch,
-  GeoMatch,
-  IPMatch,
-  RegexMatch,
-  SizeConstraint,
-  SqlInjectionMatch,
-  XSSMatch,
+  PredicateTypeByteMatch,
+  PredicateTypeGeoMatch,
+  PredicateTypeIPMatch,
+  PredicateTypeRegexMatch,
+  PredicateTypeSizeConstraint,
+  PredicateTypeSqlInjectionMatch,
+  PredicateTypeXssMatch,
   PredicateType'
   #-}
 
-instance FromText PredicateType where
-  parser = (PredicateType' . mk) <$> takeText
+instance Prelude.FromText PredicateType where
+  parser = PredicateType' Prelude.<$> Prelude.takeText
 
-instance ToText PredicateType where
-  toText (PredicateType' ci) = original ci
+instance Prelude.ToText PredicateType where
+  toText (PredicateType' x) = x
 
-instance Hashable PredicateType
+instance Prelude.Hashable PredicateType
 
-instance NFData PredicateType
+instance Prelude.NFData PredicateType
 
-instance ToByteString PredicateType
+instance Prelude.ToByteString PredicateType
 
-instance ToQuery PredicateType
+instance Prelude.ToQuery PredicateType
 
-instance ToHeader PredicateType
+instance Prelude.ToHeader PredicateType
 
-instance ToJSON PredicateType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PredicateType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PredicateType where
-  parseJSON = parseJSONText "PredicateType"
+instance Prelude.FromJSON PredicateType where
+  parseJSON = Prelude.parseJSONText "PredicateType"
