@@ -256,7 +256,7 @@ deleteObjects_delete = Lens.lens (\DeleteObjects' {delete'} -> delete') (\s@Dele
 instance Prelude.AWSRequest DeleteObjects where
   type Rs DeleteObjects = DeleteObjectsResponse
   request =
-    contentMD5Header
+    Request.contentMD5Header
       Prelude.. Request.postXML defaultService
   response =
     Response.receiveXML

@@ -19,13 +19,13 @@
 module Network.AWS.S3.Types.ObjectCannedACL
   ( ObjectCannedACL
       ( ..,
-        ObjectCannedACLOAuthenticatedRead,
-        ObjectCannedACLOAwsExecRead,
-        ObjectCannedACLOBucketOwnerFullControl,
-        ObjectCannedACLOBucketOwnerRead,
-        ObjectCannedACLOPrivate,
-        ObjectCannedACLOPublicRead,
-        ObjectCannedACLOPublicReadWrite
+        ObjectCannedACLAuthenticatedRead,
+        ObjectCannedACLAwsExecRead,
+        ObjectCannedACLBucketOwnerFullControl,
+        ObjectCannedACLBucketOwnerRead,
+        ObjectCannedACLPrivate,
+        ObjectCannedACLPublicRead,
+        ObjectCannedACLPublicReadWrite
       ),
   )
 where
@@ -47,35 +47,35 @@ newtype ObjectCannedACL = ObjectCannedACL'
       Prelude.Generic
     )
 
-pattern ObjectCannedACLOAuthenticatedRead :: ObjectCannedACL
-pattern ObjectCannedACLOAuthenticatedRead = ObjectCannedACL' "authenticated-read"
+pattern ObjectCannedACLAuthenticatedRead :: ObjectCannedACL
+pattern ObjectCannedACLAuthenticatedRead = ObjectCannedACL' "authenticated-read"
 
-pattern ObjectCannedACLOAwsExecRead :: ObjectCannedACL
-pattern ObjectCannedACLOAwsExecRead = ObjectCannedACL' "aws-exec-read"
+pattern ObjectCannedACLAwsExecRead :: ObjectCannedACL
+pattern ObjectCannedACLAwsExecRead = ObjectCannedACL' "aws-exec-read"
 
-pattern ObjectCannedACLOBucketOwnerFullControl :: ObjectCannedACL
-pattern ObjectCannedACLOBucketOwnerFullControl = ObjectCannedACL' "bucket-owner-full-control"
+pattern ObjectCannedACLBucketOwnerFullControl :: ObjectCannedACL
+pattern ObjectCannedACLBucketOwnerFullControl = ObjectCannedACL' "bucket-owner-full-control"
 
-pattern ObjectCannedACLOBucketOwnerRead :: ObjectCannedACL
-pattern ObjectCannedACLOBucketOwnerRead = ObjectCannedACL' "bucket-owner-read"
+pattern ObjectCannedACLBucketOwnerRead :: ObjectCannedACL
+pattern ObjectCannedACLBucketOwnerRead = ObjectCannedACL' "bucket-owner-read"
 
-pattern ObjectCannedACLOPrivate :: ObjectCannedACL
-pattern ObjectCannedACLOPrivate = ObjectCannedACL' "private"
+pattern ObjectCannedACLPrivate :: ObjectCannedACL
+pattern ObjectCannedACLPrivate = ObjectCannedACL' "private"
 
-pattern ObjectCannedACLOPublicRead :: ObjectCannedACL
-pattern ObjectCannedACLOPublicRead = ObjectCannedACL' "public-read"
+pattern ObjectCannedACLPublicRead :: ObjectCannedACL
+pattern ObjectCannedACLPublicRead = ObjectCannedACL' "public-read"
 
-pattern ObjectCannedACLOPublicReadWrite :: ObjectCannedACL
-pattern ObjectCannedACLOPublicReadWrite = ObjectCannedACL' "public-read-write"
+pattern ObjectCannedACLPublicReadWrite :: ObjectCannedACL
+pattern ObjectCannedACLPublicReadWrite = ObjectCannedACL' "public-read-write"
 
 {-# COMPLETE
-  ObjectCannedACLOAuthenticatedRead,
-  ObjectCannedACLOAwsExecRead,
-  ObjectCannedACLOBucketOwnerFullControl,
-  ObjectCannedACLOBucketOwnerRead,
-  ObjectCannedACLOPrivate,
-  ObjectCannedACLOPublicRead,
-  ObjectCannedACLOPublicReadWrite,
+  ObjectCannedACLAuthenticatedRead,
+  ObjectCannedACLAwsExecRead,
+  ObjectCannedACLBucketOwnerFullControl,
+  ObjectCannedACLBucketOwnerRead,
+  ObjectCannedACLPrivate,
+  ObjectCannedACLPublicRead,
+  ObjectCannedACLPublicReadWrite,
   ObjectCannedACL'
   #-}
 

@@ -19,8 +19,8 @@
 module Network.AWS.MediaStoreData.Types.ItemType
   ( ItemType
       ( ..,
-        ItemTypeTypeFOLDER,
-        ItemTypeTypeOBJECT
+        ItemTypeFOLDER,
+        ItemTypeOBJECT
       ),
   )
 where
@@ -41,15 +41,15 @@ newtype ItemType = ItemType'
       Prelude.Generic
     )
 
-pattern ItemTypeTypeFOLDER :: ItemType
-pattern ItemTypeTypeFOLDER = ItemType' "FOLDER"
+pattern ItemTypeFOLDER :: ItemType
+pattern ItemTypeFOLDER = ItemType' "FOLDER"
 
-pattern ItemTypeTypeOBJECT :: ItemType
-pattern ItemTypeTypeOBJECT = ItemType' "OBJECT"
+pattern ItemTypeOBJECT :: ItemType
+pattern ItemTypeOBJECT = ItemType' "OBJECT"
 
 {-# COMPLETE
-  ItemTypeTypeFOLDER,
-  ItemTypeTypeOBJECT,
+  ItemTypeFOLDER,
+  ItemTypeOBJECT,
   ItemType'
   #-}
 

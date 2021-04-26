@@ -19,17 +19,17 @@
 module Network.AWS.S3.Types.InventoryOptionalField
   ( InventoryOptionalField
       ( ..,
-        InventoryOptionalFieldFieldETag,
-        InventoryOptionalFieldFieldEncryptionStatus,
-        InventoryOptionalFieldFieldIntelligentTieringAccessTier,
-        InventoryOptionalFieldFieldIsMultipartUploaded,
-        InventoryOptionalFieldFieldLastModifiedDate,
-        InventoryOptionalFieldFieldObjectLockLegalHoldStatus,
-        InventoryOptionalFieldFieldObjectLockMode,
-        InventoryOptionalFieldFieldObjectLockRetainUntilDate,
-        InventoryOptionalFieldFieldReplicationStatus,
-        InventoryOptionalFieldFieldSize,
-        InventoryOptionalFieldFieldStorageClass
+        InventoryOptionalFieldETag,
+        InventoryOptionalFieldEncryptionStatus,
+        InventoryOptionalFieldIntelligentTieringAccessTier,
+        InventoryOptionalFieldIsMultipartUploaded,
+        InventoryOptionalFieldLastModifiedDate,
+        InventoryOptionalFieldObjectLockLegalHoldStatus,
+        InventoryOptionalFieldObjectLockMode,
+        InventoryOptionalFieldObjectLockRetainUntilDate,
+        InventoryOptionalFieldReplicationStatus,
+        InventoryOptionalFieldSize,
+        InventoryOptionalFieldStorageClass
       ),
   )
 where
@@ -51,51 +51,51 @@ newtype InventoryOptionalField = InventoryOptionalField'
       Prelude.Generic
     )
 
-pattern InventoryOptionalFieldFieldETag :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldETag = InventoryOptionalField' "ETag"
+pattern InventoryOptionalFieldETag :: InventoryOptionalField
+pattern InventoryOptionalFieldETag = InventoryOptionalField' "ETag"
 
-pattern InventoryOptionalFieldFieldEncryptionStatus :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldEncryptionStatus = InventoryOptionalField' "EncryptionStatus"
+pattern InventoryOptionalFieldEncryptionStatus :: InventoryOptionalField
+pattern InventoryOptionalFieldEncryptionStatus = InventoryOptionalField' "EncryptionStatus"
 
-pattern InventoryOptionalFieldFieldIntelligentTieringAccessTier :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldIntelligentTieringAccessTier = InventoryOptionalField' "IntelligentTieringAccessTier"
+pattern InventoryOptionalFieldIntelligentTieringAccessTier :: InventoryOptionalField
+pattern InventoryOptionalFieldIntelligentTieringAccessTier = InventoryOptionalField' "IntelligentTieringAccessTier"
 
-pattern InventoryOptionalFieldFieldIsMultipartUploaded :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldIsMultipartUploaded = InventoryOptionalField' "IsMultipartUploaded"
+pattern InventoryOptionalFieldIsMultipartUploaded :: InventoryOptionalField
+pattern InventoryOptionalFieldIsMultipartUploaded = InventoryOptionalField' "IsMultipartUploaded"
 
-pattern InventoryOptionalFieldFieldLastModifiedDate :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldLastModifiedDate = InventoryOptionalField' "LastModifiedDate"
+pattern InventoryOptionalFieldLastModifiedDate :: InventoryOptionalField
+pattern InventoryOptionalFieldLastModifiedDate = InventoryOptionalField' "LastModifiedDate"
 
-pattern InventoryOptionalFieldFieldObjectLockLegalHoldStatus :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldObjectLockLegalHoldStatus = InventoryOptionalField' "ObjectLockLegalHoldStatus"
+pattern InventoryOptionalFieldObjectLockLegalHoldStatus :: InventoryOptionalField
+pattern InventoryOptionalFieldObjectLockLegalHoldStatus = InventoryOptionalField' "ObjectLockLegalHoldStatus"
 
-pattern InventoryOptionalFieldFieldObjectLockMode :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldObjectLockMode = InventoryOptionalField' "ObjectLockMode"
+pattern InventoryOptionalFieldObjectLockMode :: InventoryOptionalField
+pattern InventoryOptionalFieldObjectLockMode = InventoryOptionalField' "ObjectLockMode"
 
-pattern InventoryOptionalFieldFieldObjectLockRetainUntilDate :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldObjectLockRetainUntilDate = InventoryOptionalField' "ObjectLockRetainUntilDate"
+pattern InventoryOptionalFieldObjectLockRetainUntilDate :: InventoryOptionalField
+pattern InventoryOptionalFieldObjectLockRetainUntilDate = InventoryOptionalField' "ObjectLockRetainUntilDate"
 
-pattern InventoryOptionalFieldFieldReplicationStatus :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldReplicationStatus = InventoryOptionalField' "ReplicationStatus"
+pattern InventoryOptionalFieldReplicationStatus :: InventoryOptionalField
+pattern InventoryOptionalFieldReplicationStatus = InventoryOptionalField' "ReplicationStatus"
 
-pattern InventoryOptionalFieldFieldSize :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldSize = InventoryOptionalField' "Size"
+pattern InventoryOptionalFieldSize :: InventoryOptionalField
+pattern InventoryOptionalFieldSize = InventoryOptionalField' "Size"
 
-pattern InventoryOptionalFieldFieldStorageClass :: InventoryOptionalField
-pattern InventoryOptionalFieldFieldStorageClass = InventoryOptionalField' "StorageClass"
+pattern InventoryOptionalFieldStorageClass :: InventoryOptionalField
+pattern InventoryOptionalFieldStorageClass = InventoryOptionalField' "StorageClass"
 
 {-# COMPLETE
-  InventoryOptionalFieldFieldETag,
-  InventoryOptionalFieldFieldEncryptionStatus,
-  InventoryOptionalFieldFieldIntelligentTieringAccessTier,
-  InventoryOptionalFieldFieldIsMultipartUploaded,
-  InventoryOptionalFieldFieldLastModifiedDate,
-  InventoryOptionalFieldFieldObjectLockLegalHoldStatus,
-  InventoryOptionalFieldFieldObjectLockMode,
-  InventoryOptionalFieldFieldObjectLockRetainUntilDate,
-  InventoryOptionalFieldFieldReplicationStatus,
-  InventoryOptionalFieldFieldSize,
-  InventoryOptionalFieldFieldStorageClass,
+  InventoryOptionalFieldETag,
+  InventoryOptionalFieldEncryptionStatus,
+  InventoryOptionalFieldIntelligentTieringAccessTier,
+  InventoryOptionalFieldIsMultipartUploaded,
+  InventoryOptionalFieldLastModifiedDate,
+  InventoryOptionalFieldObjectLockLegalHoldStatus,
+  InventoryOptionalFieldObjectLockMode,
+  InventoryOptionalFieldObjectLockRetainUntilDate,
+  InventoryOptionalFieldReplicationStatus,
+  InventoryOptionalFieldSize,
+  InventoryOptionalFieldStorageClass,
   InventoryOptionalField'
   #-}
 

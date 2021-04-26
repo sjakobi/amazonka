@@ -19,12 +19,12 @@
 module Network.AWS.ElasticBeanstalk.Types.EventSeverity
   ( EventSeverity
       ( ..,
-        EventSeverityLevelDEBUG,
-        EventSeverityLevelERROR,
-        EventSeverityLevelFATAL,
-        EventSeverityLevelINFO,
-        EventSeverityLevelTRACE,
-        EventSeverityLevelWARN
+        EventSeverityDEBUG,
+        EventSeverityERROR,
+        EventSeverityFATAL,
+        EventSeverityINFO,
+        EventSeverityTRACE,
+        EventSeverityWARN
       ),
   )
 where
@@ -45,31 +45,31 @@ newtype EventSeverity = EventSeverity'
       Prelude.Generic
     )
 
-pattern EventSeverityLevelDEBUG :: EventSeverity
-pattern EventSeverityLevelDEBUG = EventSeverity' "DEBUG"
+pattern EventSeverityDEBUG :: EventSeverity
+pattern EventSeverityDEBUG = EventSeverity' "DEBUG"
 
-pattern EventSeverityLevelERROR :: EventSeverity
-pattern EventSeverityLevelERROR = EventSeverity' "ERROR"
+pattern EventSeverityERROR :: EventSeverity
+pattern EventSeverityERROR = EventSeverity' "ERROR"
 
-pattern EventSeverityLevelFATAL :: EventSeverity
-pattern EventSeverityLevelFATAL = EventSeverity' "FATAL"
+pattern EventSeverityFATAL :: EventSeverity
+pattern EventSeverityFATAL = EventSeverity' "FATAL"
 
-pattern EventSeverityLevelINFO :: EventSeverity
-pattern EventSeverityLevelINFO = EventSeverity' "INFO"
+pattern EventSeverityINFO :: EventSeverity
+pattern EventSeverityINFO = EventSeverity' "INFO"
 
-pattern EventSeverityLevelTRACE :: EventSeverity
-pattern EventSeverityLevelTRACE = EventSeverity' "TRACE"
+pattern EventSeverityTRACE :: EventSeverity
+pattern EventSeverityTRACE = EventSeverity' "TRACE"
 
-pattern EventSeverityLevelWARN :: EventSeverity
-pattern EventSeverityLevelWARN = EventSeverity' "WARN"
+pattern EventSeverityWARN :: EventSeverity
+pattern EventSeverityWARN = EventSeverity' "WARN"
 
 {-# COMPLETE
-  EventSeverityLevelDEBUG,
-  EventSeverityLevelERROR,
-  EventSeverityLevelFATAL,
-  EventSeverityLevelINFO,
-  EventSeverityLevelTRACE,
-  EventSeverityLevelWARN,
+  EventSeverityDEBUG,
+  EventSeverityERROR,
+  EventSeverityFATAL,
+  EventSeverityINFO,
+  EventSeverityTRACE,
+  EventSeverityWARN,
   EventSeverity'
   #-}
 

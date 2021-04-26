@@ -19,11 +19,11 @@
 module Network.AWS.DataPipeline.Types.OperatorType
   ( OperatorType
       ( ..,
-        OperatorTypeOperatorBETWEEN,
-        OperatorTypeOperatorEQ,
-        OperatorTypeOperatorGE,
-        OperatorTypeOperatorLE,
-        OperatorTypeOperatorREFEQ
+        OperatorTypeBETWEEN,
+        OperatorTypeEQ,
+        OperatorTypeGE,
+        OperatorTypeLE,
+        OperatorTypeREFEQ
       ),
   )
 where
@@ -44,27 +44,27 @@ newtype OperatorType = OperatorType'
       Prelude.Generic
     )
 
-pattern OperatorTypeOperatorBETWEEN :: OperatorType
-pattern OperatorTypeOperatorBETWEEN = OperatorType' "BETWEEN"
+pattern OperatorTypeBETWEEN :: OperatorType
+pattern OperatorTypeBETWEEN = OperatorType' "BETWEEN"
 
-pattern OperatorTypeOperatorEQ :: OperatorType
-pattern OperatorTypeOperatorEQ = OperatorType' "EQ"
+pattern OperatorTypeEQ :: OperatorType
+pattern OperatorTypeEQ = OperatorType' "EQ"
 
-pattern OperatorTypeOperatorGE :: OperatorType
-pattern OperatorTypeOperatorGE = OperatorType' "GE"
+pattern OperatorTypeGE :: OperatorType
+pattern OperatorTypeGE = OperatorType' "GE"
 
-pattern OperatorTypeOperatorLE :: OperatorType
-pattern OperatorTypeOperatorLE = OperatorType' "LE"
+pattern OperatorTypeLE :: OperatorType
+pattern OperatorTypeLE = OperatorType' "LE"
 
-pattern OperatorTypeOperatorREFEQ :: OperatorType
-pattern OperatorTypeOperatorREFEQ = OperatorType' "REF_EQ"
+pattern OperatorTypeREFEQ :: OperatorType
+pattern OperatorTypeREFEQ = OperatorType' "REF_EQ"
 
 {-# COMPLETE
-  OperatorTypeOperatorBETWEEN,
-  OperatorTypeOperatorEQ,
-  OperatorTypeOperatorGE,
-  OperatorTypeOperatorLE,
-  OperatorTypeOperatorREFEQ,
+  OperatorTypeBETWEEN,
+  OperatorTypeEQ,
+  OperatorTypeGE,
+  OperatorTypeLE,
+  OperatorTypeREFEQ,
   OperatorType'
   #-}
 

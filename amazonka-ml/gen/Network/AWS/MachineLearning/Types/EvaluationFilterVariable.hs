@@ -19,14 +19,14 @@
 module Network.AWS.MachineLearning.Types.EvaluationFilterVariable
   ( EvaluationFilterVariable
       ( ..,
-        EvaluationFilterVariableEvalCreatedAt,
-        EvaluationFilterVariableEvalDataSourceId,
-        EvaluationFilterVariableEvalDataURI,
-        EvaluationFilterVariableEvalIAMUser,
-        EvaluationFilterVariableEvalLastUpdatedAt,
-        EvaluationFilterVariableEvalMLModelId,
-        EvaluationFilterVariableEvalName,
-        EvaluationFilterVariableEvalStatus'
+        EvaluationFilterVariableCreatedAt,
+        EvaluationFilterVariableDataSourceId,
+        EvaluationFilterVariableDataURI,
+        EvaluationFilterVariableIAMUser,
+        EvaluationFilterVariableLastUpdatedAt,
+        EvaluationFilterVariableMLModelId,
+        EvaluationFilterVariableName,
+        EvaluationFilterVariableStatus'
       ),
   )
 where
@@ -63,39 +63,39 @@ newtype EvaluationFilterVariable = EvaluationFilterVariable'
       Prelude.Generic
     )
 
-pattern EvaluationFilterVariableEvalCreatedAt :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalCreatedAt = EvaluationFilterVariable' "CreatedAt"
+pattern EvaluationFilterVariableCreatedAt :: EvaluationFilterVariable
+pattern EvaluationFilterVariableCreatedAt = EvaluationFilterVariable' "CreatedAt"
 
-pattern EvaluationFilterVariableEvalDataSourceId :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalDataSourceId = EvaluationFilterVariable' "DataSourceId"
+pattern EvaluationFilterVariableDataSourceId :: EvaluationFilterVariable
+pattern EvaluationFilterVariableDataSourceId = EvaluationFilterVariable' "DataSourceId"
 
-pattern EvaluationFilterVariableEvalDataURI :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalDataURI = EvaluationFilterVariable' "DataURI"
+pattern EvaluationFilterVariableDataURI :: EvaluationFilterVariable
+pattern EvaluationFilterVariableDataURI = EvaluationFilterVariable' "DataURI"
 
-pattern EvaluationFilterVariableEvalIAMUser :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalIAMUser = EvaluationFilterVariable' "IAMUser"
+pattern EvaluationFilterVariableIAMUser :: EvaluationFilterVariable
+pattern EvaluationFilterVariableIAMUser = EvaluationFilterVariable' "IAMUser"
 
-pattern EvaluationFilterVariableEvalLastUpdatedAt :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalLastUpdatedAt = EvaluationFilterVariable' "LastUpdatedAt"
+pattern EvaluationFilterVariableLastUpdatedAt :: EvaluationFilterVariable
+pattern EvaluationFilterVariableLastUpdatedAt = EvaluationFilterVariable' "LastUpdatedAt"
 
-pattern EvaluationFilterVariableEvalMLModelId :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalMLModelId = EvaluationFilterVariable' "MLModelId"
+pattern EvaluationFilterVariableMLModelId :: EvaluationFilterVariable
+pattern EvaluationFilterVariableMLModelId = EvaluationFilterVariable' "MLModelId"
 
-pattern EvaluationFilterVariableEvalName :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalName = EvaluationFilterVariable' "Name"
+pattern EvaluationFilterVariableName :: EvaluationFilterVariable
+pattern EvaluationFilterVariableName = EvaluationFilterVariable' "Name"
 
-pattern EvaluationFilterVariableEvalStatus' :: EvaluationFilterVariable
-pattern EvaluationFilterVariableEvalStatus' = EvaluationFilterVariable' "Status"
+pattern EvaluationFilterVariableStatus' :: EvaluationFilterVariable
+pattern EvaluationFilterVariableStatus' = EvaluationFilterVariable' "Status"
 
 {-# COMPLETE
-  EvaluationFilterVariableEvalCreatedAt,
-  EvaluationFilterVariableEvalDataSourceId,
-  EvaluationFilterVariableEvalDataURI,
-  EvaluationFilterVariableEvalIAMUser,
-  EvaluationFilterVariableEvalLastUpdatedAt,
-  EvaluationFilterVariableEvalMLModelId,
-  EvaluationFilterVariableEvalName,
-  EvaluationFilterVariableEvalStatus',
+  EvaluationFilterVariableCreatedAt,
+  EvaluationFilterVariableDataSourceId,
+  EvaluationFilterVariableDataURI,
+  EvaluationFilterVariableIAMUser,
+  EvaluationFilterVariableLastUpdatedAt,
+  EvaluationFilterVariableMLModelId,
+  EvaluationFilterVariableName,
+  EvaluationFilterVariableStatus',
   EvaluationFilterVariable'
   #-}
 

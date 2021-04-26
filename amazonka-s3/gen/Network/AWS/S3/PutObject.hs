@@ -799,7 +799,7 @@ putObject_body = Lens.lens (\PutObject' {body} -> body) (\s@PutObject' {} a -> s
 instance Prelude.AWSRequest PutObject where
   type Rs PutObject = PutObjectResponse
   request =
-    expectHeader
+    Request.expectHeader
       Prelude.. Request.putBody defaultService
   response =
     Response.receiveEmpty

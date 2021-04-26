@@ -19,9 +19,9 @@
 module Network.AWS.EC2.Types.FleetEventType
   ( FleetEventType
       ( ..,
-        FleetEventTypeFETFleetChange,
-        FleetEventTypeFETInstanceChange,
-        FleetEventTypeFETServiceError
+        FleetEventTypeFleetChange,
+        FleetEventTypeInstanceChange,
+        FleetEventTypeServiceError
       ),
   )
 where
@@ -43,19 +43,19 @@ newtype FleetEventType = FleetEventType'
       Prelude.Generic
     )
 
-pattern FleetEventTypeFETFleetChange :: FleetEventType
-pattern FleetEventTypeFETFleetChange = FleetEventType' "fleet-change"
+pattern FleetEventTypeFleetChange :: FleetEventType
+pattern FleetEventTypeFleetChange = FleetEventType' "fleet-change"
 
-pattern FleetEventTypeFETInstanceChange :: FleetEventType
-pattern FleetEventTypeFETInstanceChange = FleetEventType' "instance-change"
+pattern FleetEventTypeInstanceChange :: FleetEventType
+pattern FleetEventTypeInstanceChange = FleetEventType' "instance-change"
 
-pattern FleetEventTypeFETServiceError :: FleetEventType
-pattern FleetEventTypeFETServiceError = FleetEventType' "service-error"
+pattern FleetEventTypeServiceError :: FleetEventType
+pattern FleetEventTypeServiceError = FleetEventType' "service-error"
 
 {-# COMPLETE
-  FleetEventTypeFETFleetChange,
-  FleetEventTypeFETInstanceChange,
-  FleetEventTypeFETServiceError,
+  FleetEventTypeFleetChange,
+  FleetEventTypeInstanceChange,
+  FleetEventTypeServiceError,
   FleetEventType'
   #-}
 

@@ -63,8 +63,6 @@ data Override = Override
     _renamedTo :: Maybe Id,
     -- | Existing type that supplants this type
     _replacedBy :: Maybe Replace,
-    -- | Enum constructor prefix
-    _enumPrefix :: Maybe Text,
     -- | Required fields
     _requiredFields :: [Id],
     -- | Optional fields
@@ -81,7 +79,6 @@ instance FromJSON Override where
     Override
       <$> (o .:? "renamedTo" <&> fmap (\unsafe -> Id unsafe unsafe))
       <*> o .:? "replacedBy"
-      <*> o .:? "enumPrefix"
       <*> o .:? "requiredFields" .!= mempty
       <*> o .:? "optionalFields" .!= mempty
       <*> o .:? "renamedFields" .!= mempty
@@ -91,7 +88,6 @@ defaultOverride =
   Override
     { _renamedTo = Nothing,
       _replacedBy = Nothing,
-      _enumPrefix = Nothing,
       _requiredFields = mempty,
       _optionalFields = mempty,
       _renamedFields = mempty

@@ -19,8 +19,8 @@
 module Network.AWS.CloudHSM.Types.ClientVersion
   ( ClientVersion
       ( ..,
-        ClientVersionVD5_1,
-        ClientVersionVD5_3
+        ClientVersionD5_1,
+        ClientVersionD5_3
       ),
   )
 where
@@ -41,15 +41,15 @@ newtype ClientVersion = ClientVersion'
       Prelude.Generic
     )
 
-pattern ClientVersionVD5_1 :: ClientVersion
-pattern ClientVersionVD5_1 = ClientVersion' "5.1"
+pattern ClientVersionD5_1 :: ClientVersion
+pattern ClientVersionD5_1 = ClientVersion' "5.1"
 
-pattern ClientVersionVD5_3 :: ClientVersion
-pattern ClientVersionVD5_3 = ClientVersion' "5.3"
+pattern ClientVersionD5_3 :: ClientVersion
+pattern ClientVersionD5_3 = ClientVersion' "5.3"
 
 {-# COMPLETE
-  ClientVersionVD5_1,
-  ClientVersionVD5_3,
+  ClientVersionD5_1,
+  ClientVersionD5_3,
   ClientVersion'
   #-}
 

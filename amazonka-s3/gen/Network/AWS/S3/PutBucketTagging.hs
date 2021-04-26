@@ -183,7 +183,7 @@ putBucketTagging_tagging = Lens.lens (\PutBucketTagging' {tagging} -> tagging) (
 instance Prelude.AWSRequest PutBucketTagging where
   type Rs PutBucketTagging = PutBucketTaggingResponse
   request =
-    contentMD5Header
+    Request.contentMD5Header
       Prelude.. Request.putXML defaultService
   response =
     Response.receiveNull PutBucketTaggingResponse'

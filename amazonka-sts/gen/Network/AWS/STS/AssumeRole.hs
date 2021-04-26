@@ -853,7 +853,7 @@ data AssumeRoleResponse = AssumeRoleResponse'
     -- The size of the security token that STS API operations return is not
     -- fixed. We strongly recommend that you make no assumptions about the
     -- maximum size.
-    credentials :: Prelude.Maybe AuthEnv,
+    credentials :: Prelude.Maybe Prelude.AuthEnv,
     -- | The Amazon Resource Name (ARN) and the assumed role ID, which are
     -- identifiers that you can use to refer to the resulting temporary
     -- security credentials. For example, you can reference these credentials
@@ -917,7 +917,7 @@ newAssumeRoleResponse pHttpStatus_ =
 -- The size of the security token that STS API operations return is not
 -- fixed. We strongly recommend that you make no assumptions about the
 -- maximum size.
-assumeRoleResponse_credentials :: Lens.Lens' AssumeRoleResponse (Prelude.Maybe AuthEnv)
+assumeRoleResponse_credentials :: Lens.Lens' AssumeRoleResponse (Prelude.Maybe Prelude.AuthEnv)
 assumeRoleResponse_credentials = Lens.lens (\AssumeRoleResponse' {credentials} -> credentials) (\s@AssumeRoleResponse' {} a -> s {credentials = a} :: AssumeRoleResponse)
 
 -- | The Amazon Resource Name (ARN) and the assumed role ID, which are

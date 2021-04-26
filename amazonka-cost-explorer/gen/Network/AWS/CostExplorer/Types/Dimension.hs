@@ -19,37 +19,37 @@
 module Network.AWS.CostExplorer.Types.Dimension
   ( Dimension
       ( ..,
-        DimensionDimensionAGREEMENTENDDATETIMEAFTER,
-        DimensionDimensionAGREEMENTENDDATETIMEBEFORE,
-        DimensionDimensionAZ,
-        DimensionDimensionBILLINGENTITY,
-        DimensionDimensionCACHEENGINE,
-        DimensionDimensionDATABASEENGINE,
-        DimensionDimensionDEPLOYMENTOPTION,
-        DimensionDimensionINSTANCETYPE,
-        DimensionDimensionINSTANCETYPEFAMILY,
-        DimensionDimensionLEGALENTITYNAME,
-        DimensionDimensionLINKEDACCOUNT,
-        DimensionDimensionLINKEDACCOUNTNAME,
-        DimensionDimensionOPERATINGSYSTEM,
-        DimensionDimensionOPERATION,
-        DimensionDimensionPAYMENTOPTION,
-        DimensionDimensionPLATFORM,
-        DimensionDimensionPURCHASETYPE,
-        DimensionDimensionRECORDTYPE,
-        DimensionDimensionREGION,
-        DimensionDimensionRESERVATIONID,
-        DimensionDimensionRESOURCEID,
-        DimensionDimensionRIGHTSIZINGTYPE,
-        DimensionDimensionSAVINGSPLANARN,
-        DimensionDimensionSAVINGSPLANSTYPE,
-        DimensionDimensionSCOPE,
-        DimensionDimensionSERVICE,
-        DimensionDimensionSERVICECODE,
-        DimensionDimensionSUBSCRIPTIONID,
-        DimensionDimensionTENANCY,
-        DimensionDimensionUSAGETYPE,
-        DimensionDimensionUSAGETYPEGROUP
+        DimensionAGREEMENTENDDATETIMEAFTER,
+        DimensionAGREEMENTENDDATETIMEBEFORE,
+        DimensionAZ,
+        DimensionBILLINGENTITY,
+        DimensionCACHEENGINE,
+        DimensionDATABASEENGINE,
+        DimensionDEPLOYMENTOPTION,
+        DimensionINSTANCETYPE,
+        DimensionINSTANCETYPEFAMILY,
+        DimensionLEGALENTITYNAME,
+        DimensionLINKEDACCOUNT,
+        DimensionLINKEDACCOUNTNAME,
+        DimensionOPERATINGSYSTEM,
+        DimensionOPERATION,
+        DimensionPAYMENTOPTION,
+        DimensionPLATFORM,
+        DimensionPURCHASETYPE,
+        DimensionRECORDTYPE,
+        DimensionREGION,
+        DimensionRESERVATIONID,
+        DimensionRESOURCEID,
+        DimensionRIGHTSIZINGTYPE,
+        DimensionSAVINGSPLANARN,
+        DimensionSAVINGSPLANSTYPE,
+        DimensionSCOPE,
+        DimensionSERVICE,
+        DimensionSERVICECODE,
+        DimensionSUBSCRIPTIONID,
+        DimensionTENANCY,
+        DimensionUSAGETYPE,
+        DimensionUSAGETYPEGROUP
       ),
   )
 where
@@ -70,131 +70,131 @@ newtype Dimension = Dimension'
       Prelude.Generic
     )
 
-pattern DimensionDimensionAGREEMENTENDDATETIMEAFTER :: Dimension
-pattern DimensionDimensionAGREEMENTENDDATETIMEAFTER = Dimension' "AGREEMENT_END_DATE_TIME_AFTER"
+pattern DimensionAGREEMENTENDDATETIMEAFTER :: Dimension
+pattern DimensionAGREEMENTENDDATETIMEAFTER = Dimension' "AGREEMENT_END_DATE_TIME_AFTER"
 
-pattern DimensionDimensionAGREEMENTENDDATETIMEBEFORE :: Dimension
-pattern DimensionDimensionAGREEMENTENDDATETIMEBEFORE = Dimension' "AGREEMENT_END_DATE_TIME_BEFORE"
+pattern DimensionAGREEMENTENDDATETIMEBEFORE :: Dimension
+pattern DimensionAGREEMENTENDDATETIMEBEFORE = Dimension' "AGREEMENT_END_DATE_TIME_BEFORE"
 
-pattern DimensionDimensionAZ :: Dimension
-pattern DimensionDimensionAZ = Dimension' "AZ"
+pattern DimensionAZ :: Dimension
+pattern DimensionAZ = Dimension' "AZ"
 
-pattern DimensionDimensionBILLINGENTITY :: Dimension
-pattern DimensionDimensionBILLINGENTITY = Dimension' "BILLING_ENTITY"
+pattern DimensionBILLINGENTITY :: Dimension
+pattern DimensionBILLINGENTITY = Dimension' "BILLING_ENTITY"
 
-pattern DimensionDimensionCACHEENGINE :: Dimension
-pattern DimensionDimensionCACHEENGINE = Dimension' "CACHE_ENGINE"
+pattern DimensionCACHEENGINE :: Dimension
+pattern DimensionCACHEENGINE = Dimension' "CACHE_ENGINE"
 
-pattern DimensionDimensionDATABASEENGINE :: Dimension
-pattern DimensionDimensionDATABASEENGINE = Dimension' "DATABASE_ENGINE"
+pattern DimensionDATABASEENGINE :: Dimension
+pattern DimensionDATABASEENGINE = Dimension' "DATABASE_ENGINE"
 
-pattern DimensionDimensionDEPLOYMENTOPTION :: Dimension
-pattern DimensionDimensionDEPLOYMENTOPTION = Dimension' "DEPLOYMENT_OPTION"
+pattern DimensionDEPLOYMENTOPTION :: Dimension
+pattern DimensionDEPLOYMENTOPTION = Dimension' "DEPLOYMENT_OPTION"
 
-pattern DimensionDimensionINSTANCETYPE :: Dimension
-pattern DimensionDimensionINSTANCETYPE = Dimension' "INSTANCE_TYPE"
+pattern DimensionINSTANCETYPE :: Dimension
+pattern DimensionINSTANCETYPE = Dimension' "INSTANCE_TYPE"
 
-pattern DimensionDimensionINSTANCETYPEFAMILY :: Dimension
-pattern DimensionDimensionINSTANCETYPEFAMILY = Dimension' "INSTANCE_TYPE_FAMILY"
+pattern DimensionINSTANCETYPEFAMILY :: Dimension
+pattern DimensionINSTANCETYPEFAMILY = Dimension' "INSTANCE_TYPE_FAMILY"
 
-pattern DimensionDimensionLEGALENTITYNAME :: Dimension
-pattern DimensionDimensionLEGALENTITYNAME = Dimension' "LEGAL_ENTITY_NAME"
+pattern DimensionLEGALENTITYNAME :: Dimension
+pattern DimensionLEGALENTITYNAME = Dimension' "LEGAL_ENTITY_NAME"
 
-pattern DimensionDimensionLINKEDACCOUNT :: Dimension
-pattern DimensionDimensionLINKEDACCOUNT = Dimension' "LINKED_ACCOUNT"
+pattern DimensionLINKEDACCOUNT :: Dimension
+pattern DimensionLINKEDACCOUNT = Dimension' "LINKED_ACCOUNT"
 
-pattern DimensionDimensionLINKEDACCOUNTNAME :: Dimension
-pattern DimensionDimensionLINKEDACCOUNTNAME = Dimension' "LINKED_ACCOUNT_NAME"
+pattern DimensionLINKEDACCOUNTNAME :: Dimension
+pattern DimensionLINKEDACCOUNTNAME = Dimension' "LINKED_ACCOUNT_NAME"
 
-pattern DimensionDimensionOPERATINGSYSTEM :: Dimension
-pattern DimensionDimensionOPERATINGSYSTEM = Dimension' "OPERATING_SYSTEM"
+pattern DimensionOPERATINGSYSTEM :: Dimension
+pattern DimensionOPERATINGSYSTEM = Dimension' "OPERATING_SYSTEM"
 
-pattern DimensionDimensionOPERATION :: Dimension
-pattern DimensionDimensionOPERATION = Dimension' "OPERATION"
+pattern DimensionOPERATION :: Dimension
+pattern DimensionOPERATION = Dimension' "OPERATION"
 
-pattern DimensionDimensionPAYMENTOPTION :: Dimension
-pattern DimensionDimensionPAYMENTOPTION = Dimension' "PAYMENT_OPTION"
+pattern DimensionPAYMENTOPTION :: Dimension
+pattern DimensionPAYMENTOPTION = Dimension' "PAYMENT_OPTION"
 
-pattern DimensionDimensionPLATFORM :: Dimension
-pattern DimensionDimensionPLATFORM = Dimension' "PLATFORM"
+pattern DimensionPLATFORM :: Dimension
+pattern DimensionPLATFORM = Dimension' "PLATFORM"
 
-pattern DimensionDimensionPURCHASETYPE :: Dimension
-pattern DimensionDimensionPURCHASETYPE = Dimension' "PURCHASE_TYPE"
+pattern DimensionPURCHASETYPE :: Dimension
+pattern DimensionPURCHASETYPE = Dimension' "PURCHASE_TYPE"
 
-pattern DimensionDimensionRECORDTYPE :: Dimension
-pattern DimensionDimensionRECORDTYPE = Dimension' "RECORD_TYPE"
+pattern DimensionRECORDTYPE :: Dimension
+pattern DimensionRECORDTYPE = Dimension' "RECORD_TYPE"
 
-pattern DimensionDimensionREGION :: Dimension
-pattern DimensionDimensionREGION = Dimension' "REGION"
+pattern DimensionREGION :: Dimension
+pattern DimensionREGION = Dimension' "REGION"
 
-pattern DimensionDimensionRESERVATIONID :: Dimension
-pattern DimensionDimensionRESERVATIONID = Dimension' "RESERVATION_ID"
+pattern DimensionRESERVATIONID :: Dimension
+pattern DimensionRESERVATIONID = Dimension' "RESERVATION_ID"
 
-pattern DimensionDimensionRESOURCEID :: Dimension
-pattern DimensionDimensionRESOURCEID = Dimension' "RESOURCE_ID"
+pattern DimensionRESOURCEID :: Dimension
+pattern DimensionRESOURCEID = Dimension' "RESOURCE_ID"
 
-pattern DimensionDimensionRIGHTSIZINGTYPE :: Dimension
-pattern DimensionDimensionRIGHTSIZINGTYPE = Dimension' "RIGHTSIZING_TYPE"
+pattern DimensionRIGHTSIZINGTYPE :: Dimension
+pattern DimensionRIGHTSIZINGTYPE = Dimension' "RIGHTSIZING_TYPE"
 
-pattern DimensionDimensionSAVINGSPLANARN :: Dimension
-pattern DimensionDimensionSAVINGSPLANARN = Dimension' "SAVINGS_PLAN_ARN"
+pattern DimensionSAVINGSPLANARN :: Dimension
+pattern DimensionSAVINGSPLANARN = Dimension' "SAVINGS_PLAN_ARN"
 
-pattern DimensionDimensionSAVINGSPLANSTYPE :: Dimension
-pattern DimensionDimensionSAVINGSPLANSTYPE = Dimension' "SAVINGS_PLANS_TYPE"
+pattern DimensionSAVINGSPLANSTYPE :: Dimension
+pattern DimensionSAVINGSPLANSTYPE = Dimension' "SAVINGS_PLANS_TYPE"
 
-pattern DimensionDimensionSCOPE :: Dimension
-pattern DimensionDimensionSCOPE = Dimension' "SCOPE"
+pattern DimensionSCOPE :: Dimension
+pattern DimensionSCOPE = Dimension' "SCOPE"
 
-pattern DimensionDimensionSERVICE :: Dimension
-pattern DimensionDimensionSERVICE = Dimension' "SERVICE"
+pattern DimensionSERVICE :: Dimension
+pattern DimensionSERVICE = Dimension' "SERVICE"
 
-pattern DimensionDimensionSERVICECODE :: Dimension
-pattern DimensionDimensionSERVICECODE = Dimension' "SERVICE_CODE"
+pattern DimensionSERVICECODE :: Dimension
+pattern DimensionSERVICECODE = Dimension' "SERVICE_CODE"
 
-pattern DimensionDimensionSUBSCRIPTIONID :: Dimension
-pattern DimensionDimensionSUBSCRIPTIONID = Dimension' "SUBSCRIPTION_ID"
+pattern DimensionSUBSCRIPTIONID :: Dimension
+pattern DimensionSUBSCRIPTIONID = Dimension' "SUBSCRIPTION_ID"
 
-pattern DimensionDimensionTENANCY :: Dimension
-pattern DimensionDimensionTENANCY = Dimension' "TENANCY"
+pattern DimensionTENANCY :: Dimension
+pattern DimensionTENANCY = Dimension' "TENANCY"
 
-pattern DimensionDimensionUSAGETYPE :: Dimension
-pattern DimensionDimensionUSAGETYPE = Dimension' "USAGE_TYPE"
+pattern DimensionUSAGETYPE :: Dimension
+pattern DimensionUSAGETYPE = Dimension' "USAGE_TYPE"
 
-pattern DimensionDimensionUSAGETYPEGROUP :: Dimension
-pattern DimensionDimensionUSAGETYPEGROUP = Dimension' "USAGE_TYPE_GROUP"
+pattern DimensionUSAGETYPEGROUP :: Dimension
+pattern DimensionUSAGETYPEGROUP = Dimension' "USAGE_TYPE_GROUP"
 
 {-# COMPLETE
-  DimensionDimensionAGREEMENTENDDATETIMEAFTER,
-  DimensionDimensionAGREEMENTENDDATETIMEBEFORE,
-  DimensionDimensionAZ,
-  DimensionDimensionBILLINGENTITY,
-  DimensionDimensionCACHEENGINE,
-  DimensionDimensionDATABASEENGINE,
-  DimensionDimensionDEPLOYMENTOPTION,
-  DimensionDimensionINSTANCETYPE,
-  DimensionDimensionINSTANCETYPEFAMILY,
-  DimensionDimensionLEGALENTITYNAME,
-  DimensionDimensionLINKEDACCOUNT,
-  DimensionDimensionLINKEDACCOUNTNAME,
-  DimensionDimensionOPERATINGSYSTEM,
-  DimensionDimensionOPERATION,
-  DimensionDimensionPAYMENTOPTION,
-  DimensionDimensionPLATFORM,
-  DimensionDimensionPURCHASETYPE,
-  DimensionDimensionRECORDTYPE,
-  DimensionDimensionREGION,
-  DimensionDimensionRESERVATIONID,
-  DimensionDimensionRESOURCEID,
-  DimensionDimensionRIGHTSIZINGTYPE,
-  DimensionDimensionSAVINGSPLANARN,
-  DimensionDimensionSAVINGSPLANSTYPE,
-  DimensionDimensionSCOPE,
-  DimensionDimensionSERVICE,
-  DimensionDimensionSERVICECODE,
-  DimensionDimensionSUBSCRIPTIONID,
-  DimensionDimensionTENANCY,
-  DimensionDimensionUSAGETYPE,
-  DimensionDimensionUSAGETYPEGROUP,
+  DimensionAGREEMENTENDDATETIMEAFTER,
+  DimensionAGREEMENTENDDATETIMEBEFORE,
+  DimensionAZ,
+  DimensionBILLINGENTITY,
+  DimensionCACHEENGINE,
+  DimensionDATABASEENGINE,
+  DimensionDEPLOYMENTOPTION,
+  DimensionINSTANCETYPE,
+  DimensionINSTANCETYPEFAMILY,
+  DimensionLEGALENTITYNAME,
+  DimensionLINKEDACCOUNT,
+  DimensionLINKEDACCOUNTNAME,
+  DimensionOPERATINGSYSTEM,
+  DimensionOPERATION,
+  DimensionPAYMENTOPTION,
+  DimensionPLATFORM,
+  DimensionPURCHASETYPE,
+  DimensionRECORDTYPE,
+  DimensionREGION,
+  DimensionRESERVATIONID,
+  DimensionRESOURCEID,
+  DimensionRIGHTSIZINGTYPE,
+  DimensionSAVINGSPLANARN,
+  DimensionSAVINGSPLANSTYPE,
+  DimensionSCOPE,
+  DimensionSERVICE,
+  DimensionSERVICECODE,
+  DimensionSUBSCRIPTIONID,
+  DimensionTENANCY,
+  DimensionUSAGETYPE,
+  DimensionUSAGETYPEGROUP,
   Dimension'
   #-}
 

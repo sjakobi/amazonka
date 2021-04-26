@@ -19,8 +19,8 @@
 module Network.AWS.MediaLive.Types.HlsWebdavHttpTransferMode
   ( HlsWebdavHttpTransferMode
       ( ..,
-        HlsWebdavHttpTransferModeWebdavCHUNKED,
-        HlsWebdavHttpTransferModeWebdavNONCHUNKED
+        HlsWebdavHttpTransferModeCHUNKED,
+        HlsWebdavHttpTransferModeNONCHUNKED
       ),
   )
 where
@@ -42,15 +42,15 @@ newtype HlsWebdavHttpTransferMode = HlsWebdavHttpTransferMode'
       Prelude.Generic
     )
 
-pattern HlsWebdavHttpTransferModeWebdavCHUNKED :: HlsWebdavHttpTransferMode
-pattern HlsWebdavHttpTransferModeWebdavCHUNKED = HlsWebdavHttpTransferMode' "CHUNKED"
+pattern HlsWebdavHttpTransferModeCHUNKED :: HlsWebdavHttpTransferMode
+pattern HlsWebdavHttpTransferModeCHUNKED = HlsWebdavHttpTransferMode' "CHUNKED"
 
-pattern HlsWebdavHttpTransferModeWebdavNONCHUNKED :: HlsWebdavHttpTransferMode
-pattern HlsWebdavHttpTransferModeWebdavNONCHUNKED = HlsWebdavHttpTransferMode' "NON_CHUNKED"
+pattern HlsWebdavHttpTransferModeNONCHUNKED :: HlsWebdavHttpTransferMode
+pattern HlsWebdavHttpTransferModeNONCHUNKED = HlsWebdavHttpTransferMode' "NON_CHUNKED"
 
 {-# COMPLETE
-  HlsWebdavHttpTransferModeWebdavCHUNKED,
-  HlsWebdavHttpTransferModeWebdavNONCHUNKED,
+  HlsWebdavHttpTransferModeCHUNKED,
+  HlsWebdavHttpTransferModeNONCHUNKED,
   HlsWebdavHttpTransferMode'
   #-}
 

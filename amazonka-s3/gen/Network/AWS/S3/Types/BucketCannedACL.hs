@@ -19,10 +19,10 @@
 module Network.AWS.S3.Types.BucketCannedACL
   ( BucketCannedACL
       ( ..,
-        BucketCannedACLBAuthenticatedRead,
-        BucketCannedACLBPrivate,
-        BucketCannedACLBPublicRead,
-        BucketCannedACLBPublicReadWrite
+        BucketCannedACLAuthenticatedRead,
+        BucketCannedACLPrivate,
+        BucketCannedACLPublicRead,
+        BucketCannedACLPublicReadWrite
       ),
   )
 where
@@ -44,23 +44,23 @@ newtype BucketCannedACL = BucketCannedACL'
       Prelude.Generic
     )
 
-pattern BucketCannedACLBAuthenticatedRead :: BucketCannedACL
-pattern BucketCannedACLBAuthenticatedRead = BucketCannedACL' "authenticated-read"
+pattern BucketCannedACLAuthenticatedRead :: BucketCannedACL
+pattern BucketCannedACLAuthenticatedRead = BucketCannedACL' "authenticated-read"
 
-pattern BucketCannedACLBPrivate :: BucketCannedACL
-pattern BucketCannedACLBPrivate = BucketCannedACL' "private"
+pattern BucketCannedACLPrivate :: BucketCannedACL
+pattern BucketCannedACLPrivate = BucketCannedACL' "private"
 
-pattern BucketCannedACLBPublicRead :: BucketCannedACL
-pattern BucketCannedACLBPublicRead = BucketCannedACL' "public-read"
+pattern BucketCannedACLPublicRead :: BucketCannedACL
+pattern BucketCannedACLPublicRead = BucketCannedACL' "public-read"
 
-pattern BucketCannedACLBPublicReadWrite :: BucketCannedACL
-pattern BucketCannedACLBPublicReadWrite = BucketCannedACL' "public-read-write"
+pattern BucketCannedACLPublicReadWrite :: BucketCannedACL
+pattern BucketCannedACLPublicReadWrite = BucketCannedACL' "public-read-write"
 
 {-# COMPLETE
-  BucketCannedACLBAuthenticatedRead,
-  BucketCannedACLBPrivate,
-  BucketCannedACLBPublicRead,
-  BucketCannedACLBPublicReadWrite,
+  BucketCannedACLAuthenticatedRead,
+  BucketCannedACLPrivate,
+  BucketCannedACLPublicRead,
+  BucketCannedACLPublicReadWrite,
   BucketCannedACL'
   #-}
 

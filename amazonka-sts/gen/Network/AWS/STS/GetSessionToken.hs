@@ -269,7 +269,7 @@ data GetSessionTokenResponse = GetSessionTokenResponse'
     -- The size of the security token that STS API operations return is not
     -- fixed. We strongly recommend that you make no assumptions about the
     -- maximum size.
-    credentials :: Prelude.Maybe AuthEnv,
+    credentials :: Prelude.Maybe Prelude.AuthEnv,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -308,7 +308,7 @@ newGetSessionTokenResponse pHttpStatus_ =
 -- The size of the security token that STS API operations return is not
 -- fixed. We strongly recommend that you make no assumptions about the
 -- maximum size.
-getSessionTokenResponse_credentials :: Lens.Lens' GetSessionTokenResponse (Prelude.Maybe AuthEnv)
+getSessionTokenResponse_credentials :: Lens.Lens' GetSessionTokenResponse (Prelude.Maybe Prelude.AuthEnv)
 getSessionTokenResponse_credentials = Lens.lens (\GetSessionTokenResponse' {credentials} -> credentials) (\s@GetSessionTokenResponse' {} a -> s {credentials = a} :: GetSessionTokenResponse)
 
 -- | The response's http status code.

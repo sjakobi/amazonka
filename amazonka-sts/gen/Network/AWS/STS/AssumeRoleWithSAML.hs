@@ -591,7 +591,7 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
     -- The size of the security token that STS API operations return is not
     -- fixed. We strongly recommend that you make no assumptions about the
     -- maximum size.
-    credentials :: Prelude.Maybe AuthEnv,
+    credentials :: Prelude.Maybe Prelude.AuthEnv,
     -- | The identifiers for the temporary security credentials that the
     -- operation returns.
     assumedRoleUser :: Prelude.Maybe AssumedRoleUser,
@@ -717,7 +717,7 @@ assumeRoleWithSAMLResponse_issuer = Lens.lens (\AssumeRoleWithSAMLResponse' {iss
 -- The size of the security token that STS API operations return is not
 -- fixed. We strongly recommend that you make no assumptions about the
 -- maximum size.
-assumeRoleWithSAMLResponse_credentials :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe AuthEnv)
+assumeRoleWithSAMLResponse_credentials :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.AuthEnv)
 assumeRoleWithSAMLResponse_credentials = Lens.lens (\AssumeRoleWithSAMLResponse' {credentials} -> credentials) (\s@AssumeRoleWithSAMLResponse' {} a -> s {credentials = a} :: AssumeRoleWithSAMLResponse)
 
 -- | The identifiers for the temporary security credentials that the

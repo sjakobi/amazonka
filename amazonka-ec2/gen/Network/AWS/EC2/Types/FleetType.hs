@@ -19,9 +19,9 @@
 module Network.AWS.EC2.Types.FleetType
   ( FleetType
       ( ..,
-        FleetTypeFTInstant,
-        FleetTypeFTMaintain,
-        FleetTypeFTRequest
+        FleetTypeInstant,
+        FleetTypeMaintain,
+        FleetTypeRequest
       ),
   )
 where
@@ -43,19 +43,19 @@ newtype FleetType = FleetType'
       Prelude.Generic
     )
 
-pattern FleetTypeFTInstant :: FleetType
-pattern FleetTypeFTInstant = FleetType' "instant"
+pattern FleetTypeInstant :: FleetType
+pattern FleetTypeInstant = FleetType' "instant"
 
-pattern FleetTypeFTMaintain :: FleetType
-pattern FleetTypeFTMaintain = FleetType' "maintain"
+pattern FleetTypeMaintain :: FleetType
+pattern FleetTypeMaintain = FleetType' "maintain"
 
-pattern FleetTypeFTRequest :: FleetType
-pattern FleetTypeFTRequest = FleetType' "request"
+pattern FleetTypeRequest :: FleetType
+pattern FleetTypeRequest = FleetType' "request"
 
 {-# COMPLETE
-  FleetTypeFTInstant,
-  FleetTypeFTMaintain,
-  FleetTypeFTRequest,
+  FleetTypeInstant,
+  FleetTypeMaintain,
+  FleetTypeRequest,
   FleetType'
   #-}
 

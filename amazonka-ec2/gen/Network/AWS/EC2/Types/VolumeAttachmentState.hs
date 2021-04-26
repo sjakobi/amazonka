@@ -19,11 +19,11 @@
 module Network.AWS.EC2.Types.VolumeAttachmentState
   ( VolumeAttachmentState
       ( ..,
-        VolumeAttachmentStateVAttached,
-        VolumeAttachmentStateVAttaching,
-        VolumeAttachmentStateVBusy,
-        VolumeAttachmentStateVDetached,
-        VolumeAttachmentStateVDetaching
+        VolumeAttachmentStateAttached,
+        VolumeAttachmentStateAttaching,
+        VolumeAttachmentStateBusy,
+        VolumeAttachmentStateDetached,
+        VolumeAttachmentStateDetaching
       ),
   )
 where
@@ -45,27 +45,27 @@ newtype VolumeAttachmentState = VolumeAttachmentState'
       Prelude.Generic
     )
 
-pattern VolumeAttachmentStateVAttached :: VolumeAttachmentState
-pattern VolumeAttachmentStateVAttached = VolumeAttachmentState' "attached"
+pattern VolumeAttachmentStateAttached :: VolumeAttachmentState
+pattern VolumeAttachmentStateAttached = VolumeAttachmentState' "attached"
 
-pattern VolumeAttachmentStateVAttaching :: VolumeAttachmentState
-pattern VolumeAttachmentStateVAttaching = VolumeAttachmentState' "attaching"
+pattern VolumeAttachmentStateAttaching :: VolumeAttachmentState
+pattern VolumeAttachmentStateAttaching = VolumeAttachmentState' "attaching"
 
-pattern VolumeAttachmentStateVBusy :: VolumeAttachmentState
-pattern VolumeAttachmentStateVBusy = VolumeAttachmentState' "busy"
+pattern VolumeAttachmentStateBusy :: VolumeAttachmentState
+pattern VolumeAttachmentStateBusy = VolumeAttachmentState' "busy"
 
-pattern VolumeAttachmentStateVDetached :: VolumeAttachmentState
-pattern VolumeAttachmentStateVDetached = VolumeAttachmentState' "detached"
+pattern VolumeAttachmentStateDetached :: VolumeAttachmentState
+pattern VolumeAttachmentStateDetached = VolumeAttachmentState' "detached"
 
-pattern VolumeAttachmentStateVDetaching :: VolumeAttachmentState
-pattern VolumeAttachmentStateVDetaching = VolumeAttachmentState' "detaching"
+pattern VolumeAttachmentStateDetaching :: VolumeAttachmentState
+pattern VolumeAttachmentStateDetaching = VolumeAttachmentState' "detaching"
 
 {-# COMPLETE
-  VolumeAttachmentStateVAttached,
-  VolumeAttachmentStateVAttaching,
-  VolumeAttachmentStateVBusy,
-  VolumeAttachmentStateVDetached,
-  VolumeAttachmentStateVDetaching,
+  VolumeAttachmentStateAttached,
+  VolumeAttachmentStateAttaching,
+  VolumeAttachmentStateBusy,
+  VolumeAttachmentStateDetached,
+  VolumeAttachmentStateDetaching,
   VolumeAttachmentState'
   #-}
 

@@ -19,9 +19,9 @@
 module Network.AWS.Route53AutoNaming.Types.OperationTargetType
   ( OperationTargetType
       ( ..,
-        OperationTargetTypeOTTINSTANCE,
-        OperationTargetTypeOTTNAMESPACE,
-        OperationTargetTypeOTTSERVICE
+        OperationTargetTypeINSTANCE,
+        OperationTargetTypeNAMESPACE,
+        OperationTargetTypeSERVICE
       ),
   )
 where
@@ -42,19 +42,19 @@ newtype OperationTargetType = OperationTargetType'
       Prelude.Generic
     )
 
-pattern OperationTargetTypeOTTINSTANCE :: OperationTargetType
-pattern OperationTargetTypeOTTINSTANCE = OperationTargetType' "INSTANCE"
+pattern OperationTargetTypeINSTANCE :: OperationTargetType
+pattern OperationTargetTypeINSTANCE = OperationTargetType' "INSTANCE"
 
-pattern OperationTargetTypeOTTNAMESPACE :: OperationTargetType
-pattern OperationTargetTypeOTTNAMESPACE = OperationTargetType' "NAMESPACE"
+pattern OperationTargetTypeNAMESPACE :: OperationTargetType
+pattern OperationTargetTypeNAMESPACE = OperationTargetType' "NAMESPACE"
 
-pattern OperationTargetTypeOTTSERVICE :: OperationTargetType
-pattern OperationTargetTypeOTTSERVICE = OperationTargetType' "SERVICE"
+pattern OperationTargetTypeSERVICE :: OperationTargetType
+pattern OperationTargetTypeSERVICE = OperationTargetType' "SERVICE"
 
 {-# COMPLETE
-  OperationTargetTypeOTTINSTANCE,
-  OperationTargetTypeOTTNAMESPACE,
-  OperationTargetTypeOTTSERVICE,
+  OperationTargetTypeINSTANCE,
+  OperationTargetTypeNAMESPACE,
+  OperationTargetTypeSERVICE,
   OperationTargetType'
   #-}
 

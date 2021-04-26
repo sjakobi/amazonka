@@ -19,12 +19,12 @@
 module Network.AWS.EC2.Types.AttachmentStatus
   ( AttachmentStatus
       ( ..,
-        AttachmentStatusAAttached,
-        AttachmentStatusAAttaching,
-        AttachmentStatusAAvailable,
-        AttachmentStatusABusy,
-        AttachmentStatusADetached,
-        AttachmentStatusADetaching
+        AttachmentStatusAttached,
+        AttachmentStatusAttaching,
+        AttachmentStatusAvailable,
+        AttachmentStatusBusy,
+        AttachmentStatusDetached,
+        AttachmentStatusDetaching
       ),
   )
 where
@@ -46,31 +46,31 @@ newtype AttachmentStatus = AttachmentStatus'
       Prelude.Generic
     )
 
-pattern AttachmentStatusAAttached :: AttachmentStatus
-pattern AttachmentStatusAAttached = AttachmentStatus' "attached"
+pattern AttachmentStatusAttached :: AttachmentStatus
+pattern AttachmentStatusAttached = AttachmentStatus' "attached"
 
-pattern AttachmentStatusAAttaching :: AttachmentStatus
-pattern AttachmentStatusAAttaching = AttachmentStatus' "attaching"
+pattern AttachmentStatusAttaching :: AttachmentStatus
+pattern AttachmentStatusAttaching = AttachmentStatus' "attaching"
 
-pattern AttachmentStatusAAvailable :: AttachmentStatus
-pattern AttachmentStatusAAvailable = AttachmentStatus' "available"
+pattern AttachmentStatusAvailable :: AttachmentStatus
+pattern AttachmentStatusAvailable = AttachmentStatus' "available"
 
-pattern AttachmentStatusABusy :: AttachmentStatus
-pattern AttachmentStatusABusy = AttachmentStatus' "busy"
+pattern AttachmentStatusBusy :: AttachmentStatus
+pattern AttachmentStatusBusy = AttachmentStatus' "busy"
 
-pattern AttachmentStatusADetached :: AttachmentStatus
-pattern AttachmentStatusADetached = AttachmentStatus' "detached"
+pattern AttachmentStatusDetached :: AttachmentStatus
+pattern AttachmentStatusDetached = AttachmentStatus' "detached"
 
-pattern AttachmentStatusADetaching :: AttachmentStatus
-pattern AttachmentStatusADetaching = AttachmentStatus' "detaching"
+pattern AttachmentStatusDetaching :: AttachmentStatus
+pattern AttachmentStatusDetaching = AttachmentStatus' "detaching"
 
 {-# COMPLETE
-  AttachmentStatusAAttached,
-  AttachmentStatusAAttaching,
-  AttachmentStatusAAvailable,
-  AttachmentStatusABusy,
-  AttachmentStatusADetached,
-  AttachmentStatusADetaching,
+  AttachmentStatusAttached,
+  AttachmentStatusAttaching,
+  AttachmentStatusAvailable,
+  AttachmentStatusBusy,
+  AttachmentStatusDetached,
+  AttachmentStatusDetaching,
   AttachmentStatus'
   #-}
 

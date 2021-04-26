@@ -19,12 +19,12 @@
 module Network.AWS.MachineLearning.Types.DataSourceFilterVariable
   ( DataSourceFilterVariable
       ( ..,
-        DataSourceFilterVariableDataCreatedAt,
-        DataSourceFilterVariableDataDATALOCATIONS3,
-        DataSourceFilterVariableDataIAMUser,
-        DataSourceFilterVariableDataLastUpdatedAt,
-        DataSourceFilterVariableDataName,
-        DataSourceFilterVariableDataStatus'
+        DataSourceFilterVariableCreatedAt,
+        DataSourceFilterVariableDATALOCATIONS3,
+        DataSourceFilterVariableIAMUser,
+        DataSourceFilterVariableLastUpdatedAt,
+        DataSourceFilterVariableName,
+        DataSourceFilterVariableStatus'
       ),
   )
 where
@@ -61,31 +61,31 @@ newtype DataSourceFilterVariable = DataSourceFilterVariable'
       Prelude.Generic
     )
 
-pattern DataSourceFilterVariableDataCreatedAt :: DataSourceFilterVariable
-pattern DataSourceFilterVariableDataCreatedAt = DataSourceFilterVariable' "CreatedAt"
+pattern DataSourceFilterVariableCreatedAt :: DataSourceFilterVariable
+pattern DataSourceFilterVariableCreatedAt = DataSourceFilterVariable' "CreatedAt"
 
-pattern DataSourceFilterVariableDataDATALOCATIONS3 :: DataSourceFilterVariable
-pattern DataSourceFilterVariableDataDATALOCATIONS3 = DataSourceFilterVariable' "DataLocationS3"
+pattern DataSourceFilterVariableDATALOCATIONS3 :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDATALOCATIONS3 = DataSourceFilterVariable' "DataLocationS3"
 
-pattern DataSourceFilterVariableDataIAMUser :: DataSourceFilterVariable
-pattern DataSourceFilterVariableDataIAMUser = DataSourceFilterVariable' "IAMUser"
+pattern DataSourceFilterVariableIAMUser :: DataSourceFilterVariable
+pattern DataSourceFilterVariableIAMUser = DataSourceFilterVariable' "IAMUser"
 
-pattern DataSourceFilterVariableDataLastUpdatedAt :: DataSourceFilterVariable
-pattern DataSourceFilterVariableDataLastUpdatedAt = DataSourceFilterVariable' "LastUpdatedAt"
+pattern DataSourceFilterVariableLastUpdatedAt :: DataSourceFilterVariable
+pattern DataSourceFilterVariableLastUpdatedAt = DataSourceFilterVariable' "LastUpdatedAt"
 
-pattern DataSourceFilterVariableDataName :: DataSourceFilterVariable
-pattern DataSourceFilterVariableDataName = DataSourceFilterVariable' "Name"
+pattern DataSourceFilterVariableName :: DataSourceFilterVariable
+pattern DataSourceFilterVariableName = DataSourceFilterVariable' "Name"
 
-pattern DataSourceFilterVariableDataStatus' :: DataSourceFilterVariable
-pattern DataSourceFilterVariableDataStatus' = DataSourceFilterVariable' "Status"
+pattern DataSourceFilterVariableStatus' :: DataSourceFilterVariable
+pattern DataSourceFilterVariableStatus' = DataSourceFilterVariable' "Status"
 
 {-# COMPLETE
-  DataSourceFilterVariableDataCreatedAt,
-  DataSourceFilterVariableDataDATALOCATIONS3,
-  DataSourceFilterVariableDataIAMUser,
-  DataSourceFilterVariableDataLastUpdatedAt,
-  DataSourceFilterVariableDataName,
-  DataSourceFilterVariableDataStatus',
+  DataSourceFilterVariableCreatedAt,
+  DataSourceFilterVariableDATALOCATIONS3,
+  DataSourceFilterVariableIAMUser,
+  DataSourceFilterVariableLastUpdatedAt,
+  DataSourceFilterVariableName,
+  DataSourceFilterVariableStatus',
   DataSourceFilterVariable'
   #-}
 

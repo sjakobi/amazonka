@@ -628,7 +628,7 @@ data GetFederationTokenResponse = GetFederationTokenResponse'
     -- The size of the security token that STS API operations return is not
     -- fixed. We strongly recommend that you make no assumptions about the
     -- maximum size.
-    credentials :: Prelude.Maybe AuthEnv,
+    credentials :: Prelude.Maybe Prelude.AuthEnv,
     -- | Identifiers for the federated user associated with the credentials (such
     -- as @arn:aws:sts::123456789012:federated-user\/Bob@ or
     -- @123456789012:Bob@). You can use the federated user\'s ARN in your
@@ -689,7 +689,7 @@ newGetFederationTokenResponse pHttpStatus_ =
 -- The size of the security token that STS API operations return is not
 -- fixed. We strongly recommend that you make no assumptions about the
 -- maximum size.
-getFederationTokenResponse_credentials :: Lens.Lens' GetFederationTokenResponse (Prelude.Maybe AuthEnv)
+getFederationTokenResponse_credentials :: Lens.Lens' GetFederationTokenResponse (Prelude.Maybe Prelude.AuthEnv)
 getFederationTokenResponse_credentials = Lens.lens (\GetFederationTokenResponse' {credentials} -> credentials) (\s@GetFederationTokenResponse' {} a -> s {credentials = a} :: GetFederationTokenResponse)
 
 -- | Identifiers for the federated user associated with the credentials (such

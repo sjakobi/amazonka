@@ -17,21 +17,19 @@ function join_by() {
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 models=""
-params=""
 
 if [ ! $# -eq 0 ]; then
-  models="$(join_by '", "' "$@")"
-  params="--arg models [\"$models\"]"
+  models="\"$(join_by "\" \"" "$@")\""
 
   echo "Building $models ..."
 else
   echo "Building all models ..."
 fi
 
-result="$(nix-build generate.nix --no-out-link $params)"
+result="$(nix-build generate.nix --no-out-link --arg models "[$models]")"
 
-for input in $result/amazonka-*; do
-  output="$(basename $input)"
+for input in "$result"/amazonka-*; do
+  output="$(basename "$input")"
 
   echo "Removing $output/gen"
   rm -rf "$output/gen"
@@ -42,6 +40,6 @@ done
 
 echo "Setting user+group permissions ..."
 
-chmod -R ug+w .
+chmod -R ug+w amazonka-*
 
 echo "Done."

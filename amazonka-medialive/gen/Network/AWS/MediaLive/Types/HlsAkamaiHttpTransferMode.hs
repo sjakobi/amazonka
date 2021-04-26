@@ -19,8 +19,8 @@
 module Network.AWS.MediaLive.Types.HlsAkamaiHttpTransferMode
   ( HlsAkamaiHttpTransferMode
       ( ..,
-        HlsAkamaiHttpTransferModeAkamaiCHUNKED,
-        HlsAkamaiHttpTransferModeAkamaiNONCHUNKED
+        HlsAkamaiHttpTransferModeCHUNKED,
+        HlsAkamaiHttpTransferModeNONCHUNKED
       ),
   )
 where
@@ -42,15 +42,15 @@ newtype HlsAkamaiHttpTransferMode = HlsAkamaiHttpTransferMode'
       Prelude.Generic
     )
 
-pattern HlsAkamaiHttpTransferModeAkamaiCHUNKED :: HlsAkamaiHttpTransferMode
-pattern HlsAkamaiHttpTransferModeAkamaiCHUNKED = HlsAkamaiHttpTransferMode' "CHUNKED"
+pattern HlsAkamaiHttpTransferModeCHUNKED :: HlsAkamaiHttpTransferMode
+pattern HlsAkamaiHttpTransferModeCHUNKED = HlsAkamaiHttpTransferMode' "CHUNKED"
 
-pattern HlsAkamaiHttpTransferModeAkamaiNONCHUNKED :: HlsAkamaiHttpTransferMode
-pattern HlsAkamaiHttpTransferModeAkamaiNONCHUNKED = HlsAkamaiHttpTransferMode' "NON_CHUNKED"
+pattern HlsAkamaiHttpTransferModeNONCHUNKED :: HlsAkamaiHttpTransferMode
+pattern HlsAkamaiHttpTransferModeNONCHUNKED = HlsAkamaiHttpTransferMode' "NON_CHUNKED"
 
 {-# COMPLETE
-  HlsAkamaiHttpTransferModeAkamaiCHUNKED,
-  HlsAkamaiHttpTransferModeAkamaiNONCHUNKED,
+  HlsAkamaiHttpTransferModeCHUNKED,
+  HlsAkamaiHttpTransferModeNONCHUNKED,
   HlsAkamaiHttpTransferMode'
   #-}
 

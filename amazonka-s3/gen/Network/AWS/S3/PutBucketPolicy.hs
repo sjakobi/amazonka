@@ -157,7 +157,7 @@ putBucketPolicy_policy = Lens.lens (\PutBucketPolicy' {policy} -> policy) (\s@Pu
 instance Prelude.AWSRequest PutBucketPolicy where
   type Rs PutBucketPolicy = PutBucketPolicyResponse
   request =
-    contentMD5Header
+    Request.contentMD5Header
       Prelude.. Request.putBody defaultService
   response =
     Response.receiveNull PutBucketPolicyResponse'

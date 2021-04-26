@@ -19,9 +19,9 @@
 module Network.AWS.APIGateway.Types.AuthorizerType
   ( AuthorizerType
       ( ..,
-        AuthorizerTypeAuthorizerCOGNITOUSERPOOLS,
-        AuthorizerTypeAuthorizerREQUEST,
-        AuthorizerTypeAuthorizerTOKEN
+        AuthorizerTypeCOGNITOUSERPOOLS,
+        AuthorizerTypeREQUEST,
+        AuthorizerTypeTOKEN
       ),
   )
 where
@@ -46,19 +46,19 @@ newtype AuthorizerType = AuthorizerType'
       Prelude.Generic
     )
 
-pattern AuthorizerTypeAuthorizerCOGNITOUSERPOOLS :: AuthorizerType
-pattern AuthorizerTypeAuthorizerCOGNITOUSERPOOLS = AuthorizerType' "COGNITO_USER_POOLS"
+pattern AuthorizerTypeCOGNITOUSERPOOLS :: AuthorizerType
+pattern AuthorizerTypeCOGNITOUSERPOOLS = AuthorizerType' "COGNITO_USER_POOLS"
 
-pattern AuthorizerTypeAuthorizerREQUEST :: AuthorizerType
-pattern AuthorizerTypeAuthorizerREQUEST = AuthorizerType' "REQUEST"
+pattern AuthorizerTypeREQUEST :: AuthorizerType
+pattern AuthorizerTypeREQUEST = AuthorizerType' "REQUEST"
 
-pattern AuthorizerTypeAuthorizerTOKEN :: AuthorizerType
-pattern AuthorizerTypeAuthorizerTOKEN = AuthorizerType' "TOKEN"
+pattern AuthorizerTypeTOKEN :: AuthorizerType
+pattern AuthorizerTypeTOKEN = AuthorizerType' "TOKEN"
 
 {-# COMPLETE
-  AuthorizerTypeAuthorizerCOGNITOUSERPOOLS,
-  AuthorizerTypeAuthorizerREQUEST,
-  AuthorizerTypeAuthorizerTOKEN,
+  AuthorizerTypeCOGNITOUSERPOOLS,
+  AuthorizerTypeREQUEST,
+  AuthorizerTypeTOKEN,
   AuthorizerType'
   #-}
 

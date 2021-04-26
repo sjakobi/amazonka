@@ -78,7 +78,7 @@ data GetAccessKeyInfo = GetAccessKeyInfo'
     --
     -- This parameter allows (through its regex pattern) a string of characters
     -- that can consist of any upper- or lowercase letter or digit.
-    accessKeyId :: AccessKey
+    accessKeyId :: Prelude.AccessKey
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
@@ -96,7 +96,7 @@ data GetAccessKeyInfo = GetAccessKeyInfo'
 -- that can consist of any upper- or lowercase letter or digit.
 newGetAccessKeyInfo ::
   -- | 'accessKeyId'
-  AccessKey ->
+  Prelude.AccessKey ->
   GetAccessKeyInfo
 newGetAccessKeyInfo pAccessKeyId_ =
   GetAccessKeyInfo' {accessKeyId = pAccessKeyId_}
@@ -105,7 +105,7 @@ newGetAccessKeyInfo pAccessKeyId_ =
 --
 -- This parameter allows (through its regex pattern) a string of characters
 -- that can consist of any upper- or lowercase letter or digit.
-getAccessKeyInfo_accessKeyId :: Lens.Lens' GetAccessKeyInfo AccessKey
+getAccessKeyInfo_accessKeyId :: Lens.Lens' GetAccessKeyInfo Prelude.AccessKey
 getAccessKeyInfo_accessKeyId = Lens.lens (\GetAccessKeyInfo' {accessKeyId} -> accessKeyId) (\s@GetAccessKeyInfo' {} a -> s {accessKeyId = a} :: GetAccessKeyInfo)
 
 instance Prelude.AWSRequest GetAccessKeyInfo where

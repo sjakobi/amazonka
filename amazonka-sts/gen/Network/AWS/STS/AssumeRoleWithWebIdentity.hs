@@ -657,7 +657,7 @@ data AssumeRoleWithWebIdentityResponse = AssumeRoleWithWebIdentityResponse'
     -- The size of the security token that STS API operations return is not
     -- fixed. We strongly recommend that you make no assumptions about the
     -- maximum size.
-    credentials :: Prelude.Maybe AuthEnv,
+    credentials :: Prelude.Maybe Prelude.AuthEnv,
     -- | The Amazon Resource Name (ARN) and the assumed role ID, which are
     -- identifiers that you can use to refer to the resulting temporary
     -- security credentials. For example, you can reference these credentials
@@ -766,7 +766,7 @@ assumeRoleWithWebIdentityResponse_provider = Lens.lens (\AssumeRoleWithWebIdenti
 -- The size of the security token that STS API operations return is not
 -- fixed. We strongly recommend that you make no assumptions about the
 -- maximum size.
-assumeRoleWithWebIdentityResponse_credentials :: Lens.Lens' AssumeRoleWithWebIdentityResponse (Prelude.Maybe AuthEnv)
+assumeRoleWithWebIdentityResponse_credentials :: Lens.Lens' AssumeRoleWithWebIdentityResponse (Prelude.Maybe Prelude.AuthEnv)
 assumeRoleWithWebIdentityResponse_credentials = Lens.lens (\AssumeRoleWithWebIdentityResponse' {credentials} -> credentials) (\s@AssumeRoleWithWebIdentityResponse' {} a -> s {credentials = a} :: AssumeRoleWithWebIdentityResponse)
 
 -- | The Amazon Resource Name (ARN) and the assumed role ID, which are
