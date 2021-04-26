@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexRuntime.Types
   ( -- * Service Configuration
-    lexRuntime,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -46,82 +49,47 @@ module Network.AWS.LexRuntime.Types
 
     -- * ActiveContext
     ActiveContext (..),
-    activeContext,
-    acName,
-    acTimeToLive,
-    acParameters,
+    newActiveContext,
 
     -- * ActiveContextTimeToLive
     ActiveContextTimeToLive (..),
-    activeContextTimeToLive,
-    acttlTimeToLiveInSeconds,
-    acttlTurnsToLive,
+    newActiveContextTimeToLive,
 
     -- * Button
     Button (..),
-    button,
-    bText,
-    bValue,
+    newButton,
 
     -- * DialogAction
     DialogAction (..),
-    dialogAction,
-    daMessage,
-    daIntentName,
-    daMessageFormat,
-    daFulfillmentState,
-    daSlots,
-    daSlotToElicit,
-    daType,
+    newDialogAction,
 
     -- * GenericAttachment
     GenericAttachment (..),
-    genericAttachment,
-    gaTitle,
-    gaButtons,
-    gaAttachmentLinkURL,
-    gaImageURL,
-    gaSubTitle,
+    newGenericAttachment,
 
     -- * IntentConfidence
     IntentConfidence (..),
-    intentConfidence,
-    icScore,
+    newIntentConfidence,
 
     -- * IntentSummary
     IntentSummary (..),
-    intentSummary,
-    isIntentName,
-    isFulfillmentState,
-    isSlots,
-    isCheckpointLabel,
-    isSlotToElicit,
-    isConfirmationStatus,
-    isDialogActionType,
+    newIntentSummary,
 
     -- * PredictedIntent
     PredictedIntent (..),
-    predictedIntent,
-    piIntentName,
-    piSlots,
-    piNluIntentConfidence,
+    newPredictedIntent,
 
     -- * ResponseCard
     ResponseCard (..),
-    responseCard,
-    rcContentType,
-    rcGenericAttachments,
-    rcVersion,
+    newResponseCard,
 
     -- * SentimentResponse
     SentimentResponse (..),
-    sentimentResponse,
-    srSentimentScore,
-    srSentimentLabel,
+    newSentimentResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexRuntime.Types.ActiveContext
 import Network.AWS.LexRuntime.Types.ActiveContextTimeToLive
 import Network.AWS.LexRuntime.Types.Button
@@ -138,143 +106,176 @@ import Network.AWS.LexRuntime.Types.MessageFormatType
 import Network.AWS.LexRuntime.Types.PredictedIntent
 import Network.AWS.LexRuntime.Types.ResponseCard
 import Network.AWS.LexRuntime.Types.SentimentResponse
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-11-28@ of the Amazon Lex Runtime Service SDK configuration.
-lexRuntime :: Service
-lexRuntime =
-  Service
-    { _svcAbbrev = "LexRuntime",
-      _svcSigner = v4,
-      _svcPrefix = "runtime.lex",
-      _svcVersion = "2016-11-28",
-      _svcEndpoint = defaultEndpoint lexRuntime,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "LexRuntime",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "LexRuntime",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "runtime.lex",
+      Prelude._svcVersion = "2016-11-28",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "LexRuntime",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The resource (such as the Amazon Lex bot or an alias) that is referred to is not found.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource (such as the Amazon Lex bot or an alias) that is referred
+-- to is not found.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError lexRuntime "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
--- | Request validation failed, there is no usable message in the context, or the bot build failed, is still in progress, or contains unbuilt changes.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Request validation failed, there is no usable message in the context, or
+-- the bot build failed, is still in progress, or contains unbuilt changes.
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError lexRuntime "BadRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The Content-Type header (@PostContent@ API) has an invalid value.
-_UnsupportedMediaTypeException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnsupportedMediaTypeException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedMediaTypeException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedMediaTypeException"
-    . hasStatus 415
+    Prelude.. Prelude.hasStatus 415
 
--- | Either the Amazon Lex bot is still building, or one of the dependent services (Amazon Polly, AWS Lambda) failed with an internal service error.
-_BadGatewayException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Either the Amazon Lex bot is still building, or one of the dependent
+-- services (Amazon Polly, AWS Lambda) failed with an internal service
+-- error.
+_BadGatewayException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadGatewayException =
-  _MatchServiceError lexRuntime "BadGatewayException"
-    . hasStatus 502
+  Prelude._MatchServiceError
+    defaultService
+    "BadGatewayException"
+    Prelude.. Prelude.hasStatus 502
 
 -- | The accept header in the request does not have a valid value.
-_NotAcceptableException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotAcceptableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotAcceptableException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "NotAcceptableException"
-    . hasStatus 406
+    Prelude.. Prelude.hasStatus 406
 
 -- | Exceeded a limit.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
 -- | Two clients are using the same AWS account, Amazon Lex bot, and user ID.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError lexRuntime "ConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
+    Prelude.. Prelude.hasStatus 409
 
--- | One of the dependencies, such as AWS Lambda or Amazon Polly, threw an exception. For example,
+-- | One of the dependencies, such as AWS Lambda or Amazon Polly, threw an
+-- exception. For example,
 --
+-- -   If Amazon Lex does not have sufficient permissions to call a Lambda
+--     function.
 --
---     * If Amazon Lex does not have sufficient permissions to call a Lambda function.
+-- -   If a Lambda function takes longer than 30 seconds to execute.
 --
---     * If a Lambda function takes longer than 30 seconds to execute.
---
---     * If a fulfillment Lambda function returns a @Delegate@ dialog action without removing any slot values.
-_DependencyFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- -   If a fulfillment Lambda function returns a @Delegate@ dialog action
+--     without removing any slot values.
+_DependencyFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DependencyFailedException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "DependencyFailedException"
-    . hasStatus 424
+    Prelude.. Prelude.hasStatus 424
 
 -- | Internal service error. Retry the call.
-_InternalFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalFailureException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "InternalFailureException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
 -- | This exception is not used.
-_LoopDetectedException :: AsError a => Getting (First ServiceError) a ServiceError
+_LoopDetectedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LoopDetectedException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "LoopDetectedException"
-    . hasStatus 508
+    Prelude.. Prelude.hasStatus 508
 
 -- | The input speech is too long.
-_RequestTimeoutException :: AsError a => Getting (First ServiceError) a ServiceError
+_RequestTimeoutException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RequestTimeoutException =
-  _MatchServiceError
-    lexRuntime
+  Prelude._MatchServiceError
+    defaultService
     "RequestTimeoutException"
-    . hasStatus 408
+    Prelude.. Prelude.hasStatus 408

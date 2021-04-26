@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexRuntime.Types.ActiveContext where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexRuntime.Types.ActiveContextTimeToLive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A context is a variable that contains information about the current state of the conversation between a user and Amazon Lex. Context can be set automatically by Amazon Lex when an intent is fulfilled, or it can be set at runtime using the @PutContent@ , @PutText@ , or @PutSession@ operation.
+-- | A context is a variable that contains information about the current
+-- state of the conversation between a user and Amazon Lex. Context can be
+-- set automatically by Amazon Lex when an intent is fulfilled, or it can
+-- be set at runtime using the @PutContent@, @PutText@, or @PutSession@
+-- operation.
 --
---
---
--- /See:/ 'activeContext' smart constructor.
+-- /See:/ 'newActiveContext' smart constructor.
 data ActiveContext = ActiveContext'
-  { _acName :: !Text,
-    _acTimeToLive :: !ActiveContextTimeToLive,
-    _acParameters ::
-      !(Map Text (Sensitive Text))
+  { -- | The name of the context.
+    name :: Prelude.Text,
+    -- | The length of time or number of turns that a context remains active.
+    timeToLive :: ActiveContextTimeToLive,
+    -- | State variables for the current context. You can use these values as
+    -- default values for slots in subsequent events.
+    parameters :: Prelude.Map Prelude.Text (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActiveContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActiveContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acName' - The name of the context.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acTimeToLive' - The length of time or number of turns that a context remains active.
+-- 'name', 'activeContext_name' - The name of the context.
 --
--- * 'acParameters' - State variables for the current context. You can use these values as default values for slots in subsequent events.
-activeContext ::
-  -- | 'acName'
-  Text ->
-  -- | 'acTimeToLive'
+-- 'timeToLive', 'activeContext_timeToLive' - The length of time or number of turns that a context remains active.
+--
+-- 'parameters', 'activeContext_parameters' - State variables for the current context. You can use these values as
+-- default values for slots in subsequent events.
+newActiveContext ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'timeToLive'
   ActiveContextTimeToLive ->
   ActiveContext
-activeContext pName_ pTimeToLive_ =
+newActiveContext pName_ pTimeToLive_ =
   ActiveContext'
-    { _acName = pName_,
-      _acTimeToLive = pTimeToLive_,
-      _acParameters = mempty
+    { name = pName_,
+      timeToLive = pTimeToLive_,
+      parameters = Prelude.mempty
     }
 
 -- | The name of the context.
-acName :: Lens' ActiveContext Text
-acName = lens _acName (\s a -> s {_acName = a})
+activeContext_name :: Lens.Lens' ActiveContext Prelude.Text
+activeContext_name = Lens.lens (\ActiveContext' {name} -> name) (\s@ActiveContext' {} a -> s {name = a} :: ActiveContext)
 
 -- | The length of time or number of turns that a context remains active.
-acTimeToLive :: Lens' ActiveContext ActiveContextTimeToLive
-acTimeToLive = lens _acTimeToLive (\s a -> s {_acTimeToLive = a})
+activeContext_timeToLive :: Lens.Lens' ActiveContext ActiveContextTimeToLive
+activeContext_timeToLive = Lens.lens (\ActiveContext' {timeToLive} -> timeToLive) (\s@ActiveContext' {} a -> s {timeToLive = a} :: ActiveContext)
 
--- | State variables for the current context. You can use these values as default values for slots in subsequent events.
-acParameters :: Lens' ActiveContext (HashMap Text Text)
-acParameters = lens _acParameters (\s a -> s {_acParameters = a}) . _Map
+-- | State variables for the current context. You can use these values as
+-- default values for slots in subsequent events.
+activeContext_parameters :: Lens.Lens' ActiveContext (Prelude.HashMap Prelude.Text Prelude.Text)
+activeContext_parameters = Lens.lens (\ActiveContext' {parameters} -> parameters) (\s@ActiveContext' {} a -> s {parameters = a} :: ActiveContext) Prelude.. Prelude._Map
 
-instance FromJSON ActiveContext where
+instance Prelude.FromJSON ActiveContext where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActiveContext"
       ( \x ->
           ActiveContext'
-            <$> (x .: "name")
-            <*> (x .: "timeToLive")
-            <*> (x .:? "parameters" .!= mempty)
+            Prelude.<$> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "timeToLive")
+            Prelude.<*> ( x Prelude..:? "parameters"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ActiveContext
+instance Prelude.Hashable ActiveContext
 
-instance NFData ActiveContext
+instance Prelude.NFData ActiveContext
 
-instance ToJSON ActiveContext where
+instance Prelude.ToJSON ActiveContext where
   toJSON ActiveContext' {..} =
-    object
-      ( catMaybes
-          [ Just ("name" .= _acName),
-            Just ("timeToLive" .= _acTimeToLive),
-            Just ("parameters" .= _acParameters)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("timeToLive" Prelude..= timeToLive),
+            Prelude.Just ("parameters" Prelude..= parameters)
           ]
       )

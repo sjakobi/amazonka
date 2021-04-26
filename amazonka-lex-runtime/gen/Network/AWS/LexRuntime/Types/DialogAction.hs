@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,121 +19,240 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexRuntime.Types.DialogAction where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexRuntime.Types.DialogActionType
 import Network.AWS.LexRuntime.Types.FulfillmentState
 import Network.AWS.LexRuntime.Types.MessageFormatType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the next action that the bot should take in its interaction with the user and provides information about the context in which the action takes place. Use the @DialogAction@ data type to set the interaction to a specific state, or to return the interaction to a previous state.
+-- | Describes the next action that the bot should take in its interaction
+-- with the user and provides information about the context in which the
+-- action takes place. Use the @DialogAction@ data type to set the
+-- interaction to a specific state, or to return the interaction to a
+-- previous state.
 --
---
---
--- /See:/ 'dialogAction' smart constructor.
+-- /See:/ 'newDialogAction' smart constructor.
 data DialogAction = DialogAction'
-  { _daMessage ::
-      !(Maybe (Sensitive Text)),
-    _daIntentName :: !(Maybe Text),
-    _daMessageFormat ::
-      !(Maybe MessageFormatType),
-    _daFulfillmentState ::
-      !(Maybe FulfillmentState),
-    _daSlots ::
-      !(Maybe (Sensitive (Map Text Text))),
-    _daSlotToElicit :: !(Maybe Text),
-    _daType :: !DialogActionType
+  { -- | The message that should be shown to the user. If you don\'t specify a
+    -- message, Amazon Lex will use the message configured for the intent.
+    message :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the intent.
+    intentName :: Prelude.Maybe Prelude.Text,
+    -- | -   @PlainText@ - The message contains plain UTF-8 text.
+    --
+    -- -   @CustomPayload@ - The message is a custom format for the client.
+    --
+    -- -   @SSML@ - The message contains text formatted for voice output.
+    --
+    -- -   @Composite@ - The message contains an escaped JSON object containing
+    --     one or more messages. For more information, see
+    --     <https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html Message Groups>.
+    messageFormat :: Prelude.Maybe MessageFormatType,
+    -- | The fulfillment state of the intent. The possible values are:
+    --
+    -- -   @Failed@ - The Lambda function associated with the intent failed to
+    --     fulfill the intent.
+    --
+    -- -   @Fulfilled@ - The intent has fulfilled by the Lambda function
+    --     associated with the intent.
+    --
+    -- -   @ReadyForFulfillment@ - All of the information necessary for the
+    --     intent is present and the intent ready to be fulfilled by the client
+    --     application.
+    fulfillmentState :: Prelude.Maybe FulfillmentState,
+    -- | Map of the slots that have been gathered and their values.
+    slots :: Prelude.Maybe (Prelude.Sensitive (Prelude.Map Prelude.Text Prelude.Text)),
+    -- | The name of the slot that should be elicited from the user.
+    slotToElicit :: Prelude.Maybe Prelude.Text,
+    -- | The next action that the bot should take in its interaction with the
+    -- user. The possible values are:
+    --
+    -- -   @ConfirmIntent@ - The next action is asking the user if the intent
+    --     is complete and ready to be fulfilled. This is a yes\/no question
+    --     such as \"Place the order?\"
+    --
+    -- -   @Close@ - Indicates that the there will not be a response from the
+    --     user. For example, the statement \"Your order has been placed\" does
+    --     not require a response.
+    --
+    -- -   @Delegate@ - The next action is determined by Amazon Lex.
+    --
+    -- -   @ElicitIntent@ - The next action is to determine the intent that the
+    --     user wants to fulfill.
+    --
+    -- -   @ElicitSlot@ - The next action is to elicit a slot value from the
+    --     user.
+    type' :: DialogActionType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DialogAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DialogAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daMessage' - The message that should be shown to the user. If you don't specify a message, Amazon Lex will use the message configured for the intent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daIntentName' - The name of the intent.
+-- 'message', 'dialogAction_message' - The message that should be shown to the user. If you don\'t specify a
+-- message, Amazon Lex will use the message configured for the intent.
 --
--- * 'daMessageFormat' -     * @PlainText@ - The message contains plain UTF-8 text.     * @CustomPayload@ - The message is a custom format for the client.     * @SSML@ - The message contains text formatted for voice output.     * @Composite@ - The message contains an escaped JSON object containing one or more messages. For more information, see <https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html Message Groups> .
+-- 'intentName', 'dialogAction_intentName' - The name of the intent.
 --
--- * 'daFulfillmentState' - The fulfillment state of the intent. The possible values are:     * @Failed@ - The Lambda function associated with the intent failed to fulfill the intent.     * @Fulfilled@ - The intent has fulfilled by the Lambda function associated with the intent.      * @ReadyForFulfillment@ - All of the information necessary for the intent is present and the intent ready to be fulfilled by the client application.
+-- 'messageFormat', 'dialogAction_messageFormat' - -   @PlainText@ - The message contains plain UTF-8 text.
 --
--- * 'daSlots' - Map of the slots that have been gathered and their values.
+-- -   @CustomPayload@ - The message is a custom format for the client.
 --
--- * 'daSlotToElicit' - The name of the slot that should be elicited from the user.
+-- -   @SSML@ - The message contains text formatted for voice output.
 --
--- * 'daType' - The next action that the bot should take in its interaction with the user. The possible values are:     * @ConfirmIntent@ - The next action is asking the user if the intent is complete and ready to be fulfilled. This is a yes/no question such as "Place the order?"     * @Close@ - Indicates that the there will not be a response from the user. For example, the statement "Your order has been placed" does not require a response.     * @Delegate@ - The next action is determined by Amazon Lex.     * @ElicitIntent@ - The next action is to determine the intent that the user wants to fulfill.     * @ElicitSlot@ - The next action is to elicit a slot value from the user.
-dialogAction ::
-  -- | 'daType'
+-- -   @Composite@ - The message contains an escaped JSON object containing
+--     one or more messages. For more information, see
+--     <https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html Message Groups>.
+--
+-- 'fulfillmentState', 'dialogAction_fulfillmentState' - The fulfillment state of the intent. The possible values are:
+--
+-- -   @Failed@ - The Lambda function associated with the intent failed to
+--     fulfill the intent.
+--
+-- -   @Fulfilled@ - The intent has fulfilled by the Lambda function
+--     associated with the intent.
+--
+-- -   @ReadyForFulfillment@ - All of the information necessary for the
+--     intent is present and the intent ready to be fulfilled by the client
+--     application.
+--
+-- 'slots', 'dialogAction_slots' - Map of the slots that have been gathered and their values.
+--
+-- 'slotToElicit', 'dialogAction_slotToElicit' - The name of the slot that should be elicited from the user.
+--
+-- 'type'', 'dialogAction_type' - The next action that the bot should take in its interaction with the
+-- user. The possible values are:
+--
+-- -   @ConfirmIntent@ - The next action is asking the user if the intent
+--     is complete and ready to be fulfilled. This is a yes\/no question
+--     such as \"Place the order?\"
+--
+-- -   @Close@ - Indicates that the there will not be a response from the
+--     user. For example, the statement \"Your order has been placed\" does
+--     not require a response.
+--
+-- -   @Delegate@ - The next action is determined by Amazon Lex.
+--
+-- -   @ElicitIntent@ - The next action is to determine the intent that the
+--     user wants to fulfill.
+--
+-- -   @ElicitSlot@ - The next action is to elicit a slot value from the
+--     user.
+newDialogAction ::
+  -- | 'type''
   DialogActionType ->
   DialogAction
-dialogAction pType_ =
+newDialogAction pType_ =
   DialogAction'
-    { _daMessage = Nothing,
-      _daIntentName = Nothing,
-      _daMessageFormat = Nothing,
-      _daFulfillmentState = Nothing,
-      _daSlots = Nothing,
-      _daSlotToElicit = Nothing,
-      _daType = pType_
+    { message = Prelude.Nothing,
+      intentName = Prelude.Nothing,
+      messageFormat = Prelude.Nothing,
+      fulfillmentState = Prelude.Nothing,
+      slots = Prelude.Nothing,
+      slotToElicit = Prelude.Nothing,
+      type' = pType_
     }
 
--- | The message that should be shown to the user. If you don't specify a message, Amazon Lex will use the message configured for the intent.
-daMessage :: Lens' DialogAction (Maybe Text)
-daMessage = lens _daMessage (\s a -> s {_daMessage = a}) . mapping _Sensitive
+-- | The message that should be shown to the user. If you don\'t specify a
+-- message, Amazon Lex will use the message configured for the intent.
+dialogAction_message :: Lens.Lens' DialogAction (Prelude.Maybe Prelude.Text)
+dialogAction_message = Lens.lens (\DialogAction' {message} -> message) (\s@DialogAction' {} a -> s {message = a} :: DialogAction) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The name of the intent.
-daIntentName :: Lens' DialogAction (Maybe Text)
-daIntentName = lens _daIntentName (\s a -> s {_daIntentName = a})
+dialogAction_intentName :: Lens.Lens' DialogAction (Prelude.Maybe Prelude.Text)
+dialogAction_intentName = Lens.lens (\DialogAction' {intentName} -> intentName) (\s@DialogAction' {} a -> s {intentName = a} :: DialogAction)
 
--- |     * @PlainText@ - The message contains plain UTF-8 text.     * @CustomPayload@ - The message is a custom format for the client.     * @SSML@ - The message contains text formatted for voice output.     * @Composite@ - The message contains an escaped JSON object containing one or more messages. For more information, see <https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html Message Groups> .
-daMessageFormat :: Lens' DialogAction (Maybe MessageFormatType)
-daMessageFormat = lens _daMessageFormat (\s a -> s {_daMessageFormat = a})
+-- | -   @PlainText@ - The message contains plain UTF-8 text.
+--
+-- -   @CustomPayload@ - The message is a custom format for the client.
+--
+-- -   @SSML@ - The message contains text formatted for voice output.
+--
+-- -   @Composite@ - The message contains an escaped JSON object containing
+--     one or more messages. For more information, see
+--     <https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html Message Groups>.
+dialogAction_messageFormat :: Lens.Lens' DialogAction (Prelude.Maybe MessageFormatType)
+dialogAction_messageFormat = Lens.lens (\DialogAction' {messageFormat} -> messageFormat) (\s@DialogAction' {} a -> s {messageFormat = a} :: DialogAction)
 
--- | The fulfillment state of the intent. The possible values are:     * @Failed@ - The Lambda function associated with the intent failed to fulfill the intent.     * @Fulfilled@ - The intent has fulfilled by the Lambda function associated with the intent.      * @ReadyForFulfillment@ - All of the information necessary for the intent is present and the intent ready to be fulfilled by the client application.
-daFulfillmentState :: Lens' DialogAction (Maybe FulfillmentState)
-daFulfillmentState = lens _daFulfillmentState (\s a -> s {_daFulfillmentState = a})
+-- | The fulfillment state of the intent. The possible values are:
+--
+-- -   @Failed@ - The Lambda function associated with the intent failed to
+--     fulfill the intent.
+--
+-- -   @Fulfilled@ - The intent has fulfilled by the Lambda function
+--     associated with the intent.
+--
+-- -   @ReadyForFulfillment@ - All of the information necessary for the
+--     intent is present and the intent ready to be fulfilled by the client
+--     application.
+dialogAction_fulfillmentState :: Lens.Lens' DialogAction (Prelude.Maybe FulfillmentState)
+dialogAction_fulfillmentState = Lens.lens (\DialogAction' {fulfillmentState} -> fulfillmentState) (\s@DialogAction' {} a -> s {fulfillmentState = a} :: DialogAction)
 
 -- | Map of the slots that have been gathered and their values.
-daSlots :: Lens' DialogAction (Maybe (HashMap Text Text))
-daSlots = lens _daSlots (\s a -> s {_daSlots = a}) . mapping (_Sensitive . _Map)
+dialogAction_slots :: Lens.Lens' DialogAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+dialogAction_slots = Lens.lens (\DialogAction' {slots} -> slots) (\s@DialogAction' {} a -> s {slots = a} :: DialogAction) Prelude.. Lens.mapping (Prelude._Sensitive Prelude.. Prelude._Map)
 
 -- | The name of the slot that should be elicited from the user.
-daSlotToElicit :: Lens' DialogAction (Maybe Text)
-daSlotToElicit = lens _daSlotToElicit (\s a -> s {_daSlotToElicit = a})
+dialogAction_slotToElicit :: Lens.Lens' DialogAction (Prelude.Maybe Prelude.Text)
+dialogAction_slotToElicit = Lens.lens (\DialogAction' {slotToElicit} -> slotToElicit) (\s@DialogAction' {} a -> s {slotToElicit = a} :: DialogAction)
 
--- | The next action that the bot should take in its interaction with the user. The possible values are:     * @ConfirmIntent@ - The next action is asking the user if the intent is complete and ready to be fulfilled. This is a yes/no question such as "Place the order?"     * @Close@ - Indicates that the there will not be a response from the user. For example, the statement "Your order has been placed" does not require a response.     * @Delegate@ - The next action is determined by Amazon Lex.     * @ElicitIntent@ - The next action is to determine the intent that the user wants to fulfill.     * @ElicitSlot@ - The next action is to elicit a slot value from the user.
-daType :: Lens' DialogAction DialogActionType
-daType = lens _daType (\s a -> s {_daType = a})
+-- | The next action that the bot should take in its interaction with the
+-- user. The possible values are:
+--
+-- -   @ConfirmIntent@ - The next action is asking the user if the intent
+--     is complete and ready to be fulfilled. This is a yes\/no question
+--     such as \"Place the order?\"
+--
+-- -   @Close@ - Indicates that the there will not be a response from the
+--     user. For example, the statement \"Your order has been placed\" does
+--     not require a response.
+--
+-- -   @Delegate@ - The next action is determined by Amazon Lex.
+--
+-- -   @ElicitIntent@ - The next action is to determine the intent that the
+--     user wants to fulfill.
+--
+-- -   @ElicitSlot@ - The next action is to elicit a slot value from the
+--     user.
+dialogAction_type :: Lens.Lens' DialogAction DialogActionType
+dialogAction_type = Lens.lens (\DialogAction' {type'} -> type') (\s@DialogAction' {} a -> s {type' = a} :: DialogAction)
 
-instance FromJSON DialogAction where
+instance Prelude.FromJSON DialogAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DialogAction"
       ( \x ->
           DialogAction'
-            <$> (x .:? "message")
-            <*> (x .:? "intentName")
-            <*> (x .:? "messageFormat")
-            <*> (x .:? "fulfillmentState")
-            <*> (x .:? "slots" .!= mempty)
-            <*> (x .:? "slotToElicit")
-            <*> (x .: "type")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "intentName")
+            Prelude.<*> (x Prelude..:? "messageFormat")
+            Prelude.<*> (x Prelude..:? "fulfillmentState")
+            Prelude.<*> (x Prelude..:? "slots" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "slotToElicit")
+            Prelude.<*> (x Prelude..: "type")
       )
 
-instance Hashable DialogAction
+instance Prelude.Hashable DialogAction
 
-instance NFData DialogAction
+instance Prelude.NFData DialogAction
 
-instance ToJSON DialogAction where
+instance Prelude.ToJSON DialogAction where
   toJSON DialogAction' {..} =
-    object
-      ( catMaybes
-          [ ("message" .=) <$> _daMessage,
-            ("intentName" .=) <$> _daIntentName,
-            ("messageFormat" .=) <$> _daMessageFormat,
-            ("fulfillmentState" .=) <$> _daFulfillmentState,
-            ("slots" .=) <$> _daSlots,
-            ("slotToElicit" .=) <$> _daSlotToElicit,
-            Just ("type" .= _daType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("message" Prelude..=) Prelude.<$> message,
+            ("intentName" Prelude..=) Prelude.<$> intentName,
+            ("messageFormat" Prelude..=)
+              Prelude.<$> messageFormat,
+            ("fulfillmentState" Prelude..=)
+              Prelude.<$> fulfillmentState,
+            ("slots" Prelude..=) Prelude.<$> slots,
+            ("slotToElicit" Prelude..=) Prelude.<$> slotToElicit,
+            Prelude.Just ("type" Prelude..= type')
           ]
       )

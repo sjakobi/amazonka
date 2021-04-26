@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexRuntime.Types.GenericAttachment where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexRuntime.Types.Button
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an option rendered to the user when a prompt is shown. It could be an image, a button, a link, or text.
+-- | Represents an option rendered to the user when a prompt is shown. It
+-- could be an image, a button, a link, or text.
 --
---
---
--- /See:/ 'genericAttachment' smart constructor.
+-- /See:/ 'newGenericAttachment' smart constructor.
 data GenericAttachment = GenericAttachment'
-  { _gaTitle ::
-      !(Maybe Text),
-    _gaButtons :: !(Maybe [Button]),
-    _gaAttachmentLinkURL ::
-      !(Maybe Text),
-    _gaImageURL :: !(Maybe Text),
-    _gaSubTitle :: !(Maybe Text)
+  { -- | The title of the option.
+    title :: Prelude.Maybe Prelude.Text,
+    -- | The list of options to show to the user.
+    buttons :: Prelude.Maybe [Button],
+    -- | The URL of an attachment to the response card.
+    attachmentLinkUrl :: Prelude.Maybe Prelude.Text,
+    -- | The URL of an image that is displayed to the user.
+    imageUrl :: Prelude.Maybe Prelude.Text,
+    -- | The subtitle shown below the title.
+    subTitle :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenericAttachment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenericAttachment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaTitle' - The title of the option.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaButtons' - The list of options to show to the user.
+-- 'title', 'genericAttachment_title' - The title of the option.
 --
--- * 'gaAttachmentLinkURL' - The URL of an attachment to the response card.
+-- 'buttons', 'genericAttachment_buttons' - The list of options to show to the user.
 --
--- * 'gaImageURL' - The URL of an image that is displayed to the user.
+-- 'attachmentLinkUrl', 'genericAttachment_attachmentLinkUrl' - The URL of an attachment to the response card.
 --
--- * 'gaSubTitle' - The subtitle shown below the title.
-genericAttachment ::
+-- 'imageUrl', 'genericAttachment_imageUrl' - The URL of an image that is displayed to the user.
+--
+-- 'subTitle', 'genericAttachment_subTitle' - The subtitle shown below the title.
+newGenericAttachment ::
   GenericAttachment
-genericAttachment =
+newGenericAttachment =
   GenericAttachment'
-    { _gaTitle = Nothing,
-      _gaButtons = Nothing,
-      _gaAttachmentLinkURL = Nothing,
-      _gaImageURL = Nothing,
-      _gaSubTitle = Nothing
+    { title = Prelude.Nothing,
+      buttons = Prelude.Nothing,
+      attachmentLinkUrl = Prelude.Nothing,
+      imageUrl = Prelude.Nothing,
+      subTitle = Prelude.Nothing
     }
 
 -- | The title of the option.
-gaTitle :: Lens' GenericAttachment (Maybe Text)
-gaTitle = lens _gaTitle (\s a -> s {_gaTitle = a})
+genericAttachment_title :: Lens.Lens' GenericAttachment (Prelude.Maybe Prelude.Text)
+genericAttachment_title = Lens.lens (\GenericAttachment' {title} -> title) (\s@GenericAttachment' {} a -> s {title = a} :: GenericAttachment)
 
 -- | The list of options to show to the user.
-gaButtons :: Lens' GenericAttachment [Button]
-gaButtons = lens _gaButtons (\s a -> s {_gaButtons = a}) . _Default . _Coerce
+genericAttachment_buttons :: Lens.Lens' GenericAttachment (Prelude.Maybe [Button])
+genericAttachment_buttons = Lens.lens (\GenericAttachment' {buttons} -> buttons) (\s@GenericAttachment' {} a -> s {buttons = a} :: GenericAttachment) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The URL of an attachment to the response card.
-gaAttachmentLinkURL :: Lens' GenericAttachment (Maybe Text)
-gaAttachmentLinkURL = lens _gaAttachmentLinkURL (\s a -> s {_gaAttachmentLinkURL = a})
+genericAttachment_attachmentLinkUrl :: Lens.Lens' GenericAttachment (Prelude.Maybe Prelude.Text)
+genericAttachment_attachmentLinkUrl = Lens.lens (\GenericAttachment' {attachmentLinkUrl} -> attachmentLinkUrl) (\s@GenericAttachment' {} a -> s {attachmentLinkUrl = a} :: GenericAttachment)
 
 -- | The URL of an image that is displayed to the user.
-gaImageURL :: Lens' GenericAttachment (Maybe Text)
-gaImageURL = lens _gaImageURL (\s a -> s {_gaImageURL = a})
+genericAttachment_imageUrl :: Lens.Lens' GenericAttachment (Prelude.Maybe Prelude.Text)
+genericAttachment_imageUrl = Lens.lens (\GenericAttachment' {imageUrl} -> imageUrl) (\s@GenericAttachment' {} a -> s {imageUrl = a} :: GenericAttachment)
 
 -- | The subtitle shown below the title.
-gaSubTitle :: Lens' GenericAttachment (Maybe Text)
-gaSubTitle = lens _gaSubTitle (\s a -> s {_gaSubTitle = a})
+genericAttachment_subTitle :: Lens.Lens' GenericAttachment (Prelude.Maybe Prelude.Text)
+genericAttachment_subTitle = Lens.lens (\GenericAttachment' {subTitle} -> subTitle) (\s@GenericAttachment' {} a -> s {subTitle = a} :: GenericAttachment)
 
-instance FromJSON GenericAttachment where
+instance Prelude.FromJSON GenericAttachment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GenericAttachment"
       ( \x ->
           GenericAttachment'
-            <$> (x .:? "title")
-            <*> (x .:? "buttons" .!= mempty)
-            <*> (x .:? "attachmentLinkUrl")
-            <*> (x .:? "imageUrl")
-            <*> (x .:? "subTitle")
+            Prelude.<$> (x Prelude..:? "title")
+            Prelude.<*> (x Prelude..:? "buttons" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "attachmentLinkUrl")
+            Prelude.<*> (x Prelude..:? "imageUrl")
+            Prelude.<*> (x Prelude..:? "subTitle")
       )
 
-instance Hashable GenericAttachment
+instance Prelude.Hashable GenericAttachment
 
-instance NFData GenericAttachment
+instance Prelude.NFData GenericAttachment

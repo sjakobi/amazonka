@@ -28,37 +28,37 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestPutSession $
---             putSession
+--             newPutSession
 --
 --         , requestDeleteSession $
---             deleteSession
+--             newDeleteSession
 --
 --         , requestPostContent $
---             postContent
+--             newPostContent
 --
 --         , requestGetSession $
---             getSession
+--             newGetSession
 --
 --         , requestPostText $
---             postText
+--             newPostText
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responsePutSession $
---             putSessionResponse
+--             newPutSessionResponse
 --
 --         , responseDeleteSession $
---             deleteSessionResponse
+--             newDeleteSessionResponse
 --
 --         , responsePostContent $
---             postContentResponse
+--             newPostContentResponse
 --
 --         , responseGetSession $
---             getSessionResponse
+--             newGetSessionResponse
 --
 --         , responsePostText $
---             postTextResponse
+--             newPostTextResponse
 --
 --           ]
 --     ]
@@ -96,7 +96,7 @@ responseDeleteSession =
   res
     "DeleteSessionResponse"
     "fixture/DeleteSessionResponse.proto"
-    lexRuntime
+    defaultService
     (Proxy :: Proxy DeleteSession)
 
 responseGetSession :: GetSessionResponse -> TestTree
@@ -104,7 +104,7 @@ responseGetSession =
   res
     "GetSessionResponse"
     "fixture/GetSessionResponse.proto"
-    lexRuntime
+    defaultService
     (Proxy :: Proxy GetSession)
 
 responsePostText :: PostTextResponse -> TestTree
@@ -112,5 +112,5 @@ responsePostText =
   res
     "PostTextResponse"
     "fixture/PostTextResponse.proto"
-    lexRuntime
+    defaultService
     (Proxy :: Proxy PostText)

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.LexRuntime.Types.MessageFormatType
   ( MessageFormatType
       ( ..,
-        Composite,
-        CustomPayload,
-        PlainText,
-        Ssml
+        MessageFormatTypeComposite,
+        MessageFormatTypeCustomPayload,
+        MessageFormatTypePlainText,
+        MessageFormatTypeSSML
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageFormatType = MessageFormatType' (CI Text)
+newtype MessageFormatType = MessageFormatType'
+  { fromMessageFormatType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Composite :: MessageFormatType
-pattern Composite = MessageFormatType' "Composite"
+pattern MessageFormatTypeComposite :: MessageFormatType
+pattern MessageFormatTypeComposite = MessageFormatType' "Composite"
 
-pattern CustomPayload :: MessageFormatType
-pattern CustomPayload = MessageFormatType' "CustomPayload"
+pattern MessageFormatTypeCustomPayload :: MessageFormatType
+pattern MessageFormatTypeCustomPayload = MessageFormatType' "CustomPayload"
 
-pattern PlainText :: MessageFormatType
-pattern PlainText = MessageFormatType' "PlainText"
+pattern MessageFormatTypePlainText :: MessageFormatType
+pattern MessageFormatTypePlainText = MessageFormatType' "PlainText"
 
-pattern Ssml :: MessageFormatType
-pattern Ssml = MessageFormatType' "SSML"
+pattern MessageFormatTypeSSML :: MessageFormatType
+pattern MessageFormatTypeSSML = MessageFormatType' "SSML"
 
 {-# COMPLETE
-  Composite,
-  CustomPayload,
-  PlainText,
-  Ssml,
+  MessageFormatTypeComposite,
+  MessageFormatTypeCustomPayload,
+  MessageFormatTypePlainText,
+  MessageFormatTypeSSML,
   MessageFormatType'
   #-}
 
-instance FromText MessageFormatType where
-  parser = (MessageFormatType' . mk) <$> takeText
+instance Prelude.FromText MessageFormatType where
+  parser = MessageFormatType' Prelude.<$> Prelude.takeText
 
-instance ToText MessageFormatType where
-  toText (MessageFormatType' ci) = original ci
+instance Prelude.ToText MessageFormatType where
+  toText (MessageFormatType' x) = x
 
-instance Hashable MessageFormatType
+instance Prelude.Hashable MessageFormatType
 
-instance NFData MessageFormatType
+instance Prelude.NFData MessageFormatType
 
-instance ToByteString MessageFormatType
+instance Prelude.ToByteString MessageFormatType
 
-instance ToQuery MessageFormatType
+instance Prelude.ToQuery MessageFormatType
 
-instance ToHeader MessageFormatType
+instance Prelude.ToHeader MessageFormatType
 
-instance ToJSON MessageFormatType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageFormatType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MessageFormatType where
-  parseJSON = parseJSONText "MessageFormatType"
+instance Prelude.FromJSON MessageFormatType where
+  parseJSON = Prelude.parseJSONText "MessageFormatType"

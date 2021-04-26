@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,186 +24,191 @@
 -- Removes session information for a specified bot, alias, and user ID.
 module Network.AWS.LexRuntime.DeleteSession
   ( -- * Creating a Request
-    deleteSession,
-    DeleteSession,
+    DeleteSession (..),
+    newDeleteSession,
 
     -- * Request Lenses
-    dsBotName,
-    dsBotAlias,
-    dsUserId,
+    deleteSession_botName,
+    deleteSession_botAlias,
+    deleteSession_userId,
 
     -- * Destructuring the Response
-    deleteSessionResponse,
-    DeleteSessionResponse,
+    DeleteSessionResponse (..),
+    newDeleteSessionResponse,
 
     -- * Response Lenses
-    dsrrsBotAlias,
-    dsrrsBotName,
-    dsrrsSessionId,
-    dsrrsUserId,
-    dsrrsResponseStatus,
+    deleteSessionResponse_botAlias,
+    deleteSessionResponse_botName,
+    deleteSessionResponse_sessionId,
+    deleteSessionResponse_userId,
+    deleteSessionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexRuntime.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSession' smart constructor.
+-- | /See:/ 'newDeleteSession' smart constructor.
 data DeleteSession = DeleteSession'
-  { _dsBotName ::
-      !Text,
-    _dsBotAlias :: !Text,
-    _dsUserId :: !Text
+  { -- | The name of the bot that contains the session data.
+    botName :: Prelude.Text,
+    -- | The alias in use for the bot that contains the session data.
+    botAlias :: Prelude.Text,
+    -- | The identifier of the user associated with the session data.
+    userId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsBotName' - The name of the bot that contains the session data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsBotAlias' - The alias in use for the bot that contains the session data.
+-- 'botName', 'deleteSession_botName' - The name of the bot that contains the session data.
 --
--- * 'dsUserId' - The identifier of the user associated with the session data.
-deleteSession ::
-  -- | 'dsBotName'
-  Text ->
-  -- | 'dsBotAlias'
-  Text ->
-  -- | 'dsUserId'
-  Text ->
+-- 'botAlias', 'deleteSession_botAlias' - The alias in use for the bot that contains the session data.
+--
+-- 'userId', 'deleteSession_userId' - The identifier of the user associated with the session data.
+newDeleteSession ::
+  -- | 'botName'
+  Prelude.Text ->
+  -- | 'botAlias'
+  Prelude.Text ->
+  -- | 'userId'
+  Prelude.Text ->
   DeleteSession
-deleteSession pBotName_ pBotAlias_ pUserId_ =
+newDeleteSession pBotName_ pBotAlias_ pUserId_ =
   DeleteSession'
-    { _dsBotName = pBotName_,
-      _dsBotAlias = pBotAlias_,
-      _dsUserId = pUserId_
+    { botName = pBotName_,
+      botAlias = pBotAlias_,
+      userId = pUserId_
     }
 
 -- | The name of the bot that contains the session data.
-dsBotName :: Lens' DeleteSession Text
-dsBotName = lens _dsBotName (\s a -> s {_dsBotName = a})
+deleteSession_botName :: Lens.Lens' DeleteSession Prelude.Text
+deleteSession_botName = Lens.lens (\DeleteSession' {botName} -> botName) (\s@DeleteSession' {} a -> s {botName = a} :: DeleteSession)
 
 -- | The alias in use for the bot that contains the session data.
-dsBotAlias :: Lens' DeleteSession Text
-dsBotAlias = lens _dsBotAlias (\s a -> s {_dsBotAlias = a})
+deleteSession_botAlias :: Lens.Lens' DeleteSession Prelude.Text
+deleteSession_botAlias = Lens.lens (\DeleteSession' {botAlias} -> botAlias) (\s@DeleteSession' {} a -> s {botAlias = a} :: DeleteSession)
 
 -- | The identifier of the user associated with the session data.
-dsUserId :: Lens' DeleteSession Text
-dsUserId = lens _dsUserId (\s a -> s {_dsUserId = a})
+deleteSession_userId :: Lens.Lens' DeleteSession Prelude.Text
+deleteSession_userId = Lens.lens (\DeleteSession' {userId} -> userId) (\s@DeleteSession' {} a -> s {userId = a} :: DeleteSession)
 
-instance AWSRequest DeleteSession where
+instance Prelude.AWSRequest DeleteSession where
   type Rs DeleteSession = DeleteSessionResponse
-  request = delete lexRuntime
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteSessionResponse'
-            <$> (x .?> "botAlias")
-            <*> (x .?> "botName")
-            <*> (x .?> "sessionId")
-            <*> (x .?> "userId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "botAlias")
+            Prelude.<*> (x Prelude..?> "botName")
+            Prelude.<*> (x Prelude..?> "sessionId")
+            Prelude.<*> (x Prelude..?> "userId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSession
+instance Prelude.Hashable DeleteSession
 
-instance NFData DeleteSession
+instance Prelude.NFData DeleteSession
 
-instance ToHeaders DeleteSession where
+instance Prelude.ToHeaders DeleteSession where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteSession where
+instance Prelude.ToPath DeleteSession where
   toPath DeleteSession' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/bot/",
-        toBS _dsBotName,
+        Prelude.toBS botName,
         "/alias/",
-        toBS _dsBotAlias,
+        Prelude.toBS botAlias,
         "/user/",
-        toBS _dsUserId,
+        Prelude.toBS userId,
         "/session"
       ]
 
-instance ToQuery DeleteSession where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSession where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSessionResponse' smart constructor.
+-- | /See:/ 'newDeleteSessionResponse' smart constructor.
 data DeleteSessionResponse = DeleteSessionResponse'
-  { _dsrrsBotAlias ::
-      !(Maybe Text),
-    _dsrrsBotName ::
-      !(Maybe Text),
-    _dsrrsSessionId ::
-      !(Maybe Text),
-    _dsrrsUserId ::
-      !(Maybe Text),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | The alias in use for the bot associated with the session data.
+    botAlias :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bot associated with the session data.
+    botName :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the session.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the client application user.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSessionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSessionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsBotAlias' - The alias in use for the bot associated with the session data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsBotName' - The name of the bot associated with the session data.
+-- 'botAlias', 'deleteSessionResponse_botAlias' - The alias in use for the bot associated with the session data.
 --
--- * 'dsrrsSessionId' - The unique identifier for the session.
+-- 'botName', 'deleteSessionResponse_botName' - The name of the bot associated with the session data.
 --
--- * 'dsrrsUserId' - The ID of the client application user.
+-- 'sessionId', 'deleteSessionResponse_sessionId' - The unique identifier for the session.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteSessionResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'userId', 'deleteSessionResponse_userId' - The ID of the client application user.
+--
+-- 'httpStatus', 'deleteSessionResponse_httpStatus' - The response's http status code.
+newDeleteSessionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSessionResponse
-deleteSessionResponse pResponseStatus_ =
+newDeleteSessionResponse pHttpStatus_ =
   DeleteSessionResponse'
-    { _dsrrsBotAlias = Nothing,
-      _dsrrsBotName = Nothing,
-      _dsrrsSessionId = Nothing,
-      _dsrrsUserId = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { botAlias = Prelude.Nothing,
+      botName = Prelude.Nothing,
+      sessionId = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The alias in use for the bot associated with the session data.
-dsrrsBotAlias :: Lens' DeleteSessionResponse (Maybe Text)
-dsrrsBotAlias = lens _dsrrsBotAlias (\s a -> s {_dsrrsBotAlias = a})
+deleteSessionResponse_botAlias :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
+deleteSessionResponse_botAlias = Lens.lens (\DeleteSessionResponse' {botAlias} -> botAlias) (\s@DeleteSessionResponse' {} a -> s {botAlias = a} :: DeleteSessionResponse)
 
 -- | The name of the bot associated with the session data.
-dsrrsBotName :: Lens' DeleteSessionResponse (Maybe Text)
-dsrrsBotName = lens _dsrrsBotName (\s a -> s {_dsrrsBotName = a})
+deleteSessionResponse_botName :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
+deleteSessionResponse_botName = Lens.lens (\DeleteSessionResponse' {botName} -> botName) (\s@DeleteSessionResponse' {} a -> s {botName = a} :: DeleteSessionResponse)
 
 -- | The unique identifier for the session.
-dsrrsSessionId :: Lens' DeleteSessionResponse (Maybe Text)
-dsrrsSessionId = lens _dsrrsSessionId (\s a -> s {_dsrrsSessionId = a})
+deleteSessionResponse_sessionId :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
+deleteSessionResponse_sessionId = Lens.lens (\DeleteSessionResponse' {sessionId} -> sessionId) (\s@DeleteSessionResponse' {} a -> s {sessionId = a} :: DeleteSessionResponse)
 
 -- | The ID of the client application user.
-dsrrsUserId :: Lens' DeleteSessionResponse (Maybe Text)
-dsrrsUserId = lens _dsrrsUserId (\s a -> s {_dsrrsUserId = a})
+deleteSessionResponse_userId :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
+deleteSessionResponse_userId = Lens.lens (\DeleteSessionResponse' {userId} -> userId) (\s@DeleteSessionResponse' {} a -> s {userId = a} :: DeleteSessionResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteSessionResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteSessionResponse_httpStatus :: Lens.Lens' DeleteSessionResponse Prelude.Int
+deleteSessionResponse_httpStatus = Lens.lens (\DeleteSessionResponse' {httpStatus} -> httpStatus) (\s@DeleteSessionResponse' {} a -> s {httpStatus = a} :: DeleteSessionResponse)
 
-instance NFData DeleteSessionResponse
+instance Prelude.NFData DeleteSessionResponse

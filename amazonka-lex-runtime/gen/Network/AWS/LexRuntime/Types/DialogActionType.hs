@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.LexRuntime.Types.DialogActionType
   ( DialogActionType
       ( ..,
-        DATClose,
-        DATConfirmIntent,
-        DATDelegate,
-        DATElicitIntent,
-        DATElicitSlot
+        DialogActionTypeClose,
+        DialogActionTypeConfirmIntent,
+        DialogActionTypeDelegate,
+        DialogActionTypeElicitIntent,
+        DialogActionTypeElicitSlot
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DialogActionType = DialogActionType' (CI Text)
+newtype DialogActionType = DialogActionType'
+  { fromDialogActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DATClose :: DialogActionType
-pattern DATClose = DialogActionType' "Close"
+pattern DialogActionTypeClose :: DialogActionType
+pattern DialogActionTypeClose = DialogActionType' "Close"
 
-pattern DATConfirmIntent :: DialogActionType
-pattern DATConfirmIntent = DialogActionType' "ConfirmIntent"
+pattern DialogActionTypeConfirmIntent :: DialogActionType
+pattern DialogActionTypeConfirmIntent = DialogActionType' "ConfirmIntent"
 
-pattern DATDelegate :: DialogActionType
-pattern DATDelegate = DialogActionType' "Delegate"
+pattern DialogActionTypeDelegate :: DialogActionType
+pattern DialogActionTypeDelegate = DialogActionType' "Delegate"
 
-pattern DATElicitIntent :: DialogActionType
-pattern DATElicitIntent = DialogActionType' "ElicitIntent"
+pattern DialogActionTypeElicitIntent :: DialogActionType
+pattern DialogActionTypeElicitIntent = DialogActionType' "ElicitIntent"
 
-pattern DATElicitSlot :: DialogActionType
-pattern DATElicitSlot = DialogActionType' "ElicitSlot"
+pattern DialogActionTypeElicitSlot :: DialogActionType
+pattern DialogActionTypeElicitSlot = DialogActionType' "ElicitSlot"
 
 {-# COMPLETE
-  DATClose,
-  DATConfirmIntent,
-  DATDelegate,
-  DATElicitIntent,
-  DATElicitSlot,
+  DialogActionTypeClose,
+  DialogActionTypeConfirmIntent,
+  DialogActionTypeDelegate,
+  DialogActionTypeElicitIntent,
+  DialogActionTypeElicitSlot,
   DialogActionType'
   #-}
 
-instance FromText DialogActionType where
-  parser = (DialogActionType' . mk) <$> takeText
+instance Prelude.FromText DialogActionType where
+  parser = DialogActionType' Prelude.<$> Prelude.takeText
 
-instance ToText DialogActionType where
-  toText (DialogActionType' ci) = original ci
+instance Prelude.ToText DialogActionType where
+  toText (DialogActionType' x) = x
 
-instance Hashable DialogActionType
+instance Prelude.Hashable DialogActionType
 
-instance NFData DialogActionType
+instance Prelude.NFData DialogActionType
 
-instance ToByteString DialogActionType
+instance Prelude.ToByteString DialogActionType
 
-instance ToQuery DialogActionType
+instance Prelude.ToQuery DialogActionType
 
-instance ToHeader DialogActionType
+instance Prelude.ToHeader DialogActionType
 
-instance ToJSON DialogActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DialogActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DialogActionType where
-  parseJSON = parseJSONText "DialogActionType"
+instance Prelude.FromJSON DialogActionType where
+  parseJSON = Prelude.parseJSONText "DialogActionType"

@@ -11,10 +11,21 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Lex provides both build and runtime endpoints. Each endpoint provides a set of operations (API). Your conversational bot uses the runtime API to understand user utterances (user input text or voice). For example, suppose a user says "I want pizza", your bot sends this input to Amazon Lex using the runtime API. Amazon Lex recognizes that the user request is for the OrderPizza intent (one of the intents defined in the bot). Then Amazon Lex engages in user conversation on behalf of the bot to elicit required information (slot values, such as pizza size and crust type), and then performs fulfillment activity (that you configured when you created the bot). You use the build-time API to create and manage your Amazon Lex bot. For a list of build-time operations, see the build-time API, .
+-- Amazon Lex provides both build and runtime endpoints. Each endpoint
+-- provides a set of operations (API). Your conversational bot uses the
+-- runtime API to understand user utterances (user input text or voice).
+-- For example, suppose a user says \"I want pizza\", your bot sends this
+-- input to Amazon Lex using the runtime API. Amazon Lex recognizes that
+-- the user request is for the OrderPizza intent (one of the intents
+-- defined in the bot). Then Amazon Lex engages in user conversation on
+-- behalf of the bot to elicit required information (slot values, such as
+-- pizza size and crust type), and then performs fulfillment activity (that
+-- you configured when you created the bot). You use the build-time API to
+-- create and manage your Amazon Lex bot. For a list of build-time
+-- operations, see the build-time API, .
 module Network.AWS.LexRuntime
   ( -- * Service Configuration
-    lexRuntime,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -59,19 +70,34 @@ module Network.AWS.LexRuntime
     -- $operations
 
     -- ** PutSession
-    module Network.AWS.LexRuntime.PutSession,
+    PutSession (PutSession'),
+    newPutSession,
+    PutSessionResponse (PutSessionResponse'),
+    newPutSessionResponse,
 
     -- ** DeleteSession
-    module Network.AWS.LexRuntime.DeleteSession,
+    DeleteSession (DeleteSession'),
+    newDeleteSession,
+    DeleteSessionResponse (DeleteSessionResponse'),
+    newDeleteSessionResponse,
 
     -- ** PostContent
-    module Network.AWS.LexRuntime.PostContent,
+    PostContent (PostContent'),
+    newPostContent,
+    PostContentResponse (PostContentResponse'),
+    newPostContentResponse,
 
     -- ** GetSession
-    module Network.AWS.LexRuntime.GetSession,
+    GetSession (GetSession'),
+    newGetSession,
+    GetSessionResponse (GetSessionResponse'),
+    newGetSessionResponse,
 
     -- ** PostText
-    module Network.AWS.LexRuntime.PostText,
+    PostText (PostText'),
+    newPostText,
+    PostTextResponse (PostTextResponse'),
+    newPostTextResponse,
 
     -- * Types
 
@@ -94,84 +120,50 @@ module Network.AWS.LexRuntime
     MessageFormatType (..),
 
     -- ** ActiveContext
-    ActiveContext,
-    activeContext,
-    acName,
-    acTimeToLive,
-    acParameters,
+    ActiveContext (ActiveContext'),
+    newActiveContext,
 
     -- ** ActiveContextTimeToLive
-    ActiveContextTimeToLive,
-    activeContextTimeToLive,
-    acttlTimeToLiveInSeconds,
-    acttlTurnsToLive,
+    ActiveContextTimeToLive (ActiveContextTimeToLive'),
+    newActiveContextTimeToLive,
 
     -- ** Button
-    Button,
-    button,
-    bText,
-    bValue,
+    Button (Button'),
+    newButton,
 
     -- ** DialogAction
-    DialogAction,
-    dialogAction,
-    daMessage,
-    daIntentName,
-    daMessageFormat,
-    daFulfillmentState,
-    daSlots,
-    daSlotToElicit,
-    daType,
+    DialogAction (DialogAction'),
+    newDialogAction,
 
     -- ** GenericAttachment
-    GenericAttachment,
-    genericAttachment,
-    gaTitle,
-    gaButtons,
-    gaAttachmentLinkURL,
-    gaImageURL,
-    gaSubTitle,
+    GenericAttachment (GenericAttachment'),
+    newGenericAttachment,
 
     -- ** IntentConfidence
-    IntentConfidence,
-    intentConfidence,
-    icScore,
+    IntentConfidence (IntentConfidence'),
+    newIntentConfidence,
 
     -- ** IntentSummary
-    IntentSummary,
-    intentSummary,
-    isIntentName,
-    isFulfillmentState,
-    isSlots,
-    isCheckpointLabel,
-    isSlotToElicit,
-    isConfirmationStatus,
-    isDialogActionType,
+    IntentSummary (IntentSummary'),
+    newIntentSummary,
 
     -- ** PredictedIntent
-    PredictedIntent,
-    predictedIntent,
-    piIntentName,
-    piSlots,
-    piNluIntentConfidence,
+    PredictedIntent (PredictedIntent'),
+    newPredictedIntent,
 
     -- ** ResponseCard
-    ResponseCard,
-    responseCard,
-    rcContentType,
-    rcGenericAttachments,
-    rcVersion,
+    ResponseCard (ResponseCard'),
+    newResponseCard,
 
     -- ** SentimentResponse
-    SentimentResponse,
-    sentimentResponse,
-    srSentimentScore,
-    srSentimentLabel,
+    SentimentResponse (SentimentResponse'),
+    newSentimentResponse,
   )
 where
 
 import Network.AWS.LexRuntime.DeleteSession
 import Network.AWS.LexRuntime.GetSession
+import Network.AWS.LexRuntime.Lens
 import Network.AWS.LexRuntime.PostContent
 import Network.AWS.LexRuntime.PostText
 import Network.AWS.LexRuntime.PutSession

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexRuntime.Types.ResponseCard where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.LexRuntime.Types.ContentType
 import Network.AWS.LexRuntime.Types.GenericAttachment
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you configure a response card when creating your bots, Amazon Lex substitutes the session attributes and slot values that are available, and then returns it. The response card can also come from a Lambda function ( @dialogCodeHook@ and @fulfillmentActivity@ on an intent).
+-- | If you configure a response card when creating your bots, Amazon Lex
+-- substitutes the session attributes and slot values that are available,
+-- and then returns it. The response card can also come from a Lambda
+-- function ( @dialogCodeHook@ and @fulfillmentActivity@ on an intent).
 --
---
---
--- /See:/ 'responseCard' smart constructor.
+-- /See:/ 'newResponseCard' smart constructor.
 data ResponseCard = ResponseCard'
-  { _rcContentType ::
-      !(Maybe ContentType),
-    _rcGenericAttachments ::
-      !(Maybe [GenericAttachment]),
-    _rcVersion :: !(Maybe Text)
+  { -- | The content type of the response.
+    contentType :: Prelude.Maybe ContentType,
+    -- | An array of attachment objects representing options.
+    genericAttachments :: Prelude.Maybe [GenericAttachment],
+    -- | The version of the response card format.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResponseCard' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResponseCard' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcContentType' - The content type of the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcGenericAttachments' - An array of attachment objects representing options.
+-- 'contentType', 'responseCard_contentType' - The content type of the response.
 --
--- * 'rcVersion' - The version of the response card format.
-responseCard ::
+-- 'genericAttachments', 'responseCard_genericAttachments' - An array of attachment objects representing options.
+--
+-- 'version', 'responseCard_version' - The version of the response card format.
+newResponseCard ::
   ResponseCard
-responseCard =
+newResponseCard =
   ResponseCard'
-    { _rcContentType = Nothing,
-      _rcGenericAttachments = Nothing,
-      _rcVersion = Nothing
+    { contentType = Prelude.Nothing,
+      genericAttachments = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The content type of the response.
-rcContentType :: Lens' ResponseCard (Maybe ContentType)
-rcContentType = lens _rcContentType (\s a -> s {_rcContentType = a})
+responseCard_contentType :: Lens.Lens' ResponseCard (Prelude.Maybe ContentType)
+responseCard_contentType = Lens.lens (\ResponseCard' {contentType} -> contentType) (\s@ResponseCard' {} a -> s {contentType = a} :: ResponseCard)
 
 -- | An array of attachment objects representing options.
-rcGenericAttachments :: Lens' ResponseCard [GenericAttachment]
-rcGenericAttachments = lens _rcGenericAttachments (\s a -> s {_rcGenericAttachments = a}) . _Default . _Coerce
+responseCard_genericAttachments :: Lens.Lens' ResponseCard (Prelude.Maybe [GenericAttachment])
+responseCard_genericAttachments = Lens.lens (\ResponseCard' {genericAttachments} -> genericAttachments) (\s@ResponseCard' {} a -> s {genericAttachments = a} :: ResponseCard) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The version of the response card format.
-rcVersion :: Lens' ResponseCard (Maybe Text)
-rcVersion = lens _rcVersion (\s a -> s {_rcVersion = a})
+responseCard_version :: Lens.Lens' ResponseCard (Prelude.Maybe Prelude.Text)
+responseCard_version = Lens.lens (\ResponseCard' {version} -> version) (\s@ResponseCard' {} a -> s {version = a} :: ResponseCard)
 
-instance FromJSON ResponseCard where
+instance Prelude.FromJSON ResponseCard where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResponseCard"
       ( \x ->
           ResponseCard'
-            <$> (x .:? "contentType")
-            <*> (x .:? "genericAttachments" .!= mempty)
-            <*> (x .:? "version")
+            Prelude.<$> (x Prelude..:? "contentType")
+            Prelude.<*> ( x Prelude..:? "genericAttachments"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "version")
       )
 
-instance Hashable ResponseCard
+instance Prelude.Hashable ResponseCard
 
-instance NFData ResponseCard
+instance Prelude.NFData ResponseCard

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.LexRuntime.Types.DialogState
   ( DialogState
       ( ..,
-        ConfirmIntent,
-        ElicitIntent,
-        ElicitSlot,
-        Failed,
-        Fulfilled,
-        ReadyForFulfillment
+        DialogStateConfirmIntent,
+        DialogStateElicitIntent,
+        DialogStateElicitSlot,
+        DialogStateFailed,
+        DialogStateFulfilled,
+        DialogStateReadyForFulfillment
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DialogState = DialogState' (CI Text)
+newtype DialogState = DialogState'
+  { fromDialogState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConfirmIntent :: DialogState
-pattern ConfirmIntent = DialogState' "ConfirmIntent"
+pattern DialogStateConfirmIntent :: DialogState
+pattern DialogStateConfirmIntent = DialogState' "ConfirmIntent"
 
-pattern ElicitIntent :: DialogState
-pattern ElicitIntent = DialogState' "ElicitIntent"
+pattern DialogStateElicitIntent :: DialogState
+pattern DialogStateElicitIntent = DialogState' "ElicitIntent"
 
-pattern ElicitSlot :: DialogState
-pattern ElicitSlot = DialogState' "ElicitSlot"
+pattern DialogStateElicitSlot :: DialogState
+pattern DialogStateElicitSlot = DialogState' "ElicitSlot"
 
-pattern Failed :: DialogState
-pattern Failed = DialogState' "Failed"
+pattern DialogStateFailed :: DialogState
+pattern DialogStateFailed = DialogState' "Failed"
 
-pattern Fulfilled :: DialogState
-pattern Fulfilled = DialogState' "Fulfilled"
+pattern DialogStateFulfilled :: DialogState
+pattern DialogStateFulfilled = DialogState' "Fulfilled"
 
-pattern ReadyForFulfillment :: DialogState
-pattern ReadyForFulfillment = DialogState' "ReadyForFulfillment"
+pattern DialogStateReadyForFulfillment :: DialogState
+pattern DialogStateReadyForFulfillment = DialogState' "ReadyForFulfillment"
 
 {-# COMPLETE
-  ConfirmIntent,
-  ElicitIntent,
-  ElicitSlot,
-  Failed,
-  Fulfilled,
-  ReadyForFulfillment,
+  DialogStateConfirmIntent,
+  DialogStateElicitIntent,
+  DialogStateElicitSlot,
+  DialogStateFailed,
+  DialogStateFulfilled,
+  DialogStateReadyForFulfillment,
   DialogState'
   #-}
 
-instance FromText DialogState where
-  parser = (DialogState' . mk) <$> takeText
+instance Prelude.FromText DialogState where
+  parser = DialogState' Prelude.<$> Prelude.takeText
 
-instance ToText DialogState where
-  toText (DialogState' ci) = original ci
+instance Prelude.ToText DialogState where
+  toText (DialogState' x) = x
 
-instance Hashable DialogState
+instance Prelude.Hashable DialogState
 
-instance NFData DialogState
+instance Prelude.NFData DialogState
 
-instance ToByteString DialogState
+instance Prelude.ToByteString DialogState
 
-instance ToQuery DialogState
+instance Prelude.ToQuery DialogState
 
-instance ToHeader DialogState
+instance Prelude.ToHeader DialogState
 
-instance FromJSON DialogState where
-  parseJSON = parseJSONText "DialogState"
+instance Prelude.FromJSON DialogState where
+  parseJSON = Prelude.parseJSONText "DialogState"

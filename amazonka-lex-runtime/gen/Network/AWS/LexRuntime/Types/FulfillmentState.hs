@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.LexRuntime.Types.FulfillmentState
   ( FulfillmentState
       ( ..,
-        FSFailed,
-        FSFulfilled,
-        FSReadyForFulfillment
+        FulfillmentStateFailed,
+        FulfillmentStateFulfilled,
+        FulfillmentStateReadyForFulfillment
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FulfillmentState = FulfillmentState' (CI Text)
+newtype FulfillmentState = FulfillmentState'
+  { fromFulfillmentState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FSFailed :: FulfillmentState
-pattern FSFailed = FulfillmentState' "Failed"
+pattern FulfillmentStateFailed :: FulfillmentState
+pattern FulfillmentStateFailed = FulfillmentState' "Failed"
 
-pattern FSFulfilled :: FulfillmentState
-pattern FSFulfilled = FulfillmentState' "Fulfilled"
+pattern FulfillmentStateFulfilled :: FulfillmentState
+pattern FulfillmentStateFulfilled = FulfillmentState' "Fulfilled"
 
-pattern FSReadyForFulfillment :: FulfillmentState
-pattern FSReadyForFulfillment = FulfillmentState' "ReadyForFulfillment"
+pattern FulfillmentStateReadyForFulfillment :: FulfillmentState
+pattern FulfillmentStateReadyForFulfillment = FulfillmentState' "ReadyForFulfillment"
 
 {-# COMPLETE
-  FSFailed,
-  FSFulfilled,
-  FSReadyForFulfillment,
+  FulfillmentStateFailed,
+  FulfillmentStateFulfilled,
+  FulfillmentStateReadyForFulfillment,
   FulfillmentState'
   #-}
 
-instance FromText FulfillmentState where
-  parser = (FulfillmentState' . mk) <$> takeText
+instance Prelude.FromText FulfillmentState where
+  parser = FulfillmentState' Prelude.<$> Prelude.takeText
 
-instance ToText FulfillmentState where
-  toText (FulfillmentState' ci) = original ci
+instance Prelude.ToText FulfillmentState where
+  toText (FulfillmentState' x) = x
 
-instance Hashable FulfillmentState
+instance Prelude.Hashable FulfillmentState
 
-instance NFData FulfillmentState
+instance Prelude.NFData FulfillmentState
 
-instance ToByteString FulfillmentState
+instance Prelude.ToByteString FulfillmentState
 
-instance ToQuery FulfillmentState
+instance Prelude.ToQuery FulfillmentState
 
-instance ToHeader FulfillmentState
+instance Prelude.ToHeader FulfillmentState
 
-instance ToJSON FulfillmentState where
-  toJSON = toJSONText
+instance Prelude.ToJSON FulfillmentState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FulfillmentState where
-  parseJSON = parseJSONText "FulfillmentState"
+instance Prelude.FromJSON FulfillmentState where
+  parseJSON = Prelude.parseJSONText "FulfillmentState"

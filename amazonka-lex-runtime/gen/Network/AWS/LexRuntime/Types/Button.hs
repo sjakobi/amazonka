@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.LexRuntime.Types.Button where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an option to be shown on the client platform (Facebook, Slack, etc.)
+-- | Represents an option to be shown on the client platform (Facebook,
+-- Slack, etc.)
 --
---
---
--- /See:/ 'button' smart constructor.
+-- /See:/ 'newButton' smart constructor.
 data Button = Button'
-  { _bText :: !Text,
-    _bValue :: !Text
+  { -- | Text that is visible to the user on the button.
+    text :: Prelude.Text,
+    -- | The value sent to Amazon Lex when a user chooses the button. For
+    -- example, consider button text \"NYC.\" When the user chooses the button,
+    -- the value sent can be \"New York City.\"
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Button' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Button' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bText' - Text that is visible to the user on the button.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bValue' - The value sent to Amazon Lex when a user chooses the button. For example, consider button text "NYC." When the user chooses the button, the value sent can be "New York City."
-button ::
-  -- | 'bText'
-  Text ->
-  -- | 'bValue'
-  Text ->
+-- 'text', 'button_text' - Text that is visible to the user on the button.
+--
+-- 'value', 'button_value' - The value sent to Amazon Lex when a user chooses the button. For
+-- example, consider button text \"NYC.\" When the user chooses the button,
+-- the value sent can be \"New York City.\"
+newButton ::
+  -- | 'text'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   Button
-button pText_ pValue_ =
-  Button' {_bText = pText_, _bValue = pValue_}
+newButton pText_ pValue_ =
+  Button' {text = pText_, value = pValue_}
 
 -- | Text that is visible to the user on the button.
-bText :: Lens' Button Text
-bText = lens _bText (\s a -> s {_bText = a})
+button_text :: Lens.Lens' Button Prelude.Text
+button_text = Lens.lens (\Button' {text} -> text) (\s@Button' {} a -> s {text = a} :: Button)
 
--- | The value sent to Amazon Lex when a user chooses the button. For example, consider button text "NYC." When the user chooses the button, the value sent can be "New York City."
-bValue :: Lens' Button Text
-bValue = lens _bValue (\s a -> s {_bValue = a})
+-- | The value sent to Amazon Lex when a user chooses the button. For
+-- example, consider button text \"NYC.\" When the user chooses the button,
+-- the value sent can be \"New York City.\"
+button_value :: Lens.Lens' Button Prelude.Text
+button_value = Lens.lens (\Button' {value} -> value) (\s@Button' {} a -> s {value = a} :: Button)
 
-instance FromJSON Button where
+instance Prelude.FromJSON Button where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Button"
-      (\x -> Button' <$> (x .: "text") <*> (x .: "value"))
+      ( \x ->
+          Button'
+            Prelude.<$> (x Prelude..: "text")
+            Prelude.<*> (x Prelude..: "value")
+      )
 
-instance Hashable Button
+instance Prelude.Hashable Button
 
-instance NFData Button
+instance Prelude.NFData Button

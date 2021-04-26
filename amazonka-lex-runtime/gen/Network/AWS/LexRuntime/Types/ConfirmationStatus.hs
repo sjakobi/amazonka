@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.LexRuntime.Types.ConfirmationStatus
   ( ConfirmationStatus
       ( ..,
-        Confirmed,
-        Denied,
-        None
+        ConfirmationStatusConfirmed,
+        ConfirmationStatusDenied,
+        ConfirmationStatusNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfirmationStatus
-  = ConfirmationStatus'
-      ( CI
-          Text
-      )
+newtype ConfirmationStatus = ConfirmationStatus'
+  { fromConfirmationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Confirmed :: ConfirmationStatus
-pattern Confirmed = ConfirmationStatus' "Confirmed"
+pattern ConfirmationStatusConfirmed :: ConfirmationStatus
+pattern ConfirmationStatusConfirmed = ConfirmationStatus' "Confirmed"
 
-pattern Denied :: ConfirmationStatus
-pattern Denied = ConfirmationStatus' "Denied"
+pattern ConfirmationStatusDenied :: ConfirmationStatus
+pattern ConfirmationStatusDenied = ConfirmationStatus' "Denied"
 
-pattern None :: ConfirmationStatus
-pattern None = ConfirmationStatus' "None"
+pattern ConfirmationStatusNone :: ConfirmationStatus
+pattern ConfirmationStatusNone = ConfirmationStatus' "None"
 
 {-# COMPLETE
-  Confirmed,
-  Denied,
-  None,
+  ConfirmationStatusConfirmed,
+  ConfirmationStatusDenied,
+  ConfirmationStatusNone,
   ConfirmationStatus'
   #-}
 
-instance FromText ConfirmationStatus where
-  parser = (ConfirmationStatus' . mk) <$> takeText
+instance Prelude.FromText ConfirmationStatus where
+  parser = ConfirmationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConfirmationStatus where
-  toText (ConfirmationStatus' ci) = original ci
+instance Prelude.ToText ConfirmationStatus where
+  toText (ConfirmationStatus' x) = x
 
-instance Hashable ConfirmationStatus
+instance Prelude.Hashable ConfirmationStatus
 
-instance NFData ConfirmationStatus
+instance Prelude.NFData ConfirmationStatus
 
-instance ToByteString ConfirmationStatus
+instance Prelude.ToByteString ConfirmationStatus
 
-instance ToQuery ConfirmationStatus
+instance Prelude.ToQuery ConfirmationStatus
 
-instance ToHeader ConfirmationStatus
+instance Prelude.ToHeader ConfirmationStatus
 
-instance ToJSON ConfirmationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ConfirmationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ConfirmationStatus where
-  parseJSON = parseJSONText "ConfirmationStatus"
+instance Prelude.FromJSON ConfirmationStatus where
+  parseJSON = Prelude.parseJSONText "ConfirmationStatus"
