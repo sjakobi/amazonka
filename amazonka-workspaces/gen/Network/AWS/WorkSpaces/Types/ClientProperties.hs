@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.ClientProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkSpaces.Types.ReconnectEnum
 
 -- | Describes an Amazon WorkSpaces client.
 --
---
---
--- /See:/ 'clientProperties' smart constructor.
-newtype ClientProperties = ClientProperties'
-  { _cpReconnectEnabled ::
-      Maybe ReconnectEnum
+-- /See:/ 'newClientProperties' smart constructor.
+data ClientProperties = ClientProperties'
+  { -- | Specifies whether users can cache their credentials on the Amazon
+    -- WorkSpaces client. When enabled, users can choose to reconnect to their
+    -- WorkSpaces without re-entering their credentials.
+    reconnectEnabled :: Prelude.Maybe ReconnectEnum
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClientProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClientProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpReconnectEnabled' - Specifies whether users can cache their credentials on the Amazon WorkSpaces client. When enabled, users can choose to reconnect to their WorkSpaces without re-entering their credentials.
-clientProperties ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'reconnectEnabled', 'clientProperties_reconnectEnabled' - Specifies whether users can cache their credentials on the Amazon
+-- WorkSpaces client. When enabled, users can choose to reconnect to their
+-- WorkSpaces without re-entering their credentials.
+newClientProperties ::
   ClientProperties
-clientProperties =
-  ClientProperties' {_cpReconnectEnabled = Nothing}
+newClientProperties =
+  ClientProperties'
+    { reconnectEnabled =
+        Prelude.Nothing
+    }
 
--- | Specifies whether users can cache their credentials on the Amazon WorkSpaces client. When enabled, users can choose to reconnect to their WorkSpaces without re-entering their credentials.
-cpReconnectEnabled :: Lens' ClientProperties (Maybe ReconnectEnum)
-cpReconnectEnabled = lens _cpReconnectEnabled (\s a -> s {_cpReconnectEnabled = a})
+-- | Specifies whether users can cache their credentials on the Amazon
+-- WorkSpaces client. When enabled, users can choose to reconnect to their
+-- WorkSpaces without re-entering their credentials.
+clientProperties_reconnectEnabled :: Lens.Lens' ClientProperties (Prelude.Maybe ReconnectEnum)
+clientProperties_reconnectEnabled = Lens.lens (\ClientProperties' {reconnectEnabled} -> reconnectEnabled) (\s@ClientProperties' {} a -> s {reconnectEnabled = a} :: ClientProperties)
 
-instance FromJSON ClientProperties where
+instance Prelude.FromJSON ClientProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClientProperties"
       ( \x ->
-          ClientProperties' <$> (x .:? "ReconnectEnabled")
+          ClientProperties'
+            Prelude.<$> (x Prelude..:? "ReconnectEnabled")
       )
 
-instance Hashable ClientProperties
+instance Prelude.Hashable ClientProperties
 
-instance NFData ClientProperties
+instance Prelude.NFData ClientProperties
 
-instance ToJSON ClientProperties where
+instance Prelude.ToJSON ClientProperties where
   toJSON ClientProperties' {..} =
-    object
-      ( catMaybes
-          [("ReconnectEnabled" .=) <$> _cpReconnectEnabled]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ReconnectEnabled" Prelude..=)
+              Prelude.<$> reconnectEnabled
+          ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,148 +23,174 @@
 --
 -- Creates one or more WorkSpaces.
 --
---
--- This operation is asynchronous and returns before the WorkSpaces are created.
+-- This operation is asynchronous and returns before the WorkSpaces are
+-- created.
 module Network.AWS.WorkSpaces.CreateWorkspaces
   ( -- * Creating a Request
-    createWorkspaces,
-    CreateWorkspaces,
+    CreateWorkspaces (..),
+    newCreateWorkspaces,
 
     -- * Request Lenses
-    cwWorkspaces,
+    createWorkspaces_workspaces,
 
     -- * Destructuring the Response
-    createWorkspacesResponse,
-    CreateWorkspacesResponse,
+    CreateWorkspacesResponse (..),
+    newCreateWorkspacesResponse,
 
     -- * Response Lenses
-    cwrrsFailedRequests,
-    cwrrsPendingRequests,
-    cwrrsResponseStatus,
+    createWorkspacesResponse_failedRequests,
+    createWorkspacesResponse_pendingRequests,
+    createWorkspacesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.FailedCreateWorkspaceRequest
+import Network.AWS.WorkSpaces.Types.Workspace
 
--- | /See:/ 'createWorkspaces' smart constructor.
-newtype CreateWorkspaces = CreateWorkspaces'
-  { _cwWorkspaces ::
-      List1 WorkspaceRequest
+-- | /See:/ 'newCreateWorkspaces' smart constructor.
+data CreateWorkspaces = CreateWorkspaces'
+  { -- | The WorkSpaces to create. You can specify up to 25 WorkSpaces.
+    workspaces :: Prelude.List1 WorkspaceRequest
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkspaces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkspaces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwWorkspaces' - The WorkSpaces to create. You can specify up to 25 WorkSpaces.
-createWorkspaces ::
-  -- | 'cwWorkspaces'
-  NonEmpty WorkspaceRequest ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workspaces', 'createWorkspaces_workspaces' - The WorkSpaces to create. You can specify up to 25 WorkSpaces.
+newCreateWorkspaces ::
+  -- | 'workspaces'
+  Prelude.NonEmpty WorkspaceRequest ->
   CreateWorkspaces
-createWorkspaces pWorkspaces_ =
+newCreateWorkspaces pWorkspaces_ =
   CreateWorkspaces'
-    { _cwWorkspaces =
-        _List1 # pWorkspaces_
+    { workspaces =
+        Prelude._List1 Lens.# pWorkspaces_
     }
 
 -- | The WorkSpaces to create. You can specify up to 25 WorkSpaces.
-cwWorkspaces :: Lens' CreateWorkspaces (NonEmpty WorkspaceRequest)
-cwWorkspaces = lens _cwWorkspaces (\s a -> s {_cwWorkspaces = a}) . _List1
+createWorkspaces_workspaces :: Lens.Lens' CreateWorkspaces (Prelude.NonEmpty WorkspaceRequest)
+createWorkspaces_workspaces = Lens.lens (\CreateWorkspaces' {workspaces} -> workspaces) (\s@CreateWorkspaces' {} a -> s {workspaces = a} :: CreateWorkspaces) Prelude.. Prelude._List1
 
-instance AWSRequest CreateWorkspaces where
+instance Prelude.AWSRequest CreateWorkspaces where
   type Rs CreateWorkspaces = CreateWorkspacesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateWorkspacesResponse'
-            <$> (x .?> "FailedRequests" .!@ mempty)
-            <*> (x .?> "PendingRequests" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "FailedRequests"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "PendingRequests"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateWorkspaces
+instance Prelude.Hashable CreateWorkspaces
 
-instance NFData CreateWorkspaces
+instance Prelude.NFData CreateWorkspaces
 
-instance ToHeaders CreateWorkspaces where
+instance Prelude.ToHeaders CreateWorkspaces where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkspacesService.CreateWorkspaces" :: ByteString),
+              Prelude.=# ( "WorkspacesService.CreateWorkspaces" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateWorkspaces where
+instance Prelude.ToJSON CreateWorkspaces where
   toJSON CreateWorkspaces' {..} =
-    object
-      (catMaybes [Just ("Workspaces" .= _cwWorkspaces)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Workspaces" Prelude..= workspaces)]
+      )
 
-instance ToPath CreateWorkspaces where
-  toPath = const "/"
+instance Prelude.ToPath CreateWorkspaces where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateWorkspaces where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateWorkspaces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createWorkspacesResponse' smart constructor.
+-- | /See:/ 'newCreateWorkspacesResponse' smart constructor.
 data CreateWorkspacesResponse = CreateWorkspacesResponse'
-  { _cwrrsFailedRequests ::
-      !( Maybe
-           [FailedCreateWorkspaceRequest]
-       ),
-    _cwrrsPendingRequests ::
-      !(Maybe [Workspace]),
-    _cwrrsResponseStatus ::
-      !Int
+  { -- | Information about the WorkSpaces that could not be created.
+    failedRequests :: Prelude.Maybe [FailedCreateWorkspaceRequest],
+    -- | Information about the WorkSpaces that were created.
+    --
+    -- Because this operation is asynchronous, the identifier returned is not
+    -- immediately available for use with other operations. For example, if you
+    -- call DescribeWorkspaces before the WorkSpace is created, the information
+    -- returned can be incomplete.
+    pendingRequests :: Prelude.Maybe [Workspace],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkspacesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkspacesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwrrsFailedRequests' - Information about the WorkSpaces that could not be created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwrrsPendingRequests' - Information about the WorkSpaces that were created. Because this operation is asynchronous, the identifier returned is not immediately available for use with other operations. For example, if you call 'DescribeWorkspaces' before the WorkSpace is created, the information returned can be incomplete.
+-- 'failedRequests', 'createWorkspacesResponse_failedRequests' - Information about the WorkSpaces that could not be created.
 --
--- * 'cwrrsResponseStatus' - -- | The response status code.
-createWorkspacesResponse ::
-  -- | 'cwrrsResponseStatus'
-  Int ->
+-- 'pendingRequests', 'createWorkspacesResponse_pendingRequests' - Information about the WorkSpaces that were created.
+--
+-- Because this operation is asynchronous, the identifier returned is not
+-- immediately available for use with other operations. For example, if you
+-- call DescribeWorkspaces before the WorkSpace is created, the information
+-- returned can be incomplete.
+--
+-- 'httpStatus', 'createWorkspacesResponse_httpStatus' - The response's http status code.
+newCreateWorkspacesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateWorkspacesResponse
-createWorkspacesResponse pResponseStatus_ =
+newCreateWorkspacesResponse pHttpStatus_ =
   CreateWorkspacesResponse'
-    { _cwrrsFailedRequests =
-        Nothing,
-      _cwrrsPendingRequests = Nothing,
-      _cwrrsResponseStatus = pResponseStatus_
+    { failedRequests =
+        Prelude.Nothing,
+      pendingRequests = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the WorkSpaces that could not be created.
-cwrrsFailedRequests :: Lens' CreateWorkspacesResponse [FailedCreateWorkspaceRequest]
-cwrrsFailedRequests = lens _cwrrsFailedRequests (\s a -> s {_cwrrsFailedRequests = a}) . _Default . _Coerce
+createWorkspacesResponse_failedRequests :: Lens.Lens' CreateWorkspacesResponse (Prelude.Maybe [FailedCreateWorkspaceRequest])
+createWorkspacesResponse_failedRequests = Lens.lens (\CreateWorkspacesResponse' {failedRequests} -> failedRequests) (\s@CreateWorkspacesResponse' {} a -> s {failedRequests = a} :: CreateWorkspacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information about the WorkSpaces that were created. Because this operation is asynchronous, the identifier returned is not immediately available for use with other operations. For example, if you call 'DescribeWorkspaces' before the WorkSpace is created, the information returned can be incomplete.
-cwrrsPendingRequests :: Lens' CreateWorkspacesResponse [Workspace]
-cwrrsPendingRequests = lens _cwrrsPendingRequests (\s a -> s {_cwrrsPendingRequests = a}) . _Default . _Coerce
+-- | Information about the WorkSpaces that were created.
+--
+-- Because this operation is asynchronous, the identifier returned is not
+-- immediately available for use with other operations. For example, if you
+-- call DescribeWorkspaces before the WorkSpace is created, the information
+-- returned can be incomplete.
+createWorkspacesResponse_pendingRequests :: Lens.Lens' CreateWorkspacesResponse (Prelude.Maybe [Workspace])
+createWorkspacesResponse_pendingRequests = Lens.lens (\CreateWorkspacesResponse' {pendingRequests} -> pendingRequests) (\s@CreateWorkspacesResponse' {} a -> s {pendingRequests = a} :: CreateWorkspacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cwrrsResponseStatus :: Lens' CreateWorkspacesResponse Int
-cwrrsResponseStatus = lens _cwrrsResponseStatus (\s a -> s {_cwrrsResponseStatus = a})
+-- | The response's http status code.
+createWorkspacesResponse_httpStatus :: Lens.Lens' CreateWorkspacesResponse Prelude.Int
+createWorkspacesResponse_httpStatus = Lens.lens (\CreateWorkspacesResponse' {httpStatus} -> httpStatus) (\s@CreateWorkspacesResponse' {} a -> s {httpStatus = a} :: CreateWorkspacesResponse)
 
-instance NFData CreateWorkspacesResponse
+instance Prelude.NFData CreateWorkspacesResponse

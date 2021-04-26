@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,197 +23,223 @@
 --
 -- Describes the connection status of the specified WorkSpaces.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.WorkSpaces.DescribeWorkspacesConnectionStatus
   ( -- * Creating a Request
-    describeWorkspacesConnectionStatus,
-    DescribeWorkspacesConnectionStatus,
+    DescribeWorkspacesConnectionStatus (..),
+    newDescribeWorkspacesConnectionStatus,
 
     -- * Request Lenses
-    dwcsNextToken,
-    dwcsWorkspaceIds,
+    describeWorkspacesConnectionStatus_nextToken,
+    describeWorkspacesConnectionStatus_workspaceIds,
 
     -- * Destructuring the Response
-    describeWorkspacesConnectionStatusResponse,
-    DescribeWorkspacesConnectionStatusResponse,
+    DescribeWorkspacesConnectionStatusResponse (..),
+    newDescribeWorkspacesConnectionStatusResponse,
 
     -- * Response Lenses
-    dwcsrrsNextToken,
-    dwcsrrsWorkspacesConnectionStatus,
-    dwcsrrsResponseStatus,
+    describeWorkspacesConnectionStatusResponse_nextToken,
+    describeWorkspacesConnectionStatusResponse_workspacesConnectionStatus,
+    describeWorkspacesConnectionStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.WorkspaceConnectionStatus
 
--- | /See:/ 'describeWorkspacesConnectionStatus' smart constructor.
+-- | /See:/ 'newDescribeWorkspacesConnectionStatus' smart constructor.
 data DescribeWorkspacesConnectionStatus = DescribeWorkspacesConnectionStatus'
-  { _dwcsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dwcsWorkspaceIds ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       )
+  { -- | If you received a @NextToken@ from a previous call that was paginated,
+    -- provide this token to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
+    workspaceIds :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspacesConnectionStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspacesConnectionStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwcsNextToken' - If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwcsWorkspaceIds' - The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
-describeWorkspacesConnectionStatus ::
+-- 'nextToken', 'describeWorkspacesConnectionStatus_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+--
+-- 'workspaceIds', 'describeWorkspacesConnectionStatus_workspaceIds' - The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
+newDescribeWorkspacesConnectionStatus ::
   DescribeWorkspacesConnectionStatus
-describeWorkspacesConnectionStatus =
+newDescribeWorkspacesConnectionStatus =
   DescribeWorkspacesConnectionStatus'
-    { _dwcsNextToken =
-        Nothing,
-      _dwcsWorkspaceIds = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      workspaceIds = Prelude.Nothing
     }
 
--- | If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
-dwcsNextToken :: Lens' DescribeWorkspacesConnectionStatus (Maybe Text)
-dwcsNextToken = lens _dwcsNextToken (\s a -> s {_dwcsNextToken = a})
+-- | If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+describeWorkspacesConnectionStatus_nextToken :: Lens.Lens' DescribeWorkspacesConnectionStatus (Prelude.Maybe Prelude.Text)
+describeWorkspacesConnectionStatus_nextToken = Lens.lens (\DescribeWorkspacesConnectionStatus' {nextToken} -> nextToken) (\s@DescribeWorkspacesConnectionStatus' {} a -> s {nextToken = a} :: DescribeWorkspacesConnectionStatus)
 
 -- | The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
-dwcsWorkspaceIds :: Lens' DescribeWorkspacesConnectionStatus (Maybe (NonEmpty Text))
-dwcsWorkspaceIds = lens _dwcsWorkspaceIds (\s a -> s {_dwcsWorkspaceIds = a}) . mapping _List1
-
-instance AWSPager DescribeWorkspacesConnectionStatus where
-  page rq rs
-    | stop (rs ^. dwcsrrsNextToken) = Nothing
-    | stop (rs ^. dwcsrrsWorkspacesConnectionStatus) =
-      Nothing
-    | otherwise =
-      Just $ rq & dwcsNextToken .~ rs ^. dwcsrrsNextToken
+describeWorkspacesConnectionStatus_workspaceIds :: Lens.Lens' DescribeWorkspacesConnectionStatus (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeWorkspacesConnectionStatus_workspaceIds = Lens.lens (\DescribeWorkspacesConnectionStatus' {workspaceIds} -> workspaceIds) (\s@DescribeWorkspacesConnectionStatus' {} a -> s {workspaceIds = a} :: DescribeWorkspacesConnectionStatus) Prelude.. Lens.mapping Prelude._List1
 
 instance
-  AWSRequest
+  Pager.AWSPager
+    DescribeWorkspacesConnectionStatus
+  where
+  page rq rs
+    | Pager.stop
+        ( rs
+            Lens.^? describeWorkspacesConnectionStatusResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeWorkspacesConnectionStatusResponse_workspacesConnectionStatus
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeWorkspacesConnectionStatus_nextToken
+          Lens..~ rs
+          Lens.^? describeWorkspacesConnectionStatusResponse_nextToken
+            Prelude.. Lens._Just
+
+instance
+  Prelude.AWSRequest
     DescribeWorkspacesConnectionStatus
   where
   type
     Rs DescribeWorkspacesConnectionStatus =
       DescribeWorkspacesConnectionStatusResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeWorkspacesConnectionStatusResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "WorkspacesConnectionStatus" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x Prelude..?> "WorkspacesConnectionStatus"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable DescribeWorkspacesConnectionStatus
-
-instance NFData DescribeWorkspacesConnectionStatus
-
-instance ToHeaders DescribeWorkspacesConnectionStatus where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "WorkspacesService.DescribeWorkspacesConnectionStatus" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON DescribeWorkspacesConnectionStatus where
-  toJSON DescribeWorkspacesConnectionStatus' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dwcsNextToken,
-            ("WorkspaceIds" .=) <$> _dwcsWorkspaceIds
-          ]
-      )
-
-instance ToPath DescribeWorkspacesConnectionStatus where
-  toPath = const "/"
-
-instance ToQuery DescribeWorkspacesConnectionStatus where
-  toQuery = const mempty
-
--- | /See:/ 'describeWorkspacesConnectionStatusResponse' smart constructor.
-data DescribeWorkspacesConnectionStatusResponse = DescribeWorkspacesConnectionStatusResponse'
-  { _dwcsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dwcsrrsWorkspacesConnectionStatus ::
-      !( Maybe
-           [WorkspaceConnectionStatus]
-       ),
-    _dwcsrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeWorkspacesConnectionStatusResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dwcsrrsNextToken' - The token to use to retrieve the next set of results, or null if no more results are available.
---
--- * 'dwcsrrsWorkspacesConnectionStatus' - Information about the connection status of the WorkSpace.
---
--- * 'dwcsrrsResponseStatus' - -- | The response status code.
-describeWorkspacesConnectionStatusResponse ::
-  -- | 'dwcsrrsResponseStatus'
-  Int ->
-  DescribeWorkspacesConnectionStatusResponse
-describeWorkspacesConnectionStatusResponse
-  pResponseStatus_ =
-    DescribeWorkspacesConnectionStatusResponse'
-      { _dwcsrrsNextToken =
-          Nothing,
-        _dwcsrrsWorkspacesConnectionStatus =
-          Nothing,
-        _dwcsrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The token to use to retrieve the next set of results, or null if no more results are available.
-dwcsrrsNextToken :: Lens' DescribeWorkspacesConnectionStatusResponse (Maybe Text)
-dwcsrrsNextToken = lens _dwcsrrsNextToken (\s a -> s {_dwcsrrsNextToken = a})
-
--- | Information about the connection status of the WorkSpace.
-dwcsrrsWorkspacesConnectionStatus :: Lens' DescribeWorkspacesConnectionStatusResponse [WorkspaceConnectionStatus]
-dwcsrrsWorkspacesConnectionStatus = lens _dwcsrrsWorkspacesConnectionStatus (\s a -> s {_dwcsrrsWorkspacesConnectionStatus = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-dwcsrrsResponseStatus :: Lens' DescribeWorkspacesConnectionStatusResponse Int
-dwcsrrsResponseStatus = lens _dwcsrrsResponseStatus (\s a -> s {_dwcsrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    DescribeWorkspacesConnectionStatus
+
+instance
+  Prelude.NFData
+    DescribeWorkspacesConnectionStatus
+
+instance
+  Prelude.ToHeaders
+    DescribeWorkspacesConnectionStatus
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "WorkspacesService.DescribeWorkspacesConnectionStatus" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    DescribeWorkspacesConnectionStatus
+  where
+  toJSON DescribeWorkspacesConnectionStatus' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("WorkspaceIds" Prelude..=)
+              Prelude.<$> workspaceIds
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    DescribeWorkspacesConnectionStatus
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeWorkspacesConnectionStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDescribeWorkspacesConnectionStatusResponse' smart constructor.
+data DescribeWorkspacesConnectionStatusResponse = DescribeWorkspacesConnectionStatusResponse'
+  { -- | The token to use to retrieve the next set of results, or null if no more
+    -- results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the connection status of the WorkSpace.
+    workspacesConnectionStatus :: Prelude.Maybe [WorkspaceConnectionStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeWorkspacesConnectionStatusResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeWorkspacesConnectionStatusResponse_nextToken' - The token to use to retrieve the next set of results, or null if no more
+-- results are available.
+--
+-- 'workspacesConnectionStatus', 'describeWorkspacesConnectionStatusResponse_workspacesConnectionStatus' - Information about the connection status of the WorkSpace.
+--
+-- 'httpStatus', 'describeWorkspacesConnectionStatusResponse_httpStatus' - The response's http status code.
+newDescribeWorkspacesConnectionStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeWorkspacesConnectionStatusResponse
+newDescribeWorkspacesConnectionStatusResponse
+  pHttpStatus_ =
+    DescribeWorkspacesConnectionStatusResponse'
+      { nextToken =
+          Prelude.Nothing,
+        workspacesConnectionStatus =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The token to use to retrieve the next set of results, or null if no more
+-- results are available.
+describeWorkspacesConnectionStatusResponse_nextToken :: Lens.Lens' DescribeWorkspacesConnectionStatusResponse (Prelude.Maybe Prelude.Text)
+describeWorkspacesConnectionStatusResponse_nextToken = Lens.lens (\DescribeWorkspacesConnectionStatusResponse' {nextToken} -> nextToken) (\s@DescribeWorkspacesConnectionStatusResponse' {} a -> s {nextToken = a} :: DescribeWorkspacesConnectionStatusResponse)
+
+-- | Information about the connection status of the WorkSpace.
+describeWorkspacesConnectionStatusResponse_workspacesConnectionStatus :: Lens.Lens' DescribeWorkspacesConnectionStatusResponse (Prelude.Maybe [WorkspaceConnectionStatus])
+describeWorkspacesConnectionStatusResponse_workspacesConnectionStatus = Lens.lens (\DescribeWorkspacesConnectionStatusResponse' {workspacesConnectionStatus} -> workspacesConnectionStatus) (\s@DescribeWorkspacesConnectionStatusResponse' {} a -> s {workspacesConnectionStatus = a} :: DescribeWorkspacesConnectionStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+describeWorkspacesConnectionStatusResponse_httpStatus :: Lens.Lens' DescribeWorkspacesConnectionStatusResponse Prelude.Int
+describeWorkspacesConnectionStatusResponse_httpStatus = Lens.lens (\DescribeWorkspacesConnectionStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkspacesConnectionStatusResponse' {} a -> s {httpStatus = a} :: DescribeWorkspacesConnectionStatusResponse)
+
+instance
+  Prelude.NFData
     DescribeWorkspacesConnectionStatusResponse

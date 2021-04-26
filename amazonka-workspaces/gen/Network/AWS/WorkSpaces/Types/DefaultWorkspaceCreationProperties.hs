@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,116 +19,156 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.DefaultWorkspaceCreationProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the default values that are used to create WorkSpaces. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html Update Directory Details for Your WorkSpaces> .
+-- | Describes the default values that are used to create WorkSpaces. For
+-- more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html Update Directory Details for Your WorkSpaces>.
 --
---
---
--- /See:/ 'defaultWorkspaceCreationProperties' smart constructor.
+-- /See:/ 'newDefaultWorkspaceCreationProperties' smart constructor.
 data DefaultWorkspaceCreationProperties = DefaultWorkspaceCreationProperties'
-  { _dwcpEnableMaintenanceMode ::
-      !( Maybe
-           Bool
-       ),
-    _dwcpDefaultOu ::
-      !( Maybe
-           Text
-       ),
-    _dwcpEnableInternetAccess ::
-      !( Maybe
-           Bool
-       ),
-    _dwcpEnableWorkDocs ::
-      !( Maybe
-           Bool
-       ),
-    _dwcpCustomSecurityGroupId ::
-      !( Maybe
-           Text
-       ),
-    _dwcpUserEnabledAsLocalAdministrator ::
-      !( Maybe
-           Bool
-       )
+  { -- | Specifies whether maintenance mode is enabled for WorkSpaces. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html WorkSpace Maintenance>.
+    enableMaintenanceMode :: Prelude.Maybe Prelude.Bool,
+    -- | The organizational unit (OU) in the directory for the WorkSpace machine
+    -- accounts.
+    defaultOu :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to automatically assign an Elastic public IP address
+    -- to WorkSpaces in this directory by default. If enabled, the Elastic
+    -- public IP address allows outbound internet access from your WorkSpaces
+    -- when you’re using an internet gateway in the Amazon VPC in which your
+    -- WorkSpaces are located. If you\'re using a Network Address Translation
+    -- (NAT) gateway for outbound internet access from your VPC, or if your
+    -- WorkSpaces are in public subnets and you manually assign them Elastic IP
+    -- addresses, you should disable this setting. This setting applies to new
+    -- WorkSpaces that you launch or to existing WorkSpaces that you rebuild.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces>.
+    enableInternetAccess :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the directory is enabled for Amazon WorkDocs.
+    enableWorkDocs :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier of the default security group to apply to WorkSpaces when
+    -- they are created. For more information, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-security-groups.html Security Groups for Your WorkSpaces>.
+    customSecurityGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether WorkSpace users are local administrators on their
+    -- WorkSpaces.
+    userEnabledAsLocalAdministrator :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefaultWorkspaceCreationProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefaultWorkspaceCreationProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwcpEnableMaintenanceMode' - Specifies whether maintenance mode is enabled for WorkSpaces. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html WorkSpace Maintenance> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwcpDefaultOu' - The organizational unit (OU) in the directory for the WorkSpace machine accounts.
+-- 'enableMaintenanceMode', 'defaultWorkspaceCreationProperties_enableMaintenanceMode' - Specifies whether maintenance mode is enabled for WorkSpaces. For more
+-- information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html WorkSpace Maintenance>.
 --
--- * 'dwcpEnableInternetAccess' - Specifies whether to automatically assign an Elastic public IP address to WorkSpaces in this directory by default. If enabled, the Elastic public IP address allows outbound internet access from your WorkSpaces when you’re using an internet gateway in the Amazon VPC in which your WorkSpaces are located. If you're using a Network Address Translation (NAT) gateway for outbound internet access from your VPC, or if your WorkSpaces are in public subnets and you manually assign them Elastic IP addresses, you should disable this setting. This setting applies to new WorkSpaces that you launch or to existing WorkSpaces that you rebuild. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces> .
+-- 'defaultOu', 'defaultWorkspaceCreationProperties_defaultOu' - The organizational unit (OU) in the directory for the WorkSpace machine
+-- accounts.
 --
--- * 'dwcpEnableWorkDocs' - Specifies whether the directory is enabled for Amazon WorkDocs.
+-- 'enableInternetAccess', 'defaultWorkspaceCreationProperties_enableInternetAccess' - Specifies whether to automatically assign an Elastic public IP address
+-- to WorkSpaces in this directory by default. If enabled, the Elastic
+-- public IP address allows outbound internet access from your WorkSpaces
+-- when you’re using an internet gateway in the Amazon VPC in which your
+-- WorkSpaces are located. If you\'re using a Network Address Translation
+-- (NAT) gateway for outbound internet access from your VPC, or if your
+-- WorkSpaces are in public subnets and you manually assign them Elastic IP
+-- addresses, you should disable this setting. This setting applies to new
+-- WorkSpaces that you launch or to existing WorkSpaces that you rebuild.
+-- For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces>.
 --
--- * 'dwcpCustomSecurityGroupId' - The identifier of the default security group to apply to WorkSpaces when they are created. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-security-groups.html Security Groups for Your WorkSpaces> .
+-- 'enableWorkDocs', 'defaultWorkspaceCreationProperties_enableWorkDocs' - Specifies whether the directory is enabled for Amazon WorkDocs.
 --
--- * 'dwcpUserEnabledAsLocalAdministrator' - Specifies whether WorkSpace users are local administrators on their WorkSpaces.
-defaultWorkspaceCreationProperties ::
+-- 'customSecurityGroupId', 'defaultWorkspaceCreationProperties_customSecurityGroupId' - The identifier of the default security group to apply to WorkSpaces when
+-- they are created. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-security-groups.html Security Groups for Your WorkSpaces>.
+--
+-- 'userEnabledAsLocalAdministrator', 'defaultWorkspaceCreationProperties_userEnabledAsLocalAdministrator' - Specifies whether WorkSpace users are local administrators on their
+-- WorkSpaces.
+newDefaultWorkspaceCreationProperties ::
   DefaultWorkspaceCreationProperties
-defaultWorkspaceCreationProperties =
+newDefaultWorkspaceCreationProperties =
   DefaultWorkspaceCreationProperties'
-    { _dwcpEnableMaintenanceMode =
-        Nothing,
-      _dwcpDefaultOu = Nothing,
-      _dwcpEnableInternetAccess = Nothing,
-      _dwcpEnableWorkDocs = Nothing,
-      _dwcpCustomSecurityGroupId = Nothing,
-      _dwcpUserEnabledAsLocalAdministrator =
-        Nothing
+    { enableMaintenanceMode =
+        Prelude.Nothing,
+      defaultOu = Prelude.Nothing,
+      enableInternetAccess = Prelude.Nothing,
+      enableWorkDocs = Prelude.Nothing,
+      customSecurityGroupId = Prelude.Nothing,
+      userEnabledAsLocalAdministrator =
+        Prelude.Nothing
     }
 
--- | Specifies whether maintenance mode is enabled for WorkSpaces. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html WorkSpace Maintenance> .
-dwcpEnableMaintenanceMode :: Lens' DefaultWorkspaceCreationProperties (Maybe Bool)
-dwcpEnableMaintenanceMode = lens _dwcpEnableMaintenanceMode (\s a -> s {_dwcpEnableMaintenanceMode = a})
+-- | Specifies whether maintenance mode is enabled for WorkSpaces. For more
+-- information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspace-maintenance.html WorkSpace Maintenance>.
+defaultWorkspaceCreationProperties_enableMaintenanceMode :: Lens.Lens' DefaultWorkspaceCreationProperties (Prelude.Maybe Prelude.Bool)
+defaultWorkspaceCreationProperties_enableMaintenanceMode = Lens.lens (\DefaultWorkspaceCreationProperties' {enableMaintenanceMode} -> enableMaintenanceMode) (\s@DefaultWorkspaceCreationProperties' {} a -> s {enableMaintenanceMode = a} :: DefaultWorkspaceCreationProperties)
 
--- | The organizational unit (OU) in the directory for the WorkSpace machine accounts.
-dwcpDefaultOu :: Lens' DefaultWorkspaceCreationProperties (Maybe Text)
-dwcpDefaultOu = lens _dwcpDefaultOu (\s a -> s {_dwcpDefaultOu = a})
+-- | The organizational unit (OU) in the directory for the WorkSpace machine
+-- accounts.
+defaultWorkspaceCreationProperties_defaultOu :: Lens.Lens' DefaultWorkspaceCreationProperties (Prelude.Maybe Prelude.Text)
+defaultWorkspaceCreationProperties_defaultOu = Lens.lens (\DefaultWorkspaceCreationProperties' {defaultOu} -> defaultOu) (\s@DefaultWorkspaceCreationProperties' {} a -> s {defaultOu = a} :: DefaultWorkspaceCreationProperties)
 
--- | Specifies whether to automatically assign an Elastic public IP address to WorkSpaces in this directory by default. If enabled, the Elastic public IP address allows outbound internet access from your WorkSpaces when you’re using an internet gateway in the Amazon VPC in which your WorkSpaces are located. If you're using a Network Address Translation (NAT) gateway for outbound internet access from your VPC, or if your WorkSpaces are in public subnets and you manually assign them Elastic IP addresses, you should disable this setting. This setting applies to new WorkSpaces that you launch or to existing WorkSpaces that you rebuild. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces> .
-dwcpEnableInternetAccess :: Lens' DefaultWorkspaceCreationProperties (Maybe Bool)
-dwcpEnableInternetAccess = lens _dwcpEnableInternetAccess (\s a -> s {_dwcpEnableInternetAccess = a})
+-- | Specifies whether to automatically assign an Elastic public IP address
+-- to WorkSpaces in this directory by default. If enabled, the Elastic
+-- public IP address allows outbound internet access from your WorkSpaces
+-- when you’re using an internet gateway in the Amazon VPC in which your
+-- WorkSpaces are located. If you\'re using a Network Address Translation
+-- (NAT) gateway for outbound internet access from your VPC, or if your
+-- WorkSpaces are in public subnets and you manually assign them Elastic IP
+-- addresses, you should disable this setting. This setting applies to new
+-- WorkSpaces that you launch or to existing WorkSpaces that you rebuild.
+-- For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces>.
+defaultWorkspaceCreationProperties_enableInternetAccess :: Lens.Lens' DefaultWorkspaceCreationProperties (Prelude.Maybe Prelude.Bool)
+defaultWorkspaceCreationProperties_enableInternetAccess = Lens.lens (\DefaultWorkspaceCreationProperties' {enableInternetAccess} -> enableInternetAccess) (\s@DefaultWorkspaceCreationProperties' {} a -> s {enableInternetAccess = a} :: DefaultWorkspaceCreationProperties)
 
 -- | Specifies whether the directory is enabled for Amazon WorkDocs.
-dwcpEnableWorkDocs :: Lens' DefaultWorkspaceCreationProperties (Maybe Bool)
-dwcpEnableWorkDocs = lens _dwcpEnableWorkDocs (\s a -> s {_dwcpEnableWorkDocs = a})
+defaultWorkspaceCreationProperties_enableWorkDocs :: Lens.Lens' DefaultWorkspaceCreationProperties (Prelude.Maybe Prelude.Bool)
+defaultWorkspaceCreationProperties_enableWorkDocs = Lens.lens (\DefaultWorkspaceCreationProperties' {enableWorkDocs} -> enableWorkDocs) (\s@DefaultWorkspaceCreationProperties' {} a -> s {enableWorkDocs = a} :: DefaultWorkspaceCreationProperties)
 
--- | The identifier of the default security group to apply to WorkSpaces when they are created. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-security-groups.html Security Groups for Your WorkSpaces> .
-dwcpCustomSecurityGroupId :: Lens' DefaultWorkspaceCreationProperties (Maybe Text)
-dwcpCustomSecurityGroupId = lens _dwcpCustomSecurityGroupId (\s a -> s {_dwcpCustomSecurityGroupId = a})
+-- | The identifier of the default security group to apply to WorkSpaces when
+-- they are created. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-security-groups.html Security Groups for Your WorkSpaces>.
+defaultWorkspaceCreationProperties_customSecurityGroupId :: Lens.Lens' DefaultWorkspaceCreationProperties (Prelude.Maybe Prelude.Text)
+defaultWorkspaceCreationProperties_customSecurityGroupId = Lens.lens (\DefaultWorkspaceCreationProperties' {customSecurityGroupId} -> customSecurityGroupId) (\s@DefaultWorkspaceCreationProperties' {} a -> s {customSecurityGroupId = a} :: DefaultWorkspaceCreationProperties)
 
--- | Specifies whether WorkSpace users are local administrators on their WorkSpaces.
-dwcpUserEnabledAsLocalAdministrator :: Lens' DefaultWorkspaceCreationProperties (Maybe Bool)
-dwcpUserEnabledAsLocalAdministrator = lens _dwcpUserEnabledAsLocalAdministrator (\s a -> s {_dwcpUserEnabledAsLocalAdministrator = a})
+-- | Specifies whether WorkSpace users are local administrators on their
+-- WorkSpaces.
+defaultWorkspaceCreationProperties_userEnabledAsLocalAdministrator :: Lens.Lens' DefaultWorkspaceCreationProperties (Prelude.Maybe Prelude.Bool)
+defaultWorkspaceCreationProperties_userEnabledAsLocalAdministrator = Lens.lens (\DefaultWorkspaceCreationProperties' {userEnabledAsLocalAdministrator} -> userEnabledAsLocalAdministrator) (\s@DefaultWorkspaceCreationProperties' {} a -> s {userEnabledAsLocalAdministrator = a} :: DefaultWorkspaceCreationProperties)
 
-instance FromJSON DefaultWorkspaceCreationProperties where
+instance
+  Prelude.FromJSON
+    DefaultWorkspaceCreationProperties
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DefaultWorkspaceCreationProperties"
       ( \x ->
           DefaultWorkspaceCreationProperties'
-            <$> (x .:? "EnableMaintenanceMode")
-            <*> (x .:? "DefaultOu")
-            <*> (x .:? "EnableInternetAccess")
-            <*> (x .:? "EnableWorkDocs")
-            <*> (x .:? "CustomSecurityGroupId")
-            <*> (x .:? "UserEnabledAsLocalAdministrator")
+            Prelude.<$> (x Prelude..:? "EnableMaintenanceMode")
+            Prelude.<*> (x Prelude..:? "DefaultOu")
+            Prelude.<*> (x Prelude..:? "EnableInternetAccess")
+            Prelude.<*> (x Prelude..:? "EnableWorkDocs")
+            Prelude.<*> (x Prelude..:? "CustomSecurityGroupId")
+            Prelude.<*> (x Prelude..:? "UserEnabledAsLocalAdministrator")
       )
 
-instance Hashable DefaultWorkspaceCreationProperties
+instance
+  Prelude.Hashable
+    DefaultWorkspaceCreationProperties
 
-instance NFData DefaultWorkspaceCreationProperties
+instance
+  Prelude.NFData
+    DefaultWorkspaceCreationProperties

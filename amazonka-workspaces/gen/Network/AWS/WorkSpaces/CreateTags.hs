@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,130 +24,141 @@
 -- Creates the specified tags for the specified WorkSpaces resource.
 module Network.AWS.WorkSpaces.CreateTags
   ( -- * Creating a Request
-    createTags,
-    CreateTags,
+    CreateTags (..),
+    newCreateTags,
 
     -- * Request Lenses
-    ctResourceId,
-    ctTags,
+    createTags_resourceId,
+    createTags_tags,
 
     -- * Destructuring the Response
-    createTagsResponse,
-    CreateTagsResponse,
+    CreateTagsResponse (..),
+    newCreateTagsResponse,
 
     -- * Response Lenses
-    ctrrsResponseStatus,
+    createTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'createTags' smart constructor.
+-- | /See:/ 'newCreateTags' smart constructor.
 data CreateTags = CreateTags'
-  { _ctResourceId :: !Text,
-    _ctTags :: ![Tag]
+  { -- | The identifier of the WorkSpaces resource. The supported resource types
+    -- are WorkSpaces, registered directories, images, custom bundles, IP
+    -- access control groups, and connection aliases.
+    resourceId :: Prelude.Text,
+    -- | The tags. Each WorkSpaces resource can have a maximum of 50 tags.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctResourceId' - The identifier of the WorkSpaces resource. The supported resource types are WorkSpaces, registered directories, images, custom bundles, IP access control groups, and connection aliases.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctTags' - The tags. Each WorkSpaces resource can have a maximum of 50 tags.
-createTags ::
-  -- | 'ctResourceId'
-  Text ->
+-- 'resourceId', 'createTags_resourceId' - The identifier of the WorkSpaces resource. The supported resource types
+-- are WorkSpaces, registered directories, images, custom bundles, IP
+-- access control groups, and connection aliases.
+--
+-- 'tags', 'createTags_tags' - The tags. Each WorkSpaces resource can have a maximum of 50 tags.
+newCreateTags ::
+  -- | 'resourceId'
+  Prelude.Text ->
   CreateTags
-createTags pResourceId_ =
+newCreateTags pResourceId_ =
   CreateTags'
-    { _ctResourceId = pResourceId_,
-      _ctTags = mempty
+    { resourceId = pResourceId_,
+      tags = Prelude.mempty
     }
 
--- | The identifier of the WorkSpaces resource. The supported resource types are WorkSpaces, registered directories, images, custom bundles, IP access control groups, and connection aliases.
-ctResourceId :: Lens' CreateTags Text
-ctResourceId = lens _ctResourceId (\s a -> s {_ctResourceId = a})
+-- | The identifier of the WorkSpaces resource. The supported resource types
+-- are WorkSpaces, registered directories, images, custom bundles, IP
+-- access control groups, and connection aliases.
+createTags_resourceId :: Lens.Lens' CreateTags Prelude.Text
+createTags_resourceId = Lens.lens (\CreateTags' {resourceId} -> resourceId) (\s@CreateTags' {} a -> s {resourceId = a} :: CreateTags)
 
 -- | The tags. Each WorkSpaces resource can have a maximum of 50 tags.
-ctTags :: Lens' CreateTags [Tag]
-ctTags = lens _ctTags (\s a -> s {_ctTags = a}) . _Coerce
+createTags_tags :: Lens.Lens' CreateTags [Tag]
+createTags_tags = Lens.lens (\CreateTags' {tags} -> tags) (\s@CreateTags' {} a -> s {tags = a} :: CreateTags) Prelude.. Prelude._Coerce
 
-instance AWSRequest CreateTags where
+instance Prelude.AWSRequest CreateTags where
   type Rs CreateTags = CreateTagsResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateTagsResponse' <$> (pure (fromEnum s))
+          CreateTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTags
+instance Prelude.Hashable CreateTags
 
-instance NFData CreateTags
+instance Prelude.NFData CreateTags
 
-instance ToHeaders CreateTags where
+instance Prelude.ToHeaders CreateTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkspacesService.CreateTags" :: ByteString),
+              Prelude.=# ( "WorkspacesService.CreateTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateTags where
+instance Prelude.ToJSON CreateTags where
   toJSON CreateTags' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _ctResourceId),
-            Just ("Tags" .= _ctTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath CreateTags where
-  toPath = const "/"
+instance Prelude.ToPath CreateTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTags where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createTagsResponse' smart constructor.
-newtype CreateTagsResponse = CreateTagsResponse'
-  { _ctrrsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateTagsResponse' smart constructor.
+data CreateTagsResponse = CreateTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctrrsResponseStatus' - -- | The response status code.
-createTagsResponse ::
-  -- | 'ctrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createTagsResponse_httpStatus' - The response's http status code.
+newCreateTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTagsResponse
-createTagsResponse pResponseStatus_ =
-  CreateTagsResponse'
-    { _ctrrsResponseStatus =
-        pResponseStatus_
-    }
+newCreateTagsResponse pHttpStatus_ =
+  CreateTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ctrrsResponseStatus :: Lens' CreateTagsResponse Int
-ctrrsResponseStatus = lens _ctrrsResponseStatus (\s a -> s {_ctrrsResponseStatus = a})
+-- | The response's http status code.
+createTagsResponse_httpStatus :: Lens.Lens' CreateTagsResponse Prelude.Int
+createTagsResponse_httpStatus = Lens.lens (\CreateTagsResponse' {httpStatus} -> httpStatus) (\s@CreateTagsResponse' {} a -> s {httpStatus = a} :: CreateTagsResponse)
 
-instance NFData CreateTagsResponse
+instance Prelude.NFData CreateTagsResponse

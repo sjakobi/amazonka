@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.WorkSpaces.Types.RunningMode
   ( RunningMode
       ( ..,
-        AlwaysOn,
-        AutoStop
+        RunningModeALWAYSON,
+        RunningModeAUTOSTOP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RunningMode = RunningMode' (CI Text)
+newtype RunningMode = RunningMode'
+  { fromRunningMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AlwaysOn :: RunningMode
-pattern AlwaysOn = RunningMode' "ALWAYS_ON"
+pattern RunningModeALWAYSON :: RunningMode
+pattern RunningModeALWAYSON = RunningMode' "ALWAYS_ON"
 
-pattern AutoStop :: RunningMode
-pattern AutoStop = RunningMode' "AUTO_STOP"
+pattern RunningModeAUTOSTOP :: RunningMode
+pattern RunningModeAUTOSTOP = RunningMode' "AUTO_STOP"
 
 {-# COMPLETE
-  AlwaysOn,
-  AutoStop,
+  RunningModeALWAYSON,
+  RunningModeAUTOSTOP,
   RunningMode'
   #-}
 
-instance FromText RunningMode where
-  parser = (RunningMode' . mk) <$> takeText
+instance Prelude.FromText RunningMode where
+  parser = RunningMode' Prelude.<$> Prelude.takeText
 
-instance ToText RunningMode where
-  toText (RunningMode' ci) = original ci
+instance Prelude.ToText RunningMode where
+  toText (RunningMode' x) = x
 
-instance Hashable RunningMode
+instance Prelude.Hashable RunningMode
 
-instance NFData RunningMode
+instance Prelude.NFData RunningMode
 
-instance ToByteString RunningMode
+instance Prelude.ToByteString RunningMode
 
-instance ToQuery RunningMode
+instance Prelude.ToQuery RunningMode
 
-instance ToHeader RunningMode
+instance Prelude.ToHeader RunningMode
 
-instance ToJSON RunningMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON RunningMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RunningMode where
-  parseJSON = parseJSONText "RunningMode"
+instance Prelude.FromJSON RunningMode where
+  parseJSON = Prelude.parseJSONText "RunningMode"

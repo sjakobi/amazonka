@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkSpaces.Types.TargetWorkspaceState
   ( TargetWorkspaceState
       ( ..,
-        AdminMaintenance,
-        Available
+        TargetWorkspaceStateADMINMAINTENANCE,
+        TargetWorkspaceStateAVAILABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetWorkspaceState
-  = TargetWorkspaceState'
-      ( CI
-          Text
-      )
+newtype TargetWorkspaceState = TargetWorkspaceState'
+  { fromTargetWorkspaceState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AdminMaintenance :: TargetWorkspaceState
-pattern AdminMaintenance = TargetWorkspaceState' "ADMIN_MAINTENANCE"
+pattern TargetWorkspaceStateADMINMAINTENANCE :: TargetWorkspaceState
+pattern TargetWorkspaceStateADMINMAINTENANCE = TargetWorkspaceState' "ADMIN_MAINTENANCE"
 
-pattern Available :: TargetWorkspaceState
-pattern Available = TargetWorkspaceState' "AVAILABLE"
+pattern TargetWorkspaceStateAVAILABLE :: TargetWorkspaceState
+pattern TargetWorkspaceStateAVAILABLE = TargetWorkspaceState' "AVAILABLE"
 
 {-# COMPLETE
-  AdminMaintenance,
-  Available,
+  TargetWorkspaceStateADMINMAINTENANCE,
+  TargetWorkspaceStateAVAILABLE,
   TargetWorkspaceState'
   #-}
 
-instance FromText TargetWorkspaceState where
-  parser = (TargetWorkspaceState' . mk) <$> takeText
+instance Prelude.FromText TargetWorkspaceState where
+  parser = TargetWorkspaceState' Prelude.<$> Prelude.takeText
 
-instance ToText TargetWorkspaceState where
-  toText (TargetWorkspaceState' ci) = original ci
+instance Prelude.ToText TargetWorkspaceState where
+  toText (TargetWorkspaceState' x) = x
 
-instance Hashable TargetWorkspaceState
+instance Prelude.Hashable TargetWorkspaceState
 
-instance NFData TargetWorkspaceState
+instance Prelude.NFData TargetWorkspaceState
 
-instance ToByteString TargetWorkspaceState
+instance Prelude.ToByteString TargetWorkspaceState
 
-instance ToQuery TargetWorkspaceState
+instance Prelude.ToQuery TargetWorkspaceState
 
-instance ToHeader TargetWorkspaceState
+instance Prelude.ToHeader TargetWorkspaceState
 
-instance ToJSON TargetWorkspaceState where
-  toJSON = toJSONText
+instance Prelude.ToJSON TargetWorkspaceState where
+  toJSON = Prelude.toJSONText

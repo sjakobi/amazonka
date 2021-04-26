@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,39 +19,44 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.Snapshot where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a snapshot.
 --
---
---
--- /See:/ 'snapshot' smart constructor.
-newtype Snapshot = Snapshot'
-  { _sSnapshotTime ::
-      Maybe POSIX
+-- /See:/ 'newSnapshot' smart constructor.
+data Snapshot = Snapshot'
+  { -- | The time when the snapshot was created.
+    snapshotTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Snapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Snapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sSnapshotTime' - The time when the snapshot was created.
-snapshot ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'snapshotTime', 'snapshot_snapshotTime' - The time when the snapshot was created.
+newSnapshot ::
   Snapshot
-snapshot = Snapshot' {_sSnapshotTime = Nothing}
+newSnapshot =
+  Snapshot' {snapshotTime = Prelude.Nothing}
 
 -- | The time when the snapshot was created.
-sSnapshotTime :: Lens' Snapshot (Maybe UTCTime)
-sSnapshotTime = lens _sSnapshotTime (\s a -> s {_sSnapshotTime = a}) . mapping _Time
+snapshot_snapshotTime :: Lens.Lens' Snapshot (Prelude.Maybe Prelude.UTCTime)
+snapshot_snapshotTime = Lens.lens (\Snapshot' {snapshotTime} -> snapshotTime) (\s@Snapshot' {} a -> s {snapshotTime = a} :: Snapshot) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON Snapshot where
+instance Prelude.FromJSON Snapshot where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Snapshot"
-      (\x -> Snapshot' <$> (x .:? "SnapshotTime"))
+      ( \x ->
+          Snapshot' Prelude.<$> (x Prelude..:? "SnapshotTime")
+      )
 
-instance Hashable Snapshot
+instance Prelude.Hashable Snapshot
 
-instance NFData Snapshot
+instance Prelude.NFData Snapshot

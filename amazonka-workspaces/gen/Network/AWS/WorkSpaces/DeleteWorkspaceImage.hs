@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified image from your account. To delete an image, you must first delete any bundles that are associated with the image and unshare the image if it is shared with other accounts.
+-- Deletes the specified image from your account. To delete an image, you
+-- must first delete any bundles that are associated with the image and
+-- unshare the image if it is shared with other accounts.
 module Network.AWS.WorkSpaces.DeleteWorkspaceImage
   ( -- * Creating a Request
-    deleteWorkspaceImage,
-    DeleteWorkspaceImage,
+    DeleteWorkspaceImage (..),
+    newDeleteWorkspaceImage,
 
     -- * Request Lenses
-    dwiImageId,
+    deleteWorkspaceImage_imageId,
 
     -- * Destructuring the Response
-    deleteWorkspaceImageResponse,
-    DeleteWorkspaceImageResponse,
+    DeleteWorkspaceImageResponse (..),
+    newDeleteWorkspaceImageResponse,
 
     -- * Response Lenses
-    dwirrsResponseStatus,
+    deleteWorkspaceImageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'deleteWorkspaceImage' smart constructor.
-newtype DeleteWorkspaceImage = DeleteWorkspaceImage'
-  { _dwiImageId ::
-      Text
+-- | /See:/ 'newDeleteWorkspaceImage' smart constructor.
+data DeleteWorkspaceImage = DeleteWorkspaceImage'
+  { -- | The identifier of the image.
+    imageId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkspaceImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkspaceImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwiImageId' - The identifier of the image.
-deleteWorkspaceImage ::
-  -- | 'dwiImageId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'imageId', 'deleteWorkspaceImage_imageId' - The identifier of the image.
+newDeleteWorkspaceImage ::
+  -- | 'imageId'
+  Prelude.Text ->
   DeleteWorkspaceImage
-deleteWorkspaceImage pImageId_ =
-  DeleteWorkspaceImage' {_dwiImageId = pImageId_}
+newDeleteWorkspaceImage pImageId_ =
+  DeleteWorkspaceImage' {imageId = pImageId_}
 
 -- | The identifier of the image.
-dwiImageId :: Lens' DeleteWorkspaceImage Text
-dwiImageId = lens _dwiImageId (\s a -> s {_dwiImageId = a})
+deleteWorkspaceImage_imageId :: Lens.Lens' DeleteWorkspaceImage Prelude.Text
+deleteWorkspaceImage_imageId = Lens.lens (\DeleteWorkspaceImage' {imageId} -> imageId) (\s@DeleteWorkspaceImage' {} a -> s {imageId = a} :: DeleteWorkspaceImage)
 
-instance AWSRequest DeleteWorkspaceImage where
+instance Prelude.AWSRequest DeleteWorkspaceImage where
   type
     Rs DeleteWorkspaceImage =
       DeleteWorkspaceImageResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteWorkspaceImageResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteWorkspaceImage
+instance Prelude.Hashable DeleteWorkspaceImage
 
-instance NFData DeleteWorkspaceImage
+instance Prelude.NFData DeleteWorkspaceImage
 
-instance ToHeaders DeleteWorkspaceImage where
+instance Prelude.ToHeaders DeleteWorkspaceImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.DeleteWorkspaceImage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.DeleteWorkspaceImage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteWorkspaceImage where
+instance Prelude.ToJSON DeleteWorkspaceImage where
   toJSON DeleteWorkspaceImage' {..} =
-    object
-      (catMaybes [Just ("ImageId" .= _dwiImageId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ImageId" Prelude..= imageId)]
+      )
 
-instance ToPath DeleteWorkspaceImage where
-  toPath = const "/"
+instance Prelude.ToPath DeleteWorkspaceImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteWorkspaceImage where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteWorkspaceImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteWorkspaceImageResponse' smart constructor.
-newtype DeleteWorkspaceImageResponse = DeleteWorkspaceImageResponse'
-  { _dwirrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteWorkspaceImageResponse' smart constructor.
+data DeleteWorkspaceImageResponse = DeleteWorkspaceImageResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkspaceImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkspaceImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwirrsResponseStatus' - -- | The response status code.
-deleteWorkspaceImageResponse ::
-  -- | 'dwirrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteWorkspaceImageResponse_httpStatus' - The response's http status code.
+newDeleteWorkspaceImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteWorkspaceImageResponse
-deleteWorkspaceImageResponse pResponseStatus_ =
+newDeleteWorkspaceImageResponse pHttpStatus_ =
   DeleteWorkspaceImageResponse'
-    { _dwirrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dwirrsResponseStatus :: Lens' DeleteWorkspaceImageResponse Int
-dwirrsResponseStatus = lens _dwirrsResponseStatus (\s a -> s {_dwirrsResponseStatus = a})
+-- | The response's http status code.
+deleteWorkspaceImageResponse_httpStatus :: Lens.Lens' DeleteWorkspaceImageResponse Prelude.Int
+deleteWorkspaceImageResponse_httpStatus = Lens.lens (\DeleteWorkspaceImageResponse' {httpStatus} -> httpStatus) (\s@DeleteWorkspaceImageResponse' {} a -> s {httpStatus = a} :: DeleteWorkspaceImageResponse)
 
-instance NFData DeleteWorkspaceImageResponse
+instance Prelude.NFData DeleteWorkspaceImageResponse

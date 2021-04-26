@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,205 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list that describes one or more specified images, if the image identifiers are provided. Otherwise, all images in the account are described.
---
---
+-- Retrieves a list that describes one or more specified images, if the
+-- image identifiers are provided. Otherwise, all images in the account are
+-- described.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkSpaces.DescribeWorkspaceImages
   ( -- * Creating a Request
-    describeWorkspaceImages,
-    DescribeWorkspaceImages,
+    DescribeWorkspaceImages (..),
+    newDescribeWorkspaceImages,
 
     -- * Request Lenses
-    dwiImageType,
-    dwiNextToken,
-    dwiImageIds,
-    dwiMaxResults,
+    describeWorkspaceImages_imageType,
+    describeWorkspaceImages_nextToken,
+    describeWorkspaceImages_imageIds,
+    describeWorkspaceImages_maxResults,
 
     -- * Destructuring the Response
-    describeWorkspaceImagesResponse,
-    DescribeWorkspaceImagesResponse,
+    DescribeWorkspaceImagesResponse (..),
+    newDescribeWorkspaceImagesResponse,
 
     -- * Response Lenses
-    desrsNextToken,
-    desrsImages,
-    desrsResponseStatus,
+    describeWorkspaceImagesResponse_nextToken,
+    describeWorkspaceImagesResponse_images,
+    describeWorkspaceImagesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.WorkspaceImage
 
--- | /See:/ 'describeWorkspaceImages' smart constructor.
+-- | /See:/ 'newDescribeWorkspaceImages' smart constructor.
 data DescribeWorkspaceImages = DescribeWorkspaceImages'
-  { _dwiImageType ::
-      !(Maybe ImageType),
-    _dwiNextToken ::
-      !(Maybe Text),
-    _dwiImageIds ::
-      !(Maybe (List1 Text)),
-    _dwiMaxResults ::
-      !(Maybe Nat)
+  { -- | The type (owned or shared) of the image.
+    imageType :: Prelude.Maybe ImageType,
+    -- | If you received a @NextToken@ from a previous call that was paginated,
+    -- provide this token to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the image.
+    imageIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The maximum number of items to return.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspaceImages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspaceImages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwiImageType' - The type (owned or shared) of the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwiNextToken' - If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
+-- 'imageType', 'describeWorkspaceImages_imageType' - The type (owned or shared) of the image.
 --
--- * 'dwiImageIds' - The identifier of the image.
+-- 'nextToken', 'describeWorkspaceImages_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
 --
--- * 'dwiMaxResults' - The maximum number of items to return.
-describeWorkspaceImages ::
+-- 'imageIds', 'describeWorkspaceImages_imageIds' - The identifier of the image.
+--
+-- 'maxResults', 'describeWorkspaceImages_maxResults' - The maximum number of items to return.
+newDescribeWorkspaceImages ::
   DescribeWorkspaceImages
-describeWorkspaceImages =
+newDescribeWorkspaceImages =
   DescribeWorkspaceImages'
-    { _dwiImageType = Nothing,
-      _dwiNextToken = Nothing,
-      _dwiImageIds = Nothing,
-      _dwiMaxResults = Nothing
+    { imageType =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      imageIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | The type (owned or shared) of the image.
-dwiImageType :: Lens' DescribeWorkspaceImages (Maybe ImageType)
-dwiImageType = lens _dwiImageType (\s a -> s {_dwiImageType = a})
+describeWorkspaceImages_imageType :: Lens.Lens' DescribeWorkspaceImages (Prelude.Maybe ImageType)
+describeWorkspaceImages_imageType = Lens.lens (\DescribeWorkspaceImages' {imageType} -> imageType) (\s@DescribeWorkspaceImages' {} a -> s {imageType = a} :: DescribeWorkspaceImages)
 
--- | If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
-dwiNextToken :: Lens' DescribeWorkspaceImages (Maybe Text)
-dwiNextToken = lens _dwiNextToken (\s a -> s {_dwiNextToken = a})
+-- | If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+describeWorkspaceImages_nextToken :: Lens.Lens' DescribeWorkspaceImages (Prelude.Maybe Prelude.Text)
+describeWorkspaceImages_nextToken = Lens.lens (\DescribeWorkspaceImages' {nextToken} -> nextToken) (\s@DescribeWorkspaceImages' {} a -> s {nextToken = a} :: DescribeWorkspaceImages)
 
 -- | The identifier of the image.
-dwiImageIds :: Lens' DescribeWorkspaceImages (Maybe (NonEmpty Text))
-dwiImageIds = lens _dwiImageIds (\s a -> s {_dwiImageIds = a}) . mapping _List1
+describeWorkspaceImages_imageIds :: Lens.Lens' DescribeWorkspaceImages (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeWorkspaceImages_imageIds = Lens.lens (\DescribeWorkspaceImages' {imageIds} -> imageIds) (\s@DescribeWorkspaceImages' {} a -> s {imageIds = a} :: DescribeWorkspaceImages) Prelude.. Lens.mapping Prelude._List1
 
 -- | The maximum number of items to return.
-dwiMaxResults :: Lens' DescribeWorkspaceImages (Maybe Natural)
-dwiMaxResults = lens _dwiMaxResults (\s a -> s {_dwiMaxResults = a}) . mapping _Nat
+describeWorkspaceImages_maxResults :: Lens.Lens' DescribeWorkspaceImages (Prelude.Maybe Prelude.Natural)
+describeWorkspaceImages_maxResults = Lens.lens (\DescribeWorkspaceImages' {maxResults} -> maxResults) (\s@DescribeWorkspaceImages' {} a -> s {maxResults = a} :: DescribeWorkspaceImages) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeWorkspaceImages where
+instance Pager.AWSPager DescribeWorkspaceImages where
   page rq rs
-    | stop (rs ^. desrsNextToken) = Nothing
-    | stop (rs ^. desrsImages) = Nothing
-    | otherwise =
-      Just $ rq & dwiNextToken .~ rs ^. desrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeWorkspaceImagesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeWorkspaceImagesResponse_images
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeWorkspaceImages_nextToken
+          Lens..~ rs
+          Lens.^? describeWorkspaceImagesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeWorkspaceImages where
+instance Prelude.AWSRequest DescribeWorkspaceImages where
   type
     Rs DescribeWorkspaceImages =
       DescribeWorkspaceImagesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeWorkspaceImagesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Images" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Images" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeWorkspaceImages
+instance Prelude.Hashable DescribeWorkspaceImages
 
-instance NFData DescribeWorkspaceImages
+instance Prelude.NFData DescribeWorkspaceImages
 
-instance ToHeaders DescribeWorkspaceImages where
+instance Prelude.ToHeaders DescribeWorkspaceImages where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.DescribeWorkspaceImages" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.DescribeWorkspaceImages" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeWorkspaceImages where
+instance Prelude.ToJSON DescribeWorkspaceImages where
   toJSON DescribeWorkspaceImages' {..} =
-    object
-      ( catMaybes
-          [ ("ImageType" .=) <$> _dwiImageType,
-            ("NextToken" .=) <$> _dwiNextToken,
-            ("ImageIds" .=) <$> _dwiImageIds,
-            ("MaxResults" .=) <$> _dwiMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ImageType" Prelude..=) Prelude.<$> imageType,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("ImageIds" Prelude..=) Prelude.<$> imageIds,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath DescribeWorkspaceImages where
-  toPath = const "/"
+instance Prelude.ToPath DescribeWorkspaceImages where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeWorkspaceImages where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeWorkspaceImages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeWorkspaceImagesResponse' smart constructor.
+-- | /See:/ 'newDescribeWorkspaceImagesResponse' smart constructor.
 data DescribeWorkspaceImagesResponse = DescribeWorkspaceImagesResponse'
-  { _desrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _desrsImages ::
-      !( Maybe
-           [WorkspaceImage]
-       ),
-    _desrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next set of results, or null if no more
+    -- results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the images.
+    images :: Prelude.Maybe [WorkspaceImage],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspaceImagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspaceImagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsNextToken' - The token to use to retrieve the next set of results, or null if no more results are available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsImages' - Information about the images.
+-- 'nextToken', 'describeWorkspaceImagesResponse_nextToken' - The token to use to retrieve the next set of results, or null if no more
+-- results are available.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeWorkspaceImagesResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'images', 'describeWorkspaceImagesResponse_images' - Information about the images.
+--
+-- 'httpStatus', 'describeWorkspaceImagesResponse_httpStatus' - The response's http status code.
+newDescribeWorkspaceImagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeWorkspaceImagesResponse
-describeWorkspaceImagesResponse pResponseStatus_ =
+newDescribeWorkspaceImagesResponse pHttpStatus_ =
   DescribeWorkspaceImagesResponse'
-    { _desrsNextToken =
-        Nothing,
-      _desrsImages = Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      images = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next set of results, or null if no more results are available.
-desrsNextToken :: Lens' DescribeWorkspaceImagesResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
+-- | The token to use to retrieve the next set of results, or null if no more
+-- results are available.
+describeWorkspaceImagesResponse_nextToken :: Lens.Lens' DescribeWorkspaceImagesResponse (Prelude.Maybe Prelude.Text)
+describeWorkspaceImagesResponse_nextToken = Lens.lens (\DescribeWorkspaceImagesResponse' {nextToken} -> nextToken) (\s@DescribeWorkspaceImagesResponse' {} a -> s {nextToken = a} :: DescribeWorkspaceImagesResponse)
 
 -- | Information about the images.
-desrsImages :: Lens' DescribeWorkspaceImagesResponse [WorkspaceImage]
-desrsImages = lens _desrsImages (\s a -> s {_desrsImages = a}) . _Default . _Coerce
+describeWorkspaceImagesResponse_images :: Lens.Lens' DescribeWorkspaceImagesResponse (Prelude.Maybe [WorkspaceImage])
+describeWorkspaceImagesResponse_images = Lens.lens (\DescribeWorkspaceImagesResponse' {images} -> images) (\s@DescribeWorkspaceImagesResponse' {} a -> s {images = a} :: DescribeWorkspaceImagesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeWorkspaceImagesResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeWorkspaceImagesResponse_httpStatus :: Lens.Lens' DescribeWorkspaceImagesResponse Prelude.Int
+describeWorkspaceImagesResponse_httpStatus = Lens.lens (\DescribeWorkspaceImagesResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkspaceImagesResponse' {} a -> s {httpStatus = a} :: DescribeWorkspaceImagesResponse)
 
-instance NFData DescribeWorkspaceImagesResponse
+instance
+  Prelude.NFData
+    DescribeWorkspaceImagesResponse

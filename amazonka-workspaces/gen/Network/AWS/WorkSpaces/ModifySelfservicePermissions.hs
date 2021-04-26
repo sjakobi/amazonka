@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the self-service WorkSpace management capabilities for your users. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/enable-user-self-service-workspace-management.html Enable Self-Service WorkSpace Management Capabilities for Your Users> .
+-- Modifies the self-service WorkSpace management capabilities for your
+-- users. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/enable-user-self-service-workspace-management.html Enable Self-Service WorkSpace Management Capabilities for Your Users>.
 module Network.AWS.WorkSpaces.ModifySelfservicePermissions
   ( -- * Creating a Request
-    modifySelfservicePermissions,
-    ModifySelfservicePermissions,
+    ModifySelfservicePermissions (..),
+    newModifySelfservicePermissions,
 
     -- * Request Lenses
-    mspResourceId,
-    mspSelfservicePermissions,
+    modifySelfservicePermissions_resourceId,
+    modifySelfservicePermissions_selfservicePermissions,
 
     -- * Destructuring the Response
-    modifySelfservicePermissionsResponse,
-    ModifySelfservicePermissionsResponse,
+    ModifySelfservicePermissionsResponse (..),
+    newModifySelfservicePermissionsResponse,
 
     -- * Response Lenses
-    msprrsResponseStatus,
+    modifySelfservicePermissionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'modifySelfservicePermissions' smart constructor.
+-- | /See:/ 'newModifySelfservicePermissions' smart constructor.
 data ModifySelfservicePermissions = ModifySelfservicePermissions'
-  { _mspResourceId ::
-      !Text,
-    _mspSelfservicePermissions ::
-      !SelfservicePermissions
+  { -- | The identifier of the directory.
+    resourceId :: Prelude.Text,
+    -- | The permissions to enable or disable self-service capabilities.
+    selfservicePermissions :: SelfservicePermissions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifySelfservicePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifySelfservicePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mspResourceId' - The identifier of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mspSelfservicePermissions' - The permissions to enable or disable self-service capabilities.
-modifySelfservicePermissions ::
-  -- | 'mspResourceId'
-  Text ->
-  -- | 'mspSelfservicePermissions'
+-- 'resourceId', 'modifySelfservicePermissions_resourceId' - The identifier of the directory.
+--
+-- 'selfservicePermissions', 'modifySelfservicePermissions_selfservicePermissions' - The permissions to enable or disable self-service capabilities.
+newModifySelfservicePermissions ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'selfservicePermissions'
   SelfservicePermissions ->
   ModifySelfservicePermissions
-modifySelfservicePermissions
+newModifySelfservicePermissions
   pResourceId_
   pSelfservicePermissions_ =
     ModifySelfservicePermissions'
-      { _mspResourceId =
+      { resourceId =
           pResourceId_,
-        _mspSelfservicePermissions =
+        selfservicePermissions =
           pSelfservicePermissions_
       }
 
 -- | The identifier of the directory.
-mspResourceId :: Lens' ModifySelfservicePermissions Text
-mspResourceId = lens _mspResourceId (\s a -> s {_mspResourceId = a})
+modifySelfservicePermissions_resourceId :: Lens.Lens' ModifySelfservicePermissions Prelude.Text
+modifySelfservicePermissions_resourceId = Lens.lens (\ModifySelfservicePermissions' {resourceId} -> resourceId) (\s@ModifySelfservicePermissions' {} a -> s {resourceId = a} :: ModifySelfservicePermissions)
 
 -- | The permissions to enable or disable self-service capabilities.
-mspSelfservicePermissions :: Lens' ModifySelfservicePermissions SelfservicePermissions
-mspSelfservicePermissions = lens _mspSelfservicePermissions (\s a -> s {_mspSelfservicePermissions = a})
+modifySelfservicePermissions_selfservicePermissions :: Lens.Lens' ModifySelfservicePermissions SelfservicePermissions
+modifySelfservicePermissions_selfservicePermissions = Lens.lens (\ModifySelfservicePermissions' {selfservicePermissions} -> selfservicePermissions) (\s@ModifySelfservicePermissions' {} a -> s {selfservicePermissions = a} :: ModifySelfservicePermissions)
 
-instance AWSRequest ModifySelfservicePermissions where
+instance
+  Prelude.AWSRequest
+    ModifySelfservicePermissions
+  where
   type
     Rs ModifySelfservicePermissions =
       ModifySelfservicePermissionsResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ModifySelfservicePermissionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifySelfservicePermissions
+instance
+  Prelude.Hashable
+    ModifySelfservicePermissions
 
-instance NFData ModifySelfservicePermissions
+instance Prelude.NFData ModifySelfservicePermissions
 
-instance ToHeaders ModifySelfservicePermissions where
+instance
+  Prelude.ToHeaders
+    ModifySelfservicePermissions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.ModifySelfservicePermissions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.ModifySelfservicePermissions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifySelfservicePermissions where
+instance Prelude.ToJSON ModifySelfservicePermissions where
   toJSON ModifySelfservicePermissions' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _mspResourceId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
               ( "SelfservicePermissions"
-                  .= _mspSelfservicePermissions
+                  Prelude..= selfservicePermissions
               )
           ]
       )
 
-instance ToPath ModifySelfservicePermissions where
-  toPath = const "/"
+instance Prelude.ToPath ModifySelfservicePermissions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifySelfservicePermissions where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifySelfservicePermissions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifySelfservicePermissionsResponse' smart constructor.
-newtype ModifySelfservicePermissionsResponse = ModifySelfservicePermissionsResponse'
-  { _msprrsResponseStatus ::
-      Int
+-- | /See:/ 'newModifySelfservicePermissionsResponse' smart constructor.
+data ModifySelfservicePermissionsResponse = ModifySelfservicePermissionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifySelfservicePermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifySelfservicePermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msprrsResponseStatus' - -- | The response status code.
-modifySelfservicePermissionsResponse ::
-  -- | 'msprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifySelfservicePermissionsResponse_httpStatus' - The response's http status code.
+newModifySelfservicePermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifySelfservicePermissionsResponse
-modifySelfservicePermissionsResponse pResponseStatus_ =
+newModifySelfservicePermissionsResponse pHttpStatus_ =
   ModifySelfservicePermissionsResponse'
-    { _msprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-msprrsResponseStatus :: Lens' ModifySelfservicePermissionsResponse Int
-msprrsResponseStatus = lens _msprrsResponseStatus (\s a -> s {_msprrsResponseStatus = a})
+-- | The response's http status code.
+modifySelfservicePermissionsResponse_httpStatus :: Lens.Lens' ModifySelfservicePermissionsResponse Prelude.Int
+modifySelfservicePermissionsResponse_httpStatus = Lens.lens (\ModifySelfservicePermissionsResponse' {httpStatus} -> httpStatus) (\s@ModifySelfservicePermissionsResponse' {} a -> s {httpStatus = a} :: ModifySelfservicePermissionsResponse)
 
-instance NFData ModifySelfservicePermissionsResponse
+instance
+  Prelude.NFData
+    ModifySelfservicePermissionsResponse

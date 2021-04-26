@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.WorkSpaces.Types.ConnectionState
   ( ConnectionState
       ( ..,
-        Connected,
-        Disconnected,
-        Unknown
+        ConnectionStateCONNECTED,
+        ConnectionStateDISCONNECTED,
+        ConnectionStateUNKNOWN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionState = ConnectionState' (CI Text)
+newtype ConnectionState = ConnectionState'
+  { fromConnectionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Connected :: ConnectionState
-pattern Connected = ConnectionState' "CONNECTED"
+pattern ConnectionStateCONNECTED :: ConnectionState
+pattern ConnectionStateCONNECTED = ConnectionState' "CONNECTED"
 
-pattern Disconnected :: ConnectionState
-pattern Disconnected = ConnectionState' "DISCONNECTED"
+pattern ConnectionStateDISCONNECTED :: ConnectionState
+pattern ConnectionStateDISCONNECTED = ConnectionState' "DISCONNECTED"
 
-pattern Unknown :: ConnectionState
-pattern Unknown = ConnectionState' "UNKNOWN"
+pattern ConnectionStateUNKNOWN :: ConnectionState
+pattern ConnectionStateUNKNOWN = ConnectionState' "UNKNOWN"
 
 {-# COMPLETE
-  Connected,
-  Disconnected,
-  Unknown,
+  ConnectionStateCONNECTED,
+  ConnectionStateDISCONNECTED,
+  ConnectionStateUNKNOWN,
   ConnectionState'
   #-}
 
-instance FromText ConnectionState where
-  parser = (ConnectionState' . mk) <$> takeText
+instance Prelude.FromText ConnectionState where
+  parser = ConnectionState' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionState where
-  toText (ConnectionState' ci) = original ci
+instance Prelude.ToText ConnectionState where
+  toText (ConnectionState' x) = x
 
-instance Hashable ConnectionState
+instance Prelude.Hashable ConnectionState
 
-instance NFData ConnectionState
+instance Prelude.NFData ConnectionState
 
-instance ToByteString ConnectionState
+instance Prelude.ToByteString ConnectionState
 
-instance ToQuery ConnectionState
+instance Prelude.ToQuery ConnectionState
 
-instance ToHeader ConnectionState
+instance Prelude.ToHeader ConnectionState
 
-instance FromJSON ConnectionState where
-  parseJSON = parseJSONText "ConnectionState"
+instance Prelude.FromJSON ConnectionState where
+  parseJSON = Prelude.parseJSONText "ConnectionState"

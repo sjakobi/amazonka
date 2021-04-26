@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,156 +24,171 @@
 -- Modify the default properties used to create WorkSpaces.
 module Network.AWS.WorkSpaces.ModifyWorkspaceCreationProperties
   ( -- * Creating a Request
-    modifyWorkspaceCreationProperties,
-    ModifyWorkspaceCreationProperties,
+    ModifyWorkspaceCreationProperties (..),
+    newModifyWorkspaceCreationProperties,
 
     -- * Request Lenses
-    mwcpResourceId,
-    mwcpWorkspaceCreationProperties,
+    modifyWorkspaceCreationProperties_resourceId,
+    modifyWorkspaceCreationProperties_workspaceCreationProperties,
 
     -- * Destructuring the Response
-    modifyWorkspaceCreationPropertiesResponse,
-    ModifyWorkspaceCreationPropertiesResponse,
+    ModifyWorkspaceCreationPropertiesResponse (..),
+    newModifyWorkspaceCreationPropertiesResponse,
 
     -- * Response Lenses
-    mwcprrsResponseStatus,
+    modifyWorkspaceCreationPropertiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'modifyWorkspaceCreationProperties' smart constructor.
+-- | /See:/ 'newModifyWorkspaceCreationProperties' smart constructor.
 data ModifyWorkspaceCreationProperties = ModifyWorkspaceCreationProperties'
-  { _mwcpResourceId ::
-      !Text,
-    _mwcpWorkspaceCreationProperties ::
-      !WorkspaceCreationProperties
+  { -- | The identifier of the directory.
+    resourceId :: Prelude.Text,
+    -- | The default properties for creating WorkSpaces.
+    workspaceCreationProperties :: WorkspaceCreationProperties
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyWorkspaceCreationProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyWorkspaceCreationProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwcpResourceId' - The identifier of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwcpWorkspaceCreationProperties' - The default properties for creating WorkSpaces.
-modifyWorkspaceCreationProperties ::
-  -- | 'mwcpResourceId'
-  Text ->
-  -- | 'mwcpWorkspaceCreationProperties'
+-- 'resourceId', 'modifyWorkspaceCreationProperties_resourceId' - The identifier of the directory.
+--
+-- 'workspaceCreationProperties', 'modifyWorkspaceCreationProperties_workspaceCreationProperties' - The default properties for creating WorkSpaces.
+newModifyWorkspaceCreationProperties ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'workspaceCreationProperties'
   WorkspaceCreationProperties ->
   ModifyWorkspaceCreationProperties
-modifyWorkspaceCreationProperties
+newModifyWorkspaceCreationProperties
   pResourceId_
   pWorkspaceCreationProperties_ =
     ModifyWorkspaceCreationProperties'
-      { _mwcpResourceId =
+      { resourceId =
           pResourceId_,
-        _mwcpWorkspaceCreationProperties =
+        workspaceCreationProperties =
           pWorkspaceCreationProperties_
       }
 
 -- | The identifier of the directory.
-mwcpResourceId :: Lens' ModifyWorkspaceCreationProperties Text
-mwcpResourceId = lens _mwcpResourceId (\s a -> s {_mwcpResourceId = a})
+modifyWorkspaceCreationProperties_resourceId :: Lens.Lens' ModifyWorkspaceCreationProperties Prelude.Text
+modifyWorkspaceCreationProperties_resourceId = Lens.lens (\ModifyWorkspaceCreationProperties' {resourceId} -> resourceId) (\s@ModifyWorkspaceCreationProperties' {} a -> s {resourceId = a} :: ModifyWorkspaceCreationProperties)
 
 -- | The default properties for creating WorkSpaces.
-mwcpWorkspaceCreationProperties :: Lens' ModifyWorkspaceCreationProperties WorkspaceCreationProperties
-mwcpWorkspaceCreationProperties = lens _mwcpWorkspaceCreationProperties (\s a -> s {_mwcpWorkspaceCreationProperties = a})
+modifyWorkspaceCreationProperties_workspaceCreationProperties :: Lens.Lens' ModifyWorkspaceCreationProperties WorkspaceCreationProperties
+modifyWorkspaceCreationProperties_workspaceCreationProperties = Lens.lens (\ModifyWorkspaceCreationProperties' {workspaceCreationProperties} -> workspaceCreationProperties) (\s@ModifyWorkspaceCreationProperties' {} a -> s {workspaceCreationProperties = a} :: ModifyWorkspaceCreationProperties)
 
-instance AWSRequest ModifyWorkspaceCreationProperties where
+instance
+  Prelude.AWSRequest
+    ModifyWorkspaceCreationProperties
+  where
   type
     Rs ModifyWorkspaceCreationProperties =
       ModifyWorkspaceCreationPropertiesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ModifyWorkspaceCreationPropertiesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyWorkspaceCreationProperties
+instance
+  Prelude.Hashable
+    ModifyWorkspaceCreationProperties
 
-instance NFData ModifyWorkspaceCreationProperties
+instance
+  Prelude.NFData
+    ModifyWorkspaceCreationProperties
 
-instance ToHeaders ModifyWorkspaceCreationProperties where
+instance
+  Prelude.ToHeaders
+    ModifyWorkspaceCreationProperties
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.ModifyWorkspaceCreationProperties" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.ModifyWorkspaceCreationProperties" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyWorkspaceCreationProperties where
+instance
+  Prelude.ToJSON
+    ModifyWorkspaceCreationProperties
+  where
   toJSON ModifyWorkspaceCreationProperties' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _mwcpResourceId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
               ( "WorkspaceCreationProperties"
-                  .= _mwcpWorkspaceCreationProperties
+                  Prelude..= workspaceCreationProperties
               )
           ]
       )
 
-instance ToPath ModifyWorkspaceCreationProperties where
-  toPath = const "/"
-
-instance ToQuery ModifyWorkspaceCreationProperties where
-  toQuery = const mempty
-
--- | /See:/ 'modifyWorkspaceCreationPropertiesResponse' smart constructor.
-newtype ModifyWorkspaceCreationPropertiesResponse = ModifyWorkspaceCreationPropertiesResponse'
-  { _mwcprrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ModifyWorkspaceCreationPropertiesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'mwcprrsResponseStatus' - -- | The response status code.
-modifyWorkspaceCreationPropertiesResponse ::
-  -- | 'mwcprrsResponseStatus'
-  Int ->
-  ModifyWorkspaceCreationPropertiesResponse
-modifyWorkspaceCreationPropertiesResponse
-  pResponseStatus_ =
-    ModifyWorkspaceCreationPropertiesResponse'
-      { _mwcprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-mwcprrsResponseStatus :: Lens' ModifyWorkspaceCreationPropertiesResponse Int
-mwcprrsResponseStatus = lens _mwcprrsResponseStatus (\s a -> s {_mwcprrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    ModifyWorkspaceCreationProperties
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    ModifyWorkspaceCreationProperties
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newModifyWorkspaceCreationPropertiesResponse' smart constructor.
+data ModifyWorkspaceCreationPropertiesResponse = ModifyWorkspaceCreationPropertiesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ModifyWorkspaceCreationPropertiesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifyWorkspaceCreationPropertiesResponse_httpStatus' - The response's http status code.
+newModifyWorkspaceCreationPropertiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ModifyWorkspaceCreationPropertiesResponse
+newModifyWorkspaceCreationPropertiesResponse
+  pHttpStatus_ =
+    ModifyWorkspaceCreationPropertiesResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+modifyWorkspaceCreationPropertiesResponse_httpStatus :: Lens.Lens' ModifyWorkspaceCreationPropertiesResponse Prelude.Int
+modifyWorkspaceCreationPropertiesResponse_httpStatus = Lens.lens (\ModifyWorkspaceCreationPropertiesResponse' {httpStatus} -> httpStatus) (\s@ModifyWorkspaceCreationPropertiesResponse' {} a -> s {httpStatus = a} :: ModifyWorkspaceCreationPropertiesResponse)
+
+instance
+  Prelude.NFData
     ModifyWorkspaceCreationPropertiesResponse

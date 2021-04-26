@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,131 +19,155 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.WorkspaceImage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkSpaces.Types.OperatingSystem
 import Network.AWS.WorkSpaces.Types.WorkspaceImageRequiredTenancy
 import Network.AWS.WorkSpaces.Types.WorkspaceImageState
 
 -- | Describes a WorkSpace image.
 --
---
---
--- /See:/ 'workspaceImage' smart constructor.
+-- /See:/ 'newWorkspaceImage' smart constructor.
 data WorkspaceImage = WorkspaceImage'
-  { _wiImageId ::
-      !(Maybe Text),
-    _wiState :: !(Maybe WorkspaceImageState),
-    _wiName :: !(Maybe Text),
-    _wiDescription :: !(Maybe Text),
-    _wiErrorMessage :: !(Maybe Text),
-    _wiRequiredTenancy ::
-      !(Maybe WorkspaceImageRequiredTenancy),
-    _wiOperatingSystem ::
-      !(Maybe OperatingSystem),
-    _wiCreated :: !(Maybe POSIX),
-    _wiOwnerAccountId :: !(Maybe Text),
-    _wiErrorCode :: !(Maybe Text)
+  { -- | The identifier of the image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the image.
+    state :: Prelude.Maybe WorkspaceImageState,
+    -- | The name of the image.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The text of the error message that is returned for the image.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the image is running on dedicated hardware. When Bring
+    -- Your Own License (BYOL) is enabled, this value is set to @DEDICATED@.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
+    requiredTenancy :: Prelude.Maybe WorkspaceImageRequiredTenancy,
+    -- | The operating system that the image is running.
+    operatingSystem :: Prelude.Maybe OperatingSystem,
+    -- | The date when the image was created. If the image has been shared, the
+    -- AWS account that the image has been shared with sees the original
+    -- creation date of the image.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of the AWS account that owns the image.
+    ownerAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The error code that is returned for the image.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkspaceImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkspaceImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wiImageId' - The identifier of the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wiState' - The status of the image.
+-- 'imageId', 'workspaceImage_imageId' - The identifier of the image.
 --
--- * 'wiName' - The name of the image.
+-- 'state', 'workspaceImage_state' - The status of the image.
 --
--- * 'wiDescription' - The description of the image.
+-- 'name', 'workspaceImage_name' - The name of the image.
 --
--- * 'wiErrorMessage' - The text of the error message that is returned for the image.
+-- 'description', 'workspaceImage_description' - The description of the image.
 --
--- * 'wiRequiredTenancy' - Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this value is set to @DEDICATED@ . For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images> .
+-- 'errorMessage', 'workspaceImage_errorMessage' - The text of the error message that is returned for the image.
 --
--- * 'wiOperatingSystem' - The operating system that the image is running.
+-- 'requiredTenancy', 'workspaceImage_requiredTenancy' - Specifies whether the image is running on dedicated hardware. When Bring
+-- Your Own License (BYOL) is enabled, this value is set to @DEDICATED@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
 --
--- * 'wiCreated' - The date when the image was created. If the image has been shared, the AWS account that the image has been shared with sees the original creation date of the image.
+-- 'operatingSystem', 'workspaceImage_operatingSystem' - The operating system that the image is running.
 --
--- * 'wiOwnerAccountId' - The identifier of the AWS account that owns the image.
+-- 'created', 'workspaceImage_created' - The date when the image was created. If the image has been shared, the
+-- AWS account that the image has been shared with sees the original
+-- creation date of the image.
 --
--- * 'wiErrorCode' - The error code that is returned for the image.
-workspaceImage ::
+-- 'ownerAccountId', 'workspaceImage_ownerAccountId' - The identifier of the AWS account that owns the image.
+--
+-- 'errorCode', 'workspaceImage_errorCode' - The error code that is returned for the image.
+newWorkspaceImage ::
   WorkspaceImage
-workspaceImage =
+newWorkspaceImage =
   WorkspaceImage'
-    { _wiImageId = Nothing,
-      _wiState = Nothing,
-      _wiName = Nothing,
-      _wiDescription = Nothing,
-      _wiErrorMessage = Nothing,
-      _wiRequiredTenancy = Nothing,
-      _wiOperatingSystem = Nothing,
-      _wiCreated = Nothing,
-      _wiOwnerAccountId = Nothing,
-      _wiErrorCode = Nothing
+    { imageId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      requiredTenancy = Prelude.Nothing,
+      operatingSystem = Prelude.Nothing,
+      created = Prelude.Nothing,
+      ownerAccountId = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The identifier of the image.
-wiImageId :: Lens' WorkspaceImage (Maybe Text)
-wiImageId = lens _wiImageId (\s a -> s {_wiImageId = a})
+workspaceImage_imageId :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.Text)
+workspaceImage_imageId = Lens.lens (\WorkspaceImage' {imageId} -> imageId) (\s@WorkspaceImage' {} a -> s {imageId = a} :: WorkspaceImage)
 
 -- | The status of the image.
-wiState :: Lens' WorkspaceImage (Maybe WorkspaceImageState)
-wiState = lens _wiState (\s a -> s {_wiState = a})
+workspaceImage_state :: Lens.Lens' WorkspaceImage (Prelude.Maybe WorkspaceImageState)
+workspaceImage_state = Lens.lens (\WorkspaceImage' {state} -> state) (\s@WorkspaceImage' {} a -> s {state = a} :: WorkspaceImage)
 
 -- | The name of the image.
-wiName :: Lens' WorkspaceImage (Maybe Text)
-wiName = lens _wiName (\s a -> s {_wiName = a})
+workspaceImage_name :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.Text)
+workspaceImage_name = Lens.lens (\WorkspaceImage' {name} -> name) (\s@WorkspaceImage' {} a -> s {name = a} :: WorkspaceImage)
 
 -- | The description of the image.
-wiDescription :: Lens' WorkspaceImage (Maybe Text)
-wiDescription = lens _wiDescription (\s a -> s {_wiDescription = a})
+workspaceImage_description :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.Text)
+workspaceImage_description = Lens.lens (\WorkspaceImage' {description} -> description) (\s@WorkspaceImage' {} a -> s {description = a} :: WorkspaceImage)
 
 -- | The text of the error message that is returned for the image.
-wiErrorMessage :: Lens' WorkspaceImage (Maybe Text)
-wiErrorMessage = lens _wiErrorMessage (\s a -> s {_wiErrorMessage = a})
+workspaceImage_errorMessage :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.Text)
+workspaceImage_errorMessage = Lens.lens (\WorkspaceImage' {errorMessage} -> errorMessage) (\s@WorkspaceImage' {} a -> s {errorMessage = a} :: WorkspaceImage)
 
--- | Specifies whether the image is running on dedicated hardware. When Bring Your Own License (BYOL) is enabled, this value is set to @DEDICATED@ . For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images> .
-wiRequiredTenancy :: Lens' WorkspaceImage (Maybe WorkspaceImageRequiredTenancy)
-wiRequiredTenancy = lens _wiRequiredTenancy (\s a -> s {_wiRequiredTenancy = a})
+-- | Specifies whether the image is running on dedicated hardware. When Bring
+-- Your Own License (BYOL) is enabled, this value is set to @DEDICATED@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
+workspaceImage_requiredTenancy :: Lens.Lens' WorkspaceImage (Prelude.Maybe WorkspaceImageRequiredTenancy)
+workspaceImage_requiredTenancy = Lens.lens (\WorkspaceImage' {requiredTenancy} -> requiredTenancy) (\s@WorkspaceImage' {} a -> s {requiredTenancy = a} :: WorkspaceImage)
 
 -- | The operating system that the image is running.
-wiOperatingSystem :: Lens' WorkspaceImage (Maybe OperatingSystem)
-wiOperatingSystem = lens _wiOperatingSystem (\s a -> s {_wiOperatingSystem = a})
+workspaceImage_operatingSystem :: Lens.Lens' WorkspaceImage (Prelude.Maybe OperatingSystem)
+workspaceImage_operatingSystem = Lens.lens (\WorkspaceImage' {operatingSystem} -> operatingSystem) (\s@WorkspaceImage' {} a -> s {operatingSystem = a} :: WorkspaceImage)
 
--- | The date when the image was created. If the image has been shared, the AWS account that the image has been shared with sees the original creation date of the image.
-wiCreated :: Lens' WorkspaceImage (Maybe UTCTime)
-wiCreated = lens _wiCreated (\s a -> s {_wiCreated = a}) . mapping _Time
+-- | The date when the image was created. If the image has been shared, the
+-- AWS account that the image has been shared with sees the original
+-- creation date of the image.
+workspaceImage_created :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.UTCTime)
+workspaceImage_created = Lens.lens (\WorkspaceImage' {created} -> created) (\s@WorkspaceImage' {} a -> s {created = a} :: WorkspaceImage) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of the AWS account that owns the image.
-wiOwnerAccountId :: Lens' WorkspaceImage (Maybe Text)
-wiOwnerAccountId = lens _wiOwnerAccountId (\s a -> s {_wiOwnerAccountId = a})
+workspaceImage_ownerAccountId :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.Text)
+workspaceImage_ownerAccountId = Lens.lens (\WorkspaceImage' {ownerAccountId} -> ownerAccountId) (\s@WorkspaceImage' {} a -> s {ownerAccountId = a} :: WorkspaceImage)
 
 -- | The error code that is returned for the image.
-wiErrorCode :: Lens' WorkspaceImage (Maybe Text)
-wiErrorCode = lens _wiErrorCode (\s a -> s {_wiErrorCode = a})
+workspaceImage_errorCode :: Lens.Lens' WorkspaceImage (Prelude.Maybe Prelude.Text)
+workspaceImage_errorCode = Lens.lens (\WorkspaceImage' {errorCode} -> errorCode) (\s@WorkspaceImage' {} a -> s {errorCode = a} :: WorkspaceImage)
 
-instance FromJSON WorkspaceImage where
+instance Prelude.FromJSON WorkspaceImage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkspaceImage"
       ( \x ->
           WorkspaceImage'
-            <$> (x .:? "ImageId")
-            <*> (x .:? "State")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "RequiredTenancy")
-            <*> (x .:? "OperatingSystem")
-            <*> (x .:? "Created")
-            <*> (x .:? "OwnerAccountId")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "ImageId")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "RequiredTenancy")
+            Prelude.<*> (x Prelude..:? "OperatingSystem")
+            Prelude.<*> (x Prelude..:? "Created")
+            Prelude.<*> (x Prelude..:? "OwnerAccountId")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable WorkspaceImage
+instance Prelude.Hashable WorkspaceImage
 
-instance NFData WorkspaceImage
+instance Prelude.NFData WorkspaceImage

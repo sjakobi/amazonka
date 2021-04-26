@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.WorkSpaces.Types.DedicatedTenancySupportEnum
   ( DedicatedTenancySupportEnum
       ( ..,
-        DTSEEnabled
+        DedicatedTenancySupportEnumENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DedicatedTenancySupportEnum
-  = DedicatedTenancySupportEnum'
-      ( CI
-          Text
-      )
+newtype DedicatedTenancySupportEnum = DedicatedTenancySupportEnum'
+  { fromDedicatedTenancySupportEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTSEEnabled :: DedicatedTenancySupportEnum
-pattern DTSEEnabled = DedicatedTenancySupportEnum' "ENABLED"
+pattern DedicatedTenancySupportEnumENABLED :: DedicatedTenancySupportEnum
+pattern DedicatedTenancySupportEnumENABLED = DedicatedTenancySupportEnum' "ENABLED"
 
 {-# COMPLETE
-  DTSEEnabled,
+  DedicatedTenancySupportEnumENABLED,
   DedicatedTenancySupportEnum'
   #-}
 
-instance FromText DedicatedTenancySupportEnum where
-  parser = (DedicatedTenancySupportEnum' . mk) <$> takeText
+instance Prelude.FromText DedicatedTenancySupportEnum where
+  parser = DedicatedTenancySupportEnum' Prelude.<$> Prelude.takeText
 
-instance ToText DedicatedTenancySupportEnum where
-  toText (DedicatedTenancySupportEnum' ci) = original ci
+instance Prelude.ToText DedicatedTenancySupportEnum where
+  toText (DedicatedTenancySupportEnum' x) = x
 
-instance Hashable DedicatedTenancySupportEnum
+instance Prelude.Hashable DedicatedTenancySupportEnum
 
-instance NFData DedicatedTenancySupportEnum
+instance Prelude.NFData DedicatedTenancySupportEnum
 
-instance ToByteString DedicatedTenancySupportEnum
+instance Prelude.ToByteString DedicatedTenancySupportEnum
 
-instance ToQuery DedicatedTenancySupportEnum
+instance Prelude.ToQuery DedicatedTenancySupportEnum
 
-instance ToHeader DedicatedTenancySupportEnum
+instance Prelude.ToHeader DedicatedTenancySupportEnum
 
-instance ToJSON DedicatedTenancySupportEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON DedicatedTenancySupportEnum where
+  toJSON = Prelude.toJSONText

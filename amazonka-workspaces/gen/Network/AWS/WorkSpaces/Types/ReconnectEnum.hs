@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.WorkSpaces.Types.ReconnectEnum
   ( ReconnectEnum
       ( ..,
-        Disabled,
-        Enabled
+        ReconnectEnumDISABLED,
+        ReconnectEnumENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReconnectEnum = ReconnectEnum' (CI Text)
+newtype ReconnectEnum = ReconnectEnum'
+  { fromReconnectEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: ReconnectEnum
-pattern Disabled = ReconnectEnum' "DISABLED"
+pattern ReconnectEnumDISABLED :: ReconnectEnum
+pattern ReconnectEnumDISABLED = ReconnectEnum' "DISABLED"
 
-pattern Enabled :: ReconnectEnum
-pattern Enabled = ReconnectEnum' "ENABLED"
+pattern ReconnectEnumENABLED :: ReconnectEnum
+pattern ReconnectEnumENABLED = ReconnectEnum' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  ReconnectEnumDISABLED,
+  ReconnectEnumENABLED,
   ReconnectEnum'
   #-}
 
-instance FromText ReconnectEnum where
-  parser = (ReconnectEnum' . mk) <$> takeText
+instance Prelude.FromText ReconnectEnum where
+  parser = ReconnectEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ReconnectEnum where
-  toText (ReconnectEnum' ci) = original ci
+instance Prelude.ToText ReconnectEnum where
+  toText (ReconnectEnum' x) = x
 
-instance Hashable ReconnectEnum
+instance Prelude.Hashable ReconnectEnum
 
-instance NFData ReconnectEnum
+instance Prelude.NFData ReconnectEnum
 
-instance ToByteString ReconnectEnum
+instance Prelude.ToByteString ReconnectEnum
 
-instance ToQuery ReconnectEnum
+instance Prelude.ToQuery ReconnectEnum
 
-instance ToHeader ReconnectEnum
+instance Prelude.ToHeader ReconnectEnum
 
-instance ToJSON ReconnectEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReconnectEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReconnectEnum where
-  parseJSON = parseJSONText "ReconnectEnum"
+instance Prelude.FromJSON ReconnectEnum where
+  parseJSON = Prelude.parseJSONText "ReconnectEnum"

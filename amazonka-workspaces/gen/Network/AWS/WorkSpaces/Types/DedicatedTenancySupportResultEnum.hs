@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkSpaces.Types.DedicatedTenancySupportResultEnum
   ( DedicatedTenancySupportResultEnum
       ( ..,
-        DTSREDisabled,
-        DTSREEnabled
+        DedicatedTenancySupportResultEnumDISABLED,
+        DedicatedTenancySupportResultEnumENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DedicatedTenancySupportResultEnum
-  = DedicatedTenancySupportResultEnum'
-      ( CI
-          Text
-      )
+newtype DedicatedTenancySupportResultEnum = DedicatedTenancySupportResultEnum'
+  { fromDedicatedTenancySupportResultEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DTSREDisabled :: DedicatedTenancySupportResultEnum
-pattern DTSREDisabled = DedicatedTenancySupportResultEnum' "DISABLED"
+pattern DedicatedTenancySupportResultEnumDISABLED :: DedicatedTenancySupportResultEnum
+pattern DedicatedTenancySupportResultEnumDISABLED = DedicatedTenancySupportResultEnum' "DISABLED"
 
-pattern DTSREEnabled :: DedicatedTenancySupportResultEnum
-pattern DTSREEnabled = DedicatedTenancySupportResultEnum' "ENABLED"
+pattern DedicatedTenancySupportResultEnumENABLED :: DedicatedTenancySupportResultEnum
+pattern DedicatedTenancySupportResultEnumENABLED = DedicatedTenancySupportResultEnum' "ENABLED"
 
 {-# COMPLETE
-  DTSREDisabled,
-  DTSREEnabled,
+  DedicatedTenancySupportResultEnumDISABLED,
+  DedicatedTenancySupportResultEnumENABLED,
   DedicatedTenancySupportResultEnum'
   #-}
 
-instance FromText DedicatedTenancySupportResultEnum where
-  parser = (DedicatedTenancySupportResultEnum' . mk) <$> takeText
+instance Prelude.FromText DedicatedTenancySupportResultEnum where
+  parser = DedicatedTenancySupportResultEnum' Prelude.<$> Prelude.takeText
 
-instance ToText DedicatedTenancySupportResultEnum where
-  toText (DedicatedTenancySupportResultEnum' ci) = original ci
+instance Prelude.ToText DedicatedTenancySupportResultEnum where
+  toText (DedicatedTenancySupportResultEnum' x) = x
 
-instance Hashable DedicatedTenancySupportResultEnum
+instance Prelude.Hashable DedicatedTenancySupportResultEnum
 
-instance NFData DedicatedTenancySupportResultEnum
+instance Prelude.NFData DedicatedTenancySupportResultEnum
 
-instance ToByteString DedicatedTenancySupportResultEnum
+instance Prelude.ToByteString DedicatedTenancySupportResultEnum
 
-instance ToQuery DedicatedTenancySupportResultEnum
+instance Prelude.ToQuery DedicatedTenancySupportResultEnum
 
-instance ToHeader DedicatedTenancySupportResultEnum
+instance Prelude.ToHeader DedicatedTenancySupportResultEnum
 
-instance FromJSON DedicatedTenancySupportResultEnum where
-  parseJSON = parseJSONText "DedicatedTenancySupportResultEnum"
+instance Prelude.FromJSON DedicatedTenancySupportResultEnum where
+  parseJSON = Prelude.parseJSONText "DedicatedTenancySupportResultEnum"

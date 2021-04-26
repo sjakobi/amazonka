@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,198 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list that describes modifications to the configuration of Bring Your Own License (BYOL) for the specified account.
---
---
+-- Retrieves a list that describes modifications to the configuration of
+-- Bring Your Own License (BYOL) for the specified account.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkSpaces.DescribeAccountModifications
   ( -- * Creating a Request
-    describeAccountModifications,
-    DescribeAccountModifications,
+    DescribeAccountModifications (..),
+    newDescribeAccountModifications,
 
     -- * Request Lenses
-    damNextToken,
+    describeAccountModifications_nextToken,
 
     -- * Destructuring the Response
-    describeAccountModificationsResponse,
-    DescribeAccountModificationsResponse,
+    DescribeAccountModificationsResponse (..),
+    newDescribeAccountModificationsResponse,
 
     -- * Response Lenses
-    damrrsNextToken,
-    damrrsAccountModifications,
-    damrrsResponseStatus,
+    describeAccountModificationsResponse_nextToken,
+    describeAccountModificationsResponse_accountModifications,
+    describeAccountModificationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.AccountModification
 
--- | /See:/ 'describeAccountModifications' smart constructor.
-newtype DescribeAccountModifications = DescribeAccountModifications'
-  { _damNextToken ::
-      Maybe Text
+-- | /See:/ 'newDescribeAccountModifications' smart constructor.
+data DescribeAccountModifications = DescribeAccountModifications'
+  { -- | If you received a @NextToken@ from a previous call that was paginated,
+    -- provide this token to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountModifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountModifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'damNextToken' - If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
-describeAccountModifications ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'describeAccountModifications_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+newDescribeAccountModifications ::
   DescribeAccountModifications
-describeAccountModifications =
+newDescribeAccountModifications =
   DescribeAccountModifications'
-    { _damNextToken =
-        Nothing
+    { nextToken =
+        Prelude.Nothing
     }
 
--- | If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
-damNextToken :: Lens' DescribeAccountModifications (Maybe Text)
-damNextToken = lens _damNextToken (\s a -> s {_damNextToken = a})
+-- | If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+describeAccountModifications_nextToken :: Lens.Lens' DescribeAccountModifications (Prelude.Maybe Prelude.Text)
+describeAccountModifications_nextToken = Lens.lens (\DescribeAccountModifications' {nextToken} -> nextToken) (\s@DescribeAccountModifications' {} a -> s {nextToken = a} :: DescribeAccountModifications)
 
-instance AWSPager DescribeAccountModifications where
+instance Pager.AWSPager DescribeAccountModifications where
   page rq rs
-    | stop (rs ^. damrrsNextToken) = Nothing
-    | stop (rs ^. damrrsAccountModifications) = Nothing
-    | otherwise =
-      Just $ rq & damNextToken .~ rs ^. damrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeAccountModificationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeAccountModificationsResponse_accountModifications
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeAccountModifications_nextToken
+          Lens..~ rs
+          Lens.^? describeAccountModificationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeAccountModifications where
+instance
+  Prelude.AWSRequest
+    DescribeAccountModifications
+  where
   type
     Rs DescribeAccountModifications =
       DescribeAccountModificationsResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAccountModificationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AccountModifications" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AccountModifications"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountModifications
+instance
+  Prelude.Hashable
+    DescribeAccountModifications
 
-instance NFData DescribeAccountModifications
+instance Prelude.NFData DescribeAccountModifications
 
-instance ToHeaders DescribeAccountModifications where
+instance
+  Prelude.ToHeaders
+    DescribeAccountModifications
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.DescribeAccountModifications" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.DescribeAccountModifications" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAccountModifications where
+instance Prelude.ToJSON DescribeAccountModifications where
   toJSON DescribeAccountModifications' {..} =
-    object
-      (catMaybes [("NextToken" .=) <$> _damNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("NextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath DescribeAccountModifications where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountModifications where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountModifications where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAccountModifications where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAccountModificationsResponse' smart constructor.
+-- | /See:/ 'newDescribeAccountModificationsResponse' smart constructor.
 data DescribeAccountModificationsResponse = DescribeAccountModificationsResponse'
-  { _damrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _damrrsAccountModifications ::
-      !( Maybe
-           [AccountModification]
-       ),
-    _damrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next set of results, or null if no more
+    -- results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of modifications to the configuration of BYOL.
+    accountModifications :: Prelude.Maybe [AccountModification],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountModificationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountModificationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'damrrsNextToken' - The token to use to retrieve the next set of results, or null if no more results are available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'damrrsAccountModifications' - The list of modifications to the configuration of BYOL.
+-- 'nextToken', 'describeAccountModificationsResponse_nextToken' - The token to use to retrieve the next set of results, or null if no more
+-- results are available.
 --
--- * 'damrrsResponseStatus' - -- | The response status code.
-describeAccountModificationsResponse ::
-  -- | 'damrrsResponseStatus'
-  Int ->
+-- 'accountModifications', 'describeAccountModificationsResponse_accountModifications' - The list of modifications to the configuration of BYOL.
+--
+-- 'httpStatus', 'describeAccountModificationsResponse_httpStatus' - The response's http status code.
+newDescribeAccountModificationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountModificationsResponse
-describeAccountModificationsResponse pResponseStatus_ =
+newDescribeAccountModificationsResponse pHttpStatus_ =
   DescribeAccountModificationsResponse'
-    { _damrrsNextToken =
-        Nothing,
-      _damrrsAccountModifications = Nothing,
-      _damrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      accountModifications =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next set of results, or null if no more results are available.
-damrrsNextToken :: Lens' DescribeAccountModificationsResponse (Maybe Text)
-damrrsNextToken = lens _damrrsNextToken (\s a -> s {_damrrsNextToken = a})
+-- | The token to use to retrieve the next set of results, or null if no more
+-- results are available.
+describeAccountModificationsResponse_nextToken :: Lens.Lens' DescribeAccountModificationsResponse (Prelude.Maybe Prelude.Text)
+describeAccountModificationsResponse_nextToken = Lens.lens (\DescribeAccountModificationsResponse' {nextToken} -> nextToken) (\s@DescribeAccountModificationsResponse' {} a -> s {nextToken = a} :: DescribeAccountModificationsResponse)
 
 -- | The list of modifications to the configuration of BYOL.
-damrrsAccountModifications :: Lens' DescribeAccountModificationsResponse [AccountModification]
-damrrsAccountModifications = lens _damrrsAccountModifications (\s a -> s {_damrrsAccountModifications = a}) . _Default . _Coerce
+describeAccountModificationsResponse_accountModifications :: Lens.Lens' DescribeAccountModificationsResponse (Prelude.Maybe [AccountModification])
+describeAccountModificationsResponse_accountModifications = Lens.lens (\DescribeAccountModificationsResponse' {accountModifications} -> accountModifications) (\s@DescribeAccountModificationsResponse' {} a -> s {accountModifications = a} :: DescribeAccountModificationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-damrrsResponseStatus :: Lens' DescribeAccountModificationsResponse Int
-damrrsResponseStatus = lens _damrrsResponseStatus (\s a -> s {_damrrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountModificationsResponse_httpStatus :: Lens.Lens' DescribeAccountModificationsResponse Prelude.Int
+describeAccountModificationsResponse_httpStatus = Lens.lens (\DescribeAccountModificationsResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountModificationsResponse' {} a -> s {httpStatus = a} :: DescribeAccountModificationsResponse)
 
-instance NFData DescribeAccountModificationsResponse
+instance
+  Prelude.NFData
+    DescribeAccountModificationsResponse

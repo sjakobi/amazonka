@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,214 +23,281 @@
 --
 -- Describes the specified WorkSpaces.
 --
---
--- You can filter the results by using the bundle identifier, directory identifier, or owner, but you can specify only one filter at a time.
---
+-- You can filter the results by using the bundle identifier, directory
+-- identifier, or owner, but you can specify only one filter at a time.
 --
 -- This operation returns paginated results.
 module Network.AWS.WorkSpaces.DescribeWorkspaces
   ( -- * Creating a Request
-    describeWorkspaces,
-    DescribeWorkspaces,
+    DescribeWorkspaces (..),
+    newDescribeWorkspaces,
 
     -- * Request Lenses
-    dwNextToken,
-    dwBundleId,
-    dwWorkspaceIds,
-    dwDirectoryId,
-    dwUserName,
-    dwLimit,
+    describeWorkspaces_nextToken,
+    describeWorkspaces_bundleId,
+    describeWorkspaces_workspaceIds,
+    describeWorkspaces_directoryId,
+    describeWorkspaces_userName,
+    describeWorkspaces_limit,
 
     -- * Destructuring the Response
-    describeWorkspacesResponse,
-    DescribeWorkspacesResponse,
+    DescribeWorkspacesResponse (..),
+    newDescribeWorkspacesResponse,
 
     -- * Response Lenses
-    dwrrsNextToken,
-    dwrrsWorkspaces,
-    dwrrsResponseStatus,
+    describeWorkspacesResponse_nextToken,
+    describeWorkspacesResponse_workspaces,
+    describeWorkspacesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.Workspace
 
--- | /See:/ 'describeWorkspaces' smart constructor.
+-- | /See:/ 'newDescribeWorkspaces' smart constructor.
 data DescribeWorkspaces = DescribeWorkspaces'
-  { _dwNextToken ::
-      !(Maybe Text),
-    _dwBundleId :: !(Maybe Text),
-    _dwWorkspaceIds ::
-      !(Maybe (List1 Text)),
-    _dwDirectoryId :: !(Maybe Text),
-    _dwUserName :: !(Maybe Text),
-    _dwLimit :: !(Maybe Nat)
+  { -- | If you received a @NextToken@ from a previous call that was paginated,
+    -- provide this token to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the bundle. All WorkSpaces that are created from this
+    -- bundle are retrieved. You cannot combine this parameter with any other
+    -- filter.
+    bundleId :: Prelude.Maybe Prelude.Text,
+    -- | The identifiers of the WorkSpaces. You cannot combine this parameter
+    -- with any other filter.
+    --
+    -- Because the CreateWorkspaces operation is asynchronous, the identifier
+    -- it returns is not immediately available. If you immediately call
+    -- DescribeWorkspaces with this identifier, no information is returned.
+    workspaceIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The identifier of the directory. In addition, you can optionally specify
+    -- a specific directory user (see @UserName@). You cannot combine this
+    -- parameter with any other filter.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the directory user. You must specify this parameter with
+    -- @DirectoryId@.
+    userName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspaces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspaces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwNextToken' - If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwBundleId' - The identifier of the bundle. All WorkSpaces that are created from this bundle are retrieved. You cannot combine this parameter with any other filter.
+-- 'nextToken', 'describeWorkspaces_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
 --
--- * 'dwWorkspaceIds' - The identifiers of the WorkSpaces. You cannot combine this parameter with any other filter. Because the 'CreateWorkspaces' operation is asynchronous, the identifier it returns is not immediately available. If you immediately call 'DescribeWorkspaces' with this identifier, no information is returned.
+-- 'bundleId', 'describeWorkspaces_bundleId' - The identifier of the bundle. All WorkSpaces that are created from this
+-- bundle are retrieved. You cannot combine this parameter with any other
+-- filter.
 --
--- * 'dwDirectoryId' - The identifier of the directory. In addition, you can optionally specify a specific directory user (see @UserName@ ). You cannot combine this parameter with any other filter.
+-- 'workspaceIds', 'describeWorkspaces_workspaceIds' - The identifiers of the WorkSpaces. You cannot combine this parameter
+-- with any other filter.
 --
--- * 'dwUserName' - The name of the directory user. You must specify this parameter with @DirectoryId@ .
+-- Because the CreateWorkspaces operation is asynchronous, the identifier
+-- it returns is not immediately available. If you immediately call
+-- DescribeWorkspaces with this identifier, no information is returned.
 --
--- * 'dwLimit' - The maximum number of items to return.
-describeWorkspaces ::
+-- 'directoryId', 'describeWorkspaces_directoryId' - The identifier of the directory. In addition, you can optionally specify
+-- a specific directory user (see @UserName@). You cannot combine this
+-- parameter with any other filter.
+--
+-- 'userName', 'describeWorkspaces_userName' - The name of the directory user. You must specify this parameter with
+-- @DirectoryId@.
+--
+-- 'limit', 'describeWorkspaces_limit' - The maximum number of items to return.
+newDescribeWorkspaces ::
   DescribeWorkspaces
-describeWorkspaces =
+newDescribeWorkspaces =
   DescribeWorkspaces'
-    { _dwNextToken = Nothing,
-      _dwBundleId = Nothing,
-      _dwWorkspaceIds = Nothing,
-      _dwDirectoryId = Nothing,
-      _dwUserName = Nothing,
-      _dwLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      bundleId = Prelude.Nothing,
+      workspaceIds = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      userName = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
-dwNextToken :: Lens' DescribeWorkspaces (Maybe Text)
-dwNextToken = lens _dwNextToken (\s a -> s {_dwNextToken = a})
+-- | If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+describeWorkspaces_nextToken :: Lens.Lens' DescribeWorkspaces (Prelude.Maybe Prelude.Text)
+describeWorkspaces_nextToken = Lens.lens (\DescribeWorkspaces' {nextToken} -> nextToken) (\s@DescribeWorkspaces' {} a -> s {nextToken = a} :: DescribeWorkspaces)
 
--- | The identifier of the bundle. All WorkSpaces that are created from this bundle are retrieved. You cannot combine this parameter with any other filter.
-dwBundleId :: Lens' DescribeWorkspaces (Maybe Text)
-dwBundleId = lens _dwBundleId (\s a -> s {_dwBundleId = a})
+-- | The identifier of the bundle. All WorkSpaces that are created from this
+-- bundle are retrieved. You cannot combine this parameter with any other
+-- filter.
+describeWorkspaces_bundleId :: Lens.Lens' DescribeWorkspaces (Prelude.Maybe Prelude.Text)
+describeWorkspaces_bundleId = Lens.lens (\DescribeWorkspaces' {bundleId} -> bundleId) (\s@DescribeWorkspaces' {} a -> s {bundleId = a} :: DescribeWorkspaces)
 
--- | The identifiers of the WorkSpaces. You cannot combine this parameter with any other filter. Because the 'CreateWorkspaces' operation is asynchronous, the identifier it returns is not immediately available. If you immediately call 'DescribeWorkspaces' with this identifier, no information is returned.
-dwWorkspaceIds :: Lens' DescribeWorkspaces (Maybe (NonEmpty Text))
-dwWorkspaceIds = lens _dwWorkspaceIds (\s a -> s {_dwWorkspaceIds = a}) . mapping _List1
+-- | The identifiers of the WorkSpaces. You cannot combine this parameter
+-- with any other filter.
+--
+-- Because the CreateWorkspaces operation is asynchronous, the identifier
+-- it returns is not immediately available. If you immediately call
+-- DescribeWorkspaces with this identifier, no information is returned.
+describeWorkspaces_workspaceIds :: Lens.Lens' DescribeWorkspaces (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeWorkspaces_workspaceIds = Lens.lens (\DescribeWorkspaces' {workspaceIds} -> workspaceIds) (\s@DescribeWorkspaces' {} a -> s {workspaceIds = a} :: DescribeWorkspaces) Prelude.. Lens.mapping Prelude._List1
 
--- | The identifier of the directory. In addition, you can optionally specify a specific directory user (see @UserName@ ). You cannot combine this parameter with any other filter.
-dwDirectoryId :: Lens' DescribeWorkspaces (Maybe Text)
-dwDirectoryId = lens _dwDirectoryId (\s a -> s {_dwDirectoryId = a})
+-- | The identifier of the directory. In addition, you can optionally specify
+-- a specific directory user (see @UserName@). You cannot combine this
+-- parameter with any other filter.
+describeWorkspaces_directoryId :: Lens.Lens' DescribeWorkspaces (Prelude.Maybe Prelude.Text)
+describeWorkspaces_directoryId = Lens.lens (\DescribeWorkspaces' {directoryId} -> directoryId) (\s@DescribeWorkspaces' {} a -> s {directoryId = a} :: DescribeWorkspaces)
 
--- | The name of the directory user. You must specify this parameter with @DirectoryId@ .
-dwUserName :: Lens' DescribeWorkspaces (Maybe Text)
-dwUserName = lens _dwUserName (\s a -> s {_dwUserName = a})
+-- | The name of the directory user. You must specify this parameter with
+-- @DirectoryId@.
+describeWorkspaces_userName :: Lens.Lens' DescribeWorkspaces (Prelude.Maybe Prelude.Text)
+describeWorkspaces_userName = Lens.lens (\DescribeWorkspaces' {userName} -> userName) (\s@DescribeWorkspaces' {} a -> s {userName = a} :: DescribeWorkspaces)
 
 -- | The maximum number of items to return.
-dwLimit :: Lens' DescribeWorkspaces (Maybe Natural)
-dwLimit = lens _dwLimit (\s a -> s {_dwLimit = a}) . mapping _Nat
+describeWorkspaces_limit :: Lens.Lens' DescribeWorkspaces (Prelude.Maybe Prelude.Natural)
+describeWorkspaces_limit = Lens.lens (\DescribeWorkspaces' {limit} -> limit) (\s@DescribeWorkspaces' {} a -> s {limit = a} :: DescribeWorkspaces) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeWorkspaces where
+instance Pager.AWSPager DescribeWorkspaces where
   page rq rs
-    | stop (rs ^. dwrrsNextToken) = Nothing
-    | stop (rs ^. dwrrsWorkspaces) = Nothing
-    | otherwise =
-      Just $ rq & dwNextToken .~ rs ^. dwrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeWorkspacesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeWorkspacesResponse_workspaces
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeWorkspaces_nextToken
+          Lens..~ rs
+          Lens.^? describeWorkspacesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeWorkspaces where
+instance Prelude.AWSRequest DescribeWorkspaces where
   type
     Rs DescribeWorkspaces =
       DescribeWorkspacesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeWorkspacesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Workspaces" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "Workspaces"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeWorkspaces
+instance Prelude.Hashable DescribeWorkspaces
 
-instance NFData DescribeWorkspaces
+instance Prelude.NFData DescribeWorkspaces
 
-instance ToHeaders DescribeWorkspaces where
+instance Prelude.ToHeaders DescribeWorkspaces where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.DescribeWorkspaces" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.DescribeWorkspaces" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeWorkspaces where
+instance Prelude.ToJSON DescribeWorkspaces where
   toJSON DescribeWorkspaces' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dwNextToken,
-            ("BundleId" .=) <$> _dwBundleId,
-            ("WorkspaceIds" .=) <$> _dwWorkspaceIds,
-            ("DirectoryId" .=) <$> _dwDirectoryId,
-            ("UserName" .=) <$> _dwUserName,
-            ("Limit" .=) <$> _dwLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("BundleId" Prelude..=) Prelude.<$> bundleId,
+            ("WorkspaceIds" Prelude..=) Prelude.<$> workspaceIds,
+            ("DirectoryId" Prelude..=) Prelude.<$> directoryId,
+            ("UserName" Prelude..=) Prelude.<$> userName,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeWorkspaces where
-  toPath = const "/"
+instance Prelude.ToPath DescribeWorkspaces where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeWorkspaces where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeWorkspaces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeWorkspacesResponse' smart constructor.
+-- | /See:/ 'newDescribeWorkspacesResponse' smart constructor.
 data DescribeWorkspacesResponse = DescribeWorkspacesResponse'
-  { _dwrrsNextToken ::
-      !(Maybe Text),
-    _dwrrsWorkspaces ::
-      !( Maybe
-           [Workspace]
-       ),
-    _dwrrsResponseStatus ::
-      !Int
+  { -- | The token to use to retrieve the next set of results, or null if no more
+    -- results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the WorkSpaces.
+    --
+    -- Because CreateWorkspaces is an asynchronous operation, some of the
+    -- returned information could be incomplete.
+    workspaces :: Prelude.Maybe [Workspace],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspacesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspacesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwrrsNextToken' - The token to use to retrieve the next set of results, or null if no more results are available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwrrsWorkspaces' - Information about the WorkSpaces. Because 'CreateWorkspaces' is an asynchronous operation, some of the returned information could be incomplete.
+-- 'nextToken', 'describeWorkspacesResponse_nextToken' - The token to use to retrieve the next set of results, or null if no more
+-- results are available.
 --
--- * 'dwrrsResponseStatus' - -- | The response status code.
-describeWorkspacesResponse ::
-  -- | 'dwrrsResponseStatus'
-  Int ->
+-- 'workspaces', 'describeWorkspacesResponse_workspaces' - Information about the WorkSpaces.
+--
+-- Because CreateWorkspaces is an asynchronous operation, some of the
+-- returned information could be incomplete.
+--
+-- 'httpStatus', 'describeWorkspacesResponse_httpStatus' - The response's http status code.
+newDescribeWorkspacesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeWorkspacesResponse
-describeWorkspacesResponse pResponseStatus_ =
+newDescribeWorkspacesResponse pHttpStatus_ =
   DescribeWorkspacesResponse'
-    { _dwrrsNextToken =
-        Nothing,
-      _dwrrsWorkspaces = Nothing,
-      _dwrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      workspaces = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to retrieve the next set of results, or null if no more results are available.
-dwrrsNextToken :: Lens' DescribeWorkspacesResponse (Maybe Text)
-dwrrsNextToken = lens _dwrrsNextToken (\s a -> s {_dwrrsNextToken = a})
+-- | The token to use to retrieve the next set of results, or null if no more
+-- results are available.
+describeWorkspacesResponse_nextToken :: Lens.Lens' DescribeWorkspacesResponse (Prelude.Maybe Prelude.Text)
+describeWorkspacesResponse_nextToken = Lens.lens (\DescribeWorkspacesResponse' {nextToken} -> nextToken) (\s@DescribeWorkspacesResponse' {} a -> s {nextToken = a} :: DescribeWorkspacesResponse)
 
--- | Information about the WorkSpaces. Because 'CreateWorkspaces' is an asynchronous operation, some of the returned information could be incomplete.
-dwrrsWorkspaces :: Lens' DescribeWorkspacesResponse [Workspace]
-dwrrsWorkspaces = lens _dwrrsWorkspaces (\s a -> s {_dwrrsWorkspaces = a}) . _Default . _Coerce
+-- | Information about the WorkSpaces.
+--
+-- Because CreateWorkspaces is an asynchronous operation, some of the
+-- returned information could be incomplete.
+describeWorkspacesResponse_workspaces :: Lens.Lens' DescribeWorkspacesResponse (Prelude.Maybe [Workspace])
+describeWorkspacesResponse_workspaces = Lens.lens (\DescribeWorkspacesResponse' {workspaces} -> workspaces) (\s@DescribeWorkspacesResponse' {} a -> s {workspaces = a} :: DescribeWorkspacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dwrrsResponseStatus :: Lens' DescribeWorkspacesResponse Int
-dwrrsResponseStatus = lens _dwrrsResponseStatus (\s a -> s {_dwrrsResponseStatus = a})
+-- | The response's http status code.
+describeWorkspacesResponse_httpStatus :: Lens.Lens' DescribeWorkspacesResponse Prelude.Int
+describeWorkspacesResponse_httpStatus = Lens.lens (\DescribeWorkspacesResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkspacesResponse' {} a -> s {httpStatus = a} :: DescribeWorkspacesResponse)
 
-instance NFData DescribeWorkspacesResponse
+instance Prelude.NFData DescribeWorkspacesResponse

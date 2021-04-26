@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkSpaces.Types.WorkspaceImageRequiredTenancy
   ( WorkspaceImageRequiredTenancy
       ( ..,
-        Dedicated,
-        Default
+        WorkspaceImageRequiredTenancyDEDICATED,
+        WorkspaceImageRequiredTenancyDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkspaceImageRequiredTenancy
-  = WorkspaceImageRequiredTenancy'
-      ( CI
-          Text
-      )
+newtype WorkspaceImageRequiredTenancy = WorkspaceImageRequiredTenancy'
+  { fromWorkspaceImageRequiredTenancy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Dedicated :: WorkspaceImageRequiredTenancy
-pattern Dedicated = WorkspaceImageRequiredTenancy' "DEDICATED"
+pattern WorkspaceImageRequiredTenancyDEDICATED :: WorkspaceImageRequiredTenancy
+pattern WorkspaceImageRequiredTenancyDEDICATED = WorkspaceImageRequiredTenancy' "DEDICATED"
 
-pattern Default :: WorkspaceImageRequiredTenancy
-pattern Default = WorkspaceImageRequiredTenancy' "DEFAULT"
+pattern WorkspaceImageRequiredTenancyDEFAULT :: WorkspaceImageRequiredTenancy
+pattern WorkspaceImageRequiredTenancyDEFAULT = WorkspaceImageRequiredTenancy' "DEFAULT"
 
 {-# COMPLETE
-  Dedicated,
-  Default,
+  WorkspaceImageRequiredTenancyDEDICATED,
+  WorkspaceImageRequiredTenancyDEFAULT,
   WorkspaceImageRequiredTenancy'
   #-}
 
-instance FromText WorkspaceImageRequiredTenancy where
-  parser = (WorkspaceImageRequiredTenancy' . mk) <$> takeText
+instance Prelude.FromText WorkspaceImageRequiredTenancy where
+  parser = WorkspaceImageRequiredTenancy' Prelude.<$> Prelude.takeText
 
-instance ToText WorkspaceImageRequiredTenancy where
-  toText (WorkspaceImageRequiredTenancy' ci) = original ci
+instance Prelude.ToText WorkspaceImageRequiredTenancy where
+  toText (WorkspaceImageRequiredTenancy' x) = x
 
-instance Hashable WorkspaceImageRequiredTenancy
+instance Prelude.Hashable WorkspaceImageRequiredTenancy
 
-instance NFData WorkspaceImageRequiredTenancy
+instance Prelude.NFData WorkspaceImageRequiredTenancy
 
-instance ToByteString WorkspaceImageRequiredTenancy
+instance Prelude.ToByteString WorkspaceImageRequiredTenancy
 
-instance ToQuery WorkspaceImageRequiredTenancy
+instance Prelude.ToQuery WorkspaceImageRequiredTenancy
 
-instance ToHeader WorkspaceImageRequiredTenancy
+instance Prelude.ToHeader WorkspaceImageRequiredTenancy
 
-instance FromJSON WorkspaceImageRequiredTenancy where
-  parseJSON = parseJSONText "WorkspaceImageRequiredTenancy"
+instance Prelude.FromJSON WorkspaceImageRequiredTenancy where
+  parseJSON = Prelude.parseJSONText "WorkspaceImageRequiredTenancy"

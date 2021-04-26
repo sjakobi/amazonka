@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.WorkSpaces.Types.ModificationResourceEnum
   ( ModificationResourceEnum
       ( ..,
-        ComputeType,
-        RootVolume,
-        UserVolume
+        ModificationResourceEnumCOMPUTETYPE,
+        ModificationResourceEnumROOTVOLUME,
+        ModificationResourceEnumUSERVOLUME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModificationResourceEnum
-  = ModificationResourceEnum'
-      ( CI
-          Text
-      )
+newtype ModificationResourceEnum = ModificationResourceEnum'
+  { fromModificationResourceEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ComputeType :: ModificationResourceEnum
-pattern ComputeType = ModificationResourceEnum' "COMPUTE_TYPE"
+pattern ModificationResourceEnumCOMPUTETYPE :: ModificationResourceEnum
+pattern ModificationResourceEnumCOMPUTETYPE = ModificationResourceEnum' "COMPUTE_TYPE"
 
-pattern RootVolume :: ModificationResourceEnum
-pattern RootVolume = ModificationResourceEnum' "ROOT_VOLUME"
+pattern ModificationResourceEnumROOTVOLUME :: ModificationResourceEnum
+pattern ModificationResourceEnumROOTVOLUME = ModificationResourceEnum' "ROOT_VOLUME"
 
-pattern UserVolume :: ModificationResourceEnum
-pattern UserVolume = ModificationResourceEnum' "USER_VOLUME"
+pattern ModificationResourceEnumUSERVOLUME :: ModificationResourceEnum
+pattern ModificationResourceEnumUSERVOLUME = ModificationResourceEnum' "USER_VOLUME"
 
 {-# COMPLETE
-  ComputeType,
-  RootVolume,
-  UserVolume,
+  ModificationResourceEnumCOMPUTETYPE,
+  ModificationResourceEnumROOTVOLUME,
+  ModificationResourceEnumUSERVOLUME,
   ModificationResourceEnum'
   #-}
 
-instance FromText ModificationResourceEnum where
-  parser = (ModificationResourceEnum' . mk) <$> takeText
+instance Prelude.FromText ModificationResourceEnum where
+  parser = ModificationResourceEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ModificationResourceEnum where
-  toText (ModificationResourceEnum' ci) = original ci
+instance Prelude.ToText ModificationResourceEnum where
+  toText (ModificationResourceEnum' x) = x
 
-instance Hashable ModificationResourceEnum
+instance Prelude.Hashable ModificationResourceEnum
 
-instance NFData ModificationResourceEnum
+instance Prelude.NFData ModificationResourceEnum
 
-instance ToByteString ModificationResourceEnum
+instance Prelude.ToByteString ModificationResourceEnum
 
-instance ToQuery ModificationResourceEnum
+instance Prelude.ToQuery ModificationResourceEnum
 
-instance ToHeader ModificationResourceEnum
+instance Prelude.ToHeader ModificationResourceEnum
 
-instance FromJSON ModificationResourceEnum where
-  parseJSON = parseJSONText "ModificationResourceEnum"
+instance Prelude.FromJSON ModificationResourceEnum where
+  parseJSON = Prelude.parseJSONText "ModificationResourceEnum"

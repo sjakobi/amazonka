@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.WorkSpaces.Types.ConnectionAliasState
   ( ConnectionAliasState
       ( ..,
-        Created,
-        Creating,
-        Deleting
+        ConnectionAliasStateCREATED,
+        ConnectionAliasStateCREATING,
+        ConnectionAliasStateDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionAliasState
-  = ConnectionAliasState'
-      ( CI
-          Text
-      )
+newtype ConnectionAliasState = ConnectionAliasState'
+  { fromConnectionAliasState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Created :: ConnectionAliasState
-pattern Created = ConnectionAliasState' "CREATED"
+pattern ConnectionAliasStateCREATED :: ConnectionAliasState
+pattern ConnectionAliasStateCREATED = ConnectionAliasState' "CREATED"
 
-pattern Creating :: ConnectionAliasState
-pattern Creating = ConnectionAliasState' "CREATING"
+pattern ConnectionAliasStateCREATING :: ConnectionAliasState
+pattern ConnectionAliasStateCREATING = ConnectionAliasState' "CREATING"
 
-pattern Deleting :: ConnectionAliasState
-pattern Deleting = ConnectionAliasState' "DELETING"
+pattern ConnectionAliasStateDELETING :: ConnectionAliasState
+pattern ConnectionAliasStateDELETING = ConnectionAliasState' "DELETING"
 
 {-# COMPLETE
-  Created,
-  Creating,
-  Deleting,
+  ConnectionAliasStateCREATED,
+  ConnectionAliasStateCREATING,
+  ConnectionAliasStateDELETING,
   ConnectionAliasState'
   #-}
 
-instance FromText ConnectionAliasState where
-  parser = (ConnectionAliasState' . mk) <$> takeText
+instance Prelude.FromText ConnectionAliasState where
+  parser = ConnectionAliasState' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionAliasState where
-  toText (ConnectionAliasState' ci) = original ci
+instance Prelude.ToText ConnectionAliasState where
+  toText (ConnectionAliasState' x) = x
 
-instance Hashable ConnectionAliasState
+instance Prelude.Hashable ConnectionAliasState
 
-instance NFData ConnectionAliasState
+instance Prelude.NFData ConnectionAliasState
 
-instance ToByteString ConnectionAliasState
+instance Prelude.ToByteString ConnectionAliasState
 
-instance ToQuery ConnectionAliasState
+instance Prelude.ToQuery ConnectionAliasState
 
-instance ToHeader ConnectionAliasState
+instance Prelude.ToHeader ConnectionAliasState
 
-instance FromJSON ConnectionAliasState where
-  parseJSON = parseJSONText "ConnectionAliasState"
+instance Prelude.FromJSON ConnectionAliasState where
+  parseJSON = Prelude.parseJSONText "ConnectionAliasState"

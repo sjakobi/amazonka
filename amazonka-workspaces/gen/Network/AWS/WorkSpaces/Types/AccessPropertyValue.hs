@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.WorkSpaces.Types.AccessPropertyValue
   ( AccessPropertyValue
       ( ..,
-        Allow,
-        Deny
+        AccessPropertyValueALLOW,
+        AccessPropertyValueDENY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccessPropertyValue
-  = AccessPropertyValue'
-      ( CI
-          Text
-      )
+newtype AccessPropertyValue = AccessPropertyValue'
+  { fromAccessPropertyValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: AccessPropertyValue
-pattern Allow = AccessPropertyValue' "ALLOW"
+pattern AccessPropertyValueALLOW :: AccessPropertyValue
+pattern AccessPropertyValueALLOW = AccessPropertyValue' "ALLOW"
 
-pattern Deny :: AccessPropertyValue
-pattern Deny = AccessPropertyValue' "DENY"
+pattern AccessPropertyValueDENY :: AccessPropertyValue
+pattern AccessPropertyValueDENY = AccessPropertyValue' "DENY"
 
 {-# COMPLETE
-  Allow,
-  Deny,
+  AccessPropertyValueALLOW,
+  AccessPropertyValueDENY,
   AccessPropertyValue'
   #-}
 
-instance FromText AccessPropertyValue where
-  parser = (AccessPropertyValue' . mk) <$> takeText
+instance Prelude.FromText AccessPropertyValue where
+  parser = AccessPropertyValue' Prelude.<$> Prelude.takeText
 
-instance ToText AccessPropertyValue where
-  toText (AccessPropertyValue' ci) = original ci
+instance Prelude.ToText AccessPropertyValue where
+  toText (AccessPropertyValue' x) = x
 
-instance Hashable AccessPropertyValue
+instance Prelude.Hashable AccessPropertyValue
 
-instance NFData AccessPropertyValue
+instance Prelude.NFData AccessPropertyValue
 
-instance ToByteString AccessPropertyValue
+instance Prelude.ToByteString AccessPropertyValue
 
-instance ToQuery AccessPropertyValue
+instance Prelude.ToQuery AccessPropertyValue
 
-instance ToHeader AccessPropertyValue
+instance Prelude.ToHeader AccessPropertyValue
 
-instance ToJSON AccessPropertyValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON AccessPropertyValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AccessPropertyValue where
-  parseJSON = parseJSONText "AccessPropertyValue"
+instance Prelude.FromJSON AccessPropertyValue where
+  parseJSON = Prelude.parseJSONText "AccessPropertyValue"

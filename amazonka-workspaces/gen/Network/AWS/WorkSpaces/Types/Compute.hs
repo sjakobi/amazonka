@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.WorkSpaces.Types.Compute
   ( Compute
       ( ..,
-        Graphics,
-        Graphicspro,
-        Performance,
-        Power,
-        Powerpro,
-        Standard,
-        Value
+        ComputeGRAPHICS,
+        ComputeGRAPHICSPRO,
+        ComputePERFORMANCE,
+        ComputePOWER,
+        ComputePOWERPRO,
+        ComputeSTANDARD,
+        ComputeVALUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Compute = Compute' (CI Text)
+newtype Compute = Compute'
+  { fromCompute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Graphics :: Compute
-pattern Graphics = Compute' "GRAPHICS"
+pattern ComputeGRAPHICS :: Compute
+pattern ComputeGRAPHICS = Compute' "GRAPHICS"
 
-pattern Graphicspro :: Compute
-pattern Graphicspro = Compute' "GRAPHICSPRO"
+pattern ComputeGRAPHICSPRO :: Compute
+pattern ComputeGRAPHICSPRO = Compute' "GRAPHICSPRO"
 
-pattern Performance :: Compute
-pattern Performance = Compute' "PERFORMANCE"
+pattern ComputePERFORMANCE :: Compute
+pattern ComputePERFORMANCE = Compute' "PERFORMANCE"
 
-pattern Power :: Compute
-pattern Power = Compute' "POWER"
+pattern ComputePOWER :: Compute
+pattern ComputePOWER = Compute' "POWER"
 
-pattern Powerpro :: Compute
-pattern Powerpro = Compute' "POWERPRO"
+pattern ComputePOWERPRO :: Compute
+pattern ComputePOWERPRO = Compute' "POWERPRO"
 
-pattern Standard :: Compute
-pattern Standard = Compute' "STANDARD"
+pattern ComputeSTANDARD :: Compute
+pattern ComputeSTANDARD = Compute' "STANDARD"
 
-pattern Value :: Compute
-pattern Value = Compute' "VALUE"
+pattern ComputeVALUE :: Compute
+pattern ComputeVALUE = Compute' "VALUE"
 
 {-# COMPLETE
-  Graphics,
-  Graphicspro,
-  Performance,
-  Power,
-  Powerpro,
-  Standard,
-  Value,
+  ComputeGRAPHICS,
+  ComputeGRAPHICSPRO,
+  ComputePERFORMANCE,
+  ComputePOWER,
+  ComputePOWERPRO,
+  ComputeSTANDARD,
+  ComputeVALUE,
   Compute'
   #-}
 
-instance FromText Compute where
-  parser = (Compute' . mk) <$> takeText
+instance Prelude.FromText Compute where
+  parser = Compute' Prelude.<$> Prelude.takeText
 
-instance ToText Compute where
-  toText (Compute' ci) = original ci
+instance Prelude.ToText Compute where
+  toText (Compute' x) = x
 
-instance Hashable Compute
+instance Prelude.Hashable Compute
 
-instance NFData Compute
+instance Prelude.NFData Compute
 
-instance ToByteString Compute
+instance Prelude.ToByteString Compute
 
-instance ToQuery Compute
+instance Prelude.ToQuery Compute
 
-instance ToHeader Compute
+instance Prelude.ToHeader Compute
 
-instance ToJSON Compute where
-  toJSON = toJSONText
+instance Prelude.ToJSON Compute where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Compute where
-  parseJSON = parseJSONText "Compute"
+instance Prelude.FromJSON Compute where
+  parseJSON = Prelude.parseJSONText "Compute"

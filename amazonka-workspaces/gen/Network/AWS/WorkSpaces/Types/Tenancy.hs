@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.WorkSpaces.Types.Tenancy
   ( Tenancy
       ( ..,
-        TDedicated,
-        TShared
+        TenancyDEDICATED,
+        TenancySHARED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Tenancy = Tenancy' (CI Text)
+newtype Tenancy = Tenancy'
+  { fromTenancy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDedicated :: Tenancy
-pattern TDedicated = Tenancy' "DEDICATED"
+pattern TenancyDEDICATED :: Tenancy
+pattern TenancyDEDICATED = Tenancy' "DEDICATED"
 
-pattern TShared :: Tenancy
-pattern TShared = Tenancy' "SHARED"
+pattern TenancySHARED :: Tenancy
+pattern TenancySHARED = Tenancy' "SHARED"
 
 {-# COMPLETE
-  TDedicated,
-  TShared,
+  TenancyDEDICATED,
+  TenancySHARED,
   Tenancy'
   #-}
 
-instance FromText Tenancy where
-  parser = (Tenancy' . mk) <$> takeText
+instance Prelude.FromText Tenancy where
+  parser = Tenancy' Prelude.<$> Prelude.takeText
 
-instance ToText Tenancy where
-  toText (Tenancy' ci) = original ci
+instance Prelude.ToText Tenancy where
+  toText (Tenancy' x) = x
 
-instance Hashable Tenancy
+instance Prelude.Hashable Tenancy
 
-instance NFData Tenancy
+instance Prelude.NFData Tenancy
 
-instance ToByteString Tenancy
+instance Prelude.ToByteString Tenancy
 
-instance ToQuery Tenancy
+instance Prelude.ToQuery Tenancy
 
-instance ToHeader Tenancy
+instance Prelude.ToHeader Tenancy
 
-instance ToJSON Tenancy where
-  toJSON = toJSONText
+instance Prelude.ToJSON Tenancy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Tenancy where
-  parseJSON = parseJSONText "Tenancy"
+instance Prelude.FromJSON Tenancy where
+  parseJSON = Prelude.parseJSONText "Tenancy"

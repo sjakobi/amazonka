@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkSpaces.Types.WorkspaceDirectoryType
   ( WorkspaceDirectoryType
       ( ..,
-        AdConnector,
-        SimpleAd
+        WorkspaceDirectoryTypeADCONNECTOR,
+        WorkspaceDirectoryTypeSIMPLEAD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkspaceDirectoryType
-  = WorkspaceDirectoryType'
-      ( CI
-          Text
-      )
+newtype WorkspaceDirectoryType = WorkspaceDirectoryType'
+  { fromWorkspaceDirectoryType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AdConnector :: WorkspaceDirectoryType
-pattern AdConnector = WorkspaceDirectoryType' "AD_CONNECTOR"
+pattern WorkspaceDirectoryTypeADCONNECTOR :: WorkspaceDirectoryType
+pattern WorkspaceDirectoryTypeADCONNECTOR = WorkspaceDirectoryType' "AD_CONNECTOR"
 
-pattern SimpleAd :: WorkspaceDirectoryType
-pattern SimpleAd = WorkspaceDirectoryType' "SIMPLE_AD"
+pattern WorkspaceDirectoryTypeSIMPLEAD :: WorkspaceDirectoryType
+pattern WorkspaceDirectoryTypeSIMPLEAD = WorkspaceDirectoryType' "SIMPLE_AD"
 
 {-# COMPLETE
-  AdConnector,
-  SimpleAd,
+  WorkspaceDirectoryTypeADCONNECTOR,
+  WorkspaceDirectoryTypeSIMPLEAD,
   WorkspaceDirectoryType'
   #-}
 
-instance FromText WorkspaceDirectoryType where
-  parser = (WorkspaceDirectoryType' . mk) <$> takeText
+instance Prelude.FromText WorkspaceDirectoryType where
+  parser = WorkspaceDirectoryType' Prelude.<$> Prelude.takeText
 
-instance ToText WorkspaceDirectoryType where
-  toText (WorkspaceDirectoryType' ci) = original ci
+instance Prelude.ToText WorkspaceDirectoryType where
+  toText (WorkspaceDirectoryType' x) = x
 
-instance Hashable WorkspaceDirectoryType
+instance Prelude.Hashable WorkspaceDirectoryType
 
-instance NFData WorkspaceDirectoryType
+instance Prelude.NFData WorkspaceDirectoryType
 
-instance ToByteString WorkspaceDirectoryType
+instance Prelude.ToByteString WorkspaceDirectoryType
 
-instance ToQuery WorkspaceDirectoryType
+instance Prelude.ToQuery WorkspaceDirectoryType
 
-instance ToHeader WorkspaceDirectoryType
+instance Prelude.ToHeader WorkspaceDirectoryType
 
-instance FromJSON WorkspaceDirectoryType where
-  parseJSON = parseJSONText "WorkspaceDirectoryType"
+instance Prelude.FromJSON WorkspaceDirectoryType where
+  parseJSON = Prelude.parseJSONText "WorkspaceDirectoryType"

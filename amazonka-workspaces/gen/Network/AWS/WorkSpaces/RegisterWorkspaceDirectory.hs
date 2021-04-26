@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,258 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers the specified directory. This operation is asynchronous and returns before the WorkSpace directory is registered. If this is the first time you are registering a directory, you will need to create the workspaces_DefaultRole role before you can register a directory. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role Creating the workspaces_DefaultRole Role> .
+-- Registers the specified directory. This operation is asynchronous and
+-- returns before the WorkSpace directory is registered. If this is the
+-- first time you are registering a directory, you will need to create the
+-- workspaces_DefaultRole role before you can register a directory. For
+-- more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role Creating the workspaces_DefaultRole Role>.
 module Network.AWS.WorkSpaces.RegisterWorkspaceDirectory
   ( -- * Creating a Request
-    registerWorkspaceDirectory,
-    RegisterWorkspaceDirectory,
+    RegisterWorkspaceDirectory (..),
+    newRegisterWorkspaceDirectory,
 
     -- * Request Lenses
-    rwdSubnetIds,
-    rwdTenancy,
-    rwdTags,
-    rwdEnableSelfService,
-    rwdDirectoryId,
-    rwdEnableWorkDocs,
+    registerWorkspaceDirectory_subnetIds,
+    registerWorkspaceDirectory_tenancy,
+    registerWorkspaceDirectory_tags,
+    registerWorkspaceDirectory_enableSelfService,
+    registerWorkspaceDirectory_directoryId,
+    registerWorkspaceDirectory_enableWorkDocs,
 
     -- * Destructuring the Response
-    registerWorkspaceDirectoryResponse,
-    RegisterWorkspaceDirectoryResponse,
+    RegisterWorkspaceDirectoryResponse (..),
+    newRegisterWorkspaceDirectoryResponse,
 
     -- * Response Lenses
-    rwdrrsResponseStatus,
+    registerWorkspaceDirectoryResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'registerWorkspaceDirectory' smart constructor.
+-- | /See:/ 'newRegisterWorkspaceDirectory' smart constructor.
 data RegisterWorkspaceDirectory = RegisterWorkspaceDirectory'
-  { _rwdSubnetIds ::
-      !(Maybe [Text]),
-    _rwdTenancy ::
-      !(Maybe Tenancy),
-    _rwdTags ::
-      !(Maybe [Tag]),
-    _rwdEnableSelfService ::
-      !(Maybe Bool),
-    _rwdDirectoryId ::
-      !Text,
-    _rwdEnableWorkDocs ::
-      !Bool
+  { -- | The identifiers of the subnets for your virtual private cloud (VPC).
+    -- Make sure that the subnets are in supported Availability Zones. The
+    -- subnets must also be in separate Availability Zones. If these conditions
+    -- are not met, you will receive an OperationNotSupportedException error.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | Indicates whether your WorkSpace directory is dedicated or shared. To
+    -- use Bring Your Own License (BYOL) images, this value must be set to
+    -- @DEDICATED@ and your AWS account must be enabled for BYOL. If your
+    -- account has not been enabled for BYOL, you will receive an
+    -- InvalidParameterValuesException error. For more information about BYOL
+    -- images, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
+    tenancy :: Prelude.Maybe Tenancy,
+    -- | The tags associated with the directory.
+    tags :: Prelude.Maybe [Tag],
+    -- | Indicates whether self-service capabilities are enabled or disabled.
+    enableSelfService :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier of the directory. You cannot register a directory if it
+    -- does not have a status of Active. If the directory does not have a
+    -- status of Active, you will receive an InvalidResourceStateException
+    -- error. If you have already registered the maximum number of directories
+    -- that you can register with Amazon WorkSpaces, you will receive a
+    -- ResourceLimitExceededException error. Deregister directories that you
+    -- are not using for WorkSpaces, and try again.
+    directoryId :: Prelude.Text,
+    -- | Indicates whether Amazon WorkDocs is enabled or disabled. If you have
+    -- enabled this parameter and WorkDocs is not available in the Region, you
+    -- will receive an OperationNotSupportedException error. Set
+    -- @EnableWorkDocs@ to disabled, and try again.
+    enableWorkDocs :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterWorkspaceDirectory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterWorkspaceDirectory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwdSubnetIds' - The identifiers of the subnets for your virtual private cloud (VPC). Make sure that the subnets are in supported Availability Zones. The subnets must also be in separate Availability Zones. If these conditions are not met, you will receive an OperationNotSupportedException error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rwdTenancy' - Indicates whether your WorkSpace directory is dedicated or shared. To use Bring Your Own License (BYOL) images, this value must be set to @DEDICATED@ and your AWS account must be enabled for BYOL. If your account has not been enabled for BYOL, you will receive an InvalidParameterValuesException error. For more information about BYOL images, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images> .
+-- 'subnetIds', 'registerWorkspaceDirectory_subnetIds' - The identifiers of the subnets for your virtual private cloud (VPC).
+-- Make sure that the subnets are in supported Availability Zones. The
+-- subnets must also be in separate Availability Zones. If these conditions
+-- are not met, you will receive an OperationNotSupportedException error.
 --
--- * 'rwdTags' - The tags associated with the directory.
+-- 'tenancy', 'registerWorkspaceDirectory_tenancy' - Indicates whether your WorkSpace directory is dedicated or shared. To
+-- use Bring Your Own License (BYOL) images, this value must be set to
+-- @DEDICATED@ and your AWS account must be enabled for BYOL. If your
+-- account has not been enabled for BYOL, you will receive an
+-- InvalidParameterValuesException error. For more information about BYOL
+-- images, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
 --
--- * 'rwdEnableSelfService' - Indicates whether self-service capabilities are enabled or disabled.
+-- 'tags', 'registerWorkspaceDirectory_tags' - The tags associated with the directory.
 --
--- * 'rwdDirectoryId' - The identifier of the directory. You cannot register a directory if it does not have a status of Active. If the directory does not have a status of Active, you will receive an InvalidResourceStateException error. If you have already registered the maximum number of directories that you can register with Amazon WorkSpaces, you will receive a ResourceLimitExceededException error. Deregister directories that you are not using for WorkSpaces, and try again.
+-- 'enableSelfService', 'registerWorkspaceDirectory_enableSelfService' - Indicates whether self-service capabilities are enabled or disabled.
 --
--- * 'rwdEnableWorkDocs' - Indicates whether Amazon WorkDocs is enabled or disabled. If you have enabled this parameter and WorkDocs is not available in the Region, you will receive an OperationNotSupportedException error. Set @EnableWorkDocs@ to disabled, and try again.
-registerWorkspaceDirectory ::
-  -- | 'rwdDirectoryId'
-  Text ->
-  -- | 'rwdEnableWorkDocs'
-  Bool ->
+-- 'directoryId', 'registerWorkspaceDirectory_directoryId' - The identifier of the directory. You cannot register a directory if it
+-- does not have a status of Active. If the directory does not have a
+-- status of Active, you will receive an InvalidResourceStateException
+-- error. If you have already registered the maximum number of directories
+-- that you can register with Amazon WorkSpaces, you will receive a
+-- ResourceLimitExceededException error. Deregister directories that you
+-- are not using for WorkSpaces, and try again.
+--
+-- 'enableWorkDocs', 'registerWorkspaceDirectory_enableWorkDocs' - Indicates whether Amazon WorkDocs is enabled or disabled. If you have
+-- enabled this parameter and WorkDocs is not available in the Region, you
+-- will receive an OperationNotSupportedException error. Set
+-- @EnableWorkDocs@ to disabled, and try again.
+newRegisterWorkspaceDirectory ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'enableWorkDocs'
+  Prelude.Bool ->
   RegisterWorkspaceDirectory
-registerWorkspaceDirectory
+newRegisterWorkspaceDirectory
   pDirectoryId_
   pEnableWorkDocs_ =
     RegisterWorkspaceDirectory'
-      { _rwdSubnetIds =
-          Nothing,
-        _rwdTenancy = Nothing,
-        _rwdTags = Nothing,
-        _rwdEnableSelfService = Nothing,
-        _rwdDirectoryId = pDirectoryId_,
-        _rwdEnableWorkDocs = pEnableWorkDocs_
+      { subnetIds =
+          Prelude.Nothing,
+        tenancy = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        enableSelfService = Prelude.Nothing,
+        directoryId = pDirectoryId_,
+        enableWorkDocs = pEnableWorkDocs_
       }
 
--- | The identifiers of the subnets for your virtual private cloud (VPC). Make sure that the subnets are in supported Availability Zones. The subnets must also be in separate Availability Zones. If these conditions are not met, you will receive an OperationNotSupportedException error.
-rwdSubnetIds :: Lens' RegisterWorkspaceDirectory [Text]
-rwdSubnetIds = lens _rwdSubnetIds (\s a -> s {_rwdSubnetIds = a}) . _Default . _Coerce
+-- | The identifiers of the subnets for your virtual private cloud (VPC).
+-- Make sure that the subnets are in supported Availability Zones. The
+-- subnets must also be in separate Availability Zones. If these conditions
+-- are not met, you will receive an OperationNotSupportedException error.
+registerWorkspaceDirectory_subnetIds :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe [Prelude.Text])
+registerWorkspaceDirectory_subnetIds = Lens.lens (\RegisterWorkspaceDirectory' {subnetIds} -> subnetIds) (\s@RegisterWorkspaceDirectory' {} a -> s {subnetIds = a} :: RegisterWorkspaceDirectory) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates whether your WorkSpace directory is dedicated or shared. To use Bring Your Own License (BYOL) images, this value must be set to @DEDICATED@ and your AWS account must be enabled for BYOL. If your account has not been enabled for BYOL, you will receive an InvalidParameterValuesException error. For more information about BYOL images, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images> .
-rwdTenancy :: Lens' RegisterWorkspaceDirectory (Maybe Tenancy)
-rwdTenancy = lens _rwdTenancy (\s a -> s {_rwdTenancy = a})
+-- | Indicates whether your WorkSpace directory is dedicated or shared. To
+-- use Bring Your Own License (BYOL) images, this value must be set to
+-- @DEDICATED@ and your AWS account must be enabled for BYOL. If your
+-- account has not been enabled for BYOL, you will receive an
+-- InvalidParameterValuesException error. For more information about BYOL
+-- images, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
+registerWorkspaceDirectory_tenancy :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe Tenancy)
+registerWorkspaceDirectory_tenancy = Lens.lens (\RegisterWorkspaceDirectory' {tenancy} -> tenancy) (\s@RegisterWorkspaceDirectory' {} a -> s {tenancy = a} :: RegisterWorkspaceDirectory)
 
 -- | The tags associated with the directory.
-rwdTags :: Lens' RegisterWorkspaceDirectory [Tag]
-rwdTags = lens _rwdTags (\s a -> s {_rwdTags = a}) . _Default . _Coerce
+registerWorkspaceDirectory_tags :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe [Tag])
+registerWorkspaceDirectory_tags = Lens.lens (\RegisterWorkspaceDirectory' {tags} -> tags) (\s@RegisterWorkspaceDirectory' {} a -> s {tags = a} :: RegisterWorkspaceDirectory) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Indicates whether self-service capabilities are enabled or disabled.
-rwdEnableSelfService :: Lens' RegisterWorkspaceDirectory (Maybe Bool)
-rwdEnableSelfService = lens _rwdEnableSelfService (\s a -> s {_rwdEnableSelfService = a})
+registerWorkspaceDirectory_enableSelfService :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe Prelude.Bool)
+registerWorkspaceDirectory_enableSelfService = Lens.lens (\RegisterWorkspaceDirectory' {enableSelfService} -> enableSelfService) (\s@RegisterWorkspaceDirectory' {} a -> s {enableSelfService = a} :: RegisterWorkspaceDirectory)
 
--- | The identifier of the directory. You cannot register a directory if it does not have a status of Active. If the directory does not have a status of Active, you will receive an InvalidResourceStateException error. If you have already registered the maximum number of directories that you can register with Amazon WorkSpaces, you will receive a ResourceLimitExceededException error. Deregister directories that you are not using for WorkSpaces, and try again.
-rwdDirectoryId :: Lens' RegisterWorkspaceDirectory Text
-rwdDirectoryId = lens _rwdDirectoryId (\s a -> s {_rwdDirectoryId = a})
+-- | The identifier of the directory. You cannot register a directory if it
+-- does not have a status of Active. If the directory does not have a
+-- status of Active, you will receive an InvalidResourceStateException
+-- error. If you have already registered the maximum number of directories
+-- that you can register with Amazon WorkSpaces, you will receive a
+-- ResourceLimitExceededException error. Deregister directories that you
+-- are not using for WorkSpaces, and try again.
+registerWorkspaceDirectory_directoryId :: Lens.Lens' RegisterWorkspaceDirectory Prelude.Text
+registerWorkspaceDirectory_directoryId = Lens.lens (\RegisterWorkspaceDirectory' {directoryId} -> directoryId) (\s@RegisterWorkspaceDirectory' {} a -> s {directoryId = a} :: RegisterWorkspaceDirectory)
 
--- | Indicates whether Amazon WorkDocs is enabled or disabled. If you have enabled this parameter and WorkDocs is not available in the Region, you will receive an OperationNotSupportedException error. Set @EnableWorkDocs@ to disabled, and try again.
-rwdEnableWorkDocs :: Lens' RegisterWorkspaceDirectory Bool
-rwdEnableWorkDocs = lens _rwdEnableWorkDocs (\s a -> s {_rwdEnableWorkDocs = a})
+-- | Indicates whether Amazon WorkDocs is enabled or disabled. If you have
+-- enabled this parameter and WorkDocs is not available in the Region, you
+-- will receive an OperationNotSupportedException error. Set
+-- @EnableWorkDocs@ to disabled, and try again.
+registerWorkspaceDirectory_enableWorkDocs :: Lens.Lens' RegisterWorkspaceDirectory Prelude.Bool
+registerWorkspaceDirectory_enableWorkDocs = Lens.lens (\RegisterWorkspaceDirectory' {enableWorkDocs} -> enableWorkDocs) (\s@RegisterWorkspaceDirectory' {} a -> s {enableWorkDocs = a} :: RegisterWorkspaceDirectory)
 
-instance AWSRequest RegisterWorkspaceDirectory where
+instance
+  Prelude.AWSRequest
+    RegisterWorkspaceDirectory
+  where
   type
     Rs RegisterWorkspaceDirectory =
       RegisterWorkspaceDirectoryResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           RegisterWorkspaceDirectoryResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterWorkspaceDirectory
+instance Prelude.Hashable RegisterWorkspaceDirectory
 
-instance NFData RegisterWorkspaceDirectory
+instance Prelude.NFData RegisterWorkspaceDirectory
 
-instance ToHeaders RegisterWorkspaceDirectory where
+instance Prelude.ToHeaders RegisterWorkspaceDirectory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.RegisterWorkspaceDirectory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.RegisterWorkspaceDirectory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterWorkspaceDirectory where
+instance Prelude.ToJSON RegisterWorkspaceDirectory where
   toJSON RegisterWorkspaceDirectory' {..} =
-    object
-      ( catMaybes
-          [ ("SubnetIds" .=) <$> _rwdSubnetIds,
-            ("Tenancy" .=) <$> _rwdTenancy,
-            ("Tags" .=) <$> _rwdTags,
-            ("EnableSelfService" .=) <$> _rwdEnableSelfService,
-            Just ("DirectoryId" .= _rwdDirectoryId),
-            Just ("EnableWorkDocs" .= _rwdEnableWorkDocs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SubnetIds" Prelude..=) Prelude.<$> subnetIds,
+            ("Tenancy" Prelude..=) Prelude.<$> tenancy,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("EnableSelfService" Prelude..=)
+              Prelude.<$> enableSelfService,
+            Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just
+              ("EnableWorkDocs" Prelude..= enableWorkDocs)
           ]
       )
 
-instance ToPath RegisterWorkspaceDirectory where
-  toPath = const "/"
+instance Prelude.ToPath RegisterWorkspaceDirectory where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterWorkspaceDirectory where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterWorkspaceDirectory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerWorkspaceDirectoryResponse' smart constructor.
-newtype RegisterWorkspaceDirectoryResponse = RegisterWorkspaceDirectoryResponse'
-  { _rwdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRegisterWorkspaceDirectoryResponse' smart constructor.
+data RegisterWorkspaceDirectoryResponse = RegisterWorkspaceDirectoryResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterWorkspaceDirectoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterWorkspaceDirectoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rwdrrsResponseStatus' - -- | The response status code.
-registerWorkspaceDirectoryResponse ::
-  -- | 'rwdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'registerWorkspaceDirectoryResponse_httpStatus' - The response's http status code.
+newRegisterWorkspaceDirectoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterWorkspaceDirectoryResponse
-registerWorkspaceDirectoryResponse pResponseStatus_ =
+newRegisterWorkspaceDirectoryResponse pHttpStatus_ =
   RegisterWorkspaceDirectoryResponse'
-    { _rwdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rwdrrsResponseStatus :: Lens' RegisterWorkspaceDirectoryResponse Int
-rwdrrsResponseStatus = lens _rwdrrsResponseStatus (\s a -> s {_rwdrrsResponseStatus = a})
+-- | The response's http status code.
+registerWorkspaceDirectoryResponse_httpStatus :: Lens.Lens' RegisterWorkspaceDirectoryResponse Prelude.Int
+registerWorkspaceDirectoryResponse_httpStatus = Lens.lens (\RegisterWorkspaceDirectoryResponse' {httpStatus} -> httpStatus) (\s@RegisterWorkspaceDirectoryResponse' {} a -> s {httpStatus = a} :: RegisterWorkspaceDirectoryResponse)
 
-instance NFData RegisterWorkspaceDirectoryResponse
+instance
+  Prelude.NFData
+    RegisterWorkspaceDirectoryResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.ConnectionAlias where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkSpaces.Types.ConnectionAliasAssociation
 import Network.AWS.WorkSpaces.Types.ConnectionAliasState
 
--- | Describes a connection alias. Connection aliases are used for cross-Region redirection. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html Cross-Region Redirection for Amazon WorkSpaces> .
+-- | Describes a connection alias. Connection aliases are used for
+-- cross-Region redirection. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html Cross-Region Redirection for Amazon WorkSpaces>.
 --
---
---
--- /See:/ 'connectionAlias' smart constructor.
+-- /See:/ 'newConnectionAlias' smart constructor.
 data ConnectionAlias = ConnectionAlias'
-  { _caState ::
-      !(Maybe ConnectionAliasState),
-    _caAliasId :: !(Maybe Text),
-    _caConnectionString :: !(Maybe Text),
-    _caOwnerAccountId :: !(Maybe Text),
-    _caAssociations ::
-      !( Maybe
-           (List1 ConnectionAliasAssociation)
-       )
+  { -- | The current state of the connection alias.
+    state :: Prelude.Maybe ConnectionAliasState,
+    -- | The identifier of the connection alias.
+    aliasId :: Prelude.Maybe Prelude.Text,
+    -- | The connection string specified for the connection alias. The connection
+    -- string must be in the form of a fully qualified domain name (FQDN), such
+    -- as @www.example.com@.
+    connectionString :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the AWS account that owns the connection alias.
+    ownerAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The association status of the connection alias.
+    associations :: Prelude.Maybe (Prelude.List1 ConnectionAliasAssociation)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectionAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectionAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caState' - The current state of the connection alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caAliasId' - The identifier of the connection alias.
+-- 'state', 'connectionAlias_state' - The current state of the connection alias.
 --
--- * 'caConnectionString' - The connection string specified for the connection alias. The connection string must be in the form of a fully qualified domain name (FQDN), such as @www.example.com@ .
+-- 'aliasId', 'connectionAlias_aliasId' - The identifier of the connection alias.
 --
--- * 'caOwnerAccountId' - The identifier of the AWS account that owns the connection alias.
+-- 'connectionString', 'connectionAlias_connectionString' - The connection string specified for the connection alias. The connection
+-- string must be in the form of a fully qualified domain name (FQDN), such
+-- as @www.example.com@.
 --
--- * 'caAssociations' - The association status of the connection alias.
-connectionAlias ::
+-- 'ownerAccountId', 'connectionAlias_ownerAccountId' - The identifier of the AWS account that owns the connection alias.
+--
+-- 'associations', 'connectionAlias_associations' - The association status of the connection alias.
+newConnectionAlias ::
   ConnectionAlias
-connectionAlias =
+newConnectionAlias =
   ConnectionAlias'
-    { _caState = Nothing,
-      _caAliasId = Nothing,
-      _caConnectionString = Nothing,
-      _caOwnerAccountId = Nothing,
-      _caAssociations = Nothing
+    { state = Prelude.Nothing,
+      aliasId = Prelude.Nothing,
+      connectionString = Prelude.Nothing,
+      ownerAccountId = Prelude.Nothing,
+      associations = Prelude.Nothing
     }
 
 -- | The current state of the connection alias.
-caState :: Lens' ConnectionAlias (Maybe ConnectionAliasState)
-caState = lens _caState (\s a -> s {_caState = a})
+connectionAlias_state :: Lens.Lens' ConnectionAlias (Prelude.Maybe ConnectionAliasState)
+connectionAlias_state = Lens.lens (\ConnectionAlias' {state} -> state) (\s@ConnectionAlias' {} a -> s {state = a} :: ConnectionAlias)
 
 -- | The identifier of the connection alias.
-caAliasId :: Lens' ConnectionAlias (Maybe Text)
-caAliasId = lens _caAliasId (\s a -> s {_caAliasId = a})
+connectionAlias_aliasId :: Lens.Lens' ConnectionAlias (Prelude.Maybe Prelude.Text)
+connectionAlias_aliasId = Lens.lens (\ConnectionAlias' {aliasId} -> aliasId) (\s@ConnectionAlias' {} a -> s {aliasId = a} :: ConnectionAlias)
 
--- | The connection string specified for the connection alias. The connection string must be in the form of a fully qualified domain name (FQDN), such as @www.example.com@ .
-caConnectionString :: Lens' ConnectionAlias (Maybe Text)
-caConnectionString = lens _caConnectionString (\s a -> s {_caConnectionString = a})
+-- | The connection string specified for the connection alias. The connection
+-- string must be in the form of a fully qualified domain name (FQDN), such
+-- as @www.example.com@.
+connectionAlias_connectionString :: Lens.Lens' ConnectionAlias (Prelude.Maybe Prelude.Text)
+connectionAlias_connectionString = Lens.lens (\ConnectionAlias' {connectionString} -> connectionString) (\s@ConnectionAlias' {} a -> s {connectionString = a} :: ConnectionAlias)
 
 -- | The identifier of the AWS account that owns the connection alias.
-caOwnerAccountId :: Lens' ConnectionAlias (Maybe Text)
-caOwnerAccountId = lens _caOwnerAccountId (\s a -> s {_caOwnerAccountId = a})
+connectionAlias_ownerAccountId :: Lens.Lens' ConnectionAlias (Prelude.Maybe Prelude.Text)
+connectionAlias_ownerAccountId = Lens.lens (\ConnectionAlias' {ownerAccountId} -> ownerAccountId) (\s@ConnectionAlias' {} a -> s {ownerAccountId = a} :: ConnectionAlias)
 
 -- | The association status of the connection alias.
-caAssociations :: Lens' ConnectionAlias (Maybe (NonEmpty ConnectionAliasAssociation))
-caAssociations = lens _caAssociations (\s a -> s {_caAssociations = a}) . mapping _List1
+connectionAlias_associations :: Lens.Lens' ConnectionAlias (Prelude.Maybe (Prelude.NonEmpty ConnectionAliasAssociation))
+connectionAlias_associations = Lens.lens (\ConnectionAlias' {associations} -> associations) (\s@ConnectionAlias' {} a -> s {associations = a} :: ConnectionAlias) Prelude.. Lens.mapping Prelude._List1
 
-instance FromJSON ConnectionAlias where
+instance Prelude.FromJSON ConnectionAlias where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConnectionAlias"
       ( \x ->
           ConnectionAlias'
-            <$> (x .:? "State")
-            <*> (x .:? "AliasId")
-            <*> (x .:? "ConnectionString")
-            <*> (x .:? "OwnerAccountId")
-            <*> (x .:? "Associations")
+            Prelude.<$> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "AliasId")
+            Prelude.<*> (x Prelude..:? "ConnectionString")
+            Prelude.<*> (x Prelude..:? "OwnerAccountId")
+            Prelude.<*> (x Prelude..:? "Associations")
       )
 
-instance Hashable ConnectionAlias
+instance Prelude.Hashable ConnectionAlias
 
-instance NFData ConnectionAlias
+instance Prelude.NFData ConnectionAlias

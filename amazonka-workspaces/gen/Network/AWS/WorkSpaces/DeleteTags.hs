@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,130 +24,141 @@
 -- Deletes the specified tags from the specified WorkSpaces resource.
 module Network.AWS.WorkSpaces.DeleteTags
   ( -- * Creating a Request
-    deleteTags,
-    DeleteTags,
+    DeleteTags (..),
+    newDeleteTags,
 
     -- * Request Lenses
-    dResourceId,
-    dTagKeys,
+    deleteTags_resourceId,
+    deleteTags_tagKeys,
 
     -- * Destructuring the Response
-    deleteTagsResponse,
-    DeleteTagsResponse,
+    DeleteTagsResponse (..),
+    newDeleteTagsResponse,
 
     -- * Response Lenses
-    delrsResponseStatus,
+    deleteTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'deleteTags' smart constructor.
+-- | /See:/ 'newDeleteTags' smart constructor.
 data DeleteTags = DeleteTags'
-  { _dResourceId :: !Text,
-    _dTagKeys :: ![Text]
+  { -- | The identifier of the WorkSpaces resource. The supported resource types
+    -- are WorkSpaces, registered directories, images, custom bundles, IP
+    -- access control groups, and connection aliases.
+    resourceId :: Prelude.Text,
+    -- | The tag keys.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dResourceId' - The identifier of the WorkSpaces resource. The supported resource types are WorkSpaces, registered directories, images, custom bundles, IP access control groups, and connection aliases.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dTagKeys' - The tag keys.
-deleteTags ::
-  -- | 'dResourceId'
-  Text ->
+-- 'resourceId', 'deleteTags_resourceId' - The identifier of the WorkSpaces resource. The supported resource types
+-- are WorkSpaces, registered directories, images, custom bundles, IP
+-- access control groups, and connection aliases.
+--
+-- 'tagKeys', 'deleteTags_tagKeys' - The tag keys.
+newDeleteTags ::
+  -- | 'resourceId'
+  Prelude.Text ->
   DeleteTags
-deleteTags pResourceId_ =
+newDeleteTags pResourceId_ =
   DeleteTags'
-    { _dResourceId = pResourceId_,
-      _dTagKeys = mempty
+    { resourceId = pResourceId_,
+      tagKeys = Prelude.mempty
     }
 
--- | The identifier of the WorkSpaces resource. The supported resource types are WorkSpaces, registered directories, images, custom bundles, IP access control groups, and connection aliases.
-dResourceId :: Lens' DeleteTags Text
-dResourceId = lens _dResourceId (\s a -> s {_dResourceId = a})
+-- | The identifier of the WorkSpaces resource. The supported resource types
+-- are WorkSpaces, registered directories, images, custom bundles, IP
+-- access control groups, and connection aliases.
+deleteTags_resourceId :: Lens.Lens' DeleteTags Prelude.Text
+deleteTags_resourceId = Lens.lens (\DeleteTags' {resourceId} -> resourceId) (\s@DeleteTags' {} a -> s {resourceId = a} :: DeleteTags)
 
 -- | The tag keys.
-dTagKeys :: Lens' DeleteTags [Text]
-dTagKeys = lens _dTagKeys (\s a -> s {_dTagKeys = a}) . _Coerce
+deleteTags_tagKeys :: Lens.Lens' DeleteTags [Prelude.Text]
+deleteTags_tagKeys = Lens.lens (\DeleteTags' {tagKeys} -> tagKeys) (\s@DeleteTags' {} a -> s {tagKeys = a} :: DeleteTags) Prelude.. Prelude._Coerce
 
-instance AWSRequest DeleteTags where
+instance Prelude.AWSRequest DeleteTags where
   type Rs DeleteTags = DeleteTagsResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteTagsResponse' <$> (pure (fromEnum s))
+          DeleteTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTags
+instance Prelude.Hashable DeleteTags
 
-instance NFData DeleteTags
+instance Prelude.NFData DeleteTags
 
-instance ToHeaders DeleteTags where
+instance Prelude.ToHeaders DeleteTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkspacesService.DeleteTags" :: ByteString),
+              Prelude.=# ( "WorkspacesService.DeleteTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTags where
+instance Prelude.ToJSON DeleteTags where
   toJSON DeleteTags' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _dResourceId),
-            Just ("TagKeys" .= _dTagKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("TagKeys" Prelude..= tagKeys)
           ]
       )
 
-instance ToPath DeleteTags where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTags where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTagsResponse' smart constructor.
-newtype DeleteTagsResponse = DeleteTagsResponse'
-  { _delrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTagsResponse' smart constructor.
+data DeleteTagsResponse = DeleteTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteTagsResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTagsResponse_httpStatus' - The response's http status code.
+newDeleteTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTagsResponse
-deleteTagsResponse pResponseStatus_ =
-  DeleteTagsResponse'
-    { _delrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteTagsResponse pHttpStatus_ =
+  DeleteTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteTagsResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteTagsResponse_httpStatus :: Lens.Lens' DeleteTagsResponse Prelude.Int
+deleteTagsResponse_httpStatus = Lens.lens (\DeleteTagsResponse' {httpStatus} -> httpStatus) (\s@DeleteTagsResponse' {} a -> s {httpStatus = a} :: DeleteTagsResponse)
 
-instance NFData DeleteTagsResponse
+instance Prelude.NFData DeleteTagsResponse

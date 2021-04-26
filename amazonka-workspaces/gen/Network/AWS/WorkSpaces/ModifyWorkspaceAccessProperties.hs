@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Specifies which devices and operating systems users can use to access their WorkSpaces. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html#control-device-access Control Device Access> .
+-- Specifies which devices and operating systems users can use to access
+-- their WorkSpaces. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html#control-device-access Control Device Access>.
 module Network.AWS.WorkSpaces.ModifyWorkspaceAccessProperties
   ( -- * Creating a Request
-    modifyWorkspaceAccessProperties,
-    ModifyWorkspaceAccessProperties,
+    ModifyWorkspaceAccessProperties (..),
+    newModifyWorkspaceAccessProperties,
 
     -- * Request Lenses
-    mwapResourceId,
-    mwapWorkspaceAccessProperties,
+    modifyWorkspaceAccessProperties_resourceId,
+    modifyWorkspaceAccessProperties_workspaceAccessProperties,
 
     -- * Destructuring the Response
-    modifyWorkspaceAccessPropertiesResponse,
-    ModifyWorkspaceAccessPropertiesResponse,
+    ModifyWorkspaceAccessPropertiesResponse (..),
+    newModifyWorkspaceAccessPropertiesResponse,
 
     -- * Response Lenses
-    mwaprrsResponseStatus,
+    modifyWorkspaceAccessPropertiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'modifyWorkspaceAccessProperties' smart constructor.
+-- | /See:/ 'newModifyWorkspaceAccessProperties' smart constructor.
 data ModifyWorkspaceAccessProperties = ModifyWorkspaceAccessProperties'
-  { _mwapResourceId ::
-      !Text,
-    _mwapWorkspaceAccessProperties ::
-      !WorkspaceAccessProperties
+  { -- | The identifier of the directory.
+    resourceId :: Prelude.Text,
+    -- | The device types and operating systems to enable or disable for access.
+    workspaceAccessProperties :: WorkspaceAccessProperties
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyWorkspaceAccessProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyWorkspaceAccessProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwapResourceId' - The identifier of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwapWorkspaceAccessProperties' - The device types and operating systems to enable or disable for access.
-modifyWorkspaceAccessProperties ::
-  -- | 'mwapResourceId'
-  Text ->
-  -- | 'mwapWorkspaceAccessProperties'
+-- 'resourceId', 'modifyWorkspaceAccessProperties_resourceId' - The identifier of the directory.
+--
+-- 'workspaceAccessProperties', 'modifyWorkspaceAccessProperties_workspaceAccessProperties' - The device types and operating systems to enable or disable for access.
+newModifyWorkspaceAccessProperties ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'workspaceAccessProperties'
   WorkspaceAccessProperties ->
   ModifyWorkspaceAccessProperties
-modifyWorkspaceAccessProperties
+newModifyWorkspaceAccessProperties
   pResourceId_
   pWorkspaceAccessProperties_ =
     ModifyWorkspaceAccessProperties'
-      { _mwapResourceId =
+      { resourceId =
           pResourceId_,
-        _mwapWorkspaceAccessProperties =
+        workspaceAccessProperties =
           pWorkspaceAccessProperties_
       }
 
 -- | The identifier of the directory.
-mwapResourceId :: Lens' ModifyWorkspaceAccessProperties Text
-mwapResourceId = lens _mwapResourceId (\s a -> s {_mwapResourceId = a})
+modifyWorkspaceAccessProperties_resourceId :: Lens.Lens' ModifyWorkspaceAccessProperties Prelude.Text
+modifyWorkspaceAccessProperties_resourceId = Lens.lens (\ModifyWorkspaceAccessProperties' {resourceId} -> resourceId) (\s@ModifyWorkspaceAccessProperties' {} a -> s {resourceId = a} :: ModifyWorkspaceAccessProperties)
 
 -- | The device types and operating systems to enable or disable for access.
-mwapWorkspaceAccessProperties :: Lens' ModifyWorkspaceAccessProperties WorkspaceAccessProperties
-mwapWorkspaceAccessProperties = lens _mwapWorkspaceAccessProperties (\s a -> s {_mwapWorkspaceAccessProperties = a})
+modifyWorkspaceAccessProperties_workspaceAccessProperties :: Lens.Lens' ModifyWorkspaceAccessProperties WorkspaceAccessProperties
+modifyWorkspaceAccessProperties_workspaceAccessProperties = Lens.lens (\ModifyWorkspaceAccessProperties' {workspaceAccessProperties} -> workspaceAccessProperties) (\s@ModifyWorkspaceAccessProperties' {} a -> s {workspaceAccessProperties = a} :: ModifyWorkspaceAccessProperties)
 
-instance AWSRequest ModifyWorkspaceAccessProperties where
+instance
+  Prelude.AWSRequest
+    ModifyWorkspaceAccessProperties
+  where
   type
     Rs ModifyWorkspaceAccessProperties =
       ModifyWorkspaceAccessPropertiesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ModifyWorkspaceAccessPropertiesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyWorkspaceAccessProperties
+instance
+  Prelude.Hashable
+    ModifyWorkspaceAccessProperties
 
-instance NFData ModifyWorkspaceAccessProperties
+instance
+  Prelude.NFData
+    ModifyWorkspaceAccessProperties
 
-instance ToHeaders ModifyWorkspaceAccessProperties where
+instance
+  Prelude.ToHeaders
+    ModifyWorkspaceAccessProperties
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.ModifyWorkspaceAccessProperties" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.ModifyWorkspaceAccessProperties" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyWorkspaceAccessProperties where
+instance
+  Prelude.ToJSON
+    ModifyWorkspaceAccessProperties
+  where
   toJSON ModifyWorkspaceAccessProperties' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _mwapResourceId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
               ( "WorkspaceAccessProperties"
-                  .= _mwapWorkspaceAccessProperties
+                  Prelude..= workspaceAccessProperties
               )
           ]
       )
 
-instance ToPath ModifyWorkspaceAccessProperties where
-  toPath = const "/"
-
-instance ToQuery ModifyWorkspaceAccessProperties where
-  toQuery = const mempty
-
--- | /See:/ 'modifyWorkspaceAccessPropertiesResponse' smart constructor.
-newtype ModifyWorkspaceAccessPropertiesResponse = ModifyWorkspaceAccessPropertiesResponse'
-  { _mwaprrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ModifyWorkspaceAccessPropertiesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'mwaprrsResponseStatus' - -- | The response status code.
-modifyWorkspaceAccessPropertiesResponse ::
-  -- | 'mwaprrsResponseStatus'
-  Int ->
-  ModifyWorkspaceAccessPropertiesResponse
-modifyWorkspaceAccessPropertiesResponse
-  pResponseStatus_ =
-    ModifyWorkspaceAccessPropertiesResponse'
-      { _mwaprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-mwaprrsResponseStatus :: Lens' ModifyWorkspaceAccessPropertiesResponse Int
-mwaprrsResponseStatus = lens _mwaprrsResponseStatus (\s a -> s {_mwaprrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    ModifyWorkspaceAccessProperties
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    ModifyWorkspaceAccessProperties
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newModifyWorkspaceAccessPropertiesResponse' smart constructor.
+data ModifyWorkspaceAccessPropertiesResponse = ModifyWorkspaceAccessPropertiesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ModifyWorkspaceAccessPropertiesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifyWorkspaceAccessPropertiesResponse_httpStatus' - The response's http status code.
+newModifyWorkspaceAccessPropertiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ModifyWorkspaceAccessPropertiesResponse
+newModifyWorkspaceAccessPropertiesResponse
+  pHttpStatus_ =
+    ModifyWorkspaceAccessPropertiesResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+modifyWorkspaceAccessPropertiesResponse_httpStatus :: Lens.Lens' ModifyWorkspaceAccessPropertiesResponse Prelude.Int
+modifyWorkspaceAccessPropertiesResponse_httpStatus = Lens.lens (\ModifyWorkspaceAccessPropertiesResponse' {httpStatus} -> httpStatus) (\s@ModifyWorkspaceAccessPropertiesResponse' {} a -> s {httpStatus = a} :: ModifyWorkspaceAccessPropertiesResponse)
+
+instance
+  Prelude.NFData
     ModifyWorkspaceAccessPropertiesResponse

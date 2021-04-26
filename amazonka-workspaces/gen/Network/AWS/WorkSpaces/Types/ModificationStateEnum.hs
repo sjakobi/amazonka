@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkSpaces.Types.ModificationStateEnum
   ( ModificationStateEnum
       ( ..,
-        UpdateInProgress,
-        UpdateInitiated
+        ModificationStateEnumUPDATEINITIATED,
+        ModificationStateEnumUPDATEINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModificationStateEnum
-  = ModificationStateEnum'
-      ( CI
-          Text
-      )
+newtype ModificationStateEnum = ModificationStateEnum'
+  { fromModificationStateEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UpdateInProgress :: ModificationStateEnum
-pattern UpdateInProgress = ModificationStateEnum' "UPDATE_IN_PROGRESS"
+pattern ModificationStateEnumUPDATEINITIATED :: ModificationStateEnum
+pattern ModificationStateEnumUPDATEINITIATED = ModificationStateEnum' "UPDATE_INITIATED"
 
-pattern UpdateInitiated :: ModificationStateEnum
-pattern UpdateInitiated = ModificationStateEnum' "UPDATE_INITIATED"
+pattern ModificationStateEnumUPDATEINPROGRESS :: ModificationStateEnum
+pattern ModificationStateEnumUPDATEINPROGRESS = ModificationStateEnum' "UPDATE_IN_PROGRESS"
 
 {-# COMPLETE
-  UpdateInProgress,
-  UpdateInitiated,
+  ModificationStateEnumUPDATEINITIATED,
+  ModificationStateEnumUPDATEINPROGRESS,
   ModificationStateEnum'
   #-}
 
-instance FromText ModificationStateEnum where
-  parser = (ModificationStateEnum' . mk) <$> takeText
+instance Prelude.FromText ModificationStateEnum where
+  parser = ModificationStateEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ModificationStateEnum where
-  toText (ModificationStateEnum' ci) = original ci
+instance Prelude.ToText ModificationStateEnum where
+  toText (ModificationStateEnum' x) = x
 
-instance Hashable ModificationStateEnum
+instance Prelude.Hashable ModificationStateEnum
 
-instance NFData ModificationStateEnum
+instance Prelude.NFData ModificationStateEnum
 
-instance ToByteString ModificationStateEnum
+instance Prelude.ToByteString ModificationStateEnum
 
-instance ToQuery ModificationStateEnum
+instance Prelude.ToQuery ModificationStateEnum
 
-instance ToHeader ModificationStateEnum
+instance Prelude.ToHeader ModificationStateEnum
 
-instance FromJSON ModificationStateEnum where
-  parseJSON = parseJSONText "ModificationStateEnum"
+instance Prelude.FromJSON ModificationStateEnum where
+  parseJSON = Prelude.parseJSONText "ModificationStateEnum"

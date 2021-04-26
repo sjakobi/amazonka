@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,47 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.TerminateRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the information used to terminate a WorkSpace.
 --
---
---
--- /See:/ 'terminateRequest' smart constructor.
-newtype TerminateRequest = TerminateRequest'
-  { _trWorkspaceId ::
-      Text
+-- /See:/ 'newTerminateRequest' smart constructor.
+data TerminateRequest = TerminateRequest'
+  { -- | The identifier of the WorkSpace.
+    workspaceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trWorkspaceId' - The identifier of the WorkSpace.
-terminateRequest ::
-  -- | 'trWorkspaceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workspaceId', 'terminateRequest_workspaceId' - The identifier of the WorkSpace.
+newTerminateRequest ::
+  -- | 'workspaceId'
+  Prelude.Text ->
   TerminateRequest
-terminateRequest pWorkspaceId_ =
-  TerminateRequest' {_trWorkspaceId = pWorkspaceId_}
+newTerminateRequest pWorkspaceId_ =
+  TerminateRequest' {workspaceId = pWorkspaceId_}
 
 -- | The identifier of the WorkSpace.
-trWorkspaceId :: Lens' TerminateRequest Text
-trWorkspaceId = lens _trWorkspaceId (\s a -> s {_trWorkspaceId = a})
+terminateRequest_workspaceId :: Lens.Lens' TerminateRequest Prelude.Text
+terminateRequest_workspaceId = Lens.lens (\TerminateRequest' {workspaceId} -> workspaceId) (\s@TerminateRequest' {} a -> s {workspaceId = a} :: TerminateRequest)
 
-instance Hashable TerminateRequest
+instance Prelude.Hashable TerminateRequest
 
-instance NFData TerminateRequest
+instance Prelude.NFData TerminateRequest
 
-instance ToJSON TerminateRequest where
+instance Prelude.ToJSON TerminateRequest where
   toJSON TerminateRequest' {..} =
-    object
-      (catMaybes [Just ("WorkspaceId" .= _trWorkspaceId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WorkspaceId" Prelude..= workspaceId)
+          ]
+      )

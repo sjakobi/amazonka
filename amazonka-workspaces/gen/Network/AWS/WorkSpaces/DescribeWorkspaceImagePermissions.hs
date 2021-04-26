@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the permissions that the owner of an image has granted to other AWS accounts for an image.
+-- Describes the permissions that the owner of an image has granted to
+-- other AWS accounts for an image.
 module Network.AWS.WorkSpaces.DescribeWorkspaceImagePermissions
   ( -- * Creating a Request
-    describeWorkspaceImagePermissions,
-    DescribeWorkspaceImagePermissions,
+    DescribeWorkspaceImagePermissions (..),
+    newDescribeWorkspaceImagePermissions,
 
     -- * Request Lenses
-    dwipNextToken,
-    dwipMaxResults,
-    dwipImageId,
+    describeWorkspaceImagePermissions_nextToken,
+    describeWorkspaceImagePermissions_maxResults,
+    describeWorkspaceImagePermissions_imageId,
 
     -- * Destructuring the Response
-    describeWorkspaceImagePermissionsResponse,
-    DescribeWorkspaceImagePermissionsResponse,
+    DescribeWorkspaceImagePermissionsResponse (..),
+    newDescribeWorkspaceImagePermissionsResponse,
 
     -- * Response Lenses
-    dwiprrsImagePermissions,
-    dwiprrsNextToken,
-    dwiprrsImageId,
-    dwiprrsResponseStatus,
+    describeWorkspaceImagePermissionsResponse_imagePermissions,
+    describeWorkspaceImagePermissionsResponse_nextToken,
+    describeWorkspaceImagePermissionsResponse_imageId,
+    describeWorkspaceImagePermissionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.ImagePermission
 
--- | /See:/ 'describeWorkspaceImagePermissions' smart constructor.
+-- | /See:/ 'newDescribeWorkspaceImagePermissions' smart constructor.
 data DescribeWorkspaceImagePermissions = DescribeWorkspaceImagePermissions'
-  { _dwipNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dwipMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dwipImageId ::
-      !Text
+  { -- | If you received a @NextToken@ from a previous call that was paginated,
+    -- provide this token to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the image.
+    imageId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspaceImagePermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspaceImagePermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwipNextToken' - If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwipMaxResults' - The maximum number of items to return.
+-- 'nextToken', 'describeWorkspaceImagePermissions_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
 --
--- * 'dwipImageId' - The identifier of the image.
-describeWorkspaceImagePermissions ::
-  -- | 'dwipImageId'
-  Text ->
+-- 'maxResults', 'describeWorkspaceImagePermissions_maxResults' - The maximum number of items to return.
+--
+-- 'imageId', 'describeWorkspaceImagePermissions_imageId' - The identifier of the image.
+newDescribeWorkspaceImagePermissions ::
+  -- | 'imageId'
+  Prelude.Text ->
   DescribeWorkspaceImagePermissions
-describeWorkspaceImagePermissions pImageId_ =
+newDescribeWorkspaceImagePermissions pImageId_ =
   DescribeWorkspaceImagePermissions'
-    { _dwipNextToken =
-        Nothing,
-      _dwipMaxResults = Nothing,
-      _dwipImageId = pImageId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      imageId = pImageId_
     }
 
--- | If you received a @NextToken@ from a previous call that was paginated, provide this token to receive the next set of results.
-dwipNextToken :: Lens' DescribeWorkspaceImagePermissions (Maybe Text)
-dwipNextToken = lens _dwipNextToken (\s a -> s {_dwipNextToken = a})
+-- | If you received a @NextToken@ from a previous call that was paginated,
+-- provide this token to receive the next set of results.
+describeWorkspaceImagePermissions_nextToken :: Lens.Lens' DescribeWorkspaceImagePermissions (Prelude.Maybe Prelude.Text)
+describeWorkspaceImagePermissions_nextToken = Lens.lens (\DescribeWorkspaceImagePermissions' {nextToken} -> nextToken) (\s@DescribeWorkspaceImagePermissions' {} a -> s {nextToken = a} :: DescribeWorkspaceImagePermissions)
 
 -- | The maximum number of items to return.
-dwipMaxResults :: Lens' DescribeWorkspaceImagePermissions (Maybe Natural)
-dwipMaxResults = lens _dwipMaxResults (\s a -> s {_dwipMaxResults = a}) . mapping _Nat
+describeWorkspaceImagePermissions_maxResults :: Lens.Lens' DescribeWorkspaceImagePermissions (Prelude.Maybe Prelude.Natural)
+describeWorkspaceImagePermissions_maxResults = Lens.lens (\DescribeWorkspaceImagePermissions' {maxResults} -> maxResults) (\s@DescribeWorkspaceImagePermissions' {} a -> s {maxResults = a} :: DescribeWorkspaceImagePermissions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the image.
-dwipImageId :: Lens' DescribeWorkspaceImagePermissions Text
-dwipImageId = lens _dwipImageId (\s a -> s {_dwipImageId = a})
+describeWorkspaceImagePermissions_imageId :: Lens.Lens' DescribeWorkspaceImagePermissions Prelude.Text
+describeWorkspaceImagePermissions_imageId = Lens.lens (\DescribeWorkspaceImagePermissions' {imageId} -> imageId) (\s@DescribeWorkspaceImagePermissions' {} a -> s {imageId = a} :: DescribeWorkspaceImagePermissions)
 
-instance AWSRequest DescribeWorkspaceImagePermissions where
+instance
+  Prelude.AWSRequest
+    DescribeWorkspaceImagePermissions
+  where
   type
     Rs DescribeWorkspaceImagePermissions =
       DescribeWorkspaceImagePermissionsResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeWorkspaceImagePermissionsResponse'
-            <$> (x .?> "ImagePermissions" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (x .?> "ImageId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ImagePermissions"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> (x Prelude..?> "NextToken")
+              Prelude.<*> (x Prelude..?> "ImageId")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeWorkspaceImagePermissions
+instance
+  Prelude.Hashable
+    DescribeWorkspaceImagePermissions
 
-instance NFData DescribeWorkspaceImagePermissions
+instance
+  Prelude.NFData
+    DescribeWorkspaceImagePermissions
 
-instance ToHeaders DescribeWorkspaceImagePermissions where
+instance
+  Prelude.ToHeaders
+    DescribeWorkspaceImagePermissions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.DescribeWorkspaceImagePermissions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.DescribeWorkspaceImagePermissions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeWorkspaceImagePermissions where
+instance
+  Prelude.ToJSON
+    DescribeWorkspaceImagePermissions
+  where
   toJSON DescribeWorkspaceImagePermissions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dwipNextToken,
-            ("MaxResults" .=) <$> _dwipMaxResults,
-            Just ("ImageId" .= _dwipImageId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("ImageId" Prelude..= imageId)
           ]
       )
 
-instance ToPath DescribeWorkspaceImagePermissions where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeWorkspaceImagePermissions
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeWorkspaceImagePermissions where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeWorkspaceImagePermissions
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeWorkspaceImagePermissionsResponse' smart constructor.
+-- | /See:/ 'newDescribeWorkspaceImagePermissionsResponse' smart constructor.
 data DescribeWorkspaceImagePermissionsResponse = DescribeWorkspaceImagePermissionsResponse'
-  { _dwiprrsImagePermissions ::
-      !( Maybe
-           [ImagePermission]
-       ),
-    _dwiprrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dwiprrsImageId ::
-      !( Maybe
-           Text
-       ),
-    _dwiprrsResponseStatus ::
-      !Int
+  { -- | The identifiers of the AWS accounts that the image has been shared with.
+    imagePermissions :: Prelude.Maybe [ImagePermission],
+    -- | The token to use to retrieve the next set of results, or null if no more
+    -- results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkspaceImagePermissionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkspaceImagePermissionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwiprrsImagePermissions' - The identifiers of the AWS accounts that the image has been shared with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwiprrsNextToken' - The token to use to retrieve the next set of results, or null if no more results are available.
+-- 'imagePermissions', 'describeWorkspaceImagePermissionsResponse_imagePermissions' - The identifiers of the AWS accounts that the image has been shared with.
 --
--- * 'dwiprrsImageId' - The identifier of the image.
+-- 'nextToken', 'describeWorkspaceImagePermissionsResponse_nextToken' - The token to use to retrieve the next set of results, or null if no more
+-- results are available.
 --
--- * 'dwiprrsResponseStatus' - -- | The response status code.
-describeWorkspaceImagePermissionsResponse ::
-  -- | 'dwiprrsResponseStatus'
-  Int ->
+-- 'imageId', 'describeWorkspaceImagePermissionsResponse_imageId' - The identifier of the image.
+--
+-- 'httpStatus', 'describeWorkspaceImagePermissionsResponse_httpStatus' - The response's http status code.
+newDescribeWorkspaceImagePermissionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeWorkspaceImagePermissionsResponse
-describeWorkspaceImagePermissionsResponse
-  pResponseStatus_ =
+newDescribeWorkspaceImagePermissionsResponse
+  pHttpStatus_ =
     DescribeWorkspaceImagePermissionsResponse'
-      { _dwiprrsImagePermissions =
-          Nothing,
-        _dwiprrsNextToken = Nothing,
-        _dwiprrsImageId = Nothing,
-        _dwiprrsResponseStatus =
-          pResponseStatus_
+      { imagePermissions =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        imageId = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The identifiers of the AWS accounts that the image has been shared with.
-dwiprrsImagePermissions :: Lens' DescribeWorkspaceImagePermissionsResponse [ImagePermission]
-dwiprrsImagePermissions = lens _dwiprrsImagePermissions (\s a -> s {_dwiprrsImagePermissions = a}) . _Default . _Coerce
+describeWorkspaceImagePermissionsResponse_imagePermissions :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse (Prelude.Maybe [ImagePermission])
+describeWorkspaceImagePermissionsResponse_imagePermissions = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {imagePermissions} -> imagePermissions) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {imagePermissions = a} :: DescribeWorkspaceImagePermissionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The token to use to retrieve the next set of results, or null if no more results are available.
-dwiprrsNextToken :: Lens' DescribeWorkspaceImagePermissionsResponse (Maybe Text)
-dwiprrsNextToken = lens _dwiprrsNextToken (\s a -> s {_dwiprrsNextToken = a})
+-- | The token to use to retrieve the next set of results, or null if no more
+-- results are available.
+describeWorkspaceImagePermissionsResponse_nextToken :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeWorkspaceImagePermissionsResponse_nextToken = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {nextToken} -> nextToken) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {nextToken = a} :: DescribeWorkspaceImagePermissionsResponse)
 
 -- | The identifier of the image.
-dwiprrsImageId :: Lens' DescribeWorkspaceImagePermissionsResponse (Maybe Text)
-dwiprrsImageId = lens _dwiprrsImageId (\s a -> s {_dwiprrsImageId = a})
+describeWorkspaceImagePermissionsResponse_imageId :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeWorkspaceImagePermissionsResponse_imageId = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {imageId} -> imageId) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {imageId = a} :: DescribeWorkspaceImagePermissionsResponse)
 
--- | -- | The response status code.
-dwiprrsResponseStatus :: Lens' DescribeWorkspaceImagePermissionsResponse Int
-dwiprrsResponseStatus = lens _dwiprrsResponseStatus (\s a -> s {_dwiprrsResponseStatus = a})
+-- | The response's http status code.
+describeWorkspaceImagePermissionsResponse_httpStatus :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse Prelude.Int
+describeWorkspaceImagePermissionsResponse_httpStatus = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {httpStatus = a} :: DescribeWorkspaceImagePermissionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeWorkspaceImagePermissionsResponse

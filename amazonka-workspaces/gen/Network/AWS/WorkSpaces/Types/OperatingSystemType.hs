@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.WorkSpaces.Types.OperatingSystemType
   ( OperatingSystemType
       ( ..,
-        Linux,
-        Windows
+        OperatingSystemTypeLINUX,
+        OperatingSystemTypeWINDOWS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperatingSystemType
-  = OperatingSystemType'
-      ( CI
-          Text
-      )
+newtype OperatingSystemType = OperatingSystemType'
+  { fromOperatingSystemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Linux :: OperatingSystemType
-pattern Linux = OperatingSystemType' "LINUX"
+pattern OperatingSystemTypeLINUX :: OperatingSystemType
+pattern OperatingSystemTypeLINUX = OperatingSystemType' "LINUX"
 
-pattern Windows :: OperatingSystemType
-pattern Windows = OperatingSystemType' "WINDOWS"
+pattern OperatingSystemTypeWINDOWS :: OperatingSystemType
+pattern OperatingSystemTypeWINDOWS = OperatingSystemType' "WINDOWS"
 
 {-# COMPLETE
-  Linux,
-  Windows,
+  OperatingSystemTypeLINUX,
+  OperatingSystemTypeWINDOWS,
   OperatingSystemType'
   #-}
 
-instance FromText OperatingSystemType where
-  parser = (OperatingSystemType' . mk) <$> takeText
+instance Prelude.FromText OperatingSystemType where
+  parser = OperatingSystemType' Prelude.<$> Prelude.takeText
 
-instance ToText OperatingSystemType where
-  toText (OperatingSystemType' ci) = original ci
+instance Prelude.ToText OperatingSystemType where
+  toText (OperatingSystemType' x) = x
 
-instance Hashable OperatingSystemType
+instance Prelude.Hashable OperatingSystemType
 
-instance NFData OperatingSystemType
+instance Prelude.NFData OperatingSystemType
 
-instance ToByteString OperatingSystemType
+instance Prelude.ToByteString OperatingSystemType
 
-instance ToQuery OperatingSystemType
+instance Prelude.ToQuery OperatingSystemType
 
-instance ToHeader OperatingSystemType
+instance Prelude.ToHeader OperatingSystemType
 
-instance FromJSON OperatingSystemType where
-  parseJSON = parseJSONText "OperatingSystemType"
+instance Prelude.FromJSON OperatingSystemType where
+  parseJSON = Prelude.parseJSONText "OperatingSystemType"

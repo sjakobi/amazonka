@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,178 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates the specified connection alias for use with cross-Region redirection. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html Cross-Region Redirection for Amazon WorkSpaces> .
+-- Creates the specified connection alias for use with cross-Region
+-- redirection. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html Cross-Region Redirection for Amazon WorkSpaces>.
 module Network.AWS.WorkSpaces.CreateConnectionAlias
   ( -- * Creating a Request
-    createConnectionAlias,
-    CreateConnectionAlias,
+    CreateConnectionAlias (..),
+    newCreateConnectionAlias,
 
     -- * Request Lenses
-    ccaTags,
-    ccaConnectionString,
+    createConnectionAlias_tags,
+    createConnectionAlias_connectionString,
 
     -- * Destructuring the Response
-    createConnectionAliasResponse,
-    CreateConnectionAliasResponse,
+    CreateConnectionAliasResponse (..),
+    newCreateConnectionAliasResponse,
 
     -- * Response Lenses
-    ccarrsAliasId,
-    ccarrsResponseStatus,
+    createConnectionAliasResponse_aliasId,
+    createConnectionAliasResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'createConnectionAlias' smart constructor.
+-- | /See:/ 'newCreateConnectionAlias' smart constructor.
 data CreateConnectionAlias = CreateConnectionAlias'
-  { _ccaTags ::
-      !(Maybe [Tag]),
-    _ccaConnectionString ::
-      !Text
+  { -- | The tags to associate with the connection alias.
+    tags :: Prelude.Maybe [Tag],
+    -- | A connection string in the form of a fully qualified domain name (FQDN),
+    -- such as @www.example.com@.
+    --
+    -- After you create a connection string, it is always associated to your
+    -- AWS account. You cannot recreate the same connection string with a
+    -- different account, even if you delete all instances of it from the
+    -- original account. The connection string is globally reserved for your
+    -- account.
+    connectionString :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnectionAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnectionAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccaTags' - The tags to associate with the connection alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccaConnectionString' - A connection string in the form of a fully qualified domain name (FQDN), such as @www.example.com@ . /Important:/ After you create a connection string, it is always associated to your AWS account. You cannot recreate the same connection string with a different account, even if you delete all instances of it from the original account. The connection string is globally reserved for your account.
-createConnectionAlias ::
-  -- | 'ccaConnectionString'
-  Text ->
+-- 'tags', 'createConnectionAlias_tags' - The tags to associate with the connection alias.
+--
+-- 'connectionString', 'createConnectionAlias_connectionString' - A connection string in the form of a fully qualified domain name (FQDN),
+-- such as @www.example.com@.
+--
+-- After you create a connection string, it is always associated to your
+-- AWS account. You cannot recreate the same connection string with a
+-- different account, even if you delete all instances of it from the
+-- original account. The connection string is globally reserved for your
+-- account.
+newCreateConnectionAlias ::
+  -- | 'connectionString'
+  Prelude.Text ->
   CreateConnectionAlias
-createConnectionAlias pConnectionString_ =
+newCreateConnectionAlias pConnectionString_ =
   CreateConnectionAlias'
-    { _ccaTags = Nothing,
-      _ccaConnectionString = pConnectionString_
+    { tags = Prelude.Nothing,
+      connectionString = pConnectionString_
     }
 
 -- | The tags to associate with the connection alias.
-ccaTags :: Lens' CreateConnectionAlias [Tag]
-ccaTags = lens _ccaTags (\s a -> s {_ccaTags = a}) . _Default . _Coerce
+createConnectionAlias_tags :: Lens.Lens' CreateConnectionAlias (Prelude.Maybe [Tag])
+createConnectionAlias_tags = Lens.lens (\CreateConnectionAlias' {tags} -> tags) (\s@CreateConnectionAlias' {} a -> s {tags = a} :: CreateConnectionAlias) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A connection string in the form of a fully qualified domain name (FQDN), such as @www.example.com@ . /Important:/ After you create a connection string, it is always associated to your AWS account. You cannot recreate the same connection string with a different account, even if you delete all instances of it from the original account. The connection string is globally reserved for your account.
-ccaConnectionString :: Lens' CreateConnectionAlias Text
-ccaConnectionString = lens _ccaConnectionString (\s a -> s {_ccaConnectionString = a})
+-- | A connection string in the form of a fully qualified domain name (FQDN),
+-- such as @www.example.com@.
+--
+-- After you create a connection string, it is always associated to your
+-- AWS account. You cannot recreate the same connection string with a
+-- different account, even if you delete all instances of it from the
+-- original account. The connection string is globally reserved for your
+-- account.
+createConnectionAlias_connectionString :: Lens.Lens' CreateConnectionAlias Prelude.Text
+createConnectionAlias_connectionString = Lens.lens (\CreateConnectionAlias' {connectionString} -> connectionString) (\s@CreateConnectionAlias' {} a -> s {connectionString = a} :: CreateConnectionAlias)
 
-instance AWSRequest CreateConnectionAlias where
+instance Prelude.AWSRequest CreateConnectionAlias where
   type
     Rs CreateConnectionAlias =
       CreateConnectionAliasResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateConnectionAliasResponse'
-            <$> (x .?> "AliasId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AliasId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateConnectionAlias
+instance Prelude.Hashable CreateConnectionAlias
 
-instance NFData CreateConnectionAlias
+instance Prelude.NFData CreateConnectionAlias
 
-instance ToHeaders CreateConnectionAlias where
+instance Prelude.ToHeaders CreateConnectionAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.CreateConnectionAlias" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.CreateConnectionAlias" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateConnectionAlias where
+instance Prelude.ToJSON CreateConnectionAlias where
   toJSON CreateConnectionAlias' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _ccaTags,
-            Just ("ConnectionString" .= _ccaConnectionString)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("ConnectionString" Prelude..= connectionString)
           ]
       )
 
-instance ToPath CreateConnectionAlias where
-  toPath = const "/"
+instance Prelude.ToPath CreateConnectionAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateConnectionAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateConnectionAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createConnectionAliasResponse' smart constructor.
+-- | /See:/ 'newCreateConnectionAliasResponse' smart constructor.
 data CreateConnectionAliasResponse = CreateConnectionAliasResponse'
-  { _ccarrsAliasId ::
-      !( Maybe
-           Text
-       ),
-    _ccarrsResponseStatus ::
-      !Int
+  { -- | The identifier of the connection alias.
+    aliasId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConnectionAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConnectionAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccarrsAliasId' - The identifier of the connection alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccarrsResponseStatus' - -- | The response status code.
-createConnectionAliasResponse ::
-  -- | 'ccarrsResponseStatus'
-  Int ->
+-- 'aliasId', 'createConnectionAliasResponse_aliasId' - The identifier of the connection alias.
+--
+-- 'httpStatus', 'createConnectionAliasResponse_httpStatus' - The response's http status code.
+newCreateConnectionAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConnectionAliasResponse
-createConnectionAliasResponse pResponseStatus_ =
+newCreateConnectionAliasResponse pHttpStatus_ =
   CreateConnectionAliasResponse'
-    { _ccarrsAliasId =
-        Nothing,
-      _ccarrsResponseStatus = pResponseStatus_
+    { aliasId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the connection alias.
-ccarrsAliasId :: Lens' CreateConnectionAliasResponse (Maybe Text)
-ccarrsAliasId = lens _ccarrsAliasId (\s a -> s {_ccarrsAliasId = a})
+createConnectionAliasResponse_aliasId :: Lens.Lens' CreateConnectionAliasResponse (Prelude.Maybe Prelude.Text)
+createConnectionAliasResponse_aliasId = Lens.lens (\CreateConnectionAliasResponse' {aliasId} -> aliasId) (\s@CreateConnectionAliasResponse' {} a -> s {aliasId = a} :: CreateConnectionAliasResponse)
 
--- | -- | The response status code.
-ccarrsResponseStatus :: Lens' CreateConnectionAliasResponse Int
-ccarrsResponseStatus = lens _ccarrsResponseStatus (\s a -> s {_ccarrsResponseStatus = a})
+-- | The response's http status code.
+createConnectionAliasResponse_httpStatus :: Lens.Lens' CreateConnectionAliasResponse Prelude.Int
+createConnectionAliasResponse_httpStatus = Lens.lens (\CreateConnectionAliasResponse' {httpStatus} -> httpStatus) (\s@CreateConnectionAliasResponse' {} a -> s {httpStatus = a} :: CreateConnectionAliasResponse)
 
-instance NFData CreateConnectionAliasResponse
+instance Prelude.NFData CreateConnectionAliasResponse

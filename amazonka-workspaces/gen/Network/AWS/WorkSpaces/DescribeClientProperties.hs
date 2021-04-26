@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,151 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list that describes one or more specified Amazon WorkSpaces clients.
+-- Retrieves a list that describes one or more specified Amazon WorkSpaces
+-- clients.
 module Network.AWS.WorkSpaces.DescribeClientProperties
   ( -- * Creating a Request
-    describeClientProperties,
-    DescribeClientProperties,
+    DescribeClientProperties (..),
+    newDescribeClientProperties,
 
     -- * Request Lenses
-    dcpResourceIds,
+    describeClientProperties_resourceIds,
 
     -- * Destructuring the Response
-    describeClientPropertiesResponse,
-    DescribeClientPropertiesResponse,
+    DescribeClientPropertiesResponse (..),
+    newDescribeClientPropertiesResponse,
 
     -- * Response Lenses
-    dcprrsClientPropertiesList,
-    dcprrsResponseStatus,
+    describeClientPropertiesResponse_clientPropertiesList,
+    describeClientPropertiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.ClientPropertiesResult
 
--- | /See:/ 'describeClientProperties' smart constructor.
-newtype DescribeClientProperties = DescribeClientProperties'
-  { _dcpResourceIds ::
-      List1 Text
+-- | /See:/ 'newDescribeClientProperties' smart constructor.
+data DescribeClientProperties = DescribeClientProperties'
+  { -- | The resource identifier, in the form of directory IDs.
+    resourceIds :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClientProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClientProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpResourceIds' - The resource identifier, in the form of directory IDs.
-describeClientProperties ::
-  -- | 'dcpResourceIds'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceIds', 'describeClientProperties_resourceIds' - The resource identifier, in the form of directory IDs.
+newDescribeClientProperties ::
+  -- | 'resourceIds'
+  Prelude.NonEmpty Prelude.Text ->
   DescribeClientProperties
-describeClientProperties pResourceIds_ =
+newDescribeClientProperties pResourceIds_ =
   DescribeClientProperties'
-    { _dcpResourceIds =
-        _List1 # pResourceIds_
+    { resourceIds =
+        Prelude._List1 Lens.# pResourceIds_
     }
 
 -- | The resource identifier, in the form of directory IDs.
-dcpResourceIds :: Lens' DescribeClientProperties (NonEmpty Text)
-dcpResourceIds = lens _dcpResourceIds (\s a -> s {_dcpResourceIds = a}) . _List1
+describeClientProperties_resourceIds :: Lens.Lens' DescribeClientProperties (Prelude.NonEmpty Prelude.Text)
+describeClientProperties_resourceIds = Lens.lens (\DescribeClientProperties' {resourceIds} -> resourceIds) (\s@DescribeClientProperties' {} a -> s {resourceIds = a} :: DescribeClientProperties) Prelude.. Prelude._List1
 
-instance AWSRequest DescribeClientProperties where
+instance Prelude.AWSRequest DescribeClientProperties where
   type
     Rs DescribeClientProperties =
       DescribeClientPropertiesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeClientPropertiesResponse'
-            <$> (x .?> "ClientPropertiesList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ClientPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeClientProperties
+instance Prelude.Hashable DescribeClientProperties
 
-instance NFData DescribeClientProperties
+instance Prelude.NFData DescribeClientProperties
 
-instance ToHeaders DescribeClientProperties where
+instance Prelude.ToHeaders DescribeClientProperties where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.DescribeClientProperties" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.DescribeClientProperties" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeClientProperties where
+instance Prelude.ToJSON DescribeClientProperties where
   toJSON DescribeClientProperties' {..} =
-    object
-      (catMaybes [Just ("ResourceIds" .= _dcpResourceIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceIds" Prelude..= resourceIds)
+          ]
+      )
 
-instance ToPath DescribeClientProperties where
-  toPath = const "/"
+instance Prelude.ToPath DescribeClientProperties where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeClientProperties where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeClientProperties where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeClientPropertiesResponse' smart constructor.
+-- | /See:/ 'newDescribeClientPropertiesResponse' smart constructor.
 data DescribeClientPropertiesResponse = DescribeClientPropertiesResponse'
-  { _dcprrsClientPropertiesList ::
-      !( Maybe
-           [ClientPropertiesResult]
-       ),
-    _dcprrsResponseStatus ::
-      !Int
+  { -- | Information about the specified Amazon WorkSpaces clients.
+    clientPropertiesList :: Prelude.Maybe [ClientPropertiesResult],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeClientPropertiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeClientPropertiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcprrsClientPropertiesList' - Information about the specified Amazon WorkSpaces clients.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcprrsResponseStatus' - -- | The response status code.
-describeClientPropertiesResponse ::
-  -- | 'dcprrsResponseStatus'
-  Int ->
+-- 'clientPropertiesList', 'describeClientPropertiesResponse_clientPropertiesList' - Information about the specified Amazon WorkSpaces clients.
+--
+-- 'httpStatus', 'describeClientPropertiesResponse_httpStatus' - The response's http status code.
+newDescribeClientPropertiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeClientPropertiesResponse
-describeClientPropertiesResponse pResponseStatus_ =
+newDescribeClientPropertiesResponse pHttpStatus_ =
   DescribeClientPropertiesResponse'
-    { _dcprrsClientPropertiesList =
-        Nothing,
-      _dcprrsResponseStatus = pResponseStatus_
+    { clientPropertiesList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the specified Amazon WorkSpaces clients.
-dcprrsClientPropertiesList :: Lens' DescribeClientPropertiesResponse [ClientPropertiesResult]
-dcprrsClientPropertiesList = lens _dcprrsClientPropertiesList (\s a -> s {_dcprrsClientPropertiesList = a}) . _Default . _Coerce
+describeClientPropertiesResponse_clientPropertiesList :: Lens.Lens' DescribeClientPropertiesResponse (Prelude.Maybe [ClientPropertiesResult])
+describeClientPropertiesResponse_clientPropertiesList = Lens.lens (\DescribeClientPropertiesResponse' {clientPropertiesList} -> clientPropertiesList) (\s@DescribeClientPropertiesResponse' {} a -> s {clientPropertiesList = a} :: DescribeClientPropertiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcprrsResponseStatus :: Lens' DescribeClientPropertiesResponse Int
-dcprrsResponseStatus = lens _dcprrsResponseStatus (\s a -> s {_dcprrsResponseStatus = a})
+-- | The response's http status code.
+describeClientPropertiesResponse_httpStatus :: Lens.Lens' DescribeClientPropertiesResponse Prelude.Int
+describeClientPropertiesResponse_httpStatus = Lens.lens (\DescribeClientPropertiesResponse' {httpStatus} -> httpStatus) (\s@DescribeClientPropertiesResponse' {} a -> s {httpStatus = a} :: DescribeClientPropertiesResponse)
 
-instance NFData DescribeClientPropertiesResponse
+instance
+  Prelude.NFData
+    DescribeClientPropertiesResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.WorkSpaces.Types.AssociationStatus
   ( AssociationStatus
       ( ..,
-        AssociatedWithOwnerAccount,
-        AssociatedWithSharedAccount,
-        NotAssociated,
-        PendingAssociation,
-        PendingDisassociation
+        AssociationStatusASSOCIATEDWITHOWNERACCOUNT,
+        AssociationStatusASSOCIATEDWITHSHAREDACCOUNT,
+        AssociationStatusNOTASSOCIATED,
+        AssociationStatusPENDINGASSOCIATION,
+        AssociationStatusPENDINGDISASSOCIATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationStatus = AssociationStatus' (CI Text)
+newtype AssociationStatus = AssociationStatus'
+  { fromAssociationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssociatedWithOwnerAccount :: AssociationStatus
-pattern AssociatedWithOwnerAccount = AssociationStatus' "ASSOCIATED_WITH_OWNER_ACCOUNT"
+pattern AssociationStatusASSOCIATEDWITHOWNERACCOUNT :: AssociationStatus
+pattern AssociationStatusASSOCIATEDWITHOWNERACCOUNT = AssociationStatus' "ASSOCIATED_WITH_OWNER_ACCOUNT"
 
-pattern AssociatedWithSharedAccount :: AssociationStatus
-pattern AssociatedWithSharedAccount = AssociationStatus' "ASSOCIATED_WITH_SHARED_ACCOUNT"
+pattern AssociationStatusASSOCIATEDWITHSHAREDACCOUNT :: AssociationStatus
+pattern AssociationStatusASSOCIATEDWITHSHAREDACCOUNT = AssociationStatus' "ASSOCIATED_WITH_SHARED_ACCOUNT"
 
-pattern NotAssociated :: AssociationStatus
-pattern NotAssociated = AssociationStatus' "NOT_ASSOCIATED"
+pattern AssociationStatusNOTASSOCIATED :: AssociationStatus
+pattern AssociationStatusNOTASSOCIATED = AssociationStatus' "NOT_ASSOCIATED"
 
-pattern PendingAssociation :: AssociationStatus
-pattern PendingAssociation = AssociationStatus' "PENDING_ASSOCIATION"
+pattern AssociationStatusPENDINGASSOCIATION :: AssociationStatus
+pattern AssociationStatusPENDINGASSOCIATION = AssociationStatus' "PENDING_ASSOCIATION"
 
-pattern PendingDisassociation :: AssociationStatus
-pattern PendingDisassociation = AssociationStatus' "PENDING_DISASSOCIATION"
+pattern AssociationStatusPENDINGDISASSOCIATION :: AssociationStatus
+pattern AssociationStatusPENDINGDISASSOCIATION = AssociationStatus' "PENDING_DISASSOCIATION"
 
 {-# COMPLETE
-  AssociatedWithOwnerAccount,
-  AssociatedWithSharedAccount,
-  NotAssociated,
-  PendingAssociation,
-  PendingDisassociation,
+  AssociationStatusASSOCIATEDWITHOWNERACCOUNT,
+  AssociationStatusASSOCIATEDWITHSHAREDACCOUNT,
+  AssociationStatusNOTASSOCIATED,
+  AssociationStatusPENDINGASSOCIATION,
+  AssociationStatusPENDINGDISASSOCIATION,
   AssociationStatus'
   #-}
 
-instance FromText AssociationStatus where
-  parser = (AssociationStatus' . mk) <$> takeText
+instance Prelude.FromText AssociationStatus where
+  parser = AssociationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationStatus where
-  toText (AssociationStatus' ci) = original ci
+instance Prelude.ToText AssociationStatus where
+  toText (AssociationStatus' x) = x
 
-instance Hashable AssociationStatus
+instance Prelude.Hashable AssociationStatus
 
-instance NFData AssociationStatus
+instance Prelude.NFData AssociationStatus
 
-instance ToByteString AssociationStatus
+instance Prelude.ToByteString AssociationStatus
 
-instance ToQuery AssociationStatus
+instance Prelude.ToQuery AssociationStatus
 
-instance ToHeader AssociationStatus
+instance Prelude.ToHeader AssociationStatus
 
-instance FromJSON AssociationStatus where
-  parseJSON = parseJSONText "AssociationStatus"
+instance Prelude.FromJSON AssociationStatus where
+  parseJSON = Prelude.parseJSONText "AssociationStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,101 +19,128 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.WorkspaceProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WorkSpaces.Types.Compute
 import Network.AWS.WorkSpaces.Types.RunningMode
 
 -- | Describes a WorkSpace.
 --
---
---
--- /See:/ 'workspaceProperties' smart constructor.
+-- /See:/ 'newWorkspaceProperties' smart constructor.
 data WorkspaceProperties = WorkspaceProperties'
-  { _wpRootVolumeSizeGib ::
-      !(Maybe Int),
-    _wpRunningMode ::
-      !(Maybe RunningMode),
-    _wpUserVolumeSizeGib ::
-      !(Maybe Int),
-    _wpRunningModeAutoStopTimeoutInMinutes ::
-      !(Maybe Int),
-    _wpComputeTypeName ::
-      !(Maybe Compute)
+  { -- | The size of the root volume. For important information about how to
+    -- modify the size of the root and user volumes, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
+    rootVolumeSizeGib :: Prelude.Maybe Prelude.Int,
+    -- | The running mode. For more information, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html Manage the WorkSpace Running Mode>.
+    runningMode :: Prelude.Maybe RunningMode,
+    -- | The size of the user storage. For important information about how to
+    -- modify the size of the root and user volumes, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
+    userVolumeSizeGib :: Prelude.Maybe Prelude.Int,
+    -- | The time after a user logs off when WorkSpaces are automatically
+    -- stopped. Configured in 60-minute intervals.
+    runningModeAutoStopTimeoutInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The compute type. For more information, see
+    -- <http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles Amazon WorkSpaces Bundles>.
+    computeTypeName :: Prelude.Maybe Compute
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkspaceProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkspaceProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wpRootVolumeSizeGib' - The size of the root volume. For important information about how to modify the size of the root and user volumes, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wpRunningMode' - The running mode. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html Manage the WorkSpace Running Mode> .
+-- 'rootVolumeSizeGib', 'workspaceProperties_rootVolumeSizeGib' - The size of the root volume. For important information about how to
+-- modify the size of the root and user volumes, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
 --
--- * 'wpUserVolumeSizeGib' - The size of the user storage. For important information about how to modify the size of the root and user volumes, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace> .
+-- 'runningMode', 'workspaceProperties_runningMode' - The running mode. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html Manage the WorkSpace Running Mode>.
 --
--- * 'wpRunningModeAutoStopTimeoutInMinutes' - The time after a user logs off when WorkSpaces are automatically stopped. Configured in 60-minute intervals.
+-- 'userVolumeSizeGib', 'workspaceProperties_userVolumeSizeGib' - The size of the user storage. For important information about how to
+-- modify the size of the root and user volumes, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
 --
--- * 'wpComputeTypeName' - The compute type. For more information, see <http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles Amazon WorkSpaces Bundles> .
-workspaceProperties ::
+-- 'runningModeAutoStopTimeoutInMinutes', 'workspaceProperties_runningModeAutoStopTimeoutInMinutes' - The time after a user logs off when WorkSpaces are automatically
+-- stopped. Configured in 60-minute intervals.
+--
+-- 'computeTypeName', 'workspaceProperties_computeTypeName' - The compute type. For more information, see
+-- <http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles Amazon WorkSpaces Bundles>.
+newWorkspaceProperties ::
   WorkspaceProperties
-workspaceProperties =
+newWorkspaceProperties =
   WorkspaceProperties'
-    { _wpRootVolumeSizeGib =
-        Nothing,
-      _wpRunningMode = Nothing,
-      _wpUserVolumeSizeGib = Nothing,
-      _wpRunningModeAutoStopTimeoutInMinutes = Nothing,
-      _wpComputeTypeName = Nothing
+    { rootVolumeSizeGib =
+        Prelude.Nothing,
+      runningMode = Prelude.Nothing,
+      userVolumeSizeGib = Prelude.Nothing,
+      runningModeAutoStopTimeoutInMinutes =
+        Prelude.Nothing,
+      computeTypeName = Prelude.Nothing
     }
 
--- | The size of the root volume. For important information about how to modify the size of the root and user volumes, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace> .
-wpRootVolumeSizeGib :: Lens' WorkspaceProperties (Maybe Int)
-wpRootVolumeSizeGib = lens _wpRootVolumeSizeGib (\s a -> s {_wpRootVolumeSizeGib = a})
+-- | The size of the root volume. For important information about how to
+-- modify the size of the root and user volumes, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
+workspaceProperties_rootVolumeSizeGib :: Lens.Lens' WorkspaceProperties (Prelude.Maybe Prelude.Int)
+workspaceProperties_rootVolumeSizeGib = Lens.lens (\WorkspaceProperties' {rootVolumeSizeGib} -> rootVolumeSizeGib) (\s@WorkspaceProperties' {} a -> s {rootVolumeSizeGib = a} :: WorkspaceProperties)
 
--- | The running mode. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html Manage the WorkSpace Running Mode> .
-wpRunningMode :: Lens' WorkspaceProperties (Maybe RunningMode)
-wpRunningMode = lens _wpRunningMode (\s a -> s {_wpRunningMode = a})
+-- | The running mode. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html Manage the WorkSpace Running Mode>.
+workspaceProperties_runningMode :: Lens.Lens' WorkspaceProperties (Prelude.Maybe RunningMode)
+workspaceProperties_runningMode = Lens.lens (\WorkspaceProperties' {runningMode} -> runningMode) (\s@WorkspaceProperties' {} a -> s {runningMode = a} :: WorkspaceProperties)
 
--- | The size of the user storage. For important information about how to modify the size of the root and user volumes, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace> .
-wpUserVolumeSizeGib :: Lens' WorkspaceProperties (Maybe Int)
-wpUserVolumeSizeGib = lens _wpUserVolumeSizeGib (\s a -> s {_wpUserVolumeSizeGib = a})
+-- | The size of the user storage. For important information about how to
+-- modify the size of the root and user volumes, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
+workspaceProperties_userVolumeSizeGib :: Lens.Lens' WorkspaceProperties (Prelude.Maybe Prelude.Int)
+workspaceProperties_userVolumeSizeGib = Lens.lens (\WorkspaceProperties' {userVolumeSizeGib} -> userVolumeSizeGib) (\s@WorkspaceProperties' {} a -> s {userVolumeSizeGib = a} :: WorkspaceProperties)
 
--- | The time after a user logs off when WorkSpaces are automatically stopped. Configured in 60-minute intervals.
-wpRunningModeAutoStopTimeoutInMinutes :: Lens' WorkspaceProperties (Maybe Int)
-wpRunningModeAutoStopTimeoutInMinutes = lens _wpRunningModeAutoStopTimeoutInMinutes (\s a -> s {_wpRunningModeAutoStopTimeoutInMinutes = a})
+-- | The time after a user logs off when WorkSpaces are automatically
+-- stopped. Configured in 60-minute intervals.
+workspaceProperties_runningModeAutoStopTimeoutInMinutes :: Lens.Lens' WorkspaceProperties (Prelude.Maybe Prelude.Int)
+workspaceProperties_runningModeAutoStopTimeoutInMinutes = Lens.lens (\WorkspaceProperties' {runningModeAutoStopTimeoutInMinutes} -> runningModeAutoStopTimeoutInMinutes) (\s@WorkspaceProperties' {} a -> s {runningModeAutoStopTimeoutInMinutes = a} :: WorkspaceProperties)
 
--- | The compute type. For more information, see <http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles Amazon WorkSpaces Bundles> .
-wpComputeTypeName :: Lens' WorkspaceProperties (Maybe Compute)
-wpComputeTypeName = lens _wpComputeTypeName (\s a -> s {_wpComputeTypeName = a})
+-- | The compute type. For more information, see
+-- <http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles Amazon WorkSpaces Bundles>.
+workspaceProperties_computeTypeName :: Lens.Lens' WorkspaceProperties (Prelude.Maybe Compute)
+workspaceProperties_computeTypeName = Lens.lens (\WorkspaceProperties' {computeTypeName} -> computeTypeName) (\s@WorkspaceProperties' {} a -> s {computeTypeName = a} :: WorkspaceProperties)
 
-instance FromJSON WorkspaceProperties where
+instance Prelude.FromJSON WorkspaceProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkspaceProperties"
       ( \x ->
           WorkspaceProperties'
-            <$> (x .:? "RootVolumeSizeGib")
-            <*> (x .:? "RunningMode")
-            <*> (x .:? "UserVolumeSizeGib")
-            <*> (x .:? "RunningModeAutoStopTimeoutInMinutes")
-            <*> (x .:? "ComputeTypeName")
+            Prelude.<$> (x Prelude..:? "RootVolumeSizeGib")
+            Prelude.<*> (x Prelude..:? "RunningMode")
+            Prelude.<*> (x Prelude..:? "UserVolumeSizeGib")
+            Prelude.<*> (x Prelude..:? "RunningModeAutoStopTimeoutInMinutes")
+            Prelude.<*> (x Prelude..:? "ComputeTypeName")
       )
 
-instance Hashable WorkspaceProperties
+instance Prelude.Hashable WorkspaceProperties
 
-instance NFData WorkspaceProperties
+instance Prelude.NFData WorkspaceProperties
 
-instance ToJSON WorkspaceProperties where
+instance Prelude.ToJSON WorkspaceProperties where
   toJSON WorkspaceProperties' {..} =
-    object
-      ( catMaybes
-          [ ("RootVolumeSizeGib" .=) <$> _wpRootVolumeSizeGib,
-            ("RunningMode" .=) <$> _wpRunningMode,
-            ("UserVolumeSizeGib" .=) <$> _wpUserVolumeSizeGib,
-            ("RunningModeAutoStopTimeoutInMinutes" .=)
-              <$> _wpRunningModeAutoStopTimeoutInMinutes,
-            ("ComputeTypeName" .=) <$> _wpComputeTypeName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RootVolumeSizeGib" Prelude..=)
+              Prelude.<$> rootVolumeSizeGib,
+            ("RunningMode" Prelude..=) Prelude.<$> runningMode,
+            ("UserVolumeSizeGib" Prelude..=)
+              Prelude.<$> userVolumeSizeGib,
+            ("RunningModeAutoStopTimeoutInMinutes" Prelude..=)
+              Prelude.<$> runningModeAutoStopTimeoutInMinutes,
+            ("ComputeTypeName" Prelude..=)
+              Prelude.<$> computeTypeName
           ]
       )

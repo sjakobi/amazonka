@@ -11,12 +11,13 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon WorkSpaces Service__
+-- Amazon WorkSpaces Service
 --
--- Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows and Amazon Linux desktops for your users.
+-- Amazon WorkSpaces enables you to provision virtual, cloud-based
+-- Microsoft Windows and Amazon Linux desktops for your users.
 module Network.AWS.WorkSpaces
   ( -- * Service Configuration
-    workSpaces,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -70,154 +71,304 @@ module Network.AWS.WorkSpaces
     -- $operations
 
     -- ** DescribeWorkspaceDirectories (Paginated)
-    module Network.AWS.WorkSpaces.DescribeWorkspaceDirectories,
+    DescribeWorkspaceDirectories (DescribeWorkspaceDirectories'),
+    newDescribeWorkspaceDirectories,
+    DescribeWorkspaceDirectoriesResponse (DescribeWorkspaceDirectoriesResponse'),
+    newDescribeWorkspaceDirectoriesResponse,
 
     -- ** TerminateWorkspaces
-    module Network.AWS.WorkSpaces.TerminateWorkspaces,
+    TerminateWorkspaces (TerminateWorkspaces'),
+    newTerminateWorkspaces,
+    TerminateWorkspacesResponse (TerminateWorkspacesResponse'),
+    newTerminateWorkspacesResponse,
 
-    -- ** DisassociateIPGroups
-    module Network.AWS.WorkSpaces.DisassociateIPGroups,
+    -- ** DisassociateIpGroups
+    DisassociateIpGroups (DisassociateIpGroups'),
+    newDisassociateIpGroups,
+    DisassociateIpGroupsResponse (DisassociateIpGroupsResponse'),
+    newDisassociateIpGroupsResponse,
 
     -- ** DescribeWorkspaceBundles (Paginated)
-    module Network.AWS.WorkSpaces.DescribeWorkspaceBundles,
+    DescribeWorkspaceBundles (DescribeWorkspaceBundles'),
+    newDescribeWorkspaceBundles,
+    DescribeWorkspaceBundlesResponse (DescribeWorkspaceBundlesResponse'),
+    newDescribeWorkspaceBundlesResponse,
 
-    -- ** AuthorizeIPRules
-    module Network.AWS.WorkSpaces.AuthorizeIPRules,
+    -- ** AuthorizeIpRules
+    AuthorizeIpRules (AuthorizeIpRules'),
+    newAuthorizeIpRules,
+    AuthorizeIpRulesResponse (AuthorizeIpRulesResponse'),
+    newAuthorizeIpRulesResponse,
 
     -- ** ImportWorkspaceImage
-    module Network.AWS.WorkSpaces.ImportWorkspaceImage,
+    ImportWorkspaceImage (ImportWorkspaceImage'),
+    newImportWorkspaceImage,
+    ImportWorkspaceImageResponse (ImportWorkspaceImageResponse'),
+    newImportWorkspaceImageResponse,
 
-    -- ** DeleteIPGroup
-    module Network.AWS.WorkSpaces.DeleteIPGroup,
+    -- ** DeleteIpGroup
+    DeleteIpGroup (DeleteIpGroup'),
+    newDeleteIpGroup,
+    DeleteIpGroupResponse (DeleteIpGroupResponse'),
+    newDeleteIpGroupResponse,
 
     -- ** DeregisterWorkspaceDirectory
-    module Network.AWS.WorkSpaces.DeregisterWorkspaceDirectory,
+    DeregisterWorkspaceDirectory (DeregisterWorkspaceDirectory'),
+    newDeregisterWorkspaceDirectory,
+    DeregisterWorkspaceDirectoryResponse (DeregisterWorkspaceDirectoryResponse'),
+    newDeregisterWorkspaceDirectoryResponse,
 
     -- ** AssociateConnectionAlias
-    module Network.AWS.WorkSpaces.AssociateConnectionAlias,
+    AssociateConnectionAlias (AssociateConnectionAlias'),
+    newAssociateConnectionAlias,
+    AssociateConnectionAliasResponse (AssociateConnectionAliasResponse'),
+    newAssociateConnectionAliasResponse,
 
     -- ** DescribeTags
-    module Network.AWS.WorkSpaces.DescribeTags,
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
 
     -- ** CreateConnectionAlias
-    module Network.AWS.WorkSpaces.CreateConnectionAlias,
+    CreateConnectionAlias (CreateConnectionAlias'),
+    newCreateConnectionAlias,
+    CreateConnectionAliasResponse (CreateConnectionAliasResponse'),
+    newCreateConnectionAliasResponse,
 
     -- ** MigrateWorkspace
-    module Network.AWS.WorkSpaces.MigrateWorkspace,
+    MigrateWorkspace (MigrateWorkspace'),
+    newMigrateWorkspace,
+    MigrateWorkspaceResponse (MigrateWorkspaceResponse'),
+    newMigrateWorkspaceResponse,
 
     -- ** ModifyAccount
-    module Network.AWS.WorkSpaces.ModifyAccount,
+    ModifyAccount (ModifyAccount'),
+    newModifyAccount,
+    ModifyAccountResponse (ModifyAccountResponse'),
+    newModifyAccountResponse,
 
     -- ** DescribeWorkspacesConnectionStatus (Paginated)
-    module Network.AWS.WorkSpaces.DescribeWorkspacesConnectionStatus,
+    DescribeWorkspacesConnectionStatus (DescribeWorkspacesConnectionStatus'),
+    newDescribeWorkspacesConnectionStatus,
+    DescribeWorkspacesConnectionStatusResponse (DescribeWorkspacesConnectionStatusResponse'),
+    newDescribeWorkspacesConnectionStatusResponse,
 
     -- ** ModifySelfservicePermissions
-    module Network.AWS.WorkSpaces.ModifySelfservicePermissions,
+    ModifySelfservicePermissions (ModifySelfservicePermissions'),
+    newModifySelfservicePermissions,
+    ModifySelfservicePermissionsResponse (ModifySelfservicePermissionsResponse'),
+    newModifySelfservicePermissionsResponse,
 
-    -- ** UpdateRulesOfIPGroup
-    module Network.AWS.WorkSpaces.UpdateRulesOfIPGroup,
+    -- ** UpdateRulesOfIpGroup
+    UpdateRulesOfIpGroup (UpdateRulesOfIpGroup'),
+    newUpdateRulesOfIpGroup,
+    UpdateRulesOfIpGroupResponse (UpdateRulesOfIpGroupResponse'),
+    newUpdateRulesOfIpGroupResponse,
 
     -- ** DescribeConnectionAliases
-    module Network.AWS.WorkSpaces.DescribeConnectionAliases,
+    DescribeConnectionAliases (DescribeConnectionAliases'),
+    newDescribeConnectionAliases,
+    DescribeConnectionAliasesResponse (DescribeConnectionAliasesResponse'),
+    newDescribeConnectionAliasesResponse,
 
     -- ** DeleteWorkspaceImage
-    module Network.AWS.WorkSpaces.DeleteWorkspaceImage,
+    DeleteWorkspaceImage (DeleteWorkspaceImage'),
+    newDeleteWorkspaceImage,
+    DeleteWorkspaceImageResponse (DeleteWorkspaceImageResponse'),
+    newDeleteWorkspaceImageResponse,
 
     -- ** DeleteTags
-    module Network.AWS.WorkSpaces.DeleteTags,
+    DeleteTags (DeleteTags'),
+    newDeleteTags,
+    DeleteTagsResponse (DeleteTagsResponse'),
+    newDeleteTagsResponse,
 
     -- ** ListAvailableManagementCidrRanges (Paginated)
-    module Network.AWS.WorkSpaces.ListAvailableManagementCidrRanges,
+    ListAvailableManagementCidrRanges (ListAvailableManagementCidrRanges'),
+    newListAvailableManagementCidrRanges,
+    ListAvailableManagementCidrRangesResponse (ListAvailableManagementCidrRangesResponse'),
+    newListAvailableManagementCidrRangesResponse,
 
     -- ** ModifyWorkspaceCreationProperties
-    module Network.AWS.WorkSpaces.ModifyWorkspaceCreationProperties,
+    ModifyWorkspaceCreationProperties (ModifyWorkspaceCreationProperties'),
+    newModifyWorkspaceCreationProperties,
+    ModifyWorkspaceCreationPropertiesResponse (ModifyWorkspaceCreationPropertiesResponse'),
+    newModifyWorkspaceCreationPropertiesResponse,
 
     -- ** DescribeClientProperties
-    module Network.AWS.WorkSpaces.DescribeClientProperties,
+    DescribeClientProperties (DescribeClientProperties'),
+    newDescribeClientProperties,
+    DescribeClientPropertiesResponse (DescribeClientPropertiesResponse'),
+    newDescribeClientPropertiesResponse,
 
     -- ** ModifyWorkspaceState
-    module Network.AWS.WorkSpaces.ModifyWorkspaceState,
+    ModifyWorkspaceState (ModifyWorkspaceState'),
+    newModifyWorkspaceState,
+    ModifyWorkspaceStateResponse (ModifyWorkspaceStateResponse'),
+    newModifyWorkspaceStateResponse,
 
     -- ** UpdateConnectionAliasPermission
-    module Network.AWS.WorkSpaces.UpdateConnectionAliasPermission,
+    UpdateConnectionAliasPermission (UpdateConnectionAliasPermission'),
+    newUpdateConnectionAliasPermission,
+    UpdateConnectionAliasPermissionResponse (UpdateConnectionAliasPermissionResponse'),
+    newUpdateConnectionAliasPermissionResponse,
 
     -- ** CopyWorkspaceImage
-    module Network.AWS.WorkSpaces.CopyWorkspaceImage,
+    CopyWorkspaceImage (CopyWorkspaceImage'),
+    newCopyWorkspaceImage,
+    CopyWorkspaceImageResponse (CopyWorkspaceImageResponse'),
+    newCopyWorkspaceImageResponse,
 
     -- ** DescribeWorkspaceImagePermissions
-    module Network.AWS.WorkSpaces.DescribeWorkspaceImagePermissions,
+    DescribeWorkspaceImagePermissions (DescribeWorkspaceImagePermissions'),
+    newDescribeWorkspaceImagePermissions,
+    DescribeWorkspaceImagePermissionsResponse (DescribeWorkspaceImagePermissionsResponse'),
+    newDescribeWorkspaceImagePermissionsResponse,
 
     -- ** RebuildWorkspaces
-    module Network.AWS.WorkSpaces.RebuildWorkspaces,
+    RebuildWorkspaces (RebuildWorkspaces'),
+    newRebuildWorkspaces,
+    RebuildWorkspacesResponse (RebuildWorkspacesResponse'),
+    newRebuildWorkspacesResponse,
 
     -- ** RebootWorkspaces
-    module Network.AWS.WorkSpaces.RebootWorkspaces,
+    RebootWorkspaces (RebootWorkspaces'),
+    newRebootWorkspaces,
+    RebootWorkspacesResponse (RebootWorkspacesResponse'),
+    newRebootWorkspacesResponse,
 
     -- ** DescribeWorkspaceSnapshots
-    module Network.AWS.WorkSpaces.DescribeWorkspaceSnapshots,
+    DescribeWorkspaceSnapshots (DescribeWorkspaceSnapshots'),
+    newDescribeWorkspaceSnapshots,
+    DescribeWorkspaceSnapshotsResponse (DescribeWorkspaceSnapshotsResponse'),
+    newDescribeWorkspaceSnapshotsResponse,
 
     -- ** DescribeAccount
-    module Network.AWS.WorkSpaces.DescribeAccount,
+    DescribeAccount (DescribeAccount'),
+    newDescribeAccount,
+    DescribeAccountResponse (DescribeAccountResponse'),
+    newDescribeAccountResponse,
 
     -- ** ModifyWorkspaceProperties
-    module Network.AWS.WorkSpaces.ModifyWorkspaceProperties,
+    ModifyWorkspaceProperties (ModifyWorkspaceProperties'),
+    newModifyWorkspaceProperties,
+    ModifyWorkspacePropertiesResponse (ModifyWorkspacePropertiesResponse'),
+    newModifyWorkspacePropertiesResponse,
 
-    -- ** RevokeIPRules
-    module Network.AWS.WorkSpaces.RevokeIPRules,
+    -- ** RevokeIpRules
+    RevokeIpRules (RevokeIpRules'),
+    newRevokeIpRules,
+    RevokeIpRulesResponse (RevokeIpRulesResponse'),
+    newRevokeIpRulesResponse,
 
     -- ** DescribeWorkspaceImages (Paginated)
-    module Network.AWS.WorkSpaces.DescribeWorkspaceImages,
+    DescribeWorkspaceImages (DescribeWorkspaceImages'),
+    newDescribeWorkspaceImages,
+    DescribeWorkspaceImagesResponse (DescribeWorkspaceImagesResponse'),
+    newDescribeWorkspaceImagesResponse,
 
     -- ** DescribeAccountModifications (Paginated)
-    module Network.AWS.WorkSpaces.DescribeAccountModifications,
+    DescribeAccountModifications (DescribeAccountModifications'),
+    newDescribeAccountModifications,
+    DescribeAccountModificationsResponse (DescribeAccountModificationsResponse'),
+    newDescribeAccountModificationsResponse,
 
     -- ** DeleteConnectionAlias
-    module Network.AWS.WorkSpaces.DeleteConnectionAlias,
+    DeleteConnectionAlias (DeleteConnectionAlias'),
+    newDeleteConnectionAlias,
+    DeleteConnectionAliasResponse (DeleteConnectionAliasResponse'),
+    newDeleteConnectionAliasResponse,
 
-    -- ** AssociateIPGroups
-    module Network.AWS.WorkSpaces.AssociateIPGroups,
+    -- ** AssociateIpGroups
+    AssociateIpGroups (AssociateIpGroups'),
+    newAssociateIpGroups,
+    AssociateIpGroupsResponse (AssociateIpGroupsResponse'),
+    newAssociateIpGroupsResponse,
 
     -- ** StopWorkspaces
-    module Network.AWS.WorkSpaces.StopWorkspaces,
+    StopWorkspaces (StopWorkspaces'),
+    newStopWorkspaces,
+    StopWorkspacesResponse (StopWorkspacesResponse'),
+    newStopWorkspacesResponse,
 
     -- ** StartWorkspaces
-    module Network.AWS.WorkSpaces.StartWorkspaces,
+    StartWorkspaces (StartWorkspaces'),
+    newStartWorkspaces,
+    StartWorkspacesResponse (StartWorkspacesResponse'),
+    newStartWorkspacesResponse,
 
     -- ** DescribeWorkspaces (Paginated)
-    module Network.AWS.WorkSpaces.DescribeWorkspaces,
+    DescribeWorkspaces (DescribeWorkspaces'),
+    newDescribeWorkspaces,
+    DescribeWorkspacesResponse (DescribeWorkspacesResponse'),
+    newDescribeWorkspacesResponse,
 
     -- ** UpdateWorkspaceImagePermission
-    module Network.AWS.WorkSpaces.UpdateWorkspaceImagePermission,
+    UpdateWorkspaceImagePermission (UpdateWorkspaceImagePermission'),
+    newUpdateWorkspaceImagePermission,
+    UpdateWorkspaceImagePermissionResponse (UpdateWorkspaceImagePermissionResponse'),
+    newUpdateWorkspaceImagePermissionResponse,
 
     -- ** ModifyClientProperties
-    module Network.AWS.WorkSpaces.ModifyClientProperties,
+    ModifyClientProperties (ModifyClientProperties'),
+    newModifyClientProperties,
+    ModifyClientPropertiesResponse (ModifyClientPropertiesResponse'),
+    newModifyClientPropertiesResponse,
 
     -- ** ModifyWorkspaceAccessProperties
-    module Network.AWS.WorkSpaces.ModifyWorkspaceAccessProperties,
+    ModifyWorkspaceAccessProperties (ModifyWorkspaceAccessProperties'),
+    newModifyWorkspaceAccessProperties,
+    ModifyWorkspaceAccessPropertiesResponse (ModifyWorkspaceAccessPropertiesResponse'),
+    newModifyWorkspaceAccessPropertiesResponse,
 
-    -- ** DescribeIPGroups (Paginated)
-    module Network.AWS.WorkSpaces.DescribeIPGroups,
+    -- ** DescribeIpGroups (Paginated)
+    DescribeIpGroups (DescribeIpGroups'),
+    newDescribeIpGroups,
+    DescribeIpGroupsResponse (DescribeIpGroupsResponse'),
+    newDescribeIpGroupsResponse,
 
     -- ** RestoreWorkspace
-    module Network.AWS.WorkSpaces.RestoreWorkspace,
+    RestoreWorkspace (RestoreWorkspace'),
+    newRestoreWorkspace,
+    RestoreWorkspaceResponse (RestoreWorkspaceResponse'),
+    newRestoreWorkspaceResponse,
 
     -- ** CreateTags
-    module Network.AWS.WorkSpaces.CreateTags,
+    CreateTags (CreateTags'),
+    newCreateTags,
+    CreateTagsResponse (CreateTagsResponse'),
+    newCreateTagsResponse,
 
     -- ** DescribeConnectionAliasPermissions
-    module Network.AWS.WorkSpaces.DescribeConnectionAliasPermissions,
+    DescribeConnectionAliasPermissions (DescribeConnectionAliasPermissions'),
+    newDescribeConnectionAliasPermissions,
+    DescribeConnectionAliasPermissionsResponse (DescribeConnectionAliasPermissionsResponse'),
+    newDescribeConnectionAliasPermissionsResponse,
 
     -- ** RegisterWorkspaceDirectory
-    module Network.AWS.WorkSpaces.RegisterWorkspaceDirectory,
+    RegisterWorkspaceDirectory (RegisterWorkspaceDirectory'),
+    newRegisterWorkspaceDirectory,
+    RegisterWorkspaceDirectoryResponse (RegisterWorkspaceDirectoryResponse'),
+    newRegisterWorkspaceDirectoryResponse,
 
     -- ** CreateWorkspaces
-    module Network.AWS.WorkSpaces.CreateWorkspaces,
+    CreateWorkspaces (CreateWorkspaces'),
+    newCreateWorkspaces,
+    CreateWorkspacesResponse (CreateWorkspacesResponse'),
+    newCreateWorkspacesResponse,
 
-    -- ** CreateIPGroup
-    module Network.AWS.WorkSpaces.CreateIPGroup,
+    -- ** CreateIpGroup
+    CreateIpGroup (CreateIpGroup'),
+    newCreateIpGroup,
+    CreateIpGroupResponse (CreateIpGroupResponse'),
+    newCreateIpGroupResponse,
 
     -- ** DisassociateConnectionAlias
-    module Network.AWS.WorkSpaces.DisassociateConnectionAlias,
+    DisassociateConnectionAlias (DisassociateConnectionAlias'),
+    newDisassociateConnectionAlias,
+    DisassociateConnectionAliasResponse (DisassociateConnectionAliasResponse'),
+    newDisassociateConnectionAliasResponse,
 
     -- * Types
 
@@ -291,291 +442,153 @@ module Network.AWS.WorkSpaces
     WorkspaceState (..),
 
     -- ** AccountModification
-    AccountModification,
-    accountModification,
-    amDedicatedTenancySupport,
-    amStartTime,
-    amDedicatedTenancyManagementCidrRange,
-    amModificationState,
-    amErrorMessage,
-    amErrorCode,
+    AccountModification (AccountModification'),
+    newAccountModification,
 
     -- ** ClientProperties
-    ClientProperties,
-    clientProperties,
-    cpReconnectEnabled,
+    ClientProperties (ClientProperties'),
+    newClientProperties,
 
     -- ** ClientPropertiesResult
-    ClientPropertiesResult,
-    clientPropertiesResult,
-    cprResourceId,
-    cprClientProperties,
+    ClientPropertiesResult (ClientPropertiesResult'),
+    newClientPropertiesResult,
 
     -- ** ComputeType
-    ComputeType,
-    computeType,
-    ctName,
+    ComputeType (ComputeType'),
+    newComputeType,
 
     -- ** ConnectionAlias
-    ConnectionAlias,
-    connectionAlias,
-    caState,
-    caAliasId,
-    caConnectionString,
-    caOwnerAccountId,
-    caAssociations,
+    ConnectionAlias (ConnectionAlias'),
+    newConnectionAlias,
 
     -- ** ConnectionAliasAssociation
-    ConnectionAliasAssociation,
-    connectionAliasAssociation,
-    caaResourceId,
-    caaConnectionIdentifier,
-    caaAssociatedAccountId,
-    caaAssociationStatus,
+    ConnectionAliasAssociation (ConnectionAliasAssociation'),
+    newConnectionAliasAssociation,
 
     -- ** ConnectionAliasPermission
-    ConnectionAliasPermission,
-    connectionAliasPermission,
-    capSharedAccountId,
-    capAllowAssociation,
+    ConnectionAliasPermission (ConnectionAliasPermission'),
+    newConnectionAliasPermission,
 
     -- ** DefaultWorkspaceCreationProperties
-    DefaultWorkspaceCreationProperties,
-    defaultWorkspaceCreationProperties,
-    dwcpEnableMaintenanceMode,
-    dwcpDefaultOu,
-    dwcpEnableInternetAccess,
-    dwcpEnableWorkDocs,
-    dwcpCustomSecurityGroupId,
-    dwcpUserEnabledAsLocalAdministrator,
+    DefaultWorkspaceCreationProperties (DefaultWorkspaceCreationProperties'),
+    newDefaultWorkspaceCreationProperties,
 
     -- ** FailedCreateWorkspaceRequest
-    FailedCreateWorkspaceRequest,
-    failedCreateWorkspaceRequest,
-    fcwrWorkspaceRequest,
-    fcwrErrorMessage,
-    fcwrErrorCode,
+    FailedCreateWorkspaceRequest (FailedCreateWorkspaceRequest'),
+    newFailedCreateWorkspaceRequest,
 
     -- ** FailedWorkspaceChangeRequest
-    FailedWorkspaceChangeRequest,
-    failedWorkspaceChangeRequest,
-    fwcrWorkspaceId,
-    fwcrErrorMessage,
-    fwcrErrorCode,
-
-    -- ** IPRuleItem
-    IPRuleItem,
-    ipRuleItem,
-    iriRuleDesc,
-    iriIpRule,
+    FailedWorkspaceChangeRequest (FailedWorkspaceChangeRequest'),
+    newFailedWorkspaceChangeRequest,
 
     -- ** ImagePermission
-    ImagePermission,
-    imagePermission,
-    ipSharedAccountId,
+    ImagePermission (ImagePermission'),
+    newImagePermission,
+
+    -- ** IpRuleItem
+    IpRuleItem (IpRuleItem'),
+    newIpRuleItem,
 
     -- ** ModificationState
-    ModificationState,
-    modificationState,
-    msState,
-    msResource,
+    ModificationState (ModificationState'),
+    newModificationState,
 
     -- ** OperatingSystem
-    OperatingSystem,
-    operatingSystem,
-    osType,
+    OperatingSystem (OperatingSystem'),
+    newOperatingSystem,
 
     -- ** RebootRequest
-    RebootRequest,
-    rebootRequest,
-    rWorkspaceId,
+    RebootRequest (RebootRequest'),
+    newRebootRequest,
 
     -- ** RebuildRequest
-    RebuildRequest,
-    rebuildRequest,
-    rrWorkspaceId,
+    RebuildRequest (RebuildRequest'),
+    newRebuildRequest,
 
     -- ** RootStorage
-    RootStorage,
-    rootStorage,
-    rsCapacity,
+    RootStorage (RootStorage'),
+    newRootStorage,
 
     -- ** SelfservicePermissions
-    SelfservicePermissions,
-    selfservicePermissions,
-    spSwitchRunningMode,
-    spRestartWorkspace,
-    spRebuildWorkspace,
-    spIncreaseVolumeSize,
-    spChangeComputeType,
+    SelfservicePermissions (SelfservicePermissions'),
+    newSelfservicePermissions,
 
     -- ** Snapshot
-    Snapshot,
-    snapshot,
-    sSnapshotTime,
+    Snapshot (Snapshot'),
+    newSnapshot,
 
     -- ** StartRequest
-    StartRequest,
-    startRequest,
-    sWorkspaceId,
+    StartRequest (StartRequest'),
+    newStartRequest,
 
     -- ** StopRequest
-    StopRequest,
-    stopRequest,
-    srWorkspaceId,
+    StopRequest (StopRequest'),
+    newStopRequest,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** TerminateRequest
-    TerminateRequest,
-    terminateRequest,
-    trWorkspaceId,
+    TerminateRequest (TerminateRequest'),
+    newTerminateRequest,
 
     -- ** UserStorage
-    UserStorage,
-    userStorage,
-    usCapacity,
+    UserStorage (UserStorage'),
+    newUserStorage,
 
     -- ** Workspace
-    Workspace,
-    workspace,
-    wWorkspaceProperties,
-    wRootVolumeEncryptionEnabled,
-    wBundleId,
-    wUserVolumeEncryptionEnabled,
-    wVolumeEncryptionKey,
-    wWorkspaceId,
-    wModificationStates,
-    wIPAddress,
-    wState,
-    wDirectoryId,
-    wUserName,
-    wSubnetId,
-    wErrorMessage,
-    wComputerName,
-    wErrorCode,
+    Workspace (Workspace'),
+    newWorkspace,
 
     -- ** WorkspaceAccessProperties
-    WorkspaceAccessProperties,
-    workspaceAccessProperties,
-    wapDeviceTypeOSx,
-    wapDeviceTypeWindows,
-    wapDeviceTypeAndroid,
-    wapDeviceTypeZeroClient,
-    wapDeviceTypeWeb,
-    wapDeviceTypeIos,
-    wapDeviceTypeChromeOS,
+    WorkspaceAccessProperties (WorkspaceAccessProperties'),
+    newWorkspaceAccessProperties,
 
     -- ** WorkspaceBundle
-    WorkspaceBundle,
-    workspaceBundle,
-    wbRootStorage,
-    wbBundleId,
-    wbUserStorage,
-    wbImageId,
-    wbName,
-    wbOwner,
-    wbDescription,
-    wbComputeType,
-    wbLastUpdatedTime,
+    WorkspaceBundle (WorkspaceBundle'),
+    newWorkspaceBundle,
 
     -- ** WorkspaceConnectionStatus
-    WorkspaceConnectionStatus,
-    workspaceConnectionStatus,
-    wcsConnectionState,
-    wcsWorkspaceId,
-    wcsLastKnownUserConnectionTimestamp,
-    wcsConnectionStateCheckTimestamp,
+    WorkspaceConnectionStatus (WorkspaceConnectionStatus'),
+    newWorkspaceConnectionStatus,
 
     -- ** WorkspaceCreationProperties
-    WorkspaceCreationProperties,
-    workspaceCreationProperties,
-    wcpEnableMaintenanceMode,
-    wcpDefaultOu,
-    wcpEnableInternetAccess,
-    wcpEnableWorkDocs,
-    wcpCustomSecurityGroupId,
-    wcpUserEnabledAsLocalAdministrator,
+    WorkspaceCreationProperties (WorkspaceCreationProperties'),
+    newWorkspaceCreationProperties,
 
     -- ** WorkspaceDirectory
-    WorkspaceDirectory,
-    workspaceDirectory,
-    wdRegistrationCode,
-    wdWorkspaceSecurityGroupId,
-    wdAlias,
-    wdIpGroupIds,
-    wdWorkspaceAccessProperties,
-    wdSubnetIds,
-    wdTenancy,
-    wdCustomerUserName,
-    wdState,
-    wdIAMRoleId,
-    wdDirectoryId,
-    wdSelfservicePermissions,
-    wdDirectoryType,
-    wdDirectoryName,
-    wdDNSIPAddresses,
-    wdWorkspaceCreationProperties,
+    WorkspaceDirectory (WorkspaceDirectory'),
+    newWorkspaceDirectory,
 
     -- ** WorkspaceImage
-    WorkspaceImage,
-    workspaceImage,
-    wiImageId,
-    wiState,
-    wiName,
-    wiDescription,
-    wiErrorMessage,
-    wiRequiredTenancy,
-    wiOperatingSystem,
-    wiCreated,
-    wiOwnerAccountId,
-    wiErrorCode,
+    WorkspaceImage (WorkspaceImage'),
+    newWorkspaceImage,
 
     -- ** WorkspaceProperties
-    WorkspaceProperties,
-    workspaceProperties,
-    wpRootVolumeSizeGib,
-    wpRunningMode,
-    wpUserVolumeSizeGib,
-    wpRunningModeAutoStopTimeoutInMinutes,
-    wpComputeTypeName,
+    WorkspaceProperties (WorkspaceProperties'),
+    newWorkspaceProperties,
 
     -- ** WorkspaceRequest
-    WorkspaceRequest,
-    workspaceRequest,
-    wrWorkspaceProperties,
-    wrRootVolumeEncryptionEnabled,
-    wrUserVolumeEncryptionEnabled,
-    wrVolumeEncryptionKey,
-    wrTags,
-    wrDirectoryId,
-    wrUserName,
-    wrBundleId,
+    WorkspaceRequest (WorkspaceRequest'),
+    newWorkspaceRequest,
 
-    -- ** WorkspacesIPGroup
-    WorkspacesIPGroup,
-    workspacesIPGroup,
-    wigUserRules,
-    wigGroupDesc,
-    wigGroupName,
-    wigGroupId,
+    -- ** WorkspacesIpGroup
+    WorkspacesIpGroup (WorkspacesIpGroup'),
+    newWorkspacesIpGroup,
   )
 where
 
 import Network.AWS.WorkSpaces.AssociateConnectionAlias
-import Network.AWS.WorkSpaces.AssociateIPGroups
-import Network.AWS.WorkSpaces.AuthorizeIPRules
+import Network.AWS.WorkSpaces.AssociateIpGroups
+import Network.AWS.WorkSpaces.AuthorizeIpRules
 import Network.AWS.WorkSpaces.CopyWorkspaceImage
 import Network.AWS.WorkSpaces.CreateConnectionAlias
-import Network.AWS.WorkSpaces.CreateIPGroup
+import Network.AWS.WorkSpaces.CreateIpGroup
 import Network.AWS.WorkSpaces.CreateTags
 import Network.AWS.WorkSpaces.CreateWorkspaces
 import Network.AWS.WorkSpaces.DeleteConnectionAlias
-import Network.AWS.WorkSpaces.DeleteIPGroup
+import Network.AWS.WorkSpaces.DeleteIpGroup
 import Network.AWS.WorkSpaces.DeleteTags
 import Network.AWS.WorkSpaces.DeleteWorkspaceImage
 import Network.AWS.WorkSpaces.DeregisterWorkspaceDirectory
@@ -584,7 +597,7 @@ import Network.AWS.WorkSpaces.DescribeAccountModifications
 import Network.AWS.WorkSpaces.DescribeClientProperties
 import Network.AWS.WorkSpaces.DescribeConnectionAliasPermissions
 import Network.AWS.WorkSpaces.DescribeConnectionAliases
-import Network.AWS.WorkSpaces.DescribeIPGroups
+import Network.AWS.WorkSpaces.DescribeIpGroups
 import Network.AWS.WorkSpaces.DescribeTags
 import Network.AWS.WorkSpaces.DescribeWorkspaceBundles
 import Network.AWS.WorkSpaces.DescribeWorkspaceDirectories
@@ -594,8 +607,9 @@ import Network.AWS.WorkSpaces.DescribeWorkspaceSnapshots
 import Network.AWS.WorkSpaces.DescribeWorkspaces
 import Network.AWS.WorkSpaces.DescribeWorkspacesConnectionStatus
 import Network.AWS.WorkSpaces.DisassociateConnectionAlias
-import Network.AWS.WorkSpaces.DisassociateIPGroups
+import Network.AWS.WorkSpaces.DisassociateIpGroups
 import Network.AWS.WorkSpaces.ImportWorkspaceImage
+import Network.AWS.WorkSpaces.Lens
 import Network.AWS.WorkSpaces.ListAvailableManagementCidrRanges
 import Network.AWS.WorkSpaces.MigrateWorkspace
 import Network.AWS.WorkSpaces.ModifyAccount
@@ -609,13 +623,13 @@ import Network.AWS.WorkSpaces.RebootWorkspaces
 import Network.AWS.WorkSpaces.RebuildWorkspaces
 import Network.AWS.WorkSpaces.RegisterWorkspaceDirectory
 import Network.AWS.WorkSpaces.RestoreWorkspace
-import Network.AWS.WorkSpaces.RevokeIPRules
+import Network.AWS.WorkSpaces.RevokeIpRules
 import Network.AWS.WorkSpaces.StartWorkspaces
 import Network.AWS.WorkSpaces.StopWorkspaces
 import Network.AWS.WorkSpaces.TerminateWorkspaces
 import Network.AWS.WorkSpaces.Types
 import Network.AWS.WorkSpaces.UpdateConnectionAliasPermission
-import Network.AWS.WorkSpaces.UpdateRulesOfIPGroup
+import Network.AWS.WorkSpaces.UpdateRulesOfIpGroup
 import Network.AWS.WorkSpaces.UpdateWorkspaceImagePermission
 import Network.AWS.WorkSpaces.Waiters
 

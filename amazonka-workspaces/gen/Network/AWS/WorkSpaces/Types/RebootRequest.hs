@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,47 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.RebootRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the information used to reboot a WorkSpace.
 --
---
---
--- /See:/ 'rebootRequest' smart constructor.
-newtype RebootRequest = RebootRequest'
-  { _rWorkspaceId ::
-      Text
+-- /See:/ 'newRebootRequest' smart constructor.
+data RebootRequest = RebootRequest'
+  { -- | The identifier of the WorkSpace.
+    workspaceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rWorkspaceId' - The identifier of the WorkSpace.
-rebootRequest ::
-  -- | 'rWorkspaceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workspaceId', 'rebootRequest_workspaceId' - The identifier of the WorkSpace.
+newRebootRequest ::
+  -- | 'workspaceId'
+  Prelude.Text ->
   RebootRequest
-rebootRequest pWorkspaceId_ =
-  RebootRequest' {_rWorkspaceId = pWorkspaceId_}
+newRebootRequest pWorkspaceId_ =
+  RebootRequest' {workspaceId = pWorkspaceId_}
 
 -- | The identifier of the WorkSpace.
-rWorkspaceId :: Lens' RebootRequest Text
-rWorkspaceId = lens _rWorkspaceId (\s a -> s {_rWorkspaceId = a})
+rebootRequest_workspaceId :: Lens.Lens' RebootRequest Prelude.Text
+rebootRequest_workspaceId = Lens.lens (\RebootRequest' {workspaceId} -> workspaceId) (\s@RebootRequest' {} a -> s {workspaceId = a} :: RebootRequest)
 
-instance Hashable RebootRequest
+instance Prelude.Hashable RebootRequest
 
-instance NFData RebootRequest
+instance Prelude.NFData RebootRequest
 
-instance ToJSON RebootRequest where
+instance Prelude.ToJSON RebootRequest where
   toJSON RebootRequest' {..} =
-    object
-      (catMaybes [Just ("WorkspaceId" .= _rWorkspaceId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WorkspaceId" Prelude..= workspaceId)
+          ]
+      )

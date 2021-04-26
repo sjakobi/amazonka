@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,144 +23,152 @@
 --
 -- Sets the state of the specified WorkSpace.
 --
---
--- To maintain a WorkSpace without being interrupted, set the WorkSpace state to @ADMIN_MAINTENANCE@ . WorkSpaces in this state do not respond to requests to reboot, stop, start, rebuild, or restore. An AutoStop WorkSpace in this state is not stopped. Users cannot log into a WorkSpace in the @ADMIN_MAINTENANCE@ state.
+-- To maintain a WorkSpace without being interrupted, set the WorkSpace
+-- state to @ADMIN_MAINTENANCE@. WorkSpaces in this state do not respond to
+-- requests to reboot, stop, start, rebuild, or restore. An AutoStop
+-- WorkSpace in this state is not stopped. Users cannot log into a
+-- WorkSpace in the @ADMIN_MAINTENANCE@ state.
 module Network.AWS.WorkSpaces.ModifyWorkspaceState
   ( -- * Creating a Request
-    modifyWorkspaceState,
-    ModifyWorkspaceState,
+    ModifyWorkspaceState (..),
+    newModifyWorkspaceState,
 
     -- * Request Lenses
-    mwsWorkspaceId,
-    mwsWorkspaceState,
+    modifyWorkspaceState_workspaceId,
+    modifyWorkspaceState_workspaceState,
 
     -- * Destructuring the Response
-    modifyWorkspaceStateResponse,
-    ModifyWorkspaceStateResponse,
+    ModifyWorkspaceStateResponse (..),
+    newModifyWorkspaceStateResponse,
 
     -- * Response Lenses
-    mwsrrsResponseStatus,
+    modifyWorkspaceStateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'modifyWorkspaceState' smart constructor.
+-- | /See:/ 'newModifyWorkspaceState' smart constructor.
 data ModifyWorkspaceState = ModifyWorkspaceState'
-  { _mwsWorkspaceId ::
-      !Text,
-    _mwsWorkspaceState ::
-      !TargetWorkspaceState
+  { -- | The identifier of the WorkSpace.
+    workspaceId :: Prelude.Text,
+    -- | The WorkSpace state.
+    workspaceState :: TargetWorkspaceState
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyWorkspaceState' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyWorkspaceState' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwsWorkspaceId' - The identifier of the WorkSpace.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwsWorkspaceState' - The WorkSpace state.
-modifyWorkspaceState ::
-  -- | 'mwsWorkspaceId'
-  Text ->
-  -- | 'mwsWorkspaceState'
+-- 'workspaceId', 'modifyWorkspaceState_workspaceId' - The identifier of the WorkSpace.
+--
+-- 'workspaceState', 'modifyWorkspaceState_workspaceState' - The WorkSpace state.
+newModifyWorkspaceState ::
+  -- | 'workspaceId'
+  Prelude.Text ->
+  -- | 'workspaceState'
   TargetWorkspaceState ->
   ModifyWorkspaceState
-modifyWorkspaceState pWorkspaceId_ pWorkspaceState_ =
-  ModifyWorkspaceState'
-    { _mwsWorkspaceId =
-        pWorkspaceId_,
-      _mwsWorkspaceState = pWorkspaceState_
-    }
+newModifyWorkspaceState
+  pWorkspaceId_
+  pWorkspaceState_ =
+    ModifyWorkspaceState'
+      { workspaceId = pWorkspaceId_,
+        workspaceState = pWorkspaceState_
+      }
 
 -- | The identifier of the WorkSpace.
-mwsWorkspaceId :: Lens' ModifyWorkspaceState Text
-mwsWorkspaceId = lens _mwsWorkspaceId (\s a -> s {_mwsWorkspaceId = a})
+modifyWorkspaceState_workspaceId :: Lens.Lens' ModifyWorkspaceState Prelude.Text
+modifyWorkspaceState_workspaceId = Lens.lens (\ModifyWorkspaceState' {workspaceId} -> workspaceId) (\s@ModifyWorkspaceState' {} a -> s {workspaceId = a} :: ModifyWorkspaceState)
 
 -- | The WorkSpace state.
-mwsWorkspaceState :: Lens' ModifyWorkspaceState TargetWorkspaceState
-mwsWorkspaceState = lens _mwsWorkspaceState (\s a -> s {_mwsWorkspaceState = a})
+modifyWorkspaceState_workspaceState :: Lens.Lens' ModifyWorkspaceState TargetWorkspaceState
+modifyWorkspaceState_workspaceState = Lens.lens (\ModifyWorkspaceState' {workspaceState} -> workspaceState) (\s@ModifyWorkspaceState' {} a -> s {workspaceState = a} :: ModifyWorkspaceState)
 
-instance AWSRequest ModifyWorkspaceState where
+instance Prelude.AWSRequest ModifyWorkspaceState where
   type
     Rs ModifyWorkspaceState =
       ModifyWorkspaceStateResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ModifyWorkspaceStateResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyWorkspaceState
+instance Prelude.Hashable ModifyWorkspaceState
 
-instance NFData ModifyWorkspaceState
+instance Prelude.NFData ModifyWorkspaceState
 
-instance ToHeaders ModifyWorkspaceState where
+instance Prelude.ToHeaders ModifyWorkspaceState where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.ModifyWorkspaceState" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.ModifyWorkspaceState" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyWorkspaceState where
+instance Prelude.ToJSON ModifyWorkspaceState where
   toJSON ModifyWorkspaceState' {..} =
-    object
-      ( catMaybes
-          [ Just ("WorkspaceId" .= _mwsWorkspaceId),
-            Just ("WorkspaceState" .= _mwsWorkspaceState)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("WorkspaceId" Prelude..= workspaceId),
+            Prelude.Just
+              ("WorkspaceState" Prelude..= workspaceState)
           ]
       )
 
-instance ToPath ModifyWorkspaceState where
-  toPath = const "/"
+instance Prelude.ToPath ModifyWorkspaceState where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyWorkspaceState where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyWorkspaceState where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyWorkspaceStateResponse' smart constructor.
-newtype ModifyWorkspaceStateResponse = ModifyWorkspaceStateResponse'
-  { _mwsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newModifyWorkspaceStateResponse' smart constructor.
+data ModifyWorkspaceStateResponse = ModifyWorkspaceStateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyWorkspaceStateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyWorkspaceStateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwsrrsResponseStatus' - -- | The response status code.
-modifyWorkspaceStateResponse ::
-  -- | 'mwsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifyWorkspaceStateResponse_httpStatus' - The response's http status code.
+newModifyWorkspaceStateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyWorkspaceStateResponse
-modifyWorkspaceStateResponse pResponseStatus_ =
+newModifyWorkspaceStateResponse pHttpStatus_ =
   ModifyWorkspaceStateResponse'
-    { _mwsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-mwsrrsResponseStatus :: Lens' ModifyWorkspaceStateResponse Int
-mwsrrsResponseStatus = lens _mwsrrsResponseStatus (\s a -> s {_mwsrrsResponseStatus = a})
+-- | The response's http status code.
+modifyWorkspaceStateResponse_httpStatus :: Lens.Lens' ModifyWorkspaceStateResponse Prelude.Int
+modifyWorkspaceStateResponse_httpStatus = Lens.lens (\ModifyWorkspaceStateResponse' {httpStatus} -> httpStatus) (\s@ModifyWorkspaceStateResponse' {} a -> s {httpStatus = a} :: ModifyWorkspaceStateResponse)
 
-instance NFData ModifyWorkspaceStateResponse
+instance Prelude.NFData ModifyWorkspaceStateResponse

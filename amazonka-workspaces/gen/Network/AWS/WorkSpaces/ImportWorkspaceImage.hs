@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,201 +21,256 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Imports the specified Windows 10 Bring Your Own License (BYOL) image into Amazon WorkSpaces. The image must be an already licensed Amazon EC2 image that is in your AWS account, and you must own the image. For more information about creating BYOL images, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses> .
+-- Imports the specified Windows 10 Bring Your Own License (BYOL) image
+-- into Amazon WorkSpaces. The image must be an already licensed Amazon EC2
+-- image that is in your AWS account, and you must own the image. For more
+-- information about creating BYOL images, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses>.
 module Network.AWS.WorkSpaces.ImportWorkspaceImage
   ( -- * Creating a Request
-    importWorkspaceImage,
-    ImportWorkspaceImage,
+    ImportWorkspaceImage (..),
+    newImportWorkspaceImage,
 
     -- * Request Lenses
-    iwiTags,
-    iwiApplications,
-    iwiEC2ImageId,
-    iwiIngestionProcess,
-    iwiImageName,
-    iwiImageDescription,
+    importWorkspaceImage_tags,
+    importWorkspaceImage_applications,
+    importWorkspaceImage_ec2ImageId,
+    importWorkspaceImage_ingestionProcess,
+    importWorkspaceImage_imageName,
+    importWorkspaceImage_imageDescription,
 
     -- * Destructuring the Response
-    importWorkspaceImageResponse,
-    ImportWorkspaceImageResponse,
+    ImportWorkspaceImageResponse (..),
+    newImportWorkspaceImageResponse,
 
     -- * Response Lenses
-    iwirrsImageId,
-    iwirrsResponseStatus,
+    importWorkspaceImageResponse_imageId,
+    importWorkspaceImageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'importWorkspaceImage' smart constructor.
+-- | /See:/ 'newImportWorkspaceImage' smart constructor.
 data ImportWorkspaceImage = ImportWorkspaceImage'
-  { _iwiTags ::
-      !(Maybe [Tag]),
-    _iwiApplications ::
-      !(Maybe (List1 Application)),
-    _iwiEC2ImageId :: !Text,
-    _iwiIngestionProcess ::
-      !WorkspaceImageIngestionProcess,
-    _iwiImageName :: !Text,
-    _iwiImageDescription :: !Text
+  { -- | The tags. Each WorkSpaces resource can have a maximum of 50 tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | If specified, the version of Microsoft Office to subscribe to. Valid
+    -- only for Windows 10 BYOL images. For more information about subscribing
+    -- to Office for BYOL images, see
+    -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses>.
+    --
+    -- Although this parameter is an array, only one item is allowed at this
+    -- time.
+    applications :: Prelude.Maybe (Prelude.List1 Application),
+    -- | The identifier of the EC2 image.
+    ec2ImageId :: Prelude.Text,
+    -- | The ingestion process to be used when importing the image, depending on
+    -- which protocol you want to use for your BYOL Workspace image, either
+    -- PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a
+    -- value that ends in @_WSP@. To use PCoIP, specify a value that does not
+    -- end in @_WSP@.
+    --
+    -- For non-GPU-enabled bundles (bundles other than Graphics or
+    -- GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@, depending on
+    -- the protocol.
+    ingestionProcess :: WorkspaceImageIngestionProcess,
+    -- | The name of the WorkSpace image.
+    imageName :: Prelude.Text,
+    -- | The description of the WorkSpace image.
+    imageDescription :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportWorkspaceImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportWorkspaceImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iwiTags' - The tags. Each WorkSpaces resource can have a maximum of 50 tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iwiApplications' - If specified, the version of Microsoft Office to subscribe to. Valid only for Windows 10 BYOL images. For more information about subscribing to Office for BYOL images, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses> .
+-- 'tags', 'importWorkspaceImage_tags' - The tags. Each WorkSpaces resource can have a maximum of 50 tags.
 --
--- * 'iwiEC2ImageId' - The identifier of the EC2 image.
+-- 'applications', 'importWorkspaceImage_applications' - If specified, the version of Microsoft Office to subscribe to. Valid
+-- only for Windows 10 BYOL images. For more information about subscribing
+-- to Office for BYOL images, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses>.
 --
--- * 'iwiIngestionProcess' - The ingestion process to be used when importing the image, depending on which protocol you want to use for your BYOL Workspace image, either PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a value that ends in @_WSP@ . To use PCoIP, specify a value that does not end in @_WSP@ .  For non-GPU-enabled bundles (bundles other than Graphics or GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@ , depending on the protocol.
+-- Although this parameter is an array, only one item is allowed at this
+-- time.
 --
--- * 'iwiImageName' - The name of the WorkSpace image.
+-- 'ec2ImageId', 'importWorkspaceImage_ec2ImageId' - The identifier of the EC2 image.
 --
--- * 'iwiImageDescription' - The description of the WorkSpace image.
-importWorkspaceImage ::
-  -- | 'iwiEC2ImageId'
-  Text ->
-  -- | 'iwiIngestionProcess'
+-- 'ingestionProcess', 'importWorkspaceImage_ingestionProcess' - The ingestion process to be used when importing the image, depending on
+-- which protocol you want to use for your BYOL Workspace image, either
+-- PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a
+-- value that ends in @_WSP@. To use PCoIP, specify a value that does not
+-- end in @_WSP@.
+--
+-- For non-GPU-enabled bundles (bundles other than Graphics or
+-- GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@, depending on
+-- the protocol.
+--
+-- 'imageName', 'importWorkspaceImage_imageName' - The name of the WorkSpace image.
+--
+-- 'imageDescription', 'importWorkspaceImage_imageDescription' - The description of the WorkSpace image.
+newImportWorkspaceImage ::
+  -- | 'ec2ImageId'
+  Prelude.Text ->
+  -- | 'ingestionProcess'
   WorkspaceImageIngestionProcess ->
-  -- | 'iwiImageName'
-  Text ->
-  -- | 'iwiImageDescription'
-  Text ->
+  -- | 'imageName'
+  Prelude.Text ->
+  -- | 'imageDescription'
+  Prelude.Text ->
   ImportWorkspaceImage
-importWorkspaceImage
-  pEC2ImageId_
+newImportWorkspaceImage
+  pEc2ImageId_
   pIngestionProcess_
   pImageName_
   pImageDescription_ =
     ImportWorkspaceImage'
-      { _iwiTags = Nothing,
-        _iwiApplications = Nothing,
-        _iwiEC2ImageId = pEC2ImageId_,
-        _iwiIngestionProcess = pIngestionProcess_,
-        _iwiImageName = pImageName_,
-        _iwiImageDescription = pImageDescription_
+      { tags = Prelude.Nothing,
+        applications = Prelude.Nothing,
+        ec2ImageId = pEc2ImageId_,
+        ingestionProcess = pIngestionProcess_,
+        imageName = pImageName_,
+        imageDescription = pImageDescription_
       }
 
 -- | The tags. Each WorkSpaces resource can have a maximum of 50 tags.
-iwiTags :: Lens' ImportWorkspaceImage [Tag]
-iwiTags = lens _iwiTags (\s a -> s {_iwiTags = a}) . _Default . _Coerce
+importWorkspaceImage_tags :: Lens.Lens' ImportWorkspaceImage (Prelude.Maybe [Tag])
+importWorkspaceImage_tags = Lens.lens (\ImportWorkspaceImage' {tags} -> tags) (\s@ImportWorkspaceImage' {} a -> s {tags = a} :: ImportWorkspaceImage) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If specified, the version of Microsoft Office to subscribe to. Valid only for Windows 10 BYOL images. For more information about subscribing to Office for BYOL images, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses> .
-iwiApplications :: Lens' ImportWorkspaceImage (Maybe (NonEmpty Application))
-iwiApplications = lens _iwiApplications (\s a -> s {_iwiApplications = a}) . mapping _List1
+-- | If specified, the version of Microsoft Office to subscribe to. Valid
+-- only for Windows 10 BYOL images. For more information about subscribing
+-- to Office for BYOL images, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses>.
+--
+-- Although this parameter is an array, only one item is allowed at this
+-- time.
+importWorkspaceImage_applications :: Lens.Lens' ImportWorkspaceImage (Prelude.Maybe (Prelude.NonEmpty Application))
+importWorkspaceImage_applications = Lens.lens (\ImportWorkspaceImage' {applications} -> applications) (\s@ImportWorkspaceImage' {} a -> s {applications = a} :: ImportWorkspaceImage) Prelude.. Lens.mapping Prelude._List1
 
 -- | The identifier of the EC2 image.
-iwiEC2ImageId :: Lens' ImportWorkspaceImage Text
-iwiEC2ImageId = lens _iwiEC2ImageId (\s a -> s {_iwiEC2ImageId = a})
+importWorkspaceImage_ec2ImageId :: Lens.Lens' ImportWorkspaceImage Prelude.Text
+importWorkspaceImage_ec2ImageId = Lens.lens (\ImportWorkspaceImage' {ec2ImageId} -> ec2ImageId) (\s@ImportWorkspaceImage' {} a -> s {ec2ImageId = a} :: ImportWorkspaceImage)
 
--- | The ingestion process to be used when importing the image, depending on which protocol you want to use for your BYOL Workspace image, either PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a value that ends in @_WSP@ . To use PCoIP, specify a value that does not end in @_WSP@ .  For non-GPU-enabled bundles (bundles other than Graphics or GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@ , depending on the protocol.
-iwiIngestionProcess :: Lens' ImportWorkspaceImage WorkspaceImageIngestionProcess
-iwiIngestionProcess = lens _iwiIngestionProcess (\s a -> s {_iwiIngestionProcess = a})
+-- | The ingestion process to be used when importing the image, depending on
+-- which protocol you want to use for your BYOL Workspace image, either
+-- PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a
+-- value that ends in @_WSP@. To use PCoIP, specify a value that does not
+-- end in @_WSP@.
+--
+-- For non-GPU-enabled bundles (bundles other than Graphics or
+-- GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@, depending on
+-- the protocol.
+importWorkspaceImage_ingestionProcess :: Lens.Lens' ImportWorkspaceImage WorkspaceImageIngestionProcess
+importWorkspaceImage_ingestionProcess = Lens.lens (\ImportWorkspaceImage' {ingestionProcess} -> ingestionProcess) (\s@ImportWorkspaceImage' {} a -> s {ingestionProcess = a} :: ImportWorkspaceImage)
 
 -- | The name of the WorkSpace image.
-iwiImageName :: Lens' ImportWorkspaceImage Text
-iwiImageName = lens _iwiImageName (\s a -> s {_iwiImageName = a})
+importWorkspaceImage_imageName :: Lens.Lens' ImportWorkspaceImage Prelude.Text
+importWorkspaceImage_imageName = Lens.lens (\ImportWorkspaceImage' {imageName} -> imageName) (\s@ImportWorkspaceImage' {} a -> s {imageName = a} :: ImportWorkspaceImage)
 
 -- | The description of the WorkSpace image.
-iwiImageDescription :: Lens' ImportWorkspaceImage Text
-iwiImageDescription = lens _iwiImageDescription (\s a -> s {_iwiImageDescription = a})
+importWorkspaceImage_imageDescription :: Lens.Lens' ImportWorkspaceImage Prelude.Text
+importWorkspaceImage_imageDescription = Lens.lens (\ImportWorkspaceImage' {imageDescription} -> imageDescription) (\s@ImportWorkspaceImage' {} a -> s {imageDescription = a} :: ImportWorkspaceImage)
 
-instance AWSRequest ImportWorkspaceImage where
+instance Prelude.AWSRequest ImportWorkspaceImage where
   type
     Rs ImportWorkspaceImage =
       ImportWorkspaceImageResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ImportWorkspaceImageResponse'
-            <$> (x .?> "ImageId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ImageId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ImportWorkspaceImage
+instance Prelude.Hashable ImportWorkspaceImage
 
-instance NFData ImportWorkspaceImage
+instance Prelude.NFData ImportWorkspaceImage
 
-instance ToHeaders ImportWorkspaceImage where
+instance Prelude.ToHeaders ImportWorkspaceImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.ImportWorkspaceImage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.ImportWorkspaceImage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ImportWorkspaceImage where
+instance Prelude.ToJSON ImportWorkspaceImage where
   toJSON ImportWorkspaceImage' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _iwiTags,
-            ("Applications" .=) <$> _iwiApplications,
-            Just ("Ec2ImageId" .= _iwiEC2ImageId),
-            Just ("IngestionProcess" .= _iwiIngestionProcess),
-            Just ("ImageName" .= _iwiImageName),
-            Just ("ImageDescription" .= _iwiImageDescription)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Applications" Prelude..=) Prelude.<$> applications,
+            Prelude.Just ("Ec2ImageId" Prelude..= ec2ImageId),
+            Prelude.Just
+              ("IngestionProcess" Prelude..= ingestionProcess),
+            Prelude.Just ("ImageName" Prelude..= imageName),
+            Prelude.Just
+              ("ImageDescription" Prelude..= imageDescription)
           ]
       )
 
-instance ToPath ImportWorkspaceImage where
-  toPath = const "/"
+instance Prelude.ToPath ImportWorkspaceImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportWorkspaceImage where
-  toQuery = const mempty
+instance Prelude.ToQuery ImportWorkspaceImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'importWorkspaceImageResponse' smart constructor.
+-- | /See:/ 'newImportWorkspaceImageResponse' smart constructor.
 data ImportWorkspaceImageResponse = ImportWorkspaceImageResponse'
-  { _iwirrsImageId ::
-      !(Maybe Text),
-    _iwirrsResponseStatus ::
-      !Int
+  { -- | The identifier of the WorkSpace image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportWorkspaceImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportWorkspaceImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iwirrsImageId' - The identifier of the WorkSpace image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iwirrsResponseStatus' - -- | The response status code.
-importWorkspaceImageResponse ::
-  -- | 'iwirrsResponseStatus'
-  Int ->
+-- 'imageId', 'importWorkspaceImageResponse_imageId' - The identifier of the WorkSpace image.
+--
+-- 'httpStatus', 'importWorkspaceImageResponse_httpStatus' - The response's http status code.
+newImportWorkspaceImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ImportWorkspaceImageResponse
-importWorkspaceImageResponse pResponseStatus_ =
+newImportWorkspaceImageResponse pHttpStatus_ =
   ImportWorkspaceImageResponse'
-    { _iwirrsImageId =
-        Nothing,
-      _iwirrsResponseStatus = pResponseStatus_
+    { imageId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the WorkSpace image.
-iwirrsImageId :: Lens' ImportWorkspaceImageResponse (Maybe Text)
-iwirrsImageId = lens _iwirrsImageId (\s a -> s {_iwirrsImageId = a})
+importWorkspaceImageResponse_imageId :: Lens.Lens' ImportWorkspaceImageResponse (Prelude.Maybe Prelude.Text)
+importWorkspaceImageResponse_imageId = Lens.lens (\ImportWorkspaceImageResponse' {imageId} -> imageId) (\s@ImportWorkspaceImageResponse' {} a -> s {imageId = a} :: ImportWorkspaceImageResponse)
 
--- | -- | The response status code.
-iwirrsResponseStatus :: Lens' ImportWorkspaceImageResponse Int
-iwirrsResponseStatus = lens _iwirrsResponseStatus (\s a -> s {_iwirrsResponseStatus = a})
+-- | The response's http status code.
+importWorkspaceImageResponse_httpStatus :: Lens.Lens' ImportWorkspaceImageResponse Prelude.Int
+importWorkspaceImageResponse_httpStatus = Lens.lens (\ImportWorkspaceImageResponse' {httpStatus} -> httpStatus) (\s@ImportWorkspaceImageResponse' {} a -> s {httpStatus = a} :: ImportWorkspaceImageResponse)
 
-instance NFData ImportWorkspaceImageResponse
+instance Prelude.NFData ImportWorkspaceImageResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the specified WorkSpace properties. For important information about how to modify the size of the root and user volumes, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace> .
+-- Modifies the specified WorkSpace properties. For important information
+-- about how to modify the size of the root and user volumes, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
 module Network.AWS.WorkSpaces.ModifyWorkspaceProperties
   ( -- * Creating a Request
-    modifyWorkspaceProperties,
-    ModifyWorkspaceProperties,
+    ModifyWorkspaceProperties (..),
+    newModifyWorkspaceProperties,
 
     -- * Request Lenses
-    mwpWorkspaceId,
-    mwpWorkspaceProperties,
+    modifyWorkspaceProperties_workspaceId,
+    modifyWorkspaceProperties_workspaceProperties,
 
     -- * Destructuring the Response
-    modifyWorkspacePropertiesResponse,
-    ModifyWorkspacePropertiesResponse,
+    ModifyWorkspacePropertiesResponse (..),
+    newModifyWorkspacePropertiesResponse,
 
     -- * Response Lenses
-    mwprrsResponseStatus,
+    modifyWorkspacePropertiesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'modifyWorkspaceProperties' smart constructor.
+-- | /See:/ 'newModifyWorkspaceProperties' smart constructor.
 data ModifyWorkspaceProperties = ModifyWorkspaceProperties'
-  { _mwpWorkspaceId ::
-      !Text,
-    _mwpWorkspaceProperties ::
-      !WorkspaceProperties
+  { -- | The identifier of the WorkSpace.
+    workspaceId :: Prelude.Text,
+    -- | The properties of the WorkSpace.
+    workspaceProperties :: WorkspaceProperties
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyWorkspaceProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyWorkspaceProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwpWorkspaceId' - The identifier of the WorkSpace.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mwpWorkspaceProperties' - The properties of the WorkSpace.
-modifyWorkspaceProperties ::
-  -- | 'mwpWorkspaceId'
-  Text ->
-  -- | 'mwpWorkspaceProperties'
+-- 'workspaceId', 'modifyWorkspaceProperties_workspaceId' - The identifier of the WorkSpace.
+--
+-- 'workspaceProperties', 'modifyWorkspaceProperties_workspaceProperties' - The properties of the WorkSpace.
+newModifyWorkspaceProperties ::
+  -- | 'workspaceId'
+  Prelude.Text ->
+  -- | 'workspaceProperties'
   WorkspaceProperties ->
   ModifyWorkspaceProperties
-modifyWorkspaceProperties
+newModifyWorkspaceProperties
   pWorkspaceId_
   pWorkspaceProperties_ =
     ModifyWorkspaceProperties'
-      { _mwpWorkspaceId =
+      { workspaceId =
           pWorkspaceId_,
-        _mwpWorkspaceProperties = pWorkspaceProperties_
+        workspaceProperties = pWorkspaceProperties_
       }
 
 -- | The identifier of the WorkSpace.
-mwpWorkspaceId :: Lens' ModifyWorkspaceProperties Text
-mwpWorkspaceId = lens _mwpWorkspaceId (\s a -> s {_mwpWorkspaceId = a})
+modifyWorkspaceProperties_workspaceId :: Lens.Lens' ModifyWorkspaceProperties Prelude.Text
+modifyWorkspaceProperties_workspaceId = Lens.lens (\ModifyWorkspaceProperties' {workspaceId} -> workspaceId) (\s@ModifyWorkspaceProperties' {} a -> s {workspaceId = a} :: ModifyWorkspaceProperties)
 
 -- | The properties of the WorkSpace.
-mwpWorkspaceProperties :: Lens' ModifyWorkspaceProperties WorkspaceProperties
-mwpWorkspaceProperties = lens _mwpWorkspaceProperties (\s a -> s {_mwpWorkspaceProperties = a})
+modifyWorkspaceProperties_workspaceProperties :: Lens.Lens' ModifyWorkspaceProperties WorkspaceProperties
+modifyWorkspaceProperties_workspaceProperties = Lens.lens (\ModifyWorkspaceProperties' {workspaceProperties} -> workspaceProperties) (\s@ModifyWorkspaceProperties' {} a -> s {workspaceProperties = a} :: ModifyWorkspaceProperties)
 
-instance AWSRequest ModifyWorkspaceProperties where
+instance Prelude.AWSRequest ModifyWorkspaceProperties where
   type
     Rs ModifyWorkspaceProperties =
       ModifyWorkspacePropertiesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ModifyWorkspacePropertiesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyWorkspaceProperties
+instance Prelude.Hashable ModifyWorkspaceProperties
 
-instance NFData ModifyWorkspaceProperties
+instance Prelude.NFData ModifyWorkspaceProperties
 
-instance ToHeaders ModifyWorkspaceProperties where
+instance Prelude.ToHeaders ModifyWorkspaceProperties where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.ModifyWorkspaceProperties" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.ModifyWorkspaceProperties" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyWorkspaceProperties where
+instance Prelude.ToJSON ModifyWorkspaceProperties where
   toJSON ModifyWorkspaceProperties' {..} =
-    object
-      ( catMaybes
-          [ Just ("WorkspaceId" .= _mwpWorkspaceId),
-            Just
-              ("WorkspaceProperties" .= _mwpWorkspaceProperties)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("WorkspaceId" Prelude..= workspaceId),
+            Prelude.Just
+              ( "WorkspaceProperties"
+                  Prelude..= workspaceProperties
+              )
           ]
       )
 
-instance ToPath ModifyWorkspaceProperties where
-  toPath = const "/"
+instance Prelude.ToPath ModifyWorkspaceProperties where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyWorkspaceProperties where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyWorkspaceProperties where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyWorkspacePropertiesResponse' smart constructor.
-newtype ModifyWorkspacePropertiesResponse = ModifyWorkspacePropertiesResponse'
-  { _mwprrsResponseStatus ::
-      Int
+-- | /See:/ 'newModifyWorkspacePropertiesResponse' smart constructor.
+data ModifyWorkspacePropertiesResponse = ModifyWorkspacePropertiesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyWorkspacePropertiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyWorkspacePropertiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mwprrsResponseStatus' - -- | The response status code.
-modifyWorkspacePropertiesResponse ::
-  -- | 'mwprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifyWorkspacePropertiesResponse_httpStatus' - The response's http status code.
+newModifyWorkspacePropertiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyWorkspacePropertiesResponse
-modifyWorkspacePropertiesResponse pResponseStatus_ =
+newModifyWorkspacePropertiesResponse pHttpStatus_ =
   ModifyWorkspacePropertiesResponse'
-    { _mwprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-mwprrsResponseStatus :: Lens' ModifyWorkspacePropertiesResponse Int
-mwprrsResponseStatus = lens _mwprrsResponseStatus (\s a -> s {_mwprrsResponseStatus = a})
+-- | The response's http status code.
+modifyWorkspacePropertiesResponse_httpStatus :: Lens.Lens' ModifyWorkspacePropertiesResponse Prelude.Int
+modifyWorkspacePropertiesResponse_httpStatus = Lens.lens (\ModifyWorkspacePropertiesResponse' {httpStatus} -> httpStatus) (\s@ModifyWorkspacePropertiesResponse' {} a -> s {httpStatus = a} :: ModifyWorkspacePropertiesResponse)
 
-instance NFData ModifyWorkspacePropertiesResponse
+instance
+  Prelude.NFData
+    ModifyWorkspacePropertiesResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WorkSpaces.Types.Application
   ( Application
       ( ..,
-        MicrosoftOffice2016,
-        MicrosoftOffice2019
+        ApplicationMicrosoftOffice2016,
+        ApplicationMicrosoftOffice2019
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Application = Application' (CI Text)
+newtype Application = Application'
+  { fromApplication ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MicrosoftOffice2016 :: Application
-pattern MicrosoftOffice2016 = Application' "Microsoft_Office_2016"
+pattern ApplicationMicrosoftOffice2016 :: Application
+pattern ApplicationMicrosoftOffice2016 = Application' "Microsoft_Office_2016"
 
-pattern MicrosoftOffice2019 :: Application
-pattern MicrosoftOffice2019 = Application' "Microsoft_Office_2019"
+pattern ApplicationMicrosoftOffice2019 :: Application
+pattern ApplicationMicrosoftOffice2019 = Application' "Microsoft_Office_2019"
 
 {-# COMPLETE
-  MicrosoftOffice2016,
-  MicrosoftOffice2019,
+  ApplicationMicrosoftOffice2016,
+  ApplicationMicrosoftOffice2019,
   Application'
   #-}
 
-instance FromText Application where
-  parser = (Application' . mk) <$> takeText
+instance Prelude.FromText Application where
+  parser = Application' Prelude.<$> Prelude.takeText
 
-instance ToText Application where
-  toText (Application' ci) = original ci
+instance Prelude.ToText Application where
+  toText (Application' x) = x
 
-instance Hashable Application
+instance Prelude.Hashable Application
 
-instance NFData Application
+instance Prelude.NFData Application
 
-instance ToByteString Application
+instance Prelude.ToByteString Application
 
-instance ToQuery Application
+instance Prelude.ToQuery Application
 
-instance ToHeader Application
+instance Prelude.ToHeader Application
 
-instance ToJSON Application where
-  toJSON = toJSONText
+instance Prelude.ToJSON Application where
+  toJSON = Prelude.toJSONText

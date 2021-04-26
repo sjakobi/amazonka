@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types.FailedWorkspaceChangeRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a WorkSpace that could not be rebooted. ('RebootWorkspaces' ), rebuilt ('RebuildWorkspaces' ), restored ('RestoreWorkspace' ), terminated ('TerminateWorkspaces' ), started ('StartWorkspaces' ), or stopped ('StopWorkspaces' ).
+-- | Describes a WorkSpace that could not be rebooted. (RebootWorkspaces),
+-- rebuilt (RebuildWorkspaces), restored (RestoreWorkspace), terminated
+-- (TerminateWorkspaces), started (StartWorkspaces), or stopped
+-- (StopWorkspaces).
 --
---
---
--- /See:/ 'failedWorkspaceChangeRequest' smart constructor.
+-- /See:/ 'newFailedWorkspaceChangeRequest' smart constructor.
 data FailedWorkspaceChangeRequest = FailedWorkspaceChangeRequest'
-  { _fwcrWorkspaceId ::
-      !(Maybe Text),
-    _fwcrErrorMessage ::
-      !(Maybe Text),
-    _fwcrErrorCode ::
-      !(Maybe Text)
+  { -- | The identifier of the WorkSpace.
+    workspaceId :: Prelude.Maybe Prelude.Text,
+    -- | The text of the error message that is returned if the WorkSpace cannot
+    -- be rebooted.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error code that is returned if the WorkSpace cannot be rebooted.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailedWorkspaceChangeRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailedWorkspaceChangeRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fwcrWorkspaceId' - The identifier of the WorkSpace.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fwcrErrorMessage' - The text of the error message that is returned if the WorkSpace cannot be rebooted.
+-- 'workspaceId', 'failedWorkspaceChangeRequest_workspaceId' - The identifier of the WorkSpace.
 --
--- * 'fwcrErrorCode' - The error code that is returned if the WorkSpace cannot be rebooted.
-failedWorkspaceChangeRequest ::
+-- 'errorMessage', 'failedWorkspaceChangeRequest_errorMessage' - The text of the error message that is returned if the WorkSpace cannot
+-- be rebooted.
+--
+-- 'errorCode', 'failedWorkspaceChangeRequest_errorCode' - The error code that is returned if the WorkSpace cannot be rebooted.
+newFailedWorkspaceChangeRequest ::
   FailedWorkspaceChangeRequest
-failedWorkspaceChangeRequest =
+newFailedWorkspaceChangeRequest =
   FailedWorkspaceChangeRequest'
-    { _fwcrWorkspaceId =
-        Nothing,
-      _fwcrErrorMessage = Nothing,
-      _fwcrErrorCode = Nothing
+    { workspaceId =
+        Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The identifier of the WorkSpace.
-fwcrWorkspaceId :: Lens' FailedWorkspaceChangeRequest (Maybe Text)
-fwcrWorkspaceId = lens _fwcrWorkspaceId (\s a -> s {_fwcrWorkspaceId = a})
+failedWorkspaceChangeRequest_workspaceId :: Lens.Lens' FailedWorkspaceChangeRequest (Prelude.Maybe Prelude.Text)
+failedWorkspaceChangeRequest_workspaceId = Lens.lens (\FailedWorkspaceChangeRequest' {workspaceId} -> workspaceId) (\s@FailedWorkspaceChangeRequest' {} a -> s {workspaceId = a} :: FailedWorkspaceChangeRequest)
 
--- | The text of the error message that is returned if the WorkSpace cannot be rebooted.
-fwcrErrorMessage :: Lens' FailedWorkspaceChangeRequest (Maybe Text)
-fwcrErrorMessage = lens _fwcrErrorMessage (\s a -> s {_fwcrErrorMessage = a})
+-- | The text of the error message that is returned if the WorkSpace cannot
+-- be rebooted.
+failedWorkspaceChangeRequest_errorMessage :: Lens.Lens' FailedWorkspaceChangeRequest (Prelude.Maybe Prelude.Text)
+failedWorkspaceChangeRequest_errorMessage = Lens.lens (\FailedWorkspaceChangeRequest' {errorMessage} -> errorMessage) (\s@FailedWorkspaceChangeRequest' {} a -> s {errorMessage = a} :: FailedWorkspaceChangeRequest)
 
 -- | The error code that is returned if the WorkSpace cannot be rebooted.
-fwcrErrorCode :: Lens' FailedWorkspaceChangeRequest (Maybe Text)
-fwcrErrorCode = lens _fwcrErrorCode (\s a -> s {_fwcrErrorCode = a})
+failedWorkspaceChangeRequest_errorCode :: Lens.Lens' FailedWorkspaceChangeRequest (Prelude.Maybe Prelude.Text)
+failedWorkspaceChangeRequest_errorCode = Lens.lens (\FailedWorkspaceChangeRequest' {errorCode} -> errorCode) (\s@FailedWorkspaceChangeRequest' {} a -> s {errorCode = a} :: FailedWorkspaceChangeRequest)
 
-instance FromJSON FailedWorkspaceChangeRequest where
+instance
+  Prelude.FromJSON
+    FailedWorkspaceChangeRequest
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FailedWorkspaceChangeRequest"
       ( \x ->
           FailedWorkspaceChangeRequest'
-            <$> (x .:? "WorkspaceId")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "WorkspaceId")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable FailedWorkspaceChangeRequest
+instance
+  Prelude.Hashable
+    FailedWorkspaceChangeRequest
 
-instance NFData FailedWorkspaceChangeRequest
+instance Prelude.NFData FailedWorkspaceChangeRequest

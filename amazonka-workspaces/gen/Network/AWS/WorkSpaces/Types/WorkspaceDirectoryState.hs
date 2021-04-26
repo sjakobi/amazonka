@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.WorkSpaces.Types.WorkspaceDirectoryState
   ( WorkspaceDirectoryState
       ( ..,
-        Deregistered,
-        Deregistering,
-        Error',
-        Registered,
-        Registering
+        WorkspaceDirectoryStateDEREGISTERED,
+        WorkspaceDirectoryStateDEREGISTERING,
+        WorkspaceDirectoryStateERROR,
+        WorkspaceDirectoryStateREGISTERED,
+        WorkspaceDirectoryStateREGISTERING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkspaceDirectoryState
-  = WorkspaceDirectoryState'
-      ( CI
-          Text
-      )
+newtype WorkspaceDirectoryState = WorkspaceDirectoryState'
+  { fromWorkspaceDirectoryState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deregistered :: WorkspaceDirectoryState
-pattern Deregistered = WorkspaceDirectoryState' "DEREGISTERED"
+pattern WorkspaceDirectoryStateDEREGISTERED :: WorkspaceDirectoryState
+pattern WorkspaceDirectoryStateDEREGISTERED = WorkspaceDirectoryState' "DEREGISTERED"
 
-pattern Deregistering :: WorkspaceDirectoryState
-pattern Deregistering = WorkspaceDirectoryState' "DEREGISTERING"
+pattern WorkspaceDirectoryStateDEREGISTERING :: WorkspaceDirectoryState
+pattern WorkspaceDirectoryStateDEREGISTERING = WorkspaceDirectoryState' "DEREGISTERING"
 
-pattern Error' :: WorkspaceDirectoryState
-pattern Error' = WorkspaceDirectoryState' "ERROR"
+pattern WorkspaceDirectoryStateERROR :: WorkspaceDirectoryState
+pattern WorkspaceDirectoryStateERROR = WorkspaceDirectoryState' "ERROR"
 
-pattern Registered :: WorkspaceDirectoryState
-pattern Registered = WorkspaceDirectoryState' "REGISTERED"
+pattern WorkspaceDirectoryStateREGISTERED :: WorkspaceDirectoryState
+pattern WorkspaceDirectoryStateREGISTERED = WorkspaceDirectoryState' "REGISTERED"
 
-pattern Registering :: WorkspaceDirectoryState
-pattern Registering = WorkspaceDirectoryState' "REGISTERING"
+pattern WorkspaceDirectoryStateREGISTERING :: WorkspaceDirectoryState
+pattern WorkspaceDirectoryStateREGISTERING = WorkspaceDirectoryState' "REGISTERING"
 
 {-# COMPLETE
-  Deregistered,
-  Deregistering,
-  Error',
-  Registered,
-  Registering,
+  WorkspaceDirectoryStateDEREGISTERED,
+  WorkspaceDirectoryStateDEREGISTERING,
+  WorkspaceDirectoryStateERROR,
+  WorkspaceDirectoryStateREGISTERED,
+  WorkspaceDirectoryStateREGISTERING,
   WorkspaceDirectoryState'
   #-}
 
-instance FromText WorkspaceDirectoryState where
-  parser = (WorkspaceDirectoryState' . mk) <$> takeText
+instance Prelude.FromText WorkspaceDirectoryState where
+  parser = WorkspaceDirectoryState' Prelude.<$> Prelude.takeText
 
-instance ToText WorkspaceDirectoryState where
-  toText (WorkspaceDirectoryState' ci) = original ci
+instance Prelude.ToText WorkspaceDirectoryState where
+  toText (WorkspaceDirectoryState' x) = x
 
-instance Hashable WorkspaceDirectoryState
+instance Prelude.Hashable WorkspaceDirectoryState
 
-instance NFData WorkspaceDirectoryState
+instance Prelude.NFData WorkspaceDirectoryState
 
-instance ToByteString WorkspaceDirectoryState
+instance Prelude.ToByteString WorkspaceDirectoryState
 
-instance ToQuery WorkspaceDirectoryState
+instance Prelude.ToQuery WorkspaceDirectoryState
 
-instance ToHeader WorkspaceDirectoryState
+instance Prelude.ToHeader WorkspaceDirectoryState
 
-instance FromJSON WorkspaceDirectoryState where
-  parseJSON = parseJSONText "WorkspaceDirectoryState"
+instance Prelude.FromJSON WorkspaceDirectoryState where
+  parseJSON = Prelude.parseJSONText "WorkspaceDirectoryState"

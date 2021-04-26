@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,158 +23,176 @@
 --
 -- Terminates the specified WorkSpaces.
 --
+-- Terminating a WorkSpace is a permanent action and cannot be undone. The
+-- user\'s data is destroyed. If you need to archive any user data, contact
+-- AWS Support before terminating the WorkSpace.
 --
--- /Important:/ Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to archive any user data, contact AWS Support before terminating the WorkSpace.
+-- You can terminate a WorkSpace that is in any state except @SUSPENDED@.
 --
--- You can terminate a WorkSpace that is in any state except @SUSPENDED@ .
+-- This operation is asynchronous and returns before the WorkSpaces have
+-- been completely terminated. After a WorkSpace is terminated, the
+-- @TERMINATED@ state is returned only briefly before the WorkSpace
+-- directory metadata is cleaned up, so this state is rarely returned. To
+-- confirm that a WorkSpace is terminated, check for the WorkSpace ID by
+-- using
+-- <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html DescribeWorkSpaces>.
+-- If the WorkSpace ID isn\'t returned, then the WorkSpace has been
+-- successfully terminated.
 --
--- This operation is asynchronous and returns before the WorkSpaces have been completely terminated. After a WorkSpace is terminated, the @TERMINATED@ state is returned only briefly before the WorkSpace directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated, check for the WorkSpace ID by using <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html DescribeWorkSpaces> . If the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
+-- Simple AD and AD Connector are made available to you free of charge to
+-- use with WorkSpaces. If there are no WorkSpaces being used with your
+-- Simple AD or AD Connector directory for 30 consecutive days, this
+-- directory will be automatically deregistered for use with Amazon
+-- WorkSpaces, and you will be charged for this directory as per the
+-- <http://aws.amazon.com/directoryservice/pricing/ AWS Directory Services pricing terms>.
+--
+-- To delete empty directories, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html Delete the Directory for Your WorkSpaces>.
+-- If you delete your Simple AD or AD Connector directory, you can always
+-- create a new one when you want to start using WorkSpaces again.
 module Network.AWS.WorkSpaces.TerminateWorkspaces
   ( -- * Creating a Request
-    terminateWorkspaces,
-    TerminateWorkspaces,
+    TerminateWorkspaces (..),
+    newTerminateWorkspaces,
 
     -- * Request Lenses
-    twTerminateWorkspaceRequests,
+    terminateWorkspaces_terminateWorkspaceRequests,
 
     -- * Destructuring the Response
-    terminateWorkspacesResponse,
-    TerminateWorkspacesResponse,
+    TerminateWorkspacesResponse (..),
+    newTerminateWorkspacesResponse,
 
     -- * Response Lenses
-    twrrsFailedRequests,
-    twrrsResponseStatus,
+    terminateWorkspacesResponse_failedRequests,
+    terminateWorkspacesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
+import Network.AWS.WorkSpaces.Types.FailedWorkspaceChangeRequest
 
--- | /See:/ 'terminateWorkspaces' smart constructor.
-newtype TerminateWorkspaces = TerminateWorkspaces'
-  { _twTerminateWorkspaceRequests ::
-      List1 TerminateRequest
+-- | /See:/ 'newTerminateWorkspaces' smart constructor.
+data TerminateWorkspaces = TerminateWorkspaces'
+  { -- | The WorkSpaces to terminate. You can specify up to 25 WorkSpaces.
+    terminateWorkspaceRequests :: Prelude.List1 TerminateRequest
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateWorkspaces' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateWorkspaces' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'twTerminateWorkspaceRequests' - The WorkSpaces to terminate. You can specify up to 25 WorkSpaces.
-terminateWorkspaces ::
-  -- | 'twTerminateWorkspaceRequests'
-  NonEmpty TerminateRequest ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'terminateWorkspaceRequests', 'terminateWorkspaces_terminateWorkspaceRequests' - The WorkSpaces to terminate. You can specify up to 25 WorkSpaces.
+newTerminateWorkspaces ::
+  -- | 'terminateWorkspaceRequests'
+  Prelude.NonEmpty TerminateRequest ->
   TerminateWorkspaces
-terminateWorkspaces pTerminateWorkspaceRequests_ =
+newTerminateWorkspaces pTerminateWorkspaceRequests_ =
   TerminateWorkspaces'
-    { _twTerminateWorkspaceRequests =
-        _List1 # pTerminateWorkspaceRequests_
+    { terminateWorkspaceRequests =
+        Prelude._List1 Lens.# pTerminateWorkspaceRequests_
     }
 
 -- | The WorkSpaces to terminate. You can specify up to 25 WorkSpaces.
-twTerminateWorkspaceRequests :: Lens' TerminateWorkspaces (NonEmpty TerminateRequest)
-twTerminateWorkspaceRequests = lens _twTerminateWorkspaceRequests (\s a -> s {_twTerminateWorkspaceRequests = a}) . _List1
+terminateWorkspaces_terminateWorkspaceRequests :: Lens.Lens' TerminateWorkspaces (Prelude.NonEmpty TerminateRequest)
+terminateWorkspaces_terminateWorkspaceRequests = Lens.lens (\TerminateWorkspaces' {terminateWorkspaceRequests} -> terminateWorkspaceRequests) (\s@TerminateWorkspaces' {} a -> s {terminateWorkspaceRequests = a} :: TerminateWorkspaces) Prelude.. Prelude._List1
 
-instance AWSRequest TerminateWorkspaces where
+instance Prelude.AWSRequest TerminateWorkspaces where
   type
     Rs TerminateWorkspaces =
       TerminateWorkspacesResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TerminateWorkspacesResponse'
-            <$> (x .?> "FailedRequests" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "FailedRequests"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TerminateWorkspaces
+instance Prelude.Hashable TerminateWorkspaces
 
-instance NFData TerminateWorkspaces
+instance Prelude.NFData TerminateWorkspaces
 
-instance ToHeaders TerminateWorkspaces where
+instance Prelude.ToHeaders TerminateWorkspaces where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.TerminateWorkspaces" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.TerminateWorkspaces" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TerminateWorkspaces where
+instance Prelude.ToJSON TerminateWorkspaces where
   toJSON TerminateWorkspaces' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "TerminateWorkspaceRequests"
-                  .= _twTerminateWorkspaceRequests
+                  Prelude..= terminateWorkspaceRequests
               )
           ]
       )
 
-instance ToPath TerminateWorkspaces where
-  toPath = const "/"
+instance Prelude.ToPath TerminateWorkspaces where
+  toPath = Prelude.const "/"
 
-instance ToQuery TerminateWorkspaces where
-  toQuery = const mempty
+instance Prelude.ToQuery TerminateWorkspaces where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'terminateWorkspacesResponse' smart constructor.
+-- | /See:/ 'newTerminateWorkspacesResponse' smart constructor.
 data TerminateWorkspacesResponse = TerminateWorkspacesResponse'
-  { _twrrsFailedRequests ::
-      !( Maybe
-           [FailedWorkspaceChangeRequest]
-       ),
-    _twrrsResponseStatus ::
-      !Int
+  { -- | Information about the WorkSpaces that could not be terminated.
+    failedRequests :: Prelude.Maybe [FailedWorkspaceChangeRequest],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateWorkspacesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateWorkspacesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'twrrsFailedRequests' - Information about the WorkSpaces that could not be terminated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'twrrsResponseStatus' - -- | The response status code.
-terminateWorkspacesResponse ::
-  -- | 'twrrsResponseStatus'
-  Int ->
+-- 'failedRequests', 'terminateWorkspacesResponse_failedRequests' - Information about the WorkSpaces that could not be terminated.
+--
+-- 'httpStatus', 'terminateWorkspacesResponse_httpStatus' - The response's http status code.
+newTerminateWorkspacesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TerminateWorkspacesResponse
-terminateWorkspacesResponse pResponseStatus_ =
+newTerminateWorkspacesResponse pHttpStatus_ =
   TerminateWorkspacesResponse'
-    { _twrrsFailedRequests =
-        Nothing,
-      _twrrsResponseStatus = pResponseStatus_
+    { failedRequests =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the WorkSpaces that could not be terminated.
-twrrsFailedRequests :: Lens' TerminateWorkspacesResponse [FailedWorkspaceChangeRequest]
-twrrsFailedRequests = lens _twrrsFailedRequests (\s a -> s {_twrrsFailedRequests = a}) . _Default . _Coerce
+terminateWorkspacesResponse_failedRequests :: Lens.Lens' TerminateWorkspacesResponse (Prelude.Maybe [FailedWorkspaceChangeRequest])
+terminateWorkspacesResponse_failedRequests = Lens.lens (\TerminateWorkspacesResponse' {failedRequests} -> failedRequests) (\s@TerminateWorkspacesResponse' {} a -> s {failedRequests = a} :: TerminateWorkspacesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-twrrsResponseStatus :: Lens' TerminateWorkspacesResponse Int
-twrrsResponseStatus = lens _twrrsResponseStatus (\s a -> s {_twrrsResponseStatus = a})
+-- | The response's http status code.
+terminateWorkspacesResponse_httpStatus :: Lens.Lens' TerminateWorkspacesResponse Prelude.Int
+terminateWorkspacesResponse_httpStatus = Lens.lens (\TerminateWorkspacesResponse' {httpStatus} -> httpStatus) (\s@TerminateWorkspacesResponse' {} a -> s {httpStatus = a} :: TerminateWorkspacesResponse)
 
-instance NFData TerminateWorkspacesResponse
+instance Prelude.NFData TerminateWorkspacesResponse

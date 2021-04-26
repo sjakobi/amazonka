@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the configuration of Bring Your Own License (BYOL) for the specified account.
+-- Modifies the configuration of Bring Your Own License (BYOL) for the
+-- specified account.
 module Network.AWS.WorkSpaces.ModifyAccount
   ( -- * Creating a Request
-    modifyAccount,
-    ModifyAccount,
+    ModifyAccount (..),
+    newModifyAccount,
 
     -- * Request Lenses
-    maDedicatedTenancySupport,
-    maDedicatedTenancyManagementCidrRange,
+    modifyAccount_dedicatedTenancySupport,
+    modifyAccount_dedicatedTenancyManagementCidrRange,
 
     -- * Destructuring the Response
-    modifyAccountResponse,
-    ModifyAccountResponse,
+    ModifyAccountResponse (..),
+    newModifyAccountResponse,
 
     -- * Response Lenses
-    marrsResponseStatus,
+    modifyAccountResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'modifyAccount' smart constructor.
+-- | /See:/ 'newModifyAccount' smart constructor.
 data ModifyAccount = ModifyAccount'
-  { _maDedicatedTenancySupport ::
-      !(Maybe DedicatedTenancySupportEnum),
-    _maDedicatedTenancyManagementCidrRange ::
-      !(Maybe Text)
+  { -- | The status of BYOL.
+    dedicatedTenancySupport :: Prelude.Maybe DedicatedTenancySupportEnum,
+    -- | The IP address range, specified as an IPv4 CIDR block, for the
+    -- management network interface. Specify an IP address range that is
+    -- compatible with your network and in CIDR notation (that is, specify the
+    -- range as an IPv4 CIDR block). The CIDR block size must be \/16 (for
+    -- example, 203.0.113.25\/16). It must also be specified as available by
+    -- the @ListAvailableManagementCidrRanges@ operation.
+    dedicatedTenancyManagementCidrRange :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maDedicatedTenancySupport' - The status of BYOL.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maDedicatedTenancyManagementCidrRange' - The IP address range, specified as an IPv4 CIDR block, for the management network interface. Specify an IP address range that is compatible with your network and in CIDR notation (that is, specify the range as an IPv4 CIDR block). The CIDR block size must be /16 (for example, 203.0.113.25/16). It must also be specified as available by the @ListAvailableManagementCidrRanges@ operation.
-modifyAccount ::
+-- 'dedicatedTenancySupport', 'modifyAccount_dedicatedTenancySupport' - The status of BYOL.
+--
+-- 'dedicatedTenancyManagementCidrRange', 'modifyAccount_dedicatedTenancyManagementCidrRange' - The IP address range, specified as an IPv4 CIDR block, for the
+-- management network interface. Specify an IP address range that is
+-- compatible with your network and in CIDR notation (that is, specify the
+-- range as an IPv4 CIDR block). The CIDR block size must be \/16 (for
+-- example, 203.0.113.25\/16). It must also be specified as available by
+-- the @ListAvailableManagementCidrRanges@ operation.
+newModifyAccount ::
   ModifyAccount
-modifyAccount =
+newModifyAccount =
   ModifyAccount'
-    { _maDedicatedTenancySupport =
-        Nothing,
-      _maDedicatedTenancyManagementCidrRange = Nothing
+    { dedicatedTenancySupport =
+        Prelude.Nothing,
+      dedicatedTenancyManagementCidrRange =
+        Prelude.Nothing
     }
 
 -- | The status of BYOL.
-maDedicatedTenancySupport :: Lens' ModifyAccount (Maybe DedicatedTenancySupportEnum)
-maDedicatedTenancySupport = lens _maDedicatedTenancySupport (\s a -> s {_maDedicatedTenancySupport = a})
+modifyAccount_dedicatedTenancySupport :: Lens.Lens' ModifyAccount (Prelude.Maybe DedicatedTenancySupportEnum)
+modifyAccount_dedicatedTenancySupport = Lens.lens (\ModifyAccount' {dedicatedTenancySupport} -> dedicatedTenancySupport) (\s@ModifyAccount' {} a -> s {dedicatedTenancySupport = a} :: ModifyAccount)
 
--- | The IP address range, specified as an IPv4 CIDR block, for the management network interface. Specify an IP address range that is compatible with your network and in CIDR notation (that is, specify the range as an IPv4 CIDR block). The CIDR block size must be /16 (for example, 203.0.113.25/16). It must also be specified as available by the @ListAvailableManagementCidrRanges@ operation.
-maDedicatedTenancyManagementCidrRange :: Lens' ModifyAccount (Maybe Text)
-maDedicatedTenancyManagementCidrRange = lens _maDedicatedTenancyManagementCidrRange (\s a -> s {_maDedicatedTenancyManagementCidrRange = a})
+-- | The IP address range, specified as an IPv4 CIDR block, for the
+-- management network interface. Specify an IP address range that is
+-- compatible with your network and in CIDR notation (that is, specify the
+-- range as an IPv4 CIDR block). The CIDR block size must be \/16 (for
+-- example, 203.0.113.25\/16). It must also be specified as available by
+-- the @ListAvailableManagementCidrRanges@ operation.
+modifyAccount_dedicatedTenancyManagementCidrRange :: Lens.Lens' ModifyAccount (Prelude.Maybe Prelude.Text)
+modifyAccount_dedicatedTenancyManagementCidrRange = Lens.lens (\ModifyAccount' {dedicatedTenancyManagementCidrRange} -> dedicatedTenancyManagementCidrRange) (\s@ModifyAccount' {} a -> s {dedicatedTenancyManagementCidrRange = a} :: ModifyAccount)
 
-instance AWSRequest ModifyAccount where
+instance Prelude.AWSRequest ModifyAccount where
   type Rs ModifyAccount = ModifyAccountResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ModifyAccountResponse' <$> (pure (fromEnum s))
+          ModifyAccountResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyAccount
+instance Prelude.Hashable ModifyAccount
 
-instance NFData ModifyAccount
+instance Prelude.NFData ModifyAccount
 
-instance ToHeaders ModifyAccount where
+instance Prelude.ToHeaders ModifyAccount where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("WorkspacesService.ModifyAccount" :: ByteString),
+              Prelude.=# ( "WorkspacesService.ModifyAccount" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyAccount where
+instance Prelude.ToJSON ModifyAccount where
   toJSON ModifyAccount' {..} =
-    object
-      ( catMaybes
-          [ ("DedicatedTenancySupport" .=)
-              <$> _maDedicatedTenancySupport,
-            ("DedicatedTenancyManagementCidrRange" .=)
-              <$> _maDedicatedTenancyManagementCidrRange
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DedicatedTenancySupport" Prelude..=)
+              Prelude.<$> dedicatedTenancySupport,
+            ("DedicatedTenancyManagementCidrRange" Prelude..=)
+              Prelude.<$> dedicatedTenancyManagementCidrRange
           ]
       )
 
-instance ToPath ModifyAccount where
-  toPath = const "/"
+instance Prelude.ToPath ModifyAccount where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyAccount where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyAccount where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyAccountResponse' smart constructor.
-newtype ModifyAccountResponse = ModifyAccountResponse'
-  { _marrsResponseStatus ::
-      Int
+-- | /See:/ 'newModifyAccountResponse' smart constructor.
+data ModifyAccountResponse = ModifyAccountResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyAccountResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyAccountResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'marrsResponseStatus' - -- | The response status code.
-modifyAccountResponse ::
-  -- | 'marrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifyAccountResponse_httpStatus' - The response's http status code.
+newModifyAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyAccountResponse
-modifyAccountResponse pResponseStatus_ =
-  ModifyAccountResponse'
-    { _marrsResponseStatus =
-        pResponseStatus_
-    }
+newModifyAccountResponse pHttpStatus_ =
+  ModifyAccountResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-marrsResponseStatus :: Lens' ModifyAccountResponse Int
-marrsResponseStatus = lens _marrsResponseStatus (\s a -> s {_marrsResponseStatus = a})
+-- | The response's http status code.
+modifyAccountResponse_httpStatus :: Lens.Lens' ModifyAccountResponse Prelude.Int
+modifyAccountResponse_httpStatus = Lens.lens (\ModifyAccountResponse' {httpStatus} -> httpStatus) (\s@ModifyAccountResponse' {} a -> s {httpStatus = a} :: ModifyAccountResponse)
 
-instance NFData ModifyAccountResponse
+instance Prelude.NFData ModifyAccountResponse

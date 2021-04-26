@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.WorkSpaces.Types.WorkspaceImageIngestionProcess
   ( WorkspaceImageIngestionProcess
       ( ..,
-        ByolGraphics,
-        ByolGraphicspro,
-        ByolRegular,
-        ByolRegularWsp
+        WorkspaceImageIngestionProcessBYOLGRAPHICS,
+        WorkspaceImageIngestionProcessBYOLGRAPHICSPRO,
+        WorkspaceImageIngestionProcessBYOLREGULAR,
+        WorkspaceImageIngestionProcessBYOLREGULARWSP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WorkspaceImageIngestionProcess
-  = WorkspaceImageIngestionProcess'
-      ( CI
-          Text
-      )
+newtype WorkspaceImageIngestionProcess = WorkspaceImageIngestionProcess'
+  { fromWorkspaceImageIngestionProcess ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ByolGraphics :: WorkspaceImageIngestionProcess
-pattern ByolGraphics = WorkspaceImageIngestionProcess' "BYOL_GRAPHICS"
+pattern WorkspaceImageIngestionProcessBYOLGRAPHICS :: WorkspaceImageIngestionProcess
+pattern WorkspaceImageIngestionProcessBYOLGRAPHICS = WorkspaceImageIngestionProcess' "BYOL_GRAPHICS"
 
-pattern ByolGraphicspro :: WorkspaceImageIngestionProcess
-pattern ByolGraphicspro = WorkspaceImageIngestionProcess' "BYOL_GRAPHICSPRO"
+pattern WorkspaceImageIngestionProcessBYOLGRAPHICSPRO :: WorkspaceImageIngestionProcess
+pattern WorkspaceImageIngestionProcessBYOLGRAPHICSPRO = WorkspaceImageIngestionProcess' "BYOL_GRAPHICSPRO"
 
-pattern ByolRegular :: WorkspaceImageIngestionProcess
-pattern ByolRegular = WorkspaceImageIngestionProcess' "BYOL_REGULAR"
+pattern WorkspaceImageIngestionProcessBYOLREGULAR :: WorkspaceImageIngestionProcess
+pattern WorkspaceImageIngestionProcessBYOLREGULAR = WorkspaceImageIngestionProcess' "BYOL_REGULAR"
 
-pattern ByolRegularWsp :: WorkspaceImageIngestionProcess
-pattern ByolRegularWsp = WorkspaceImageIngestionProcess' "BYOL_REGULAR_WSP"
+pattern WorkspaceImageIngestionProcessBYOLREGULARWSP :: WorkspaceImageIngestionProcess
+pattern WorkspaceImageIngestionProcessBYOLREGULARWSP = WorkspaceImageIngestionProcess' "BYOL_REGULAR_WSP"
 
 {-# COMPLETE
-  ByolGraphics,
-  ByolGraphicspro,
-  ByolRegular,
-  ByolRegularWsp,
+  WorkspaceImageIngestionProcessBYOLGRAPHICS,
+  WorkspaceImageIngestionProcessBYOLGRAPHICSPRO,
+  WorkspaceImageIngestionProcessBYOLREGULAR,
+  WorkspaceImageIngestionProcessBYOLREGULARWSP,
   WorkspaceImageIngestionProcess'
   #-}
 
-instance FromText WorkspaceImageIngestionProcess where
-  parser = (WorkspaceImageIngestionProcess' . mk) <$> takeText
+instance Prelude.FromText WorkspaceImageIngestionProcess where
+  parser = WorkspaceImageIngestionProcess' Prelude.<$> Prelude.takeText
 
-instance ToText WorkspaceImageIngestionProcess where
-  toText (WorkspaceImageIngestionProcess' ci) = original ci
+instance Prelude.ToText WorkspaceImageIngestionProcess where
+  toText (WorkspaceImageIngestionProcess' x) = x
 
-instance Hashable WorkspaceImageIngestionProcess
+instance Prelude.Hashable WorkspaceImageIngestionProcess
 
-instance NFData WorkspaceImageIngestionProcess
+instance Prelude.NFData WorkspaceImageIngestionProcess
 
-instance ToByteString WorkspaceImageIngestionProcess
+instance Prelude.ToByteString WorkspaceImageIngestionProcess
 
-instance ToQuery WorkspaceImageIngestionProcess
+instance Prelude.ToQuery WorkspaceImageIngestionProcess
 
-instance ToHeader WorkspaceImageIngestionProcess
+instance Prelude.ToHeader WorkspaceImageIngestionProcess
 
-instance ToJSON WorkspaceImageIngestionProcess where
-  toJSON = toJSONText
+instance Prelude.ToJSON WorkspaceImageIngestionProcess where
+  toJSON = Prelude.toJSONText

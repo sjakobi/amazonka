@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,212 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Copies the specified image from the specified Region to the current Region. For more information about copying images, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/copy-custom-image.html Copy a Custom WorkSpaces Image> .
+-- Copies the specified image from the specified Region to the current
+-- Region. For more information about copying images, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/copy-custom-image.html Copy a Custom WorkSpaces Image>.
 --
+-- In the China (Ningxia) Region, you can copy images only within the same
+-- Region.
 --
--- /Important:/ Before copying a shared image, be sure to verify that it has been shared from the correct AWS account. To determine if an image has been shared and to see the AWS account ID that owns an image, use the <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html DescribeWorkSpaceImages> and <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImagePermissions.html DescribeWorkspaceImagePermissions> API operations.
+-- In the AWS GovCloud (US-West) Region, to copy images to and from other
+-- AWS Regions, contact AWS Support.
+--
+-- Before copying a shared image, be sure to verify that it has been shared
+-- from the correct AWS account. To determine if an image has been shared
+-- and to see the AWS account ID that owns an image, use the
+-- <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html DescribeWorkSpaceImages>
+-- and
+-- <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImagePermissions.html DescribeWorkspaceImagePermissions>
+-- API operations.
 module Network.AWS.WorkSpaces.CopyWorkspaceImage
   ( -- * Creating a Request
-    copyWorkspaceImage,
-    CopyWorkspaceImage,
+    CopyWorkspaceImage (..),
+    newCopyWorkspaceImage,
 
     -- * Request Lenses
-    cwiTags,
-    cwiDescription,
-    cwiName,
-    cwiSourceImageId,
-    cwiSourceRegion,
+    copyWorkspaceImage_tags,
+    copyWorkspaceImage_description,
+    copyWorkspaceImage_name,
+    copyWorkspaceImage_sourceImageId,
+    copyWorkspaceImage_sourceRegion,
 
     -- * Destructuring the Response
-    copyWorkspaceImageResponse,
-    CopyWorkspaceImageResponse,
+    CopyWorkspaceImageResponse (..),
+    newCopyWorkspaceImageResponse,
 
     -- * Response Lenses
-    cwirrsImageId,
-    cwirrsResponseStatus,
+    copyWorkspaceImageResponse_imageId,
+    copyWorkspaceImageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WorkSpaces.Types
 
--- | /See:/ 'copyWorkspaceImage' smart constructor.
+-- | /See:/ 'newCopyWorkspaceImage' smart constructor.
 data CopyWorkspaceImage = CopyWorkspaceImage'
-  { _cwiTags ::
-      !(Maybe [Tag]),
-    _cwiDescription :: !(Maybe Text),
-    _cwiName :: !Text,
-    _cwiSourceImageId :: !Text,
-    _cwiSourceRegion :: !Text
+  { -- | The tags for the image.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the image.
+    name :: Prelude.Text,
+    -- | The identifier of the source image.
+    sourceImageId :: Prelude.Text,
+    -- | The identifier of the source Region.
+    sourceRegion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopyWorkspaceImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopyWorkspaceImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwiTags' - The tags for the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwiDescription' - A description of the image.
+-- 'tags', 'copyWorkspaceImage_tags' - The tags for the image.
 --
--- * 'cwiName' - The name of the image.
+-- 'description', 'copyWorkspaceImage_description' - A description of the image.
 --
--- * 'cwiSourceImageId' - The identifier of the source image.
+-- 'name', 'copyWorkspaceImage_name' - The name of the image.
 --
--- * 'cwiSourceRegion' - The identifier of the source Region.
-copyWorkspaceImage ::
-  -- | 'cwiName'
-  Text ->
-  -- | 'cwiSourceImageId'
-  Text ->
-  -- | 'cwiSourceRegion'
-  Text ->
+-- 'sourceImageId', 'copyWorkspaceImage_sourceImageId' - The identifier of the source image.
+--
+-- 'sourceRegion', 'copyWorkspaceImage_sourceRegion' - The identifier of the source Region.
+newCopyWorkspaceImage ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'sourceImageId'
+  Prelude.Text ->
+  -- | 'sourceRegion'
+  Prelude.Text ->
   CopyWorkspaceImage
-copyWorkspaceImage
+newCopyWorkspaceImage
   pName_
   pSourceImageId_
   pSourceRegion_ =
     CopyWorkspaceImage'
-      { _cwiTags = Nothing,
-        _cwiDescription = Nothing,
-        _cwiName = pName_,
-        _cwiSourceImageId = pSourceImageId_,
-        _cwiSourceRegion = pSourceRegion_
+      { tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        name = pName_,
+        sourceImageId = pSourceImageId_,
+        sourceRegion = pSourceRegion_
       }
 
 -- | The tags for the image.
-cwiTags :: Lens' CopyWorkspaceImage [Tag]
-cwiTags = lens _cwiTags (\s a -> s {_cwiTags = a}) . _Default . _Coerce
+copyWorkspaceImage_tags :: Lens.Lens' CopyWorkspaceImage (Prelude.Maybe [Tag])
+copyWorkspaceImage_tags = Lens.lens (\CopyWorkspaceImage' {tags} -> tags) (\s@CopyWorkspaceImage' {} a -> s {tags = a} :: CopyWorkspaceImage) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the image.
-cwiDescription :: Lens' CopyWorkspaceImage (Maybe Text)
-cwiDescription = lens _cwiDescription (\s a -> s {_cwiDescription = a})
+copyWorkspaceImage_description :: Lens.Lens' CopyWorkspaceImage (Prelude.Maybe Prelude.Text)
+copyWorkspaceImage_description = Lens.lens (\CopyWorkspaceImage' {description} -> description) (\s@CopyWorkspaceImage' {} a -> s {description = a} :: CopyWorkspaceImage)
 
 -- | The name of the image.
-cwiName :: Lens' CopyWorkspaceImage Text
-cwiName = lens _cwiName (\s a -> s {_cwiName = a})
+copyWorkspaceImage_name :: Lens.Lens' CopyWorkspaceImage Prelude.Text
+copyWorkspaceImage_name = Lens.lens (\CopyWorkspaceImage' {name} -> name) (\s@CopyWorkspaceImage' {} a -> s {name = a} :: CopyWorkspaceImage)
 
 -- | The identifier of the source image.
-cwiSourceImageId :: Lens' CopyWorkspaceImage Text
-cwiSourceImageId = lens _cwiSourceImageId (\s a -> s {_cwiSourceImageId = a})
+copyWorkspaceImage_sourceImageId :: Lens.Lens' CopyWorkspaceImage Prelude.Text
+copyWorkspaceImage_sourceImageId = Lens.lens (\CopyWorkspaceImage' {sourceImageId} -> sourceImageId) (\s@CopyWorkspaceImage' {} a -> s {sourceImageId = a} :: CopyWorkspaceImage)
 
 -- | The identifier of the source Region.
-cwiSourceRegion :: Lens' CopyWorkspaceImage Text
-cwiSourceRegion = lens _cwiSourceRegion (\s a -> s {_cwiSourceRegion = a})
+copyWorkspaceImage_sourceRegion :: Lens.Lens' CopyWorkspaceImage Prelude.Text
+copyWorkspaceImage_sourceRegion = Lens.lens (\CopyWorkspaceImage' {sourceRegion} -> sourceRegion) (\s@CopyWorkspaceImage' {} a -> s {sourceRegion = a} :: CopyWorkspaceImage)
 
-instance AWSRequest CopyWorkspaceImage where
+instance Prelude.AWSRequest CopyWorkspaceImage where
   type
     Rs CopyWorkspaceImage =
       CopyWorkspaceImageResponse
-  request = postJSON workSpaces
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CopyWorkspaceImageResponse'
-            <$> (x .?> "ImageId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ImageId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CopyWorkspaceImage
+instance Prelude.Hashable CopyWorkspaceImage
 
-instance NFData CopyWorkspaceImage
+instance Prelude.NFData CopyWorkspaceImage
 
-instance ToHeaders CopyWorkspaceImage where
+instance Prelude.ToHeaders CopyWorkspaceImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "WorkspacesService.CopyWorkspaceImage" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "WorkspacesService.CopyWorkspaceImage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CopyWorkspaceImage where
+instance Prelude.ToJSON CopyWorkspaceImage where
   toJSON CopyWorkspaceImage' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cwiTags,
-            ("Description" .=) <$> _cwiDescription,
-            Just ("Name" .= _cwiName),
-            Just ("SourceImageId" .= _cwiSourceImageId),
-            Just ("SourceRegion" .= _cwiSourceRegion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ("SourceImageId" Prelude..= sourceImageId),
+            Prelude.Just
+              ("SourceRegion" Prelude..= sourceRegion)
           ]
       )
 
-instance ToPath CopyWorkspaceImage where
-  toPath = const "/"
+instance Prelude.ToPath CopyWorkspaceImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery CopyWorkspaceImage where
-  toQuery = const mempty
+instance Prelude.ToQuery CopyWorkspaceImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'copyWorkspaceImageResponse' smart constructor.
+-- | /See:/ 'newCopyWorkspaceImageResponse' smart constructor.
 data CopyWorkspaceImageResponse = CopyWorkspaceImageResponse'
-  { _cwirrsImageId ::
-      !(Maybe Text),
-    _cwirrsResponseStatus ::
-      !Int
+  { -- | The identifier of the image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CopyWorkspaceImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CopyWorkspaceImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwirrsImageId' - The identifier of the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwirrsResponseStatus' - -- | The response status code.
-copyWorkspaceImageResponse ::
-  -- | 'cwirrsResponseStatus'
-  Int ->
+-- 'imageId', 'copyWorkspaceImageResponse_imageId' - The identifier of the image.
+--
+-- 'httpStatus', 'copyWorkspaceImageResponse_httpStatus' - The response's http status code.
+newCopyWorkspaceImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CopyWorkspaceImageResponse
-copyWorkspaceImageResponse pResponseStatus_ =
+newCopyWorkspaceImageResponse pHttpStatus_ =
   CopyWorkspaceImageResponse'
-    { _cwirrsImageId =
-        Nothing,
-      _cwirrsResponseStatus = pResponseStatus_
+    { imageId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the image.
-cwirrsImageId :: Lens' CopyWorkspaceImageResponse (Maybe Text)
-cwirrsImageId = lens _cwirrsImageId (\s a -> s {_cwirrsImageId = a})
+copyWorkspaceImageResponse_imageId :: Lens.Lens' CopyWorkspaceImageResponse (Prelude.Maybe Prelude.Text)
+copyWorkspaceImageResponse_imageId = Lens.lens (\CopyWorkspaceImageResponse' {imageId} -> imageId) (\s@CopyWorkspaceImageResponse' {} a -> s {imageId = a} :: CopyWorkspaceImageResponse)
 
--- | -- | The response status code.
-cwirrsResponseStatus :: Lens' CopyWorkspaceImageResponse Int
-cwirrsResponseStatus = lens _cwirrsResponseStatus (\s a -> s {_cwirrsResponseStatus = a})
+-- | The response's http status code.
+copyWorkspaceImageResponse_httpStatus :: Lens.Lens' CopyWorkspaceImageResponse Prelude.Int
+copyWorkspaceImageResponse_httpStatus = Lens.lens (\CopyWorkspaceImageResponse' {httpStatus} -> httpStatus) (\s@CopyWorkspaceImageResponse' {} a -> s {httpStatus = a} :: CopyWorkspaceImageResponse)
 
-instance NFData CopyWorkspaceImageResponse
+instance Prelude.NFData CopyWorkspaceImageResponse

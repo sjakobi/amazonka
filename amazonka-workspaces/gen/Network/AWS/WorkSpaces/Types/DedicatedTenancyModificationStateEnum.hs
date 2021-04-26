@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.WorkSpaces.Types.DedicatedTenancyModificationStateEnum
   ( DedicatedTenancyModificationStateEnum
       ( ..,
-        Completed,
-        Failed,
-        Pending
+        DedicatedTenancyModificationStateEnumCOMPLETED,
+        DedicatedTenancyModificationStateEnumFAILED,
+        DedicatedTenancyModificationStateEnumPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DedicatedTenancyModificationStateEnum
-  = DedicatedTenancyModificationStateEnum'
-      ( CI
-          Text
-      )
+newtype DedicatedTenancyModificationStateEnum = DedicatedTenancyModificationStateEnum'
+  { fromDedicatedTenancyModificationStateEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: DedicatedTenancyModificationStateEnum
-pattern Completed = DedicatedTenancyModificationStateEnum' "COMPLETED"
+pattern DedicatedTenancyModificationStateEnumCOMPLETED :: DedicatedTenancyModificationStateEnum
+pattern DedicatedTenancyModificationStateEnumCOMPLETED = DedicatedTenancyModificationStateEnum' "COMPLETED"
 
-pattern Failed :: DedicatedTenancyModificationStateEnum
-pattern Failed = DedicatedTenancyModificationStateEnum' "FAILED"
+pattern DedicatedTenancyModificationStateEnumFAILED :: DedicatedTenancyModificationStateEnum
+pattern DedicatedTenancyModificationStateEnumFAILED = DedicatedTenancyModificationStateEnum' "FAILED"
 
-pattern Pending :: DedicatedTenancyModificationStateEnum
-pattern Pending = DedicatedTenancyModificationStateEnum' "PENDING"
+pattern DedicatedTenancyModificationStateEnumPENDING :: DedicatedTenancyModificationStateEnum
+pattern DedicatedTenancyModificationStateEnumPENDING = DedicatedTenancyModificationStateEnum' "PENDING"
 
 {-# COMPLETE
-  Completed,
-  Failed,
-  Pending,
+  DedicatedTenancyModificationStateEnumCOMPLETED,
+  DedicatedTenancyModificationStateEnumFAILED,
+  DedicatedTenancyModificationStateEnumPENDING,
   DedicatedTenancyModificationStateEnum'
   #-}
 
-instance FromText DedicatedTenancyModificationStateEnum where
-  parser = (DedicatedTenancyModificationStateEnum' . mk) <$> takeText
+instance Prelude.FromText DedicatedTenancyModificationStateEnum where
+  parser = DedicatedTenancyModificationStateEnum' Prelude.<$> Prelude.takeText
 
-instance ToText DedicatedTenancyModificationStateEnum where
-  toText (DedicatedTenancyModificationStateEnum' ci) = original ci
+instance Prelude.ToText DedicatedTenancyModificationStateEnum where
+  toText (DedicatedTenancyModificationStateEnum' x) = x
 
-instance Hashable DedicatedTenancyModificationStateEnum
+instance Prelude.Hashable DedicatedTenancyModificationStateEnum
 
-instance NFData DedicatedTenancyModificationStateEnum
+instance Prelude.NFData DedicatedTenancyModificationStateEnum
 
-instance ToByteString DedicatedTenancyModificationStateEnum
+instance Prelude.ToByteString DedicatedTenancyModificationStateEnum
 
-instance ToQuery DedicatedTenancyModificationStateEnum
+instance Prelude.ToQuery DedicatedTenancyModificationStateEnum
 
-instance ToHeader DedicatedTenancyModificationStateEnum
+instance Prelude.ToHeader DedicatedTenancyModificationStateEnum
 
-instance FromJSON DedicatedTenancyModificationStateEnum where
-  parseJSON = parseJSONText "DedicatedTenancyModificationStateEnum"
+instance Prelude.FromJSON DedicatedTenancyModificationStateEnum where
+  parseJSON = Prelude.parseJSONText "DedicatedTenancyModificationStateEnum"

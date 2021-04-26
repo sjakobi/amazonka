@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WorkSpaces.Types
   ( -- * Service Configuration
-    workSpaces,
+    defaultService,
 
     -- * Errors
     _ResourceUnavailableException,
@@ -100,283 +103,145 @@ module Network.AWS.WorkSpaces.Types
 
     -- * AccountModification
     AccountModification (..),
-    accountModification,
-    amDedicatedTenancySupport,
-    amStartTime,
-    amDedicatedTenancyManagementCidrRange,
-    amModificationState,
-    amErrorMessage,
-    amErrorCode,
+    newAccountModification,
 
     -- * ClientProperties
     ClientProperties (..),
-    clientProperties,
-    cpReconnectEnabled,
+    newClientProperties,
 
     -- * ClientPropertiesResult
     ClientPropertiesResult (..),
-    clientPropertiesResult,
-    cprResourceId,
-    cprClientProperties,
+    newClientPropertiesResult,
 
     -- * ComputeType
     ComputeType (..),
-    computeType,
-    ctName,
+    newComputeType,
 
     -- * ConnectionAlias
     ConnectionAlias (..),
-    connectionAlias,
-    caState,
-    caAliasId,
-    caConnectionString,
-    caOwnerAccountId,
-    caAssociations,
+    newConnectionAlias,
 
     -- * ConnectionAliasAssociation
     ConnectionAliasAssociation (..),
-    connectionAliasAssociation,
-    caaResourceId,
-    caaConnectionIdentifier,
-    caaAssociatedAccountId,
-    caaAssociationStatus,
+    newConnectionAliasAssociation,
 
     -- * ConnectionAliasPermission
     ConnectionAliasPermission (..),
-    connectionAliasPermission,
-    capSharedAccountId,
-    capAllowAssociation,
+    newConnectionAliasPermission,
 
     -- * DefaultWorkspaceCreationProperties
     DefaultWorkspaceCreationProperties (..),
-    defaultWorkspaceCreationProperties,
-    dwcpEnableMaintenanceMode,
-    dwcpDefaultOu,
-    dwcpEnableInternetAccess,
-    dwcpEnableWorkDocs,
-    dwcpCustomSecurityGroupId,
-    dwcpUserEnabledAsLocalAdministrator,
+    newDefaultWorkspaceCreationProperties,
 
     -- * FailedCreateWorkspaceRequest
     FailedCreateWorkspaceRequest (..),
-    failedCreateWorkspaceRequest,
-    fcwrWorkspaceRequest,
-    fcwrErrorMessage,
-    fcwrErrorCode,
+    newFailedCreateWorkspaceRequest,
 
     -- * FailedWorkspaceChangeRequest
     FailedWorkspaceChangeRequest (..),
-    failedWorkspaceChangeRequest,
-    fwcrWorkspaceId,
-    fwcrErrorMessage,
-    fwcrErrorCode,
-
-    -- * IPRuleItem
-    IPRuleItem (..),
-    ipRuleItem,
-    iriRuleDesc,
-    iriIpRule,
+    newFailedWorkspaceChangeRequest,
 
     -- * ImagePermission
     ImagePermission (..),
-    imagePermission,
-    ipSharedAccountId,
+    newImagePermission,
+
+    -- * IpRuleItem
+    IpRuleItem (..),
+    newIpRuleItem,
 
     -- * ModificationState
     ModificationState (..),
-    modificationState,
-    msState,
-    msResource,
+    newModificationState,
 
     -- * OperatingSystem
     OperatingSystem (..),
-    operatingSystem,
-    osType,
+    newOperatingSystem,
 
     -- * RebootRequest
     RebootRequest (..),
-    rebootRequest,
-    rWorkspaceId,
+    newRebootRequest,
 
     -- * RebuildRequest
     RebuildRequest (..),
-    rebuildRequest,
-    rrWorkspaceId,
+    newRebuildRequest,
 
     -- * RootStorage
     RootStorage (..),
-    rootStorage,
-    rsCapacity,
+    newRootStorage,
 
     -- * SelfservicePermissions
     SelfservicePermissions (..),
-    selfservicePermissions,
-    spSwitchRunningMode,
-    spRestartWorkspace,
-    spRebuildWorkspace,
-    spIncreaseVolumeSize,
-    spChangeComputeType,
+    newSelfservicePermissions,
 
     -- * Snapshot
     Snapshot (..),
-    snapshot,
-    sSnapshotTime,
+    newSnapshot,
 
     -- * StartRequest
     StartRequest (..),
-    startRequest,
-    sWorkspaceId,
+    newStartRequest,
 
     -- * StopRequest
     StopRequest (..),
-    stopRequest,
-    srWorkspaceId,
+    newStopRequest,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagValue,
-    tagKey,
+    newTag,
 
     -- * TerminateRequest
     TerminateRequest (..),
-    terminateRequest,
-    trWorkspaceId,
+    newTerminateRequest,
 
     -- * UserStorage
     UserStorage (..),
-    userStorage,
-    usCapacity,
+    newUserStorage,
 
     -- * Workspace
     Workspace (..),
-    workspace,
-    wWorkspaceProperties,
-    wRootVolumeEncryptionEnabled,
-    wBundleId,
-    wUserVolumeEncryptionEnabled,
-    wVolumeEncryptionKey,
-    wWorkspaceId,
-    wModificationStates,
-    wIPAddress,
-    wState,
-    wDirectoryId,
-    wUserName,
-    wSubnetId,
-    wErrorMessage,
-    wComputerName,
-    wErrorCode,
+    newWorkspace,
 
     -- * WorkspaceAccessProperties
     WorkspaceAccessProperties (..),
-    workspaceAccessProperties,
-    wapDeviceTypeOSx,
-    wapDeviceTypeWindows,
-    wapDeviceTypeAndroid,
-    wapDeviceTypeZeroClient,
-    wapDeviceTypeWeb,
-    wapDeviceTypeIos,
-    wapDeviceTypeChromeOS,
+    newWorkspaceAccessProperties,
 
     -- * WorkspaceBundle
     WorkspaceBundle (..),
-    workspaceBundle,
-    wbRootStorage,
-    wbBundleId,
-    wbUserStorage,
-    wbImageId,
-    wbName,
-    wbOwner,
-    wbDescription,
-    wbComputeType,
-    wbLastUpdatedTime,
+    newWorkspaceBundle,
 
     -- * WorkspaceConnectionStatus
     WorkspaceConnectionStatus (..),
-    workspaceConnectionStatus,
-    wcsConnectionState,
-    wcsWorkspaceId,
-    wcsLastKnownUserConnectionTimestamp,
-    wcsConnectionStateCheckTimestamp,
+    newWorkspaceConnectionStatus,
 
     -- * WorkspaceCreationProperties
     WorkspaceCreationProperties (..),
-    workspaceCreationProperties,
-    wcpEnableMaintenanceMode,
-    wcpDefaultOu,
-    wcpEnableInternetAccess,
-    wcpEnableWorkDocs,
-    wcpCustomSecurityGroupId,
-    wcpUserEnabledAsLocalAdministrator,
+    newWorkspaceCreationProperties,
 
     -- * WorkspaceDirectory
     WorkspaceDirectory (..),
-    workspaceDirectory,
-    wdRegistrationCode,
-    wdWorkspaceSecurityGroupId,
-    wdAlias,
-    wdIpGroupIds,
-    wdWorkspaceAccessProperties,
-    wdSubnetIds,
-    wdTenancy,
-    wdCustomerUserName,
-    wdState,
-    wdIAMRoleId,
-    wdDirectoryId,
-    wdSelfservicePermissions,
-    wdDirectoryType,
-    wdDirectoryName,
-    wdDNSIPAddresses,
-    wdWorkspaceCreationProperties,
+    newWorkspaceDirectory,
 
     -- * WorkspaceImage
     WorkspaceImage (..),
-    workspaceImage,
-    wiImageId,
-    wiState,
-    wiName,
-    wiDescription,
-    wiErrorMessage,
-    wiRequiredTenancy,
-    wiOperatingSystem,
-    wiCreated,
-    wiOwnerAccountId,
-    wiErrorCode,
+    newWorkspaceImage,
 
     -- * WorkspaceProperties
     WorkspaceProperties (..),
-    workspaceProperties,
-    wpRootVolumeSizeGib,
-    wpRunningMode,
-    wpUserVolumeSizeGib,
-    wpRunningModeAutoStopTimeoutInMinutes,
-    wpComputeTypeName,
+    newWorkspaceProperties,
 
     -- * WorkspaceRequest
     WorkspaceRequest (..),
-    workspaceRequest,
-    wrWorkspaceProperties,
-    wrRootVolumeEncryptionEnabled,
-    wrUserVolumeEncryptionEnabled,
-    wrVolumeEncryptionKey,
-    wrTags,
-    wrDirectoryId,
-    wrUserName,
-    wrBundleId,
+    newWorkspaceRequest,
 
-    -- * WorkspacesIPGroup
-    WorkspacesIPGroup (..),
-    workspacesIPGroup,
-    wigUserRules,
-    wigGroupDesc,
-    wigGroupName,
-    wigGroupId,
+    -- * WorkspacesIpGroup
+    WorkspacesIpGroup (..),
+    newWorkspacesIpGroup,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 import Network.AWS.WorkSpaces.Types.AccessPropertyValue
 import Network.AWS.WorkSpaces.Types.AccountModification
 import Network.AWS.WorkSpaces.Types.Application
@@ -396,9 +261,9 @@ import Network.AWS.WorkSpaces.Types.DedicatedTenancySupportResultEnum
 import Network.AWS.WorkSpaces.Types.DefaultWorkspaceCreationProperties
 import Network.AWS.WorkSpaces.Types.FailedCreateWorkspaceRequest
 import Network.AWS.WorkSpaces.Types.FailedWorkspaceChangeRequest
-import Network.AWS.WorkSpaces.Types.IPRuleItem
 import Network.AWS.WorkSpaces.Types.ImagePermission
 import Network.AWS.WorkSpaces.Types.ImageType
+import Network.AWS.WorkSpaces.Types.IpRuleItem
 import Network.AWS.WorkSpaces.Types.ModificationResourceEnum
 import Network.AWS.WorkSpaces.Types.ModificationState
 import Network.AWS.WorkSpaces.Types.ModificationStateEnum
@@ -433,153 +298,183 @@ import Network.AWS.WorkSpaces.Types.WorkspaceImageState
 import Network.AWS.WorkSpaces.Types.WorkspaceProperties
 import Network.AWS.WorkSpaces.Types.WorkspaceRequest
 import Network.AWS.WorkSpaces.Types.WorkspaceState
-import Network.AWS.WorkSpaces.Types.WorkspacesIPGroup
+import Network.AWS.WorkSpaces.Types.WorkspacesIpGroup
 
 -- | API version @2015-04-08@ of the Amazon WorkSpaces SDK configuration.
-workSpaces :: Service
-workSpaces =
-  Service
-    { _svcAbbrev = "WorkSpaces",
-      _svcSigner = v4,
-      _svcPrefix = "workspaces",
-      _svcVersion = "2015-04-08",
-      _svcEndpoint = defaultEndpoint workSpaces,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "WorkSpaces",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "WorkSpaces",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "workspaces",
+      Prelude._svcVersion = "2015-04-08",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "WorkSpaces",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The specified resource is not available.
-_ResourceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceUnavailableException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "ResourceUnavailableException"
 
--- | The configuration of this network is not supported for this operation, or your network configuration conflicts with the Amazon WorkSpaces management network IP range. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces> .
-_UnsupportedNetworkConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The configuration of this network is not supported for this operation,
+-- or your network configuration conflicts with the Amazon WorkSpaces
+-- management network IP range. For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html Configure a VPC for Amazon WorkSpaces>.
+_UnsupportedNetworkConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedNetworkConfigurationException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedNetworkConfigurationException"
 
 -- | This operation is not supported.
-_OperationNotSupportedException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationNotSupportedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationNotSupportedException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "OperationNotSupportedException"
 
 -- | The specified resource already exists.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
 
 -- | Your resource limits have been exceeded.
-_ResourceLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceLimitExceededException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "ResourceLimitExceededException"
 
--- | The properties of this WorkSpace are currently being modified. Try again in a moment.
-_OperationInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The properties of this WorkSpace are currently being modified. Try again
+-- in a moment.
+_OperationInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationInProgressException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "OperationInProgressException"
 
--- | The workspaces_DefaultRole role could not be found. If this is the first time you are registering a directory, you will need to create the workspaces_DefaultRole role before you can register a directory. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role Creating the workspaces_DefaultRole Role> .
-_WorkspacesDefaultRoleNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The workspaces_DefaultRole role could not be found. If this is the first
+-- time you are registering a directory, you will need to create the
+-- workspaces_DefaultRole role before you can register a directory. For
+-- more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role Creating the workspaces_DefaultRole Role>.
+_WorkspacesDefaultRoleNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _WorkspacesDefaultRoleNotFoundException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "WorkspacesDefaultRoleNotFoundException"
 
 -- | The resource is associated with a directory.
-_ResourceAssociatedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAssociatedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAssociatedException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAssociatedException"
 
 -- | One or more parameter values are not valid.
-_InvalidParameterValuesException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterValuesException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterValuesException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterValuesException"
 
 -- | The resource could not be created.
-_ResourceCreationFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceCreationFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceCreationFailedException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "ResourceCreationFailedException"
 
--- | The configuration of this WorkSpace is not supported for this operation. For more information, see <https://docs.aws.amazon.com/workspaces/latest/adminguide/required-service-components.html Required Configuration and Service Components for WorkSpaces > .
-_UnsupportedWorkspaceConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The configuration of this WorkSpace is not supported for this operation.
+-- For more information, see
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/required-service-components.html Required Configuration and Service Components for WorkSpaces>
+-- .
+_UnsupportedWorkspaceConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedWorkspaceConfigurationException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedWorkspaceConfigurationException"
 
 -- | The user is not authorized to access a resource.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "AccessDeniedException"
 
 -- | The resource could not be found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | The state of the resource is not valid for this operation.
-_InvalidResourceStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidResourceStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidResourceStateException =
-  _MatchServiceError
-    workSpaces
+  Prelude._MatchServiceError
+    defaultService
     "InvalidResourceStateException"
