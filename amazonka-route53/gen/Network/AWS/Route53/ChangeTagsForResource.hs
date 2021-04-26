@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,178 +23,206 @@
 --
 -- Adds, edits, or deletes tags for a health check or a hosted zone.
 --
---
--- For information about using tags for cost allocation, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- For information about using tags for cost allocation, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 module Network.AWS.Route53.ChangeTagsForResource
   ( -- * Creating a Request
-    changeTagsForResource,
-    ChangeTagsForResource,
+    ChangeTagsForResource (..),
+    newChangeTagsForResource,
 
     -- * Request Lenses
-    ctfrAddTags,
-    ctfrRemoveTagKeys,
-    ctfrResourceType,
-    ctfrResourceId,
+    changeTagsForResource_addTags,
+    changeTagsForResource_removeTagKeys,
+    changeTagsForResource_resourceType,
+    changeTagsForResource_resourceId,
 
     -- * Destructuring the Response
-    changeTagsForResourceResponse,
-    ChangeTagsForResourceResponse,
+    ChangeTagsForResourceResponse (..),
+    newChangeTagsForResourceResponse,
 
     -- * Response Lenses
-    ctfrrrsResponseStatus,
+    changeTagsForResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
 
--- | A complex type that contains information about the tags that you want to add, edit, or delete.
+-- | A complex type that contains information about the tags that you want to
+-- add, edit, or delete.
 --
---
---
--- /See:/ 'changeTagsForResource' smart constructor.
+-- /See:/ 'newChangeTagsForResource' smart constructor.
 data ChangeTagsForResource = ChangeTagsForResource'
-  { _ctfrAddTags ::
-      !(Maybe (List1 Tag)),
-    _ctfrRemoveTagKeys ::
-      !(Maybe (List1 Text)),
-    _ctfrResourceType ::
-      !TagResourceType,
-    _ctfrResourceId :: !Text
+  { -- | A complex type that contains a list of the tags that you want to add to
+    -- the specified health check or hosted zone and\/or the tags that you want
+    -- to edit @Value@ for.
+    --
+    -- You can add a maximum of 10 tags to a health check or a hosted zone.
+    addTags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | A complex type that contains a list of the tags that you want to delete
+    -- from the specified health check or hosted zone. You can specify up to 10
+    -- keys.
+    removeTagKeys :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The type of the resource.
+    --
+    -- -   The resource type for health checks is @healthcheck@.
+    --
+    -- -   The resource type for hosted zones is @hostedzone@.
+    resourceType :: TagResourceType,
+    -- | The ID of the resource for which you want to add, change, or delete
+    -- tags.
+    resourceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChangeTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChangeTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctfrAddTags' - A complex type that contains a list of the tags that you want to add to the specified health check or hosted zone and/or the tags that you want to edit @Value@ for. You can add a maximum of 10 tags to a health check or a hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctfrRemoveTagKeys' - A complex type that contains a list of the tags that you want to delete from the specified health check or hosted zone. You can specify up to 10 keys.
+-- 'addTags', 'changeTagsForResource_addTags' - A complex type that contains a list of the tags that you want to add to
+-- the specified health check or hosted zone and\/or the tags that you want
+-- to edit @Value@ for.
 --
--- * 'ctfrResourceType' - The type of the resource.     * The resource type for health checks is @healthcheck@ .     * The resource type for hosted zones is @hostedzone@ .
+-- You can add a maximum of 10 tags to a health check or a hosted zone.
 --
--- * 'ctfrResourceId' - The ID of the resource for which you want to add, change, or delete tags.
-changeTagsForResource ::
-  -- | 'ctfrResourceType'
+-- 'removeTagKeys', 'changeTagsForResource_removeTagKeys' - A complex type that contains a list of the tags that you want to delete
+-- from the specified health check or hosted zone. You can specify up to 10
+-- keys.
+--
+-- 'resourceType', 'changeTagsForResource_resourceType' - The type of the resource.
+--
+-- -   The resource type for health checks is @healthcheck@.
+--
+-- -   The resource type for hosted zones is @hostedzone@.
+--
+-- 'resourceId', 'changeTagsForResource_resourceId' - The ID of the resource for which you want to add, change, or delete
+-- tags.
+newChangeTagsForResource ::
+  -- | 'resourceType'
   TagResourceType ->
-  -- | 'ctfrResourceId'
-  Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
   ChangeTagsForResource
-changeTagsForResource pResourceType_ pResourceId_ =
+newChangeTagsForResource pResourceType_ pResourceId_ =
   ChangeTagsForResource'
-    { _ctfrAddTags = Nothing,
-      _ctfrRemoveTagKeys = Nothing,
-      _ctfrResourceType = pResourceType_,
-      _ctfrResourceId = pResourceId_
+    { addTags = Prelude.Nothing,
+      removeTagKeys = Prelude.Nothing,
+      resourceType = pResourceType_,
+      resourceId = pResourceId_
     }
 
--- | A complex type that contains a list of the tags that you want to add to the specified health check or hosted zone and/or the tags that you want to edit @Value@ for. You can add a maximum of 10 tags to a health check or a hosted zone.
-ctfrAddTags :: Lens' ChangeTagsForResource (Maybe (NonEmpty Tag))
-ctfrAddTags = lens _ctfrAddTags (\s a -> s {_ctfrAddTags = a}) . mapping _List1
+-- | A complex type that contains a list of the tags that you want to add to
+-- the specified health check or hosted zone and\/or the tags that you want
+-- to edit @Value@ for.
+--
+-- You can add a maximum of 10 tags to a health check or a hosted zone.
+changeTagsForResource_addTags :: Lens.Lens' ChangeTagsForResource (Prelude.Maybe (Prelude.NonEmpty Tag))
+changeTagsForResource_addTags = Lens.lens (\ChangeTagsForResource' {addTags} -> addTags) (\s@ChangeTagsForResource' {} a -> s {addTags = a} :: ChangeTagsForResource) Prelude.. Lens.mapping Prelude._List1
 
--- | A complex type that contains a list of the tags that you want to delete from the specified health check or hosted zone. You can specify up to 10 keys.
-ctfrRemoveTagKeys :: Lens' ChangeTagsForResource (Maybe (NonEmpty Text))
-ctfrRemoveTagKeys = lens _ctfrRemoveTagKeys (\s a -> s {_ctfrRemoveTagKeys = a}) . mapping _List1
+-- | A complex type that contains a list of the tags that you want to delete
+-- from the specified health check or hosted zone. You can specify up to 10
+-- keys.
+changeTagsForResource_removeTagKeys :: Lens.Lens' ChangeTagsForResource (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+changeTagsForResource_removeTagKeys = Lens.lens (\ChangeTagsForResource' {removeTagKeys} -> removeTagKeys) (\s@ChangeTagsForResource' {} a -> s {removeTagKeys = a} :: ChangeTagsForResource) Prelude.. Lens.mapping Prelude._List1
 
--- | The type of the resource.     * The resource type for health checks is @healthcheck@ .     * The resource type for hosted zones is @hostedzone@ .
-ctfrResourceType :: Lens' ChangeTagsForResource TagResourceType
-ctfrResourceType = lens _ctfrResourceType (\s a -> s {_ctfrResourceType = a})
+-- | The type of the resource.
+--
+-- -   The resource type for health checks is @healthcheck@.
+--
+-- -   The resource type for hosted zones is @hostedzone@.
+changeTagsForResource_resourceType :: Lens.Lens' ChangeTagsForResource TagResourceType
+changeTagsForResource_resourceType = Lens.lens (\ChangeTagsForResource' {resourceType} -> resourceType) (\s@ChangeTagsForResource' {} a -> s {resourceType = a} :: ChangeTagsForResource)
 
--- | The ID of the resource for which you want to add, change, or delete tags.
-ctfrResourceId :: Lens' ChangeTagsForResource Text
-ctfrResourceId = lens _ctfrResourceId (\s a -> s {_ctfrResourceId = a})
+-- | The ID of the resource for which you want to add, change, or delete
+-- tags.
+changeTagsForResource_resourceId :: Lens.Lens' ChangeTagsForResource Prelude.Text
+changeTagsForResource_resourceId = Lens.lens (\ChangeTagsForResource' {resourceId} -> resourceId) (\s@ChangeTagsForResource' {} a -> s {resourceId = a} :: ChangeTagsForResource)
 
-instance AWSRequest ChangeTagsForResource where
+instance Prelude.AWSRequest ChangeTagsForResource where
   type
     Rs ChangeTagsForResource =
       ChangeTagsForResourceResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ChangeTagsForResourceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ChangeTagsForResource
+instance Prelude.Hashable ChangeTagsForResource
 
-instance NFData ChangeTagsForResource
+instance Prelude.NFData ChangeTagsForResource
 
-instance ToElement ChangeTagsForResource where
+instance Prelude.ToElement ChangeTagsForResource where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}ChangeTagsForResourceRequest"
 
-instance ToHeaders ChangeTagsForResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ChangeTagsForResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ChangeTagsForResource where
+instance Prelude.ToPath ChangeTagsForResource where
   toPath ChangeTagsForResource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/tags/",
-        toBS _ctfrResourceType,
+        Prelude.toBS resourceType,
         "/",
-        toBS _ctfrResourceId
+        Prelude.toBS resourceId
       ]
 
-instance ToQuery ChangeTagsForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery ChangeTagsForResource where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML ChangeTagsForResource where
+instance Prelude.ToXML ChangeTagsForResource where
   toXML ChangeTagsForResource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "AddTags"
-          @= toXML (toXMLList "Tag" <$> _ctfrAddTags),
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Tag" Prelude.<$> addTags),
         "RemoveTagKeys"
-          @= toXML (toXMLList "Key" <$> _ctfrRemoveTagKeys)
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Key" Prelude.<$> removeTagKeys)
       ]
 
 -- | Empty response for the request.
 --
---
---
--- /See:/ 'changeTagsForResourceResponse' smart constructor.
-newtype ChangeTagsForResourceResponse = ChangeTagsForResourceResponse'
-  { _ctfrrrsResponseStatus ::
-      Int
+-- /See:/ 'newChangeTagsForResourceResponse' smart constructor.
+data ChangeTagsForResourceResponse = ChangeTagsForResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChangeTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChangeTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctfrrrsResponseStatus' - -- | The response status code.
-changeTagsForResourceResponse ::
-  -- | 'ctfrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'changeTagsForResourceResponse_httpStatus' - The response's http status code.
+newChangeTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ChangeTagsForResourceResponse
-changeTagsForResourceResponse pResponseStatus_ =
+newChangeTagsForResourceResponse pHttpStatus_ =
   ChangeTagsForResourceResponse'
-    { _ctfrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ctfrrrsResponseStatus :: Lens' ChangeTagsForResourceResponse Int
-ctfrrrsResponseStatus = lens _ctfrrrsResponseStatus (\s a -> s {_ctfrrrsResponseStatus = a})
+-- | The response's http status code.
+changeTagsForResourceResponse_httpStatus :: Lens.Lens' ChangeTagsForResourceResponse Prelude.Int
+changeTagsForResourceResponse_httpStatus = Lens.lens (\ChangeTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ChangeTagsForResourceResponse' {} a -> s {httpStatus = a} :: ChangeTagsForResourceResponse)
 
-instance NFData ChangeTagsForResourceResponse
+instance Prelude.NFData ChangeTagsForResourceResponse

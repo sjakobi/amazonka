@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,116 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.GeoLocationDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
--- | A complex type that contains the codes and full continent, country, and subdivision names for the specified @geolocation@ code.
+-- | A complex type that contains the codes and full continent, country, and
+-- subdivision names for the specified @geolocation@ code.
 --
---
---
--- /See:/ 'geoLocationDetails' smart constructor.
+-- /See:/ 'newGeoLocationDetails' smart constructor.
 data GeoLocationDetails = GeoLocationDetails'
-  { _gldCountryName ::
-      !(Maybe Text),
-    _gldContinentName ::
-      !(Maybe Text),
-    _gldContinentCode ::
-      !(Maybe Text),
-    _gldSubdivisionCode ::
-      !(Maybe Text),
-    _gldCountryCode :: !(Maybe Text),
-    _gldSubdivisionName ::
-      !(Maybe Text)
+  { -- | The name of the country.
+    countryName :: Prelude.Maybe Prelude.Text,
+    -- | The full name of the continent.
+    continentName :: Prelude.Maybe Prelude.Text,
+    -- | The two-letter code for the continent.
+    continentCode :: Prelude.Maybe Prelude.Text,
+    -- | The code for the subdivision, such as a particular state within the
+    -- United States. For a list of US state abbreviations, see
+    -- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+    -- on the United States Postal Service website. For a list of all supported
+    -- subdivision codes, use the
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
+    -- API.
+    subdivisionCode :: Prelude.Maybe Prelude.Text,
+    -- | The two-letter code for the country.
+    countryCode :: Prelude.Maybe Prelude.Text,
+    -- | The full name of the subdivision. Route 53 currently supports only
+    -- states in the United States.
+    subdivisionName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GeoLocationDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GeoLocationDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gldCountryName' - The name of the country.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gldContinentName' - The full name of the continent.
+-- 'countryName', 'geoLocationDetails_countryName' - The name of the country.
 --
--- * 'gldContinentCode' - The two-letter code for the continent.
+-- 'continentName', 'geoLocationDetails_continentName' - The full name of the continent.
 --
--- * 'gldSubdivisionCode' - The code for the subdivision, such as a particular state within the United States. For a list of US state abbreviations, see <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations> on the United States Postal Service website. For a list of all supported subdivision codes, use the <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations> API.
+-- 'continentCode', 'geoLocationDetails_continentCode' - The two-letter code for the continent.
 --
--- * 'gldCountryCode' - The two-letter code for the country.
+-- 'subdivisionCode', 'geoLocationDetails_subdivisionCode' - The code for the subdivision, such as a particular state within the
+-- United States. For a list of US state abbreviations, see
+-- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+-- on the United States Postal Service website. For a list of all supported
+-- subdivision codes, use the
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
+-- API.
 --
--- * 'gldSubdivisionName' - The full name of the subdivision. Route 53 currently supports only states in the United States.
-geoLocationDetails ::
+-- 'countryCode', 'geoLocationDetails_countryCode' - The two-letter code for the country.
+--
+-- 'subdivisionName', 'geoLocationDetails_subdivisionName' - The full name of the subdivision. Route 53 currently supports only
+-- states in the United States.
+newGeoLocationDetails ::
   GeoLocationDetails
-geoLocationDetails =
+newGeoLocationDetails =
   GeoLocationDetails'
-    { _gldCountryName = Nothing,
-      _gldContinentName = Nothing,
-      _gldContinentCode = Nothing,
-      _gldSubdivisionCode = Nothing,
-      _gldCountryCode = Nothing,
-      _gldSubdivisionName = Nothing
+    { countryName = Prelude.Nothing,
+      continentName = Prelude.Nothing,
+      continentCode = Prelude.Nothing,
+      subdivisionCode = Prelude.Nothing,
+      countryCode = Prelude.Nothing,
+      subdivisionName = Prelude.Nothing
     }
 
 -- | The name of the country.
-gldCountryName :: Lens' GeoLocationDetails (Maybe Text)
-gldCountryName = lens _gldCountryName (\s a -> s {_gldCountryName = a})
+geoLocationDetails_countryName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_countryName = Lens.lens (\GeoLocationDetails' {countryName} -> countryName) (\s@GeoLocationDetails' {} a -> s {countryName = a} :: GeoLocationDetails)
 
 -- | The full name of the continent.
-gldContinentName :: Lens' GeoLocationDetails (Maybe Text)
-gldContinentName = lens _gldContinentName (\s a -> s {_gldContinentName = a})
+geoLocationDetails_continentName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_continentName = Lens.lens (\GeoLocationDetails' {continentName} -> continentName) (\s@GeoLocationDetails' {} a -> s {continentName = a} :: GeoLocationDetails)
 
 -- | The two-letter code for the continent.
-gldContinentCode :: Lens' GeoLocationDetails (Maybe Text)
-gldContinentCode = lens _gldContinentCode (\s a -> s {_gldContinentCode = a})
+geoLocationDetails_continentCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_continentCode = Lens.lens (\GeoLocationDetails' {continentCode} -> continentCode) (\s@GeoLocationDetails' {} a -> s {continentCode = a} :: GeoLocationDetails)
 
--- | The code for the subdivision, such as a particular state within the United States. For a list of US state abbreviations, see <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations> on the United States Postal Service website. For a list of all supported subdivision codes, use the <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations> API.
-gldSubdivisionCode :: Lens' GeoLocationDetails (Maybe Text)
-gldSubdivisionCode = lens _gldSubdivisionCode (\s a -> s {_gldSubdivisionCode = a})
+-- | The code for the subdivision, such as a particular state within the
+-- United States. For a list of US state abbreviations, see
+-- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+-- on the United States Postal Service website. For a list of all supported
+-- subdivision codes, use the
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
+-- API.
+geoLocationDetails_subdivisionCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_subdivisionCode = Lens.lens (\GeoLocationDetails' {subdivisionCode} -> subdivisionCode) (\s@GeoLocationDetails' {} a -> s {subdivisionCode = a} :: GeoLocationDetails)
 
 -- | The two-letter code for the country.
-gldCountryCode :: Lens' GeoLocationDetails (Maybe Text)
-gldCountryCode = lens _gldCountryCode (\s a -> s {_gldCountryCode = a})
+geoLocationDetails_countryCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_countryCode = Lens.lens (\GeoLocationDetails' {countryCode} -> countryCode) (\s@GeoLocationDetails' {} a -> s {countryCode = a} :: GeoLocationDetails)
 
--- | The full name of the subdivision. Route 53 currently supports only states in the United States.
-gldSubdivisionName :: Lens' GeoLocationDetails (Maybe Text)
-gldSubdivisionName = lens _gldSubdivisionName (\s a -> s {_gldSubdivisionName = a})
+-- | The full name of the subdivision. Route 53 currently supports only
+-- states in the United States.
+geoLocationDetails_subdivisionName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_subdivisionName = Lens.lens (\GeoLocationDetails' {subdivisionName} -> subdivisionName) (\s@GeoLocationDetails' {} a -> s {subdivisionName = a} :: GeoLocationDetails)
 
-instance FromXML GeoLocationDetails where
+instance Prelude.FromXML GeoLocationDetails where
   parseXML x =
     GeoLocationDetails'
-      <$> (x .@? "CountryName")
-      <*> (x .@? "ContinentName")
-      <*> (x .@? "ContinentCode")
-      <*> (x .@? "SubdivisionCode")
-      <*> (x .@? "CountryCode")
-      <*> (x .@? "SubdivisionName")
+      Prelude.<$> (x Prelude..@? "CountryName")
+      Prelude.<*> (x Prelude..@? "ContinentName")
+      Prelude.<*> (x Prelude..@? "ContinentCode")
+      Prelude.<*> (x Prelude..@? "SubdivisionCode")
+      Prelude.<*> (x Prelude..@? "CountryCode")
+      Prelude.<*> (x Prelude..@? "SubdivisionName")
 
-instance Hashable GeoLocationDetails
+instance Prelude.Hashable GeoLocationDetails
 
-instance NFData GeoLocationDetails
+instance Prelude.NFData GeoLocationDetails

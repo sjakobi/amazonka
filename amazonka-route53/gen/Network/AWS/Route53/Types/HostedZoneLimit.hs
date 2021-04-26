@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.HostedZoneLimit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.HostedZoneLimitType
 
--- | A complex type that contains the type of limit that you specified in the request and the current value for that limit.
+-- | A complex type that contains the type of limit that you specified in the
+-- request and the current value for that limit.
 --
---
---
--- /See:/ 'hostedZoneLimit' smart constructor.
+-- /See:/ 'newHostedZoneLimit' smart constructor.
 data HostedZoneLimit = HostedZoneLimit'
-  { _hzlType ::
-      !HostedZoneLimitType,
-    _hzlValue :: !Nat
+  { -- | The limit that you requested. Valid values include the following:
+    --
+    -- -   __MAX_RRSETS_BY_ZONE__: The maximum number of records that you can
+    --     create in the specified hosted zone.
+    --
+    -- -   __MAX_VPCS_ASSOCIATED_BY_ZONE__: The maximum number of Amazon VPCs
+    --     that you can associate with the specified private hosted zone.
+    type' :: HostedZoneLimitType,
+    -- | The current value for the limit that is specified by @Type@.
+    value :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HostedZoneLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HostedZoneLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hzlType' - The limit that you requested. Valid values include the following:     * __MAX_RRSETS_BY_ZONE__ : The maximum number of records that you can create in the specified hosted zone.     * __MAX_VPCS_ASSOCIATED_BY_ZONE__ : The maximum number of Amazon VPCs that you can associate with the specified private hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hzlValue' - The current value for the limit that is specified by @Type@ .
-hostedZoneLimit ::
-  -- | 'hzlType'
+-- 'type'', 'hostedZoneLimit_type' - The limit that you requested. Valid values include the following:
+--
+-- -   __MAX_RRSETS_BY_ZONE__: The maximum number of records that you can
+--     create in the specified hosted zone.
+--
+-- -   __MAX_VPCS_ASSOCIATED_BY_ZONE__: The maximum number of Amazon VPCs
+--     that you can associate with the specified private hosted zone.
+--
+-- 'value', 'hostedZoneLimit_value' - The current value for the limit that is specified by @Type@.
+newHostedZoneLimit ::
+  -- | 'type''
   HostedZoneLimitType ->
-  -- | 'hzlValue'
-  Natural ->
+  -- | 'value'
+  Prelude.Natural ->
   HostedZoneLimit
-hostedZoneLimit pType_ pValue_ =
+newHostedZoneLimit pType_ pValue_ =
   HostedZoneLimit'
-    { _hzlType = pType_,
-      _hzlValue = _Nat # pValue_
+    { type' = pType_,
+      value = Prelude._Nat Lens.# pValue_
     }
 
--- | The limit that you requested. Valid values include the following:     * __MAX_RRSETS_BY_ZONE__ : The maximum number of records that you can create in the specified hosted zone.     * __MAX_VPCS_ASSOCIATED_BY_ZONE__ : The maximum number of Amazon VPCs that you can associate with the specified private hosted zone.
-hzlType :: Lens' HostedZoneLimit HostedZoneLimitType
-hzlType = lens _hzlType (\s a -> s {_hzlType = a})
+-- | The limit that you requested. Valid values include the following:
+--
+-- -   __MAX_RRSETS_BY_ZONE__: The maximum number of records that you can
+--     create in the specified hosted zone.
+--
+-- -   __MAX_VPCS_ASSOCIATED_BY_ZONE__: The maximum number of Amazon VPCs
+--     that you can associate with the specified private hosted zone.
+hostedZoneLimit_type :: Lens.Lens' HostedZoneLimit HostedZoneLimitType
+hostedZoneLimit_type = Lens.lens (\HostedZoneLimit' {type'} -> type') (\s@HostedZoneLimit' {} a -> s {type' = a} :: HostedZoneLimit)
 
--- | The current value for the limit that is specified by @Type@ .
-hzlValue :: Lens' HostedZoneLimit Natural
-hzlValue = lens _hzlValue (\s a -> s {_hzlValue = a}) . _Nat
+-- | The current value for the limit that is specified by @Type@.
+hostedZoneLimit_value :: Lens.Lens' HostedZoneLimit Prelude.Natural
+hostedZoneLimit_value = Lens.lens (\HostedZoneLimit' {value} -> value) (\s@HostedZoneLimit' {} a -> s {value = a} :: HostedZoneLimit) Prelude.. Prelude._Nat
 
-instance FromXML HostedZoneLimit where
+instance Prelude.FromXML HostedZoneLimit where
   parseXML x =
     HostedZoneLimit'
-      <$> (x .@ "Type") <*> (x .@ "Value")
+      Prelude.<$> (x Prelude..@ "Type")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable HostedZoneLimit
+instance Prelude.Hashable HostedZoneLimit
 
-instance NFData HostedZoneLimit
+instance Prelude.NFData HostedZoneLimit

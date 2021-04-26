@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,207 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the specified limit for a specified hosted zone, for example, the maximum number of records that you can create in the hosted zone.
+-- Gets the specified limit for a specified hosted zone, for example, the
+-- maximum number of records that you can create in the hosted zone.
 --
---
--- For the default limit, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits> in the /Amazon Route 53 Developer Guide/ . To request a higher limit, <https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53 open a case> .
+-- For the default limit, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits>
+-- in the /Amazon Route 53 Developer Guide/. To request a higher limit,
+-- <https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53 open a case>.
 module Network.AWS.Route53.GetHostedZoneLimit
   ( -- * Creating a Request
-    getHostedZoneLimit,
-    GetHostedZoneLimit,
+    GetHostedZoneLimit (..),
+    newGetHostedZoneLimit,
 
     -- * Request Lenses
-    ghzlType,
-    ghzlHostedZoneId,
+    getHostedZoneLimit_type,
+    getHostedZoneLimit_hostedZoneId,
 
     -- * Destructuring the Response
-    getHostedZoneLimitResponse,
-    GetHostedZoneLimitResponse,
+    GetHostedZoneLimitResponse (..),
+    newGetHostedZoneLimitResponse,
 
     -- * Response Lenses
-    ghzlrrsResponseStatus,
-    ghzlrrsLimit,
-    ghzlrrsCount,
+    getHostedZoneLimitResponse_httpStatus,
+    getHostedZoneLimitResponse_limit,
+    getHostedZoneLimitResponse_count,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.HostedZoneLimit
 
--- | A complex type that contains information about the request to create a hosted zone.
+-- | A complex type that contains information about the request to create a
+-- hosted zone.
 --
---
---
--- /See:/ 'getHostedZoneLimit' smart constructor.
+-- /See:/ 'newGetHostedZoneLimit' smart constructor.
 data GetHostedZoneLimit = GetHostedZoneLimit'
-  { _ghzlType ::
-      !HostedZoneLimitType,
-    _ghzlHostedZoneId :: !ResourceId
+  { -- | The limit that you want to get. Valid values include the following:
+    --
+    -- -   __MAX_RRSETS_BY_ZONE__: The maximum number of records that you can
+    --     create in the specified hosted zone.
+    --
+    -- -   __MAX_VPCS_ASSOCIATED_BY_ZONE__: The maximum number of Amazon VPCs
+    --     that you can associate with the specified private hosted zone.
+    type' :: HostedZoneLimitType,
+    -- | The ID of the hosted zone that you want to get a limit for.
+    hostedZoneId :: ResourceId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHostedZoneLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHostedZoneLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghzlType' - The limit that you want to get. Valid values include the following:     * __MAX_RRSETS_BY_ZONE__ : The maximum number of records that you can create in the specified hosted zone.     * __MAX_VPCS_ASSOCIATED_BY_ZONE__ : The maximum number of Amazon VPCs that you can associate with the specified private hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghzlHostedZoneId' - The ID of the hosted zone that you want to get a limit for.
-getHostedZoneLimit ::
-  -- | 'ghzlType'
+-- 'type'', 'getHostedZoneLimit_type' - The limit that you want to get. Valid values include the following:
+--
+-- -   __MAX_RRSETS_BY_ZONE__: The maximum number of records that you can
+--     create in the specified hosted zone.
+--
+-- -   __MAX_VPCS_ASSOCIATED_BY_ZONE__: The maximum number of Amazon VPCs
+--     that you can associate with the specified private hosted zone.
+--
+-- 'hostedZoneId', 'getHostedZoneLimit_hostedZoneId' - The ID of the hosted zone that you want to get a limit for.
+newGetHostedZoneLimit ::
+  -- | 'type''
   HostedZoneLimitType ->
-  -- | 'ghzlHostedZoneId'
+  -- | 'hostedZoneId'
   ResourceId ->
   GetHostedZoneLimit
-getHostedZoneLimit pType_ pHostedZoneId_ =
+newGetHostedZoneLimit pType_ pHostedZoneId_ =
   GetHostedZoneLimit'
-    { _ghzlType = pType_,
-      _ghzlHostedZoneId = pHostedZoneId_
+    { type' = pType_,
+      hostedZoneId = pHostedZoneId_
     }
 
--- | The limit that you want to get. Valid values include the following:     * __MAX_RRSETS_BY_ZONE__ : The maximum number of records that you can create in the specified hosted zone.     * __MAX_VPCS_ASSOCIATED_BY_ZONE__ : The maximum number of Amazon VPCs that you can associate with the specified private hosted zone.
-ghzlType :: Lens' GetHostedZoneLimit HostedZoneLimitType
-ghzlType = lens _ghzlType (\s a -> s {_ghzlType = a})
+-- | The limit that you want to get. Valid values include the following:
+--
+-- -   __MAX_RRSETS_BY_ZONE__: The maximum number of records that you can
+--     create in the specified hosted zone.
+--
+-- -   __MAX_VPCS_ASSOCIATED_BY_ZONE__: The maximum number of Amazon VPCs
+--     that you can associate with the specified private hosted zone.
+getHostedZoneLimit_type :: Lens.Lens' GetHostedZoneLimit HostedZoneLimitType
+getHostedZoneLimit_type = Lens.lens (\GetHostedZoneLimit' {type'} -> type') (\s@GetHostedZoneLimit' {} a -> s {type' = a} :: GetHostedZoneLimit)
 
 -- | The ID of the hosted zone that you want to get a limit for.
-ghzlHostedZoneId :: Lens' GetHostedZoneLimit ResourceId
-ghzlHostedZoneId = lens _ghzlHostedZoneId (\s a -> s {_ghzlHostedZoneId = a})
+getHostedZoneLimit_hostedZoneId :: Lens.Lens' GetHostedZoneLimit ResourceId
+getHostedZoneLimit_hostedZoneId = Lens.lens (\GetHostedZoneLimit' {hostedZoneId} -> hostedZoneId) (\s@GetHostedZoneLimit' {} a -> s {hostedZoneId = a} :: GetHostedZoneLimit)
 
-instance AWSRequest GetHostedZoneLimit where
+instance Prelude.AWSRequest GetHostedZoneLimit where
   type
     Rs GetHostedZoneLimit =
       GetHostedZoneLimitResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetHostedZoneLimitResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "Limit")
-            <*> (x .@ "Count")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Limit")
+            Prelude.<*> (x Prelude..@ "Count")
       )
 
-instance Hashable GetHostedZoneLimit
+instance Prelude.Hashable GetHostedZoneLimit
 
-instance NFData GetHostedZoneLimit
+instance Prelude.NFData GetHostedZoneLimit
 
-instance ToHeaders GetHostedZoneLimit where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetHostedZoneLimit where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetHostedZoneLimit where
+instance Prelude.ToPath GetHostedZoneLimit where
   toPath GetHostedZoneLimit' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/hostedzonelimit/",
-        toBS _ghzlHostedZoneId,
+        Prelude.toBS hostedZoneId,
         "/",
-        toBS _ghzlType
+        Prelude.toBS type'
       ]
 
-instance ToQuery GetHostedZoneLimit where
-  toQuery = const mempty
+instance Prelude.ToQuery GetHostedZoneLimit where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the requested limit.
 --
---
---
--- /See:/ 'getHostedZoneLimitResponse' smart constructor.
+-- /See:/ 'newGetHostedZoneLimitResponse' smart constructor.
 data GetHostedZoneLimitResponse = GetHostedZoneLimitResponse'
-  { _ghzlrrsResponseStatus ::
-      !Int,
-    _ghzlrrsLimit ::
-      !HostedZoneLimit,
-    _ghzlrrsCount ::
-      !Nat
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The current setting for the specified limit. For example, if you
+    -- specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request,
+    -- the value of @Limit@ is the maximum number of records that you can
+    -- create in the specified hosted zone.
+    limit :: HostedZoneLimit,
+    -- | The current number of entities that you have created of the specified
+    -- type. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value
+    -- of @Type@ in the request, the value of @Count@ is the current number of
+    -- records that you have created in the specified hosted zone.
+    count :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHostedZoneLimitResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHostedZoneLimitResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghzlrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghzlrrsLimit' - The current setting for the specified limit. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request, the value of @Limit@ is the maximum number of records that you can create in the specified hosted zone.
+-- 'httpStatus', 'getHostedZoneLimitResponse_httpStatus' - The response's http status code.
 --
--- * 'ghzlrrsCount' - The current number of entities that you have created of the specified type. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request, the value of @Count@ is the current number of records that you have created in the specified hosted zone.
-getHostedZoneLimitResponse ::
-  -- | 'ghzlrrsResponseStatus'
-  Int ->
-  -- | 'ghzlrrsLimit'
+-- 'limit', 'getHostedZoneLimitResponse_limit' - The current setting for the specified limit. For example, if you
+-- specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request,
+-- the value of @Limit@ is the maximum number of records that you can
+-- create in the specified hosted zone.
+--
+-- 'count', 'getHostedZoneLimitResponse_count' - The current number of entities that you have created of the specified
+-- type. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value
+-- of @Type@ in the request, the value of @Count@ is the current number of
+-- records that you have created in the specified hosted zone.
+newGetHostedZoneLimitResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'limit'
   HostedZoneLimit ->
-  -- | 'ghzlrrsCount'
-  Natural ->
+  -- | 'count'
+  Prelude.Natural ->
   GetHostedZoneLimitResponse
-getHostedZoneLimitResponse
-  pResponseStatus_
+newGetHostedZoneLimitResponse
+  pHttpStatus_
   pLimit_
   pCount_ =
     GetHostedZoneLimitResponse'
-      { _ghzlrrsResponseStatus =
-          pResponseStatus_,
-        _ghzlrrsLimit = pLimit_,
-        _ghzlrrsCount = _Nat # pCount_
+      { httpStatus =
+          pHttpStatus_,
+        limit = pLimit_,
+        count = Prelude._Nat Lens.# pCount_
       }
 
--- | -- | The response status code.
-ghzlrrsResponseStatus :: Lens' GetHostedZoneLimitResponse Int
-ghzlrrsResponseStatus = lens _ghzlrrsResponseStatus (\s a -> s {_ghzlrrsResponseStatus = a})
+-- | The response's http status code.
+getHostedZoneLimitResponse_httpStatus :: Lens.Lens' GetHostedZoneLimitResponse Prelude.Int
+getHostedZoneLimitResponse_httpStatus = Lens.lens (\GetHostedZoneLimitResponse' {httpStatus} -> httpStatus) (\s@GetHostedZoneLimitResponse' {} a -> s {httpStatus = a} :: GetHostedZoneLimitResponse)
 
--- | The current setting for the specified limit. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request, the value of @Limit@ is the maximum number of records that you can create in the specified hosted zone.
-ghzlrrsLimit :: Lens' GetHostedZoneLimitResponse HostedZoneLimit
-ghzlrrsLimit = lens _ghzlrrsLimit (\s a -> s {_ghzlrrsLimit = a})
+-- | The current setting for the specified limit. For example, if you
+-- specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request,
+-- the value of @Limit@ is the maximum number of records that you can
+-- create in the specified hosted zone.
+getHostedZoneLimitResponse_limit :: Lens.Lens' GetHostedZoneLimitResponse HostedZoneLimit
+getHostedZoneLimitResponse_limit = Lens.lens (\GetHostedZoneLimitResponse' {limit} -> limit) (\s@GetHostedZoneLimitResponse' {} a -> s {limit = a} :: GetHostedZoneLimitResponse)
 
--- | The current number of entities that you have created of the specified type. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value of @Type@ in the request, the value of @Count@ is the current number of records that you have created in the specified hosted zone.
-ghzlrrsCount :: Lens' GetHostedZoneLimitResponse Natural
-ghzlrrsCount = lens _ghzlrrsCount (\s a -> s {_ghzlrrsCount = a}) . _Nat
+-- | The current number of entities that you have created of the specified
+-- type. For example, if you specified @MAX_RRSETS_BY_ZONE@ for the value
+-- of @Type@ in the request, the value of @Count@ is the current number of
+-- records that you have created in the specified hosted zone.
+getHostedZoneLimitResponse_count :: Lens.Lens' GetHostedZoneLimitResponse Prelude.Natural
+getHostedZoneLimitResponse_count = Lens.lens (\GetHostedZoneLimitResponse' {count} -> count) (\s@GetHostedZoneLimitResponse' {} a -> s {count = a} :: GetHostedZoneLimitResponse) Prelude.. Prelude._Nat
 
-instance NFData GetHostedZoneLimitResponse
+instance Prelude.NFData GetHostedZoneLimitResponse

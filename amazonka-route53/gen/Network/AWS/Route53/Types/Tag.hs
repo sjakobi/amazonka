@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,117 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
--- | A complex type that contains information about a tag that you want to add or edit for the specified health check or hosted zone.
+-- | A complex type that contains information about a tag that you want to
+-- add or edit for the specified health check or hosted zone.
 --
---
---
--- /See:/ 'tag' smart constructor.
+-- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { _tagKey :: !(Maybe Text),
-    _tagValue :: !(Maybe Text)
+  { -- | The value of @Key@ depends on the operation that you want to perform:
+    --
+    -- -   __Add a tag to a health check or hosted zone__: @Key@ is the name
+    --     that you want to give the new tag.
+    --
+    -- -   __Edit a tag__: @Key@ is the name of the tag that you want to change
+    --     the @Value@ for.
+    --
+    -- -   __Delete a key__: @Key@ is the name of the tag you want to remove.
+    --
+    -- -   __Give a name to a health check__: Edit the default @Name@ tag. In
+    --     the Amazon Route 53 console, the list of your health checks includes
+    --     a __Name__ column that lets you see the name that you\'ve given to
+    --     each health check.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value of @Value@ depends on the operation that you want to perform:
+    --
+    -- -   __Add a tag to a health check or hosted zone__: @Value@ is the value
+    --     that you want to give the new tag.
+    --
+    -- -   __Edit a tag__: @Value@ is the new value that you want to assign the
+    --     tag.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagKey' - The value of @Key@ depends on the operation that you want to perform:     * __Add a tag to a health check or hosted zone__ : @Key@ is the name that you want to give the new tag.     * __Edit a tag__ : @Key@ is the name of the tag that you want to change the @Value@ for.     * __Delete a key__ : @Key@ is the name of the tag you want to remove.     * __Give a name to a health check__ : Edit the default @Name@ tag. In the Amazon Route 53 console, the list of your health checks includes a __Name__ column that lets you see the name that you've given to each health check.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagValue' - The value of @Value@ depends on the operation that you want to perform:     * __Add a tag to a health check or hosted zone__ : @Value@ is the value that you want to give the new tag.     * __Edit a tag__ : @Value@ is the new value that you want to assign the tag.
-tag ::
+-- 'key', 'tag_key' - The value of @Key@ depends on the operation that you want to perform:
+--
+-- -   __Add a tag to a health check or hosted zone__: @Key@ is the name
+--     that you want to give the new tag.
+--
+-- -   __Edit a tag__: @Key@ is the name of the tag that you want to change
+--     the @Value@ for.
+--
+-- -   __Delete a key__: @Key@ is the name of the tag you want to remove.
+--
+-- -   __Give a name to a health check__: Edit the default @Name@ tag. In
+--     the Amazon Route 53 console, the list of your health checks includes
+--     a __Name__ column that lets you see the name that you\'ve given to
+--     each health check.
+--
+-- 'value', 'tag_value' - The value of @Value@ depends on the operation that you want to perform:
+--
+-- -   __Add a tag to a health check or hosted zone__: @Value@ is the value
+--     that you want to give the new tag.
+--
+-- -   __Edit a tag__: @Value@ is the new value that you want to assign the
+--     tag.
+newTag ::
   Tag
-tag = Tag' {_tagKey = Nothing, _tagValue = Nothing}
+newTag =
+  Tag'
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
--- | The value of @Key@ depends on the operation that you want to perform:     * __Add a tag to a health check or hosted zone__ : @Key@ is the name that you want to give the new tag.     * __Edit a tag__ : @Key@ is the name of the tag that you want to change the @Value@ for.     * __Delete a key__ : @Key@ is the name of the tag you want to remove.     * __Give a name to a health check__ : Edit the default @Name@ tag. In the Amazon Route 53 console, the list of your health checks includes a __Name__ column that lets you see the name that you've given to each health check.
-tagKey :: Lens' Tag (Maybe Text)
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+-- | The value of @Key@ depends on the operation that you want to perform:
+--
+-- -   __Add a tag to a health check or hosted zone__: @Key@ is the name
+--     that you want to give the new tag.
+--
+-- -   __Edit a tag__: @Key@ is the name of the tag that you want to change
+--     the @Value@ for.
+--
+-- -   __Delete a key__: @Key@ is the name of the tag you want to remove.
+--
+-- -   __Give a name to a health check__: Edit the default @Name@ tag. In
+--     the Amazon Route 53 console, the list of your health checks includes
+--     a __Name__ column that lets you see the name that you\'ve given to
+--     each health check.
+tag_key :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
--- | The value of @Value@ depends on the operation that you want to perform:     * __Add a tag to a health check or hosted zone__ : @Value@ is the value that you want to give the new tag.     * __Edit a tag__ : @Value@ is the new value that you want to assign the tag.
-tagValue :: Lens' Tag (Maybe Text)
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+-- | The value of @Value@ depends on the operation that you want to perform:
+--
+-- -   __Add a tag to a health check or hosted zone__: @Value@ is the value
+--     that you want to give the new tag.
+--
+-- -   __Edit a tag__: @Value@ is the new value that you want to assign the
+--     tag.
+tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance FromXML Tag where
+instance Prelude.FromXML Tag where
   parseXML x =
-    Tag' <$> (x .@? "Key") <*> (x .@? "Value")
+    Tag'
+      Prelude.<$> (x Prelude..@? "Key")
+      Prelude.<*> (x Prelude..@? "Value")
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToXML Tag where
+instance Prelude.ToXML Tag where
   toXML Tag' {..} =
-    mconcat ["Key" @= _tagKey, "Value" @= _tagValue]
+    Prelude.mconcat
+      ["Key" Prelude.@= key, "Value" Prelude.@= value]

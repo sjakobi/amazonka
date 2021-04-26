@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Activates a key-signing key (KSK) so that it can be used for signing by DNSSEC. This operation changes the KSK status to @ACTIVE@ .
+-- Activates a key-signing key (KSK) so that it can be used for signing by
+-- DNSSEC. This operation changes the KSK status to @ACTIVE@.
 module Network.AWS.Route53.ActivateKeySigningKey
   ( -- * Creating a Request
-    activateKeySigningKey,
-    ActivateKeySigningKey,
+    ActivateKeySigningKey (..),
+    newActivateKeySigningKey,
 
     -- * Request Lenses
-    akskHostedZoneId,
-    akskName,
+    activateKeySigningKey_hostedZoneId,
+    activateKeySigningKey_name,
 
     -- * Destructuring the Response
-    activateKeySigningKeyResponse,
-    ActivateKeySigningKeyResponse,
+    ActivateKeySigningKeyResponse (..),
+    newActivateKeySigningKeyResponse,
 
     -- * Response Lenses
-    akskrrsResponseStatus,
-    akskrrsChangeInfo,
+    activateKeySigningKeyResponse_httpStatus,
+    activateKeySigningKeyResponse_changeInfo,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.ChangeInfo
 
--- | /See:/ 'activateKeySigningKey' smart constructor.
+-- | /See:/ 'newActivateKeySigningKey' smart constructor.
 data ActivateKeySigningKey = ActivateKeySigningKey'
-  { _akskHostedZoneId ::
-      !ResourceId,
-    _akskName :: !Text
+  { -- | A unique string used to identify a hosted zone.
+    hostedZoneId :: ResourceId,
+    -- | A string used to identify a key-signing key (KSK). @Name@ can include
+    -- numbers, letters, and underscores (_). @Name@ must be unique for each
+    -- key-signing key in the same hosted zone.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivateKeySigningKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivateKeySigningKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akskHostedZoneId' - A unique string used to identify a hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akskName' - A string used to identify a key-signing key (KSK). @Name@ can include numbers, letters, and underscores (_). @Name@ must be unique for each key-signing key in the same hosted zone.
-activateKeySigningKey ::
-  -- | 'akskHostedZoneId'
+-- 'hostedZoneId', 'activateKeySigningKey_hostedZoneId' - A unique string used to identify a hosted zone.
+--
+-- 'name', 'activateKeySigningKey_name' - A string used to identify a key-signing key (KSK). @Name@ can include
+-- numbers, letters, and underscores (_). @Name@ must be unique for each
+-- key-signing key in the same hosted zone.
+newActivateKeySigningKey ::
+  -- | 'hostedZoneId'
   ResourceId ->
-  -- | 'akskName'
-  Text ->
+  -- | 'name'
+  Prelude.Text ->
   ActivateKeySigningKey
-activateKeySigningKey pHostedZoneId_ pName_ =
+newActivateKeySigningKey pHostedZoneId_ pName_ =
   ActivateKeySigningKey'
-    { _akskHostedZoneId =
+    { hostedZoneId =
         pHostedZoneId_,
-      _akskName = pName_
+      name = pName_
     }
 
 -- | A unique string used to identify a hosted zone.
-akskHostedZoneId :: Lens' ActivateKeySigningKey ResourceId
-akskHostedZoneId = lens _akskHostedZoneId (\s a -> s {_akskHostedZoneId = a})
+activateKeySigningKey_hostedZoneId :: Lens.Lens' ActivateKeySigningKey ResourceId
+activateKeySigningKey_hostedZoneId = Lens.lens (\ActivateKeySigningKey' {hostedZoneId} -> hostedZoneId) (\s@ActivateKeySigningKey' {} a -> s {hostedZoneId = a} :: ActivateKeySigningKey)
 
--- | A string used to identify a key-signing key (KSK). @Name@ can include numbers, letters, and underscores (_). @Name@ must be unique for each key-signing key in the same hosted zone.
-akskName :: Lens' ActivateKeySigningKey Text
-akskName = lens _akskName (\s a -> s {_akskName = a})
+-- | A string used to identify a key-signing key (KSK). @Name@ can include
+-- numbers, letters, and underscores (_). @Name@ must be unique for each
+-- key-signing key in the same hosted zone.
+activateKeySigningKey_name :: Lens.Lens' ActivateKeySigningKey Prelude.Text
+activateKeySigningKey_name = Lens.lens (\ActivateKeySigningKey' {name} -> name) (\s@ActivateKeySigningKey' {} a -> s {name = a} :: ActivateKeySigningKey)
 
-instance AWSRequest ActivateKeySigningKey where
+instance Prelude.AWSRequest ActivateKeySigningKey where
   type
     Rs ActivateKeySigningKey =
       ActivateKeySigningKeyResponse
-  request = post route53
+  request = Request.post defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ActivateKeySigningKeyResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "ChangeInfo")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "ChangeInfo")
       )
 
-instance Hashable ActivateKeySigningKey
+instance Prelude.Hashable ActivateKeySigningKey
 
-instance NFData ActivateKeySigningKey
+instance Prelude.NFData ActivateKeySigningKey
 
-instance ToHeaders ActivateKeySigningKey where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ActivateKeySigningKey where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ActivateKeySigningKey where
+instance Prelude.ToPath ActivateKeySigningKey where
   toPath ActivateKeySigningKey' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/keysigningkey/",
-        toBS _akskHostedZoneId,
+        Prelude.toBS hostedZoneId,
         "/",
-        toBS _akskName,
+        Prelude.toBS name,
         "/activate"
       ]
 
-instance ToQuery ActivateKeySigningKey where
-  toQuery = const mempty
+instance Prelude.ToQuery ActivateKeySigningKey where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'activateKeySigningKeyResponse' smart constructor.
+-- | /See:/ 'newActivateKeySigningKeyResponse' smart constructor.
 data ActivateKeySigningKeyResponse = ActivateKeySigningKeyResponse'
-  { _akskrrsResponseStatus ::
-      !Int,
-    _akskrrsChangeInfo ::
-      !ChangeInfo
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    changeInfo :: ChangeInfo
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivateKeySigningKeyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivateKeySigningKeyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akskrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akskrrsChangeInfo' - Undocumented member.
-activateKeySigningKeyResponse ::
-  -- | 'akskrrsResponseStatus'
-  Int ->
-  -- | 'akskrrsChangeInfo'
+-- 'httpStatus', 'activateKeySigningKeyResponse_httpStatus' - The response's http status code.
+--
+-- 'changeInfo', 'activateKeySigningKeyResponse_changeInfo' - Undocumented member.
+newActivateKeySigningKeyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'changeInfo'
   ChangeInfo ->
   ActivateKeySigningKeyResponse
-activateKeySigningKeyResponse
-  pResponseStatus_
+newActivateKeySigningKeyResponse
+  pHttpStatus_
   pChangeInfo_ =
     ActivateKeySigningKeyResponse'
-      { _akskrrsResponseStatus =
-          pResponseStatus_,
-        _akskrrsChangeInfo = pChangeInfo_
+      { httpStatus =
+          pHttpStatus_,
+        changeInfo = pChangeInfo_
       }
 
--- | -- | The response status code.
-akskrrsResponseStatus :: Lens' ActivateKeySigningKeyResponse Int
-akskrrsResponseStatus = lens _akskrrsResponseStatus (\s a -> s {_akskrrsResponseStatus = a})
+-- | The response's http status code.
+activateKeySigningKeyResponse_httpStatus :: Lens.Lens' ActivateKeySigningKeyResponse Prelude.Int
+activateKeySigningKeyResponse_httpStatus = Lens.lens (\ActivateKeySigningKeyResponse' {httpStatus} -> httpStatus) (\s@ActivateKeySigningKeyResponse' {} a -> s {httpStatus = a} :: ActivateKeySigningKeyResponse)
 
 -- | Undocumented member.
-akskrrsChangeInfo :: Lens' ActivateKeySigningKeyResponse ChangeInfo
-akskrrsChangeInfo = lens _akskrrsChangeInfo (\s a -> s {_akskrrsChangeInfo = a})
+activateKeySigningKeyResponse_changeInfo :: Lens.Lens' ActivateKeySigningKeyResponse ChangeInfo
+activateKeySigningKeyResponse_changeInfo = Lens.lens (\ActivateKeySigningKeyResponse' {changeInfo} -> changeInfo) (\s@ActivateKeySigningKeyResponse' {} a -> s {changeInfo = a} :: ActivateKeySigningKeyResponse)
 
-instance NFData ActivateKeySigningKeyResponse
+instance Prelude.NFData ActivateKeySigningKeyResponse

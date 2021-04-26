@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,134 +23,143 @@
 --
 -- Gets information about a specified configuration for DNS query logging.
 --
---
--- For more information about DNS query logs, see <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateQueryLoggingConfig.html CreateQueryLoggingConfig> and <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html Logging DNS Queries> .
+-- For more information about DNS query logs, see
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateQueryLoggingConfig.html CreateQueryLoggingConfig>
+-- and
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html Logging DNS Queries>.
 module Network.AWS.Route53.GetQueryLoggingConfig
   ( -- * Creating a Request
-    getQueryLoggingConfig,
-    GetQueryLoggingConfig,
+    GetQueryLoggingConfig (..),
+    newGetQueryLoggingConfig,
 
     -- * Request Lenses
-    gqlcId,
+    getQueryLoggingConfig_id,
 
     -- * Destructuring the Response
-    getQueryLoggingConfigResponse,
-    GetQueryLoggingConfigResponse,
+    GetQueryLoggingConfigResponse (..),
+    newGetQueryLoggingConfigResponse,
 
     -- * Response Lenses
-    gqlcrrsResponseStatus,
-    gqlcrrsQueryLoggingConfig,
+    getQueryLoggingConfigResponse_httpStatus,
+    getQueryLoggingConfigResponse_queryLoggingConfig,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.QueryLoggingConfig
 
--- | /See:/ 'getQueryLoggingConfig' smart constructor.
-newtype GetQueryLoggingConfig = GetQueryLoggingConfig'
-  { _gqlcId ::
-      Text
+-- | /See:/ 'newGetQueryLoggingConfig' smart constructor.
+data GetQueryLoggingConfig = GetQueryLoggingConfig'
+  { -- | The ID of the configuration for DNS query logging that you want to get
+    -- information about.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetQueryLoggingConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetQueryLoggingConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gqlcId' - The ID of the configuration for DNS query logging that you want to get information about.
-getQueryLoggingConfig ::
-  -- | 'gqlcId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getQueryLoggingConfig_id' - The ID of the configuration for DNS query logging that you want to get
+-- information about.
+newGetQueryLoggingConfig ::
+  -- | 'id'
+  Prelude.Text ->
   GetQueryLoggingConfig
-getQueryLoggingConfig pId_ =
-  GetQueryLoggingConfig' {_gqlcId = pId_}
+newGetQueryLoggingConfig pId_ =
+  GetQueryLoggingConfig' {id = pId_}
 
--- | The ID of the configuration for DNS query logging that you want to get information about.
-gqlcId :: Lens' GetQueryLoggingConfig Text
-gqlcId = lens _gqlcId (\s a -> s {_gqlcId = a})
+-- | The ID of the configuration for DNS query logging that you want to get
+-- information about.
+getQueryLoggingConfig_id :: Lens.Lens' GetQueryLoggingConfig Prelude.Text
+getQueryLoggingConfig_id = Lens.lens (\GetQueryLoggingConfig' {id} -> id) (\s@GetQueryLoggingConfig' {} a -> s {id = a} :: GetQueryLoggingConfig)
 
-instance AWSRequest GetQueryLoggingConfig where
+instance Prelude.AWSRequest GetQueryLoggingConfig where
   type
     Rs GetQueryLoggingConfig =
       GetQueryLoggingConfigResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetQueryLoggingConfigResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "QueryLoggingConfig")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "QueryLoggingConfig")
       )
 
-instance Hashable GetQueryLoggingConfig
+instance Prelude.Hashable GetQueryLoggingConfig
 
-instance NFData GetQueryLoggingConfig
+instance Prelude.NFData GetQueryLoggingConfig
 
-instance ToHeaders GetQueryLoggingConfig where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetQueryLoggingConfig where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetQueryLoggingConfig where
+instance Prelude.ToPath GetQueryLoggingConfig where
   toPath GetQueryLoggingConfig' {..} =
-    mconcat
-      ["/2013-04-01/queryloggingconfig/", toBS _gqlcId]
+    Prelude.mconcat
+      ["/2013-04-01/queryloggingconfig/", Prelude.toBS id]
 
-instance ToQuery GetQueryLoggingConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetQueryLoggingConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getQueryLoggingConfigResponse' smart constructor.
+-- | /See:/ 'newGetQueryLoggingConfigResponse' smart constructor.
 data GetQueryLoggingConfigResponse = GetQueryLoggingConfigResponse'
-  { _gqlcrrsResponseStatus ::
-      !Int,
-    _gqlcrrsQueryLoggingConfig ::
-      !QueryLoggingConfig
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains information about the query logging
+    -- configuration that you specified in a
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html GetQueryLoggingConfig>
+    -- request.
+    queryLoggingConfig :: QueryLoggingConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetQueryLoggingConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetQueryLoggingConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gqlcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gqlcrrsQueryLoggingConfig' - A complex type that contains information about the query logging configuration that you specified in a <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html GetQueryLoggingConfig> request.
-getQueryLoggingConfigResponse ::
-  -- | 'gqlcrrsResponseStatus'
-  Int ->
-  -- | 'gqlcrrsQueryLoggingConfig'
+-- 'httpStatus', 'getQueryLoggingConfigResponse_httpStatus' - The response's http status code.
+--
+-- 'queryLoggingConfig', 'getQueryLoggingConfigResponse_queryLoggingConfig' - A complex type that contains information about the query logging
+-- configuration that you specified in a
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html GetQueryLoggingConfig>
+-- request.
+newGetQueryLoggingConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'queryLoggingConfig'
   QueryLoggingConfig ->
   GetQueryLoggingConfigResponse
-getQueryLoggingConfigResponse
-  pResponseStatus_
+newGetQueryLoggingConfigResponse
+  pHttpStatus_
   pQueryLoggingConfig_ =
     GetQueryLoggingConfigResponse'
-      { _gqlcrrsResponseStatus =
-          pResponseStatus_,
-        _gqlcrrsQueryLoggingConfig =
-          pQueryLoggingConfig_
+      { httpStatus =
+          pHttpStatus_,
+        queryLoggingConfig = pQueryLoggingConfig_
       }
 
--- | -- | The response status code.
-gqlcrrsResponseStatus :: Lens' GetQueryLoggingConfigResponse Int
-gqlcrrsResponseStatus = lens _gqlcrrsResponseStatus (\s a -> s {_gqlcrrsResponseStatus = a})
+-- | The response's http status code.
+getQueryLoggingConfigResponse_httpStatus :: Lens.Lens' GetQueryLoggingConfigResponse Prelude.Int
+getQueryLoggingConfigResponse_httpStatus = Lens.lens (\GetQueryLoggingConfigResponse' {httpStatus} -> httpStatus) (\s@GetQueryLoggingConfigResponse' {} a -> s {httpStatus = a} :: GetQueryLoggingConfigResponse)
 
--- | A complex type that contains information about the query logging configuration that you specified in a <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html GetQueryLoggingConfig> request.
-gqlcrrsQueryLoggingConfig :: Lens' GetQueryLoggingConfigResponse QueryLoggingConfig
-gqlcrrsQueryLoggingConfig = lens _gqlcrrsQueryLoggingConfig (\s a -> s {_gqlcrrsQueryLoggingConfig = a})
+-- | A complex type that contains information about the query logging
+-- configuration that you specified in a
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetQueryLoggingConfig.html GetQueryLoggingConfig>
+-- request.
+getQueryLoggingConfigResponse_queryLoggingConfig :: Lens.Lens' GetQueryLoggingConfigResponse QueryLoggingConfig
+getQueryLoggingConfigResponse_queryLoggingConfig = Lens.lens (\GetQueryLoggingConfigResponse' {queryLoggingConfig} -> queryLoggingConfig) (\s@GetQueryLoggingConfigResponse' {} a -> s {queryLoggingConfig = a} :: GetQueryLoggingConfigResponse)
 
-instance NFData GetQueryLoggingConfigResponse
+instance Prelude.NFData GetQueryLoggingConfigResponse

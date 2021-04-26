@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.Route53.Types.InsufficientDataHealthStatus
   ( InsufficientDataHealthStatus
       ( ..,
-        Healthy,
-        LastKnownStatus,
-        Unhealthy
+        InsufficientDataHealthStatusHealthy,
+        InsufficientDataHealthStatusLastKnownStatus,
+        InsufficientDataHealthStatusUnhealthy
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data InsufficientDataHealthStatus
-  = InsufficientDataHealthStatus'
-      ( CI
-          Text
-      )
+newtype InsufficientDataHealthStatus = InsufficientDataHealthStatus'
+  { fromInsufficientDataHealthStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthy :: InsufficientDataHealthStatus
-pattern Healthy = InsufficientDataHealthStatus' "Healthy"
+pattern InsufficientDataHealthStatusHealthy :: InsufficientDataHealthStatus
+pattern InsufficientDataHealthStatusHealthy = InsufficientDataHealthStatus' "Healthy"
 
-pattern LastKnownStatus :: InsufficientDataHealthStatus
-pattern LastKnownStatus = InsufficientDataHealthStatus' "LastKnownStatus"
+pattern InsufficientDataHealthStatusLastKnownStatus :: InsufficientDataHealthStatus
+pattern InsufficientDataHealthStatusLastKnownStatus = InsufficientDataHealthStatus' "LastKnownStatus"
 
-pattern Unhealthy :: InsufficientDataHealthStatus
-pattern Unhealthy = InsufficientDataHealthStatus' "Unhealthy"
+pattern InsufficientDataHealthStatusUnhealthy :: InsufficientDataHealthStatus
+pattern InsufficientDataHealthStatusUnhealthy = InsufficientDataHealthStatus' "Unhealthy"
 
 {-# COMPLETE
-  Healthy,
-  LastKnownStatus,
-  Unhealthy,
+  InsufficientDataHealthStatusHealthy,
+  InsufficientDataHealthStatusLastKnownStatus,
+  InsufficientDataHealthStatusUnhealthy,
   InsufficientDataHealthStatus'
   #-}
 
-instance FromText InsufficientDataHealthStatus where
-  parser = (InsufficientDataHealthStatus' . mk) <$> takeText
+instance Prelude.FromText InsufficientDataHealthStatus where
+  parser = InsufficientDataHealthStatus' Prelude.<$> Prelude.takeText
 
-instance ToText InsufficientDataHealthStatus where
-  toText (InsufficientDataHealthStatus' ci) = original ci
+instance Prelude.ToText InsufficientDataHealthStatus where
+  toText (InsufficientDataHealthStatus' x) = x
 
-instance Hashable InsufficientDataHealthStatus
+instance Prelude.Hashable InsufficientDataHealthStatus
 
-instance NFData InsufficientDataHealthStatus
+instance Prelude.NFData InsufficientDataHealthStatus
 
-instance ToByteString InsufficientDataHealthStatus
+instance Prelude.ToByteString InsufficientDataHealthStatus
 
-instance ToQuery InsufficientDataHealthStatus
+instance Prelude.ToQuery InsufficientDataHealthStatus
 
-instance ToHeader InsufficientDataHealthStatus
+instance Prelude.ToHeader InsufficientDataHealthStatus
 
-instance FromXML InsufficientDataHealthStatus where
-  parseXML = parseXMLText "InsufficientDataHealthStatus"
+instance Prelude.FromXML InsufficientDataHealthStatus where
+  parseXML = Prelude.parseXMLText "InsufficientDataHealthStatus"
 
-instance ToXML InsufficientDataHealthStatus where
-  toXML = toXMLText
+instance Prelude.ToXML InsufficientDataHealthStatus where
+  toXML = Prelude.toXMLText

@@ -28,391 +28,391 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateReusableDelegationSet $
---             createReusableDelegationSet
+--             newCreateReusableDelegationSet
 --
 --         , requestGetHealthCheckCount $
---             getHealthCheckCount
+--             newGetHealthCheckCount
 --
 --         , requestGetHostedZoneLimit $
---             getHostedZoneLimit
+--             newGetHostedZoneLimit
 --
 --         , requestAssociateVPCWithHostedZone $
---             associateVPCWithHostedZone
+--             newAssociateVPCWithHostedZone
 --
 --         , requestListGeoLocations $
---             listGeoLocations
+--             newListGeoLocations
 --
 --         , requestListTrafficPolicies $
---             listTrafficPolicies
+--             newListTrafficPolicies
 --
 --         , requestCreateTrafficPolicy $
---             createTrafficPolicy
+--             newCreateTrafficPolicy
 --
 --         , requestDeleteHostedZone $
---             deleteHostedZone
+--             newDeleteHostedZone
 --
 --         , requestCreateHealthCheck $
---             createHealthCheck
+--             newCreateHealthCheck
 --
 --         , requestDisassociateVPCFromHostedZone $
---             disassociateVPCFromHostedZone
+--             newDisassociateVPCFromHostedZone
 --
 --         , requestChangeTagsForResource $
---             changeTagsForResource
+--             newChangeTagsForResource
 --
 --         , requestGetGeoLocation $
---             getGeoLocation
+--             newGetGeoLocation
 --
 --         , requestDeleteVPCAssociationAuthorization $
---             deleteVPCAssociationAuthorization
+--             newDeleteVPCAssociationAuthorization
 --
 --         , requestListHostedZones $
---             listHostedZones
+--             newListHostedZones
 --
 --         , requestDeactivateKeySigningKey $
---             deactivateKeySigningKey
+--             newDeactivateKeySigningKey
 --
 --         , requestTestDNSAnswer $
---             testDNSAnswer
+--             newTestDNSAnswer
 --
 --         , requestCreateHostedZone $
---             createHostedZone
+--             newCreateHostedZone
 --
 --         , requestGetReusableDelegationSetLimit $
---             getReusableDelegationSetLimit
+--             newGetReusableDelegationSetLimit
 --
 --         , requestChangeResourceRecordSets $
---             changeResourceRecordSets
+--             newChangeResourceRecordSets
 --
 --         , requestGetReusableDelegationSet $
---             getReusableDelegationSet
+--             newGetReusableDelegationSet
 --
---         , requestGetCheckerIPRanges $
---             getCheckerIPRanges
+--         , requestGetCheckerIpRanges $
+--             newGetCheckerIpRanges
 --
 --         , requestGetDNSSEC $
---             getDNSSEC
+--             newGetDNSSEC
 --
 --         , requestDeleteKeySigningKey $
---             deleteKeySigningKey
+--             newDeleteKeySigningKey
 --
 --         , requestGetTrafficPolicyInstance $
---             getTrafficPolicyInstance
+--             newGetTrafficPolicyInstance
 --
 --         , requestListReusableDelegationSets $
---             listReusableDelegationSets
+--             newListReusableDelegationSets
 --
 --         , requestGetAccountLimit $
---             getAccountLimit
+--             newGetAccountLimit
 --
 --         , requestCreateQueryLoggingConfig $
---             createQueryLoggingConfig
+--             newCreateQueryLoggingConfig
 --
 --         , requestUpdateTrafficPolicyComment $
---             updateTrafficPolicyComment
+--             newUpdateTrafficPolicyComment
 --
 --         , requestCreateKeySigningKey $
---             createKeySigningKey
+--             newCreateKeySigningKey
 --
 --         , requestDisableHostedZoneDNSSEC $
---             disableHostedZoneDNSSEC
+--             newDisableHostedZoneDNSSEC
 --
 --         , requestListResourceRecordSets $
---             listResourceRecordSets
+--             newListResourceRecordSets
 --
 --         , requestDeleteTrafficPolicy $
---             deleteTrafficPolicy
+--             newDeleteTrafficPolicy
 --
 --         , requestGetHealthCheck $
---             getHealthCheck
+--             newGetHealthCheck
 --
 --         , requestListTrafficPolicyInstancesByHostedZone $
---             listTrafficPolicyInstancesByHostedZone
+--             newListTrafficPolicyInstancesByHostedZone
 --
 --         , requestListTagsForResources $
---             listTagsForResources
+--             newListTagsForResources
 --
 --         , requestGetTrafficPolicyInstanceCount $
---             getTrafficPolicyInstanceCount
+--             newGetTrafficPolicyInstanceCount
 --
 --         , requestGetHostedZone $
---             getHostedZone
+--             newGetHostedZone
 --
 --         , requestListVPCAssociationAuthorizations $
---             listVPCAssociationAuthorizations
+--             newListVPCAssociationAuthorizations
 --
 --         , requestListTrafficPolicyVersions $
---             listTrafficPolicyVersions
+--             newListTrafficPolicyVersions
 --
 --         , requestListTrafficPolicyInstancesByPolicy $
---             listTrafficPolicyInstancesByPolicy
+--             newListTrafficPolicyInstancesByPolicy
 --
 --         , requestListHealthChecks $
---             listHealthChecks
+--             newListHealthChecks
 --
 --         , requestDeleteHealthCheck $
---             deleteHealthCheck
+--             newDeleteHealthCheck
 --
 --         , requestCreateTrafficPolicyVersion $
---             createTrafficPolicyVersion
+--             newCreateTrafficPolicyVersion
 --
 --         , requestGetTrafficPolicy $
---             getTrafficPolicy
+--             newGetTrafficPolicy
 --
 --         , requestCreateVPCAssociationAuthorization $
---             createVPCAssociationAuthorization
+--             newCreateVPCAssociationAuthorization
 --
 --         , requestUpdateHealthCheck $
---             updateHealthCheck
+--             newUpdateHealthCheck
 --
 --         , requestCreateTrafficPolicyInstance $
---             createTrafficPolicyInstance
+--             newCreateTrafficPolicyInstance
 --
 --         , requestListHostedZonesByVPC $
---             listHostedZonesByVPC
+--             newListHostedZonesByVPC
 --
 --         , requestGetHealthCheckStatus $
---             getHealthCheckStatus
+--             newGetHealthCheckStatus
 --
 --         , requestGetChange $
---             getChange
+--             newGetChange
 --
 --         , requestUpdateHostedZoneComment $
---             updateHostedZoneComment
+--             newUpdateHostedZoneComment
 --
 --         , requestListTrafficPolicyInstances $
---             listTrafficPolicyInstances
+--             newListTrafficPolicyInstances
 --
 --         , requestDeleteTrafficPolicyInstance $
---             deleteTrafficPolicyInstance
+--             newDeleteTrafficPolicyInstance
 --
 --         , requestUpdateTrafficPolicyInstance $
---             updateTrafficPolicyInstance
+--             newUpdateTrafficPolicyInstance
 --
 --         , requestGetQueryLoggingConfig $
---             getQueryLoggingConfig
+--             newGetQueryLoggingConfig
 --
 --         , requestDeleteReusableDelegationSet $
---             deleteReusableDelegationSet
+--             newDeleteReusableDelegationSet
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestDeleteQueryLoggingConfig $
---             deleteQueryLoggingConfig
+--             newDeleteQueryLoggingConfig
 --
 --         , requestGetHealthCheckLastFailureReason $
---             getHealthCheckLastFailureReason
+--             newGetHealthCheckLastFailureReason
 --
 --         , requestEnableHostedZoneDNSSEC $
---             enableHostedZoneDNSSEC
+--             newEnableHostedZoneDNSSEC
 --
 --         , requestListQueryLoggingConfigs $
---             listQueryLoggingConfigs
+--             newListQueryLoggingConfigs
 --
 --         , requestListHostedZonesByName $
---             listHostedZonesByName
+--             newListHostedZonesByName
 --
 --         , requestGetHostedZoneCount $
---             getHostedZoneCount
+--             newGetHostedZoneCount
 --
 --         , requestActivateKeySigningKey $
---             activateKeySigningKey
+--             newActivateKeySigningKey
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateReusableDelegationSet $
---             createReusableDelegationSetResponse
+--             newCreateReusableDelegationSetResponse
 --
 --         , responseGetHealthCheckCount $
---             getHealthCheckCountResponse
+--             newGetHealthCheckCountResponse
 --
 --         , responseGetHostedZoneLimit $
---             getHostedZoneLimitResponse
+--             newGetHostedZoneLimitResponse
 --
 --         , responseAssociateVPCWithHostedZone $
---             associateVPCWithHostedZoneResponse
+--             newAssociateVPCWithHostedZoneResponse
 --
 --         , responseListGeoLocations $
---             listGeoLocationsResponse
+--             newListGeoLocationsResponse
 --
 --         , responseListTrafficPolicies $
---             listTrafficPoliciesResponse
+--             newListTrafficPoliciesResponse
 --
 --         , responseCreateTrafficPolicy $
---             createTrafficPolicyResponse
+--             newCreateTrafficPolicyResponse
 --
 --         , responseDeleteHostedZone $
---             deleteHostedZoneResponse
+--             newDeleteHostedZoneResponse
 --
 --         , responseCreateHealthCheck $
---             createHealthCheckResponse
+--             newCreateHealthCheckResponse
 --
 --         , responseDisassociateVPCFromHostedZone $
---             disassociateVPCFromHostedZoneResponse
+--             newDisassociateVPCFromHostedZoneResponse
 --
 --         , responseChangeTagsForResource $
---             changeTagsForResourceResponse
+--             newChangeTagsForResourceResponse
 --
 --         , responseGetGeoLocation $
---             getGeoLocationResponse
+--             newGetGeoLocationResponse
 --
 --         , responseDeleteVPCAssociationAuthorization $
---             deleteVPCAssociationAuthorizationResponse
+--             newDeleteVPCAssociationAuthorizationResponse
 --
 --         , responseListHostedZones $
---             listHostedZonesResponse
+--             newListHostedZonesResponse
 --
 --         , responseDeactivateKeySigningKey $
---             deactivateKeySigningKeyResponse
+--             newDeactivateKeySigningKeyResponse
 --
 --         , responseTestDNSAnswer $
---             testDNSAnswerResponse
+--             newTestDNSAnswerResponse
 --
 --         , responseCreateHostedZone $
---             createHostedZoneResponse
+--             newCreateHostedZoneResponse
 --
 --         , responseGetReusableDelegationSetLimit $
---             getReusableDelegationSetLimitResponse
+--             newGetReusableDelegationSetLimitResponse
 --
 --         , responseChangeResourceRecordSets $
---             changeResourceRecordSetsResponse
+--             newChangeResourceRecordSetsResponse
 --
 --         , responseGetReusableDelegationSet $
---             getReusableDelegationSetResponse
+--             newGetReusableDelegationSetResponse
 --
---         , responseGetCheckerIPRanges $
---             getCheckerIPRangesResponse
+--         , responseGetCheckerIpRanges $
+--             newGetCheckerIpRangesResponse
 --
 --         , responseGetDNSSEC $
---             getDNSSECResponse
+--             newGetDNSSECResponse
 --
 --         , responseDeleteKeySigningKey $
---             deleteKeySigningKeyResponse
+--             newDeleteKeySigningKeyResponse
 --
 --         , responseGetTrafficPolicyInstance $
---             getTrafficPolicyInstanceResponse
+--             newGetTrafficPolicyInstanceResponse
 --
 --         , responseListReusableDelegationSets $
---             listReusableDelegationSetsResponse
+--             newListReusableDelegationSetsResponse
 --
 --         , responseGetAccountLimit $
---             getAccountLimitResponse
+--             newGetAccountLimitResponse
 --
 --         , responseCreateQueryLoggingConfig $
---             createQueryLoggingConfigResponse
+--             newCreateQueryLoggingConfigResponse
 --
 --         , responseUpdateTrafficPolicyComment $
---             updateTrafficPolicyCommentResponse
+--             newUpdateTrafficPolicyCommentResponse
 --
 --         , responseCreateKeySigningKey $
---             createKeySigningKeyResponse
+--             newCreateKeySigningKeyResponse
 --
 --         , responseDisableHostedZoneDNSSEC $
---             disableHostedZoneDNSSECResponse
+--             newDisableHostedZoneDNSSECResponse
 --
 --         , responseListResourceRecordSets $
---             listResourceRecordSetsResponse
+--             newListResourceRecordSetsResponse
 --
 --         , responseDeleteTrafficPolicy $
---             deleteTrafficPolicyResponse
+--             newDeleteTrafficPolicyResponse
 --
 --         , responseGetHealthCheck $
---             getHealthCheckResponse
+--             newGetHealthCheckResponse
 --
 --         , responseListTrafficPolicyInstancesByHostedZone $
---             listTrafficPolicyInstancesByHostedZoneResponse
+--             newListTrafficPolicyInstancesByHostedZoneResponse
 --
 --         , responseListTagsForResources $
---             listTagsForResourcesResponse
+--             newListTagsForResourcesResponse
 --
 --         , responseGetTrafficPolicyInstanceCount $
---             getTrafficPolicyInstanceCountResponse
+--             newGetTrafficPolicyInstanceCountResponse
 --
 --         , responseGetHostedZone $
---             getHostedZoneResponse
+--             newGetHostedZoneResponse
 --
 --         , responseListVPCAssociationAuthorizations $
---             listVPCAssociationAuthorizationsResponse
+--             newListVPCAssociationAuthorizationsResponse
 --
 --         , responseListTrafficPolicyVersions $
---             listTrafficPolicyVersionsResponse
+--             newListTrafficPolicyVersionsResponse
 --
 --         , responseListTrafficPolicyInstancesByPolicy $
---             listTrafficPolicyInstancesByPolicyResponse
+--             newListTrafficPolicyInstancesByPolicyResponse
 --
 --         , responseListHealthChecks $
---             listHealthChecksResponse
+--             newListHealthChecksResponse
 --
 --         , responseDeleteHealthCheck $
---             deleteHealthCheckResponse
+--             newDeleteHealthCheckResponse
 --
 --         , responseCreateTrafficPolicyVersion $
---             createTrafficPolicyVersionResponse
+--             newCreateTrafficPolicyVersionResponse
 --
 --         , responseGetTrafficPolicy $
---             getTrafficPolicyResponse
+--             newGetTrafficPolicyResponse
 --
 --         , responseCreateVPCAssociationAuthorization $
---             createVPCAssociationAuthorizationResponse
+--             newCreateVPCAssociationAuthorizationResponse
 --
 --         , responseUpdateHealthCheck $
---             updateHealthCheckResponse
+--             newUpdateHealthCheckResponse
 --
 --         , responseCreateTrafficPolicyInstance $
---             createTrafficPolicyInstanceResponse
+--             newCreateTrafficPolicyInstanceResponse
 --
 --         , responseListHostedZonesByVPC $
---             listHostedZonesByVPCResponse
+--             newListHostedZonesByVPCResponse
 --
 --         , responseGetHealthCheckStatus $
---             getHealthCheckStatusResponse
+--             newGetHealthCheckStatusResponse
 --
 --         , responseGetChange $
---             getChangeResponse
+--             newGetChangeResponse
 --
 --         , responseUpdateHostedZoneComment $
---             updateHostedZoneCommentResponse
+--             newUpdateHostedZoneCommentResponse
 --
 --         , responseListTrafficPolicyInstances $
---             listTrafficPolicyInstancesResponse
+--             newListTrafficPolicyInstancesResponse
 --
 --         , responseDeleteTrafficPolicyInstance $
---             deleteTrafficPolicyInstanceResponse
+--             newDeleteTrafficPolicyInstanceResponse
 --
 --         , responseUpdateTrafficPolicyInstance $
---             updateTrafficPolicyInstanceResponse
+--             newUpdateTrafficPolicyInstanceResponse
 --
 --         , responseGetQueryLoggingConfig $
---             getQueryLoggingConfigResponse
+--             newGetQueryLoggingConfigResponse
 --
 --         , responseDeleteReusableDelegationSet $
---             deleteReusableDelegationSetResponse
+--             newDeleteReusableDelegationSetResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseDeleteQueryLoggingConfig $
---             deleteQueryLoggingConfigResponse
+--             newDeleteQueryLoggingConfigResponse
 --
 --         , responseGetHealthCheckLastFailureReason $
---             getHealthCheckLastFailureReasonResponse
+--             newGetHealthCheckLastFailureReasonResponse
 --
 --         , responseEnableHostedZoneDNSSEC $
---             enableHostedZoneDNSSECResponse
+--             newEnableHostedZoneDNSSECResponse
 --
 --         , responseListQueryLoggingConfigs $
---             listQueryLoggingConfigsResponse
+--             newListQueryLoggingConfigsResponse
 --
 --         , responseListHostedZonesByName $
---             listHostedZonesByNameResponse
+--             newListHostedZonesByNameResponse
 --
 --         , responseGetHostedZoneCount $
---             getHostedZoneCountResponse
+--             newGetHostedZoneCountResponse
 --
 --         , responseActivateKeySigningKey $
---             activateKeySigningKeyResponse
+--             newActivateKeySigningKeyResponse
 --
 --           ]
 --     ]
@@ -539,11 +539,11 @@ requestGetReusableDelegationSet =
     "GetReusableDelegationSet"
     "fixture/GetReusableDelegationSet.yaml"
 
-requestGetCheckerIPRanges :: GetCheckerIPRanges -> TestTree
-requestGetCheckerIPRanges =
+requestGetCheckerIpRanges :: GetCheckerIpRanges -> TestTree
+requestGetCheckerIpRanges =
   req
-    "GetCheckerIPRanges"
-    "fixture/GetCheckerIPRanges.yaml"
+    "GetCheckerIpRanges"
+    "fixture/GetCheckerIpRanges.yaml"
 
 requestGetDNSSEC :: GetDNSSEC -> TestTree
 requestGetDNSSEC =
@@ -810,7 +810,7 @@ responseCreateReusableDelegationSet =
   res
     "CreateReusableDelegationSetResponse"
     "fixture/CreateReusableDelegationSetResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateReusableDelegationSet)
 
 responseGetHealthCheckCount :: GetHealthCheckCountResponse -> TestTree
@@ -818,7 +818,7 @@ responseGetHealthCheckCount =
   res
     "GetHealthCheckCountResponse"
     "fixture/GetHealthCheckCountResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHealthCheckCount)
 
 responseGetHostedZoneLimit :: GetHostedZoneLimitResponse -> TestTree
@@ -826,7 +826,7 @@ responseGetHostedZoneLimit =
   res
     "GetHostedZoneLimitResponse"
     "fixture/GetHostedZoneLimitResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHostedZoneLimit)
 
 responseAssociateVPCWithHostedZone :: AssociateVPCWithHostedZoneResponse -> TestTree
@@ -834,7 +834,7 @@ responseAssociateVPCWithHostedZone =
   res
     "AssociateVPCWithHostedZoneResponse"
     "fixture/AssociateVPCWithHostedZoneResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy AssociateVPCWithHostedZone)
 
 responseListGeoLocations :: ListGeoLocationsResponse -> TestTree
@@ -842,7 +842,7 @@ responseListGeoLocations =
   res
     "ListGeoLocationsResponse"
     "fixture/ListGeoLocationsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListGeoLocations)
 
 responseListTrafficPolicies :: ListTrafficPoliciesResponse -> TestTree
@@ -850,7 +850,7 @@ responseListTrafficPolicies =
   res
     "ListTrafficPoliciesResponse"
     "fixture/ListTrafficPoliciesResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTrafficPolicies)
 
 responseCreateTrafficPolicy :: CreateTrafficPolicyResponse -> TestTree
@@ -858,7 +858,7 @@ responseCreateTrafficPolicy =
   res
     "CreateTrafficPolicyResponse"
     "fixture/CreateTrafficPolicyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateTrafficPolicy)
 
 responseDeleteHostedZone :: DeleteHostedZoneResponse -> TestTree
@@ -866,7 +866,7 @@ responseDeleteHostedZone =
   res
     "DeleteHostedZoneResponse"
     "fixture/DeleteHostedZoneResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteHostedZone)
 
 responseCreateHealthCheck :: CreateHealthCheckResponse -> TestTree
@@ -874,7 +874,7 @@ responseCreateHealthCheck =
   res
     "CreateHealthCheckResponse"
     "fixture/CreateHealthCheckResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateHealthCheck)
 
 responseDisassociateVPCFromHostedZone :: DisassociateVPCFromHostedZoneResponse -> TestTree
@@ -882,7 +882,7 @@ responseDisassociateVPCFromHostedZone =
   res
     "DisassociateVPCFromHostedZoneResponse"
     "fixture/DisassociateVPCFromHostedZoneResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DisassociateVPCFromHostedZone)
 
 responseChangeTagsForResource :: ChangeTagsForResourceResponse -> TestTree
@@ -890,7 +890,7 @@ responseChangeTagsForResource =
   res
     "ChangeTagsForResourceResponse"
     "fixture/ChangeTagsForResourceResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ChangeTagsForResource)
 
 responseGetGeoLocation :: GetGeoLocationResponse -> TestTree
@@ -898,7 +898,7 @@ responseGetGeoLocation =
   res
     "GetGeoLocationResponse"
     "fixture/GetGeoLocationResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetGeoLocation)
 
 responseDeleteVPCAssociationAuthorization :: DeleteVPCAssociationAuthorizationResponse -> TestTree
@@ -906,7 +906,7 @@ responseDeleteVPCAssociationAuthorization =
   res
     "DeleteVPCAssociationAuthorizationResponse"
     "fixture/DeleteVPCAssociationAuthorizationResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteVPCAssociationAuthorization)
 
 responseListHostedZones :: ListHostedZonesResponse -> TestTree
@@ -914,7 +914,7 @@ responseListHostedZones =
   res
     "ListHostedZonesResponse"
     "fixture/ListHostedZonesResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListHostedZones)
 
 responseDeactivateKeySigningKey :: DeactivateKeySigningKeyResponse -> TestTree
@@ -922,7 +922,7 @@ responseDeactivateKeySigningKey =
   res
     "DeactivateKeySigningKeyResponse"
     "fixture/DeactivateKeySigningKeyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeactivateKeySigningKey)
 
 responseTestDNSAnswer :: TestDNSAnswerResponse -> TestTree
@@ -930,7 +930,7 @@ responseTestDNSAnswer =
   res
     "TestDNSAnswerResponse"
     "fixture/TestDNSAnswerResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy TestDNSAnswer)
 
 responseCreateHostedZone :: CreateHostedZoneResponse -> TestTree
@@ -938,7 +938,7 @@ responseCreateHostedZone =
   res
     "CreateHostedZoneResponse"
     "fixture/CreateHostedZoneResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateHostedZone)
 
 responseGetReusableDelegationSetLimit :: GetReusableDelegationSetLimitResponse -> TestTree
@@ -946,7 +946,7 @@ responseGetReusableDelegationSetLimit =
   res
     "GetReusableDelegationSetLimitResponse"
     "fixture/GetReusableDelegationSetLimitResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetReusableDelegationSetLimit)
 
 responseChangeResourceRecordSets :: ChangeResourceRecordSetsResponse -> TestTree
@@ -954,7 +954,7 @@ responseChangeResourceRecordSets =
   res
     "ChangeResourceRecordSetsResponse"
     "fixture/ChangeResourceRecordSetsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ChangeResourceRecordSets)
 
 responseGetReusableDelegationSet :: GetReusableDelegationSetResponse -> TestTree
@@ -962,23 +962,23 @@ responseGetReusableDelegationSet =
   res
     "GetReusableDelegationSetResponse"
     "fixture/GetReusableDelegationSetResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetReusableDelegationSet)
 
-responseGetCheckerIPRanges :: GetCheckerIPRangesResponse -> TestTree
-responseGetCheckerIPRanges =
+responseGetCheckerIpRanges :: GetCheckerIpRangesResponse -> TestTree
+responseGetCheckerIpRanges =
   res
-    "GetCheckerIPRangesResponse"
-    "fixture/GetCheckerIPRangesResponse.proto"
-    route53
-    (Proxy :: Proxy GetCheckerIPRanges)
+    "GetCheckerIpRangesResponse"
+    "fixture/GetCheckerIpRangesResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetCheckerIpRanges)
 
 responseGetDNSSEC :: GetDNSSECResponse -> TestTree
 responseGetDNSSEC =
   res
     "GetDNSSECResponse"
     "fixture/GetDNSSECResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetDNSSEC)
 
 responseDeleteKeySigningKey :: DeleteKeySigningKeyResponse -> TestTree
@@ -986,7 +986,7 @@ responseDeleteKeySigningKey =
   res
     "DeleteKeySigningKeyResponse"
     "fixture/DeleteKeySigningKeyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteKeySigningKey)
 
 responseGetTrafficPolicyInstance :: GetTrafficPolicyInstanceResponse -> TestTree
@@ -994,7 +994,7 @@ responseGetTrafficPolicyInstance =
   res
     "GetTrafficPolicyInstanceResponse"
     "fixture/GetTrafficPolicyInstanceResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetTrafficPolicyInstance)
 
 responseListReusableDelegationSets :: ListReusableDelegationSetsResponse -> TestTree
@@ -1002,7 +1002,7 @@ responseListReusableDelegationSets =
   res
     "ListReusableDelegationSetsResponse"
     "fixture/ListReusableDelegationSetsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListReusableDelegationSets)
 
 responseGetAccountLimit :: GetAccountLimitResponse -> TestTree
@@ -1010,7 +1010,7 @@ responseGetAccountLimit =
   res
     "GetAccountLimitResponse"
     "fixture/GetAccountLimitResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetAccountLimit)
 
 responseCreateQueryLoggingConfig :: CreateQueryLoggingConfigResponse -> TestTree
@@ -1018,7 +1018,7 @@ responseCreateQueryLoggingConfig =
   res
     "CreateQueryLoggingConfigResponse"
     "fixture/CreateQueryLoggingConfigResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateQueryLoggingConfig)
 
 responseUpdateTrafficPolicyComment :: UpdateTrafficPolicyCommentResponse -> TestTree
@@ -1026,7 +1026,7 @@ responseUpdateTrafficPolicyComment =
   res
     "UpdateTrafficPolicyCommentResponse"
     "fixture/UpdateTrafficPolicyCommentResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy UpdateTrafficPolicyComment)
 
 responseCreateKeySigningKey :: CreateKeySigningKeyResponse -> TestTree
@@ -1034,7 +1034,7 @@ responseCreateKeySigningKey =
   res
     "CreateKeySigningKeyResponse"
     "fixture/CreateKeySigningKeyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateKeySigningKey)
 
 responseDisableHostedZoneDNSSEC :: DisableHostedZoneDNSSECResponse -> TestTree
@@ -1042,7 +1042,7 @@ responseDisableHostedZoneDNSSEC =
   res
     "DisableHostedZoneDNSSECResponse"
     "fixture/DisableHostedZoneDNSSECResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DisableHostedZoneDNSSEC)
 
 responseListResourceRecordSets :: ListResourceRecordSetsResponse -> TestTree
@@ -1050,7 +1050,7 @@ responseListResourceRecordSets =
   res
     "ListResourceRecordSetsResponse"
     "fixture/ListResourceRecordSetsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListResourceRecordSets)
 
 responseDeleteTrafficPolicy :: DeleteTrafficPolicyResponse -> TestTree
@@ -1058,7 +1058,7 @@ responseDeleteTrafficPolicy =
   res
     "DeleteTrafficPolicyResponse"
     "fixture/DeleteTrafficPolicyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteTrafficPolicy)
 
 responseGetHealthCheck :: GetHealthCheckResponse -> TestTree
@@ -1066,7 +1066,7 @@ responseGetHealthCheck =
   res
     "GetHealthCheckResponse"
     "fixture/GetHealthCheckResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHealthCheck)
 
 responseListTrafficPolicyInstancesByHostedZone :: ListTrafficPolicyInstancesByHostedZoneResponse -> TestTree
@@ -1074,7 +1074,7 @@ responseListTrafficPolicyInstancesByHostedZone =
   res
     "ListTrafficPolicyInstancesByHostedZoneResponse"
     "fixture/ListTrafficPolicyInstancesByHostedZoneResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTrafficPolicyInstancesByHostedZone)
 
 responseListTagsForResources :: ListTagsForResourcesResponse -> TestTree
@@ -1082,7 +1082,7 @@ responseListTagsForResources =
   res
     "ListTagsForResourcesResponse"
     "fixture/ListTagsForResourcesResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTagsForResources)
 
 responseGetTrafficPolicyInstanceCount :: GetTrafficPolicyInstanceCountResponse -> TestTree
@@ -1090,7 +1090,7 @@ responseGetTrafficPolicyInstanceCount =
   res
     "GetTrafficPolicyInstanceCountResponse"
     "fixture/GetTrafficPolicyInstanceCountResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetTrafficPolicyInstanceCount)
 
 responseGetHostedZone :: GetHostedZoneResponse -> TestTree
@@ -1098,7 +1098,7 @@ responseGetHostedZone =
   res
     "GetHostedZoneResponse"
     "fixture/GetHostedZoneResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHostedZone)
 
 responseListVPCAssociationAuthorizations :: ListVPCAssociationAuthorizationsResponse -> TestTree
@@ -1106,7 +1106,7 @@ responseListVPCAssociationAuthorizations =
   res
     "ListVPCAssociationAuthorizationsResponse"
     "fixture/ListVPCAssociationAuthorizationsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListVPCAssociationAuthorizations)
 
 responseListTrafficPolicyVersions :: ListTrafficPolicyVersionsResponse -> TestTree
@@ -1114,7 +1114,7 @@ responseListTrafficPolicyVersions =
   res
     "ListTrafficPolicyVersionsResponse"
     "fixture/ListTrafficPolicyVersionsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTrafficPolicyVersions)
 
 responseListTrafficPolicyInstancesByPolicy :: ListTrafficPolicyInstancesByPolicyResponse -> TestTree
@@ -1122,7 +1122,7 @@ responseListTrafficPolicyInstancesByPolicy =
   res
     "ListTrafficPolicyInstancesByPolicyResponse"
     "fixture/ListTrafficPolicyInstancesByPolicyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTrafficPolicyInstancesByPolicy)
 
 responseListHealthChecks :: ListHealthChecksResponse -> TestTree
@@ -1130,7 +1130,7 @@ responseListHealthChecks =
   res
     "ListHealthChecksResponse"
     "fixture/ListHealthChecksResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListHealthChecks)
 
 responseDeleteHealthCheck :: DeleteHealthCheckResponse -> TestTree
@@ -1138,7 +1138,7 @@ responseDeleteHealthCheck =
   res
     "DeleteHealthCheckResponse"
     "fixture/DeleteHealthCheckResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteHealthCheck)
 
 responseCreateTrafficPolicyVersion :: CreateTrafficPolicyVersionResponse -> TestTree
@@ -1146,7 +1146,7 @@ responseCreateTrafficPolicyVersion =
   res
     "CreateTrafficPolicyVersionResponse"
     "fixture/CreateTrafficPolicyVersionResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateTrafficPolicyVersion)
 
 responseGetTrafficPolicy :: GetTrafficPolicyResponse -> TestTree
@@ -1154,7 +1154,7 @@ responseGetTrafficPolicy =
   res
     "GetTrafficPolicyResponse"
     "fixture/GetTrafficPolicyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetTrafficPolicy)
 
 responseCreateVPCAssociationAuthorization :: CreateVPCAssociationAuthorizationResponse -> TestTree
@@ -1162,7 +1162,7 @@ responseCreateVPCAssociationAuthorization =
   res
     "CreateVPCAssociationAuthorizationResponse"
     "fixture/CreateVPCAssociationAuthorizationResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateVPCAssociationAuthorization)
 
 responseUpdateHealthCheck :: UpdateHealthCheckResponse -> TestTree
@@ -1170,7 +1170,7 @@ responseUpdateHealthCheck =
   res
     "UpdateHealthCheckResponse"
     "fixture/UpdateHealthCheckResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy UpdateHealthCheck)
 
 responseCreateTrafficPolicyInstance :: CreateTrafficPolicyInstanceResponse -> TestTree
@@ -1178,7 +1178,7 @@ responseCreateTrafficPolicyInstance =
   res
     "CreateTrafficPolicyInstanceResponse"
     "fixture/CreateTrafficPolicyInstanceResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy CreateTrafficPolicyInstance)
 
 responseListHostedZonesByVPC :: ListHostedZonesByVPCResponse -> TestTree
@@ -1186,7 +1186,7 @@ responseListHostedZonesByVPC =
   res
     "ListHostedZonesByVPCResponse"
     "fixture/ListHostedZonesByVPCResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListHostedZonesByVPC)
 
 responseGetHealthCheckStatus :: GetHealthCheckStatusResponse -> TestTree
@@ -1194,7 +1194,7 @@ responseGetHealthCheckStatus =
   res
     "GetHealthCheckStatusResponse"
     "fixture/GetHealthCheckStatusResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHealthCheckStatus)
 
 responseGetChange :: GetChangeResponse -> TestTree
@@ -1202,7 +1202,7 @@ responseGetChange =
   res
     "GetChangeResponse"
     "fixture/GetChangeResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetChange)
 
 responseUpdateHostedZoneComment :: UpdateHostedZoneCommentResponse -> TestTree
@@ -1210,7 +1210,7 @@ responseUpdateHostedZoneComment =
   res
     "UpdateHostedZoneCommentResponse"
     "fixture/UpdateHostedZoneCommentResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy UpdateHostedZoneComment)
 
 responseListTrafficPolicyInstances :: ListTrafficPolicyInstancesResponse -> TestTree
@@ -1218,7 +1218,7 @@ responseListTrafficPolicyInstances =
   res
     "ListTrafficPolicyInstancesResponse"
     "fixture/ListTrafficPolicyInstancesResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTrafficPolicyInstances)
 
 responseDeleteTrafficPolicyInstance :: DeleteTrafficPolicyInstanceResponse -> TestTree
@@ -1226,7 +1226,7 @@ responseDeleteTrafficPolicyInstance =
   res
     "DeleteTrafficPolicyInstanceResponse"
     "fixture/DeleteTrafficPolicyInstanceResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteTrafficPolicyInstance)
 
 responseUpdateTrafficPolicyInstance :: UpdateTrafficPolicyInstanceResponse -> TestTree
@@ -1234,7 +1234,7 @@ responseUpdateTrafficPolicyInstance =
   res
     "UpdateTrafficPolicyInstanceResponse"
     "fixture/UpdateTrafficPolicyInstanceResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy UpdateTrafficPolicyInstance)
 
 responseGetQueryLoggingConfig :: GetQueryLoggingConfigResponse -> TestTree
@@ -1242,7 +1242,7 @@ responseGetQueryLoggingConfig =
   res
     "GetQueryLoggingConfigResponse"
     "fixture/GetQueryLoggingConfigResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetQueryLoggingConfig)
 
 responseDeleteReusableDelegationSet :: DeleteReusableDelegationSetResponse -> TestTree
@@ -1250,7 +1250,7 @@ responseDeleteReusableDelegationSet =
   res
     "DeleteReusableDelegationSetResponse"
     "fixture/DeleteReusableDelegationSetResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteReusableDelegationSet)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -1258,7 +1258,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseDeleteQueryLoggingConfig :: DeleteQueryLoggingConfigResponse -> TestTree
@@ -1266,7 +1266,7 @@ responseDeleteQueryLoggingConfig =
   res
     "DeleteQueryLoggingConfigResponse"
     "fixture/DeleteQueryLoggingConfigResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy DeleteQueryLoggingConfig)
 
 responseGetHealthCheckLastFailureReason :: GetHealthCheckLastFailureReasonResponse -> TestTree
@@ -1274,7 +1274,7 @@ responseGetHealthCheckLastFailureReason =
   res
     "GetHealthCheckLastFailureReasonResponse"
     "fixture/GetHealthCheckLastFailureReasonResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHealthCheckLastFailureReason)
 
 responseEnableHostedZoneDNSSEC :: EnableHostedZoneDNSSECResponse -> TestTree
@@ -1282,7 +1282,7 @@ responseEnableHostedZoneDNSSEC =
   res
     "EnableHostedZoneDNSSECResponse"
     "fixture/EnableHostedZoneDNSSECResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy EnableHostedZoneDNSSEC)
 
 responseListQueryLoggingConfigs :: ListQueryLoggingConfigsResponse -> TestTree
@@ -1290,7 +1290,7 @@ responseListQueryLoggingConfigs =
   res
     "ListQueryLoggingConfigsResponse"
     "fixture/ListQueryLoggingConfigsResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListQueryLoggingConfigs)
 
 responseListHostedZonesByName :: ListHostedZonesByNameResponse -> TestTree
@@ -1298,7 +1298,7 @@ responseListHostedZonesByName =
   res
     "ListHostedZonesByNameResponse"
     "fixture/ListHostedZonesByNameResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ListHostedZonesByName)
 
 responseGetHostedZoneCount :: GetHostedZoneCountResponse -> TestTree
@@ -1306,7 +1306,7 @@ responseGetHostedZoneCount =
   res
     "GetHostedZoneCountResponse"
     "fixture/GetHostedZoneCountResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy GetHostedZoneCount)
 
 responseActivateKeySigningKey :: ActivateKeySigningKeyResponse -> TestTree
@@ -1314,5 +1314,5 @@ responseActivateKeySigningKey =
   res
     "ActivateKeySigningKeyResponse"
     "fixture/ActivateKeySigningKeyResponse.proto"
-    route53
+    defaultService
     (Proxy :: Proxy ActivateKeySigningKey)

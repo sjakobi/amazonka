@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,142 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about DNSSEC for a specific hosted zone, including the key-signing keys (KSKs) in the hosted zone.
+-- Returns information about DNSSEC for a specific hosted zone, including
+-- the key-signing keys (KSKs) in the hosted zone.
 module Network.AWS.Route53.GetDNSSEC
   ( -- * Creating a Request
-    getDNSSEC,
-    GetDNSSEC,
+    GetDNSSEC (..),
+    newGetDNSSEC,
 
     -- * Request Lenses
-    gdsecHostedZoneId,
+    getDNSSEC_hostedZoneId,
 
     -- * Destructuring the Response
-    getDNSSECResponse,
-    GetDNSSECResponse,
+    GetDNSSECResponse (..),
+    newGetDNSSECResponse,
 
     -- * Response Lenses
-    gdsecrrsResponseStatus,
-    gdsecrrsStatus,
-    gdsecrrsKeySigningKeys,
+    getDNSSECResponse_httpStatus,
+    getDNSSECResponse_status,
+    getDNSSECResponse_keySigningKeys,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.DNSSECStatus
+import Network.AWS.Route53.Types.KeySigningKey
 
--- | /See:/ 'getDNSSEC' smart constructor.
-newtype GetDNSSEC = GetDNSSEC'
-  { _gdsecHostedZoneId ::
-      ResourceId
+-- | /See:/ 'newGetDNSSEC' smart constructor.
+data GetDNSSEC = GetDNSSEC'
+  { -- | A unique string used to identify a hosted zone.
+    hostedZoneId :: ResourceId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDNSSEC' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDNSSEC' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsecHostedZoneId' - A unique string used to identify a hosted zone.
-getDNSSEC ::
-  -- | 'gdsecHostedZoneId'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'hostedZoneId', 'getDNSSEC_hostedZoneId' - A unique string used to identify a hosted zone.
+newGetDNSSEC ::
+  -- | 'hostedZoneId'
   ResourceId ->
   GetDNSSEC
-getDNSSEC pHostedZoneId_ =
-  GetDNSSEC' {_gdsecHostedZoneId = pHostedZoneId_}
+newGetDNSSEC pHostedZoneId_ =
+  GetDNSSEC' {hostedZoneId = pHostedZoneId_}
 
 -- | A unique string used to identify a hosted zone.
-gdsecHostedZoneId :: Lens' GetDNSSEC ResourceId
-gdsecHostedZoneId = lens _gdsecHostedZoneId (\s a -> s {_gdsecHostedZoneId = a})
+getDNSSEC_hostedZoneId :: Lens.Lens' GetDNSSEC ResourceId
+getDNSSEC_hostedZoneId = Lens.lens (\GetDNSSEC' {hostedZoneId} -> hostedZoneId) (\s@GetDNSSEC' {} a -> s {hostedZoneId = a} :: GetDNSSEC)
 
-instance AWSRequest GetDNSSEC where
+instance Prelude.AWSRequest GetDNSSEC where
   type Rs GetDNSSEC = GetDNSSECResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetDNSSECResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "Status")
-            <*> ( x .@? "KeySigningKeys" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Status")
+            Prelude.<*> ( x Prelude..@? "KeySigningKeys"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable GetDNSSEC
+instance Prelude.Hashable GetDNSSEC
 
-instance NFData GetDNSSEC
+instance Prelude.NFData GetDNSSEC
 
-instance ToHeaders GetDNSSEC where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetDNSSEC where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetDNSSEC where
+instance Prelude.ToPath GetDNSSEC where
   toPath GetDNSSEC' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        toBS _gdsecHostedZoneId,
+        Prelude.toBS hostedZoneId,
         "/dnssec"
       ]
 
-instance ToQuery GetDNSSEC where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDNSSEC where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDNSSECResponse' smart constructor.
+-- | /See:/ 'newGetDNSSECResponse' smart constructor.
 data GetDNSSECResponse = GetDNSSECResponse'
-  { _gdsecrrsResponseStatus ::
-      !Int,
-    _gdsecrrsStatus :: !DNSSECStatus,
-    _gdsecrrsKeySigningKeys ::
-      ![KeySigningKey]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A string repesenting the status of DNSSEC.
+    status :: DNSSECStatus,
+    -- | The key-signing keys (KSKs) in your account.
+    keySigningKeys :: [KeySigningKey]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDNSSECResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDNSSECResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdsecrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdsecrrsStatus' - A string repesenting the status of DNSSEC.
+-- 'httpStatus', 'getDNSSECResponse_httpStatus' - The response's http status code.
 --
--- * 'gdsecrrsKeySigningKeys' - The key-signing keys (KSKs) in your account.
-getDNSSECResponse ::
-  -- | 'gdsecrrsResponseStatus'
-  Int ->
-  -- | 'gdsecrrsStatus'
+-- 'status', 'getDNSSECResponse_status' - A string repesenting the status of DNSSEC.
+--
+-- 'keySigningKeys', 'getDNSSECResponse_keySigningKeys' - The key-signing keys (KSKs) in your account.
+newGetDNSSECResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'status'
   DNSSECStatus ->
   GetDNSSECResponse
-getDNSSECResponse pResponseStatus_ pStatus_ =
+newGetDNSSECResponse pHttpStatus_ pStatus_ =
   GetDNSSECResponse'
-    { _gdsecrrsResponseStatus =
-        pResponseStatus_,
-      _gdsecrrsStatus = pStatus_,
-      _gdsecrrsKeySigningKeys = mempty
+    { httpStatus = pHttpStatus_,
+      status = pStatus_,
+      keySigningKeys = Prelude.mempty
     }
 
--- | -- | The response status code.
-gdsecrrsResponseStatus :: Lens' GetDNSSECResponse Int
-gdsecrrsResponseStatus = lens _gdsecrrsResponseStatus (\s a -> s {_gdsecrrsResponseStatus = a})
+-- | The response's http status code.
+getDNSSECResponse_httpStatus :: Lens.Lens' GetDNSSECResponse Prelude.Int
+getDNSSECResponse_httpStatus = Lens.lens (\GetDNSSECResponse' {httpStatus} -> httpStatus) (\s@GetDNSSECResponse' {} a -> s {httpStatus = a} :: GetDNSSECResponse)
 
 -- | A string repesenting the status of DNSSEC.
-gdsecrrsStatus :: Lens' GetDNSSECResponse DNSSECStatus
-gdsecrrsStatus = lens _gdsecrrsStatus (\s a -> s {_gdsecrrsStatus = a})
+getDNSSECResponse_status :: Lens.Lens' GetDNSSECResponse DNSSECStatus
+getDNSSECResponse_status = Lens.lens (\GetDNSSECResponse' {status} -> status) (\s@GetDNSSECResponse' {} a -> s {status = a} :: GetDNSSECResponse)
 
 -- | The key-signing keys (KSKs) in your account.
-gdsecrrsKeySigningKeys :: Lens' GetDNSSECResponse [KeySigningKey]
-gdsecrrsKeySigningKeys = lens _gdsecrrsKeySigningKeys (\s a -> s {_gdsecrrsKeySigningKeys = a}) . _Coerce
+getDNSSECResponse_keySigningKeys :: Lens.Lens' GetDNSSECResponse [KeySigningKey]
+getDNSSECResponse_keySigningKeys = Lens.lens (\GetDNSSECResponse' {keySigningKeys} -> keySigningKeys) (\s@GetDNSSECResponse' {} a -> s {keySigningKeys = a} :: GetDNSSECResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetDNSSECResponse
+instance Prelude.NFData GetDNSSECResponse

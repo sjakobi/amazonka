@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.Route53.Types.Statistic
   ( Statistic
       ( ..,
-        Average,
-        Maximum,
-        Minimum,
-        SampleCount,
-        Sum
+        StatisticAverage,
+        StatisticMaximum,
+        StatisticMinimum,
+        StatisticSampleCount,
+        StatisticSum
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data Statistic = Statistic' (CI Text)
+newtype Statistic = Statistic'
+  { fromStatistic ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Average :: Statistic
-pattern Average = Statistic' "Average"
+pattern StatisticAverage :: Statistic
+pattern StatisticAverage = Statistic' "Average"
 
-pattern Maximum :: Statistic
-pattern Maximum = Statistic' "Maximum"
+pattern StatisticMaximum :: Statistic
+pattern StatisticMaximum = Statistic' "Maximum"
 
-pattern Minimum :: Statistic
-pattern Minimum = Statistic' "Minimum"
+pattern StatisticMinimum :: Statistic
+pattern StatisticMinimum = Statistic' "Minimum"
 
-pattern SampleCount :: Statistic
-pattern SampleCount = Statistic' "SampleCount"
+pattern StatisticSampleCount :: Statistic
+pattern StatisticSampleCount = Statistic' "SampleCount"
 
-pattern Sum :: Statistic
-pattern Sum = Statistic' "Sum"
+pattern StatisticSum :: Statistic
+pattern StatisticSum = Statistic' "Sum"
 
 {-# COMPLETE
-  Average,
-  Maximum,
-  Minimum,
-  SampleCount,
-  Sum,
+  StatisticAverage,
+  StatisticMaximum,
+  StatisticMinimum,
+  StatisticSampleCount,
+  StatisticSum,
   Statistic'
   #-}
 
-instance FromText Statistic where
-  parser = (Statistic' . mk) <$> takeText
+instance Prelude.FromText Statistic where
+  parser = Statistic' Prelude.<$> Prelude.takeText
 
-instance ToText Statistic where
-  toText (Statistic' ci) = original ci
+instance Prelude.ToText Statistic where
+  toText (Statistic' x) = x
 
-instance Hashable Statistic
+instance Prelude.Hashable Statistic
 
-instance NFData Statistic
+instance Prelude.NFData Statistic
 
-instance ToByteString Statistic
+instance Prelude.ToByteString Statistic
 
-instance ToQuery Statistic
+instance Prelude.ToQuery Statistic
 
-instance ToHeader Statistic
+instance Prelude.ToHeader Statistic
 
-instance FromXML Statistic where
-  parseXML = parseXMLText "Statistic"
+instance Prelude.FromXML Statistic where
+  parseXML = Prelude.parseXMLText "Statistic"

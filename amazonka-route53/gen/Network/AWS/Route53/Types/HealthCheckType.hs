@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,84 @@
 module Network.AWS.Route53.Types.HealthCheckType
   ( HealthCheckType
       ( ..,
-        Calculated,
-        CloudwatchMetric,
-        HTTP,
-        HTTPS,
-        HTTPSStrMatch,
-        HTTPStrMatch,
-        TCP
+        HealthCheckTypeCALCULATED,
+        HealthCheckTypeCLOUDWATCHMETRIC,
+        HealthCheckTypeHTTP,
+        HealthCheckTypeHTTPS,
+        HealthCheckTypeHTTPSSTRMATCH,
+        HealthCheckTypeHTTPSTRMATCH,
+        HealthCheckTypeTCP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data HealthCheckType = HealthCheckType' (CI Text)
+newtype HealthCheckType = HealthCheckType'
+  { fromHealthCheckType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Calculated :: HealthCheckType
-pattern Calculated = HealthCheckType' "CALCULATED"
+pattern HealthCheckTypeCALCULATED :: HealthCheckType
+pattern HealthCheckTypeCALCULATED = HealthCheckType' "CALCULATED"
 
-pattern CloudwatchMetric :: HealthCheckType
-pattern CloudwatchMetric = HealthCheckType' "CLOUDWATCH_METRIC"
+pattern HealthCheckTypeCLOUDWATCHMETRIC :: HealthCheckType
+pattern HealthCheckTypeCLOUDWATCHMETRIC = HealthCheckType' "CLOUDWATCH_METRIC"
 
-pattern HTTP :: HealthCheckType
-pattern HTTP = HealthCheckType' "HTTP"
+pattern HealthCheckTypeHTTP :: HealthCheckType
+pattern HealthCheckTypeHTTP = HealthCheckType' "HTTP"
 
-pattern HTTPS :: HealthCheckType
-pattern HTTPS = HealthCheckType' "HTTPS"
+pattern HealthCheckTypeHTTPS :: HealthCheckType
+pattern HealthCheckTypeHTTPS = HealthCheckType' "HTTPS"
 
-pattern HTTPSStrMatch :: HealthCheckType
-pattern HTTPSStrMatch = HealthCheckType' "HTTPS_STR_MATCH"
+pattern HealthCheckTypeHTTPSSTRMATCH :: HealthCheckType
+pattern HealthCheckTypeHTTPSSTRMATCH = HealthCheckType' "HTTPS_STR_MATCH"
 
-pattern HTTPStrMatch :: HealthCheckType
-pattern HTTPStrMatch = HealthCheckType' "HTTP_STR_MATCH"
+pattern HealthCheckTypeHTTPSTRMATCH :: HealthCheckType
+pattern HealthCheckTypeHTTPSTRMATCH = HealthCheckType' "HTTP_STR_MATCH"
 
-pattern TCP :: HealthCheckType
-pattern TCP = HealthCheckType' "TCP"
+pattern HealthCheckTypeTCP :: HealthCheckType
+pattern HealthCheckTypeTCP = HealthCheckType' "TCP"
 
 {-# COMPLETE
-  Calculated,
-  CloudwatchMetric,
-  HTTP,
-  HTTPS,
-  HTTPSStrMatch,
-  HTTPStrMatch,
-  TCP,
+  HealthCheckTypeCALCULATED,
+  HealthCheckTypeCLOUDWATCHMETRIC,
+  HealthCheckTypeHTTP,
+  HealthCheckTypeHTTPS,
+  HealthCheckTypeHTTPSSTRMATCH,
+  HealthCheckTypeHTTPSTRMATCH,
+  HealthCheckTypeTCP,
   HealthCheckType'
   #-}
 
-instance FromText HealthCheckType where
-  parser = (HealthCheckType' . mk) <$> takeText
+instance Prelude.FromText HealthCheckType where
+  parser = HealthCheckType' Prelude.<$> Prelude.takeText
 
-instance ToText HealthCheckType where
-  toText (HealthCheckType' ci) = original ci
+instance Prelude.ToText HealthCheckType where
+  toText (HealthCheckType' x) = x
 
-instance Hashable HealthCheckType
+instance Prelude.Hashable HealthCheckType
 
-instance NFData HealthCheckType
+instance Prelude.NFData HealthCheckType
 
-instance ToByteString HealthCheckType
+instance Prelude.ToByteString HealthCheckType
 
-instance ToQuery HealthCheckType
+instance Prelude.ToQuery HealthCheckType
 
-instance ToHeader HealthCheckType
+instance Prelude.ToHeader HealthCheckType
 
-instance FromXML HealthCheckType where
-  parseXML = parseXMLText "HealthCheckType"
+instance Prelude.FromXML HealthCheckType where
+  parseXML = Prelude.parseXMLText "HealthCheckType"
 
-instance ToXML HealthCheckType where
-  toXML = toXMLText
+instance Prelude.ToXML HealthCheckType where
+  toXML = Prelude.toXMLText

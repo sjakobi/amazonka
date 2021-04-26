@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,243 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a delegation set (a group of four name servers) that can be reused by multiple hosted zones that were created by the same AWS account.
+-- Creates a delegation set (a group of four name servers) that can be
+-- reused by multiple hosted zones that were created by the same AWS
+-- account.
 --
+-- You can also create a reusable delegation set that uses the four name
+-- servers that are associated with an existing hosted zone. Specify the
+-- hosted zone ID in the @CreateReusableDelegationSet@ request.
 --
--- You can also create a reusable delegation set that uses the four name servers that are associated with an existing hosted zone. Specify the hosted zone ID in the @CreateReusableDelegationSet@ request.
+-- You can\'t associate a reusable delegation set with a private hosted
+-- zone.
 --
--- For information about using a reusable delegation set to configure white label name servers, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html Configuring White Label Name Servers> .
+-- For information about using a reusable delegation set to configure white
+-- label name servers, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html Configuring White Label Name Servers>.
 --
--- The process for migrating existing hosted zones to use a reusable delegation set is comparable to the process for configuring white label name servers. You need to perform the following steps:
+-- The process for migrating existing hosted zones to use a reusable
+-- delegation set is comparable to the process for configuring white label
+-- name servers. You need to perform the following steps:
 --
---     * Create a reusable delegation set.
+-- 1.  Create a reusable delegation set.
 --
---     * Recreate hosted zones, and reduce the TTL to 60 seconds or less.
+-- 2.  Recreate hosted zones, and reduce the TTL to 60 seconds or less.
 --
---     * Recreate resource record sets in the new hosted zones.
+-- 3.  Recreate resource record sets in the new hosted zones.
 --
---     * Change the registrar's name servers to use the name servers for the new hosted zones.
+-- 4.  Change the registrar\'s name servers to use the name servers for the
+--     new hosted zones.
 --
---     * Monitor traffic for the website or application.
+-- 5.  Monitor traffic for the website or application.
 --
---     * Change TTLs back to their original values.
+-- 6.  Change TTLs back to their original values.
 --
+-- If you want to migrate existing hosted zones to use a reusable
+-- delegation set, the existing hosted zones can\'t use any of the name
+-- servers that are assigned to the reusable delegation set. If one or more
+-- hosted zones do use one or more name servers that are assigned to the
+-- reusable delegation set, you can do one of the following:
 --
+-- -   For small numbers of hosted zones—up to a few hundred—it\'s
+--     relatively easy to create reusable delegation sets until you get one
+--     that has four name servers that don\'t overlap with any of the name
+--     servers in your hosted zones.
 --
--- If you want to migrate existing hosted zones to use a reusable delegation set, the existing hosted zones can't use any of the name servers that are assigned to the reusable delegation set. If one or more hosted zones do use one or more name servers that are assigned to the reusable delegation set, you can do one of the following:
+-- -   For larger numbers of hosted zones, the easiest solution is to use
+--     more than one reusable delegation set.
 --
---     * For small numbers of hosted zones—up to a few hundred—it's relatively easy to create reusable delegation sets until you get one that has four name servers that don't overlap with any of the name servers in your hosted zones.
---
---     * For larger numbers of hosted zones, the easiest solution is to use more than one reusable delegation set.
---
---     * For larger numbers of hosted zones, you can also migrate hosted zones that have overlapping name servers to hosted zones that don't have overlapping name servers, then migrate the hosted zones again to use the reusable delegation set.
+-- -   For larger numbers of hosted zones, you can also migrate hosted
+--     zones that have overlapping name servers to hosted zones that don\'t
+--     have overlapping name servers, then migrate the hosted zones again
+--     to use the reusable delegation set.
 module Network.AWS.Route53.CreateReusableDelegationSet
   ( -- * Creating a Request
-    createReusableDelegationSet,
-    CreateReusableDelegationSet,
+    CreateReusableDelegationSet (..),
+    newCreateReusableDelegationSet,
 
     -- * Request Lenses
-    crdsHostedZoneId,
-    crdsCallerReference,
+    createReusableDelegationSet_hostedZoneId,
+    createReusableDelegationSet_callerReference,
 
     -- * Destructuring the Response
-    createReusableDelegationSetResponse,
-    CreateReusableDelegationSetResponse,
+    CreateReusableDelegationSetResponse (..),
+    newCreateReusableDelegationSetResponse,
 
     -- * Response Lenses
-    crdsrrsResponseStatus,
-    crdsrrsDelegationSet,
-    crdsrrsLocation,
+    createReusableDelegationSetResponse_httpStatus,
+    createReusableDelegationSetResponse_delegationSet,
+    createReusableDelegationSetResponse_location,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.DelegationSet
 
--- | /See:/ 'createReusableDelegationSet' smart constructor.
+-- | /See:/ 'newCreateReusableDelegationSet' smart constructor.
 data CreateReusableDelegationSet = CreateReusableDelegationSet'
-  { _crdsHostedZoneId ::
-      !( Maybe
-           ResourceId
-       ),
-    _crdsCallerReference ::
-      !Text
+  { -- | If you want to mark the delegation set for an existing hosted zone as
+    -- reusable, the ID for that hosted zone.
+    hostedZoneId :: Prelude.Maybe ResourceId,
+    -- | A unique string that identifies the request, and that allows you to
+    -- retry failed @CreateReusableDelegationSet@ requests without the risk of
+    -- executing the operation twice. You must use a unique @CallerReference@
+    -- string every time you submit a @CreateReusableDelegationSet@ request.
+    -- @CallerReference@ can be any unique string, for example a date\/time
+    -- stamp.
+    callerReference :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReusableDelegationSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReusableDelegationSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crdsHostedZoneId' - If you want to mark the delegation set for an existing hosted zone as reusable, the ID for that hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crdsCallerReference' - A unique string that identifies the request, and that allows you to retry failed @CreateReusableDelegationSet@ requests without the risk of executing the operation twice. You must use a unique @CallerReference@ string every time you submit a @CreateReusableDelegationSet@ request. @CallerReference@ can be any unique string, for example a date/time stamp.
-createReusableDelegationSet ::
-  -- | 'crdsCallerReference'
-  Text ->
+-- 'hostedZoneId', 'createReusableDelegationSet_hostedZoneId' - If you want to mark the delegation set for an existing hosted zone as
+-- reusable, the ID for that hosted zone.
+--
+-- 'callerReference', 'createReusableDelegationSet_callerReference' - A unique string that identifies the request, and that allows you to
+-- retry failed @CreateReusableDelegationSet@ requests without the risk of
+-- executing the operation twice. You must use a unique @CallerReference@
+-- string every time you submit a @CreateReusableDelegationSet@ request.
+-- @CallerReference@ can be any unique string, for example a date\/time
+-- stamp.
+newCreateReusableDelegationSet ::
+  -- | 'callerReference'
+  Prelude.Text ->
   CreateReusableDelegationSet
-createReusableDelegationSet pCallerReference_ =
+newCreateReusableDelegationSet pCallerReference_ =
   CreateReusableDelegationSet'
-    { _crdsHostedZoneId =
-        Nothing,
-      _crdsCallerReference = pCallerReference_
+    { hostedZoneId =
+        Prelude.Nothing,
+      callerReference = pCallerReference_
     }
 
--- | If you want to mark the delegation set for an existing hosted zone as reusable, the ID for that hosted zone.
-crdsHostedZoneId :: Lens' CreateReusableDelegationSet (Maybe ResourceId)
-crdsHostedZoneId = lens _crdsHostedZoneId (\s a -> s {_crdsHostedZoneId = a})
+-- | If you want to mark the delegation set for an existing hosted zone as
+-- reusable, the ID for that hosted zone.
+createReusableDelegationSet_hostedZoneId :: Lens.Lens' CreateReusableDelegationSet (Prelude.Maybe ResourceId)
+createReusableDelegationSet_hostedZoneId = Lens.lens (\CreateReusableDelegationSet' {hostedZoneId} -> hostedZoneId) (\s@CreateReusableDelegationSet' {} a -> s {hostedZoneId = a} :: CreateReusableDelegationSet)
 
--- | A unique string that identifies the request, and that allows you to retry failed @CreateReusableDelegationSet@ requests without the risk of executing the operation twice. You must use a unique @CallerReference@ string every time you submit a @CreateReusableDelegationSet@ request. @CallerReference@ can be any unique string, for example a date/time stamp.
-crdsCallerReference :: Lens' CreateReusableDelegationSet Text
-crdsCallerReference = lens _crdsCallerReference (\s a -> s {_crdsCallerReference = a})
+-- | A unique string that identifies the request, and that allows you to
+-- retry failed @CreateReusableDelegationSet@ requests without the risk of
+-- executing the operation twice. You must use a unique @CallerReference@
+-- string every time you submit a @CreateReusableDelegationSet@ request.
+-- @CallerReference@ can be any unique string, for example a date\/time
+-- stamp.
+createReusableDelegationSet_callerReference :: Lens.Lens' CreateReusableDelegationSet Prelude.Text
+createReusableDelegationSet_callerReference = Lens.lens (\CreateReusableDelegationSet' {callerReference} -> callerReference) (\s@CreateReusableDelegationSet' {} a -> s {callerReference = a} :: CreateReusableDelegationSet)
 
-instance AWSRequest CreateReusableDelegationSet where
+instance
+  Prelude.AWSRequest
+    CreateReusableDelegationSet
+  where
   type
     Rs CreateReusableDelegationSet =
       CreateReusableDelegationSetResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateReusableDelegationSetResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "DelegationSet")
-            <*> (h .# "Location")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "DelegationSet")
+            Prelude.<*> (h Prelude..# "Location")
       )
 
-instance Hashable CreateReusableDelegationSet
+instance Prelude.Hashable CreateReusableDelegationSet
 
-instance NFData CreateReusableDelegationSet
+instance Prelude.NFData CreateReusableDelegationSet
 
-instance ToElement CreateReusableDelegationSet where
+instance
+  Prelude.ToElement
+    CreateReusableDelegationSet
+  where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}CreateReusableDelegationSetRequest"
 
-instance ToHeaders CreateReusableDelegationSet where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateReusableDelegationSet
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateReusableDelegationSet where
-  toPath = const "/2013-04-01/delegationset"
+instance Prelude.ToPath CreateReusableDelegationSet where
+  toPath = Prelude.const "/2013-04-01/delegationset"
 
-instance ToQuery CreateReusableDelegationSet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateReusableDelegationSet where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML CreateReusableDelegationSet where
+instance Prelude.ToXML CreateReusableDelegationSet where
   toXML CreateReusableDelegationSet' {..} =
-    mconcat
-      [ "HostedZoneId" @= _crdsHostedZoneId,
-        "CallerReference" @= _crdsCallerReference
+    Prelude.mconcat
+      [ "HostedZoneId" Prelude.@= hostedZoneId,
+        "CallerReference" Prelude.@= callerReference
       ]
 
--- | /See:/ 'createReusableDelegationSetResponse' smart constructor.
+-- | /See:/ 'newCreateReusableDelegationSetResponse' smart constructor.
 data CreateReusableDelegationSetResponse = CreateReusableDelegationSetResponse'
-  { _crdsrrsResponseStatus ::
-      !Int,
-    _crdsrrsDelegationSet ::
-      !DelegationSet,
-    _crdsrrsLocation ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains name server information.
+    delegationSet :: DelegationSet,
+    -- | The unique URL representing the new reusable delegation set.
+    location :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReusableDelegationSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReusableDelegationSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crdsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crdsrrsDelegationSet' - A complex type that contains name server information.
+-- 'httpStatus', 'createReusableDelegationSetResponse_httpStatus' - The response's http status code.
 --
--- * 'crdsrrsLocation' - The unique URL representing the new reusable delegation set.
-createReusableDelegationSetResponse ::
-  -- | 'crdsrrsResponseStatus'
-  Int ->
-  -- | 'crdsrrsDelegationSet'
+-- 'delegationSet', 'createReusableDelegationSetResponse_delegationSet' - A complex type that contains name server information.
+--
+-- 'location', 'createReusableDelegationSetResponse_location' - The unique URL representing the new reusable delegation set.
+newCreateReusableDelegationSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'delegationSet'
   DelegationSet ->
-  -- | 'crdsrrsLocation'
-  Text ->
+  -- | 'location'
+  Prelude.Text ->
   CreateReusableDelegationSetResponse
-createReusableDelegationSetResponse
-  pResponseStatus_
+newCreateReusableDelegationSetResponse
+  pHttpStatus_
   pDelegationSet_
   pLocation_ =
     CreateReusableDelegationSetResponse'
-      { _crdsrrsResponseStatus =
-          pResponseStatus_,
-        _crdsrrsDelegationSet =
-          pDelegationSet_,
-        _crdsrrsLocation = pLocation_
+      { httpStatus =
+          pHttpStatus_,
+        delegationSet = pDelegationSet_,
+        location = pLocation_
       }
 
--- | -- | The response status code.
-crdsrrsResponseStatus :: Lens' CreateReusableDelegationSetResponse Int
-crdsrrsResponseStatus = lens _crdsrrsResponseStatus (\s a -> s {_crdsrrsResponseStatus = a})
+-- | The response's http status code.
+createReusableDelegationSetResponse_httpStatus :: Lens.Lens' CreateReusableDelegationSetResponse Prelude.Int
+createReusableDelegationSetResponse_httpStatus = Lens.lens (\CreateReusableDelegationSetResponse' {httpStatus} -> httpStatus) (\s@CreateReusableDelegationSetResponse' {} a -> s {httpStatus = a} :: CreateReusableDelegationSetResponse)
 
 -- | A complex type that contains name server information.
-crdsrrsDelegationSet :: Lens' CreateReusableDelegationSetResponse DelegationSet
-crdsrrsDelegationSet = lens _crdsrrsDelegationSet (\s a -> s {_crdsrrsDelegationSet = a})
+createReusableDelegationSetResponse_delegationSet :: Lens.Lens' CreateReusableDelegationSetResponse DelegationSet
+createReusableDelegationSetResponse_delegationSet = Lens.lens (\CreateReusableDelegationSetResponse' {delegationSet} -> delegationSet) (\s@CreateReusableDelegationSetResponse' {} a -> s {delegationSet = a} :: CreateReusableDelegationSetResponse)
 
 -- | The unique URL representing the new reusable delegation set.
-crdsrrsLocation :: Lens' CreateReusableDelegationSetResponse Text
-crdsrrsLocation = lens _crdsrrsLocation (\s a -> s {_crdsrrsLocation = a})
+createReusableDelegationSetResponse_location :: Lens.Lens' CreateReusableDelegationSetResponse Prelude.Text
+createReusableDelegationSetResponse_location = Lens.lens (\CreateReusableDelegationSetResponse' {location} -> location) (\s@CreateReusableDelegationSetResponse' {} a -> s {location = a} :: CreateReusableDelegationSetResponse)
 
-instance NFData CreateReusableDelegationSetResponse
+instance
+  Prelude.NFData
+    CreateReusableDelegationSetResponse

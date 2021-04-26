@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.Route53.Types.ResettableElementName
   ( ResettableElementName
       ( ..,
-        ChildHealthChecks,
-        FullyQualifiedDomainName,
-        Regions,
-        ResourcePath
+        ResettableElementNameChildHealthChecks,
+        ResettableElementNameFullyQualifiedDomainName,
+        ResettableElementNameRegions,
+        ResettableElementNameResourcePath
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data ResettableElementName
-  = ResettableElementName'
-      ( CI
-          Text
-      )
+newtype ResettableElementName = ResettableElementName'
+  { fromResettableElementName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ChildHealthChecks :: ResettableElementName
-pattern ChildHealthChecks = ResettableElementName' "ChildHealthChecks"
+pattern ResettableElementNameChildHealthChecks :: ResettableElementName
+pattern ResettableElementNameChildHealthChecks = ResettableElementName' "ChildHealthChecks"
 
-pattern FullyQualifiedDomainName :: ResettableElementName
-pattern FullyQualifiedDomainName = ResettableElementName' "FullyQualifiedDomainName"
+pattern ResettableElementNameFullyQualifiedDomainName :: ResettableElementName
+pattern ResettableElementNameFullyQualifiedDomainName = ResettableElementName' "FullyQualifiedDomainName"
 
-pattern Regions :: ResettableElementName
-pattern Regions = ResettableElementName' "Regions"
+pattern ResettableElementNameRegions :: ResettableElementName
+pattern ResettableElementNameRegions = ResettableElementName' "Regions"
 
-pattern ResourcePath :: ResettableElementName
-pattern ResourcePath = ResettableElementName' "ResourcePath"
+pattern ResettableElementNameResourcePath :: ResettableElementName
+pattern ResettableElementNameResourcePath = ResettableElementName' "ResourcePath"
 
 {-# COMPLETE
-  ChildHealthChecks,
-  FullyQualifiedDomainName,
-  Regions,
-  ResourcePath,
+  ResettableElementNameChildHealthChecks,
+  ResettableElementNameFullyQualifiedDomainName,
+  ResettableElementNameRegions,
+  ResettableElementNameResourcePath,
   ResettableElementName'
   #-}
 
-instance FromText ResettableElementName where
-  parser = (ResettableElementName' . mk) <$> takeText
+instance Prelude.FromText ResettableElementName where
+  parser = ResettableElementName' Prelude.<$> Prelude.takeText
 
-instance ToText ResettableElementName where
-  toText (ResettableElementName' ci) = original ci
+instance Prelude.ToText ResettableElementName where
+  toText (ResettableElementName' x) = x
 
-instance Hashable ResettableElementName
+instance Prelude.Hashable ResettableElementName
 
-instance NFData ResettableElementName
+instance Prelude.NFData ResettableElementName
 
-instance ToByteString ResettableElementName
+instance Prelude.ToByteString ResettableElementName
 
-instance ToQuery ResettableElementName
+instance Prelude.ToQuery ResettableElementName
 
-instance ToHeader ResettableElementName
+instance Prelude.ToHeader ResettableElementName
 
-instance ToXML ResettableElementName where
-  toXML = toXMLText
+instance Prelude.ToXML ResettableElementName where
+  toXML = Prelude.toXMLText

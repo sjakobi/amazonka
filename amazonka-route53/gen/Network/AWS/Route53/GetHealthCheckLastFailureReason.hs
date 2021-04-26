@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,179 @@
 -- Gets the reason that a specified health check failed most recently.
 module Network.AWS.Route53.GetHealthCheckLastFailureReason
   ( -- * Creating a Request
-    getHealthCheckLastFailureReason,
-    GetHealthCheckLastFailureReason,
+    GetHealthCheckLastFailureReason (..),
+    newGetHealthCheckLastFailureReason,
 
     -- * Request Lenses
-    ghclfrHealthCheckId,
+    getHealthCheckLastFailureReason_healthCheckId,
 
     -- * Destructuring the Response
-    getHealthCheckLastFailureReasonResponse,
-    GetHealthCheckLastFailureReasonResponse,
+    GetHealthCheckLastFailureReasonResponse (..),
+    newGetHealthCheckLastFailureReasonResponse,
 
     -- * Response Lenses
-    ghclfrrrsResponseStatus,
-    ghclfrrrsHealthCheckObservations,
+    getHealthCheckLastFailureReasonResponse_httpStatus,
+    getHealthCheckLastFailureReasonResponse_healthCheckObservations,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.HealthCheckObservation
 
 -- | A request for the reason that a health check failed most recently.
 --
---
---
--- /See:/ 'getHealthCheckLastFailureReason' smart constructor.
-newtype GetHealthCheckLastFailureReason = GetHealthCheckLastFailureReason'
-  { _ghclfrHealthCheckId ::
-      Text
+-- /See:/ 'newGetHealthCheckLastFailureReason' smart constructor.
+data GetHealthCheckLastFailureReason = GetHealthCheckLastFailureReason'
+  { -- | The ID for the health check for which you want the last failure reason.
+    -- When you created the health check, @CreateHealthCheck@ returned the ID
+    -- in the response, in the @HealthCheckId@ element.
+    --
+    -- If you want to get the last failure reason for a calculated health
+    -- check, you must use the Amazon Route 53 console or the CloudWatch
+    -- console. You can\'t use @GetHealthCheckLastFailureReason@ for a
+    -- calculated health check.
+    healthCheckId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHealthCheckLastFailureReason' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHealthCheckLastFailureReason' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghclfrHealthCheckId' - The ID for the health check for which you want the last failure reason. When you created the health check, @CreateHealthCheck@ returned the ID in the response, in the @HealthCheckId@ element.
-getHealthCheckLastFailureReason ::
-  -- | 'ghclfrHealthCheckId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'healthCheckId', 'getHealthCheckLastFailureReason_healthCheckId' - The ID for the health check for which you want the last failure reason.
+-- When you created the health check, @CreateHealthCheck@ returned the ID
+-- in the response, in the @HealthCheckId@ element.
+--
+-- If you want to get the last failure reason for a calculated health
+-- check, you must use the Amazon Route 53 console or the CloudWatch
+-- console. You can\'t use @GetHealthCheckLastFailureReason@ for a
+-- calculated health check.
+newGetHealthCheckLastFailureReason ::
+  -- | 'healthCheckId'
+  Prelude.Text ->
   GetHealthCheckLastFailureReason
-getHealthCheckLastFailureReason pHealthCheckId_ =
+newGetHealthCheckLastFailureReason pHealthCheckId_ =
   GetHealthCheckLastFailureReason'
-    { _ghclfrHealthCheckId =
+    { healthCheckId =
         pHealthCheckId_
     }
 
--- | The ID for the health check for which you want the last failure reason. When you created the health check, @CreateHealthCheck@ returned the ID in the response, in the @HealthCheckId@ element.
-ghclfrHealthCheckId :: Lens' GetHealthCheckLastFailureReason Text
-ghclfrHealthCheckId = lens _ghclfrHealthCheckId (\s a -> s {_ghclfrHealthCheckId = a})
+-- | The ID for the health check for which you want the last failure reason.
+-- When you created the health check, @CreateHealthCheck@ returned the ID
+-- in the response, in the @HealthCheckId@ element.
+--
+-- If you want to get the last failure reason for a calculated health
+-- check, you must use the Amazon Route 53 console or the CloudWatch
+-- console. You can\'t use @GetHealthCheckLastFailureReason@ for a
+-- calculated health check.
+getHealthCheckLastFailureReason_healthCheckId :: Lens.Lens' GetHealthCheckLastFailureReason Prelude.Text
+getHealthCheckLastFailureReason_healthCheckId = Lens.lens (\GetHealthCheckLastFailureReason' {healthCheckId} -> healthCheckId) (\s@GetHealthCheckLastFailureReason' {} a -> s {healthCheckId = a} :: GetHealthCheckLastFailureReason)
 
-instance AWSRequest GetHealthCheckLastFailureReason where
+instance
+  Prelude.AWSRequest
+    GetHealthCheckLastFailureReason
+  where
   type
     Rs GetHealthCheckLastFailureReason =
       GetHealthCheckLastFailureReasonResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetHealthCheckLastFailureReasonResponse'
-            <$> (pure (fromEnum s))
-            <*> ( x .@? "HealthCheckObservations" .!@ mempty
-                    >>= parseXMLList "HealthCheckObservation"
-                )
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "HealthCheckObservations"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "HealthCheckObservation"
+                        )
       )
 
-instance Hashable GetHealthCheckLastFailureReason
+instance
+  Prelude.Hashable
+    GetHealthCheckLastFailureReason
 
-instance NFData GetHealthCheckLastFailureReason
+instance
+  Prelude.NFData
+    GetHealthCheckLastFailureReason
 
-instance ToHeaders GetHealthCheckLastFailureReason where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetHealthCheckLastFailureReason
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetHealthCheckLastFailureReason where
+instance
+  Prelude.ToPath
+    GetHealthCheckLastFailureReason
+  where
   toPath GetHealthCheckLastFailureReason' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/healthcheck/",
-        toBS _ghclfrHealthCheckId,
+        Prelude.toBS healthCheckId,
         "/lastfailurereason"
       ]
 
-instance ToQuery GetHealthCheckLastFailureReason where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetHealthCheckLastFailureReason
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | A complex type that contains the response to a @GetHealthCheckLastFailureReason@ request.
+-- | A complex type that contains the response to a
+-- @GetHealthCheckLastFailureReason@ request.
 --
---
---
--- /See:/ 'getHealthCheckLastFailureReasonResponse' smart constructor.
+-- /See:/ 'newGetHealthCheckLastFailureReasonResponse' smart constructor.
 data GetHealthCheckLastFailureReasonResponse = GetHealthCheckLastFailureReasonResponse'
-  { _ghclfrrrsResponseStatus ::
-      !Int,
-    _ghclfrrrsHealthCheckObservations ::
-      ![HealthCheckObservation]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list that contains one @Observation@ element for each Amazon Route 53
+    -- health checker that is reporting a last failure reason.
+    healthCheckObservations :: [HealthCheckObservation]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHealthCheckLastFailureReasonResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHealthCheckLastFailureReasonResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghclfrrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghclfrrrsHealthCheckObservations' - A list that contains one @Observation@ element for each Amazon Route 53 health checker that is reporting a last failure reason.
-getHealthCheckLastFailureReasonResponse ::
-  -- | 'ghclfrrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getHealthCheckLastFailureReasonResponse_httpStatus' - The response's http status code.
+--
+-- 'healthCheckObservations', 'getHealthCheckLastFailureReasonResponse_healthCheckObservations' - A list that contains one @Observation@ element for each Amazon Route 53
+-- health checker that is reporting a last failure reason.
+newGetHealthCheckLastFailureReasonResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetHealthCheckLastFailureReasonResponse
-getHealthCheckLastFailureReasonResponse
-  pResponseStatus_ =
+newGetHealthCheckLastFailureReasonResponse
+  pHttpStatus_ =
     GetHealthCheckLastFailureReasonResponse'
-      { _ghclfrrrsResponseStatus =
-          pResponseStatus_,
-        _ghclfrrrsHealthCheckObservations =
-          mempty
+      { httpStatus =
+          pHttpStatus_,
+        healthCheckObservations =
+          Prelude.mempty
       }
 
--- | -- | The response status code.
-ghclfrrrsResponseStatus :: Lens' GetHealthCheckLastFailureReasonResponse Int
-ghclfrrrsResponseStatus = lens _ghclfrrrsResponseStatus (\s a -> s {_ghclfrrrsResponseStatus = a})
+-- | The response's http status code.
+getHealthCheckLastFailureReasonResponse_httpStatus :: Lens.Lens' GetHealthCheckLastFailureReasonResponse Prelude.Int
+getHealthCheckLastFailureReasonResponse_httpStatus = Lens.lens (\GetHealthCheckLastFailureReasonResponse' {httpStatus} -> httpStatus) (\s@GetHealthCheckLastFailureReasonResponse' {} a -> s {httpStatus = a} :: GetHealthCheckLastFailureReasonResponse)
 
--- | A list that contains one @Observation@ element for each Amazon Route 53 health checker that is reporting a last failure reason.
-ghclfrrrsHealthCheckObservations :: Lens' GetHealthCheckLastFailureReasonResponse [HealthCheckObservation]
-ghclfrrrsHealthCheckObservations = lens _ghclfrrrsHealthCheckObservations (\s a -> s {_ghclfrrrsHealthCheckObservations = a}) . _Coerce
+-- | A list that contains one @Observation@ element for each Amazon Route 53
+-- health checker that is reporting a last failure reason.
+getHealthCheckLastFailureReasonResponse_healthCheckObservations :: Lens.Lens' GetHealthCheckLastFailureReasonResponse [HealthCheckObservation]
+getHealthCheckLastFailureReasonResponse_healthCheckObservations = Lens.lens (\GetHealthCheckLastFailureReasonResponse' {healthCheckObservations} -> healthCheckObservations) (\s@GetHealthCheckLastFailureReasonResponse' {} a -> s {healthCheckObservations = a} :: GetHealthCheckLastFailureReasonResponse) Prelude.. Prelude._Coerce
 
 instance
-  NFData
+  Prelude.NFData
     GetHealthCheckLastFailureReasonResponse

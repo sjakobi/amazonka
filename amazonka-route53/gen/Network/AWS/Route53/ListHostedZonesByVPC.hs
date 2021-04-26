@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,261 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the private hosted zones that a specified VPC is associated with, regardless of which AWS account or AWS service owns the hosted zones. The @HostedZoneOwner@ structure in the response contains one of the following values:
+-- Lists all the private hosted zones that a specified VPC is associated
+-- with, regardless of which AWS account or AWS service owns the hosted
+-- zones. The @HostedZoneOwner@ structure in the response contains one of
+-- the following values:
 --
+-- -   An @OwningAccount@ element, which contains the account number of
+--     either the current AWS account or another AWS account. Some
+--     services, such as AWS Cloud Map, create hosted zones using the
+--     current account.
 --
---     * An @OwningAccount@ element, which contains the account number of either the current AWS account or another AWS account. Some services, such as AWS Cloud Map, create hosted zones using the current account.
---
---     * An @OwningService@ element, which identifies the AWS service that created and owns the hosted zone. For example, if a hosted zone was created by Amazon Elastic File System (Amazon EFS), the value of @Owner@ is @efs.amazonaws.com@ .
+-- -   An @OwningService@ element, which identifies the AWS service that
+--     created and owns the hosted zone. For example, if a hosted zone was
+--     created by Amazon Elastic File System (Amazon EFS), the value of
+--     @Owner@ is @efs.amazonaws.com@.
 module Network.AWS.Route53.ListHostedZonesByVPC
   ( -- * Creating a Request
-    listHostedZonesByVPC,
-    ListHostedZonesByVPC,
+    ListHostedZonesByVPC (..),
+    newListHostedZonesByVPC,
 
     -- * Request Lenses
-    lhzbvNextToken,
-    lhzbvMaxItems,
-    lhzbvVPCId,
-    lhzbvVPCRegion,
+    listHostedZonesByVPC_nextToken,
+    listHostedZonesByVPC_maxItems,
+    listHostedZonesByVPC_vPCId,
+    listHostedZonesByVPC_vPCRegion,
 
     -- * Destructuring the Response
-    listHostedZonesByVPCResponse,
-    ListHostedZonesByVPCResponse,
+    ListHostedZonesByVPCResponse (..),
+    newListHostedZonesByVPCResponse,
 
     -- * Response Lenses
-    lhzbvrrsNextToken,
-    lhzbvrrsResponseStatus,
-    lhzbvrrsHostedZoneSummaries,
-    lhzbvrrsMaxItems,
+    listHostedZonesByVPCResponse_nextToken,
+    listHostedZonesByVPCResponse_httpStatus,
+    listHostedZonesByVPCResponse_hostedZoneSummaries,
+    listHostedZonesByVPCResponse_maxItems,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.HostedZoneSummary
 
--- | Lists all the private hosted zones that a specified VPC is associated with, regardless of which AWS account created the hosted zones.
+-- | Lists all the private hosted zones that a specified VPC is associated
+-- with, regardless of which AWS account created the hosted zones.
 --
---
---
--- /See:/ 'listHostedZonesByVPC' smart constructor.
+-- /See:/ 'newListHostedZonesByVPC' smart constructor.
 data ListHostedZonesByVPC = ListHostedZonesByVPC'
-  { _lhzbvNextToken ::
-      !(Maybe Text),
-    _lhzbvMaxItems ::
-      !(Maybe Text),
-    _lhzbvVPCId :: !Text,
-    _lhzbvVPCRegion :: !VPCRegion
+  { -- | If the previous response included a @NextToken@ element, the specified
+    -- VPC is associated with more hosted zones. To get more hosted zones,
+    -- submit another @ListHostedZonesByVPC@ request.
+    --
+    -- For the value of @NextToken@, specify the value of @NextToken@ from the
+    -- previous response.
+    --
+    -- If the previous response didn\'t include a @NextToken@ element, there
+    -- are no more hosted zones to get.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) The maximum number of hosted zones that you want Amazon Route
+    -- 53 to return. If the specified VPC is associated with more than
+    -- @MaxItems@ hosted zones, the response includes a @NextToken@ element.
+    -- @NextToken@ contains an encrypted token that identifies the first hosted
+    -- zone that Route 53 will return if you submit another request.
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon VPC that you want to list hosted zones for.
+    vPCId :: Prelude.Text,
+    -- | For the Amazon VPC that you specified for @VPCId@, the AWS Region that
+    -- you created the VPC in.
+    vPCRegion :: VPCRegion
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHostedZonesByVPC' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHostedZonesByVPC' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhzbvNextToken' - If the previous response included a @NextToken@ element, the specified VPC is associated with more hosted zones. To get more hosted zones, submit another @ListHostedZonesByVPC@ request.  For the value of @NextToken@ , specify the value of @NextToken@ from the previous response. If the previous response didn't include a @NextToken@ element, there are no more hosted zones to get.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhzbvMaxItems' - (Optional) The maximum number of hosted zones that you want Amazon Route 53 to return. If the specified VPC is associated with more than @MaxItems@ hosted zones, the response includes a @NextToken@ element. @NextToken@ contains an encrypted token that identifies the first hosted zone that Route 53 will return if you submit another request.
+-- 'nextToken', 'listHostedZonesByVPC_nextToken' - If the previous response included a @NextToken@ element, the specified
+-- VPC is associated with more hosted zones. To get more hosted zones,
+-- submit another @ListHostedZonesByVPC@ request.
 --
--- * 'lhzbvVPCId' - The ID of the Amazon VPC that you want to list hosted zones for.
+-- For the value of @NextToken@, specify the value of @NextToken@ from the
+-- previous response.
 --
--- * 'lhzbvVPCRegion' - For the Amazon VPC that you specified for @VPCId@ , the AWS Region that you created the VPC in.
-listHostedZonesByVPC ::
-  -- | 'lhzbvVPCId'
-  Text ->
-  -- | 'lhzbvVPCRegion'
+-- If the previous response didn\'t include a @NextToken@ element, there
+-- are no more hosted zones to get.
+--
+-- 'maxItems', 'listHostedZonesByVPC_maxItems' - (Optional) The maximum number of hosted zones that you want Amazon Route
+-- 53 to return. If the specified VPC is associated with more than
+-- @MaxItems@ hosted zones, the response includes a @NextToken@ element.
+-- @NextToken@ contains an encrypted token that identifies the first hosted
+-- zone that Route 53 will return if you submit another request.
+--
+-- 'vPCId', 'listHostedZonesByVPC_vPCId' - The ID of the Amazon VPC that you want to list hosted zones for.
+--
+-- 'vPCRegion', 'listHostedZonesByVPC_vPCRegion' - For the Amazon VPC that you specified for @VPCId@, the AWS Region that
+-- you created the VPC in.
+newListHostedZonesByVPC ::
+  -- | 'vPCId'
+  Prelude.Text ->
+  -- | 'vPCRegion'
   VPCRegion ->
   ListHostedZonesByVPC
-listHostedZonesByVPC pVPCId_ pVPCRegion_ =
+newListHostedZonesByVPC pVPCId_ pVPCRegion_ =
   ListHostedZonesByVPC'
-    { _lhzbvNextToken = Nothing,
-      _lhzbvMaxItems = Nothing,
-      _lhzbvVPCId = pVPCId_,
-      _lhzbvVPCRegion = pVPCRegion_
+    { nextToken = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      vPCId = pVPCId_,
+      vPCRegion = pVPCRegion_
     }
 
--- | If the previous response included a @NextToken@ element, the specified VPC is associated with more hosted zones. To get more hosted zones, submit another @ListHostedZonesByVPC@ request.  For the value of @NextToken@ , specify the value of @NextToken@ from the previous response. If the previous response didn't include a @NextToken@ element, there are no more hosted zones to get.
-lhzbvNextToken :: Lens' ListHostedZonesByVPC (Maybe Text)
-lhzbvNextToken = lens _lhzbvNextToken (\s a -> s {_lhzbvNextToken = a})
+-- | If the previous response included a @NextToken@ element, the specified
+-- VPC is associated with more hosted zones. To get more hosted zones,
+-- submit another @ListHostedZonesByVPC@ request.
+--
+-- For the value of @NextToken@, specify the value of @NextToken@ from the
+-- previous response.
+--
+-- If the previous response didn\'t include a @NextToken@ element, there
+-- are no more hosted zones to get.
+listHostedZonesByVPC_nextToken :: Lens.Lens' ListHostedZonesByVPC (Prelude.Maybe Prelude.Text)
+listHostedZonesByVPC_nextToken = Lens.lens (\ListHostedZonesByVPC' {nextToken} -> nextToken) (\s@ListHostedZonesByVPC' {} a -> s {nextToken = a} :: ListHostedZonesByVPC)
 
--- | (Optional) The maximum number of hosted zones that you want Amazon Route 53 to return. If the specified VPC is associated with more than @MaxItems@ hosted zones, the response includes a @NextToken@ element. @NextToken@ contains an encrypted token that identifies the first hosted zone that Route 53 will return if you submit another request.
-lhzbvMaxItems :: Lens' ListHostedZonesByVPC (Maybe Text)
-lhzbvMaxItems = lens _lhzbvMaxItems (\s a -> s {_lhzbvMaxItems = a})
+-- | (Optional) The maximum number of hosted zones that you want Amazon Route
+-- 53 to return. If the specified VPC is associated with more than
+-- @MaxItems@ hosted zones, the response includes a @NextToken@ element.
+-- @NextToken@ contains an encrypted token that identifies the first hosted
+-- zone that Route 53 will return if you submit another request.
+listHostedZonesByVPC_maxItems :: Lens.Lens' ListHostedZonesByVPC (Prelude.Maybe Prelude.Text)
+listHostedZonesByVPC_maxItems = Lens.lens (\ListHostedZonesByVPC' {maxItems} -> maxItems) (\s@ListHostedZonesByVPC' {} a -> s {maxItems = a} :: ListHostedZonesByVPC)
 
 -- | The ID of the Amazon VPC that you want to list hosted zones for.
-lhzbvVPCId :: Lens' ListHostedZonesByVPC Text
-lhzbvVPCId = lens _lhzbvVPCId (\s a -> s {_lhzbvVPCId = a})
+listHostedZonesByVPC_vPCId :: Lens.Lens' ListHostedZonesByVPC Prelude.Text
+listHostedZonesByVPC_vPCId = Lens.lens (\ListHostedZonesByVPC' {vPCId} -> vPCId) (\s@ListHostedZonesByVPC' {} a -> s {vPCId = a} :: ListHostedZonesByVPC)
 
--- | For the Amazon VPC that you specified for @VPCId@ , the AWS Region that you created the VPC in.
-lhzbvVPCRegion :: Lens' ListHostedZonesByVPC VPCRegion
-lhzbvVPCRegion = lens _lhzbvVPCRegion (\s a -> s {_lhzbvVPCRegion = a})
+-- | For the Amazon VPC that you specified for @VPCId@, the AWS Region that
+-- you created the VPC in.
+listHostedZonesByVPC_vPCRegion :: Lens.Lens' ListHostedZonesByVPC VPCRegion
+listHostedZonesByVPC_vPCRegion = Lens.lens (\ListHostedZonesByVPC' {vPCRegion} -> vPCRegion) (\s@ListHostedZonesByVPC' {} a -> s {vPCRegion = a} :: ListHostedZonesByVPC)
 
-instance AWSRequest ListHostedZonesByVPC where
+instance Prelude.AWSRequest ListHostedZonesByVPC where
   type
     Rs ListHostedZonesByVPC =
       ListHostedZonesByVPCResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListHostedZonesByVPCResponse'
-            <$> (x .@? "NextToken")
-            <*> (pure (fromEnum s))
-            <*> ( x .@? "HostedZoneSummaries" .!@ mempty
-                    >>= parseXMLList "HostedZoneSummary"
-                )
-            <*> (x .@ "MaxItems")
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "HostedZoneSummaries"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "HostedZoneSummary"
+                        )
+            Prelude.<*> (x Prelude..@ "MaxItems")
       )
 
-instance Hashable ListHostedZonesByVPC
+instance Prelude.Hashable ListHostedZonesByVPC
 
-instance NFData ListHostedZonesByVPC
+instance Prelude.NFData ListHostedZonesByVPC
 
-instance ToHeaders ListHostedZonesByVPC where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListHostedZonesByVPC where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListHostedZonesByVPC where
-  toPath = const "/2013-04-01/hostedzonesbyvpc"
+instance Prelude.ToPath ListHostedZonesByVPC where
+  toPath = Prelude.const "/2013-04-01/hostedzonesbyvpc"
 
-instance ToQuery ListHostedZonesByVPC where
+instance Prelude.ToQuery ListHostedZonesByVPC where
   toQuery ListHostedZonesByVPC' {..} =
-    mconcat
-      [ "nexttoken" =: _lhzbvNextToken,
-        "maxitems" =: _lhzbvMaxItems,
-        "vpcid" =: _lhzbvVPCId,
-        "vpcregion" =: _lhzbvVPCRegion
+    Prelude.mconcat
+      [ "nexttoken" Prelude.=: nextToken,
+        "maxitems" Prelude.=: maxItems,
+        "vpcid" Prelude.=: vPCId,
+        "vpcregion" Prelude.=: vPCRegion
       ]
 
--- | /See:/ 'listHostedZonesByVPCResponse' smart constructor.
+-- | /See:/ 'newListHostedZonesByVPCResponse' smart constructor.
 data ListHostedZonesByVPCResponse = ListHostedZonesByVPCResponse'
-  { _lhzbvrrsNextToken ::
-      !(Maybe Text),
-    _lhzbvrrsResponseStatus ::
-      !Int,
-    _lhzbvrrsHostedZoneSummaries ::
-      ![HostedZoneSummary],
-    _lhzbvrrsMaxItems ::
-      !Text
+  { -- | The value that you specified for @NextToken@ in the most recent
+    -- @ListHostedZonesByVPC@ request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list that contains one @HostedZoneSummary@ element for each hosted
+    -- zone that the specified Amazon VPC is associated with. Each
+    -- @HostedZoneSummary@ element contains the hosted zone name and ID, and
+    -- information about who owns the hosted zone.
+    hostedZoneSummaries :: [HostedZoneSummary],
+    -- | The value that you specified for @MaxItems@ in the most recent
+    -- @ListHostedZonesByVPC@ request.
+    maxItems :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHostedZonesByVPCResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHostedZonesByVPCResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhzbvrrsNextToken' - The value that you specified for @NextToken@ in the most recent @ListHostedZonesByVPC@ request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhzbvrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listHostedZonesByVPCResponse_nextToken' - The value that you specified for @NextToken@ in the most recent
+-- @ListHostedZonesByVPC@ request.
 --
--- * 'lhzbvrrsHostedZoneSummaries' - A list that contains one @HostedZoneSummary@ element for each hosted zone that the specified Amazon VPC is associated with. Each @HostedZoneSummary@ element contains the hosted zone name and ID, and information about who owns the hosted zone.
+-- 'httpStatus', 'listHostedZonesByVPCResponse_httpStatus' - The response's http status code.
 --
--- * 'lhzbvrrsMaxItems' - The value that you specified for @MaxItems@ in the most recent @ListHostedZonesByVPC@ request.
-listHostedZonesByVPCResponse ::
-  -- | 'lhzbvrrsResponseStatus'
-  Int ->
-  -- | 'lhzbvrrsMaxItems'
-  Text ->
+-- 'hostedZoneSummaries', 'listHostedZonesByVPCResponse_hostedZoneSummaries' - A list that contains one @HostedZoneSummary@ element for each hosted
+-- zone that the specified Amazon VPC is associated with. Each
+-- @HostedZoneSummary@ element contains the hosted zone name and ID, and
+-- information about who owns the hosted zone.
+--
+-- 'maxItems', 'listHostedZonesByVPCResponse_maxItems' - The value that you specified for @MaxItems@ in the most recent
+-- @ListHostedZonesByVPC@ request.
+newListHostedZonesByVPCResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'maxItems'
+  Prelude.Text ->
   ListHostedZonesByVPCResponse
-listHostedZonesByVPCResponse
-  pResponseStatus_
+newListHostedZonesByVPCResponse
+  pHttpStatus_
   pMaxItems_ =
     ListHostedZonesByVPCResponse'
-      { _lhzbvrrsNextToken =
-          Nothing,
-        _lhzbvrrsResponseStatus = pResponseStatus_,
-        _lhzbvrrsHostedZoneSummaries = mempty,
-        _lhzbvrrsMaxItems = pMaxItems_
+      { nextToken =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        hostedZoneSummaries = Prelude.mempty,
+        maxItems = pMaxItems_
       }
 
--- | The value that you specified for @NextToken@ in the most recent @ListHostedZonesByVPC@ request.
-lhzbvrrsNextToken :: Lens' ListHostedZonesByVPCResponse (Maybe Text)
-lhzbvrrsNextToken = lens _lhzbvrrsNextToken (\s a -> s {_lhzbvrrsNextToken = a})
+-- | The value that you specified for @NextToken@ in the most recent
+-- @ListHostedZonesByVPC@ request.
+listHostedZonesByVPCResponse_nextToken :: Lens.Lens' ListHostedZonesByVPCResponse (Prelude.Maybe Prelude.Text)
+listHostedZonesByVPCResponse_nextToken = Lens.lens (\ListHostedZonesByVPCResponse' {nextToken} -> nextToken) (\s@ListHostedZonesByVPCResponse' {} a -> s {nextToken = a} :: ListHostedZonesByVPCResponse)
 
--- | -- | The response status code.
-lhzbvrrsResponseStatus :: Lens' ListHostedZonesByVPCResponse Int
-lhzbvrrsResponseStatus = lens _lhzbvrrsResponseStatus (\s a -> s {_lhzbvrrsResponseStatus = a})
+-- | The response's http status code.
+listHostedZonesByVPCResponse_httpStatus :: Lens.Lens' ListHostedZonesByVPCResponse Prelude.Int
+listHostedZonesByVPCResponse_httpStatus = Lens.lens (\ListHostedZonesByVPCResponse' {httpStatus} -> httpStatus) (\s@ListHostedZonesByVPCResponse' {} a -> s {httpStatus = a} :: ListHostedZonesByVPCResponse)
 
--- | A list that contains one @HostedZoneSummary@ element for each hosted zone that the specified Amazon VPC is associated with. Each @HostedZoneSummary@ element contains the hosted zone name and ID, and information about who owns the hosted zone.
-lhzbvrrsHostedZoneSummaries :: Lens' ListHostedZonesByVPCResponse [HostedZoneSummary]
-lhzbvrrsHostedZoneSummaries = lens _lhzbvrrsHostedZoneSummaries (\s a -> s {_lhzbvrrsHostedZoneSummaries = a}) . _Coerce
+-- | A list that contains one @HostedZoneSummary@ element for each hosted
+-- zone that the specified Amazon VPC is associated with. Each
+-- @HostedZoneSummary@ element contains the hosted zone name and ID, and
+-- information about who owns the hosted zone.
+listHostedZonesByVPCResponse_hostedZoneSummaries :: Lens.Lens' ListHostedZonesByVPCResponse [HostedZoneSummary]
+listHostedZonesByVPCResponse_hostedZoneSummaries = Lens.lens (\ListHostedZonesByVPCResponse' {hostedZoneSummaries} -> hostedZoneSummaries) (\s@ListHostedZonesByVPCResponse' {} a -> s {hostedZoneSummaries = a} :: ListHostedZonesByVPCResponse) Prelude.. Prelude._Coerce
 
--- | The value that you specified for @MaxItems@ in the most recent @ListHostedZonesByVPC@ request.
-lhzbvrrsMaxItems :: Lens' ListHostedZonesByVPCResponse Text
-lhzbvrrsMaxItems = lens _lhzbvrrsMaxItems (\s a -> s {_lhzbvrrsMaxItems = a})
+-- | The value that you specified for @MaxItems@ in the most recent
+-- @ListHostedZonesByVPC@ request.
+listHostedZonesByVPCResponse_maxItems :: Lens.Lens' ListHostedZonesByVPCResponse Prelude.Text
+listHostedZonesByVPCResponse_maxItems = Lens.lens (\ListHostedZonesByVPCResponse' {maxItems} -> maxItems) (\s@ListHostedZonesByVPCResponse' {} a -> s {maxItems = a} :: ListHostedZonesByVPCResponse)
 
-instance NFData ListHostedZonesByVPCResponse
+instance Prelude.NFData ListHostedZonesByVPCResponse

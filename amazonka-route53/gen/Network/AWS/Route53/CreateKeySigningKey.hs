@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,223 +21,338 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new key-signing key (KSK) associated with a hosted zone. You can only have two KSKs per hosted zone.
+-- Creates a new key-signing key (KSK) associated with a hosted zone. You
+-- can only have two KSKs per hosted zone.
 module Network.AWS.Route53.CreateKeySigningKey
   ( -- * Creating a Request
-    createKeySigningKey,
-    CreateKeySigningKey,
+    CreateKeySigningKey (..),
+    newCreateKeySigningKey,
 
     -- * Request Lenses
-    ckskCallerReference,
-    ckskHostedZoneId,
-    ckskKeyManagementServiceARN,
-    ckskName,
-    ckskStatus,
+    createKeySigningKey_callerReference,
+    createKeySigningKey_hostedZoneId,
+    createKeySigningKey_keyManagementServiceArn,
+    createKeySigningKey_name,
+    createKeySigningKey_status,
 
     -- * Destructuring the Response
-    createKeySigningKeyResponse,
-    CreateKeySigningKeyResponse,
+    CreateKeySigningKeyResponse (..),
+    newCreateKeySigningKeyResponse,
 
     -- * Response Lenses
-    ckskrrsResponseStatus,
-    ckskrrsChangeInfo,
-    ckskrrsKeySigningKey,
-    ckskrrsLocation,
+    createKeySigningKeyResponse_httpStatus,
+    createKeySigningKeyResponse_changeInfo,
+    createKeySigningKeyResponse_keySigningKey,
+    createKeySigningKeyResponse_location,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.ChangeInfo
+import Network.AWS.Route53.Types.KeySigningKey
 
--- | /See:/ 'createKeySigningKey' smart constructor.
+-- | /See:/ 'newCreateKeySigningKey' smart constructor.
 data CreateKeySigningKey = CreateKeySigningKey'
-  { _ckskCallerReference ::
-      !Text,
-    _ckskHostedZoneId ::
-      !ResourceId,
-    _ckskKeyManagementServiceARN ::
-      !Text,
-    _ckskName :: !Text,
-    _ckskStatus :: !Text
+  { -- | A unique string that identifies the request.
+    callerReference :: Prelude.Text,
+    -- | The unique string (ID) used to identify a hosted zone.
+    hostedZoneId :: ResourceId,
+    -- | The Amazon resource name (ARN) for a customer managed customer master
+    -- key (CMK) in AWS Key Management Service (AWS KMS). The
+    -- @KeyManagementServiceArn@ must be unique for each key-signing key (KSK)
+    -- in a single hosted zone. To see an example of @KeyManagementServiceArn@
+    -- that grants the correct permissions for DNSSEC, scroll down to
+    -- __Example__.
+    --
+    -- You must configure the customer managed CMK as follows:
+    --
+    -- [Status]
+    --     Enabled
+    --
+    -- [Key spec]
+    --     ECC_NIST_P256
+    --
+    -- [Key usage]
+    --     Sign and verify
+    --
+    -- [Key policy]
+    --     The key policy must give permission for the following actions:
+    --
+    --     -   DescribeKey
+    --
+    --     -   GetPublicKey
+    --
+    --     -   Sign
+    --
+    --     The key policy must also include the Amazon Route 53 service in the
+    --     principal for your account. Specify the following:
+    --
+    --     -   @\"Service\": \"api-service.dnssec.route53.aws.internal\"@
+    --
+    -- For more information about working with a customer managed CMK in AWS
+    -- KMS, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html AWS Key Management Service concepts>.
+    keyManagementServiceArn :: Prelude.Text,
+    -- | A string used to identify a key-signing key (KSK). @Name@ can include
+    -- numbers, letters, and underscores (_). @Name@ must be unique for each
+    -- key-signing key in the same hosted zone.
+    name :: Prelude.Text,
+    -- | A string specifying the initial status of the key-signing key (KSK). You
+    -- can set the value to @ACTIVE@ or @INACTIVE@.
+    status :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateKeySigningKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateKeySigningKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ckskCallerReference' - A unique string that identifies the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ckskHostedZoneId' - The unique string (ID) used to identify a hosted zone.
+-- 'callerReference', 'createKeySigningKey_callerReference' - A unique string that identifies the request.
 --
--- * 'ckskKeyManagementServiceARN' - The Amazon resource name (ARN) for a customer managed customer master key (CMK) in AWS Key Management Service (AWS KMS). The @KeyManagementServiceArn@ must be unique for each key-signing key (KSK) in a single hosted zone. To see an example of @KeyManagementServiceArn@ that grants the correct permissions for DNSSEC, scroll down to __Example__ .  You must configure the customer managed CMK as follows:     * Status    * Enabled     * Key spec    * ECC_NIST_P256     * Key usage    * Sign and verify     * Key policy    * The key policy must give permission for the following actions:     * DescribeKey     * GetPublicKey     * Sign The key policy must also include the Amazon Route 53 service in the principal for your account. Specify the following:     * @"Service": "api-service.dnssec.route53.aws.internal"@  For more information about working with a customer managed CMK in AWS KMS, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html AWS Key Management Service concepts> .
+-- 'hostedZoneId', 'createKeySigningKey_hostedZoneId' - The unique string (ID) used to identify a hosted zone.
 --
--- * 'ckskName' - A string used to identify a key-signing key (KSK). @Name@ can include numbers, letters, and underscores (_). @Name@ must be unique for each key-signing key in the same hosted zone.
+-- 'keyManagementServiceArn', 'createKeySigningKey_keyManagementServiceArn' - The Amazon resource name (ARN) for a customer managed customer master
+-- key (CMK) in AWS Key Management Service (AWS KMS). The
+-- @KeyManagementServiceArn@ must be unique for each key-signing key (KSK)
+-- in a single hosted zone. To see an example of @KeyManagementServiceArn@
+-- that grants the correct permissions for DNSSEC, scroll down to
+-- __Example__.
 --
--- * 'ckskStatus' - A string specifying the initial status of the key-signing key (KSK). You can set the value to @ACTIVE@ or @INACTIVE@ .
-createKeySigningKey ::
-  -- | 'ckskCallerReference'
-  Text ->
-  -- | 'ckskHostedZoneId'
+-- You must configure the customer managed CMK as follows:
+--
+-- [Status]
+--     Enabled
+--
+-- [Key spec]
+--     ECC_NIST_P256
+--
+-- [Key usage]
+--     Sign and verify
+--
+-- [Key policy]
+--     The key policy must give permission for the following actions:
+--
+--     -   DescribeKey
+--
+--     -   GetPublicKey
+--
+--     -   Sign
+--
+--     The key policy must also include the Amazon Route 53 service in the
+--     principal for your account. Specify the following:
+--
+--     -   @\"Service\": \"api-service.dnssec.route53.aws.internal\"@
+--
+-- For more information about working with a customer managed CMK in AWS
+-- KMS, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html AWS Key Management Service concepts>.
+--
+-- 'name', 'createKeySigningKey_name' - A string used to identify a key-signing key (KSK). @Name@ can include
+-- numbers, letters, and underscores (_). @Name@ must be unique for each
+-- key-signing key in the same hosted zone.
+--
+-- 'status', 'createKeySigningKey_status' - A string specifying the initial status of the key-signing key (KSK). You
+-- can set the value to @ACTIVE@ or @INACTIVE@.
+newCreateKeySigningKey ::
+  -- | 'callerReference'
+  Prelude.Text ->
+  -- | 'hostedZoneId'
   ResourceId ->
-  -- | 'ckskKeyManagementServiceARN'
-  Text ->
-  -- | 'ckskName'
-  Text ->
-  -- | 'ckskStatus'
-  Text ->
+  -- | 'keyManagementServiceArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
   CreateKeySigningKey
-createKeySigningKey
+newCreateKeySigningKey
   pCallerReference_
   pHostedZoneId_
-  pKeyManagementServiceARN_
+  pKeyManagementServiceArn_
   pName_
   pStatus_ =
     CreateKeySigningKey'
-      { _ckskCallerReference =
+      { callerReference =
           pCallerReference_,
-        _ckskHostedZoneId = pHostedZoneId_,
-        _ckskKeyManagementServiceARN =
-          pKeyManagementServiceARN_,
-        _ckskName = pName_,
-        _ckskStatus = pStatus_
+        hostedZoneId = pHostedZoneId_,
+        keyManagementServiceArn = pKeyManagementServiceArn_,
+        name = pName_,
+        status = pStatus_
       }
 
 -- | A unique string that identifies the request.
-ckskCallerReference :: Lens' CreateKeySigningKey Text
-ckskCallerReference = lens _ckskCallerReference (\s a -> s {_ckskCallerReference = a})
+createKeySigningKey_callerReference :: Lens.Lens' CreateKeySigningKey Prelude.Text
+createKeySigningKey_callerReference = Lens.lens (\CreateKeySigningKey' {callerReference} -> callerReference) (\s@CreateKeySigningKey' {} a -> s {callerReference = a} :: CreateKeySigningKey)
 
 -- | The unique string (ID) used to identify a hosted zone.
-ckskHostedZoneId :: Lens' CreateKeySigningKey ResourceId
-ckskHostedZoneId = lens _ckskHostedZoneId (\s a -> s {_ckskHostedZoneId = a})
+createKeySigningKey_hostedZoneId :: Lens.Lens' CreateKeySigningKey ResourceId
+createKeySigningKey_hostedZoneId = Lens.lens (\CreateKeySigningKey' {hostedZoneId} -> hostedZoneId) (\s@CreateKeySigningKey' {} a -> s {hostedZoneId = a} :: CreateKeySigningKey)
 
--- | The Amazon resource name (ARN) for a customer managed customer master key (CMK) in AWS Key Management Service (AWS KMS). The @KeyManagementServiceArn@ must be unique for each key-signing key (KSK) in a single hosted zone. To see an example of @KeyManagementServiceArn@ that grants the correct permissions for DNSSEC, scroll down to __Example__ .  You must configure the customer managed CMK as follows:     * Status    * Enabled     * Key spec    * ECC_NIST_P256     * Key usage    * Sign and verify     * Key policy    * The key policy must give permission for the following actions:     * DescribeKey     * GetPublicKey     * Sign The key policy must also include the Amazon Route 53 service in the principal for your account. Specify the following:     * @"Service": "api-service.dnssec.route53.aws.internal"@  For more information about working with a customer managed CMK in AWS KMS, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html AWS Key Management Service concepts> .
-ckskKeyManagementServiceARN :: Lens' CreateKeySigningKey Text
-ckskKeyManagementServiceARN = lens _ckskKeyManagementServiceARN (\s a -> s {_ckskKeyManagementServiceARN = a})
+-- | The Amazon resource name (ARN) for a customer managed customer master
+-- key (CMK) in AWS Key Management Service (AWS KMS). The
+-- @KeyManagementServiceArn@ must be unique for each key-signing key (KSK)
+-- in a single hosted zone. To see an example of @KeyManagementServiceArn@
+-- that grants the correct permissions for DNSSEC, scroll down to
+-- __Example__.
+--
+-- You must configure the customer managed CMK as follows:
+--
+-- [Status]
+--     Enabled
+--
+-- [Key spec]
+--     ECC_NIST_P256
+--
+-- [Key usage]
+--     Sign and verify
+--
+-- [Key policy]
+--     The key policy must give permission for the following actions:
+--
+--     -   DescribeKey
+--
+--     -   GetPublicKey
+--
+--     -   Sign
+--
+--     The key policy must also include the Amazon Route 53 service in the
+--     principal for your account. Specify the following:
+--
+--     -   @\"Service\": \"api-service.dnssec.route53.aws.internal\"@
+--
+-- For more information about working with a customer managed CMK in AWS
+-- KMS, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html AWS Key Management Service concepts>.
+createKeySigningKey_keyManagementServiceArn :: Lens.Lens' CreateKeySigningKey Prelude.Text
+createKeySigningKey_keyManagementServiceArn = Lens.lens (\CreateKeySigningKey' {keyManagementServiceArn} -> keyManagementServiceArn) (\s@CreateKeySigningKey' {} a -> s {keyManagementServiceArn = a} :: CreateKeySigningKey)
 
--- | A string used to identify a key-signing key (KSK). @Name@ can include numbers, letters, and underscores (_). @Name@ must be unique for each key-signing key in the same hosted zone.
-ckskName :: Lens' CreateKeySigningKey Text
-ckskName = lens _ckskName (\s a -> s {_ckskName = a})
+-- | A string used to identify a key-signing key (KSK). @Name@ can include
+-- numbers, letters, and underscores (_). @Name@ must be unique for each
+-- key-signing key in the same hosted zone.
+createKeySigningKey_name :: Lens.Lens' CreateKeySigningKey Prelude.Text
+createKeySigningKey_name = Lens.lens (\CreateKeySigningKey' {name} -> name) (\s@CreateKeySigningKey' {} a -> s {name = a} :: CreateKeySigningKey)
 
--- | A string specifying the initial status of the key-signing key (KSK). You can set the value to @ACTIVE@ or @INACTIVE@ .
-ckskStatus :: Lens' CreateKeySigningKey Text
-ckskStatus = lens _ckskStatus (\s a -> s {_ckskStatus = a})
+-- | A string specifying the initial status of the key-signing key (KSK). You
+-- can set the value to @ACTIVE@ or @INACTIVE@.
+createKeySigningKey_status :: Lens.Lens' CreateKeySigningKey Prelude.Text
+createKeySigningKey_status = Lens.lens (\CreateKeySigningKey' {status} -> status) (\s@CreateKeySigningKey' {} a -> s {status = a} :: CreateKeySigningKey)
 
-instance AWSRequest CreateKeySigningKey where
+instance Prelude.AWSRequest CreateKeySigningKey where
   type
     Rs CreateKeySigningKey =
       CreateKeySigningKeyResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateKeySigningKeyResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "ChangeInfo")
-            <*> (x .@ "KeySigningKey")
-            <*> (h .# "Location")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "ChangeInfo")
+            Prelude.<*> (x Prelude..@ "KeySigningKey")
+            Prelude.<*> (h Prelude..# "Location")
       )
 
-instance Hashable CreateKeySigningKey
+instance Prelude.Hashable CreateKeySigningKey
 
-instance NFData CreateKeySigningKey
+instance Prelude.NFData CreateKeySigningKey
 
-instance ToElement CreateKeySigningKey where
+instance Prelude.ToElement CreateKeySigningKey where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}CreateKeySigningKeyRequest"
 
-instance ToHeaders CreateKeySigningKey where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateKeySigningKey where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateKeySigningKey where
-  toPath = const "/2013-04-01/keysigningkey"
+instance Prelude.ToPath CreateKeySigningKey where
+  toPath = Prelude.const "/2013-04-01/keysigningkey"
 
-instance ToQuery CreateKeySigningKey where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateKeySigningKey where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML CreateKeySigningKey where
+instance Prelude.ToXML CreateKeySigningKey where
   toXML CreateKeySigningKey' {..} =
-    mconcat
-      [ "CallerReference" @= _ckskCallerReference,
-        "HostedZoneId" @= _ckskHostedZoneId,
+    Prelude.mconcat
+      [ "CallerReference" Prelude.@= callerReference,
+        "HostedZoneId" Prelude.@= hostedZoneId,
         "KeyManagementServiceArn"
-          @= _ckskKeyManagementServiceARN,
-        "Name" @= _ckskName,
-        "Status" @= _ckskStatus
+          Prelude.@= keyManagementServiceArn,
+        "Name" Prelude.@= name,
+        "Status" Prelude.@= status
       ]
 
--- | /See:/ 'createKeySigningKeyResponse' smart constructor.
+-- | /See:/ 'newCreateKeySigningKeyResponse' smart constructor.
 data CreateKeySigningKeyResponse = CreateKeySigningKeyResponse'
-  { _ckskrrsResponseStatus ::
-      !Int,
-    _ckskrrsChangeInfo ::
-      !ChangeInfo,
-    _ckskrrsKeySigningKey ::
-      !KeySigningKey,
-    _ckskrrsLocation ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    changeInfo :: ChangeInfo,
+    -- | The key-signing key (KSK) that the request creates.
+    keySigningKey :: KeySigningKey,
+    -- | The unique URL representing the new key-signing key (KSK).
+    location :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateKeySigningKeyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateKeySigningKeyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ckskrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ckskrrsChangeInfo' - Undocumented member.
+-- 'httpStatus', 'createKeySigningKeyResponse_httpStatus' - The response's http status code.
 --
--- * 'ckskrrsKeySigningKey' - The key-signing key (KSK) that the request creates.
+-- 'changeInfo', 'createKeySigningKeyResponse_changeInfo' - Undocumented member.
 --
--- * 'ckskrrsLocation' - The unique URL representing the new key-signing key (KSK).
-createKeySigningKeyResponse ::
-  -- | 'ckskrrsResponseStatus'
-  Int ->
-  -- | 'ckskrrsChangeInfo'
+-- 'keySigningKey', 'createKeySigningKeyResponse_keySigningKey' - The key-signing key (KSK) that the request creates.
+--
+-- 'location', 'createKeySigningKeyResponse_location' - The unique URL representing the new key-signing key (KSK).
+newCreateKeySigningKeyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'changeInfo'
   ChangeInfo ->
-  -- | 'ckskrrsKeySigningKey'
+  -- | 'keySigningKey'
   KeySigningKey ->
-  -- | 'ckskrrsLocation'
-  Text ->
+  -- | 'location'
+  Prelude.Text ->
   CreateKeySigningKeyResponse
-createKeySigningKeyResponse
-  pResponseStatus_
+newCreateKeySigningKeyResponse
+  pHttpStatus_
   pChangeInfo_
   pKeySigningKey_
   pLocation_ =
     CreateKeySigningKeyResponse'
-      { _ckskrrsResponseStatus =
-          pResponseStatus_,
-        _ckskrrsChangeInfo = pChangeInfo_,
-        _ckskrrsKeySigningKey = pKeySigningKey_,
-        _ckskrrsLocation = pLocation_
+      { httpStatus =
+          pHttpStatus_,
+        changeInfo = pChangeInfo_,
+        keySigningKey = pKeySigningKey_,
+        location = pLocation_
       }
 
--- | -- | The response status code.
-ckskrrsResponseStatus :: Lens' CreateKeySigningKeyResponse Int
-ckskrrsResponseStatus = lens _ckskrrsResponseStatus (\s a -> s {_ckskrrsResponseStatus = a})
+-- | The response's http status code.
+createKeySigningKeyResponse_httpStatus :: Lens.Lens' CreateKeySigningKeyResponse Prelude.Int
+createKeySigningKeyResponse_httpStatus = Lens.lens (\CreateKeySigningKeyResponse' {httpStatus} -> httpStatus) (\s@CreateKeySigningKeyResponse' {} a -> s {httpStatus = a} :: CreateKeySigningKeyResponse)
 
 -- | Undocumented member.
-ckskrrsChangeInfo :: Lens' CreateKeySigningKeyResponse ChangeInfo
-ckskrrsChangeInfo = lens _ckskrrsChangeInfo (\s a -> s {_ckskrrsChangeInfo = a})
+createKeySigningKeyResponse_changeInfo :: Lens.Lens' CreateKeySigningKeyResponse ChangeInfo
+createKeySigningKeyResponse_changeInfo = Lens.lens (\CreateKeySigningKeyResponse' {changeInfo} -> changeInfo) (\s@CreateKeySigningKeyResponse' {} a -> s {changeInfo = a} :: CreateKeySigningKeyResponse)
 
 -- | The key-signing key (KSK) that the request creates.
-ckskrrsKeySigningKey :: Lens' CreateKeySigningKeyResponse KeySigningKey
-ckskrrsKeySigningKey = lens _ckskrrsKeySigningKey (\s a -> s {_ckskrrsKeySigningKey = a})
+createKeySigningKeyResponse_keySigningKey :: Lens.Lens' CreateKeySigningKeyResponse KeySigningKey
+createKeySigningKeyResponse_keySigningKey = Lens.lens (\CreateKeySigningKeyResponse' {keySigningKey} -> keySigningKey) (\s@CreateKeySigningKeyResponse' {} a -> s {keySigningKey = a} :: CreateKeySigningKeyResponse)
 
 -- | The unique URL representing the new key-signing key (KSK).
-ckskrrsLocation :: Lens' CreateKeySigningKeyResponse Text
-ckskrrsLocation = lens _ckskrrsLocation (\s a -> s {_ckskrrsLocation = a})
+createKeySigningKeyResponse_location :: Lens.Lens' CreateKeySigningKeyResponse Prelude.Text
+createKeySigningKeyResponse_location = Lens.lens (\CreateKeySigningKeyResponse' {location} -> location) (\s@CreateKeySigningKeyResponse' {} a -> s {location = a} :: CreateKeySigningKeyResponse)
 
-instance NFData CreateKeySigningKeyResponse
+instance Prelude.NFData CreateKeySigningKeyResponse

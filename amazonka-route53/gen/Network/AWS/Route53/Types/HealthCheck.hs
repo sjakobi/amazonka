@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,139 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.HealthCheck where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.CloudWatchAlarmConfiguration
 import Network.AWS.Route53.Types.HealthCheckConfig
 import Network.AWS.Route53.Types.LinkedService
 
--- | A complex type that contains information about one health check that is associated with the current AWS account.
+-- | A complex type that contains information about one health check that is
+-- associated with the current AWS account.
 --
---
---
--- /See:/ 'healthCheck' smart constructor.
+-- /See:/ 'newHealthCheck' smart constructor.
 data HealthCheck = HealthCheck'
-  { _hcCloudWatchAlarmConfiguration ::
-      !(Maybe CloudWatchAlarmConfiguration),
-    _hcLinkedService :: !(Maybe LinkedService),
-    _hcId :: !Text,
-    _hcCallerReference :: !Text,
-    _hcHealthCheckConfig :: !HealthCheckConfig,
-    _hcHealthCheckVersion :: !Nat
+  { -- | A complex type that contains information about the CloudWatch alarm that
+    -- Amazon Route 53 is monitoring for this health check.
+    cloudWatchAlarmConfiguration :: Prelude.Maybe CloudWatchAlarmConfiguration,
+    -- | If the health check was created by another service, the service that
+    -- created the health check. When a health check is created by another
+    -- service, you can\'t edit or delete it using Amazon Route 53.
+    linkedService :: Prelude.Maybe LinkedService,
+    -- | The identifier that Amazon Route 53 assigned to the health check when
+    -- you created it. When you add or update a resource record set, you use
+    -- this value to specify which health check to use. The value can be up to
+    -- 64 characters long.
+    id :: Prelude.Text,
+    -- | A unique string that you specified when you created the health check.
+    callerReference :: Prelude.Text,
+    -- | A complex type that contains detailed information about one health
+    -- check.
+    healthCheckConfig :: HealthCheckConfig,
+    -- | The version of the health check. You can optionally pass this value in a
+    -- call to @UpdateHealthCheck@ to prevent overwriting another change to the
+    -- health check.
+    healthCheckVersion :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HealthCheck' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HealthCheck' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hcCloudWatchAlarmConfiguration' - A complex type that contains information about the CloudWatch alarm that Amazon Route 53 is monitoring for this health check.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hcLinkedService' - If the health check was created by another service, the service that created the health check. When a health check is created by another service, you can't edit or delete it using Amazon Route 53.
+-- 'cloudWatchAlarmConfiguration', 'healthCheck_cloudWatchAlarmConfiguration' - A complex type that contains information about the CloudWatch alarm that
+-- Amazon Route 53 is monitoring for this health check.
 --
--- * 'hcId' - The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or update a resource record set, you use this value to specify which health check to use. The value can be up to 64 characters long.
+-- 'linkedService', 'healthCheck_linkedService' - If the health check was created by another service, the service that
+-- created the health check. When a health check is created by another
+-- service, you can\'t edit or delete it using Amazon Route 53.
 --
--- * 'hcCallerReference' - A unique string that you specified when you created the health check.
+-- 'id', 'healthCheck_id' - The identifier that Amazon Route 53 assigned to the health check when
+-- you created it. When you add or update a resource record set, you use
+-- this value to specify which health check to use. The value can be up to
+-- 64 characters long.
 --
--- * 'hcHealthCheckConfig' - A complex type that contains detailed information about one health check.
+-- 'callerReference', 'healthCheck_callerReference' - A unique string that you specified when you created the health check.
 --
--- * 'hcHealthCheckVersion' - The version of the health check. You can optionally pass this value in a call to @UpdateHealthCheck@ to prevent overwriting another change to the health check.
-healthCheck ::
-  -- | 'hcId'
-  Text ->
-  -- | 'hcCallerReference'
-  Text ->
-  -- | 'hcHealthCheckConfig'
+-- 'healthCheckConfig', 'healthCheck_healthCheckConfig' - A complex type that contains detailed information about one health
+-- check.
+--
+-- 'healthCheckVersion', 'healthCheck_healthCheckVersion' - The version of the health check. You can optionally pass this value in a
+-- call to @UpdateHealthCheck@ to prevent overwriting another change to the
+-- health check.
+newHealthCheck ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'callerReference'
+  Prelude.Text ->
+  -- | 'healthCheckConfig'
   HealthCheckConfig ->
-  -- | 'hcHealthCheckVersion'
-  Natural ->
+  -- | 'healthCheckVersion'
+  Prelude.Natural ->
   HealthCheck
-healthCheck
+newHealthCheck
   pId_
   pCallerReference_
   pHealthCheckConfig_
   pHealthCheckVersion_ =
     HealthCheck'
-      { _hcCloudWatchAlarmConfiguration =
-          Nothing,
-        _hcLinkedService = Nothing,
-        _hcId = pId_,
-        _hcCallerReference = pCallerReference_,
-        _hcHealthCheckConfig = pHealthCheckConfig_,
-        _hcHealthCheckVersion = _Nat # pHealthCheckVersion_
+      { cloudWatchAlarmConfiguration =
+          Prelude.Nothing,
+        linkedService = Prelude.Nothing,
+        id = pId_,
+        callerReference = pCallerReference_,
+        healthCheckConfig = pHealthCheckConfig_,
+        healthCheckVersion =
+          Prelude._Nat Lens.# pHealthCheckVersion_
       }
 
--- | A complex type that contains information about the CloudWatch alarm that Amazon Route 53 is monitoring for this health check.
-hcCloudWatchAlarmConfiguration :: Lens' HealthCheck (Maybe CloudWatchAlarmConfiguration)
-hcCloudWatchAlarmConfiguration = lens _hcCloudWatchAlarmConfiguration (\s a -> s {_hcCloudWatchAlarmConfiguration = a})
+-- | A complex type that contains information about the CloudWatch alarm that
+-- Amazon Route 53 is monitoring for this health check.
+healthCheck_cloudWatchAlarmConfiguration :: Lens.Lens' HealthCheck (Prelude.Maybe CloudWatchAlarmConfiguration)
+healthCheck_cloudWatchAlarmConfiguration = Lens.lens (\HealthCheck' {cloudWatchAlarmConfiguration} -> cloudWatchAlarmConfiguration) (\s@HealthCheck' {} a -> s {cloudWatchAlarmConfiguration = a} :: HealthCheck)
 
--- | If the health check was created by another service, the service that created the health check. When a health check is created by another service, you can't edit or delete it using Amazon Route 53.
-hcLinkedService :: Lens' HealthCheck (Maybe LinkedService)
-hcLinkedService = lens _hcLinkedService (\s a -> s {_hcLinkedService = a})
+-- | If the health check was created by another service, the service that
+-- created the health check. When a health check is created by another
+-- service, you can\'t edit or delete it using Amazon Route 53.
+healthCheck_linkedService :: Lens.Lens' HealthCheck (Prelude.Maybe LinkedService)
+healthCheck_linkedService = Lens.lens (\HealthCheck' {linkedService} -> linkedService) (\s@HealthCheck' {} a -> s {linkedService = a} :: HealthCheck)
 
--- | The identifier that Amazon Route 53 assigned to the health check when you created it. When you add or update a resource record set, you use this value to specify which health check to use. The value can be up to 64 characters long.
-hcId :: Lens' HealthCheck Text
-hcId = lens _hcId (\s a -> s {_hcId = a})
+-- | The identifier that Amazon Route 53 assigned to the health check when
+-- you created it. When you add or update a resource record set, you use
+-- this value to specify which health check to use. The value can be up to
+-- 64 characters long.
+healthCheck_id :: Lens.Lens' HealthCheck Prelude.Text
+healthCheck_id = Lens.lens (\HealthCheck' {id} -> id) (\s@HealthCheck' {} a -> s {id = a} :: HealthCheck)
 
 -- | A unique string that you specified when you created the health check.
-hcCallerReference :: Lens' HealthCheck Text
-hcCallerReference = lens _hcCallerReference (\s a -> s {_hcCallerReference = a})
+healthCheck_callerReference :: Lens.Lens' HealthCheck Prelude.Text
+healthCheck_callerReference = Lens.lens (\HealthCheck' {callerReference} -> callerReference) (\s@HealthCheck' {} a -> s {callerReference = a} :: HealthCheck)
 
--- | A complex type that contains detailed information about one health check.
-hcHealthCheckConfig :: Lens' HealthCheck HealthCheckConfig
-hcHealthCheckConfig = lens _hcHealthCheckConfig (\s a -> s {_hcHealthCheckConfig = a})
+-- | A complex type that contains detailed information about one health
+-- check.
+healthCheck_healthCheckConfig :: Lens.Lens' HealthCheck HealthCheckConfig
+healthCheck_healthCheckConfig = Lens.lens (\HealthCheck' {healthCheckConfig} -> healthCheckConfig) (\s@HealthCheck' {} a -> s {healthCheckConfig = a} :: HealthCheck)
 
--- | The version of the health check. You can optionally pass this value in a call to @UpdateHealthCheck@ to prevent overwriting another change to the health check.
-hcHealthCheckVersion :: Lens' HealthCheck Natural
-hcHealthCheckVersion = lens _hcHealthCheckVersion (\s a -> s {_hcHealthCheckVersion = a}) . _Nat
+-- | The version of the health check. You can optionally pass this value in a
+-- call to @UpdateHealthCheck@ to prevent overwriting another change to the
+-- health check.
+healthCheck_healthCheckVersion :: Lens.Lens' HealthCheck Prelude.Natural
+healthCheck_healthCheckVersion = Lens.lens (\HealthCheck' {healthCheckVersion} -> healthCheckVersion) (\s@HealthCheck' {} a -> s {healthCheckVersion = a} :: HealthCheck) Prelude.. Prelude._Nat
 
-instance FromXML HealthCheck where
+instance Prelude.FromXML HealthCheck where
   parseXML x =
     HealthCheck'
-      <$> (x .@? "CloudWatchAlarmConfiguration")
-      <*> (x .@? "LinkedService")
-      <*> (x .@ "Id")
-      <*> (x .@ "CallerReference")
-      <*> (x .@ "HealthCheckConfig")
-      <*> (x .@ "HealthCheckVersion")
+      Prelude.<$> (x Prelude..@? "CloudWatchAlarmConfiguration")
+      Prelude.<*> (x Prelude..@? "LinkedService")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "CallerReference")
+      Prelude.<*> (x Prelude..@ "HealthCheckConfig")
+      Prelude.<*> (x Prelude..@ "HealthCheckVersion")
 
-instance Hashable HealthCheck
+instance Prelude.Hashable HealthCheck
 
-instance NFData HealthCheck
+instance Prelude.NFData HealthCheck

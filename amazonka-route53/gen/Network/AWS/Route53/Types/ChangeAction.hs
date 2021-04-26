@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.Route53.Types.ChangeAction
   ( ChangeAction
       ( ..,
-        Create,
-        Delete,
-        Upsert
+        ChangeActionCREATE,
+        ChangeActionDELETE,
+        ChangeActionUPSERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data ChangeAction = ChangeAction' (CI Text)
+newtype ChangeAction = ChangeAction'
+  { fromChangeAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Create :: ChangeAction
-pattern Create = ChangeAction' "CREATE"
+pattern ChangeActionCREATE :: ChangeAction
+pattern ChangeActionCREATE = ChangeAction' "CREATE"
 
-pattern Delete :: ChangeAction
-pattern Delete = ChangeAction' "DELETE"
+pattern ChangeActionDELETE :: ChangeAction
+pattern ChangeActionDELETE = ChangeAction' "DELETE"
 
-pattern Upsert :: ChangeAction
-pattern Upsert = ChangeAction' "UPSERT"
+pattern ChangeActionUPSERT :: ChangeAction
+pattern ChangeActionUPSERT = ChangeAction' "UPSERT"
 
 {-# COMPLETE
-  Create,
-  Delete,
-  Upsert,
+  ChangeActionCREATE,
+  ChangeActionDELETE,
+  ChangeActionUPSERT,
   ChangeAction'
   #-}
 
-instance FromText ChangeAction where
-  parser = (ChangeAction' . mk) <$> takeText
+instance Prelude.FromText ChangeAction where
+  parser = ChangeAction' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeAction where
-  toText (ChangeAction' ci) = original ci
+instance Prelude.ToText ChangeAction where
+  toText (ChangeAction' x) = x
 
-instance Hashable ChangeAction
+instance Prelude.Hashable ChangeAction
 
-instance NFData ChangeAction
+instance Prelude.NFData ChangeAction
 
-instance ToByteString ChangeAction
+instance Prelude.ToByteString ChangeAction
 
-instance ToQuery ChangeAction
+instance Prelude.ToQuery ChangeAction
 
-instance ToHeader ChangeAction
+instance Prelude.ToHeader ChangeAction
 
-instance ToXML ChangeAction where
-  toXML = toXMLText
+instance Prelude.ToXML ChangeAction where
+  toXML = Prelude.toXMLText

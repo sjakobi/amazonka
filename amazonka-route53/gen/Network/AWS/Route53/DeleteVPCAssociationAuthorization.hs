@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes authorization to submit an @AssociateVPCWithHostedZone@ request to associate a specified VPC with a hosted zone that was created by a different account. You must use the account that created the hosted zone to submit a @DeleteVPCAssociationAuthorization@ request.
+-- Removes authorization to submit an @AssociateVPCWithHostedZone@ request
+-- to associate a specified VPC with a hosted zone that was created by a
+-- different account. You must use the account that created the hosted zone
+-- to submit a @DeleteVPCAssociationAuthorization@ request.
 --
---
--- /Important:/ Sending this request only prevents the AWS account that created the VPC from associating the VPC with the Amazon Route 53 hosted zone in the future. If the VPC is already associated with the hosted zone, @DeleteVPCAssociationAuthorization@ won't disassociate the VPC from the hosted zone. If you want to delete an existing association, use @DisassociateVPCFromHostedZone@ .
+-- Sending this request only prevents the AWS account that created the VPC
+-- from associating the VPC with the Amazon Route 53 hosted zone in the
+-- future. If the VPC is already associated with the hosted zone,
+-- @DeleteVPCAssociationAuthorization@ won\'t disassociate the VPC from the
+-- hosted zone. If you want to delete an existing association, use
+-- @DisassociateVPCFromHostedZone@.
 module Network.AWS.Route53.DeleteVPCAssociationAuthorization
   ( -- * Creating a Request
-    deleteVPCAssociationAuthorization,
-    DeleteVPCAssociationAuthorization,
+    DeleteVPCAssociationAuthorization (..),
+    newDeleteVPCAssociationAuthorization,
 
     -- * Request Lenses
-    dvaaHostedZoneId,
-    dvaaVPC,
+    deleteVPCAssociationAuthorization_hostedZoneId,
+    deleteVPCAssociationAuthorization_vPC,
 
     -- * Destructuring the Response
-    deleteVPCAssociationAuthorizationResponse,
-    DeleteVPCAssociationAuthorizationResponse,
+    DeleteVPCAssociationAuthorizationResponse (..),
+    newDeleteVPCAssociationAuthorizationResponse,
 
     -- * Response Lenses
-    dvaarrsResponseStatus,
+    deleteVPCAssociationAuthorizationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
 
--- | A complex type that contains information about the request to remove authorization to associate a VPC that was created by one AWS account with a hosted zone that was created with a different AWS account.
+-- | A complex type that contains information about the request to remove
+-- authorization to associate a VPC that was created by one AWS account
+-- with a hosted zone that was created with a different AWS account.
 --
---
---
--- /See:/ 'deleteVPCAssociationAuthorization' smart constructor.
+-- /See:/ 'newDeleteVPCAssociationAuthorization' smart constructor.
 data DeleteVPCAssociationAuthorization = DeleteVPCAssociationAuthorization'
-  { _dvaaHostedZoneId ::
-      !ResourceId,
-    _dvaaVPC ::
-      !VPC
+  { -- | When removing authorization to associate a VPC that was created by one
+    -- AWS account with a hosted zone that was created with a different AWS
+    -- account, the ID of the hosted zone.
+    hostedZoneId :: ResourceId,
+    -- | When removing authorization to associate a VPC that was created by one
+    -- AWS account with a hosted zone that was created with a different AWS
+    -- account, a complex type that includes the ID and region of the VPC.
+    vPC :: VPC
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVPCAssociationAuthorization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVPCAssociationAuthorization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvaaHostedZoneId' - When removing authorization to associate a VPC that was created by one AWS account with a hosted zone that was created with a different AWS account, the ID of the hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvaaVPC' - When removing authorization to associate a VPC that was created by one AWS account with a hosted zone that was created with a different AWS account, a complex type that includes the ID and region of the VPC.
-deleteVPCAssociationAuthorization ::
-  -- | 'dvaaHostedZoneId'
+-- 'hostedZoneId', 'deleteVPCAssociationAuthorization_hostedZoneId' - When removing authorization to associate a VPC that was created by one
+-- AWS account with a hosted zone that was created with a different AWS
+-- account, the ID of the hosted zone.
+--
+-- 'vPC', 'deleteVPCAssociationAuthorization_vPC' - When removing authorization to associate a VPC that was created by one
+-- AWS account with a hosted zone that was created with a different AWS
+-- account, a complex type that includes the ID and region of the VPC.
+newDeleteVPCAssociationAuthorization ::
+  -- | 'hostedZoneId'
   ResourceId ->
-  -- | 'dvaaVPC'
+  -- | 'vPC'
   VPC ->
   DeleteVPCAssociationAuthorization
-deleteVPCAssociationAuthorization
+newDeleteVPCAssociationAuthorization
   pHostedZoneId_
   pVPC_ =
     DeleteVPCAssociationAuthorization'
-      { _dvaaHostedZoneId =
+      { hostedZoneId =
           pHostedZoneId_,
-        _dvaaVPC = pVPC_
+        vPC = pVPC_
       }
 
--- | When removing authorization to associate a VPC that was created by one AWS account with a hosted zone that was created with a different AWS account, the ID of the hosted zone.
-dvaaHostedZoneId :: Lens' DeleteVPCAssociationAuthorization ResourceId
-dvaaHostedZoneId = lens _dvaaHostedZoneId (\s a -> s {_dvaaHostedZoneId = a})
+-- | When removing authorization to associate a VPC that was created by one
+-- AWS account with a hosted zone that was created with a different AWS
+-- account, the ID of the hosted zone.
+deleteVPCAssociationAuthorization_hostedZoneId :: Lens.Lens' DeleteVPCAssociationAuthorization ResourceId
+deleteVPCAssociationAuthorization_hostedZoneId = Lens.lens (\DeleteVPCAssociationAuthorization' {hostedZoneId} -> hostedZoneId) (\s@DeleteVPCAssociationAuthorization' {} a -> s {hostedZoneId = a} :: DeleteVPCAssociationAuthorization)
 
--- | When removing authorization to associate a VPC that was created by one AWS account with a hosted zone that was created with a different AWS account, a complex type that includes the ID and region of the VPC.
-dvaaVPC :: Lens' DeleteVPCAssociationAuthorization VPC
-dvaaVPC = lens _dvaaVPC (\s a -> s {_dvaaVPC = a})
+-- | When removing authorization to associate a VPC that was created by one
+-- AWS account with a hosted zone that was created with a different AWS
+-- account, a complex type that includes the ID and region of the VPC.
+deleteVPCAssociationAuthorization_vPC :: Lens.Lens' DeleteVPCAssociationAuthorization VPC
+deleteVPCAssociationAuthorization_vPC = Lens.lens (\DeleteVPCAssociationAuthorization' {vPC} -> vPC) (\s@DeleteVPCAssociationAuthorization' {} a -> s {vPC = a} :: DeleteVPCAssociationAuthorization)
 
-instance AWSRequest DeleteVPCAssociationAuthorization where
+instance
+  Prelude.AWSRequest
+    DeleteVPCAssociationAuthorization
+  where
   type
     Rs DeleteVPCAssociationAuthorization =
       DeleteVPCAssociationAuthorizationResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteVPCAssociationAuthorizationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteVPCAssociationAuthorization
+instance
+  Prelude.Hashable
+    DeleteVPCAssociationAuthorization
 
-instance NFData DeleteVPCAssociationAuthorization
+instance
+  Prelude.NFData
+    DeleteVPCAssociationAuthorization
 
-instance ToElement DeleteVPCAssociationAuthorization where
+instance
+  Prelude.ToElement
+    DeleteVPCAssociationAuthorization
+  where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}DeleteVPCAssociationAuthorizationRequest"
 
-instance ToHeaders DeleteVPCAssociationAuthorization where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteVPCAssociationAuthorization
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteVPCAssociationAuthorization where
+instance
+  Prelude.ToPath
+    DeleteVPCAssociationAuthorization
+  where
   toPath DeleteVPCAssociationAuthorization' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        toBS _dvaaHostedZoneId,
+        Prelude.toBS hostedZoneId,
         "/deauthorizevpcassociation"
       ]
 
-instance ToQuery DeleteVPCAssociationAuthorization where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeleteVPCAssociationAuthorization
+  where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML DeleteVPCAssociationAuthorization where
+instance
+  Prelude.ToXML
+    DeleteVPCAssociationAuthorization
+  where
   toXML DeleteVPCAssociationAuthorization' {..} =
-    mconcat ["VPC" @= _dvaaVPC]
+    Prelude.mconcat ["VPC" Prelude.@= vPC]
 
 -- | Empty response for the request.
 --
---
---
--- /See:/ 'deleteVPCAssociationAuthorizationResponse' smart constructor.
-newtype DeleteVPCAssociationAuthorizationResponse = DeleteVPCAssociationAuthorizationResponse'
-  { _dvaarrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteVPCAssociationAuthorizationResponse' smart constructor.
+data DeleteVPCAssociationAuthorizationResponse = DeleteVPCAssociationAuthorizationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVPCAssociationAuthorizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVPCAssociationAuthorizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvaarrsResponseStatus' - -- | The response status code.
-deleteVPCAssociationAuthorizationResponse ::
-  -- | 'dvaarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteVPCAssociationAuthorizationResponse_httpStatus' - The response's http status code.
+newDeleteVPCAssociationAuthorizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteVPCAssociationAuthorizationResponse
-deleteVPCAssociationAuthorizationResponse
-  pResponseStatus_ =
+newDeleteVPCAssociationAuthorizationResponse
+  pHttpStatus_ =
     DeleteVPCAssociationAuthorizationResponse'
-      { _dvaarrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-dvaarrsResponseStatus :: Lens' DeleteVPCAssociationAuthorizationResponse Int
-dvaarrsResponseStatus = lens _dvaarrsResponseStatus (\s a -> s {_dvaarrsResponseStatus = a})
+-- | The response's http status code.
+deleteVPCAssociationAuthorizationResponse_httpStatus :: Lens.Lens' DeleteVPCAssociationAuthorizationResponse Prelude.Int
+deleteVPCAssociationAuthorizationResponse_httpStatus = Lens.lens (\DeleteVPCAssociationAuthorizationResponse' {httpStatus} -> httpStatus) (\s@DeleteVPCAssociationAuthorizationResponse' {} a -> s {httpStatus = a} :: DeleteVPCAssociationAuthorizationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteVPCAssociationAuthorizationResponse

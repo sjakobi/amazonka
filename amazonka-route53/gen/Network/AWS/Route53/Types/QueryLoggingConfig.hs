@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.QueryLoggingConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
--- | A complex type that contains information about a configuration for DNS query logging.
+-- | A complex type that contains information about a configuration for DNS
+-- query logging.
 --
---
---
--- /See:/ 'queryLoggingConfig' smart constructor.
+-- /See:/ 'newQueryLoggingConfig' smart constructor.
 data QueryLoggingConfig = QueryLoggingConfig'
-  { _qlcId ::
-      !Text,
-    _qlcHostedZoneId :: !ResourceId,
-    _qlcCloudWatchLogsLogGroupARN ::
-      !Text
+  { -- | The ID for a configuration for DNS query logging.
+    id :: Prelude.Text,
+    -- | The ID of the hosted zone that CloudWatch Logs is logging queries for.
+    hostedZoneId :: ResourceId,
+    -- | The Amazon Resource Name (ARN) of the CloudWatch Logs log group that
+    -- Amazon Route 53 is publishing logs to.
+    cloudWatchLogsLogGroupArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryLoggingConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryLoggingConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qlcId' - The ID for a configuration for DNS query logging.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qlcHostedZoneId' - The ID of the hosted zone that CloudWatch Logs is logging queries for.
+-- 'id', 'queryLoggingConfig_id' - The ID for a configuration for DNS query logging.
 --
--- * 'qlcCloudWatchLogsLogGroupARN' - The Amazon Resource Name (ARN) of the CloudWatch Logs log group that Amazon Route 53 is publishing logs to.
-queryLoggingConfig ::
-  -- | 'qlcId'
-  Text ->
-  -- | 'qlcHostedZoneId'
+-- 'hostedZoneId', 'queryLoggingConfig_hostedZoneId' - The ID of the hosted zone that CloudWatch Logs is logging queries for.
+--
+-- 'cloudWatchLogsLogGroupArn', 'queryLoggingConfig_cloudWatchLogsLogGroupArn' - The Amazon Resource Name (ARN) of the CloudWatch Logs log group that
+-- Amazon Route 53 is publishing logs to.
+newQueryLoggingConfig ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'hostedZoneId'
   ResourceId ->
-  -- | 'qlcCloudWatchLogsLogGroupARN'
-  Text ->
+  -- | 'cloudWatchLogsLogGroupArn'
+  Prelude.Text ->
   QueryLoggingConfig
-queryLoggingConfig
+newQueryLoggingConfig
   pId_
   pHostedZoneId_
-  pCloudWatchLogsLogGroupARN_ =
+  pCloudWatchLogsLogGroupArn_ =
     QueryLoggingConfig'
-      { _qlcId = pId_,
-        _qlcHostedZoneId = pHostedZoneId_,
-        _qlcCloudWatchLogsLogGroupARN =
-          pCloudWatchLogsLogGroupARN_
+      { id = pId_,
+        hostedZoneId = pHostedZoneId_,
+        cloudWatchLogsLogGroupArn =
+          pCloudWatchLogsLogGroupArn_
       }
 
 -- | The ID for a configuration for DNS query logging.
-qlcId :: Lens' QueryLoggingConfig Text
-qlcId = lens _qlcId (\s a -> s {_qlcId = a})
+queryLoggingConfig_id :: Lens.Lens' QueryLoggingConfig Prelude.Text
+queryLoggingConfig_id = Lens.lens (\QueryLoggingConfig' {id} -> id) (\s@QueryLoggingConfig' {} a -> s {id = a} :: QueryLoggingConfig)
 
 -- | The ID of the hosted zone that CloudWatch Logs is logging queries for.
-qlcHostedZoneId :: Lens' QueryLoggingConfig ResourceId
-qlcHostedZoneId = lens _qlcHostedZoneId (\s a -> s {_qlcHostedZoneId = a})
+queryLoggingConfig_hostedZoneId :: Lens.Lens' QueryLoggingConfig ResourceId
+queryLoggingConfig_hostedZoneId = Lens.lens (\QueryLoggingConfig' {hostedZoneId} -> hostedZoneId) (\s@QueryLoggingConfig' {} a -> s {hostedZoneId = a} :: QueryLoggingConfig)
 
--- | The Amazon Resource Name (ARN) of the CloudWatch Logs log group that Amazon Route 53 is publishing logs to.
-qlcCloudWatchLogsLogGroupARN :: Lens' QueryLoggingConfig Text
-qlcCloudWatchLogsLogGroupARN = lens _qlcCloudWatchLogsLogGroupARN (\s a -> s {_qlcCloudWatchLogsLogGroupARN = a})
+-- | The Amazon Resource Name (ARN) of the CloudWatch Logs log group that
+-- Amazon Route 53 is publishing logs to.
+queryLoggingConfig_cloudWatchLogsLogGroupArn :: Lens.Lens' QueryLoggingConfig Prelude.Text
+queryLoggingConfig_cloudWatchLogsLogGroupArn = Lens.lens (\QueryLoggingConfig' {cloudWatchLogsLogGroupArn} -> cloudWatchLogsLogGroupArn) (\s@QueryLoggingConfig' {} a -> s {cloudWatchLogsLogGroupArn = a} :: QueryLoggingConfig)
 
-instance FromXML QueryLoggingConfig where
+instance Prelude.FromXML QueryLoggingConfig where
   parseXML x =
     QueryLoggingConfig'
-      <$> (x .@ "Id")
-      <*> (x .@ "HostedZoneId")
-      <*> (x .@ "CloudWatchLogsLogGroupArn")
+      Prelude.<$> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "HostedZoneId")
+      Prelude.<*> (x Prelude..@ "CloudWatchLogsLogGroupArn")
 
-instance Hashable QueryLoggingConfig
+instance Prelude.Hashable QueryLoggingConfig
 
-instance NFData QueryLoggingConfig
+instance Prelude.NFData QueryLoggingConfig

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +19,114 @@
 module Network.AWS.Route53.Types.RecordType
   ( RecordType
       ( ..,
-        A,
-        Aaaa,
-        Caa,
-        Cname,
-        DS,
-        MX,
-        NS,
-        Naptr,
-        Ptr,
-        Soa,
-        Spf,
-        Srv,
-        Txt
+        RecordTypeA,
+        RecordTypeAAAA,
+        RecordTypeCAA,
+        RecordTypeCNAME,
+        RecordTypeDS,
+        RecordTypeMX,
+        RecordTypeNAPTR,
+        RecordTypeNS,
+        RecordTypePTR,
+        RecordTypeSOA,
+        RecordTypeSPF,
+        RecordTypeSRV,
+        RecordTypeTXT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data RecordType = RecordType' (CI Text)
+newtype RecordType = RecordType'
+  { fromRecordType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern A :: RecordType
-pattern A = RecordType' "A"
+pattern RecordTypeA :: RecordType
+pattern RecordTypeA = RecordType' "A"
 
-pattern Aaaa :: RecordType
-pattern Aaaa = RecordType' "AAAA"
+pattern RecordTypeAAAA :: RecordType
+pattern RecordTypeAAAA = RecordType' "AAAA"
 
-pattern Caa :: RecordType
-pattern Caa = RecordType' "CAA"
+pattern RecordTypeCAA :: RecordType
+pattern RecordTypeCAA = RecordType' "CAA"
 
-pattern Cname :: RecordType
-pattern Cname = RecordType' "CNAME"
+pattern RecordTypeCNAME :: RecordType
+pattern RecordTypeCNAME = RecordType' "CNAME"
 
-pattern DS :: RecordType
-pattern DS = RecordType' "DS"
+pattern RecordTypeDS :: RecordType
+pattern RecordTypeDS = RecordType' "DS"
 
-pattern MX :: RecordType
-pattern MX = RecordType' "MX"
+pattern RecordTypeMX :: RecordType
+pattern RecordTypeMX = RecordType' "MX"
 
-pattern NS :: RecordType
-pattern NS = RecordType' "NS"
+pattern RecordTypeNAPTR :: RecordType
+pattern RecordTypeNAPTR = RecordType' "NAPTR"
 
-pattern Naptr :: RecordType
-pattern Naptr = RecordType' "NAPTR"
+pattern RecordTypeNS :: RecordType
+pattern RecordTypeNS = RecordType' "NS"
 
-pattern Ptr :: RecordType
-pattern Ptr = RecordType' "PTR"
+pattern RecordTypePTR :: RecordType
+pattern RecordTypePTR = RecordType' "PTR"
 
-pattern Soa :: RecordType
-pattern Soa = RecordType' "SOA"
+pattern RecordTypeSOA :: RecordType
+pattern RecordTypeSOA = RecordType' "SOA"
 
-pattern Spf :: RecordType
-pattern Spf = RecordType' "SPF"
+pattern RecordTypeSPF :: RecordType
+pattern RecordTypeSPF = RecordType' "SPF"
 
-pattern Srv :: RecordType
-pattern Srv = RecordType' "SRV"
+pattern RecordTypeSRV :: RecordType
+pattern RecordTypeSRV = RecordType' "SRV"
 
-pattern Txt :: RecordType
-pattern Txt = RecordType' "TXT"
+pattern RecordTypeTXT :: RecordType
+pattern RecordTypeTXT = RecordType' "TXT"
 
 {-# COMPLETE
-  A,
-  Aaaa,
-  Caa,
-  Cname,
-  DS,
-  MX,
-  NS,
-  Naptr,
-  Ptr,
-  Soa,
-  Spf,
-  Srv,
-  Txt,
+  RecordTypeA,
+  RecordTypeAAAA,
+  RecordTypeCAA,
+  RecordTypeCNAME,
+  RecordTypeDS,
+  RecordTypeMX,
+  RecordTypeNAPTR,
+  RecordTypeNS,
+  RecordTypePTR,
+  RecordTypeSOA,
+  RecordTypeSPF,
+  RecordTypeSRV,
+  RecordTypeTXT,
   RecordType'
   #-}
 
-instance FromText RecordType where
-  parser = (RecordType' . mk) <$> takeText
+instance Prelude.FromText RecordType where
+  parser = RecordType' Prelude.<$> Prelude.takeText
 
-instance ToText RecordType where
-  toText (RecordType' ci) = original ci
+instance Prelude.ToText RecordType where
+  toText (RecordType' x) = x
 
-instance Hashable RecordType
+instance Prelude.Hashable RecordType
 
-instance NFData RecordType
+instance Prelude.NFData RecordType
 
-instance ToByteString RecordType
+instance Prelude.ToByteString RecordType
 
-instance ToQuery RecordType
+instance Prelude.ToQuery RecordType
 
-instance ToHeader RecordType
+instance Prelude.ToHeader RecordType
 
-instance FromXML RecordType where
-  parseXML = parseXMLText "RecordType"
+instance Prelude.FromXML RecordType where
+  parseXML = Prelude.parseXMLText "RecordType"
 
-instance ToXML RecordType where
-  toXML = toXMLText
+instance Prelude.ToXML RecordType where
+  toXML = Prelude.toXMLText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.Change where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.ChangeAction
 import Network.AWS.Route53.Types.ResourceRecordSet
 
 -- | The information for each resource record set that you want to change.
 --
---
---
--- /See:/ 'change' smart constructor.
+-- /See:/ 'newChange' smart constructor.
 data Change = Change'
-  { _cAction :: !ChangeAction,
-    _cResourceRecordSet :: !ResourceRecordSet
+  { -- | The action to perform:
+    --
+    -- -   @CREATE@: Creates a resource record set that has the specified
+    --     values.
+    --
+    -- -   @DELETE@: Deletes a existing resource record set.
+    --
+    --     To delete the resource record set that is associated with a traffic
+    --     policy instance, use
+    --     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicyInstance.html DeleteTrafficPolicyInstance>.
+    --     Amazon Route 53 will delete the resource record set automatically.
+    --     If you delete the resource record set by using
+    --     @ChangeResourceRecordSets@, Route 53 doesn\'t automatically delete
+    --     the traffic policy instance, and you\'ll continue to be charged for
+    --     it even though it\'s no longer in use.
+    --
+    -- -   @UPSERT@: If a resource record set doesn\'t already exist, Route 53
+    --     creates it. If a resource record set does exist, Route 53 updates it
+    --     with the values in the request.
+    action :: ChangeAction,
+    -- | Information about the resource record set to create, delete, or update.
+    resourceRecordSet :: ResourceRecordSet
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Change' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Change' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cAction' - The action to perform:     * @CREATE@ : Creates a resource record set that has the specified values.     * @DELETE@ : Deletes a existing resource record set. /Important:/ To delete the resource record set that is associated with a traffic policy instance, use <https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicyInstance.html DeleteTrafficPolicyInstance> . Amazon Route 53 will delete the resource record set automatically. If you delete the resource record set by using @ChangeResourceRecordSets@ , Route 53 doesn't automatically delete the traffic policy instance, and you'll continue to be charged for it even though it's no longer in use.      * @UPSERT@ : If a resource record set doesn't already exist, Route 53 creates it. If a resource record set does exist, Route 53 updates it with the values in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cResourceRecordSet' - Information about the resource record set to create, delete, or update.
-change ::
-  -- | 'cAction'
+-- 'action', 'change_action' - The action to perform:
+--
+-- -   @CREATE@: Creates a resource record set that has the specified
+--     values.
+--
+-- -   @DELETE@: Deletes a existing resource record set.
+--
+--     To delete the resource record set that is associated with a traffic
+--     policy instance, use
+--     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicyInstance.html DeleteTrafficPolicyInstance>.
+--     Amazon Route 53 will delete the resource record set automatically.
+--     If you delete the resource record set by using
+--     @ChangeResourceRecordSets@, Route 53 doesn\'t automatically delete
+--     the traffic policy instance, and you\'ll continue to be charged for
+--     it even though it\'s no longer in use.
+--
+-- -   @UPSERT@: If a resource record set doesn\'t already exist, Route 53
+--     creates it. If a resource record set does exist, Route 53 updates it
+--     with the values in the request.
+--
+-- 'resourceRecordSet', 'change_resourceRecordSet' - Information about the resource record set to create, delete, or update.
+newChange ::
+  -- | 'action'
   ChangeAction ->
-  -- | 'cResourceRecordSet'
+  -- | 'resourceRecordSet'
   ResourceRecordSet ->
   Change
-change pAction_ pResourceRecordSet_ =
+newChange pAction_ pResourceRecordSet_ =
   Change'
-    { _cAction = pAction_,
-      _cResourceRecordSet = pResourceRecordSet_
+    { action = pAction_,
+      resourceRecordSet = pResourceRecordSet_
     }
 
--- | The action to perform:     * @CREATE@ : Creates a resource record set that has the specified values.     * @DELETE@ : Deletes a existing resource record set. /Important:/ To delete the resource record set that is associated with a traffic policy instance, use <https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicyInstance.html DeleteTrafficPolicyInstance> . Amazon Route 53 will delete the resource record set automatically. If you delete the resource record set by using @ChangeResourceRecordSets@ , Route 53 doesn't automatically delete the traffic policy instance, and you'll continue to be charged for it even though it's no longer in use.      * @UPSERT@ : If a resource record set doesn't already exist, Route 53 creates it. If a resource record set does exist, Route 53 updates it with the values in the request.
-cAction :: Lens' Change ChangeAction
-cAction = lens _cAction (\s a -> s {_cAction = a})
+-- | The action to perform:
+--
+-- -   @CREATE@: Creates a resource record set that has the specified
+--     values.
+--
+-- -   @DELETE@: Deletes a existing resource record set.
+--
+--     To delete the resource record set that is associated with a traffic
+--     policy instance, use
+--     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteTrafficPolicyInstance.html DeleteTrafficPolicyInstance>.
+--     Amazon Route 53 will delete the resource record set automatically.
+--     If you delete the resource record set by using
+--     @ChangeResourceRecordSets@, Route 53 doesn\'t automatically delete
+--     the traffic policy instance, and you\'ll continue to be charged for
+--     it even though it\'s no longer in use.
+--
+-- -   @UPSERT@: If a resource record set doesn\'t already exist, Route 53
+--     creates it. If a resource record set does exist, Route 53 updates it
+--     with the values in the request.
+change_action :: Lens.Lens' Change ChangeAction
+change_action = Lens.lens (\Change' {action} -> action) (\s@Change' {} a -> s {action = a} :: Change)
 
 -- | Information about the resource record set to create, delete, or update.
-cResourceRecordSet :: Lens' Change ResourceRecordSet
-cResourceRecordSet = lens _cResourceRecordSet (\s a -> s {_cResourceRecordSet = a})
+change_resourceRecordSet :: Lens.Lens' Change ResourceRecordSet
+change_resourceRecordSet = Lens.lens (\Change' {resourceRecordSet} -> resourceRecordSet) (\s@Change' {} a -> s {resourceRecordSet = a} :: Change)
 
-instance Hashable Change
+instance Prelude.Hashable Change
 
-instance NFData Change
+instance Prelude.NFData Change
 
-instance ToXML Change where
+instance Prelude.ToXML Change where
   toXML Change' {..} =
-    mconcat
-      [ "Action" @= _cAction,
-        "ResourceRecordSet" @= _cResourceRecordSet
+    Prelude.mconcat
+      [ "Action" Prelude.@= action,
+        "ResourceRecordSet" Prelude.@= resourceRecordSet
       ]

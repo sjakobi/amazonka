@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,207 +21,238 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the resource record sets in a specified hosted zone that were created based on the settings in a specified traffic policy version.
+-- Updates the resource record sets in a specified hosted zone that were
+-- created based on the settings in a specified traffic policy version.
 --
+-- When you update a traffic policy instance, Amazon Route 53 continues to
+-- respond to DNS queries for the root resource record set name (such as
+-- example.com) while it replaces one group of resource record sets with
+-- another. Route 53 performs the following operations:
 --
--- When you update a traffic policy instance, Amazon Route 53 continues to respond to DNS queries for the root resource record set name (such as example.com) while it replaces one group of resource record sets with another. Route 53 performs the following operations:
+-- 1.  Route 53 creates a new group of resource record sets based on the
+--     specified traffic policy. This is true regardless of how significant
+--     the differences are between the existing resource record sets and
+--     the new resource record sets.
 --
---     * Route 53 creates a new group of resource record sets based on the specified traffic policy. This is true regardless of how significant the differences are between the existing resource record sets and the new resource record sets.
+-- 2.  When all of the new resource record sets have been created, Route 53
+--     starts to respond to DNS queries for the root resource record set
+--     name (such as example.com) by using the new resource record sets.
 --
---     * When all of the new resource record sets have been created, Route 53 starts to respond to DNS queries for the root resource record set name (such as example.com) by using the new resource record sets.
---
---     * Route 53 deletes the old group of resource record sets that are associated with the root resource record set name.
+-- 3.  Route 53 deletes the old group of resource record sets that are
+--     associated with the root resource record set name.
 module Network.AWS.Route53.UpdateTrafficPolicyInstance
   ( -- * Creating a Request
-    updateTrafficPolicyInstance,
-    UpdateTrafficPolicyInstance,
+    UpdateTrafficPolicyInstance (..),
+    newUpdateTrafficPolicyInstance,
 
     -- * Request Lenses
-    utpiId,
-    utpiTTL,
-    utpiTrafficPolicyId,
-    utpiTrafficPolicyVersion,
+    updateTrafficPolicyInstance_id,
+    updateTrafficPolicyInstance_tTL,
+    updateTrafficPolicyInstance_trafficPolicyId,
+    updateTrafficPolicyInstance_trafficPolicyVersion,
 
     -- * Destructuring the Response
-    updateTrafficPolicyInstanceResponse,
-    UpdateTrafficPolicyInstanceResponse,
+    UpdateTrafficPolicyInstanceResponse (..),
+    newUpdateTrafficPolicyInstanceResponse,
 
     -- * Response Lenses
-    utpirrsResponseStatus,
-    utpirrsTrafficPolicyInstance,
+    updateTrafficPolicyInstanceResponse_httpStatus,
+    updateTrafficPolicyInstanceResponse_trafficPolicyInstance,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.TrafficPolicyInstance
 
--- | A complex type that contains information about the resource record sets that you want to update based on a specified traffic policy instance.
+-- | A complex type that contains information about the resource record sets
+-- that you want to update based on a specified traffic policy instance.
 --
---
---
--- /See:/ 'updateTrafficPolicyInstance' smart constructor.
+-- /See:/ 'newUpdateTrafficPolicyInstance' smart constructor.
 data UpdateTrafficPolicyInstance = UpdateTrafficPolicyInstance'
-  { _utpiId ::
-      !Text,
-    _utpiTTL ::
-      !Nat,
-    _utpiTrafficPolicyId ::
-      !Text,
-    _utpiTrafficPolicyVersion ::
-      !Nat
+  { -- | The ID of the traffic policy instance that you want to update.
+    id :: Prelude.Text,
+    -- | The TTL that you want Amazon Route 53 to assign to all of the updated
+    -- resource record sets.
+    tTL :: Prelude.Nat,
+    -- | The ID of the traffic policy that you want Amazon Route 53 to use to
+    -- update resource record sets for the specified traffic policy instance.
+    trafficPolicyId :: Prelude.Text,
+    -- | The version of the traffic policy that you want Amazon Route 53 to use
+    -- to update resource record sets for the specified traffic policy
+    -- instance.
+    trafficPolicyVersion :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrafficPolicyInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrafficPolicyInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utpiId' - The ID of the traffic policy instance that you want to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utpiTTL' - The TTL that you want Amazon Route 53 to assign to all of the updated resource record sets.
+-- 'id', 'updateTrafficPolicyInstance_id' - The ID of the traffic policy instance that you want to update.
 --
--- * 'utpiTrafficPolicyId' - The ID of the traffic policy that you want Amazon Route 53 to use to update resource record sets for the specified traffic policy instance.
+-- 'tTL', 'updateTrafficPolicyInstance_tTL' - The TTL that you want Amazon Route 53 to assign to all of the updated
+-- resource record sets.
 --
--- * 'utpiTrafficPolicyVersion' - The version of the traffic policy that you want Amazon Route 53 to use to update resource record sets for the specified traffic policy instance.
-updateTrafficPolicyInstance ::
-  -- | 'utpiId'
-  Text ->
-  -- | 'utpiTTL'
-  Natural ->
-  -- | 'utpiTrafficPolicyId'
-  Text ->
-  -- | 'utpiTrafficPolicyVersion'
-  Natural ->
+-- 'trafficPolicyId', 'updateTrafficPolicyInstance_trafficPolicyId' - The ID of the traffic policy that you want Amazon Route 53 to use to
+-- update resource record sets for the specified traffic policy instance.
+--
+-- 'trafficPolicyVersion', 'updateTrafficPolicyInstance_trafficPolicyVersion' - The version of the traffic policy that you want Amazon Route 53 to use
+-- to update resource record sets for the specified traffic policy
+-- instance.
+newUpdateTrafficPolicyInstance ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'tTL'
+  Prelude.Natural ->
+  -- | 'trafficPolicyId'
+  Prelude.Text ->
+  -- | 'trafficPolicyVersion'
+  Prelude.Natural ->
   UpdateTrafficPolicyInstance
-updateTrafficPolicyInstance
+newUpdateTrafficPolicyInstance
   pId_
   pTTL_
   pTrafficPolicyId_
   pTrafficPolicyVersion_ =
     UpdateTrafficPolicyInstance'
-      { _utpiId = pId_,
-        _utpiTTL = _Nat # pTTL_,
-        _utpiTrafficPolicyId = pTrafficPolicyId_,
-        _utpiTrafficPolicyVersion =
-          _Nat # pTrafficPolicyVersion_
+      { id = pId_,
+        tTL = Prelude._Nat Lens.# pTTL_,
+        trafficPolicyId = pTrafficPolicyId_,
+        trafficPolicyVersion =
+          Prelude._Nat Lens.# pTrafficPolicyVersion_
       }
 
 -- | The ID of the traffic policy instance that you want to update.
-utpiId :: Lens' UpdateTrafficPolicyInstance Text
-utpiId = lens _utpiId (\s a -> s {_utpiId = a})
+updateTrafficPolicyInstance_id :: Lens.Lens' UpdateTrafficPolicyInstance Prelude.Text
+updateTrafficPolicyInstance_id = Lens.lens (\UpdateTrafficPolicyInstance' {id} -> id) (\s@UpdateTrafficPolicyInstance' {} a -> s {id = a} :: UpdateTrafficPolicyInstance)
 
--- | The TTL that you want Amazon Route 53 to assign to all of the updated resource record sets.
-utpiTTL :: Lens' UpdateTrafficPolicyInstance Natural
-utpiTTL = lens _utpiTTL (\s a -> s {_utpiTTL = a}) . _Nat
+-- | The TTL that you want Amazon Route 53 to assign to all of the updated
+-- resource record sets.
+updateTrafficPolicyInstance_tTL :: Lens.Lens' UpdateTrafficPolicyInstance Prelude.Natural
+updateTrafficPolicyInstance_tTL = Lens.lens (\UpdateTrafficPolicyInstance' {tTL} -> tTL) (\s@UpdateTrafficPolicyInstance' {} a -> s {tTL = a} :: UpdateTrafficPolicyInstance) Prelude.. Prelude._Nat
 
--- | The ID of the traffic policy that you want Amazon Route 53 to use to update resource record sets for the specified traffic policy instance.
-utpiTrafficPolicyId :: Lens' UpdateTrafficPolicyInstance Text
-utpiTrafficPolicyId = lens _utpiTrafficPolicyId (\s a -> s {_utpiTrafficPolicyId = a})
+-- | The ID of the traffic policy that you want Amazon Route 53 to use to
+-- update resource record sets for the specified traffic policy instance.
+updateTrafficPolicyInstance_trafficPolicyId :: Lens.Lens' UpdateTrafficPolicyInstance Prelude.Text
+updateTrafficPolicyInstance_trafficPolicyId = Lens.lens (\UpdateTrafficPolicyInstance' {trafficPolicyId} -> trafficPolicyId) (\s@UpdateTrafficPolicyInstance' {} a -> s {trafficPolicyId = a} :: UpdateTrafficPolicyInstance)
 
--- | The version of the traffic policy that you want Amazon Route 53 to use to update resource record sets for the specified traffic policy instance.
-utpiTrafficPolicyVersion :: Lens' UpdateTrafficPolicyInstance Natural
-utpiTrafficPolicyVersion = lens _utpiTrafficPolicyVersion (\s a -> s {_utpiTrafficPolicyVersion = a}) . _Nat
+-- | The version of the traffic policy that you want Amazon Route 53 to use
+-- to update resource record sets for the specified traffic policy
+-- instance.
+updateTrafficPolicyInstance_trafficPolicyVersion :: Lens.Lens' UpdateTrafficPolicyInstance Prelude.Natural
+updateTrafficPolicyInstance_trafficPolicyVersion = Lens.lens (\UpdateTrafficPolicyInstance' {trafficPolicyVersion} -> trafficPolicyVersion) (\s@UpdateTrafficPolicyInstance' {} a -> s {trafficPolicyVersion = a} :: UpdateTrafficPolicyInstance) Prelude.. Prelude._Nat
 
-instance AWSRequest UpdateTrafficPolicyInstance where
+instance
+  Prelude.AWSRequest
+    UpdateTrafficPolicyInstance
+  where
   type
     Rs UpdateTrafficPolicyInstance =
       UpdateTrafficPolicyInstanceResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           UpdateTrafficPolicyInstanceResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "TrafficPolicyInstance")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "TrafficPolicyInstance")
       )
 
-instance Hashable UpdateTrafficPolicyInstance
+instance Prelude.Hashable UpdateTrafficPolicyInstance
 
-instance NFData UpdateTrafficPolicyInstance
+instance Prelude.NFData UpdateTrafficPolicyInstance
 
-instance ToElement UpdateTrafficPolicyInstance where
+instance
+  Prelude.ToElement
+    UpdateTrafficPolicyInstance
+  where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}UpdateTrafficPolicyInstanceRequest"
 
-instance ToHeaders UpdateTrafficPolicyInstance where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    UpdateTrafficPolicyInstance
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateTrafficPolicyInstance where
+instance Prelude.ToPath UpdateTrafficPolicyInstance where
   toPath UpdateTrafficPolicyInstance' {..} =
-    mconcat
-      ["/2013-04-01/trafficpolicyinstance/", toBS _utpiId]
-
-instance ToQuery UpdateTrafficPolicyInstance where
-  toQuery = const mempty
-
-instance ToXML UpdateTrafficPolicyInstance where
-  toXML UpdateTrafficPolicyInstance' {..} =
-    mconcat
-      [ "TTL" @= _utpiTTL,
-        "TrafficPolicyId" @= _utpiTrafficPolicyId,
-        "TrafficPolicyVersion" @= _utpiTrafficPolicyVersion
+    Prelude.mconcat
+      [ "/2013-04-01/trafficpolicyinstance/",
+        Prelude.toBS id
       ]
 
--- | A complex type that contains information about the resource record sets that Amazon Route 53 created based on a specified traffic policy.
---
---
---
--- /See:/ 'updateTrafficPolicyInstanceResponse' smart constructor.
-data UpdateTrafficPolicyInstanceResponse = UpdateTrafficPolicyInstanceResponse'
-  { _utpirrsResponseStatus ::
-      !Int,
-    _utpirrsTrafficPolicyInstance ::
-      !TrafficPolicyInstance
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+instance Prelude.ToQuery UpdateTrafficPolicyInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Creates a value of 'UpdateTrafficPolicyInstanceResponse' with the minimum fields required to make a request.
+instance Prelude.ToXML UpdateTrafficPolicyInstance where
+  toXML UpdateTrafficPolicyInstance' {..} =
+    Prelude.mconcat
+      [ "TTL" Prelude.@= tTL,
+        "TrafficPolicyId" Prelude.@= trafficPolicyId,
+        "TrafficPolicyVersion"
+          Prelude.@= trafficPolicyVersion
+      ]
+
+-- | A complex type that contains information about the resource record sets
+-- that Amazon Route 53 created based on a specified traffic policy.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- /See:/ 'newUpdateTrafficPolicyInstanceResponse' smart constructor.
+data UpdateTrafficPolicyInstanceResponse = UpdateTrafficPolicyInstanceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains settings for the updated traffic policy
+    -- instance.
+    trafficPolicyInstance :: TrafficPolicyInstance
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'UpdateTrafficPolicyInstanceResponse' with all optional fields omitted.
 --
--- * 'utpirrsResponseStatus' - -- | The response status code.
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utpirrsTrafficPolicyInstance' - A complex type that contains settings for the updated traffic policy instance.
-updateTrafficPolicyInstanceResponse ::
-  -- | 'utpirrsResponseStatus'
-  Int ->
-  -- | 'utpirrsTrafficPolicyInstance'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateTrafficPolicyInstanceResponse_httpStatus' - The response's http status code.
+--
+-- 'trafficPolicyInstance', 'updateTrafficPolicyInstanceResponse_trafficPolicyInstance' - A complex type that contains settings for the updated traffic policy
+-- instance.
+newUpdateTrafficPolicyInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'trafficPolicyInstance'
   TrafficPolicyInstance ->
   UpdateTrafficPolicyInstanceResponse
-updateTrafficPolicyInstanceResponse
-  pResponseStatus_
+newUpdateTrafficPolicyInstanceResponse
+  pHttpStatus_
   pTrafficPolicyInstance_ =
     UpdateTrafficPolicyInstanceResponse'
-      { _utpirrsResponseStatus =
-          pResponseStatus_,
-        _utpirrsTrafficPolicyInstance =
+      { httpStatus =
+          pHttpStatus_,
+        trafficPolicyInstance =
           pTrafficPolicyInstance_
       }
 
--- | -- | The response status code.
-utpirrsResponseStatus :: Lens' UpdateTrafficPolicyInstanceResponse Int
-utpirrsResponseStatus = lens _utpirrsResponseStatus (\s a -> s {_utpirrsResponseStatus = a})
+-- | The response's http status code.
+updateTrafficPolicyInstanceResponse_httpStatus :: Lens.Lens' UpdateTrafficPolicyInstanceResponse Prelude.Int
+updateTrafficPolicyInstanceResponse_httpStatus = Lens.lens (\UpdateTrafficPolicyInstanceResponse' {httpStatus} -> httpStatus) (\s@UpdateTrafficPolicyInstanceResponse' {} a -> s {httpStatus = a} :: UpdateTrafficPolicyInstanceResponse)
 
--- | A complex type that contains settings for the updated traffic policy instance.
-utpirrsTrafficPolicyInstance :: Lens' UpdateTrafficPolicyInstanceResponse TrafficPolicyInstance
-utpirrsTrafficPolicyInstance = lens _utpirrsTrafficPolicyInstance (\s a -> s {_utpirrsTrafficPolicyInstance = a})
+-- | A complex type that contains settings for the updated traffic policy
+-- instance.
+updateTrafficPolicyInstanceResponse_trafficPolicyInstance :: Lens.Lens' UpdateTrafficPolicyInstanceResponse TrafficPolicyInstance
+updateTrafficPolicyInstanceResponse_trafficPolicyInstance = Lens.lens (\UpdateTrafficPolicyInstanceResponse' {trafficPolicyInstance} -> trafficPolicyInstance) (\s@UpdateTrafficPolicyInstanceResponse' {} a -> s {trafficPolicyInstance = a} :: UpdateTrafficPolicyInstanceResponse)
 
-instance NFData UpdateTrafficPolicyInstanceResponse
+instance
+  Prelude.NFData
+    UpdateTrafficPolicyInstanceResponse

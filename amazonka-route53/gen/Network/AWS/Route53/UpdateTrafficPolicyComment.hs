@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,176 +24,184 @@
 -- Updates the comment for a specified traffic policy version.
 module Network.AWS.Route53.UpdateTrafficPolicyComment
   ( -- * Creating a Request
-    updateTrafficPolicyComment,
-    UpdateTrafficPolicyComment,
+    UpdateTrafficPolicyComment (..),
+    newUpdateTrafficPolicyComment,
 
     -- * Request Lenses
-    utpcId,
-    utpcVersion,
-    utpcComment,
+    updateTrafficPolicyComment_id,
+    updateTrafficPolicyComment_version,
+    updateTrafficPolicyComment_comment,
 
     -- * Destructuring the Response
-    updateTrafficPolicyCommentResponse,
-    UpdateTrafficPolicyCommentResponse,
+    UpdateTrafficPolicyCommentResponse (..),
+    newUpdateTrafficPolicyCommentResponse,
 
     -- * Response Lenses
-    utpcrrsResponseStatus,
-    utpcrrsTrafficPolicy,
+    updateTrafficPolicyCommentResponse_httpStatus,
+    updateTrafficPolicyCommentResponse_trafficPolicy,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.TrafficPolicy
 
--- | A complex type that contains information about the traffic policy that you want to update the comment for.
+-- | A complex type that contains information about the traffic policy that
+-- you want to update the comment for.
 --
---
---
--- /See:/ 'updateTrafficPolicyComment' smart constructor.
+-- /See:/ 'newUpdateTrafficPolicyComment' smart constructor.
 data UpdateTrafficPolicyComment = UpdateTrafficPolicyComment'
-  { _utpcId ::
-      !Text,
-    _utpcVersion ::
-      !Nat,
-    _utpcComment ::
-      !Text
+  { -- | The value of @Id@ for the traffic policy that you want to update the
+    -- comment for.
+    id :: Prelude.Text,
+    -- | The value of @Version@ for the traffic policy that you want to update
+    -- the comment for.
+    version :: Prelude.Nat,
+    -- | The new comment for the specified traffic policy and version.
+    comment :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrafficPolicyComment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrafficPolicyComment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utpcId' - The value of @Id@ for the traffic policy that you want to update the comment for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utpcVersion' - The value of @Version@ for the traffic policy that you want to update the comment for.
+-- 'id', 'updateTrafficPolicyComment_id' - The value of @Id@ for the traffic policy that you want to update the
+-- comment for.
 --
--- * 'utpcComment' - The new comment for the specified traffic policy and version.
-updateTrafficPolicyComment ::
-  -- | 'utpcId'
-  Text ->
-  -- | 'utpcVersion'
-  Natural ->
-  -- | 'utpcComment'
-  Text ->
+-- 'version', 'updateTrafficPolicyComment_version' - The value of @Version@ for the traffic policy that you want to update
+-- the comment for.
+--
+-- 'comment', 'updateTrafficPolicyComment_comment' - The new comment for the specified traffic policy and version.
+newUpdateTrafficPolicyComment ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'version'
+  Prelude.Natural ->
+  -- | 'comment'
+  Prelude.Text ->
   UpdateTrafficPolicyComment
-updateTrafficPolicyComment pId_ pVersion_ pComment_ =
-  UpdateTrafficPolicyComment'
-    { _utpcId = pId_,
-      _utpcVersion = _Nat # pVersion_,
-      _utpcComment = pComment_
-    }
+newUpdateTrafficPolicyComment
+  pId_
+  pVersion_
+  pComment_ =
+    UpdateTrafficPolicyComment'
+      { id = pId_,
+        version = Prelude._Nat Lens.# pVersion_,
+        comment = pComment_
+      }
 
--- | The value of @Id@ for the traffic policy that you want to update the comment for.
-utpcId :: Lens' UpdateTrafficPolicyComment Text
-utpcId = lens _utpcId (\s a -> s {_utpcId = a})
+-- | The value of @Id@ for the traffic policy that you want to update the
+-- comment for.
+updateTrafficPolicyComment_id :: Lens.Lens' UpdateTrafficPolicyComment Prelude.Text
+updateTrafficPolicyComment_id = Lens.lens (\UpdateTrafficPolicyComment' {id} -> id) (\s@UpdateTrafficPolicyComment' {} a -> s {id = a} :: UpdateTrafficPolicyComment)
 
--- | The value of @Version@ for the traffic policy that you want to update the comment for.
-utpcVersion :: Lens' UpdateTrafficPolicyComment Natural
-utpcVersion = lens _utpcVersion (\s a -> s {_utpcVersion = a}) . _Nat
+-- | The value of @Version@ for the traffic policy that you want to update
+-- the comment for.
+updateTrafficPolicyComment_version :: Lens.Lens' UpdateTrafficPolicyComment Prelude.Natural
+updateTrafficPolicyComment_version = Lens.lens (\UpdateTrafficPolicyComment' {version} -> version) (\s@UpdateTrafficPolicyComment' {} a -> s {version = a} :: UpdateTrafficPolicyComment) Prelude.. Prelude._Nat
 
 -- | The new comment for the specified traffic policy and version.
-utpcComment :: Lens' UpdateTrafficPolicyComment Text
-utpcComment = lens _utpcComment (\s a -> s {_utpcComment = a})
+updateTrafficPolicyComment_comment :: Lens.Lens' UpdateTrafficPolicyComment Prelude.Text
+updateTrafficPolicyComment_comment = Lens.lens (\UpdateTrafficPolicyComment' {comment} -> comment) (\s@UpdateTrafficPolicyComment' {} a -> s {comment = a} :: UpdateTrafficPolicyComment)
 
-instance AWSRequest UpdateTrafficPolicyComment where
+instance
+  Prelude.AWSRequest
+    UpdateTrafficPolicyComment
+  where
   type
     Rs UpdateTrafficPolicyComment =
       UpdateTrafficPolicyCommentResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           UpdateTrafficPolicyCommentResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "TrafficPolicy")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "TrafficPolicy")
       )
 
-instance Hashable UpdateTrafficPolicyComment
+instance Prelude.Hashable UpdateTrafficPolicyComment
 
-instance NFData UpdateTrafficPolicyComment
+instance Prelude.NFData UpdateTrafficPolicyComment
 
-instance ToElement UpdateTrafficPolicyComment where
+instance Prelude.ToElement UpdateTrafficPolicyComment where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}UpdateTrafficPolicyCommentRequest"
 
-instance ToHeaders UpdateTrafficPolicyComment where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateTrafficPolicyComment where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateTrafficPolicyComment where
+instance Prelude.ToPath UpdateTrafficPolicyComment where
   toPath UpdateTrafficPolicyComment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/trafficpolicy/",
-        toBS _utpcId,
+        Prelude.toBS id,
         "/",
-        toBS _utpcVersion
+        Prelude.toBS version
       ]
 
-instance ToQuery UpdateTrafficPolicyComment where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTrafficPolicyComment where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML UpdateTrafficPolicyComment where
+instance Prelude.ToXML UpdateTrafficPolicyComment where
   toXML UpdateTrafficPolicyComment' {..} =
-    mconcat ["Comment" @= _utpcComment]
+    Prelude.mconcat ["Comment" Prelude.@= comment]
 
--- | A complex type that contains the response information for the traffic policy.
+-- | A complex type that contains the response information for the traffic
+-- policy.
 --
---
---
--- /See:/ 'updateTrafficPolicyCommentResponse' smart constructor.
+-- /See:/ 'newUpdateTrafficPolicyCommentResponse' smart constructor.
 data UpdateTrafficPolicyCommentResponse = UpdateTrafficPolicyCommentResponse'
-  { _utpcrrsResponseStatus ::
-      !Int,
-    _utpcrrsTrafficPolicy ::
-      !TrafficPolicy
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains settings for the specified traffic policy.
+    trafficPolicy :: TrafficPolicy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrafficPolicyCommentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrafficPolicyCommentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utpcrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utpcrrsTrafficPolicy' - A complex type that contains settings for the specified traffic policy.
-updateTrafficPolicyCommentResponse ::
-  -- | 'utpcrrsResponseStatus'
-  Int ->
-  -- | 'utpcrrsTrafficPolicy'
+-- 'httpStatus', 'updateTrafficPolicyCommentResponse_httpStatus' - The response's http status code.
+--
+-- 'trafficPolicy', 'updateTrafficPolicyCommentResponse_trafficPolicy' - A complex type that contains settings for the specified traffic policy.
+newUpdateTrafficPolicyCommentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'trafficPolicy'
   TrafficPolicy ->
   UpdateTrafficPolicyCommentResponse
-updateTrafficPolicyCommentResponse
-  pResponseStatus_
+newUpdateTrafficPolicyCommentResponse
+  pHttpStatus_
   pTrafficPolicy_ =
     UpdateTrafficPolicyCommentResponse'
-      { _utpcrrsResponseStatus =
-          pResponseStatus_,
-        _utpcrrsTrafficPolicy = pTrafficPolicy_
+      { httpStatus =
+          pHttpStatus_,
+        trafficPolicy = pTrafficPolicy_
       }
 
--- | -- | The response status code.
-utpcrrsResponseStatus :: Lens' UpdateTrafficPolicyCommentResponse Int
-utpcrrsResponseStatus = lens _utpcrrsResponseStatus (\s a -> s {_utpcrrsResponseStatus = a})
+-- | The response's http status code.
+updateTrafficPolicyCommentResponse_httpStatus :: Lens.Lens' UpdateTrafficPolicyCommentResponse Prelude.Int
+updateTrafficPolicyCommentResponse_httpStatus = Lens.lens (\UpdateTrafficPolicyCommentResponse' {httpStatus} -> httpStatus) (\s@UpdateTrafficPolicyCommentResponse' {} a -> s {httpStatus = a} :: UpdateTrafficPolicyCommentResponse)
 
 -- | A complex type that contains settings for the specified traffic policy.
-utpcrrsTrafficPolicy :: Lens' UpdateTrafficPolicyCommentResponse TrafficPolicy
-utpcrrsTrafficPolicy = lens _utpcrrsTrafficPolicy (\s a -> s {_utpcrrsTrafficPolicy = a})
+updateTrafficPolicyCommentResponse_trafficPolicy :: Lens.Lens' UpdateTrafficPolicyCommentResponse TrafficPolicy
+updateTrafficPolicyCommentResponse_trafficPolicy = Lens.lens (\UpdateTrafficPolicyCommentResponse' {trafficPolicy} -> trafficPolicy) (\s@UpdateTrafficPolicyCommentResponse' {} a -> s {trafficPolicy = a} :: UpdateTrafficPolicyCommentResponse)
 
-instance NFData UpdateTrafficPolicyCommentResponse
+instance
+  Prelude.NFData
+    UpdateTrafficPolicyCommentResponse

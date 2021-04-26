@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.ReusableDelegationSetLimit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.ReusableDelegationSetLimitType
 
--- | A complex type that contains the type of limit that you specified in the request and the current value for that limit.
+-- | A complex type that contains the type of limit that you specified in the
+-- request and the current value for that limit.
 --
---
---
--- /See:/ 'reusableDelegationSetLimit' smart constructor.
+-- /See:/ 'newReusableDelegationSetLimit' smart constructor.
 data ReusableDelegationSetLimit = ReusableDelegationSetLimit'
-  { _rdslType ::
-      !ReusableDelegationSetLimitType,
-    _rdslValue ::
-      !Nat
+  { -- | The limit that you requested: @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@,
+    -- the maximum number of hosted zones that you can associate with the
+    -- specified reusable delegation set.
+    type' :: ReusableDelegationSetLimitType,
+    -- | The current value for the @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@ limit.
+    value :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReusableDelegationSetLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReusableDelegationSetLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdslType' - The limit that you requested: @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@ , the maximum number of hosted zones that you can associate with the specified reusable delegation set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdslValue' - The current value for the @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@ limit.
-reusableDelegationSetLimit ::
-  -- | 'rdslType'
+-- 'type'', 'reusableDelegationSetLimit_type' - The limit that you requested: @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@,
+-- the maximum number of hosted zones that you can associate with the
+-- specified reusable delegation set.
+--
+-- 'value', 'reusableDelegationSetLimit_value' - The current value for the @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@ limit.
+newReusableDelegationSetLimit ::
+  -- | 'type''
   ReusableDelegationSetLimitType ->
-  -- | 'rdslValue'
-  Natural ->
+  -- | 'value'
+  Prelude.Natural ->
   ReusableDelegationSetLimit
-reusableDelegationSetLimit pType_ pValue_ =
+newReusableDelegationSetLimit pType_ pValue_ =
   ReusableDelegationSetLimit'
-    { _rdslType = pType_,
-      _rdslValue = _Nat # pValue_
+    { type' = pType_,
+      value = Prelude._Nat Lens.# pValue_
     }
 
--- | The limit that you requested: @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@ , the maximum number of hosted zones that you can associate with the specified reusable delegation set.
-rdslType :: Lens' ReusableDelegationSetLimit ReusableDelegationSetLimitType
-rdslType = lens _rdslType (\s a -> s {_rdslType = a})
+-- | The limit that you requested: @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@,
+-- the maximum number of hosted zones that you can associate with the
+-- specified reusable delegation set.
+reusableDelegationSetLimit_type :: Lens.Lens' ReusableDelegationSetLimit ReusableDelegationSetLimitType
+reusableDelegationSetLimit_type = Lens.lens (\ReusableDelegationSetLimit' {type'} -> type') (\s@ReusableDelegationSetLimit' {} a -> s {type' = a} :: ReusableDelegationSetLimit)
 
 -- | The current value for the @MAX_ZONES_BY_REUSABLE_DELEGATION_SET@ limit.
-rdslValue :: Lens' ReusableDelegationSetLimit Natural
-rdslValue = lens _rdslValue (\s a -> s {_rdslValue = a}) . _Nat
+reusableDelegationSetLimit_value :: Lens.Lens' ReusableDelegationSetLimit Prelude.Natural
+reusableDelegationSetLimit_value = Lens.lens (\ReusableDelegationSetLimit' {value} -> value) (\s@ReusableDelegationSetLimit' {} a -> s {value = a} :: ReusableDelegationSetLimit) Prelude.. Prelude._Nat
 
-instance FromXML ReusableDelegationSetLimit where
+instance Prelude.FromXML ReusableDelegationSetLimit where
   parseXML x =
     ReusableDelegationSetLimit'
-      <$> (x .@ "Type") <*> (x .@ "Value")
+      Prelude.<$> (x Prelude..@ "Type")
+      Prelude.<*> (x Prelude..@ "Value")
 
-instance Hashable ReusableDelegationSetLimit
+instance Prelude.Hashable ReusableDelegationSetLimit
 
-instance NFData ReusableDelegationSetLimit
+instance Prelude.NFData ReusableDelegationSetLimit

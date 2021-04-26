@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,114 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.AlarmIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.CloudWatchRegion
 
--- | A complex type that identifies the CloudWatch alarm that you want Amazon Route 53 health checkers to use to determine whether the specified health check is healthy.
+-- | A complex type that identifies the CloudWatch alarm that you want Amazon
+-- Route 53 health checkers to use to determine whether the specified
+-- health check is healthy.
 --
---
---
--- /See:/ 'alarmIdentifier' smart constructor.
+-- /See:/ 'newAlarmIdentifier' smart constructor.
 data AlarmIdentifier = AlarmIdentifier'
-  { _aiRegion ::
-      !CloudWatchRegion,
-    _aiName :: !Text
+  { -- | For the CloudWatch alarm that you want Route 53 health checkers to use
+    -- to determine whether this health check is healthy, the region that the
+    -- alarm was created in.
+    --
+    -- For the current list of CloudWatch regions, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/cw_region.html Amazon CloudWatch endpoints and quotas>
+    -- in the /Amazon Web Services General Reference/.
+    region :: CloudWatchRegion,
+    -- | The name of the CloudWatch alarm that you want Amazon Route 53 health
+    -- checkers to use to determine whether this health check is healthy.
+    --
+    -- Route 53 supports CloudWatch alarms with the following features:
+    --
+    -- -   Standard-resolution metrics. High-resolution metrics aren\'t
+    --     supported. For more information, see
+    --     <https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics>
+    --     in the /Amazon CloudWatch User Guide/.
+    --
+    -- -   Statistics: Average, Minimum, Maximum, Sum, and SampleCount.
+    --     Extended statistics aren\'t supported.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AlarmIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AlarmIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiRegion' - For the CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy, the region that the alarm was created in. For the current list of CloudWatch regions, see <https://docs.aws.amazon.com/general/latest/gr/cw_region.html Amazon CloudWatch endpoints and quotas> in the /Amazon Web Services General Reference/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiName' - The name of the CloudWatch alarm that you want Amazon Route 53 health checkers to use to determine whether this health check is healthy.
-alarmIdentifier ::
-  -- | 'aiRegion'
+-- 'region', 'alarmIdentifier_region' - For the CloudWatch alarm that you want Route 53 health checkers to use
+-- to determine whether this health check is healthy, the region that the
+-- alarm was created in.
+--
+-- For the current list of CloudWatch regions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/cw_region.html Amazon CloudWatch endpoints and quotas>
+-- in the /Amazon Web Services General Reference/.
+--
+-- 'name', 'alarmIdentifier_name' - The name of the CloudWatch alarm that you want Amazon Route 53 health
+-- checkers to use to determine whether this health check is healthy.
+--
+-- Route 53 supports CloudWatch alarms with the following features:
+--
+-- -   Standard-resolution metrics. High-resolution metrics aren\'t
+--     supported. For more information, see
+--     <https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics>
+--     in the /Amazon CloudWatch User Guide/.
+--
+-- -   Statistics: Average, Minimum, Maximum, Sum, and SampleCount.
+--     Extended statistics aren\'t supported.
+newAlarmIdentifier ::
+  -- | 'region'
   CloudWatchRegion ->
-  -- | 'aiName'
-  Text ->
+  -- | 'name'
+  Prelude.Text ->
   AlarmIdentifier
-alarmIdentifier pRegion_ pName_ =
-  AlarmIdentifier'
-    { _aiRegion = pRegion_,
-      _aiName = pName_
-    }
+newAlarmIdentifier pRegion_ pName_ =
+  AlarmIdentifier' {region = pRegion_, name = pName_}
 
--- | For the CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy, the region that the alarm was created in. For the current list of CloudWatch regions, see <https://docs.aws.amazon.com/general/latest/gr/cw_region.html Amazon CloudWatch endpoints and quotas> in the /Amazon Web Services General Reference/ .
-aiRegion :: Lens' AlarmIdentifier CloudWatchRegion
-aiRegion = lens _aiRegion (\s a -> s {_aiRegion = a})
+-- | For the CloudWatch alarm that you want Route 53 health checkers to use
+-- to determine whether this health check is healthy, the region that the
+-- alarm was created in.
+--
+-- For the current list of CloudWatch regions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/cw_region.html Amazon CloudWatch endpoints and quotas>
+-- in the /Amazon Web Services General Reference/.
+alarmIdentifier_region :: Lens.Lens' AlarmIdentifier CloudWatchRegion
+alarmIdentifier_region = Lens.lens (\AlarmIdentifier' {region} -> region) (\s@AlarmIdentifier' {} a -> s {region = a} :: AlarmIdentifier)
 
--- | The name of the CloudWatch alarm that you want Amazon Route 53 health checkers to use to determine whether this health check is healthy.
-aiName :: Lens' AlarmIdentifier Text
-aiName = lens _aiName (\s a -> s {_aiName = a})
+-- | The name of the CloudWatch alarm that you want Amazon Route 53 health
+-- checkers to use to determine whether this health check is healthy.
+--
+-- Route 53 supports CloudWatch alarms with the following features:
+--
+-- -   Standard-resolution metrics. High-resolution metrics aren\'t
+--     supported. For more information, see
+--     <https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics High-Resolution Metrics>
+--     in the /Amazon CloudWatch User Guide/.
+--
+-- -   Statistics: Average, Minimum, Maximum, Sum, and SampleCount.
+--     Extended statistics aren\'t supported.
+alarmIdentifier_name :: Lens.Lens' AlarmIdentifier Prelude.Text
+alarmIdentifier_name = Lens.lens (\AlarmIdentifier' {name} -> name) (\s@AlarmIdentifier' {} a -> s {name = a} :: AlarmIdentifier)
 
-instance FromXML AlarmIdentifier where
+instance Prelude.FromXML AlarmIdentifier where
   parseXML x =
     AlarmIdentifier'
-      <$> (x .@ "Region") <*> (x .@ "Name")
+      Prelude.<$> (x Prelude..@ "Region")
+      Prelude.<*> (x Prelude..@ "Name")
 
-instance Hashable AlarmIdentifier
+instance Prelude.Hashable AlarmIdentifier
 
-instance NFData AlarmIdentifier
+instance Prelude.NFData AlarmIdentifier
 
-instance ToXML AlarmIdentifier where
+instance Prelude.ToXML AlarmIdentifier where
   toXML AlarmIdentifier' {..} =
-    mconcat ["Region" @= _aiRegion, "Name" @= _aiName]
+    Prelude.mconcat
+      ["Region" Prelude.@= region, "Name" Prelude.@= name]

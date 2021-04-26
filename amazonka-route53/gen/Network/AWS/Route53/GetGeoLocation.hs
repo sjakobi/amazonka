@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,245 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about whether a specified geographic location is supported for Amazon Route 53 geolocation resource record sets.
+-- Gets information about whether a specified geographic location is
+-- supported for Amazon Route 53 geolocation resource record sets.
 --
+-- Route 53 does not perform authorization for this API because it
+-- retrieves information that is already available to the public.
 --
--- Route 53 does not perform authorization for this API because it retrieves information that is already available to the public.
+-- Use the following syntax to determine whether a continent is supported
+-- for geolocation:
 --
--- Use the following syntax to determine whether a continent is supported for geolocation:
+-- @GET \/2013-04-01\/geolocation?continentcode=two-letter abbreviation for a continent @
 --
--- @GET /2013-04-01/geolocation?continentcode=/two-letter abbreviation for a continent/ @
+-- Use the following syntax to determine whether a country is supported for
+-- geolocation:
 --
--- Use the following syntax to determine whether a country is supported for geolocation:
+-- @GET \/2013-04-01\/geolocation?countrycode=two-character country code @
 --
--- @GET /2013-04-01/geolocation?countrycode=/two-character country code/ @
+-- Use the following syntax to determine whether a subdivision of a country
+-- is supported for geolocation:
 --
--- Use the following syntax to determine whether a subdivision of a country is supported for geolocation:
---
--- @GET /2013-04-01/geolocation?countrycode=/two-character country code/ &subdivisioncode=/subdivision code/ @
+-- @GET \/2013-04-01\/geolocation?countrycode=two-character country code&subdivisioncode=subdivision code @
 module Network.AWS.Route53.GetGeoLocation
   ( -- * Creating a Request
-    getGeoLocation,
-    GetGeoLocation,
+    GetGeoLocation (..),
+    newGetGeoLocation,
 
     -- * Request Lenses
-    gglContinentCode,
-    gglSubdivisionCode,
-    gglCountryCode,
+    getGeoLocation_continentCode,
+    getGeoLocation_subdivisionCode,
+    getGeoLocation_countryCode,
 
     -- * Destructuring the Response
-    getGeoLocationResponse,
-    GetGeoLocationResponse,
+    GetGeoLocationResponse (..),
+    newGetGeoLocationResponse,
 
     -- * Response Lenses
-    gglrrsResponseStatus,
-    gglrrsGeoLocationDetails,
+    getGeoLocationResponse_httpStatus,
+    getGeoLocationResponse_geoLocationDetails,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.GeoLocationDetails
 
--- | A request for information about whether a specified geographic location is supported for Amazon Route 53 geolocation resource record sets.
+-- | A request for information about whether a specified geographic location
+-- is supported for Amazon Route 53 geolocation resource record sets.
 --
---
---
--- /See:/ 'getGeoLocation' smart constructor.
+-- /See:/ 'newGetGeoLocation' smart constructor.
 data GetGeoLocation = GetGeoLocation'
-  { _gglContinentCode ::
-      !(Maybe Text),
-    _gglSubdivisionCode :: !(Maybe Text),
-    _gglCountryCode :: !(Maybe Text)
+  { -- | For geolocation resource record sets, a two-letter abbreviation that
+    -- identifies a continent. Amazon Route 53 supports the following continent
+    -- codes:
+    --
+    -- -   __AF__: Africa
+    --
+    -- -   __AN__: Antarctica
+    --
+    -- -   __AS__: Asia
+    --
+    -- -   __EU__: Europe
+    --
+    -- -   __OC__: Oceania
+    --
+    -- -   __NA__: North America
+    --
+    -- -   __SA__: South America
+    continentCode :: Prelude.Maybe Prelude.Text,
+    -- | The code for the subdivision, such as a particular state within the
+    -- United States. For a list of US state abbreviations, see
+    -- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+    -- on the United States Postal Service website. For a list of all supported
+    -- subdivision codes, use the
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
+    -- API.
+    subdivisionCode :: Prelude.Maybe Prelude.Text,
+    -- | Amazon Route 53 uses the two-letter country codes that are specified in
+    -- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
+    countryCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGeoLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGeoLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gglContinentCode' - For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route 53 supports the following continent codes:     * __AF__ : Africa     * __AN__ : Antarctica     * __AS__ : Asia     * __EU__ : Europe     * __OC__ : Oceania     * __NA__ : North America     * __SA__ : South America
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gglSubdivisionCode' - The code for the subdivision, such as a particular state within the United States. For a list of US state abbreviations, see <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations> on the United States Postal Service website. For a list of all supported subdivision codes, use the <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations> API.
+-- 'continentCode', 'getGeoLocation_continentCode' - For geolocation resource record sets, a two-letter abbreviation that
+-- identifies a continent. Amazon Route 53 supports the following continent
+-- codes:
 --
--- * 'gglCountryCode' - Amazon Route 53 uses the two-letter country codes that are specified in <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2> .
-getGeoLocation ::
+-- -   __AF__: Africa
+--
+-- -   __AN__: Antarctica
+--
+-- -   __AS__: Asia
+--
+-- -   __EU__: Europe
+--
+-- -   __OC__: Oceania
+--
+-- -   __NA__: North America
+--
+-- -   __SA__: South America
+--
+-- 'subdivisionCode', 'getGeoLocation_subdivisionCode' - The code for the subdivision, such as a particular state within the
+-- United States. For a list of US state abbreviations, see
+-- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+-- on the United States Postal Service website. For a list of all supported
+-- subdivision codes, use the
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
+-- API.
+--
+-- 'countryCode', 'getGeoLocation_countryCode' - Amazon Route 53 uses the two-letter country codes that are specified in
+-- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
+newGetGeoLocation ::
   GetGeoLocation
-getGeoLocation =
+newGetGeoLocation =
   GetGeoLocation'
-    { _gglContinentCode = Nothing,
-      _gglSubdivisionCode = Nothing,
-      _gglCountryCode = Nothing
+    { continentCode = Prelude.Nothing,
+      subdivisionCode = Prelude.Nothing,
+      countryCode = Prelude.Nothing
     }
 
--- | For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route 53 supports the following continent codes:     * __AF__ : Africa     * __AN__ : Antarctica     * __AS__ : Asia     * __EU__ : Europe     * __OC__ : Oceania     * __NA__ : North America     * __SA__ : South America
-gglContinentCode :: Lens' GetGeoLocation (Maybe Text)
-gglContinentCode = lens _gglContinentCode (\s a -> s {_gglContinentCode = a})
+-- | For geolocation resource record sets, a two-letter abbreviation that
+-- identifies a continent. Amazon Route 53 supports the following continent
+-- codes:
+--
+-- -   __AF__: Africa
+--
+-- -   __AN__: Antarctica
+--
+-- -   __AS__: Asia
+--
+-- -   __EU__: Europe
+--
+-- -   __OC__: Oceania
+--
+-- -   __NA__: North America
+--
+-- -   __SA__: South America
+getGeoLocation_continentCode :: Lens.Lens' GetGeoLocation (Prelude.Maybe Prelude.Text)
+getGeoLocation_continentCode = Lens.lens (\GetGeoLocation' {continentCode} -> continentCode) (\s@GetGeoLocation' {} a -> s {continentCode = a} :: GetGeoLocation)
 
--- | The code for the subdivision, such as a particular state within the United States. For a list of US state abbreviations, see <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations> on the United States Postal Service website. For a list of all supported subdivision codes, use the <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations> API.
-gglSubdivisionCode :: Lens' GetGeoLocation (Maybe Text)
-gglSubdivisionCode = lens _gglSubdivisionCode (\s a -> s {_gglSubdivisionCode = a})
+-- | The code for the subdivision, such as a particular state within the
+-- United States. For a list of US state abbreviations, see
+-- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+-- on the United States Postal Service website. For a list of all supported
+-- subdivision codes, use the
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
+-- API.
+getGeoLocation_subdivisionCode :: Lens.Lens' GetGeoLocation (Prelude.Maybe Prelude.Text)
+getGeoLocation_subdivisionCode = Lens.lens (\GetGeoLocation' {subdivisionCode} -> subdivisionCode) (\s@GetGeoLocation' {} a -> s {subdivisionCode = a} :: GetGeoLocation)
 
--- | Amazon Route 53 uses the two-letter country codes that are specified in <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2> .
-gglCountryCode :: Lens' GetGeoLocation (Maybe Text)
-gglCountryCode = lens _gglCountryCode (\s a -> s {_gglCountryCode = a})
+-- | Amazon Route 53 uses the two-letter country codes that are specified in
+-- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
+getGeoLocation_countryCode :: Lens.Lens' GetGeoLocation (Prelude.Maybe Prelude.Text)
+getGeoLocation_countryCode = Lens.lens (\GetGeoLocation' {countryCode} -> countryCode) (\s@GetGeoLocation' {} a -> s {countryCode = a} :: GetGeoLocation)
 
-instance AWSRequest GetGeoLocation where
+instance Prelude.AWSRequest GetGeoLocation where
   type Rs GetGeoLocation = GetGeoLocationResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetGeoLocationResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "GeoLocationDetails")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "GeoLocationDetails")
       )
 
-instance Hashable GetGeoLocation
+instance Prelude.Hashable GetGeoLocation
 
-instance NFData GetGeoLocation
+instance Prelude.NFData GetGeoLocation
 
-instance ToHeaders GetGeoLocation where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetGeoLocation where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetGeoLocation where
-  toPath = const "/2013-04-01/geolocation"
+instance Prelude.ToPath GetGeoLocation where
+  toPath = Prelude.const "/2013-04-01/geolocation"
 
-instance ToQuery GetGeoLocation where
+instance Prelude.ToQuery GetGeoLocation where
   toQuery GetGeoLocation' {..} =
-    mconcat
-      [ "continentcode" =: _gglContinentCode,
-        "subdivisioncode" =: _gglSubdivisionCode,
-        "countrycode" =: _gglCountryCode
+    Prelude.mconcat
+      [ "continentcode" Prelude.=: continentCode,
+        "subdivisioncode" Prelude.=: subdivisionCode,
+        "countrycode" Prelude.=: countryCode
       ]
 
--- | A complex type that contains the response information for the specified geolocation code.
+-- | A complex type that contains the response information for the specified
+-- geolocation code.
 --
---
---
--- /See:/ 'getGeoLocationResponse' smart constructor.
+-- /See:/ 'newGetGeoLocationResponse' smart constructor.
 data GetGeoLocationResponse = GetGeoLocationResponse'
-  { _gglrrsResponseStatus ::
-      !Int,
-    _gglrrsGeoLocationDetails ::
-      !GeoLocationDetails
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains the codes and full continent, country, and
+    -- subdivision names for the specified geolocation code.
+    geoLocationDetails :: GeoLocationDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGeoLocationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGeoLocationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gglrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gglrrsGeoLocationDetails' - A complex type that contains the codes and full continent, country, and subdivision names for the specified geolocation code.
-getGeoLocationResponse ::
-  -- | 'gglrrsResponseStatus'
-  Int ->
-  -- | 'gglrrsGeoLocationDetails'
+-- 'httpStatus', 'getGeoLocationResponse_httpStatus' - The response's http status code.
+--
+-- 'geoLocationDetails', 'getGeoLocationResponse_geoLocationDetails' - A complex type that contains the codes and full continent, country, and
+-- subdivision names for the specified geolocation code.
+newGetGeoLocationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'geoLocationDetails'
   GeoLocationDetails ->
   GetGeoLocationResponse
-getGeoLocationResponse
-  pResponseStatus_
+newGetGeoLocationResponse
+  pHttpStatus_
   pGeoLocationDetails_ =
     GetGeoLocationResponse'
-      { _gglrrsResponseStatus =
-          pResponseStatus_,
-        _gglrrsGeoLocationDetails = pGeoLocationDetails_
+      { httpStatus = pHttpStatus_,
+        geoLocationDetails = pGeoLocationDetails_
       }
 
--- | -- | The response status code.
-gglrrsResponseStatus :: Lens' GetGeoLocationResponse Int
-gglrrsResponseStatus = lens _gglrrsResponseStatus (\s a -> s {_gglrrsResponseStatus = a})
+-- | The response's http status code.
+getGeoLocationResponse_httpStatus :: Lens.Lens' GetGeoLocationResponse Prelude.Int
+getGeoLocationResponse_httpStatus = Lens.lens (\GetGeoLocationResponse' {httpStatus} -> httpStatus) (\s@GetGeoLocationResponse' {} a -> s {httpStatus = a} :: GetGeoLocationResponse)
 
--- | A complex type that contains the codes and full continent, country, and subdivision names for the specified geolocation code.
-gglrrsGeoLocationDetails :: Lens' GetGeoLocationResponse GeoLocationDetails
-gglrrsGeoLocationDetails = lens _gglrrsGeoLocationDetails (\s a -> s {_gglrrsGeoLocationDetails = a})
+-- | A complex type that contains the codes and full continent, country, and
+-- subdivision names for the specified geolocation code.
+getGeoLocationResponse_geoLocationDetails :: Lens.Lens' GetGeoLocationResponse GeoLocationDetails
+getGeoLocationResponse_geoLocationDetails = Lens.lens (\GetGeoLocationResponse' {geoLocationDetails} -> geoLocationDetails) (\s@GetGeoLocationResponse' {} a -> s {geoLocationDetails = a} :: GetGeoLocationResponse)
 
-instance NFData GetGeoLocationResponse
+instance Prelude.NFData GetGeoLocationResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,177 +19,179 @@
 module Network.AWS.Route53.Types.VPCRegion
   ( VPCRegion
       ( ..,
-        AfSouth1,
-        ApEast1,
-        ApNortheast1,
-        ApNortheast2,
-        ApNortheast3,
-        ApSouth1,
-        ApSoutheast1,
-        ApSoutheast2,
-        CaCentral1,
-        CnNorth1,
-        EuCentral1,
-        EuNorth1,
-        EuSouth1,
-        EuWest1,
-        EuWest2,
-        EuWest3,
-        MeSouth1,
-        SaEast1,
-        UsEast1,
-        UsEast2,
-        UsGovEast1,
-        UsGovWest1,
-        UsIsoEast1,
-        UsIsobEast1,
-        UsWest1,
-        UsWest2
+        VPCRegionAfSouth1,
+        VPCRegionApEast1,
+        VPCRegionApNortheast1,
+        VPCRegionApNortheast2,
+        VPCRegionApNortheast3,
+        VPCRegionApSouth1,
+        VPCRegionApSoutheast1,
+        VPCRegionApSoutheast2,
+        VPCRegionCaCentral1,
+        VPCRegionCnNorth1,
+        VPCRegionEuCentral1,
+        VPCRegionEuNorth1,
+        VPCRegionEuSouth1,
+        VPCRegionEuWest1,
+        VPCRegionEuWest2,
+        VPCRegionEuWest3,
+        VPCRegionMeSouth1,
+        VPCRegionSaEast1,
+        VPCRegionUsEast1,
+        VPCRegionUsEast2,
+        VPCRegionUsGovEast1,
+        VPCRegionUsGovWest1,
+        VPCRegionUsIsoEast1,
+        VPCRegionUsIsobEast1,
+        VPCRegionUsWest1,
+        VPCRegionUsWest2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data VPCRegion = VPCRegion' (CI Text)
+newtype VPCRegion = VPCRegion'
+  { fromVPCRegion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AfSouth1 :: VPCRegion
-pattern AfSouth1 = VPCRegion' "af-south-1"
+pattern VPCRegionAfSouth1 :: VPCRegion
+pattern VPCRegionAfSouth1 = VPCRegion' "af-south-1"
 
-pattern ApEast1 :: VPCRegion
-pattern ApEast1 = VPCRegion' "ap-east-1"
+pattern VPCRegionApEast1 :: VPCRegion
+pattern VPCRegionApEast1 = VPCRegion' "ap-east-1"
 
-pattern ApNortheast1 :: VPCRegion
-pattern ApNortheast1 = VPCRegion' "ap-northeast-1"
+pattern VPCRegionApNortheast1 :: VPCRegion
+pattern VPCRegionApNortheast1 = VPCRegion' "ap-northeast-1"
 
-pattern ApNortheast2 :: VPCRegion
-pattern ApNortheast2 = VPCRegion' "ap-northeast-2"
+pattern VPCRegionApNortheast2 :: VPCRegion
+pattern VPCRegionApNortheast2 = VPCRegion' "ap-northeast-2"
 
-pattern ApNortheast3 :: VPCRegion
-pattern ApNortheast3 = VPCRegion' "ap-northeast-3"
+pattern VPCRegionApNortheast3 :: VPCRegion
+pattern VPCRegionApNortheast3 = VPCRegion' "ap-northeast-3"
 
-pattern ApSouth1 :: VPCRegion
-pattern ApSouth1 = VPCRegion' "ap-south-1"
+pattern VPCRegionApSouth1 :: VPCRegion
+pattern VPCRegionApSouth1 = VPCRegion' "ap-south-1"
 
-pattern ApSoutheast1 :: VPCRegion
-pattern ApSoutheast1 = VPCRegion' "ap-southeast-1"
+pattern VPCRegionApSoutheast1 :: VPCRegion
+pattern VPCRegionApSoutheast1 = VPCRegion' "ap-southeast-1"
 
-pattern ApSoutheast2 :: VPCRegion
-pattern ApSoutheast2 = VPCRegion' "ap-southeast-2"
+pattern VPCRegionApSoutheast2 :: VPCRegion
+pattern VPCRegionApSoutheast2 = VPCRegion' "ap-southeast-2"
 
-pattern CaCentral1 :: VPCRegion
-pattern CaCentral1 = VPCRegion' "ca-central-1"
+pattern VPCRegionCaCentral1 :: VPCRegion
+pattern VPCRegionCaCentral1 = VPCRegion' "ca-central-1"
 
-pattern CnNorth1 :: VPCRegion
-pattern CnNorth1 = VPCRegion' "cn-north-1"
+pattern VPCRegionCnNorth1 :: VPCRegion
+pattern VPCRegionCnNorth1 = VPCRegion' "cn-north-1"
 
-pattern EuCentral1 :: VPCRegion
-pattern EuCentral1 = VPCRegion' "eu-central-1"
+pattern VPCRegionEuCentral1 :: VPCRegion
+pattern VPCRegionEuCentral1 = VPCRegion' "eu-central-1"
 
-pattern EuNorth1 :: VPCRegion
-pattern EuNorth1 = VPCRegion' "eu-north-1"
+pattern VPCRegionEuNorth1 :: VPCRegion
+pattern VPCRegionEuNorth1 = VPCRegion' "eu-north-1"
 
-pattern EuSouth1 :: VPCRegion
-pattern EuSouth1 = VPCRegion' "eu-south-1"
+pattern VPCRegionEuSouth1 :: VPCRegion
+pattern VPCRegionEuSouth1 = VPCRegion' "eu-south-1"
 
-pattern EuWest1 :: VPCRegion
-pattern EuWest1 = VPCRegion' "eu-west-1"
+pattern VPCRegionEuWest1 :: VPCRegion
+pattern VPCRegionEuWest1 = VPCRegion' "eu-west-1"
 
-pattern EuWest2 :: VPCRegion
-pattern EuWest2 = VPCRegion' "eu-west-2"
+pattern VPCRegionEuWest2 :: VPCRegion
+pattern VPCRegionEuWest2 = VPCRegion' "eu-west-2"
 
-pattern EuWest3 :: VPCRegion
-pattern EuWest3 = VPCRegion' "eu-west-3"
+pattern VPCRegionEuWest3 :: VPCRegion
+pattern VPCRegionEuWest3 = VPCRegion' "eu-west-3"
 
-pattern MeSouth1 :: VPCRegion
-pattern MeSouth1 = VPCRegion' "me-south-1"
+pattern VPCRegionMeSouth1 :: VPCRegion
+pattern VPCRegionMeSouth1 = VPCRegion' "me-south-1"
 
-pattern SaEast1 :: VPCRegion
-pattern SaEast1 = VPCRegion' "sa-east-1"
+pattern VPCRegionSaEast1 :: VPCRegion
+pattern VPCRegionSaEast1 = VPCRegion' "sa-east-1"
 
-pattern UsEast1 :: VPCRegion
-pattern UsEast1 = VPCRegion' "us-east-1"
+pattern VPCRegionUsEast1 :: VPCRegion
+pattern VPCRegionUsEast1 = VPCRegion' "us-east-1"
 
-pattern UsEast2 :: VPCRegion
-pattern UsEast2 = VPCRegion' "us-east-2"
+pattern VPCRegionUsEast2 :: VPCRegion
+pattern VPCRegionUsEast2 = VPCRegion' "us-east-2"
 
-pattern UsGovEast1 :: VPCRegion
-pattern UsGovEast1 = VPCRegion' "us-gov-east-1"
+pattern VPCRegionUsGovEast1 :: VPCRegion
+pattern VPCRegionUsGovEast1 = VPCRegion' "us-gov-east-1"
 
-pattern UsGovWest1 :: VPCRegion
-pattern UsGovWest1 = VPCRegion' "us-gov-west-1"
+pattern VPCRegionUsGovWest1 :: VPCRegion
+pattern VPCRegionUsGovWest1 = VPCRegion' "us-gov-west-1"
 
-pattern UsIsoEast1 :: VPCRegion
-pattern UsIsoEast1 = VPCRegion' "us-iso-east-1"
+pattern VPCRegionUsIsoEast1 :: VPCRegion
+pattern VPCRegionUsIsoEast1 = VPCRegion' "us-iso-east-1"
 
-pattern UsIsobEast1 :: VPCRegion
-pattern UsIsobEast1 = VPCRegion' "us-isob-east-1"
+pattern VPCRegionUsIsobEast1 :: VPCRegion
+pattern VPCRegionUsIsobEast1 = VPCRegion' "us-isob-east-1"
 
-pattern UsWest1 :: VPCRegion
-pattern UsWest1 = VPCRegion' "us-west-1"
+pattern VPCRegionUsWest1 :: VPCRegion
+pattern VPCRegionUsWest1 = VPCRegion' "us-west-1"
 
-pattern UsWest2 :: VPCRegion
-pattern UsWest2 = VPCRegion' "us-west-2"
+pattern VPCRegionUsWest2 :: VPCRegion
+pattern VPCRegionUsWest2 = VPCRegion' "us-west-2"
 
 {-# COMPLETE
-  AfSouth1,
-  ApEast1,
-  ApNortheast1,
-  ApNortheast2,
-  ApNortheast3,
-  ApSouth1,
-  ApSoutheast1,
-  ApSoutheast2,
-  CaCentral1,
-  CnNorth1,
-  EuCentral1,
-  EuNorth1,
-  EuSouth1,
-  EuWest1,
-  EuWest2,
-  EuWest3,
-  MeSouth1,
-  SaEast1,
-  UsEast1,
-  UsEast2,
-  UsGovEast1,
-  UsGovWest1,
-  UsIsoEast1,
-  UsIsobEast1,
-  UsWest1,
-  UsWest2,
+  VPCRegionAfSouth1,
+  VPCRegionApEast1,
+  VPCRegionApNortheast1,
+  VPCRegionApNortheast2,
+  VPCRegionApNortheast3,
+  VPCRegionApSouth1,
+  VPCRegionApSoutheast1,
+  VPCRegionApSoutheast2,
+  VPCRegionCaCentral1,
+  VPCRegionCnNorth1,
+  VPCRegionEuCentral1,
+  VPCRegionEuNorth1,
+  VPCRegionEuSouth1,
+  VPCRegionEuWest1,
+  VPCRegionEuWest2,
+  VPCRegionEuWest3,
+  VPCRegionMeSouth1,
+  VPCRegionSaEast1,
+  VPCRegionUsEast1,
+  VPCRegionUsEast2,
+  VPCRegionUsGovEast1,
+  VPCRegionUsGovWest1,
+  VPCRegionUsIsoEast1,
+  VPCRegionUsIsobEast1,
+  VPCRegionUsWest1,
+  VPCRegionUsWest2,
   VPCRegion'
   #-}
 
-instance FromText VPCRegion where
-  parser = (VPCRegion' . mk) <$> takeText
+instance Prelude.FromText VPCRegion where
+  parser = VPCRegion' Prelude.<$> Prelude.takeText
 
-instance ToText VPCRegion where
-  toText (VPCRegion' ci) = original ci
+instance Prelude.ToText VPCRegion where
+  toText (VPCRegion' x) = x
 
-instance Hashable VPCRegion
+instance Prelude.Hashable VPCRegion
 
-instance NFData VPCRegion
+instance Prelude.NFData VPCRegion
 
-instance ToByteString VPCRegion
+instance Prelude.ToByteString VPCRegion
 
-instance ToQuery VPCRegion
+instance Prelude.ToQuery VPCRegion
 
-instance ToHeader VPCRegion
+instance Prelude.ToHeader VPCRegion
 
-instance FromXML VPCRegion where
-  parseXML = parseXMLText "VPCRegion"
+instance Prelude.FromXML VPCRegion where
+  parseXML = Prelude.parseXMLText "VPCRegion"
 
-instance ToXML VPCRegion where
-  toXML = toXMLText
+instance Prelude.ToXML VPCRegion where
+  toXML = Prelude.toXMLText

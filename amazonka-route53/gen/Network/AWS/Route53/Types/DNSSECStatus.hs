@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,132 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.DNSSECStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
 -- | A string repesenting the status of DNSSEC signing.
 --
---
---
--- /See:/ 'dnsSECStatus' smart constructor.
+-- /See:/ 'newDNSSECStatus' smart constructor.
 data DNSSECStatus = DNSSECStatus'
-  { _dsecsStatusMessage ::
-      !(Maybe Text),
-    _dsecsServeSignature :: !(Maybe Text)
+  { -- | The status message provided for the following DNSSEC signing status:
+    -- @INTERNAL_FAILURE@. The status message includes information about what
+    -- the problem might be and steps that you can take to correct the issue.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | A string that represents the current hosted zone signing status.
+    --
+    -- Status can have one of the following values:
+    --
+    -- [SIGNING]
+    --     DNSSEC signing is enabled for the hosted zone.
+    --
+    -- [NOT_SIGNING]
+    --     DNSSEC signing is not enabled for the hosted zone.
+    --
+    -- [DELETING]
+    --     DNSSEC signing is in the process of being removed for the hosted
+    --     zone.
+    --
+    -- [ACTION_NEEDED]
+    --     There is a problem with signing in the hosted zone that requires you
+    --     to take action to resolve. For example, the customer managed
+    --     customer master key (CMK) might have been deleted, or the
+    --     permissions for the customer managed CMK might have been changed.
+    --
+    -- [INTERNAL_FAILURE]
+    --     There was an error during a request. Before you can continue to work
+    --     with DNSSEC signing, including with key-signing keys (KSKs), you
+    --     must correct the problem by enabling or disabling DNSSEC signing for
+    --     the hosted zone.
+    serveSignature :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DNSSECStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DNSSECStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsecsStatusMessage' - The status message provided for the following DNSSEC signing status: @INTERNAL_FAILURE@ . The status message includes information about what the problem might be and steps that you can take to correct the issue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsecsServeSignature' - A string that represents the current hosted zone signing status. Status can have one of the following values:     * SIGNING    * DNSSEC signing is enabled for the hosted zone.     * NOT_SIGNING    * DNSSEC signing is not enabled for the hosted zone.     * DELETING    * DNSSEC signing is in the process of being removed for the hosted zone.     * ACTION_NEEDED    * There is a problem with signing in the hosted zone that requires you to take action to resolve. For example, the customer managed customer master key (CMK) might have been deleted, or the permissions for the customer managed CMK might have been changed.     * INTERNAL_FAILURE    * There was an error during a request. Before you can continue to work with DNSSEC signing, including with key-signing keys (KSKs), you must correct the problem by enabling or disabling DNSSEC signing for the hosted zone.
-dnsSECStatus ::
+-- 'statusMessage', 'dNSSECStatus_statusMessage' - The status message provided for the following DNSSEC signing status:
+-- @INTERNAL_FAILURE@. The status message includes information about what
+-- the problem might be and steps that you can take to correct the issue.
+--
+-- 'serveSignature', 'dNSSECStatus_serveSignature' - A string that represents the current hosted zone signing status.
+--
+-- Status can have one of the following values:
+--
+-- [SIGNING]
+--     DNSSEC signing is enabled for the hosted zone.
+--
+-- [NOT_SIGNING]
+--     DNSSEC signing is not enabled for the hosted zone.
+--
+-- [DELETING]
+--     DNSSEC signing is in the process of being removed for the hosted
+--     zone.
+--
+-- [ACTION_NEEDED]
+--     There is a problem with signing in the hosted zone that requires you
+--     to take action to resolve. For example, the customer managed
+--     customer master key (CMK) might have been deleted, or the
+--     permissions for the customer managed CMK might have been changed.
+--
+-- [INTERNAL_FAILURE]
+--     There was an error during a request. Before you can continue to work
+--     with DNSSEC signing, including with key-signing keys (KSKs), you
+--     must correct the problem by enabling or disabling DNSSEC signing for
+--     the hosted zone.
+newDNSSECStatus ::
   DNSSECStatus
-dnsSECStatus =
+newDNSSECStatus =
   DNSSECStatus'
-    { _dsecsStatusMessage = Nothing,
-      _dsecsServeSignature = Nothing
+    { statusMessage = Prelude.Nothing,
+      serveSignature = Prelude.Nothing
     }
 
--- | The status message provided for the following DNSSEC signing status: @INTERNAL_FAILURE@ . The status message includes information about what the problem might be and steps that you can take to correct the issue.
-dsecsStatusMessage :: Lens' DNSSECStatus (Maybe Text)
-dsecsStatusMessage = lens _dsecsStatusMessage (\s a -> s {_dsecsStatusMessage = a})
+-- | The status message provided for the following DNSSEC signing status:
+-- @INTERNAL_FAILURE@. The status message includes information about what
+-- the problem might be and steps that you can take to correct the issue.
+dNSSECStatus_statusMessage :: Lens.Lens' DNSSECStatus (Prelude.Maybe Prelude.Text)
+dNSSECStatus_statusMessage = Lens.lens (\DNSSECStatus' {statusMessage} -> statusMessage) (\s@DNSSECStatus' {} a -> s {statusMessage = a} :: DNSSECStatus)
 
--- | A string that represents the current hosted zone signing status. Status can have one of the following values:     * SIGNING    * DNSSEC signing is enabled for the hosted zone.     * NOT_SIGNING    * DNSSEC signing is not enabled for the hosted zone.     * DELETING    * DNSSEC signing is in the process of being removed for the hosted zone.     * ACTION_NEEDED    * There is a problem with signing in the hosted zone that requires you to take action to resolve. For example, the customer managed customer master key (CMK) might have been deleted, or the permissions for the customer managed CMK might have been changed.     * INTERNAL_FAILURE    * There was an error during a request. Before you can continue to work with DNSSEC signing, including with key-signing keys (KSKs), you must correct the problem by enabling or disabling DNSSEC signing for the hosted zone.
-dsecsServeSignature :: Lens' DNSSECStatus (Maybe Text)
-dsecsServeSignature = lens _dsecsServeSignature (\s a -> s {_dsecsServeSignature = a})
+-- | A string that represents the current hosted zone signing status.
+--
+-- Status can have one of the following values:
+--
+-- [SIGNING]
+--     DNSSEC signing is enabled for the hosted zone.
+--
+-- [NOT_SIGNING]
+--     DNSSEC signing is not enabled for the hosted zone.
+--
+-- [DELETING]
+--     DNSSEC signing is in the process of being removed for the hosted
+--     zone.
+--
+-- [ACTION_NEEDED]
+--     There is a problem with signing in the hosted zone that requires you
+--     to take action to resolve. For example, the customer managed
+--     customer master key (CMK) might have been deleted, or the
+--     permissions for the customer managed CMK might have been changed.
+--
+-- [INTERNAL_FAILURE]
+--     There was an error during a request. Before you can continue to work
+--     with DNSSEC signing, including with key-signing keys (KSKs), you
+--     must correct the problem by enabling or disabling DNSSEC signing for
+--     the hosted zone.
+dNSSECStatus_serveSignature :: Lens.Lens' DNSSECStatus (Prelude.Maybe Prelude.Text)
+dNSSECStatus_serveSignature = Lens.lens (\DNSSECStatus' {serveSignature} -> serveSignature) (\s@DNSSECStatus' {} a -> s {serveSignature = a} :: DNSSECStatus)
 
-instance FromXML DNSSECStatus where
+instance Prelude.FromXML DNSSECStatus where
   parseXML x =
     DNSSECStatus'
-      <$> (x .@? "StatusMessage") <*> (x .@? "ServeSignature")
+      Prelude.<$> (x Prelude..@? "StatusMessage")
+      Prelude.<*> (x Prelude..@? "ServeSignature")
 
-instance Hashable DNSSECStatus
+instance Prelude.Hashable DNSSECStatus
 
-instance NFData DNSSECStatus
+instance Prelude.NFData DNSSECStatus

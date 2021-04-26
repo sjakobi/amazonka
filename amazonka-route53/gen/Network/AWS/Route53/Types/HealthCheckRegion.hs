@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,89 @@
 module Network.AWS.Route53.Types.HealthCheckRegion
   ( HealthCheckRegion
       ( ..,
-        HCRApNortheast1,
-        HCRApSoutheast1,
-        HCRApSoutheast2,
-        HCREuWest1,
-        HCRSaEast1,
-        HCRUsEast1,
-        HCRUsWest1,
-        HCRUsWest2
+        HealthCheckRegionApNortheast1,
+        HealthCheckRegionApSoutheast1,
+        HealthCheckRegionApSoutheast2,
+        HealthCheckRegionEuWest1,
+        HealthCheckRegionSaEast1,
+        HealthCheckRegionUsEast1,
+        HealthCheckRegionUsWest1,
+        HealthCheckRegionUsWest2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data HealthCheckRegion = HealthCheckRegion' (CI Text)
+newtype HealthCheckRegion = HealthCheckRegion'
+  { fromHealthCheckRegion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HCRApNortheast1 :: HealthCheckRegion
-pattern HCRApNortheast1 = HealthCheckRegion' "ap-northeast-1"
+pattern HealthCheckRegionApNortheast1 :: HealthCheckRegion
+pattern HealthCheckRegionApNortheast1 = HealthCheckRegion' "ap-northeast-1"
 
-pattern HCRApSoutheast1 :: HealthCheckRegion
-pattern HCRApSoutheast1 = HealthCheckRegion' "ap-southeast-1"
+pattern HealthCheckRegionApSoutheast1 :: HealthCheckRegion
+pattern HealthCheckRegionApSoutheast1 = HealthCheckRegion' "ap-southeast-1"
 
-pattern HCRApSoutheast2 :: HealthCheckRegion
-pattern HCRApSoutheast2 = HealthCheckRegion' "ap-southeast-2"
+pattern HealthCheckRegionApSoutheast2 :: HealthCheckRegion
+pattern HealthCheckRegionApSoutheast2 = HealthCheckRegion' "ap-southeast-2"
 
-pattern HCREuWest1 :: HealthCheckRegion
-pattern HCREuWest1 = HealthCheckRegion' "eu-west-1"
+pattern HealthCheckRegionEuWest1 :: HealthCheckRegion
+pattern HealthCheckRegionEuWest1 = HealthCheckRegion' "eu-west-1"
 
-pattern HCRSaEast1 :: HealthCheckRegion
-pattern HCRSaEast1 = HealthCheckRegion' "sa-east-1"
+pattern HealthCheckRegionSaEast1 :: HealthCheckRegion
+pattern HealthCheckRegionSaEast1 = HealthCheckRegion' "sa-east-1"
 
-pattern HCRUsEast1 :: HealthCheckRegion
-pattern HCRUsEast1 = HealthCheckRegion' "us-east-1"
+pattern HealthCheckRegionUsEast1 :: HealthCheckRegion
+pattern HealthCheckRegionUsEast1 = HealthCheckRegion' "us-east-1"
 
-pattern HCRUsWest1 :: HealthCheckRegion
-pattern HCRUsWest1 = HealthCheckRegion' "us-west-1"
+pattern HealthCheckRegionUsWest1 :: HealthCheckRegion
+pattern HealthCheckRegionUsWest1 = HealthCheckRegion' "us-west-1"
 
-pattern HCRUsWest2 :: HealthCheckRegion
-pattern HCRUsWest2 = HealthCheckRegion' "us-west-2"
+pattern HealthCheckRegionUsWest2 :: HealthCheckRegion
+pattern HealthCheckRegionUsWest2 = HealthCheckRegion' "us-west-2"
 
 {-# COMPLETE
-  HCRApNortheast1,
-  HCRApSoutheast1,
-  HCRApSoutheast2,
-  HCREuWest1,
-  HCRSaEast1,
-  HCRUsEast1,
-  HCRUsWest1,
-  HCRUsWest2,
+  HealthCheckRegionApNortheast1,
+  HealthCheckRegionApSoutheast1,
+  HealthCheckRegionApSoutheast2,
+  HealthCheckRegionEuWest1,
+  HealthCheckRegionSaEast1,
+  HealthCheckRegionUsEast1,
+  HealthCheckRegionUsWest1,
+  HealthCheckRegionUsWest2,
   HealthCheckRegion'
   #-}
 
-instance FromText HealthCheckRegion where
-  parser = (HealthCheckRegion' . mk) <$> takeText
+instance Prelude.FromText HealthCheckRegion where
+  parser = HealthCheckRegion' Prelude.<$> Prelude.takeText
 
-instance ToText HealthCheckRegion where
-  toText (HealthCheckRegion' ci) = original ci
+instance Prelude.ToText HealthCheckRegion where
+  toText (HealthCheckRegion' x) = x
 
-instance Hashable HealthCheckRegion
+instance Prelude.Hashable HealthCheckRegion
 
-instance NFData HealthCheckRegion
+instance Prelude.NFData HealthCheckRegion
 
-instance ToByteString HealthCheckRegion
+instance Prelude.ToByteString HealthCheckRegion
 
-instance ToQuery HealthCheckRegion
+instance Prelude.ToQuery HealthCheckRegion
 
-instance ToHeader HealthCheckRegion
+instance Prelude.ToHeader HealthCheckRegion
 
-instance FromXML HealthCheckRegion where
-  parseXML = parseXMLText "HealthCheckRegion"
+instance Prelude.FromXML HealthCheckRegion where
+  parseXML = Prelude.parseXMLText "HealthCheckRegion"
 
-instance ToXML HealthCheckRegion where
-  toXML = toXMLText
+instance Prelude.ToXML HealthCheckRegion where
+  toXML = Prelude.toXMLText

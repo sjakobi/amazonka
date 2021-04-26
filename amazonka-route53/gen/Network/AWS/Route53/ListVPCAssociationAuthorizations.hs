@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,222 +21,278 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of the VPCs that were created by other accounts and that can be associated with a specified hosted zone because you've submitted one or more @CreateVPCAssociationAuthorization@ requests.
+-- Gets a list of the VPCs that were created by other accounts and that can
+-- be associated with a specified hosted zone because you\'ve submitted one
+-- or more @CreateVPCAssociationAuthorization@ requests.
 --
---
--- The response includes a @VPCs@ element with a @VPC@ child element for each VPC that can be associated with the hosted zone.
---
+-- The response includes a @VPCs@ element with a @VPC@ child element for
+-- each VPC that can be associated with the hosted zone.
 --
 -- This operation returns paginated results.
 module Network.AWS.Route53.ListVPCAssociationAuthorizations
   ( -- * Creating a Request
-    listVPCAssociationAuthorizations,
-    ListVPCAssociationAuthorizations,
+    ListVPCAssociationAuthorizations (..),
+    newListVPCAssociationAuthorizations,
 
     -- * Request Lenses
-    lvaaNextToken,
-    lvaaMaxResults,
-    lvaaHostedZoneId,
+    listVPCAssociationAuthorizations_nextToken,
+    listVPCAssociationAuthorizations_maxResults,
+    listVPCAssociationAuthorizations_hostedZoneId,
 
     -- * Destructuring the Response
-    listVPCAssociationAuthorizationsResponse,
-    ListVPCAssociationAuthorizationsResponse,
+    ListVPCAssociationAuthorizationsResponse (..),
+    newListVPCAssociationAuthorizationsResponse,
 
     -- * Response Lenses
-    lvaarrsNextToken,
-    lvaarrsResponseStatus,
-    lvaarrsHostedZoneId,
-    lvaarrsVPCs,
+    listVPCAssociationAuthorizationsResponse_nextToken,
+    listVPCAssociationAuthorizationsResponse_httpStatus,
+    listVPCAssociationAuthorizationsResponse_hostedZoneId,
+    listVPCAssociationAuthorizationsResponse_vPCs,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.VPC
 
--- | A complex type that contains information about that can be associated with your hosted zone.
+-- | A complex type that contains information about that can be associated
+-- with your hosted zone.
 --
---
---
--- /See:/ 'listVPCAssociationAuthorizations' smart constructor.
+-- /See:/ 'newListVPCAssociationAuthorizations' smart constructor.
 data ListVPCAssociationAuthorizations = ListVPCAssociationAuthorizations'
-  { _lvaaNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lvaaMaxResults ::
-      !( Maybe
-           Text
-       ),
-    _lvaaHostedZoneId ::
-      !ResourceId
+  { -- | /Optional/: If a response includes a @NextToken@ element, there are more
+    -- VPCs that can be associated with the specified hosted zone. To get the
+    -- next page of results, submit another request, and include the value of
+    -- @NextToken@ from the response in the @nexttoken@ parameter in another
+    -- @ListVPCAssociationAuthorizations@ request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | /Optional/: An integer that specifies the maximum number of VPCs that
+    -- you want Amazon Route 53 to return. If you don\'t specify a value for
+    -- @MaxResults@, Route 53 returns up to 50 VPCs per page.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the hosted zone for which you want a list of VPCs that can be
+    -- associated with the hosted zone.
+    hostedZoneId :: ResourceId
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListVPCAssociationAuthorizations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListVPCAssociationAuthorizations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvaaNextToken' - /Optional/ : If a response includes a @NextToken@ element, there are more VPCs that can be associated with the specified hosted zone. To get the next page of results, submit another request, and include the value of @NextToken@ from the response in the @nexttoken@ parameter in another @ListVPCAssociationAuthorizations@ request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvaaMaxResults' - /Optional/ : An integer that specifies the maximum number of VPCs that you want Amazon Route 53 to return. If you don't specify a value for @MaxResults@ , Route 53 returns up to 50 VPCs per page.
+-- 'nextToken', 'listVPCAssociationAuthorizations_nextToken' - /Optional/: If a response includes a @NextToken@ element, there are more
+-- VPCs that can be associated with the specified hosted zone. To get the
+-- next page of results, submit another request, and include the value of
+-- @NextToken@ from the response in the @nexttoken@ parameter in another
+-- @ListVPCAssociationAuthorizations@ request.
 --
--- * 'lvaaHostedZoneId' - The ID of the hosted zone for which you want a list of VPCs that can be associated with the hosted zone.
-listVPCAssociationAuthorizations ::
-  -- | 'lvaaHostedZoneId'
+-- 'maxResults', 'listVPCAssociationAuthorizations_maxResults' - /Optional/: An integer that specifies the maximum number of VPCs that
+-- you want Amazon Route 53 to return. If you don\'t specify a value for
+-- @MaxResults@, Route 53 returns up to 50 VPCs per page.
+--
+-- 'hostedZoneId', 'listVPCAssociationAuthorizations_hostedZoneId' - The ID of the hosted zone for which you want a list of VPCs that can be
+-- associated with the hosted zone.
+newListVPCAssociationAuthorizations ::
+  -- | 'hostedZoneId'
   ResourceId ->
   ListVPCAssociationAuthorizations
-listVPCAssociationAuthorizations pHostedZoneId_ =
+newListVPCAssociationAuthorizations pHostedZoneId_ =
   ListVPCAssociationAuthorizations'
-    { _lvaaNextToken =
-        Nothing,
-      _lvaaMaxResults = Nothing,
-      _lvaaHostedZoneId = pHostedZoneId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      hostedZoneId = pHostedZoneId_
     }
 
--- | /Optional/ : If a response includes a @NextToken@ element, there are more VPCs that can be associated with the specified hosted zone. To get the next page of results, submit another request, and include the value of @NextToken@ from the response in the @nexttoken@ parameter in another @ListVPCAssociationAuthorizations@ request.
-lvaaNextToken :: Lens' ListVPCAssociationAuthorizations (Maybe Text)
-lvaaNextToken = lens _lvaaNextToken (\s a -> s {_lvaaNextToken = a})
+-- | /Optional/: If a response includes a @NextToken@ element, there are more
+-- VPCs that can be associated with the specified hosted zone. To get the
+-- next page of results, submit another request, and include the value of
+-- @NextToken@ from the response in the @nexttoken@ parameter in another
+-- @ListVPCAssociationAuthorizations@ request.
+listVPCAssociationAuthorizations_nextToken :: Lens.Lens' ListVPCAssociationAuthorizations (Prelude.Maybe Prelude.Text)
+listVPCAssociationAuthorizations_nextToken = Lens.lens (\ListVPCAssociationAuthorizations' {nextToken} -> nextToken) (\s@ListVPCAssociationAuthorizations' {} a -> s {nextToken = a} :: ListVPCAssociationAuthorizations)
 
--- | /Optional/ : An integer that specifies the maximum number of VPCs that you want Amazon Route 53 to return. If you don't specify a value for @MaxResults@ , Route 53 returns up to 50 VPCs per page.
-lvaaMaxResults :: Lens' ListVPCAssociationAuthorizations (Maybe Text)
-lvaaMaxResults = lens _lvaaMaxResults (\s a -> s {_lvaaMaxResults = a})
+-- | /Optional/: An integer that specifies the maximum number of VPCs that
+-- you want Amazon Route 53 to return. If you don\'t specify a value for
+-- @MaxResults@, Route 53 returns up to 50 VPCs per page.
+listVPCAssociationAuthorizations_maxResults :: Lens.Lens' ListVPCAssociationAuthorizations (Prelude.Maybe Prelude.Text)
+listVPCAssociationAuthorizations_maxResults = Lens.lens (\ListVPCAssociationAuthorizations' {maxResults} -> maxResults) (\s@ListVPCAssociationAuthorizations' {} a -> s {maxResults = a} :: ListVPCAssociationAuthorizations)
 
--- | The ID of the hosted zone for which you want a list of VPCs that can be associated with the hosted zone.
-lvaaHostedZoneId :: Lens' ListVPCAssociationAuthorizations ResourceId
-lvaaHostedZoneId = lens _lvaaHostedZoneId (\s a -> s {_lvaaHostedZoneId = a})
+-- | The ID of the hosted zone for which you want a list of VPCs that can be
+-- associated with the hosted zone.
+listVPCAssociationAuthorizations_hostedZoneId :: Lens.Lens' ListVPCAssociationAuthorizations ResourceId
+listVPCAssociationAuthorizations_hostedZoneId = Lens.lens (\ListVPCAssociationAuthorizations' {hostedZoneId} -> hostedZoneId) (\s@ListVPCAssociationAuthorizations' {} a -> s {hostedZoneId = a} :: ListVPCAssociationAuthorizations)
 
-instance AWSPager ListVPCAssociationAuthorizations where
+instance
+  Pager.AWSPager
+    ListVPCAssociationAuthorizations
+  where
   page rq rs
-    | stop (rs ^. lvaarrsNextToken) = Nothing
-    | stop (rs ^. lvaarrsVPCs) = Nothing
-    | otherwise =
-      Just $ rq & lvaaNextToken .~ rs ^. lvaarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listVPCAssociationAuthorizationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listVPCAssociationAuthorizationsResponse_vPCs
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listVPCAssociationAuthorizations_nextToken
+          Lens..~ rs
+          Lens.^? listVPCAssociationAuthorizationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListVPCAssociationAuthorizations where
+instance
+  Prelude.AWSRequest
+    ListVPCAssociationAuthorizations
+  where
   type
     Rs ListVPCAssociationAuthorizations =
       ListVPCAssociationAuthorizationsResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListVPCAssociationAuthorizationsResponse'
-            <$> (x .@? "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .@ "HostedZoneId")
-            <*> (x .@? "VPCs" .!@ mempty >>= parseXMLList1 "VPC")
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "HostedZoneId")
+            Prelude.<*> ( x Prelude..@? "VPCs" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList1 "VPC"
+                        )
       )
 
-instance Hashable ListVPCAssociationAuthorizations
+instance
+  Prelude.Hashable
+    ListVPCAssociationAuthorizations
 
-instance NFData ListVPCAssociationAuthorizations
+instance
+  Prelude.NFData
+    ListVPCAssociationAuthorizations
 
-instance ToHeaders ListVPCAssociationAuthorizations where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListVPCAssociationAuthorizations
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListVPCAssociationAuthorizations where
+instance
+  Prelude.ToPath
+    ListVPCAssociationAuthorizations
+  where
   toPath ListVPCAssociationAuthorizations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        toBS _lvaaHostedZoneId,
+        Prelude.toBS hostedZoneId,
         "/authorizevpcassociation"
       ]
 
-instance ToQuery ListVPCAssociationAuthorizations where
+instance
+  Prelude.ToQuery
+    ListVPCAssociationAuthorizations
+  where
   toQuery ListVPCAssociationAuthorizations' {..} =
-    mconcat
-      [ "nexttoken" =: _lvaaNextToken,
-        "maxresults" =: _lvaaMaxResults
+    Prelude.mconcat
+      [ "nexttoken" Prelude.=: nextToken,
+        "maxresults" Prelude.=: maxResults
       ]
 
 -- | A complex type that contains the response information for the request.
 --
---
---
--- /See:/ 'listVPCAssociationAuthorizationsResponse' smart constructor.
+-- /See:/ 'newListVPCAssociationAuthorizationsResponse' smart constructor.
 data ListVPCAssociationAuthorizationsResponse = ListVPCAssociationAuthorizationsResponse'
-  { _lvaarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lvaarrsResponseStatus ::
-      !Int,
-    _lvaarrsHostedZoneId ::
-      !ResourceId,
-    _lvaarrsVPCs ::
-      !( List1
-           VPC
-       )
+  { -- | When the response includes a @NextToken@ element, there are more VPCs
+    -- that can be associated with the specified hosted zone. To get the next
+    -- page of VPCs, submit another @ListVPCAssociationAuthorizations@ request,
+    -- and include the value of the @NextToken@ element from the response in
+    -- the @nexttoken@ request parameter.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the hosted zone that you can associate the listed VPCs with.
+    hostedZoneId :: ResourceId,
+    -- | The list of VPCs that are authorized to be associated with the specified
+    -- hosted zone.
+    vPCs :: Prelude.List1 VPC
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListVPCAssociationAuthorizationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListVPCAssociationAuthorizationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvaarrsNextToken' - When the response includes a @NextToken@ element, there are more VPCs that can be associated with the specified hosted zone. To get the next page of VPCs, submit another @ListVPCAssociationAuthorizations@ request, and include the value of the @NextToken@ element from the response in the @nexttoken@ request parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvaarrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listVPCAssociationAuthorizationsResponse_nextToken' - When the response includes a @NextToken@ element, there are more VPCs
+-- that can be associated with the specified hosted zone. To get the next
+-- page of VPCs, submit another @ListVPCAssociationAuthorizations@ request,
+-- and include the value of the @NextToken@ element from the response in
+-- the @nexttoken@ request parameter.
 --
--- * 'lvaarrsHostedZoneId' - The ID of the hosted zone that you can associate the listed VPCs with.
+-- 'httpStatus', 'listVPCAssociationAuthorizationsResponse_httpStatus' - The response's http status code.
 --
--- * 'lvaarrsVPCs' - The list of VPCs that are authorized to be associated with the specified hosted zone.
-listVPCAssociationAuthorizationsResponse ::
-  -- | 'lvaarrsResponseStatus'
-  Int ->
-  -- | 'lvaarrsHostedZoneId'
+-- 'hostedZoneId', 'listVPCAssociationAuthorizationsResponse_hostedZoneId' - The ID of the hosted zone that you can associate the listed VPCs with.
+--
+-- 'vPCs', 'listVPCAssociationAuthorizationsResponse_vPCs' - The list of VPCs that are authorized to be associated with the specified
+-- hosted zone.
+newListVPCAssociationAuthorizationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'hostedZoneId'
   ResourceId ->
-  -- | 'lvaarrsVPCs'
-  NonEmpty VPC ->
+  -- | 'vPCs'
+  Prelude.NonEmpty VPC ->
   ListVPCAssociationAuthorizationsResponse
-listVPCAssociationAuthorizationsResponse
-  pResponseStatus_
+newListVPCAssociationAuthorizationsResponse
+  pHttpStatus_
   pHostedZoneId_
   pVPCs_ =
     ListVPCAssociationAuthorizationsResponse'
-      { _lvaarrsNextToken =
-          Nothing,
-        _lvaarrsResponseStatus =
-          pResponseStatus_,
-        _lvaarrsHostedZoneId =
-          pHostedZoneId_,
-        _lvaarrsVPCs = _List1 # pVPCs_
+      { nextToken =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        hostedZoneId = pHostedZoneId_,
+        vPCs =
+          Prelude._List1 Lens.# pVPCs_
       }
 
--- | When the response includes a @NextToken@ element, there are more VPCs that can be associated with the specified hosted zone. To get the next page of VPCs, submit another @ListVPCAssociationAuthorizations@ request, and include the value of the @NextToken@ element from the response in the @nexttoken@ request parameter.
-lvaarrsNextToken :: Lens' ListVPCAssociationAuthorizationsResponse (Maybe Text)
-lvaarrsNextToken = lens _lvaarrsNextToken (\s a -> s {_lvaarrsNextToken = a})
+-- | When the response includes a @NextToken@ element, there are more VPCs
+-- that can be associated with the specified hosted zone. To get the next
+-- page of VPCs, submit another @ListVPCAssociationAuthorizations@ request,
+-- and include the value of the @NextToken@ element from the response in
+-- the @nexttoken@ request parameter.
+listVPCAssociationAuthorizationsResponse_nextToken :: Lens.Lens' ListVPCAssociationAuthorizationsResponse (Prelude.Maybe Prelude.Text)
+listVPCAssociationAuthorizationsResponse_nextToken = Lens.lens (\ListVPCAssociationAuthorizationsResponse' {nextToken} -> nextToken) (\s@ListVPCAssociationAuthorizationsResponse' {} a -> s {nextToken = a} :: ListVPCAssociationAuthorizationsResponse)
 
--- | -- | The response status code.
-lvaarrsResponseStatus :: Lens' ListVPCAssociationAuthorizationsResponse Int
-lvaarrsResponseStatus = lens _lvaarrsResponseStatus (\s a -> s {_lvaarrsResponseStatus = a})
+-- | The response's http status code.
+listVPCAssociationAuthorizationsResponse_httpStatus :: Lens.Lens' ListVPCAssociationAuthorizationsResponse Prelude.Int
+listVPCAssociationAuthorizationsResponse_httpStatus = Lens.lens (\ListVPCAssociationAuthorizationsResponse' {httpStatus} -> httpStatus) (\s@ListVPCAssociationAuthorizationsResponse' {} a -> s {httpStatus = a} :: ListVPCAssociationAuthorizationsResponse)
 
 -- | The ID of the hosted zone that you can associate the listed VPCs with.
-lvaarrsHostedZoneId :: Lens' ListVPCAssociationAuthorizationsResponse ResourceId
-lvaarrsHostedZoneId = lens _lvaarrsHostedZoneId (\s a -> s {_lvaarrsHostedZoneId = a})
+listVPCAssociationAuthorizationsResponse_hostedZoneId :: Lens.Lens' ListVPCAssociationAuthorizationsResponse ResourceId
+listVPCAssociationAuthorizationsResponse_hostedZoneId = Lens.lens (\ListVPCAssociationAuthorizationsResponse' {hostedZoneId} -> hostedZoneId) (\s@ListVPCAssociationAuthorizationsResponse' {} a -> s {hostedZoneId = a} :: ListVPCAssociationAuthorizationsResponse)
 
--- | The list of VPCs that are authorized to be associated with the specified hosted zone.
-lvaarrsVPCs :: Lens' ListVPCAssociationAuthorizationsResponse (NonEmpty VPC)
-lvaarrsVPCs = lens _lvaarrsVPCs (\s a -> s {_lvaarrsVPCs = a}) . _List1
+-- | The list of VPCs that are authorized to be associated with the specified
+-- hosted zone.
+listVPCAssociationAuthorizationsResponse_vPCs :: Lens.Lens' ListVPCAssociationAuthorizationsResponse (Prelude.NonEmpty VPC)
+listVPCAssociationAuthorizationsResponse_vPCs = Lens.lens (\ListVPCAssociationAuthorizationsResponse' {vPCs} -> vPCs) (\s@ListVPCAssociationAuthorizationsResponse' {} a -> s {vPCs = a} :: ListVPCAssociationAuthorizationsResponse) Prelude.. Prelude._List1
 
 instance
-  NFData
+  Prelude.NFData
     ListVPCAssociationAuthorizationsResponse

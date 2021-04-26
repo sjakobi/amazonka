@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.Route53.Types.ChangeStatus
   ( ChangeStatus
       ( ..,
-        Insync,
-        Pending
+        ChangeStatusINSYNC,
+        ChangeStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data ChangeStatus = ChangeStatus' (CI Text)
+newtype ChangeStatus = ChangeStatus'
+  { fromChangeStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Insync :: ChangeStatus
-pattern Insync = ChangeStatus' "INSYNC"
+pattern ChangeStatusINSYNC :: ChangeStatus
+pattern ChangeStatusINSYNC = ChangeStatus' "INSYNC"
 
-pattern Pending :: ChangeStatus
-pattern Pending = ChangeStatus' "PENDING"
+pattern ChangeStatusPENDING :: ChangeStatus
+pattern ChangeStatusPENDING = ChangeStatus' "PENDING"
 
 {-# COMPLETE
-  Insync,
-  Pending,
+  ChangeStatusINSYNC,
+  ChangeStatusPENDING,
   ChangeStatus'
   #-}
 
-instance FromText ChangeStatus where
-  parser = (ChangeStatus' . mk) <$> takeText
+instance Prelude.FromText ChangeStatus where
+  parser = ChangeStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeStatus where
-  toText (ChangeStatus' ci) = original ci
+instance Prelude.ToText ChangeStatus where
+  toText (ChangeStatus' x) = x
 
-instance Hashable ChangeStatus
+instance Prelude.Hashable ChangeStatus
 
-instance NFData ChangeStatus
+instance Prelude.NFData ChangeStatus
 
-instance ToByteString ChangeStatus
+instance Prelude.ToByteString ChangeStatus
 
-instance ToQuery ChangeStatus
+instance Prelude.ToQuery ChangeStatus
 
-instance ToHeader ChangeStatus
+instance Prelude.ToHeader ChangeStatus
 
-instance FromXML ChangeStatus where
-  parseXML = parseXMLText "ChangeStatus"
+instance Prelude.FromXML ChangeStatus where
+  parseXML = Prelude.parseXMLText "ChangeStatus"

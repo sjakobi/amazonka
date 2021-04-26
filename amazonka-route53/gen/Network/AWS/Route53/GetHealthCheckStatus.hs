@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,161 @@
 -- Gets status of a specified health check.
 module Network.AWS.Route53.GetHealthCheckStatus
   ( -- * Creating a Request
-    getHealthCheckStatus,
-    GetHealthCheckStatus,
+    GetHealthCheckStatus (..),
+    newGetHealthCheckStatus,
 
     -- * Request Lenses
-    ghcsHealthCheckId,
+    getHealthCheckStatus_healthCheckId,
 
     -- * Destructuring the Response
-    getHealthCheckStatusResponse,
-    GetHealthCheckStatusResponse,
+    GetHealthCheckStatusResponse (..),
+    newGetHealthCheckStatusResponse,
 
     -- * Response Lenses
-    ghcsrrsResponseStatus,
-    ghcsrrsHealthCheckObservations,
+    getHealthCheckStatusResponse_httpStatus,
+    getHealthCheckStatusResponse_healthCheckObservations,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.HealthCheckObservation
 
 -- | A request to get the status for a health check.
 --
---
---
--- /See:/ 'getHealthCheckStatus' smart constructor.
-newtype GetHealthCheckStatus = GetHealthCheckStatus'
-  { _ghcsHealthCheckId ::
-      Text
+-- /See:/ 'newGetHealthCheckStatus' smart constructor.
+data GetHealthCheckStatus = GetHealthCheckStatus'
+  { -- | The ID for the health check that you want the current status for. When
+    -- you created the health check, @CreateHealthCheck@ returned the ID in the
+    -- response, in the @HealthCheckId@ element.
+    --
+    -- If you want to check the status of a calculated health check, you must
+    -- use the Amazon Route 53 console or the CloudWatch console. You can\'t
+    -- use @GetHealthCheckStatus@ to get the status of a calculated health
+    -- check.
+    healthCheckId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHealthCheckStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHealthCheckStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghcsHealthCheckId' - The ID for the health check that you want the current status for. When you created the health check, @CreateHealthCheck@ returned the ID in the response, in the @HealthCheckId@ element.
-getHealthCheckStatus ::
-  -- | 'ghcsHealthCheckId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'healthCheckId', 'getHealthCheckStatus_healthCheckId' - The ID for the health check that you want the current status for. When
+-- you created the health check, @CreateHealthCheck@ returned the ID in the
+-- response, in the @HealthCheckId@ element.
+--
+-- If you want to check the status of a calculated health check, you must
+-- use the Amazon Route 53 console or the CloudWatch console. You can\'t
+-- use @GetHealthCheckStatus@ to get the status of a calculated health
+-- check.
+newGetHealthCheckStatus ::
+  -- | 'healthCheckId'
+  Prelude.Text ->
   GetHealthCheckStatus
-getHealthCheckStatus pHealthCheckId_ =
+newGetHealthCheckStatus pHealthCheckId_ =
   GetHealthCheckStatus'
-    { _ghcsHealthCheckId =
+    { healthCheckId =
         pHealthCheckId_
     }
 
--- | The ID for the health check that you want the current status for. When you created the health check, @CreateHealthCheck@ returned the ID in the response, in the @HealthCheckId@ element.
-ghcsHealthCheckId :: Lens' GetHealthCheckStatus Text
-ghcsHealthCheckId = lens _ghcsHealthCheckId (\s a -> s {_ghcsHealthCheckId = a})
+-- | The ID for the health check that you want the current status for. When
+-- you created the health check, @CreateHealthCheck@ returned the ID in the
+-- response, in the @HealthCheckId@ element.
+--
+-- If you want to check the status of a calculated health check, you must
+-- use the Amazon Route 53 console or the CloudWatch console. You can\'t
+-- use @GetHealthCheckStatus@ to get the status of a calculated health
+-- check.
+getHealthCheckStatus_healthCheckId :: Lens.Lens' GetHealthCheckStatus Prelude.Text
+getHealthCheckStatus_healthCheckId = Lens.lens (\GetHealthCheckStatus' {healthCheckId} -> healthCheckId) (\s@GetHealthCheckStatus' {} a -> s {healthCheckId = a} :: GetHealthCheckStatus)
 
-instance AWSRequest GetHealthCheckStatus where
+instance Prelude.AWSRequest GetHealthCheckStatus where
   type
     Rs GetHealthCheckStatus =
       GetHealthCheckStatusResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetHealthCheckStatusResponse'
-            <$> (pure (fromEnum s))
-            <*> ( x .@? "HealthCheckObservations" .!@ mempty
-                    >>= parseXMLList "HealthCheckObservation"
-                )
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "HealthCheckObservations"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "HealthCheckObservation"
+                        )
       )
 
-instance Hashable GetHealthCheckStatus
+instance Prelude.Hashable GetHealthCheckStatus
 
-instance NFData GetHealthCheckStatus
+instance Prelude.NFData GetHealthCheckStatus
 
-instance ToHeaders GetHealthCheckStatus where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetHealthCheckStatus where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetHealthCheckStatus where
+instance Prelude.ToPath GetHealthCheckStatus where
   toPath GetHealthCheckStatus' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2013-04-01/healthcheck/",
-        toBS _ghcsHealthCheckId,
+        Prelude.toBS healthCheckId,
         "/status"
       ]
 
-instance ToQuery GetHealthCheckStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery GetHealthCheckStatus where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the response to a @GetHealthCheck@ request.
 --
---
---
--- /See:/ 'getHealthCheckStatusResponse' smart constructor.
+-- /See:/ 'newGetHealthCheckStatusResponse' smart constructor.
 data GetHealthCheckStatusResponse = GetHealthCheckStatusResponse'
-  { _ghcsrrsResponseStatus ::
-      !Int,
-    _ghcsrrsHealthCheckObservations ::
-      ![HealthCheckObservation]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list that contains one @HealthCheckObservation@ element for each
+    -- Amazon Route 53 health checker that is reporting a status about the
+    -- health check endpoint.
+    healthCheckObservations :: [HealthCheckObservation]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHealthCheckStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHealthCheckStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghcsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghcsrrsHealthCheckObservations' - A list that contains one @HealthCheckObservation@ element for each Amazon Route 53 health checker that is reporting a status about the health check endpoint.
-getHealthCheckStatusResponse ::
-  -- | 'ghcsrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getHealthCheckStatusResponse_httpStatus' - The response's http status code.
+--
+-- 'healthCheckObservations', 'getHealthCheckStatusResponse_healthCheckObservations' - A list that contains one @HealthCheckObservation@ element for each
+-- Amazon Route 53 health checker that is reporting a status about the
+-- health check endpoint.
+newGetHealthCheckStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetHealthCheckStatusResponse
-getHealthCheckStatusResponse pResponseStatus_ =
+newGetHealthCheckStatusResponse pHttpStatus_ =
   GetHealthCheckStatusResponse'
-    { _ghcsrrsResponseStatus =
-        pResponseStatus_,
-      _ghcsrrsHealthCheckObservations = mempty
+    { httpStatus =
+        pHttpStatus_,
+      healthCheckObservations = Prelude.mempty
     }
 
--- | -- | The response status code.
-ghcsrrsResponseStatus :: Lens' GetHealthCheckStatusResponse Int
-ghcsrrsResponseStatus = lens _ghcsrrsResponseStatus (\s a -> s {_ghcsrrsResponseStatus = a})
+-- | The response's http status code.
+getHealthCheckStatusResponse_httpStatus :: Lens.Lens' GetHealthCheckStatusResponse Prelude.Int
+getHealthCheckStatusResponse_httpStatus = Lens.lens (\GetHealthCheckStatusResponse' {httpStatus} -> httpStatus) (\s@GetHealthCheckStatusResponse' {} a -> s {httpStatus = a} :: GetHealthCheckStatusResponse)
 
--- | A list that contains one @HealthCheckObservation@ element for each Amazon Route 53 health checker that is reporting a status about the health check endpoint.
-ghcsrrsHealthCheckObservations :: Lens' GetHealthCheckStatusResponse [HealthCheckObservation]
-ghcsrrsHealthCheckObservations = lens _ghcsrrsHealthCheckObservations (\s a -> s {_ghcsrrsHealthCheckObservations = a}) . _Coerce
+-- | A list that contains one @HealthCheckObservation@ element for each
+-- Amazon Route 53 health checker that is reporting a status about the
+-- health check endpoint.
+getHealthCheckStatusResponse_healthCheckObservations :: Lens.Lens' GetHealthCheckStatusResponse [HealthCheckObservation]
+getHealthCheckStatusResponse_healthCheckObservations = Lens.lens (\GetHealthCheckStatusResponse' {healthCheckObservations} -> healthCheckObservations) (\s@GetHealthCheckStatusResponse' {} a -> s {healthCheckObservations = a} :: GetHealthCheckStatusResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetHealthCheckStatusResponse
+instance Prelude.NFData GetHealthCheckStatusResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,74 @@
 module Network.AWS.Route53.Types.AccountLimitType
   ( AccountLimitType
       ( ..,
-        MaxHealthChecksByOwner,
-        MaxHostedZonesByOwner,
-        MaxReusableDelegationSetsByOwner,
-        MaxTrafficPoliciesByOwner,
-        MaxTrafficPolicyInstancesByOwner
+        AccountLimitTypeMAXHEALTHCHECKSBYOWNER,
+        AccountLimitTypeMAXHOSTEDZONESBYOWNER,
+        AccountLimitTypeMAXREUSABLEDELEGATIONSETSBYOWNER,
+        AccountLimitTypeMAXTRAFFICPOLICIESBYOWNER,
+        AccountLimitTypeMAXTRAFFICPOLICYINSTANCESBYOWNER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data AccountLimitType = AccountLimitType' (CI Text)
+newtype AccountLimitType = AccountLimitType'
+  { fromAccountLimitType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MaxHealthChecksByOwner :: AccountLimitType
-pattern MaxHealthChecksByOwner = AccountLimitType' "MAX_HEALTH_CHECKS_BY_OWNER"
+pattern AccountLimitTypeMAXHEALTHCHECKSBYOWNER :: AccountLimitType
+pattern AccountLimitTypeMAXHEALTHCHECKSBYOWNER = AccountLimitType' "MAX_HEALTH_CHECKS_BY_OWNER"
 
-pattern MaxHostedZonesByOwner :: AccountLimitType
-pattern MaxHostedZonesByOwner = AccountLimitType' "MAX_HOSTED_ZONES_BY_OWNER"
+pattern AccountLimitTypeMAXHOSTEDZONESBYOWNER :: AccountLimitType
+pattern AccountLimitTypeMAXHOSTEDZONESBYOWNER = AccountLimitType' "MAX_HOSTED_ZONES_BY_OWNER"
 
-pattern MaxReusableDelegationSetsByOwner :: AccountLimitType
-pattern MaxReusableDelegationSetsByOwner = AccountLimitType' "MAX_REUSABLE_DELEGATION_SETS_BY_OWNER"
+pattern AccountLimitTypeMAXREUSABLEDELEGATIONSETSBYOWNER :: AccountLimitType
+pattern AccountLimitTypeMAXREUSABLEDELEGATIONSETSBYOWNER = AccountLimitType' "MAX_REUSABLE_DELEGATION_SETS_BY_OWNER"
 
-pattern MaxTrafficPoliciesByOwner :: AccountLimitType
-pattern MaxTrafficPoliciesByOwner = AccountLimitType' "MAX_TRAFFIC_POLICIES_BY_OWNER"
+pattern AccountLimitTypeMAXTRAFFICPOLICIESBYOWNER :: AccountLimitType
+pattern AccountLimitTypeMAXTRAFFICPOLICIESBYOWNER = AccountLimitType' "MAX_TRAFFIC_POLICIES_BY_OWNER"
 
-pattern MaxTrafficPolicyInstancesByOwner :: AccountLimitType
-pattern MaxTrafficPolicyInstancesByOwner = AccountLimitType' "MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER"
+pattern AccountLimitTypeMAXTRAFFICPOLICYINSTANCESBYOWNER :: AccountLimitType
+pattern AccountLimitTypeMAXTRAFFICPOLICYINSTANCESBYOWNER = AccountLimitType' "MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER"
 
 {-# COMPLETE
-  MaxHealthChecksByOwner,
-  MaxHostedZonesByOwner,
-  MaxReusableDelegationSetsByOwner,
-  MaxTrafficPoliciesByOwner,
-  MaxTrafficPolicyInstancesByOwner,
+  AccountLimitTypeMAXHEALTHCHECKSBYOWNER,
+  AccountLimitTypeMAXHOSTEDZONESBYOWNER,
+  AccountLimitTypeMAXREUSABLEDELEGATIONSETSBYOWNER,
+  AccountLimitTypeMAXTRAFFICPOLICIESBYOWNER,
+  AccountLimitTypeMAXTRAFFICPOLICYINSTANCESBYOWNER,
   AccountLimitType'
   #-}
 
-instance FromText AccountLimitType where
-  parser = (AccountLimitType' . mk) <$> takeText
+instance Prelude.FromText AccountLimitType where
+  parser = AccountLimitType' Prelude.<$> Prelude.takeText
 
-instance ToText AccountLimitType where
-  toText (AccountLimitType' ci) = original ci
+instance Prelude.ToText AccountLimitType where
+  toText (AccountLimitType' x) = x
 
-instance Hashable AccountLimitType
+instance Prelude.Hashable AccountLimitType
 
-instance NFData AccountLimitType
+instance Prelude.NFData AccountLimitType
 
-instance ToByteString AccountLimitType
+instance Prelude.ToByteString AccountLimitType
 
-instance ToQuery AccountLimitType
+instance Prelude.ToQuery AccountLimitType
 
-instance ToHeader AccountLimitType
+instance Prelude.ToHeader AccountLimitType
 
-instance FromXML AccountLimitType where
-  parseXML = parseXMLText "AccountLimitType"
+instance Prelude.FromXML AccountLimitType where
+  parseXML = Prelude.parseXMLText "AccountLimitType"
 
-instance ToXML AccountLimitType where
-  toXML = toXMLText
+instance Prelude.ToXML AccountLimitType where
+  toXML = Prelude.toXMLText

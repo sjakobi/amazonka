@@ -11,10 +11,15 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Route 53 is a scalable Domain Name System (DNS) web service. It provides secure and reliable routing to your infrastructure that uses Amazon Web Services (AWS) products, such as Amazon Elastic Compute Cloud (Amazon EC2), Elastic Load Balancing, or Amazon Simple Storage Service (Amazon S3). You can also use Amazon Route 53 to route users to your infrastructure outside of AWS.
+-- Amazon Route 53 is a scalable Domain Name System (DNS) web service. It
+-- provides secure and reliable routing to your infrastructure that uses
+-- Amazon Web Services (AWS) products, such as Amazon Elastic Compute Cloud
+-- (Amazon EC2), Elastic Load Balancing, or Amazon Simple Storage Service
+-- (Amazon S3). You can also use Amazon Route 53 to route users to your
+-- infrastructure outside of AWS.
 module Network.AWS.Route53
   ( -- * Service Configuration
-    route53,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -58,8 +63,8 @@ module Network.AWS.Route53
     -- ** HostedZoneAlreadyExists
     _HostedZoneAlreadyExists,
 
-    -- ** InvalidKMSARN
-    _InvalidKMSARN,
+    -- ** InvalidKMSArn
+    _InvalidKMSArn,
 
     -- ** InvalidDomainName
     _InvalidDomainName,
@@ -212,202 +217,394 @@ module Network.AWS.Route53
     -- $waiters
 
     -- ** ResourceRecordSetsChanged
-    resourceRecordSetsChanged,
+    newResourceRecordSetsChanged,
 
     -- * Operations
     -- $operations
 
     -- ** CreateReusableDelegationSet
-    module Network.AWS.Route53.CreateReusableDelegationSet,
+    CreateReusableDelegationSet (CreateReusableDelegationSet'),
+    newCreateReusableDelegationSet,
+    CreateReusableDelegationSetResponse (CreateReusableDelegationSetResponse'),
+    newCreateReusableDelegationSetResponse,
 
     -- ** GetHealthCheckCount
-    module Network.AWS.Route53.GetHealthCheckCount,
+    GetHealthCheckCount (GetHealthCheckCount'),
+    newGetHealthCheckCount,
+    GetHealthCheckCountResponse (GetHealthCheckCountResponse'),
+    newGetHealthCheckCountResponse,
 
     -- ** GetHostedZoneLimit
-    module Network.AWS.Route53.GetHostedZoneLimit,
+    GetHostedZoneLimit (GetHostedZoneLimit'),
+    newGetHostedZoneLimit,
+    GetHostedZoneLimitResponse (GetHostedZoneLimitResponse'),
+    newGetHostedZoneLimitResponse,
 
     -- ** AssociateVPCWithHostedZone
-    module Network.AWS.Route53.AssociateVPCWithHostedZone,
+    AssociateVPCWithHostedZone (AssociateVPCWithHostedZone'),
+    newAssociateVPCWithHostedZone,
+    AssociateVPCWithHostedZoneResponse (AssociateVPCWithHostedZoneResponse'),
+    newAssociateVPCWithHostedZoneResponse,
 
     -- ** ListGeoLocations
-    module Network.AWS.Route53.ListGeoLocations,
+    ListGeoLocations (ListGeoLocations'),
+    newListGeoLocations,
+    ListGeoLocationsResponse (ListGeoLocationsResponse'),
+    newListGeoLocationsResponse,
 
     -- ** ListTrafficPolicies
-    module Network.AWS.Route53.ListTrafficPolicies,
+    ListTrafficPolicies (ListTrafficPolicies'),
+    newListTrafficPolicies,
+    ListTrafficPoliciesResponse (ListTrafficPoliciesResponse'),
+    newListTrafficPoliciesResponse,
 
     -- ** CreateTrafficPolicy
-    module Network.AWS.Route53.CreateTrafficPolicy,
+    CreateTrafficPolicy (CreateTrafficPolicy'),
+    newCreateTrafficPolicy,
+    CreateTrafficPolicyResponse (CreateTrafficPolicyResponse'),
+    newCreateTrafficPolicyResponse,
 
     -- ** DeleteHostedZone
-    module Network.AWS.Route53.DeleteHostedZone,
+    DeleteHostedZone (DeleteHostedZone'),
+    newDeleteHostedZone,
+    DeleteHostedZoneResponse (DeleteHostedZoneResponse'),
+    newDeleteHostedZoneResponse,
 
     -- ** CreateHealthCheck
-    module Network.AWS.Route53.CreateHealthCheck,
+    CreateHealthCheck (CreateHealthCheck'),
+    newCreateHealthCheck,
+    CreateHealthCheckResponse (CreateHealthCheckResponse'),
+    newCreateHealthCheckResponse,
 
     -- ** DisassociateVPCFromHostedZone
-    module Network.AWS.Route53.DisassociateVPCFromHostedZone,
+    DisassociateVPCFromHostedZone (DisassociateVPCFromHostedZone'),
+    newDisassociateVPCFromHostedZone,
+    DisassociateVPCFromHostedZoneResponse (DisassociateVPCFromHostedZoneResponse'),
+    newDisassociateVPCFromHostedZoneResponse,
 
     -- ** ChangeTagsForResource
-    module Network.AWS.Route53.ChangeTagsForResource,
+    ChangeTagsForResource (ChangeTagsForResource'),
+    newChangeTagsForResource,
+    ChangeTagsForResourceResponse (ChangeTagsForResourceResponse'),
+    newChangeTagsForResourceResponse,
 
     -- ** GetGeoLocation
-    module Network.AWS.Route53.GetGeoLocation,
+    GetGeoLocation (GetGeoLocation'),
+    newGetGeoLocation,
+    GetGeoLocationResponse (GetGeoLocationResponse'),
+    newGetGeoLocationResponse,
 
     -- ** DeleteVPCAssociationAuthorization
-    module Network.AWS.Route53.DeleteVPCAssociationAuthorization,
+    DeleteVPCAssociationAuthorization (DeleteVPCAssociationAuthorization'),
+    newDeleteVPCAssociationAuthorization,
+    DeleteVPCAssociationAuthorizationResponse (DeleteVPCAssociationAuthorizationResponse'),
+    newDeleteVPCAssociationAuthorizationResponse,
 
     -- ** ListHostedZones (Paginated)
-    module Network.AWS.Route53.ListHostedZones,
+    ListHostedZones (ListHostedZones'),
+    newListHostedZones,
+    ListHostedZonesResponse (ListHostedZonesResponse'),
+    newListHostedZonesResponse,
 
     -- ** DeactivateKeySigningKey
-    module Network.AWS.Route53.DeactivateKeySigningKey,
+    DeactivateKeySigningKey (DeactivateKeySigningKey'),
+    newDeactivateKeySigningKey,
+    DeactivateKeySigningKeyResponse (DeactivateKeySigningKeyResponse'),
+    newDeactivateKeySigningKeyResponse,
 
     -- ** TestDNSAnswer
-    module Network.AWS.Route53.TestDNSAnswer,
+    TestDNSAnswer (TestDNSAnswer'),
+    newTestDNSAnswer,
+    TestDNSAnswerResponse (TestDNSAnswerResponse'),
+    newTestDNSAnswerResponse,
 
     -- ** CreateHostedZone
-    module Network.AWS.Route53.CreateHostedZone,
+    CreateHostedZone (CreateHostedZone'),
+    newCreateHostedZone,
+    CreateHostedZoneResponse (CreateHostedZoneResponse'),
+    newCreateHostedZoneResponse,
 
     -- ** GetReusableDelegationSetLimit
-    module Network.AWS.Route53.GetReusableDelegationSetLimit,
+    GetReusableDelegationSetLimit (GetReusableDelegationSetLimit'),
+    newGetReusableDelegationSetLimit,
+    GetReusableDelegationSetLimitResponse (GetReusableDelegationSetLimitResponse'),
+    newGetReusableDelegationSetLimitResponse,
 
     -- ** ChangeResourceRecordSets
-    module Network.AWS.Route53.ChangeResourceRecordSets,
+    ChangeResourceRecordSets (ChangeResourceRecordSets'),
+    newChangeResourceRecordSets,
+    ChangeResourceRecordSetsResponse (ChangeResourceRecordSetsResponse'),
+    newChangeResourceRecordSetsResponse,
 
     -- ** GetReusableDelegationSet
-    module Network.AWS.Route53.GetReusableDelegationSet,
+    GetReusableDelegationSet (GetReusableDelegationSet'),
+    newGetReusableDelegationSet,
+    GetReusableDelegationSetResponse (GetReusableDelegationSetResponse'),
+    newGetReusableDelegationSetResponse,
 
-    -- ** GetCheckerIPRanges
-    module Network.AWS.Route53.GetCheckerIPRanges,
+    -- ** GetCheckerIpRanges
+    GetCheckerIpRanges (GetCheckerIpRanges'),
+    newGetCheckerIpRanges,
+    GetCheckerIpRangesResponse (GetCheckerIpRangesResponse'),
+    newGetCheckerIpRangesResponse,
 
     -- ** GetDNSSEC
-    module Network.AWS.Route53.GetDNSSEC,
+    GetDNSSEC (GetDNSSEC'),
+    newGetDNSSEC,
+    GetDNSSECResponse (GetDNSSECResponse'),
+    newGetDNSSECResponse,
 
     -- ** DeleteKeySigningKey
-    module Network.AWS.Route53.DeleteKeySigningKey,
+    DeleteKeySigningKey (DeleteKeySigningKey'),
+    newDeleteKeySigningKey,
+    DeleteKeySigningKeyResponse (DeleteKeySigningKeyResponse'),
+    newDeleteKeySigningKeyResponse,
 
     -- ** GetTrafficPolicyInstance
-    module Network.AWS.Route53.GetTrafficPolicyInstance,
+    GetTrafficPolicyInstance (GetTrafficPolicyInstance'),
+    newGetTrafficPolicyInstance,
+    GetTrafficPolicyInstanceResponse (GetTrafficPolicyInstanceResponse'),
+    newGetTrafficPolicyInstanceResponse,
 
     -- ** ListReusableDelegationSets
-    module Network.AWS.Route53.ListReusableDelegationSets,
+    ListReusableDelegationSets (ListReusableDelegationSets'),
+    newListReusableDelegationSets,
+    ListReusableDelegationSetsResponse (ListReusableDelegationSetsResponse'),
+    newListReusableDelegationSetsResponse,
 
     -- ** GetAccountLimit
-    module Network.AWS.Route53.GetAccountLimit,
+    GetAccountLimit (GetAccountLimit'),
+    newGetAccountLimit,
+    GetAccountLimitResponse (GetAccountLimitResponse'),
+    newGetAccountLimitResponse,
 
     -- ** CreateQueryLoggingConfig
-    module Network.AWS.Route53.CreateQueryLoggingConfig,
+    CreateQueryLoggingConfig (CreateQueryLoggingConfig'),
+    newCreateQueryLoggingConfig,
+    CreateQueryLoggingConfigResponse (CreateQueryLoggingConfigResponse'),
+    newCreateQueryLoggingConfigResponse,
 
     -- ** UpdateTrafficPolicyComment
-    module Network.AWS.Route53.UpdateTrafficPolicyComment,
+    UpdateTrafficPolicyComment (UpdateTrafficPolicyComment'),
+    newUpdateTrafficPolicyComment,
+    UpdateTrafficPolicyCommentResponse (UpdateTrafficPolicyCommentResponse'),
+    newUpdateTrafficPolicyCommentResponse,
 
     -- ** CreateKeySigningKey
-    module Network.AWS.Route53.CreateKeySigningKey,
+    CreateKeySigningKey (CreateKeySigningKey'),
+    newCreateKeySigningKey,
+    CreateKeySigningKeyResponse (CreateKeySigningKeyResponse'),
+    newCreateKeySigningKeyResponse,
 
     -- ** DisableHostedZoneDNSSEC
-    module Network.AWS.Route53.DisableHostedZoneDNSSEC,
+    DisableHostedZoneDNSSEC (DisableHostedZoneDNSSEC'),
+    newDisableHostedZoneDNSSEC,
+    DisableHostedZoneDNSSECResponse (DisableHostedZoneDNSSECResponse'),
+    newDisableHostedZoneDNSSECResponse,
 
     -- ** ListResourceRecordSets (Paginated)
-    module Network.AWS.Route53.ListResourceRecordSets,
+    ListResourceRecordSets (ListResourceRecordSets'),
+    newListResourceRecordSets,
+    ListResourceRecordSetsResponse (ListResourceRecordSetsResponse'),
+    newListResourceRecordSetsResponse,
 
     -- ** DeleteTrafficPolicy
-    module Network.AWS.Route53.DeleteTrafficPolicy,
+    DeleteTrafficPolicy (DeleteTrafficPolicy'),
+    newDeleteTrafficPolicy,
+    DeleteTrafficPolicyResponse (DeleteTrafficPolicyResponse'),
+    newDeleteTrafficPolicyResponse,
 
     -- ** GetHealthCheck
-    module Network.AWS.Route53.GetHealthCheck,
+    GetHealthCheck (GetHealthCheck'),
+    newGetHealthCheck,
+    GetHealthCheckResponse (GetHealthCheckResponse'),
+    newGetHealthCheckResponse,
 
     -- ** ListTrafficPolicyInstancesByHostedZone
-    module Network.AWS.Route53.ListTrafficPolicyInstancesByHostedZone,
+    ListTrafficPolicyInstancesByHostedZone (ListTrafficPolicyInstancesByHostedZone'),
+    newListTrafficPolicyInstancesByHostedZone,
+    ListTrafficPolicyInstancesByHostedZoneResponse (ListTrafficPolicyInstancesByHostedZoneResponse'),
+    newListTrafficPolicyInstancesByHostedZoneResponse,
 
     -- ** ListTagsForResources
-    module Network.AWS.Route53.ListTagsForResources,
+    ListTagsForResources (ListTagsForResources'),
+    newListTagsForResources,
+    ListTagsForResourcesResponse (ListTagsForResourcesResponse'),
+    newListTagsForResourcesResponse,
 
     -- ** GetTrafficPolicyInstanceCount
-    module Network.AWS.Route53.GetTrafficPolicyInstanceCount,
+    GetTrafficPolicyInstanceCount (GetTrafficPolicyInstanceCount'),
+    newGetTrafficPolicyInstanceCount,
+    GetTrafficPolicyInstanceCountResponse (GetTrafficPolicyInstanceCountResponse'),
+    newGetTrafficPolicyInstanceCountResponse,
 
     -- ** GetHostedZone
-    module Network.AWS.Route53.GetHostedZone,
+    GetHostedZone (GetHostedZone'),
+    newGetHostedZone,
+    GetHostedZoneResponse (GetHostedZoneResponse'),
+    newGetHostedZoneResponse,
 
     -- ** ListVPCAssociationAuthorizations (Paginated)
-    module Network.AWS.Route53.ListVPCAssociationAuthorizations,
+    ListVPCAssociationAuthorizations (ListVPCAssociationAuthorizations'),
+    newListVPCAssociationAuthorizations,
+    ListVPCAssociationAuthorizationsResponse (ListVPCAssociationAuthorizationsResponse'),
+    newListVPCAssociationAuthorizationsResponse,
 
     -- ** ListTrafficPolicyVersions
-    module Network.AWS.Route53.ListTrafficPolicyVersions,
+    ListTrafficPolicyVersions (ListTrafficPolicyVersions'),
+    newListTrafficPolicyVersions,
+    ListTrafficPolicyVersionsResponse (ListTrafficPolicyVersionsResponse'),
+    newListTrafficPolicyVersionsResponse,
 
     -- ** ListTrafficPolicyInstancesByPolicy
-    module Network.AWS.Route53.ListTrafficPolicyInstancesByPolicy,
+    ListTrafficPolicyInstancesByPolicy (ListTrafficPolicyInstancesByPolicy'),
+    newListTrafficPolicyInstancesByPolicy,
+    ListTrafficPolicyInstancesByPolicyResponse (ListTrafficPolicyInstancesByPolicyResponse'),
+    newListTrafficPolicyInstancesByPolicyResponse,
 
     -- ** ListHealthChecks (Paginated)
-    module Network.AWS.Route53.ListHealthChecks,
+    ListHealthChecks (ListHealthChecks'),
+    newListHealthChecks,
+    ListHealthChecksResponse (ListHealthChecksResponse'),
+    newListHealthChecksResponse,
 
     -- ** DeleteHealthCheck
-    module Network.AWS.Route53.DeleteHealthCheck,
+    DeleteHealthCheck (DeleteHealthCheck'),
+    newDeleteHealthCheck,
+    DeleteHealthCheckResponse (DeleteHealthCheckResponse'),
+    newDeleteHealthCheckResponse,
 
     -- ** CreateTrafficPolicyVersion
-    module Network.AWS.Route53.CreateTrafficPolicyVersion,
+    CreateTrafficPolicyVersion (CreateTrafficPolicyVersion'),
+    newCreateTrafficPolicyVersion,
+    CreateTrafficPolicyVersionResponse (CreateTrafficPolicyVersionResponse'),
+    newCreateTrafficPolicyVersionResponse,
 
     -- ** GetTrafficPolicy
-    module Network.AWS.Route53.GetTrafficPolicy,
+    GetTrafficPolicy (GetTrafficPolicy'),
+    newGetTrafficPolicy,
+    GetTrafficPolicyResponse (GetTrafficPolicyResponse'),
+    newGetTrafficPolicyResponse,
 
     -- ** CreateVPCAssociationAuthorization
-    module Network.AWS.Route53.CreateVPCAssociationAuthorization,
+    CreateVPCAssociationAuthorization (CreateVPCAssociationAuthorization'),
+    newCreateVPCAssociationAuthorization,
+    CreateVPCAssociationAuthorizationResponse (CreateVPCAssociationAuthorizationResponse'),
+    newCreateVPCAssociationAuthorizationResponse,
 
     -- ** UpdateHealthCheck
-    module Network.AWS.Route53.UpdateHealthCheck,
+    UpdateHealthCheck (UpdateHealthCheck'),
+    newUpdateHealthCheck,
+    UpdateHealthCheckResponse (UpdateHealthCheckResponse'),
+    newUpdateHealthCheckResponse,
 
     -- ** CreateTrafficPolicyInstance
-    module Network.AWS.Route53.CreateTrafficPolicyInstance,
+    CreateTrafficPolicyInstance (CreateTrafficPolicyInstance'),
+    newCreateTrafficPolicyInstance,
+    CreateTrafficPolicyInstanceResponse (CreateTrafficPolicyInstanceResponse'),
+    newCreateTrafficPolicyInstanceResponse,
 
     -- ** ListHostedZonesByVPC
-    module Network.AWS.Route53.ListHostedZonesByVPC,
+    ListHostedZonesByVPC (ListHostedZonesByVPC'),
+    newListHostedZonesByVPC,
+    ListHostedZonesByVPCResponse (ListHostedZonesByVPCResponse'),
+    newListHostedZonesByVPCResponse,
 
     -- ** GetHealthCheckStatus
-    module Network.AWS.Route53.GetHealthCheckStatus,
+    GetHealthCheckStatus (GetHealthCheckStatus'),
+    newGetHealthCheckStatus,
+    GetHealthCheckStatusResponse (GetHealthCheckStatusResponse'),
+    newGetHealthCheckStatusResponse,
 
     -- ** GetChange
-    module Network.AWS.Route53.GetChange,
+    GetChange (GetChange'),
+    newGetChange,
+    GetChangeResponse (GetChangeResponse'),
+    newGetChangeResponse,
 
     -- ** UpdateHostedZoneComment
-    module Network.AWS.Route53.UpdateHostedZoneComment,
+    UpdateHostedZoneComment (UpdateHostedZoneComment'),
+    newUpdateHostedZoneComment,
+    UpdateHostedZoneCommentResponse (UpdateHostedZoneCommentResponse'),
+    newUpdateHostedZoneCommentResponse,
 
     -- ** ListTrafficPolicyInstances
-    module Network.AWS.Route53.ListTrafficPolicyInstances,
+    ListTrafficPolicyInstances (ListTrafficPolicyInstances'),
+    newListTrafficPolicyInstances,
+    ListTrafficPolicyInstancesResponse (ListTrafficPolicyInstancesResponse'),
+    newListTrafficPolicyInstancesResponse,
 
     -- ** DeleteTrafficPolicyInstance
-    module Network.AWS.Route53.DeleteTrafficPolicyInstance,
+    DeleteTrafficPolicyInstance (DeleteTrafficPolicyInstance'),
+    newDeleteTrafficPolicyInstance,
+    DeleteTrafficPolicyInstanceResponse (DeleteTrafficPolicyInstanceResponse'),
+    newDeleteTrafficPolicyInstanceResponse,
 
     -- ** UpdateTrafficPolicyInstance
-    module Network.AWS.Route53.UpdateTrafficPolicyInstance,
+    UpdateTrafficPolicyInstance (UpdateTrafficPolicyInstance'),
+    newUpdateTrafficPolicyInstance,
+    UpdateTrafficPolicyInstanceResponse (UpdateTrafficPolicyInstanceResponse'),
+    newUpdateTrafficPolicyInstanceResponse,
 
     -- ** GetQueryLoggingConfig
-    module Network.AWS.Route53.GetQueryLoggingConfig,
+    GetQueryLoggingConfig (GetQueryLoggingConfig'),
+    newGetQueryLoggingConfig,
+    GetQueryLoggingConfigResponse (GetQueryLoggingConfigResponse'),
+    newGetQueryLoggingConfigResponse,
 
     -- ** DeleteReusableDelegationSet
-    module Network.AWS.Route53.DeleteReusableDelegationSet,
+    DeleteReusableDelegationSet (DeleteReusableDelegationSet'),
+    newDeleteReusableDelegationSet,
+    DeleteReusableDelegationSetResponse (DeleteReusableDelegationSetResponse'),
+    newDeleteReusableDelegationSetResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.Route53.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteQueryLoggingConfig
-    module Network.AWS.Route53.DeleteQueryLoggingConfig,
+    DeleteQueryLoggingConfig (DeleteQueryLoggingConfig'),
+    newDeleteQueryLoggingConfig,
+    DeleteQueryLoggingConfigResponse (DeleteQueryLoggingConfigResponse'),
+    newDeleteQueryLoggingConfigResponse,
 
     -- ** GetHealthCheckLastFailureReason
-    module Network.AWS.Route53.GetHealthCheckLastFailureReason,
+    GetHealthCheckLastFailureReason (GetHealthCheckLastFailureReason'),
+    newGetHealthCheckLastFailureReason,
+    GetHealthCheckLastFailureReasonResponse (GetHealthCheckLastFailureReasonResponse'),
+    newGetHealthCheckLastFailureReasonResponse,
 
     -- ** EnableHostedZoneDNSSEC
-    module Network.AWS.Route53.EnableHostedZoneDNSSEC,
+    EnableHostedZoneDNSSEC (EnableHostedZoneDNSSEC'),
+    newEnableHostedZoneDNSSEC,
+    EnableHostedZoneDNSSECResponse (EnableHostedZoneDNSSECResponse'),
+    newEnableHostedZoneDNSSECResponse,
 
     -- ** ListQueryLoggingConfigs (Paginated)
-    module Network.AWS.Route53.ListQueryLoggingConfigs,
+    ListQueryLoggingConfigs (ListQueryLoggingConfigs'),
+    newListQueryLoggingConfigs,
+    ListQueryLoggingConfigsResponse (ListQueryLoggingConfigsResponse'),
+    newListQueryLoggingConfigsResponse,
 
     -- ** ListHostedZonesByName
-    module Network.AWS.Route53.ListHostedZonesByName,
+    ListHostedZonesByName (ListHostedZonesByName'),
+    newListHostedZonesByName,
+    ListHostedZonesByNameResponse (ListHostedZonesByNameResponse'),
+    newListHostedZonesByNameResponse,
 
     -- ** GetHostedZoneCount
-    module Network.AWS.Route53.GetHostedZoneCount,
+    GetHostedZoneCount (GetHostedZoneCount'),
+    newGetHostedZoneCount,
+    GetHostedZoneCountResponse (GetHostedZoneCountResponse'),
+    newGetHostedZoneCountResponse,
 
     -- ** ActivateKeySigningKey
-    module Network.AWS.Route53.ActivateKeySigningKey,
+    ActivateKeySigningKey (ActivateKeySigningKey'),
+    newActivateKeySigningKey,
+    ActivateKeySigningKeyResponse (ActivateKeySigningKeyResponse'),
+    newActivateKeySigningKeyResponse,
 
     -- * Types
 
@@ -463,282 +660,136 @@ module Network.AWS.Route53
     VPCRegion (..),
 
     -- ** AccountLimit
-    AccountLimit,
-    accountLimit,
-    alType,
-    alValue,
+    AccountLimit (AccountLimit'),
+    newAccountLimit,
 
     -- ** AlarmIdentifier
-    AlarmIdentifier,
-    alarmIdentifier,
-    aiRegion,
-    aiName,
+    AlarmIdentifier (AlarmIdentifier'),
+    newAlarmIdentifier,
 
     -- ** AliasTarget
-    AliasTarget,
-    aliasTarget,
-    atHostedZoneId,
-    atDNSName,
-    atEvaluateTargetHealth,
+    AliasTarget (AliasTarget'),
+    newAliasTarget,
 
     -- ** Change
-    Change,
-    change,
-    cAction,
-    cResourceRecordSet,
+    Change (Change'),
+    newChange,
 
     -- ** ChangeBatch
-    ChangeBatch,
-    changeBatch,
-    cbComment,
-    cbChanges,
+    ChangeBatch (ChangeBatch'),
+    newChangeBatch,
 
     -- ** ChangeInfo
-    ChangeInfo,
-    changeInfo,
-    ciComment,
-    ciId,
-    ciStatus,
-    ciSubmittedAt,
+    ChangeInfo (ChangeInfo'),
+    newChangeInfo,
 
     -- ** CloudWatchAlarmConfiguration
-    CloudWatchAlarmConfiguration,
-    cloudWatchAlarmConfiguration,
-    cwacDimensions,
-    cwacEvaluationPeriods,
-    cwacThreshold,
-    cwacComparisonOperator,
-    cwacPeriod,
-    cwacMetricName,
-    cwacNamespace,
-    cwacStatistic,
+    CloudWatchAlarmConfiguration (CloudWatchAlarmConfiguration'),
+    newCloudWatchAlarmConfiguration,
 
     -- ** DNSSECStatus
-    DNSSECStatus,
-    dnsSECStatus,
-    dsecsStatusMessage,
-    dsecsServeSignature,
+    DNSSECStatus (DNSSECStatus'),
+    newDNSSECStatus,
 
     -- ** DelegationSet
-    DelegationSet,
-    delegationSet,
-    dsId,
-    dsCallerReference,
-    dsNameServers,
+    DelegationSet (DelegationSet'),
+    newDelegationSet,
 
     -- ** Dimension
-    Dimension,
-    dimension,
-    dName,
-    dValue,
+    Dimension (Dimension'),
+    newDimension,
 
     -- ** GeoLocation
-    GeoLocation,
-    geoLocation,
-    glContinentCode,
-    glSubdivisionCode,
-    glCountryCode,
+    GeoLocation (GeoLocation'),
+    newGeoLocation,
 
     -- ** GeoLocationDetails
-    GeoLocationDetails,
-    geoLocationDetails,
-    gldCountryName,
-    gldContinentName,
-    gldContinentCode,
-    gldSubdivisionCode,
-    gldCountryCode,
-    gldSubdivisionName,
+    GeoLocationDetails (GeoLocationDetails'),
+    newGeoLocationDetails,
 
     -- ** HealthCheck
-    HealthCheck,
-    healthCheck,
-    hcCloudWatchAlarmConfiguration,
-    hcLinkedService,
-    hcId,
-    hcCallerReference,
-    hcHealthCheckConfig,
-    hcHealthCheckVersion,
+    HealthCheck (HealthCheck'),
+    newHealthCheck,
 
     -- ** HealthCheckConfig
-    HealthCheckConfig,
-    healthCheckConfig,
-    hccFailureThreshold,
-    hccSearchString,
-    hccChildHealthChecks,
-    hccDisabled,
-    hccAlarmIdentifier,
-    hccEnableSNI,
-    hccInsufficientDataHealthStatus,
-    hccIPAddress,
-    hccResourcePath,
-    hccPort,
-    hccRequestInterval,
-    hccHealthThreshold,
-    hccRegions,
-    hccFullyQualifiedDomainName,
-    hccInverted,
-    hccMeasureLatency,
-    hccType,
+    HealthCheckConfig (HealthCheckConfig'),
+    newHealthCheckConfig,
 
     -- ** HealthCheckObservation
-    HealthCheckObservation,
-    healthCheckObservation,
-    hcoIPAddress,
-    hcoRegion,
-    hcoStatusReport,
+    HealthCheckObservation (HealthCheckObservation'),
+    newHealthCheckObservation,
 
     -- ** HostedZone
-    HostedZone,
-    hostedZone,
-    hzResourceRecordSetCount,
-    hzConfig,
-    hzLinkedService,
-    hzId,
-    hzName,
-    hzCallerReference,
+    HostedZone (HostedZone'),
+    newHostedZone,
 
     -- ** HostedZoneConfig
-    HostedZoneConfig,
-    hostedZoneConfig,
-    hzcComment,
-    hzcPrivateZone,
+    HostedZoneConfig (HostedZoneConfig'),
+    newHostedZoneConfig,
 
     -- ** HostedZoneLimit
-    HostedZoneLimit,
-    hostedZoneLimit,
-    hzlType,
-    hzlValue,
+    HostedZoneLimit (HostedZoneLimit'),
+    newHostedZoneLimit,
 
     -- ** HostedZoneOwner
-    HostedZoneOwner,
-    hostedZoneOwner,
-    hzoOwningAccount,
-    hzoOwningService,
+    HostedZoneOwner (HostedZoneOwner'),
+    newHostedZoneOwner,
 
     -- ** HostedZoneSummary
-    HostedZoneSummary,
-    hostedZoneSummary,
-    hzsHostedZoneId,
-    hzsName,
-    hzsOwner,
+    HostedZoneSummary (HostedZoneSummary'),
+    newHostedZoneSummary,
 
     -- ** KeySigningKey
-    KeySigningKey,
-    keySigningKey,
-    kskDigestAlgorithmType,
-    kskLastModifiedDate,
-    kskStatusMessage,
-    kskStatus,
-    kskCreatedDate,
-    kskSigningAlgorithmMnemonic,
-    kskPublicKey,
-    kskDNSKEYRecord,
-    kskDigestValue,
-    kskDigestAlgorithmMnemonic,
-    kskName,
-    kskSigningAlgorithmType,
-    kskFlag,
-    kskKMSARN,
-    kskKeyTag,
-    kskDSRecord,
+    KeySigningKey (KeySigningKey'),
+    newKeySigningKey,
 
     -- ** LinkedService
-    LinkedService,
-    linkedService,
-    lsServicePrincipal,
-    lsDescription,
+    LinkedService (LinkedService'),
+    newLinkedService,
 
     -- ** QueryLoggingConfig
-    QueryLoggingConfig,
-    queryLoggingConfig,
-    qlcId,
-    qlcHostedZoneId,
-    qlcCloudWatchLogsLogGroupARN,
+    QueryLoggingConfig (QueryLoggingConfig'),
+    newQueryLoggingConfig,
 
     -- ** ResourceRecord
-    ResourceRecord,
-    resourceRecord,
-    rrValue,
+    ResourceRecord (ResourceRecord'),
+    newResourceRecord,
 
     -- ** ResourceRecordSet
-    ResourceRecordSet,
-    resourceRecordSet,
-    rrsHealthCheckId,
-    rrsMultiValueAnswer,
-    rrsGeoLocation,
-    rrsWeight,
-    rrsAliasTarget,
-    rrsResourceRecords,
-    rrsFailover,
-    rrsTTL,
-    rrsTrafficPolicyInstanceId,
-    rrsSetIdentifier,
-    rrsRegion,
-    rrsName,
-    rrsType,
+    ResourceRecordSet (ResourceRecordSet'),
+    newResourceRecordSet,
 
     -- ** ResourceTagSet
-    ResourceTagSet,
-    resourceTagSet,
-    rtsResourceId,
-    rtsResourceType,
-    rtsTags,
+    ResourceTagSet (ResourceTagSet'),
+    newResourceTagSet,
 
     -- ** ReusableDelegationSetLimit
-    ReusableDelegationSetLimit,
-    reusableDelegationSetLimit,
-    rdslType,
-    rdslValue,
+    ReusableDelegationSetLimit (ReusableDelegationSetLimit'),
+    newReusableDelegationSetLimit,
 
     -- ** StatusReport
-    StatusReport,
-    statusReport,
-    srStatus,
-    srCheckedTime,
+    StatusReport (StatusReport'),
+    newStatusReport,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TrafficPolicy
-    TrafficPolicy,
-    trafficPolicy,
-    tpComment,
-    tpId,
-    tpVersion,
-    tpName,
-    tpType,
-    tpDocument,
+    TrafficPolicy (TrafficPolicy'),
+    newTrafficPolicy,
 
     -- ** TrafficPolicyInstance
-    TrafficPolicyInstance,
-    trafficPolicyInstance,
-    tpiId,
-    tpiHostedZoneId,
-    tpiName,
-    tpiTTL,
-    tpiState,
-    tpiMessage,
-    tpiTrafficPolicyId,
-    tpiTrafficPolicyVersion,
-    tpiTrafficPolicyType,
+    TrafficPolicyInstance (TrafficPolicyInstance'),
+    newTrafficPolicyInstance,
 
     -- ** TrafficPolicySummary
-    TrafficPolicySummary,
-    trafficPolicySummary,
-    tpsId,
-    tpsName,
-    tpsType,
-    tpsLatestVersion,
-    tpsTrafficPolicyCount,
+    TrafficPolicySummary (TrafficPolicySummary'),
+    newTrafficPolicySummary,
 
     -- ** VPC
-    VPC,
-    vpc,
-    vpcVPCRegion,
-    vpcVPCId,
+    VPC (VPC'),
+    newVPC,
   )
 where
 
@@ -769,7 +820,7 @@ import Network.AWS.Route53.DisassociateVPCFromHostedZone
 import Network.AWS.Route53.EnableHostedZoneDNSSEC
 import Network.AWS.Route53.GetAccountLimit
 import Network.AWS.Route53.GetChange
-import Network.AWS.Route53.GetCheckerIPRanges
+import Network.AWS.Route53.GetCheckerIpRanges
 import Network.AWS.Route53.GetDNSSEC
 import Network.AWS.Route53.GetGeoLocation
 import Network.AWS.Route53.GetHealthCheck
@@ -786,6 +837,7 @@ import Network.AWS.Route53.GetTrafficPolicy
 import Network.AWS.Route53.GetTrafficPolicyInstance
 import Network.AWS.Route53.GetTrafficPolicyInstanceCount
 import Network.AWS.Route53.Internal
+import Network.AWS.Route53.Lens
 import Network.AWS.Route53.ListGeoLocations
 import Network.AWS.Route53.ListHealthChecks
 import Network.AWS.Route53.ListHostedZones

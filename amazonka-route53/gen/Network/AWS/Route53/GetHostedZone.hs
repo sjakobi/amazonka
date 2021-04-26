@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a specified hosted zone including the four name servers assigned to the hosted zone.
+-- Gets information about a specified hosted zone including the four name
+-- servers assigned to the hosted zone.
 module Network.AWS.Route53.GetHostedZone
   ( -- * Creating a Request
-    getHostedZone,
-    GetHostedZone,
+    GetHostedZone (..),
+    newGetHostedZone,
 
     -- * Request Lenses
-    ghzId,
+    getHostedZone_id,
 
     -- * Destructuring the Response
-    getHostedZoneResponse,
-    GetHostedZoneResponse,
+    GetHostedZoneResponse (..),
+    newGetHostedZoneResponse,
 
     -- * Response Lenses
-    ghzrrsDelegationSet,
-    ghzrrsVPCs,
-    ghzrrsResponseStatus,
-    ghzrrsHostedZone,
+    getHostedZoneResponse_delegationSet,
+    getHostedZoneResponse_vPCs,
+    getHostedZoneResponse_httpStatus,
+    getHostedZoneResponse_hostedZone,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.DelegationSet
+import Network.AWS.Route53.Types.HostedZone
+import Network.AWS.Route53.Types.VPC
 
 -- | A request to get information about a specified hosted zone.
 --
---
---
--- /See:/ 'getHostedZone' smart constructor.
-newtype GetHostedZone = GetHostedZone'
-  { _ghzId ::
-      ResourceId
+-- /See:/ 'newGetHostedZone' smart constructor.
+data GetHostedZone = GetHostedZone'
+  { -- | The ID of the hosted zone that you want to get information about.
+    id :: ResourceId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHostedZone' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHostedZone' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghzId' - The ID of the hosted zone that you want to get information about.
-getHostedZone ::
-  -- | 'ghzId'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'getHostedZone_id' - The ID of the hosted zone that you want to get information about.
+newGetHostedZone ::
+  -- | 'id'
   ResourceId ->
   GetHostedZone
-getHostedZone pId_ = GetHostedZone' {_ghzId = pId_}
+newGetHostedZone pId_ = GetHostedZone' {id = pId_}
 
 -- | The ID of the hosted zone that you want to get information about.
-ghzId :: Lens' GetHostedZone ResourceId
-ghzId = lens _ghzId (\s a -> s {_ghzId = a})
+getHostedZone_id :: Lens.Lens' GetHostedZone ResourceId
+getHostedZone_id = Lens.lens (\GetHostedZone' {id} -> id) (\s@GetHostedZone' {} a -> s {id = a} :: GetHostedZone)
 
-instance AWSRequest GetHostedZone where
+instance Prelude.AWSRequest GetHostedZone where
   type Rs GetHostedZone = GetHostedZoneResponse
-  request = get route53
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetHostedZoneResponse'
-            <$> (x .@? "DelegationSet")
-            <*> ( x .@? "VPCs" .!@ mempty
-                    >>= may (parseXMLList1 "VPC")
-                )
-            <*> (pure (fromEnum s))
-            <*> (x .@ "HostedZone")
+            Prelude.<$> (x Prelude..@? "DelegationSet")
+            Prelude.<*> ( x Prelude..@? "VPCs" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList1 "VPC")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "HostedZone")
       )
 
-instance Hashable GetHostedZone
+instance Prelude.Hashable GetHostedZone
 
-instance NFData GetHostedZone
+instance Prelude.NFData GetHostedZone
 
-instance ToHeaders GetHostedZone where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetHostedZone where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetHostedZone where
+instance Prelude.ToPath GetHostedZone where
   toPath GetHostedZone' {..} =
-    mconcat ["/2013-04-01/hostedzone/", toBS _ghzId]
+    Prelude.mconcat
+      ["/2013-04-01/hostedzone/", Prelude.toBS id]
 
-instance ToQuery GetHostedZone where
-  toQuery = const mempty
+instance Prelude.ToQuery GetHostedZone where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contain the response to a @GetHostedZone@ request.
 --
---
---
--- /See:/ 'getHostedZoneResponse' smart constructor.
+-- /See:/ 'newGetHostedZoneResponse' smart constructor.
 data GetHostedZoneResponse = GetHostedZoneResponse'
-  { _ghzrrsDelegationSet ::
-      !(Maybe DelegationSet),
-    _ghzrrsVPCs ::
-      !(Maybe (List1 VPC)),
-    _ghzrrsResponseStatus ::
-      !Int,
-    _ghzrrsHostedZone ::
-      !HostedZone
+  { -- | A complex type that lists the Amazon Route 53 name servers for the
+    -- specified hosted zone.
+    delegationSet :: Prelude.Maybe DelegationSet,
+    -- | A complex type that contains information about the VPCs that are
+    -- associated with the specified hosted zone.
+    vPCs :: Prelude.Maybe (Prelude.List1 VPC),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains general information about the specified
+    -- hosted zone.
+    hostedZone :: HostedZone
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHostedZoneResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHostedZoneResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghzrrsDelegationSet' - A complex type that lists the Amazon Route 53 name servers for the specified hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghzrrsVPCs' - A complex type that contains information about the VPCs that are associated with the specified hosted zone.
+-- 'delegationSet', 'getHostedZoneResponse_delegationSet' - A complex type that lists the Amazon Route 53 name servers for the
+-- specified hosted zone.
 --
--- * 'ghzrrsResponseStatus' - -- | The response status code.
+-- 'vPCs', 'getHostedZoneResponse_vPCs' - A complex type that contains information about the VPCs that are
+-- associated with the specified hosted zone.
 --
--- * 'ghzrrsHostedZone' - A complex type that contains general information about the specified hosted zone.
-getHostedZoneResponse ::
-  -- | 'ghzrrsResponseStatus'
-  Int ->
-  -- | 'ghzrrsHostedZone'
+-- 'httpStatus', 'getHostedZoneResponse_httpStatus' - The response's http status code.
+--
+-- 'hostedZone', 'getHostedZoneResponse_hostedZone' - A complex type that contains general information about the specified
+-- hosted zone.
+newGetHostedZoneResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'hostedZone'
   HostedZone ->
   GetHostedZoneResponse
-getHostedZoneResponse pResponseStatus_ pHostedZone_ =
+newGetHostedZoneResponse pHttpStatus_ pHostedZone_ =
   GetHostedZoneResponse'
-    { _ghzrrsDelegationSet =
-        Nothing,
-      _ghzrrsVPCs = Nothing,
-      _ghzrrsResponseStatus = pResponseStatus_,
-      _ghzrrsHostedZone = pHostedZone_
+    { delegationSet =
+        Prelude.Nothing,
+      vPCs = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      hostedZone = pHostedZone_
     }
 
--- | A complex type that lists the Amazon Route 53 name servers for the specified hosted zone.
-ghzrrsDelegationSet :: Lens' GetHostedZoneResponse (Maybe DelegationSet)
-ghzrrsDelegationSet = lens _ghzrrsDelegationSet (\s a -> s {_ghzrrsDelegationSet = a})
+-- | A complex type that lists the Amazon Route 53 name servers for the
+-- specified hosted zone.
+getHostedZoneResponse_delegationSet :: Lens.Lens' GetHostedZoneResponse (Prelude.Maybe DelegationSet)
+getHostedZoneResponse_delegationSet = Lens.lens (\GetHostedZoneResponse' {delegationSet} -> delegationSet) (\s@GetHostedZoneResponse' {} a -> s {delegationSet = a} :: GetHostedZoneResponse)
 
--- | A complex type that contains information about the VPCs that are associated with the specified hosted zone.
-ghzrrsVPCs :: Lens' GetHostedZoneResponse (Maybe (NonEmpty VPC))
-ghzrrsVPCs = lens _ghzrrsVPCs (\s a -> s {_ghzrrsVPCs = a}) . mapping _List1
+-- | A complex type that contains information about the VPCs that are
+-- associated with the specified hosted zone.
+getHostedZoneResponse_vPCs :: Lens.Lens' GetHostedZoneResponse (Prelude.Maybe (Prelude.NonEmpty VPC))
+getHostedZoneResponse_vPCs = Lens.lens (\GetHostedZoneResponse' {vPCs} -> vPCs) (\s@GetHostedZoneResponse' {} a -> s {vPCs = a} :: GetHostedZoneResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-ghzrrsResponseStatus :: Lens' GetHostedZoneResponse Int
-ghzrrsResponseStatus = lens _ghzrrsResponseStatus (\s a -> s {_ghzrrsResponseStatus = a})
+-- | The response's http status code.
+getHostedZoneResponse_httpStatus :: Lens.Lens' GetHostedZoneResponse Prelude.Int
+getHostedZoneResponse_httpStatus = Lens.lens (\GetHostedZoneResponse' {httpStatus} -> httpStatus) (\s@GetHostedZoneResponse' {} a -> s {httpStatus = a} :: GetHostedZoneResponse)
 
--- | A complex type that contains general information about the specified hosted zone.
-ghzrrsHostedZone :: Lens' GetHostedZoneResponse HostedZone
-ghzrrsHostedZone = lens _ghzrrsHostedZone (\s a -> s {_ghzrrsHostedZone = a})
+-- | A complex type that contains general information about the specified
+-- hosted zone.
+getHostedZoneResponse_hostedZone :: Lens.Lens' GetHostedZoneResponse HostedZone
+getHostedZoneResponse_hostedZone = Lens.lens (\GetHostedZoneResponse' {hostedZone} -> hostedZone) (\s@GetHostedZoneResponse' {} a -> s {hostedZone = a} :: GetHostedZoneResponse)
 
-instance NFData GetHostedZoneResponse
+instance Prelude.NFData GetHostedZoneResponse

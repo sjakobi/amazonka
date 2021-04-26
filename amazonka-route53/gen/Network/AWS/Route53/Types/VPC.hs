@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.VPC where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.VPCRegion
 
--- | (Private hosted zones only) A complex type that contains information about an Amazon VPC.
+-- | (Private hosted zones only) A complex type that contains information
+-- about an Amazon VPC.
 --
---
---
--- /See:/ 'vpc' smart constructor.
+-- /See:/ 'newVPC' smart constructor.
 data VPC = VPC'
-  { _vpcVPCRegion :: !(Maybe VPCRegion),
-    _vpcVPCId :: !(Maybe Text)
+  { -- | (Private hosted zones only) The region that an Amazon VPC was created
+    -- in.
+    vPCRegion :: Prelude.Maybe VPCRegion,
+    vPCId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VPC' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VPC' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vpcVPCRegion' - (Private hosted zones only) The region that an Amazon VPC was created in.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vpcVPCId' - Undocumented member.
-vpc ::
+-- 'vPCRegion', 'vPC_vPCRegion' - (Private hosted zones only) The region that an Amazon VPC was created
+-- in.
+--
+-- 'vPCId', 'vPC_vPCId' - Undocumented member.
+newVPC ::
   VPC
-vpc =
-  VPC' {_vpcVPCRegion = Nothing, _vpcVPCId = Nothing}
+newVPC =
+  VPC'
+    { vPCRegion = Prelude.Nothing,
+      vPCId = Prelude.Nothing
+    }
 
--- | (Private hosted zones only) The region that an Amazon VPC was created in.
-vpcVPCRegion :: Lens' VPC (Maybe VPCRegion)
-vpcVPCRegion = lens _vpcVPCRegion (\s a -> s {_vpcVPCRegion = a})
+-- | (Private hosted zones only) The region that an Amazon VPC was created
+-- in.
+vPC_vPCRegion :: Lens.Lens' VPC (Prelude.Maybe VPCRegion)
+vPC_vPCRegion = Lens.lens (\VPC' {vPCRegion} -> vPCRegion) (\s@VPC' {} a -> s {vPCRegion = a} :: VPC)
 
 -- | Undocumented member.
-vpcVPCId :: Lens' VPC (Maybe Text)
-vpcVPCId = lens _vpcVPCId (\s a -> s {_vpcVPCId = a})
+vPC_vPCId :: Lens.Lens' VPC (Prelude.Maybe Prelude.Text)
+vPC_vPCId = Lens.lens (\VPC' {vPCId} -> vPCId) (\s@VPC' {} a -> s {vPCId = a} :: VPC)
 
-instance FromXML VPC where
+instance Prelude.FromXML VPC where
   parseXML x =
-    VPC' <$> (x .@? "VPCRegion") <*> (x .@? "VPCId")
+    VPC'
+      Prelude.<$> (x Prelude..@? "VPCRegion")
+      Prelude.<*> (x Prelude..@? "VPCId")
 
-instance Hashable VPC
+instance Prelude.Hashable VPC
 
-instance NFData VPC
+instance Prelude.NFData VPC
 
-instance ToXML VPC where
+instance Prelude.ToXML VPC where
   toXML VPC' {..} =
-    mconcat
-      ["VPCRegion" @= _vpcVPCRegion, "VPCId" @= _vpcVPCId]
+    Prelude.mconcat
+      [ "VPCRegion" Prelude.@= vPCRegion,
+        "VPCId" Prelude.@= vPCId
+      ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Route53.Types.ChangeInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 import Network.AWS.Route53.Types.ChangeStatus
 
--- | A complex type that describes change information about changes made to your hosted zone.
+-- | A complex type that describes change information about changes made to
+-- your hosted zone.
 --
---
---
--- /See:/ 'changeInfo' smart constructor.
+-- /See:/ 'newChangeInfo' smart constructor.
 data ChangeInfo = ChangeInfo'
-  { _ciComment ::
-      !(Maybe Text),
-    _ciId :: !ResourceId,
-    _ciStatus :: !ChangeStatus,
-    _ciSubmittedAt :: !ISO8601
+  { -- | A complex type that describes change information about changes made to
+    -- your hosted zone.
+    --
+    -- This element contains an ID that you use when performing a
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html GetChange>
+    -- action to get detailed information about the change.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the request.
+    id :: ResourceId,
+    -- | The current state of the request. @PENDING@ indicates that this request
+    -- has not yet been applied to all Amazon Route 53 DNS servers.
+    status :: ChangeStatus,
+    -- | The date and time that the change request was submitted in
+    -- <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601 format> and Coordinated
+    -- Universal Time (UTC). For example, the value @2017-03-27T17:48:16.751Z@
+    -- represents March 27, 2017 at 17:48:16.751 UTC.
+    submittedAt :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChangeInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChangeInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciComment' - A complex type that describes change information about changes made to your hosted zone. This element contains an ID that you use when performing a <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html GetChange> action to get detailed information about the change.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciId' - The ID of the request.
+-- 'comment', 'changeInfo_comment' - A complex type that describes change information about changes made to
+-- your hosted zone.
 --
--- * 'ciStatus' - The current state of the request. @PENDING@ indicates that this request has not yet been applied to all Amazon Route 53 DNS servers.
+-- This element contains an ID that you use when performing a
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html GetChange>
+-- action to get detailed information about the change.
 --
--- * 'ciSubmittedAt' - The date and time that the change request was submitted in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601 format> and Coordinated Universal Time (UTC). For example, the value @2017-03-27T17:48:16.751Z@ represents March 27, 2017 at 17:48:16.751 UTC.
-changeInfo ::
-  -- | 'ciId'
+-- 'id', 'changeInfo_id' - The ID of the request.
+--
+-- 'status', 'changeInfo_status' - The current state of the request. @PENDING@ indicates that this request
+-- has not yet been applied to all Amazon Route 53 DNS servers.
+--
+-- 'submittedAt', 'changeInfo_submittedAt' - The date and time that the change request was submitted in
+-- <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601 format> and Coordinated
+-- Universal Time (UTC). For example, the value @2017-03-27T17:48:16.751Z@
+-- represents March 27, 2017 at 17:48:16.751 UTC.
+newChangeInfo ::
+  -- | 'id'
   ResourceId ->
-  -- | 'ciStatus'
+  -- | 'status'
   ChangeStatus ->
-  -- | 'ciSubmittedAt'
-  UTCTime ->
+  -- | 'submittedAt'
+  Prelude.UTCTime ->
   ChangeInfo
-changeInfo pId_ pStatus_ pSubmittedAt_ =
+newChangeInfo pId_ pStatus_ pSubmittedAt_ =
   ChangeInfo'
-    { _ciComment = Nothing,
-      _ciId = pId_,
-      _ciStatus = pStatus_,
-      _ciSubmittedAt = _Time # pSubmittedAt_
+    { comment = Prelude.Nothing,
+      id = pId_,
+      status = pStatus_,
+      submittedAt = Prelude._Time Lens.# pSubmittedAt_
     }
 
--- | A complex type that describes change information about changes made to your hosted zone. This element contains an ID that you use when performing a <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html GetChange> action to get detailed information about the change.
-ciComment :: Lens' ChangeInfo (Maybe Text)
-ciComment = lens _ciComment (\s a -> s {_ciComment = a})
+-- | A complex type that describes change information about changes made to
+-- your hosted zone.
+--
+-- This element contains an ID that you use when performing a
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html GetChange>
+-- action to get detailed information about the change.
+changeInfo_comment :: Lens.Lens' ChangeInfo (Prelude.Maybe Prelude.Text)
+changeInfo_comment = Lens.lens (\ChangeInfo' {comment} -> comment) (\s@ChangeInfo' {} a -> s {comment = a} :: ChangeInfo)
 
 -- | The ID of the request.
-ciId :: Lens' ChangeInfo ResourceId
-ciId = lens _ciId (\s a -> s {_ciId = a})
+changeInfo_id :: Lens.Lens' ChangeInfo ResourceId
+changeInfo_id = Lens.lens (\ChangeInfo' {id} -> id) (\s@ChangeInfo' {} a -> s {id = a} :: ChangeInfo)
 
--- | The current state of the request. @PENDING@ indicates that this request has not yet been applied to all Amazon Route 53 DNS servers.
-ciStatus :: Lens' ChangeInfo ChangeStatus
-ciStatus = lens _ciStatus (\s a -> s {_ciStatus = a})
+-- | The current state of the request. @PENDING@ indicates that this request
+-- has not yet been applied to all Amazon Route 53 DNS servers.
+changeInfo_status :: Lens.Lens' ChangeInfo ChangeStatus
+changeInfo_status = Lens.lens (\ChangeInfo' {status} -> status) (\s@ChangeInfo' {} a -> s {status = a} :: ChangeInfo)
 
--- | The date and time that the change request was submitted in <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601 format> and Coordinated Universal Time (UTC). For example, the value @2017-03-27T17:48:16.751Z@ represents March 27, 2017 at 17:48:16.751 UTC.
-ciSubmittedAt :: Lens' ChangeInfo UTCTime
-ciSubmittedAt = lens _ciSubmittedAt (\s a -> s {_ciSubmittedAt = a}) . _Time
+-- | The date and time that the change request was submitted in
+-- <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601 format> and Coordinated
+-- Universal Time (UTC). For example, the value @2017-03-27T17:48:16.751Z@
+-- represents March 27, 2017 at 17:48:16.751 UTC.
+changeInfo_submittedAt :: Lens.Lens' ChangeInfo Prelude.UTCTime
+changeInfo_submittedAt = Lens.lens (\ChangeInfo' {submittedAt} -> submittedAt) (\s@ChangeInfo' {} a -> s {submittedAt = a} :: ChangeInfo) Prelude.. Prelude._Time
 
-instance FromXML ChangeInfo where
+instance Prelude.FromXML ChangeInfo where
   parseXML x =
     ChangeInfo'
-      <$> (x .@? "Comment")
-      <*> (x .@ "Id")
-      <*> (x .@ "Status")
-      <*> (x .@ "SubmittedAt")
+      Prelude.<$> (x Prelude..@? "Comment")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "SubmittedAt")
 
-instance Hashable ChangeInfo
+instance Prelude.Hashable ChangeInfo
 
-instance NFData ChangeInfo
+instance Prelude.NFData ChangeInfo

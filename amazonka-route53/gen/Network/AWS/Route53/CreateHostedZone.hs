@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,257 +21,383 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new public or private hosted zone. You create records in a public hosted zone to define how you want to route traffic on the internet for a domain, such as example.com, and its subdomains (apex.example.com, acme.example.com). You create records in a private hosted zone to define how you want to route traffic for a domain and its subdomains within one or more Amazon Virtual Private Clouds (Amazon VPCs).
+-- Creates a new public or private hosted zone. You create records in a
+-- public hosted zone to define how you want to route traffic on the
+-- internet for a domain, such as example.com, and its subdomains
+-- (apex.example.com, acme.example.com). You create records in a private
+-- hosted zone to define how you want to route traffic for a domain and its
+-- subdomains within one or more Amazon Virtual Private Clouds (Amazon
+-- VPCs).
 --
+-- You can\'t convert a public hosted zone to a private hosted zone or vice
+-- versa. Instead, you must create a new hosted zone with the same name and
+-- create new resource record sets.
 --
--- /Important:/ You can't convert a public hosted zone to a private hosted zone or vice versa. Instead, you must create a new hosted zone with the same name and create new resource record sets.
---
--- For more information about charges for hosted zones, see <http://aws.amazon.com/route53/pricing/ Amazon Route 53 Pricing> .
+-- For more information about charges for hosted zones, see
+-- <http://aws.amazon.com/route53/pricing/ Amazon Route 53 Pricing>.
 --
 -- Note the following:
 --
---     * You can't create a hosted zone for a top-level domain (TLD) such as .com.
+-- -   You can\'t create a hosted zone for a top-level domain (TLD) such as
+--     .com.
 --
---     * For public hosted zones, Route 53 automatically creates a default SOA record and four NS records for the zone. For more information about SOA and NS records, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html NS and SOA Records that Route 53 Creates for a Hosted Zone> in the /Amazon Route 53 Developer Guide/ .
+-- -   For public hosted zones, Route 53 automatically creates a default
+--     SOA record and four NS records for the zone. For more information
+--     about SOA and NS records, see
+--     <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html NS and SOA Records that Route 53 Creates for a Hosted Zone>
+--     in the /Amazon Route 53 Developer Guide/.
 --
--- If you want to use the same name servers for multiple public hosted zones, you can optionally associate a reusable delegation set with the hosted zone. See the @DelegationSetId@ element.
+--     If you want to use the same name servers for multiple public hosted
+--     zones, you can optionally associate a reusable delegation set with
+--     the hosted zone. See the @DelegationSetId@ element.
 --
---     * If your domain is registered with a registrar other than Route 53, you must update the name servers with your registrar to make Route 53 the DNS service for the domain. For more information, see <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html Migrating DNS Service for an Existing Domain to Amazon Route 53> in the /Amazon Route 53 Developer Guide/ .
+-- -   If your domain is registered with a registrar other than Route 53,
+--     you must update the name servers with your registrar to make Route
+--     53 the DNS service for the domain. For more information, see
+--     <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html Migrating DNS Service for an Existing Domain to Amazon Route 53>
+--     in the /Amazon Route 53 Developer Guide/.
 --
---
---
--- When you submit a @CreateHostedZone@ request, the initial status of the hosted zone is @PENDING@ . For public hosted zones, this means that the NS and SOA records are not yet available on all Route 53 DNS servers. When the NS and SOA records are available, the status of the zone changes to @INSYNC@ .
+-- When you submit a @CreateHostedZone@ request, the initial status of the
+-- hosted zone is @PENDING@. For public hosted zones, this means that the
+-- NS and SOA records are not yet available on all Route 53 DNS servers.
+-- When the NS and SOA records are available, the status of the zone
+-- changes to @INSYNC@.
 module Network.AWS.Route53.CreateHostedZone
   ( -- * Creating a Request
-    createHostedZone,
-    CreateHostedZone,
+    CreateHostedZone (..),
+    newCreateHostedZone,
 
     -- * Request Lenses
-    chzDelegationSetId,
-    chzHostedZoneConfig,
-    chzVPC,
-    chzName,
-    chzCallerReference,
+    createHostedZone_delegationSetId,
+    createHostedZone_hostedZoneConfig,
+    createHostedZone_vPC,
+    createHostedZone_name,
+    createHostedZone_callerReference,
 
     -- * Destructuring the Response
-    createHostedZoneResponse,
-    CreateHostedZoneResponse,
+    CreateHostedZoneResponse (..),
+    newCreateHostedZoneResponse,
 
     -- * Response Lenses
-    chzrrsVPC,
-    chzrrsResponseStatus,
-    chzrrsHostedZone,
-    chzrrsChangeInfo,
-    chzrrsDelegationSet,
-    chzrrsLocation,
+    createHostedZoneResponse_vPC,
+    createHostedZoneResponse_httpStatus,
+    createHostedZoneResponse_hostedZone,
+    createHostedZoneResponse_changeInfo,
+    createHostedZoneResponse_delegationSet,
+    createHostedZoneResponse_location,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.ChangeInfo
+import Network.AWS.Route53.Types.DelegationSet
+import Network.AWS.Route53.Types.HostedZone
+import Network.AWS.Route53.Types.VPC
 
--- | A complex type that contains information about the request to create a public or private hosted zone.
+-- | A complex type that contains information about the request to create a
+-- public or private hosted zone.
 --
---
---
--- /See:/ 'createHostedZone' smart constructor.
+-- /See:/ 'newCreateHostedZone' smart constructor.
 data CreateHostedZone = CreateHostedZone'
-  { _chzDelegationSetId ::
-      !(Maybe ResourceId),
-    _chzHostedZoneConfig ::
-      !(Maybe HostedZoneConfig),
-    _chzVPC :: !(Maybe VPC),
-    _chzName :: !Text,
-    _chzCallerReference :: !Text
+  { -- | If you want to associate a reusable delegation set with this hosted
+    -- zone, the ID that Amazon Route 53 assigned to the reusable delegation
+    -- set when you created it. For more information about reusable delegation
+    -- sets, see
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet>.
+    delegationSetId :: Prelude.Maybe ResourceId,
+    -- | (Optional) A complex type that contains the following optional values:
+    --
+    -- -   For public and private hosted zones, an optional comment
+    --
+    -- -   For private hosted zones, an optional @PrivateZone@ element
+    --
+    -- If you don\'t specify a comment or the @PrivateZone@ element, omit
+    -- @HostedZoneConfig@ and the other elements.
+    hostedZoneConfig :: Prelude.Maybe HostedZoneConfig,
+    -- | (Private hosted zones only) A complex type that contains information
+    -- about the Amazon VPC that you\'re associating with this hosted zone.
+    --
+    -- You can specify only one Amazon VPC when you create a private hosted
+    -- zone. To associate additional Amazon VPCs with the hosted zone, use
+    -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html AssociateVPCWithHostedZone>
+    -- after you create a hosted zone.
+    vPC :: Prelude.Maybe VPC,
+    -- | The name of the domain. Specify a fully qualified domain name, for
+    -- example, /www.example.com/. The trailing dot is optional; Amazon Route
+    -- 53 assumes that the domain name is fully qualified. This means that
+    -- Route 53 treats /www.example.com/ (without a trailing dot) and
+    -- /www.example.com./ (with a trailing dot) as identical.
+    --
+    -- If you\'re creating a public hosted zone, this is the name you have
+    -- registered with your DNS registrar. If your domain name is registered
+    -- with a registrar other than Route 53, change the name servers for your
+    -- domain to the set of @NameServers@ that @CreateHostedZone@ returns in
+    -- @DelegationSet@.
+    name :: Prelude.Text,
+    -- | A unique string that identifies the request and that allows failed
+    -- @CreateHostedZone@ requests to be retried without the risk of executing
+    -- the operation twice. You must use a unique @CallerReference@ string
+    -- every time you submit a @CreateHostedZone@ request. @CallerReference@
+    -- can be any unique string, for example, a date\/time stamp.
+    callerReference :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateHostedZone' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateHostedZone' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chzDelegationSetId' - If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to the reusable delegation set when you created it. For more information about reusable delegation sets, see <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chzHostedZoneConfig' - (Optional) A complex type that contains the following optional values:     * For public and private hosted zones, an optional comment     * For private hosted zones, an optional @PrivateZone@ element If you don't specify a comment or the @PrivateZone@ element, omit @HostedZoneConfig@ and the other elements.
+-- 'delegationSetId', 'createHostedZone_delegationSetId' - If you want to associate a reusable delegation set with this hosted
+-- zone, the ID that Amazon Route 53 assigned to the reusable delegation
+-- set when you created it. For more information about reusable delegation
+-- sets, see
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet>.
 --
--- * 'chzVPC' - (Private hosted zones only) A complex type that contains information about the Amazon VPC that you're associating with this hosted zone. You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs with the hosted zone, use <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html AssociateVPCWithHostedZone> after you create a hosted zone.
+-- 'hostedZoneConfig', 'createHostedZone_hostedZoneConfig' - (Optional) A complex type that contains the following optional values:
 --
--- * 'chzName' - The name of the domain. Specify a fully qualified domain name, for example, /www.example.com/ . The trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats /www.example.com/ (without a trailing dot) and /www.example.com./ (with a trailing dot) as identical. If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your domain name is registered with a registrar other than Route 53, change the name servers for your domain to the set of @NameServers@ that @CreateHostedZone@ returns in @DelegationSet@ .
+-- -   For public and private hosted zones, an optional comment
 --
--- * 'chzCallerReference' - A unique string that identifies the request and that allows failed @CreateHostedZone@ requests to be retried without the risk of executing the operation twice. You must use a unique @CallerReference@ string every time you submit a @CreateHostedZone@ request. @CallerReference@ can be any unique string, for example, a date/time stamp.
-createHostedZone ::
-  -- | 'chzName'
-  Text ->
-  -- | 'chzCallerReference'
-  Text ->
+-- -   For private hosted zones, an optional @PrivateZone@ element
+--
+-- If you don\'t specify a comment or the @PrivateZone@ element, omit
+-- @HostedZoneConfig@ and the other elements.
+--
+-- 'vPC', 'createHostedZone_vPC' - (Private hosted zones only) A complex type that contains information
+-- about the Amazon VPC that you\'re associating with this hosted zone.
+--
+-- You can specify only one Amazon VPC when you create a private hosted
+-- zone. To associate additional Amazon VPCs with the hosted zone, use
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html AssociateVPCWithHostedZone>
+-- after you create a hosted zone.
+--
+-- 'name', 'createHostedZone_name' - The name of the domain. Specify a fully qualified domain name, for
+-- example, /www.example.com/. The trailing dot is optional; Amazon Route
+-- 53 assumes that the domain name is fully qualified. This means that
+-- Route 53 treats /www.example.com/ (without a trailing dot) and
+-- /www.example.com./ (with a trailing dot) as identical.
+--
+-- If you\'re creating a public hosted zone, this is the name you have
+-- registered with your DNS registrar. If your domain name is registered
+-- with a registrar other than Route 53, change the name servers for your
+-- domain to the set of @NameServers@ that @CreateHostedZone@ returns in
+-- @DelegationSet@.
+--
+-- 'callerReference', 'createHostedZone_callerReference' - A unique string that identifies the request and that allows failed
+-- @CreateHostedZone@ requests to be retried without the risk of executing
+-- the operation twice. You must use a unique @CallerReference@ string
+-- every time you submit a @CreateHostedZone@ request. @CallerReference@
+-- can be any unique string, for example, a date\/time stamp.
+newCreateHostedZone ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'callerReference'
+  Prelude.Text ->
   CreateHostedZone
-createHostedZone pName_ pCallerReference_ =
+newCreateHostedZone pName_ pCallerReference_ =
   CreateHostedZone'
-    { _chzDelegationSetId = Nothing,
-      _chzHostedZoneConfig = Nothing,
-      _chzVPC = Nothing,
-      _chzName = pName_,
-      _chzCallerReference = pCallerReference_
+    { delegationSetId =
+        Prelude.Nothing,
+      hostedZoneConfig = Prelude.Nothing,
+      vPC = Prelude.Nothing,
+      name = pName_,
+      callerReference = pCallerReference_
     }
 
--- | If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to the reusable delegation set when you created it. For more information about reusable delegation sets, see <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet> .
-chzDelegationSetId :: Lens' CreateHostedZone (Maybe ResourceId)
-chzDelegationSetId = lens _chzDelegationSetId (\s a -> s {_chzDelegationSetId = a})
+-- | If you want to associate a reusable delegation set with this hosted
+-- zone, the ID that Amazon Route 53 assigned to the reusable delegation
+-- set when you created it. For more information about reusable delegation
+-- sets, see
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet>.
+createHostedZone_delegationSetId :: Lens.Lens' CreateHostedZone (Prelude.Maybe ResourceId)
+createHostedZone_delegationSetId = Lens.lens (\CreateHostedZone' {delegationSetId} -> delegationSetId) (\s@CreateHostedZone' {} a -> s {delegationSetId = a} :: CreateHostedZone)
 
--- | (Optional) A complex type that contains the following optional values:     * For public and private hosted zones, an optional comment     * For private hosted zones, an optional @PrivateZone@ element If you don't specify a comment or the @PrivateZone@ element, omit @HostedZoneConfig@ and the other elements.
-chzHostedZoneConfig :: Lens' CreateHostedZone (Maybe HostedZoneConfig)
-chzHostedZoneConfig = lens _chzHostedZoneConfig (\s a -> s {_chzHostedZoneConfig = a})
+-- | (Optional) A complex type that contains the following optional values:
+--
+-- -   For public and private hosted zones, an optional comment
+--
+-- -   For private hosted zones, an optional @PrivateZone@ element
+--
+-- If you don\'t specify a comment or the @PrivateZone@ element, omit
+-- @HostedZoneConfig@ and the other elements.
+createHostedZone_hostedZoneConfig :: Lens.Lens' CreateHostedZone (Prelude.Maybe HostedZoneConfig)
+createHostedZone_hostedZoneConfig = Lens.lens (\CreateHostedZone' {hostedZoneConfig} -> hostedZoneConfig) (\s@CreateHostedZone' {} a -> s {hostedZoneConfig = a} :: CreateHostedZone)
 
--- | (Private hosted zones only) A complex type that contains information about the Amazon VPC that you're associating with this hosted zone. You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs with the hosted zone, use <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html AssociateVPCWithHostedZone> after you create a hosted zone.
-chzVPC :: Lens' CreateHostedZone (Maybe VPC)
-chzVPC = lens _chzVPC (\s a -> s {_chzVPC = a})
+-- | (Private hosted zones only) A complex type that contains information
+-- about the Amazon VPC that you\'re associating with this hosted zone.
+--
+-- You can specify only one Amazon VPC when you create a private hosted
+-- zone. To associate additional Amazon VPCs with the hosted zone, use
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html AssociateVPCWithHostedZone>
+-- after you create a hosted zone.
+createHostedZone_vPC :: Lens.Lens' CreateHostedZone (Prelude.Maybe VPC)
+createHostedZone_vPC = Lens.lens (\CreateHostedZone' {vPC} -> vPC) (\s@CreateHostedZone' {} a -> s {vPC = a} :: CreateHostedZone)
 
--- | The name of the domain. Specify a fully qualified domain name, for example, /www.example.com/ . The trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats /www.example.com/ (without a trailing dot) and /www.example.com./ (with a trailing dot) as identical. If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your domain name is registered with a registrar other than Route 53, change the name servers for your domain to the set of @NameServers@ that @CreateHostedZone@ returns in @DelegationSet@ .
-chzName :: Lens' CreateHostedZone Text
-chzName = lens _chzName (\s a -> s {_chzName = a})
+-- | The name of the domain. Specify a fully qualified domain name, for
+-- example, /www.example.com/. The trailing dot is optional; Amazon Route
+-- 53 assumes that the domain name is fully qualified. This means that
+-- Route 53 treats /www.example.com/ (without a trailing dot) and
+-- /www.example.com./ (with a trailing dot) as identical.
+--
+-- If you\'re creating a public hosted zone, this is the name you have
+-- registered with your DNS registrar. If your domain name is registered
+-- with a registrar other than Route 53, change the name servers for your
+-- domain to the set of @NameServers@ that @CreateHostedZone@ returns in
+-- @DelegationSet@.
+createHostedZone_name :: Lens.Lens' CreateHostedZone Prelude.Text
+createHostedZone_name = Lens.lens (\CreateHostedZone' {name} -> name) (\s@CreateHostedZone' {} a -> s {name = a} :: CreateHostedZone)
 
--- | A unique string that identifies the request and that allows failed @CreateHostedZone@ requests to be retried without the risk of executing the operation twice. You must use a unique @CallerReference@ string every time you submit a @CreateHostedZone@ request. @CallerReference@ can be any unique string, for example, a date/time stamp.
-chzCallerReference :: Lens' CreateHostedZone Text
-chzCallerReference = lens _chzCallerReference (\s a -> s {_chzCallerReference = a})
+-- | A unique string that identifies the request and that allows failed
+-- @CreateHostedZone@ requests to be retried without the risk of executing
+-- the operation twice. You must use a unique @CallerReference@ string
+-- every time you submit a @CreateHostedZone@ request. @CallerReference@
+-- can be any unique string, for example, a date\/time stamp.
+createHostedZone_callerReference :: Lens.Lens' CreateHostedZone Prelude.Text
+createHostedZone_callerReference = Lens.lens (\CreateHostedZone' {callerReference} -> callerReference) (\s@CreateHostedZone' {} a -> s {callerReference = a} :: CreateHostedZone)
 
-instance AWSRequest CreateHostedZone where
+instance Prelude.AWSRequest CreateHostedZone where
   type Rs CreateHostedZone = CreateHostedZoneResponse
-  request = postXML route53
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CreateHostedZoneResponse'
-            <$> (x .@? "VPC")
-            <*> (pure (fromEnum s))
-            <*> (x .@ "HostedZone")
-            <*> (x .@ "ChangeInfo")
-            <*> (x .@ "DelegationSet")
-            <*> (h .# "Location")
+            Prelude.<$> (x Prelude..@? "VPC")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "HostedZone")
+            Prelude.<*> (x Prelude..@ "ChangeInfo")
+            Prelude.<*> (x Prelude..@ "DelegationSet")
+            Prelude.<*> (h Prelude..# "Location")
       )
 
-instance Hashable CreateHostedZone
+instance Prelude.Hashable CreateHostedZone
 
-instance NFData CreateHostedZone
+instance Prelude.NFData CreateHostedZone
 
-instance ToElement CreateHostedZone where
+instance Prelude.ToElement CreateHostedZone where
   toElement =
-    mkElement
+    Prelude.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}CreateHostedZoneRequest"
 
-instance ToHeaders CreateHostedZone where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateHostedZone where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateHostedZone where
-  toPath = const "/2013-04-01/hostedzone"
+instance Prelude.ToPath CreateHostedZone where
+  toPath = Prelude.const "/2013-04-01/hostedzone"
 
-instance ToQuery CreateHostedZone where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateHostedZone where
+  toQuery = Prelude.const Prelude.mempty
 
-instance ToXML CreateHostedZone where
+instance Prelude.ToXML CreateHostedZone where
   toXML CreateHostedZone' {..} =
-    mconcat
-      [ "DelegationSetId" @= _chzDelegationSetId,
-        "HostedZoneConfig" @= _chzHostedZoneConfig,
-        "VPC" @= _chzVPC,
-        "Name" @= _chzName,
-        "CallerReference" @= _chzCallerReference
+    Prelude.mconcat
+      [ "DelegationSetId" Prelude.@= delegationSetId,
+        "HostedZoneConfig" Prelude.@= hostedZoneConfig,
+        "VPC" Prelude.@= vPC,
+        "Name" Prelude.@= name,
+        "CallerReference" Prelude.@= callerReference
       ]
 
 -- | A complex type containing the response information for the hosted zone.
 --
---
---
--- /See:/ 'createHostedZoneResponse' smart constructor.
+-- /See:/ 'newCreateHostedZoneResponse' smart constructor.
 data CreateHostedZoneResponse = CreateHostedZoneResponse'
-  { _chzrrsVPC ::
-      !(Maybe VPC),
-    _chzrrsResponseStatus ::
-      !Int,
-    _chzrrsHostedZone ::
-      !HostedZone,
-    _chzrrsChangeInfo ::
-      !ChangeInfo,
-    _chzrrsDelegationSet ::
-      !DelegationSet,
-    _chzrrsLocation ::
-      !Text
+  { -- | A complex type that contains information about an Amazon VPC that you
+    -- associated with this hosted zone.
+    vPC :: Prelude.Maybe VPC,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A complex type that contains general information about the hosted zone.
+    hostedZone :: HostedZone,
+    -- | A complex type that contains information about the @CreateHostedZone@
+    -- request.
+    changeInfo :: ChangeInfo,
+    -- | A complex type that describes the name servers for this hosted zone.
+    delegationSet :: DelegationSet,
+    -- | The unique URL representing the new hosted zone.
+    location :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateHostedZoneResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateHostedZoneResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chzrrsVPC' - A complex type that contains information about an Amazon VPC that you associated with this hosted zone.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chzrrsResponseStatus' - -- | The response status code.
+-- 'vPC', 'createHostedZoneResponse_vPC' - A complex type that contains information about an Amazon VPC that you
+-- associated with this hosted zone.
 --
--- * 'chzrrsHostedZone' - A complex type that contains general information about the hosted zone.
+-- 'httpStatus', 'createHostedZoneResponse_httpStatus' - The response's http status code.
 --
--- * 'chzrrsChangeInfo' - A complex type that contains information about the @CreateHostedZone@ request.
+-- 'hostedZone', 'createHostedZoneResponse_hostedZone' - A complex type that contains general information about the hosted zone.
 --
--- * 'chzrrsDelegationSet' - A complex type that describes the name servers for this hosted zone.
+-- 'changeInfo', 'createHostedZoneResponse_changeInfo' - A complex type that contains information about the @CreateHostedZone@
+-- request.
 --
--- * 'chzrrsLocation' - The unique URL representing the new hosted zone.
-createHostedZoneResponse ::
-  -- | 'chzrrsResponseStatus'
-  Int ->
-  -- | 'chzrrsHostedZone'
+-- 'delegationSet', 'createHostedZoneResponse_delegationSet' - A complex type that describes the name servers for this hosted zone.
+--
+-- 'location', 'createHostedZoneResponse_location' - The unique URL representing the new hosted zone.
+newCreateHostedZoneResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'hostedZone'
   HostedZone ->
-  -- | 'chzrrsChangeInfo'
+  -- | 'changeInfo'
   ChangeInfo ->
-  -- | 'chzrrsDelegationSet'
+  -- | 'delegationSet'
   DelegationSet ->
-  -- | 'chzrrsLocation'
-  Text ->
+  -- | 'location'
+  Prelude.Text ->
   CreateHostedZoneResponse
-createHostedZoneResponse
-  pResponseStatus_
+newCreateHostedZoneResponse
+  pHttpStatus_
   pHostedZone_
   pChangeInfo_
   pDelegationSet_
   pLocation_ =
     CreateHostedZoneResponse'
-      { _chzrrsVPC = Nothing,
-        _chzrrsResponseStatus = pResponseStatus_,
-        _chzrrsHostedZone = pHostedZone_,
-        _chzrrsChangeInfo = pChangeInfo_,
-        _chzrrsDelegationSet = pDelegationSet_,
-        _chzrrsLocation = pLocation_
+      { vPC = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        hostedZone = pHostedZone_,
+        changeInfo = pChangeInfo_,
+        delegationSet = pDelegationSet_,
+        location = pLocation_
       }
 
--- | A complex type that contains information about an Amazon VPC that you associated with this hosted zone.
-chzrrsVPC :: Lens' CreateHostedZoneResponse (Maybe VPC)
-chzrrsVPC = lens _chzrrsVPC (\s a -> s {_chzrrsVPC = a})
+-- | A complex type that contains information about an Amazon VPC that you
+-- associated with this hosted zone.
+createHostedZoneResponse_vPC :: Lens.Lens' CreateHostedZoneResponse (Prelude.Maybe VPC)
+createHostedZoneResponse_vPC = Lens.lens (\CreateHostedZoneResponse' {vPC} -> vPC) (\s@CreateHostedZoneResponse' {} a -> s {vPC = a} :: CreateHostedZoneResponse)
 
--- | -- | The response status code.
-chzrrsResponseStatus :: Lens' CreateHostedZoneResponse Int
-chzrrsResponseStatus = lens _chzrrsResponseStatus (\s a -> s {_chzrrsResponseStatus = a})
+-- | The response's http status code.
+createHostedZoneResponse_httpStatus :: Lens.Lens' CreateHostedZoneResponse Prelude.Int
+createHostedZoneResponse_httpStatus = Lens.lens (\CreateHostedZoneResponse' {httpStatus} -> httpStatus) (\s@CreateHostedZoneResponse' {} a -> s {httpStatus = a} :: CreateHostedZoneResponse)
 
 -- | A complex type that contains general information about the hosted zone.
-chzrrsHostedZone :: Lens' CreateHostedZoneResponse HostedZone
-chzrrsHostedZone = lens _chzrrsHostedZone (\s a -> s {_chzrrsHostedZone = a})
+createHostedZoneResponse_hostedZone :: Lens.Lens' CreateHostedZoneResponse HostedZone
+createHostedZoneResponse_hostedZone = Lens.lens (\CreateHostedZoneResponse' {hostedZone} -> hostedZone) (\s@CreateHostedZoneResponse' {} a -> s {hostedZone = a} :: CreateHostedZoneResponse)
 
--- | A complex type that contains information about the @CreateHostedZone@ request.
-chzrrsChangeInfo :: Lens' CreateHostedZoneResponse ChangeInfo
-chzrrsChangeInfo = lens _chzrrsChangeInfo (\s a -> s {_chzrrsChangeInfo = a})
+-- | A complex type that contains information about the @CreateHostedZone@
+-- request.
+createHostedZoneResponse_changeInfo :: Lens.Lens' CreateHostedZoneResponse ChangeInfo
+createHostedZoneResponse_changeInfo = Lens.lens (\CreateHostedZoneResponse' {changeInfo} -> changeInfo) (\s@CreateHostedZoneResponse' {} a -> s {changeInfo = a} :: CreateHostedZoneResponse)
 
 -- | A complex type that describes the name servers for this hosted zone.
-chzrrsDelegationSet :: Lens' CreateHostedZoneResponse DelegationSet
-chzrrsDelegationSet = lens _chzrrsDelegationSet (\s a -> s {_chzrrsDelegationSet = a})
+createHostedZoneResponse_delegationSet :: Lens.Lens' CreateHostedZoneResponse DelegationSet
+createHostedZoneResponse_delegationSet = Lens.lens (\CreateHostedZoneResponse' {delegationSet} -> delegationSet) (\s@CreateHostedZoneResponse' {} a -> s {delegationSet = a} :: CreateHostedZoneResponse)
 
 -- | The unique URL representing the new hosted zone.
-chzrrsLocation :: Lens' CreateHostedZoneResponse Text
-chzrrsLocation = lens _chzrrsLocation (\s a -> s {_chzrrsLocation = a})
+createHostedZoneResponse_location :: Lens.Lens' CreateHostedZoneResponse Prelude.Text
+createHostedZoneResponse_location = Lens.lens (\CreateHostedZoneResponse' {location} -> location) (\s@CreateHostedZoneResponse' {} a -> s {location = a} :: CreateHostedZoneResponse)
 
-instance NFData CreateHostedZoneResponse
+instance Prelude.NFData CreateHostedZoneResponse

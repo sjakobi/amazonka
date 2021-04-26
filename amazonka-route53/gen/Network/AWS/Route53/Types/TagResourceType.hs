@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.Route53.Types.TagResourceType
   ( TagResourceType
       ( ..,
-        Healthcheck,
-        Hostedzone
+        TagResourceTypeHealthcheck,
+        TagResourceTypeHostedzone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Route53.Internal
 
-data TagResourceType = TagResourceType' (CI Text)
+newtype TagResourceType = TagResourceType'
+  { fromTagResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthcheck :: TagResourceType
-pattern Healthcheck = TagResourceType' "healthcheck"
+pattern TagResourceTypeHealthcheck :: TagResourceType
+pattern TagResourceTypeHealthcheck = TagResourceType' "healthcheck"
 
-pattern Hostedzone :: TagResourceType
-pattern Hostedzone = TagResourceType' "hostedzone"
+pattern TagResourceTypeHostedzone :: TagResourceType
+pattern TagResourceTypeHostedzone = TagResourceType' "hostedzone"
 
 {-# COMPLETE
-  Healthcheck,
-  Hostedzone,
+  TagResourceTypeHealthcheck,
+  TagResourceTypeHostedzone,
   TagResourceType'
   #-}
 
-instance FromText TagResourceType where
-  parser = (TagResourceType' . mk) <$> takeText
+instance Prelude.FromText TagResourceType where
+  parser = TagResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText TagResourceType where
-  toText (TagResourceType' ci) = original ci
+instance Prelude.ToText TagResourceType where
+  toText (TagResourceType' x) = x
 
-instance Hashable TagResourceType
+instance Prelude.Hashable TagResourceType
 
-instance NFData TagResourceType
+instance Prelude.NFData TagResourceType
 
-instance ToByteString TagResourceType
+instance Prelude.ToByteString TagResourceType
 
-instance ToQuery TagResourceType
+instance Prelude.ToQuery TagResourceType
 
-instance ToHeader TagResourceType
+instance Prelude.ToHeader TagResourceType
 
-instance FromXML TagResourceType where
-  parseXML = parseXMLText "TagResourceType"
+instance Prelude.FromXML TagResourceType where
+  parseXML = Prelude.parseXMLText "TagResourceType"
 
-instance ToXML TagResourceType where
-  toXML = toXMLText
+instance Prelude.ToXML TagResourceType where
+  toXML = Prelude.toXMLText
