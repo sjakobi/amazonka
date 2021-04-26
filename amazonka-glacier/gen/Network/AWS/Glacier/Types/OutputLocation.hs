@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,43 +20,55 @@
 module Network.AWS.Glacier.Types.OutputLocation where
 
 import Network.AWS.Glacier.Types.S3Location
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the location where the select job results are stored.
+-- | Contains information about the location where the select job results are
+-- stored.
 --
---
---
--- /See:/ 'outputLocation' smart constructor.
-newtype OutputLocation = OutputLocation'
-  { _olS3 ::
-      Maybe S3Location
+-- /See:/ 'newOutputLocation' smart constructor.
+data OutputLocation = OutputLocation'
+  { -- | Describes an S3 location that will receive the results of the job
+    -- request.
+    s3 :: Prelude.Maybe S3Location
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'olS3' - Describes an S3 location that will receive the results of the job request.
-outputLocation ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3', 'outputLocation_s3' - Describes an S3 location that will receive the results of the job
+-- request.
+newOutputLocation ::
   OutputLocation
-outputLocation = OutputLocation' {_olS3 = Nothing}
+newOutputLocation =
+  OutputLocation' {s3 = Prelude.Nothing}
 
--- | Describes an S3 location that will receive the results of the job request.
-olS3 :: Lens' OutputLocation (Maybe S3Location)
-olS3 = lens _olS3 (\s a -> s {_olS3 = a})
+-- | Describes an S3 location that will receive the results of the job
+-- request.
+outputLocation_s3 :: Lens.Lens' OutputLocation (Prelude.Maybe S3Location)
+outputLocation_s3 = Lens.lens (\OutputLocation' {s3} -> s3) (\s@OutputLocation' {} a -> s {s3 = a} :: OutputLocation)
 
-instance FromJSON OutputLocation where
+instance Prelude.FromJSON OutputLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputLocation"
-      (\x -> OutputLocation' <$> (x .:? "S3"))
+      ( \x ->
+          OutputLocation' Prelude.<$> (x Prelude..:? "S3")
+      )
 
-instance Hashable OutputLocation
+instance Prelude.Hashable OutputLocation
 
-instance NFData OutputLocation
+instance Prelude.NFData OutputLocation
 
-instance ToJSON OutputLocation where
+instance Prelude.ToJSON OutputLocation where
   toJSON OutputLocation' {..} =
-    object (catMaybes [("S3" .=) <$> _olS3])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("S3" Prelude..=) Prelude.<$> s3]
+      )

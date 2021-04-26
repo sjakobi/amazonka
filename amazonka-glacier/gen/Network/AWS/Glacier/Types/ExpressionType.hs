@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Glacier.Types.ExpressionType
   ( ExpressionType
       ( ..,
-        Sql
+        ExpressionTypeSQL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExpressionType = ExpressionType' (CI Text)
+newtype ExpressionType = ExpressionType'
+  { fromExpressionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Sql :: ExpressionType
-pattern Sql = ExpressionType' "SQL"
+pattern ExpressionTypeSQL :: ExpressionType
+pattern ExpressionTypeSQL = ExpressionType' "SQL"
 
 {-# COMPLETE
-  Sql,
+  ExpressionTypeSQL,
   ExpressionType'
   #-}
 
-instance FromText ExpressionType where
-  parser = (ExpressionType' . mk) <$> takeText
+instance Prelude.FromText ExpressionType where
+  parser = ExpressionType' Prelude.<$> Prelude.takeText
 
-instance ToText ExpressionType where
-  toText (ExpressionType' ci) = original ci
+instance Prelude.ToText ExpressionType where
+  toText (ExpressionType' x) = x
 
-instance Hashable ExpressionType
+instance Prelude.Hashable ExpressionType
 
-instance NFData ExpressionType
+instance Prelude.NFData ExpressionType
 
-instance ToByteString ExpressionType
+instance Prelude.ToByteString ExpressionType
 
-instance ToQuery ExpressionType
+instance Prelude.ToQuery ExpressionType
 
-instance ToHeader ExpressionType
+instance Prelude.ToHeader ExpressionType
 
-instance ToJSON ExpressionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExpressionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExpressionType where
-  parseJSON = parseJSONText "ExpressionType"
+instance Prelude.FromJSON ExpressionType where
+  parseJSON = Prelude.parseJSONText "ExpressionType"

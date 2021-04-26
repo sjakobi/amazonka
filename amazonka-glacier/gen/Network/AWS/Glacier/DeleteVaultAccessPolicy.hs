@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation deletes the access policy associated with the specified vault. The operation is eventually consistent; that is, it might take some time for Amazon S3 Glacier to completely remove the access policy, and you might still see the effect of the policy for a short time after you send the delete request.
+-- This operation deletes the access policy associated with the specified
+-- vault. The operation is eventually consistent; that is, it might take
+-- some time for Amazon S3 Glacier to completely remove the access policy,
+-- and you might still see the effect of the policy for a short time after
+-- you send the delete request.
 --
---
--- This operation is idempotent. You can invoke delete multiple times, even if there is no policy associated with the vault. For more information about vault access policies, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html Amazon Glacier Access Control with Vault Access Policies> .
+-- This operation is idempotent. You can invoke delete multiple times, even
+-- if there is no policy associated with the vault. For more information
+-- about vault access policies, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html Amazon Glacier Access Control with Vault Access Policies>.
 module Network.AWS.Glacier.DeleteVaultAccessPolicy
   ( -- * Creating a Request
-    deleteVaultAccessPolicy,
-    DeleteVaultAccessPolicy,
+    DeleteVaultAccessPolicy (..),
+    newDeleteVaultAccessPolicy,
 
     -- * Request Lenses
-    dvapAccountId,
-    dvapVaultName,
+    deleteVaultAccessPolicy_accountId,
+    deleteVaultAccessPolicy_vaultName,
 
     -- * Destructuring the Response
-    deleteVaultAccessPolicyResponse,
-    DeleteVaultAccessPolicyResponse,
+    DeleteVaultAccessPolicyResponse (..),
+    newDeleteVaultAccessPolicyResponse,
   )
 where
 
 import Network.AWS.Glacier.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | DeleteVaultAccessPolicy input.
 --
---
---
--- /See:/ 'deleteVaultAccessPolicy' smart constructor.
+-- /See:/ 'newDeleteVaultAccessPolicy' smart constructor.
 data DeleteVaultAccessPolicy = DeleteVaultAccessPolicy'
-  { _dvapAccountId ::
-      !Text,
-    _dvapVaultName :: !Text
+  { -- | The @AccountId@ value is the AWS account ID of the account that owns the
+    -- vault. You can either specify an AWS account ID or optionally a single
+    -- \'@-@\' (hyphen), in which case Amazon S3 Glacier uses the AWS account
+    -- ID associated with the credentials used to sign the request. If you use
+    -- an account ID, do not include any hyphens (\'-\') in the ID.
+    accountId :: Prelude.Text,
+    -- | The name of the vault.
+    vaultName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVaultAccessPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVaultAccessPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvapAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvapVaultName' - The name of the vault.
-deleteVaultAccessPolicy ::
-  -- | 'dvapAccountId'
-  Text ->
-  -- | 'dvapVaultName'
-  Text ->
+-- 'accountId', 'deleteVaultAccessPolicy_accountId' - The @AccountId@ value is the AWS account ID of the account that owns the
+-- vault. You can either specify an AWS account ID or optionally a single
+-- \'@-@\' (hyphen), in which case Amazon S3 Glacier uses the AWS account
+-- ID associated with the credentials used to sign the request. If you use
+-- an account ID, do not include any hyphens (\'-\') in the ID.
+--
+-- 'vaultName', 'deleteVaultAccessPolicy_vaultName' - The name of the vault.
+newDeleteVaultAccessPolicy ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'vaultName'
+  Prelude.Text ->
   DeleteVaultAccessPolicy
-deleteVaultAccessPolicy pAccountId_ pVaultName_ =
+newDeleteVaultAccessPolicy pAccountId_ pVaultName_ =
   DeleteVaultAccessPolicy'
-    { _dvapAccountId =
-        pAccountId_,
-      _dvapVaultName = pVaultName_
+    { accountId = pAccountId_,
+      vaultName = pVaultName_
     }
 
--- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
-dvapAccountId :: Lens' DeleteVaultAccessPolicy Text
-dvapAccountId = lens _dvapAccountId (\s a -> s {_dvapAccountId = a})
+-- | The @AccountId@ value is the AWS account ID of the account that owns the
+-- vault. You can either specify an AWS account ID or optionally a single
+-- \'@-@\' (hyphen), in which case Amazon S3 Glacier uses the AWS account
+-- ID associated with the credentials used to sign the request. If you use
+-- an account ID, do not include any hyphens (\'-\') in the ID.
+deleteVaultAccessPolicy_accountId :: Lens.Lens' DeleteVaultAccessPolicy Prelude.Text
+deleteVaultAccessPolicy_accountId = Lens.lens (\DeleteVaultAccessPolicy' {accountId} -> accountId) (\s@DeleteVaultAccessPolicy' {} a -> s {accountId = a} :: DeleteVaultAccessPolicy)
 
 -- | The name of the vault.
-dvapVaultName :: Lens' DeleteVaultAccessPolicy Text
-dvapVaultName = lens _dvapVaultName (\s a -> s {_dvapVaultName = a})
+deleteVaultAccessPolicy_vaultName :: Lens.Lens' DeleteVaultAccessPolicy Prelude.Text
+deleteVaultAccessPolicy_vaultName = Lens.lens (\DeleteVaultAccessPolicy' {vaultName} -> vaultName) (\s@DeleteVaultAccessPolicy' {} a -> s {vaultName = a} :: DeleteVaultAccessPolicy)
 
-instance AWSRequest DeleteVaultAccessPolicy where
+instance Prelude.AWSRequest DeleteVaultAccessPolicy where
   type
     Rs DeleteVaultAccessPolicy =
       DeleteVaultAccessPolicyResponse
-  request = delete glacier
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteVaultAccessPolicyResponse'
+    Response.receiveNull
+      DeleteVaultAccessPolicyResponse'
 
-instance Hashable DeleteVaultAccessPolicy
+instance Prelude.Hashable DeleteVaultAccessPolicy
 
-instance NFData DeleteVaultAccessPolicy
+instance Prelude.NFData DeleteVaultAccessPolicy
 
-instance ToHeaders DeleteVaultAccessPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteVaultAccessPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteVaultAccessPolicy where
+instance Prelude.ToPath DeleteVaultAccessPolicy where
   toPath DeleteVaultAccessPolicy' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/",
-        toBS _dvapAccountId,
+        Prelude.toBS accountId,
         "/vaults/",
-        toBS _dvapVaultName,
+        Prelude.toBS vaultName,
         "/access-policy"
       ]
 
-instance ToQuery DeleteVaultAccessPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteVaultAccessPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteVaultAccessPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteVaultAccessPolicyResponse' smart constructor.
 data DeleteVaultAccessPolicyResponse = DeleteVaultAccessPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVaultAccessPolicyResponse' with the minimum fields required to make a request.
-deleteVaultAccessPolicyResponse ::
+-- |
+-- Create a value of 'DeleteVaultAccessPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteVaultAccessPolicyResponse ::
   DeleteVaultAccessPolicyResponse
-deleteVaultAccessPolicyResponse =
+newDeleteVaultAccessPolicyResponse =
   DeleteVaultAccessPolicyResponse'
 
-instance NFData DeleteVaultAccessPolicyResponse
+instance
+  Prelude.NFData
+    DeleteVaultAccessPolicyResponse

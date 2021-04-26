@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,94 +20,116 @@
 module Network.AWS.Glacier.Types.CSVOutput where
 
 import Network.AWS.Glacier.Types.QuoteFields
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the comma-separated value (CSV) file that the job results are stored in.
+-- | Contains information about the comma-separated value (CSV) file that the
+-- job results are stored in.
 --
---
---
--- /See:/ 'csvOutput' smart constructor.
+-- /See:/ 'newCSVOutput' smart constructor.
 data CSVOutput = CSVOutput'
-  { _coRecordDelimiter ::
-      !(Maybe Text),
-    _coQuoteCharacter :: !(Maybe Text),
-    _coFieldDelimiter :: !(Maybe Text),
-    _coQuoteFields :: !(Maybe QuoteFields),
-    _coQuoteEscapeCharacter :: !(Maybe Text)
+  { -- | A value used to separate individual records from each other.
+    recordDelimiter :: Prelude.Maybe Prelude.Text,
+    -- | A value used as an escape character where the field delimiter is part of
+    -- the value.
+    quoteCharacter :: Prelude.Maybe Prelude.Text,
+    -- | A value used to separate individual fields from each other within a
+    -- record.
+    fieldDelimiter :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether all output fields should be contained
+    -- within quotation marks.
+    quoteFields :: Prelude.Maybe QuoteFields,
+    -- | A single character used for escaping the quotation-mark character inside
+    -- an already escaped value.
+    quoteEscapeCharacter :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CSVOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CSVOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'coRecordDelimiter' - A value used to separate individual records from each other.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'coQuoteCharacter' - A value used as an escape character where the field delimiter is part of the value.
+-- 'recordDelimiter', 'cSVOutput_recordDelimiter' - A value used to separate individual records from each other.
 --
--- * 'coFieldDelimiter' - A value used to separate individual fields from each other within a record.
+-- 'quoteCharacter', 'cSVOutput_quoteCharacter' - A value used as an escape character where the field delimiter is part of
+-- the value.
 --
--- * 'coQuoteFields' - A value that indicates whether all output fields should be contained within quotation marks.
+-- 'fieldDelimiter', 'cSVOutput_fieldDelimiter' - A value used to separate individual fields from each other within a
+-- record.
 --
--- * 'coQuoteEscapeCharacter' - A single character used for escaping the quotation-mark character inside an already escaped value.
-csvOutput ::
+-- 'quoteFields', 'cSVOutput_quoteFields' - A value that indicates whether all output fields should be contained
+-- within quotation marks.
+--
+-- 'quoteEscapeCharacter', 'cSVOutput_quoteEscapeCharacter' - A single character used for escaping the quotation-mark character inside
+-- an already escaped value.
+newCSVOutput ::
   CSVOutput
-csvOutput =
+newCSVOutput =
   CSVOutput'
-    { _coRecordDelimiter = Nothing,
-      _coQuoteCharacter = Nothing,
-      _coFieldDelimiter = Nothing,
-      _coQuoteFields = Nothing,
-      _coQuoteEscapeCharacter = Nothing
+    { recordDelimiter = Prelude.Nothing,
+      quoteCharacter = Prelude.Nothing,
+      fieldDelimiter = Prelude.Nothing,
+      quoteFields = Prelude.Nothing,
+      quoteEscapeCharacter = Prelude.Nothing
     }
 
 -- | A value used to separate individual records from each other.
-coRecordDelimiter :: Lens' CSVOutput (Maybe Text)
-coRecordDelimiter = lens _coRecordDelimiter (\s a -> s {_coRecordDelimiter = a})
+cSVOutput_recordDelimiter :: Lens.Lens' CSVOutput (Prelude.Maybe Prelude.Text)
+cSVOutput_recordDelimiter = Lens.lens (\CSVOutput' {recordDelimiter} -> recordDelimiter) (\s@CSVOutput' {} a -> s {recordDelimiter = a} :: CSVOutput)
 
--- | A value used as an escape character where the field delimiter is part of the value.
-coQuoteCharacter :: Lens' CSVOutput (Maybe Text)
-coQuoteCharacter = lens _coQuoteCharacter (\s a -> s {_coQuoteCharacter = a})
+-- | A value used as an escape character where the field delimiter is part of
+-- the value.
+cSVOutput_quoteCharacter :: Lens.Lens' CSVOutput (Prelude.Maybe Prelude.Text)
+cSVOutput_quoteCharacter = Lens.lens (\CSVOutput' {quoteCharacter} -> quoteCharacter) (\s@CSVOutput' {} a -> s {quoteCharacter = a} :: CSVOutput)
 
--- | A value used to separate individual fields from each other within a record.
-coFieldDelimiter :: Lens' CSVOutput (Maybe Text)
-coFieldDelimiter = lens _coFieldDelimiter (\s a -> s {_coFieldDelimiter = a})
+-- | A value used to separate individual fields from each other within a
+-- record.
+cSVOutput_fieldDelimiter :: Lens.Lens' CSVOutput (Prelude.Maybe Prelude.Text)
+cSVOutput_fieldDelimiter = Lens.lens (\CSVOutput' {fieldDelimiter} -> fieldDelimiter) (\s@CSVOutput' {} a -> s {fieldDelimiter = a} :: CSVOutput)
 
--- | A value that indicates whether all output fields should be contained within quotation marks.
-coQuoteFields :: Lens' CSVOutput (Maybe QuoteFields)
-coQuoteFields = lens _coQuoteFields (\s a -> s {_coQuoteFields = a})
+-- | A value that indicates whether all output fields should be contained
+-- within quotation marks.
+cSVOutput_quoteFields :: Lens.Lens' CSVOutput (Prelude.Maybe QuoteFields)
+cSVOutput_quoteFields = Lens.lens (\CSVOutput' {quoteFields} -> quoteFields) (\s@CSVOutput' {} a -> s {quoteFields = a} :: CSVOutput)
 
--- | A single character used for escaping the quotation-mark character inside an already escaped value.
-coQuoteEscapeCharacter :: Lens' CSVOutput (Maybe Text)
-coQuoteEscapeCharacter = lens _coQuoteEscapeCharacter (\s a -> s {_coQuoteEscapeCharacter = a})
+-- | A single character used for escaping the quotation-mark character inside
+-- an already escaped value.
+cSVOutput_quoteEscapeCharacter :: Lens.Lens' CSVOutput (Prelude.Maybe Prelude.Text)
+cSVOutput_quoteEscapeCharacter = Lens.lens (\CSVOutput' {quoteEscapeCharacter} -> quoteEscapeCharacter) (\s@CSVOutput' {} a -> s {quoteEscapeCharacter = a} :: CSVOutput)
 
-instance FromJSON CSVOutput where
+instance Prelude.FromJSON CSVOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CSVOutput"
       ( \x ->
           CSVOutput'
-            <$> (x .:? "RecordDelimiter")
-            <*> (x .:? "QuoteCharacter")
-            <*> (x .:? "FieldDelimiter")
-            <*> (x .:? "QuoteFields")
-            <*> (x .:? "QuoteEscapeCharacter")
+            Prelude.<$> (x Prelude..:? "RecordDelimiter")
+            Prelude.<*> (x Prelude..:? "QuoteCharacter")
+            Prelude.<*> (x Prelude..:? "FieldDelimiter")
+            Prelude.<*> (x Prelude..:? "QuoteFields")
+            Prelude.<*> (x Prelude..:? "QuoteEscapeCharacter")
       )
 
-instance Hashable CSVOutput
+instance Prelude.Hashable CSVOutput
 
-instance NFData CSVOutput
+instance Prelude.NFData CSVOutput
 
-instance ToJSON CSVOutput where
+instance Prelude.ToJSON CSVOutput where
   toJSON CSVOutput' {..} =
-    object
-      ( catMaybes
-          [ ("RecordDelimiter" .=) <$> _coRecordDelimiter,
-            ("QuoteCharacter" .=) <$> _coQuoteCharacter,
-            ("FieldDelimiter" .=) <$> _coFieldDelimiter,
-            ("QuoteFields" .=) <$> _coQuoteFields,
-            ("QuoteEscapeCharacter" .=)
-              <$> _coQuoteEscapeCharacter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RecordDelimiter" Prelude..=)
+              Prelude.<$> recordDelimiter,
+            ("QuoteCharacter" Prelude..=)
+              Prelude.<$> quoteCharacter,
+            ("FieldDelimiter" Prelude..=)
+              Prelude.<$> fieldDelimiter,
+            ("QuoteFields" Prelude..=) Prelude.<$> quoteFields,
+            ("QuoteEscapeCharacter" Prelude..=)
+              Prelude.<$> quoteEscapeCharacter
           ]
       )

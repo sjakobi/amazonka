@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glacier.Types.InventoryRetrievalJobDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the options for a range inventory retrieval job.
 --
---
---
--- /See:/ 'inventoryRetrievalJobDescription' smart constructor.
+-- /See:/ 'newInventoryRetrievalJobDescription' smart constructor.
 data InventoryRetrievalJobDescription = InventoryRetrievalJobDescription'
-  { _irjdStartDate ::
-      !( Maybe
-           Text
-       ),
-    _irjdFormat ::
-      !( Maybe
-           Text
-       ),
-    _irjdEndDate ::
-      !( Maybe
-           Text
-       ),
-    _irjdLimit ::
-      !( Maybe
-           Text
-       ),
-    _irjdMarker ::
-      !( Maybe
-           Text
-       )
+  { -- | The start of the date range in Universal Coordinated Time (UTC) for
+    -- vault inventory retrieval that includes archives created on or after
+    -- this date. This value should be a string in the ISO 8601 date format,
+    -- for example @2013-03-20T17:03:43Z@.
+    startDate :: Prelude.Maybe Prelude.Text,
+    -- | The output format for the vault inventory list, which is set by the
+    -- __InitiateJob__ request when initiating a job to retrieve a vault
+    -- inventory. Valid values are @CSV@ and @JSON@.
+    format :: Prelude.Maybe Prelude.Text,
+    -- | The end of the date range in UTC for vault inventory retrieval that
+    -- includes archives created before this date. This value should be a
+    -- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
+    endDate :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of inventory items returned per vault inventory
+    -- retrieval request. This limit is set when initiating the job with the a
+    -- __InitiateJob__ request.
+    limit :: Prelude.Maybe Prelude.Text,
+    -- | An opaque string that represents where to continue pagination of the
+    -- vault inventory retrieval results. You use the marker in a new
+    -- __InitiateJob__ request to obtain additional inventory items. If there
+    -- are no more inventory items, this value is @null@. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering Range Inventory Retrieval>.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryRetrievalJobDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryRetrievalJobDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'irjdStartDate' - The start of the date range in Universal Coordinated Time (UTC) for vault inventory retrieval that includes archives created on or after this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'irjdFormat' - The output format for the vault inventory list, which is set by the __InitiateJob__ request when initiating a job to retrieve a vault inventory. Valid values are @CSV@ and @JSON@ .
+-- 'startDate', 'inventoryRetrievalJobDescription_startDate' - The start of the date range in Universal Coordinated Time (UTC) for
+-- vault inventory retrieval that includes archives created on or after
+-- this date. This value should be a string in the ISO 8601 date format,
+-- for example @2013-03-20T17:03:43Z@.
 --
--- * 'irjdEndDate' - The end of the date range in UTC for vault inventory retrieval that includes archives created before this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
+-- 'format', 'inventoryRetrievalJobDescription_format' - The output format for the vault inventory list, which is set by the
+-- __InitiateJob__ request when initiating a job to retrieve a vault
+-- inventory. Valid values are @CSV@ and @JSON@.
 --
--- * 'irjdLimit' - The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a __InitiateJob__ request.
+-- 'endDate', 'inventoryRetrievalJobDescription_endDate' - The end of the date range in UTC for vault inventory retrieval that
+-- includes archives created before this date. This value should be a
+-- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
 --
--- * 'irjdMarker' - An opaque string that represents where to continue pagination of the vault inventory retrieval results. You use the marker in a new __InitiateJob__ request to obtain additional inventory items. If there are no more inventory items, this value is @null@ . For more information, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering Range Inventory Retrieval> .
-inventoryRetrievalJobDescription ::
+-- 'limit', 'inventoryRetrievalJobDescription_limit' - The maximum number of inventory items returned per vault inventory
+-- retrieval request. This limit is set when initiating the job with the a
+-- __InitiateJob__ request.
+--
+-- 'marker', 'inventoryRetrievalJobDescription_marker' - An opaque string that represents where to continue pagination of the
+-- vault inventory retrieval results. You use the marker in a new
+-- __InitiateJob__ request to obtain additional inventory items. If there
+-- are no more inventory items, this value is @null@. For more information,
+-- see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering Range Inventory Retrieval>.
+newInventoryRetrievalJobDescription ::
   InventoryRetrievalJobDescription
-inventoryRetrievalJobDescription =
+newInventoryRetrievalJobDescription =
   InventoryRetrievalJobDescription'
-    { _irjdStartDate =
-        Nothing,
-      _irjdFormat = Nothing,
-      _irjdEndDate = Nothing,
-      _irjdLimit = Nothing,
-      _irjdMarker = Nothing
+    { startDate =
+        Prelude.Nothing,
+      format = Prelude.Nothing,
+      endDate = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The start of the date range in Universal Coordinated Time (UTC) for vault inventory retrieval that includes archives created on or after this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
-irjdStartDate :: Lens' InventoryRetrievalJobDescription (Maybe Text)
-irjdStartDate = lens _irjdStartDate (\s a -> s {_irjdStartDate = a})
+-- | The start of the date range in Universal Coordinated Time (UTC) for
+-- vault inventory retrieval that includes archives created on or after
+-- this date. This value should be a string in the ISO 8601 date format,
+-- for example @2013-03-20T17:03:43Z@.
+inventoryRetrievalJobDescription_startDate :: Lens.Lens' InventoryRetrievalJobDescription (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobDescription_startDate = Lens.lens (\InventoryRetrievalJobDescription' {startDate} -> startDate) (\s@InventoryRetrievalJobDescription' {} a -> s {startDate = a} :: InventoryRetrievalJobDescription)
 
--- | The output format for the vault inventory list, which is set by the __InitiateJob__ request when initiating a job to retrieve a vault inventory. Valid values are @CSV@ and @JSON@ .
-irjdFormat :: Lens' InventoryRetrievalJobDescription (Maybe Text)
-irjdFormat = lens _irjdFormat (\s a -> s {_irjdFormat = a})
+-- | The output format for the vault inventory list, which is set by the
+-- __InitiateJob__ request when initiating a job to retrieve a vault
+-- inventory. Valid values are @CSV@ and @JSON@.
+inventoryRetrievalJobDescription_format :: Lens.Lens' InventoryRetrievalJobDescription (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobDescription_format = Lens.lens (\InventoryRetrievalJobDescription' {format} -> format) (\s@InventoryRetrievalJobDescription' {} a -> s {format = a} :: InventoryRetrievalJobDescription)
 
--- | The end of the date range in UTC for vault inventory retrieval that includes archives created before this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
-irjdEndDate :: Lens' InventoryRetrievalJobDescription (Maybe Text)
-irjdEndDate = lens _irjdEndDate (\s a -> s {_irjdEndDate = a})
+-- | The end of the date range in UTC for vault inventory retrieval that
+-- includes archives created before this date. This value should be a
+-- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
+inventoryRetrievalJobDescription_endDate :: Lens.Lens' InventoryRetrievalJobDescription (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobDescription_endDate = Lens.lens (\InventoryRetrievalJobDescription' {endDate} -> endDate) (\s@InventoryRetrievalJobDescription' {} a -> s {endDate = a} :: InventoryRetrievalJobDescription)
 
--- | The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a __InitiateJob__ request.
-irjdLimit :: Lens' InventoryRetrievalJobDescription (Maybe Text)
-irjdLimit = lens _irjdLimit (\s a -> s {_irjdLimit = a})
+-- | The maximum number of inventory items returned per vault inventory
+-- retrieval request. This limit is set when initiating the job with the a
+-- __InitiateJob__ request.
+inventoryRetrievalJobDescription_limit :: Lens.Lens' InventoryRetrievalJobDescription (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobDescription_limit = Lens.lens (\InventoryRetrievalJobDescription' {limit} -> limit) (\s@InventoryRetrievalJobDescription' {} a -> s {limit = a} :: InventoryRetrievalJobDescription)
 
--- | An opaque string that represents where to continue pagination of the vault inventory retrieval results. You use the marker in a new __InitiateJob__ request to obtain additional inventory items. If there are no more inventory items, this value is @null@ . For more information, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering Range Inventory Retrieval> .
-irjdMarker :: Lens' InventoryRetrievalJobDescription (Maybe Text)
-irjdMarker = lens _irjdMarker (\s a -> s {_irjdMarker = a})
+-- | An opaque string that represents where to continue pagination of the
+-- vault inventory retrieval results. You use the marker in a new
+-- __InitiateJob__ request to obtain additional inventory items. If there
+-- are no more inventory items, this value is @null@. For more information,
+-- see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering Range Inventory Retrieval>.
+inventoryRetrievalJobDescription_marker :: Lens.Lens' InventoryRetrievalJobDescription (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobDescription_marker = Lens.lens (\InventoryRetrievalJobDescription' {marker} -> marker) (\s@InventoryRetrievalJobDescription' {} a -> s {marker = a} :: InventoryRetrievalJobDescription)
 
-instance FromJSON InventoryRetrievalJobDescription where
+instance
+  Prelude.FromJSON
+    InventoryRetrievalJobDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InventoryRetrievalJobDescription"
       ( \x ->
           InventoryRetrievalJobDescription'
-            <$> (x .:? "StartDate")
-            <*> (x .:? "Format")
-            <*> (x .:? "EndDate")
-            <*> (x .:? "Limit")
-            <*> (x .:? "Marker")
+            Prelude.<$> (x Prelude..:? "StartDate")
+            Prelude.<*> (x Prelude..:? "Format")
+            Prelude.<*> (x Prelude..:? "EndDate")
+            Prelude.<*> (x Prelude..:? "Limit")
+            Prelude.<*> (x Prelude..:? "Marker")
       )
 
-instance Hashable InventoryRetrievalJobDescription
+instance
+  Prelude.Hashable
+    InventoryRetrievalJobDescription
 
-instance NFData InventoryRetrievalJobDescription
+instance
+  Prelude.NFData
+    InventoryRetrievalJobDescription

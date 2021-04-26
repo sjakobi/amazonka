@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,52 @@
 module Network.AWS.Glacier.Types.OutputSerialization where
 
 import Network.AWS.Glacier.Types.CSVOutput
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes how the select output is serialized.
 --
---
---
--- /See:/ 'outputSerialization' smart constructor.
-newtype OutputSerialization = OutputSerialization'
-  { _osCsv ::
-      Maybe CSVOutput
+-- /See:/ 'newOutputSerialization' smart constructor.
+data OutputSerialization = OutputSerialization'
+  { -- | Describes the serialization of CSV-encoded query results.
+    csv :: Prelude.Maybe CSVOutput
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputSerialization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputSerialization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osCsv' - Describes the serialization of CSV-encoded query results.
-outputSerialization ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'csv', 'outputSerialization_csv' - Describes the serialization of CSV-encoded query results.
+newOutputSerialization ::
   OutputSerialization
-outputSerialization =
-  OutputSerialization' {_osCsv = Nothing}
+newOutputSerialization =
+  OutputSerialization' {csv = Prelude.Nothing}
 
 -- | Describes the serialization of CSV-encoded query results.
-osCsv :: Lens' OutputSerialization (Maybe CSVOutput)
-osCsv = lens _osCsv (\s a -> s {_osCsv = a})
+outputSerialization_csv :: Lens.Lens' OutputSerialization (Prelude.Maybe CSVOutput)
+outputSerialization_csv = Lens.lens (\OutputSerialization' {csv} -> csv) (\s@OutputSerialization' {} a -> s {csv = a} :: OutputSerialization)
 
-instance FromJSON OutputSerialization where
+instance Prelude.FromJSON OutputSerialization where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputSerialization"
-      (\x -> OutputSerialization' <$> (x .:? "csv"))
+      ( \x ->
+          OutputSerialization'
+            Prelude.<$> (x Prelude..:? "csv")
+      )
 
-instance Hashable OutputSerialization
+instance Prelude.Hashable OutputSerialization
 
-instance NFData OutputSerialization
+instance Prelude.NFData OutputSerialization
 
-instance ToJSON OutputSerialization where
+instance Prelude.ToJSON OutputSerialization where
   toJSON OutputSerialization' {..} =
-    object (catMaybes [("csv" .=) <$> _osCsv])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("csv" Prelude..=) Prelude.<$> csv]
+      )

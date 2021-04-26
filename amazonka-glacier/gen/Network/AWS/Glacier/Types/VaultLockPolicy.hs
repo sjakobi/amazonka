@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,38 +19,43 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glacier.Types.VaultLockPolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the vault lock policy.
 --
---
---
--- /See:/ 'vaultLockPolicy' smart constructor.
-newtype VaultLockPolicy = VaultLockPolicy'
-  { _vlpPolicy ::
-      Maybe Text
+-- /See:/ 'newVaultLockPolicy' smart constructor.
+data VaultLockPolicy = VaultLockPolicy'
+  { -- | The vault lock policy.
+    policy :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VaultLockPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VaultLockPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vlpPolicy' - The vault lock policy.
-vaultLockPolicy ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'policy', 'vaultLockPolicy_policy' - The vault lock policy.
+newVaultLockPolicy ::
   VaultLockPolicy
-vaultLockPolicy =
-  VaultLockPolicy' {_vlpPolicy = Nothing}
+newVaultLockPolicy =
+  VaultLockPolicy' {policy = Prelude.Nothing}
 
 -- | The vault lock policy.
-vlpPolicy :: Lens' VaultLockPolicy (Maybe Text)
-vlpPolicy = lens _vlpPolicy (\s a -> s {_vlpPolicy = a})
+vaultLockPolicy_policy :: Lens.Lens' VaultLockPolicy (Prelude.Maybe Prelude.Text)
+vaultLockPolicy_policy = Lens.lens (\VaultLockPolicy' {policy} -> policy) (\s@VaultLockPolicy' {} a -> s {policy = a} :: VaultLockPolicy)
 
-instance Hashable VaultLockPolicy
+instance Prelude.Hashable VaultLockPolicy
 
-instance NFData VaultLockPolicy
+instance Prelude.NFData VaultLockPolicy
 
-instance ToJSON VaultLockPolicy where
+instance Prelude.ToJSON VaultLockPolicy where
   toJSON VaultLockPolicy' {..} =
-    object (catMaybes [("Policy" .=) <$> _vlpPolicy])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Policy" Prelude..=) Prelude.<$> policy]
+      )

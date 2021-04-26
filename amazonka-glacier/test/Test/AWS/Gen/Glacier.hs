@@ -28,205 +28,205 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestPurchaseProvisionedCapacity $
---             purchaseProvisionedCapacity
+--             newPurchaseProvisionedCapacity
 --
 --         , requestDescribeVault $
---             describeVault
+--             newDescribeVault
 --
 --         , requestSetVaultAccessPolicy $
---             setVaultAccessPolicy
+--             newSetVaultAccessPolicy
 --
 --         , requestCompleteMultipartUpload $
---             completeMultipartUpload
+--             newCompleteMultipartUpload
 --
 --         , requestSetDataRetrievalPolicy $
---             setDataRetrievalPolicy
+--             newSetDataRetrievalPolicy
 --
 --         , requestUploadArchive $
---             uploadArchive
+--             newUploadArchive
 --
 --         , requestListProvisionedCapacity $
---             listProvisionedCapacity
+--             newListProvisionedCapacity
 --
 --         , requestSetVaultNotifications $
---             setVaultNotifications
+--             newSetVaultNotifications
 --
 --         , requestDeleteVault $
---             deleteVault
+--             newDeleteVault
 --
 --         , requestAbortVaultLock $
---             abortVaultLock
+--             newAbortVaultLock
 --
 --         , requestDeleteArchive $
---             deleteArchive
+--             newDeleteArchive
 --
 --         , requestRemoveTagsFromVault $
---             removeTagsFromVault
+--             newRemoveTagsFromVault
 --
 --         , requestListVaults $
---             listVaults
+--             newListVaults
 --
 --         , requestInitiateVaultLock $
---             initiateVaultLock
+--             newInitiateVaultLock
 --
 --         , requestDescribeJob $
---             describeJob
+--             newDescribeJob
 --
 --         , requestListTagsForVault $
---             listTagsForVault
+--             newListTagsForVault
 --
 --         , requestGetVaultLock $
---             getVaultLock
+--             newGetVaultLock
 --
 --         , requestAbortMultipartUpload $
---             abortMultipartUpload
+--             newAbortMultipartUpload
 --
 --         , requestDeleteVaultAccessPolicy $
---             deleteVaultAccessPolicy
+--             newDeleteVaultAccessPolicy
 --
 --         , requestInitiateJob $
---             initiateJob
+--             newInitiateJob
 --
 --         , requestListMultipartUploads $
---             listMultipartUploads
+--             newListMultipartUploads
 --
 --         , requestAddTagsToVault $
---             addTagsToVault
+--             newAddTagsToVault
 --
 --         , requestInitiateMultipartUpload $
---             initiateMultipartUpload
+--             newInitiateMultipartUpload
 --
 --         , requestCreateVault $
---             createVault
+--             newCreateVault
 --
 --         , requestListJobs $
---             listJobs
+--             newListJobs
 --
 --         , requestListParts $
---             listParts
+--             newListParts
 --
 --         , requestGetJobOutput $
---             getJobOutput
+--             newGetJobOutput
 --
 --         , requestCompleteVaultLock $
---             completeVaultLock
+--             newCompleteVaultLock
 --
 --         , requestGetVaultAccessPolicy $
---             getVaultAccessPolicy
+--             newGetVaultAccessPolicy
 --
 --         , requestGetDataRetrievalPolicy $
---             getDataRetrievalPolicy
+--             newGetDataRetrievalPolicy
 --
 --         , requestDeleteVaultNotifications $
---             deleteVaultNotifications
+--             newDeleteVaultNotifications
 --
 --         , requestUploadMultipartPart $
---             uploadMultipartPart
+--             newUploadMultipartPart
 --
 --         , requestGetVaultNotifications $
---             getVaultNotifications
+--             newGetVaultNotifications
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responsePurchaseProvisionedCapacity $
---             purchaseProvisionedCapacityResponse
+--             newPurchaseProvisionedCapacityResponse
 --
 --         , responseDescribeVault $
---             describeVaultOutput
+--             newDescribeVaultOutput
 --
 --         , responseSetVaultAccessPolicy $
---             setVaultAccessPolicyResponse
+--             newSetVaultAccessPolicyResponse
 --
 --         , responseCompleteMultipartUpload $
---             archiveCreationOutput
+--             newArchiveCreationOutput
 --
 --         , responseSetDataRetrievalPolicy $
---             setDataRetrievalPolicyResponse
+--             newSetDataRetrievalPolicyResponse
 --
 --         , responseUploadArchive $
---             archiveCreationOutput
+--             newArchiveCreationOutput
 --
 --         , responseListProvisionedCapacity $
---             listProvisionedCapacityResponse
+--             newListProvisionedCapacityResponse
 --
 --         , responseSetVaultNotifications $
---             setVaultNotificationsResponse
+--             newSetVaultNotificationsResponse
 --
 --         , responseDeleteVault $
---             deleteVaultResponse
+--             newDeleteVaultResponse
 --
 --         , responseAbortVaultLock $
---             abortVaultLockResponse
+--             newAbortVaultLockResponse
 --
 --         , responseDeleteArchive $
---             deleteArchiveResponse
+--             newDeleteArchiveResponse
 --
 --         , responseRemoveTagsFromVault $
---             removeTagsFromVaultResponse
+--             newRemoveTagsFromVaultResponse
 --
 --         , responseListVaults $
---             listVaultsResponse
+--             newListVaultsResponse
 --
 --         , responseInitiateVaultLock $
---             initiateVaultLockResponse
+--             newInitiateVaultLockResponse
 --
 --         , responseDescribeJob $
---             glacierJobDescription
+--             newGlacierJobDescription
 --
 --         , responseListTagsForVault $
---             listTagsForVaultResponse
+--             newListTagsForVaultResponse
 --
 --         , responseGetVaultLock $
---             getVaultLockResponse
+--             newGetVaultLockResponse
 --
 --         , responseAbortMultipartUpload $
---             abortMultipartUploadResponse
+--             newAbortMultipartUploadResponse
 --
 --         , responseDeleteVaultAccessPolicy $
---             deleteVaultAccessPolicyResponse
+--             newDeleteVaultAccessPolicyResponse
 --
 --         , responseInitiateJob $
---             initiateJobResponse
+--             newInitiateJobResponse
 --
 --         , responseListMultipartUploads $
---             listMultipartUploadsResponse
+--             newListMultipartUploadsResponse
 --
 --         , responseAddTagsToVault $
---             addTagsToVaultResponse
+--             newAddTagsToVaultResponse
 --
 --         , responseInitiateMultipartUpload $
---             initiateMultipartUploadResponse
+--             newInitiateMultipartUploadResponse
 --
 --         , responseCreateVault $
---             createVaultResponse
+--             newCreateVaultResponse
 --
 --         , responseListJobs $
---             listJobsResponse
+--             newListJobsResponse
 --
 --         , responseListParts $
---             listPartsResponse
+--             newListPartsResponse
 --
 --         , responseGetJobOutput $
---             getJobOutputResponse
+--             newGetJobOutputResponse
 --
 --         , responseCompleteVaultLock $
---             completeVaultLockResponse
+--             newCompleteVaultLockResponse
 --
 --         , responseGetVaultAccessPolicy $
---             getVaultAccessPolicyResponse
+--             newGetVaultAccessPolicyResponse
 --
 --         , responseGetDataRetrievalPolicy $
---             getDataRetrievalPolicyResponse
+--             newGetDataRetrievalPolicyResponse
 --
 --         , responseDeleteVaultNotifications $
---             deleteVaultNotificationsResponse
+--             newDeleteVaultNotificationsResponse
 --
 --         , responseUploadMultipartPart $
---             uploadMultipartPartResponse
+--             newUploadMultipartPartResponse
 --
 --         , responseGetVaultNotifications $
---             getVaultNotificationsResponse
+--             newGetVaultNotificationsResponse
 --
 --           ]
 --     ]
@@ -426,7 +426,7 @@ responsePurchaseProvisionedCapacity =
   res
     "PurchaseProvisionedCapacityResponse"
     "fixture/PurchaseProvisionedCapacityResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy PurchaseProvisionedCapacity)
 
 responseDescribeVault :: DescribeVaultOutput -> TestTree
@@ -434,7 +434,7 @@ responseDescribeVault =
   res
     "DescribeVaultResponse"
     "fixture/DescribeVaultResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy DescribeVault)
 
 responseSetVaultAccessPolicy :: SetVaultAccessPolicyResponse -> TestTree
@@ -442,7 +442,7 @@ responseSetVaultAccessPolicy =
   res
     "SetVaultAccessPolicyResponse"
     "fixture/SetVaultAccessPolicyResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy SetVaultAccessPolicy)
 
 responseCompleteMultipartUpload :: ArchiveCreationOutput -> TestTree
@@ -450,7 +450,7 @@ responseCompleteMultipartUpload =
   res
     "CompleteMultipartUploadResponse"
     "fixture/CompleteMultipartUploadResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy CompleteMultipartUpload)
 
 responseSetDataRetrievalPolicy :: SetDataRetrievalPolicyResponse -> TestTree
@@ -458,7 +458,7 @@ responseSetDataRetrievalPolicy =
   res
     "SetDataRetrievalPolicyResponse"
     "fixture/SetDataRetrievalPolicyResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy SetDataRetrievalPolicy)
 
 responseUploadArchive :: ArchiveCreationOutput -> TestTree
@@ -466,7 +466,7 @@ responseUploadArchive =
   res
     "UploadArchiveResponse"
     "fixture/UploadArchiveResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy UploadArchive)
 
 responseListProvisionedCapacity :: ListProvisionedCapacityResponse -> TestTree
@@ -474,7 +474,7 @@ responseListProvisionedCapacity =
   res
     "ListProvisionedCapacityResponse"
     "fixture/ListProvisionedCapacityResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy ListProvisionedCapacity)
 
 responseSetVaultNotifications :: SetVaultNotificationsResponse -> TestTree
@@ -482,7 +482,7 @@ responseSetVaultNotifications =
   res
     "SetVaultNotificationsResponse"
     "fixture/SetVaultNotificationsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy SetVaultNotifications)
 
 responseDeleteVault :: DeleteVaultResponse -> TestTree
@@ -490,7 +490,7 @@ responseDeleteVault =
   res
     "DeleteVaultResponse"
     "fixture/DeleteVaultResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy DeleteVault)
 
 responseAbortVaultLock :: AbortVaultLockResponse -> TestTree
@@ -498,7 +498,7 @@ responseAbortVaultLock =
   res
     "AbortVaultLockResponse"
     "fixture/AbortVaultLockResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy AbortVaultLock)
 
 responseDeleteArchive :: DeleteArchiveResponse -> TestTree
@@ -506,7 +506,7 @@ responseDeleteArchive =
   res
     "DeleteArchiveResponse"
     "fixture/DeleteArchiveResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy DeleteArchive)
 
 responseRemoveTagsFromVault :: RemoveTagsFromVaultResponse -> TestTree
@@ -514,7 +514,7 @@ responseRemoveTagsFromVault =
   res
     "RemoveTagsFromVaultResponse"
     "fixture/RemoveTagsFromVaultResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy RemoveTagsFromVault)
 
 responseListVaults :: ListVaultsResponse -> TestTree
@@ -522,7 +522,7 @@ responseListVaults =
   res
     "ListVaultsResponse"
     "fixture/ListVaultsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy ListVaults)
 
 responseInitiateVaultLock :: InitiateVaultLockResponse -> TestTree
@@ -530,7 +530,7 @@ responseInitiateVaultLock =
   res
     "InitiateVaultLockResponse"
     "fixture/InitiateVaultLockResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy InitiateVaultLock)
 
 responseDescribeJob :: GlacierJobDescription -> TestTree
@@ -538,7 +538,7 @@ responseDescribeJob =
   res
     "DescribeJobResponse"
     "fixture/DescribeJobResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy DescribeJob)
 
 responseListTagsForVault :: ListTagsForVaultResponse -> TestTree
@@ -546,7 +546,7 @@ responseListTagsForVault =
   res
     "ListTagsForVaultResponse"
     "fixture/ListTagsForVaultResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy ListTagsForVault)
 
 responseGetVaultLock :: GetVaultLockResponse -> TestTree
@@ -554,7 +554,7 @@ responseGetVaultLock =
   res
     "GetVaultLockResponse"
     "fixture/GetVaultLockResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy GetVaultLock)
 
 responseAbortMultipartUpload :: AbortMultipartUploadResponse -> TestTree
@@ -562,7 +562,7 @@ responseAbortMultipartUpload =
   res
     "AbortMultipartUploadResponse"
     "fixture/AbortMultipartUploadResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy AbortMultipartUpload)
 
 responseDeleteVaultAccessPolicy :: DeleteVaultAccessPolicyResponse -> TestTree
@@ -570,7 +570,7 @@ responseDeleteVaultAccessPolicy =
   res
     "DeleteVaultAccessPolicyResponse"
     "fixture/DeleteVaultAccessPolicyResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy DeleteVaultAccessPolicy)
 
 responseInitiateJob :: InitiateJobResponse -> TestTree
@@ -578,7 +578,7 @@ responseInitiateJob =
   res
     "InitiateJobResponse"
     "fixture/InitiateJobResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy InitiateJob)
 
 responseListMultipartUploads :: ListMultipartUploadsResponse -> TestTree
@@ -586,7 +586,7 @@ responseListMultipartUploads =
   res
     "ListMultipartUploadsResponse"
     "fixture/ListMultipartUploadsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy ListMultipartUploads)
 
 responseAddTagsToVault :: AddTagsToVaultResponse -> TestTree
@@ -594,7 +594,7 @@ responseAddTagsToVault =
   res
     "AddTagsToVaultResponse"
     "fixture/AddTagsToVaultResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy AddTagsToVault)
 
 responseInitiateMultipartUpload :: InitiateMultipartUploadResponse -> TestTree
@@ -602,7 +602,7 @@ responseInitiateMultipartUpload =
   res
     "InitiateMultipartUploadResponse"
     "fixture/InitiateMultipartUploadResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy InitiateMultipartUpload)
 
 responseCreateVault :: CreateVaultResponse -> TestTree
@@ -610,7 +610,7 @@ responseCreateVault =
   res
     "CreateVaultResponse"
     "fixture/CreateVaultResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy CreateVault)
 
 responseListJobs :: ListJobsResponse -> TestTree
@@ -618,7 +618,7 @@ responseListJobs =
   res
     "ListJobsResponse"
     "fixture/ListJobsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy ListJobs)
 
 responseListParts :: ListPartsResponse -> TestTree
@@ -626,7 +626,7 @@ responseListParts =
   res
     "ListPartsResponse"
     "fixture/ListPartsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy ListParts)
 
 responseCompleteVaultLock :: CompleteVaultLockResponse -> TestTree
@@ -634,7 +634,7 @@ responseCompleteVaultLock =
   res
     "CompleteVaultLockResponse"
     "fixture/CompleteVaultLockResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy CompleteVaultLock)
 
 responseGetVaultAccessPolicy :: GetVaultAccessPolicyResponse -> TestTree
@@ -642,7 +642,7 @@ responseGetVaultAccessPolicy =
   res
     "GetVaultAccessPolicyResponse"
     "fixture/GetVaultAccessPolicyResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy GetVaultAccessPolicy)
 
 responseGetDataRetrievalPolicy :: GetDataRetrievalPolicyResponse -> TestTree
@@ -650,7 +650,7 @@ responseGetDataRetrievalPolicy =
   res
     "GetDataRetrievalPolicyResponse"
     "fixture/GetDataRetrievalPolicyResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy GetDataRetrievalPolicy)
 
 responseDeleteVaultNotifications :: DeleteVaultNotificationsResponse -> TestTree
@@ -658,7 +658,7 @@ responseDeleteVaultNotifications =
   res
     "DeleteVaultNotificationsResponse"
     "fixture/DeleteVaultNotificationsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy DeleteVaultNotifications)
 
 responseUploadMultipartPart :: UploadMultipartPartResponse -> TestTree
@@ -666,7 +666,7 @@ responseUploadMultipartPart =
   res
     "UploadMultipartPartResponse"
     "fixture/UploadMultipartPartResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy UploadMultipartPart)
 
 responseGetVaultNotifications :: GetVaultNotificationsResponse -> TestTree
@@ -674,5 +674,5 @@ responseGetVaultNotifications =
   res
     "GetVaultNotificationsResponse"
     "fixture/GetVaultNotificationsResponse.proto"
-    glacier
+    defaultService
     (Proxy :: Proxy GetVaultNotifications)

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,129 +22,222 @@ module Network.AWS.Glacier.Types.JobParameters where
 import Network.AWS.Glacier.Types.InventoryRetrievalJobInput
 import Network.AWS.Glacier.Types.OutputLocation
 import Network.AWS.Glacier.Types.SelectParameters
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides options for defining a job.
 --
---
---
--- /See:/ 'jobParameters' smart constructor.
+-- /See:/ 'newJobParameters' smart constructor.
 data JobParameters = JobParameters'
-  { _jpRetrievalByteRange ::
-      !(Maybe Text),
-    _jpFormat :: !(Maybe Text),
-    _jpSelectParameters ::
-      !(Maybe SelectParameters),
-    _jpArchiveId :: !(Maybe Text),
-    _jpSNSTopic :: !(Maybe Text),
-    _jpDescription :: !(Maybe Text),
-    _jpInventoryRetrievalParameters ::
-      !(Maybe InventoryRetrievalJobInput),
-    _jpType :: !(Maybe Text),
-    _jpOutputLocation ::
-      !(Maybe OutputLocation),
-    _jpTier :: !(Maybe Text)
+  { -- | The byte range to retrieve for an archive retrieval. in the form
+    -- \"/StartByteValue/-/EndByteValue/\" If not specified, the whole archive
+    -- is retrieved. If specified, the byte range must be megabyte (1024*1024)
+    -- aligned which means that /StartByteValue/ must be divisible by 1 MB and
+    -- /EndByteValue/ plus 1 must be divisible by 1 MB or be the end of the
+    -- archive specified as the archive byte size value minus 1. If
+    -- RetrievalByteRange is not megabyte aligned, this operation returns a 400
+    -- response.
+    --
+    -- An error occurs if you specify this field for an inventory retrieval job
+    -- request.
+    retrievalByteRange :: Prelude.Maybe Prelude.Text,
+    -- | When initiating a job to retrieve a vault inventory, you can optionally
+    -- add this parameter to your request to specify the output format. If you
+    -- are initiating an inventory job and do not specify a Format field, JSON
+    -- is the default format. Valid values are \"CSV\" and \"JSON\".
+    format :: Prelude.Maybe Prelude.Text,
+    -- | Contains the parameters that define a job.
+    selectParameters :: Prelude.Maybe SelectParameters,
+    -- | The ID of the archive that you want to retrieve. This field is required
+    -- only if @Type@ is set to @select@ or @archive-retrieval@code>. An error
+    -- occurs if you specify this request parameter for an inventory retrieval
+    -- job request.
+    archiveId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon SNS topic ARN to which Amazon S3 Glacier sends a notification
+    -- when the job is completed and the output is ready for you to download.
+    -- The specified topic publishes the notification to its subscribers. The
+    -- SNS topic must exist.
+    sNSTopic :: Prelude.Maybe Prelude.Text,
+    -- | The optional description for the job. The description must be less than
+    -- or equal to 1,024 bytes. The allowable characters are 7-bit ASCII
+    -- without control codes-specifically, ASCII values 32-126 decimal or
+    -- 0x20-0x7E hexadecimal.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Input parameters used for range inventory retrieval.
+    inventoryRetrievalParameters :: Prelude.Maybe InventoryRetrievalJobInput,
+    -- | The job type. You can initiate a job to perform a select query on an
+    -- archive, retrieve an archive, or get an inventory of a vault. Valid
+    -- values are \"select\", \"archive-retrieval\" and
+    -- \"inventory-retrieval\".
+    type' :: Prelude.Maybe Prelude.Text,
+    -- | Contains information about the location where the select job results are
+    -- stored.
+    outputLocation :: Prelude.Maybe OutputLocation,
+    -- | The tier to use for a select or an archive retrieval job. Valid values
+    -- are @Expedited@, @Standard@, or @Bulk@. @Standard@ is the default.
+    tier :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jpRetrievalByteRange' - The byte range to retrieve for an archive retrieval. in the form "/StartByteValue/ -/EndByteValue/ " If not specified, the whole archive is retrieved. If specified, the byte range must be megabyte (1024*1024) aligned which means that /StartByteValue/ must be divisible by 1 MB and /EndByteValue/ plus 1 must be divisible by 1 MB or be the end of the archive specified as the archive byte size value minus 1. If RetrievalByteRange is not megabyte aligned, this operation returns a 400 response.  An error occurs if you specify this field for an inventory retrieval job request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jpFormat' - When initiating a job to retrieve a vault inventory, you can optionally add this parameter to your request to specify the output format. If you are initiating an inventory job and do not specify a Format field, JSON is the default format. Valid values are "CSV" and "JSON".
+-- 'retrievalByteRange', 'jobParameters_retrievalByteRange' - The byte range to retrieve for an archive retrieval. in the form
+-- \"/StartByteValue/-/EndByteValue/\" If not specified, the whole archive
+-- is retrieved. If specified, the byte range must be megabyte (1024*1024)
+-- aligned which means that /StartByteValue/ must be divisible by 1 MB and
+-- /EndByteValue/ plus 1 must be divisible by 1 MB or be the end of the
+-- archive specified as the archive byte size value minus 1. If
+-- RetrievalByteRange is not megabyte aligned, this operation returns a 400
+-- response.
 --
--- * 'jpSelectParameters' - Contains the parameters that define a job.
+-- An error occurs if you specify this field for an inventory retrieval job
+-- request.
 --
--- * 'jpArchiveId' - The ID of the archive that you want to retrieve. This field is required only if @Type@ is set to @select@ or @archive-retrieval@ code>. An error occurs if you specify this request parameter for an inventory retrieval job request.
+-- 'format', 'jobParameters_format' - When initiating a job to retrieve a vault inventory, you can optionally
+-- add this parameter to your request to specify the output format. If you
+-- are initiating an inventory job and do not specify a Format field, JSON
+-- is the default format. Valid values are \"CSV\" and \"JSON\".
 --
--- * 'jpSNSTopic' - The Amazon SNS topic ARN to which Amazon S3 Glacier sends a notification when the job is completed and the output is ready for you to download. The specified topic publishes the notification to its subscribers. The SNS topic must exist.
+-- 'selectParameters', 'jobParameters_selectParameters' - Contains the parameters that define a job.
 --
--- * 'jpDescription' - The optional description for the job. The description must be less than or equal to 1,024 bytes. The allowable characters are 7-bit ASCII without control codes-specifically, ASCII values 32-126 decimal or 0x20-0x7E hexadecimal.
+-- 'archiveId', 'jobParameters_archiveId' - The ID of the archive that you want to retrieve. This field is required
+-- only if @Type@ is set to @select@ or @archive-retrieval@code>. An error
+-- occurs if you specify this request parameter for an inventory retrieval
+-- job request.
 --
--- * 'jpInventoryRetrievalParameters' - Input parameters used for range inventory retrieval.
+-- 'sNSTopic', 'jobParameters_sNSTopic' - The Amazon SNS topic ARN to which Amazon S3 Glacier sends a notification
+-- when the job is completed and the output is ready for you to download.
+-- The specified topic publishes the notification to its subscribers. The
+-- SNS topic must exist.
 --
--- * 'jpType' - The job type. You can initiate a job to perform a select query on an archive, retrieve an archive, or get an inventory of a vault. Valid values are "select", "archive-retrieval" and "inventory-retrieval".
+-- 'description', 'jobParameters_description' - The optional description for the job. The description must be less than
+-- or equal to 1,024 bytes. The allowable characters are 7-bit ASCII
+-- without control codes-specifically, ASCII values 32-126 decimal or
+-- 0x20-0x7E hexadecimal.
 --
--- * 'jpOutputLocation' - Contains information about the location where the select job results are stored.
+-- 'inventoryRetrievalParameters', 'jobParameters_inventoryRetrievalParameters' - Input parameters used for range inventory retrieval.
 --
--- * 'jpTier' - The tier to use for a select or an archive retrieval job. Valid values are @Expedited@ , @Standard@ , or @Bulk@ . @Standard@ is the default.
-jobParameters ::
+-- 'type'', 'jobParameters_type' - The job type. You can initiate a job to perform a select query on an
+-- archive, retrieve an archive, or get an inventory of a vault. Valid
+-- values are \"select\", \"archive-retrieval\" and
+-- \"inventory-retrieval\".
+--
+-- 'outputLocation', 'jobParameters_outputLocation' - Contains information about the location where the select job results are
+-- stored.
+--
+-- 'tier', 'jobParameters_tier' - The tier to use for a select or an archive retrieval job. Valid values
+-- are @Expedited@, @Standard@, or @Bulk@. @Standard@ is the default.
+newJobParameters ::
   JobParameters
-jobParameters =
+newJobParameters =
   JobParameters'
-    { _jpRetrievalByteRange = Nothing,
-      _jpFormat = Nothing,
-      _jpSelectParameters = Nothing,
-      _jpArchiveId = Nothing,
-      _jpSNSTopic = Nothing,
-      _jpDescription = Nothing,
-      _jpInventoryRetrievalParameters = Nothing,
-      _jpType = Nothing,
-      _jpOutputLocation = Nothing,
-      _jpTier = Nothing
+    { retrievalByteRange =
+        Prelude.Nothing,
+      format = Prelude.Nothing,
+      selectParameters = Prelude.Nothing,
+      archiveId = Prelude.Nothing,
+      sNSTopic = Prelude.Nothing,
+      description = Prelude.Nothing,
+      inventoryRetrievalParameters = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      outputLocation = Prelude.Nothing,
+      tier = Prelude.Nothing
     }
 
--- | The byte range to retrieve for an archive retrieval. in the form "/StartByteValue/ -/EndByteValue/ " If not specified, the whole archive is retrieved. If specified, the byte range must be megabyte (1024*1024) aligned which means that /StartByteValue/ must be divisible by 1 MB and /EndByteValue/ plus 1 must be divisible by 1 MB or be the end of the archive specified as the archive byte size value minus 1. If RetrievalByteRange is not megabyte aligned, this operation returns a 400 response.  An error occurs if you specify this field for an inventory retrieval job request.
-jpRetrievalByteRange :: Lens' JobParameters (Maybe Text)
-jpRetrievalByteRange = lens _jpRetrievalByteRange (\s a -> s {_jpRetrievalByteRange = a})
+-- | The byte range to retrieve for an archive retrieval. in the form
+-- \"/StartByteValue/-/EndByteValue/\" If not specified, the whole archive
+-- is retrieved. If specified, the byte range must be megabyte (1024*1024)
+-- aligned which means that /StartByteValue/ must be divisible by 1 MB and
+-- /EndByteValue/ plus 1 must be divisible by 1 MB or be the end of the
+-- archive specified as the archive byte size value minus 1. If
+-- RetrievalByteRange is not megabyte aligned, this operation returns a 400
+-- response.
+--
+-- An error occurs if you specify this field for an inventory retrieval job
+-- request.
+jobParameters_retrievalByteRange :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_retrievalByteRange = Lens.lens (\JobParameters' {retrievalByteRange} -> retrievalByteRange) (\s@JobParameters' {} a -> s {retrievalByteRange = a} :: JobParameters)
 
--- | When initiating a job to retrieve a vault inventory, you can optionally add this parameter to your request to specify the output format. If you are initiating an inventory job and do not specify a Format field, JSON is the default format. Valid values are "CSV" and "JSON".
-jpFormat :: Lens' JobParameters (Maybe Text)
-jpFormat = lens _jpFormat (\s a -> s {_jpFormat = a})
+-- | When initiating a job to retrieve a vault inventory, you can optionally
+-- add this parameter to your request to specify the output format. If you
+-- are initiating an inventory job and do not specify a Format field, JSON
+-- is the default format. Valid values are \"CSV\" and \"JSON\".
+jobParameters_format :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_format = Lens.lens (\JobParameters' {format} -> format) (\s@JobParameters' {} a -> s {format = a} :: JobParameters)
 
 -- | Contains the parameters that define a job.
-jpSelectParameters :: Lens' JobParameters (Maybe SelectParameters)
-jpSelectParameters = lens _jpSelectParameters (\s a -> s {_jpSelectParameters = a})
+jobParameters_selectParameters :: Lens.Lens' JobParameters (Prelude.Maybe SelectParameters)
+jobParameters_selectParameters = Lens.lens (\JobParameters' {selectParameters} -> selectParameters) (\s@JobParameters' {} a -> s {selectParameters = a} :: JobParameters)
 
--- | The ID of the archive that you want to retrieve. This field is required only if @Type@ is set to @select@ or @archive-retrieval@ code>. An error occurs if you specify this request parameter for an inventory retrieval job request.
-jpArchiveId :: Lens' JobParameters (Maybe Text)
-jpArchiveId = lens _jpArchiveId (\s a -> s {_jpArchiveId = a})
+-- | The ID of the archive that you want to retrieve. This field is required
+-- only if @Type@ is set to @select@ or @archive-retrieval@code>. An error
+-- occurs if you specify this request parameter for an inventory retrieval
+-- job request.
+jobParameters_archiveId :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_archiveId = Lens.lens (\JobParameters' {archiveId} -> archiveId) (\s@JobParameters' {} a -> s {archiveId = a} :: JobParameters)
 
--- | The Amazon SNS topic ARN to which Amazon S3 Glacier sends a notification when the job is completed and the output is ready for you to download. The specified topic publishes the notification to its subscribers. The SNS topic must exist.
-jpSNSTopic :: Lens' JobParameters (Maybe Text)
-jpSNSTopic = lens _jpSNSTopic (\s a -> s {_jpSNSTopic = a})
+-- | The Amazon SNS topic ARN to which Amazon S3 Glacier sends a notification
+-- when the job is completed and the output is ready for you to download.
+-- The specified topic publishes the notification to its subscribers. The
+-- SNS topic must exist.
+jobParameters_sNSTopic :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_sNSTopic = Lens.lens (\JobParameters' {sNSTopic} -> sNSTopic) (\s@JobParameters' {} a -> s {sNSTopic = a} :: JobParameters)
 
--- | The optional description for the job. The description must be less than or equal to 1,024 bytes. The allowable characters are 7-bit ASCII without control codes-specifically, ASCII values 32-126 decimal or 0x20-0x7E hexadecimal.
-jpDescription :: Lens' JobParameters (Maybe Text)
-jpDescription = lens _jpDescription (\s a -> s {_jpDescription = a})
+-- | The optional description for the job. The description must be less than
+-- or equal to 1,024 bytes. The allowable characters are 7-bit ASCII
+-- without control codes-specifically, ASCII values 32-126 decimal or
+-- 0x20-0x7E hexadecimal.
+jobParameters_description :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_description = Lens.lens (\JobParameters' {description} -> description) (\s@JobParameters' {} a -> s {description = a} :: JobParameters)
 
 -- | Input parameters used for range inventory retrieval.
-jpInventoryRetrievalParameters :: Lens' JobParameters (Maybe InventoryRetrievalJobInput)
-jpInventoryRetrievalParameters = lens _jpInventoryRetrievalParameters (\s a -> s {_jpInventoryRetrievalParameters = a})
+jobParameters_inventoryRetrievalParameters :: Lens.Lens' JobParameters (Prelude.Maybe InventoryRetrievalJobInput)
+jobParameters_inventoryRetrievalParameters = Lens.lens (\JobParameters' {inventoryRetrievalParameters} -> inventoryRetrievalParameters) (\s@JobParameters' {} a -> s {inventoryRetrievalParameters = a} :: JobParameters)
 
--- | The job type. You can initiate a job to perform a select query on an archive, retrieve an archive, or get an inventory of a vault. Valid values are "select", "archive-retrieval" and "inventory-retrieval".
-jpType :: Lens' JobParameters (Maybe Text)
-jpType = lens _jpType (\s a -> s {_jpType = a})
+-- | The job type. You can initiate a job to perform a select query on an
+-- archive, retrieve an archive, or get an inventory of a vault. Valid
+-- values are \"select\", \"archive-retrieval\" and
+-- \"inventory-retrieval\".
+jobParameters_type :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_type = Lens.lens (\JobParameters' {type'} -> type') (\s@JobParameters' {} a -> s {type' = a} :: JobParameters)
 
--- | Contains information about the location where the select job results are stored.
-jpOutputLocation :: Lens' JobParameters (Maybe OutputLocation)
-jpOutputLocation = lens _jpOutputLocation (\s a -> s {_jpOutputLocation = a})
+-- | Contains information about the location where the select job results are
+-- stored.
+jobParameters_outputLocation :: Lens.Lens' JobParameters (Prelude.Maybe OutputLocation)
+jobParameters_outputLocation = Lens.lens (\JobParameters' {outputLocation} -> outputLocation) (\s@JobParameters' {} a -> s {outputLocation = a} :: JobParameters)
 
--- | The tier to use for a select or an archive retrieval job. Valid values are @Expedited@ , @Standard@ , or @Bulk@ . @Standard@ is the default.
-jpTier :: Lens' JobParameters (Maybe Text)
-jpTier = lens _jpTier (\s a -> s {_jpTier = a})
+-- | The tier to use for a select or an archive retrieval job. Valid values
+-- are @Expedited@, @Standard@, or @Bulk@. @Standard@ is the default.
+jobParameters_tier :: Lens.Lens' JobParameters (Prelude.Maybe Prelude.Text)
+jobParameters_tier = Lens.lens (\JobParameters' {tier} -> tier) (\s@JobParameters' {} a -> s {tier = a} :: JobParameters)
 
-instance Hashable JobParameters
+instance Prelude.Hashable JobParameters
 
-instance NFData JobParameters
+instance Prelude.NFData JobParameters
 
-instance ToJSON JobParameters where
+instance Prelude.ToJSON JobParameters where
   toJSON JobParameters' {..} =
-    object
-      ( catMaybes
-          [ ("RetrievalByteRange" .=) <$> _jpRetrievalByteRange,
-            ("Format" .=) <$> _jpFormat,
-            ("SelectParameters" .=) <$> _jpSelectParameters,
-            ("ArchiveId" .=) <$> _jpArchiveId,
-            ("SNSTopic" .=) <$> _jpSNSTopic,
-            ("Description" .=) <$> _jpDescription,
-            ("InventoryRetrievalParameters" .=)
-              <$> _jpInventoryRetrievalParameters,
-            ("Type" .=) <$> _jpType,
-            ("OutputLocation" .=) <$> _jpOutputLocation,
-            ("Tier" .=) <$> _jpTier
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RetrievalByteRange" Prelude..=)
+              Prelude.<$> retrievalByteRange,
+            ("Format" Prelude..=) Prelude.<$> format,
+            ("SelectParameters" Prelude..=)
+              Prelude.<$> selectParameters,
+            ("ArchiveId" Prelude..=) Prelude.<$> archiveId,
+            ("SNSTopic" Prelude..=) Prelude.<$> sNSTopic,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("InventoryRetrievalParameters" Prelude..=)
+              Prelude.<$> inventoryRetrievalParameters,
+            ("Type" Prelude..=) Prelude.<$> type',
+            ("OutputLocation" Prelude..=)
+              Prelude.<$> outputLocation,
+            ("Tier" Prelude..=) Prelude.<$> tier
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glacier.Types.ArchiveCreationOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the Amazon S3 Glacier response to your request.
 --
+-- For information about the underlying REST API, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html Upload Archive>.
+-- For conceptual information, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html Working with Archives in Amazon S3 Glacier>.
 --
--- For information about the underlying REST API, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html Upload Archive> . For conceptual information, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html Working with Archives in Amazon S3 Glacier> .
---
---
--- /See:/ 'archiveCreationOutput' smart constructor.
+-- /See:/ 'newArchiveCreationOutput' smart constructor.
 data ArchiveCreationOutput = ArchiveCreationOutput'
-  { _acoArchiveId ::
-      !(Maybe Text),
-    _acoLocation ::
-      !(Maybe Text),
-    _acoChecksum ::
-      !(Maybe Text)
+  { -- | The ID of the archive. This value is also included as part of the
+    -- location.
+    archiveId :: Prelude.Maybe Prelude.Text,
+    -- | The relative URI path of the newly added archive resource.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The checksum of the archive computed by Amazon S3 Glacier.
+    checksum :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArchiveCreationOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArchiveCreationOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acoArchiveId' - The ID of the archive. This value is also included as part of the location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acoLocation' - The relative URI path of the newly added archive resource.
+-- 'archiveId', 'archiveCreationOutput_archiveId' - The ID of the archive. This value is also included as part of the
+-- location.
 --
--- * 'acoChecksum' - The checksum of the archive computed by Amazon S3 Glacier.
-archiveCreationOutput ::
+-- 'location', 'archiveCreationOutput_location' - The relative URI path of the newly added archive resource.
+--
+-- 'checksum', 'archiveCreationOutput_checksum' - The checksum of the archive computed by Amazon S3 Glacier.
+newArchiveCreationOutput ::
   ArchiveCreationOutput
-archiveCreationOutput =
+newArchiveCreationOutput =
   ArchiveCreationOutput'
-    { _acoArchiveId = Nothing,
-      _acoLocation = Nothing,
-      _acoChecksum = Nothing
+    { archiveId = Prelude.Nothing,
+      location = Prelude.Nothing,
+      checksum = Prelude.Nothing
     }
 
--- | The ID of the archive. This value is also included as part of the location.
-acoArchiveId :: Lens' ArchiveCreationOutput (Maybe Text)
-acoArchiveId = lens _acoArchiveId (\s a -> s {_acoArchiveId = a})
+-- | The ID of the archive. This value is also included as part of the
+-- location.
+archiveCreationOutput_archiveId :: Lens.Lens' ArchiveCreationOutput (Prelude.Maybe Prelude.Text)
+archiveCreationOutput_archiveId = Lens.lens (\ArchiveCreationOutput' {archiveId} -> archiveId) (\s@ArchiveCreationOutput' {} a -> s {archiveId = a} :: ArchiveCreationOutput)
 
 -- | The relative URI path of the newly added archive resource.
-acoLocation :: Lens' ArchiveCreationOutput (Maybe Text)
-acoLocation = lens _acoLocation (\s a -> s {_acoLocation = a})
+archiveCreationOutput_location :: Lens.Lens' ArchiveCreationOutput (Prelude.Maybe Prelude.Text)
+archiveCreationOutput_location = Lens.lens (\ArchiveCreationOutput' {location} -> location) (\s@ArchiveCreationOutput' {} a -> s {location = a} :: ArchiveCreationOutput)
 
 -- | The checksum of the archive computed by Amazon S3 Glacier.
-acoChecksum :: Lens' ArchiveCreationOutput (Maybe Text)
-acoChecksum = lens _acoChecksum (\s a -> s {_acoChecksum = a})
+archiveCreationOutput_checksum :: Lens.Lens' ArchiveCreationOutput (Prelude.Maybe Prelude.Text)
+archiveCreationOutput_checksum = Lens.lens (\ArchiveCreationOutput' {checksum} -> checksum) (\s@ArchiveCreationOutput' {} a -> s {checksum = a} :: ArchiveCreationOutput)
 
-instance FromJSON ArchiveCreationOutput where
+instance Prelude.FromJSON ArchiveCreationOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArchiveCreationOutput"
       ( \x ->
           ArchiveCreationOutput'
-            <$> (x .:? "x-amz-archive-id")
-            <*> (x .:? "Location")
-            <*> (x .:? "x-amz-sha256-tree-hash")
+            Prelude.<$> (x Prelude..:? "x-amz-archive-id")
+            Prelude.<*> (x Prelude..:? "Location")
+            Prelude.<*> (x Prelude..:? "x-amz-sha256-tree-hash")
       )
 
-instance Hashable ArchiveCreationOutput
+instance Prelude.Hashable ArchiveCreationOutput
 
-instance NFData ArchiveCreationOutput
+instance Prelude.NFData ArchiveCreationOutput

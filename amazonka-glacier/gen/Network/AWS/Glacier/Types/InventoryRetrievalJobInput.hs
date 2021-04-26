@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glacier.Types.InventoryRetrievalJobInput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides options for specifying a range inventory retrieval job.
 --
---
---
--- /See:/ 'inventoryRetrievalJobInput' smart constructor.
+-- /See:/ 'newInventoryRetrievalJobInput' smart constructor.
 data InventoryRetrievalJobInput = InventoryRetrievalJobInput'
-  { _irjiStartDate ::
-      !(Maybe Text),
-    _irjiEndDate ::
-      !(Maybe Text),
-    _irjiLimit ::
-      !(Maybe Text),
-    _irjiMarker ::
-      !(Maybe Text)
+  { -- | The start of the date range in UTC for vault inventory retrieval that
+    -- includes archives created on or after this date. This value should be a
+    -- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
+    startDate :: Prelude.Maybe Prelude.Text,
+    -- | The end of the date range in UTC for vault inventory retrieval that
+    -- includes archives created before this date. This value should be a
+    -- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
+    endDate :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the maximum number of inventory items returned per vault
+    -- inventory retrieval request. Valid values are greater than or equal to
+    -- 1.
+    limit :: Prelude.Maybe Prelude.Text,
+    -- | An opaque string that represents where to continue pagination of the
+    -- vault inventory retrieval results. You use the marker in a new
+    -- __InitiateJob__ request to obtain additional inventory items. If there
+    -- are no more inventory items, this value is @null@.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryRetrievalJobInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryRetrievalJobInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'irjiStartDate' - The start of the date range in UTC for vault inventory retrieval that includes archives created on or after this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'irjiEndDate' - The end of the date range in UTC for vault inventory retrieval that includes archives created before this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
+-- 'startDate', 'inventoryRetrievalJobInput_startDate' - The start of the date range in UTC for vault inventory retrieval that
+-- includes archives created on or after this date. This value should be a
+-- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
 --
--- * 'irjiLimit' - Specifies the maximum number of inventory items returned per vault inventory retrieval request. Valid values are greater than or equal to 1.
+-- 'endDate', 'inventoryRetrievalJobInput_endDate' - The end of the date range in UTC for vault inventory retrieval that
+-- includes archives created before this date. This value should be a
+-- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
 --
--- * 'irjiMarker' - An opaque string that represents where to continue pagination of the vault inventory retrieval results. You use the marker in a new __InitiateJob__ request to obtain additional inventory items. If there are no more inventory items, this value is @null@ .
-inventoryRetrievalJobInput ::
+-- 'limit', 'inventoryRetrievalJobInput_limit' - Specifies the maximum number of inventory items returned per vault
+-- inventory retrieval request. Valid values are greater than or equal to
+-- 1.
+--
+-- 'marker', 'inventoryRetrievalJobInput_marker' - An opaque string that represents where to continue pagination of the
+-- vault inventory retrieval results. You use the marker in a new
+-- __InitiateJob__ request to obtain additional inventory items. If there
+-- are no more inventory items, this value is @null@.
+newInventoryRetrievalJobInput ::
   InventoryRetrievalJobInput
-inventoryRetrievalJobInput =
+newInventoryRetrievalJobInput =
   InventoryRetrievalJobInput'
-    { _irjiStartDate =
-        Nothing,
-      _irjiEndDate = Nothing,
-      _irjiLimit = Nothing,
-      _irjiMarker = Nothing
+    { startDate =
+        Prelude.Nothing,
+      endDate = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The start of the date range in UTC for vault inventory retrieval that includes archives created on or after this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
-irjiStartDate :: Lens' InventoryRetrievalJobInput (Maybe Text)
-irjiStartDate = lens _irjiStartDate (\s a -> s {_irjiStartDate = a})
+-- | The start of the date range in UTC for vault inventory retrieval that
+-- includes archives created on or after this date. This value should be a
+-- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
+inventoryRetrievalJobInput_startDate :: Lens.Lens' InventoryRetrievalJobInput (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobInput_startDate = Lens.lens (\InventoryRetrievalJobInput' {startDate} -> startDate) (\s@InventoryRetrievalJobInput' {} a -> s {startDate = a} :: InventoryRetrievalJobInput)
 
--- | The end of the date range in UTC for vault inventory retrieval that includes archives created before this date. This value should be a string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@ .
-irjiEndDate :: Lens' InventoryRetrievalJobInput (Maybe Text)
-irjiEndDate = lens _irjiEndDate (\s a -> s {_irjiEndDate = a})
+-- | The end of the date range in UTC for vault inventory retrieval that
+-- includes archives created before this date. This value should be a
+-- string in the ISO 8601 date format, for example @2013-03-20T17:03:43Z@.
+inventoryRetrievalJobInput_endDate :: Lens.Lens' InventoryRetrievalJobInput (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobInput_endDate = Lens.lens (\InventoryRetrievalJobInput' {endDate} -> endDate) (\s@InventoryRetrievalJobInput' {} a -> s {endDate = a} :: InventoryRetrievalJobInput)
 
--- | Specifies the maximum number of inventory items returned per vault inventory retrieval request. Valid values are greater than or equal to 1.
-irjiLimit :: Lens' InventoryRetrievalJobInput (Maybe Text)
-irjiLimit = lens _irjiLimit (\s a -> s {_irjiLimit = a})
+-- | Specifies the maximum number of inventory items returned per vault
+-- inventory retrieval request. Valid values are greater than or equal to
+-- 1.
+inventoryRetrievalJobInput_limit :: Lens.Lens' InventoryRetrievalJobInput (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobInput_limit = Lens.lens (\InventoryRetrievalJobInput' {limit} -> limit) (\s@InventoryRetrievalJobInput' {} a -> s {limit = a} :: InventoryRetrievalJobInput)
 
--- | An opaque string that represents where to continue pagination of the vault inventory retrieval results. You use the marker in a new __InitiateJob__ request to obtain additional inventory items. If there are no more inventory items, this value is @null@ .
-irjiMarker :: Lens' InventoryRetrievalJobInput (Maybe Text)
-irjiMarker = lens _irjiMarker (\s a -> s {_irjiMarker = a})
+-- | An opaque string that represents where to continue pagination of the
+-- vault inventory retrieval results. You use the marker in a new
+-- __InitiateJob__ request to obtain additional inventory items. If there
+-- are no more inventory items, this value is @null@.
+inventoryRetrievalJobInput_marker :: Lens.Lens' InventoryRetrievalJobInput (Prelude.Maybe Prelude.Text)
+inventoryRetrievalJobInput_marker = Lens.lens (\InventoryRetrievalJobInput' {marker} -> marker) (\s@InventoryRetrievalJobInput' {} a -> s {marker = a} :: InventoryRetrievalJobInput)
 
-instance Hashable InventoryRetrievalJobInput
+instance Prelude.Hashable InventoryRetrievalJobInput
 
-instance NFData InventoryRetrievalJobInput
+instance Prelude.NFData InventoryRetrievalJobInput
 
-instance ToJSON InventoryRetrievalJobInput where
+instance Prelude.ToJSON InventoryRetrievalJobInput where
   toJSON InventoryRetrievalJobInput' {..} =
-    object
-      ( catMaybes
-          [ ("StartDate" .=) <$> _irjiStartDate,
-            ("EndDate" .=) <$> _irjiEndDate,
-            ("Limit" .=) <$> _irjiLimit,
-            ("Marker" .=) <$> _irjiMarker
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StartDate" Prelude..=) Prelude.<$> startDate,
+            ("EndDate" Prelude..=) Prelude.<$> endDate,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            ("Marker" Prelude..=) Prelude.<$> marker
           ]
       )

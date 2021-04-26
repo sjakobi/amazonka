@@ -11,23 +11,42 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon S3 Glacier (Glacier) is a storage solution for "cold data."
+-- Amazon S3 Glacier (Glacier) is a storage solution for \"cold data.\"
 --
+-- Glacier is an extremely low-cost storage service that provides secure,
+-- durable, and easy-to-use storage for data backup and archival. With
+-- Glacier, customers can store their data cost effectively for months,
+-- years, or decades. Glacier also enables customers to offload the
+-- administrative burdens of operating and scaling storage to AWS, so they
+-- don\'t have to worry about capacity planning, hardware provisioning,
+-- data replication, hardware failure and recovery, or time-consuming
+-- hardware migrations.
 --
--- Glacier is an extremely low-cost storage service that provides secure, durable, and easy-to-use storage for data backup and archival. With Glacier, customers can store their data cost effectively for months, years, or decades. Glacier also enables customers to offload the administrative burdens of operating and scaling storage to AWS, so they don't have to worry about capacity planning, hardware provisioning, data replication, hardware failure and recovery, or time-consuming hardware migrations.
+-- Glacier is a great storage choice when low storage cost is paramount and
+-- your data is rarely retrieved. If your application requires fast or
+-- frequent access to your data, consider using Amazon S3. For more
+-- information, see
+-- <http://aws.amazon.com/s3/ Amazon Simple Storage Service (Amazon S3)>.
 --
--- Glacier is a great storage choice when low storage cost is paramount and your data is rarely retrieved. If your application requires fast or frequent access to your data, consider using Amazon S3. For more information, see <http://aws.amazon.com/s3/ Amazon Simple Storage Service (Amazon S3)> .
+-- You can store any kind of data in any format. There is no maximum limit
+-- on the total amount of data you can store in Glacier.
 --
--- You can store any kind of data in any format. There is no maximum limit on the total amount of data you can store in Glacier.
+-- If you are a first-time user of Glacier, we recommend that you begin by
+-- reading the following sections in the /Amazon S3 Glacier Developer
+-- Guide/:
 --
--- If you are a first-time user of Glacier, we recommend that you begin by reading the following sections in the /Amazon S3 Glacier Developer Guide/ :
+-- -   <https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html What is Amazon S3 Glacier>
+--     - This section of the Developer Guide describes the underlying data
+--     model, the operations it supports, and the AWS SDKs that you can use
+--     to interact with the service.
 --
---     * <https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html What is Amazon S3 Glacier> - This section of the Developer Guide describes the underlying data model, the operations it supports, and the AWS SDKs that you can use to interact with the service.
---
---     * <https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html Getting Started with Amazon S3 Glacier> - The Getting Started section walks you through the process of creating a vault, uploading archives, creating jobs to download archives, retrieving the job output, and deleting archives.
+-- -   <https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html Getting Started with Amazon S3 Glacier>
+--     - The Getting Started section walks you through the process of
+--     creating a vault, uploading archives, creating jobs to download
+--     archives, retrieving the job output, and deleting archives.
 module Network.AWS.Glacier
   ( -- * Service Configuration
-    glacier,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -60,112 +79,211 @@ module Network.AWS.Glacier
     -- $waiters
 
     -- ** VaultExists
-    vaultExists,
+    newVaultExists,
 
     -- ** VaultNotExists
-    vaultNotExists,
+    newVaultNotExists,
 
     -- * Operations
     -- $operations
 
     -- ** PurchaseProvisionedCapacity
-    module Network.AWS.Glacier.PurchaseProvisionedCapacity,
+    PurchaseProvisionedCapacity (PurchaseProvisionedCapacity'),
+    newPurchaseProvisionedCapacity,
+    PurchaseProvisionedCapacityResponse (PurchaseProvisionedCapacityResponse'),
+    newPurchaseProvisionedCapacityResponse,
 
     -- ** DescribeVault
-    module Network.AWS.Glacier.DescribeVault,
+    DescribeVault (DescribeVault'),
+    newDescribeVault,
+    DescribeVaultOutput (DescribeVaultOutput'),
+    newDescribeVaultOutput,
 
     -- ** SetVaultAccessPolicy
-    module Network.AWS.Glacier.SetVaultAccessPolicy,
+    SetVaultAccessPolicy (SetVaultAccessPolicy'),
+    newSetVaultAccessPolicy,
+    SetVaultAccessPolicyResponse (SetVaultAccessPolicyResponse'),
+    newSetVaultAccessPolicyResponse,
 
     -- ** CompleteMultipartUpload
-    module Network.AWS.Glacier.CompleteMultipartUpload,
+    CompleteMultipartUpload (CompleteMultipartUpload'),
+    newCompleteMultipartUpload,
+    ArchiveCreationOutput (ArchiveCreationOutput'),
+    newArchiveCreationOutput,
 
     -- ** SetDataRetrievalPolicy
-    module Network.AWS.Glacier.SetDataRetrievalPolicy,
+    SetDataRetrievalPolicy (SetDataRetrievalPolicy'),
+    newSetDataRetrievalPolicy,
+    SetDataRetrievalPolicyResponse (SetDataRetrievalPolicyResponse'),
+    newSetDataRetrievalPolicyResponse,
 
     -- ** UploadArchive
-    module Network.AWS.Glacier.UploadArchive,
+    UploadArchive (UploadArchive'),
+    newUploadArchive,
+    ArchiveCreationOutput (ArchiveCreationOutput'),
+    newArchiveCreationOutput,
 
     -- ** ListProvisionedCapacity
-    module Network.AWS.Glacier.ListProvisionedCapacity,
+    ListProvisionedCapacity (ListProvisionedCapacity'),
+    newListProvisionedCapacity,
+    ListProvisionedCapacityResponse (ListProvisionedCapacityResponse'),
+    newListProvisionedCapacityResponse,
 
     -- ** SetVaultNotifications
-    module Network.AWS.Glacier.SetVaultNotifications,
+    SetVaultNotifications (SetVaultNotifications'),
+    newSetVaultNotifications,
+    SetVaultNotificationsResponse (SetVaultNotificationsResponse'),
+    newSetVaultNotificationsResponse,
 
     -- ** DeleteVault
-    module Network.AWS.Glacier.DeleteVault,
+    DeleteVault (DeleteVault'),
+    newDeleteVault,
+    DeleteVaultResponse (DeleteVaultResponse'),
+    newDeleteVaultResponse,
 
     -- ** AbortVaultLock
-    module Network.AWS.Glacier.AbortVaultLock,
+    AbortVaultLock (AbortVaultLock'),
+    newAbortVaultLock,
+    AbortVaultLockResponse (AbortVaultLockResponse'),
+    newAbortVaultLockResponse,
 
     -- ** DeleteArchive
-    module Network.AWS.Glacier.DeleteArchive,
+    DeleteArchive (DeleteArchive'),
+    newDeleteArchive,
+    DeleteArchiveResponse (DeleteArchiveResponse'),
+    newDeleteArchiveResponse,
 
     -- ** RemoveTagsFromVault
-    module Network.AWS.Glacier.RemoveTagsFromVault,
+    RemoveTagsFromVault (RemoveTagsFromVault'),
+    newRemoveTagsFromVault,
+    RemoveTagsFromVaultResponse (RemoveTagsFromVaultResponse'),
+    newRemoveTagsFromVaultResponse,
 
     -- ** ListVaults (Paginated)
-    module Network.AWS.Glacier.ListVaults,
+    ListVaults (ListVaults'),
+    newListVaults,
+    ListVaultsResponse (ListVaultsResponse'),
+    newListVaultsResponse,
 
     -- ** InitiateVaultLock
-    module Network.AWS.Glacier.InitiateVaultLock,
+    InitiateVaultLock (InitiateVaultLock'),
+    newInitiateVaultLock,
+    InitiateVaultLockResponse (InitiateVaultLockResponse'),
+    newInitiateVaultLockResponse,
 
     -- ** DescribeJob
-    module Network.AWS.Glacier.DescribeJob,
+    DescribeJob (DescribeJob'),
+    newDescribeJob,
+    GlacierJobDescription (GlacierJobDescription'),
+    newGlacierJobDescription,
 
     -- ** ListTagsForVault
-    module Network.AWS.Glacier.ListTagsForVault,
+    ListTagsForVault (ListTagsForVault'),
+    newListTagsForVault,
+    ListTagsForVaultResponse (ListTagsForVaultResponse'),
+    newListTagsForVaultResponse,
 
     -- ** GetVaultLock
-    module Network.AWS.Glacier.GetVaultLock,
+    GetVaultLock (GetVaultLock'),
+    newGetVaultLock,
+    GetVaultLockResponse (GetVaultLockResponse'),
+    newGetVaultLockResponse,
 
     -- ** AbortMultipartUpload
-    module Network.AWS.Glacier.AbortMultipartUpload,
+    AbortMultipartUpload (AbortMultipartUpload'),
+    newAbortMultipartUpload,
+    AbortMultipartUploadResponse (AbortMultipartUploadResponse'),
+    newAbortMultipartUploadResponse,
 
     -- ** DeleteVaultAccessPolicy
-    module Network.AWS.Glacier.DeleteVaultAccessPolicy,
+    DeleteVaultAccessPolicy (DeleteVaultAccessPolicy'),
+    newDeleteVaultAccessPolicy,
+    DeleteVaultAccessPolicyResponse (DeleteVaultAccessPolicyResponse'),
+    newDeleteVaultAccessPolicyResponse,
 
     -- ** InitiateJob
-    module Network.AWS.Glacier.InitiateJob,
+    InitiateJob (InitiateJob'),
+    newInitiateJob,
+    InitiateJobResponse (InitiateJobResponse'),
+    newInitiateJobResponse,
 
     -- ** ListMultipartUploads (Paginated)
-    module Network.AWS.Glacier.ListMultipartUploads,
+    ListMultipartUploads (ListMultipartUploads'),
+    newListMultipartUploads,
+    ListMultipartUploadsResponse (ListMultipartUploadsResponse'),
+    newListMultipartUploadsResponse,
 
     -- ** AddTagsToVault
-    module Network.AWS.Glacier.AddTagsToVault,
+    AddTagsToVault (AddTagsToVault'),
+    newAddTagsToVault,
+    AddTagsToVaultResponse (AddTagsToVaultResponse'),
+    newAddTagsToVaultResponse,
 
     -- ** InitiateMultipartUpload
-    module Network.AWS.Glacier.InitiateMultipartUpload,
+    InitiateMultipartUpload (InitiateMultipartUpload'),
+    newInitiateMultipartUpload,
+    InitiateMultipartUploadResponse (InitiateMultipartUploadResponse'),
+    newInitiateMultipartUploadResponse,
 
     -- ** CreateVault
-    module Network.AWS.Glacier.CreateVault,
+    CreateVault (CreateVault'),
+    newCreateVault,
+    CreateVaultResponse (CreateVaultResponse'),
+    newCreateVaultResponse,
 
     -- ** ListJobs (Paginated)
-    module Network.AWS.Glacier.ListJobs,
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
 
     -- ** ListParts (Paginated)
-    module Network.AWS.Glacier.ListParts,
+    ListParts (ListParts'),
+    newListParts,
+    ListPartsResponse (ListPartsResponse'),
+    newListPartsResponse,
 
     -- ** GetJobOutput
-    module Network.AWS.Glacier.GetJobOutput,
+    GetJobOutput (GetJobOutput'),
+    newGetJobOutput,
+    GetJobOutputResponse (GetJobOutputResponse'),
+    newGetJobOutputResponse,
 
     -- ** CompleteVaultLock
-    module Network.AWS.Glacier.CompleteVaultLock,
+    CompleteVaultLock (CompleteVaultLock'),
+    newCompleteVaultLock,
+    CompleteVaultLockResponse (CompleteVaultLockResponse'),
+    newCompleteVaultLockResponse,
 
     -- ** GetVaultAccessPolicy
-    module Network.AWS.Glacier.GetVaultAccessPolicy,
+    GetVaultAccessPolicy (GetVaultAccessPolicy'),
+    newGetVaultAccessPolicy,
+    GetVaultAccessPolicyResponse (GetVaultAccessPolicyResponse'),
+    newGetVaultAccessPolicyResponse,
 
     -- ** GetDataRetrievalPolicy
-    module Network.AWS.Glacier.GetDataRetrievalPolicy,
+    GetDataRetrievalPolicy (GetDataRetrievalPolicy'),
+    newGetDataRetrievalPolicy,
+    GetDataRetrievalPolicyResponse (GetDataRetrievalPolicyResponse'),
+    newGetDataRetrievalPolicyResponse,
 
     -- ** DeleteVaultNotifications
-    module Network.AWS.Glacier.DeleteVaultNotifications,
+    DeleteVaultNotifications (DeleteVaultNotifications'),
+    newDeleteVaultNotifications,
+    DeleteVaultNotificationsResponse (DeleteVaultNotificationsResponse'),
+    newDeleteVaultNotificationsResponse,
 
     -- ** UploadMultipartPart
-    module Network.AWS.Glacier.UploadMultipartPart,
+    UploadMultipartPart (UploadMultipartPart'),
+    newUploadMultipartPart,
+    UploadMultipartPartResponse (UploadMultipartPartResponse'),
+    newUploadMultipartPartResponse,
 
     -- ** GetVaultNotifications
-    module Network.AWS.Glacier.GetVaultNotifications,
+    GetVaultNotifications (GetVaultNotifications'),
+    newGetVaultNotifications,
+    GetVaultNotificationsResponse (GetVaultNotificationsResponse'),
+    newGetVaultNotificationsResponse,
 
     -- * Types
 
@@ -200,202 +318,100 @@ module Network.AWS.Glacier
     Type (..),
 
     -- ** ArchiveCreationOutput
-    ArchiveCreationOutput,
-    archiveCreationOutput,
-    acoArchiveId,
-    acoLocation,
-    acoChecksum,
+    ArchiveCreationOutput (ArchiveCreationOutput'),
+    newArchiveCreationOutput,
 
     -- ** CSVInput
-    CSVInput,
-    csvInput,
-    ciRecordDelimiter,
-    ciQuoteCharacter,
-    ciFileHeaderInfo,
-    ciFieldDelimiter,
-    ciComments,
-    ciQuoteEscapeCharacter,
+    CSVInput (CSVInput'),
+    newCSVInput,
 
     -- ** CSVOutput
-    CSVOutput,
-    csvOutput,
-    coRecordDelimiter,
-    coQuoteCharacter,
-    coFieldDelimiter,
-    coQuoteFields,
-    coQuoteEscapeCharacter,
+    CSVOutput (CSVOutput'),
+    newCSVOutput,
 
     -- ** DataRetrievalPolicy
-    DataRetrievalPolicy,
-    dataRetrievalPolicy,
-    drpRules,
+    DataRetrievalPolicy (DataRetrievalPolicy'),
+    newDataRetrievalPolicy,
 
     -- ** DataRetrievalRule
-    DataRetrievalRule,
-    dataRetrievalRule,
-    drrBytesPerHour,
-    drrStrategy,
+    DataRetrievalRule (DataRetrievalRule'),
+    newDataRetrievalRule,
 
     -- ** DescribeVaultOutput
-    DescribeVaultOutput,
-    describeVaultOutput,
-    dvoLastInventoryDate,
-    dvoCreationDate,
-    dvoVaultName,
-    dvoVaultARN,
-    dvoSizeInBytes,
-    dvoNumberOfArchives,
+    DescribeVaultOutput (DescribeVaultOutput'),
+    newDescribeVaultOutput,
 
     -- ** Encryption
-    Encryption,
-    encryption,
-    eEncryptionType,
-    eKMSKeyId,
-    eKMSContext,
+    Encryption (Encryption'),
+    newEncryption,
 
     -- ** GlacierJobDescription
-    GlacierJobDescription,
-    glacierJobDescription,
-    gjdSHA256TreeHash,
-    gjdStatusMessage,
-    gjdJobDescription,
-    gjdRetrievalByteRange,
-    gjdCreationDate,
-    gjdJobOutputPath,
-    gjdSelectParameters,
-    gjdVaultARN,
-    gjdArchiveId,
-    gjdSNSTopic,
-    gjdInventorySizeInBytes,
-    gjdStatusCode,
-    gjdArchiveSizeInBytes,
-    gjdAction,
-    gjdInventoryRetrievalParameters,
-    gjdCompletionDate,
-    gjdArchiveSHA256TreeHash,
-    gjdCompleted,
-    gjdJobId,
-    gjdOutputLocation,
-    gjdTier,
+    GlacierJobDescription (GlacierJobDescription'),
+    newGlacierJobDescription,
 
     -- ** Grant
-    Grant,
-    grant,
-    gGrantee,
-    gPermission,
+    Grant (Grant'),
+    newGrant,
 
     -- ** Grantee
-    Grantee,
-    grantee,
-    gURI,
-    gId,
-    gDisplayName,
-    gEmailAddress,
-    gType,
+    Grantee (Grantee'),
+    newGrantee,
 
     -- ** InputSerialization
-    InputSerialization,
-    inputSerialization,
-    isCsv,
+    InputSerialization (InputSerialization'),
+    newInputSerialization,
 
     -- ** InventoryRetrievalJobDescription
-    InventoryRetrievalJobDescription,
-    inventoryRetrievalJobDescription,
-    irjdStartDate,
-    irjdFormat,
-    irjdEndDate,
-    irjdLimit,
-    irjdMarker,
+    InventoryRetrievalJobDescription (InventoryRetrievalJobDescription'),
+    newInventoryRetrievalJobDescription,
 
     -- ** InventoryRetrievalJobInput
-    InventoryRetrievalJobInput,
-    inventoryRetrievalJobInput,
-    irjiStartDate,
-    irjiEndDate,
-    irjiLimit,
-    irjiMarker,
+    InventoryRetrievalJobInput (InventoryRetrievalJobInput'),
+    newInventoryRetrievalJobInput,
 
     -- ** JobParameters
-    JobParameters,
-    jobParameters,
-    jpRetrievalByteRange,
-    jpFormat,
-    jpSelectParameters,
-    jpArchiveId,
-    jpSNSTopic,
-    jpDescription,
-    jpInventoryRetrievalParameters,
-    jpType,
-    jpOutputLocation,
-    jpTier,
+    JobParameters (JobParameters'),
+    newJobParameters,
 
     -- ** OutputLocation
-    OutputLocation,
-    outputLocation,
-    olS3,
+    OutputLocation (OutputLocation'),
+    newOutputLocation,
 
     -- ** OutputSerialization
-    OutputSerialization,
-    outputSerialization,
-    osCsv,
+    OutputSerialization (OutputSerialization'),
+    newOutputSerialization,
 
     -- ** PartListElement
-    PartListElement,
-    partListElement,
-    pleSHA256TreeHash,
-    pleRangeInBytes,
+    PartListElement (PartListElement'),
+    newPartListElement,
 
     -- ** ProvisionedCapacityDescription
-    ProvisionedCapacityDescription,
-    provisionedCapacityDescription,
-    pcdStartDate,
-    pcdCapacityId,
-    pcdExpirationDate,
+    ProvisionedCapacityDescription (ProvisionedCapacityDescription'),
+    newProvisionedCapacityDescription,
 
     -- ** S3Location
-    S3Location,
-    s3Location,
-    slBucketName,
-    slPrefix,
-    slCannedACL,
-    slEncryption,
-    slStorageClass,
-    slUserMetadata,
-    slAccessControlList,
-    slTagging,
+    S3Location (S3Location'),
+    newS3Location,
 
     -- ** SelectParameters
-    SelectParameters,
-    selectParameters,
-    spExpressionType,
-    spOutputSerialization,
-    spInputSerialization,
-    spExpression,
+    SelectParameters (SelectParameters'),
+    newSelectParameters,
 
     -- ** UploadListElement
-    UploadListElement,
-    uploadListElement,
-    ulePartSizeInBytes,
-    uleCreationDate,
-    uleVaultARN,
-    uleArchiveDescription,
-    uleMultipartUploadId,
+    UploadListElement (UploadListElement'),
+    newUploadListElement,
 
     -- ** VaultAccessPolicy
-    VaultAccessPolicy,
-    vaultAccessPolicy,
-    vapPolicy,
+    VaultAccessPolicy (VaultAccessPolicy'),
+    newVaultAccessPolicy,
 
     -- ** VaultLockPolicy
-    VaultLockPolicy,
-    vaultLockPolicy,
-    vlpPolicy,
+    VaultLockPolicy (VaultLockPolicy'),
+    newVaultLockPolicy,
 
     -- ** VaultNotificationConfig
-    VaultNotificationConfig,
-    vaultNotificationConfig,
-    vncEvents,
-    vncSNSTopic,
+    VaultNotificationConfig (VaultNotificationConfig'),
+    newVaultNotificationConfig,
   )
 where
 
@@ -419,6 +435,7 @@ import Network.AWS.Glacier.GetVaultNotifications
 import Network.AWS.Glacier.InitiateJob
 import Network.AWS.Glacier.InitiateMultipartUpload
 import Network.AWS.Glacier.InitiateVaultLock
+import Network.AWS.Glacier.Lens
 import Network.AWS.Glacier.ListJobs
 import Network.AWS.Glacier.ListMultipartUploads
 import Network.AWS.Glacier.ListParts

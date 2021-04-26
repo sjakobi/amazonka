@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +21,66 @@ module Network.AWS.Glacier.Types.Grant where
 
 import Network.AWS.Glacier.Types.Grantee
 import Network.AWS.Glacier.Types.Permission
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a grant.
 --
---
---
--- /See:/ 'grant' smart constructor.
+-- /See:/ 'newGrant' smart constructor.
 data Grant = Grant'
-  { _gGrantee :: !(Maybe Grantee),
-    _gPermission :: !(Maybe Permission)
+  { -- | The grantee.
+    grantee :: Prelude.Maybe Grantee,
+    -- | Specifies the permission given to the grantee.
+    permission :: Prelude.Maybe Permission
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Grant' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Grant' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gGrantee' - The grantee.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gPermission' - Specifies the permission given to the grantee.
-grant ::
+-- 'grantee', 'grant_grantee' - The grantee.
+--
+-- 'permission', 'grant_permission' - Specifies the permission given to the grantee.
+newGrant ::
   Grant
-grant =
-  Grant' {_gGrantee = Nothing, _gPermission = Nothing}
+newGrant =
+  Grant'
+    { grantee = Prelude.Nothing,
+      permission = Prelude.Nothing
+    }
 
 -- | The grantee.
-gGrantee :: Lens' Grant (Maybe Grantee)
-gGrantee = lens _gGrantee (\s a -> s {_gGrantee = a})
+grant_grantee :: Lens.Lens' Grant (Prelude.Maybe Grantee)
+grant_grantee = Lens.lens (\Grant' {grantee} -> grantee) (\s@Grant' {} a -> s {grantee = a} :: Grant)
 
 -- | Specifies the permission given to the grantee.
-gPermission :: Lens' Grant (Maybe Permission)
-gPermission = lens _gPermission (\s a -> s {_gPermission = a})
+grant_permission :: Lens.Lens' Grant (Prelude.Maybe Permission)
+grant_permission = Lens.lens (\Grant' {permission} -> permission) (\s@Grant' {} a -> s {permission = a} :: Grant)
 
-instance FromJSON Grant where
+instance Prelude.FromJSON Grant where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Grant"
       ( \x ->
           Grant'
-            <$> (x .:? "Grantee") <*> (x .:? "Permission")
+            Prelude.<$> (x Prelude..:? "Grantee")
+            Prelude.<*> (x Prelude..:? "Permission")
       )
 
-instance Hashable Grant
+instance Prelude.Hashable Grant
 
-instance NFData Grant
+instance Prelude.NFData Grant
 
-instance ToJSON Grant where
+instance Prelude.ToJSON Grant where
   toJSON Grant' {..} =
-    object
-      ( catMaybes
-          [ ("Grantee" .=) <$> _gGrantee,
-            ("Permission" .=) <$> _gPermission
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Grantee" Prelude..=) Prelude.<$> grantee,
+            ("Permission" Prelude..=) Prelude.<$> permission
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Glacier.Types.ActionCode
   ( ActionCode
       ( ..,
-        ArchiveRetrieval,
-        InventoryRetrieval,
-        Select
+        ActionCodeArchiveRetrieval,
+        ActionCodeInventoryRetrieval,
+        ActionCodeSelect
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionCode = ActionCode' (CI Text)
+newtype ActionCode = ActionCode'
+  { fromActionCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ArchiveRetrieval :: ActionCode
-pattern ArchiveRetrieval = ActionCode' "ArchiveRetrieval"
+pattern ActionCodeArchiveRetrieval :: ActionCode
+pattern ActionCodeArchiveRetrieval = ActionCode' "ArchiveRetrieval"
 
-pattern InventoryRetrieval :: ActionCode
-pattern InventoryRetrieval = ActionCode' "InventoryRetrieval"
+pattern ActionCodeInventoryRetrieval :: ActionCode
+pattern ActionCodeInventoryRetrieval = ActionCode' "InventoryRetrieval"
 
-pattern Select :: ActionCode
-pattern Select = ActionCode' "Select"
+pattern ActionCodeSelect :: ActionCode
+pattern ActionCodeSelect = ActionCode' "Select"
 
 {-# COMPLETE
-  ArchiveRetrieval,
-  InventoryRetrieval,
-  Select,
+  ActionCodeArchiveRetrieval,
+  ActionCodeInventoryRetrieval,
+  ActionCodeSelect,
   ActionCode'
   #-}
 
-instance FromText ActionCode where
-  parser = (ActionCode' . mk) <$> takeText
+instance Prelude.FromText ActionCode where
+  parser = ActionCode' Prelude.<$> Prelude.takeText
 
-instance ToText ActionCode where
-  toText (ActionCode' ci) = original ci
+instance Prelude.ToText ActionCode where
+  toText (ActionCode' x) = x
 
-instance Hashable ActionCode
+instance Prelude.Hashable ActionCode
 
-instance NFData ActionCode
+instance Prelude.NFData ActionCode
 
-instance ToByteString ActionCode
+instance Prelude.ToByteString ActionCode
 
-instance ToQuery ActionCode
+instance Prelude.ToQuery ActionCode
 
-instance ToHeader ActionCode
+instance Prelude.ToHeader ActionCode
 
-instance FromJSON ActionCode where
-  parseJSON = parseJSONText "ActionCode"
+instance Prelude.FromJSON ActionCode where
+  parseJSON = Prelude.parseJSONText "ActionCode"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glacier.Types.UploadListElement where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of in-progress multipart uploads for a vault.
 --
---
---
--- /See:/ 'uploadListElement' smart constructor.
+-- /See:/ 'newUploadListElement' smart constructor.
 data UploadListElement = UploadListElement'
-  { _ulePartSizeInBytes ::
-      !(Maybe Integer),
-    _uleCreationDate :: !(Maybe Text),
-    _uleVaultARN :: !(Maybe Text),
-    _uleArchiveDescription ::
-      !(Maybe Text),
-    _uleMultipartUploadId ::
-      !(Maybe Text)
+  { -- | The part size, in bytes, specified in the Initiate Multipart Upload
+    -- request. This is the size of all the parts in the upload except the last
+    -- part, which may be smaller than this size.
+    partSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The UTC time at which the multipart upload was initiated.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the vault that contains the archive.
+    vaultARN :: Prelude.Maybe Prelude.Text,
+    -- | The description of the archive that was specified in the Initiate
+    -- Multipart Upload request.
+    archiveDescription :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a multipart upload.
+    multipartUploadId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UploadListElement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UploadListElement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ulePartSizeInBytes' - The part size, in bytes, specified in the Initiate Multipart Upload request. This is the size of all the parts in the upload except the last part, which may be smaller than this size.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uleCreationDate' - The UTC time at which the multipart upload was initiated.
+-- 'partSizeInBytes', 'uploadListElement_partSizeInBytes' - The part size, in bytes, specified in the Initiate Multipart Upload
+-- request. This is the size of all the parts in the upload except the last
+-- part, which may be smaller than this size.
 --
--- * 'uleVaultARN' - The Amazon Resource Name (ARN) of the vault that contains the archive.
+-- 'creationDate', 'uploadListElement_creationDate' - The UTC time at which the multipart upload was initiated.
 --
--- * 'uleArchiveDescription' - The description of the archive that was specified in the Initiate Multipart Upload request.
+-- 'vaultARN', 'uploadListElement_vaultARN' - The Amazon Resource Name (ARN) of the vault that contains the archive.
 --
--- * 'uleMultipartUploadId' - The ID of a multipart upload.
-uploadListElement ::
+-- 'archiveDescription', 'uploadListElement_archiveDescription' - The description of the archive that was specified in the Initiate
+-- Multipart Upload request.
+--
+-- 'multipartUploadId', 'uploadListElement_multipartUploadId' - The ID of a multipart upload.
+newUploadListElement ::
   UploadListElement
-uploadListElement =
+newUploadListElement =
   UploadListElement'
-    { _ulePartSizeInBytes = Nothing,
-      _uleCreationDate = Nothing,
-      _uleVaultARN = Nothing,
-      _uleArchiveDescription = Nothing,
-      _uleMultipartUploadId = Nothing
+    { partSizeInBytes =
+        Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      vaultARN = Prelude.Nothing,
+      archiveDescription = Prelude.Nothing,
+      multipartUploadId = Prelude.Nothing
     }
 
--- | The part size, in bytes, specified in the Initiate Multipart Upload request. This is the size of all the parts in the upload except the last part, which may be smaller than this size.
-ulePartSizeInBytes :: Lens' UploadListElement (Maybe Integer)
-ulePartSizeInBytes = lens _ulePartSizeInBytes (\s a -> s {_ulePartSizeInBytes = a})
+-- | The part size, in bytes, specified in the Initiate Multipart Upload
+-- request. This is the size of all the parts in the upload except the last
+-- part, which may be smaller than this size.
+uploadListElement_partSizeInBytes :: Lens.Lens' UploadListElement (Prelude.Maybe Prelude.Integer)
+uploadListElement_partSizeInBytes = Lens.lens (\UploadListElement' {partSizeInBytes} -> partSizeInBytes) (\s@UploadListElement' {} a -> s {partSizeInBytes = a} :: UploadListElement)
 
 -- | The UTC time at which the multipart upload was initiated.
-uleCreationDate :: Lens' UploadListElement (Maybe Text)
-uleCreationDate = lens _uleCreationDate (\s a -> s {_uleCreationDate = a})
+uploadListElement_creationDate :: Lens.Lens' UploadListElement (Prelude.Maybe Prelude.Text)
+uploadListElement_creationDate = Lens.lens (\UploadListElement' {creationDate} -> creationDate) (\s@UploadListElement' {} a -> s {creationDate = a} :: UploadListElement)
 
 -- | The Amazon Resource Name (ARN) of the vault that contains the archive.
-uleVaultARN :: Lens' UploadListElement (Maybe Text)
-uleVaultARN = lens _uleVaultARN (\s a -> s {_uleVaultARN = a})
+uploadListElement_vaultARN :: Lens.Lens' UploadListElement (Prelude.Maybe Prelude.Text)
+uploadListElement_vaultARN = Lens.lens (\UploadListElement' {vaultARN} -> vaultARN) (\s@UploadListElement' {} a -> s {vaultARN = a} :: UploadListElement)
 
--- | The description of the archive that was specified in the Initiate Multipart Upload request.
-uleArchiveDescription :: Lens' UploadListElement (Maybe Text)
-uleArchiveDescription = lens _uleArchiveDescription (\s a -> s {_uleArchiveDescription = a})
+-- | The description of the archive that was specified in the Initiate
+-- Multipart Upload request.
+uploadListElement_archiveDescription :: Lens.Lens' UploadListElement (Prelude.Maybe Prelude.Text)
+uploadListElement_archiveDescription = Lens.lens (\UploadListElement' {archiveDescription} -> archiveDescription) (\s@UploadListElement' {} a -> s {archiveDescription = a} :: UploadListElement)
 
 -- | The ID of a multipart upload.
-uleMultipartUploadId :: Lens' UploadListElement (Maybe Text)
-uleMultipartUploadId = lens _uleMultipartUploadId (\s a -> s {_uleMultipartUploadId = a})
+uploadListElement_multipartUploadId :: Lens.Lens' UploadListElement (Prelude.Maybe Prelude.Text)
+uploadListElement_multipartUploadId = Lens.lens (\UploadListElement' {multipartUploadId} -> multipartUploadId) (\s@UploadListElement' {} a -> s {multipartUploadId = a} :: UploadListElement)
 
-instance FromJSON UploadListElement where
+instance Prelude.FromJSON UploadListElement where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UploadListElement"
       ( \x ->
           UploadListElement'
-            <$> (x .:? "PartSizeInBytes")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "VaultARN")
-            <*> (x .:? "ArchiveDescription")
-            <*> (x .:? "MultipartUploadId")
+            Prelude.<$> (x Prelude..:? "PartSizeInBytes")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "VaultARN")
+            Prelude.<*> (x Prelude..:? "ArchiveDescription")
+            Prelude.<*> (x Prelude..:? "MultipartUploadId")
       )
 
-instance Hashable UploadListElement
+instance Prelude.Hashable UploadListElement
 
-instance NFData UploadListElement
+instance Prelude.NFData UploadListElement

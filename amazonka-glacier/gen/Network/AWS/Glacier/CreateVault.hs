@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation creates a new vault with the specified name. The name of the vault must be unique within a region for an AWS account. You can create up to 1,000 vaults per account. If you need to create more vaults, contact Amazon S3 Glacier.
---
+-- This operation creates a new vault with the specified name. The name of
+-- the vault must be unique within a region for an AWS account. You can
+-- create up to 1,000 vaults per account. If you need to create more
+-- vaults, contact Amazon S3 Glacier.
 --
 -- You must use the following guidelines when naming a vault.
 --
---     * Names can be between 1 and 255 characters long.
+-- -   Names can be between 1 and 255 characters long.
 --
---     * Allowed characters are a-z, A-Z, 0-9, '_' (underscore), '-' (hyphen), and '.' (period).
---
---
+-- -   Allowed characters are a-z, A-Z, 0-9, \'_\' (underscore), \'-\'
+--     (hyphen), and \'.\' (period).
 --
 -- This operation is idempotent.
 --
--- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
+-- An AWS account has full permission to perform all operations (actions).
+-- However, AWS Identity and Access Management (IAM) users don\'t have any
+-- permissions by default. You must grant them explicit permission to
+-- perform specific actions. For more information, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)>.
 --
--- For conceptual information and underlying REST API, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html Creating a Vault in Amazon Glacier> and <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html Create Vault > in the /Amazon Glacier Developer Guide/ .
+-- For conceptual information and underlying REST API, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html Creating a Vault in Amazon Glacier>
+-- and
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html Create Vault>
+-- in the /Amazon Glacier Developer Guide/.
 module Network.AWS.Glacier.CreateVault
   ( -- * Creating a Request
-    createVault,
-    CreateVault,
+    CreateVault (..),
+    newCreateVault,
 
     -- * Request Lenses
-    cvAccountId,
-    cvVaultName,
+    createVault_accountId,
+    createVault_vaultName,
 
     -- * Destructuring the Response
-    createVaultResponse,
-    CreateVaultResponse,
+    CreateVaultResponse (..),
+    newCreateVaultResponse,
 
     -- * Response Lenses
-    cvrrsLocation,
-    cvrrsResponseStatus,
+    createVaultResponse_location,
+    createVaultResponse_httpStatus,
   )
 where
 
 import Network.AWS.Glacier.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Provides options to create a vault.
 --
---
---
--- /See:/ 'createVault' smart constructor.
+-- /See:/ 'newCreateVault' smart constructor.
 data CreateVault = CreateVault'
-  { _cvAccountId ::
-      !Text,
-    _cvVaultName :: !Text
+  { -- | The @AccountId@ value is the AWS account ID. This value must match the
+    -- AWS account ID associated with the credentials used to sign the request.
+    -- You can either specify an AWS account ID or optionally a single \'@-@\'
+    -- (hyphen), in which case Amazon S3 Glacier uses the AWS account ID
+    -- associated with the credentials used to sign the request. If you specify
+    -- your account ID, do not include any hyphens (\'-\') in the ID.
+    accountId :: Prelude.Text,
+    -- | The name of the vault.
+    vaultName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateVault' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateVault' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvAccountId' - The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvVaultName' - The name of the vault.
-createVault ::
-  -- | 'cvAccountId'
-  Text ->
-  -- | 'cvVaultName'
-  Text ->
+-- 'accountId', 'createVault_accountId' - The @AccountId@ value is the AWS account ID. This value must match the
+-- AWS account ID associated with the credentials used to sign the request.
+-- You can either specify an AWS account ID or optionally a single \'@-@\'
+-- (hyphen), in which case Amazon S3 Glacier uses the AWS account ID
+-- associated with the credentials used to sign the request. If you specify
+-- your account ID, do not include any hyphens (\'-\') in the ID.
+--
+-- 'vaultName', 'createVault_vaultName' - The name of the vault.
+newCreateVault ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'vaultName'
+  Prelude.Text ->
   CreateVault
-createVault pAccountId_ pVaultName_ =
+newCreateVault pAccountId_ pVaultName_ =
   CreateVault'
-    { _cvAccountId = pAccountId_,
-      _cvVaultName = pVaultName_
+    { accountId = pAccountId_,
+      vaultName = pVaultName_
     }
 
--- | The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID.
-cvAccountId :: Lens' CreateVault Text
-cvAccountId = lens _cvAccountId (\s a -> s {_cvAccountId = a})
+-- | The @AccountId@ value is the AWS account ID. This value must match the
+-- AWS account ID associated with the credentials used to sign the request.
+-- You can either specify an AWS account ID or optionally a single \'@-@\'
+-- (hyphen), in which case Amazon S3 Glacier uses the AWS account ID
+-- associated with the credentials used to sign the request. If you specify
+-- your account ID, do not include any hyphens (\'-\') in the ID.
+createVault_accountId :: Lens.Lens' CreateVault Prelude.Text
+createVault_accountId = Lens.lens (\CreateVault' {accountId} -> accountId) (\s@CreateVault' {} a -> s {accountId = a} :: CreateVault)
 
 -- | The name of the vault.
-cvVaultName :: Lens' CreateVault Text
-cvVaultName = lens _cvVaultName (\s a -> s {_cvVaultName = a})
+createVault_vaultName :: Lens.Lens' CreateVault Prelude.Text
+createVault_vaultName = Lens.lens (\CreateVault' {vaultName} -> vaultName) (\s@CreateVault' {} a -> s {vaultName = a} :: CreateVault)
 
-instance AWSRequest CreateVault where
+instance Prelude.AWSRequest CreateVault where
   type Rs CreateVault = CreateVaultResponse
-  request = putJSON glacier
+  request = Request.putJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           CreateVaultResponse'
-            <$> (h .#? "Location") <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateVault
+instance Prelude.Hashable CreateVault
 
-instance NFData CreateVault
+instance Prelude.NFData CreateVault
 
-instance ToHeaders CreateVault where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateVault where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateVault where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON CreateVault where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath CreateVault where
+instance Prelude.ToPath CreateVault where
   toPath CreateVault' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/",
-        toBS _cvAccountId,
+        Prelude.toBS accountId,
         "/vaults/",
-        toBS _cvVaultName
+        Prelude.toBS vaultName
       ]
 
-instance ToQuery CreateVault where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateVault where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the Amazon S3 Glacier response to your request.
 --
---
---
--- /See:/ 'createVaultResponse' smart constructor.
+-- /See:/ 'newCreateVaultResponse' smart constructor.
 data CreateVaultResponse = CreateVaultResponse'
-  { _cvrrsLocation ::
-      !(Maybe Text),
-    _cvrrsResponseStatus :: !Int
+  { -- | The URI of the vault that was created.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateVaultResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateVaultResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvrrsLocation' - The URI of the vault that was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvrrsResponseStatus' - -- | The response status code.
-createVaultResponse ::
-  -- | 'cvrrsResponseStatus'
-  Int ->
+-- 'location', 'createVaultResponse_location' - The URI of the vault that was created.
+--
+-- 'httpStatus', 'createVaultResponse_httpStatus' - The response's http status code.
+newCreateVaultResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateVaultResponse
-createVaultResponse pResponseStatus_ =
+newCreateVaultResponse pHttpStatus_ =
   CreateVaultResponse'
-    { _cvrrsLocation = Nothing,
-      _cvrrsResponseStatus = pResponseStatus_
+    { location = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The URI of the vault that was created.
-cvrrsLocation :: Lens' CreateVaultResponse (Maybe Text)
-cvrrsLocation = lens _cvrrsLocation (\s a -> s {_cvrrsLocation = a})
+createVaultResponse_location :: Lens.Lens' CreateVaultResponse (Prelude.Maybe Prelude.Text)
+createVaultResponse_location = Lens.lens (\CreateVaultResponse' {location} -> location) (\s@CreateVaultResponse' {} a -> s {location = a} :: CreateVaultResponse)
 
--- | -- | The response status code.
-cvrrsResponseStatus :: Lens' CreateVaultResponse Int
-cvrrsResponseStatus = lens _cvrrsResponseStatus (\s a -> s {_cvrrsResponseStatus = a})
+-- | The response's http status code.
+createVaultResponse_httpStatus :: Lens.Lens' CreateVaultResponse Prelude.Int
+createVaultResponse_httpStatus = Lens.lens (\CreateVaultResponse' {httpStatus} -> httpStatus) (\s@CreateVaultResponse' {} a -> s {httpStatus = a} :: CreateVaultResponse)
 
-instance NFData CreateVaultResponse
+instance Prelude.NFData CreateVaultResponse

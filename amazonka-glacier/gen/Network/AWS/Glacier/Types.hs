@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Glacier.Types
   ( -- * Service Configuration
-    glacier,
+    defaultService,
 
     -- * Errors
     _ServiceUnavailableException,
@@ -55,201 +58,99 @@ module Network.AWS.Glacier.Types
 
     -- * ArchiveCreationOutput
     ArchiveCreationOutput (..),
-    archiveCreationOutput,
-    acoArchiveId,
-    acoLocation,
-    acoChecksum,
+    newArchiveCreationOutput,
 
     -- * CSVInput
     CSVInput (..),
-    csvInput,
-    ciRecordDelimiter,
-    ciQuoteCharacter,
-    ciFileHeaderInfo,
-    ciFieldDelimiter,
-    ciComments,
-    ciQuoteEscapeCharacter,
+    newCSVInput,
 
     -- * CSVOutput
     CSVOutput (..),
-    csvOutput,
-    coRecordDelimiter,
-    coQuoteCharacter,
-    coFieldDelimiter,
-    coQuoteFields,
-    coQuoteEscapeCharacter,
+    newCSVOutput,
 
     -- * DataRetrievalPolicy
     DataRetrievalPolicy (..),
-    dataRetrievalPolicy,
-    drpRules,
+    newDataRetrievalPolicy,
 
     -- * DataRetrievalRule
     DataRetrievalRule (..),
-    dataRetrievalRule,
-    drrBytesPerHour,
-    drrStrategy,
+    newDataRetrievalRule,
 
     -- * DescribeVaultOutput
     DescribeVaultOutput (..),
-    describeVaultOutput,
-    dvoLastInventoryDate,
-    dvoCreationDate,
-    dvoVaultName,
-    dvoVaultARN,
-    dvoSizeInBytes,
-    dvoNumberOfArchives,
+    newDescribeVaultOutput,
 
     -- * Encryption
     Encryption (..),
-    encryption,
-    eEncryptionType,
-    eKMSKeyId,
-    eKMSContext,
+    newEncryption,
 
     -- * GlacierJobDescription
     GlacierJobDescription (..),
-    glacierJobDescription,
-    gjdSHA256TreeHash,
-    gjdStatusMessage,
-    gjdJobDescription,
-    gjdRetrievalByteRange,
-    gjdCreationDate,
-    gjdJobOutputPath,
-    gjdSelectParameters,
-    gjdVaultARN,
-    gjdArchiveId,
-    gjdSNSTopic,
-    gjdInventorySizeInBytes,
-    gjdStatusCode,
-    gjdArchiveSizeInBytes,
-    gjdAction,
-    gjdInventoryRetrievalParameters,
-    gjdCompletionDate,
-    gjdArchiveSHA256TreeHash,
-    gjdCompleted,
-    gjdJobId,
-    gjdOutputLocation,
-    gjdTier,
+    newGlacierJobDescription,
 
     -- * Grant
     Grant (..),
-    grant,
-    gGrantee,
-    gPermission,
+    newGrant,
 
     -- * Grantee
     Grantee (..),
-    grantee,
-    gURI,
-    gId,
-    gDisplayName,
-    gEmailAddress,
-    gType,
+    newGrantee,
 
     -- * InputSerialization
     InputSerialization (..),
-    inputSerialization,
-    isCsv,
+    newInputSerialization,
 
     -- * InventoryRetrievalJobDescription
     InventoryRetrievalJobDescription (..),
-    inventoryRetrievalJobDescription,
-    irjdStartDate,
-    irjdFormat,
-    irjdEndDate,
-    irjdLimit,
-    irjdMarker,
+    newInventoryRetrievalJobDescription,
 
     -- * InventoryRetrievalJobInput
     InventoryRetrievalJobInput (..),
-    inventoryRetrievalJobInput,
-    irjiStartDate,
-    irjiEndDate,
-    irjiLimit,
-    irjiMarker,
+    newInventoryRetrievalJobInput,
 
     -- * JobParameters
     JobParameters (..),
-    jobParameters,
-    jpRetrievalByteRange,
-    jpFormat,
-    jpSelectParameters,
-    jpArchiveId,
-    jpSNSTopic,
-    jpDescription,
-    jpInventoryRetrievalParameters,
-    jpType,
-    jpOutputLocation,
-    jpTier,
+    newJobParameters,
 
     -- * OutputLocation
     OutputLocation (..),
-    outputLocation,
-    olS3,
+    newOutputLocation,
 
     -- * OutputSerialization
     OutputSerialization (..),
-    outputSerialization,
-    osCsv,
+    newOutputSerialization,
 
     -- * PartListElement
     PartListElement (..),
-    partListElement,
-    pleSHA256TreeHash,
-    pleRangeInBytes,
+    newPartListElement,
 
     -- * ProvisionedCapacityDescription
     ProvisionedCapacityDescription (..),
-    provisionedCapacityDescription,
-    pcdStartDate,
-    pcdCapacityId,
-    pcdExpirationDate,
+    newProvisionedCapacityDescription,
 
     -- * S3Location
     S3Location (..),
-    s3Location,
-    slBucketName,
-    slPrefix,
-    slCannedACL,
-    slEncryption,
-    slStorageClass,
-    slUserMetadata,
-    slAccessControlList,
-    slTagging,
+    newS3Location,
 
     -- * SelectParameters
     SelectParameters (..),
-    selectParameters,
-    spExpressionType,
-    spOutputSerialization,
-    spInputSerialization,
-    spExpression,
+    newSelectParameters,
 
     -- * UploadListElement
     UploadListElement (..),
-    uploadListElement,
-    ulePartSizeInBytes,
-    uleCreationDate,
-    uleVaultARN,
-    uleArchiveDescription,
-    uleMultipartUploadId,
+    newUploadListElement,
 
     -- * VaultAccessPolicy
     VaultAccessPolicy (..),
-    vaultAccessPolicy,
-    vapPolicy,
+    newVaultAccessPolicy,
 
     -- * VaultLockPolicy
     VaultLockPolicy (..),
-    vaultLockPolicy,
-    vlpPolicy,
+    newVaultLockPolicy,
 
     -- * VaultNotificationConfig
     VaultNotificationConfig (..),
-    vaultNotificationConfig,
-    vncEvents,
-    vncSNSTopic,
+    newVaultNotificationConfig,
   )
 where
 
@@ -287,123 +188,152 @@ import Network.AWS.Glacier.Types.UploadListElement
 import Network.AWS.Glacier.Types.VaultAccessPolicy
 import Network.AWS.Glacier.Types.VaultLockPolicy
 import Network.AWS.Glacier.Types.VaultNotificationConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2012-06-01@ of the Amazon Glacier SDK configuration.
-glacier :: Service
-glacier =
-  Service
-    { _svcAbbrev = "Glacier",
-      _svcSigner = v4,
-      _svcPrefix = "glacier",
-      _svcVersion = "2012-06-01",
-      _svcEndpoint = defaultEndpoint glacier,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Glacier",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Glacier",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "glacier",
+      Prelude._svcVersion = "2012-06-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "Glacier",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "RequestTimeoutException" . hasStatus 408)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "RequestTimeoutException"
+              Prelude.. Prelude.hasStatus 408
+          )
           e =
-        Just "timeouts"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "timeouts"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Returned if the service cannot complete the request.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
--- | Returned if a retrieval job would exceed the current data policy's retrieval rate limit. For more information about data retrieval policies,
-_PolicyEnforcedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Returned if a retrieval job would exceed the current data policy\'s
+-- retrieval rate limit. For more information about data retrieval
+-- policies,
+_PolicyEnforcedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PolicyEnforcedException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "PolicyEnforcedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Returned if a parameter of the request is incorrectly specified.
-_InvalidParameterValueException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterValueException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterValueException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "InvalidParameterValueException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Returned if the request results in a vault or account limit being exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Returned if the request results in a vault or account limit being
+-- exceeded.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError glacier "LimitExceededException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | Returned if a required header or parameter is missing from the request.
-_MissingParameterValueException :: AsError a => Getting (First ServiceError) a ServiceError
+_MissingParameterValueException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MissingParameterValueException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "MissingParameterValueException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Returned if there is insufficient capacity to process this expedited request. This error only applies to expedited retrievals and not to standard or bulk retrievals.
-_InsufficientCapacityException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Returned if there is insufficient capacity to process this expedited
+-- request. This error only applies to expedited retrievals and not to
+-- standard or bulk retrievals.
+_InsufficientCapacityException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientCapacityException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientCapacityException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Returned if the specified resource (such as a vault, upload ID, or job ID) doesn't exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Returned if the specified resource (such as a vault, upload ID, or job
+-- ID) doesn\'t exist.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | Returned if, when uploading an archive, Amazon S3 Glacier times out while receiving the upload.
-_RequestTimeoutException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Returned if, when uploading an archive, Amazon S3 Glacier times out
+-- while receiving the upload.
+_RequestTimeoutException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RequestTimeoutException =
-  _MatchServiceError
-    glacier
+  Prelude._MatchServiceError
+    defaultService
     "RequestTimeoutException"
-    . hasStatus 408
+    Prelude.. Prelude.hasStatus 408

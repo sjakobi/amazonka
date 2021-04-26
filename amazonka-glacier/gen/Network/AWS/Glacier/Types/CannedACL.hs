@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Glacier.Types.CannedACL
   ( CannedACL
       ( ..,
-        AWSExecRead,
-        AuthenticatedRead,
-        BucketOwnerFullControl,
-        BucketOwnerRead,
-        Private,
-        PublicRead,
-        PublicReadWrite
+        CannedACLAuthenticatedRead,
+        CannedACLAwsExecRead,
+        CannedACLBucketOwnerFullControl,
+        CannedACLBucketOwnerRead,
+        CannedACLPrivate,
+        CannedACLPublicRead,
+        CannedACLPublicReadWrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CannedACL = CannedACL' (CI Text)
+newtype CannedACL = CannedACL'
+  { fromCannedACL ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSExecRead :: CannedACL
-pattern AWSExecRead = CannedACL' "aws-exec-read"
+pattern CannedACLAuthenticatedRead :: CannedACL
+pattern CannedACLAuthenticatedRead = CannedACL' "authenticated-read"
 
-pattern AuthenticatedRead :: CannedACL
-pattern AuthenticatedRead = CannedACL' "authenticated-read"
+pattern CannedACLAwsExecRead :: CannedACL
+pattern CannedACLAwsExecRead = CannedACL' "aws-exec-read"
 
-pattern BucketOwnerFullControl :: CannedACL
-pattern BucketOwnerFullControl = CannedACL' "bucket-owner-full-control"
+pattern CannedACLBucketOwnerFullControl :: CannedACL
+pattern CannedACLBucketOwnerFullControl = CannedACL' "bucket-owner-full-control"
 
-pattern BucketOwnerRead :: CannedACL
-pattern BucketOwnerRead = CannedACL' "bucket-owner-read"
+pattern CannedACLBucketOwnerRead :: CannedACL
+pattern CannedACLBucketOwnerRead = CannedACL' "bucket-owner-read"
 
-pattern Private :: CannedACL
-pattern Private = CannedACL' "private"
+pattern CannedACLPrivate :: CannedACL
+pattern CannedACLPrivate = CannedACL' "private"
 
-pattern PublicRead :: CannedACL
-pattern PublicRead = CannedACL' "public-read"
+pattern CannedACLPublicRead :: CannedACL
+pattern CannedACLPublicRead = CannedACL' "public-read"
 
-pattern PublicReadWrite :: CannedACL
-pattern PublicReadWrite = CannedACL' "public-read-write"
+pattern CannedACLPublicReadWrite :: CannedACL
+pattern CannedACLPublicReadWrite = CannedACL' "public-read-write"
 
 {-# COMPLETE
-  AWSExecRead,
-  AuthenticatedRead,
-  BucketOwnerFullControl,
-  BucketOwnerRead,
-  Private,
-  PublicRead,
-  PublicReadWrite,
+  CannedACLAuthenticatedRead,
+  CannedACLAwsExecRead,
+  CannedACLBucketOwnerFullControl,
+  CannedACLBucketOwnerRead,
+  CannedACLPrivate,
+  CannedACLPublicRead,
+  CannedACLPublicReadWrite,
   CannedACL'
   #-}
 
-instance FromText CannedACL where
-  parser = (CannedACL' . mk) <$> takeText
+instance Prelude.FromText CannedACL where
+  parser = CannedACL' Prelude.<$> Prelude.takeText
 
-instance ToText CannedACL where
-  toText (CannedACL' ci) = original ci
+instance Prelude.ToText CannedACL where
+  toText (CannedACL' x) = x
 
-instance Hashable CannedACL
+instance Prelude.Hashable CannedACL
 
-instance NFData CannedACL
+instance Prelude.NFData CannedACL
 
-instance ToByteString CannedACL
+instance Prelude.ToByteString CannedACL
 
-instance ToQuery CannedACL
+instance Prelude.ToQuery CannedACL
 
-instance ToHeader CannedACL
+instance Prelude.ToHeader CannedACL
 
-instance ToJSON CannedACL where
-  toJSON = toJSONText
+instance Prelude.ToJSON CannedACL where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CannedACL where
-  parseJSON = parseJSONText "CannedACL"
+instance Prelude.FromJSON CannedACL where
+  parseJSON = Prelude.parseJSONText "CannedACL"

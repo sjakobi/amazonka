@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation deletes the notification configuration set for a vault. The operation is eventually consistent; that is, it might take some time for Amazon S3 Glacier to completely disable the notifications and you might still receive some notifications for a short time after you send the delete request.
+-- This operation deletes the notification configuration set for a vault.
+-- The operation is eventually consistent; that is, it might take some time
+-- for Amazon S3 Glacier to completely disable the notifications and you
+-- might still receive some notifications for a short time after you send
+-- the delete request.
 --
+-- An AWS account has full permission to perform all operations (actions).
+-- However, AWS Identity and Access Management (IAM) users don\'t have any
+-- permissions by default. You must grant them explicit permission to
+-- perform specific actions. For more information, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)>.
 --
--- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
---
--- For conceptual information and underlying REST API, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html Configuring Vault Notifications in Amazon S3 Glacier> and <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html Delete Vault Notification Configuration > in the Amazon S3 Glacier Developer Guide.
+-- For conceptual information and underlying REST API, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html Configuring Vault Notifications in Amazon S3 Glacier>
+-- and
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html Delete Vault Notification Configuration>
+-- in the Amazon S3 Glacier Developer Guide.
 module Network.AWS.Glacier.DeleteVaultNotifications
   ( -- * Creating a Request
-    deleteVaultNotifications,
-    DeleteVaultNotifications,
+    DeleteVaultNotifications (..),
+    newDeleteVaultNotifications,
 
     -- * Request Lenses
-    dvnAccountId,
-    dvnVaultName,
+    deleteVaultNotifications_accountId,
+    deleteVaultNotifications_vaultName,
 
     -- * Destructuring the Response
-    deleteVaultNotificationsResponse,
-    DeleteVaultNotificationsResponse,
+    DeleteVaultNotificationsResponse (..),
+    newDeleteVaultNotificationsResponse,
   )
 where
 
 import Network.AWS.Glacier.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Provides options for deleting a vault notification configuration from an Amazon Glacier vault.
+-- | Provides options for deleting a vault notification configuration from an
+-- Amazon Glacier vault.
 --
---
---
--- /See:/ 'deleteVaultNotifications' smart constructor.
+-- /See:/ 'newDeleteVaultNotifications' smart constructor.
 data DeleteVaultNotifications = DeleteVaultNotifications'
-  { _dvnAccountId ::
-      !Text,
-    _dvnVaultName ::
-      !Text
+  { -- | The @AccountId@ value is the AWS account ID of the account that owns the
+    -- vault. You can either specify an AWS account ID or optionally a single
+    -- \'@-@\' (hyphen), in which case Amazon S3 Glacier uses the AWS account
+    -- ID associated with the credentials used to sign the request. If you use
+    -- an account ID, do not include any hyphens (\'-\') in the ID.
+    accountId :: Prelude.Text,
+    -- | The name of the vault.
+    vaultName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVaultNotifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVaultNotifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvnAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvnVaultName' - The name of the vault.
-deleteVaultNotifications ::
-  -- | 'dvnAccountId'
-  Text ->
-  -- | 'dvnVaultName'
-  Text ->
+-- 'accountId', 'deleteVaultNotifications_accountId' - The @AccountId@ value is the AWS account ID of the account that owns the
+-- vault. You can either specify an AWS account ID or optionally a single
+-- \'@-@\' (hyphen), in which case Amazon S3 Glacier uses the AWS account
+-- ID associated with the credentials used to sign the request. If you use
+-- an account ID, do not include any hyphens (\'-\') in the ID.
+--
+-- 'vaultName', 'deleteVaultNotifications_vaultName' - The name of the vault.
+newDeleteVaultNotifications ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'vaultName'
+  Prelude.Text ->
   DeleteVaultNotifications
-deleteVaultNotifications pAccountId_ pVaultName_ =
+newDeleteVaultNotifications pAccountId_ pVaultName_ =
   DeleteVaultNotifications'
-    { _dvnAccountId =
-        pAccountId_,
-      _dvnVaultName = pVaultName_
+    { accountId = pAccountId_,
+      vaultName = pVaultName_
     }
 
--- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
-dvnAccountId :: Lens' DeleteVaultNotifications Text
-dvnAccountId = lens _dvnAccountId (\s a -> s {_dvnAccountId = a})
+-- | The @AccountId@ value is the AWS account ID of the account that owns the
+-- vault. You can either specify an AWS account ID or optionally a single
+-- \'@-@\' (hyphen), in which case Amazon S3 Glacier uses the AWS account
+-- ID associated with the credentials used to sign the request. If you use
+-- an account ID, do not include any hyphens (\'-\') in the ID.
+deleteVaultNotifications_accountId :: Lens.Lens' DeleteVaultNotifications Prelude.Text
+deleteVaultNotifications_accountId = Lens.lens (\DeleteVaultNotifications' {accountId} -> accountId) (\s@DeleteVaultNotifications' {} a -> s {accountId = a} :: DeleteVaultNotifications)
 
 -- | The name of the vault.
-dvnVaultName :: Lens' DeleteVaultNotifications Text
-dvnVaultName = lens _dvnVaultName (\s a -> s {_dvnVaultName = a})
+deleteVaultNotifications_vaultName :: Lens.Lens' DeleteVaultNotifications Prelude.Text
+deleteVaultNotifications_vaultName = Lens.lens (\DeleteVaultNotifications' {vaultName} -> vaultName) (\s@DeleteVaultNotifications' {} a -> s {vaultName = a} :: DeleteVaultNotifications)
 
-instance AWSRequest DeleteVaultNotifications where
+instance Prelude.AWSRequest DeleteVaultNotifications where
   type
     Rs DeleteVaultNotifications =
       DeleteVaultNotificationsResponse
-  request = delete glacier
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteVaultNotificationsResponse'
+    Response.receiveNull
+      DeleteVaultNotificationsResponse'
 
-instance Hashable DeleteVaultNotifications
+instance Prelude.Hashable DeleteVaultNotifications
 
-instance NFData DeleteVaultNotifications
+instance Prelude.NFData DeleteVaultNotifications
 
-instance ToHeaders DeleteVaultNotifications where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteVaultNotifications where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteVaultNotifications where
+instance Prelude.ToPath DeleteVaultNotifications where
   toPath DeleteVaultNotifications' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/",
-        toBS _dvnAccountId,
+        Prelude.toBS accountId,
         "/vaults/",
-        toBS _dvnVaultName,
+        Prelude.toBS vaultName,
         "/notification-configuration"
       ]
 
-instance ToQuery DeleteVaultNotifications where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteVaultNotifications where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteVaultNotificationsResponse' smart constructor.
+-- | /See:/ 'newDeleteVaultNotificationsResponse' smart constructor.
 data DeleteVaultNotificationsResponse = DeleteVaultNotificationsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVaultNotificationsResponse' with the minimum fields required to make a request.
-deleteVaultNotificationsResponse ::
+-- |
+-- Create a value of 'DeleteVaultNotificationsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteVaultNotificationsResponse ::
   DeleteVaultNotificationsResponse
-deleteVaultNotificationsResponse =
+newDeleteVaultNotificationsResponse =
   DeleteVaultNotificationsResponse'
 
-instance NFData DeleteVaultNotificationsResponse
+instance
+  Prelude.NFData
+    DeleteVaultNotificationsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,111 +21,140 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation aborts the vault locking process if the vault lock is not in the @Locked@ state. If the vault lock is in the @Locked@ state when this operation is requested, the operation returns an @AccessDeniedException@ error. Aborting the vault locking process removes the vault lock policy from the specified vault.
+-- This operation aborts the vault locking process if the vault lock is not
+-- in the @Locked@ state. If the vault lock is in the @Locked@ state when
+-- this operation is requested, the operation returns an
+-- @AccessDeniedException@ error. Aborting the vault locking process
+-- removes the vault lock policy from the specified vault.
 --
+-- A vault lock is put into the @InProgress@ state by calling
+-- InitiateVaultLock. A vault lock is put into the @Locked@ state by
+-- calling CompleteVaultLock. You can get the state of a vault lock by
+-- calling GetVaultLock. For more information about the vault locking
+-- process, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html Amazon Glacier Vault Lock>.
+-- For more information about vault lock policies, see
+-- <https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html Amazon Glacier Access Control with Vault Lock Policies>.
 --
--- A vault lock is put into the @InProgress@ state by calling 'InitiateVaultLock' . A vault lock is put into the @Locked@ state by calling 'CompleteVaultLock' . You can get the state of a vault lock by calling 'GetVaultLock' . For more information about the vault locking process, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html Amazon Glacier Vault Lock> . For more information about vault lock policies, see <https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html Amazon Glacier Access Control with Vault Lock Policies> .
---
--- This operation is idempotent. You can successfully invoke this operation multiple times, if the vault lock is in the @InProgress@ state or if there is no policy associated with the vault.
+-- This operation is idempotent. You can successfully invoke this operation
+-- multiple times, if the vault lock is in the @InProgress@ state or if
+-- there is no policy associated with the vault.
 module Network.AWS.Glacier.AbortVaultLock
   ( -- * Creating a Request
-    abortVaultLock,
-    AbortVaultLock,
+    AbortVaultLock (..),
+    newAbortVaultLock,
 
     -- * Request Lenses
-    avlAccountId,
-    avlVaultName,
+    abortVaultLock_accountId,
+    abortVaultLock_vaultName,
 
     -- * Destructuring the Response
-    abortVaultLockResponse,
-    AbortVaultLockResponse,
+    AbortVaultLockResponse (..),
+    newAbortVaultLockResponse,
   )
 where
 
 import Network.AWS.Glacier.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The input values for @AbortVaultLock@ .
+-- | The input values for @AbortVaultLock@.
 --
---
---
--- /See:/ 'abortVaultLock' smart constructor.
+-- /See:/ 'newAbortVaultLock' smart constructor.
 data AbortVaultLock = AbortVaultLock'
-  { _avlAccountId ::
-      !Text,
-    _avlVaultName :: !Text
+  { -- | The @AccountId@ value is the AWS account ID. This value must match the
+    -- AWS account ID associated with the credentials used to sign the request.
+    -- You can either specify an AWS account ID or optionally a single \'@-@\'
+    -- (hyphen), in which case Amazon Glacier uses the AWS account ID
+    -- associated with the credentials used to sign the request. If you specify
+    -- your account ID, do not include any hyphens (\'-\') in the ID.
+    accountId :: Prelude.Text,
+    -- | The name of the vault.
+    vaultName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AbortVaultLock' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AbortVaultLock' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avlAccountId' - The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avlVaultName' - The name of the vault.
-abortVaultLock ::
-  -- | 'avlAccountId'
-  Text ->
-  -- | 'avlVaultName'
-  Text ->
+-- 'accountId', 'abortVaultLock_accountId' - The @AccountId@ value is the AWS account ID. This value must match the
+-- AWS account ID associated with the credentials used to sign the request.
+-- You can either specify an AWS account ID or optionally a single \'@-@\'
+-- (hyphen), in which case Amazon Glacier uses the AWS account ID
+-- associated with the credentials used to sign the request. If you specify
+-- your account ID, do not include any hyphens (\'-\') in the ID.
+--
+-- 'vaultName', 'abortVaultLock_vaultName' - The name of the vault.
+newAbortVaultLock ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'vaultName'
+  Prelude.Text ->
   AbortVaultLock
-abortVaultLock pAccountId_ pVaultName_ =
+newAbortVaultLock pAccountId_ pVaultName_ =
   AbortVaultLock'
-    { _avlAccountId = pAccountId_,
-      _avlVaultName = pVaultName_
+    { accountId = pAccountId_,
+      vaultName = pVaultName_
     }
 
--- | The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID.
-avlAccountId :: Lens' AbortVaultLock Text
-avlAccountId = lens _avlAccountId (\s a -> s {_avlAccountId = a})
+-- | The @AccountId@ value is the AWS account ID. This value must match the
+-- AWS account ID associated with the credentials used to sign the request.
+-- You can either specify an AWS account ID or optionally a single \'@-@\'
+-- (hyphen), in which case Amazon Glacier uses the AWS account ID
+-- associated with the credentials used to sign the request. If you specify
+-- your account ID, do not include any hyphens (\'-\') in the ID.
+abortVaultLock_accountId :: Lens.Lens' AbortVaultLock Prelude.Text
+abortVaultLock_accountId = Lens.lens (\AbortVaultLock' {accountId} -> accountId) (\s@AbortVaultLock' {} a -> s {accountId = a} :: AbortVaultLock)
 
 -- | The name of the vault.
-avlVaultName :: Lens' AbortVaultLock Text
-avlVaultName = lens _avlVaultName (\s a -> s {_avlVaultName = a})
+abortVaultLock_vaultName :: Lens.Lens' AbortVaultLock Prelude.Text
+abortVaultLock_vaultName = Lens.lens (\AbortVaultLock' {vaultName} -> vaultName) (\s@AbortVaultLock' {} a -> s {vaultName = a} :: AbortVaultLock)
 
-instance AWSRequest AbortVaultLock where
+instance Prelude.AWSRequest AbortVaultLock where
   type Rs AbortVaultLock = AbortVaultLockResponse
-  request = delete glacier
-  response = receiveNull AbortVaultLockResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull AbortVaultLockResponse'
 
-instance Hashable AbortVaultLock
+instance Prelude.Hashable AbortVaultLock
 
-instance NFData AbortVaultLock
+instance Prelude.NFData AbortVaultLock
 
-instance ToHeaders AbortVaultLock where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AbortVaultLock where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AbortVaultLock where
+instance Prelude.ToPath AbortVaultLock where
   toPath AbortVaultLock' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/",
-        toBS _avlAccountId,
+        Prelude.toBS accountId,
         "/vaults/",
-        toBS _avlVaultName,
+        Prelude.toBS vaultName,
         "/lock-policy"
       ]
 
-instance ToQuery AbortVaultLock where
-  toQuery = const mempty
+instance Prelude.ToQuery AbortVaultLock where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'abortVaultLockResponse' smart constructor.
+-- | /See:/ 'newAbortVaultLockResponse' smart constructor.
 data AbortVaultLockResponse = AbortVaultLockResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AbortVaultLockResponse' with the minimum fields required to make a request.
-abortVaultLockResponse ::
+-- |
+-- Create a value of 'AbortVaultLockResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAbortVaultLockResponse ::
   AbortVaultLockResponse
-abortVaultLockResponse = AbortVaultLockResponse'
+newAbortVaultLockResponse = AbortVaultLockResponse'
 
-instance NFData AbortVaultLockResponse
+instance Prelude.NFData AbortVaultLockResponse
