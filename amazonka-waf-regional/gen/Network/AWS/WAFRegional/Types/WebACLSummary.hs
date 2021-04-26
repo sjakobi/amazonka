@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAFRegional.Types.WebACLSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the identifier and the name or description of the 'WebACL' .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Contains the identifier and the name or description of the WebACL.
 --
--- /See:/ 'webACLSummary' smart constructor.
+-- /See:/ 'newWebACLSummary' smart constructor.
 data WebACLSummary = WebACLSummary'
-  { _wasWebACLId ::
-      !Text,
-    _wasName :: !Text
+  { -- | A unique identifier for a @WebACL@. You use @WebACLId@ to get
+    -- information about a @WebACL@ (see GetWebACL), update a @WebACL@ (see
+    -- UpdateWebACL), and delete a @WebACL@ from AWS WAF (see DeleteWebACL).
+    --
+    -- @WebACLId@ is returned by CreateWebACL and by ListWebACLs.
+    webACLId :: Prelude.Text,
+    -- | A friendly name or description of the WebACL. You can\'t change the name
+    -- of a @WebACL@ after you create it.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WebACLSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WebACLSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wasWebACLId' - A unique identifier for a @WebACL@ . You use @WebACLId@ to get information about a @WebACL@ (see 'GetWebACL' ), update a @WebACL@ (see 'UpdateWebACL' ), and delete a @WebACL@ from AWS WAF (see 'DeleteWebACL' ). @WebACLId@ is returned by 'CreateWebACL' and by 'ListWebACLs' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wasName' - A friendly name or description of the 'WebACL' . You can't change the name of a @WebACL@ after you create it.
-webACLSummary ::
-  -- | 'wasWebACLId'
-  Text ->
-  -- | 'wasName'
-  Text ->
+-- 'webACLId', 'webACLSummary_webACLId' - A unique identifier for a @WebACL@. You use @WebACLId@ to get
+-- information about a @WebACL@ (see GetWebACL), update a @WebACL@ (see
+-- UpdateWebACL), and delete a @WebACL@ from AWS WAF (see DeleteWebACL).
+--
+-- @WebACLId@ is returned by CreateWebACL and by ListWebACLs.
+--
+-- 'name', 'webACLSummary_name' - A friendly name or description of the WebACL. You can\'t change the name
+-- of a @WebACL@ after you create it.
+newWebACLSummary ::
+  -- | 'webACLId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   WebACLSummary
-webACLSummary pWebACLId_ pName_ =
+newWebACLSummary pWebACLId_ pName_ =
   WebACLSummary'
-    { _wasWebACLId = pWebACLId_,
-      _wasName = pName_
+    { webACLId = pWebACLId_,
+      name = pName_
     }
 
--- | A unique identifier for a @WebACL@ . You use @WebACLId@ to get information about a @WebACL@ (see 'GetWebACL' ), update a @WebACL@ (see 'UpdateWebACL' ), and delete a @WebACL@ from AWS WAF (see 'DeleteWebACL' ). @WebACLId@ is returned by 'CreateWebACL' and by 'ListWebACLs' .
-wasWebACLId :: Lens' WebACLSummary Text
-wasWebACLId = lens _wasWebACLId (\s a -> s {_wasWebACLId = a})
+-- | A unique identifier for a @WebACL@. You use @WebACLId@ to get
+-- information about a @WebACL@ (see GetWebACL), update a @WebACL@ (see
+-- UpdateWebACL), and delete a @WebACL@ from AWS WAF (see DeleteWebACL).
+--
+-- @WebACLId@ is returned by CreateWebACL and by ListWebACLs.
+webACLSummary_webACLId :: Lens.Lens' WebACLSummary Prelude.Text
+webACLSummary_webACLId = Lens.lens (\WebACLSummary' {webACLId} -> webACLId) (\s@WebACLSummary' {} a -> s {webACLId = a} :: WebACLSummary)
 
--- | A friendly name or description of the 'WebACL' . You can't change the name of a @WebACL@ after you create it.
-wasName :: Lens' WebACLSummary Text
-wasName = lens _wasName (\s a -> s {_wasName = a})
+-- | A friendly name or description of the WebACL. You can\'t change the name
+-- of a @WebACL@ after you create it.
+webACLSummary_name :: Lens.Lens' WebACLSummary Prelude.Text
+webACLSummary_name = Lens.lens (\WebACLSummary' {name} -> name) (\s@WebACLSummary' {} a -> s {name = a} :: WebACLSummary)
 
-instance FromJSON WebACLSummary where
+instance Prelude.FromJSON WebACLSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WebACLSummary"
       ( \x ->
           WebACLSummary'
-            <$> (x .: "WebACLId") <*> (x .: "Name")
+            Prelude.<$> (x Prelude..: "WebACLId")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable WebACLSummary
+instance Prelude.Hashable WebACLSummary
 
-instance NFData WebACLSummary
+instance Prelude.NFData WebACLSummary

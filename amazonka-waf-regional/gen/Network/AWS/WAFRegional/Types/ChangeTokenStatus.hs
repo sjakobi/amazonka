@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.WAFRegional.Types.ChangeTokenStatus
   ( ChangeTokenStatus
       ( ..,
-        Insync,
-        Pending,
-        Provisioned
+        ChangeTokenStatusINSYNC,
+        ChangeTokenStatusPENDING,
+        ChangeTokenStatusPROVISIONED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ChangeTokenStatus = ChangeTokenStatus' (CI Text)
+newtype ChangeTokenStatus = ChangeTokenStatus'
+  { fromChangeTokenStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Insync :: ChangeTokenStatus
-pattern Insync = ChangeTokenStatus' "INSYNC"
+pattern ChangeTokenStatusINSYNC :: ChangeTokenStatus
+pattern ChangeTokenStatusINSYNC = ChangeTokenStatus' "INSYNC"
 
-pattern Pending :: ChangeTokenStatus
-pattern Pending = ChangeTokenStatus' "PENDING"
+pattern ChangeTokenStatusPENDING :: ChangeTokenStatus
+pattern ChangeTokenStatusPENDING = ChangeTokenStatus' "PENDING"
 
-pattern Provisioned :: ChangeTokenStatus
-pattern Provisioned = ChangeTokenStatus' "PROVISIONED"
+pattern ChangeTokenStatusPROVISIONED :: ChangeTokenStatus
+pattern ChangeTokenStatusPROVISIONED = ChangeTokenStatus' "PROVISIONED"
 
 {-# COMPLETE
-  Insync,
-  Pending,
-  Provisioned,
+  ChangeTokenStatusINSYNC,
+  ChangeTokenStatusPENDING,
+  ChangeTokenStatusPROVISIONED,
   ChangeTokenStatus'
   #-}
 
-instance FromText ChangeTokenStatus where
-  parser = (ChangeTokenStatus' . mk) <$> takeText
+instance Prelude.FromText ChangeTokenStatus where
+  parser = ChangeTokenStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ChangeTokenStatus where
-  toText (ChangeTokenStatus' ci) = original ci
+instance Prelude.ToText ChangeTokenStatus where
+  toText (ChangeTokenStatus' x) = x
 
-instance Hashable ChangeTokenStatus
+instance Prelude.Hashable ChangeTokenStatus
 
-instance NFData ChangeTokenStatus
+instance Prelude.NFData ChangeTokenStatus
 
-instance ToByteString ChangeTokenStatus
+instance Prelude.ToByteString ChangeTokenStatus
 
-instance ToQuery ChangeTokenStatus
+instance Prelude.ToQuery ChangeTokenStatus
 
-instance ToHeader ChangeTokenStatus
+instance Prelude.ToHeader ChangeTokenStatus
 
-instance FromJSON ChangeTokenStatus where
-  parseJSON = parseJSONText "ChangeTokenStatus"
+instance Prelude.FromJSON ChangeTokenStatus where
+  parseJSON = Prelude.parseJSONText "ChangeTokenStatus"

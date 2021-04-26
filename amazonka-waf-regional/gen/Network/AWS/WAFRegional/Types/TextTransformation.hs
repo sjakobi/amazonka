@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.WAFRegional.Types.TextTransformation
   ( TextTransformation
       ( ..,
-        CmdLine,
-        CompressWhiteSpace,
-        HTMLEntityDecode,
-        Lowercase,
-        None,
-        URLDecode
+        TextTransformationCMDLINE,
+        TextTransformationCOMPRESSWHITESPACE,
+        TextTransformationHTMLENTITYDECODE,
+        TextTransformationLOWERCASE,
+        TextTransformationNONE,
+        TextTransformationURLDECODE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TextTransformation
-  = TextTransformation'
-      ( CI
-          Text
-      )
+newtype TextTransformation = TextTransformation'
+  { fromTextTransformation ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CmdLine :: TextTransformation
-pattern CmdLine = TextTransformation' "CMD_LINE"
+pattern TextTransformationCMDLINE :: TextTransformation
+pattern TextTransformationCMDLINE = TextTransformation' "CMD_LINE"
 
-pattern CompressWhiteSpace :: TextTransformation
-pattern CompressWhiteSpace = TextTransformation' "COMPRESS_WHITE_SPACE"
+pattern TextTransformationCOMPRESSWHITESPACE :: TextTransformation
+pattern TextTransformationCOMPRESSWHITESPACE = TextTransformation' "COMPRESS_WHITE_SPACE"
 
-pattern HTMLEntityDecode :: TextTransformation
-pattern HTMLEntityDecode = TextTransformation' "HTML_ENTITY_DECODE"
+pattern TextTransformationHTMLENTITYDECODE :: TextTransformation
+pattern TextTransformationHTMLENTITYDECODE = TextTransformation' "HTML_ENTITY_DECODE"
 
-pattern Lowercase :: TextTransformation
-pattern Lowercase = TextTransformation' "LOWERCASE"
+pattern TextTransformationLOWERCASE :: TextTransformation
+pattern TextTransformationLOWERCASE = TextTransformation' "LOWERCASE"
 
-pattern None :: TextTransformation
-pattern None = TextTransformation' "NONE"
+pattern TextTransformationNONE :: TextTransformation
+pattern TextTransformationNONE = TextTransformation' "NONE"
 
-pattern URLDecode :: TextTransformation
-pattern URLDecode = TextTransformation' "URL_DECODE"
+pattern TextTransformationURLDECODE :: TextTransformation
+pattern TextTransformationURLDECODE = TextTransformation' "URL_DECODE"
 
 {-# COMPLETE
-  CmdLine,
-  CompressWhiteSpace,
-  HTMLEntityDecode,
-  Lowercase,
-  None,
-  URLDecode,
+  TextTransformationCMDLINE,
+  TextTransformationCOMPRESSWHITESPACE,
+  TextTransformationHTMLENTITYDECODE,
+  TextTransformationLOWERCASE,
+  TextTransformationNONE,
+  TextTransformationURLDECODE,
   TextTransformation'
   #-}
 
-instance FromText TextTransformation where
-  parser = (TextTransformation' . mk) <$> takeText
+instance Prelude.FromText TextTransformation where
+  parser = TextTransformation' Prelude.<$> Prelude.takeText
 
-instance ToText TextTransformation where
-  toText (TextTransformation' ci) = original ci
+instance Prelude.ToText TextTransformation where
+  toText (TextTransformation' x) = x
 
-instance Hashable TextTransformation
+instance Prelude.Hashable TextTransformation
 
-instance NFData TextTransformation
+instance Prelude.NFData TextTransformation
 
-instance ToByteString TextTransformation
+instance Prelude.ToByteString TextTransformation
 
-instance ToQuery TextTransformation
+instance Prelude.ToQuery TextTransformation
 
-instance ToHeader TextTransformation
+instance Prelude.ToHeader TextTransformation
 
-instance ToJSON TextTransformation where
-  toJSON = toJSONText
+instance Prelude.ToJSON TextTransformation where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TextTransformation where
-  parseJSON = parseJSONText "TextTransformation"
+instance Prelude.FromJSON TextTransformation where
+  parseJSON = Prelude.parseJSONText "TextTransformation"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.WAFRegional.Types.IPSetDescriptorType
   ( IPSetDescriptorType
       ( ..,
-        IPV4,
-        IPV6
+        IPSetDescriptorTypeIPV4,
+        IPSetDescriptorTypeIPV6
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IPSetDescriptorType
-  = IPSetDescriptorType'
-      ( CI
-          Text
-      )
+newtype IPSetDescriptorType = IPSetDescriptorType'
+  { fromIPSetDescriptorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IPV4 :: IPSetDescriptorType
-pattern IPV4 = IPSetDescriptorType' "IPV4"
+pattern IPSetDescriptorTypeIPV4 :: IPSetDescriptorType
+pattern IPSetDescriptorTypeIPV4 = IPSetDescriptorType' "IPV4"
 
-pattern IPV6 :: IPSetDescriptorType
-pattern IPV6 = IPSetDescriptorType' "IPV6"
+pattern IPSetDescriptorTypeIPV6 :: IPSetDescriptorType
+pattern IPSetDescriptorTypeIPV6 = IPSetDescriptorType' "IPV6"
 
 {-# COMPLETE
-  IPV4,
-  IPV6,
+  IPSetDescriptorTypeIPV4,
+  IPSetDescriptorTypeIPV6,
   IPSetDescriptorType'
   #-}
 
-instance FromText IPSetDescriptorType where
-  parser = (IPSetDescriptorType' . mk) <$> takeText
+instance Prelude.FromText IPSetDescriptorType where
+  parser = IPSetDescriptorType' Prelude.<$> Prelude.takeText
 
-instance ToText IPSetDescriptorType where
-  toText (IPSetDescriptorType' ci) = original ci
+instance Prelude.ToText IPSetDescriptorType where
+  toText (IPSetDescriptorType' x) = x
 
-instance Hashable IPSetDescriptorType
+instance Prelude.Hashable IPSetDescriptorType
 
-instance NFData IPSetDescriptorType
+instance Prelude.NFData IPSetDescriptorType
 
-instance ToByteString IPSetDescriptorType
+instance Prelude.ToByteString IPSetDescriptorType
 
-instance ToQuery IPSetDescriptorType
+instance Prelude.ToQuery IPSetDescriptorType
 
-instance ToHeader IPSetDescriptorType
+instance Prelude.ToHeader IPSetDescriptorType
 
-instance ToJSON IPSetDescriptorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON IPSetDescriptorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON IPSetDescriptorType where
-  parseJSON = parseJSONText "IPSetDescriptorType"
+instance Prelude.FromJSON IPSetDescriptorType where
+  parseJSON = Prelude.parseJSONText "IPSetDescriptorType"

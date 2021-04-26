@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.WAFRegional.Types.MatchFieldType
   ( MatchFieldType
       ( ..,
-        AllQueryArgs,
-        Body,
-        Header,
-        Method,
-        QueryString,
-        SingleQueryArg,
-        URI
+        MatchFieldTypeALLQUERYARGS,
+        MatchFieldTypeBODY,
+        MatchFieldTypeHEADER,
+        MatchFieldTypeMETHOD,
+        MatchFieldTypeQUERYSTRING,
+        MatchFieldTypeSINGLEQUERYARG,
+        MatchFieldTypeURI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MatchFieldType = MatchFieldType' (CI Text)
+newtype MatchFieldType = MatchFieldType'
+  { fromMatchFieldType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllQueryArgs :: MatchFieldType
-pattern AllQueryArgs = MatchFieldType' "ALL_QUERY_ARGS"
+pattern MatchFieldTypeALLQUERYARGS :: MatchFieldType
+pattern MatchFieldTypeALLQUERYARGS = MatchFieldType' "ALL_QUERY_ARGS"
 
-pattern Body :: MatchFieldType
-pattern Body = MatchFieldType' "BODY"
+pattern MatchFieldTypeBODY :: MatchFieldType
+pattern MatchFieldTypeBODY = MatchFieldType' "BODY"
 
-pattern Header :: MatchFieldType
-pattern Header = MatchFieldType' "HEADER"
+pattern MatchFieldTypeHEADER :: MatchFieldType
+pattern MatchFieldTypeHEADER = MatchFieldType' "HEADER"
 
-pattern Method :: MatchFieldType
-pattern Method = MatchFieldType' "METHOD"
+pattern MatchFieldTypeMETHOD :: MatchFieldType
+pattern MatchFieldTypeMETHOD = MatchFieldType' "METHOD"
 
-pattern QueryString :: MatchFieldType
-pattern QueryString = MatchFieldType' "QUERY_STRING"
+pattern MatchFieldTypeQUERYSTRING :: MatchFieldType
+pattern MatchFieldTypeQUERYSTRING = MatchFieldType' "QUERY_STRING"
 
-pattern SingleQueryArg :: MatchFieldType
-pattern SingleQueryArg = MatchFieldType' "SINGLE_QUERY_ARG"
+pattern MatchFieldTypeSINGLEQUERYARG :: MatchFieldType
+pattern MatchFieldTypeSINGLEQUERYARG = MatchFieldType' "SINGLE_QUERY_ARG"
 
-pattern URI :: MatchFieldType
-pattern URI = MatchFieldType' "URI"
+pattern MatchFieldTypeURI :: MatchFieldType
+pattern MatchFieldTypeURI = MatchFieldType' "URI"
 
 {-# COMPLETE
-  AllQueryArgs,
-  Body,
-  Header,
-  Method,
-  QueryString,
-  SingleQueryArg,
-  URI,
+  MatchFieldTypeALLQUERYARGS,
+  MatchFieldTypeBODY,
+  MatchFieldTypeHEADER,
+  MatchFieldTypeMETHOD,
+  MatchFieldTypeQUERYSTRING,
+  MatchFieldTypeSINGLEQUERYARG,
+  MatchFieldTypeURI,
   MatchFieldType'
   #-}
 
-instance FromText MatchFieldType where
-  parser = (MatchFieldType' . mk) <$> takeText
+instance Prelude.FromText MatchFieldType where
+  parser = MatchFieldType' Prelude.<$> Prelude.takeText
 
-instance ToText MatchFieldType where
-  toText (MatchFieldType' ci) = original ci
+instance Prelude.ToText MatchFieldType where
+  toText (MatchFieldType' x) = x
 
-instance Hashable MatchFieldType
+instance Prelude.Hashable MatchFieldType
 
-instance NFData MatchFieldType
+instance Prelude.NFData MatchFieldType
 
-instance ToByteString MatchFieldType
+instance Prelude.ToByteString MatchFieldType
 
-instance ToQuery MatchFieldType
+instance Prelude.ToQuery MatchFieldType
 
-instance ToHeader MatchFieldType
+instance Prelude.ToHeader MatchFieldType
 
-instance ToJSON MatchFieldType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MatchFieldType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MatchFieldType where
-  parseJSON = parseJSONText "MatchFieldType"
+instance Prelude.FromJSON MatchFieldType where
+  parseJSON = Prelude.parseJSONText "MatchFieldType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,209 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an array of 'ByteMatchSetSummary' objects.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns an array of ByteMatchSetSummary objects.
 module Network.AWS.WAFRegional.ListByteMatchSets
   ( -- * Creating a Request
-    listByteMatchSets,
-    ListByteMatchSets,
+    ListByteMatchSets (..),
+    newListByteMatchSets,
 
     -- * Request Lenses
-    lbmsNextMarker,
-    lbmsLimit,
+    listByteMatchSets_nextMarker,
+    listByteMatchSets_limit,
 
     -- * Destructuring the Response
-    listByteMatchSetsResponse,
-    ListByteMatchSetsResponse,
+    ListByteMatchSetsResponse (..),
+    newListByteMatchSetsResponse,
 
     -- * Response Lenses
-    lbmsrrsNextMarker,
-    lbmsrrsByteMatchSets,
-    lbmsrrsResponseStatus,
+    listByteMatchSetsResponse_nextMarker,
+    listByteMatchSetsResponse_byteMatchSets,
+    listByteMatchSetsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.ByteMatchSetSummary
 
--- | /See:/ 'listByteMatchSets' smart constructor.
+-- | /See:/ 'newListByteMatchSets' smart constructor.
 data ListByteMatchSets = ListByteMatchSets'
-  { _lbmsNextMarker ::
-      !(Maybe Text),
-    _lbmsLimit :: !(Maybe Nat)
+  { -- | If you specify a value for @Limit@ and you have more @ByteMatchSets@
+    -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
+    -- response that allows you to list another group of @ByteMatchSets@. For
+    -- the second and subsequent @ListByteMatchSets@ requests, specify the
+    -- value of @NextMarker@ from the previous response to get information
+    -- about another batch of @ByteMatchSets@.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
+    -- return for this request. If you have more @ByteMatchSets@ objects than
+    -- the number you specify for @Limit@, the response includes a @NextMarker@
+    -- value that you can use to get another batch of @ByteMatchSet@ objects.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListByteMatchSets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListByteMatchSets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbmsNextMarker' - If you specify a value for @Limit@ and you have more @ByteMatchSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @ByteMatchSets@ . For the second and subsequent @ListByteMatchSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @ByteMatchSets@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbmsLimit' - Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to return for this request. If you have more @ByteMatchSets@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @ByteMatchSet@ objects.
-listByteMatchSets ::
+-- 'nextMarker', 'listByteMatchSets_nextMarker' - If you specify a value for @Limit@ and you have more @ByteMatchSets@
+-- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
+-- response that allows you to list another group of @ByteMatchSets@. For
+-- the second and subsequent @ListByteMatchSets@ requests, specify the
+-- value of @NextMarker@ from the previous response to get information
+-- about another batch of @ByteMatchSets@.
+--
+-- 'limit', 'listByteMatchSets_limit' - Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
+-- return for this request. If you have more @ByteMatchSets@ objects than
+-- the number you specify for @Limit@, the response includes a @NextMarker@
+-- value that you can use to get another batch of @ByteMatchSet@ objects.
+newListByteMatchSets ::
   ListByteMatchSets
-listByteMatchSets =
+newListByteMatchSets =
   ListByteMatchSets'
-    { _lbmsNextMarker = Nothing,
-      _lbmsLimit = Nothing
+    { nextMarker = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | If you specify a value for @Limit@ and you have more @ByteMatchSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @ByteMatchSets@ . For the second and subsequent @ListByteMatchSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @ByteMatchSets@ .
-lbmsNextMarker :: Lens' ListByteMatchSets (Maybe Text)
-lbmsNextMarker = lens _lbmsNextMarker (\s a -> s {_lbmsNextMarker = a})
+-- | If you specify a value for @Limit@ and you have more @ByteMatchSets@
+-- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
+-- response that allows you to list another group of @ByteMatchSets@. For
+-- the second and subsequent @ListByteMatchSets@ requests, specify the
+-- value of @NextMarker@ from the previous response to get information
+-- about another batch of @ByteMatchSets@.
+listByteMatchSets_nextMarker :: Lens.Lens' ListByteMatchSets (Prelude.Maybe Prelude.Text)
+listByteMatchSets_nextMarker = Lens.lens (\ListByteMatchSets' {nextMarker} -> nextMarker) (\s@ListByteMatchSets' {} a -> s {nextMarker = a} :: ListByteMatchSets)
 
--- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to return for this request. If you have more @ByteMatchSets@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @ByteMatchSet@ objects.
-lbmsLimit :: Lens' ListByteMatchSets (Maybe Natural)
-lbmsLimit = lens _lbmsLimit (\s a -> s {_lbmsLimit = a}) . mapping _Nat
+-- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
+-- return for this request. If you have more @ByteMatchSets@ objects than
+-- the number you specify for @Limit@, the response includes a @NextMarker@
+-- value that you can use to get another batch of @ByteMatchSet@ objects.
+listByteMatchSets_limit :: Lens.Lens' ListByteMatchSets (Prelude.Maybe Prelude.Natural)
+listByteMatchSets_limit = Lens.lens (\ListByteMatchSets' {limit} -> limit) (\s@ListByteMatchSets' {} a -> s {limit = a} :: ListByteMatchSets) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListByteMatchSets where
+instance Prelude.AWSRequest ListByteMatchSets where
   type Rs ListByteMatchSets = ListByteMatchSetsResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListByteMatchSetsResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "ByteMatchSets" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> ( x Prelude..?> "ByteMatchSets"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListByteMatchSets
+instance Prelude.Hashable ListByteMatchSets
 
-instance NFData ListByteMatchSets
+instance Prelude.NFData ListByteMatchSets
 
-instance ToHeaders ListByteMatchSets where
+instance Prelude.ToHeaders ListByteMatchSets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.ListByteMatchSets" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.ListByteMatchSets" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListByteMatchSets where
+instance Prelude.ToJSON ListByteMatchSets where
   toJSON ListByteMatchSets' {..} =
-    object
-      ( catMaybes
-          [ ("NextMarker" .=) <$> _lbmsNextMarker,
-            ("Limit" .=) <$> _lbmsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextMarker" Prelude..=) Prelude.<$> nextMarker,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListByteMatchSets where
-  toPath = const "/"
+instance Prelude.ToPath ListByteMatchSets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListByteMatchSets where
-  toQuery = const mempty
+instance Prelude.ToQuery ListByteMatchSets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listByteMatchSetsResponse' smart constructor.
+-- | /See:/ 'newListByteMatchSetsResponse' smart constructor.
 data ListByteMatchSetsResponse = ListByteMatchSetsResponse'
-  { _lbmsrrsNextMarker ::
-      !(Maybe Text),
-    _lbmsrrsByteMatchSets ::
-      !( Maybe
-           [ByteMatchSetSummary]
-       ),
-    _lbmsrrsResponseStatus ::
-      !Int
+  { -- | If you have more @ByteMatchSet@ objects than the number that you
+    -- specified for @Limit@ in the request, the response includes a
+    -- @NextMarker@ value. To list more @ByteMatchSet@ objects, submit another
+    -- @ListByteMatchSets@ request, and specify the @NextMarker@ value from the
+    -- response in the @NextMarker@ value in the next request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | An array of ByteMatchSetSummary objects.
+    byteMatchSets :: Prelude.Maybe [ByteMatchSetSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListByteMatchSetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListByteMatchSetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbmsrrsNextMarker' - If you have more @ByteMatchSet@ objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @ByteMatchSet@ objects, submit another @ListByteMatchSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbmsrrsByteMatchSets' - An array of 'ByteMatchSetSummary' objects.
+-- 'nextMarker', 'listByteMatchSetsResponse_nextMarker' - If you have more @ByteMatchSet@ objects than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @ByteMatchSet@ objects, submit another
+-- @ListByteMatchSets@ request, and specify the @NextMarker@ value from the
+-- response in the @NextMarker@ value in the next request.
 --
--- * 'lbmsrrsResponseStatus' - -- | The response status code.
-listByteMatchSetsResponse ::
-  -- | 'lbmsrrsResponseStatus'
-  Int ->
+-- 'byteMatchSets', 'listByteMatchSetsResponse_byteMatchSets' - An array of ByteMatchSetSummary objects.
+--
+-- 'httpStatus', 'listByteMatchSetsResponse_httpStatus' - The response's http status code.
+newListByteMatchSetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListByteMatchSetsResponse
-listByteMatchSetsResponse pResponseStatus_ =
+newListByteMatchSetsResponse pHttpStatus_ =
   ListByteMatchSetsResponse'
-    { _lbmsrrsNextMarker =
-        Nothing,
-      _lbmsrrsByteMatchSets = Nothing,
-      _lbmsrrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      byteMatchSets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If you have more @ByteMatchSet@ objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @ByteMatchSet@ objects, submit another @ListByteMatchSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
-lbmsrrsNextMarker :: Lens' ListByteMatchSetsResponse (Maybe Text)
-lbmsrrsNextMarker = lens _lbmsrrsNextMarker (\s a -> s {_lbmsrrsNextMarker = a})
+-- | If you have more @ByteMatchSet@ objects than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @ByteMatchSet@ objects, submit another
+-- @ListByteMatchSets@ request, and specify the @NextMarker@ value from the
+-- response in the @NextMarker@ value in the next request.
+listByteMatchSetsResponse_nextMarker :: Lens.Lens' ListByteMatchSetsResponse (Prelude.Maybe Prelude.Text)
+listByteMatchSetsResponse_nextMarker = Lens.lens (\ListByteMatchSetsResponse' {nextMarker} -> nextMarker) (\s@ListByteMatchSetsResponse' {} a -> s {nextMarker = a} :: ListByteMatchSetsResponse)
 
--- | An array of 'ByteMatchSetSummary' objects.
-lbmsrrsByteMatchSets :: Lens' ListByteMatchSetsResponse [ByteMatchSetSummary]
-lbmsrrsByteMatchSets = lens _lbmsrrsByteMatchSets (\s a -> s {_lbmsrrsByteMatchSets = a}) . _Default . _Coerce
+-- | An array of ByteMatchSetSummary objects.
+listByteMatchSetsResponse_byteMatchSets :: Lens.Lens' ListByteMatchSetsResponse (Prelude.Maybe [ByteMatchSetSummary])
+listByteMatchSetsResponse_byteMatchSets = Lens.lens (\ListByteMatchSetsResponse' {byteMatchSets} -> byteMatchSets) (\s@ListByteMatchSetsResponse' {} a -> s {byteMatchSets = a} :: ListByteMatchSetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lbmsrrsResponseStatus :: Lens' ListByteMatchSetsResponse Int
-lbmsrrsResponseStatus = lens _lbmsrrsResponseStatus (\s a -> s {_lbmsrrsResponseStatus = a})
+-- | The response's http status code.
+listByteMatchSetsResponse_httpStatus :: Lens.Lens' ListByteMatchSetsResponse Prelude.Int
+listByteMatchSetsResponse_httpStatus = Lens.lens (\ListByteMatchSetsResponse' {httpStatus} -> httpStatus) (\s@ListByteMatchSetsResponse' {} a -> s {httpStatus = a} :: ListByteMatchSetsResponse)
 
-instance NFData ListByteMatchSetsResponse
+instance Prelude.NFData ListByteMatchSetsResponse

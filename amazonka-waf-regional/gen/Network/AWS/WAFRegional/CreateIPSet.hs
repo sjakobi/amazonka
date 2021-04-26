@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,206 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an 'IPSet' , which you use to specify which web requests that you want to allow or block based on the IP addresses that the requests originate from. For example, if you're receiving a lot of requests from one or more individual IP addresses or one or more ranges of IP addresses and you want to block the requests, you can create an @IPSet@ that contains those IP addresses and then configure AWS WAF to block the requests.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- To create and configure an @IPSet@ , perform the following steps:
+-- Creates an IPSet, which you use to specify which web requests that you
+-- want to allow or block based on the IP addresses that the requests
+-- originate from. For example, if you\'re receiving a lot of requests from
+-- one or more individual IP addresses or one or more ranges of IP
+-- addresses and you want to block the requests, you can create an @IPSet@
+-- that contains those IP addresses and then configure AWS WAF to block the
+-- requests.
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @CreateIPSet@ request.
+-- To create and configure an @IPSet@, perform the following steps:
 --
---     * Submit a @CreateIPSet@ request.
+-- 1.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @CreateIPSet@ request.
 --
---     * Use @GetChangeToken@ to get the change token that you provide in the @ChangeToken@ parameter of an 'UpdateIPSet' request.
+-- 2.  Submit a @CreateIPSet@ request.
 --
---     * Submit an @UpdateIPSet@ request to specify the IP addresses that you want AWS WAF to watch for.
+-- 3.  Use @GetChangeToken@ to get the change token that you provide in the
+--     @ChangeToken@ parameter of an UpdateIPSet request.
 --
+-- 4.  Submit an @UpdateIPSet@ request to specify the IP addresses that you
+--     want AWS WAF to watch for.
 --
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAFRegional.CreateIPSet
   ( -- * Creating a Request
-    createIPSet,
-    CreateIPSet,
+    CreateIPSet (..),
+    newCreateIPSet,
 
     -- * Request Lenses
-    cisName,
-    cisChangeToken,
+    createIPSet_name,
+    createIPSet_changeToken,
 
     -- * Destructuring the Response
-    createIPSetResponse,
-    CreateIPSetResponse,
+    CreateIPSetResponse (..),
+    newCreateIPSetResponse,
 
     -- * Response Lenses
-    cisrrsIPSet,
-    cisrrsChangeToken,
-    cisrrsResponseStatus,
+    createIPSetResponse_iPSet,
+    createIPSetResponse_changeToken,
+    createIPSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.IPSet
 
--- | /See:/ 'createIPSet' smart constructor.
+-- | /See:/ 'newCreateIPSet' smart constructor.
 data CreateIPSet = CreateIPSet'
-  { _cisName :: !Text,
-    _cisChangeToken :: !Text
+  { -- | A friendly name or description of the IPSet. You can\'t change @Name@
+    -- after you create the @IPSet@.
+    name :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateIPSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateIPSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisName' - A friendly name or description of the 'IPSet' . You can't change @Name@ after you create the @IPSet@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-createIPSet ::
-  -- | 'cisName'
-  Text ->
-  -- | 'cisChangeToken'
-  Text ->
+-- 'name', 'createIPSet_name' - A friendly name or description of the IPSet. You can\'t change @Name@
+-- after you create the @IPSet@.
+--
+-- 'changeToken', 'createIPSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newCreateIPSet ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   CreateIPSet
-createIPSet pName_ pChangeToken_ =
+newCreateIPSet pName_ pChangeToken_ =
   CreateIPSet'
-    { _cisName = pName_,
-      _cisChangeToken = pChangeToken_
+    { name = pName_,
+      changeToken = pChangeToken_
     }
 
--- | A friendly name or description of the 'IPSet' . You can't change @Name@ after you create the @IPSet@ .
-cisName :: Lens' CreateIPSet Text
-cisName = lens _cisName (\s a -> s {_cisName = a})
+-- | A friendly name or description of the IPSet. You can\'t change @Name@
+-- after you create the @IPSet@.
+createIPSet_name :: Lens.Lens' CreateIPSet Prelude.Text
+createIPSet_name = Lens.lens (\CreateIPSet' {name} -> name) (\s@CreateIPSet' {} a -> s {name = a} :: CreateIPSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-cisChangeToken :: Lens' CreateIPSet Text
-cisChangeToken = lens _cisChangeToken (\s a -> s {_cisChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+createIPSet_changeToken :: Lens.Lens' CreateIPSet Prelude.Text
+createIPSet_changeToken = Lens.lens (\CreateIPSet' {changeToken} -> changeToken) (\s@CreateIPSet' {} a -> s {changeToken = a} :: CreateIPSet)
 
-instance AWSRequest CreateIPSet where
+instance Prelude.AWSRequest CreateIPSet where
   type Rs CreateIPSet = CreateIPSetResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateIPSetResponse'
-            <$> (x .?> "IPSet")
-            <*> (x .?> "ChangeToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "IPSet")
+            Prelude.<*> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateIPSet
+instance Prelude.Hashable CreateIPSet
 
-instance NFData CreateIPSet
+instance Prelude.NFData CreateIPSet
 
-instance ToHeaders CreateIPSet where
+instance Prelude.ToHeaders CreateIPSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.CreateIPSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.CreateIPSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateIPSet where
+instance Prelude.ToJSON CreateIPSet where
   toJSON CreateIPSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _cisName),
-            Just ("ChangeToken" .= _cisChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath CreateIPSet where
-  toPath = const "/"
+instance Prelude.ToPath CreateIPSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateIPSet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateIPSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createIPSetResponse' smart constructor.
+-- | /See:/ 'newCreateIPSetResponse' smart constructor.
 data CreateIPSetResponse = CreateIPSetResponse'
-  { _cisrrsIPSet ::
-      !(Maybe IPSet),
-    _cisrrsChangeToken ::
-      !(Maybe Text),
-    _cisrrsResponseStatus :: !Int
+  { -- | The IPSet returned in the @CreateIPSet@ response.
+    iPSet :: Prelude.Maybe IPSet,
+    -- | The @ChangeToken@ that you used to submit the @CreateIPSet@ request. You
+    -- can also use this value to query the status of the request. For more
+    -- information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateIPSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateIPSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisrrsIPSet' - The 'IPSet' returned in the @CreateIPSet@ response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisrrsChangeToken' - The @ChangeToken@ that you used to submit the @CreateIPSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- 'iPSet', 'createIPSetResponse_iPSet' - The IPSet returned in the @CreateIPSet@ response.
 --
--- * 'cisrrsResponseStatus' - -- | The response status code.
-createIPSetResponse ::
-  -- | 'cisrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'createIPSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateIPSet@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'createIPSetResponse_httpStatus' - The response's http status code.
+newCreateIPSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateIPSetResponse
-createIPSetResponse pResponseStatus_ =
+newCreateIPSetResponse pHttpStatus_ =
   CreateIPSetResponse'
-    { _cisrrsIPSet = Nothing,
-      _cisrrsChangeToken = Nothing,
-      _cisrrsResponseStatus = pResponseStatus_
+    { iPSet = Prelude.Nothing,
+      changeToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The 'IPSet' returned in the @CreateIPSet@ response.
-cisrrsIPSet :: Lens' CreateIPSetResponse (Maybe IPSet)
-cisrrsIPSet = lens _cisrrsIPSet (\s a -> s {_cisrrsIPSet = a})
+-- | The IPSet returned in the @CreateIPSet@ response.
+createIPSetResponse_iPSet :: Lens.Lens' CreateIPSetResponse (Prelude.Maybe IPSet)
+createIPSetResponse_iPSet = Lens.lens (\CreateIPSetResponse' {iPSet} -> iPSet) (\s@CreateIPSetResponse' {} a -> s {iPSet = a} :: CreateIPSetResponse)
 
--- | The @ChangeToken@ that you used to submit the @CreateIPSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-cisrrsChangeToken :: Lens' CreateIPSetResponse (Maybe Text)
-cisrrsChangeToken = lens _cisrrsChangeToken (\s a -> s {_cisrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @CreateIPSet@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+createIPSetResponse_changeToken :: Lens.Lens' CreateIPSetResponse (Prelude.Maybe Prelude.Text)
+createIPSetResponse_changeToken = Lens.lens (\CreateIPSetResponse' {changeToken} -> changeToken) (\s@CreateIPSetResponse' {} a -> s {changeToken = a} :: CreateIPSetResponse)
 
--- | -- | The response status code.
-cisrrsResponseStatus :: Lens' CreateIPSetResponse Int
-cisrrsResponseStatus = lens _cisrrsResponseStatus (\s a -> s {_cisrrsResponseStatus = a})
+-- | The response's http status code.
+createIPSetResponse_httpStatus :: Lens.Lens' CreateIPSetResponse Prelude.Int
+createIPSetResponse_httpStatus = Lens.lens (\CreateIPSetResponse' {httpStatus} -> httpStatus) (\s@CreateIPSetResponse' {} a -> s {httpStatus = a} :: CreateIPSetResponse)
 
-instance NFData CreateIPSetResponse
+instance Prelude.NFData CreateIPSetResponse

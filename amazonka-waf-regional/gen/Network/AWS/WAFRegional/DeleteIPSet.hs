@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes an 'IPSet' . You can't delete an @IPSet@ if it's still used in any @Rules@ or if it still includes any IP addresses.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- If you just want to remove an @IPSet@ from a @Rule@ , use 'UpdateRule' .
+-- Permanently deletes an IPSet. You can\'t delete an @IPSet@ if it\'s
+-- still used in any @Rules@ or if it still includes any IP addresses.
 --
--- To permanently delete an @IPSet@ from AWS WAF, perform the following steps:
+-- If you just want to remove an @IPSet@ from a @Rule@, use UpdateRule.
 --
---     * Update the @IPSet@ to remove IP address ranges, if any. For more information, see 'UpdateIPSet' .
+-- To permanently delete an @IPSet@ from AWS WAF, perform the following
+-- steps:
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @DeleteIPSet@ request.
+-- 1.  Update the @IPSet@ to remove IP address ranges, if any. For more
+--     information, see UpdateIPSet.
 --
---     * Submit a @DeleteIPSet@ request.
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @DeleteIPSet@ request.
+--
+-- 3.  Submit a @DeleteIPSet@ request.
 module Network.AWS.WAFRegional.DeleteIPSet
   ( -- * Creating a Request
-    deleteIPSet,
-    DeleteIPSet,
+    DeleteIPSet (..),
+    newDeleteIPSet,
 
     -- * Request Lenses
-    disIPSetId,
-    disChangeToken,
+    deleteIPSet_iPSetId,
+    deleteIPSet_changeToken,
 
     -- * Destructuring the Response
-    deleteIPSetResponse,
-    DeleteIPSetResponse,
+    DeleteIPSetResponse (..),
+    newDeleteIPSetResponse,
 
     -- * Response Lenses
-    disrrsChangeToken,
-    disrrsResponseStatus,
+    deleteIPSetResponse_changeToken,
+    deleteIPSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
 
--- | /See:/ 'deleteIPSet' smart constructor.
+-- | /See:/ 'newDeleteIPSet' smart constructor.
 data DeleteIPSet = DeleteIPSet'
-  { _disIPSetId :: !Text,
-    _disChangeToken :: !Text
+  { -- | The @IPSetId@ of the IPSet that you want to delete. @IPSetId@ is
+    -- returned by CreateIPSet and by ListIPSets.
+    iPSetId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIPSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIPSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disIPSetId' - The @IPSetId@ of the 'IPSet' that you want to delete. @IPSetId@ is returned by 'CreateIPSet' and by 'ListIPSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-deleteIPSet ::
-  -- | 'disIPSetId'
-  Text ->
-  -- | 'disChangeToken'
-  Text ->
+-- 'iPSetId', 'deleteIPSet_iPSetId' - The @IPSetId@ of the IPSet that you want to delete. @IPSetId@ is
+-- returned by CreateIPSet and by ListIPSets.
+--
+-- 'changeToken', 'deleteIPSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newDeleteIPSet ::
+  -- | 'iPSetId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   DeleteIPSet
-deleteIPSet pIPSetId_ pChangeToken_ =
+newDeleteIPSet pIPSetId_ pChangeToken_ =
   DeleteIPSet'
-    { _disIPSetId = pIPSetId_,
-      _disChangeToken = pChangeToken_
+    { iPSetId = pIPSetId_,
+      changeToken = pChangeToken_
     }
 
--- | The @IPSetId@ of the 'IPSet' that you want to delete. @IPSetId@ is returned by 'CreateIPSet' and by 'ListIPSets' .
-disIPSetId :: Lens' DeleteIPSet Text
-disIPSetId = lens _disIPSetId (\s a -> s {_disIPSetId = a})
+-- | The @IPSetId@ of the IPSet that you want to delete. @IPSetId@ is
+-- returned by CreateIPSet and by ListIPSets.
+deleteIPSet_iPSetId :: Lens.Lens' DeleteIPSet Prelude.Text
+deleteIPSet_iPSetId = Lens.lens (\DeleteIPSet' {iPSetId} -> iPSetId) (\s@DeleteIPSet' {} a -> s {iPSetId = a} :: DeleteIPSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-disChangeToken :: Lens' DeleteIPSet Text
-disChangeToken = lens _disChangeToken (\s a -> s {_disChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+deleteIPSet_changeToken :: Lens.Lens' DeleteIPSet Prelude.Text
+deleteIPSet_changeToken = Lens.lens (\DeleteIPSet' {changeToken} -> changeToken) (\s@DeleteIPSet' {} a -> s {changeToken = a} :: DeleteIPSet)
 
-instance AWSRequest DeleteIPSet where
+instance Prelude.AWSRequest DeleteIPSet where
   type Rs DeleteIPSet = DeleteIPSetResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteIPSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteIPSet
+instance Prelude.Hashable DeleteIPSet
 
-instance NFData DeleteIPSet
+instance Prelude.NFData DeleteIPSet
 
-instance ToHeaders DeleteIPSet where
+instance Prelude.ToHeaders DeleteIPSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.DeleteIPSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.DeleteIPSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteIPSet where
+instance Prelude.ToJSON DeleteIPSet where
   toJSON DeleteIPSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("IPSetId" .= _disIPSetId),
-            Just ("ChangeToken" .= _disChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("IPSetId" Prelude..= iPSetId),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath DeleteIPSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteIPSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteIPSet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteIPSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteIPSetResponse' smart constructor.
+-- | /See:/ 'newDeleteIPSetResponse' smart constructor.
 data DeleteIPSetResponse = DeleteIPSetResponse'
-  { _disrrsChangeToken ::
-      !(Maybe Text),
-    _disrrsResponseStatus :: !Int
+  { -- | The @ChangeToken@ that you used to submit the @DeleteIPSet@ request. You
+    -- can also use this value to query the status of the request. For more
+    -- information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIPSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIPSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disrrsChangeToken' - The @ChangeToken@ that you used to submit the @DeleteIPSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'disrrsResponseStatus' - -- | The response status code.
-deleteIPSetResponse ::
-  -- | 'disrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'deleteIPSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @DeleteIPSet@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'deleteIPSetResponse_httpStatus' - The response's http status code.
+newDeleteIPSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteIPSetResponse
-deleteIPSetResponse pResponseStatus_ =
+newDeleteIPSetResponse pHttpStatus_ =
   DeleteIPSetResponse'
-    { _disrrsChangeToken = Nothing,
-      _disrrsResponseStatus = pResponseStatus_
+    { changeToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @DeleteIPSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-disrrsChangeToken :: Lens' DeleteIPSetResponse (Maybe Text)
-disrrsChangeToken = lens _disrrsChangeToken (\s a -> s {_disrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @DeleteIPSet@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+deleteIPSetResponse_changeToken :: Lens.Lens' DeleteIPSetResponse (Prelude.Maybe Prelude.Text)
+deleteIPSetResponse_changeToken = Lens.lens (\DeleteIPSetResponse' {changeToken} -> changeToken) (\s@DeleteIPSetResponse' {} a -> s {changeToken = a} :: DeleteIPSetResponse)
 
--- | -- | The response status code.
-disrrsResponseStatus :: Lens' DeleteIPSetResponse Int
-disrrsResponseStatus = lens _disrrsResponseStatus (\s a -> s {_disrrsResponseStatus = a})
+-- | The response's http status code.
+deleteIPSetResponse_httpStatus :: Lens.Lens' DeleteIPSetResponse Prelude.Int
+deleteIPSetResponse_httpStatus = Lens.lens (\DeleteIPSetResponse' {httpStatus} -> httpStatus) (\s@DeleteIPSetResponse' {} a -> s {httpStatus = a} :: DeleteIPSetResponse)
 
-instance NFData DeleteIPSetResponse
+instance Prelude.NFData DeleteIPSetResponse

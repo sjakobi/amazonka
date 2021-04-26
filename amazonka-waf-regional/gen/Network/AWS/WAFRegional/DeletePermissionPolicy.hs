@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes an IAM policy from the specified RuleGroup.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Permanently deletes an IAM policy from the specified RuleGroup.
 --
 -- The user making the request must be the owner of the RuleGroup.
 module Network.AWS.WAFRegional.DeletePermissionPolicy
   ( -- * Creating a Request
-    deletePermissionPolicy,
-    DeletePermissionPolicy,
+    DeletePermissionPolicy (..),
+    newDeletePermissionPolicy,
 
     -- * Request Lenses
-    dppResourceARN,
+    deletePermissionPolicy_resourceArn,
 
     -- * Destructuring the Response
-    deletePermissionPolicyResponse,
-    DeletePermissionPolicyResponse,
+    DeletePermissionPolicyResponse (..),
+    newDeletePermissionPolicyResponse,
 
     -- * Response Lenses
-    dpprrsResponseStatus,
+    deletePermissionPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
 
--- | /See:/ 'deletePermissionPolicy' smart constructor.
-newtype DeletePermissionPolicy = DeletePermissionPolicy'
-  { _dppResourceARN ::
-      Text
+-- | /See:/ 'newDeletePermissionPolicy' smart constructor.
+data DeletePermissionPolicy = DeletePermissionPolicy'
+  { -- | The Amazon Resource Name (ARN) of the RuleGroup from which you want to
+    -- delete the policy.
+    --
+    -- The user making the request must be the owner of the RuleGroup.
+    resourceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePermissionPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePermissionPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dppResourceARN' - The Amazon Resource Name (ARN) of the RuleGroup from which you want to delete the policy. The user making the request must be the owner of the RuleGroup.
-deletePermissionPolicy ::
-  -- | 'dppResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'deletePermissionPolicy_resourceArn' - The Amazon Resource Name (ARN) of the RuleGroup from which you want to
+-- delete the policy.
+--
+-- The user making the request must be the owner of the RuleGroup.
+newDeletePermissionPolicy ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   DeletePermissionPolicy
-deletePermissionPolicy pResourceARN_ =
+newDeletePermissionPolicy pResourceArn_ =
   DeletePermissionPolicy'
-    { _dppResourceARN =
-        pResourceARN_
+    { resourceArn =
+        pResourceArn_
     }
 
--- | The Amazon Resource Name (ARN) of the RuleGroup from which you want to delete the policy. The user making the request must be the owner of the RuleGroup.
-dppResourceARN :: Lens' DeletePermissionPolicy Text
-dppResourceARN = lens _dppResourceARN (\s a -> s {_dppResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the RuleGroup from which you want to
+-- delete the policy.
+--
+-- The user making the request must be the owner of the RuleGroup.
+deletePermissionPolicy_resourceArn :: Lens.Lens' DeletePermissionPolicy Prelude.Text
+deletePermissionPolicy_resourceArn = Lens.lens (\DeletePermissionPolicy' {resourceArn} -> resourceArn) (\s@DeletePermissionPolicy' {} a -> s {resourceArn = a} :: DeletePermissionPolicy)
 
-instance AWSRequest DeletePermissionPolicy where
+instance Prelude.AWSRequest DeletePermissionPolicy where
   type
     Rs DeletePermissionPolicy =
       DeletePermissionPolicyResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeletePermissionPolicyResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeletePermissionPolicy
+instance Prelude.Hashable DeletePermissionPolicy
 
-instance NFData DeletePermissionPolicy
+instance Prelude.NFData DeletePermissionPolicy
 
-instance ToHeaders DeletePermissionPolicy where
+instance Prelude.ToHeaders DeletePermissionPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.DeletePermissionPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.DeletePermissionPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeletePermissionPolicy where
+instance Prelude.ToJSON DeletePermissionPolicy where
   toJSON DeletePermissionPolicy' {..} =
-    object
-      (catMaybes [Just ("ResourceArn" .= _dppResourceARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceArn" Prelude..= resourceArn)
+          ]
+      )
 
-instance ToPath DeletePermissionPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeletePermissionPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeletePermissionPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeletePermissionPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deletePermissionPolicyResponse' smart constructor.
-newtype DeletePermissionPolicyResponse = DeletePermissionPolicyResponse'
-  { _dpprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeletePermissionPolicyResponse' smart constructor.
+data DeletePermissionPolicyResponse = DeletePermissionPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePermissionPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePermissionPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpprrsResponseStatus' - -- | The response status code.
-deletePermissionPolicyResponse ::
-  -- | 'dpprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deletePermissionPolicyResponse_httpStatus' - The response's http status code.
+newDeletePermissionPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeletePermissionPolicyResponse
-deletePermissionPolicyResponse pResponseStatus_ =
+newDeletePermissionPolicyResponse pHttpStatus_ =
   DeletePermissionPolicyResponse'
-    { _dpprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dpprrsResponseStatus :: Lens' DeletePermissionPolicyResponse Int
-dpprrsResponseStatus = lens _dpprrsResponseStatus (\s a -> s {_dpprrsResponseStatus = a})
+-- | The response's http status code.
+deletePermissionPolicyResponse_httpStatus :: Lens.Lens' DeletePermissionPolicyResponse Prelude.Int
+deletePermissionPolicyResponse_httpStatus = Lens.lens (\DeletePermissionPolicyResponse' {httpStatus} -> httpStatus) (\s@DeletePermissionPolicyResponse' {} a -> s {httpStatus = a} :: DeletePermissionPolicyResponse)
 
-instance NFData DeletePermissionPolicyResponse
+instance
+  Prelude.NFData
+    DeletePermissionPolicyResponse

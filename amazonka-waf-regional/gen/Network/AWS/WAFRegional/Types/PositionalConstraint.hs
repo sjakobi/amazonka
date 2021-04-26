@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.WAFRegional.Types.PositionalConstraint
   ( PositionalConstraint
       ( ..,
-        Contains,
-        ContainsWord,
-        EndsWith,
-        Exactly,
-        StartsWith
+        PositionalConstraintCONTAINS,
+        PositionalConstraintCONTAINSWORD,
+        PositionalConstraintENDSWITH,
+        PositionalConstraintEXACTLY,
+        PositionalConstraintSTARTSWITH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PositionalConstraint
-  = PositionalConstraint'
-      ( CI
-          Text
-      )
+newtype PositionalConstraint = PositionalConstraint'
+  { fromPositionalConstraint ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Contains :: PositionalConstraint
-pattern Contains = PositionalConstraint' "CONTAINS"
+pattern PositionalConstraintCONTAINS :: PositionalConstraint
+pattern PositionalConstraintCONTAINS = PositionalConstraint' "CONTAINS"
 
-pattern ContainsWord :: PositionalConstraint
-pattern ContainsWord = PositionalConstraint' "CONTAINS_WORD"
+pattern PositionalConstraintCONTAINSWORD :: PositionalConstraint
+pattern PositionalConstraintCONTAINSWORD = PositionalConstraint' "CONTAINS_WORD"
 
-pattern EndsWith :: PositionalConstraint
-pattern EndsWith = PositionalConstraint' "ENDS_WITH"
+pattern PositionalConstraintENDSWITH :: PositionalConstraint
+pattern PositionalConstraintENDSWITH = PositionalConstraint' "ENDS_WITH"
 
-pattern Exactly :: PositionalConstraint
-pattern Exactly = PositionalConstraint' "EXACTLY"
+pattern PositionalConstraintEXACTLY :: PositionalConstraint
+pattern PositionalConstraintEXACTLY = PositionalConstraint' "EXACTLY"
 
-pattern StartsWith :: PositionalConstraint
-pattern StartsWith = PositionalConstraint' "STARTS_WITH"
+pattern PositionalConstraintSTARTSWITH :: PositionalConstraint
+pattern PositionalConstraintSTARTSWITH = PositionalConstraint' "STARTS_WITH"
 
 {-# COMPLETE
-  Contains,
-  ContainsWord,
-  EndsWith,
-  Exactly,
-  StartsWith,
+  PositionalConstraintCONTAINS,
+  PositionalConstraintCONTAINSWORD,
+  PositionalConstraintENDSWITH,
+  PositionalConstraintEXACTLY,
+  PositionalConstraintSTARTSWITH,
   PositionalConstraint'
   #-}
 
-instance FromText PositionalConstraint where
-  parser = (PositionalConstraint' . mk) <$> takeText
+instance Prelude.FromText PositionalConstraint where
+  parser = PositionalConstraint' Prelude.<$> Prelude.takeText
 
-instance ToText PositionalConstraint where
-  toText (PositionalConstraint' ci) = original ci
+instance Prelude.ToText PositionalConstraint where
+  toText (PositionalConstraint' x) = x
 
-instance Hashable PositionalConstraint
+instance Prelude.Hashable PositionalConstraint
 
-instance NFData PositionalConstraint
+instance Prelude.NFData PositionalConstraint
 
-instance ToByteString PositionalConstraint
+instance Prelude.ToByteString PositionalConstraint
 
-instance ToQuery PositionalConstraint
+instance Prelude.ToQuery PositionalConstraint
 
-instance ToHeader PositionalConstraint
+instance Prelude.ToHeader PositionalConstraint
 
-instance ToJSON PositionalConstraint where
-  toJSON = toJSONText
+instance Prelude.ToJSON PositionalConstraint where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PositionalConstraint where
-  parseJSON = parseJSONText "PositionalConstraint"
+instance Prelude.FromJSON PositionalConstraint where
+  parseJSON = Prelude.parseJSONText "PositionalConstraint"

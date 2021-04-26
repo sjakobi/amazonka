@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.WAFRegional.Types.ResourceType
   ( ResourceType
       ( ..,
-        APIGateway,
-        ApplicationLoadBalancer
+        ResourceTypeAPIGATEWAY,
+        ResourceTypeAPPLICATIONLOADBALANCER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceType = ResourceType' (CI Text)
+newtype ResourceType = ResourceType'
+  { fromResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern APIGateway :: ResourceType
-pattern APIGateway = ResourceType' "API_GATEWAY"
+pattern ResourceTypeAPIGATEWAY :: ResourceType
+pattern ResourceTypeAPIGATEWAY = ResourceType' "API_GATEWAY"
 
-pattern ApplicationLoadBalancer :: ResourceType
-pattern ApplicationLoadBalancer = ResourceType' "APPLICATION_LOAD_BALANCER"
+pattern ResourceTypeAPPLICATIONLOADBALANCER :: ResourceType
+pattern ResourceTypeAPPLICATIONLOADBALANCER = ResourceType' "APPLICATION_LOAD_BALANCER"
 
 {-# COMPLETE
-  APIGateway,
-  ApplicationLoadBalancer,
+  ResourceTypeAPIGATEWAY,
+  ResourceTypeAPPLICATIONLOADBALANCER,
   ResourceType'
   #-}
 
-instance FromText ResourceType where
-  parser = (ResourceType' . mk) <$> takeText
+instance Prelude.FromText ResourceType where
+  parser = ResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceType where
-  toText (ResourceType' ci) = original ci
+instance Prelude.ToText ResourceType where
+  toText (ResourceType' x) = x
 
-instance Hashable ResourceType
+instance Prelude.Hashable ResourceType
 
-instance NFData ResourceType
+instance Prelude.NFData ResourceType
 
-instance ToByteString ResourceType
+instance Prelude.ToByteString ResourceType
 
-instance ToQuery ResourceType
+instance Prelude.ToQuery ResourceType
 
-instance ToHeader ResourceType
+instance Prelude.ToHeader ResourceType
 
-instance ToJSON ResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceType where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,201 +21,258 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a @Rule@ , which contains the @IPSet@ objects, @ByteMatchSet@ objects, and other predicates that identify the requests that you want to block. If you add more than one predicate to a @Rule@ , a request must match all of the specifications to be allowed or blocked. For example, suppose that you add the following to a @Rule@ :
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
---     * An @IPSet@ that matches the IP address @192.0.2.44/32@
+-- Creates a @Rule@, which contains the @IPSet@ objects, @ByteMatchSet@
+-- objects, and other predicates that identify the requests that you want
+-- to block. If you add more than one predicate to a @Rule@, a request must
+-- match all of the specifications to be allowed or blocked. For example,
+-- suppose that you add the following to a @Rule@:
 --
---     * A @ByteMatchSet@ that matches @BadBot@ in the @User-Agent@ header
+-- -   An @IPSet@ that matches the IP address @192.0.2.44\/32@
 --
+-- -   A @ByteMatchSet@ that matches @BadBot@ in the @User-Agent@ header
 --
+-- You then add the @Rule@ to a @WebACL@ and specify that you want to
+-- blocks requests that satisfy the @Rule@. For a request to be blocked, it
+-- must come from the IP address 192.0.2.44 /and/ the @User-Agent@ header
+-- in the request must contain the value @BadBot@.
 --
--- You then add the @Rule@ to a @WebACL@ and specify that you want to blocks requests that satisfy the @Rule@ . For a request to be blocked, it must come from the IP address 192.0.2.44 /and/ the @User-Agent@ header in the request must contain the value @BadBot@ .
+-- To create and configure a @Rule@, perform the following steps:
 --
--- To create and configure a @Rule@ , perform the following steps:
+-- 1.  Create and update the predicates that you want to include in the
+--     @Rule@. For more information, see CreateByteMatchSet, CreateIPSet,
+--     and CreateSqlInjectionMatchSet.
 --
---     * Create and update the predicates that you want to include in the @Rule@ . For more information, see 'CreateByteMatchSet' , 'CreateIPSet' , and 'CreateSqlInjectionMatchSet' .
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @CreateRule@ request.
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @CreateRule@ request.
+-- 3.  Submit a @CreateRule@ request.
 --
---     * Submit a @CreateRule@ request.
+-- 4.  Use @GetChangeToken@ to get the change token that you provide in the
+--     @ChangeToken@ parameter of an UpdateRule request.
 --
---     * Use @GetChangeToken@ to get the change token that you provide in the @ChangeToken@ parameter of an 'UpdateRule' request.
+-- 5.  Submit an @UpdateRule@ request to specify the predicates that you
+--     want to include in the @Rule@.
 --
---     * Submit an @UpdateRule@ request to specify the predicates that you want to include in the @Rule@ .
+-- 6.  Create and update a @WebACL@ that contains the @Rule@. For more
+--     information, see CreateWebACL.
 --
---     * Create and update a @WebACL@ that contains the @Rule@ . For more information, see 'CreateWebACL' .
---
---
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAFRegional.CreateRule
   ( -- * Creating a Request
-    createRule,
-    CreateRule,
+    CreateRule (..),
+    newCreateRule,
 
     -- * Request Lenses
-    crTags,
-    crName,
-    crMetricName,
-    crChangeToken,
+    createRule_tags,
+    createRule_name,
+    createRule_metricName,
+    createRule_changeToken,
 
     -- * Destructuring the Response
-    createRuleResponse,
-    CreateRuleResponse,
+    CreateRuleResponse (..),
+    newCreateRuleResponse,
 
     -- * Response Lenses
-    crrrsRule,
-    crrrsChangeToken,
-    crrrsResponseStatus,
+    createRuleResponse_rule,
+    createRuleResponse_changeToken,
+    createRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.Rule
 
--- | /See:/ 'createRule' smart constructor.
+-- | /See:/ 'newCreateRule' smart constructor.
 data CreateRule = CreateRule'
-  { _crTags ::
-      !(Maybe (List1 Tag)),
-    _crName :: !Text,
-    _crMetricName :: !Text,
-    _crChangeToken :: !Text
+  { tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | A friendly name or description of the Rule. You can\'t change the name
+    -- of a @Rule@ after you create it.
+    name :: Prelude.Text,
+    -- | A friendly name or description for the metrics for this @Rule@. The name
+    -- can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum
+    -- length 128 and minimum length one. It can\'t contain whitespace or
+    -- metric names reserved for AWS WAF, including \"All\" and
+    -- \"Default_Action.\" You can\'t change the name of the metric after you
+    -- create the @Rule@.
+    metricName :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crTags' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crName' - A friendly name or description of the 'Rule' . You can't change the name of a @Rule@ after you create it.
+-- 'tags', 'createRule_tags' -
 --
--- * 'crMetricName' - A friendly name or description for the metrics for this @Rule@ . The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change the name of the metric after you create the @Rule@ .
+-- 'name', 'createRule_name' - A friendly name or description of the Rule. You can\'t change the name
+-- of a @Rule@ after you create it.
 --
--- * 'crChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-createRule ::
-  -- | 'crName'
-  Text ->
-  -- | 'crMetricName'
-  Text ->
-  -- | 'crChangeToken'
-  Text ->
+-- 'metricName', 'createRule_metricName' - A friendly name or description for the metrics for this @Rule@. The name
+-- can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum
+-- length 128 and minimum length one. It can\'t contain whitespace or
+-- metric names reserved for AWS WAF, including \"All\" and
+-- \"Default_Action.\" You can\'t change the name of the metric after you
+-- create the @Rule@.
+--
+-- 'changeToken', 'createRule_changeToken' - The value returned by the most recent call to GetChangeToken.
+newCreateRule ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'metricName'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   CreateRule
-createRule pName_ pMetricName_ pChangeToken_ =
+newCreateRule pName_ pMetricName_ pChangeToken_ =
   CreateRule'
-    { _crTags = Nothing,
-      _crName = pName_,
-      _crMetricName = pMetricName_,
-      _crChangeToken = pChangeToken_
+    { tags = Prelude.Nothing,
+      name = pName_,
+      metricName = pMetricName_,
+      changeToken = pChangeToken_
     }
 
 -- |
-crTags :: Lens' CreateRule (Maybe (NonEmpty Tag))
-crTags = lens _crTags (\s a -> s {_crTags = a}) . mapping _List1
+createRule_tags :: Lens.Lens' CreateRule (Prelude.Maybe (Prelude.NonEmpty Tag))
+createRule_tags = Lens.lens (\CreateRule' {tags} -> tags) (\s@CreateRule' {} a -> s {tags = a} :: CreateRule) Prelude.. Lens.mapping Prelude._List1
 
--- | A friendly name or description of the 'Rule' . You can't change the name of a @Rule@ after you create it.
-crName :: Lens' CreateRule Text
-crName = lens _crName (\s a -> s {_crName = a})
+-- | A friendly name or description of the Rule. You can\'t change the name
+-- of a @Rule@ after you create it.
+createRule_name :: Lens.Lens' CreateRule Prelude.Text
+createRule_name = Lens.lens (\CreateRule' {name} -> name) (\s@CreateRule' {} a -> s {name = a} :: CreateRule)
 
--- | A friendly name or description for the metrics for this @Rule@ . The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change the name of the metric after you create the @Rule@ .
-crMetricName :: Lens' CreateRule Text
-crMetricName = lens _crMetricName (\s a -> s {_crMetricName = a})
+-- | A friendly name or description for the metrics for this @Rule@. The name
+-- can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum
+-- length 128 and minimum length one. It can\'t contain whitespace or
+-- metric names reserved for AWS WAF, including \"All\" and
+-- \"Default_Action.\" You can\'t change the name of the metric after you
+-- create the @Rule@.
+createRule_metricName :: Lens.Lens' CreateRule Prelude.Text
+createRule_metricName = Lens.lens (\CreateRule' {metricName} -> metricName) (\s@CreateRule' {} a -> s {metricName = a} :: CreateRule)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-crChangeToken :: Lens' CreateRule Text
-crChangeToken = lens _crChangeToken (\s a -> s {_crChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+createRule_changeToken :: Lens.Lens' CreateRule Prelude.Text
+createRule_changeToken = Lens.lens (\CreateRule' {changeToken} -> changeToken) (\s@CreateRule' {} a -> s {changeToken = a} :: CreateRule)
 
-instance AWSRequest CreateRule where
+instance Prelude.AWSRequest CreateRule where
   type Rs CreateRule = CreateRuleResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateRuleResponse'
-            <$> (x .?> "Rule")
-            <*> (x .?> "ChangeToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Rule")
+            Prelude.<*> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateRule
+instance Prelude.Hashable CreateRule
 
-instance NFData CreateRule
+instance Prelude.NFData CreateRule
 
-instance ToHeaders CreateRule where
+instance Prelude.ToHeaders CreateRule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.CreateRule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.CreateRule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateRule where
+instance Prelude.ToJSON CreateRule where
   toJSON CreateRule' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _crTags,
-            Just ("Name" .= _crName),
-            Just ("MetricName" .= _crMetricName),
-            Just ("ChangeToken" .= _crChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("MetricName" Prelude..= metricName),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath CreateRule where
-  toPath = const "/"
+instance Prelude.ToPath CreateRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateRule where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateRule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createRuleResponse' smart constructor.
+-- | /See:/ 'newCreateRuleResponse' smart constructor.
 data CreateRuleResponse = CreateRuleResponse'
-  { _crrrsRule ::
-      !(Maybe Rule),
-    _crrrsChangeToken ::
-      !(Maybe Text),
-    _crrrsResponseStatus :: !Int
+  { -- | The Rule returned in the @CreateRule@ response.
+    rule :: Prelude.Maybe Rule,
+    -- | The @ChangeToken@ that you used to submit the @CreateRule@ request. You
+    -- can also use this value to query the status of the request. For more
+    -- information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crrrsRule' - The 'Rule' returned in the @CreateRule@ response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crrrsChangeToken' - The @ChangeToken@ that you used to submit the @CreateRule@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- 'rule', 'createRuleResponse_rule' - The Rule returned in the @CreateRule@ response.
 --
--- * 'crrrsResponseStatus' - -- | The response status code.
-createRuleResponse ::
-  -- | 'crrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'createRuleResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateRule@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'createRuleResponse_httpStatus' - The response's http status code.
+newCreateRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateRuleResponse
-createRuleResponse pResponseStatus_ =
+newCreateRuleResponse pHttpStatus_ =
   CreateRuleResponse'
-    { _crrrsRule = Nothing,
-      _crrrsChangeToken = Nothing,
-      _crrrsResponseStatus = pResponseStatus_
+    { rule = Prelude.Nothing,
+      changeToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The 'Rule' returned in the @CreateRule@ response.
-crrrsRule :: Lens' CreateRuleResponse (Maybe Rule)
-crrrsRule = lens _crrrsRule (\s a -> s {_crrrsRule = a})
+-- | The Rule returned in the @CreateRule@ response.
+createRuleResponse_rule :: Lens.Lens' CreateRuleResponse (Prelude.Maybe Rule)
+createRuleResponse_rule = Lens.lens (\CreateRuleResponse' {rule} -> rule) (\s@CreateRuleResponse' {} a -> s {rule = a} :: CreateRuleResponse)
 
--- | The @ChangeToken@ that you used to submit the @CreateRule@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-crrrsChangeToken :: Lens' CreateRuleResponse (Maybe Text)
-crrrsChangeToken = lens _crrrsChangeToken (\s a -> s {_crrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @CreateRule@ request. You
+-- can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+createRuleResponse_changeToken :: Lens.Lens' CreateRuleResponse (Prelude.Maybe Prelude.Text)
+createRuleResponse_changeToken = Lens.lens (\CreateRuleResponse' {changeToken} -> changeToken) (\s@CreateRuleResponse' {} a -> s {changeToken = a} :: CreateRuleResponse)
 
--- | -- | The response status code.
-crrrsResponseStatus :: Lens' CreateRuleResponse Int
-crrrsResponseStatus = lens _crrrsResponseStatus (\s a -> s {_crrrsResponseStatus = a})
+-- | The response's http status code.
+createRuleResponse_httpStatus :: Lens.Lens' CreateRuleResponse Prelude.Int
+createRuleResponse_httpStatus = Lens.lens (\CreateRuleResponse' {httpStatus} -> httpStatus) (\s@CreateRuleResponse' {} a -> s {httpStatus = a} :: CreateRuleResponse)
 
-instance NFData CreateRuleResponse
+instance Prelude.NFData CreateRuleResponse

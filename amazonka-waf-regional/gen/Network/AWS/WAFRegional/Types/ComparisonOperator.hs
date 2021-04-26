@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.WAFRegional.Types.ComparisonOperator
   ( ComparisonOperator
       ( ..,
-        EQ',
-        GE,
-        GT',
-        LE,
-        LT',
-        NE
+        ComparisonOperatorEQ,
+        ComparisonOperatorGE,
+        ComparisonOperatorGT,
+        ComparisonOperatorLE,
+        ComparisonOperatorLT,
+        ComparisonOperatorNE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComparisonOperator
-  = ComparisonOperator'
-      ( CI
-          Text
-      )
+newtype ComparisonOperator = ComparisonOperator'
+  { fromComparisonOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EQ' :: ComparisonOperator
-pattern EQ' = ComparisonOperator' "EQ"
+pattern ComparisonOperatorEQ :: ComparisonOperator
+pattern ComparisonOperatorEQ = ComparisonOperator' "EQ"
 
-pattern GE :: ComparisonOperator
-pattern GE = ComparisonOperator' "GE"
+pattern ComparisonOperatorGE :: ComparisonOperator
+pattern ComparisonOperatorGE = ComparisonOperator' "GE"
 
-pattern GT' :: ComparisonOperator
-pattern GT' = ComparisonOperator' "GT"
+pattern ComparisonOperatorGT :: ComparisonOperator
+pattern ComparisonOperatorGT = ComparisonOperator' "GT"
 
-pattern LE :: ComparisonOperator
-pattern LE = ComparisonOperator' "LE"
+pattern ComparisonOperatorLE :: ComparisonOperator
+pattern ComparisonOperatorLE = ComparisonOperator' "LE"
 
-pattern LT' :: ComparisonOperator
-pattern LT' = ComparisonOperator' "LT"
+pattern ComparisonOperatorLT :: ComparisonOperator
+pattern ComparisonOperatorLT = ComparisonOperator' "LT"
 
-pattern NE :: ComparisonOperator
-pattern NE = ComparisonOperator' "NE"
+pattern ComparisonOperatorNE :: ComparisonOperator
+pattern ComparisonOperatorNE = ComparisonOperator' "NE"
 
 {-# COMPLETE
-  EQ',
-  GE,
-  GT',
-  LE,
-  LT',
-  NE,
+  ComparisonOperatorEQ,
+  ComparisonOperatorGE,
+  ComparisonOperatorGT,
+  ComparisonOperatorLE,
+  ComparisonOperatorLT,
+  ComparisonOperatorNE,
   ComparisonOperator'
   #-}
 
-instance FromText ComparisonOperator where
-  parser = (ComparisonOperator' . mk) <$> takeText
+instance Prelude.FromText ComparisonOperator where
+  parser = ComparisonOperator' Prelude.<$> Prelude.takeText
 
-instance ToText ComparisonOperator where
-  toText (ComparisonOperator' ci) = original ci
+instance Prelude.ToText ComparisonOperator where
+  toText (ComparisonOperator' x) = x
 
-instance Hashable ComparisonOperator
+instance Prelude.Hashable ComparisonOperator
 
-instance NFData ComparisonOperator
+instance Prelude.NFData ComparisonOperator
 
-instance ToByteString ComparisonOperator
+instance Prelude.ToByteString ComparisonOperator
 
-instance ToQuery ComparisonOperator
+instance Prelude.ToQuery ComparisonOperator
 
-instance ToHeader ComparisonOperator
+instance Prelude.ToHeader ComparisonOperator
 
-instance ToJSON ComparisonOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComparisonOperator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComparisonOperator where
-  parseJSON = parseJSONText "ComparisonOperator"
+instance Prelude.FromJSON ComparisonOperator where
+  parseJSON = Prelude.parseJSONText "ComparisonOperator"

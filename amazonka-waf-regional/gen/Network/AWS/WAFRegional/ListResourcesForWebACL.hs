@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
+-- This is __AWS WAF Classic Regional__ documentation. For more
+-- information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
 -- Returns an array of resources associated with the specified web ACL.
 module Network.AWS.WAFRegional.ListResourcesForWebACL
   ( -- * Creating a Request
-    listResourcesForWebACL,
-    ListResourcesForWebACL,
+    ListResourcesForWebACL (..),
+    newListResourcesForWebACL,
 
     -- * Request Lenses
-    lrfwaResourceType,
-    lrfwaWebACLId,
+    listResourcesForWebACL_resourceType,
+    listResourcesForWebACL_webACLId,
 
     -- * Destructuring the Response
-    listResourcesForWebACLResponse,
-    ListResourcesForWebACLResponse,
+    ListResourcesForWebACLResponse (..),
+    newListResourcesForWebACLResponse,
 
     -- * Response Lenses
-    lrfwarrsResourceARNs,
-    lrfwarrsResponseStatus,
+    listResourcesForWebACLResponse_resourceArns,
+    listResourcesForWebACLResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
 
--- | /See:/ 'listResourcesForWebACL' smart constructor.
+-- | /See:/ 'newListResourcesForWebACL' smart constructor.
 data ListResourcesForWebACL = ListResourcesForWebACL'
-  { _lrfwaResourceType ::
-      !(Maybe ResourceType),
-    _lrfwaWebACLId :: !Text
+  { -- | The type of resource to list, either an application load balancer or
+    -- Amazon API Gateway.
+    resourceType :: Prelude.Maybe ResourceType,
+    -- | The unique identifier (ID) of the web ACL for which to list the
+    -- associated resources.
+    webACLId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourcesForWebACL' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourcesForWebACL' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrfwaResourceType' - The type of resource to list, either an application load balancer or Amazon API Gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrfwaWebACLId' - The unique identifier (ID) of the web ACL for which to list the associated resources.
-listResourcesForWebACL ::
-  -- | 'lrfwaWebACLId'
-  Text ->
+-- 'resourceType', 'listResourcesForWebACL_resourceType' - The type of resource to list, either an application load balancer or
+-- Amazon API Gateway.
+--
+-- 'webACLId', 'listResourcesForWebACL_webACLId' - The unique identifier (ID) of the web ACL for which to list the
+-- associated resources.
+newListResourcesForWebACL ::
+  -- | 'webACLId'
+  Prelude.Text ->
   ListResourcesForWebACL
-listResourcesForWebACL pWebACLId_ =
+newListResourcesForWebACL pWebACLId_ =
   ListResourcesForWebACL'
-    { _lrfwaResourceType =
-        Nothing,
-      _lrfwaWebACLId = pWebACLId_
+    { resourceType =
+        Prelude.Nothing,
+      webACLId = pWebACLId_
     }
 
--- | The type of resource to list, either an application load balancer or Amazon API Gateway.
-lrfwaResourceType :: Lens' ListResourcesForWebACL (Maybe ResourceType)
-lrfwaResourceType = lens _lrfwaResourceType (\s a -> s {_lrfwaResourceType = a})
+-- | The type of resource to list, either an application load balancer or
+-- Amazon API Gateway.
+listResourcesForWebACL_resourceType :: Lens.Lens' ListResourcesForWebACL (Prelude.Maybe ResourceType)
+listResourcesForWebACL_resourceType = Lens.lens (\ListResourcesForWebACL' {resourceType} -> resourceType) (\s@ListResourcesForWebACL' {} a -> s {resourceType = a} :: ListResourcesForWebACL)
 
--- | The unique identifier (ID) of the web ACL for which to list the associated resources.
-lrfwaWebACLId :: Lens' ListResourcesForWebACL Text
-lrfwaWebACLId = lens _lrfwaWebACLId (\s a -> s {_lrfwaWebACLId = a})
+-- | The unique identifier (ID) of the web ACL for which to list the
+-- associated resources.
+listResourcesForWebACL_webACLId :: Lens.Lens' ListResourcesForWebACL Prelude.Text
+listResourcesForWebACL_webACLId = Lens.lens (\ListResourcesForWebACL' {webACLId} -> webACLId) (\s@ListResourcesForWebACL' {} a -> s {webACLId = a} :: ListResourcesForWebACL)
 
-instance AWSRequest ListResourcesForWebACL where
+instance Prelude.AWSRequest ListResourcesForWebACL where
   type
     Rs ListResourcesForWebACL =
       ListResourcesForWebACLResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListResourcesForWebACLResponse'
-            <$> (x .?> "ResourceArns" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ResourceArns"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListResourcesForWebACL
+instance Prelude.Hashable ListResourcesForWebACL
 
-instance NFData ListResourcesForWebACL
+instance Prelude.NFData ListResourcesForWebACL
 
-instance ToHeaders ListResourcesForWebACL where
+instance Prelude.ToHeaders ListResourcesForWebACL where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.ListResourcesForWebACL" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.ListResourcesForWebACL" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListResourcesForWebACL where
+instance Prelude.ToJSON ListResourcesForWebACL where
   toJSON ListResourcesForWebACL' {..} =
-    object
-      ( catMaybes
-          [ ("ResourceType" .=) <$> _lrfwaResourceType,
-            Just ("WebACLId" .= _lrfwaWebACLId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceType" Prelude..=)
+              Prelude.<$> resourceType,
+            Prelude.Just ("WebACLId" Prelude..= webACLId)
           ]
       )
 
-instance ToPath ListResourcesForWebACL where
-  toPath = const "/"
+instance Prelude.ToPath ListResourcesForWebACL where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListResourcesForWebACL where
-  toQuery = const mempty
+instance Prelude.ToQuery ListResourcesForWebACL where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listResourcesForWebACLResponse' smart constructor.
+-- | /See:/ 'newListResourcesForWebACLResponse' smart constructor.
 data ListResourcesForWebACLResponse = ListResourcesForWebACLResponse'
-  { _lrfwarrsResourceARNs ::
-      !( Maybe
-           [Text]
-       ),
-    _lrfwarrsResponseStatus ::
-      !Int
+  { -- | An array of ARNs (Amazon Resource Names) of the resources associated
+    -- with the specified web ACL. An array with zero elements is returned if
+    -- there are no resources associated with the web ACL.
+    resourceArns :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourcesForWebACLResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourcesForWebACLResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrfwarrsResourceARNs' - An array of ARNs (Amazon Resource Names) of the resources associated with the specified web ACL. An array with zero elements is returned if there are no resources associated with the web ACL.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrfwarrsResponseStatus' - -- | The response status code.
-listResourcesForWebACLResponse ::
-  -- | 'lrfwarrsResponseStatus'
-  Int ->
+-- 'resourceArns', 'listResourcesForWebACLResponse_resourceArns' - An array of ARNs (Amazon Resource Names) of the resources associated
+-- with the specified web ACL. An array with zero elements is returned if
+-- there are no resources associated with the web ACL.
+--
+-- 'httpStatus', 'listResourcesForWebACLResponse_httpStatus' - The response's http status code.
+newListResourcesForWebACLResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListResourcesForWebACLResponse
-listResourcesForWebACLResponse pResponseStatus_ =
+newListResourcesForWebACLResponse pHttpStatus_ =
   ListResourcesForWebACLResponse'
-    { _lrfwarrsResourceARNs =
-        Nothing,
-      _lrfwarrsResponseStatus = pResponseStatus_
+    { resourceArns =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of ARNs (Amazon Resource Names) of the resources associated with the specified web ACL. An array with zero elements is returned if there are no resources associated with the web ACL.
-lrfwarrsResourceARNs :: Lens' ListResourcesForWebACLResponse [Text]
-lrfwarrsResourceARNs = lens _lrfwarrsResourceARNs (\s a -> s {_lrfwarrsResourceARNs = a}) . _Default . _Coerce
+-- | An array of ARNs (Amazon Resource Names) of the resources associated
+-- with the specified web ACL. An array with zero elements is returned if
+-- there are no resources associated with the web ACL.
+listResourcesForWebACLResponse_resourceArns :: Lens.Lens' ListResourcesForWebACLResponse (Prelude.Maybe [Prelude.Text])
+listResourcesForWebACLResponse_resourceArns = Lens.lens (\ListResourcesForWebACLResponse' {resourceArns} -> resourceArns) (\s@ListResourcesForWebACLResponse' {} a -> s {resourceArns = a} :: ListResourcesForWebACLResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrfwarrsResponseStatus :: Lens' ListResourcesForWebACLResponse Int
-lrfwarrsResponseStatus = lens _lrfwarrsResponseStatus (\s a -> s {_lrfwarrsResponseStatus = a})
+-- | The response's http status code.
+listResourcesForWebACLResponse_httpStatus :: Lens.Lens' ListResourcesForWebACLResponse Prelude.Int
+listResourcesForWebACLResponse_httpStatus = Lens.lens (\ListResourcesForWebACLResponse' {httpStatus} -> httpStatus) (\s@ListResourcesForWebACLResponse' {} a -> s {httpStatus = a} :: ListResourcesForWebACLResponse)
 
-instance NFData ListResourcesForWebACLResponse
+instance
+  Prelude.NFData
+    ListResourcesForWebACLResponse

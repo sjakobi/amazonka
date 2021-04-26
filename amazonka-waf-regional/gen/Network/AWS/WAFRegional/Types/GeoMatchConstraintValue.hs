@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,1295 +19,1293 @@
 module Network.AWS.WAFRegional.Types.GeoMatchConstraintValue
   ( GeoMatchConstraintValue
       ( ..,
-        GMCVAD,
-        GMCVAE,
-        GMCVAF,
-        GMCVAG,
-        GMCVAI,
-        GMCVAL,
-        GMCVAM,
-        GMCVAO,
-        GMCVAQ,
-        GMCVAR,
-        GMCVAS,
-        GMCVAT,
-        GMCVAU,
-        GMCVAW,
-        GMCVAX,
-        GMCVAZ,
-        GMCVBA,
-        GMCVBB,
-        GMCVBD,
-        GMCVBE,
-        GMCVBF,
-        GMCVBG,
-        GMCVBH,
-        GMCVBI,
-        GMCVBJ,
-        GMCVBL,
-        GMCVBM,
-        GMCVBN,
-        GMCVBO,
-        GMCVBQ,
-        GMCVBR,
-        GMCVBS,
-        GMCVBT,
-        GMCVBV,
-        GMCVBW,
-        GMCVBY,
-        GMCVBZ,
-        GMCVCA,
-        GMCVCC,
-        GMCVCD,
-        GMCVCF,
-        GMCVCG,
-        GMCVCH,
-        GMCVCI,
-        GMCVCK,
-        GMCVCL,
-        GMCVCM,
-        GMCVCN,
-        GMCVCO,
-        GMCVCR,
-        GMCVCU,
-        GMCVCV,
-        GMCVCW,
-        GMCVCX,
-        GMCVCY,
-        GMCVCZ,
-        GMCVDE,
-        GMCVDJ,
-        GMCVDK,
-        GMCVDM,
-        GMCVDO,
-        GMCVDZ,
-        GMCVEC,
-        GMCVEE,
-        GMCVEG,
-        GMCVEH,
-        GMCVER,
-        GMCVES,
-        GMCVET,
-        GMCVFI,
-        GMCVFJ,
-        GMCVFK,
-        GMCVFM,
-        GMCVFO,
-        GMCVFR,
-        GMCVGA,
-        GMCVGB,
-        GMCVGD,
-        GMCVGE,
-        GMCVGF,
-        GMCVGG,
-        GMCVGH,
-        GMCVGI,
-        GMCVGL,
-        GMCVGM,
-        GMCVGN,
-        GMCVGP,
-        GMCVGQ,
-        GMCVGR,
-        GMCVGS,
-        GMCVGT',
-        GMCVGU,
-        GMCVGW,
-        GMCVGY,
-        GMCVHK,
-        GMCVHM,
-        GMCVHN,
-        GMCVHR,
-        GMCVHT,
-        GMCVHU,
-        GMCVIE,
-        GMCVIL,
-        GMCVIM,
-        GMCVIN,
-        GMCVIO,
-        GMCVIQ,
-        GMCVIR,
-        GMCVIS,
-        GMCVIT,
-        GMCVId,
-        GMCVJE,
-        GMCVJM,
-        GMCVJO,
-        GMCVJP,
-        GMCVKE,
-        GMCVKG,
-        GMCVKH,
-        GMCVKI,
-        GMCVKM,
-        GMCVKN,
-        GMCVKP,
-        GMCVKR,
-        GMCVKW,
-        GMCVKY,
-        GMCVKZ,
-        GMCVLA,
-        GMCVLB,
-        GMCVLC,
-        GMCVLI,
-        GMCVLK,
-        GMCVLR,
-        GMCVLS,
-        GMCVLT',
-        GMCVLU,
-        GMCVLV,
-        GMCVLY,
-        GMCVMA,
-        GMCVMC,
-        GMCVMD,
-        GMCVME,
-        GMCVMF,
-        GMCVMG,
-        GMCVMH,
-        GMCVMK,
-        GMCVML,
-        GMCVMM,
-        GMCVMN,
-        GMCVMO,
-        GMCVMP,
-        GMCVMQ,
-        GMCVMR,
-        GMCVMS,
-        GMCVMT,
-        GMCVMU,
-        GMCVMV,
-        GMCVMW,
-        GMCVMX,
-        GMCVMY,
-        GMCVMZ,
-        GMCVNA,
-        GMCVNC,
-        GMCVNE,
-        GMCVNF,
-        GMCVNG,
-        GMCVNI,
-        GMCVNL,
-        GMCVNO,
-        GMCVNP,
-        GMCVNR,
-        GMCVNU,
-        GMCVNZ,
-        GMCVOM,
-        GMCVPA,
-        GMCVPE,
-        GMCVPF,
-        GMCVPG,
-        GMCVPH,
-        GMCVPK,
-        GMCVPL,
-        GMCVPM,
-        GMCVPN,
-        GMCVPR,
-        GMCVPS,
-        GMCVPT,
-        GMCVPW,
-        GMCVPY,
-        GMCVQA,
-        GMCVRE,
-        GMCVRO,
-        GMCVRS,
-        GMCVRU,
-        GMCVRW,
-        GMCVSA,
-        GMCVSB,
-        GMCVSC,
-        GMCVSD,
-        GMCVSE,
-        GMCVSG,
-        GMCVSH,
-        GMCVSI,
-        GMCVSJ,
-        GMCVSK,
-        GMCVSL,
-        GMCVSM,
-        GMCVSN,
-        GMCVSO,
-        GMCVSR,
-        GMCVSS,
-        GMCVST,
-        GMCVSV,
-        GMCVSX,
-        GMCVSY,
-        GMCVSZ,
-        GMCVTC,
-        GMCVTD,
-        GMCVTF,
-        GMCVTG,
-        GMCVTH,
-        GMCVTJ,
-        GMCVTK,
-        GMCVTL,
-        GMCVTM,
-        GMCVTN,
-        GMCVTO,
-        GMCVTR,
-        GMCVTT,
-        GMCVTV,
-        GMCVTW,
-        GMCVTZ,
-        GMCVUA,
-        GMCVUG,
-        GMCVUM,
-        GMCVUS,
-        GMCVUY,
-        GMCVUZ,
-        GMCVVA,
-        GMCVVC,
-        GMCVVE,
-        GMCVVG,
-        GMCVVI,
-        GMCVVN,
-        GMCVVU,
-        GMCVWF,
-        GMCVWS,
-        GMCVYE,
-        GMCVYT,
-        GMCVZA,
-        GMCVZM,
-        GMCVZW
+        GeoMatchConstraintValueAD,
+        GeoMatchConstraintValueAE,
+        GeoMatchConstraintValueAF,
+        GeoMatchConstraintValueAG,
+        GeoMatchConstraintValueAI,
+        GeoMatchConstraintValueAL,
+        GeoMatchConstraintValueAM,
+        GeoMatchConstraintValueAO,
+        GeoMatchConstraintValueAQ,
+        GeoMatchConstraintValueAR,
+        GeoMatchConstraintValueAS,
+        GeoMatchConstraintValueAT,
+        GeoMatchConstraintValueAU,
+        GeoMatchConstraintValueAW,
+        GeoMatchConstraintValueAX,
+        GeoMatchConstraintValueAZ,
+        GeoMatchConstraintValueBA,
+        GeoMatchConstraintValueBB,
+        GeoMatchConstraintValueBD,
+        GeoMatchConstraintValueBE,
+        GeoMatchConstraintValueBF,
+        GeoMatchConstraintValueBG,
+        GeoMatchConstraintValueBH,
+        GeoMatchConstraintValueBI,
+        GeoMatchConstraintValueBJ,
+        GeoMatchConstraintValueBL,
+        GeoMatchConstraintValueBM,
+        GeoMatchConstraintValueBN,
+        GeoMatchConstraintValueBO,
+        GeoMatchConstraintValueBQ,
+        GeoMatchConstraintValueBR,
+        GeoMatchConstraintValueBS,
+        GeoMatchConstraintValueBT,
+        GeoMatchConstraintValueBV,
+        GeoMatchConstraintValueBW,
+        GeoMatchConstraintValueBY,
+        GeoMatchConstraintValueBZ,
+        GeoMatchConstraintValueCA,
+        GeoMatchConstraintValueCC,
+        GeoMatchConstraintValueCD,
+        GeoMatchConstraintValueCF,
+        GeoMatchConstraintValueCG,
+        GeoMatchConstraintValueCH,
+        GeoMatchConstraintValueCI,
+        GeoMatchConstraintValueCK,
+        GeoMatchConstraintValueCL,
+        GeoMatchConstraintValueCM,
+        GeoMatchConstraintValueCN,
+        GeoMatchConstraintValueCO,
+        GeoMatchConstraintValueCR,
+        GeoMatchConstraintValueCU,
+        GeoMatchConstraintValueCV,
+        GeoMatchConstraintValueCW,
+        GeoMatchConstraintValueCX,
+        GeoMatchConstraintValueCY,
+        GeoMatchConstraintValueCZ,
+        GeoMatchConstraintValueDE,
+        GeoMatchConstraintValueDJ,
+        GeoMatchConstraintValueDK,
+        GeoMatchConstraintValueDM,
+        GeoMatchConstraintValueDO,
+        GeoMatchConstraintValueDZ,
+        GeoMatchConstraintValueEC,
+        GeoMatchConstraintValueEE,
+        GeoMatchConstraintValueEG,
+        GeoMatchConstraintValueEH,
+        GeoMatchConstraintValueER,
+        GeoMatchConstraintValueES,
+        GeoMatchConstraintValueET,
+        GeoMatchConstraintValueFI,
+        GeoMatchConstraintValueFJ,
+        GeoMatchConstraintValueFK,
+        GeoMatchConstraintValueFM,
+        GeoMatchConstraintValueFO,
+        GeoMatchConstraintValueFR,
+        GeoMatchConstraintValueGA,
+        GeoMatchConstraintValueGB,
+        GeoMatchConstraintValueGD,
+        GeoMatchConstraintValueGE,
+        GeoMatchConstraintValueGF,
+        GeoMatchConstraintValueGG,
+        GeoMatchConstraintValueGH,
+        GeoMatchConstraintValueGI,
+        GeoMatchConstraintValueGL,
+        GeoMatchConstraintValueGM,
+        GeoMatchConstraintValueGN,
+        GeoMatchConstraintValueGP,
+        GeoMatchConstraintValueGQ,
+        GeoMatchConstraintValueGR,
+        GeoMatchConstraintValueGS,
+        GeoMatchConstraintValueGT,
+        GeoMatchConstraintValueGU,
+        GeoMatchConstraintValueGW,
+        GeoMatchConstraintValueGY,
+        GeoMatchConstraintValueHK,
+        GeoMatchConstraintValueHM,
+        GeoMatchConstraintValueHN,
+        GeoMatchConstraintValueHR,
+        GeoMatchConstraintValueHT,
+        GeoMatchConstraintValueHU,
+        GeoMatchConstraintValueID,
+        GeoMatchConstraintValueIE,
+        GeoMatchConstraintValueIL,
+        GeoMatchConstraintValueIM,
+        GeoMatchConstraintValueIN,
+        GeoMatchConstraintValueIO,
+        GeoMatchConstraintValueIQ,
+        GeoMatchConstraintValueIR,
+        GeoMatchConstraintValueIS,
+        GeoMatchConstraintValueIT,
+        GeoMatchConstraintValueJE,
+        GeoMatchConstraintValueJM,
+        GeoMatchConstraintValueJO,
+        GeoMatchConstraintValueJP,
+        GeoMatchConstraintValueKE,
+        GeoMatchConstraintValueKG,
+        GeoMatchConstraintValueKH,
+        GeoMatchConstraintValueKI,
+        GeoMatchConstraintValueKM,
+        GeoMatchConstraintValueKN,
+        GeoMatchConstraintValueKP,
+        GeoMatchConstraintValueKR,
+        GeoMatchConstraintValueKW,
+        GeoMatchConstraintValueKY,
+        GeoMatchConstraintValueKZ,
+        GeoMatchConstraintValueLA,
+        GeoMatchConstraintValueLB,
+        GeoMatchConstraintValueLC,
+        GeoMatchConstraintValueLI,
+        GeoMatchConstraintValueLK,
+        GeoMatchConstraintValueLR,
+        GeoMatchConstraintValueLS,
+        GeoMatchConstraintValueLT,
+        GeoMatchConstraintValueLU,
+        GeoMatchConstraintValueLV,
+        GeoMatchConstraintValueLY,
+        GeoMatchConstraintValueMA,
+        GeoMatchConstraintValueMC,
+        GeoMatchConstraintValueMD,
+        GeoMatchConstraintValueME,
+        GeoMatchConstraintValueMF,
+        GeoMatchConstraintValueMG,
+        GeoMatchConstraintValueMH,
+        GeoMatchConstraintValueMK,
+        GeoMatchConstraintValueML,
+        GeoMatchConstraintValueMM,
+        GeoMatchConstraintValueMN,
+        GeoMatchConstraintValueMO,
+        GeoMatchConstraintValueMP,
+        GeoMatchConstraintValueMQ,
+        GeoMatchConstraintValueMR,
+        GeoMatchConstraintValueMS,
+        GeoMatchConstraintValueMT,
+        GeoMatchConstraintValueMU,
+        GeoMatchConstraintValueMV,
+        GeoMatchConstraintValueMW,
+        GeoMatchConstraintValueMX,
+        GeoMatchConstraintValueMY,
+        GeoMatchConstraintValueMZ,
+        GeoMatchConstraintValueNA,
+        GeoMatchConstraintValueNC,
+        GeoMatchConstraintValueNE,
+        GeoMatchConstraintValueNF,
+        GeoMatchConstraintValueNG,
+        GeoMatchConstraintValueNI,
+        GeoMatchConstraintValueNL,
+        GeoMatchConstraintValueNO,
+        GeoMatchConstraintValueNP,
+        GeoMatchConstraintValueNR,
+        GeoMatchConstraintValueNU,
+        GeoMatchConstraintValueNZ,
+        GeoMatchConstraintValueOM,
+        GeoMatchConstraintValuePA,
+        GeoMatchConstraintValuePE,
+        GeoMatchConstraintValuePF,
+        GeoMatchConstraintValuePG,
+        GeoMatchConstraintValuePH,
+        GeoMatchConstraintValuePK,
+        GeoMatchConstraintValuePL,
+        GeoMatchConstraintValuePM,
+        GeoMatchConstraintValuePN,
+        GeoMatchConstraintValuePR,
+        GeoMatchConstraintValuePS,
+        GeoMatchConstraintValuePT,
+        GeoMatchConstraintValuePW,
+        GeoMatchConstraintValuePY,
+        GeoMatchConstraintValueQA,
+        GeoMatchConstraintValueRE,
+        GeoMatchConstraintValueRO,
+        GeoMatchConstraintValueRS,
+        GeoMatchConstraintValueRU,
+        GeoMatchConstraintValueRW,
+        GeoMatchConstraintValueSA,
+        GeoMatchConstraintValueSB,
+        GeoMatchConstraintValueSC,
+        GeoMatchConstraintValueSD,
+        GeoMatchConstraintValueSE,
+        GeoMatchConstraintValueSG,
+        GeoMatchConstraintValueSH,
+        GeoMatchConstraintValueSI,
+        GeoMatchConstraintValueSJ,
+        GeoMatchConstraintValueSK,
+        GeoMatchConstraintValueSL,
+        GeoMatchConstraintValueSM,
+        GeoMatchConstraintValueSN,
+        GeoMatchConstraintValueSO,
+        GeoMatchConstraintValueSR,
+        GeoMatchConstraintValueSS,
+        GeoMatchConstraintValueST,
+        GeoMatchConstraintValueSV,
+        GeoMatchConstraintValueSX,
+        GeoMatchConstraintValueSY,
+        GeoMatchConstraintValueSZ,
+        GeoMatchConstraintValueTC,
+        GeoMatchConstraintValueTD,
+        GeoMatchConstraintValueTF,
+        GeoMatchConstraintValueTG,
+        GeoMatchConstraintValueTH,
+        GeoMatchConstraintValueTJ,
+        GeoMatchConstraintValueTK,
+        GeoMatchConstraintValueTL,
+        GeoMatchConstraintValueTM,
+        GeoMatchConstraintValueTN,
+        GeoMatchConstraintValueTO,
+        GeoMatchConstraintValueTR,
+        GeoMatchConstraintValueTT,
+        GeoMatchConstraintValueTV,
+        GeoMatchConstraintValueTW,
+        GeoMatchConstraintValueTZ,
+        GeoMatchConstraintValueUA,
+        GeoMatchConstraintValueUG,
+        GeoMatchConstraintValueUM,
+        GeoMatchConstraintValueUS,
+        GeoMatchConstraintValueUY,
+        GeoMatchConstraintValueUZ,
+        GeoMatchConstraintValueVA,
+        GeoMatchConstraintValueVC,
+        GeoMatchConstraintValueVE,
+        GeoMatchConstraintValueVG,
+        GeoMatchConstraintValueVI,
+        GeoMatchConstraintValueVN,
+        GeoMatchConstraintValueVU,
+        GeoMatchConstraintValueWF,
+        GeoMatchConstraintValueWS,
+        GeoMatchConstraintValueYE,
+        GeoMatchConstraintValueYT,
+        GeoMatchConstraintValueZA,
+        GeoMatchConstraintValueZM,
+        GeoMatchConstraintValueZW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GeoMatchConstraintValue
-  = GeoMatchConstraintValue'
-      ( CI
-          Text
-      )
+newtype GeoMatchConstraintValue = GeoMatchConstraintValue'
+  { fromGeoMatchConstraintValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GMCVAD :: GeoMatchConstraintValue
-pattern GMCVAD = GeoMatchConstraintValue' "AD"
+pattern GeoMatchConstraintValueAD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAD = GeoMatchConstraintValue' "AD"
 
-pattern GMCVAE :: GeoMatchConstraintValue
-pattern GMCVAE = GeoMatchConstraintValue' "AE"
+pattern GeoMatchConstraintValueAE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAE = GeoMatchConstraintValue' "AE"
 
-pattern GMCVAF :: GeoMatchConstraintValue
-pattern GMCVAF = GeoMatchConstraintValue' "AF"
+pattern GeoMatchConstraintValueAF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAF = GeoMatchConstraintValue' "AF"
 
-pattern GMCVAG :: GeoMatchConstraintValue
-pattern GMCVAG = GeoMatchConstraintValue' "AG"
+pattern GeoMatchConstraintValueAG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAG = GeoMatchConstraintValue' "AG"
 
-pattern GMCVAI :: GeoMatchConstraintValue
-pattern GMCVAI = GeoMatchConstraintValue' "AI"
+pattern GeoMatchConstraintValueAI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAI = GeoMatchConstraintValue' "AI"
 
-pattern GMCVAL :: GeoMatchConstraintValue
-pattern GMCVAL = GeoMatchConstraintValue' "AL"
+pattern GeoMatchConstraintValueAL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAL = GeoMatchConstraintValue' "AL"
 
-pattern GMCVAM :: GeoMatchConstraintValue
-pattern GMCVAM = GeoMatchConstraintValue' "AM"
+pattern GeoMatchConstraintValueAM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAM = GeoMatchConstraintValue' "AM"
 
-pattern GMCVAO :: GeoMatchConstraintValue
-pattern GMCVAO = GeoMatchConstraintValue' "AO"
+pattern GeoMatchConstraintValueAO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAO = GeoMatchConstraintValue' "AO"
 
-pattern GMCVAQ :: GeoMatchConstraintValue
-pattern GMCVAQ = GeoMatchConstraintValue' "AQ"
+pattern GeoMatchConstraintValueAQ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAQ = GeoMatchConstraintValue' "AQ"
 
-pattern GMCVAR :: GeoMatchConstraintValue
-pattern GMCVAR = GeoMatchConstraintValue' "AR"
+pattern GeoMatchConstraintValueAR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAR = GeoMatchConstraintValue' "AR"
 
-pattern GMCVAS :: GeoMatchConstraintValue
-pattern GMCVAS = GeoMatchConstraintValue' "AS"
+pattern GeoMatchConstraintValueAS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAS = GeoMatchConstraintValue' "AS"
 
-pattern GMCVAT :: GeoMatchConstraintValue
-pattern GMCVAT = GeoMatchConstraintValue' "AT"
+pattern GeoMatchConstraintValueAT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAT = GeoMatchConstraintValue' "AT"
 
-pattern GMCVAU :: GeoMatchConstraintValue
-pattern GMCVAU = GeoMatchConstraintValue' "AU"
+pattern GeoMatchConstraintValueAU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAU = GeoMatchConstraintValue' "AU"
 
-pattern GMCVAW :: GeoMatchConstraintValue
-pattern GMCVAW = GeoMatchConstraintValue' "AW"
+pattern GeoMatchConstraintValueAW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAW = GeoMatchConstraintValue' "AW"
 
-pattern GMCVAX :: GeoMatchConstraintValue
-pattern GMCVAX = GeoMatchConstraintValue' "AX"
+pattern GeoMatchConstraintValueAX :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAX = GeoMatchConstraintValue' "AX"
 
-pattern GMCVAZ :: GeoMatchConstraintValue
-pattern GMCVAZ = GeoMatchConstraintValue' "AZ"
+pattern GeoMatchConstraintValueAZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueAZ = GeoMatchConstraintValue' "AZ"
 
-pattern GMCVBA :: GeoMatchConstraintValue
-pattern GMCVBA = GeoMatchConstraintValue' "BA"
+pattern GeoMatchConstraintValueBA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBA = GeoMatchConstraintValue' "BA"
 
-pattern GMCVBB :: GeoMatchConstraintValue
-pattern GMCVBB = GeoMatchConstraintValue' "BB"
+pattern GeoMatchConstraintValueBB :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBB = GeoMatchConstraintValue' "BB"
 
-pattern GMCVBD :: GeoMatchConstraintValue
-pattern GMCVBD = GeoMatchConstraintValue' "BD"
+pattern GeoMatchConstraintValueBD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBD = GeoMatchConstraintValue' "BD"
 
-pattern GMCVBE :: GeoMatchConstraintValue
-pattern GMCVBE = GeoMatchConstraintValue' "BE"
+pattern GeoMatchConstraintValueBE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBE = GeoMatchConstraintValue' "BE"
 
-pattern GMCVBF :: GeoMatchConstraintValue
-pattern GMCVBF = GeoMatchConstraintValue' "BF"
+pattern GeoMatchConstraintValueBF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBF = GeoMatchConstraintValue' "BF"
 
-pattern GMCVBG :: GeoMatchConstraintValue
-pattern GMCVBG = GeoMatchConstraintValue' "BG"
+pattern GeoMatchConstraintValueBG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBG = GeoMatchConstraintValue' "BG"
 
-pattern GMCVBH :: GeoMatchConstraintValue
-pattern GMCVBH = GeoMatchConstraintValue' "BH"
+pattern GeoMatchConstraintValueBH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBH = GeoMatchConstraintValue' "BH"
 
-pattern GMCVBI :: GeoMatchConstraintValue
-pattern GMCVBI = GeoMatchConstraintValue' "BI"
+pattern GeoMatchConstraintValueBI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBI = GeoMatchConstraintValue' "BI"
 
-pattern GMCVBJ :: GeoMatchConstraintValue
-pattern GMCVBJ = GeoMatchConstraintValue' "BJ"
+pattern GeoMatchConstraintValueBJ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBJ = GeoMatchConstraintValue' "BJ"
 
-pattern GMCVBL :: GeoMatchConstraintValue
-pattern GMCVBL = GeoMatchConstraintValue' "BL"
+pattern GeoMatchConstraintValueBL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBL = GeoMatchConstraintValue' "BL"
 
-pattern GMCVBM :: GeoMatchConstraintValue
-pattern GMCVBM = GeoMatchConstraintValue' "BM"
+pattern GeoMatchConstraintValueBM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBM = GeoMatchConstraintValue' "BM"
 
-pattern GMCVBN :: GeoMatchConstraintValue
-pattern GMCVBN = GeoMatchConstraintValue' "BN"
+pattern GeoMatchConstraintValueBN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBN = GeoMatchConstraintValue' "BN"
 
-pattern GMCVBO :: GeoMatchConstraintValue
-pattern GMCVBO = GeoMatchConstraintValue' "BO"
+pattern GeoMatchConstraintValueBO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBO = GeoMatchConstraintValue' "BO"
 
-pattern GMCVBQ :: GeoMatchConstraintValue
-pattern GMCVBQ = GeoMatchConstraintValue' "BQ"
+pattern GeoMatchConstraintValueBQ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBQ = GeoMatchConstraintValue' "BQ"
 
-pattern GMCVBR :: GeoMatchConstraintValue
-pattern GMCVBR = GeoMatchConstraintValue' "BR"
+pattern GeoMatchConstraintValueBR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBR = GeoMatchConstraintValue' "BR"
 
-pattern GMCVBS :: GeoMatchConstraintValue
-pattern GMCVBS = GeoMatchConstraintValue' "BS"
+pattern GeoMatchConstraintValueBS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBS = GeoMatchConstraintValue' "BS"
 
-pattern GMCVBT :: GeoMatchConstraintValue
-pattern GMCVBT = GeoMatchConstraintValue' "BT"
+pattern GeoMatchConstraintValueBT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBT = GeoMatchConstraintValue' "BT"
 
-pattern GMCVBV :: GeoMatchConstraintValue
-pattern GMCVBV = GeoMatchConstraintValue' "BV"
+pattern GeoMatchConstraintValueBV :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBV = GeoMatchConstraintValue' "BV"
 
-pattern GMCVBW :: GeoMatchConstraintValue
-pattern GMCVBW = GeoMatchConstraintValue' "BW"
+pattern GeoMatchConstraintValueBW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBW = GeoMatchConstraintValue' "BW"
 
-pattern GMCVBY :: GeoMatchConstraintValue
-pattern GMCVBY = GeoMatchConstraintValue' "BY"
+pattern GeoMatchConstraintValueBY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBY = GeoMatchConstraintValue' "BY"
 
-pattern GMCVBZ :: GeoMatchConstraintValue
-pattern GMCVBZ = GeoMatchConstraintValue' "BZ"
+pattern GeoMatchConstraintValueBZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueBZ = GeoMatchConstraintValue' "BZ"
 
-pattern GMCVCA :: GeoMatchConstraintValue
-pattern GMCVCA = GeoMatchConstraintValue' "CA"
+pattern GeoMatchConstraintValueCA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCA = GeoMatchConstraintValue' "CA"
 
-pattern GMCVCC :: GeoMatchConstraintValue
-pattern GMCVCC = GeoMatchConstraintValue' "CC"
+pattern GeoMatchConstraintValueCC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCC = GeoMatchConstraintValue' "CC"
 
-pattern GMCVCD :: GeoMatchConstraintValue
-pattern GMCVCD = GeoMatchConstraintValue' "CD"
+pattern GeoMatchConstraintValueCD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCD = GeoMatchConstraintValue' "CD"
 
-pattern GMCVCF :: GeoMatchConstraintValue
-pattern GMCVCF = GeoMatchConstraintValue' "CF"
+pattern GeoMatchConstraintValueCF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCF = GeoMatchConstraintValue' "CF"
 
-pattern GMCVCG :: GeoMatchConstraintValue
-pattern GMCVCG = GeoMatchConstraintValue' "CG"
+pattern GeoMatchConstraintValueCG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCG = GeoMatchConstraintValue' "CG"
 
-pattern GMCVCH :: GeoMatchConstraintValue
-pattern GMCVCH = GeoMatchConstraintValue' "CH"
+pattern GeoMatchConstraintValueCH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCH = GeoMatchConstraintValue' "CH"
 
-pattern GMCVCI :: GeoMatchConstraintValue
-pattern GMCVCI = GeoMatchConstraintValue' "CI"
+pattern GeoMatchConstraintValueCI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCI = GeoMatchConstraintValue' "CI"
 
-pattern GMCVCK :: GeoMatchConstraintValue
-pattern GMCVCK = GeoMatchConstraintValue' "CK"
+pattern GeoMatchConstraintValueCK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCK = GeoMatchConstraintValue' "CK"
 
-pattern GMCVCL :: GeoMatchConstraintValue
-pattern GMCVCL = GeoMatchConstraintValue' "CL"
+pattern GeoMatchConstraintValueCL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCL = GeoMatchConstraintValue' "CL"
 
-pattern GMCVCM :: GeoMatchConstraintValue
-pattern GMCVCM = GeoMatchConstraintValue' "CM"
+pattern GeoMatchConstraintValueCM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCM = GeoMatchConstraintValue' "CM"
 
-pattern GMCVCN :: GeoMatchConstraintValue
-pattern GMCVCN = GeoMatchConstraintValue' "CN"
+pattern GeoMatchConstraintValueCN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCN = GeoMatchConstraintValue' "CN"
 
-pattern GMCVCO :: GeoMatchConstraintValue
-pattern GMCVCO = GeoMatchConstraintValue' "CO"
+pattern GeoMatchConstraintValueCO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCO = GeoMatchConstraintValue' "CO"
 
-pattern GMCVCR :: GeoMatchConstraintValue
-pattern GMCVCR = GeoMatchConstraintValue' "CR"
+pattern GeoMatchConstraintValueCR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCR = GeoMatchConstraintValue' "CR"
 
-pattern GMCVCU :: GeoMatchConstraintValue
-pattern GMCVCU = GeoMatchConstraintValue' "CU"
+pattern GeoMatchConstraintValueCU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCU = GeoMatchConstraintValue' "CU"
 
-pattern GMCVCV :: GeoMatchConstraintValue
-pattern GMCVCV = GeoMatchConstraintValue' "CV"
+pattern GeoMatchConstraintValueCV :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCV = GeoMatchConstraintValue' "CV"
 
-pattern GMCVCW :: GeoMatchConstraintValue
-pattern GMCVCW = GeoMatchConstraintValue' "CW"
+pattern GeoMatchConstraintValueCW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCW = GeoMatchConstraintValue' "CW"
 
-pattern GMCVCX :: GeoMatchConstraintValue
-pattern GMCVCX = GeoMatchConstraintValue' "CX"
+pattern GeoMatchConstraintValueCX :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCX = GeoMatchConstraintValue' "CX"
 
-pattern GMCVCY :: GeoMatchConstraintValue
-pattern GMCVCY = GeoMatchConstraintValue' "CY"
+pattern GeoMatchConstraintValueCY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCY = GeoMatchConstraintValue' "CY"
 
-pattern GMCVCZ :: GeoMatchConstraintValue
-pattern GMCVCZ = GeoMatchConstraintValue' "CZ"
+pattern GeoMatchConstraintValueCZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueCZ = GeoMatchConstraintValue' "CZ"
 
-pattern GMCVDE :: GeoMatchConstraintValue
-pattern GMCVDE = GeoMatchConstraintValue' "DE"
+pattern GeoMatchConstraintValueDE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueDE = GeoMatchConstraintValue' "DE"
 
-pattern GMCVDJ :: GeoMatchConstraintValue
-pattern GMCVDJ = GeoMatchConstraintValue' "DJ"
+pattern GeoMatchConstraintValueDJ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueDJ = GeoMatchConstraintValue' "DJ"
 
-pattern GMCVDK :: GeoMatchConstraintValue
-pattern GMCVDK = GeoMatchConstraintValue' "DK"
+pattern GeoMatchConstraintValueDK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueDK = GeoMatchConstraintValue' "DK"
 
-pattern GMCVDM :: GeoMatchConstraintValue
-pattern GMCVDM = GeoMatchConstraintValue' "DM"
+pattern GeoMatchConstraintValueDM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueDM = GeoMatchConstraintValue' "DM"
 
-pattern GMCVDO :: GeoMatchConstraintValue
-pattern GMCVDO = GeoMatchConstraintValue' "DO"
+pattern GeoMatchConstraintValueDO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueDO = GeoMatchConstraintValue' "DO"
 
-pattern GMCVDZ :: GeoMatchConstraintValue
-pattern GMCVDZ = GeoMatchConstraintValue' "DZ"
+pattern GeoMatchConstraintValueDZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueDZ = GeoMatchConstraintValue' "DZ"
 
-pattern GMCVEC :: GeoMatchConstraintValue
-pattern GMCVEC = GeoMatchConstraintValue' "EC"
+pattern GeoMatchConstraintValueEC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueEC = GeoMatchConstraintValue' "EC"
 
-pattern GMCVEE :: GeoMatchConstraintValue
-pattern GMCVEE = GeoMatchConstraintValue' "EE"
+pattern GeoMatchConstraintValueEE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueEE = GeoMatchConstraintValue' "EE"
 
-pattern GMCVEG :: GeoMatchConstraintValue
-pattern GMCVEG = GeoMatchConstraintValue' "EG"
+pattern GeoMatchConstraintValueEG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueEG = GeoMatchConstraintValue' "EG"
 
-pattern GMCVEH :: GeoMatchConstraintValue
-pattern GMCVEH = GeoMatchConstraintValue' "EH"
+pattern GeoMatchConstraintValueEH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueEH = GeoMatchConstraintValue' "EH"
 
-pattern GMCVER :: GeoMatchConstraintValue
-pattern GMCVER = GeoMatchConstraintValue' "ER"
+pattern GeoMatchConstraintValueER :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueER = GeoMatchConstraintValue' "ER"
 
-pattern GMCVES :: GeoMatchConstraintValue
-pattern GMCVES = GeoMatchConstraintValue' "ES"
+pattern GeoMatchConstraintValueES :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueES = GeoMatchConstraintValue' "ES"
 
-pattern GMCVET :: GeoMatchConstraintValue
-pattern GMCVET = GeoMatchConstraintValue' "ET"
+pattern GeoMatchConstraintValueET :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueET = GeoMatchConstraintValue' "ET"
 
-pattern GMCVFI :: GeoMatchConstraintValue
-pattern GMCVFI = GeoMatchConstraintValue' "FI"
+pattern GeoMatchConstraintValueFI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueFI = GeoMatchConstraintValue' "FI"
 
-pattern GMCVFJ :: GeoMatchConstraintValue
-pattern GMCVFJ = GeoMatchConstraintValue' "FJ"
+pattern GeoMatchConstraintValueFJ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueFJ = GeoMatchConstraintValue' "FJ"
 
-pattern GMCVFK :: GeoMatchConstraintValue
-pattern GMCVFK = GeoMatchConstraintValue' "FK"
+pattern GeoMatchConstraintValueFK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueFK = GeoMatchConstraintValue' "FK"
 
-pattern GMCVFM :: GeoMatchConstraintValue
-pattern GMCVFM = GeoMatchConstraintValue' "FM"
+pattern GeoMatchConstraintValueFM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueFM = GeoMatchConstraintValue' "FM"
 
-pattern GMCVFO :: GeoMatchConstraintValue
-pattern GMCVFO = GeoMatchConstraintValue' "FO"
+pattern GeoMatchConstraintValueFO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueFO = GeoMatchConstraintValue' "FO"
 
-pattern GMCVFR :: GeoMatchConstraintValue
-pattern GMCVFR = GeoMatchConstraintValue' "FR"
+pattern GeoMatchConstraintValueFR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueFR = GeoMatchConstraintValue' "FR"
 
-pattern GMCVGA :: GeoMatchConstraintValue
-pattern GMCVGA = GeoMatchConstraintValue' "GA"
+pattern GeoMatchConstraintValueGA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGA = GeoMatchConstraintValue' "GA"
 
-pattern GMCVGB :: GeoMatchConstraintValue
-pattern GMCVGB = GeoMatchConstraintValue' "GB"
+pattern GeoMatchConstraintValueGB :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGB = GeoMatchConstraintValue' "GB"
 
-pattern GMCVGD :: GeoMatchConstraintValue
-pattern GMCVGD = GeoMatchConstraintValue' "GD"
+pattern GeoMatchConstraintValueGD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGD = GeoMatchConstraintValue' "GD"
 
-pattern GMCVGE :: GeoMatchConstraintValue
-pattern GMCVGE = GeoMatchConstraintValue' "GE"
+pattern GeoMatchConstraintValueGE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGE = GeoMatchConstraintValue' "GE"
 
-pattern GMCVGF :: GeoMatchConstraintValue
-pattern GMCVGF = GeoMatchConstraintValue' "GF"
+pattern GeoMatchConstraintValueGF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGF = GeoMatchConstraintValue' "GF"
 
-pattern GMCVGG :: GeoMatchConstraintValue
-pattern GMCVGG = GeoMatchConstraintValue' "GG"
+pattern GeoMatchConstraintValueGG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGG = GeoMatchConstraintValue' "GG"
 
-pattern GMCVGH :: GeoMatchConstraintValue
-pattern GMCVGH = GeoMatchConstraintValue' "GH"
+pattern GeoMatchConstraintValueGH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGH = GeoMatchConstraintValue' "GH"
 
-pattern GMCVGI :: GeoMatchConstraintValue
-pattern GMCVGI = GeoMatchConstraintValue' "GI"
+pattern GeoMatchConstraintValueGI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGI = GeoMatchConstraintValue' "GI"
 
-pattern GMCVGL :: GeoMatchConstraintValue
-pattern GMCVGL = GeoMatchConstraintValue' "GL"
+pattern GeoMatchConstraintValueGL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGL = GeoMatchConstraintValue' "GL"
 
-pattern GMCVGM :: GeoMatchConstraintValue
-pattern GMCVGM = GeoMatchConstraintValue' "GM"
+pattern GeoMatchConstraintValueGM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGM = GeoMatchConstraintValue' "GM"
 
-pattern GMCVGN :: GeoMatchConstraintValue
-pattern GMCVGN = GeoMatchConstraintValue' "GN"
+pattern GeoMatchConstraintValueGN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGN = GeoMatchConstraintValue' "GN"
 
-pattern GMCVGP :: GeoMatchConstraintValue
-pattern GMCVGP = GeoMatchConstraintValue' "GP"
+pattern GeoMatchConstraintValueGP :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGP = GeoMatchConstraintValue' "GP"
 
-pattern GMCVGQ :: GeoMatchConstraintValue
-pattern GMCVGQ = GeoMatchConstraintValue' "GQ"
+pattern GeoMatchConstraintValueGQ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGQ = GeoMatchConstraintValue' "GQ"
 
-pattern GMCVGR :: GeoMatchConstraintValue
-pattern GMCVGR = GeoMatchConstraintValue' "GR"
+pattern GeoMatchConstraintValueGR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGR = GeoMatchConstraintValue' "GR"
 
-pattern GMCVGS :: GeoMatchConstraintValue
-pattern GMCVGS = GeoMatchConstraintValue' "GS"
+pattern GeoMatchConstraintValueGS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGS = GeoMatchConstraintValue' "GS"
 
-pattern GMCVGT' :: GeoMatchConstraintValue
-pattern GMCVGT' = GeoMatchConstraintValue' "GT"
+pattern GeoMatchConstraintValueGT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGT = GeoMatchConstraintValue' "GT"
 
-pattern GMCVGU :: GeoMatchConstraintValue
-pattern GMCVGU = GeoMatchConstraintValue' "GU"
+pattern GeoMatchConstraintValueGU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGU = GeoMatchConstraintValue' "GU"
 
-pattern GMCVGW :: GeoMatchConstraintValue
-pattern GMCVGW = GeoMatchConstraintValue' "GW"
+pattern GeoMatchConstraintValueGW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGW = GeoMatchConstraintValue' "GW"
 
-pattern GMCVGY :: GeoMatchConstraintValue
-pattern GMCVGY = GeoMatchConstraintValue' "GY"
+pattern GeoMatchConstraintValueGY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueGY = GeoMatchConstraintValue' "GY"
 
-pattern GMCVHK :: GeoMatchConstraintValue
-pattern GMCVHK = GeoMatchConstraintValue' "HK"
+pattern GeoMatchConstraintValueHK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueHK = GeoMatchConstraintValue' "HK"
 
-pattern GMCVHM :: GeoMatchConstraintValue
-pattern GMCVHM = GeoMatchConstraintValue' "HM"
+pattern GeoMatchConstraintValueHM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueHM = GeoMatchConstraintValue' "HM"
 
-pattern GMCVHN :: GeoMatchConstraintValue
-pattern GMCVHN = GeoMatchConstraintValue' "HN"
+pattern GeoMatchConstraintValueHN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueHN = GeoMatchConstraintValue' "HN"
 
-pattern GMCVHR :: GeoMatchConstraintValue
-pattern GMCVHR = GeoMatchConstraintValue' "HR"
+pattern GeoMatchConstraintValueHR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueHR = GeoMatchConstraintValue' "HR"
 
-pattern GMCVHT :: GeoMatchConstraintValue
-pattern GMCVHT = GeoMatchConstraintValue' "HT"
+pattern GeoMatchConstraintValueHT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueHT = GeoMatchConstraintValue' "HT"
 
-pattern GMCVHU :: GeoMatchConstraintValue
-pattern GMCVHU = GeoMatchConstraintValue' "HU"
+pattern GeoMatchConstraintValueHU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueHU = GeoMatchConstraintValue' "HU"
 
-pattern GMCVIE :: GeoMatchConstraintValue
-pattern GMCVIE = GeoMatchConstraintValue' "IE"
+pattern GeoMatchConstraintValueID :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueID = GeoMatchConstraintValue' "ID"
 
-pattern GMCVIL :: GeoMatchConstraintValue
-pattern GMCVIL = GeoMatchConstraintValue' "IL"
+pattern GeoMatchConstraintValueIE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIE = GeoMatchConstraintValue' "IE"
 
-pattern GMCVIM :: GeoMatchConstraintValue
-pattern GMCVIM = GeoMatchConstraintValue' "IM"
+pattern GeoMatchConstraintValueIL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIL = GeoMatchConstraintValue' "IL"
 
-pattern GMCVIN :: GeoMatchConstraintValue
-pattern GMCVIN = GeoMatchConstraintValue' "IN"
+pattern GeoMatchConstraintValueIM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIM = GeoMatchConstraintValue' "IM"
 
-pattern GMCVIO :: GeoMatchConstraintValue
-pattern GMCVIO = GeoMatchConstraintValue' "IO"
+pattern GeoMatchConstraintValueIN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIN = GeoMatchConstraintValue' "IN"
 
-pattern GMCVIQ :: GeoMatchConstraintValue
-pattern GMCVIQ = GeoMatchConstraintValue' "IQ"
+pattern GeoMatchConstraintValueIO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIO = GeoMatchConstraintValue' "IO"
 
-pattern GMCVIR :: GeoMatchConstraintValue
-pattern GMCVIR = GeoMatchConstraintValue' "IR"
+pattern GeoMatchConstraintValueIQ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIQ = GeoMatchConstraintValue' "IQ"
 
-pattern GMCVIS :: GeoMatchConstraintValue
-pattern GMCVIS = GeoMatchConstraintValue' "IS"
+pattern GeoMatchConstraintValueIR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIR = GeoMatchConstraintValue' "IR"
 
-pattern GMCVIT :: GeoMatchConstraintValue
-pattern GMCVIT = GeoMatchConstraintValue' "IT"
+pattern GeoMatchConstraintValueIS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIS = GeoMatchConstraintValue' "IS"
 
-pattern GMCVId :: GeoMatchConstraintValue
-pattern GMCVId = GeoMatchConstraintValue' "ID"
+pattern GeoMatchConstraintValueIT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueIT = GeoMatchConstraintValue' "IT"
 
-pattern GMCVJE :: GeoMatchConstraintValue
-pattern GMCVJE = GeoMatchConstraintValue' "JE"
+pattern GeoMatchConstraintValueJE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueJE = GeoMatchConstraintValue' "JE"
 
-pattern GMCVJM :: GeoMatchConstraintValue
-pattern GMCVJM = GeoMatchConstraintValue' "JM"
+pattern GeoMatchConstraintValueJM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueJM = GeoMatchConstraintValue' "JM"
 
-pattern GMCVJO :: GeoMatchConstraintValue
-pattern GMCVJO = GeoMatchConstraintValue' "JO"
+pattern GeoMatchConstraintValueJO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueJO = GeoMatchConstraintValue' "JO"
 
-pattern GMCVJP :: GeoMatchConstraintValue
-pattern GMCVJP = GeoMatchConstraintValue' "JP"
+pattern GeoMatchConstraintValueJP :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueJP = GeoMatchConstraintValue' "JP"
 
-pattern GMCVKE :: GeoMatchConstraintValue
-pattern GMCVKE = GeoMatchConstraintValue' "KE"
+pattern GeoMatchConstraintValueKE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKE = GeoMatchConstraintValue' "KE"
 
-pattern GMCVKG :: GeoMatchConstraintValue
-pattern GMCVKG = GeoMatchConstraintValue' "KG"
+pattern GeoMatchConstraintValueKG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKG = GeoMatchConstraintValue' "KG"
 
-pattern GMCVKH :: GeoMatchConstraintValue
-pattern GMCVKH = GeoMatchConstraintValue' "KH"
+pattern GeoMatchConstraintValueKH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKH = GeoMatchConstraintValue' "KH"
 
-pattern GMCVKI :: GeoMatchConstraintValue
-pattern GMCVKI = GeoMatchConstraintValue' "KI"
+pattern GeoMatchConstraintValueKI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKI = GeoMatchConstraintValue' "KI"
 
-pattern GMCVKM :: GeoMatchConstraintValue
-pattern GMCVKM = GeoMatchConstraintValue' "KM"
+pattern GeoMatchConstraintValueKM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKM = GeoMatchConstraintValue' "KM"
 
-pattern GMCVKN :: GeoMatchConstraintValue
-pattern GMCVKN = GeoMatchConstraintValue' "KN"
+pattern GeoMatchConstraintValueKN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKN = GeoMatchConstraintValue' "KN"
 
-pattern GMCVKP :: GeoMatchConstraintValue
-pattern GMCVKP = GeoMatchConstraintValue' "KP"
+pattern GeoMatchConstraintValueKP :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKP = GeoMatchConstraintValue' "KP"
 
-pattern GMCVKR :: GeoMatchConstraintValue
-pattern GMCVKR = GeoMatchConstraintValue' "KR"
+pattern GeoMatchConstraintValueKR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKR = GeoMatchConstraintValue' "KR"
 
-pattern GMCVKW :: GeoMatchConstraintValue
-pattern GMCVKW = GeoMatchConstraintValue' "KW"
+pattern GeoMatchConstraintValueKW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKW = GeoMatchConstraintValue' "KW"
 
-pattern GMCVKY :: GeoMatchConstraintValue
-pattern GMCVKY = GeoMatchConstraintValue' "KY"
+pattern GeoMatchConstraintValueKY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKY = GeoMatchConstraintValue' "KY"
 
-pattern GMCVKZ :: GeoMatchConstraintValue
-pattern GMCVKZ = GeoMatchConstraintValue' "KZ"
+pattern GeoMatchConstraintValueKZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueKZ = GeoMatchConstraintValue' "KZ"
 
-pattern GMCVLA :: GeoMatchConstraintValue
-pattern GMCVLA = GeoMatchConstraintValue' "LA"
+pattern GeoMatchConstraintValueLA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLA = GeoMatchConstraintValue' "LA"
 
-pattern GMCVLB :: GeoMatchConstraintValue
-pattern GMCVLB = GeoMatchConstraintValue' "LB"
+pattern GeoMatchConstraintValueLB :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLB = GeoMatchConstraintValue' "LB"
 
-pattern GMCVLC :: GeoMatchConstraintValue
-pattern GMCVLC = GeoMatchConstraintValue' "LC"
+pattern GeoMatchConstraintValueLC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLC = GeoMatchConstraintValue' "LC"
 
-pattern GMCVLI :: GeoMatchConstraintValue
-pattern GMCVLI = GeoMatchConstraintValue' "LI"
+pattern GeoMatchConstraintValueLI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLI = GeoMatchConstraintValue' "LI"
 
-pattern GMCVLK :: GeoMatchConstraintValue
-pattern GMCVLK = GeoMatchConstraintValue' "LK"
+pattern GeoMatchConstraintValueLK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLK = GeoMatchConstraintValue' "LK"
 
-pattern GMCVLR :: GeoMatchConstraintValue
-pattern GMCVLR = GeoMatchConstraintValue' "LR"
+pattern GeoMatchConstraintValueLR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLR = GeoMatchConstraintValue' "LR"
 
-pattern GMCVLS :: GeoMatchConstraintValue
-pattern GMCVLS = GeoMatchConstraintValue' "LS"
+pattern GeoMatchConstraintValueLS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLS = GeoMatchConstraintValue' "LS"
 
-pattern GMCVLT' :: GeoMatchConstraintValue
-pattern GMCVLT' = GeoMatchConstraintValue' "LT"
+pattern GeoMatchConstraintValueLT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLT = GeoMatchConstraintValue' "LT"
 
-pattern GMCVLU :: GeoMatchConstraintValue
-pattern GMCVLU = GeoMatchConstraintValue' "LU"
+pattern GeoMatchConstraintValueLU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLU = GeoMatchConstraintValue' "LU"
 
-pattern GMCVLV :: GeoMatchConstraintValue
-pattern GMCVLV = GeoMatchConstraintValue' "LV"
+pattern GeoMatchConstraintValueLV :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLV = GeoMatchConstraintValue' "LV"
 
-pattern GMCVLY :: GeoMatchConstraintValue
-pattern GMCVLY = GeoMatchConstraintValue' "LY"
+pattern GeoMatchConstraintValueLY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueLY = GeoMatchConstraintValue' "LY"
 
-pattern GMCVMA :: GeoMatchConstraintValue
-pattern GMCVMA = GeoMatchConstraintValue' "MA"
+pattern GeoMatchConstraintValueMA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMA = GeoMatchConstraintValue' "MA"
 
-pattern GMCVMC :: GeoMatchConstraintValue
-pattern GMCVMC = GeoMatchConstraintValue' "MC"
+pattern GeoMatchConstraintValueMC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMC = GeoMatchConstraintValue' "MC"
 
-pattern GMCVMD :: GeoMatchConstraintValue
-pattern GMCVMD = GeoMatchConstraintValue' "MD"
+pattern GeoMatchConstraintValueMD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMD = GeoMatchConstraintValue' "MD"
 
-pattern GMCVME :: GeoMatchConstraintValue
-pattern GMCVME = GeoMatchConstraintValue' "ME"
+pattern GeoMatchConstraintValueME :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueME = GeoMatchConstraintValue' "ME"
 
-pattern GMCVMF :: GeoMatchConstraintValue
-pattern GMCVMF = GeoMatchConstraintValue' "MF"
+pattern GeoMatchConstraintValueMF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMF = GeoMatchConstraintValue' "MF"
 
-pattern GMCVMG :: GeoMatchConstraintValue
-pattern GMCVMG = GeoMatchConstraintValue' "MG"
+pattern GeoMatchConstraintValueMG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMG = GeoMatchConstraintValue' "MG"
 
-pattern GMCVMH :: GeoMatchConstraintValue
-pattern GMCVMH = GeoMatchConstraintValue' "MH"
+pattern GeoMatchConstraintValueMH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMH = GeoMatchConstraintValue' "MH"
 
-pattern GMCVMK :: GeoMatchConstraintValue
-pattern GMCVMK = GeoMatchConstraintValue' "MK"
+pattern GeoMatchConstraintValueMK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMK = GeoMatchConstraintValue' "MK"
 
-pattern GMCVML :: GeoMatchConstraintValue
-pattern GMCVML = GeoMatchConstraintValue' "ML"
+pattern GeoMatchConstraintValueML :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueML = GeoMatchConstraintValue' "ML"
 
-pattern GMCVMM :: GeoMatchConstraintValue
-pattern GMCVMM = GeoMatchConstraintValue' "MM"
+pattern GeoMatchConstraintValueMM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMM = GeoMatchConstraintValue' "MM"
 
-pattern GMCVMN :: GeoMatchConstraintValue
-pattern GMCVMN = GeoMatchConstraintValue' "MN"
+pattern GeoMatchConstraintValueMN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMN = GeoMatchConstraintValue' "MN"
 
-pattern GMCVMO :: GeoMatchConstraintValue
-pattern GMCVMO = GeoMatchConstraintValue' "MO"
+pattern GeoMatchConstraintValueMO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMO = GeoMatchConstraintValue' "MO"
 
-pattern GMCVMP :: GeoMatchConstraintValue
-pattern GMCVMP = GeoMatchConstraintValue' "MP"
+pattern GeoMatchConstraintValueMP :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMP = GeoMatchConstraintValue' "MP"
 
-pattern GMCVMQ :: GeoMatchConstraintValue
-pattern GMCVMQ = GeoMatchConstraintValue' "MQ"
+pattern GeoMatchConstraintValueMQ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMQ = GeoMatchConstraintValue' "MQ"
 
-pattern GMCVMR :: GeoMatchConstraintValue
-pattern GMCVMR = GeoMatchConstraintValue' "MR"
+pattern GeoMatchConstraintValueMR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMR = GeoMatchConstraintValue' "MR"
 
-pattern GMCVMS :: GeoMatchConstraintValue
-pattern GMCVMS = GeoMatchConstraintValue' "MS"
+pattern GeoMatchConstraintValueMS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMS = GeoMatchConstraintValue' "MS"
 
-pattern GMCVMT :: GeoMatchConstraintValue
-pattern GMCVMT = GeoMatchConstraintValue' "MT"
+pattern GeoMatchConstraintValueMT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMT = GeoMatchConstraintValue' "MT"
 
-pattern GMCVMU :: GeoMatchConstraintValue
-pattern GMCVMU = GeoMatchConstraintValue' "MU"
+pattern GeoMatchConstraintValueMU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMU = GeoMatchConstraintValue' "MU"
 
-pattern GMCVMV :: GeoMatchConstraintValue
-pattern GMCVMV = GeoMatchConstraintValue' "MV"
+pattern GeoMatchConstraintValueMV :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMV = GeoMatchConstraintValue' "MV"
 
-pattern GMCVMW :: GeoMatchConstraintValue
-pattern GMCVMW = GeoMatchConstraintValue' "MW"
+pattern GeoMatchConstraintValueMW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMW = GeoMatchConstraintValue' "MW"
 
-pattern GMCVMX :: GeoMatchConstraintValue
-pattern GMCVMX = GeoMatchConstraintValue' "MX"
+pattern GeoMatchConstraintValueMX :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMX = GeoMatchConstraintValue' "MX"
 
-pattern GMCVMY :: GeoMatchConstraintValue
-pattern GMCVMY = GeoMatchConstraintValue' "MY"
+pattern GeoMatchConstraintValueMY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMY = GeoMatchConstraintValue' "MY"
 
-pattern GMCVMZ :: GeoMatchConstraintValue
-pattern GMCVMZ = GeoMatchConstraintValue' "MZ"
+pattern GeoMatchConstraintValueMZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueMZ = GeoMatchConstraintValue' "MZ"
 
-pattern GMCVNA :: GeoMatchConstraintValue
-pattern GMCVNA = GeoMatchConstraintValue' "NA"
+pattern GeoMatchConstraintValueNA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNA = GeoMatchConstraintValue' "NA"
 
-pattern GMCVNC :: GeoMatchConstraintValue
-pattern GMCVNC = GeoMatchConstraintValue' "NC"
+pattern GeoMatchConstraintValueNC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNC = GeoMatchConstraintValue' "NC"
 
-pattern GMCVNE :: GeoMatchConstraintValue
-pattern GMCVNE = GeoMatchConstraintValue' "NE"
+pattern GeoMatchConstraintValueNE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNE = GeoMatchConstraintValue' "NE"
 
-pattern GMCVNF :: GeoMatchConstraintValue
-pattern GMCVNF = GeoMatchConstraintValue' "NF"
+pattern GeoMatchConstraintValueNF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNF = GeoMatchConstraintValue' "NF"
 
-pattern GMCVNG :: GeoMatchConstraintValue
-pattern GMCVNG = GeoMatchConstraintValue' "NG"
+pattern GeoMatchConstraintValueNG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNG = GeoMatchConstraintValue' "NG"
 
-pattern GMCVNI :: GeoMatchConstraintValue
-pattern GMCVNI = GeoMatchConstraintValue' "NI"
+pattern GeoMatchConstraintValueNI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNI = GeoMatchConstraintValue' "NI"
 
-pattern GMCVNL :: GeoMatchConstraintValue
-pattern GMCVNL = GeoMatchConstraintValue' "NL"
+pattern GeoMatchConstraintValueNL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNL = GeoMatchConstraintValue' "NL"
 
-pattern GMCVNO :: GeoMatchConstraintValue
-pattern GMCVNO = GeoMatchConstraintValue' "NO"
+pattern GeoMatchConstraintValueNO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNO = GeoMatchConstraintValue' "NO"
 
-pattern GMCVNP :: GeoMatchConstraintValue
-pattern GMCVNP = GeoMatchConstraintValue' "NP"
+pattern GeoMatchConstraintValueNP :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNP = GeoMatchConstraintValue' "NP"
 
-pattern GMCVNR :: GeoMatchConstraintValue
-pattern GMCVNR = GeoMatchConstraintValue' "NR"
+pattern GeoMatchConstraintValueNR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNR = GeoMatchConstraintValue' "NR"
 
-pattern GMCVNU :: GeoMatchConstraintValue
-pattern GMCVNU = GeoMatchConstraintValue' "NU"
+pattern GeoMatchConstraintValueNU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNU = GeoMatchConstraintValue' "NU"
 
-pattern GMCVNZ :: GeoMatchConstraintValue
-pattern GMCVNZ = GeoMatchConstraintValue' "NZ"
+pattern GeoMatchConstraintValueNZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueNZ = GeoMatchConstraintValue' "NZ"
 
-pattern GMCVOM :: GeoMatchConstraintValue
-pattern GMCVOM = GeoMatchConstraintValue' "OM"
+pattern GeoMatchConstraintValueOM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueOM = GeoMatchConstraintValue' "OM"
 
-pattern GMCVPA :: GeoMatchConstraintValue
-pattern GMCVPA = GeoMatchConstraintValue' "PA"
+pattern GeoMatchConstraintValuePA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePA = GeoMatchConstraintValue' "PA"
 
-pattern GMCVPE :: GeoMatchConstraintValue
-pattern GMCVPE = GeoMatchConstraintValue' "PE"
+pattern GeoMatchConstraintValuePE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePE = GeoMatchConstraintValue' "PE"
 
-pattern GMCVPF :: GeoMatchConstraintValue
-pattern GMCVPF = GeoMatchConstraintValue' "PF"
+pattern GeoMatchConstraintValuePF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePF = GeoMatchConstraintValue' "PF"
 
-pattern GMCVPG :: GeoMatchConstraintValue
-pattern GMCVPG = GeoMatchConstraintValue' "PG"
+pattern GeoMatchConstraintValuePG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePG = GeoMatchConstraintValue' "PG"
 
-pattern GMCVPH :: GeoMatchConstraintValue
-pattern GMCVPH = GeoMatchConstraintValue' "PH"
+pattern GeoMatchConstraintValuePH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePH = GeoMatchConstraintValue' "PH"
 
-pattern GMCVPK :: GeoMatchConstraintValue
-pattern GMCVPK = GeoMatchConstraintValue' "PK"
+pattern GeoMatchConstraintValuePK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePK = GeoMatchConstraintValue' "PK"
 
-pattern GMCVPL :: GeoMatchConstraintValue
-pattern GMCVPL = GeoMatchConstraintValue' "PL"
+pattern GeoMatchConstraintValuePL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePL = GeoMatchConstraintValue' "PL"
 
-pattern GMCVPM :: GeoMatchConstraintValue
-pattern GMCVPM = GeoMatchConstraintValue' "PM"
+pattern GeoMatchConstraintValuePM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePM = GeoMatchConstraintValue' "PM"
 
-pattern GMCVPN :: GeoMatchConstraintValue
-pattern GMCVPN = GeoMatchConstraintValue' "PN"
+pattern GeoMatchConstraintValuePN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePN = GeoMatchConstraintValue' "PN"
 
-pattern GMCVPR :: GeoMatchConstraintValue
-pattern GMCVPR = GeoMatchConstraintValue' "PR"
+pattern GeoMatchConstraintValuePR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePR = GeoMatchConstraintValue' "PR"
 
-pattern GMCVPS :: GeoMatchConstraintValue
-pattern GMCVPS = GeoMatchConstraintValue' "PS"
+pattern GeoMatchConstraintValuePS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePS = GeoMatchConstraintValue' "PS"
 
-pattern GMCVPT :: GeoMatchConstraintValue
-pattern GMCVPT = GeoMatchConstraintValue' "PT"
+pattern GeoMatchConstraintValuePT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePT = GeoMatchConstraintValue' "PT"
 
-pattern GMCVPW :: GeoMatchConstraintValue
-pattern GMCVPW = GeoMatchConstraintValue' "PW"
+pattern GeoMatchConstraintValuePW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePW = GeoMatchConstraintValue' "PW"
 
-pattern GMCVPY :: GeoMatchConstraintValue
-pattern GMCVPY = GeoMatchConstraintValue' "PY"
+pattern GeoMatchConstraintValuePY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValuePY = GeoMatchConstraintValue' "PY"
 
-pattern GMCVQA :: GeoMatchConstraintValue
-pattern GMCVQA = GeoMatchConstraintValue' "QA"
+pattern GeoMatchConstraintValueQA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueQA = GeoMatchConstraintValue' "QA"
 
-pattern GMCVRE :: GeoMatchConstraintValue
-pattern GMCVRE = GeoMatchConstraintValue' "RE"
+pattern GeoMatchConstraintValueRE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueRE = GeoMatchConstraintValue' "RE"
 
-pattern GMCVRO :: GeoMatchConstraintValue
-pattern GMCVRO = GeoMatchConstraintValue' "RO"
+pattern GeoMatchConstraintValueRO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueRO = GeoMatchConstraintValue' "RO"
 
-pattern GMCVRS :: GeoMatchConstraintValue
-pattern GMCVRS = GeoMatchConstraintValue' "RS"
+pattern GeoMatchConstraintValueRS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueRS = GeoMatchConstraintValue' "RS"
 
-pattern GMCVRU :: GeoMatchConstraintValue
-pattern GMCVRU = GeoMatchConstraintValue' "RU"
+pattern GeoMatchConstraintValueRU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueRU = GeoMatchConstraintValue' "RU"
 
-pattern GMCVRW :: GeoMatchConstraintValue
-pattern GMCVRW = GeoMatchConstraintValue' "RW"
+pattern GeoMatchConstraintValueRW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueRW = GeoMatchConstraintValue' "RW"
 
-pattern GMCVSA :: GeoMatchConstraintValue
-pattern GMCVSA = GeoMatchConstraintValue' "SA"
+pattern GeoMatchConstraintValueSA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSA = GeoMatchConstraintValue' "SA"
 
-pattern GMCVSB :: GeoMatchConstraintValue
-pattern GMCVSB = GeoMatchConstraintValue' "SB"
+pattern GeoMatchConstraintValueSB :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSB = GeoMatchConstraintValue' "SB"
 
-pattern GMCVSC :: GeoMatchConstraintValue
-pattern GMCVSC = GeoMatchConstraintValue' "SC"
+pattern GeoMatchConstraintValueSC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSC = GeoMatchConstraintValue' "SC"
 
-pattern GMCVSD :: GeoMatchConstraintValue
-pattern GMCVSD = GeoMatchConstraintValue' "SD"
+pattern GeoMatchConstraintValueSD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSD = GeoMatchConstraintValue' "SD"
 
-pattern GMCVSE :: GeoMatchConstraintValue
-pattern GMCVSE = GeoMatchConstraintValue' "SE"
+pattern GeoMatchConstraintValueSE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSE = GeoMatchConstraintValue' "SE"
 
-pattern GMCVSG :: GeoMatchConstraintValue
-pattern GMCVSG = GeoMatchConstraintValue' "SG"
+pattern GeoMatchConstraintValueSG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSG = GeoMatchConstraintValue' "SG"
 
-pattern GMCVSH :: GeoMatchConstraintValue
-pattern GMCVSH = GeoMatchConstraintValue' "SH"
+pattern GeoMatchConstraintValueSH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSH = GeoMatchConstraintValue' "SH"
 
-pattern GMCVSI :: GeoMatchConstraintValue
-pattern GMCVSI = GeoMatchConstraintValue' "SI"
+pattern GeoMatchConstraintValueSI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSI = GeoMatchConstraintValue' "SI"
 
-pattern GMCVSJ :: GeoMatchConstraintValue
-pattern GMCVSJ = GeoMatchConstraintValue' "SJ"
+pattern GeoMatchConstraintValueSJ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSJ = GeoMatchConstraintValue' "SJ"
 
-pattern GMCVSK :: GeoMatchConstraintValue
-pattern GMCVSK = GeoMatchConstraintValue' "SK"
+pattern GeoMatchConstraintValueSK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSK = GeoMatchConstraintValue' "SK"
 
-pattern GMCVSL :: GeoMatchConstraintValue
-pattern GMCVSL = GeoMatchConstraintValue' "SL"
+pattern GeoMatchConstraintValueSL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSL = GeoMatchConstraintValue' "SL"
 
-pattern GMCVSM :: GeoMatchConstraintValue
-pattern GMCVSM = GeoMatchConstraintValue' "SM"
+pattern GeoMatchConstraintValueSM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSM = GeoMatchConstraintValue' "SM"
 
-pattern GMCVSN :: GeoMatchConstraintValue
-pattern GMCVSN = GeoMatchConstraintValue' "SN"
+pattern GeoMatchConstraintValueSN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSN = GeoMatchConstraintValue' "SN"
 
-pattern GMCVSO :: GeoMatchConstraintValue
-pattern GMCVSO = GeoMatchConstraintValue' "SO"
+pattern GeoMatchConstraintValueSO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSO = GeoMatchConstraintValue' "SO"
 
-pattern GMCVSR :: GeoMatchConstraintValue
-pattern GMCVSR = GeoMatchConstraintValue' "SR"
+pattern GeoMatchConstraintValueSR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSR = GeoMatchConstraintValue' "SR"
 
-pattern GMCVSS :: GeoMatchConstraintValue
-pattern GMCVSS = GeoMatchConstraintValue' "SS"
+pattern GeoMatchConstraintValueSS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSS = GeoMatchConstraintValue' "SS"
 
-pattern GMCVST :: GeoMatchConstraintValue
-pattern GMCVST = GeoMatchConstraintValue' "ST"
+pattern GeoMatchConstraintValueST :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueST = GeoMatchConstraintValue' "ST"
 
-pattern GMCVSV :: GeoMatchConstraintValue
-pattern GMCVSV = GeoMatchConstraintValue' "SV"
+pattern GeoMatchConstraintValueSV :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSV = GeoMatchConstraintValue' "SV"
 
-pattern GMCVSX :: GeoMatchConstraintValue
-pattern GMCVSX = GeoMatchConstraintValue' "SX"
+pattern GeoMatchConstraintValueSX :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSX = GeoMatchConstraintValue' "SX"
 
-pattern GMCVSY :: GeoMatchConstraintValue
-pattern GMCVSY = GeoMatchConstraintValue' "SY"
+pattern GeoMatchConstraintValueSY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSY = GeoMatchConstraintValue' "SY"
 
-pattern GMCVSZ :: GeoMatchConstraintValue
-pattern GMCVSZ = GeoMatchConstraintValue' "SZ"
+pattern GeoMatchConstraintValueSZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueSZ = GeoMatchConstraintValue' "SZ"
 
-pattern GMCVTC :: GeoMatchConstraintValue
-pattern GMCVTC = GeoMatchConstraintValue' "TC"
+pattern GeoMatchConstraintValueTC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTC = GeoMatchConstraintValue' "TC"
 
-pattern GMCVTD :: GeoMatchConstraintValue
-pattern GMCVTD = GeoMatchConstraintValue' "TD"
+pattern GeoMatchConstraintValueTD :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTD = GeoMatchConstraintValue' "TD"
 
-pattern GMCVTF :: GeoMatchConstraintValue
-pattern GMCVTF = GeoMatchConstraintValue' "TF"
+pattern GeoMatchConstraintValueTF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTF = GeoMatchConstraintValue' "TF"
 
-pattern GMCVTG :: GeoMatchConstraintValue
-pattern GMCVTG = GeoMatchConstraintValue' "TG"
+pattern GeoMatchConstraintValueTG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTG = GeoMatchConstraintValue' "TG"
 
-pattern GMCVTH :: GeoMatchConstraintValue
-pattern GMCVTH = GeoMatchConstraintValue' "TH"
+pattern GeoMatchConstraintValueTH :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTH = GeoMatchConstraintValue' "TH"
 
-pattern GMCVTJ :: GeoMatchConstraintValue
-pattern GMCVTJ = GeoMatchConstraintValue' "TJ"
+pattern GeoMatchConstraintValueTJ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTJ = GeoMatchConstraintValue' "TJ"
 
-pattern GMCVTK :: GeoMatchConstraintValue
-pattern GMCVTK = GeoMatchConstraintValue' "TK"
+pattern GeoMatchConstraintValueTK :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTK = GeoMatchConstraintValue' "TK"
 
-pattern GMCVTL :: GeoMatchConstraintValue
-pattern GMCVTL = GeoMatchConstraintValue' "TL"
+pattern GeoMatchConstraintValueTL :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTL = GeoMatchConstraintValue' "TL"
 
-pattern GMCVTM :: GeoMatchConstraintValue
-pattern GMCVTM = GeoMatchConstraintValue' "TM"
+pattern GeoMatchConstraintValueTM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTM = GeoMatchConstraintValue' "TM"
 
-pattern GMCVTN :: GeoMatchConstraintValue
-pattern GMCVTN = GeoMatchConstraintValue' "TN"
+pattern GeoMatchConstraintValueTN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTN = GeoMatchConstraintValue' "TN"
 
-pattern GMCVTO :: GeoMatchConstraintValue
-pattern GMCVTO = GeoMatchConstraintValue' "TO"
+pattern GeoMatchConstraintValueTO :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTO = GeoMatchConstraintValue' "TO"
 
-pattern GMCVTR :: GeoMatchConstraintValue
-pattern GMCVTR = GeoMatchConstraintValue' "TR"
+pattern GeoMatchConstraintValueTR :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTR = GeoMatchConstraintValue' "TR"
 
-pattern GMCVTT :: GeoMatchConstraintValue
-pattern GMCVTT = GeoMatchConstraintValue' "TT"
+pattern GeoMatchConstraintValueTT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTT = GeoMatchConstraintValue' "TT"
 
-pattern GMCVTV :: GeoMatchConstraintValue
-pattern GMCVTV = GeoMatchConstraintValue' "TV"
+pattern GeoMatchConstraintValueTV :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTV = GeoMatchConstraintValue' "TV"
 
-pattern GMCVTW :: GeoMatchConstraintValue
-pattern GMCVTW = GeoMatchConstraintValue' "TW"
+pattern GeoMatchConstraintValueTW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTW = GeoMatchConstraintValue' "TW"
 
-pattern GMCVTZ :: GeoMatchConstraintValue
-pattern GMCVTZ = GeoMatchConstraintValue' "TZ"
+pattern GeoMatchConstraintValueTZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueTZ = GeoMatchConstraintValue' "TZ"
 
-pattern GMCVUA :: GeoMatchConstraintValue
-pattern GMCVUA = GeoMatchConstraintValue' "UA"
+pattern GeoMatchConstraintValueUA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueUA = GeoMatchConstraintValue' "UA"
 
-pattern GMCVUG :: GeoMatchConstraintValue
-pattern GMCVUG = GeoMatchConstraintValue' "UG"
+pattern GeoMatchConstraintValueUG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueUG = GeoMatchConstraintValue' "UG"
 
-pattern GMCVUM :: GeoMatchConstraintValue
-pattern GMCVUM = GeoMatchConstraintValue' "UM"
+pattern GeoMatchConstraintValueUM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueUM = GeoMatchConstraintValue' "UM"
 
-pattern GMCVUS :: GeoMatchConstraintValue
-pattern GMCVUS = GeoMatchConstraintValue' "US"
+pattern GeoMatchConstraintValueUS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueUS = GeoMatchConstraintValue' "US"
 
-pattern GMCVUY :: GeoMatchConstraintValue
-pattern GMCVUY = GeoMatchConstraintValue' "UY"
+pattern GeoMatchConstraintValueUY :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueUY = GeoMatchConstraintValue' "UY"
 
-pattern GMCVUZ :: GeoMatchConstraintValue
-pattern GMCVUZ = GeoMatchConstraintValue' "UZ"
+pattern GeoMatchConstraintValueUZ :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueUZ = GeoMatchConstraintValue' "UZ"
 
-pattern GMCVVA :: GeoMatchConstraintValue
-pattern GMCVVA = GeoMatchConstraintValue' "VA"
+pattern GeoMatchConstraintValueVA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVA = GeoMatchConstraintValue' "VA"
 
-pattern GMCVVC :: GeoMatchConstraintValue
-pattern GMCVVC = GeoMatchConstraintValue' "VC"
+pattern GeoMatchConstraintValueVC :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVC = GeoMatchConstraintValue' "VC"
 
-pattern GMCVVE :: GeoMatchConstraintValue
-pattern GMCVVE = GeoMatchConstraintValue' "VE"
+pattern GeoMatchConstraintValueVE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVE = GeoMatchConstraintValue' "VE"
 
-pattern GMCVVG :: GeoMatchConstraintValue
-pattern GMCVVG = GeoMatchConstraintValue' "VG"
+pattern GeoMatchConstraintValueVG :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVG = GeoMatchConstraintValue' "VG"
 
-pattern GMCVVI :: GeoMatchConstraintValue
-pattern GMCVVI = GeoMatchConstraintValue' "VI"
+pattern GeoMatchConstraintValueVI :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVI = GeoMatchConstraintValue' "VI"
 
-pattern GMCVVN :: GeoMatchConstraintValue
-pattern GMCVVN = GeoMatchConstraintValue' "VN"
+pattern GeoMatchConstraintValueVN :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVN = GeoMatchConstraintValue' "VN"
 
-pattern GMCVVU :: GeoMatchConstraintValue
-pattern GMCVVU = GeoMatchConstraintValue' "VU"
+pattern GeoMatchConstraintValueVU :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueVU = GeoMatchConstraintValue' "VU"
 
-pattern GMCVWF :: GeoMatchConstraintValue
-pattern GMCVWF = GeoMatchConstraintValue' "WF"
+pattern GeoMatchConstraintValueWF :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueWF = GeoMatchConstraintValue' "WF"
 
-pattern GMCVWS :: GeoMatchConstraintValue
-pattern GMCVWS = GeoMatchConstraintValue' "WS"
+pattern GeoMatchConstraintValueWS :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueWS = GeoMatchConstraintValue' "WS"
 
-pattern GMCVYE :: GeoMatchConstraintValue
-pattern GMCVYE = GeoMatchConstraintValue' "YE"
+pattern GeoMatchConstraintValueYE :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueYE = GeoMatchConstraintValue' "YE"
 
-pattern GMCVYT :: GeoMatchConstraintValue
-pattern GMCVYT = GeoMatchConstraintValue' "YT"
+pattern GeoMatchConstraintValueYT :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueYT = GeoMatchConstraintValue' "YT"
 
-pattern GMCVZA :: GeoMatchConstraintValue
-pattern GMCVZA = GeoMatchConstraintValue' "ZA"
+pattern GeoMatchConstraintValueZA :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueZA = GeoMatchConstraintValue' "ZA"
 
-pattern GMCVZM :: GeoMatchConstraintValue
-pattern GMCVZM = GeoMatchConstraintValue' "ZM"
+pattern GeoMatchConstraintValueZM :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueZM = GeoMatchConstraintValue' "ZM"
 
-pattern GMCVZW :: GeoMatchConstraintValue
-pattern GMCVZW = GeoMatchConstraintValue' "ZW"
+pattern GeoMatchConstraintValueZW :: GeoMatchConstraintValue
+pattern GeoMatchConstraintValueZW = GeoMatchConstraintValue' "ZW"
 
 {-# COMPLETE
-  GMCVAD,
-  GMCVAE,
-  GMCVAF,
-  GMCVAG,
-  GMCVAI,
-  GMCVAL,
-  GMCVAM,
-  GMCVAO,
-  GMCVAQ,
-  GMCVAR,
-  GMCVAS,
-  GMCVAT,
-  GMCVAU,
-  GMCVAW,
-  GMCVAX,
-  GMCVAZ,
-  GMCVBA,
-  GMCVBB,
-  GMCVBD,
-  GMCVBE,
-  GMCVBF,
-  GMCVBG,
-  GMCVBH,
-  GMCVBI,
-  GMCVBJ,
-  GMCVBL,
-  GMCVBM,
-  GMCVBN,
-  GMCVBO,
-  GMCVBQ,
-  GMCVBR,
-  GMCVBS,
-  GMCVBT,
-  GMCVBV,
-  GMCVBW,
-  GMCVBY,
-  GMCVBZ,
-  GMCVCA,
-  GMCVCC,
-  GMCVCD,
-  GMCVCF,
-  GMCVCG,
-  GMCVCH,
-  GMCVCI,
-  GMCVCK,
-  GMCVCL,
-  GMCVCM,
-  GMCVCN,
-  GMCVCO,
-  GMCVCR,
-  GMCVCU,
-  GMCVCV,
-  GMCVCW,
-  GMCVCX,
-  GMCVCY,
-  GMCVCZ,
-  GMCVDE,
-  GMCVDJ,
-  GMCVDK,
-  GMCVDM,
-  GMCVDO,
-  GMCVDZ,
-  GMCVEC,
-  GMCVEE,
-  GMCVEG,
-  GMCVEH,
-  GMCVER,
-  GMCVES,
-  GMCVET,
-  GMCVFI,
-  GMCVFJ,
-  GMCVFK,
-  GMCVFM,
-  GMCVFO,
-  GMCVFR,
-  GMCVGA,
-  GMCVGB,
-  GMCVGD,
-  GMCVGE,
-  GMCVGF,
-  GMCVGG,
-  GMCVGH,
-  GMCVGI,
-  GMCVGL,
-  GMCVGM,
-  GMCVGN,
-  GMCVGP,
-  GMCVGQ,
-  GMCVGR,
-  GMCVGS,
-  GMCVGT',
-  GMCVGU,
-  GMCVGW,
-  GMCVGY,
-  GMCVHK,
-  GMCVHM,
-  GMCVHN,
-  GMCVHR,
-  GMCVHT,
-  GMCVHU,
-  GMCVIE,
-  GMCVIL,
-  GMCVIM,
-  GMCVIN,
-  GMCVIO,
-  GMCVIQ,
-  GMCVIR,
-  GMCVIS,
-  GMCVIT,
-  GMCVId,
-  GMCVJE,
-  GMCVJM,
-  GMCVJO,
-  GMCVJP,
-  GMCVKE,
-  GMCVKG,
-  GMCVKH,
-  GMCVKI,
-  GMCVKM,
-  GMCVKN,
-  GMCVKP,
-  GMCVKR,
-  GMCVKW,
-  GMCVKY,
-  GMCVKZ,
-  GMCVLA,
-  GMCVLB,
-  GMCVLC,
-  GMCVLI,
-  GMCVLK,
-  GMCVLR,
-  GMCVLS,
-  GMCVLT',
-  GMCVLU,
-  GMCVLV,
-  GMCVLY,
-  GMCVMA,
-  GMCVMC,
-  GMCVMD,
-  GMCVME,
-  GMCVMF,
-  GMCVMG,
-  GMCVMH,
-  GMCVMK,
-  GMCVML,
-  GMCVMM,
-  GMCVMN,
-  GMCVMO,
-  GMCVMP,
-  GMCVMQ,
-  GMCVMR,
-  GMCVMS,
-  GMCVMT,
-  GMCVMU,
-  GMCVMV,
-  GMCVMW,
-  GMCVMX,
-  GMCVMY,
-  GMCVMZ,
-  GMCVNA,
-  GMCVNC,
-  GMCVNE,
-  GMCVNF,
-  GMCVNG,
-  GMCVNI,
-  GMCVNL,
-  GMCVNO,
-  GMCVNP,
-  GMCVNR,
-  GMCVNU,
-  GMCVNZ,
-  GMCVOM,
-  GMCVPA,
-  GMCVPE,
-  GMCVPF,
-  GMCVPG,
-  GMCVPH,
-  GMCVPK,
-  GMCVPL,
-  GMCVPM,
-  GMCVPN,
-  GMCVPR,
-  GMCVPS,
-  GMCVPT,
-  GMCVPW,
-  GMCVPY,
-  GMCVQA,
-  GMCVRE,
-  GMCVRO,
-  GMCVRS,
-  GMCVRU,
-  GMCVRW,
-  GMCVSA,
-  GMCVSB,
-  GMCVSC,
-  GMCVSD,
-  GMCVSE,
-  GMCVSG,
-  GMCVSH,
-  GMCVSI,
-  GMCVSJ,
-  GMCVSK,
-  GMCVSL,
-  GMCVSM,
-  GMCVSN,
-  GMCVSO,
-  GMCVSR,
-  GMCVSS,
-  GMCVST,
-  GMCVSV,
-  GMCVSX,
-  GMCVSY,
-  GMCVSZ,
-  GMCVTC,
-  GMCVTD,
-  GMCVTF,
-  GMCVTG,
-  GMCVTH,
-  GMCVTJ,
-  GMCVTK,
-  GMCVTL,
-  GMCVTM,
-  GMCVTN,
-  GMCVTO,
-  GMCVTR,
-  GMCVTT,
-  GMCVTV,
-  GMCVTW,
-  GMCVTZ,
-  GMCVUA,
-  GMCVUG,
-  GMCVUM,
-  GMCVUS,
-  GMCVUY,
-  GMCVUZ,
-  GMCVVA,
-  GMCVVC,
-  GMCVVE,
-  GMCVVG,
-  GMCVVI,
-  GMCVVN,
-  GMCVVU,
-  GMCVWF,
-  GMCVWS,
-  GMCVYE,
-  GMCVYT,
-  GMCVZA,
-  GMCVZM,
-  GMCVZW,
+  GeoMatchConstraintValueAD,
+  GeoMatchConstraintValueAE,
+  GeoMatchConstraintValueAF,
+  GeoMatchConstraintValueAG,
+  GeoMatchConstraintValueAI,
+  GeoMatchConstraintValueAL,
+  GeoMatchConstraintValueAM,
+  GeoMatchConstraintValueAO,
+  GeoMatchConstraintValueAQ,
+  GeoMatchConstraintValueAR,
+  GeoMatchConstraintValueAS,
+  GeoMatchConstraintValueAT,
+  GeoMatchConstraintValueAU,
+  GeoMatchConstraintValueAW,
+  GeoMatchConstraintValueAX,
+  GeoMatchConstraintValueAZ,
+  GeoMatchConstraintValueBA,
+  GeoMatchConstraintValueBB,
+  GeoMatchConstraintValueBD,
+  GeoMatchConstraintValueBE,
+  GeoMatchConstraintValueBF,
+  GeoMatchConstraintValueBG,
+  GeoMatchConstraintValueBH,
+  GeoMatchConstraintValueBI,
+  GeoMatchConstraintValueBJ,
+  GeoMatchConstraintValueBL,
+  GeoMatchConstraintValueBM,
+  GeoMatchConstraintValueBN,
+  GeoMatchConstraintValueBO,
+  GeoMatchConstraintValueBQ,
+  GeoMatchConstraintValueBR,
+  GeoMatchConstraintValueBS,
+  GeoMatchConstraintValueBT,
+  GeoMatchConstraintValueBV,
+  GeoMatchConstraintValueBW,
+  GeoMatchConstraintValueBY,
+  GeoMatchConstraintValueBZ,
+  GeoMatchConstraintValueCA,
+  GeoMatchConstraintValueCC,
+  GeoMatchConstraintValueCD,
+  GeoMatchConstraintValueCF,
+  GeoMatchConstraintValueCG,
+  GeoMatchConstraintValueCH,
+  GeoMatchConstraintValueCI,
+  GeoMatchConstraintValueCK,
+  GeoMatchConstraintValueCL,
+  GeoMatchConstraintValueCM,
+  GeoMatchConstraintValueCN,
+  GeoMatchConstraintValueCO,
+  GeoMatchConstraintValueCR,
+  GeoMatchConstraintValueCU,
+  GeoMatchConstraintValueCV,
+  GeoMatchConstraintValueCW,
+  GeoMatchConstraintValueCX,
+  GeoMatchConstraintValueCY,
+  GeoMatchConstraintValueCZ,
+  GeoMatchConstraintValueDE,
+  GeoMatchConstraintValueDJ,
+  GeoMatchConstraintValueDK,
+  GeoMatchConstraintValueDM,
+  GeoMatchConstraintValueDO,
+  GeoMatchConstraintValueDZ,
+  GeoMatchConstraintValueEC,
+  GeoMatchConstraintValueEE,
+  GeoMatchConstraintValueEG,
+  GeoMatchConstraintValueEH,
+  GeoMatchConstraintValueER,
+  GeoMatchConstraintValueES,
+  GeoMatchConstraintValueET,
+  GeoMatchConstraintValueFI,
+  GeoMatchConstraintValueFJ,
+  GeoMatchConstraintValueFK,
+  GeoMatchConstraintValueFM,
+  GeoMatchConstraintValueFO,
+  GeoMatchConstraintValueFR,
+  GeoMatchConstraintValueGA,
+  GeoMatchConstraintValueGB,
+  GeoMatchConstraintValueGD,
+  GeoMatchConstraintValueGE,
+  GeoMatchConstraintValueGF,
+  GeoMatchConstraintValueGG,
+  GeoMatchConstraintValueGH,
+  GeoMatchConstraintValueGI,
+  GeoMatchConstraintValueGL,
+  GeoMatchConstraintValueGM,
+  GeoMatchConstraintValueGN,
+  GeoMatchConstraintValueGP,
+  GeoMatchConstraintValueGQ,
+  GeoMatchConstraintValueGR,
+  GeoMatchConstraintValueGS,
+  GeoMatchConstraintValueGT,
+  GeoMatchConstraintValueGU,
+  GeoMatchConstraintValueGW,
+  GeoMatchConstraintValueGY,
+  GeoMatchConstraintValueHK,
+  GeoMatchConstraintValueHM,
+  GeoMatchConstraintValueHN,
+  GeoMatchConstraintValueHR,
+  GeoMatchConstraintValueHT,
+  GeoMatchConstraintValueHU,
+  GeoMatchConstraintValueID,
+  GeoMatchConstraintValueIE,
+  GeoMatchConstraintValueIL,
+  GeoMatchConstraintValueIM,
+  GeoMatchConstraintValueIN,
+  GeoMatchConstraintValueIO,
+  GeoMatchConstraintValueIQ,
+  GeoMatchConstraintValueIR,
+  GeoMatchConstraintValueIS,
+  GeoMatchConstraintValueIT,
+  GeoMatchConstraintValueJE,
+  GeoMatchConstraintValueJM,
+  GeoMatchConstraintValueJO,
+  GeoMatchConstraintValueJP,
+  GeoMatchConstraintValueKE,
+  GeoMatchConstraintValueKG,
+  GeoMatchConstraintValueKH,
+  GeoMatchConstraintValueKI,
+  GeoMatchConstraintValueKM,
+  GeoMatchConstraintValueKN,
+  GeoMatchConstraintValueKP,
+  GeoMatchConstraintValueKR,
+  GeoMatchConstraintValueKW,
+  GeoMatchConstraintValueKY,
+  GeoMatchConstraintValueKZ,
+  GeoMatchConstraintValueLA,
+  GeoMatchConstraintValueLB,
+  GeoMatchConstraintValueLC,
+  GeoMatchConstraintValueLI,
+  GeoMatchConstraintValueLK,
+  GeoMatchConstraintValueLR,
+  GeoMatchConstraintValueLS,
+  GeoMatchConstraintValueLT,
+  GeoMatchConstraintValueLU,
+  GeoMatchConstraintValueLV,
+  GeoMatchConstraintValueLY,
+  GeoMatchConstraintValueMA,
+  GeoMatchConstraintValueMC,
+  GeoMatchConstraintValueMD,
+  GeoMatchConstraintValueME,
+  GeoMatchConstraintValueMF,
+  GeoMatchConstraintValueMG,
+  GeoMatchConstraintValueMH,
+  GeoMatchConstraintValueMK,
+  GeoMatchConstraintValueML,
+  GeoMatchConstraintValueMM,
+  GeoMatchConstraintValueMN,
+  GeoMatchConstraintValueMO,
+  GeoMatchConstraintValueMP,
+  GeoMatchConstraintValueMQ,
+  GeoMatchConstraintValueMR,
+  GeoMatchConstraintValueMS,
+  GeoMatchConstraintValueMT,
+  GeoMatchConstraintValueMU,
+  GeoMatchConstraintValueMV,
+  GeoMatchConstraintValueMW,
+  GeoMatchConstraintValueMX,
+  GeoMatchConstraintValueMY,
+  GeoMatchConstraintValueMZ,
+  GeoMatchConstraintValueNA,
+  GeoMatchConstraintValueNC,
+  GeoMatchConstraintValueNE,
+  GeoMatchConstraintValueNF,
+  GeoMatchConstraintValueNG,
+  GeoMatchConstraintValueNI,
+  GeoMatchConstraintValueNL,
+  GeoMatchConstraintValueNO,
+  GeoMatchConstraintValueNP,
+  GeoMatchConstraintValueNR,
+  GeoMatchConstraintValueNU,
+  GeoMatchConstraintValueNZ,
+  GeoMatchConstraintValueOM,
+  GeoMatchConstraintValuePA,
+  GeoMatchConstraintValuePE,
+  GeoMatchConstraintValuePF,
+  GeoMatchConstraintValuePG,
+  GeoMatchConstraintValuePH,
+  GeoMatchConstraintValuePK,
+  GeoMatchConstraintValuePL,
+  GeoMatchConstraintValuePM,
+  GeoMatchConstraintValuePN,
+  GeoMatchConstraintValuePR,
+  GeoMatchConstraintValuePS,
+  GeoMatchConstraintValuePT,
+  GeoMatchConstraintValuePW,
+  GeoMatchConstraintValuePY,
+  GeoMatchConstraintValueQA,
+  GeoMatchConstraintValueRE,
+  GeoMatchConstraintValueRO,
+  GeoMatchConstraintValueRS,
+  GeoMatchConstraintValueRU,
+  GeoMatchConstraintValueRW,
+  GeoMatchConstraintValueSA,
+  GeoMatchConstraintValueSB,
+  GeoMatchConstraintValueSC,
+  GeoMatchConstraintValueSD,
+  GeoMatchConstraintValueSE,
+  GeoMatchConstraintValueSG,
+  GeoMatchConstraintValueSH,
+  GeoMatchConstraintValueSI,
+  GeoMatchConstraintValueSJ,
+  GeoMatchConstraintValueSK,
+  GeoMatchConstraintValueSL,
+  GeoMatchConstraintValueSM,
+  GeoMatchConstraintValueSN,
+  GeoMatchConstraintValueSO,
+  GeoMatchConstraintValueSR,
+  GeoMatchConstraintValueSS,
+  GeoMatchConstraintValueST,
+  GeoMatchConstraintValueSV,
+  GeoMatchConstraintValueSX,
+  GeoMatchConstraintValueSY,
+  GeoMatchConstraintValueSZ,
+  GeoMatchConstraintValueTC,
+  GeoMatchConstraintValueTD,
+  GeoMatchConstraintValueTF,
+  GeoMatchConstraintValueTG,
+  GeoMatchConstraintValueTH,
+  GeoMatchConstraintValueTJ,
+  GeoMatchConstraintValueTK,
+  GeoMatchConstraintValueTL,
+  GeoMatchConstraintValueTM,
+  GeoMatchConstraintValueTN,
+  GeoMatchConstraintValueTO,
+  GeoMatchConstraintValueTR,
+  GeoMatchConstraintValueTT,
+  GeoMatchConstraintValueTV,
+  GeoMatchConstraintValueTW,
+  GeoMatchConstraintValueTZ,
+  GeoMatchConstraintValueUA,
+  GeoMatchConstraintValueUG,
+  GeoMatchConstraintValueUM,
+  GeoMatchConstraintValueUS,
+  GeoMatchConstraintValueUY,
+  GeoMatchConstraintValueUZ,
+  GeoMatchConstraintValueVA,
+  GeoMatchConstraintValueVC,
+  GeoMatchConstraintValueVE,
+  GeoMatchConstraintValueVG,
+  GeoMatchConstraintValueVI,
+  GeoMatchConstraintValueVN,
+  GeoMatchConstraintValueVU,
+  GeoMatchConstraintValueWF,
+  GeoMatchConstraintValueWS,
+  GeoMatchConstraintValueYE,
+  GeoMatchConstraintValueYT,
+  GeoMatchConstraintValueZA,
+  GeoMatchConstraintValueZM,
+  GeoMatchConstraintValueZW,
   GeoMatchConstraintValue'
   #-}
 
-instance FromText GeoMatchConstraintValue where
-  parser = (GeoMatchConstraintValue' . mk) <$> takeText
+instance Prelude.FromText GeoMatchConstraintValue where
+  parser = GeoMatchConstraintValue' Prelude.<$> Prelude.takeText
 
-instance ToText GeoMatchConstraintValue where
-  toText (GeoMatchConstraintValue' ci) = original ci
+instance Prelude.ToText GeoMatchConstraintValue where
+  toText (GeoMatchConstraintValue' x) = x
 
-instance Hashable GeoMatchConstraintValue
+instance Prelude.Hashable GeoMatchConstraintValue
 
-instance NFData GeoMatchConstraintValue
+instance Prelude.NFData GeoMatchConstraintValue
 
-instance ToByteString GeoMatchConstraintValue
+instance Prelude.ToByteString GeoMatchConstraintValue
 
-instance ToQuery GeoMatchConstraintValue
+instance Prelude.ToQuery GeoMatchConstraintValue
 
-instance ToHeader GeoMatchConstraintValue
+instance Prelude.ToHeader GeoMatchConstraintValue
 
-instance ToJSON GeoMatchConstraintValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON GeoMatchConstraintValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GeoMatchConstraintValue where
-  parseJSON = parseJSONText "GeoMatchConstraintValue"
+instance Prelude.FromJSON GeoMatchConstraintValue where
+  parseJSON = Prelude.parseJSONText "GeoMatchConstraintValue"

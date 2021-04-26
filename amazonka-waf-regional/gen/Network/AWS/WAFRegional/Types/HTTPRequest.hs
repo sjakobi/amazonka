@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,155 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAFRegional.Types.HTTPRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WAFRegional.Types.HTTPHeader
 
--- | The response from a 'GetSampledRequests' request includes an @HTTPRequest@ complex type that appears as @Request@ in the response syntax. @HTTPRequest@ contains information about one of the web requests that were returned by @GetSampledRequests@ .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- The response from a GetSampledRequests request includes an @HTTPRequest@
+-- complex type that appears as @Request@ in the response syntax.
+-- @HTTPRequest@ contains information about one of the web requests that
+-- were returned by @GetSampledRequests@.
 --
--- /See:/ 'hTTPRequest' smart constructor.
+-- /See:/ 'newHTTPRequest' smart constructor.
 data HTTPRequest = HTTPRequest'
-  { _httprHeaders ::
-      !(Maybe [HTTPHeader]),
-    _httprURI :: !(Maybe Text),
-    _httprMethod :: !(Maybe Text),
-    _httprClientIP :: !(Maybe Text),
-    _httprCountry :: !(Maybe Text),
-    _httprHTTPVersion :: !(Maybe Text)
+  { -- | A complex type that contains two values for each header in the sampled
+    -- web request: the name of the header and the value of the header.
+    headers :: Prelude.Maybe [HTTPHeader],
+    -- | The part of a web request that identifies the resource, for example,
+    -- @\/images\/daily-ad.jpg@.
+    uRI :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP method specified in the sampled web request. CloudFront
+    -- supports the following methods: @DELETE@, @GET@, @HEAD@, @OPTIONS@,
+    -- @PATCH@, @POST@, and @PUT@.
+    method :: Prelude.Maybe Prelude.Text,
+    -- | The IP address that the request originated from. If the @WebACL@ is
+    -- associated with a CloudFront distribution, this is the value of one of
+    -- the following fields in CloudFront access logs:
+    --
+    -- -   @c-ip@, if the viewer did not use an HTTP proxy or a load balancer
+    --     to send the request
+    --
+    -- -   @x-forwarded-for@, if the viewer did use an HTTP proxy or a load
+    --     balancer to send the request
+    clientIP :: Prelude.Maybe Prelude.Text,
+    -- | The two-letter country code for the country that the request originated
+    -- from. For a current list of country codes, see the Wikipedia entry
+    -- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO 3166-1 alpha-2>.
+    country :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP version specified in the sampled web request, for example,
+    -- @HTTP\/1.1@.
+    hTTPVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HTTPRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HTTPRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'httprHeaders' - A complex type that contains two values for each header in the sampled web request: the name of the header and the value of the header.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'httprURI' - The part of a web request that identifies the resource, for example, @/images/daily-ad.jpg@ .
+-- 'headers', 'hTTPRequest_headers' - A complex type that contains two values for each header in the sampled
+-- web request: the name of the header and the value of the header.
 --
--- * 'httprMethod' - The HTTP method specified in the sampled web request. CloudFront supports the following methods: @DELETE@ , @GET@ , @HEAD@ , @OPTIONS@ , @PATCH@ , @POST@ , and @PUT@ .
+-- 'uRI', 'hTTPRequest_uRI' - The part of a web request that identifies the resource, for example,
+-- @\/images\/daily-ad.jpg@.
 --
--- * 'httprClientIP' - The IP address that the request originated from. If the @WebACL@ is associated with a CloudFront distribution, this is the value of one of the following fields in CloudFront access logs:     * @c-ip@ , if the viewer did not use an HTTP proxy or a load balancer to send the request     * @x-forwarded-for@ , if the viewer did use an HTTP proxy or a load balancer to send the request
+-- 'method', 'hTTPRequest_method' - The HTTP method specified in the sampled web request. CloudFront
+-- supports the following methods: @DELETE@, @GET@, @HEAD@, @OPTIONS@,
+-- @PATCH@, @POST@, and @PUT@.
 --
--- * 'httprCountry' - The two-letter country code for the country that the request originated from. For a current list of country codes, see the Wikipedia entry <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO 3166-1 alpha-2> .
+-- 'clientIP', 'hTTPRequest_clientIP' - The IP address that the request originated from. If the @WebACL@ is
+-- associated with a CloudFront distribution, this is the value of one of
+-- the following fields in CloudFront access logs:
 --
--- * 'httprHTTPVersion' - The HTTP version specified in the sampled web request, for example, @HTTP/1.1@ .
-hTTPRequest ::
+-- -   @c-ip@, if the viewer did not use an HTTP proxy or a load balancer
+--     to send the request
+--
+-- -   @x-forwarded-for@, if the viewer did use an HTTP proxy or a load
+--     balancer to send the request
+--
+-- 'country', 'hTTPRequest_country' - The two-letter country code for the country that the request originated
+-- from. For a current list of country codes, see the Wikipedia entry
+-- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO 3166-1 alpha-2>.
+--
+-- 'hTTPVersion', 'hTTPRequest_hTTPVersion' - The HTTP version specified in the sampled web request, for example,
+-- @HTTP\/1.1@.
+newHTTPRequest ::
   HTTPRequest
-hTTPRequest =
+newHTTPRequest =
   HTTPRequest'
-    { _httprHeaders = Nothing,
-      _httprURI = Nothing,
-      _httprMethod = Nothing,
-      _httprClientIP = Nothing,
-      _httprCountry = Nothing,
-      _httprHTTPVersion = Nothing
+    { headers = Prelude.Nothing,
+      uRI = Prelude.Nothing,
+      method = Prelude.Nothing,
+      clientIP = Prelude.Nothing,
+      country = Prelude.Nothing,
+      hTTPVersion = Prelude.Nothing
     }
 
--- | A complex type that contains two values for each header in the sampled web request: the name of the header and the value of the header.
-httprHeaders :: Lens' HTTPRequest [HTTPHeader]
-httprHeaders = lens _httprHeaders (\s a -> s {_httprHeaders = a}) . _Default . _Coerce
+-- | A complex type that contains two values for each header in the sampled
+-- web request: the name of the header and the value of the header.
+hTTPRequest_headers :: Lens.Lens' HTTPRequest (Prelude.Maybe [HTTPHeader])
+hTTPRequest_headers = Lens.lens (\HTTPRequest' {headers} -> headers) (\s@HTTPRequest' {} a -> s {headers = a} :: HTTPRequest) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The part of a web request that identifies the resource, for example, @/images/daily-ad.jpg@ .
-httprURI :: Lens' HTTPRequest (Maybe Text)
-httprURI = lens _httprURI (\s a -> s {_httprURI = a})
+-- | The part of a web request that identifies the resource, for example,
+-- @\/images\/daily-ad.jpg@.
+hTTPRequest_uRI :: Lens.Lens' HTTPRequest (Prelude.Maybe Prelude.Text)
+hTTPRequest_uRI = Lens.lens (\HTTPRequest' {uRI} -> uRI) (\s@HTTPRequest' {} a -> s {uRI = a} :: HTTPRequest)
 
--- | The HTTP method specified in the sampled web request. CloudFront supports the following methods: @DELETE@ , @GET@ , @HEAD@ , @OPTIONS@ , @PATCH@ , @POST@ , and @PUT@ .
-httprMethod :: Lens' HTTPRequest (Maybe Text)
-httprMethod = lens _httprMethod (\s a -> s {_httprMethod = a})
+-- | The HTTP method specified in the sampled web request. CloudFront
+-- supports the following methods: @DELETE@, @GET@, @HEAD@, @OPTIONS@,
+-- @PATCH@, @POST@, and @PUT@.
+hTTPRequest_method :: Lens.Lens' HTTPRequest (Prelude.Maybe Prelude.Text)
+hTTPRequest_method = Lens.lens (\HTTPRequest' {method} -> method) (\s@HTTPRequest' {} a -> s {method = a} :: HTTPRequest)
 
--- | The IP address that the request originated from. If the @WebACL@ is associated with a CloudFront distribution, this is the value of one of the following fields in CloudFront access logs:     * @c-ip@ , if the viewer did not use an HTTP proxy or a load balancer to send the request     * @x-forwarded-for@ , if the viewer did use an HTTP proxy or a load balancer to send the request
-httprClientIP :: Lens' HTTPRequest (Maybe Text)
-httprClientIP = lens _httprClientIP (\s a -> s {_httprClientIP = a})
+-- | The IP address that the request originated from. If the @WebACL@ is
+-- associated with a CloudFront distribution, this is the value of one of
+-- the following fields in CloudFront access logs:
+--
+-- -   @c-ip@, if the viewer did not use an HTTP proxy or a load balancer
+--     to send the request
+--
+-- -   @x-forwarded-for@, if the viewer did use an HTTP proxy or a load
+--     balancer to send the request
+hTTPRequest_clientIP :: Lens.Lens' HTTPRequest (Prelude.Maybe Prelude.Text)
+hTTPRequest_clientIP = Lens.lens (\HTTPRequest' {clientIP} -> clientIP) (\s@HTTPRequest' {} a -> s {clientIP = a} :: HTTPRequest)
 
--- | The two-letter country code for the country that the request originated from. For a current list of country codes, see the Wikipedia entry <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO 3166-1 alpha-2> .
-httprCountry :: Lens' HTTPRequest (Maybe Text)
-httprCountry = lens _httprCountry (\s a -> s {_httprCountry = a})
+-- | The two-letter country code for the country that the request originated
+-- from. For a current list of country codes, see the Wikipedia entry
+-- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO 3166-1 alpha-2>.
+hTTPRequest_country :: Lens.Lens' HTTPRequest (Prelude.Maybe Prelude.Text)
+hTTPRequest_country = Lens.lens (\HTTPRequest' {country} -> country) (\s@HTTPRequest' {} a -> s {country = a} :: HTTPRequest)
 
--- | The HTTP version specified in the sampled web request, for example, @HTTP/1.1@ .
-httprHTTPVersion :: Lens' HTTPRequest (Maybe Text)
-httprHTTPVersion = lens _httprHTTPVersion (\s a -> s {_httprHTTPVersion = a})
+-- | The HTTP version specified in the sampled web request, for example,
+-- @HTTP\/1.1@.
+hTTPRequest_hTTPVersion :: Lens.Lens' HTTPRequest (Prelude.Maybe Prelude.Text)
+hTTPRequest_hTTPVersion = Lens.lens (\HTTPRequest' {hTTPVersion} -> hTTPVersion) (\s@HTTPRequest' {} a -> s {hTTPVersion = a} :: HTTPRequest)
 
-instance FromJSON HTTPRequest where
+instance Prelude.FromJSON HTTPRequest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HTTPRequest"
       ( \x ->
           HTTPRequest'
-            <$> (x .:? "Headers" .!= mempty)
-            <*> (x .:? "URI")
-            <*> (x .:? "Method")
-            <*> (x .:? "ClientIP")
-            <*> (x .:? "Country")
-            <*> (x .:? "HTTPVersion")
+            Prelude.<$> (x Prelude..:? "Headers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "URI")
+            Prelude.<*> (x Prelude..:? "Method")
+            Prelude.<*> (x Prelude..:? "ClientIP")
+            Prelude.<*> (x Prelude..:? "Country")
+            Prelude.<*> (x Prelude..:? "HTTPVersion")
       )
 
-instance Hashable HTTPRequest
+instance Prelude.Hashable HTTPRequest
 
-instance NFData HTTPRequest
+instance Prelude.NFData HTTPRequest

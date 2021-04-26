@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an array of 'SizeConstraintSetSummary' objects.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns an array of SizeConstraintSetSummary objects.
 module Network.AWS.WAFRegional.ListSizeConstraintSets
   ( -- * Creating a Request
-    listSizeConstraintSets,
-    ListSizeConstraintSets,
+    ListSizeConstraintSets (..),
+    newListSizeConstraintSets,
 
     -- * Request Lenses
-    lscsNextMarker,
-    lscsLimit,
+    listSizeConstraintSets_nextMarker,
+    listSizeConstraintSets_limit,
 
     -- * Destructuring the Response
-    listSizeConstraintSetsResponse,
-    ListSizeConstraintSetsResponse,
+    ListSizeConstraintSetsResponse (..),
+    newListSizeConstraintSetsResponse,
 
     -- * Response Lenses
-    lscsrrsSizeConstraintSets,
-    lscsrrsNextMarker,
-    lscsrrsResponseStatus,
+    listSizeConstraintSetsResponse_sizeConstraintSets,
+    listSizeConstraintSetsResponse_nextMarker,
+    listSizeConstraintSetsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.SizeConstraintSetSummary
 
--- | /See:/ 'listSizeConstraintSets' smart constructor.
+-- | /See:/ 'newListSizeConstraintSets' smart constructor.
 data ListSizeConstraintSets = ListSizeConstraintSets'
-  { _lscsNextMarker ::
-      !(Maybe Text),
-    _lscsLimit ::
-      !(Maybe Nat)
+  { -- | If you specify a value for @Limit@ and you have more
+    -- @SizeConstraintSets@ than the value of @Limit@, AWS WAF returns a
+    -- @NextMarker@ value in the response that allows you to list another group
+    -- of @SizeConstraintSets@. For the second and subsequent
+    -- @ListSizeConstraintSets@ requests, specify the value of @NextMarker@
+    -- from the previous response to get information about another batch of
+    -- @SizeConstraintSets@.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the number of @SizeConstraintSet@ objects that you want AWS
+    -- WAF to return for this request. If you have more @SizeConstraintSets@
+    -- objects than the number you specify for @Limit@, the response includes a
+    -- @NextMarker@ value that you can use to get another batch of
+    -- @SizeConstraintSet@ objects.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSizeConstraintSets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSizeConstraintSets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lscsNextMarker' - If you specify a value for @Limit@ and you have more @SizeConstraintSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @SizeConstraintSets@ . For the second and subsequent @ListSizeConstraintSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @SizeConstraintSets@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lscsLimit' - Specifies the number of @SizeConstraintSet@ objects that you want AWS WAF to return for this request. If you have more @SizeConstraintSets@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @SizeConstraintSet@ objects.
-listSizeConstraintSets ::
+-- 'nextMarker', 'listSizeConstraintSets_nextMarker' - If you specify a value for @Limit@ and you have more
+-- @SizeConstraintSets@ than the value of @Limit@, AWS WAF returns a
+-- @NextMarker@ value in the response that allows you to list another group
+-- of @SizeConstraintSets@. For the second and subsequent
+-- @ListSizeConstraintSets@ requests, specify the value of @NextMarker@
+-- from the previous response to get information about another batch of
+-- @SizeConstraintSets@.
+--
+-- 'limit', 'listSizeConstraintSets_limit' - Specifies the number of @SizeConstraintSet@ objects that you want AWS
+-- WAF to return for this request. If you have more @SizeConstraintSets@
+-- objects than the number you specify for @Limit@, the response includes a
+-- @NextMarker@ value that you can use to get another batch of
+-- @SizeConstraintSet@ objects.
+newListSizeConstraintSets ::
   ListSizeConstraintSets
-listSizeConstraintSets =
+newListSizeConstraintSets =
   ListSizeConstraintSets'
-    { _lscsNextMarker = Nothing,
-      _lscsLimit = Nothing
+    { nextMarker =
+        Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | If you specify a value for @Limit@ and you have more @SizeConstraintSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @SizeConstraintSets@ . For the second and subsequent @ListSizeConstraintSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @SizeConstraintSets@ .
-lscsNextMarker :: Lens' ListSizeConstraintSets (Maybe Text)
-lscsNextMarker = lens _lscsNextMarker (\s a -> s {_lscsNextMarker = a})
+-- | If you specify a value for @Limit@ and you have more
+-- @SizeConstraintSets@ than the value of @Limit@, AWS WAF returns a
+-- @NextMarker@ value in the response that allows you to list another group
+-- of @SizeConstraintSets@. For the second and subsequent
+-- @ListSizeConstraintSets@ requests, specify the value of @NextMarker@
+-- from the previous response to get information about another batch of
+-- @SizeConstraintSets@.
+listSizeConstraintSets_nextMarker :: Lens.Lens' ListSizeConstraintSets (Prelude.Maybe Prelude.Text)
+listSizeConstraintSets_nextMarker = Lens.lens (\ListSizeConstraintSets' {nextMarker} -> nextMarker) (\s@ListSizeConstraintSets' {} a -> s {nextMarker = a} :: ListSizeConstraintSets)
 
--- | Specifies the number of @SizeConstraintSet@ objects that you want AWS WAF to return for this request. If you have more @SizeConstraintSets@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @SizeConstraintSet@ objects.
-lscsLimit :: Lens' ListSizeConstraintSets (Maybe Natural)
-lscsLimit = lens _lscsLimit (\s a -> s {_lscsLimit = a}) . mapping _Nat
+-- | Specifies the number of @SizeConstraintSet@ objects that you want AWS
+-- WAF to return for this request. If you have more @SizeConstraintSets@
+-- objects than the number you specify for @Limit@, the response includes a
+-- @NextMarker@ value that you can use to get another batch of
+-- @SizeConstraintSet@ objects.
+listSizeConstraintSets_limit :: Lens.Lens' ListSizeConstraintSets (Prelude.Maybe Prelude.Natural)
+listSizeConstraintSets_limit = Lens.lens (\ListSizeConstraintSets' {limit} -> limit) (\s@ListSizeConstraintSets' {} a -> s {limit = a} :: ListSizeConstraintSets) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListSizeConstraintSets where
+instance Prelude.AWSRequest ListSizeConstraintSets where
   type
     Rs ListSizeConstraintSets =
       ListSizeConstraintSetsResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSizeConstraintSetsResponse'
-            <$> (x .?> "SizeConstraintSets" .!@ mempty)
-            <*> (x .?> "NextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SizeConstraintSets"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSizeConstraintSets
+instance Prelude.Hashable ListSizeConstraintSets
 
-instance NFData ListSizeConstraintSets
+instance Prelude.NFData ListSizeConstraintSets
 
-instance ToHeaders ListSizeConstraintSets where
+instance Prelude.ToHeaders ListSizeConstraintSets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.ListSizeConstraintSets" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.ListSizeConstraintSets" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSizeConstraintSets where
+instance Prelude.ToJSON ListSizeConstraintSets where
   toJSON ListSizeConstraintSets' {..} =
-    object
-      ( catMaybes
-          [ ("NextMarker" .=) <$> _lscsNextMarker,
-            ("Limit" .=) <$> _lscsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextMarker" Prelude..=) Prelude.<$> nextMarker,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListSizeConstraintSets where
-  toPath = const "/"
+instance Prelude.ToPath ListSizeConstraintSets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSizeConstraintSets where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSizeConstraintSets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSizeConstraintSetsResponse' smart constructor.
+-- | /See:/ 'newListSizeConstraintSetsResponse' smart constructor.
 data ListSizeConstraintSetsResponse = ListSizeConstraintSetsResponse'
-  { _lscsrrsSizeConstraintSets ::
-      !( Maybe
-           [SizeConstraintSetSummary]
-       ),
-    _lscsrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _lscsrrsResponseStatus ::
-      !Int
+  { -- | An array of SizeConstraintSetSummary objects.
+    sizeConstraintSets :: Prelude.Maybe [SizeConstraintSetSummary],
+    -- | If you have more @SizeConstraintSet@ objects than the number that you
+    -- specified for @Limit@ in the request, the response includes a
+    -- @NextMarker@ value. To list more @SizeConstraintSet@ objects, submit
+    -- another @ListSizeConstraintSets@ request, and specify the @NextMarker@
+    -- value from the response in the @NextMarker@ value in the next request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSizeConstraintSetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSizeConstraintSetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lscsrrsSizeConstraintSets' - An array of 'SizeConstraintSetSummary' objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lscsrrsNextMarker' - If you have more @SizeConstraintSet@ objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @SizeConstraintSet@ objects, submit another @ListSizeConstraintSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
+-- 'sizeConstraintSets', 'listSizeConstraintSetsResponse_sizeConstraintSets' - An array of SizeConstraintSetSummary objects.
 --
--- * 'lscsrrsResponseStatus' - -- | The response status code.
-listSizeConstraintSetsResponse ::
-  -- | 'lscsrrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'listSizeConstraintSetsResponse_nextMarker' - If you have more @SizeConstraintSet@ objects than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @SizeConstraintSet@ objects, submit
+-- another @ListSizeConstraintSets@ request, and specify the @NextMarker@
+-- value from the response in the @NextMarker@ value in the next request.
+--
+-- 'httpStatus', 'listSizeConstraintSetsResponse_httpStatus' - The response's http status code.
+newListSizeConstraintSetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSizeConstraintSetsResponse
-listSizeConstraintSetsResponse pResponseStatus_ =
+newListSizeConstraintSetsResponse pHttpStatus_ =
   ListSizeConstraintSetsResponse'
-    { _lscsrrsSizeConstraintSets =
-        Nothing,
-      _lscsrrsNextMarker = Nothing,
-      _lscsrrsResponseStatus = pResponseStatus_
+    { sizeConstraintSets =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of 'SizeConstraintSetSummary' objects.
-lscsrrsSizeConstraintSets :: Lens' ListSizeConstraintSetsResponse [SizeConstraintSetSummary]
-lscsrrsSizeConstraintSets = lens _lscsrrsSizeConstraintSets (\s a -> s {_lscsrrsSizeConstraintSets = a}) . _Default . _Coerce
+-- | An array of SizeConstraintSetSummary objects.
+listSizeConstraintSetsResponse_sizeConstraintSets :: Lens.Lens' ListSizeConstraintSetsResponse (Prelude.Maybe [SizeConstraintSetSummary])
+listSizeConstraintSetsResponse_sizeConstraintSets = Lens.lens (\ListSizeConstraintSetsResponse' {sizeConstraintSets} -> sizeConstraintSets) (\s@ListSizeConstraintSetsResponse' {} a -> s {sizeConstraintSets = a} :: ListSizeConstraintSetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If you have more @SizeConstraintSet@ objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @SizeConstraintSet@ objects, submit another @ListSizeConstraintSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
-lscsrrsNextMarker :: Lens' ListSizeConstraintSetsResponse (Maybe Text)
-lscsrrsNextMarker = lens _lscsrrsNextMarker (\s a -> s {_lscsrrsNextMarker = a})
+-- | If you have more @SizeConstraintSet@ objects than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @SizeConstraintSet@ objects, submit
+-- another @ListSizeConstraintSets@ request, and specify the @NextMarker@
+-- value from the response in the @NextMarker@ value in the next request.
+listSizeConstraintSetsResponse_nextMarker :: Lens.Lens' ListSizeConstraintSetsResponse (Prelude.Maybe Prelude.Text)
+listSizeConstraintSetsResponse_nextMarker = Lens.lens (\ListSizeConstraintSetsResponse' {nextMarker} -> nextMarker) (\s@ListSizeConstraintSetsResponse' {} a -> s {nextMarker = a} :: ListSizeConstraintSetsResponse)
 
--- | -- | The response status code.
-lscsrrsResponseStatus :: Lens' ListSizeConstraintSetsResponse Int
-lscsrrsResponseStatus = lens _lscsrrsResponseStatus (\s a -> s {_lscsrrsResponseStatus = a})
+-- | The response's http status code.
+listSizeConstraintSetsResponse_httpStatus :: Lens.Lens' ListSizeConstraintSetsResponse Prelude.Int
+listSizeConstraintSetsResponse_httpStatus = Lens.lens (\ListSizeConstraintSetsResponse' {httpStatus} -> httpStatus) (\s@ListSizeConstraintSetsResponse' {} a -> s {httpStatus = a} :: ListSizeConstraintSetsResponse)
 
-instance NFData ListSizeConstraintSetsResponse
+instance
+  Prelude.NFData
+    ListSizeConstraintSetsResponse

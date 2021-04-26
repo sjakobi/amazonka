@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAFRegional.Types.RegexPatternSetSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returned by 'ListRegexPatternSets' . Each @RegexPatternSetSummary@ object includes the @Name@ and @RegexPatternSetId@ for one 'RegexPatternSet' .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Returned by ListRegexPatternSets. Each @RegexPatternSetSummary@ object
+-- includes the @Name@ and @RegexPatternSetId@ for one RegexPatternSet.
 --
--- /See:/ 'regexPatternSetSummary' smart constructor.
+-- /See:/ 'newRegexPatternSetSummary' smart constructor.
 data RegexPatternSetSummary = RegexPatternSetSummary'
-  { _rpssRegexPatternSetId ::
-      !Text,
-    _rpssName :: !Text
+  { -- | The @RegexPatternSetId@ for a @RegexPatternSet@. You use
+    -- @RegexPatternSetId@ to get information about a @RegexPatternSet@, update
+    -- a @RegexPatternSet@, remove a @RegexPatternSet@ from a @RegexMatchSet@,
+    -- and delete a @RegexPatternSet@ from AWS WAF.
+    --
+    -- @RegexPatternSetId@ is returned by CreateRegexPatternSet and by
+    -- ListRegexPatternSets.
+    regexPatternSetId :: Prelude.Text,
+    -- | A friendly name or description of the RegexPatternSet. You can\'t change
+    -- @Name@ after you create a @RegexPatternSet@.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegexPatternSetSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegexPatternSetSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpssRegexPatternSetId' - The @RegexPatternSetId@ for a @RegexPatternSet@ . You use @RegexPatternSetId@ to get information about a @RegexPatternSet@ , update a @RegexPatternSet@ , remove a @RegexPatternSet@ from a @RegexMatchSet@ , and delete a @RegexPatternSet@ from AWS WAF. @RegexPatternSetId@ is returned by 'CreateRegexPatternSet' and by 'ListRegexPatternSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpssName' - A friendly name or description of the 'RegexPatternSet' . You can't change @Name@ after you create a @RegexPatternSet@ .
-regexPatternSetSummary ::
-  -- | 'rpssRegexPatternSetId'
-  Text ->
-  -- | 'rpssName'
-  Text ->
+-- 'regexPatternSetId', 'regexPatternSetSummary_regexPatternSetId' - The @RegexPatternSetId@ for a @RegexPatternSet@. You use
+-- @RegexPatternSetId@ to get information about a @RegexPatternSet@, update
+-- a @RegexPatternSet@, remove a @RegexPatternSet@ from a @RegexMatchSet@,
+-- and delete a @RegexPatternSet@ from AWS WAF.
+--
+-- @RegexPatternSetId@ is returned by CreateRegexPatternSet and by
+-- ListRegexPatternSets.
+--
+-- 'name', 'regexPatternSetSummary_name' - A friendly name or description of the RegexPatternSet. You can\'t change
+-- @Name@ after you create a @RegexPatternSet@.
+newRegexPatternSetSummary ::
+  -- | 'regexPatternSetId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   RegexPatternSetSummary
-regexPatternSetSummary pRegexPatternSetId_ pName_ =
+newRegexPatternSetSummary pRegexPatternSetId_ pName_ =
   RegexPatternSetSummary'
-    { _rpssRegexPatternSetId =
+    { regexPatternSetId =
         pRegexPatternSetId_,
-      _rpssName = pName_
+      name = pName_
     }
 
--- | The @RegexPatternSetId@ for a @RegexPatternSet@ . You use @RegexPatternSetId@ to get information about a @RegexPatternSet@ , update a @RegexPatternSet@ , remove a @RegexPatternSet@ from a @RegexMatchSet@ , and delete a @RegexPatternSet@ from AWS WAF. @RegexPatternSetId@ is returned by 'CreateRegexPatternSet' and by 'ListRegexPatternSets' .
-rpssRegexPatternSetId :: Lens' RegexPatternSetSummary Text
-rpssRegexPatternSetId = lens _rpssRegexPatternSetId (\s a -> s {_rpssRegexPatternSetId = a})
+-- | The @RegexPatternSetId@ for a @RegexPatternSet@. You use
+-- @RegexPatternSetId@ to get information about a @RegexPatternSet@, update
+-- a @RegexPatternSet@, remove a @RegexPatternSet@ from a @RegexMatchSet@,
+-- and delete a @RegexPatternSet@ from AWS WAF.
+--
+-- @RegexPatternSetId@ is returned by CreateRegexPatternSet and by
+-- ListRegexPatternSets.
+regexPatternSetSummary_regexPatternSetId :: Lens.Lens' RegexPatternSetSummary Prelude.Text
+regexPatternSetSummary_regexPatternSetId = Lens.lens (\RegexPatternSetSummary' {regexPatternSetId} -> regexPatternSetId) (\s@RegexPatternSetSummary' {} a -> s {regexPatternSetId = a} :: RegexPatternSetSummary)
 
--- | A friendly name or description of the 'RegexPatternSet' . You can't change @Name@ after you create a @RegexPatternSet@ .
-rpssName :: Lens' RegexPatternSetSummary Text
-rpssName = lens _rpssName (\s a -> s {_rpssName = a})
+-- | A friendly name or description of the RegexPatternSet. You can\'t change
+-- @Name@ after you create a @RegexPatternSet@.
+regexPatternSetSummary_name :: Lens.Lens' RegexPatternSetSummary Prelude.Text
+regexPatternSetSummary_name = Lens.lens (\RegexPatternSetSummary' {name} -> name) (\s@RegexPatternSetSummary' {} a -> s {name = a} :: RegexPatternSetSummary)
 
-instance FromJSON RegexPatternSetSummary where
+instance Prelude.FromJSON RegexPatternSetSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RegexPatternSetSummary"
       ( \x ->
           RegexPatternSetSummary'
-            <$> (x .: "RegexPatternSetId") <*> (x .: "Name")
+            Prelude.<$> (x Prelude..: "RegexPatternSetId")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable RegexPatternSetSummary
+instance Prelude.Hashable RegexPatternSetSummary
 
-instance NFData RegexPatternSetSummary
+instance Prelude.NFData RegexPatternSetSummary

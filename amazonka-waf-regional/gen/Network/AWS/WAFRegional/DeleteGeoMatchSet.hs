@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes a 'GeoMatchSet' . You can't delete a @GeoMatchSet@ if it's still used in any @Rules@ or if it still includes any countries.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- If you just want to remove a @GeoMatchSet@ from a @Rule@ , use 'UpdateRule' .
+-- Permanently deletes a GeoMatchSet. You can\'t delete a @GeoMatchSet@ if
+-- it\'s still used in any @Rules@ or if it still includes any countries.
 --
--- To permanently delete a @GeoMatchSet@ from AWS WAF, perform the following steps:
+-- If you just want to remove a @GeoMatchSet@ from a @Rule@, use
+-- UpdateRule.
 --
---     * Update the @GeoMatchSet@ to remove any countries. For more information, see 'UpdateGeoMatchSet' .
+-- To permanently delete a @GeoMatchSet@ from AWS WAF, perform the
+-- following steps:
 --
---     * Use 'GetChangeToken' to get the change token that you provide in the @ChangeToken@ parameter of a @DeleteGeoMatchSet@ request.
+-- 1.  Update the @GeoMatchSet@ to remove any countries. For more
+--     information, see UpdateGeoMatchSet.
 --
---     * Submit a @DeleteGeoMatchSet@ request.
+-- 2.  Use GetChangeToken to get the change token that you provide in the
+--     @ChangeToken@ parameter of a @DeleteGeoMatchSet@ request.
+--
+-- 3.  Submit a @DeleteGeoMatchSet@ request.
 module Network.AWS.WAFRegional.DeleteGeoMatchSet
   ( -- * Creating a Request
-    deleteGeoMatchSet,
-    DeleteGeoMatchSet,
+    DeleteGeoMatchSet (..),
+    newDeleteGeoMatchSet,
 
     -- * Request Lenses
-    dgmsGeoMatchSetId,
-    dgmsChangeToken,
+    deleteGeoMatchSet_geoMatchSetId,
+    deleteGeoMatchSet_changeToken,
 
     -- * Destructuring the Response
-    deleteGeoMatchSetResponse,
-    DeleteGeoMatchSetResponse,
+    DeleteGeoMatchSetResponse (..),
+    newDeleteGeoMatchSetResponse,
 
     -- * Response Lenses
-    dgmsrrsChangeToken,
-    dgmsrrsResponseStatus,
+    deleteGeoMatchSetResponse_changeToken,
+    deleteGeoMatchSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
 
--- | /See:/ 'deleteGeoMatchSet' smart constructor.
+-- | /See:/ 'newDeleteGeoMatchSet' smart constructor.
 data DeleteGeoMatchSet = DeleteGeoMatchSet'
-  { _dgmsGeoMatchSetId ::
-      !Text,
-    _dgmsChangeToken :: !Text
+  { -- | The @GeoMatchSetID@ of the GeoMatchSet that you want to delete.
+    -- @GeoMatchSetId@ is returned by CreateGeoMatchSet and by
+    -- ListGeoMatchSets.
+    geoMatchSetId :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGeoMatchSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGeoMatchSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgmsGeoMatchSetId' - The @GeoMatchSetID@ of the 'GeoMatchSet' that you want to delete. @GeoMatchSetId@ is returned by 'CreateGeoMatchSet' and by 'ListGeoMatchSets' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgmsChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-deleteGeoMatchSet ::
-  -- | 'dgmsGeoMatchSetId'
-  Text ->
-  -- | 'dgmsChangeToken'
-  Text ->
+-- 'geoMatchSetId', 'deleteGeoMatchSet_geoMatchSetId' - The @GeoMatchSetID@ of the GeoMatchSet that you want to delete.
+-- @GeoMatchSetId@ is returned by CreateGeoMatchSet and by
+-- ListGeoMatchSets.
+--
+-- 'changeToken', 'deleteGeoMatchSet_changeToken' - The value returned by the most recent call to GetChangeToken.
+newDeleteGeoMatchSet ::
+  -- | 'geoMatchSetId'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   DeleteGeoMatchSet
-deleteGeoMatchSet pGeoMatchSetId_ pChangeToken_ =
+newDeleteGeoMatchSet pGeoMatchSetId_ pChangeToken_ =
   DeleteGeoMatchSet'
-    { _dgmsGeoMatchSetId =
-        pGeoMatchSetId_,
-      _dgmsChangeToken = pChangeToken_
+    { geoMatchSetId = pGeoMatchSetId_,
+      changeToken = pChangeToken_
     }
 
--- | The @GeoMatchSetID@ of the 'GeoMatchSet' that you want to delete. @GeoMatchSetId@ is returned by 'CreateGeoMatchSet' and by 'ListGeoMatchSets' .
-dgmsGeoMatchSetId :: Lens' DeleteGeoMatchSet Text
-dgmsGeoMatchSetId = lens _dgmsGeoMatchSetId (\s a -> s {_dgmsGeoMatchSetId = a})
+-- | The @GeoMatchSetID@ of the GeoMatchSet that you want to delete.
+-- @GeoMatchSetId@ is returned by CreateGeoMatchSet and by
+-- ListGeoMatchSets.
+deleteGeoMatchSet_geoMatchSetId :: Lens.Lens' DeleteGeoMatchSet Prelude.Text
+deleteGeoMatchSet_geoMatchSetId = Lens.lens (\DeleteGeoMatchSet' {geoMatchSetId} -> geoMatchSetId) (\s@DeleteGeoMatchSet' {} a -> s {geoMatchSetId = a} :: DeleteGeoMatchSet)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-dgmsChangeToken :: Lens' DeleteGeoMatchSet Text
-dgmsChangeToken = lens _dgmsChangeToken (\s a -> s {_dgmsChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+deleteGeoMatchSet_changeToken :: Lens.Lens' DeleteGeoMatchSet Prelude.Text
+deleteGeoMatchSet_changeToken = Lens.lens (\DeleteGeoMatchSet' {changeToken} -> changeToken) (\s@DeleteGeoMatchSet' {} a -> s {changeToken = a} :: DeleteGeoMatchSet)
 
-instance AWSRequest DeleteGeoMatchSet where
+instance Prelude.AWSRequest DeleteGeoMatchSet where
   type Rs DeleteGeoMatchSet = DeleteGeoMatchSetResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteGeoMatchSetResponse'
-            <$> (x .?> "ChangeToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteGeoMatchSet
+instance Prelude.Hashable DeleteGeoMatchSet
 
-instance NFData DeleteGeoMatchSet
+instance Prelude.NFData DeleteGeoMatchSet
 
-instance ToHeaders DeleteGeoMatchSet where
+instance Prelude.ToHeaders DeleteGeoMatchSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.DeleteGeoMatchSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.DeleteGeoMatchSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteGeoMatchSet where
+instance Prelude.ToJSON DeleteGeoMatchSet where
   toJSON DeleteGeoMatchSet' {..} =
-    object
-      ( catMaybes
-          [ Just ("GeoMatchSetId" .= _dgmsGeoMatchSetId),
-            Just ("ChangeToken" .= _dgmsChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("GeoMatchSetId" Prelude..= geoMatchSetId),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath DeleteGeoMatchSet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGeoMatchSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGeoMatchSet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGeoMatchSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGeoMatchSetResponse' smart constructor.
+-- | /See:/ 'newDeleteGeoMatchSetResponse' smart constructor.
 data DeleteGeoMatchSetResponse = DeleteGeoMatchSetResponse'
-  { _dgmsrrsChangeToken ::
-      !(Maybe Text),
-    _dgmsrrsResponseStatus ::
-      !Int
+  { -- | The @ChangeToken@ that you used to submit the @DeleteGeoMatchSet@
+    -- request. You can also use this value to query the status of the request.
+    -- For more information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGeoMatchSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGeoMatchSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgmsrrsChangeToken' - The @ChangeToken@ that you used to submit the @DeleteGeoMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgmsrrsResponseStatus' - -- | The response status code.
-deleteGeoMatchSetResponse ::
-  -- | 'dgmsrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'deleteGeoMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @DeleteGeoMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'deleteGeoMatchSetResponse_httpStatus' - The response's http status code.
+newDeleteGeoMatchSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteGeoMatchSetResponse
-deleteGeoMatchSetResponse pResponseStatus_ =
+newDeleteGeoMatchSetResponse pHttpStatus_ =
   DeleteGeoMatchSetResponse'
-    { _dgmsrrsChangeToken =
-        Nothing,
-      _dgmsrrsResponseStatus = pResponseStatus_
+    { changeToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The @ChangeToken@ that you used to submit the @DeleteGeoMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-dgmsrrsChangeToken :: Lens' DeleteGeoMatchSetResponse (Maybe Text)
-dgmsrrsChangeToken = lens _dgmsrrsChangeToken (\s a -> s {_dgmsrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @DeleteGeoMatchSet@
+-- request. You can also use this value to query the status of the request.
+-- For more information, see GetChangeTokenStatus.
+deleteGeoMatchSetResponse_changeToken :: Lens.Lens' DeleteGeoMatchSetResponse (Prelude.Maybe Prelude.Text)
+deleteGeoMatchSetResponse_changeToken = Lens.lens (\DeleteGeoMatchSetResponse' {changeToken} -> changeToken) (\s@DeleteGeoMatchSetResponse' {} a -> s {changeToken = a} :: DeleteGeoMatchSetResponse)
 
--- | -- | The response status code.
-dgmsrrsResponseStatus :: Lens' DeleteGeoMatchSetResponse Int
-dgmsrrsResponseStatus = lens _dgmsrrsResponseStatus (\s a -> s {_dgmsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteGeoMatchSetResponse_httpStatus :: Lens.Lens' DeleteGeoMatchSetResponse Prelude.Int
+deleteGeoMatchSetResponse_httpStatus = Lens.lens (\DeleteGeoMatchSetResponse' {httpStatus} -> httpStatus) (\s@DeleteGeoMatchSetResponse' {} a -> s {httpStatus = a} :: DeleteGeoMatchSetResponse)
 
-instance NFData DeleteGeoMatchSetResponse
+instance Prelude.NFData DeleteGeoMatchSetResponse

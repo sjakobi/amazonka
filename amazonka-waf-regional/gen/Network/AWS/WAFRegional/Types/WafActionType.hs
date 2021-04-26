@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.WAFRegional.Types.WafActionType
   ( WafActionType
       ( ..,
-        Allow,
-        Block,
-        Count
+        WafActionTypeALLOW,
+        WafActionTypeBLOCK,
+        WafActionTypeCOUNT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WafActionType = WafActionType' (CI Text)
+newtype WafActionType = WafActionType'
+  { fromWafActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: WafActionType
-pattern Allow = WafActionType' "ALLOW"
+pattern WafActionTypeALLOW :: WafActionType
+pattern WafActionTypeALLOW = WafActionType' "ALLOW"
 
-pattern Block :: WafActionType
-pattern Block = WafActionType' "BLOCK"
+pattern WafActionTypeBLOCK :: WafActionType
+pattern WafActionTypeBLOCK = WafActionType' "BLOCK"
 
-pattern Count :: WafActionType
-pattern Count = WafActionType' "COUNT"
+pattern WafActionTypeCOUNT :: WafActionType
+pattern WafActionTypeCOUNT = WafActionType' "COUNT"
 
 {-# COMPLETE
-  Allow,
-  Block,
-  Count,
+  WafActionTypeALLOW,
+  WafActionTypeBLOCK,
+  WafActionTypeCOUNT,
   WafActionType'
   #-}
 
-instance FromText WafActionType where
-  parser = (WafActionType' . mk) <$> takeText
+instance Prelude.FromText WafActionType where
+  parser = WafActionType' Prelude.<$> Prelude.takeText
 
-instance ToText WafActionType where
-  toText (WafActionType' ci) = original ci
+instance Prelude.ToText WafActionType where
+  toText (WafActionType' x) = x
 
-instance Hashable WafActionType
+instance Prelude.Hashable WafActionType
 
-instance NFData WafActionType
+instance Prelude.NFData WafActionType
 
-instance ToByteString WafActionType
+instance Prelude.ToByteString WafActionType
 
-instance ToQuery WafActionType
+instance Prelude.ToQuery WafActionType
 
-instance ToHeader WafActionType
+instance Prelude.ToHeader WafActionType
 
-instance ToJSON WafActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON WafActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WafActionType where
-  parseJSON = parseJSONText "WafActionType"
+instance Prelude.FromJSON WafActionType where
+  parseJSON = Prelude.parseJSONText "WafActionType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAFRegional.Types.SqlInjectionMatchSetUpdate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WAFRegional.Types.ChangeAction
 import Network.AWS.WAFRegional.Types.SqlInjectionMatchTuple
 
--- | Specifies the part of a web request that you want to inspect for snippets of malicious SQL code and indicates whether you want to add the specification to a 'SqlInjectionMatchSet' or delete it from a @SqlInjectionMatchSet@ .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Specifies the part of a web request that you want to inspect for
+-- snippets of malicious SQL code and indicates whether you want to add the
+-- specification to a SqlInjectionMatchSet or delete it from a
+-- @SqlInjectionMatchSet@.
 --
--- /See:/ 'sqlInjectionMatchSetUpdate' smart constructor.
+-- /See:/ 'newSqlInjectionMatchSetUpdate' smart constructor.
 data SqlInjectionMatchSetUpdate = SqlInjectionMatchSetUpdate'
-  { _simsuAction ::
-      !ChangeAction,
-    _simsuSqlInjectionMatchTuple ::
-      !SqlInjectionMatchTuple
+  { -- | Specify @INSERT@ to add a SqlInjectionMatchSetUpdate to a
+    -- SqlInjectionMatchSet. Use @DELETE@ to remove a
+    -- @SqlInjectionMatchSetUpdate@ from a @SqlInjectionMatchSet@.
+    action :: ChangeAction,
+    -- | Specifies the part of a web request that you want AWS WAF to inspect for
+    -- snippets of malicious SQL code and, if you want AWS WAF to inspect a
+    -- header, the name of the header.
+    sqlInjectionMatchTuple :: SqlInjectionMatchTuple
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SqlInjectionMatchSetUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SqlInjectionMatchSetUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'simsuAction' - Specify @INSERT@ to add a 'SqlInjectionMatchSetUpdate' to a 'SqlInjectionMatchSet' . Use @DELETE@ to remove a @SqlInjectionMatchSetUpdate@ from a @SqlInjectionMatchSet@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'simsuSqlInjectionMatchTuple' - Specifies the part of a web request that you want AWS WAF to inspect for snippets of malicious SQL code and, if you want AWS WAF to inspect a header, the name of the header.
-sqlInjectionMatchSetUpdate ::
-  -- | 'simsuAction'
+-- 'action', 'sqlInjectionMatchSetUpdate_action' - Specify @INSERT@ to add a SqlInjectionMatchSetUpdate to a
+-- SqlInjectionMatchSet. Use @DELETE@ to remove a
+-- @SqlInjectionMatchSetUpdate@ from a @SqlInjectionMatchSet@.
+--
+-- 'sqlInjectionMatchTuple', 'sqlInjectionMatchSetUpdate_sqlInjectionMatchTuple' - Specifies the part of a web request that you want AWS WAF to inspect for
+-- snippets of malicious SQL code and, if you want AWS WAF to inspect a
+-- header, the name of the header.
+newSqlInjectionMatchSetUpdate ::
+  -- | 'action'
   ChangeAction ->
-  -- | 'simsuSqlInjectionMatchTuple'
+  -- | 'sqlInjectionMatchTuple'
   SqlInjectionMatchTuple ->
   SqlInjectionMatchSetUpdate
-sqlInjectionMatchSetUpdate
+newSqlInjectionMatchSetUpdate
   pAction_
   pSqlInjectionMatchTuple_ =
     SqlInjectionMatchSetUpdate'
-      { _simsuAction =
-          pAction_,
-        _simsuSqlInjectionMatchTuple =
+      { action = pAction_,
+        sqlInjectionMatchTuple =
           pSqlInjectionMatchTuple_
       }
 
--- | Specify @INSERT@ to add a 'SqlInjectionMatchSetUpdate' to a 'SqlInjectionMatchSet' . Use @DELETE@ to remove a @SqlInjectionMatchSetUpdate@ from a @SqlInjectionMatchSet@ .
-simsuAction :: Lens' SqlInjectionMatchSetUpdate ChangeAction
-simsuAction = lens _simsuAction (\s a -> s {_simsuAction = a})
+-- | Specify @INSERT@ to add a SqlInjectionMatchSetUpdate to a
+-- SqlInjectionMatchSet. Use @DELETE@ to remove a
+-- @SqlInjectionMatchSetUpdate@ from a @SqlInjectionMatchSet@.
+sqlInjectionMatchSetUpdate_action :: Lens.Lens' SqlInjectionMatchSetUpdate ChangeAction
+sqlInjectionMatchSetUpdate_action = Lens.lens (\SqlInjectionMatchSetUpdate' {action} -> action) (\s@SqlInjectionMatchSetUpdate' {} a -> s {action = a} :: SqlInjectionMatchSetUpdate)
 
--- | Specifies the part of a web request that you want AWS WAF to inspect for snippets of malicious SQL code and, if you want AWS WAF to inspect a header, the name of the header.
-simsuSqlInjectionMatchTuple :: Lens' SqlInjectionMatchSetUpdate SqlInjectionMatchTuple
-simsuSqlInjectionMatchTuple = lens _simsuSqlInjectionMatchTuple (\s a -> s {_simsuSqlInjectionMatchTuple = a})
+-- | Specifies the part of a web request that you want AWS WAF to inspect for
+-- snippets of malicious SQL code and, if you want AWS WAF to inspect a
+-- header, the name of the header.
+sqlInjectionMatchSetUpdate_sqlInjectionMatchTuple :: Lens.Lens' SqlInjectionMatchSetUpdate SqlInjectionMatchTuple
+sqlInjectionMatchSetUpdate_sqlInjectionMatchTuple = Lens.lens (\SqlInjectionMatchSetUpdate' {sqlInjectionMatchTuple} -> sqlInjectionMatchTuple) (\s@SqlInjectionMatchSetUpdate' {} a -> s {sqlInjectionMatchTuple = a} :: SqlInjectionMatchSetUpdate)
 
-instance Hashable SqlInjectionMatchSetUpdate
+instance Prelude.Hashable SqlInjectionMatchSetUpdate
 
-instance NFData SqlInjectionMatchSetUpdate
+instance Prelude.NFData SqlInjectionMatchSetUpdate
 
-instance ToJSON SqlInjectionMatchSetUpdate where
+instance Prelude.ToJSON SqlInjectionMatchSetUpdate where
   toJSON SqlInjectionMatchSetUpdate' {..} =
-    object
-      ( catMaybes
-          [ Just ("Action" .= _simsuAction),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Action" Prelude..= action),
+            Prelude.Just
               ( "SqlInjectionMatchTuple"
-                  .= _simsuSqlInjectionMatchTuple
+                  Prelude..= sqlInjectionMatchTuple
               )
           ]
       )

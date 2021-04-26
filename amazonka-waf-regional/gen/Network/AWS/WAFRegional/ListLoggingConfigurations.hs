@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,172 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an array of 'LoggingConfiguration' objects.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns an array of LoggingConfiguration objects.
 module Network.AWS.WAFRegional.ListLoggingConfigurations
   ( -- * Creating a Request
-    listLoggingConfigurations,
-    ListLoggingConfigurations,
+    ListLoggingConfigurations (..),
+    newListLoggingConfigurations,
 
     -- * Request Lenses
-    llcNextMarker,
-    llcLimit,
+    listLoggingConfigurations_nextMarker,
+    listLoggingConfigurations_limit,
 
     -- * Destructuring the Response
-    listLoggingConfigurationsResponse,
-    ListLoggingConfigurationsResponse,
+    ListLoggingConfigurationsResponse (..),
+    newListLoggingConfigurationsResponse,
 
     -- * Response Lenses
-    llcrrsLoggingConfigurations,
-    llcrrsNextMarker,
-    llcrrsResponseStatus,
+    listLoggingConfigurationsResponse_loggingConfigurations,
+    listLoggingConfigurationsResponse_nextMarker,
+    listLoggingConfigurationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.LoggingConfiguration
 
--- | /See:/ 'listLoggingConfigurations' smart constructor.
+-- | /See:/ 'newListLoggingConfigurations' smart constructor.
 data ListLoggingConfigurations = ListLoggingConfigurations'
-  { _llcNextMarker ::
-      !(Maybe Text),
-    _llcLimit ::
-      !(Maybe Nat)
+  { -- | If you specify a value for @Limit@ and you have more
+    -- @LoggingConfigurations@ than the value of @Limit@, AWS WAF returns a
+    -- @NextMarker@ value in the response that allows you to list another group
+    -- of @LoggingConfigurations@. For the second and subsequent
+    -- @ListLoggingConfigurations@ requests, specify the value of @NextMarker@
+    -- from the previous response to get information about another batch of
+    -- @ListLoggingConfigurations@.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the number of @LoggingConfigurations@ that you want AWS WAF to
+    -- return for this request. If you have more @LoggingConfigurations@ than
+    -- the number that you specify for @Limit@, the response includes a
+    -- @NextMarker@ value that you can use to get another batch of
+    -- @LoggingConfigurations@.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLoggingConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLoggingConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llcNextMarker' - If you specify a value for @Limit@ and you have more @LoggingConfigurations@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @LoggingConfigurations@ . For the second and subsequent @ListLoggingConfigurations@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @ListLoggingConfigurations@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llcLimit' - Specifies the number of @LoggingConfigurations@ that you want AWS WAF to return for this request. If you have more @LoggingConfigurations@ than the number that you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @LoggingConfigurations@ .
-listLoggingConfigurations ::
+-- 'nextMarker', 'listLoggingConfigurations_nextMarker' - If you specify a value for @Limit@ and you have more
+-- @LoggingConfigurations@ than the value of @Limit@, AWS WAF returns a
+-- @NextMarker@ value in the response that allows you to list another group
+-- of @LoggingConfigurations@. For the second and subsequent
+-- @ListLoggingConfigurations@ requests, specify the value of @NextMarker@
+-- from the previous response to get information about another batch of
+-- @ListLoggingConfigurations@.
+--
+-- 'limit', 'listLoggingConfigurations_limit' - Specifies the number of @LoggingConfigurations@ that you want AWS WAF to
+-- return for this request. If you have more @LoggingConfigurations@ than
+-- the number that you specify for @Limit@, the response includes a
+-- @NextMarker@ value that you can use to get another batch of
+-- @LoggingConfigurations@.
+newListLoggingConfigurations ::
   ListLoggingConfigurations
-listLoggingConfigurations =
+newListLoggingConfigurations =
   ListLoggingConfigurations'
-    { _llcNextMarker =
-        Nothing,
-      _llcLimit = Nothing
+    { nextMarker =
+        Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | If you specify a value for @Limit@ and you have more @LoggingConfigurations@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @LoggingConfigurations@ . For the second and subsequent @ListLoggingConfigurations@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @ListLoggingConfigurations@ .
-llcNextMarker :: Lens' ListLoggingConfigurations (Maybe Text)
-llcNextMarker = lens _llcNextMarker (\s a -> s {_llcNextMarker = a})
+-- | If you specify a value for @Limit@ and you have more
+-- @LoggingConfigurations@ than the value of @Limit@, AWS WAF returns a
+-- @NextMarker@ value in the response that allows you to list another group
+-- of @LoggingConfigurations@. For the second and subsequent
+-- @ListLoggingConfigurations@ requests, specify the value of @NextMarker@
+-- from the previous response to get information about another batch of
+-- @ListLoggingConfigurations@.
+listLoggingConfigurations_nextMarker :: Lens.Lens' ListLoggingConfigurations (Prelude.Maybe Prelude.Text)
+listLoggingConfigurations_nextMarker = Lens.lens (\ListLoggingConfigurations' {nextMarker} -> nextMarker) (\s@ListLoggingConfigurations' {} a -> s {nextMarker = a} :: ListLoggingConfigurations)
 
--- | Specifies the number of @LoggingConfigurations@ that you want AWS WAF to return for this request. If you have more @LoggingConfigurations@ than the number that you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @LoggingConfigurations@ .
-llcLimit :: Lens' ListLoggingConfigurations (Maybe Natural)
-llcLimit = lens _llcLimit (\s a -> s {_llcLimit = a}) . mapping _Nat
+-- | Specifies the number of @LoggingConfigurations@ that you want AWS WAF to
+-- return for this request. If you have more @LoggingConfigurations@ than
+-- the number that you specify for @Limit@, the response includes a
+-- @NextMarker@ value that you can use to get another batch of
+-- @LoggingConfigurations@.
+listLoggingConfigurations_limit :: Lens.Lens' ListLoggingConfigurations (Prelude.Maybe Prelude.Natural)
+listLoggingConfigurations_limit = Lens.lens (\ListLoggingConfigurations' {limit} -> limit) (\s@ListLoggingConfigurations' {} a -> s {limit = a} :: ListLoggingConfigurations) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListLoggingConfigurations where
+instance Prelude.AWSRequest ListLoggingConfigurations where
   type
     Rs ListLoggingConfigurations =
       ListLoggingConfigurationsResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListLoggingConfigurationsResponse'
-            <$> (x .?> "LoggingConfigurations" .!@ mempty)
-            <*> (x .?> "NextMarker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "LoggingConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextMarker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListLoggingConfigurations
+instance Prelude.Hashable ListLoggingConfigurations
 
-instance NFData ListLoggingConfigurations
+instance Prelude.NFData ListLoggingConfigurations
 
-instance ToHeaders ListLoggingConfigurations where
+instance Prelude.ToHeaders ListLoggingConfigurations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.ListLoggingConfigurations" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.ListLoggingConfigurations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListLoggingConfigurations where
+instance Prelude.ToJSON ListLoggingConfigurations where
   toJSON ListLoggingConfigurations' {..} =
-    object
-      ( catMaybes
-          [ ("NextMarker" .=) <$> _llcNextMarker,
-            ("Limit" .=) <$> _llcLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextMarker" Prelude..=) Prelude.<$> nextMarker,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListLoggingConfigurations where
-  toPath = const "/"
+instance Prelude.ToPath ListLoggingConfigurations where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListLoggingConfigurations where
-  toQuery = const mempty
+instance Prelude.ToQuery ListLoggingConfigurations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listLoggingConfigurationsResponse' smart constructor.
+-- | /See:/ 'newListLoggingConfigurationsResponse' smart constructor.
 data ListLoggingConfigurationsResponse = ListLoggingConfigurationsResponse'
-  { _llcrrsLoggingConfigurations ::
-      !( Maybe
-           [LoggingConfiguration]
-       ),
-    _llcrrsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _llcrrsResponseStatus ::
-      !Int
+  { -- | An array of LoggingConfiguration objects.
+    loggingConfigurations :: Prelude.Maybe [LoggingConfiguration],
+    -- | If you have more @LoggingConfigurations@ than the number that you
+    -- specified for @Limit@ in the request, the response includes a
+    -- @NextMarker@ value. To list more @LoggingConfigurations@, submit another
+    -- @ListLoggingConfigurations@ request, and specify the @NextMarker@ value
+    -- from the response in the @NextMarker@ value in the next request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLoggingConfigurationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLoggingConfigurationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llcrrsLoggingConfigurations' - An array of 'LoggingConfiguration' objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llcrrsNextMarker' - If you have more @LoggingConfigurations@ than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @LoggingConfigurations@ , submit another @ListLoggingConfigurations@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
+-- 'loggingConfigurations', 'listLoggingConfigurationsResponse_loggingConfigurations' - An array of LoggingConfiguration objects.
 --
--- * 'llcrrsResponseStatus' - -- | The response status code.
-listLoggingConfigurationsResponse ::
-  -- | 'llcrrsResponseStatus'
-  Int ->
+-- 'nextMarker', 'listLoggingConfigurationsResponse_nextMarker' - If you have more @LoggingConfigurations@ than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @LoggingConfigurations@, submit another
+-- @ListLoggingConfigurations@ request, and specify the @NextMarker@ value
+-- from the response in the @NextMarker@ value in the next request.
+--
+-- 'httpStatus', 'listLoggingConfigurationsResponse_httpStatus' - The response's http status code.
+newListLoggingConfigurationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListLoggingConfigurationsResponse
-listLoggingConfigurationsResponse pResponseStatus_ =
+newListLoggingConfigurationsResponse pHttpStatus_ =
   ListLoggingConfigurationsResponse'
-    { _llcrrsLoggingConfigurations =
-        Nothing,
-      _llcrrsNextMarker = Nothing,
-      _llcrrsResponseStatus = pResponseStatus_
+    { loggingConfigurations =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An array of 'LoggingConfiguration' objects.
-llcrrsLoggingConfigurations :: Lens' ListLoggingConfigurationsResponse [LoggingConfiguration]
-llcrrsLoggingConfigurations = lens _llcrrsLoggingConfigurations (\s a -> s {_llcrrsLoggingConfigurations = a}) . _Default . _Coerce
+-- | An array of LoggingConfiguration objects.
+listLoggingConfigurationsResponse_loggingConfigurations :: Lens.Lens' ListLoggingConfigurationsResponse (Prelude.Maybe [LoggingConfiguration])
+listLoggingConfigurationsResponse_loggingConfigurations = Lens.lens (\ListLoggingConfigurationsResponse' {loggingConfigurations} -> loggingConfigurations) (\s@ListLoggingConfigurationsResponse' {} a -> s {loggingConfigurations = a} :: ListLoggingConfigurationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If you have more @LoggingConfigurations@ than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @LoggingConfigurations@ , submit another @ListLoggingConfigurations@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
-llcrrsNextMarker :: Lens' ListLoggingConfigurationsResponse (Maybe Text)
-llcrrsNextMarker = lens _llcrrsNextMarker (\s a -> s {_llcrrsNextMarker = a})
+-- | If you have more @LoggingConfigurations@ than the number that you
+-- specified for @Limit@ in the request, the response includes a
+-- @NextMarker@ value. To list more @LoggingConfigurations@, submit another
+-- @ListLoggingConfigurations@ request, and specify the @NextMarker@ value
+-- from the response in the @NextMarker@ value in the next request.
+listLoggingConfigurationsResponse_nextMarker :: Lens.Lens' ListLoggingConfigurationsResponse (Prelude.Maybe Prelude.Text)
+listLoggingConfigurationsResponse_nextMarker = Lens.lens (\ListLoggingConfigurationsResponse' {nextMarker} -> nextMarker) (\s@ListLoggingConfigurationsResponse' {} a -> s {nextMarker = a} :: ListLoggingConfigurationsResponse)
 
--- | -- | The response status code.
-llcrrsResponseStatus :: Lens' ListLoggingConfigurationsResponse Int
-llcrrsResponseStatus = lens _llcrrsResponseStatus (\s a -> s {_llcrrsResponseStatus = a})
+-- | The response's http status code.
+listLoggingConfigurationsResponse_httpStatus :: Lens.Lens' ListLoggingConfigurationsResponse Prelude.Int
+listLoggingConfigurationsResponse_httpStatus = Lens.lens (\ListLoggingConfigurationsResponse' {httpStatus} -> httpStatus) (\s@ListLoggingConfigurationsResponse' {} a -> s {httpStatus = a} :: ListLoggingConfigurationsResponse)
 
-instance NFData ListLoggingConfigurationsResponse
+instance
+  Prelude.NFData
+    ListLoggingConfigurationsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a 'LoggingConfiguration' with a specified web ACL.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
--- You can access information about all traffic that AWS WAF inspects using the following steps:
+-- Associates a LoggingConfiguration with a specified web ACL.
 --
---     * Create an Amazon Kinesis Data Firehose.
+-- You can access information about all traffic that AWS WAF inspects using
+-- the following steps:
 --
--- Create the data firehose with a PUT source and in the region that you are operating. However, if you are capturing logs for Amazon CloudFront, always create the firehose in US East (N. Virginia).
+-- 1.  Create an Amazon Kinesis Data Firehose.
 --
---     * Associate that firehose to your web ACL using a @PutLoggingConfiguration@ request.
+--     Create the data firehose with a PUT source and in the region that
+--     you are operating. However, if you are capturing logs for Amazon
+--     CloudFront, always create the firehose in US East (N. Virginia).
 --
+--     Do not create the data firehose using a @Kinesis stream@ as your
+--     source.
 --
+-- 2.  Associate that firehose to your web ACL using a
+--     @PutLoggingConfiguration@ request.
 --
--- When you successfully enable logging using a @PutLoggingConfiguration@ request, AWS WAF will create a service linked role with the necessary permissions to write logs to the Amazon Kinesis Data Firehose. For more information, see <https://docs.aws.amazon.com/waf/latest/developerguide/logging.html Logging Web ACL Traffic Information> in the /AWS WAF Developer Guide/ .
+-- When you successfully enable logging using a @PutLoggingConfiguration@
+-- request, AWS WAF will create a service linked role with the necessary
+-- permissions to write logs to the Amazon Kinesis Data Firehose. For more
+-- information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/logging.html Logging Web ACL Traffic Information>
+-- in the /AWS WAF Developer Guide/.
 module Network.AWS.WAFRegional.PutLoggingConfiguration
   ( -- * Creating a Request
-    putLoggingConfiguration,
-    PutLoggingConfiguration,
+    PutLoggingConfiguration (..),
+    newPutLoggingConfiguration,
 
     -- * Request Lenses
-    plcLoggingConfiguration,
+    putLoggingConfiguration_loggingConfiguration,
 
     -- * Destructuring the Response
-    putLoggingConfigurationResponse,
-    PutLoggingConfigurationResponse,
+    PutLoggingConfigurationResponse (..),
+    newPutLoggingConfigurationResponse,
 
     -- * Response Lenses
-    plcrrsLoggingConfiguration,
-    plcrrsResponseStatus,
+    putLoggingConfigurationResponse_loggingConfiguration,
+    putLoggingConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.LoggingConfiguration
 
--- | /See:/ 'putLoggingConfiguration' smart constructor.
-newtype PutLoggingConfiguration = PutLoggingConfiguration'
-  { _plcLoggingConfiguration ::
-      LoggingConfiguration
+-- | /See:/ 'newPutLoggingConfiguration' smart constructor.
+data PutLoggingConfiguration = PutLoggingConfiguration'
+  { -- | The Amazon Kinesis Data Firehose that contains the inspected traffic
+    -- information, the redacted fields details, and the Amazon Resource Name
+    -- (ARN) of the web ACL to monitor.
+    --
+    -- When specifying @Type@ in @RedactedFields@, you must use one of the
+    -- following values: @URI@, @QUERY_STRING@, @HEADER@, or @METHOD@.
+    loggingConfiguration :: LoggingConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLoggingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutLoggingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plcLoggingConfiguration' - The Amazon Kinesis Data Firehose that contains the inspected traffic information, the redacted fields details, and the Amazon Resource Name (ARN) of the web ACL to monitor.
-putLoggingConfiguration ::
-  -- | 'plcLoggingConfiguration'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'loggingConfiguration', 'putLoggingConfiguration_loggingConfiguration' - The Amazon Kinesis Data Firehose that contains the inspected traffic
+-- information, the redacted fields details, and the Amazon Resource Name
+-- (ARN) of the web ACL to monitor.
+--
+-- When specifying @Type@ in @RedactedFields@, you must use one of the
+-- following values: @URI@, @QUERY_STRING@, @HEADER@, or @METHOD@.
+newPutLoggingConfiguration ::
+  -- | 'loggingConfiguration'
   LoggingConfiguration ->
   PutLoggingConfiguration
-putLoggingConfiguration pLoggingConfiguration_ =
+newPutLoggingConfiguration pLoggingConfiguration_ =
   PutLoggingConfiguration'
-    { _plcLoggingConfiguration =
+    { loggingConfiguration =
         pLoggingConfiguration_
     }
 
--- | The Amazon Kinesis Data Firehose that contains the inspected traffic information, the redacted fields details, and the Amazon Resource Name (ARN) of the web ACL to monitor.
-plcLoggingConfiguration :: Lens' PutLoggingConfiguration LoggingConfiguration
-plcLoggingConfiguration = lens _plcLoggingConfiguration (\s a -> s {_plcLoggingConfiguration = a})
+-- | The Amazon Kinesis Data Firehose that contains the inspected traffic
+-- information, the redacted fields details, and the Amazon Resource Name
+-- (ARN) of the web ACL to monitor.
+--
+-- When specifying @Type@ in @RedactedFields@, you must use one of the
+-- following values: @URI@, @QUERY_STRING@, @HEADER@, or @METHOD@.
+putLoggingConfiguration_loggingConfiguration :: Lens.Lens' PutLoggingConfiguration LoggingConfiguration
+putLoggingConfiguration_loggingConfiguration = Lens.lens (\PutLoggingConfiguration' {loggingConfiguration} -> loggingConfiguration) (\s@PutLoggingConfiguration' {} a -> s {loggingConfiguration = a} :: PutLoggingConfiguration)
 
-instance AWSRequest PutLoggingConfiguration where
+instance Prelude.AWSRequest PutLoggingConfiguration where
   type
     Rs PutLoggingConfiguration =
       PutLoggingConfigurationResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutLoggingConfigurationResponse'
-            <$> (x .?> "LoggingConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "LoggingConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutLoggingConfiguration
+instance Prelude.Hashable PutLoggingConfiguration
 
-instance NFData PutLoggingConfiguration
+instance Prelude.NFData PutLoggingConfiguration
 
-instance ToHeaders PutLoggingConfiguration where
+instance Prelude.ToHeaders PutLoggingConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.PutLoggingConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.PutLoggingConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutLoggingConfiguration where
+instance Prelude.ToJSON PutLoggingConfiguration where
   toJSON PutLoggingConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "LoggingConfiguration"
-                  .= _plcLoggingConfiguration
+                  Prelude..= loggingConfiguration
               )
           ]
       )
 
-instance ToPath PutLoggingConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutLoggingConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutLoggingConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutLoggingConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putLoggingConfigurationResponse' smart constructor.
+-- | /See:/ 'newPutLoggingConfigurationResponse' smart constructor.
 data PutLoggingConfigurationResponse = PutLoggingConfigurationResponse'
-  { _plcrrsLoggingConfiguration ::
-      !( Maybe
-           LoggingConfiguration
-       ),
-    _plcrrsResponseStatus ::
-      !Int
+  { -- | The LoggingConfiguration that you submitted in the request.
+    loggingConfiguration :: Prelude.Maybe LoggingConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLoggingConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutLoggingConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'plcrrsLoggingConfiguration' - The 'LoggingConfiguration' that you submitted in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'plcrrsResponseStatus' - -- | The response status code.
-putLoggingConfigurationResponse ::
-  -- | 'plcrrsResponseStatus'
-  Int ->
+-- 'loggingConfiguration', 'putLoggingConfigurationResponse_loggingConfiguration' - The LoggingConfiguration that you submitted in the request.
+--
+-- 'httpStatus', 'putLoggingConfigurationResponse_httpStatus' - The response's http status code.
+newPutLoggingConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutLoggingConfigurationResponse
-putLoggingConfigurationResponse pResponseStatus_ =
+newPutLoggingConfigurationResponse pHttpStatus_ =
   PutLoggingConfigurationResponse'
-    { _plcrrsLoggingConfiguration =
-        Nothing,
-      _plcrrsResponseStatus = pResponseStatus_
+    { loggingConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The 'LoggingConfiguration' that you submitted in the request.
-plcrrsLoggingConfiguration :: Lens' PutLoggingConfigurationResponse (Maybe LoggingConfiguration)
-plcrrsLoggingConfiguration = lens _plcrrsLoggingConfiguration (\s a -> s {_plcrrsLoggingConfiguration = a})
+-- | The LoggingConfiguration that you submitted in the request.
+putLoggingConfigurationResponse_loggingConfiguration :: Lens.Lens' PutLoggingConfigurationResponse (Prelude.Maybe LoggingConfiguration)
+putLoggingConfigurationResponse_loggingConfiguration = Lens.lens (\PutLoggingConfigurationResponse' {loggingConfiguration} -> loggingConfiguration) (\s@PutLoggingConfigurationResponse' {} a -> s {loggingConfiguration = a} :: PutLoggingConfigurationResponse)
 
--- | -- | The response status code.
-plcrrsResponseStatus :: Lens' PutLoggingConfigurationResponse Int
-plcrrsResponseStatus = lens _plcrrsResponseStatus (\s a -> s {_plcrrsResponseStatus = a})
+-- | The response's http status code.
+putLoggingConfigurationResponse_httpStatus :: Lens.Lens' PutLoggingConfigurationResponse Prelude.Int
+putLoggingConfigurationResponse_httpStatus = Lens.lens (\PutLoggingConfigurationResponse' {httpStatus} -> httpStatus) (\s@PutLoggingConfigurationResponse' {} a -> s {httpStatus = a} :: PutLoggingConfigurationResponse)
 
-instance NFData PutLoggingConfigurationResponse
+instance
+  Prelude.NFData
+    PutLoggingConfigurationResponse

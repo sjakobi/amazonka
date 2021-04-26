@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a @RuleGroup@ . A rule group is a collection of predefined rules that you add to a web ACL. You use 'UpdateRuleGroup' to add rules to the rule group.
+-- This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Creates a @RuleGroup@. A rule group is a collection of predefined rules
+-- that you add to a web ACL. You use UpdateRuleGroup to add rules to the
+-- rule group.
 --
 -- Rule groups are subject to the following limits:
 --
---     * Three rule groups per account. You can request an increase to this limit by contacting customer support.
+-- -   Three rule groups per account. You can request an increase to this
+--     limit by contacting customer support.
 --
---     * One rule group per web ACL.
+-- -   One rule group per web ACL.
 --
---     * Ten rules per rule group.
+-- -   Ten rules per rule group.
 --
---
---
--- For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide> .
+-- For more information about how to use the AWS WAF API to allow or block
+-- HTTP requests, see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/ AWS WAF Developer Guide>.
 module Network.AWS.WAFRegional.CreateRuleGroup
   ( -- * Creating a Request
-    createRuleGroup,
-    CreateRuleGroup,
+    CreateRuleGroup (..),
+    newCreateRuleGroup,
 
     -- * Request Lenses
-    crgTags,
-    crgName,
-    crgMetricName,
-    crgChangeToken,
+    createRuleGroup_tags,
+    createRuleGroup_name,
+    createRuleGroup_metricName,
+    createRuleGroup_changeToken,
 
     -- * Destructuring the Response
-    createRuleGroupResponse,
-    CreateRuleGroupResponse,
+    CreateRuleGroupResponse (..),
+    newCreateRuleGroupResponse,
 
     -- * Response Lenses
-    crgrrsRuleGroup,
-    crgrrsChangeToken,
-    crgrrsResponseStatus,
+    createRuleGroupResponse_ruleGroup,
+    createRuleGroupResponse_changeToken,
+    createRuleGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.RuleGroup
 
--- | /See:/ 'createRuleGroup' smart constructor.
+-- | /See:/ 'newCreateRuleGroup' smart constructor.
 data CreateRuleGroup = CreateRuleGroup'
-  { _crgTags ::
-      !(Maybe (List1 Tag)),
-    _crgName :: !Text,
-    _crgMetricName :: !Text,
-    _crgChangeToken :: !Text
+  { tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | A friendly name or description of the RuleGroup. You can\'t change
+    -- @Name@ after you create a @RuleGroup@.
+    name :: Prelude.Text,
+    -- | A friendly name or description for the metrics for this @RuleGroup@. The
+    -- name can contain only alphanumeric characters (A-Z, a-z, 0-9), with
+    -- maximum length 128 and minimum length one. It can\'t contain whitespace
+    -- or metric names reserved for AWS WAF, including \"All\" and
+    -- \"Default_Action.\" You can\'t change the name of the metric after you
+    -- create the @RuleGroup@.
+    metricName :: Prelude.Text,
+    -- | The value returned by the most recent call to GetChangeToken.
+    changeToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRuleGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRuleGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crgTags' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crgName' - A friendly name or description of the 'RuleGroup' . You can't change @Name@ after you create a @RuleGroup@ .
+-- 'tags', 'createRuleGroup_tags' -
 --
--- * 'crgMetricName' - A friendly name or description for the metrics for this @RuleGroup@ . The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change the name of the metric after you create the @RuleGroup@ .
+-- 'name', 'createRuleGroup_name' - A friendly name or description of the RuleGroup. You can\'t change
+-- @Name@ after you create a @RuleGroup@.
 --
--- * 'crgChangeToken' - The value returned by the most recent call to 'GetChangeToken' .
-createRuleGroup ::
-  -- | 'crgName'
-  Text ->
-  -- | 'crgMetricName'
-  Text ->
-  -- | 'crgChangeToken'
-  Text ->
+-- 'metricName', 'createRuleGroup_metricName' - A friendly name or description for the metrics for this @RuleGroup@. The
+-- name can contain only alphanumeric characters (A-Z, a-z, 0-9), with
+-- maximum length 128 and minimum length one. It can\'t contain whitespace
+-- or metric names reserved for AWS WAF, including \"All\" and
+-- \"Default_Action.\" You can\'t change the name of the metric after you
+-- create the @RuleGroup@.
+--
+-- 'changeToken', 'createRuleGroup_changeToken' - The value returned by the most recent call to GetChangeToken.
+newCreateRuleGroup ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'metricName'
+  Prelude.Text ->
+  -- | 'changeToken'
+  Prelude.Text ->
   CreateRuleGroup
-createRuleGroup pName_ pMetricName_ pChangeToken_ =
+newCreateRuleGroup pName_ pMetricName_ pChangeToken_ =
   CreateRuleGroup'
-    { _crgTags = Nothing,
-      _crgName = pName_,
-      _crgMetricName = pMetricName_,
-      _crgChangeToken = pChangeToken_
+    { tags = Prelude.Nothing,
+      name = pName_,
+      metricName = pMetricName_,
+      changeToken = pChangeToken_
     }
 
 -- |
-crgTags :: Lens' CreateRuleGroup (Maybe (NonEmpty Tag))
-crgTags = lens _crgTags (\s a -> s {_crgTags = a}) . mapping _List1
+createRuleGroup_tags :: Lens.Lens' CreateRuleGroup (Prelude.Maybe (Prelude.NonEmpty Tag))
+createRuleGroup_tags = Lens.lens (\CreateRuleGroup' {tags} -> tags) (\s@CreateRuleGroup' {} a -> s {tags = a} :: CreateRuleGroup) Prelude.. Lens.mapping Prelude._List1
 
--- | A friendly name or description of the 'RuleGroup' . You can't change @Name@ after you create a @RuleGroup@ .
-crgName :: Lens' CreateRuleGroup Text
-crgName = lens _crgName (\s a -> s {_crgName = a})
+-- | A friendly name or description of the RuleGroup. You can\'t change
+-- @Name@ after you create a @RuleGroup@.
+createRuleGroup_name :: Lens.Lens' CreateRuleGroup Prelude.Text
+createRuleGroup_name = Lens.lens (\CreateRuleGroup' {name} -> name) (\s@CreateRuleGroup' {} a -> s {name = a} :: CreateRuleGroup)
 
--- | A friendly name or description for the metrics for this @RuleGroup@ . The name can contain only alphanumeric characters (A-Z, a-z, 0-9), with maximum length 128 and minimum length one. It can't contain whitespace or metric names reserved for AWS WAF, including "All" and "Default_Action." You can't change the name of the metric after you create the @RuleGroup@ .
-crgMetricName :: Lens' CreateRuleGroup Text
-crgMetricName = lens _crgMetricName (\s a -> s {_crgMetricName = a})
+-- | A friendly name or description for the metrics for this @RuleGroup@. The
+-- name can contain only alphanumeric characters (A-Z, a-z, 0-9), with
+-- maximum length 128 and minimum length one. It can\'t contain whitespace
+-- or metric names reserved for AWS WAF, including \"All\" and
+-- \"Default_Action.\" You can\'t change the name of the metric after you
+-- create the @RuleGroup@.
+createRuleGroup_metricName :: Lens.Lens' CreateRuleGroup Prelude.Text
+createRuleGroup_metricName = Lens.lens (\CreateRuleGroup' {metricName} -> metricName) (\s@CreateRuleGroup' {} a -> s {metricName = a} :: CreateRuleGroup)
 
--- | The value returned by the most recent call to 'GetChangeToken' .
-crgChangeToken :: Lens' CreateRuleGroup Text
-crgChangeToken = lens _crgChangeToken (\s a -> s {_crgChangeToken = a})
+-- | The value returned by the most recent call to GetChangeToken.
+createRuleGroup_changeToken :: Lens.Lens' CreateRuleGroup Prelude.Text
+createRuleGroup_changeToken = Lens.lens (\CreateRuleGroup' {changeToken} -> changeToken) (\s@CreateRuleGroup' {} a -> s {changeToken = a} :: CreateRuleGroup)
 
-instance AWSRequest CreateRuleGroup where
+instance Prelude.AWSRequest CreateRuleGroup where
   type Rs CreateRuleGroup = CreateRuleGroupResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateRuleGroupResponse'
-            <$> (x .?> "RuleGroup")
-            <*> (x .?> "ChangeToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RuleGroup")
+            Prelude.<*> (x Prelude..?> "ChangeToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateRuleGroup
+instance Prelude.Hashable CreateRuleGroup
 
-instance NFData CreateRuleGroup
+instance Prelude.NFData CreateRuleGroup
 
-instance ToHeaders CreateRuleGroup where
+instance Prelude.ToHeaders CreateRuleGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.CreateRuleGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.CreateRuleGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateRuleGroup where
+instance Prelude.ToJSON CreateRuleGroup where
   toJSON CreateRuleGroup' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _crgTags,
-            Just ("Name" .= _crgName),
-            Just ("MetricName" .= _crgMetricName),
-            Just ("ChangeToken" .= _crgChangeToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("MetricName" Prelude..= metricName),
+            Prelude.Just ("ChangeToken" Prelude..= changeToken)
           ]
       )
 
-instance ToPath CreateRuleGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateRuleGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateRuleGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateRuleGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createRuleGroupResponse' smart constructor.
+-- | /See:/ 'newCreateRuleGroupResponse' smart constructor.
 data CreateRuleGroupResponse = CreateRuleGroupResponse'
-  { _crgrrsRuleGroup ::
-      !(Maybe RuleGroup),
-    _crgrrsChangeToken ::
-      !(Maybe Text),
-    _crgrrsResponseStatus ::
-      !Int
+  { -- | An empty RuleGroup.
+    ruleGroup :: Prelude.Maybe RuleGroup,
+    -- | The @ChangeToken@ that you used to submit the @CreateRuleGroup@ request.
+    -- You can also use this value to query the status of the request. For more
+    -- information, see GetChangeTokenStatus.
+    changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRuleGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRuleGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crgrrsRuleGroup' - An empty 'RuleGroup' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crgrrsChangeToken' - The @ChangeToken@ that you used to submit the @CreateRuleGroup@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
+-- 'ruleGroup', 'createRuleGroupResponse_ruleGroup' - An empty RuleGroup.
 --
--- * 'crgrrsResponseStatus' - -- | The response status code.
-createRuleGroupResponse ::
-  -- | 'crgrrsResponseStatus'
-  Int ->
+-- 'changeToken', 'createRuleGroupResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateRuleGroup@ request.
+-- You can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+--
+-- 'httpStatus', 'createRuleGroupResponse_httpStatus' - The response's http status code.
+newCreateRuleGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateRuleGroupResponse
-createRuleGroupResponse pResponseStatus_ =
+newCreateRuleGroupResponse pHttpStatus_ =
   CreateRuleGroupResponse'
-    { _crgrrsRuleGroup =
-        Nothing,
-      _crgrrsChangeToken = Nothing,
-      _crgrrsResponseStatus = pResponseStatus_
+    { ruleGroup =
+        Prelude.Nothing,
+      changeToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An empty 'RuleGroup' .
-crgrrsRuleGroup :: Lens' CreateRuleGroupResponse (Maybe RuleGroup)
-crgrrsRuleGroup = lens _crgrrsRuleGroup (\s a -> s {_crgrrsRuleGroup = a})
+-- | An empty RuleGroup.
+createRuleGroupResponse_ruleGroup :: Lens.Lens' CreateRuleGroupResponse (Prelude.Maybe RuleGroup)
+createRuleGroupResponse_ruleGroup = Lens.lens (\CreateRuleGroupResponse' {ruleGroup} -> ruleGroup) (\s@CreateRuleGroupResponse' {} a -> s {ruleGroup = a} :: CreateRuleGroupResponse)
 
--- | The @ChangeToken@ that you used to submit the @CreateRuleGroup@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
-crgrrsChangeToken :: Lens' CreateRuleGroupResponse (Maybe Text)
-crgrrsChangeToken = lens _crgrrsChangeToken (\s a -> s {_crgrrsChangeToken = a})
+-- | The @ChangeToken@ that you used to submit the @CreateRuleGroup@ request.
+-- You can also use this value to query the status of the request. For more
+-- information, see GetChangeTokenStatus.
+createRuleGroupResponse_changeToken :: Lens.Lens' CreateRuleGroupResponse (Prelude.Maybe Prelude.Text)
+createRuleGroupResponse_changeToken = Lens.lens (\CreateRuleGroupResponse' {changeToken} -> changeToken) (\s@CreateRuleGroupResponse' {} a -> s {changeToken = a} :: CreateRuleGroupResponse)
 
--- | -- | The response status code.
-crgrrsResponseStatus :: Lens' CreateRuleGroupResponse Int
-crgrrsResponseStatus = lens _crgrrsResponseStatus (\s a -> s {_crgrrsResponseStatus = a})
+-- | The response's http status code.
+createRuleGroupResponse_httpStatus :: Lens.Lens' CreateRuleGroupResponse Prelude.Int
+createRuleGroupResponse_httpStatus = Lens.lens (\CreateRuleGroupResponse' {httpStatus} -> httpStatus) (\s@CreateRuleGroupResponse' {} a -> s {httpStatus = a} :: CreateRuleGroupResponse)
 
-instance NFData CreateRuleGroupResponse
+instance Prelude.NFData CreateRuleGroupResponse

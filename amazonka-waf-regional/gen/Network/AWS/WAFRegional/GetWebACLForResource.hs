@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the web ACL for the specified resource, either an application load balancer or Amazon API Gateway stage.
+-- This is __AWS WAF Classic Regional__ documentation. For more
+-- information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
+--
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
+--
+-- Returns the web ACL for the specified resource, either an application
+-- load balancer or Amazon API Gateway stage.
 module Network.AWS.WAFRegional.GetWebACLForResource
   ( -- * Creating a Request
-    getWebACLForResource,
-    GetWebACLForResource,
+    GetWebACLForResource (..),
+    newGetWebACLForResource,
 
     -- * Request Lenses
-    gwafrResourceARN,
+    getWebACLForResource_resourceArn,
 
     -- * Destructuring the Response
-    getWebACLForResourceResponse,
-    GetWebACLForResourceResponse,
+    GetWebACLForResourceResponse (..),
+    newGetWebACLForResourceResponse,
 
     -- * Response Lenses
-    gwafrrrsWebACLSummary,
-    gwafrrrsResponseStatus,
+    getWebACLForResourceResponse_webACLSummary,
+    getWebACLForResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.WebACLSummary
 
--- | /See:/ 'getWebACLForResource' smart constructor.
-newtype GetWebACLForResource = GetWebACLForResource'
-  { _gwafrResourceARN ::
-      Text
+-- | /See:/ 'newGetWebACLForResource' smart constructor.
+data GetWebACLForResource = GetWebACLForResource'
+  { -- | The ARN (Amazon Resource Name) of the resource for which to get the web
+    -- ACL, either an application load balancer or Amazon API Gateway stage.
+    --
+    -- The ARN should be in one of the following formats:
+    --
+    -- -   For an Application Load Balancer:
+    --     @arn:aws:elasticloadbalancing:region:account-id:loadbalancer\/app\/load-balancer-name\/load-balancer-id @
+    --
+    -- -   For an Amazon API Gateway stage:
+    --     @arn:aws:apigateway:region::\/restapis\/api-id\/stages\/stage-name @
+    resourceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetWebACLForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetWebACLForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gwafrResourceARN' - The ARN (Amazon Resource Name) of the resource for which to get the web ACL, either an application load balancer or Amazon API Gateway stage. The ARN should be in one of the following formats:     * For an Application Load Balancer: @arn:aws:elasticloadbalancing:/region/ :/account-id/ :loadbalancer/app//load-balancer-name/ //load-balancer-id/ @      * For an Amazon API Gateway stage: @arn:aws:apigateway:/region/ ::/restapis//api-id/ /stages//stage-name/ @
-getWebACLForResource ::
-  -- | 'gwafrResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'getWebACLForResource_resourceArn' - The ARN (Amazon Resource Name) of the resource for which to get the web
+-- ACL, either an application load balancer or Amazon API Gateway stage.
+--
+-- The ARN should be in one of the following formats:
+--
+-- -   For an Application Load Balancer:
+--     @arn:aws:elasticloadbalancing:region:account-id:loadbalancer\/app\/load-balancer-name\/load-balancer-id @
+--
+-- -   For an Amazon API Gateway stage:
+--     @arn:aws:apigateway:region::\/restapis\/api-id\/stages\/stage-name @
+newGetWebACLForResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   GetWebACLForResource
-getWebACLForResource pResourceARN_ =
-  GetWebACLForResource'
-    { _gwafrResourceARN =
-        pResourceARN_
-    }
+newGetWebACLForResource pResourceArn_ =
+  GetWebACLForResource' {resourceArn = pResourceArn_}
 
--- | The ARN (Amazon Resource Name) of the resource for which to get the web ACL, either an application load balancer or Amazon API Gateway stage. The ARN should be in one of the following formats:     * For an Application Load Balancer: @arn:aws:elasticloadbalancing:/region/ :/account-id/ :loadbalancer/app//load-balancer-name/ //load-balancer-id/ @      * For an Amazon API Gateway stage: @arn:aws:apigateway:/region/ ::/restapis//api-id/ /stages//stage-name/ @
-gwafrResourceARN :: Lens' GetWebACLForResource Text
-gwafrResourceARN = lens _gwafrResourceARN (\s a -> s {_gwafrResourceARN = a})
+-- | The ARN (Amazon Resource Name) of the resource for which to get the web
+-- ACL, either an application load balancer or Amazon API Gateway stage.
+--
+-- The ARN should be in one of the following formats:
+--
+-- -   For an Application Load Balancer:
+--     @arn:aws:elasticloadbalancing:region:account-id:loadbalancer\/app\/load-balancer-name\/load-balancer-id @
+--
+-- -   For an Amazon API Gateway stage:
+--     @arn:aws:apigateway:region::\/restapis\/api-id\/stages\/stage-name @
+getWebACLForResource_resourceArn :: Lens.Lens' GetWebACLForResource Prelude.Text
+getWebACLForResource_resourceArn = Lens.lens (\GetWebACLForResource' {resourceArn} -> resourceArn) (\s@GetWebACLForResource' {} a -> s {resourceArn = a} :: GetWebACLForResource)
 
-instance AWSRequest GetWebACLForResource where
+instance Prelude.AWSRequest GetWebACLForResource where
   type
     Rs GetWebACLForResource =
       GetWebACLForResourceResponse
-  request = postJSON wAFRegional
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetWebACLForResourceResponse'
-            <$> (x .?> "WebACLSummary") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "WebACLSummary")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetWebACLForResource
+instance Prelude.Hashable GetWebACLForResource
 
-instance NFData GetWebACLForResource
+instance Prelude.NFData GetWebACLForResource
 
-instance ToHeaders GetWebACLForResource where
+instance Prelude.ToHeaders GetWebACLForResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSWAF_Regional_20161128.GetWebACLForResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSWAF_Regional_20161128.GetWebACLForResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetWebACLForResource where
+instance Prelude.ToJSON GetWebACLForResource where
   toJSON GetWebACLForResource' {..} =
-    object
-      ( catMaybes
-          [Just ("ResourceArn" .= _gwafrResourceARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceArn" Prelude..= resourceArn)
+          ]
       )
 
-instance ToPath GetWebACLForResource where
-  toPath = const "/"
+instance Prelude.ToPath GetWebACLForResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetWebACLForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery GetWebACLForResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getWebACLForResourceResponse' smart constructor.
+-- | /See:/ 'newGetWebACLForResourceResponse' smart constructor.
 data GetWebACLForResourceResponse = GetWebACLForResourceResponse'
-  { _gwafrrrsWebACLSummary ::
-      !( Maybe
-           WebACLSummary
-       ),
-    _gwafrrrsResponseStatus ::
-      !Int
+  { -- | Information about the web ACL that you specified in the
+    -- @GetWebACLForResource@ request. If there is no associated resource, a
+    -- null WebACLSummary is returned.
+    webACLSummary :: Prelude.Maybe WebACLSummary,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetWebACLForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetWebACLForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gwafrrrsWebACLSummary' - Information about the web ACL that you specified in the @GetWebACLForResource@ request. If there is no associated resource, a null WebACLSummary is returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gwafrrrsResponseStatus' - -- | The response status code.
-getWebACLForResourceResponse ::
-  -- | 'gwafrrrsResponseStatus'
-  Int ->
+-- 'webACLSummary', 'getWebACLForResourceResponse_webACLSummary' - Information about the web ACL that you specified in the
+-- @GetWebACLForResource@ request. If there is no associated resource, a
+-- null WebACLSummary is returned.
+--
+-- 'httpStatus', 'getWebACLForResourceResponse_httpStatus' - The response's http status code.
+newGetWebACLForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetWebACLForResourceResponse
-getWebACLForResourceResponse pResponseStatus_ =
+newGetWebACLForResourceResponse pHttpStatus_ =
   GetWebACLForResourceResponse'
-    { _gwafrrrsWebACLSummary =
-        Nothing,
-      _gwafrrrsResponseStatus = pResponseStatus_
+    { webACLSummary =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the web ACL that you specified in the @GetWebACLForResource@ request. If there is no associated resource, a null WebACLSummary is returned.
-gwafrrrsWebACLSummary :: Lens' GetWebACLForResourceResponse (Maybe WebACLSummary)
-gwafrrrsWebACLSummary = lens _gwafrrrsWebACLSummary (\s a -> s {_gwafrrrsWebACLSummary = a})
+-- | Information about the web ACL that you specified in the
+-- @GetWebACLForResource@ request. If there is no associated resource, a
+-- null WebACLSummary is returned.
+getWebACLForResourceResponse_webACLSummary :: Lens.Lens' GetWebACLForResourceResponse (Prelude.Maybe WebACLSummary)
+getWebACLForResourceResponse_webACLSummary = Lens.lens (\GetWebACLForResourceResponse' {webACLSummary} -> webACLSummary) (\s@GetWebACLForResourceResponse' {} a -> s {webACLSummary = a} :: GetWebACLForResourceResponse)
 
--- | -- | The response status code.
-gwafrrrsResponseStatus :: Lens' GetWebACLForResourceResponse Int
-gwafrrrsResponseStatus = lens _gwafrrrsResponseStatus (\s a -> s {_gwafrrrsResponseStatus = a})
+-- | The response's http status code.
+getWebACLForResourceResponse_httpStatus :: Lens.Lens' GetWebACLForResourceResponse Prelude.Int
+getWebACLForResourceResponse_httpStatus = Lens.lens (\GetWebACLForResourceResponse' {httpStatus} -> httpStatus) (\s@GetWebACLForResourceResponse' {} a -> s {httpStatus = a} :: GetWebACLForResourceResponse)
 
-instance NFData GetWebACLForResourceResponse
+instance Prelude.NFData GetWebACLForResourceResponse

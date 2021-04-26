@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.WAFRegional.Types.WebACLUpdate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.WAFRegional.Types.ActivatedRule
 import Network.AWS.WAFRegional.Types.ChangeAction
 
--- | Specifies whether to insert a @Rule@ into or delete a @Rule@ from a @WebACL@ .
+-- | This is __AWS WAF Classic__ documentation. For more information, see
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/classic-waf-chapter.html AWS WAF Classic>
+-- in the developer guide.
 --
+-- __For the latest version of AWS WAF__, use the AWS WAFV2 API and see the
+-- <https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html AWS WAF Developer Guide>.
+-- With the latest version, AWS WAF has a single set of endpoints for
+-- regional and global use.
 --
+-- Specifies whether to insert a @Rule@ into or delete a @Rule@ from a
+-- @WebACL@.
 --
--- /See:/ 'webACLUpdate' smart constructor.
+-- /See:/ 'newWebACLUpdate' smart constructor.
 data WebACLUpdate = WebACLUpdate'
-  { _wauAction ::
-      !ChangeAction,
-    _wauActivatedRule :: !ActivatedRule
+  { -- | Specifies whether to insert a @Rule@ into or delete a @Rule@ from a
+    -- @WebACL@.
+    action :: ChangeAction,
+    -- | The @ActivatedRule@ object in an UpdateWebACL request specifies a @Rule@
+    -- that you want to insert or delete, the priority of the @Rule@ in the
+    -- @WebACL@, and the action that you want AWS WAF to take when a web
+    -- request matches the @Rule@ (@ALLOW@, @BLOCK@, or @COUNT@).
+    activatedRule :: ActivatedRule
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WebACLUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WebACLUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wauAction' - Specifies whether to insert a @Rule@ into or delete a @Rule@ from a @WebACL@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wauActivatedRule' - The @ActivatedRule@ object in an 'UpdateWebACL' request specifies a @Rule@ that you want to insert or delete, the priority of the @Rule@ in the @WebACL@ , and the action that you want AWS WAF to take when a web request matches the @Rule@ (@ALLOW@ , @BLOCK@ , or @COUNT@ ).
-webACLUpdate ::
-  -- | 'wauAction'
+-- 'action', 'webACLUpdate_action' - Specifies whether to insert a @Rule@ into or delete a @Rule@ from a
+-- @WebACL@.
+--
+-- 'activatedRule', 'webACLUpdate_activatedRule' - The @ActivatedRule@ object in an UpdateWebACL request specifies a @Rule@
+-- that you want to insert or delete, the priority of the @Rule@ in the
+-- @WebACL@, and the action that you want AWS WAF to take when a web
+-- request matches the @Rule@ (@ALLOW@, @BLOCK@, or @COUNT@).
+newWebACLUpdate ::
+  -- | 'action'
   ChangeAction ->
-  -- | 'wauActivatedRule'
+  -- | 'activatedRule'
   ActivatedRule ->
   WebACLUpdate
-webACLUpdate pAction_ pActivatedRule_ =
+newWebACLUpdate pAction_ pActivatedRule_ =
   WebACLUpdate'
-    { _wauAction = pAction_,
-      _wauActivatedRule = pActivatedRule_
+    { action = pAction_,
+      activatedRule = pActivatedRule_
     }
 
--- | Specifies whether to insert a @Rule@ into or delete a @Rule@ from a @WebACL@ .
-wauAction :: Lens' WebACLUpdate ChangeAction
-wauAction = lens _wauAction (\s a -> s {_wauAction = a})
+-- | Specifies whether to insert a @Rule@ into or delete a @Rule@ from a
+-- @WebACL@.
+webACLUpdate_action :: Lens.Lens' WebACLUpdate ChangeAction
+webACLUpdate_action = Lens.lens (\WebACLUpdate' {action} -> action) (\s@WebACLUpdate' {} a -> s {action = a} :: WebACLUpdate)
 
--- | The @ActivatedRule@ object in an 'UpdateWebACL' request specifies a @Rule@ that you want to insert or delete, the priority of the @Rule@ in the @WebACL@ , and the action that you want AWS WAF to take when a web request matches the @Rule@ (@ALLOW@ , @BLOCK@ , or @COUNT@ ).
-wauActivatedRule :: Lens' WebACLUpdate ActivatedRule
-wauActivatedRule = lens _wauActivatedRule (\s a -> s {_wauActivatedRule = a})
+-- | The @ActivatedRule@ object in an UpdateWebACL request specifies a @Rule@
+-- that you want to insert or delete, the priority of the @Rule@ in the
+-- @WebACL@, and the action that you want AWS WAF to take when a web
+-- request matches the @Rule@ (@ALLOW@, @BLOCK@, or @COUNT@).
+webACLUpdate_activatedRule :: Lens.Lens' WebACLUpdate ActivatedRule
+webACLUpdate_activatedRule = Lens.lens (\WebACLUpdate' {activatedRule} -> activatedRule) (\s@WebACLUpdate' {} a -> s {activatedRule = a} :: WebACLUpdate)
 
-instance Hashable WebACLUpdate
+instance Prelude.Hashable WebACLUpdate
 
-instance NFData WebACLUpdate
+instance Prelude.NFData WebACLUpdate
 
-instance ToJSON WebACLUpdate where
+instance Prelude.ToJSON WebACLUpdate where
   toJSON WebACLUpdate' {..} =
-    object
-      ( catMaybes
-          [ Just ("Action" .= _wauAction),
-            Just ("ActivatedRule" .= _wauActivatedRule)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Action" Prelude..= action),
+            Prelude.Just
+              ("ActivatedRule" Prelude..= activatedRule)
           ]
       )
