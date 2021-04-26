@@ -28,217 +28,217 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGenerateChangeSet $
---             generateChangeSet
+--             newGenerateChangeSet
 --
 --         , requestImportAppCatalog $
---             importAppCatalog
+--             newImportAppCatalog
 --
 --         , requestLaunchApp $
---             launchApp
+--             newLaunchApp
 --
 --         , requestGetAppValidationConfiguration $
---             getAppValidationConfiguration
+--             newGetAppValidationConfiguration
 --
 --         , requestPutAppReplicationConfiguration $
---             putAppReplicationConfiguration
+--             newPutAppReplicationConfiguration
 --
 --         , requestGetConnectors $
---             getConnectors
+--             newGetConnectors
 --
 --         , requestGenerateTemplate $
---             generateTemplate
+--             newGenerateTemplate
 --
 --         , requestPutAppValidationConfiguration $
---             putAppValidationConfiguration
+--             newPutAppValidationConfiguration
 --
 --         , requestStartOnDemandReplicationRun $
---             startOnDemandReplicationRun
+--             newStartOnDemandReplicationRun
 --
 --         , requestTerminateApp $
---             terminateApp
+--             newTerminateApp
 --
 --         , requestListApps $
---             listApps
+--             newListApps
 --
 --         , requestGetReplicationRuns $
---             getReplicationRuns
+--             newGetReplicationRuns
 --
 --         , requestGetServers $
---             getServers
+--             newGetServers
 --
 --         , requestStartAppReplication $
---             startAppReplication
+--             newStartAppReplication
 --
 --         , requestPutAppLaunchConfiguration $
---             putAppLaunchConfiguration
+--             newPutAppLaunchConfiguration
 --
 --         , requestStopAppReplication $
---             stopAppReplication
+--             newStopAppReplication
 --
 --         , requestCreateReplicationJob $
---             createReplicationJob
+--             newCreateReplicationJob
 --
 --         , requestDeleteServerCatalog $
---             deleteServerCatalog
+--             newDeleteServerCatalog
 --
 --         , requestGetApp $
---             getApp
+--             newGetApp
 --
 --         , requestDeleteAppReplicationConfiguration $
---             deleteAppReplicationConfiguration
+--             newDeleteAppReplicationConfiguration
 --
 --         , requestDisassociateConnector $
---             disassociateConnector
+--             newDisassociateConnector
 --
 --         , requestNotifyAppValidationOutput $
---             notifyAppValidationOutput
+--             newNotifyAppValidationOutput
 --
 --         , requestGetReplicationJobs $
---             getReplicationJobs
+--             newGetReplicationJobs
 --
 --         , requestStartOnDemandAppReplication $
---             startOnDemandAppReplication
+--             newStartOnDemandAppReplication
 --
 --         , requestGetAppValidationOutput $
---             getAppValidationOutput
+--             newGetAppValidationOutput
 --
 --         , requestGetAppReplicationConfiguration $
---             getAppReplicationConfiguration
+--             newGetAppReplicationConfiguration
 --
 --         , requestDeleteAppValidationConfiguration $
---             deleteAppValidationConfiguration
+--             newDeleteAppValidationConfiguration
 --
 --         , requestImportServerCatalog $
---             importServerCatalog
+--             newImportServerCatalog
 --
 --         , requestDeleteApp $
---             deleteApp
+--             newDeleteApp
 --
 --         , requestUpdateApp $
---             updateApp
+--             newUpdateApp
 --
 --         , requestDeleteAppLaunchConfiguration $
---             deleteAppLaunchConfiguration
+--             newDeleteAppLaunchConfiguration
 --
 --         , requestCreateApp $
---             createApp
+--             newCreateApp
 --
 --         , requestGetAppLaunchConfiguration $
---             getAppLaunchConfiguration
+--             newGetAppLaunchConfiguration
 --
 --         , requestUpdateReplicationJob $
---             updateReplicationJob
+--             newUpdateReplicationJob
 --
 --         , requestDeleteReplicationJob $
---             deleteReplicationJob
+--             newDeleteReplicationJob
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGenerateChangeSet $
---             generateChangeSetResponse
+--             newGenerateChangeSetResponse
 --
 --         , responseImportAppCatalog $
---             importAppCatalogResponse
+--             newImportAppCatalogResponse
 --
 --         , responseLaunchApp $
---             launchAppResponse
+--             newLaunchAppResponse
 --
 --         , responseGetAppValidationConfiguration $
---             getAppValidationConfigurationResponse
+--             newGetAppValidationConfigurationResponse
 --
 --         , responsePutAppReplicationConfiguration $
---             putAppReplicationConfigurationResponse
+--             newPutAppReplicationConfigurationResponse
 --
 --         , responseGetConnectors $
---             getConnectorsResponse
+--             newGetConnectorsResponse
 --
 --         , responseGenerateTemplate $
---             generateTemplateResponse
+--             newGenerateTemplateResponse
 --
 --         , responsePutAppValidationConfiguration $
---             putAppValidationConfigurationResponse
+--             newPutAppValidationConfigurationResponse
 --
 --         , responseStartOnDemandReplicationRun $
---             startOnDemandReplicationRunResponse
+--             newStartOnDemandReplicationRunResponse
 --
 --         , responseTerminateApp $
---             terminateAppResponse
+--             newTerminateAppResponse
 --
 --         , responseListApps $
---             listAppsResponse
+--             newListAppsResponse
 --
 --         , responseGetReplicationRuns $
---             getReplicationRunsResponse
+--             newGetReplicationRunsResponse
 --
 --         , responseGetServers $
---             getServersResponse
+--             newGetServersResponse
 --
 --         , responseStartAppReplication $
---             startAppReplicationResponse
+--             newStartAppReplicationResponse
 --
 --         , responsePutAppLaunchConfiguration $
---             putAppLaunchConfigurationResponse
+--             newPutAppLaunchConfigurationResponse
 --
 --         , responseStopAppReplication $
---             stopAppReplicationResponse
+--             newStopAppReplicationResponse
 --
 --         , responseCreateReplicationJob $
---             createReplicationJobResponse
+--             newCreateReplicationJobResponse
 --
 --         , responseDeleteServerCatalog $
---             deleteServerCatalogResponse
+--             newDeleteServerCatalogResponse
 --
 --         , responseGetApp $
---             getAppResponse
+--             newGetAppResponse
 --
 --         , responseDeleteAppReplicationConfiguration $
---             deleteAppReplicationConfigurationResponse
+--             newDeleteAppReplicationConfigurationResponse
 --
 --         , responseDisassociateConnector $
---             disassociateConnectorResponse
+--             newDisassociateConnectorResponse
 --
 --         , responseNotifyAppValidationOutput $
---             notifyAppValidationOutputResponse
+--             newNotifyAppValidationOutputResponse
 --
 --         , responseGetReplicationJobs $
---             getReplicationJobsResponse
+--             newGetReplicationJobsResponse
 --
 --         , responseStartOnDemandAppReplication $
---             startOnDemandAppReplicationResponse
+--             newStartOnDemandAppReplicationResponse
 --
 --         , responseGetAppValidationOutput $
---             getAppValidationOutputResponse
+--             newGetAppValidationOutputResponse
 --
 --         , responseGetAppReplicationConfiguration $
---             getAppReplicationConfigurationResponse
+--             newGetAppReplicationConfigurationResponse
 --
 --         , responseDeleteAppValidationConfiguration $
---             deleteAppValidationConfigurationResponse
+--             newDeleteAppValidationConfigurationResponse
 --
 --         , responseImportServerCatalog $
---             importServerCatalogResponse
+--             newImportServerCatalogResponse
 --
 --         , responseDeleteApp $
---             deleteAppResponse
+--             newDeleteAppResponse
 --
 --         , responseUpdateApp $
---             updateAppResponse
+--             newUpdateAppResponse
 --
 --         , responseDeleteAppLaunchConfiguration $
---             deleteAppLaunchConfigurationResponse
+--             newDeleteAppLaunchConfigurationResponse
 --
 --         , responseCreateApp $
---             createAppResponse
+--             newCreateAppResponse
 --
 --         , responseGetAppLaunchConfiguration $
---             getAppLaunchConfigurationResponse
+--             newGetAppLaunchConfigurationResponse
 --
 --         , responseUpdateReplicationJob $
---             updateReplicationJobResponse
+--             newUpdateReplicationJobResponse
 --
 --         , responseDeleteReplicationJob $
---             deleteReplicationJobResponse
+--             newDeleteReplicationJobResponse
 --
 --           ]
 --     ]
@@ -462,7 +462,7 @@ responseGenerateChangeSet =
   res
     "GenerateChangeSetResponse"
     "fixture/GenerateChangeSetResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GenerateChangeSet)
 
 responseImportAppCatalog :: ImportAppCatalogResponse -> TestTree
@@ -470,7 +470,7 @@ responseImportAppCatalog =
   res
     "ImportAppCatalogResponse"
     "fixture/ImportAppCatalogResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy ImportAppCatalog)
 
 responseLaunchApp :: LaunchAppResponse -> TestTree
@@ -478,7 +478,7 @@ responseLaunchApp =
   res
     "LaunchAppResponse"
     "fixture/LaunchAppResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy LaunchApp)
 
 responseGetAppValidationConfiguration :: GetAppValidationConfigurationResponse -> TestTree
@@ -486,7 +486,7 @@ responseGetAppValidationConfiguration =
   res
     "GetAppValidationConfigurationResponse"
     "fixture/GetAppValidationConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetAppValidationConfiguration)
 
 responsePutAppReplicationConfiguration :: PutAppReplicationConfigurationResponse -> TestTree
@@ -494,7 +494,7 @@ responsePutAppReplicationConfiguration =
   res
     "PutAppReplicationConfigurationResponse"
     "fixture/PutAppReplicationConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy PutAppReplicationConfiguration)
 
 responseGetConnectors :: GetConnectorsResponse -> TestTree
@@ -502,7 +502,7 @@ responseGetConnectors =
   res
     "GetConnectorsResponse"
     "fixture/GetConnectorsResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetConnectors)
 
 responseGenerateTemplate :: GenerateTemplateResponse -> TestTree
@@ -510,7 +510,7 @@ responseGenerateTemplate =
   res
     "GenerateTemplateResponse"
     "fixture/GenerateTemplateResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GenerateTemplate)
 
 responsePutAppValidationConfiguration :: PutAppValidationConfigurationResponse -> TestTree
@@ -518,7 +518,7 @@ responsePutAppValidationConfiguration =
   res
     "PutAppValidationConfigurationResponse"
     "fixture/PutAppValidationConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy PutAppValidationConfiguration)
 
 responseStartOnDemandReplicationRun :: StartOnDemandReplicationRunResponse -> TestTree
@@ -526,7 +526,7 @@ responseStartOnDemandReplicationRun =
   res
     "StartOnDemandReplicationRunResponse"
     "fixture/StartOnDemandReplicationRunResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy StartOnDemandReplicationRun)
 
 responseTerminateApp :: TerminateAppResponse -> TestTree
@@ -534,7 +534,7 @@ responseTerminateApp =
   res
     "TerminateAppResponse"
     "fixture/TerminateAppResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy TerminateApp)
 
 responseListApps :: ListAppsResponse -> TestTree
@@ -542,7 +542,7 @@ responseListApps =
   res
     "ListAppsResponse"
     "fixture/ListAppsResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy ListApps)
 
 responseGetReplicationRuns :: GetReplicationRunsResponse -> TestTree
@@ -550,7 +550,7 @@ responseGetReplicationRuns =
   res
     "GetReplicationRunsResponse"
     "fixture/GetReplicationRunsResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetReplicationRuns)
 
 responseGetServers :: GetServersResponse -> TestTree
@@ -558,7 +558,7 @@ responseGetServers =
   res
     "GetServersResponse"
     "fixture/GetServersResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetServers)
 
 responseStartAppReplication :: StartAppReplicationResponse -> TestTree
@@ -566,7 +566,7 @@ responseStartAppReplication =
   res
     "StartAppReplicationResponse"
     "fixture/StartAppReplicationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy StartAppReplication)
 
 responsePutAppLaunchConfiguration :: PutAppLaunchConfigurationResponse -> TestTree
@@ -574,7 +574,7 @@ responsePutAppLaunchConfiguration =
   res
     "PutAppLaunchConfigurationResponse"
     "fixture/PutAppLaunchConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy PutAppLaunchConfiguration)
 
 responseStopAppReplication :: StopAppReplicationResponse -> TestTree
@@ -582,7 +582,7 @@ responseStopAppReplication =
   res
     "StopAppReplicationResponse"
     "fixture/StopAppReplicationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy StopAppReplication)
 
 responseCreateReplicationJob :: CreateReplicationJobResponse -> TestTree
@@ -590,7 +590,7 @@ responseCreateReplicationJob =
   res
     "CreateReplicationJobResponse"
     "fixture/CreateReplicationJobResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy CreateReplicationJob)
 
 responseDeleteServerCatalog :: DeleteServerCatalogResponse -> TestTree
@@ -598,7 +598,7 @@ responseDeleteServerCatalog =
   res
     "DeleteServerCatalogResponse"
     "fixture/DeleteServerCatalogResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DeleteServerCatalog)
 
 responseGetApp :: GetAppResponse -> TestTree
@@ -606,7 +606,7 @@ responseGetApp =
   res
     "GetAppResponse"
     "fixture/GetAppResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetApp)
 
 responseDeleteAppReplicationConfiguration :: DeleteAppReplicationConfigurationResponse -> TestTree
@@ -614,7 +614,7 @@ responseDeleteAppReplicationConfiguration =
   res
     "DeleteAppReplicationConfigurationResponse"
     "fixture/DeleteAppReplicationConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DeleteAppReplicationConfiguration)
 
 responseDisassociateConnector :: DisassociateConnectorResponse -> TestTree
@@ -622,7 +622,7 @@ responseDisassociateConnector =
   res
     "DisassociateConnectorResponse"
     "fixture/DisassociateConnectorResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DisassociateConnector)
 
 responseNotifyAppValidationOutput :: NotifyAppValidationOutputResponse -> TestTree
@@ -630,7 +630,7 @@ responseNotifyAppValidationOutput =
   res
     "NotifyAppValidationOutputResponse"
     "fixture/NotifyAppValidationOutputResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy NotifyAppValidationOutput)
 
 responseGetReplicationJobs :: GetReplicationJobsResponse -> TestTree
@@ -638,7 +638,7 @@ responseGetReplicationJobs =
   res
     "GetReplicationJobsResponse"
     "fixture/GetReplicationJobsResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetReplicationJobs)
 
 responseStartOnDemandAppReplication :: StartOnDemandAppReplicationResponse -> TestTree
@@ -646,7 +646,7 @@ responseStartOnDemandAppReplication =
   res
     "StartOnDemandAppReplicationResponse"
     "fixture/StartOnDemandAppReplicationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy StartOnDemandAppReplication)
 
 responseGetAppValidationOutput :: GetAppValidationOutputResponse -> TestTree
@@ -654,7 +654,7 @@ responseGetAppValidationOutput =
   res
     "GetAppValidationOutputResponse"
     "fixture/GetAppValidationOutputResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetAppValidationOutput)
 
 responseGetAppReplicationConfiguration :: GetAppReplicationConfigurationResponse -> TestTree
@@ -662,7 +662,7 @@ responseGetAppReplicationConfiguration =
   res
     "GetAppReplicationConfigurationResponse"
     "fixture/GetAppReplicationConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetAppReplicationConfiguration)
 
 responseDeleteAppValidationConfiguration :: DeleteAppValidationConfigurationResponse -> TestTree
@@ -670,7 +670,7 @@ responseDeleteAppValidationConfiguration =
   res
     "DeleteAppValidationConfigurationResponse"
     "fixture/DeleteAppValidationConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DeleteAppValidationConfiguration)
 
 responseImportServerCatalog :: ImportServerCatalogResponse -> TestTree
@@ -678,7 +678,7 @@ responseImportServerCatalog =
   res
     "ImportServerCatalogResponse"
     "fixture/ImportServerCatalogResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy ImportServerCatalog)
 
 responseDeleteApp :: DeleteAppResponse -> TestTree
@@ -686,7 +686,7 @@ responseDeleteApp =
   res
     "DeleteAppResponse"
     "fixture/DeleteAppResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DeleteApp)
 
 responseUpdateApp :: UpdateAppResponse -> TestTree
@@ -694,7 +694,7 @@ responseUpdateApp =
   res
     "UpdateAppResponse"
     "fixture/UpdateAppResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy UpdateApp)
 
 responseDeleteAppLaunchConfiguration :: DeleteAppLaunchConfigurationResponse -> TestTree
@@ -702,7 +702,7 @@ responseDeleteAppLaunchConfiguration =
   res
     "DeleteAppLaunchConfigurationResponse"
     "fixture/DeleteAppLaunchConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DeleteAppLaunchConfiguration)
 
 responseCreateApp :: CreateAppResponse -> TestTree
@@ -710,7 +710,7 @@ responseCreateApp =
   res
     "CreateAppResponse"
     "fixture/CreateAppResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy CreateApp)
 
 responseGetAppLaunchConfiguration :: GetAppLaunchConfigurationResponse -> TestTree
@@ -718,7 +718,7 @@ responseGetAppLaunchConfiguration =
   res
     "GetAppLaunchConfigurationResponse"
     "fixture/GetAppLaunchConfigurationResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy GetAppLaunchConfiguration)
 
 responseUpdateReplicationJob :: UpdateReplicationJobResponse -> TestTree
@@ -726,7 +726,7 @@ responseUpdateReplicationJob =
   res
     "UpdateReplicationJobResponse"
     "fixture/UpdateReplicationJobResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy UpdateReplicationJob)
 
 responseDeleteReplicationJob :: DeleteReplicationJobResponse -> TestTree
@@ -734,5 +734,5 @@ responseDeleteReplicationJob =
   res
     "DeleteReplicationJobResponse"
     "fixture/DeleteReplicationJobResponse.proto"
-    sms
+    defaultService
     (Proxy :: Proxy DeleteReplicationJob)

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,116 +24,134 @@
 -- Allows application import from AWS Migration Hub.
 module Network.AWS.SMS.ImportAppCatalog
   ( -- * Creating a Request
-    importAppCatalog,
-    ImportAppCatalog,
+    ImportAppCatalog (..),
+    newImportAppCatalog,
 
     -- * Request Lenses
-    iacRoleName,
+    importAppCatalog_roleName,
 
     -- * Destructuring the Response
-    importAppCatalogResponse,
-    ImportAppCatalogResponse,
+    ImportAppCatalogResponse (..),
+    newImportAppCatalogResponse,
 
     -- * Response Lenses
-    iacrrsResponseStatus,
+    importAppCatalogResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'importAppCatalog' smart constructor.
-newtype ImportAppCatalog = ImportAppCatalog'
-  { _iacRoleName ::
-      Maybe Text
+-- | /See:/ 'newImportAppCatalog' smart constructor.
+data ImportAppCatalog = ImportAppCatalog'
+  { -- | The name of the service role. If you omit this parameter, we create a
+    -- service-linked role for AWS Migration Hub in your account. Otherwise,
+    -- the role that you provide must have the
+    -- <https://docs.aws.amazon.com/migrationhub/latest/ug/new-customer-setup.html#sms-managed policy and trust policy>
+    -- described in the /AWS Migration Hub User Guide/.
+    roleName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportAppCatalog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportAppCatalog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iacRoleName' - The name of the service role. If you omit this parameter, we create a service-linked role for AWS Migration Hub in your account. Otherwise, the role that you provide must have the <https://docs.aws.amazon.com/migrationhub/latest/ug/new-customer-setup.html#sms-managed policy and trust policy> described in the /AWS Migration Hub User Guide/ .
-importAppCatalog ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roleName', 'importAppCatalog_roleName' - The name of the service role. If you omit this parameter, we create a
+-- service-linked role for AWS Migration Hub in your account. Otherwise,
+-- the role that you provide must have the
+-- <https://docs.aws.amazon.com/migrationhub/latest/ug/new-customer-setup.html#sms-managed policy and trust policy>
+-- described in the /AWS Migration Hub User Guide/.
+newImportAppCatalog ::
   ImportAppCatalog
-importAppCatalog =
-  ImportAppCatalog' {_iacRoleName = Nothing}
+newImportAppCatalog =
+  ImportAppCatalog' {roleName = Prelude.Nothing}
 
--- | The name of the service role. If you omit this parameter, we create a service-linked role for AWS Migration Hub in your account. Otherwise, the role that you provide must have the <https://docs.aws.amazon.com/migrationhub/latest/ug/new-customer-setup.html#sms-managed policy and trust policy> described in the /AWS Migration Hub User Guide/ .
-iacRoleName :: Lens' ImportAppCatalog (Maybe Text)
-iacRoleName = lens _iacRoleName (\s a -> s {_iacRoleName = a})
+-- | The name of the service role. If you omit this parameter, we create a
+-- service-linked role for AWS Migration Hub in your account. Otherwise,
+-- the role that you provide must have the
+-- <https://docs.aws.amazon.com/migrationhub/latest/ug/new-customer-setup.html#sms-managed policy and trust policy>
+-- described in the /AWS Migration Hub User Guide/.
+importAppCatalog_roleName :: Lens.Lens' ImportAppCatalog (Prelude.Maybe Prelude.Text)
+importAppCatalog_roleName = Lens.lens (\ImportAppCatalog' {roleName} -> roleName) (\s@ImportAppCatalog' {} a -> s {roleName = a} :: ImportAppCatalog)
 
-instance AWSRequest ImportAppCatalog where
+instance Prelude.AWSRequest ImportAppCatalog where
   type Rs ImportAppCatalog = ImportAppCatalogResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ImportAppCatalogResponse' <$> (pure (fromEnum s))
+          ImportAppCatalogResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ImportAppCatalog
+instance Prelude.Hashable ImportAppCatalog
 
-instance NFData ImportAppCatalog
+instance Prelude.NFData ImportAppCatalog
 
-instance ToHeaders ImportAppCatalog where
+instance Prelude.ToHeaders ImportAppCatalog where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.ImportAppCatalog" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.ImportAppCatalog" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ImportAppCatalog where
+instance Prelude.ToJSON ImportAppCatalog where
   toJSON ImportAppCatalog' {..} =
-    object
-      (catMaybes [("roleName" .=) <$> _iacRoleName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("roleName" Prelude..=) Prelude.<$> roleName]
+      )
 
-instance ToPath ImportAppCatalog where
-  toPath = const "/"
+instance Prelude.ToPath ImportAppCatalog where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportAppCatalog where
-  toQuery = const mempty
+instance Prelude.ToQuery ImportAppCatalog where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'importAppCatalogResponse' smart constructor.
-newtype ImportAppCatalogResponse = ImportAppCatalogResponse'
-  { _iacrrsResponseStatus ::
-      Int
+-- | /See:/ 'newImportAppCatalogResponse' smart constructor.
+data ImportAppCatalogResponse = ImportAppCatalogResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportAppCatalogResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportAppCatalogResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iacrrsResponseStatus' - -- | The response status code.
-importAppCatalogResponse ::
-  -- | 'iacrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'importAppCatalogResponse_httpStatus' - The response's http status code.
+newImportAppCatalogResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ImportAppCatalogResponse
-importAppCatalogResponse pResponseStatus_ =
+newImportAppCatalogResponse pHttpStatus_ =
   ImportAppCatalogResponse'
-    { _iacrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-iacrrsResponseStatus :: Lens' ImportAppCatalogResponse Int
-iacrrsResponseStatus = lens _iacrrsResponseStatus (\s a -> s {_iacrrsResponseStatus = a})
+-- | The response's http status code.
+importAppCatalogResponse_httpStatus :: Lens.Lens' ImportAppCatalogResponse Prelude.Int
+importAppCatalogResponse_httpStatus = Lens.lens (\ImportAppCatalogResponse' {httpStatus} -> httpStatus) (\s@ImportAppCatalogResponse' {} a -> s {httpStatus = a} :: ImportAppCatalogResponse)
 
-instance NFData ImportAppCatalogResponse
+instance Prelude.NFData ImportAppCatalogResponse

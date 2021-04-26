@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SMS.Types.AppLaunchConfigurationStatus
   ( AppLaunchConfigurationStatus
       ( ..,
-        ALCSConfigured,
-        ALCSNotConfigured
+        AppLaunchConfigurationStatusCONFIGURED,
+        AppLaunchConfigurationStatusNOTCONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppLaunchConfigurationStatus
-  = AppLaunchConfigurationStatus'
-      ( CI
-          Text
-      )
+newtype AppLaunchConfigurationStatus = AppLaunchConfigurationStatus'
+  { fromAppLaunchConfigurationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ALCSConfigured :: AppLaunchConfigurationStatus
-pattern ALCSConfigured = AppLaunchConfigurationStatus' "CONFIGURED"
+pattern AppLaunchConfigurationStatusCONFIGURED :: AppLaunchConfigurationStatus
+pattern AppLaunchConfigurationStatusCONFIGURED = AppLaunchConfigurationStatus' "CONFIGURED"
 
-pattern ALCSNotConfigured :: AppLaunchConfigurationStatus
-pattern ALCSNotConfigured = AppLaunchConfigurationStatus' "NOT_CONFIGURED"
+pattern AppLaunchConfigurationStatusNOTCONFIGURED :: AppLaunchConfigurationStatus
+pattern AppLaunchConfigurationStatusNOTCONFIGURED = AppLaunchConfigurationStatus' "NOT_CONFIGURED"
 
 {-# COMPLETE
-  ALCSConfigured,
-  ALCSNotConfigured,
+  AppLaunchConfigurationStatusCONFIGURED,
+  AppLaunchConfigurationStatusNOTCONFIGURED,
   AppLaunchConfigurationStatus'
   #-}
 
-instance FromText AppLaunchConfigurationStatus where
-  parser = (AppLaunchConfigurationStatus' . mk) <$> takeText
+instance Prelude.FromText AppLaunchConfigurationStatus where
+  parser = AppLaunchConfigurationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AppLaunchConfigurationStatus where
-  toText (AppLaunchConfigurationStatus' ci) = original ci
+instance Prelude.ToText AppLaunchConfigurationStatus where
+  toText (AppLaunchConfigurationStatus' x) = x
 
-instance Hashable AppLaunchConfigurationStatus
+instance Prelude.Hashable AppLaunchConfigurationStatus
 
-instance NFData AppLaunchConfigurationStatus
+instance Prelude.NFData AppLaunchConfigurationStatus
 
-instance ToByteString AppLaunchConfigurationStatus
+instance Prelude.ToByteString AppLaunchConfigurationStatus
 
-instance ToQuery AppLaunchConfigurationStatus
+instance Prelude.ToQuery AppLaunchConfigurationStatus
 
-instance ToHeader AppLaunchConfigurationStatus
+instance Prelude.ToHeader AppLaunchConfigurationStatus
 
-instance FromJSON AppLaunchConfigurationStatus where
-  parseJSON = parseJSONText "AppLaunchConfigurationStatus"
+instance Prelude.FromJSON AppLaunchConfigurationStatus where
+  parseJSON = Prelude.parseJSONText "AppLaunchConfigurationStatus"

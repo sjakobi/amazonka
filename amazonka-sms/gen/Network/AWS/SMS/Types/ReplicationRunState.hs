@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.SMS.Types.ReplicationRunState
   ( ReplicationRunState
       ( ..,
-        RRSActive,
-        RRSCompleted,
-        RRSDeleted,
-        RRSDeleting,
-        RRSFailed,
-        RRSMissed,
-        RRSPending
+        ReplicationRunStateACTIVE,
+        ReplicationRunStateCOMPLETED,
+        ReplicationRunStateDELETED,
+        ReplicationRunStateDELETING,
+        ReplicationRunStateFAILED,
+        ReplicationRunStateMISSED,
+        ReplicationRunStatePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplicationRunState
-  = ReplicationRunState'
-      ( CI
-          Text
-      )
+newtype ReplicationRunState = ReplicationRunState'
+  { fromReplicationRunState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RRSActive :: ReplicationRunState
-pattern RRSActive = ReplicationRunState' "ACTIVE"
+pattern ReplicationRunStateACTIVE :: ReplicationRunState
+pattern ReplicationRunStateACTIVE = ReplicationRunState' "ACTIVE"
 
-pattern RRSCompleted :: ReplicationRunState
-pattern RRSCompleted = ReplicationRunState' "COMPLETED"
+pattern ReplicationRunStateCOMPLETED :: ReplicationRunState
+pattern ReplicationRunStateCOMPLETED = ReplicationRunState' "COMPLETED"
 
-pattern RRSDeleted :: ReplicationRunState
-pattern RRSDeleted = ReplicationRunState' "DELETED"
+pattern ReplicationRunStateDELETED :: ReplicationRunState
+pattern ReplicationRunStateDELETED = ReplicationRunState' "DELETED"
 
-pattern RRSDeleting :: ReplicationRunState
-pattern RRSDeleting = ReplicationRunState' "DELETING"
+pattern ReplicationRunStateDELETING :: ReplicationRunState
+pattern ReplicationRunStateDELETING = ReplicationRunState' "DELETING"
 
-pattern RRSFailed :: ReplicationRunState
-pattern RRSFailed = ReplicationRunState' "FAILED"
+pattern ReplicationRunStateFAILED :: ReplicationRunState
+pattern ReplicationRunStateFAILED = ReplicationRunState' "FAILED"
 
-pattern RRSMissed :: ReplicationRunState
-pattern RRSMissed = ReplicationRunState' "MISSED"
+pattern ReplicationRunStateMISSED :: ReplicationRunState
+pattern ReplicationRunStateMISSED = ReplicationRunState' "MISSED"
 
-pattern RRSPending :: ReplicationRunState
-pattern RRSPending = ReplicationRunState' "PENDING"
+pattern ReplicationRunStatePENDING :: ReplicationRunState
+pattern ReplicationRunStatePENDING = ReplicationRunState' "PENDING"
 
 {-# COMPLETE
-  RRSActive,
-  RRSCompleted,
-  RRSDeleted,
-  RRSDeleting,
-  RRSFailed,
-  RRSMissed,
-  RRSPending,
+  ReplicationRunStateACTIVE,
+  ReplicationRunStateCOMPLETED,
+  ReplicationRunStateDELETED,
+  ReplicationRunStateDELETING,
+  ReplicationRunStateFAILED,
+  ReplicationRunStateMISSED,
+  ReplicationRunStatePENDING,
   ReplicationRunState'
   #-}
 
-instance FromText ReplicationRunState where
-  parser = (ReplicationRunState' . mk) <$> takeText
+instance Prelude.FromText ReplicationRunState where
+  parser = ReplicationRunState' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationRunState where
-  toText (ReplicationRunState' ci) = original ci
+instance Prelude.ToText ReplicationRunState where
+  toText (ReplicationRunState' x) = x
 
-instance Hashable ReplicationRunState
+instance Prelude.Hashable ReplicationRunState
 
-instance NFData ReplicationRunState
+instance Prelude.NFData ReplicationRunState
 
-instance ToByteString ReplicationRunState
+instance Prelude.ToByteString ReplicationRunState
 
-instance ToQuery ReplicationRunState
+instance Prelude.ToQuery ReplicationRunState
 
-instance ToHeader ReplicationRunState
+instance Prelude.ToHeader ReplicationRunState
 
-instance FromJSON ReplicationRunState where
-  parseJSON = parseJSONText "ReplicationRunState"
+instance Prelude.FromJSON ReplicationRunState where
+  parseJSON = Prelude.parseJSONText "ReplicationRunState"

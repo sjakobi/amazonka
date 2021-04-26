@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,198 +21,227 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an application. An application consists of one or more server groups. Each server group contain one or more servers.
+-- Creates an application. An application consists of one or more server
+-- groups. Each server group contain one or more servers.
 module Network.AWS.SMS.CreateApp
   ( -- * Creating a Request
-    createApp,
-    CreateApp,
+    CreateApp (..),
+    newCreateApp,
 
     -- * Request Lenses
-    caRoleName,
-    caName,
-    caServerGroups,
-    caTags,
-    caDescription,
-    caClientToken,
+    createApp_roleName,
+    createApp_name,
+    createApp_serverGroups,
+    createApp_tags,
+    createApp_description,
+    createApp_clientToken,
 
     -- * Destructuring the Response
-    createAppResponse,
-    CreateAppResponse,
+    CreateAppResponse (..),
+    newCreateAppResponse,
 
     -- * Response Lenses
-    carrsAppSummary,
-    carrsServerGroups,
-    carrsTags,
-    carrsResponseStatus,
+    createAppResponse_appSummary,
+    createAppResponse_serverGroups,
+    createAppResponse_tags,
+    createAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.AppSummary
+import Network.AWS.SMS.Types.ServerGroup
+import Network.AWS.SMS.Types.Tag
 
--- | /See:/ 'createApp' smart constructor.
+-- | /See:/ 'newCreateApp' smart constructor.
 data CreateApp = CreateApp'
-  { _caRoleName ::
-      !(Maybe Text),
-    _caName :: !(Maybe Text),
-    _caServerGroups :: !(Maybe [ServerGroup]),
-    _caTags :: !(Maybe [Tag]),
-    _caDescription :: !(Maybe Text),
-    _caClientToken :: !(Maybe Text)
+  { -- | The name of the service role in the customer\'s account to be used by
+    -- AWS SMS.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the new application.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The server groups to include in the application.
+    serverGroups :: Prelude.Maybe [ServerGroup],
+    -- | The tags to be associated with the application.
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the new application
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of application creation.
+    clientToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caRoleName' - The name of the service role in the customer's account to be used by AWS SMS.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caName' - The name of the new application.
+-- 'roleName', 'createApp_roleName' - The name of the service role in the customer\'s account to be used by
+-- AWS SMS.
 --
--- * 'caServerGroups' - The server groups to include in the application.
+-- 'name', 'createApp_name' - The name of the new application.
 --
--- * 'caTags' - The tags to be associated with the application.
+-- 'serverGroups', 'createApp_serverGroups' - The server groups to include in the application.
 --
--- * 'caDescription' - The description of the new application
+-- 'tags', 'createApp_tags' - The tags to be associated with the application.
 --
--- * 'caClientToken' - A unique, case-sensitive identifier that you provide to ensure the idempotency of application creation.
-createApp ::
+-- 'description', 'createApp_description' - The description of the new application
+--
+-- 'clientToken', 'createApp_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of application creation.
+newCreateApp ::
   CreateApp
-createApp =
+newCreateApp =
   CreateApp'
-    { _caRoleName = Nothing,
-      _caName = Nothing,
-      _caServerGroups = Nothing,
-      _caTags = Nothing,
-      _caDescription = Nothing,
-      _caClientToken = Nothing
+    { roleName = Prelude.Nothing,
+      name = Prelude.Nothing,
+      serverGroups = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientToken = Prelude.Nothing
     }
 
--- | The name of the service role in the customer's account to be used by AWS SMS.
-caRoleName :: Lens' CreateApp (Maybe Text)
-caRoleName = lens _caRoleName (\s a -> s {_caRoleName = a})
+-- | The name of the service role in the customer\'s account to be used by
+-- AWS SMS.
+createApp_roleName :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
+createApp_roleName = Lens.lens (\CreateApp' {roleName} -> roleName) (\s@CreateApp' {} a -> s {roleName = a} :: CreateApp)
 
 -- | The name of the new application.
-caName :: Lens' CreateApp (Maybe Text)
-caName = lens _caName (\s a -> s {_caName = a})
+createApp_name :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
+createApp_name = Lens.lens (\CreateApp' {name} -> name) (\s@CreateApp' {} a -> s {name = a} :: CreateApp)
 
 -- | The server groups to include in the application.
-caServerGroups :: Lens' CreateApp [ServerGroup]
-caServerGroups = lens _caServerGroups (\s a -> s {_caServerGroups = a}) . _Default . _Coerce
+createApp_serverGroups :: Lens.Lens' CreateApp (Prelude.Maybe [ServerGroup])
+createApp_serverGroups = Lens.lens (\CreateApp' {serverGroups} -> serverGroups) (\s@CreateApp' {} a -> s {serverGroups = a} :: CreateApp) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags to be associated with the application.
-caTags :: Lens' CreateApp [Tag]
-caTags = lens _caTags (\s a -> s {_caTags = a}) . _Default . _Coerce
+createApp_tags :: Lens.Lens' CreateApp (Prelude.Maybe [Tag])
+createApp_tags = Lens.lens (\CreateApp' {tags} -> tags) (\s@CreateApp' {} a -> s {tags = a} :: CreateApp) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the new application
-caDescription :: Lens' CreateApp (Maybe Text)
-caDescription = lens _caDescription (\s a -> s {_caDescription = a})
+createApp_description :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
+createApp_description = Lens.lens (\CreateApp' {description} -> description) (\s@CreateApp' {} a -> s {description = a} :: CreateApp)
 
--- | A unique, case-sensitive identifier that you provide to ensure the idempotency of application creation.
-caClientToken :: Lens' CreateApp (Maybe Text)
-caClientToken = lens _caClientToken (\s a -> s {_caClientToken = a})
+-- | A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of application creation.
+createApp_clientToken :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
+createApp_clientToken = Lens.lens (\CreateApp' {clientToken} -> clientToken) (\s@CreateApp' {} a -> s {clientToken = a} :: CreateApp)
 
-instance AWSRequest CreateApp where
+instance Prelude.AWSRequest CreateApp where
   type Rs CreateApp = CreateAppResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAppResponse'
-            <$> (x .?> "appSummary")
-            <*> (x .?> "serverGroups" .!@ mempty)
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "appSummary")
+            Prelude.<*> ( x Prelude..?> "serverGroups"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateApp
+instance Prelude.Hashable CreateApp
 
-instance NFData CreateApp
+instance Prelude.NFData CreateApp
 
-instance ToHeaders CreateApp where
+instance Prelude.ToHeaders CreateApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.CreateApp" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.CreateApp" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateApp where
+instance Prelude.ToJSON CreateApp where
   toJSON CreateApp' {..} =
-    object
-      ( catMaybes
-          [ ("roleName" .=) <$> _caRoleName,
-            ("name" .=) <$> _caName,
-            ("serverGroups" .=) <$> _caServerGroups,
-            ("tags" .=) <$> _caTags,
-            ("description" .=) <$> _caDescription,
-            ("clientToken" .=) <$> _caClientToken
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("roleName" Prelude..=) Prelude.<$> roleName,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("serverGroups" Prelude..=) Prelude.<$> serverGroups,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("clientToken" Prelude..=) Prelude.<$> clientToken
           ]
       )
 
-instance ToPath CreateApp where
-  toPath = const "/"
+instance Prelude.ToPath CreateApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateApp where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAppResponse' smart constructor.
+-- | /See:/ 'newCreateAppResponse' smart constructor.
 data CreateAppResponse = CreateAppResponse'
-  { _carrsAppSummary ::
-      !(Maybe AppSummary),
-    _carrsServerGroups ::
-      !(Maybe [ServerGroup]),
-    _carrsTags :: !(Maybe [Tag]),
-    _carrsResponseStatus :: !Int
+  { -- | A summary description of the application.
+    appSummary :: Prelude.Maybe AppSummary,
+    -- | The server groups included in the application.
+    serverGroups :: Prelude.Maybe [ServerGroup],
+    -- | The tags associated with the application.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsAppSummary' - A summary description of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsServerGroups' - The server groups included in the application.
+-- 'appSummary', 'createAppResponse_appSummary' - A summary description of the application.
 --
--- * 'carrsTags' - The tags associated with the application.
+-- 'serverGroups', 'createAppResponse_serverGroups' - The server groups included in the application.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
-createAppResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
+-- 'tags', 'createAppResponse_tags' - The tags associated with the application.
+--
+-- 'httpStatus', 'createAppResponse_httpStatus' - The response's http status code.
+newCreateAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAppResponse
-createAppResponse pResponseStatus_ =
+newCreateAppResponse pHttpStatus_ =
   CreateAppResponse'
-    { _carrsAppSummary = Nothing,
-      _carrsServerGroups = Nothing,
-      _carrsTags = Nothing,
-      _carrsResponseStatus = pResponseStatus_
+    { appSummary = Prelude.Nothing,
+      serverGroups = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A summary description of the application.
-carrsAppSummary :: Lens' CreateAppResponse (Maybe AppSummary)
-carrsAppSummary = lens _carrsAppSummary (\s a -> s {_carrsAppSummary = a})
+createAppResponse_appSummary :: Lens.Lens' CreateAppResponse (Prelude.Maybe AppSummary)
+createAppResponse_appSummary = Lens.lens (\CreateAppResponse' {appSummary} -> appSummary) (\s@CreateAppResponse' {} a -> s {appSummary = a} :: CreateAppResponse)
 
 -- | The server groups included in the application.
-carrsServerGroups :: Lens' CreateAppResponse [ServerGroup]
-carrsServerGroups = lens _carrsServerGroups (\s a -> s {_carrsServerGroups = a}) . _Default . _Coerce
+createAppResponse_serverGroups :: Lens.Lens' CreateAppResponse (Prelude.Maybe [ServerGroup])
+createAppResponse_serverGroups = Lens.lens (\CreateAppResponse' {serverGroups} -> serverGroups) (\s@CreateAppResponse' {} a -> s {serverGroups = a} :: CreateAppResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags associated with the application.
-carrsTags :: Lens' CreateAppResponse [Tag]
-carrsTags = lens _carrsTags (\s a -> s {_carrsTags = a}) . _Default . _Coerce
+createAppResponse_tags :: Lens.Lens' CreateAppResponse (Prelude.Maybe [Tag])
+createAppResponse_tags = Lens.lens (\CreateAppResponse' {tags} -> tags) (\s@CreateAppResponse' {} a -> s {tags = a} :: CreateAppResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateAppResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createAppResponse_httpStatus :: Lens.Lens' CreateAppResponse Prelude.Int
+createAppResponse_httpStatus = Lens.lens (\CreateAppResponse' {httpStatus} -> httpStatus) (\s@CreateAppResponse' {} a -> s {httpStatus = a} :: CreateAppResponse)
 
-instance NFData CreateAppResponse
+instance Prelude.NFData CreateAppResponse

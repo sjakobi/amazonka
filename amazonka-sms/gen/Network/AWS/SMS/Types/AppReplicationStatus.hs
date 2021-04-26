@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,127 +19,125 @@
 module Network.AWS.SMS.Types.AppReplicationStatus
   ( AppReplicationStatus
       ( ..,
-        ConfigurationInProgress,
-        ConfigurationInvalid,
-        DeltaReplicated,
-        DeltaReplicationFailed,
-        DeltaReplicationInProgress,
-        PartiallyReplicated,
-        ReadyForConfiguration,
-        ReadyForReplication,
-        Replicated,
-        ReplicationFailed,
-        ReplicationInProgress,
-        ReplicationPending,
-        ReplicationStopFailed,
-        ReplicationStopped,
-        ReplicationStopping,
-        ValidationInProgress
+        AppReplicationStatusCONFIGURATIONINPROGRESS,
+        AppReplicationStatusCONFIGURATIONINVALID,
+        AppReplicationStatusDELTAREPLICATED,
+        AppReplicationStatusDELTAREPLICATIONFAILED,
+        AppReplicationStatusDELTAREPLICATIONINPROGRESS,
+        AppReplicationStatusPARTIALLYREPLICATED,
+        AppReplicationStatusREADYFORCONFIGURATION,
+        AppReplicationStatusREADYFORREPLICATION,
+        AppReplicationStatusREPLICATED,
+        AppReplicationStatusREPLICATIONFAILED,
+        AppReplicationStatusREPLICATIONINPROGRESS,
+        AppReplicationStatusREPLICATIONPENDING,
+        AppReplicationStatusREPLICATIONSTOPFAILED,
+        AppReplicationStatusREPLICATIONSTOPPED,
+        AppReplicationStatusREPLICATIONSTOPPING,
+        AppReplicationStatusVALIDATIONINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppReplicationStatus
-  = AppReplicationStatus'
-      ( CI
-          Text
-      )
+newtype AppReplicationStatus = AppReplicationStatus'
+  { fromAppReplicationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConfigurationInProgress :: AppReplicationStatus
-pattern ConfigurationInProgress = AppReplicationStatus' "CONFIGURATION_IN_PROGRESS"
+pattern AppReplicationStatusCONFIGURATIONINPROGRESS :: AppReplicationStatus
+pattern AppReplicationStatusCONFIGURATIONINPROGRESS = AppReplicationStatus' "CONFIGURATION_IN_PROGRESS"
 
-pattern ConfigurationInvalid :: AppReplicationStatus
-pattern ConfigurationInvalid = AppReplicationStatus' "CONFIGURATION_INVALID"
+pattern AppReplicationStatusCONFIGURATIONINVALID :: AppReplicationStatus
+pattern AppReplicationStatusCONFIGURATIONINVALID = AppReplicationStatus' "CONFIGURATION_INVALID"
 
-pattern DeltaReplicated :: AppReplicationStatus
-pattern DeltaReplicated = AppReplicationStatus' "DELTA_REPLICATED"
+pattern AppReplicationStatusDELTAREPLICATED :: AppReplicationStatus
+pattern AppReplicationStatusDELTAREPLICATED = AppReplicationStatus' "DELTA_REPLICATED"
 
-pattern DeltaReplicationFailed :: AppReplicationStatus
-pattern DeltaReplicationFailed = AppReplicationStatus' "DELTA_REPLICATION_FAILED"
+pattern AppReplicationStatusDELTAREPLICATIONFAILED :: AppReplicationStatus
+pattern AppReplicationStatusDELTAREPLICATIONFAILED = AppReplicationStatus' "DELTA_REPLICATION_FAILED"
 
-pattern DeltaReplicationInProgress :: AppReplicationStatus
-pattern DeltaReplicationInProgress = AppReplicationStatus' "DELTA_REPLICATION_IN_PROGRESS"
+pattern AppReplicationStatusDELTAREPLICATIONINPROGRESS :: AppReplicationStatus
+pattern AppReplicationStatusDELTAREPLICATIONINPROGRESS = AppReplicationStatus' "DELTA_REPLICATION_IN_PROGRESS"
 
-pattern PartiallyReplicated :: AppReplicationStatus
-pattern PartiallyReplicated = AppReplicationStatus' "PARTIALLY_REPLICATED"
+pattern AppReplicationStatusPARTIALLYREPLICATED :: AppReplicationStatus
+pattern AppReplicationStatusPARTIALLYREPLICATED = AppReplicationStatus' "PARTIALLY_REPLICATED"
 
-pattern ReadyForConfiguration :: AppReplicationStatus
-pattern ReadyForConfiguration = AppReplicationStatus' "READY_FOR_CONFIGURATION"
+pattern AppReplicationStatusREADYFORCONFIGURATION :: AppReplicationStatus
+pattern AppReplicationStatusREADYFORCONFIGURATION = AppReplicationStatus' "READY_FOR_CONFIGURATION"
 
-pattern ReadyForReplication :: AppReplicationStatus
-pattern ReadyForReplication = AppReplicationStatus' "READY_FOR_REPLICATION"
+pattern AppReplicationStatusREADYFORREPLICATION :: AppReplicationStatus
+pattern AppReplicationStatusREADYFORREPLICATION = AppReplicationStatus' "READY_FOR_REPLICATION"
 
-pattern Replicated :: AppReplicationStatus
-pattern Replicated = AppReplicationStatus' "REPLICATED"
+pattern AppReplicationStatusREPLICATED :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATED = AppReplicationStatus' "REPLICATED"
 
-pattern ReplicationFailed :: AppReplicationStatus
-pattern ReplicationFailed = AppReplicationStatus' "REPLICATION_FAILED"
+pattern AppReplicationStatusREPLICATIONFAILED :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATIONFAILED = AppReplicationStatus' "REPLICATION_FAILED"
 
-pattern ReplicationInProgress :: AppReplicationStatus
-pattern ReplicationInProgress = AppReplicationStatus' "REPLICATION_IN_PROGRESS"
+pattern AppReplicationStatusREPLICATIONINPROGRESS :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATIONINPROGRESS = AppReplicationStatus' "REPLICATION_IN_PROGRESS"
 
-pattern ReplicationPending :: AppReplicationStatus
-pattern ReplicationPending = AppReplicationStatus' "REPLICATION_PENDING"
+pattern AppReplicationStatusREPLICATIONPENDING :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATIONPENDING = AppReplicationStatus' "REPLICATION_PENDING"
 
-pattern ReplicationStopFailed :: AppReplicationStatus
-pattern ReplicationStopFailed = AppReplicationStatus' "REPLICATION_STOP_FAILED"
+pattern AppReplicationStatusREPLICATIONSTOPFAILED :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATIONSTOPFAILED = AppReplicationStatus' "REPLICATION_STOP_FAILED"
 
-pattern ReplicationStopped :: AppReplicationStatus
-pattern ReplicationStopped = AppReplicationStatus' "REPLICATION_STOPPED"
+pattern AppReplicationStatusREPLICATIONSTOPPED :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATIONSTOPPED = AppReplicationStatus' "REPLICATION_STOPPED"
 
-pattern ReplicationStopping :: AppReplicationStatus
-pattern ReplicationStopping = AppReplicationStatus' "REPLICATION_STOPPING"
+pattern AppReplicationStatusREPLICATIONSTOPPING :: AppReplicationStatus
+pattern AppReplicationStatusREPLICATIONSTOPPING = AppReplicationStatus' "REPLICATION_STOPPING"
 
-pattern ValidationInProgress :: AppReplicationStatus
-pattern ValidationInProgress = AppReplicationStatus' "VALIDATION_IN_PROGRESS"
+pattern AppReplicationStatusVALIDATIONINPROGRESS :: AppReplicationStatus
+pattern AppReplicationStatusVALIDATIONINPROGRESS = AppReplicationStatus' "VALIDATION_IN_PROGRESS"
 
 {-# COMPLETE
-  ConfigurationInProgress,
-  ConfigurationInvalid,
-  DeltaReplicated,
-  DeltaReplicationFailed,
-  DeltaReplicationInProgress,
-  PartiallyReplicated,
-  ReadyForConfiguration,
-  ReadyForReplication,
-  Replicated,
-  ReplicationFailed,
-  ReplicationInProgress,
-  ReplicationPending,
-  ReplicationStopFailed,
-  ReplicationStopped,
-  ReplicationStopping,
-  ValidationInProgress,
+  AppReplicationStatusCONFIGURATIONINPROGRESS,
+  AppReplicationStatusCONFIGURATIONINVALID,
+  AppReplicationStatusDELTAREPLICATED,
+  AppReplicationStatusDELTAREPLICATIONFAILED,
+  AppReplicationStatusDELTAREPLICATIONINPROGRESS,
+  AppReplicationStatusPARTIALLYREPLICATED,
+  AppReplicationStatusREADYFORCONFIGURATION,
+  AppReplicationStatusREADYFORREPLICATION,
+  AppReplicationStatusREPLICATED,
+  AppReplicationStatusREPLICATIONFAILED,
+  AppReplicationStatusREPLICATIONINPROGRESS,
+  AppReplicationStatusREPLICATIONPENDING,
+  AppReplicationStatusREPLICATIONSTOPFAILED,
+  AppReplicationStatusREPLICATIONSTOPPED,
+  AppReplicationStatusREPLICATIONSTOPPING,
+  AppReplicationStatusVALIDATIONINPROGRESS,
   AppReplicationStatus'
   #-}
 
-instance FromText AppReplicationStatus where
-  parser = (AppReplicationStatus' . mk) <$> takeText
+instance Prelude.FromText AppReplicationStatus where
+  parser = AppReplicationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AppReplicationStatus where
-  toText (AppReplicationStatus' ci) = original ci
+instance Prelude.ToText AppReplicationStatus where
+  toText (AppReplicationStatus' x) = x
 
-instance Hashable AppReplicationStatus
+instance Prelude.Hashable AppReplicationStatus
 
-instance NFData AppReplicationStatus
+instance Prelude.NFData AppReplicationStatus
 
-instance ToByteString AppReplicationStatus
+instance Prelude.ToByteString AppReplicationStatus
 
-instance ToQuery AppReplicationStatus
+instance Prelude.ToQuery AppReplicationStatus
 
-instance ToHeader AppReplicationStatus
+instance Prelude.ToHeader AppReplicationStatus
 
-instance FromJSON AppReplicationStatus where
-  parseJSON = parseJSONText "AppReplicationStatus"
+instance Prelude.FromJSON AppReplicationStatus where
+  parseJSON = Prelude.parseJSONText "AppReplicationStatus"

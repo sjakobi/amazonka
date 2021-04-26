@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.SMS.Types.ServerType
   ( ServerType
       ( ..,
-        VirtualMachine
+        ServerTypeVIRTUALMACHINE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServerType = ServerType' (CI Text)
+newtype ServerType = ServerType'
+  { fromServerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VirtualMachine :: ServerType
-pattern VirtualMachine = ServerType' "VIRTUAL_MACHINE"
+pattern ServerTypeVIRTUALMACHINE :: ServerType
+pattern ServerTypeVIRTUALMACHINE = ServerType' "VIRTUAL_MACHINE"
 
 {-# COMPLETE
-  VirtualMachine,
+  ServerTypeVIRTUALMACHINE,
   ServerType'
   #-}
 
-instance FromText ServerType where
-  parser = (ServerType' . mk) <$> takeText
+instance Prelude.FromText ServerType where
+  parser = ServerType' Prelude.<$> Prelude.takeText
 
-instance ToText ServerType where
-  toText (ServerType' ci) = original ci
+instance Prelude.ToText ServerType where
+  toText (ServerType' x) = x
 
-instance Hashable ServerType
+instance Prelude.Hashable ServerType
 
-instance NFData ServerType
+instance Prelude.NFData ServerType
 
-instance ToByteString ServerType
+instance Prelude.ToByteString ServerType
 
-instance ToQuery ServerType
+instance Prelude.ToQuery ServerType
 
-instance ToHeader ServerType
+instance Prelude.ToHeader ServerType
 
-instance ToJSON ServerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ServerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ServerType where
-  parseJSON = parseJSONText "ServerType"
+instance Prelude.FromJSON ServerType where
+  parseJSON = Prelude.parseJSONText "ServerType"

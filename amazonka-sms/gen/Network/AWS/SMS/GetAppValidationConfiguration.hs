@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about a configuration for validating an application.
+-- Retrieves information about a configuration for validating an
+-- application.
 module Network.AWS.SMS.GetAppValidationConfiguration
   ( -- * Creating a Request
-    getAppValidationConfiguration,
-    GetAppValidationConfiguration,
+    GetAppValidationConfiguration (..),
+    newGetAppValidationConfiguration,
 
     -- * Request Lenses
-    gavcAppId,
+    getAppValidationConfiguration_appId,
 
     -- * Destructuring the Response
-    getAppValidationConfigurationResponse,
-    GetAppValidationConfigurationResponse,
+    GetAppValidationConfigurationResponse (..),
+    newGetAppValidationConfigurationResponse,
 
     -- * Response Lenses
-    gavcrrsAppValidationConfigurations,
-    gavcrrsServerGroupValidationConfigurations,
-    gavcrrsResponseStatus,
+    getAppValidationConfigurationResponse_appValidationConfigurations,
+    getAppValidationConfigurationResponse_serverGroupValidationConfigurations,
+    getAppValidationConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.AppValidationConfiguration
+import Network.AWS.SMS.Types.ServerGroupValidationConfiguration
 
--- | /See:/ 'getAppValidationConfiguration' smart constructor.
-newtype GetAppValidationConfiguration = GetAppValidationConfiguration'
-  { _gavcAppId ::
-      Text
+-- | /See:/ 'newGetAppValidationConfiguration' smart constructor.
+data GetAppValidationConfiguration = GetAppValidationConfiguration'
+  { -- | The ID of the application.
+    appId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppValidationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppValidationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gavcAppId' - The ID of the application.
-getAppValidationConfiguration ::
-  -- | 'gavcAppId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'getAppValidationConfiguration_appId' - The ID of the application.
+newGetAppValidationConfiguration ::
+  -- | 'appId'
+  Prelude.Text ->
   GetAppValidationConfiguration
-getAppValidationConfiguration pAppId_ =
-  GetAppValidationConfiguration'
-    { _gavcAppId =
-        pAppId_
-    }
+newGetAppValidationConfiguration pAppId_ =
+  GetAppValidationConfiguration' {appId = pAppId_}
 
 -- | The ID of the application.
-gavcAppId :: Lens' GetAppValidationConfiguration Text
-gavcAppId = lens _gavcAppId (\s a -> s {_gavcAppId = a})
+getAppValidationConfiguration_appId :: Lens.Lens' GetAppValidationConfiguration Prelude.Text
+getAppValidationConfiguration_appId = Lens.lens (\GetAppValidationConfiguration' {appId} -> appId) (\s@GetAppValidationConfiguration' {} a -> s {appId = a} :: GetAppValidationConfiguration)
 
-instance AWSRequest GetAppValidationConfiguration where
+instance
+  Prelude.AWSRequest
+    GetAppValidationConfiguration
+  where
   type
     Rs GetAppValidationConfiguration =
       GetAppValidationConfigurationResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAppValidationConfigurationResponse'
-            <$> (x .?> "appValidationConfigurations" .!@ mempty)
-            <*> ( x .?> "serverGroupValidationConfigurations"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "appValidationConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "serverGroupValidationConfigurations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAppValidationConfiguration
+instance
+  Prelude.Hashable
+    GetAppValidationConfiguration
 
-instance NFData GetAppValidationConfiguration
+instance Prelude.NFData GetAppValidationConfiguration
 
-instance ToHeaders GetAppValidationConfiguration where
+instance
+  Prelude.ToHeaders
+    GetAppValidationConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.GetAppValidationConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.GetAppValidationConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAppValidationConfiguration where
+instance Prelude.ToJSON GetAppValidationConfiguration where
   toJSON GetAppValidationConfiguration' {..} =
-    object (catMaybes [Just ("appId" .= _gavcAppId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("appId" Prelude..= appId)]
+      )
 
-instance ToPath GetAppValidationConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath GetAppValidationConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAppValidationConfiguration where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    GetAppValidationConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAppValidationConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetAppValidationConfigurationResponse' smart constructor.
 data GetAppValidationConfigurationResponse = GetAppValidationConfigurationResponse'
-  { _gavcrrsAppValidationConfigurations ::
-      !( Maybe
-           [AppValidationConfiguration]
-       ),
-    _gavcrrsServerGroupValidationConfigurations ::
-      !( Maybe
-           [ServerGroupValidationConfiguration]
-       ),
-    _gavcrrsResponseStatus ::
-      !Int
+  { -- | The configuration for application validation.
+    appValidationConfigurations :: Prelude.Maybe [AppValidationConfiguration],
+    -- | The configuration for instance validation.
+    serverGroupValidationConfigurations :: Prelude.Maybe [ServerGroupValidationConfiguration],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppValidationConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppValidationConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gavcrrsAppValidationConfigurations' - The configuration for application validation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gavcrrsServerGroupValidationConfigurations' - The configuration for instance validation.
+-- 'appValidationConfigurations', 'getAppValidationConfigurationResponse_appValidationConfigurations' - The configuration for application validation.
 --
--- * 'gavcrrsResponseStatus' - -- | The response status code.
-getAppValidationConfigurationResponse ::
-  -- | 'gavcrrsResponseStatus'
-  Int ->
+-- 'serverGroupValidationConfigurations', 'getAppValidationConfigurationResponse_serverGroupValidationConfigurations' - The configuration for instance validation.
+--
+-- 'httpStatus', 'getAppValidationConfigurationResponse_httpStatus' - The response's http status code.
+newGetAppValidationConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAppValidationConfigurationResponse
-getAppValidationConfigurationResponse
-  pResponseStatus_ =
-    GetAppValidationConfigurationResponse'
-      { _gavcrrsAppValidationConfigurations =
-          Nothing,
-        _gavcrrsServerGroupValidationConfigurations =
-          Nothing,
-        _gavcrrsResponseStatus =
-          pResponseStatus_
-      }
+newGetAppValidationConfigurationResponse pHttpStatus_ =
+  GetAppValidationConfigurationResponse'
+    { appValidationConfigurations =
+        Prelude.Nothing,
+      serverGroupValidationConfigurations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The configuration for application validation.
-gavcrrsAppValidationConfigurations :: Lens' GetAppValidationConfigurationResponse [AppValidationConfiguration]
-gavcrrsAppValidationConfigurations = lens _gavcrrsAppValidationConfigurations (\s a -> s {_gavcrrsAppValidationConfigurations = a}) . _Default . _Coerce
+getAppValidationConfigurationResponse_appValidationConfigurations :: Lens.Lens' GetAppValidationConfigurationResponse (Prelude.Maybe [AppValidationConfiguration])
+getAppValidationConfigurationResponse_appValidationConfigurations = Lens.lens (\GetAppValidationConfigurationResponse' {appValidationConfigurations} -> appValidationConfigurations) (\s@GetAppValidationConfigurationResponse' {} a -> s {appValidationConfigurations = a} :: GetAppValidationConfigurationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The configuration for instance validation.
-gavcrrsServerGroupValidationConfigurations :: Lens' GetAppValidationConfigurationResponse [ServerGroupValidationConfiguration]
-gavcrrsServerGroupValidationConfigurations = lens _gavcrrsServerGroupValidationConfigurations (\s a -> s {_gavcrrsServerGroupValidationConfigurations = a}) . _Default . _Coerce
+getAppValidationConfigurationResponse_serverGroupValidationConfigurations :: Lens.Lens' GetAppValidationConfigurationResponse (Prelude.Maybe [ServerGroupValidationConfiguration])
+getAppValidationConfigurationResponse_serverGroupValidationConfigurations = Lens.lens (\GetAppValidationConfigurationResponse' {serverGroupValidationConfigurations} -> serverGroupValidationConfigurations) (\s@GetAppValidationConfigurationResponse' {} a -> s {serverGroupValidationConfigurations = a} :: GetAppValidationConfigurationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gavcrrsResponseStatus :: Lens' GetAppValidationConfigurationResponse Int
-gavcrrsResponseStatus = lens _gavcrrsResponseStatus (\s a -> s {_gavcrrsResponseStatus = a})
+-- | The response's http status code.
+getAppValidationConfigurationResponse_httpStatus :: Lens.Lens' GetAppValidationConfigurationResponse Prelude.Int
+getAppValidationConfigurationResponse_httpStatus = Lens.lens (\GetAppValidationConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetAppValidationConfigurationResponse' {} a -> s {httpStatus = a} :: GetAppValidationConfigurationResponse)
 
-instance NFData GetAppValidationConfigurationResponse
+instance
+  Prelude.NFData
+    GetAppValidationConfigurationResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,106 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ValidationOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.AppValidationOutput
 import Network.AWS.SMS.Types.ServerValidationOutput
 import Network.AWS.SMS.Types.ValidationStatus
 
 -- | Contains validation output.
 --
---
---
--- /See:/ 'validationOutput' smart constructor.
+-- /See:/ 'newValidationOutput' smart constructor.
 data ValidationOutput = ValidationOutput'
-  { _voStatusMessage ::
-      !(Maybe Text),
-    _voStatus ::
-      !(Maybe ValidationStatus),
-    _voValidationId :: !(Maybe Text),
-    _voAppValidationOutput ::
-      !(Maybe AppValidationOutput),
-    _voName :: !(Maybe Text),
-    _voServerValidationOutput ::
-      !(Maybe ServerValidationOutput),
-    _voLatestValidationTime ::
-      !(Maybe POSIX)
+  { -- | The status message.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The status of the validation.
+    status :: Prelude.Maybe ValidationStatus,
+    -- | The ID of the validation.
+    validationId :: Prelude.Maybe Prelude.Text,
+    -- | The output from validating an application.
+    appValidationOutput :: Prelude.Maybe AppValidationOutput,
+    -- | The name of the validation.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The output from validation an instance.
+    serverValidationOutput :: Prelude.Maybe ServerValidationOutput,
+    -- | The latest time that the validation was performed.
+    latestValidationTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidationOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidationOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'voStatusMessage' - The status message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'voStatus' - The status of the validation.
+-- 'statusMessage', 'validationOutput_statusMessage' - The status message.
 --
--- * 'voValidationId' - The ID of the validation.
+-- 'status', 'validationOutput_status' - The status of the validation.
 --
--- * 'voAppValidationOutput' - The output from validating an application.
+-- 'validationId', 'validationOutput_validationId' - The ID of the validation.
 --
--- * 'voName' - The name of the validation.
+-- 'appValidationOutput', 'validationOutput_appValidationOutput' - The output from validating an application.
 --
--- * 'voServerValidationOutput' - The output from validation an instance.
+-- 'name', 'validationOutput_name' - The name of the validation.
 --
--- * 'voLatestValidationTime' - The latest time that the validation was performed.
-validationOutput ::
+-- 'serverValidationOutput', 'validationOutput_serverValidationOutput' - The output from validation an instance.
+--
+-- 'latestValidationTime', 'validationOutput_latestValidationTime' - The latest time that the validation was performed.
+newValidationOutput ::
   ValidationOutput
-validationOutput =
+newValidationOutput =
   ValidationOutput'
-    { _voStatusMessage = Nothing,
-      _voStatus = Nothing,
-      _voValidationId = Nothing,
-      _voAppValidationOutput = Nothing,
-      _voName = Nothing,
-      _voServerValidationOutput = Nothing,
-      _voLatestValidationTime = Nothing
+    { statusMessage = Prelude.Nothing,
+      status = Prelude.Nothing,
+      validationId = Prelude.Nothing,
+      appValidationOutput = Prelude.Nothing,
+      name = Prelude.Nothing,
+      serverValidationOutput = Prelude.Nothing,
+      latestValidationTime = Prelude.Nothing
     }
 
 -- | The status message.
-voStatusMessage :: Lens' ValidationOutput (Maybe Text)
-voStatusMessage = lens _voStatusMessage (\s a -> s {_voStatusMessage = a})
+validationOutput_statusMessage :: Lens.Lens' ValidationOutput (Prelude.Maybe Prelude.Text)
+validationOutput_statusMessage = Lens.lens (\ValidationOutput' {statusMessage} -> statusMessage) (\s@ValidationOutput' {} a -> s {statusMessage = a} :: ValidationOutput)
 
 -- | The status of the validation.
-voStatus :: Lens' ValidationOutput (Maybe ValidationStatus)
-voStatus = lens _voStatus (\s a -> s {_voStatus = a})
+validationOutput_status :: Lens.Lens' ValidationOutput (Prelude.Maybe ValidationStatus)
+validationOutput_status = Lens.lens (\ValidationOutput' {status} -> status) (\s@ValidationOutput' {} a -> s {status = a} :: ValidationOutput)
 
 -- | The ID of the validation.
-voValidationId :: Lens' ValidationOutput (Maybe Text)
-voValidationId = lens _voValidationId (\s a -> s {_voValidationId = a})
+validationOutput_validationId :: Lens.Lens' ValidationOutput (Prelude.Maybe Prelude.Text)
+validationOutput_validationId = Lens.lens (\ValidationOutput' {validationId} -> validationId) (\s@ValidationOutput' {} a -> s {validationId = a} :: ValidationOutput)
 
 -- | The output from validating an application.
-voAppValidationOutput :: Lens' ValidationOutput (Maybe AppValidationOutput)
-voAppValidationOutput = lens _voAppValidationOutput (\s a -> s {_voAppValidationOutput = a})
+validationOutput_appValidationOutput :: Lens.Lens' ValidationOutput (Prelude.Maybe AppValidationOutput)
+validationOutput_appValidationOutput = Lens.lens (\ValidationOutput' {appValidationOutput} -> appValidationOutput) (\s@ValidationOutput' {} a -> s {appValidationOutput = a} :: ValidationOutput)
 
 -- | The name of the validation.
-voName :: Lens' ValidationOutput (Maybe Text)
-voName = lens _voName (\s a -> s {_voName = a})
+validationOutput_name :: Lens.Lens' ValidationOutput (Prelude.Maybe Prelude.Text)
+validationOutput_name = Lens.lens (\ValidationOutput' {name} -> name) (\s@ValidationOutput' {} a -> s {name = a} :: ValidationOutput)
 
 -- | The output from validation an instance.
-voServerValidationOutput :: Lens' ValidationOutput (Maybe ServerValidationOutput)
-voServerValidationOutput = lens _voServerValidationOutput (\s a -> s {_voServerValidationOutput = a})
+validationOutput_serverValidationOutput :: Lens.Lens' ValidationOutput (Prelude.Maybe ServerValidationOutput)
+validationOutput_serverValidationOutput = Lens.lens (\ValidationOutput' {serverValidationOutput} -> serverValidationOutput) (\s@ValidationOutput' {} a -> s {serverValidationOutput = a} :: ValidationOutput)
 
 -- | The latest time that the validation was performed.
-voLatestValidationTime :: Lens' ValidationOutput (Maybe UTCTime)
-voLatestValidationTime = lens _voLatestValidationTime (\s a -> s {_voLatestValidationTime = a}) . mapping _Time
+validationOutput_latestValidationTime :: Lens.Lens' ValidationOutput (Prelude.Maybe Prelude.UTCTime)
+validationOutput_latestValidationTime = Lens.lens (\ValidationOutput' {latestValidationTime} -> latestValidationTime) (\s@ValidationOutput' {} a -> s {latestValidationTime = a} :: ValidationOutput) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ValidationOutput where
+instance Prelude.FromJSON ValidationOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ValidationOutput"
       ( \x ->
           ValidationOutput'
-            <$> (x .:? "statusMessage")
-            <*> (x .:? "status")
-            <*> (x .:? "validationId")
-            <*> (x .:? "appValidationOutput")
-            <*> (x .:? "name")
-            <*> (x .:? "serverValidationOutput")
-            <*> (x .:? "latestValidationTime")
+            Prelude.<$> (x Prelude..:? "statusMessage")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "validationId")
+            Prelude.<*> (x Prelude..:? "appValidationOutput")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "serverValidationOutput")
+            Prelude.<*> (x Prelude..:? "latestValidationTime")
       )
 
-instance Hashable ValidationOutput
+instance Prelude.Hashable ValidationOutput
 
-instance NFData ValidationOutput
+instance Prelude.NFData ValidationOutput

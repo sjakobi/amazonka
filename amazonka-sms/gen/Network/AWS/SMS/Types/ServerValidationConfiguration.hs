@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,120 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ServerValidationConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.Server
 import Network.AWS.SMS.Types.ServerValidationStrategy
 import Network.AWS.SMS.Types.UserDataValidationParameters
 
 -- | Configuration for validating an instance.
 --
---
---
--- /See:/ 'serverValidationConfiguration' smart constructor.
+-- /See:/ 'newServerValidationConfiguration' smart constructor.
 data ServerValidationConfiguration = ServerValidationConfiguration'
-  { _svcValidationId ::
-      !( Maybe
-           Text
-       ),
-    _svcUserDataValidationParameters ::
-      !( Maybe
-           UserDataValidationParameters
-       ),
-    _svcServer ::
-      !( Maybe
-           Server
-       ),
-    _svcName ::
-      !( Maybe
-           Text
-       ),
-    _svcServerValidationStrategy ::
-      !( Maybe
-           ServerValidationStrategy
-       )
+  { -- | The ID of the validation.
+    validationId :: Prelude.Maybe Prelude.Text,
+    -- | The validation parameters.
+    userDataValidationParameters :: Prelude.Maybe UserDataValidationParameters,
+    server :: Prelude.Maybe Server,
+    -- | The name of the configuration.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The validation strategy.
+    serverValidationStrategy :: Prelude.Maybe ServerValidationStrategy
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerValidationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerValidationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'svcValidationId' - The ID of the validation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'svcUserDataValidationParameters' - The validation parameters.
+-- 'validationId', 'serverValidationConfiguration_validationId' - The ID of the validation.
 --
--- * 'svcServer' - Undocumented member.
+-- 'userDataValidationParameters', 'serverValidationConfiguration_userDataValidationParameters' - The validation parameters.
 --
--- * 'svcName' - The name of the configuration.
+-- 'server', 'serverValidationConfiguration_server' - Undocumented member.
 --
--- * 'svcServerValidationStrategy' - The validation strategy.
-serverValidationConfiguration ::
+-- 'name', 'serverValidationConfiguration_name' - The name of the configuration.
+--
+-- 'serverValidationStrategy', 'serverValidationConfiguration_serverValidationStrategy' - The validation strategy.
+newServerValidationConfiguration ::
   ServerValidationConfiguration
-serverValidationConfiguration =
+newServerValidationConfiguration =
   ServerValidationConfiguration'
-    { _svcValidationId =
-        Nothing,
-      _svcUserDataValidationParameters = Nothing,
-      _svcServer = Nothing,
-      _svcName = Nothing,
-      _svcServerValidationStrategy = Nothing
+    { validationId =
+        Prelude.Nothing,
+      userDataValidationParameters =
+        Prelude.Nothing,
+      server = Prelude.Nothing,
+      name = Prelude.Nothing,
+      serverValidationStrategy = Prelude.Nothing
     }
 
 -- | The ID of the validation.
-svcValidationId :: Lens' ServerValidationConfiguration (Maybe Text)
-svcValidationId = lens _svcValidationId (\s a -> s {_svcValidationId = a})
+serverValidationConfiguration_validationId :: Lens.Lens' ServerValidationConfiguration (Prelude.Maybe Prelude.Text)
+serverValidationConfiguration_validationId = Lens.lens (\ServerValidationConfiguration' {validationId} -> validationId) (\s@ServerValidationConfiguration' {} a -> s {validationId = a} :: ServerValidationConfiguration)
 
 -- | The validation parameters.
-svcUserDataValidationParameters :: Lens' ServerValidationConfiguration (Maybe UserDataValidationParameters)
-svcUserDataValidationParameters = lens _svcUserDataValidationParameters (\s a -> s {_svcUserDataValidationParameters = a})
+serverValidationConfiguration_userDataValidationParameters :: Lens.Lens' ServerValidationConfiguration (Prelude.Maybe UserDataValidationParameters)
+serverValidationConfiguration_userDataValidationParameters = Lens.lens (\ServerValidationConfiguration' {userDataValidationParameters} -> userDataValidationParameters) (\s@ServerValidationConfiguration' {} a -> s {userDataValidationParameters = a} :: ServerValidationConfiguration)
 
 -- | Undocumented member.
-svcServer :: Lens' ServerValidationConfiguration (Maybe Server)
-svcServer = lens _svcServer (\s a -> s {_svcServer = a})
+serverValidationConfiguration_server :: Lens.Lens' ServerValidationConfiguration (Prelude.Maybe Server)
+serverValidationConfiguration_server = Lens.lens (\ServerValidationConfiguration' {server} -> server) (\s@ServerValidationConfiguration' {} a -> s {server = a} :: ServerValidationConfiguration)
 
 -- | The name of the configuration.
-svcName :: Lens' ServerValidationConfiguration (Maybe Text)
-svcName = lens _svcName (\s a -> s {_svcName = a})
+serverValidationConfiguration_name :: Lens.Lens' ServerValidationConfiguration (Prelude.Maybe Prelude.Text)
+serverValidationConfiguration_name = Lens.lens (\ServerValidationConfiguration' {name} -> name) (\s@ServerValidationConfiguration' {} a -> s {name = a} :: ServerValidationConfiguration)
 
 -- | The validation strategy.
-svcServerValidationStrategy :: Lens' ServerValidationConfiguration (Maybe ServerValidationStrategy)
-svcServerValidationStrategy = lens _svcServerValidationStrategy (\s a -> s {_svcServerValidationStrategy = a})
+serverValidationConfiguration_serverValidationStrategy :: Lens.Lens' ServerValidationConfiguration (Prelude.Maybe ServerValidationStrategy)
+serverValidationConfiguration_serverValidationStrategy = Lens.lens (\ServerValidationConfiguration' {serverValidationStrategy} -> serverValidationStrategy) (\s@ServerValidationConfiguration' {} a -> s {serverValidationStrategy = a} :: ServerValidationConfiguration)
 
-instance FromJSON ServerValidationConfiguration where
+instance
+  Prelude.FromJSON
+    ServerValidationConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServerValidationConfiguration"
       ( \x ->
           ServerValidationConfiguration'
-            <$> (x .:? "validationId")
-            <*> (x .:? "userDataValidationParameters")
-            <*> (x .:? "server")
-            <*> (x .:? "name")
-            <*> (x .:? "serverValidationStrategy")
+            Prelude.<$> (x Prelude..:? "validationId")
+            Prelude.<*> (x Prelude..:? "userDataValidationParameters")
+            Prelude.<*> (x Prelude..:? "server")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "serverValidationStrategy")
       )
 
-instance Hashable ServerValidationConfiguration
+instance
+  Prelude.Hashable
+    ServerValidationConfiguration
 
-instance NFData ServerValidationConfiguration
+instance Prelude.NFData ServerValidationConfiguration
 
-instance ToJSON ServerValidationConfiguration where
+instance Prelude.ToJSON ServerValidationConfiguration where
   toJSON ServerValidationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("validationId" .=) <$> _svcValidationId,
-            ("userDataValidationParameters" .=)
-              <$> _svcUserDataValidationParameters,
-            ("server" .=) <$> _svcServer,
-            ("name" .=) <$> _svcName,
-            ("serverValidationStrategy" .=)
-              <$> _svcServerValidationStrategy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("validationId" Prelude..=)
+              Prelude.<$> validationId,
+            ("userDataValidationParameters" Prelude..=)
+              Prelude.<$> userDataValidationParameters,
+            ("server" Prelude..=) Prelude.<$> server,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("serverValidationStrategy" Prelude..=)
+              Prelude.<$> serverValidationStrategy
           ]
       )

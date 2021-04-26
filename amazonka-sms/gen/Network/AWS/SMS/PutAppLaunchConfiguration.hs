@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates or updates the launch configuration for the specified application.
+-- Creates or updates the launch configuration for the specified
+-- application.
 module Network.AWS.SMS.PutAppLaunchConfiguration
   ( -- * Creating a Request
-    putAppLaunchConfiguration,
-    PutAppLaunchConfiguration,
+    PutAppLaunchConfiguration (..),
+    newPutAppLaunchConfiguration,
 
     -- * Request Lenses
-    palcAppId,
-    palcRoleName,
-    palcAutoLaunch,
-    palcServerGroupLaunchConfigurations,
+    putAppLaunchConfiguration_appId,
+    putAppLaunchConfiguration_roleName,
+    putAppLaunchConfiguration_autoLaunch,
+    putAppLaunchConfiguration_serverGroupLaunchConfigurations,
 
     -- * Destructuring the Response
-    putAppLaunchConfigurationResponse,
-    PutAppLaunchConfigurationResponse,
+    PutAppLaunchConfigurationResponse (..),
+    newPutAppLaunchConfigurationResponse,
 
     -- * Response Lenses
-    palcrrsResponseStatus,
+    putAppLaunchConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'putAppLaunchConfiguration' smart constructor.
+-- | /See:/ 'newPutAppLaunchConfiguration' smart constructor.
 data PutAppLaunchConfiguration = PutAppLaunchConfiguration'
-  { _palcAppId ::
-      !(Maybe Text),
-    _palcRoleName ::
-      !(Maybe Text),
-    _palcAutoLaunch ::
-      !(Maybe Bool),
-    _palcServerGroupLaunchConfigurations ::
-      !( Maybe
-           [ServerGroupLaunchConfiguration]
-       )
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | The name of service role in the customer\'s account that AWS
+    -- CloudFormation uses to launch the application.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the application is configured to launch automatically
+    -- after replication is complete.
+    autoLaunch :: Prelude.Maybe Prelude.Bool,
+    -- | Information about the launch configurations for server groups in the
+    -- application.
+    serverGroupLaunchConfigurations :: Prelude.Maybe [ServerGroupLaunchConfiguration]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAppLaunchConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAppLaunchConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'palcAppId' - The ID of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'palcRoleName' - The name of service role in the customer's account that AWS CloudFormation uses to launch the application.
+-- 'appId', 'putAppLaunchConfiguration_appId' - The ID of the application.
 --
--- * 'palcAutoLaunch' - Indicates whether the application is configured to launch automatically after replication is complete.
+-- 'roleName', 'putAppLaunchConfiguration_roleName' - The name of service role in the customer\'s account that AWS
+-- CloudFormation uses to launch the application.
 --
--- * 'palcServerGroupLaunchConfigurations' - Information about the launch configurations for server groups in the application.
-putAppLaunchConfiguration ::
+-- 'autoLaunch', 'putAppLaunchConfiguration_autoLaunch' - Indicates whether the application is configured to launch automatically
+-- after replication is complete.
+--
+-- 'serverGroupLaunchConfigurations', 'putAppLaunchConfiguration_serverGroupLaunchConfigurations' - Information about the launch configurations for server groups in the
+-- application.
+newPutAppLaunchConfiguration ::
   PutAppLaunchConfiguration
-putAppLaunchConfiguration =
+newPutAppLaunchConfiguration =
   PutAppLaunchConfiguration'
-    { _palcAppId = Nothing,
-      _palcRoleName = Nothing,
-      _palcAutoLaunch = Nothing,
-      _palcServerGroupLaunchConfigurations = Nothing
+    { appId = Prelude.Nothing,
+      roleName = Prelude.Nothing,
+      autoLaunch = Prelude.Nothing,
+      serverGroupLaunchConfigurations =
+        Prelude.Nothing
     }
 
 -- | The ID of the application.
-palcAppId :: Lens' PutAppLaunchConfiguration (Maybe Text)
-palcAppId = lens _palcAppId (\s a -> s {_palcAppId = a})
+putAppLaunchConfiguration_appId :: Lens.Lens' PutAppLaunchConfiguration (Prelude.Maybe Prelude.Text)
+putAppLaunchConfiguration_appId = Lens.lens (\PutAppLaunchConfiguration' {appId} -> appId) (\s@PutAppLaunchConfiguration' {} a -> s {appId = a} :: PutAppLaunchConfiguration)
 
--- | The name of service role in the customer's account that AWS CloudFormation uses to launch the application.
-palcRoleName :: Lens' PutAppLaunchConfiguration (Maybe Text)
-palcRoleName = lens _palcRoleName (\s a -> s {_palcRoleName = a})
+-- | The name of service role in the customer\'s account that AWS
+-- CloudFormation uses to launch the application.
+putAppLaunchConfiguration_roleName :: Lens.Lens' PutAppLaunchConfiguration (Prelude.Maybe Prelude.Text)
+putAppLaunchConfiguration_roleName = Lens.lens (\PutAppLaunchConfiguration' {roleName} -> roleName) (\s@PutAppLaunchConfiguration' {} a -> s {roleName = a} :: PutAppLaunchConfiguration)
 
--- | Indicates whether the application is configured to launch automatically after replication is complete.
-palcAutoLaunch :: Lens' PutAppLaunchConfiguration (Maybe Bool)
-palcAutoLaunch = lens _palcAutoLaunch (\s a -> s {_palcAutoLaunch = a})
+-- | Indicates whether the application is configured to launch automatically
+-- after replication is complete.
+putAppLaunchConfiguration_autoLaunch :: Lens.Lens' PutAppLaunchConfiguration (Prelude.Maybe Prelude.Bool)
+putAppLaunchConfiguration_autoLaunch = Lens.lens (\PutAppLaunchConfiguration' {autoLaunch} -> autoLaunch) (\s@PutAppLaunchConfiguration' {} a -> s {autoLaunch = a} :: PutAppLaunchConfiguration)
 
--- | Information about the launch configurations for server groups in the application.
-palcServerGroupLaunchConfigurations :: Lens' PutAppLaunchConfiguration [ServerGroupLaunchConfiguration]
-palcServerGroupLaunchConfigurations = lens _palcServerGroupLaunchConfigurations (\s a -> s {_palcServerGroupLaunchConfigurations = a}) . _Default . _Coerce
+-- | Information about the launch configurations for server groups in the
+-- application.
+putAppLaunchConfiguration_serverGroupLaunchConfigurations :: Lens.Lens' PutAppLaunchConfiguration (Prelude.Maybe [ServerGroupLaunchConfiguration])
+putAppLaunchConfiguration_serverGroupLaunchConfigurations = Lens.lens (\PutAppLaunchConfiguration' {serverGroupLaunchConfigurations} -> serverGroupLaunchConfigurations) (\s@PutAppLaunchConfiguration' {} a -> s {serverGroupLaunchConfigurations = a} :: PutAppLaunchConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest PutAppLaunchConfiguration where
+instance Prelude.AWSRequest PutAppLaunchConfiguration where
   type
     Rs PutAppLaunchConfiguration =
       PutAppLaunchConfigurationResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutAppLaunchConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutAppLaunchConfiguration
+instance Prelude.Hashable PutAppLaunchConfiguration
 
-instance NFData PutAppLaunchConfiguration
+instance Prelude.NFData PutAppLaunchConfiguration
 
-instance ToHeaders PutAppLaunchConfiguration where
+instance Prelude.ToHeaders PutAppLaunchConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.PutAppLaunchConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.PutAppLaunchConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutAppLaunchConfiguration where
+instance Prelude.ToJSON PutAppLaunchConfiguration where
   toJSON PutAppLaunchConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("appId" .=) <$> _palcAppId,
-            ("roleName" .=) <$> _palcRoleName,
-            ("autoLaunch" .=) <$> _palcAutoLaunch,
-            ("serverGroupLaunchConfigurations" .=)
-              <$> _palcServerGroupLaunchConfigurations
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("appId" Prelude..=) Prelude.<$> appId,
+            ("roleName" Prelude..=) Prelude.<$> roleName,
+            ("autoLaunch" Prelude..=) Prelude.<$> autoLaunch,
+            ("serverGroupLaunchConfigurations" Prelude..=)
+              Prelude.<$> serverGroupLaunchConfigurations
           ]
       )
 
-instance ToPath PutAppLaunchConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutAppLaunchConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutAppLaunchConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutAppLaunchConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putAppLaunchConfigurationResponse' smart constructor.
-newtype PutAppLaunchConfigurationResponse = PutAppLaunchConfigurationResponse'
-  { _palcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutAppLaunchConfigurationResponse' smart constructor.
+data PutAppLaunchConfigurationResponse = PutAppLaunchConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutAppLaunchConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutAppLaunchConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'palcrrsResponseStatus' - -- | The response status code.
-putAppLaunchConfigurationResponse ::
-  -- | 'palcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putAppLaunchConfigurationResponse_httpStatus' - The response's http status code.
+newPutAppLaunchConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutAppLaunchConfigurationResponse
-putAppLaunchConfigurationResponse pResponseStatus_ =
+newPutAppLaunchConfigurationResponse pHttpStatus_ =
   PutAppLaunchConfigurationResponse'
-    { _palcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-palcrrsResponseStatus :: Lens' PutAppLaunchConfigurationResponse Int
-palcrrsResponseStatus = lens _palcrrsResponseStatus (\s a -> s {_palcrrsResponseStatus = a})
+-- | The response's http status code.
+putAppLaunchConfigurationResponse_httpStatus :: Lens.Lens' PutAppLaunchConfigurationResponse Prelude.Int
+putAppLaunchConfigurationResponse_httpStatus = Lens.lens (\PutAppLaunchConfigurationResponse' {httpStatus} -> httpStatus) (\s@PutAppLaunchConfigurationResponse' {} a -> s {httpStatus = a} :: PutAppLaunchConfigurationResponse)
 
-instance NFData PutAppLaunchConfigurationResponse
+instance
+  Prelude.NFData
+    PutAppLaunchConfigurationResponse

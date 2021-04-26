@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SMS.Types.ConnectorStatus
   ( ConnectorStatus
       ( ..,
-        Healthy,
-        Unhealthy
+        ConnectorStatusHEALTHY,
+        ConnectorStatusUNHEALTHY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectorStatus = ConnectorStatus' (CI Text)
+newtype ConnectorStatus = ConnectorStatus'
+  { fromConnectorStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthy :: ConnectorStatus
-pattern Healthy = ConnectorStatus' "HEALTHY"
+pattern ConnectorStatusHEALTHY :: ConnectorStatus
+pattern ConnectorStatusHEALTHY = ConnectorStatus' "HEALTHY"
 
-pattern Unhealthy :: ConnectorStatus
-pattern Unhealthy = ConnectorStatus' "UNHEALTHY"
+pattern ConnectorStatusUNHEALTHY :: ConnectorStatus
+pattern ConnectorStatusUNHEALTHY = ConnectorStatus' "UNHEALTHY"
 
 {-# COMPLETE
-  Healthy,
-  Unhealthy,
+  ConnectorStatusHEALTHY,
+  ConnectorStatusUNHEALTHY,
   ConnectorStatus'
   #-}
 
-instance FromText ConnectorStatus where
-  parser = (ConnectorStatus' . mk) <$> takeText
+instance Prelude.FromText ConnectorStatus where
+  parser = ConnectorStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectorStatus where
-  toText (ConnectorStatus' ci) = original ci
+instance Prelude.ToText ConnectorStatus where
+  toText (ConnectorStatus' x) = x
 
-instance Hashable ConnectorStatus
+instance Prelude.Hashable ConnectorStatus
 
-instance NFData ConnectorStatus
+instance Prelude.NFData ConnectorStatus
 
-instance ToByteString ConnectorStatus
+instance Prelude.ToByteString ConnectorStatus
 
-instance ToQuery ConnectorStatus
+instance Prelude.ToQuery ConnectorStatus
 
-instance ToHeader ConnectorStatus
+instance Prelude.ToHeader ConnectorStatus
 
-instance FromJSON ConnectorStatus where
-  parseJSON = parseJSONText "ConnectorStatus"
+instance Prelude.FromJSON ConnectorStatus where
+  parseJSON = Prelude.parseJSONText "ConnectorStatus"

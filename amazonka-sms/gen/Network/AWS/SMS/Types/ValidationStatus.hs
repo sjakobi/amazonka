@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.SMS.Types.ValidationStatus
   ( ValidationStatus
       ( ..,
-        VSFailed,
-        VSInProgress,
-        VSPending,
-        VSReadyForValidation,
-        VSSucceeded
+        ValidationStatusFAILED,
+        ValidationStatusINPROGRESS,
+        ValidationStatusPENDING,
+        ValidationStatusREADYFORVALIDATION,
+        ValidationStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ValidationStatus = ValidationStatus' (CI Text)
+newtype ValidationStatus = ValidationStatus'
+  { fromValidationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VSFailed :: ValidationStatus
-pattern VSFailed = ValidationStatus' "FAILED"
+pattern ValidationStatusFAILED :: ValidationStatus
+pattern ValidationStatusFAILED = ValidationStatus' "FAILED"
 
-pattern VSInProgress :: ValidationStatus
-pattern VSInProgress = ValidationStatus' "IN_PROGRESS"
+pattern ValidationStatusINPROGRESS :: ValidationStatus
+pattern ValidationStatusINPROGRESS = ValidationStatus' "IN_PROGRESS"
 
-pattern VSPending :: ValidationStatus
-pattern VSPending = ValidationStatus' "PENDING"
+pattern ValidationStatusPENDING :: ValidationStatus
+pattern ValidationStatusPENDING = ValidationStatus' "PENDING"
 
-pattern VSReadyForValidation :: ValidationStatus
-pattern VSReadyForValidation = ValidationStatus' "READY_FOR_VALIDATION"
+pattern ValidationStatusREADYFORVALIDATION :: ValidationStatus
+pattern ValidationStatusREADYFORVALIDATION = ValidationStatus' "READY_FOR_VALIDATION"
 
-pattern VSSucceeded :: ValidationStatus
-pattern VSSucceeded = ValidationStatus' "SUCCEEDED"
+pattern ValidationStatusSUCCEEDED :: ValidationStatus
+pattern ValidationStatusSUCCEEDED = ValidationStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  VSFailed,
-  VSInProgress,
-  VSPending,
-  VSReadyForValidation,
-  VSSucceeded,
+  ValidationStatusFAILED,
+  ValidationStatusINPROGRESS,
+  ValidationStatusPENDING,
+  ValidationStatusREADYFORVALIDATION,
+  ValidationStatusSUCCEEDED,
   ValidationStatus'
   #-}
 
-instance FromText ValidationStatus where
-  parser = (ValidationStatus' . mk) <$> takeText
+instance Prelude.FromText ValidationStatus where
+  parser = ValidationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ValidationStatus where
-  toText (ValidationStatus' ci) = original ci
+instance Prelude.ToText ValidationStatus where
+  toText (ValidationStatus' x) = x
 
-instance Hashable ValidationStatus
+instance Prelude.Hashable ValidationStatus
 
-instance NFData ValidationStatus
+instance Prelude.NFData ValidationStatus
 
-instance ToByteString ValidationStatus
+instance Prelude.ToByteString ValidationStatus
 
-instance ToQuery ValidationStatus
+instance Prelude.ToQuery ValidationStatus
 
-instance ToHeader ValidationStatus
+instance Prelude.ToHeader ValidationStatus
 
-instance ToJSON ValidationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ValidationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ValidationStatus where
-  parseJSON = parseJSONText "ValidationStatus"
+instance Prelude.FromJSON ValidationStatus where
+  parseJSON = Prelude.parseJSONText "ValidationStatus"

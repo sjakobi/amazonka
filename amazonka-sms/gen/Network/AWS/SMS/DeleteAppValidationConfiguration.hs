@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,148 @@
 -- Deletes the validation configuration for the specified application.
 module Network.AWS.SMS.DeleteAppValidationConfiguration
   ( -- * Creating a Request
-    deleteAppValidationConfiguration,
-    DeleteAppValidationConfiguration,
+    DeleteAppValidationConfiguration (..),
+    newDeleteAppValidationConfiguration,
 
     -- * Request Lenses
-    davcAppId,
+    deleteAppValidationConfiguration_appId,
 
     -- * Destructuring the Response
-    deleteAppValidationConfigurationResponse,
-    DeleteAppValidationConfigurationResponse,
+    DeleteAppValidationConfigurationResponse (..),
+    newDeleteAppValidationConfigurationResponse,
 
     -- * Response Lenses
-    davcrrsResponseStatus,
+    deleteAppValidationConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'deleteAppValidationConfiguration' smart constructor.
-newtype DeleteAppValidationConfiguration = DeleteAppValidationConfiguration'
-  { _davcAppId ::
-      Text
+-- | /See:/ 'newDeleteAppValidationConfiguration' smart constructor.
+data DeleteAppValidationConfiguration = DeleteAppValidationConfiguration'
+  { -- | The ID of the application.
+    appId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppValidationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAppValidationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'davcAppId' - The ID of the application.
-deleteAppValidationConfiguration ::
-  -- | 'davcAppId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'deleteAppValidationConfiguration_appId' - The ID of the application.
+newDeleteAppValidationConfiguration ::
+  -- | 'appId'
+  Prelude.Text ->
   DeleteAppValidationConfiguration
-deleteAppValidationConfiguration pAppId_ =
-  DeleteAppValidationConfiguration'
-    { _davcAppId =
-        pAppId_
-    }
+newDeleteAppValidationConfiguration pAppId_ =
+  DeleteAppValidationConfiguration' {appId = pAppId_}
 
 -- | The ID of the application.
-davcAppId :: Lens' DeleteAppValidationConfiguration Text
-davcAppId = lens _davcAppId (\s a -> s {_davcAppId = a})
+deleteAppValidationConfiguration_appId :: Lens.Lens' DeleteAppValidationConfiguration Prelude.Text
+deleteAppValidationConfiguration_appId = Lens.lens (\DeleteAppValidationConfiguration' {appId} -> appId) (\s@DeleteAppValidationConfiguration' {} a -> s {appId = a} :: DeleteAppValidationConfiguration)
 
-instance AWSRequest DeleteAppValidationConfiguration where
+instance
+  Prelude.AWSRequest
+    DeleteAppValidationConfiguration
+  where
   type
     Rs DeleteAppValidationConfiguration =
       DeleteAppValidationConfigurationResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteAppValidationConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAppValidationConfiguration
+instance
+  Prelude.Hashable
+    DeleteAppValidationConfiguration
 
-instance NFData DeleteAppValidationConfiguration
+instance
+  Prelude.NFData
+    DeleteAppValidationConfiguration
 
-instance ToHeaders DeleteAppValidationConfiguration where
+instance
+  Prelude.ToHeaders
+    DeleteAppValidationConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.DeleteAppValidationConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.DeleteAppValidationConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAppValidationConfiguration where
+instance
+  Prelude.ToJSON
+    DeleteAppValidationConfiguration
+  where
   toJSON DeleteAppValidationConfiguration' {..} =
-    object (catMaybes [Just ("appId" .= _davcAppId)])
-
-instance ToPath DeleteAppValidationConfiguration where
-  toPath = const "/"
-
-instance ToQuery DeleteAppValidationConfiguration where
-  toQuery = const mempty
-
--- | /See:/ 'deleteAppValidationConfigurationResponse' smart constructor.
-newtype DeleteAppValidationConfigurationResponse = DeleteAppValidationConfigurationResponse'
-  { _davcrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DeleteAppValidationConfigurationResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'davcrrsResponseStatus' - -- | The response status code.
-deleteAppValidationConfigurationResponse ::
-  -- | 'davcrrsResponseStatus'
-  Int ->
-  DeleteAppValidationConfigurationResponse
-deleteAppValidationConfigurationResponse
-  pResponseStatus_ =
-    DeleteAppValidationConfigurationResponse'
-      { _davcrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-davcrrsResponseStatus :: Lens' DeleteAppValidationConfigurationResponse Int
-davcrrsResponseStatus = lens _davcrrsResponseStatus (\s a -> s {_davcrrsResponseStatus = a})
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("appId" Prelude..= appId)]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    DeleteAppValidationConfiguration
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DeleteAppValidationConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newDeleteAppValidationConfigurationResponse' smart constructor.
+data DeleteAppValidationConfigurationResponse = DeleteAppValidationConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DeleteAppValidationConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAppValidationConfigurationResponse_httpStatus' - The response's http status code.
+newDeleteAppValidationConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DeleteAppValidationConfigurationResponse
+newDeleteAppValidationConfigurationResponse
+  pHttpStatus_ =
+    DeleteAppValidationConfigurationResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+deleteAppValidationConfigurationResponse_httpStatus :: Lens.Lens' DeleteAppValidationConfigurationResponse Prelude.Int
+deleteAppValidationConfigurationResponse_httpStatus = Lens.lens (\DeleteAppValidationConfigurationResponse' {httpStatus} -> httpStatus) (\s@DeleteAppValidationConfigurationResponse' {} a -> s {httpStatus = a} :: DeleteAppValidationConfigurationResponse)
+
+instance
+  Prelude.NFData
     DeleteAppValidationConfigurationResponse

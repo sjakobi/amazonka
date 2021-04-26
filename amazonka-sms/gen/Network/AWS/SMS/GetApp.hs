@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,158 @@
 -- Retrieve information about the specified application.
 module Network.AWS.SMS.GetApp
   ( -- * Creating a Request
-    getApp,
-    GetApp,
+    GetApp (..),
+    newGetApp,
 
     -- * Request Lenses
-    gaAppId,
+    getApp_appId,
 
     -- * Destructuring the Response
-    getAppResponse,
-    GetAppResponse,
+    GetAppResponse (..),
+    newGetAppResponse,
 
     -- * Response Lenses
-    garrsAppSummary,
-    garrsServerGroups,
-    garrsTags,
-    garrsResponseStatus,
+    getAppResponse_appSummary,
+    getAppResponse_serverGroups,
+    getAppResponse_tags,
+    getAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.AppSummary
+import Network.AWS.SMS.Types.ServerGroup
+import Network.AWS.SMS.Types.Tag
 
--- | /See:/ 'getApp' smart constructor.
-newtype GetApp = GetApp' {_gaAppId :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetApp' smart constructor.
+data GetApp = GetApp'
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaAppId' - The ID of the application.
-getApp ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'getApp_appId' - The ID of the application.
+newGetApp ::
   GetApp
-getApp = GetApp' {_gaAppId = Nothing}
+newGetApp = GetApp' {appId = Prelude.Nothing}
 
 -- | The ID of the application.
-gaAppId :: Lens' GetApp (Maybe Text)
-gaAppId = lens _gaAppId (\s a -> s {_gaAppId = a})
+getApp_appId :: Lens.Lens' GetApp (Prelude.Maybe Prelude.Text)
+getApp_appId = Lens.lens (\GetApp' {appId} -> appId) (\s@GetApp' {} a -> s {appId = a} :: GetApp)
 
-instance AWSRequest GetApp where
+instance Prelude.AWSRequest GetApp where
   type Rs GetApp = GetAppResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAppResponse'
-            <$> (x .?> "appSummary")
-            <*> (x .?> "serverGroups" .!@ mempty)
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "appSummary")
+            Prelude.<*> ( x Prelude..?> "serverGroups"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetApp
+instance Prelude.Hashable GetApp
 
-instance NFData GetApp
+instance Prelude.NFData GetApp
 
-instance ToHeaders GetApp where
+instance Prelude.ToHeaders GetApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.GetApp" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.GetApp" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetApp where
+instance Prelude.ToJSON GetApp where
   toJSON GetApp' {..} =
-    object (catMaybes [("appId" .=) <$> _gaAppId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("appId" Prelude..=) Prelude.<$> appId]
+      )
 
-instance ToPath GetApp where
-  toPath = const "/"
+instance Prelude.ToPath GetApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetApp where
-  toQuery = const mempty
+instance Prelude.ToQuery GetApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAppResponse' smart constructor.
+-- | /See:/ 'newGetAppResponse' smart constructor.
 data GetAppResponse = GetAppResponse'
-  { _garrsAppSummary ::
-      !(Maybe AppSummary),
-    _garrsServerGroups ::
-      !(Maybe [ServerGroup]),
-    _garrsTags :: !(Maybe [Tag]),
-    _garrsResponseStatus :: !Int
+  { -- | Information about the application.
+    appSummary :: Prelude.Maybe AppSummary,
+    -- | The server groups that belong to the application.
+    serverGroups :: Prelude.Maybe [ServerGroup],
+    -- | The tags associated with the application.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'garrsAppSummary' - Information about the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'garrsServerGroups' - The server groups that belong to the application.
+-- 'appSummary', 'getAppResponse_appSummary' - Information about the application.
 --
--- * 'garrsTags' - The tags associated with the application.
+-- 'serverGroups', 'getAppResponse_serverGroups' - The server groups that belong to the application.
 --
--- * 'garrsResponseStatus' - -- | The response status code.
-getAppResponse ::
-  -- | 'garrsResponseStatus'
-  Int ->
+-- 'tags', 'getAppResponse_tags' - The tags associated with the application.
+--
+-- 'httpStatus', 'getAppResponse_httpStatus' - The response's http status code.
+newGetAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAppResponse
-getAppResponse pResponseStatus_ =
+newGetAppResponse pHttpStatus_ =
   GetAppResponse'
-    { _garrsAppSummary = Nothing,
-      _garrsServerGroups = Nothing,
-      _garrsTags = Nothing,
-      _garrsResponseStatus = pResponseStatus_
+    { appSummary = Prelude.Nothing,
+      serverGroups = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the application.
-garrsAppSummary :: Lens' GetAppResponse (Maybe AppSummary)
-garrsAppSummary = lens _garrsAppSummary (\s a -> s {_garrsAppSummary = a})
+getAppResponse_appSummary :: Lens.Lens' GetAppResponse (Prelude.Maybe AppSummary)
+getAppResponse_appSummary = Lens.lens (\GetAppResponse' {appSummary} -> appSummary) (\s@GetAppResponse' {} a -> s {appSummary = a} :: GetAppResponse)
 
 -- | The server groups that belong to the application.
-garrsServerGroups :: Lens' GetAppResponse [ServerGroup]
-garrsServerGroups = lens _garrsServerGroups (\s a -> s {_garrsServerGroups = a}) . _Default . _Coerce
+getAppResponse_serverGroups :: Lens.Lens' GetAppResponse (Prelude.Maybe [ServerGroup])
+getAppResponse_serverGroups = Lens.lens (\GetAppResponse' {serverGroups} -> serverGroups) (\s@GetAppResponse' {} a -> s {serverGroups = a} :: GetAppResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags associated with the application.
-garrsTags :: Lens' GetAppResponse [Tag]
-garrsTags = lens _garrsTags (\s a -> s {_garrsTags = a}) . _Default . _Coerce
+getAppResponse_tags :: Lens.Lens' GetAppResponse (Prelude.Maybe [Tag])
+getAppResponse_tags = Lens.lens (\GetAppResponse' {tags} -> tags) (\s@GetAppResponse' {} a -> s {tags = a} :: GetAppResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-garrsResponseStatus :: Lens' GetAppResponse Int
-garrsResponseStatus = lens _garrsResponseStatus (\s a -> s {_garrsResponseStatus = a})
+-- | The response's http status code.
+getAppResponse_httpStatus :: Lens.Lens' GetAppResponse Prelude.Int
+getAppResponse_httpStatus = Lens.lens (\GetAppResponse' {httpStatus} -> httpStatus) (\s@GetAppResponse' {} a -> s {httpStatus = a} :: GetAppResponse)
 
-instance NFData GetAppResponse
+instance Prelude.NFData GetAppResponse

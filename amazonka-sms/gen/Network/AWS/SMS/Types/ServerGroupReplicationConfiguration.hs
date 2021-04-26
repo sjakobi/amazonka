@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ServerGroupReplicationConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.ServerReplicationConfiguration
 
 -- | Replication configuration for a server group.
 --
---
---
--- /See:/ 'serverGroupReplicationConfiguration' smart constructor.
+-- /See:/ 'newServerGroupReplicationConfiguration' smart constructor.
 data ServerGroupReplicationConfiguration = ServerGroupReplicationConfiguration'
-  { _sgrcServerGroupId ::
-      !( Maybe
-           Text
-       ),
-    _sgrcServerReplicationConfigurations ::
-      !( Maybe
-           [ServerReplicationConfiguration]
-       )
+  { -- | The ID of the server group with which this replication configuration is
+    -- associated.
+    serverGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The replication configuration for servers in the server group.
+    serverReplicationConfigurations :: Prelude.Maybe [ServerReplicationConfiguration]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerGroupReplicationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerGroupReplicationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgrcServerGroupId' - The ID of the server group with which this replication configuration is associated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgrcServerReplicationConfigurations' - The replication configuration for servers in the server group.
-serverGroupReplicationConfiguration ::
+-- 'serverGroupId', 'serverGroupReplicationConfiguration_serverGroupId' - The ID of the server group with which this replication configuration is
+-- associated.
+--
+-- 'serverReplicationConfigurations', 'serverGroupReplicationConfiguration_serverReplicationConfigurations' - The replication configuration for servers in the server group.
+newServerGroupReplicationConfiguration ::
   ServerGroupReplicationConfiguration
-serverGroupReplicationConfiguration =
+newServerGroupReplicationConfiguration =
   ServerGroupReplicationConfiguration'
-    { _sgrcServerGroupId =
-        Nothing,
-      _sgrcServerReplicationConfigurations =
-        Nothing
+    { serverGroupId =
+        Prelude.Nothing,
+      serverReplicationConfigurations =
+        Prelude.Nothing
     }
 
--- | The ID of the server group with which this replication configuration is associated.
-sgrcServerGroupId :: Lens' ServerGroupReplicationConfiguration (Maybe Text)
-sgrcServerGroupId = lens _sgrcServerGroupId (\s a -> s {_sgrcServerGroupId = a})
+-- | The ID of the server group with which this replication configuration is
+-- associated.
+serverGroupReplicationConfiguration_serverGroupId :: Lens.Lens' ServerGroupReplicationConfiguration (Prelude.Maybe Prelude.Text)
+serverGroupReplicationConfiguration_serverGroupId = Lens.lens (\ServerGroupReplicationConfiguration' {serverGroupId} -> serverGroupId) (\s@ServerGroupReplicationConfiguration' {} a -> s {serverGroupId = a} :: ServerGroupReplicationConfiguration)
 
 -- | The replication configuration for servers in the server group.
-sgrcServerReplicationConfigurations :: Lens' ServerGroupReplicationConfiguration [ServerReplicationConfiguration]
-sgrcServerReplicationConfigurations = lens _sgrcServerReplicationConfigurations (\s a -> s {_sgrcServerReplicationConfigurations = a}) . _Default . _Coerce
+serverGroupReplicationConfiguration_serverReplicationConfigurations :: Lens.Lens' ServerGroupReplicationConfiguration (Prelude.Maybe [ServerReplicationConfiguration])
+serverGroupReplicationConfiguration_serverReplicationConfigurations = Lens.lens (\ServerGroupReplicationConfiguration' {serverReplicationConfigurations} -> serverReplicationConfigurations) (\s@ServerGroupReplicationConfiguration' {} a -> s {serverReplicationConfigurations = a} :: ServerGroupReplicationConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ServerGroupReplicationConfiguration where
+instance
+  Prelude.FromJSON
+    ServerGroupReplicationConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServerGroupReplicationConfiguration"
       ( \x ->
           ServerGroupReplicationConfiguration'
-            <$> (x .:? "serverGroupId")
-            <*> (x .:? "serverReplicationConfigurations" .!= mempty)
+            Prelude.<$> (x Prelude..:? "serverGroupId")
+            Prelude.<*> ( x Prelude..:? "serverReplicationConfigurations"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ServerGroupReplicationConfiguration
+instance
+  Prelude.Hashable
+    ServerGroupReplicationConfiguration
 
-instance NFData ServerGroupReplicationConfiguration
+instance
+  Prelude.NFData
+    ServerGroupReplicationConfiguration
 
-instance ToJSON ServerGroupReplicationConfiguration where
+instance
+  Prelude.ToJSON
+    ServerGroupReplicationConfiguration
+  where
   toJSON ServerGroupReplicationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("serverGroupId" .=) <$> _sgrcServerGroupId,
-            ("serverReplicationConfigurations" .=)
-              <$> _sgrcServerReplicationConfigurations
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serverGroupId" Prelude..=)
+              Prelude.<$> serverGroupId,
+            ("serverReplicationConfigurations" Prelude..=)
+              Prelude.<$> serverReplicationConfigurations
           ]
       )

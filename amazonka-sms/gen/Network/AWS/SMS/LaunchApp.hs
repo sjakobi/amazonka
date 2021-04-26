@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,107 +24,118 @@
 -- Launches the specified application as a stack in AWS CloudFormation.
 module Network.AWS.SMS.LaunchApp
   ( -- * Creating a Request
-    launchApp,
-    LaunchApp,
+    LaunchApp (..),
+    newLaunchApp,
 
     -- * Request Lenses
-    laAppId,
+    launchApp_appId,
 
     -- * Destructuring the Response
-    launchAppResponse,
-    LaunchAppResponse,
+    LaunchAppResponse (..),
+    newLaunchAppResponse,
 
     -- * Response Lenses
-    larrsResponseStatus,
+    launchAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'launchApp' smart constructor.
-newtype LaunchApp = LaunchApp'
-  { _laAppId ::
-      Maybe Text
+-- | /See:/ 'newLaunchApp' smart constructor.
+data LaunchApp = LaunchApp'
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laAppId' - The ID of the application.
-launchApp ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'launchApp_appId' - The ID of the application.
+newLaunchApp ::
   LaunchApp
-launchApp = LaunchApp' {_laAppId = Nothing}
+newLaunchApp = LaunchApp' {appId = Prelude.Nothing}
 
 -- | The ID of the application.
-laAppId :: Lens' LaunchApp (Maybe Text)
-laAppId = lens _laAppId (\s a -> s {_laAppId = a})
+launchApp_appId :: Lens.Lens' LaunchApp (Prelude.Maybe Prelude.Text)
+launchApp_appId = Lens.lens (\LaunchApp' {appId} -> appId) (\s@LaunchApp' {} a -> s {appId = a} :: LaunchApp)
 
-instance AWSRequest LaunchApp where
+instance Prelude.AWSRequest LaunchApp where
   type Rs LaunchApp = LaunchAppResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          LaunchAppResponse' <$> (pure (fromEnum s))
+          LaunchAppResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable LaunchApp
+instance Prelude.Hashable LaunchApp
 
-instance NFData LaunchApp
+instance Prelude.NFData LaunchApp
 
-instance ToHeaders LaunchApp where
+instance Prelude.ToHeaders LaunchApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.LaunchApp" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.LaunchApp" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON LaunchApp where
+instance Prelude.ToJSON LaunchApp where
   toJSON LaunchApp' {..} =
-    object (catMaybes [("appId" .=) <$> _laAppId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("appId" Prelude..=) Prelude.<$> appId]
+      )
 
-instance ToPath LaunchApp where
-  toPath = const "/"
+instance Prelude.ToPath LaunchApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery LaunchApp where
-  toQuery = const mempty
+instance Prelude.ToQuery LaunchApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'launchAppResponse' smart constructor.
-newtype LaunchAppResponse = LaunchAppResponse'
-  { _larrsResponseStatus ::
-      Int
+-- | /See:/ 'newLaunchAppResponse' smart constructor.
+data LaunchAppResponse = LaunchAppResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'larrsResponseStatus' - -- | The response status code.
-launchAppResponse ::
-  -- | 'larrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'launchAppResponse_httpStatus' - The response's http status code.
+newLaunchAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   LaunchAppResponse
-launchAppResponse pResponseStatus_ =
-  LaunchAppResponse'
-    { _larrsResponseStatus =
-        pResponseStatus_
-    }
+newLaunchAppResponse pHttpStatus_ =
+  LaunchAppResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-larrsResponseStatus :: Lens' LaunchAppResponse Int
-larrsResponseStatus = lens _larrsResponseStatus (\s a -> s {_larrsResponseStatus = a})
+-- | The response's http status code.
+launchAppResponse_httpStatus :: Lens.Lens' LaunchAppResponse Prelude.Int
+launchAppResponse_httpStatus = Lens.lens (\LaunchAppResponse' {httpStatus} -> httpStatus) (\s@LaunchAppResponse' {} a -> s {httpStatus = a} :: LaunchAppResponse)
 
-instance NFData LaunchAppResponse
+instance Prelude.NFData LaunchAppResponse

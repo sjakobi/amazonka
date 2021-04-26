@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,137 +23,136 @@
 --
 -- Deletes the specified replication job.
 --
---
--- After you delete a replication job, there are no further replication runs. AWS deletes the contents of the Amazon S3 bucket used to store AWS SMS artifacts. The AMIs created by the replication runs are not deleted.
+-- After you delete a replication job, there are no further replication
+-- runs. AWS deletes the contents of the Amazon S3 bucket used to store AWS
+-- SMS artifacts. The AMIs created by the replication runs are not deleted.
 module Network.AWS.SMS.DeleteReplicationJob
   ( -- * Creating a Request
-    deleteReplicationJob,
-    DeleteReplicationJob,
+    DeleteReplicationJob (..),
+    newDeleteReplicationJob,
 
     -- * Request Lenses
-    drjReplicationJobId,
+    deleteReplicationJob_replicationJobId,
 
     -- * Destructuring the Response
-    deleteReplicationJobResponse,
-    DeleteReplicationJobResponse,
+    DeleteReplicationJobResponse (..),
+    newDeleteReplicationJobResponse,
 
     -- * Response Lenses
-    drjrrsResponseStatus,
+    deleteReplicationJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'deleteReplicationJob' smart constructor.
-newtype DeleteReplicationJob = DeleteReplicationJob'
-  { _drjReplicationJobId ::
-      Text
+-- | /See:/ 'newDeleteReplicationJob' smart constructor.
+data DeleteReplicationJob = DeleteReplicationJob'
+  { -- | The ID of the replication job.
+    replicationJobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteReplicationJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteReplicationJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drjReplicationJobId' - The ID of the replication job.
-deleteReplicationJob ::
-  -- | 'drjReplicationJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'replicationJobId', 'deleteReplicationJob_replicationJobId' - The ID of the replication job.
+newDeleteReplicationJob ::
+  -- | 'replicationJobId'
+  Prelude.Text ->
   DeleteReplicationJob
-deleteReplicationJob pReplicationJobId_ =
+newDeleteReplicationJob pReplicationJobId_ =
   DeleteReplicationJob'
-    { _drjReplicationJobId =
+    { replicationJobId =
         pReplicationJobId_
     }
 
 -- | The ID of the replication job.
-drjReplicationJobId :: Lens' DeleteReplicationJob Text
-drjReplicationJobId = lens _drjReplicationJobId (\s a -> s {_drjReplicationJobId = a})
+deleteReplicationJob_replicationJobId :: Lens.Lens' DeleteReplicationJob Prelude.Text
+deleteReplicationJob_replicationJobId = Lens.lens (\DeleteReplicationJob' {replicationJobId} -> replicationJobId) (\s@DeleteReplicationJob' {} a -> s {replicationJobId = a} :: DeleteReplicationJob)
 
-instance AWSRequest DeleteReplicationJob where
+instance Prelude.AWSRequest DeleteReplicationJob where
   type
     Rs DeleteReplicationJob =
       DeleteReplicationJobResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteReplicationJobResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteReplicationJob
+instance Prelude.Hashable DeleteReplicationJob
 
-instance NFData DeleteReplicationJob
+instance Prelude.NFData DeleteReplicationJob
 
-instance ToHeaders DeleteReplicationJob where
+instance Prelude.ToHeaders DeleteReplicationJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.DeleteReplicationJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.DeleteReplicationJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteReplicationJob where
+instance Prelude.ToJSON DeleteReplicationJob where
   toJSON DeleteReplicationJob' {..} =
-    object
-      ( catMaybes
-          [Just ("replicationJobId" .= _drjReplicationJobId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("replicationJobId" Prelude..= replicationJobId)
+          ]
       )
 
-instance ToPath DeleteReplicationJob where
-  toPath = const "/"
+instance Prelude.ToPath DeleteReplicationJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteReplicationJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteReplicationJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteReplicationJobResponse' smart constructor.
-newtype DeleteReplicationJobResponse = DeleteReplicationJobResponse'
-  { _drjrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteReplicationJobResponse' smart constructor.
+data DeleteReplicationJobResponse = DeleteReplicationJobResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteReplicationJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteReplicationJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drjrrsResponseStatus' - -- | The response status code.
-deleteReplicationJobResponse ::
-  -- | 'drjrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteReplicationJobResponse_httpStatus' - The response's http status code.
+newDeleteReplicationJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteReplicationJobResponse
-deleteReplicationJobResponse pResponseStatus_ =
+newDeleteReplicationJobResponse pHttpStatus_ =
   DeleteReplicationJobResponse'
-    { _drjrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drjrrsResponseStatus :: Lens' DeleteReplicationJobResponse Int
-drjrrsResponseStatus = lens _drjrrsResponseStatus (\s a -> s {_drjrrsResponseStatus = a})
+-- | The response's http status code.
+deleteReplicationJobResponse_httpStatus :: Lens.Lens' DeleteReplicationJobResponse Prelude.Int
+deleteReplicationJobResponse_httpStatus = Lens.lens (\DeleteReplicationJobResponse' {httpStatus} -> httpStatus) (\s@DeleteReplicationJobResponse' {} a -> s {httpStatus = a} :: DeleteReplicationJobResponse)
 
-instance NFData DeleteReplicationJobResponse
+instance Prelude.NFData DeleteReplicationJobResponse

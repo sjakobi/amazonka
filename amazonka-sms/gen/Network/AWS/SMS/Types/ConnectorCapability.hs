@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SMS.Types.ConnectorCapability
   ( ConnectorCapability
       ( ..,
-        CCHypervManager,
-        CCScvmm,
-        CCSmsOptimized,
-        CCSnapshotBatching,
-        CCVsphere
+        ConnectorCapabilityHYPERVMANAGER,
+        ConnectorCapabilitySCVMM,
+        ConnectorCapabilitySMSOPTIMIZED,
+        ConnectorCapabilitySNAPSHOTBATCHING,
+        ConnectorCapabilityVSPHERE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectorCapability
-  = ConnectorCapability'
-      ( CI
-          Text
-      )
+newtype ConnectorCapability = ConnectorCapability'
+  { fromConnectorCapability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CCHypervManager :: ConnectorCapability
-pattern CCHypervManager = ConnectorCapability' "HYPERV-MANAGER"
+pattern ConnectorCapabilityHYPERVMANAGER :: ConnectorCapability
+pattern ConnectorCapabilityHYPERVMANAGER = ConnectorCapability' "HYPERV-MANAGER"
 
-pattern CCScvmm :: ConnectorCapability
-pattern CCScvmm = ConnectorCapability' "SCVMM"
+pattern ConnectorCapabilitySCVMM :: ConnectorCapability
+pattern ConnectorCapabilitySCVMM = ConnectorCapability' "SCVMM"
 
-pattern CCSmsOptimized :: ConnectorCapability
-pattern CCSmsOptimized = ConnectorCapability' "SMS_OPTIMIZED"
+pattern ConnectorCapabilitySMSOPTIMIZED :: ConnectorCapability
+pattern ConnectorCapabilitySMSOPTIMIZED = ConnectorCapability' "SMS_OPTIMIZED"
 
-pattern CCSnapshotBatching :: ConnectorCapability
-pattern CCSnapshotBatching = ConnectorCapability' "SNAPSHOT_BATCHING"
+pattern ConnectorCapabilitySNAPSHOTBATCHING :: ConnectorCapability
+pattern ConnectorCapabilitySNAPSHOTBATCHING = ConnectorCapability' "SNAPSHOT_BATCHING"
 
-pattern CCVsphere :: ConnectorCapability
-pattern CCVsphere = ConnectorCapability' "VSPHERE"
+pattern ConnectorCapabilityVSPHERE :: ConnectorCapability
+pattern ConnectorCapabilityVSPHERE = ConnectorCapability' "VSPHERE"
 
 {-# COMPLETE
-  CCHypervManager,
-  CCScvmm,
-  CCSmsOptimized,
-  CCSnapshotBatching,
-  CCVsphere,
+  ConnectorCapabilityHYPERVMANAGER,
+  ConnectorCapabilitySCVMM,
+  ConnectorCapabilitySMSOPTIMIZED,
+  ConnectorCapabilitySNAPSHOTBATCHING,
+  ConnectorCapabilityVSPHERE,
   ConnectorCapability'
   #-}
 
-instance FromText ConnectorCapability where
-  parser = (ConnectorCapability' . mk) <$> takeText
+instance Prelude.FromText ConnectorCapability where
+  parser = ConnectorCapability' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectorCapability where
-  toText (ConnectorCapability' ci) = original ci
+instance Prelude.ToText ConnectorCapability where
+  toText (ConnectorCapability' x) = x
 
-instance Hashable ConnectorCapability
+instance Prelude.Hashable ConnectorCapability
 
-instance NFData ConnectorCapability
+instance Prelude.NFData ConnectorCapability
 
-instance ToByteString ConnectorCapability
+instance Prelude.ToByteString ConnectorCapability
 
-instance ToQuery ConnectorCapability
+instance Prelude.ToQuery ConnectorCapability
 
-instance ToHeader ConnectorCapability
+instance Prelude.ToHeader ConnectorCapability
 
-instance FromJSON ConnectorCapability where
-  parseJSON = parseJSONText "ConnectorCapability"
+instance Prelude.FromJSON ConnectorCapability where
+  parseJSON = Prelude.parseJSONText "ConnectorCapability"

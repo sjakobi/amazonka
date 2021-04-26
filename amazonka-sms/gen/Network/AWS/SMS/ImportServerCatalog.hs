@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,107 +21,114 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gathers a complete list of on-premises servers. Connectors must be installed and monitoring all servers to import.
+-- Gathers a complete list of on-premises servers. Connectors must be
+-- installed and monitoring all servers to import.
 --
---
--- This call returns immediately, but might take additional time to retrieve all the servers.
+-- This call returns immediately, but might take additional time to
+-- retrieve all the servers.
 module Network.AWS.SMS.ImportServerCatalog
   ( -- * Creating a Request
-    importServerCatalog,
-    ImportServerCatalog,
+    ImportServerCatalog (..),
+    newImportServerCatalog,
 
     -- * Destructuring the Response
-    importServerCatalogResponse,
-    ImportServerCatalogResponse,
+    ImportServerCatalogResponse (..),
+    newImportServerCatalogResponse,
 
     -- * Response Lenses
-    iscrrsResponseStatus,
+    importServerCatalogResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'importServerCatalog' smart constructor.
+-- | /See:/ 'newImportServerCatalog' smart constructor.
 data ImportServerCatalog = ImportServerCatalog'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportServerCatalog' with the minimum fields required to make a request.
-importServerCatalog ::
+-- |
+-- Create a value of 'ImportServerCatalog' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newImportServerCatalog ::
   ImportServerCatalog
-importServerCatalog = ImportServerCatalog'
+newImportServerCatalog = ImportServerCatalog'
 
-instance AWSRequest ImportServerCatalog where
+instance Prelude.AWSRequest ImportServerCatalog where
   type
     Rs ImportServerCatalog =
       ImportServerCatalogResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ImportServerCatalogResponse' <$> (pure (fromEnum s))
+          ImportServerCatalogResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ImportServerCatalog
+instance Prelude.Hashable ImportServerCatalog
 
-instance NFData ImportServerCatalog
+instance Prelude.NFData ImportServerCatalog
 
-instance ToHeaders ImportServerCatalog where
+instance Prelude.ToHeaders ImportServerCatalog where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.ImportServerCatalog" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.ImportServerCatalog" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ImportServerCatalog where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ImportServerCatalog where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ImportServerCatalog where
-  toPath = const "/"
+instance Prelude.ToPath ImportServerCatalog where
+  toPath = Prelude.const "/"
 
-instance ToQuery ImportServerCatalog where
-  toQuery = const mempty
+instance Prelude.ToQuery ImportServerCatalog where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'importServerCatalogResponse' smart constructor.
-newtype ImportServerCatalogResponse = ImportServerCatalogResponse'
-  { _iscrrsResponseStatus ::
-      Int
+-- | /See:/ 'newImportServerCatalogResponse' smart constructor.
+data ImportServerCatalogResponse = ImportServerCatalogResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImportServerCatalogResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImportServerCatalogResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iscrrsResponseStatus' - -- | The response status code.
-importServerCatalogResponse ::
-  -- | 'iscrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'importServerCatalogResponse_httpStatus' - The response's http status code.
+newImportServerCatalogResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ImportServerCatalogResponse
-importServerCatalogResponse pResponseStatus_ =
+newImportServerCatalogResponse pHttpStatus_ =
   ImportServerCatalogResponse'
-    { _iscrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-iscrrsResponseStatus :: Lens' ImportServerCatalogResponse Int
-iscrrsResponseStatus = lens _iscrrsResponseStatus (\s a -> s {_iscrrsResponseStatus = a})
+-- | The response's http status code.
+importServerCatalogResponse_httpStatus :: Lens.Lens' ImportServerCatalogResponse Prelude.Int
+importServerCatalogResponse_httpStatus = Lens.lens (\ImportServerCatalogResponse' {httpStatus} -> httpStatus) (\s@ImportServerCatalogResponse' {} a -> s {httpStatus = a} :: ImportServerCatalogResponse)
 
-instance NFData ImportServerCatalogResponse
+instance Prelude.NFData ImportServerCatalogResponse

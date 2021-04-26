@@ -11,16 +11,18 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Server Migration Service__
+-- AWS Server Migration Service
 --
--- AWS Server Migration Service (AWS SMS) makes it easier and faster for you to migrate your on-premises workloads to AWS. To learn more about AWS SMS, see the following resources:
+-- AWS Server Migration Service (AWS SMS) makes it easier and faster for
+-- you to migrate your on-premises workloads to AWS. To learn more about
+-- AWS SMS, see the following resources:
 --
---     * <http://aws.amazon.com/server-migration-service/ AWS Server Migration Service product page>
+-- -   <http://aws.amazon.com/server-migration-service/ AWS Server Migration Service product page>
 --
---     * <https://docs.aws.amazon.com/server-migration-service/latest/userguide/ AWS Server Migration Service User Guide>
+-- -   <https://docs.aws.amazon.com/server-migration-service/latest/userguide/ AWS Server Migration Service User Guide>
 module Network.AWS.SMS
   ( -- * Service Configuration
-    sms,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -68,109 +70,214 @@ module Network.AWS.SMS
     -- $operations
 
     -- ** GenerateChangeSet
-    module Network.AWS.SMS.GenerateChangeSet,
+    GenerateChangeSet (GenerateChangeSet'),
+    newGenerateChangeSet,
+    GenerateChangeSetResponse (GenerateChangeSetResponse'),
+    newGenerateChangeSetResponse,
 
     -- ** ImportAppCatalog
-    module Network.AWS.SMS.ImportAppCatalog,
+    ImportAppCatalog (ImportAppCatalog'),
+    newImportAppCatalog,
+    ImportAppCatalogResponse (ImportAppCatalogResponse'),
+    newImportAppCatalogResponse,
 
     -- ** LaunchApp
-    module Network.AWS.SMS.LaunchApp,
+    LaunchApp (LaunchApp'),
+    newLaunchApp,
+    LaunchAppResponse (LaunchAppResponse'),
+    newLaunchAppResponse,
 
     -- ** GetAppValidationConfiguration
-    module Network.AWS.SMS.GetAppValidationConfiguration,
+    GetAppValidationConfiguration (GetAppValidationConfiguration'),
+    newGetAppValidationConfiguration,
+    GetAppValidationConfigurationResponse (GetAppValidationConfigurationResponse'),
+    newGetAppValidationConfigurationResponse,
 
     -- ** PutAppReplicationConfiguration
-    module Network.AWS.SMS.PutAppReplicationConfiguration,
+    PutAppReplicationConfiguration (PutAppReplicationConfiguration'),
+    newPutAppReplicationConfiguration,
+    PutAppReplicationConfigurationResponse (PutAppReplicationConfigurationResponse'),
+    newPutAppReplicationConfigurationResponse,
 
     -- ** GetConnectors (Paginated)
-    module Network.AWS.SMS.GetConnectors,
+    GetConnectors (GetConnectors'),
+    newGetConnectors,
+    GetConnectorsResponse (GetConnectorsResponse'),
+    newGetConnectorsResponse,
 
     -- ** GenerateTemplate
-    module Network.AWS.SMS.GenerateTemplate,
+    GenerateTemplate (GenerateTemplate'),
+    newGenerateTemplate,
+    GenerateTemplateResponse (GenerateTemplateResponse'),
+    newGenerateTemplateResponse,
 
     -- ** PutAppValidationConfiguration
-    module Network.AWS.SMS.PutAppValidationConfiguration,
+    PutAppValidationConfiguration (PutAppValidationConfiguration'),
+    newPutAppValidationConfiguration,
+    PutAppValidationConfigurationResponse (PutAppValidationConfigurationResponse'),
+    newPutAppValidationConfigurationResponse,
 
     -- ** StartOnDemandReplicationRun
-    module Network.AWS.SMS.StartOnDemandReplicationRun,
+    StartOnDemandReplicationRun (StartOnDemandReplicationRun'),
+    newStartOnDemandReplicationRun,
+    StartOnDemandReplicationRunResponse (StartOnDemandReplicationRunResponse'),
+    newStartOnDemandReplicationRunResponse,
 
     -- ** TerminateApp
-    module Network.AWS.SMS.TerminateApp,
+    TerminateApp (TerminateApp'),
+    newTerminateApp,
+    TerminateAppResponse (TerminateAppResponse'),
+    newTerminateAppResponse,
 
     -- ** ListApps (Paginated)
-    module Network.AWS.SMS.ListApps,
+    ListApps (ListApps'),
+    newListApps,
+    ListAppsResponse (ListAppsResponse'),
+    newListAppsResponse,
 
     -- ** GetReplicationRuns (Paginated)
-    module Network.AWS.SMS.GetReplicationRuns,
+    GetReplicationRuns (GetReplicationRuns'),
+    newGetReplicationRuns,
+    GetReplicationRunsResponse (GetReplicationRunsResponse'),
+    newGetReplicationRunsResponse,
 
     -- ** GetServers (Paginated)
-    module Network.AWS.SMS.GetServers,
+    GetServers (GetServers'),
+    newGetServers,
+    GetServersResponse (GetServersResponse'),
+    newGetServersResponse,
 
     -- ** StartAppReplication
-    module Network.AWS.SMS.StartAppReplication,
+    StartAppReplication (StartAppReplication'),
+    newStartAppReplication,
+    StartAppReplicationResponse (StartAppReplicationResponse'),
+    newStartAppReplicationResponse,
 
     -- ** PutAppLaunchConfiguration
-    module Network.AWS.SMS.PutAppLaunchConfiguration,
+    PutAppLaunchConfiguration (PutAppLaunchConfiguration'),
+    newPutAppLaunchConfiguration,
+    PutAppLaunchConfigurationResponse (PutAppLaunchConfigurationResponse'),
+    newPutAppLaunchConfigurationResponse,
 
     -- ** StopAppReplication
-    module Network.AWS.SMS.StopAppReplication,
+    StopAppReplication (StopAppReplication'),
+    newStopAppReplication,
+    StopAppReplicationResponse (StopAppReplicationResponse'),
+    newStopAppReplicationResponse,
 
     -- ** CreateReplicationJob
-    module Network.AWS.SMS.CreateReplicationJob,
+    CreateReplicationJob (CreateReplicationJob'),
+    newCreateReplicationJob,
+    CreateReplicationJobResponse (CreateReplicationJobResponse'),
+    newCreateReplicationJobResponse,
 
     -- ** DeleteServerCatalog
-    module Network.AWS.SMS.DeleteServerCatalog,
+    DeleteServerCatalog (DeleteServerCatalog'),
+    newDeleteServerCatalog,
+    DeleteServerCatalogResponse (DeleteServerCatalogResponse'),
+    newDeleteServerCatalogResponse,
 
     -- ** GetApp
-    module Network.AWS.SMS.GetApp,
+    GetApp (GetApp'),
+    newGetApp,
+    GetAppResponse (GetAppResponse'),
+    newGetAppResponse,
 
     -- ** DeleteAppReplicationConfiguration
-    module Network.AWS.SMS.DeleteAppReplicationConfiguration,
+    DeleteAppReplicationConfiguration (DeleteAppReplicationConfiguration'),
+    newDeleteAppReplicationConfiguration,
+    DeleteAppReplicationConfigurationResponse (DeleteAppReplicationConfigurationResponse'),
+    newDeleteAppReplicationConfigurationResponse,
 
     -- ** DisassociateConnector
-    module Network.AWS.SMS.DisassociateConnector,
+    DisassociateConnector (DisassociateConnector'),
+    newDisassociateConnector,
+    DisassociateConnectorResponse (DisassociateConnectorResponse'),
+    newDisassociateConnectorResponse,
 
     -- ** NotifyAppValidationOutput
-    module Network.AWS.SMS.NotifyAppValidationOutput,
+    NotifyAppValidationOutput (NotifyAppValidationOutput'),
+    newNotifyAppValidationOutput,
+    NotifyAppValidationOutputResponse (NotifyAppValidationOutputResponse'),
+    newNotifyAppValidationOutputResponse,
 
     -- ** GetReplicationJobs (Paginated)
-    module Network.AWS.SMS.GetReplicationJobs,
+    GetReplicationJobs (GetReplicationJobs'),
+    newGetReplicationJobs,
+    GetReplicationJobsResponse (GetReplicationJobsResponse'),
+    newGetReplicationJobsResponse,
 
     -- ** StartOnDemandAppReplication
-    module Network.AWS.SMS.StartOnDemandAppReplication,
+    StartOnDemandAppReplication (StartOnDemandAppReplication'),
+    newStartOnDemandAppReplication,
+    StartOnDemandAppReplicationResponse (StartOnDemandAppReplicationResponse'),
+    newStartOnDemandAppReplicationResponse,
 
     -- ** GetAppValidationOutput
-    module Network.AWS.SMS.GetAppValidationOutput,
+    GetAppValidationOutput (GetAppValidationOutput'),
+    newGetAppValidationOutput,
+    GetAppValidationOutputResponse (GetAppValidationOutputResponse'),
+    newGetAppValidationOutputResponse,
 
     -- ** GetAppReplicationConfiguration
-    module Network.AWS.SMS.GetAppReplicationConfiguration,
+    GetAppReplicationConfiguration (GetAppReplicationConfiguration'),
+    newGetAppReplicationConfiguration,
+    GetAppReplicationConfigurationResponse (GetAppReplicationConfigurationResponse'),
+    newGetAppReplicationConfigurationResponse,
 
     -- ** DeleteAppValidationConfiguration
-    module Network.AWS.SMS.DeleteAppValidationConfiguration,
+    DeleteAppValidationConfiguration (DeleteAppValidationConfiguration'),
+    newDeleteAppValidationConfiguration,
+    DeleteAppValidationConfigurationResponse (DeleteAppValidationConfigurationResponse'),
+    newDeleteAppValidationConfigurationResponse,
 
     -- ** ImportServerCatalog
-    module Network.AWS.SMS.ImportServerCatalog,
+    ImportServerCatalog (ImportServerCatalog'),
+    newImportServerCatalog,
+    ImportServerCatalogResponse (ImportServerCatalogResponse'),
+    newImportServerCatalogResponse,
 
     -- ** DeleteApp
-    module Network.AWS.SMS.DeleteApp,
+    DeleteApp (DeleteApp'),
+    newDeleteApp,
+    DeleteAppResponse (DeleteAppResponse'),
+    newDeleteAppResponse,
 
     -- ** UpdateApp
-    module Network.AWS.SMS.UpdateApp,
+    UpdateApp (UpdateApp'),
+    newUpdateApp,
+    UpdateAppResponse (UpdateAppResponse'),
+    newUpdateAppResponse,
 
     -- ** DeleteAppLaunchConfiguration
-    module Network.AWS.SMS.DeleteAppLaunchConfiguration,
+    DeleteAppLaunchConfiguration (DeleteAppLaunchConfiguration'),
+    newDeleteAppLaunchConfiguration,
+    DeleteAppLaunchConfigurationResponse (DeleteAppLaunchConfigurationResponse'),
+    newDeleteAppLaunchConfigurationResponse,
 
     -- ** CreateApp
-    module Network.AWS.SMS.CreateApp,
+    CreateApp (CreateApp'),
+    newCreateApp,
+    CreateAppResponse (CreateAppResponse'),
+    newCreateAppResponse,
 
     -- ** GetAppLaunchConfiguration
-    module Network.AWS.SMS.GetAppLaunchConfiguration,
+    GetAppLaunchConfiguration (GetAppLaunchConfiguration'),
+    newGetAppLaunchConfiguration,
+    GetAppLaunchConfigurationResponse (GetAppLaunchConfigurationResponse'),
+    newGetAppLaunchConfigurationResponse,
 
     -- ** UpdateReplicationJob
-    module Network.AWS.SMS.UpdateReplicationJob,
+    UpdateReplicationJob (UpdateReplicationJob'),
+    newUpdateReplicationJob,
+    UpdateReplicationJobResponse (UpdateReplicationJobResponse'),
+    newUpdateReplicationJobResponse,
 
     -- ** DeleteReplicationJob
-    module Network.AWS.SMS.DeleteReplicationJob,
+    DeleteReplicationJob (DeleteReplicationJob'),
+    newDeleteReplicationJob,
+    DeleteReplicationJobResponse (DeleteReplicationJobResponse'),
+    newDeleteReplicationJobResponse,
 
     -- * Types
 
@@ -225,269 +332,127 @@ module Network.AWS.SMS
     -- ** ServerValidationStrategy
     ServerValidationStrategy (..),
 
-    -- ** VMManagerType
-    VMManagerType (..),
-
     -- ** ValidationStatus
     ValidationStatus (..),
 
+    -- ** VmManagerType
+    VmManagerType (..),
+
     -- ** AppSummary
-    AppSummary,
-    appSummary,
-    asStatusMessage,
-    asAppId,
-    asStatus,
-    asCreationTime,
-    asTotalServers,
-    asLaunchStatus,
-    asReplicationStatusMessage,
-    asRoleName,
-    asReplicationStatus,
-    asImportedAppId,
-    asReplicationConfigurationStatus,
-    asLatestReplicationTime,
-    asLaunchDetails,
-    asName,
-    asLaunchConfigurationStatus,
-    asDescription,
-    asLastModified,
-    asTotalServerGroups,
-    asLaunchStatusMessage,
+    AppSummary (AppSummary'),
+    newAppSummary,
 
     -- ** AppValidationConfiguration
-    AppValidationConfiguration,
-    appValidationConfiguration,
-    avcSsmValidationParameters,
-    avcAppValidationStrategy,
-    avcValidationId,
-    avcName,
+    AppValidationConfiguration (AppValidationConfiguration'),
+    newAppValidationConfiguration,
 
     -- ** AppValidationOutput
-    AppValidationOutput,
-    appValidationOutput,
-    avoSsmOutput,
+    AppValidationOutput (AppValidationOutput'),
+    newAppValidationOutput,
 
     -- ** Connector
-    Connector,
-    connector,
-    cStatus,
-    cMacAddress,
-    cAssociatedOn,
-    cConnectorId,
-    cVmManagerId,
-    cVersion,
-    cVmManagerName,
-    cIpAddress,
-    cVmManagerType,
-    cCapabilityList,
+    Connector (Connector'),
+    newConnector,
 
     -- ** LaunchDetails
-    LaunchDetails,
-    launchDetails,
-    ldStackName,
-    ldStackId,
-    ldLatestLaunchTime,
+    LaunchDetails (LaunchDetails'),
+    newLaunchDetails,
 
     -- ** NotificationContext
-    NotificationContext,
-    notificationContext,
-    ncStatusMessage,
-    ncStatus,
-    ncValidationId,
+    NotificationContext (NotificationContext'),
+    newNotificationContext,
 
     -- ** ReplicationJob
-    ReplicationJob,
-    replicationJob,
-    rjNextReplicationRunStartTime,
-    rjStatusMessage,
-    rjNumberOfRecentAMIsToKeep,
-    rjEncrypted,
-    rjLatestAMIId,
-    rjRoleName,
-    rjServerId,
-    rjState,
-    rjReplicationRunList,
-    rjKmsKeyId,
-    rjFrequency,
-    rjRunOnce,
-    rjDescription,
-    rjReplicationJobId,
-    rjSeedReplicationTime,
-    rjVmServer,
-    rjLicenseType,
-    rjServerType,
+    ReplicationJob (ReplicationJob'),
+    newReplicationJob,
 
     -- ** ReplicationRun
-    ReplicationRun,
-    replicationRun,
-    rrStatusMessage,
-    rrEncrypted,
-    rrReplicationRunId,
-    rrAmiId,
-    rrCompletedTime,
-    rrState,
-    rrKmsKeyId,
-    rrScheduledStartTime,
-    rrStageDetails,
-    rrDescription,
-    rrType,
+    ReplicationRun (ReplicationRun'),
+    newReplicationRun,
 
     -- ** ReplicationRunStageDetails
-    ReplicationRunStageDetails,
-    replicationRunStageDetails,
-    rrsdStage,
-    rrsdStageProgress,
+    ReplicationRunStageDetails (ReplicationRunStageDetails'),
+    newReplicationRunStageDetails,
 
     -- ** S3Location
-    S3Location,
-    s3Location,
-    slKey,
-    slBucket,
+    S3Location (S3Location'),
+    newS3Location,
 
     -- ** SSMOutput
-    SSMOutput,
-    sSMOutput,
-    ssmoS3Location,
+    SSMOutput (SSMOutput'),
+    newSSMOutput,
 
     -- ** SSMValidationParameters
-    SSMValidationParameters,
-    sSMValidationParameters,
-    ssmvpInstanceId,
-    ssmvpOutputS3BucketName,
-    ssmvpSource,
-    ssmvpScriptType,
-    ssmvpCommand,
-    ssmvpExecutionTimeoutSeconds,
+    SSMValidationParameters (SSMValidationParameters'),
+    newSSMValidationParameters,
 
     -- ** Server
-    Server,
-    server,
-    sServerId,
-    sReplicationJobId,
-    sReplicationJobTerminated,
-    sVmServer,
-    sServerType,
+    Server (Server'),
+    newServer,
 
     -- ** ServerGroup
-    ServerGroup,
-    serverGroup,
-    sgServerGroupId,
-    sgName,
-    sgServerList,
+    ServerGroup (ServerGroup'),
+    newServerGroup,
 
     -- ** ServerGroupLaunchConfiguration
-    ServerGroupLaunchConfiguration,
-    serverGroupLaunchConfiguration,
-    sglcServerGroupId,
-    sglcLaunchOrder,
-    sglcServerLaunchConfigurations,
+    ServerGroupLaunchConfiguration (ServerGroupLaunchConfiguration'),
+    newServerGroupLaunchConfiguration,
 
     -- ** ServerGroupReplicationConfiguration
-    ServerGroupReplicationConfiguration,
-    serverGroupReplicationConfiguration,
-    sgrcServerGroupId,
-    sgrcServerReplicationConfigurations,
+    ServerGroupReplicationConfiguration (ServerGroupReplicationConfiguration'),
+    newServerGroupReplicationConfiguration,
 
     -- ** ServerGroupValidationConfiguration
-    ServerGroupValidationConfiguration,
-    serverGroupValidationConfiguration,
-    sgvcServerGroupId,
-    sgvcServerValidationConfigurations,
+    ServerGroupValidationConfiguration (ServerGroupValidationConfiguration'),
+    newServerGroupValidationConfiguration,
 
     -- ** ServerLaunchConfiguration
-    ServerLaunchConfiguration,
-    serverLaunchConfiguration,
-    slcConfigureScript,
-    slcEc2KeyName,
-    slcInstanceType,
-    slcUserData,
-    slcLogicalId,
-    slcSubnet,
-    slcIamInstanceProfileName,
-    slcServer,
-    slcAssociatePublicIPAddress,
-    slcConfigureScriptType,
-    slcSecurityGroup,
-    slcVpc,
+    ServerLaunchConfiguration (ServerLaunchConfiguration'),
+    newServerLaunchConfiguration,
 
     -- ** ServerReplicationConfiguration
-    ServerReplicationConfiguration,
-    serverReplicationConfiguration,
-    srcServer,
-    srcServerReplicationParameters,
+    ServerReplicationConfiguration (ServerReplicationConfiguration'),
+    newServerReplicationConfiguration,
 
     -- ** ServerReplicationParameters
-    ServerReplicationParameters,
-    serverReplicationParameters,
-    srpNumberOfRecentAMIsToKeep,
-    srpEncrypted,
-    srpSeedTime,
-    srpKmsKeyId,
-    srpFrequency,
-    srpRunOnce,
-    srpLicenseType,
+    ServerReplicationParameters (ServerReplicationParameters'),
+    newServerReplicationParameters,
 
     -- ** ServerValidationConfiguration
-    ServerValidationConfiguration,
-    serverValidationConfiguration,
-    svcValidationId,
-    svcUserDataValidationParameters,
-    svcServer,
-    svcName,
-    svcServerValidationStrategy,
+    ServerValidationConfiguration (ServerValidationConfiguration'),
+    newServerValidationConfiguration,
 
     -- ** ServerValidationOutput
-    ServerValidationOutput,
-    serverValidationOutput,
-    svoServer,
+    ServerValidationOutput (ServerValidationOutput'),
+    newServerValidationOutput,
 
     -- ** Source
-    Source,
-    source,
-    sS3Location,
+    Source (Source'),
+    newSource,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** UserData
-    UserData,
-    userData,
-    udS3Location,
+    UserData (UserData'),
+    newUserData,
 
     -- ** UserDataValidationParameters
-    UserDataValidationParameters,
-    userDataValidationParameters,
-    udvpSource,
-    udvpScriptType,
-
-    -- ** VMServer
-    VMServer,
-    vMServer,
-    vmsVmPath,
-    vmsVmManagerName,
-    vmsVmName,
-    vmsVmServerAddress,
-    vmsVmManagerType,
-
-    -- ** VMServerAddress
-    VMServerAddress,
-    vMServerAddress,
-    vmsaVmManagerId,
-    vmsaVmId,
+    UserDataValidationParameters (UserDataValidationParameters'),
+    newUserDataValidationParameters,
 
     -- ** ValidationOutput
-    ValidationOutput,
-    validationOutput,
-    voStatusMessage,
-    voStatus,
-    voValidationId,
-    voAppValidationOutput,
-    voName,
-    voServerValidationOutput,
-    voLatestValidationTime,
+    ValidationOutput (ValidationOutput'),
+    newValidationOutput,
+
+    -- ** VmServer
+    VmServer (VmServer'),
+    newVmServer,
+
+    -- ** VmServerAddress
+    VmServerAddress (VmServerAddress'),
+    newVmServerAddress,
   )
 where
 
@@ -514,6 +479,7 @@ import Network.AWS.SMS.GetServers
 import Network.AWS.SMS.ImportAppCatalog
 import Network.AWS.SMS.ImportServerCatalog
 import Network.AWS.SMS.LaunchApp
+import Network.AWS.SMS.Lens
 import Network.AWS.SMS.ListApps
 import Network.AWS.SMS.NotifyAppValidationOutput
 import Network.AWS.SMS.PutAppLaunchConfiguration

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,128 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops replicating the specified application by deleting the replication job for each server in the application.
+-- Stops replicating the specified application by deleting the replication
+-- job for each server in the application.
 module Network.AWS.SMS.StopAppReplication
   ( -- * Creating a Request
-    stopAppReplication,
-    StopAppReplication,
+    StopAppReplication (..),
+    newStopAppReplication,
 
     -- * Request Lenses
-    sAppId,
+    stopAppReplication_appId,
 
     -- * Destructuring the Response
-    stopAppReplicationResponse,
-    StopAppReplicationResponse,
+    StopAppReplicationResponse (..),
+    newStopAppReplicationResponse,
 
     -- * Response Lenses
-    srsResponseStatus,
+    stopAppReplicationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'stopAppReplication' smart constructor.
-newtype StopAppReplication = StopAppReplication'
-  { _sAppId ::
-      Maybe Text
+-- | /See:/ 'newStopAppReplication' smart constructor.
+data StopAppReplication = StopAppReplication'
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAppReplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopAppReplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sAppId' - The ID of the application.
-stopAppReplication ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'stopAppReplication_appId' - The ID of the application.
+newStopAppReplication ::
   StopAppReplication
-stopAppReplication =
-  StopAppReplication' {_sAppId = Nothing}
+newStopAppReplication =
+  StopAppReplication' {appId = Prelude.Nothing}
 
 -- | The ID of the application.
-sAppId :: Lens' StopAppReplication (Maybe Text)
-sAppId = lens _sAppId (\s a -> s {_sAppId = a})
+stopAppReplication_appId :: Lens.Lens' StopAppReplication (Prelude.Maybe Prelude.Text)
+stopAppReplication_appId = Lens.lens (\StopAppReplication' {appId} -> appId) (\s@StopAppReplication' {} a -> s {appId = a} :: StopAppReplication)
 
-instance AWSRequest StopAppReplication where
+instance Prelude.AWSRequest StopAppReplication where
   type
     Rs StopAppReplication =
       StopAppReplicationResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StopAppReplicationResponse' <$> (pure (fromEnum s))
+          StopAppReplicationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopAppReplication
+instance Prelude.Hashable StopAppReplication
 
-instance NFData StopAppReplication
+instance Prelude.NFData StopAppReplication
 
-instance ToHeaders StopAppReplication where
+instance Prelude.ToHeaders StopAppReplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.StopAppReplication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.StopAppReplication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopAppReplication where
+instance Prelude.ToJSON StopAppReplication where
   toJSON StopAppReplication' {..} =
-    object (catMaybes [("appId" .=) <$> _sAppId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("appId" Prelude..=) Prelude.<$> appId]
+      )
 
-instance ToPath StopAppReplication where
-  toPath = const "/"
+instance Prelude.ToPath StopAppReplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopAppReplication where
-  toQuery = const mempty
+instance Prelude.ToQuery StopAppReplication where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopAppReplicationResponse' smart constructor.
-newtype StopAppReplicationResponse = StopAppReplicationResponse'
-  { _srsResponseStatus ::
-      Int
+-- | /See:/ 'newStopAppReplicationResponse' smart constructor.
+data StopAppReplicationResponse = StopAppReplicationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAppReplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopAppReplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopAppReplicationResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopAppReplicationResponse_httpStatus' - The response's http status code.
+newStopAppReplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopAppReplicationResponse
-stopAppReplicationResponse pResponseStatus_ =
+newStopAppReplicationResponse pHttpStatus_ =
   StopAppReplicationResponse'
-    { _srsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopAppReplicationResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopAppReplicationResponse_httpStatus :: Lens.Lens' StopAppReplicationResponse Prelude.Int
+stopAppReplicationResponse_httpStatus = Lens.lens (\StopAppReplicationResponse' {httpStatus} -> httpStatus) (\s@StopAppReplicationResponse' {} a -> s {httpStatus = a} :: StopAppReplicationResponse)
 
-instance NFData StopAppReplicationResponse
+instance Prelude.NFData StopAppReplicationResponse

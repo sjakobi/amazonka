@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.SMS.Types.AppStatus
   ( AppStatus
       ( ..,
-        ASActive,
-        ASCreating,
-        ASDeleteFailed,
-        ASDeleted,
-        ASDeleting,
-        ASUpdating
+        AppStatusACTIVE,
+        AppStatusCREATING,
+        AppStatusDELETED,
+        AppStatusDELETEFAILED,
+        AppStatusDELETING,
+        AppStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppStatus = AppStatus' (CI Text)
+newtype AppStatus = AppStatus'
+  { fromAppStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASActive :: AppStatus
-pattern ASActive = AppStatus' "ACTIVE"
+pattern AppStatusACTIVE :: AppStatus
+pattern AppStatusACTIVE = AppStatus' "ACTIVE"
 
-pattern ASCreating :: AppStatus
-pattern ASCreating = AppStatus' "CREATING"
+pattern AppStatusCREATING :: AppStatus
+pattern AppStatusCREATING = AppStatus' "CREATING"
 
-pattern ASDeleteFailed :: AppStatus
-pattern ASDeleteFailed = AppStatus' "DELETE_FAILED"
+pattern AppStatusDELETED :: AppStatus
+pattern AppStatusDELETED = AppStatus' "DELETED"
 
-pattern ASDeleted :: AppStatus
-pattern ASDeleted = AppStatus' "DELETED"
+pattern AppStatusDELETEFAILED :: AppStatus
+pattern AppStatusDELETEFAILED = AppStatus' "DELETE_FAILED"
 
-pattern ASDeleting :: AppStatus
-pattern ASDeleting = AppStatus' "DELETING"
+pattern AppStatusDELETING :: AppStatus
+pattern AppStatusDELETING = AppStatus' "DELETING"
 
-pattern ASUpdating :: AppStatus
-pattern ASUpdating = AppStatus' "UPDATING"
+pattern AppStatusUPDATING :: AppStatus
+pattern AppStatusUPDATING = AppStatus' "UPDATING"
 
 {-# COMPLETE
-  ASActive,
-  ASCreating,
-  ASDeleteFailed,
-  ASDeleted,
-  ASDeleting,
-  ASUpdating,
+  AppStatusACTIVE,
+  AppStatusCREATING,
+  AppStatusDELETED,
+  AppStatusDELETEFAILED,
+  AppStatusDELETING,
+  AppStatusUPDATING,
   AppStatus'
   #-}
 
-instance FromText AppStatus where
-  parser = (AppStatus' . mk) <$> takeText
+instance Prelude.FromText AppStatus where
+  parser = AppStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AppStatus where
-  toText (AppStatus' ci) = original ci
+instance Prelude.ToText AppStatus where
+  toText (AppStatus' x) = x
 
-instance Hashable AppStatus
+instance Prelude.Hashable AppStatus
 
-instance NFData AppStatus
+instance Prelude.NFData AppStatus
 
-instance ToByteString AppStatus
+instance Prelude.ToByteString AppStatus
 
-instance ToQuery AppStatus
+instance Prelude.ToQuery AppStatus
 
-instance ToHeader AppStatus
+instance Prelude.ToHeader AppStatus
 
-instance FromJSON AppStatus where
-  parseJSON = parseJSONText "AppStatus"
+instance Prelude.FromJSON AppStatus where
+  parseJSON = Prelude.parseJSONText "AppStatus"

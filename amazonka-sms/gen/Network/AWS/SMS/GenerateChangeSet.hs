@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a target change set for a currently launched stack and writes it to an Amazon S3 object in the customer’s Amazon S3 bucket.
+-- Generates a target change set for a currently launched stack and writes
+-- it to an Amazon S3 object in the customer’s Amazon S3 bucket.
 module Network.AWS.SMS.GenerateChangeSet
   ( -- * Creating a Request
-    generateChangeSet,
-    GenerateChangeSet,
+    GenerateChangeSet (..),
+    newGenerateChangeSet,
 
     -- * Request Lenses
-    gcsChangesetFormat,
-    gcsAppId,
+    generateChangeSet_changesetFormat,
+    generateChangeSet_appId,
 
     -- * Destructuring the Response
-    generateChangeSetResponse,
-    GenerateChangeSetResponse,
+    GenerateChangeSetResponse (..),
+    newGenerateChangeSetResponse,
 
     -- * Response Lenses
-    gcsrrsS3Location,
-    gcsrrsResponseStatus,
+    generateChangeSetResponse_s3Location,
+    generateChangeSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.S3Location
 
--- | /See:/ 'generateChangeSet' smart constructor.
+-- | /See:/ 'newGenerateChangeSet' smart constructor.
 data GenerateChangeSet = GenerateChangeSet'
-  { _gcsChangesetFormat ::
-      !(Maybe OutputFormat),
-    _gcsAppId :: !(Maybe Text)
+  { -- | The format for the change set.
+    changesetFormat :: Prelude.Maybe OutputFormat,
+    -- | The ID of the application associated with the change set.
+    appId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateChangeSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateChangeSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsChangesetFormat' - The format for the change set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsAppId' - The ID of the application associated with the change set.
-generateChangeSet ::
+-- 'changesetFormat', 'generateChangeSet_changesetFormat' - The format for the change set.
+--
+-- 'appId', 'generateChangeSet_appId' - The ID of the application associated with the change set.
+newGenerateChangeSet ::
   GenerateChangeSet
-generateChangeSet =
+newGenerateChangeSet =
   GenerateChangeSet'
-    { _gcsChangesetFormat = Nothing,
-      _gcsAppId = Nothing
+    { changesetFormat =
+        Prelude.Nothing,
+      appId = Prelude.Nothing
     }
 
 -- | The format for the change set.
-gcsChangesetFormat :: Lens' GenerateChangeSet (Maybe OutputFormat)
-gcsChangesetFormat = lens _gcsChangesetFormat (\s a -> s {_gcsChangesetFormat = a})
+generateChangeSet_changesetFormat :: Lens.Lens' GenerateChangeSet (Prelude.Maybe OutputFormat)
+generateChangeSet_changesetFormat = Lens.lens (\GenerateChangeSet' {changesetFormat} -> changesetFormat) (\s@GenerateChangeSet' {} a -> s {changesetFormat = a} :: GenerateChangeSet)
 
 -- | The ID of the application associated with the change set.
-gcsAppId :: Lens' GenerateChangeSet (Maybe Text)
-gcsAppId = lens _gcsAppId (\s a -> s {_gcsAppId = a})
+generateChangeSet_appId :: Lens.Lens' GenerateChangeSet (Prelude.Maybe Prelude.Text)
+generateChangeSet_appId = Lens.lens (\GenerateChangeSet' {appId} -> appId) (\s@GenerateChangeSet' {} a -> s {appId = a} :: GenerateChangeSet)
 
-instance AWSRequest GenerateChangeSet where
+instance Prelude.AWSRequest GenerateChangeSet where
   type Rs GenerateChangeSet = GenerateChangeSetResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GenerateChangeSetResponse'
-            <$> (x .?> "s3Location") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "s3Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GenerateChangeSet
+instance Prelude.Hashable GenerateChangeSet
 
-instance NFData GenerateChangeSet
+instance Prelude.NFData GenerateChangeSet
 
-instance ToHeaders GenerateChangeSet where
+instance Prelude.ToHeaders GenerateChangeSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.GenerateChangeSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.GenerateChangeSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GenerateChangeSet where
+instance Prelude.ToJSON GenerateChangeSet where
   toJSON GenerateChangeSet' {..} =
-    object
-      ( catMaybes
-          [ ("changesetFormat" .=) <$> _gcsChangesetFormat,
-            ("appId" .=) <$> _gcsAppId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("changesetFormat" Prelude..=)
+              Prelude.<$> changesetFormat,
+            ("appId" Prelude..=) Prelude.<$> appId
           ]
       )
 
-instance ToPath GenerateChangeSet where
-  toPath = const "/"
+instance Prelude.ToPath GenerateChangeSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery GenerateChangeSet where
-  toQuery = const mempty
+instance Prelude.ToQuery GenerateChangeSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'generateChangeSetResponse' smart constructor.
+-- | /See:/ 'newGenerateChangeSetResponse' smart constructor.
 data GenerateChangeSetResponse = GenerateChangeSetResponse'
-  { _gcsrrsS3Location ::
-      !(Maybe S3Location),
-    _gcsrrsResponseStatus ::
-      !Int
+  { -- | The location of the Amazon S3 object.
+    s3Location :: Prelude.Maybe S3Location,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateChangeSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateChangeSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcsrrsS3Location' - The location of the Amazon S3 object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcsrrsResponseStatus' - -- | The response status code.
-generateChangeSetResponse ::
-  -- | 'gcsrrsResponseStatus'
-  Int ->
+-- 's3Location', 'generateChangeSetResponse_s3Location' - The location of the Amazon S3 object.
+--
+-- 'httpStatus', 'generateChangeSetResponse_httpStatus' - The response's http status code.
+newGenerateChangeSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GenerateChangeSetResponse
-generateChangeSetResponse pResponseStatus_ =
+newGenerateChangeSetResponse pHttpStatus_ =
   GenerateChangeSetResponse'
-    { _gcsrrsS3Location =
-        Nothing,
-      _gcsrrsResponseStatus = pResponseStatus_
+    { s3Location =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The location of the Amazon S3 object.
-gcsrrsS3Location :: Lens' GenerateChangeSetResponse (Maybe S3Location)
-gcsrrsS3Location = lens _gcsrrsS3Location (\s a -> s {_gcsrrsS3Location = a})
+generateChangeSetResponse_s3Location :: Lens.Lens' GenerateChangeSetResponse (Prelude.Maybe S3Location)
+generateChangeSetResponse_s3Location = Lens.lens (\GenerateChangeSetResponse' {s3Location} -> s3Location) (\s@GenerateChangeSetResponse' {} a -> s {s3Location = a} :: GenerateChangeSetResponse)
 
--- | -- | The response status code.
-gcsrrsResponseStatus :: Lens' GenerateChangeSetResponse Int
-gcsrrsResponseStatus = lens _gcsrrsResponseStatus (\s a -> s {_gcsrrsResponseStatus = a})
+-- | The response's http status code.
+generateChangeSetResponse_httpStatus :: Lens.Lens' GenerateChangeSetResponse Prelude.Int
+generateChangeSetResponse_httpStatus = Lens.lens (\GenerateChangeSetResponse' {httpStatus} -> httpStatus) (\s@GenerateChangeSetResponse' {} a -> s {httpStatus = a} :: GenerateChangeSetResponse)
 
-instance NFData GenerateChangeSetResponse
+instance Prelude.NFData GenerateChangeSetResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,149 @@
 -- Starts an on-demand replication run for the specified application.
 module Network.AWS.SMS.StartOnDemandAppReplication
   ( -- * Creating a Request
-    startOnDemandAppReplication,
-    StartOnDemandAppReplication,
+    StartOnDemandAppReplication (..),
+    newStartOnDemandAppReplication,
 
     -- * Request Lenses
-    sodarDescription,
-    sodarAppId,
+    startOnDemandAppReplication_description,
+    startOnDemandAppReplication_appId,
 
     -- * Destructuring the Response
-    startOnDemandAppReplicationResponse,
-    StartOnDemandAppReplicationResponse,
+    StartOnDemandAppReplicationResponse (..),
+    newStartOnDemandAppReplicationResponse,
 
     -- * Response Lenses
-    sodarrrsResponseStatus,
+    startOnDemandAppReplicationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'startOnDemandAppReplication' smart constructor.
+-- | /See:/ 'newStartOnDemandAppReplication' smart constructor.
 data StartOnDemandAppReplication = StartOnDemandAppReplication'
-  { _sodarDescription ::
-      !(Maybe Text),
-    _sodarAppId ::
-      !Text
+  { -- | The description of the replication run.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the application.
+    appId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartOnDemandAppReplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartOnDemandAppReplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sodarDescription' - The description of the replication run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sodarAppId' - The ID of the application.
-startOnDemandAppReplication ::
-  -- | 'sodarAppId'
-  Text ->
+-- 'description', 'startOnDemandAppReplication_description' - The description of the replication run.
+--
+-- 'appId', 'startOnDemandAppReplication_appId' - The ID of the application.
+newStartOnDemandAppReplication ::
+  -- | 'appId'
+  Prelude.Text ->
   StartOnDemandAppReplication
-startOnDemandAppReplication pAppId_ =
+newStartOnDemandAppReplication pAppId_ =
   StartOnDemandAppReplication'
-    { _sodarDescription =
-        Nothing,
-      _sodarAppId = pAppId_
+    { description =
+        Prelude.Nothing,
+      appId = pAppId_
     }
 
 -- | The description of the replication run.
-sodarDescription :: Lens' StartOnDemandAppReplication (Maybe Text)
-sodarDescription = lens _sodarDescription (\s a -> s {_sodarDescription = a})
+startOnDemandAppReplication_description :: Lens.Lens' StartOnDemandAppReplication (Prelude.Maybe Prelude.Text)
+startOnDemandAppReplication_description = Lens.lens (\StartOnDemandAppReplication' {description} -> description) (\s@StartOnDemandAppReplication' {} a -> s {description = a} :: StartOnDemandAppReplication)
 
 -- | The ID of the application.
-sodarAppId :: Lens' StartOnDemandAppReplication Text
-sodarAppId = lens _sodarAppId (\s a -> s {_sodarAppId = a})
+startOnDemandAppReplication_appId :: Lens.Lens' StartOnDemandAppReplication Prelude.Text
+startOnDemandAppReplication_appId = Lens.lens (\StartOnDemandAppReplication' {appId} -> appId) (\s@StartOnDemandAppReplication' {} a -> s {appId = a} :: StartOnDemandAppReplication)
 
-instance AWSRequest StartOnDemandAppReplication where
+instance
+  Prelude.AWSRequest
+    StartOnDemandAppReplication
+  where
   type
     Rs StartOnDemandAppReplication =
       StartOnDemandAppReplicationResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StartOnDemandAppReplicationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartOnDemandAppReplication
+instance Prelude.Hashable StartOnDemandAppReplication
 
-instance NFData StartOnDemandAppReplication
+instance Prelude.NFData StartOnDemandAppReplication
 
-instance ToHeaders StartOnDemandAppReplication where
+instance
+  Prelude.ToHeaders
+    StartOnDemandAppReplication
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandAppReplication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandAppReplication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartOnDemandAppReplication where
+instance Prelude.ToJSON StartOnDemandAppReplication where
   toJSON StartOnDemandAppReplication' {..} =
-    object
-      ( catMaybes
-          [ ("description" .=) <$> _sodarDescription,
-            Just ("appId" .= _sodarAppId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("appId" Prelude..= appId)
           ]
       )
 
-instance ToPath StartOnDemandAppReplication where
-  toPath = const "/"
+instance Prelude.ToPath StartOnDemandAppReplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartOnDemandAppReplication where
-  toQuery = const mempty
+instance Prelude.ToQuery StartOnDemandAppReplication where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startOnDemandAppReplicationResponse' smart constructor.
-newtype StartOnDemandAppReplicationResponse = StartOnDemandAppReplicationResponse'
-  { _sodarrrsResponseStatus ::
-      Int
+-- | /See:/ 'newStartOnDemandAppReplicationResponse' smart constructor.
+data StartOnDemandAppReplicationResponse = StartOnDemandAppReplicationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartOnDemandAppReplicationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartOnDemandAppReplicationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sodarrrsResponseStatus' - -- | The response status code.
-startOnDemandAppReplicationResponse ::
-  -- | 'sodarrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startOnDemandAppReplicationResponse_httpStatus' - The response's http status code.
+newStartOnDemandAppReplicationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartOnDemandAppReplicationResponse
-startOnDemandAppReplicationResponse pResponseStatus_ =
+newStartOnDemandAppReplicationResponse pHttpStatus_ =
   StartOnDemandAppReplicationResponse'
-    { _sodarrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-sodarrrsResponseStatus :: Lens' StartOnDemandAppReplicationResponse Int
-sodarrrsResponseStatus = lens _sodarrrsResponseStatus (\s a -> s {_sodarrrsResponseStatus = a})
+-- | The response's http status code.
+startOnDemandAppReplicationResponse_httpStatus :: Lens.Lens' StartOnDemandAppReplicationResponse Prelude.Int
+startOnDemandAppReplicationResponse_httpStatus = Lens.lens (\StartOnDemandAppReplicationResponse' {httpStatus} -> httpStatus) (\s@StartOnDemandAppReplicationResponse' {} a -> s {httpStatus = a} :: StartOnDemandAppReplicationResponse)
 
-instance NFData StartOnDemandAppReplicationResponse
+instance
+  Prelude.NFData
+    StartOnDemandAppReplicationResponse

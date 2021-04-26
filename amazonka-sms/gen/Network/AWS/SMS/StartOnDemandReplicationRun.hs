@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an on-demand replication run for the specified replication job. This replication run starts immediately. This replication run is in addition to the ones already scheduled.
+-- Starts an on-demand replication run for the specified replication job.
+-- This replication run starts immediately. This replication run is in
+-- addition to the ones already scheduled.
 --
---
--- There is a limit on the number of on-demand replications runs that you can request in a 24-hour period.
+-- There is a limit on the number of on-demand replications runs that you
+-- can request in a 24-hour period.
 module Network.AWS.SMS.StartOnDemandReplicationRun
   ( -- * Creating a Request
-    startOnDemandReplicationRun,
-    StartOnDemandReplicationRun,
+    StartOnDemandReplicationRun (..),
+    newStartOnDemandReplicationRun,
 
     -- * Request Lenses
-    sodrrDescription,
-    sodrrReplicationJobId,
+    startOnDemandReplicationRun_description,
+    startOnDemandReplicationRun_replicationJobId,
 
     -- * Destructuring the Response
-    startOnDemandReplicationRunResponse,
-    StartOnDemandReplicationRunResponse,
+    StartOnDemandReplicationRunResponse (..),
+    newStartOnDemandReplicationRunResponse,
 
     -- * Response Lenses
-    sodrrrrsReplicationRunId,
-    sodrrrrsResponseStatus,
+    startOnDemandReplicationRunResponse_replicationRunId,
+    startOnDemandReplicationRunResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'startOnDemandReplicationRun' smart constructor.
+-- | /See:/ 'newStartOnDemandReplicationRun' smart constructor.
 data StartOnDemandReplicationRun = StartOnDemandReplicationRun'
-  { _sodrrDescription ::
-      !(Maybe Text),
-    _sodrrReplicationJobId ::
-      !Text
+  { -- | The description of the replication run.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the replication job.
+    replicationJobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartOnDemandReplicationRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartOnDemandReplicationRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sodrrDescription' - The description of the replication run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sodrrReplicationJobId' - The ID of the replication job.
-startOnDemandReplicationRun ::
-  -- | 'sodrrReplicationJobId'
-  Text ->
+-- 'description', 'startOnDemandReplicationRun_description' - The description of the replication run.
+--
+-- 'replicationJobId', 'startOnDemandReplicationRun_replicationJobId' - The ID of the replication job.
+newStartOnDemandReplicationRun ::
+  -- | 'replicationJobId'
+  Prelude.Text ->
   StartOnDemandReplicationRun
-startOnDemandReplicationRun pReplicationJobId_ =
+newStartOnDemandReplicationRun pReplicationJobId_ =
   StartOnDemandReplicationRun'
-    { _sodrrDescription =
-        Nothing,
-      _sodrrReplicationJobId = pReplicationJobId_
+    { description =
+        Prelude.Nothing,
+      replicationJobId = pReplicationJobId_
     }
 
 -- | The description of the replication run.
-sodrrDescription :: Lens' StartOnDemandReplicationRun (Maybe Text)
-sodrrDescription = lens _sodrrDescription (\s a -> s {_sodrrDescription = a})
+startOnDemandReplicationRun_description :: Lens.Lens' StartOnDemandReplicationRun (Prelude.Maybe Prelude.Text)
+startOnDemandReplicationRun_description = Lens.lens (\StartOnDemandReplicationRun' {description} -> description) (\s@StartOnDemandReplicationRun' {} a -> s {description = a} :: StartOnDemandReplicationRun)
 
 -- | The ID of the replication job.
-sodrrReplicationJobId :: Lens' StartOnDemandReplicationRun Text
-sodrrReplicationJobId = lens _sodrrReplicationJobId (\s a -> s {_sodrrReplicationJobId = a})
+startOnDemandReplicationRun_replicationJobId :: Lens.Lens' StartOnDemandReplicationRun Prelude.Text
+startOnDemandReplicationRun_replicationJobId = Lens.lens (\StartOnDemandReplicationRun' {replicationJobId} -> replicationJobId) (\s@StartOnDemandReplicationRun' {} a -> s {replicationJobId = a} :: StartOnDemandReplicationRun)
 
-instance AWSRequest StartOnDemandReplicationRun where
+instance
+  Prelude.AWSRequest
+    StartOnDemandReplicationRun
+  where
   type
     Rs StartOnDemandReplicationRun =
       StartOnDemandReplicationRunResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartOnDemandReplicationRunResponse'
-            <$> (x .?> "replicationRunId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "replicationRunId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartOnDemandReplicationRun
+instance Prelude.Hashable StartOnDemandReplicationRun
 
-instance NFData StartOnDemandReplicationRun
+instance Prelude.NFData StartOnDemandReplicationRun
 
-instance ToHeaders StartOnDemandReplicationRun where
+instance
+  Prelude.ToHeaders
+    StartOnDemandReplicationRun
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandReplicationRun" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandReplicationRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartOnDemandReplicationRun where
+instance Prelude.ToJSON StartOnDemandReplicationRun where
   toJSON StartOnDemandReplicationRun' {..} =
-    object
-      ( catMaybes
-          [ ("description" .=) <$> _sodrrDescription,
-            Just ("replicationJobId" .= _sodrrReplicationJobId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("replicationJobId" Prelude..= replicationJobId)
           ]
       )
 
-instance ToPath StartOnDemandReplicationRun where
-  toPath = const "/"
+instance Prelude.ToPath StartOnDemandReplicationRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartOnDemandReplicationRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StartOnDemandReplicationRun where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startOnDemandReplicationRunResponse' smart constructor.
+-- | /See:/ 'newStartOnDemandReplicationRunResponse' smart constructor.
 data StartOnDemandReplicationRunResponse = StartOnDemandReplicationRunResponse'
-  { _sodrrrrsReplicationRunId ::
-      !( Maybe
-           Text
-       ),
-    _sodrrrrsResponseStatus ::
-      !Int
+  { -- | The ID of the replication run.
+    replicationRunId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartOnDemandReplicationRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartOnDemandReplicationRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sodrrrrsReplicationRunId' - The ID of the replication run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sodrrrrsResponseStatus' - -- | The response status code.
-startOnDemandReplicationRunResponse ::
-  -- | 'sodrrrrsResponseStatus'
-  Int ->
+-- 'replicationRunId', 'startOnDemandReplicationRunResponse_replicationRunId' - The ID of the replication run.
+--
+-- 'httpStatus', 'startOnDemandReplicationRunResponse_httpStatus' - The response's http status code.
+newStartOnDemandReplicationRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartOnDemandReplicationRunResponse
-startOnDemandReplicationRunResponse pResponseStatus_ =
+newStartOnDemandReplicationRunResponse pHttpStatus_ =
   StartOnDemandReplicationRunResponse'
-    { _sodrrrrsReplicationRunId =
-        Nothing,
-      _sodrrrrsResponseStatus =
-        pResponseStatus_
+    { replicationRunId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the replication run.
-sodrrrrsReplicationRunId :: Lens' StartOnDemandReplicationRunResponse (Maybe Text)
-sodrrrrsReplicationRunId = lens _sodrrrrsReplicationRunId (\s a -> s {_sodrrrrsReplicationRunId = a})
+startOnDemandReplicationRunResponse_replicationRunId :: Lens.Lens' StartOnDemandReplicationRunResponse (Prelude.Maybe Prelude.Text)
+startOnDemandReplicationRunResponse_replicationRunId = Lens.lens (\StartOnDemandReplicationRunResponse' {replicationRunId} -> replicationRunId) (\s@StartOnDemandReplicationRunResponse' {} a -> s {replicationRunId = a} :: StartOnDemandReplicationRunResponse)
 
--- | -- | The response status code.
-sodrrrrsResponseStatus :: Lens' StartOnDemandReplicationRunResponse Int
-sodrrrrsResponseStatus = lens _sodrrrrsResponseStatus (\s a -> s {_sodrrrrsResponseStatus = a})
+-- | The response's http status code.
+startOnDemandReplicationRunResponse_httpStatus :: Lens.Lens' StartOnDemandReplicationRunResponse Prelude.Int
+startOnDemandReplicationRunResponse_httpStatus = Lens.lens (\StartOnDemandReplicationRunResponse' {httpStatus} -> httpStatus) (\s@StartOnDemandReplicationRunResponse' {} a -> s {httpStatus = a} :: StartOnDemandReplicationRunResponse)
 
-instance NFData StartOnDemandReplicationRunResponse
+instance
+  Prelude.NFData
+    StartOnDemandReplicationRunResponse

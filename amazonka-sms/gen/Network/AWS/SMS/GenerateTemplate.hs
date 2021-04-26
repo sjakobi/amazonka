@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates an AWS CloudFormation template based on the current launch configuration and writes it to an Amazon S3 object in the customer’s Amazon S3 bucket.
+-- Generates an AWS CloudFormation template based on the current launch
+-- configuration and writes it to an Amazon S3 object in the customer’s
+-- Amazon S3 bucket.
 module Network.AWS.SMS.GenerateTemplate
   ( -- * Creating a Request
-    generateTemplate,
-    GenerateTemplate,
+    GenerateTemplate (..),
+    newGenerateTemplate,
 
     -- * Request Lenses
-    gtAppId,
-    gtTemplateFormat,
+    generateTemplate_appId,
+    generateTemplate_templateFormat,
 
     -- * Destructuring the Response
-    generateTemplateResponse,
-    GenerateTemplateResponse,
+    GenerateTemplateResponse (..),
+    newGenerateTemplateResponse,
 
     -- * Response Lenses
-    gtrrsS3Location,
-    gtrrsResponseStatus,
+    generateTemplateResponse_s3Location,
+    generateTemplateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.S3Location
 
--- | /See:/ 'generateTemplate' smart constructor.
+-- | /See:/ 'newGenerateTemplate' smart constructor.
 data GenerateTemplate = GenerateTemplate'
-  { _gtAppId ::
-      !(Maybe Text),
-    _gtTemplateFormat ::
-      !(Maybe OutputFormat)
+  { -- | The ID of the application associated with the AWS CloudFormation
+    -- template.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | The format for generating the AWS CloudFormation template.
+    templateFormat :: Prelude.Maybe OutputFormat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtAppId' - The ID of the application associated with the AWS CloudFormation template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtTemplateFormat' - The format for generating the AWS CloudFormation template.
-generateTemplate ::
+-- 'appId', 'generateTemplate_appId' - The ID of the application associated with the AWS CloudFormation
+-- template.
+--
+-- 'templateFormat', 'generateTemplate_templateFormat' - The format for generating the AWS CloudFormation template.
+newGenerateTemplate ::
   GenerateTemplate
-generateTemplate =
+newGenerateTemplate =
   GenerateTemplate'
-    { _gtAppId = Nothing,
-      _gtTemplateFormat = Nothing
+    { appId = Prelude.Nothing,
+      templateFormat = Prelude.Nothing
     }
 
--- | The ID of the application associated with the AWS CloudFormation template.
-gtAppId :: Lens' GenerateTemplate (Maybe Text)
-gtAppId = lens _gtAppId (\s a -> s {_gtAppId = a})
+-- | The ID of the application associated with the AWS CloudFormation
+-- template.
+generateTemplate_appId :: Lens.Lens' GenerateTemplate (Prelude.Maybe Prelude.Text)
+generateTemplate_appId = Lens.lens (\GenerateTemplate' {appId} -> appId) (\s@GenerateTemplate' {} a -> s {appId = a} :: GenerateTemplate)
 
 -- | The format for generating the AWS CloudFormation template.
-gtTemplateFormat :: Lens' GenerateTemplate (Maybe OutputFormat)
-gtTemplateFormat = lens _gtTemplateFormat (\s a -> s {_gtTemplateFormat = a})
+generateTemplate_templateFormat :: Lens.Lens' GenerateTemplate (Prelude.Maybe OutputFormat)
+generateTemplate_templateFormat = Lens.lens (\GenerateTemplate' {templateFormat} -> templateFormat) (\s@GenerateTemplate' {} a -> s {templateFormat = a} :: GenerateTemplate)
 
-instance AWSRequest GenerateTemplate where
+instance Prelude.AWSRequest GenerateTemplate where
   type Rs GenerateTemplate = GenerateTemplateResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GenerateTemplateResponse'
-            <$> (x .?> "s3Location") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "s3Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GenerateTemplate
+instance Prelude.Hashable GenerateTemplate
 
-instance NFData GenerateTemplate
+instance Prelude.NFData GenerateTemplate
 
-instance ToHeaders GenerateTemplate where
+instance Prelude.ToHeaders GenerateTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.GenerateTemplate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.GenerateTemplate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GenerateTemplate where
+instance Prelude.ToJSON GenerateTemplate where
   toJSON GenerateTemplate' {..} =
-    object
-      ( catMaybes
-          [ ("appId" .=) <$> _gtAppId,
-            ("templateFormat" .=) <$> _gtTemplateFormat
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("appId" Prelude..=) Prelude.<$> appId,
+            ("templateFormat" Prelude..=)
+              Prelude.<$> templateFormat
           ]
       )
 
-instance ToPath GenerateTemplate where
-  toPath = const "/"
+instance Prelude.ToPath GenerateTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery GenerateTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery GenerateTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'generateTemplateResponse' smart constructor.
+-- | /See:/ 'newGenerateTemplateResponse' smart constructor.
 data GenerateTemplateResponse = GenerateTemplateResponse'
-  { _gtrrsS3Location ::
-      !(Maybe S3Location),
-    _gtrrsResponseStatus ::
-      !Int
+  { -- | The location of the Amazon S3 object.
+    s3Location :: Prelude.Maybe S3Location,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsS3Location' - The location of the Amazon S3 object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
-generateTemplateResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
+-- 's3Location', 'generateTemplateResponse_s3Location' - The location of the Amazon S3 object.
+--
+-- 'httpStatus', 'generateTemplateResponse_httpStatus' - The response's http status code.
+newGenerateTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GenerateTemplateResponse
-generateTemplateResponse pResponseStatus_ =
+newGenerateTemplateResponse pHttpStatus_ =
   GenerateTemplateResponse'
-    { _gtrrsS3Location =
-        Nothing,
-      _gtrrsResponseStatus = pResponseStatus_
+    { s3Location =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The location of the Amazon S3 object.
-gtrrsS3Location :: Lens' GenerateTemplateResponse (Maybe S3Location)
-gtrrsS3Location = lens _gtrrsS3Location (\s a -> s {_gtrrsS3Location = a})
+generateTemplateResponse_s3Location :: Lens.Lens' GenerateTemplateResponse (Prelude.Maybe S3Location)
+generateTemplateResponse_s3Location = Lens.lens (\GenerateTemplateResponse' {s3Location} -> s3Location) (\s@GenerateTemplateResponse' {} a -> s {s3Location = a} :: GenerateTemplateResponse)
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GenerateTemplateResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+generateTemplateResponse_httpStatus :: Lens.Lens' GenerateTemplateResponse Prelude.Int
+generateTemplateResponse_httpStatus = Lens.lens (\GenerateTemplateResponse' {httpStatus} -> httpStatus) (\s@GenerateTemplateResponse' {} a -> s {httpStatus = a} :: GenerateTemplateResponse)
 
-instance NFData GenerateTemplateResponse
+instance Prelude.NFData GenerateTemplateResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,210 @@
 --
 -- Describes the specified replication job or all of your replication jobs.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SMS.GetReplicationJobs
   ( -- * Creating a Request
-    getReplicationJobs,
-    GetReplicationJobs,
+    GetReplicationJobs (..),
+    newGetReplicationJobs,
 
     -- * Request Lenses
-    grjNextToken,
-    grjMaxResults,
-    grjReplicationJobId,
+    getReplicationJobs_nextToken,
+    getReplicationJobs_maxResults,
+    getReplicationJobs_replicationJobId,
 
     -- * Destructuring the Response
-    getReplicationJobsResponse,
-    GetReplicationJobsResponse,
+    GetReplicationJobsResponse (..),
+    newGetReplicationJobsResponse,
 
     -- * Response Lenses
-    grjrrsNextToken,
-    grjrrsReplicationJobList,
-    grjrrsResponseStatus,
+    getReplicationJobsResponse_nextToken,
+    getReplicationJobsResponse_replicationJobList,
+    getReplicationJobsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.ReplicationJob
 
--- | /See:/ 'getReplicationJobs' smart constructor.
+-- | /See:/ 'newGetReplicationJobs' smart constructor.
 data GetReplicationJobs = GetReplicationJobs'
-  { _grjNextToken ::
-      !(Maybe Text),
-    _grjMaxResults :: !(Maybe Int),
-    _grjReplicationJobId ::
-      !(Maybe Text)
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a single call. The default
+    -- value is 50. To retrieve the remaining results, make another call with
+    -- the returned @NextToken@ value.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the replication job.
+    replicationJobId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetReplicationJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetReplicationJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grjNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grjMaxResults' - The maximum number of results to return in a single call. The default value is 50. To retrieve the remaining results, make another call with the returned @NextToken@ value.
+-- 'nextToken', 'getReplicationJobs_nextToken' - The token for the next set of results.
 --
--- * 'grjReplicationJobId' - The ID of the replication job.
-getReplicationJobs ::
+-- 'maxResults', 'getReplicationJobs_maxResults' - The maximum number of results to return in a single call. The default
+-- value is 50. To retrieve the remaining results, make another call with
+-- the returned @NextToken@ value.
+--
+-- 'replicationJobId', 'getReplicationJobs_replicationJobId' - The ID of the replication job.
+newGetReplicationJobs ::
   GetReplicationJobs
-getReplicationJobs =
+newGetReplicationJobs =
   GetReplicationJobs'
-    { _grjNextToken = Nothing,
-      _grjMaxResults = Nothing,
-      _grjReplicationJobId = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      replicationJobId = Prelude.Nothing
     }
 
 -- | The token for the next set of results.
-grjNextToken :: Lens' GetReplicationJobs (Maybe Text)
-grjNextToken = lens _grjNextToken (\s a -> s {_grjNextToken = a})
+getReplicationJobs_nextToken :: Lens.Lens' GetReplicationJobs (Prelude.Maybe Prelude.Text)
+getReplicationJobs_nextToken = Lens.lens (\GetReplicationJobs' {nextToken} -> nextToken) (\s@GetReplicationJobs' {} a -> s {nextToken = a} :: GetReplicationJobs)
 
--- | The maximum number of results to return in a single call. The default value is 50. To retrieve the remaining results, make another call with the returned @NextToken@ value.
-grjMaxResults :: Lens' GetReplicationJobs (Maybe Int)
-grjMaxResults = lens _grjMaxResults (\s a -> s {_grjMaxResults = a})
+-- | The maximum number of results to return in a single call. The default
+-- value is 50. To retrieve the remaining results, make another call with
+-- the returned @NextToken@ value.
+getReplicationJobs_maxResults :: Lens.Lens' GetReplicationJobs (Prelude.Maybe Prelude.Int)
+getReplicationJobs_maxResults = Lens.lens (\GetReplicationJobs' {maxResults} -> maxResults) (\s@GetReplicationJobs' {} a -> s {maxResults = a} :: GetReplicationJobs)
 
 -- | The ID of the replication job.
-grjReplicationJobId :: Lens' GetReplicationJobs (Maybe Text)
-grjReplicationJobId = lens _grjReplicationJobId (\s a -> s {_grjReplicationJobId = a})
+getReplicationJobs_replicationJobId :: Lens.Lens' GetReplicationJobs (Prelude.Maybe Prelude.Text)
+getReplicationJobs_replicationJobId = Lens.lens (\GetReplicationJobs' {replicationJobId} -> replicationJobId) (\s@GetReplicationJobs' {} a -> s {replicationJobId = a} :: GetReplicationJobs)
 
-instance AWSPager GetReplicationJobs where
+instance Pager.AWSPager GetReplicationJobs where
   page rq rs
-    | stop (rs ^. grjrrsNextToken) = Nothing
-    | stop (rs ^. grjrrsReplicationJobList) = Nothing
-    | otherwise =
-      Just $ rq & grjNextToken .~ rs ^. grjrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getReplicationJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getReplicationJobsResponse_replicationJobList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getReplicationJobs_nextToken
+          Lens..~ rs
+          Lens.^? getReplicationJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetReplicationJobs where
+instance Prelude.AWSRequest GetReplicationJobs where
   type
     Rs GetReplicationJobs =
       GetReplicationJobsResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetReplicationJobsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "replicationJobList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "replicationJobList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetReplicationJobs
+instance Prelude.Hashable GetReplicationJobs
 
-instance NFData GetReplicationJobs
+instance Prelude.NFData GetReplicationJobs
 
-instance ToHeaders GetReplicationJobs where
+instance Prelude.ToHeaders GetReplicationJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.GetReplicationJobs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.GetReplicationJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetReplicationJobs where
+instance Prelude.ToJSON GetReplicationJobs where
   toJSON GetReplicationJobs' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _grjNextToken,
-            ("maxResults" .=) <$> _grjMaxResults,
-            ("replicationJobId" .=) <$> _grjReplicationJobId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("replicationJobId" Prelude..=)
+              Prelude.<$> replicationJobId
           ]
       )
 
-instance ToPath GetReplicationJobs where
-  toPath = const "/"
+instance Prelude.ToPath GetReplicationJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetReplicationJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery GetReplicationJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getReplicationJobsResponse' smart constructor.
+-- | /See:/ 'newGetReplicationJobsResponse' smart constructor.
 data GetReplicationJobsResponse = GetReplicationJobsResponse'
-  { _grjrrsNextToken ::
-      !(Maybe Text),
-    _grjrrsReplicationJobList ::
-      !( Maybe
-           [ReplicationJob]
-       ),
-    _grjrrsResponseStatus ::
-      !Int
+  { -- | The token required to retrieve the next set of results. This value is
+    -- null when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the replication jobs.
+    replicationJobList :: Prelude.Maybe [ReplicationJob],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetReplicationJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetReplicationJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grjrrsNextToken' - The token required to retrieve the next set of results. This value is null when there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grjrrsReplicationJobList' - Information about the replication jobs.
+-- 'nextToken', 'getReplicationJobsResponse_nextToken' - The token required to retrieve the next set of results. This value is
+-- null when there are no more results to return.
 --
--- * 'grjrrsResponseStatus' - -- | The response status code.
-getReplicationJobsResponse ::
-  -- | 'grjrrsResponseStatus'
-  Int ->
+-- 'replicationJobList', 'getReplicationJobsResponse_replicationJobList' - Information about the replication jobs.
+--
+-- 'httpStatus', 'getReplicationJobsResponse_httpStatus' - The response's http status code.
+newGetReplicationJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetReplicationJobsResponse
-getReplicationJobsResponse pResponseStatus_ =
+newGetReplicationJobsResponse pHttpStatus_ =
   GetReplicationJobsResponse'
-    { _grjrrsNextToken =
-        Nothing,
-      _grjrrsReplicationJobList = Nothing,
-      _grjrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      replicationJobList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token required to retrieve the next set of results. This value is null when there are no more results to return.
-grjrrsNextToken :: Lens' GetReplicationJobsResponse (Maybe Text)
-grjrrsNextToken = lens _grjrrsNextToken (\s a -> s {_grjrrsNextToken = a})
+-- | The token required to retrieve the next set of results. This value is
+-- null when there are no more results to return.
+getReplicationJobsResponse_nextToken :: Lens.Lens' GetReplicationJobsResponse (Prelude.Maybe Prelude.Text)
+getReplicationJobsResponse_nextToken = Lens.lens (\GetReplicationJobsResponse' {nextToken} -> nextToken) (\s@GetReplicationJobsResponse' {} a -> s {nextToken = a} :: GetReplicationJobsResponse)
 
 -- | Information about the replication jobs.
-grjrrsReplicationJobList :: Lens' GetReplicationJobsResponse [ReplicationJob]
-grjrrsReplicationJobList = lens _grjrrsReplicationJobList (\s a -> s {_grjrrsReplicationJobList = a}) . _Default . _Coerce
+getReplicationJobsResponse_replicationJobList :: Lens.Lens' GetReplicationJobsResponse (Prelude.Maybe [ReplicationJob])
+getReplicationJobsResponse_replicationJobList = Lens.lens (\GetReplicationJobsResponse' {replicationJobList} -> replicationJobList) (\s@GetReplicationJobsResponse' {} a -> s {replicationJobList = a} :: GetReplicationJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-grjrrsResponseStatus :: Lens' GetReplicationJobsResponse Int
-grjrrsResponseStatus = lens _grjrrsResponseStatus (\s a -> s {_grjrrsResponseStatus = a})
+-- | The response's http status code.
+getReplicationJobsResponse_httpStatus :: Lens.Lens' GetReplicationJobsResponse Prelude.Int
+getReplicationJobsResponse_httpStatus = Lens.lens (\GetReplicationJobsResponse' {httpStatus} -> httpStatus) (\s@GetReplicationJobsResponse' {} a -> s {httpStatus = a} :: GetReplicationJobsResponse)
 
-instance NFData GetReplicationJobsResponse
+instance Prelude.NFData GetReplicationJobsResponse

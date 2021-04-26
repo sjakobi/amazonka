@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.SMS.Types.ReplicationJobState
   ( ReplicationJobState
       ( ..,
-        Active,
-        Completed,
-        Deleted,
-        Deleting,
-        Failed,
-        Failing,
-        PausedOnFailure,
-        Pending
+        ReplicationJobStateACTIVE,
+        ReplicationJobStateCOMPLETED,
+        ReplicationJobStateDELETED,
+        ReplicationJobStateDELETING,
+        ReplicationJobStateFAILED,
+        ReplicationJobStateFAILING,
+        ReplicationJobStatePAUSEDONFAILURE,
+        ReplicationJobStatePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplicationJobState
-  = ReplicationJobState'
-      ( CI
-          Text
-      )
+newtype ReplicationJobState = ReplicationJobState'
+  { fromReplicationJobState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ReplicationJobState
-pattern Active = ReplicationJobState' "ACTIVE"
+pattern ReplicationJobStateACTIVE :: ReplicationJobState
+pattern ReplicationJobStateACTIVE = ReplicationJobState' "ACTIVE"
 
-pattern Completed :: ReplicationJobState
-pattern Completed = ReplicationJobState' "COMPLETED"
+pattern ReplicationJobStateCOMPLETED :: ReplicationJobState
+pattern ReplicationJobStateCOMPLETED = ReplicationJobState' "COMPLETED"
 
-pattern Deleted :: ReplicationJobState
-pattern Deleted = ReplicationJobState' "DELETED"
+pattern ReplicationJobStateDELETED :: ReplicationJobState
+pattern ReplicationJobStateDELETED = ReplicationJobState' "DELETED"
 
-pattern Deleting :: ReplicationJobState
-pattern Deleting = ReplicationJobState' "DELETING"
+pattern ReplicationJobStateDELETING :: ReplicationJobState
+pattern ReplicationJobStateDELETING = ReplicationJobState' "DELETING"
 
-pattern Failed :: ReplicationJobState
-pattern Failed = ReplicationJobState' "FAILED"
+pattern ReplicationJobStateFAILED :: ReplicationJobState
+pattern ReplicationJobStateFAILED = ReplicationJobState' "FAILED"
 
-pattern Failing :: ReplicationJobState
-pattern Failing = ReplicationJobState' "FAILING"
+pattern ReplicationJobStateFAILING :: ReplicationJobState
+pattern ReplicationJobStateFAILING = ReplicationJobState' "FAILING"
 
-pattern PausedOnFailure :: ReplicationJobState
-pattern PausedOnFailure = ReplicationJobState' "PAUSED_ON_FAILURE"
+pattern ReplicationJobStatePAUSEDONFAILURE :: ReplicationJobState
+pattern ReplicationJobStatePAUSEDONFAILURE = ReplicationJobState' "PAUSED_ON_FAILURE"
 
-pattern Pending :: ReplicationJobState
-pattern Pending = ReplicationJobState' "PENDING"
+pattern ReplicationJobStatePENDING :: ReplicationJobState
+pattern ReplicationJobStatePENDING = ReplicationJobState' "PENDING"
 
 {-# COMPLETE
-  Active,
-  Completed,
-  Deleted,
-  Deleting,
-  Failed,
-  Failing,
-  PausedOnFailure,
-  Pending,
+  ReplicationJobStateACTIVE,
+  ReplicationJobStateCOMPLETED,
+  ReplicationJobStateDELETED,
+  ReplicationJobStateDELETING,
+  ReplicationJobStateFAILED,
+  ReplicationJobStateFAILING,
+  ReplicationJobStatePAUSEDONFAILURE,
+  ReplicationJobStatePENDING,
   ReplicationJobState'
   #-}
 
-instance FromText ReplicationJobState where
-  parser = (ReplicationJobState' . mk) <$> takeText
+instance Prelude.FromText ReplicationJobState where
+  parser = ReplicationJobState' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationJobState where
-  toText (ReplicationJobState' ci) = original ci
+instance Prelude.ToText ReplicationJobState where
+  toText (ReplicationJobState' x) = x
 
-instance Hashable ReplicationJobState
+instance Prelude.Hashable ReplicationJobState
 
-instance NFData ReplicationJobState
+instance Prelude.NFData ReplicationJobState
 
-instance ToByteString ReplicationJobState
+instance Prelude.ToByteString ReplicationJobState
 
-instance ToQuery ReplicationJobState
+instance Prelude.ToQuery ReplicationJobState
 
-instance ToHeader ReplicationJobState
+instance Prelude.ToHeader ReplicationJobState
 
-instance FromJSON ReplicationJobState where
-  parseJSON = parseJSONText "ReplicationJobState"
+instance Prelude.FromJSON ReplicationJobState where
+  parseJSON = Prelude.parseJSONText "ReplicationJobState"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.AppValidationConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.AppValidationStrategy
 import Network.AWS.SMS.Types.SSMValidationParameters
 
 -- | Configuration for validating an application.
 --
---
---
--- /See:/ 'appValidationConfiguration' smart constructor.
+-- /See:/ 'newAppValidationConfiguration' smart constructor.
 data AppValidationConfiguration = AppValidationConfiguration'
-  { _avcSsmValidationParameters ::
-      !( Maybe
-           SSMValidationParameters
-       ),
-    _avcAppValidationStrategy ::
-      !( Maybe
-           AppValidationStrategy
-       ),
-    _avcValidationId ::
-      !(Maybe Text),
-    _avcName ::
-      !(Maybe Text)
+  { -- | The validation parameters.
+    ssmValidationParameters :: Prelude.Maybe SSMValidationParameters,
+    -- | The validation strategy.
+    appValidationStrategy :: Prelude.Maybe AppValidationStrategy,
+    -- | The ID of the validation.
+    validationId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the configuration.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AppValidationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AppValidationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avcSsmValidationParameters' - The validation parameters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avcAppValidationStrategy' - The validation strategy.
+-- 'ssmValidationParameters', 'appValidationConfiguration_ssmValidationParameters' - The validation parameters.
 --
--- * 'avcValidationId' - The ID of the validation.
+-- 'appValidationStrategy', 'appValidationConfiguration_appValidationStrategy' - The validation strategy.
 --
--- * 'avcName' - The name of the configuration.
-appValidationConfiguration ::
+-- 'validationId', 'appValidationConfiguration_validationId' - The ID of the validation.
+--
+-- 'name', 'appValidationConfiguration_name' - The name of the configuration.
+newAppValidationConfiguration ::
   AppValidationConfiguration
-appValidationConfiguration =
+newAppValidationConfiguration =
   AppValidationConfiguration'
-    { _avcSsmValidationParameters =
-        Nothing,
-      _avcAppValidationStrategy = Nothing,
-      _avcValidationId = Nothing,
-      _avcName = Nothing
+    { ssmValidationParameters =
+        Prelude.Nothing,
+      appValidationStrategy = Prelude.Nothing,
+      validationId = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The validation parameters.
-avcSsmValidationParameters :: Lens' AppValidationConfiguration (Maybe SSMValidationParameters)
-avcSsmValidationParameters = lens _avcSsmValidationParameters (\s a -> s {_avcSsmValidationParameters = a})
+appValidationConfiguration_ssmValidationParameters :: Lens.Lens' AppValidationConfiguration (Prelude.Maybe SSMValidationParameters)
+appValidationConfiguration_ssmValidationParameters = Lens.lens (\AppValidationConfiguration' {ssmValidationParameters} -> ssmValidationParameters) (\s@AppValidationConfiguration' {} a -> s {ssmValidationParameters = a} :: AppValidationConfiguration)
 
 -- | The validation strategy.
-avcAppValidationStrategy :: Lens' AppValidationConfiguration (Maybe AppValidationStrategy)
-avcAppValidationStrategy = lens _avcAppValidationStrategy (\s a -> s {_avcAppValidationStrategy = a})
+appValidationConfiguration_appValidationStrategy :: Lens.Lens' AppValidationConfiguration (Prelude.Maybe AppValidationStrategy)
+appValidationConfiguration_appValidationStrategy = Lens.lens (\AppValidationConfiguration' {appValidationStrategy} -> appValidationStrategy) (\s@AppValidationConfiguration' {} a -> s {appValidationStrategy = a} :: AppValidationConfiguration)
 
 -- | The ID of the validation.
-avcValidationId :: Lens' AppValidationConfiguration (Maybe Text)
-avcValidationId = lens _avcValidationId (\s a -> s {_avcValidationId = a})
+appValidationConfiguration_validationId :: Lens.Lens' AppValidationConfiguration (Prelude.Maybe Prelude.Text)
+appValidationConfiguration_validationId = Lens.lens (\AppValidationConfiguration' {validationId} -> validationId) (\s@AppValidationConfiguration' {} a -> s {validationId = a} :: AppValidationConfiguration)
 
 -- | The name of the configuration.
-avcName :: Lens' AppValidationConfiguration (Maybe Text)
-avcName = lens _avcName (\s a -> s {_avcName = a})
+appValidationConfiguration_name :: Lens.Lens' AppValidationConfiguration (Prelude.Maybe Prelude.Text)
+appValidationConfiguration_name = Lens.lens (\AppValidationConfiguration' {name} -> name) (\s@AppValidationConfiguration' {} a -> s {name = a} :: AppValidationConfiguration)
 
-instance FromJSON AppValidationConfiguration where
+instance Prelude.FromJSON AppValidationConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AppValidationConfiguration"
       ( \x ->
           AppValidationConfiguration'
-            <$> (x .:? "ssmValidationParameters")
-            <*> (x .:? "appValidationStrategy")
-            <*> (x .:? "validationId")
-            <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "ssmValidationParameters")
+            Prelude.<*> (x Prelude..:? "appValidationStrategy")
+            Prelude.<*> (x Prelude..:? "validationId")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable AppValidationConfiguration
+instance Prelude.Hashable AppValidationConfiguration
 
-instance NFData AppValidationConfiguration
+instance Prelude.NFData AppValidationConfiguration
 
-instance ToJSON AppValidationConfiguration where
+instance Prelude.ToJSON AppValidationConfiguration where
   toJSON AppValidationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ssmValidationParameters" .=)
-              <$> _avcSsmValidationParameters,
-            ("appValidationStrategy" .=)
-              <$> _avcAppValidationStrategy,
-            ("validationId" .=) <$> _avcValidationId,
-            ("name" .=) <$> _avcName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ssmValidationParameters" Prelude..=)
+              Prelude.<$> ssmValidationParameters,
+            ("appValidationStrategy" Prelude..=)
+              Prelude.<$> appValidationStrategy,
+            ("validationId" Prelude..=) Prelude.<$> validationId,
+            ("name" Prelude..=) Prelude.<$> name
           ]
       )

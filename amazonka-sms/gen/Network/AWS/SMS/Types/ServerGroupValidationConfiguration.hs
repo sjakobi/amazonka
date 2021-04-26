@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ServerGroupValidationConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.ServerValidationConfiguration
 
 -- | Configuration for validating an instance.
 --
---
---
--- /See:/ 'serverGroupValidationConfiguration' smart constructor.
+-- /See:/ 'newServerGroupValidationConfiguration' smart constructor.
 data ServerGroupValidationConfiguration = ServerGroupValidationConfiguration'
-  { _sgvcServerGroupId ::
-      !( Maybe
-           Text
-       ),
-    _sgvcServerValidationConfigurations ::
-      !( Maybe
-           [ServerValidationConfiguration]
-       )
+  { -- | The ID of the server group.
+    serverGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The validation configuration.
+    serverValidationConfigurations :: Prelude.Maybe [ServerValidationConfiguration]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerGroupValidationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerGroupValidationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgvcServerGroupId' - The ID of the server group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgvcServerValidationConfigurations' - The validation configuration.
-serverGroupValidationConfiguration ::
+-- 'serverGroupId', 'serverGroupValidationConfiguration_serverGroupId' - The ID of the server group.
+--
+-- 'serverValidationConfigurations', 'serverGroupValidationConfiguration_serverValidationConfigurations' - The validation configuration.
+newServerGroupValidationConfiguration ::
   ServerGroupValidationConfiguration
-serverGroupValidationConfiguration =
+newServerGroupValidationConfiguration =
   ServerGroupValidationConfiguration'
-    { _sgvcServerGroupId =
-        Nothing,
-      _sgvcServerValidationConfigurations =
-        Nothing
+    { serverGroupId =
+        Prelude.Nothing,
+      serverValidationConfigurations =
+        Prelude.Nothing
     }
 
 -- | The ID of the server group.
-sgvcServerGroupId :: Lens' ServerGroupValidationConfiguration (Maybe Text)
-sgvcServerGroupId = lens _sgvcServerGroupId (\s a -> s {_sgvcServerGroupId = a})
+serverGroupValidationConfiguration_serverGroupId :: Lens.Lens' ServerGroupValidationConfiguration (Prelude.Maybe Prelude.Text)
+serverGroupValidationConfiguration_serverGroupId = Lens.lens (\ServerGroupValidationConfiguration' {serverGroupId} -> serverGroupId) (\s@ServerGroupValidationConfiguration' {} a -> s {serverGroupId = a} :: ServerGroupValidationConfiguration)
 
 -- | The validation configuration.
-sgvcServerValidationConfigurations :: Lens' ServerGroupValidationConfiguration [ServerValidationConfiguration]
-sgvcServerValidationConfigurations = lens _sgvcServerValidationConfigurations (\s a -> s {_sgvcServerValidationConfigurations = a}) . _Default . _Coerce
+serverGroupValidationConfiguration_serverValidationConfigurations :: Lens.Lens' ServerGroupValidationConfiguration (Prelude.Maybe [ServerValidationConfiguration])
+serverGroupValidationConfiguration_serverValidationConfigurations = Lens.lens (\ServerGroupValidationConfiguration' {serverValidationConfigurations} -> serverValidationConfigurations) (\s@ServerGroupValidationConfiguration' {} a -> s {serverValidationConfigurations = a} :: ServerGroupValidationConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ServerGroupValidationConfiguration where
+instance
+  Prelude.FromJSON
+    ServerGroupValidationConfiguration
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServerGroupValidationConfiguration"
       ( \x ->
           ServerGroupValidationConfiguration'
-            <$> (x .:? "serverGroupId")
-            <*> (x .:? "serverValidationConfigurations" .!= mempty)
+            Prelude.<$> (x Prelude..:? "serverGroupId")
+            Prelude.<*> ( x Prelude..:? "serverValidationConfigurations"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ServerGroupValidationConfiguration
+instance
+  Prelude.Hashable
+    ServerGroupValidationConfiguration
 
-instance NFData ServerGroupValidationConfiguration
+instance
+  Prelude.NFData
+    ServerGroupValidationConfiguration
 
-instance ToJSON ServerGroupValidationConfiguration where
+instance
+  Prelude.ToJSON
+    ServerGroupValidationConfiguration
+  where
   toJSON ServerGroupValidationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("serverGroupId" .=) <$> _sgvcServerGroupId,
-            ("serverValidationConfigurations" .=)
-              <$> _sgvcServerValidationConfigurations
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serverGroupId" Prelude..=)
+              Prelude.<$> serverGroupId,
+            ("serverValidationConfigurations" Prelude..=)
+              Prelude.<$> serverValidationConfigurations
           ]
       )

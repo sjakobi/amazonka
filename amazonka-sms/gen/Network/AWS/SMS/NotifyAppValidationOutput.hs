@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides information to AWS SMS about whether application validation is successful.
+-- Provides information to AWS SMS about whether application validation is
+-- successful.
 module Network.AWS.SMS.NotifyAppValidationOutput
   ( -- * Creating a Request
-    notifyAppValidationOutput,
-    NotifyAppValidationOutput,
+    NotifyAppValidationOutput (..),
+    newNotifyAppValidationOutput,
 
     -- * Request Lenses
-    navoNotificationContext,
-    navoAppId,
+    notifyAppValidationOutput_notificationContext,
+    notifyAppValidationOutput_appId,
 
     -- * Destructuring the Response
-    notifyAppValidationOutputResponse,
-    NotifyAppValidationOutputResponse,
+    NotifyAppValidationOutputResponse (..),
+    newNotifyAppValidationOutputResponse,
 
     -- * Response Lenses
-    navorrsResponseStatus,
+    notifyAppValidationOutputResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'notifyAppValidationOutput' smart constructor.
+-- | /See:/ 'newNotifyAppValidationOutput' smart constructor.
 data NotifyAppValidationOutput = NotifyAppValidationOutput'
-  { _navoNotificationContext ::
-      !( Maybe
-           NotificationContext
-       ),
-    _navoAppId :: !Text
+  { -- | The notification information.
+    notificationContext :: Prelude.Maybe NotificationContext,
+    -- | The ID of the application.
+    appId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyAppValidationOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyAppValidationOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'navoNotificationContext' - The notification information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'navoAppId' - The ID of the application.
-notifyAppValidationOutput ::
-  -- | 'navoAppId'
-  Text ->
+-- 'notificationContext', 'notifyAppValidationOutput_notificationContext' - The notification information.
+--
+-- 'appId', 'notifyAppValidationOutput_appId' - The ID of the application.
+newNotifyAppValidationOutput ::
+  -- | 'appId'
+  Prelude.Text ->
   NotifyAppValidationOutput
-notifyAppValidationOutput pAppId_ =
+newNotifyAppValidationOutput pAppId_ =
   NotifyAppValidationOutput'
-    { _navoNotificationContext =
-        Nothing,
-      _navoAppId = pAppId_
+    { notificationContext =
+        Prelude.Nothing,
+      appId = pAppId_
     }
 
 -- | The notification information.
-navoNotificationContext :: Lens' NotifyAppValidationOutput (Maybe NotificationContext)
-navoNotificationContext = lens _navoNotificationContext (\s a -> s {_navoNotificationContext = a})
+notifyAppValidationOutput_notificationContext :: Lens.Lens' NotifyAppValidationOutput (Prelude.Maybe NotificationContext)
+notifyAppValidationOutput_notificationContext = Lens.lens (\NotifyAppValidationOutput' {notificationContext} -> notificationContext) (\s@NotifyAppValidationOutput' {} a -> s {notificationContext = a} :: NotifyAppValidationOutput)
 
 -- | The ID of the application.
-navoAppId :: Lens' NotifyAppValidationOutput Text
-navoAppId = lens _navoAppId (\s a -> s {_navoAppId = a})
+notifyAppValidationOutput_appId :: Lens.Lens' NotifyAppValidationOutput Prelude.Text
+notifyAppValidationOutput_appId = Lens.lens (\NotifyAppValidationOutput' {appId} -> appId) (\s@NotifyAppValidationOutput' {} a -> s {appId = a} :: NotifyAppValidationOutput)
 
-instance AWSRequest NotifyAppValidationOutput where
+instance Prelude.AWSRequest NotifyAppValidationOutput where
   type
     Rs NotifyAppValidationOutput =
       NotifyAppValidationOutputResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           NotifyAppValidationOutputResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable NotifyAppValidationOutput
+instance Prelude.Hashable NotifyAppValidationOutput
 
-instance NFData NotifyAppValidationOutput
+instance Prelude.NFData NotifyAppValidationOutput
 
-instance ToHeaders NotifyAppValidationOutput where
+instance Prelude.ToHeaders NotifyAppValidationOutput where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.NotifyAppValidationOutput" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.NotifyAppValidationOutput" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON NotifyAppValidationOutput where
+instance Prelude.ToJSON NotifyAppValidationOutput where
   toJSON NotifyAppValidationOutput' {..} =
-    object
-      ( catMaybes
-          [ ("notificationContext" .=)
-              <$> _navoNotificationContext,
-            Just ("appId" .= _navoAppId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("notificationContext" Prelude..=)
+              Prelude.<$> notificationContext,
+            Prelude.Just ("appId" Prelude..= appId)
           ]
       )
 
-instance ToPath NotifyAppValidationOutput where
-  toPath = const "/"
+instance Prelude.ToPath NotifyAppValidationOutput where
+  toPath = Prelude.const "/"
 
-instance ToQuery NotifyAppValidationOutput where
-  toQuery = const mempty
+instance Prelude.ToQuery NotifyAppValidationOutput where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'notifyAppValidationOutputResponse' smart constructor.
-newtype NotifyAppValidationOutputResponse = NotifyAppValidationOutputResponse'
-  { _navorrsResponseStatus ::
-      Int
+-- | /See:/ 'newNotifyAppValidationOutputResponse' smart constructor.
+data NotifyAppValidationOutputResponse = NotifyAppValidationOutputResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyAppValidationOutputResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyAppValidationOutputResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'navorrsResponseStatus' - -- | The response status code.
-notifyAppValidationOutputResponse ::
-  -- | 'navorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'notifyAppValidationOutputResponse_httpStatus' - The response's http status code.
+newNotifyAppValidationOutputResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   NotifyAppValidationOutputResponse
-notifyAppValidationOutputResponse pResponseStatus_ =
+newNotifyAppValidationOutputResponse pHttpStatus_ =
   NotifyAppValidationOutputResponse'
-    { _navorrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-navorrsResponseStatus :: Lens' NotifyAppValidationOutputResponse Int
-navorrsResponseStatus = lens _navorrsResponseStatus (\s a -> s {_navorrsResponseStatus = a})
+-- | The response's http status code.
+notifyAppValidationOutputResponse_httpStatus :: Lens.Lens' NotifyAppValidationOutputResponse Prelude.Int
+notifyAppValidationOutputResponse_httpStatus = Lens.lens (\NotifyAppValidationOutputResponse' {httpStatus} -> httpStatus) (\s@NotifyAppValidationOutputResponse' {} a -> s {httpStatus = a} :: NotifyAppValidationOutputResponse)
 
-instance NFData NotifyAppValidationOutputResponse
+instance
+  Prelude.NFData
+    NotifyAppValidationOutputResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ServerGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.Server
 
 -- | Logical grouping of servers.
 --
---
---
--- /See:/ 'serverGroup' smart constructor.
+-- /See:/ 'newServerGroup' smart constructor.
 data ServerGroup = ServerGroup'
-  { _sgServerGroupId ::
-      !(Maybe Text),
-    _sgName :: !(Maybe Text),
-    _sgServerList :: !(Maybe [Server])
+  { -- | The ID of a server group.
+    serverGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The name of a server group.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The servers that belong to a server group.
+    serverList :: Prelude.Maybe [Server]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgServerGroupId' - The ID of a server group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgName' - The name of a server group.
+-- 'serverGroupId', 'serverGroup_serverGroupId' - The ID of a server group.
 --
--- * 'sgServerList' - The servers that belong to a server group.
-serverGroup ::
+-- 'name', 'serverGroup_name' - The name of a server group.
+--
+-- 'serverList', 'serverGroup_serverList' - The servers that belong to a server group.
+newServerGroup ::
   ServerGroup
-serverGroup =
+newServerGroup =
   ServerGroup'
-    { _sgServerGroupId = Nothing,
-      _sgName = Nothing,
-      _sgServerList = Nothing
+    { serverGroupId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      serverList = Prelude.Nothing
     }
 
 -- | The ID of a server group.
-sgServerGroupId :: Lens' ServerGroup (Maybe Text)
-sgServerGroupId = lens _sgServerGroupId (\s a -> s {_sgServerGroupId = a})
+serverGroup_serverGroupId :: Lens.Lens' ServerGroup (Prelude.Maybe Prelude.Text)
+serverGroup_serverGroupId = Lens.lens (\ServerGroup' {serverGroupId} -> serverGroupId) (\s@ServerGroup' {} a -> s {serverGroupId = a} :: ServerGroup)
 
 -- | The name of a server group.
-sgName :: Lens' ServerGroup (Maybe Text)
-sgName = lens _sgName (\s a -> s {_sgName = a})
+serverGroup_name :: Lens.Lens' ServerGroup (Prelude.Maybe Prelude.Text)
+serverGroup_name = Lens.lens (\ServerGroup' {name} -> name) (\s@ServerGroup' {} a -> s {name = a} :: ServerGroup)
 
 -- | The servers that belong to a server group.
-sgServerList :: Lens' ServerGroup [Server]
-sgServerList = lens _sgServerList (\s a -> s {_sgServerList = a}) . _Default . _Coerce
+serverGroup_serverList :: Lens.Lens' ServerGroup (Prelude.Maybe [Server])
+serverGroup_serverList = Lens.lens (\ServerGroup' {serverList} -> serverList) (\s@ServerGroup' {} a -> s {serverList = a} :: ServerGroup) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ServerGroup where
+instance Prelude.FromJSON ServerGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServerGroup"
       ( \x ->
           ServerGroup'
-            <$> (x .:? "serverGroupId")
-            <*> (x .:? "name")
-            <*> (x .:? "serverList" .!= mempty)
+            Prelude.<$> (x Prelude..:? "serverGroupId")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "serverList"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ServerGroup
+instance Prelude.Hashable ServerGroup
 
-instance NFData ServerGroup
+instance Prelude.NFData ServerGroup
 
-instance ToJSON ServerGroup where
+instance Prelude.ToJSON ServerGroup where
   toJSON ServerGroup' {..} =
-    object
-      ( catMaybes
-          [ ("serverGroupId" .=) <$> _sgServerGroupId,
-            ("name" .=) <$> _sgName,
-            ("serverList" .=) <$> _sgServerList
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serverGroupId" Prelude..=)
+              Prelude.<$> serverGroupId,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("serverList" Prelude..=) Prelude.<$> serverList
           ]
       )

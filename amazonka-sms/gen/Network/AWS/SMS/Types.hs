@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types
   ( -- * Service Configuration
-    sms,
+    defaultService,
 
     -- * Errors
     _InternalError,
@@ -78,274 +81,132 @@ module Network.AWS.SMS.Types
     -- * ServerValidationStrategy
     ServerValidationStrategy (..),
 
-    -- * VMManagerType
-    VMManagerType (..),
-
     -- * ValidationStatus
     ValidationStatus (..),
 
+    -- * VmManagerType
+    VmManagerType (..),
+
     -- * AppSummary
     AppSummary (..),
-    appSummary,
-    asStatusMessage,
-    asAppId,
-    asStatus,
-    asCreationTime,
-    asTotalServers,
-    asLaunchStatus,
-    asReplicationStatusMessage,
-    asRoleName,
-    asReplicationStatus,
-    asImportedAppId,
-    asReplicationConfigurationStatus,
-    asLatestReplicationTime,
-    asLaunchDetails,
-    asName,
-    asLaunchConfigurationStatus,
-    asDescription,
-    asLastModified,
-    asTotalServerGroups,
-    asLaunchStatusMessage,
+    newAppSummary,
 
     -- * AppValidationConfiguration
     AppValidationConfiguration (..),
-    appValidationConfiguration,
-    avcSsmValidationParameters,
-    avcAppValidationStrategy,
-    avcValidationId,
-    avcName,
+    newAppValidationConfiguration,
 
     -- * AppValidationOutput
     AppValidationOutput (..),
-    appValidationOutput,
-    avoSsmOutput,
+    newAppValidationOutput,
 
     -- * Connector
     Connector (..),
-    connector,
-    cStatus,
-    cMacAddress,
-    cAssociatedOn,
-    cConnectorId,
-    cVmManagerId,
-    cVersion,
-    cVmManagerName,
-    cIpAddress,
-    cVmManagerType,
-    cCapabilityList,
+    newConnector,
 
     -- * LaunchDetails
     LaunchDetails (..),
-    launchDetails,
-    ldStackName,
-    ldStackId,
-    ldLatestLaunchTime,
+    newLaunchDetails,
 
     -- * NotificationContext
     NotificationContext (..),
-    notificationContext,
-    ncStatusMessage,
-    ncStatus,
-    ncValidationId,
+    newNotificationContext,
 
     -- * ReplicationJob
     ReplicationJob (..),
-    replicationJob,
-    rjNextReplicationRunStartTime,
-    rjStatusMessage,
-    rjNumberOfRecentAMIsToKeep,
-    rjEncrypted,
-    rjLatestAMIId,
-    rjRoleName,
-    rjServerId,
-    rjState,
-    rjReplicationRunList,
-    rjKmsKeyId,
-    rjFrequency,
-    rjRunOnce,
-    rjDescription,
-    rjReplicationJobId,
-    rjSeedReplicationTime,
-    rjVmServer,
-    rjLicenseType,
-    rjServerType,
+    newReplicationJob,
 
     -- * ReplicationRun
     ReplicationRun (..),
-    replicationRun,
-    rrStatusMessage,
-    rrEncrypted,
-    rrReplicationRunId,
-    rrAmiId,
-    rrCompletedTime,
-    rrState,
-    rrKmsKeyId,
-    rrScheduledStartTime,
-    rrStageDetails,
-    rrDescription,
-    rrType,
+    newReplicationRun,
 
     -- * ReplicationRunStageDetails
     ReplicationRunStageDetails (..),
-    replicationRunStageDetails,
-    rrsdStage,
-    rrsdStageProgress,
+    newReplicationRunStageDetails,
 
     -- * S3Location
     S3Location (..),
-    s3Location,
-    slKey,
-    slBucket,
+    newS3Location,
 
     -- * SSMOutput
     SSMOutput (..),
-    sSMOutput,
-    ssmoS3Location,
+    newSSMOutput,
 
     -- * SSMValidationParameters
     SSMValidationParameters (..),
-    sSMValidationParameters,
-    ssmvpInstanceId,
-    ssmvpOutputS3BucketName,
-    ssmvpSource,
-    ssmvpScriptType,
-    ssmvpCommand,
-    ssmvpExecutionTimeoutSeconds,
+    newSSMValidationParameters,
 
     -- * Server
     Server (..),
-    server,
-    sServerId,
-    sReplicationJobId,
-    sReplicationJobTerminated,
-    sVmServer,
-    sServerType,
+    newServer,
 
     -- * ServerGroup
     ServerGroup (..),
-    serverGroup,
-    sgServerGroupId,
-    sgName,
-    sgServerList,
+    newServerGroup,
 
     -- * ServerGroupLaunchConfiguration
     ServerGroupLaunchConfiguration (..),
-    serverGroupLaunchConfiguration,
-    sglcServerGroupId,
-    sglcLaunchOrder,
-    sglcServerLaunchConfigurations,
+    newServerGroupLaunchConfiguration,
 
     -- * ServerGroupReplicationConfiguration
     ServerGroupReplicationConfiguration (..),
-    serverGroupReplicationConfiguration,
-    sgrcServerGroupId,
-    sgrcServerReplicationConfigurations,
+    newServerGroupReplicationConfiguration,
 
     -- * ServerGroupValidationConfiguration
     ServerGroupValidationConfiguration (..),
-    serverGroupValidationConfiguration,
-    sgvcServerGroupId,
-    sgvcServerValidationConfigurations,
+    newServerGroupValidationConfiguration,
 
     -- * ServerLaunchConfiguration
     ServerLaunchConfiguration (..),
-    serverLaunchConfiguration,
-    slcConfigureScript,
-    slcEc2KeyName,
-    slcInstanceType,
-    slcUserData,
-    slcLogicalId,
-    slcSubnet,
-    slcIamInstanceProfileName,
-    slcServer,
-    slcAssociatePublicIPAddress,
-    slcConfigureScriptType,
-    slcSecurityGroup,
-    slcVpc,
+    newServerLaunchConfiguration,
 
     -- * ServerReplicationConfiguration
     ServerReplicationConfiguration (..),
-    serverReplicationConfiguration,
-    srcServer,
-    srcServerReplicationParameters,
+    newServerReplicationConfiguration,
 
     -- * ServerReplicationParameters
     ServerReplicationParameters (..),
-    serverReplicationParameters,
-    srpNumberOfRecentAMIsToKeep,
-    srpEncrypted,
-    srpSeedTime,
-    srpKmsKeyId,
-    srpFrequency,
-    srpRunOnce,
-    srpLicenseType,
+    newServerReplicationParameters,
 
     -- * ServerValidationConfiguration
     ServerValidationConfiguration (..),
-    serverValidationConfiguration,
-    svcValidationId,
-    svcUserDataValidationParameters,
-    svcServer,
-    svcName,
-    svcServerValidationStrategy,
+    newServerValidationConfiguration,
 
     -- * ServerValidationOutput
     ServerValidationOutput (..),
-    serverValidationOutput,
-    svoServer,
+    newServerValidationOutput,
 
     -- * Source
     Source (..),
-    source,
-    sS3Location,
+    newSource,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * UserData
     UserData (..),
-    userData,
-    udS3Location,
+    newUserData,
 
     -- * UserDataValidationParameters
     UserDataValidationParameters (..),
-    userDataValidationParameters,
-    udvpSource,
-    udvpScriptType,
-
-    -- * VMServer
-    VMServer (..),
-    vMServer,
-    vmsVmPath,
-    vmsVmManagerName,
-    vmsVmName,
-    vmsVmServerAddress,
-    vmsVmManagerType,
-
-    -- * VMServerAddress
-    VMServerAddress (..),
-    vMServerAddress,
-    vmsaVmManagerId,
-    vmsaVmId,
+    newUserDataValidationParameters,
 
     -- * ValidationOutput
     ValidationOutput (..),
-    validationOutput,
-    voStatusMessage,
-    voStatus,
-    voValidationId,
-    voAppValidationOutput,
-    voName,
-    voServerValidationOutput,
-    voLatestValidationTime,
+    newValidationOutput,
+
+    -- * VmServer
+    VmServer (..),
+    newVmServer,
+
+    -- * VmServerAddress
+    VmServerAddress (..),
+    newVmServerAddress,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.AppLaunchConfigurationStatus
 import Network.AWS.SMS.Types.AppLaunchStatus
 import Network.AWS.SMS.Types.AppReplicationConfigurationStatus
@@ -389,138 +250,165 @@ import Network.AWS.SMS.Types.Source
 import Network.AWS.SMS.Types.Tag
 import Network.AWS.SMS.Types.UserData
 import Network.AWS.SMS.Types.UserDataValidationParameters
-import Network.AWS.SMS.Types.VMManagerType
-import Network.AWS.SMS.Types.VMServer
-import Network.AWS.SMS.Types.VMServerAddress
 import Network.AWS.SMS.Types.ValidationOutput
 import Network.AWS.SMS.Types.ValidationStatus
-import Network.AWS.Sign.V4
+import Network.AWS.SMS.Types.VmManagerType
+import Network.AWS.SMS.Types.VmServer
+import Network.AWS.SMS.Types.VmServerAddress
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-10-24@ of the Amazon Server Migration Service SDK configuration.
-sms :: Service
-sms =
-  Service
-    { _svcAbbrev = "SMS",
-      _svcSigner = v4,
-      _svcPrefix = "sms",
-      _svcVersion = "2016-10-24",
-      _svcEndpoint = defaultEndpoint sms,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "SMS",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "SMS",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "sms",
+      Prelude._svcVersion = "2016-10-24",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "SMS",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | An internal error occurred.
-_InternalError :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalError =
-  _MatchServiceError sms "InternalError"
+  Prelude._MatchServiceError
+    defaultService
+    "InternalError"
 
 -- | There are no connectors available.
-_NoConnectorsAvailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_NoConnectorsAvailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NoConnectorsAvailableException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "NoConnectorsAvailableException"
 
--- | You have exceeded the number of on-demand replication runs you can request in a 24-hour period.
-_ReplicationRunLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have exceeded the number of on-demand replication runs you can
+-- request in a 24-hour period.
+_ReplicationRunLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplicationRunLimitExceededException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "ReplicationRunLimitExceededException"
 
--- | You lack permissions needed to perform this operation. Check your IAM policies, and ensure that you are using the correct access keys.
-_UnauthorizedOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You lack permissions needed to perform this operation. Check your IAM
+-- policies, and ensure that you are using the correct access keys.
+_UnauthorizedOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedOperationException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedOperationException"
 
 -- | A required parameter is missing.
-_MissingRequiredParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_MissingRequiredParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MissingRequiredParameterException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "MissingRequiredParameterException"
 
 -- | The service is temporarily unavailable.
-_TemporarilyUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_TemporarilyUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TemporarilyUnavailableException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "TemporarilyUnavailableException"
 
 -- | This operation is not allowed.
-_OperationNotPermittedException :: AsError a => Getting (First ServiceError) a ServiceError
+_OperationNotPermittedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationNotPermittedException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "OperationNotPermittedException"
 
 -- | The specified replication job does not exist.
-_ReplicationJobNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReplicationJobNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplicationJobNotFoundException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "ReplicationJobNotFoundException"
 
 -- | A specified parameter is not valid.
-_InvalidParameterException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidParameterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidParameterException =
-  _MatchServiceError sms "InvalidParameterException"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidParameterException"
 
--- | The user has the required permissions, so the request would have succeeded, but a dry run was performed.
-_DryRunOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The user has the required permissions, so the request would have
+-- succeeded, but a dry run was performed.
+_DryRunOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DryRunOperationException =
-  _MatchServiceError sms "DryRunOperationException"
+  Prelude._MatchServiceError
+    defaultService
+    "DryRunOperationException"
 
 -- | The specified server cannot be replicated.
-_ServerCannotBeReplicatedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServerCannotBeReplicatedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServerCannotBeReplicatedException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "ServerCannotBeReplicatedException"
 
 -- | The specified replication job already exists.
-_ReplicationJobAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ReplicationJobAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplicationJobAlreadyExistsException =
-  _MatchServiceError
-    sms
+  Prelude._MatchServiceError
+    defaultService
     "ReplicationJobAlreadyExistsException"

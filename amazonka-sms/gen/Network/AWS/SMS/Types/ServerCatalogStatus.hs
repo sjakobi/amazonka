@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SMS.Types.ServerCatalogStatus
   ( ServerCatalogStatus
       ( ..,
-        SCSAvailable,
-        SCSDeleted,
-        SCSExpired,
-        SCSImporting,
-        SCSNotImported
+        ServerCatalogStatusAVAILABLE,
+        ServerCatalogStatusDELETED,
+        ServerCatalogStatusEXPIRED,
+        ServerCatalogStatusIMPORTING,
+        ServerCatalogStatusNOTIMPORTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServerCatalogStatus
-  = ServerCatalogStatus'
-      ( CI
-          Text
-      )
+newtype ServerCatalogStatus = ServerCatalogStatus'
+  { fromServerCatalogStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SCSAvailable :: ServerCatalogStatus
-pattern SCSAvailable = ServerCatalogStatus' "AVAILABLE"
+pattern ServerCatalogStatusAVAILABLE :: ServerCatalogStatus
+pattern ServerCatalogStatusAVAILABLE = ServerCatalogStatus' "AVAILABLE"
 
-pattern SCSDeleted :: ServerCatalogStatus
-pattern SCSDeleted = ServerCatalogStatus' "DELETED"
+pattern ServerCatalogStatusDELETED :: ServerCatalogStatus
+pattern ServerCatalogStatusDELETED = ServerCatalogStatus' "DELETED"
 
-pattern SCSExpired :: ServerCatalogStatus
-pattern SCSExpired = ServerCatalogStatus' "EXPIRED"
+pattern ServerCatalogStatusEXPIRED :: ServerCatalogStatus
+pattern ServerCatalogStatusEXPIRED = ServerCatalogStatus' "EXPIRED"
 
-pattern SCSImporting :: ServerCatalogStatus
-pattern SCSImporting = ServerCatalogStatus' "IMPORTING"
+pattern ServerCatalogStatusIMPORTING :: ServerCatalogStatus
+pattern ServerCatalogStatusIMPORTING = ServerCatalogStatus' "IMPORTING"
 
-pattern SCSNotImported :: ServerCatalogStatus
-pattern SCSNotImported = ServerCatalogStatus' "NOT_IMPORTED"
+pattern ServerCatalogStatusNOTIMPORTED :: ServerCatalogStatus
+pattern ServerCatalogStatusNOTIMPORTED = ServerCatalogStatus' "NOT_IMPORTED"
 
 {-# COMPLETE
-  SCSAvailable,
-  SCSDeleted,
-  SCSExpired,
-  SCSImporting,
-  SCSNotImported,
+  ServerCatalogStatusAVAILABLE,
+  ServerCatalogStatusDELETED,
+  ServerCatalogStatusEXPIRED,
+  ServerCatalogStatusIMPORTING,
+  ServerCatalogStatusNOTIMPORTED,
   ServerCatalogStatus'
   #-}
 
-instance FromText ServerCatalogStatus where
-  parser = (ServerCatalogStatus' . mk) <$> takeText
+instance Prelude.FromText ServerCatalogStatus where
+  parser = ServerCatalogStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ServerCatalogStatus where
-  toText (ServerCatalogStatus' ci) = original ci
+instance Prelude.ToText ServerCatalogStatus where
+  toText (ServerCatalogStatus' x) = x
 
-instance Hashable ServerCatalogStatus
+instance Prelude.Hashable ServerCatalogStatus
 
-instance NFData ServerCatalogStatus
+instance Prelude.NFData ServerCatalogStatus
 
-instance ToByteString ServerCatalogStatus
+instance Prelude.ToByteString ServerCatalogStatus
 
-instance ToQuery ServerCatalogStatus
+instance Prelude.ToQuery ServerCatalogStatus
 
-instance ToHeader ServerCatalogStatus
+instance Prelude.ToHeader ServerCatalogStatus
 
-instance FromJSON ServerCatalogStatus where
-  parseJSON = parseJSONText "ServerCatalogStatus"
+instance Prelude.FromJSON ServerCatalogStatus where
+  parseJSON = Prelude.parseJSONText "ServerCatalogStatus"

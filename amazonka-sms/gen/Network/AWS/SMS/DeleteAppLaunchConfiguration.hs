@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,137 @@
 -- Deletes the launch configuration for the specified application.
 module Network.AWS.SMS.DeleteAppLaunchConfiguration
   ( -- * Creating a Request
-    deleteAppLaunchConfiguration,
-    DeleteAppLaunchConfiguration,
+    DeleteAppLaunchConfiguration (..),
+    newDeleteAppLaunchConfiguration,
 
     -- * Request Lenses
-    dalcAppId,
+    deleteAppLaunchConfiguration_appId,
 
     -- * Destructuring the Response
-    deleteAppLaunchConfigurationResponse,
-    DeleteAppLaunchConfigurationResponse,
+    DeleteAppLaunchConfigurationResponse (..),
+    newDeleteAppLaunchConfigurationResponse,
 
     -- * Response Lenses
-    dalcrrsResponseStatus,
+    deleteAppLaunchConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'deleteAppLaunchConfiguration' smart constructor.
-newtype DeleteAppLaunchConfiguration = DeleteAppLaunchConfiguration'
-  { _dalcAppId ::
-      Maybe Text
+-- | /See:/ 'newDeleteAppLaunchConfiguration' smart constructor.
+data DeleteAppLaunchConfiguration = DeleteAppLaunchConfiguration'
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppLaunchConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAppLaunchConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dalcAppId' - The ID of the application.
-deleteAppLaunchConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'deleteAppLaunchConfiguration_appId' - The ID of the application.
+newDeleteAppLaunchConfiguration ::
   DeleteAppLaunchConfiguration
-deleteAppLaunchConfiguration =
-  DeleteAppLaunchConfiguration' {_dalcAppId = Nothing}
+newDeleteAppLaunchConfiguration =
+  DeleteAppLaunchConfiguration'
+    { appId =
+        Prelude.Nothing
+    }
 
 -- | The ID of the application.
-dalcAppId :: Lens' DeleteAppLaunchConfiguration (Maybe Text)
-dalcAppId = lens _dalcAppId (\s a -> s {_dalcAppId = a})
+deleteAppLaunchConfiguration_appId :: Lens.Lens' DeleteAppLaunchConfiguration (Prelude.Maybe Prelude.Text)
+deleteAppLaunchConfiguration_appId = Lens.lens (\DeleteAppLaunchConfiguration' {appId} -> appId) (\s@DeleteAppLaunchConfiguration' {} a -> s {appId = a} :: DeleteAppLaunchConfiguration)
 
-instance AWSRequest DeleteAppLaunchConfiguration where
+instance
+  Prelude.AWSRequest
+    DeleteAppLaunchConfiguration
+  where
   type
     Rs DeleteAppLaunchConfiguration =
       DeleteAppLaunchConfigurationResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteAppLaunchConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAppLaunchConfiguration
+instance
+  Prelude.Hashable
+    DeleteAppLaunchConfiguration
 
-instance NFData DeleteAppLaunchConfiguration
+instance Prelude.NFData DeleteAppLaunchConfiguration
 
-instance ToHeaders DeleteAppLaunchConfiguration where
+instance
+  Prelude.ToHeaders
+    DeleteAppLaunchConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.DeleteAppLaunchConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.DeleteAppLaunchConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAppLaunchConfiguration where
+instance Prelude.ToJSON DeleteAppLaunchConfiguration where
   toJSON DeleteAppLaunchConfiguration' {..} =
-    object (catMaybes [("appId" .=) <$> _dalcAppId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("appId" Prelude..=) Prelude.<$> appId]
+      )
 
-instance ToPath DeleteAppLaunchConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAppLaunchConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAppLaunchConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAppLaunchConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAppLaunchConfigurationResponse' smart constructor.
-newtype DeleteAppLaunchConfigurationResponse = DeleteAppLaunchConfigurationResponse'
-  { _dalcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteAppLaunchConfigurationResponse' smart constructor.
+data DeleteAppLaunchConfigurationResponse = DeleteAppLaunchConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppLaunchConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAppLaunchConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dalcrrsResponseStatus' - -- | The response status code.
-deleteAppLaunchConfigurationResponse ::
-  -- | 'dalcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAppLaunchConfigurationResponse_httpStatus' - The response's http status code.
+newDeleteAppLaunchConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAppLaunchConfigurationResponse
-deleteAppLaunchConfigurationResponse pResponseStatus_ =
+newDeleteAppLaunchConfigurationResponse pHttpStatus_ =
   DeleteAppLaunchConfigurationResponse'
-    { _dalcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dalcrrsResponseStatus :: Lens' DeleteAppLaunchConfigurationResponse Int
-dalcrrsResponseStatus = lens _dalcrrsResponseStatus (\s a -> s {_dalcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteAppLaunchConfigurationResponse_httpStatus :: Lens.Lens' DeleteAppLaunchConfigurationResponse Prelude.Int
+deleteAppLaunchConfigurationResponse_httpStatus = Lens.lens (\DeleteAppLaunchConfigurationResponse' {httpStatus} -> httpStatus) (\s@DeleteAppLaunchConfigurationResponse' {} a -> s {httpStatus = a} :: DeleteAppLaunchConfigurationResponse)
 
-instance NFData DeleteAppLaunchConfigurationResponse
+instance
+  Prelude.NFData
+    DeleteAppLaunchConfigurationResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,95 +19,103 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.Server where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.ServerType
-import Network.AWS.SMS.Types.VMServer
+import Network.AWS.SMS.Types.VmServer
 
 -- | Represents a server.
 --
---
---
--- /See:/ 'server' smart constructor.
+-- /See:/ 'newServer' smart constructor.
 data Server = Server'
-  { _sServerId :: !(Maybe Text),
-    _sReplicationJobId :: !(Maybe Text),
-    _sReplicationJobTerminated :: !(Maybe Bool),
-    _sVmServer :: !(Maybe VMServer),
-    _sServerType :: !(Maybe ServerType)
+  { -- | The ID of the server.
+    serverId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the replication job.
+    replicationJobId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the replication job is deleted or failed.
+    replicationJobTerminated :: Prelude.Maybe Prelude.Bool,
+    -- | Information about the VM server.
+    vmServer :: Prelude.Maybe VmServer,
+    -- | The type of server.
+    serverType :: Prelude.Maybe ServerType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Server' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Server' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sServerId' - The ID of the server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sReplicationJobId' - The ID of the replication job.
+-- 'serverId', 'server_serverId' - The ID of the server.
 --
--- * 'sReplicationJobTerminated' - Indicates whether the replication job is deleted or failed.
+-- 'replicationJobId', 'server_replicationJobId' - The ID of the replication job.
 --
--- * 'sVmServer' - Information about the VM server.
+-- 'replicationJobTerminated', 'server_replicationJobTerminated' - Indicates whether the replication job is deleted or failed.
 --
--- * 'sServerType' - The type of server.
-server ::
+-- 'vmServer', 'server_vmServer' - Information about the VM server.
+--
+-- 'serverType', 'server_serverType' - The type of server.
+newServer ::
   Server
-server =
+newServer =
   Server'
-    { _sServerId = Nothing,
-      _sReplicationJobId = Nothing,
-      _sReplicationJobTerminated = Nothing,
-      _sVmServer = Nothing,
-      _sServerType = Nothing
+    { serverId = Prelude.Nothing,
+      replicationJobId = Prelude.Nothing,
+      replicationJobTerminated = Prelude.Nothing,
+      vmServer = Prelude.Nothing,
+      serverType = Prelude.Nothing
     }
 
 -- | The ID of the server.
-sServerId :: Lens' Server (Maybe Text)
-sServerId = lens _sServerId (\s a -> s {_sServerId = a})
+server_serverId :: Lens.Lens' Server (Prelude.Maybe Prelude.Text)
+server_serverId = Lens.lens (\Server' {serverId} -> serverId) (\s@Server' {} a -> s {serverId = a} :: Server)
 
 -- | The ID of the replication job.
-sReplicationJobId :: Lens' Server (Maybe Text)
-sReplicationJobId = lens _sReplicationJobId (\s a -> s {_sReplicationJobId = a})
+server_replicationJobId :: Lens.Lens' Server (Prelude.Maybe Prelude.Text)
+server_replicationJobId = Lens.lens (\Server' {replicationJobId} -> replicationJobId) (\s@Server' {} a -> s {replicationJobId = a} :: Server)
 
 -- | Indicates whether the replication job is deleted or failed.
-sReplicationJobTerminated :: Lens' Server (Maybe Bool)
-sReplicationJobTerminated = lens _sReplicationJobTerminated (\s a -> s {_sReplicationJobTerminated = a})
+server_replicationJobTerminated :: Lens.Lens' Server (Prelude.Maybe Prelude.Bool)
+server_replicationJobTerminated = Lens.lens (\Server' {replicationJobTerminated} -> replicationJobTerminated) (\s@Server' {} a -> s {replicationJobTerminated = a} :: Server)
 
 -- | Information about the VM server.
-sVmServer :: Lens' Server (Maybe VMServer)
-sVmServer = lens _sVmServer (\s a -> s {_sVmServer = a})
+server_vmServer :: Lens.Lens' Server (Prelude.Maybe VmServer)
+server_vmServer = Lens.lens (\Server' {vmServer} -> vmServer) (\s@Server' {} a -> s {vmServer = a} :: Server)
 
 -- | The type of server.
-sServerType :: Lens' Server (Maybe ServerType)
-sServerType = lens _sServerType (\s a -> s {_sServerType = a})
+server_serverType :: Lens.Lens' Server (Prelude.Maybe ServerType)
+server_serverType = Lens.lens (\Server' {serverType} -> serverType) (\s@Server' {} a -> s {serverType = a} :: Server)
 
-instance FromJSON Server where
+instance Prelude.FromJSON Server where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Server"
       ( \x ->
           Server'
-            <$> (x .:? "serverId")
-            <*> (x .:? "replicationJobId")
-            <*> (x .:? "replicationJobTerminated")
-            <*> (x .:? "vmServer")
-            <*> (x .:? "serverType")
+            Prelude.<$> (x Prelude..:? "serverId")
+            Prelude.<*> (x Prelude..:? "replicationJobId")
+            Prelude.<*> (x Prelude..:? "replicationJobTerminated")
+            Prelude.<*> (x Prelude..:? "vmServer")
+            Prelude.<*> (x Prelude..:? "serverType")
       )
 
-instance Hashable Server
+instance Prelude.Hashable Server
 
-instance NFData Server
+instance Prelude.NFData Server
 
-instance ToJSON Server where
+instance Prelude.ToJSON Server where
   toJSON Server' {..} =
-    object
-      ( catMaybes
-          [ ("serverId" .=) <$> _sServerId,
-            ("replicationJobId" .=) <$> _sReplicationJobId,
-            ("replicationJobTerminated" .=)
-              <$> _sReplicationJobTerminated,
-            ("vmServer" .=) <$> _sVmServer,
-            ("serverType" .=) <$> _sServerType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serverId" Prelude..=) Prelude.<$> serverId,
+            ("replicationJobId" Prelude..=)
+              Prelude.<$> replicationJobId,
+            ("replicationJobTerminated" Prelude..=)
+              Prelude.<$> replicationJobTerminated,
+            ("vmServer" Prelude..=) Prelude.<$> vmServer,
+            ("serverType" Prelude..=) Prelude.<$> serverType
           ]
       )

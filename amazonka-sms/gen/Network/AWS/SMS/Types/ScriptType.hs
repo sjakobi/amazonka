@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SMS.Types.ScriptType
   ( ScriptType
       ( ..,
-        PowershellScript,
-        ShellScript
+        ScriptTypePOWERSHELLSCRIPT,
+        ScriptTypeSHELLSCRIPT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScriptType = ScriptType' (CI Text)
+newtype ScriptType = ScriptType'
+  { fromScriptType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PowershellScript :: ScriptType
-pattern PowershellScript = ScriptType' "POWERSHELL_SCRIPT"
+pattern ScriptTypePOWERSHELLSCRIPT :: ScriptType
+pattern ScriptTypePOWERSHELLSCRIPT = ScriptType' "POWERSHELL_SCRIPT"
 
-pattern ShellScript :: ScriptType
-pattern ShellScript = ScriptType' "SHELL_SCRIPT"
+pattern ScriptTypeSHELLSCRIPT :: ScriptType
+pattern ScriptTypeSHELLSCRIPT = ScriptType' "SHELL_SCRIPT"
 
 {-# COMPLETE
-  PowershellScript,
-  ShellScript,
+  ScriptTypePOWERSHELLSCRIPT,
+  ScriptTypeSHELLSCRIPT,
   ScriptType'
   #-}
 
-instance FromText ScriptType where
-  parser = (ScriptType' . mk) <$> takeText
+instance Prelude.FromText ScriptType where
+  parser = ScriptType' Prelude.<$> Prelude.takeText
 
-instance ToText ScriptType where
-  toText (ScriptType' ci) = original ci
+instance Prelude.ToText ScriptType where
+  toText (ScriptType' x) = x
 
-instance Hashable ScriptType
+instance Prelude.Hashable ScriptType
 
-instance NFData ScriptType
+instance Prelude.NFData ScriptType
 
-instance ToByteString ScriptType
+instance Prelude.ToByteString ScriptType
 
-instance ToQuery ScriptType
+instance Prelude.ToQuery ScriptType
 
-instance ToHeader ScriptType
+instance Prelude.ToHeader ScriptType
 
-instance ToJSON ScriptType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScriptType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScriptType where
-  parseJSON = parseJSONText "ScriptType"
+instance Prelude.FromJSON ScriptType where
+  parseJSON = Prelude.parseJSONText "ScriptType"

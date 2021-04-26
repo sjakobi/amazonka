@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,129 +19,142 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.Connector where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.ConnectorCapability
 import Network.AWS.SMS.Types.ConnectorStatus
-import Network.AWS.SMS.Types.VMManagerType
+import Network.AWS.SMS.Types.VmManagerType
 
 -- | Represents a connector.
 --
---
---
--- /See:/ 'connector' smart constructor.
+-- /See:/ 'newConnector' smart constructor.
 data Connector = Connector'
-  { _cStatus ::
-      !(Maybe ConnectorStatus),
-    _cMacAddress :: !(Maybe Text),
-    _cAssociatedOn :: !(Maybe POSIX),
-    _cConnectorId :: !(Maybe Text),
-    _cVmManagerId :: !(Maybe Text),
-    _cVersion :: !(Maybe Text),
-    _cVmManagerName :: !(Maybe Text),
-    _cIpAddress :: !(Maybe Text),
-    _cVmManagerType :: !(Maybe VMManagerType),
-    _cCapabilityList :: !(Maybe [ConnectorCapability])
+  { -- | The status of the connector.
+    status :: Prelude.Maybe ConnectorStatus,
+    -- | The MAC address of the connector.
+    macAddress :: Prelude.Maybe Prelude.Text,
+    -- | The time the connector was associated.
+    associatedOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the connector.
+    connectorId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the VM manager.
+    vmManagerId :: Prelude.Maybe Prelude.Text,
+    -- | The connector version.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the VM manager.
+    vmManagerName :: Prelude.Maybe Prelude.Text,
+    -- | The IP address of the connector.
+    ipAddress :: Prelude.Maybe Prelude.Text,
+    -- | The VM management product.
+    vmManagerType :: Prelude.Maybe VmManagerType,
+    -- | The capabilities of the connector.
+    capabilityList :: Prelude.Maybe [ConnectorCapability]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Connector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Connector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cStatus' - The status of the connector.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cMacAddress' - The MAC address of the connector.
+-- 'status', 'connector_status' - The status of the connector.
 --
--- * 'cAssociatedOn' - The time the connector was associated.
+-- 'macAddress', 'connector_macAddress' - The MAC address of the connector.
 --
--- * 'cConnectorId' - The ID of the connector.
+-- 'associatedOn', 'connector_associatedOn' - The time the connector was associated.
 --
--- * 'cVmManagerId' - The ID of the VM manager.
+-- 'connectorId', 'connector_connectorId' - The ID of the connector.
 --
--- * 'cVersion' - The connector version.
+-- 'vmManagerId', 'connector_vmManagerId' - The ID of the VM manager.
 --
--- * 'cVmManagerName' - The name of the VM manager.
+-- 'version', 'connector_version' - The connector version.
 --
--- * 'cIpAddress' - The IP address of the connector.
+-- 'vmManagerName', 'connector_vmManagerName' - The name of the VM manager.
 --
--- * 'cVmManagerType' - The VM management product.
+-- 'ipAddress', 'connector_ipAddress' - The IP address of the connector.
 --
--- * 'cCapabilityList' - The capabilities of the connector.
-connector ::
+-- 'vmManagerType', 'connector_vmManagerType' - The VM management product.
+--
+-- 'capabilityList', 'connector_capabilityList' - The capabilities of the connector.
+newConnector ::
   Connector
-connector =
+newConnector =
   Connector'
-    { _cStatus = Nothing,
-      _cMacAddress = Nothing,
-      _cAssociatedOn = Nothing,
-      _cConnectorId = Nothing,
-      _cVmManagerId = Nothing,
-      _cVersion = Nothing,
-      _cVmManagerName = Nothing,
-      _cIpAddress = Nothing,
-      _cVmManagerType = Nothing,
-      _cCapabilityList = Nothing
+    { status = Prelude.Nothing,
+      macAddress = Prelude.Nothing,
+      associatedOn = Prelude.Nothing,
+      connectorId = Prelude.Nothing,
+      vmManagerId = Prelude.Nothing,
+      version = Prelude.Nothing,
+      vmManagerName = Prelude.Nothing,
+      ipAddress = Prelude.Nothing,
+      vmManagerType = Prelude.Nothing,
+      capabilityList = Prelude.Nothing
     }
 
 -- | The status of the connector.
-cStatus :: Lens' Connector (Maybe ConnectorStatus)
-cStatus = lens _cStatus (\s a -> s {_cStatus = a})
+connector_status :: Lens.Lens' Connector (Prelude.Maybe ConnectorStatus)
+connector_status = Lens.lens (\Connector' {status} -> status) (\s@Connector' {} a -> s {status = a} :: Connector)
 
 -- | The MAC address of the connector.
-cMacAddress :: Lens' Connector (Maybe Text)
-cMacAddress = lens _cMacAddress (\s a -> s {_cMacAddress = a})
+connector_macAddress :: Lens.Lens' Connector (Prelude.Maybe Prelude.Text)
+connector_macAddress = Lens.lens (\Connector' {macAddress} -> macAddress) (\s@Connector' {} a -> s {macAddress = a} :: Connector)
 
 -- | The time the connector was associated.
-cAssociatedOn :: Lens' Connector (Maybe UTCTime)
-cAssociatedOn = lens _cAssociatedOn (\s a -> s {_cAssociatedOn = a}) . mapping _Time
+connector_associatedOn :: Lens.Lens' Connector (Prelude.Maybe Prelude.UTCTime)
+connector_associatedOn = Lens.lens (\Connector' {associatedOn} -> associatedOn) (\s@Connector' {} a -> s {associatedOn = a} :: Connector) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the connector.
-cConnectorId :: Lens' Connector (Maybe Text)
-cConnectorId = lens _cConnectorId (\s a -> s {_cConnectorId = a})
+connector_connectorId :: Lens.Lens' Connector (Prelude.Maybe Prelude.Text)
+connector_connectorId = Lens.lens (\Connector' {connectorId} -> connectorId) (\s@Connector' {} a -> s {connectorId = a} :: Connector)
 
 -- | The ID of the VM manager.
-cVmManagerId :: Lens' Connector (Maybe Text)
-cVmManagerId = lens _cVmManagerId (\s a -> s {_cVmManagerId = a})
+connector_vmManagerId :: Lens.Lens' Connector (Prelude.Maybe Prelude.Text)
+connector_vmManagerId = Lens.lens (\Connector' {vmManagerId} -> vmManagerId) (\s@Connector' {} a -> s {vmManagerId = a} :: Connector)
 
 -- | The connector version.
-cVersion :: Lens' Connector (Maybe Text)
-cVersion = lens _cVersion (\s a -> s {_cVersion = a})
+connector_version :: Lens.Lens' Connector (Prelude.Maybe Prelude.Text)
+connector_version = Lens.lens (\Connector' {version} -> version) (\s@Connector' {} a -> s {version = a} :: Connector)
 
 -- | The name of the VM manager.
-cVmManagerName :: Lens' Connector (Maybe Text)
-cVmManagerName = lens _cVmManagerName (\s a -> s {_cVmManagerName = a})
+connector_vmManagerName :: Lens.Lens' Connector (Prelude.Maybe Prelude.Text)
+connector_vmManagerName = Lens.lens (\Connector' {vmManagerName} -> vmManagerName) (\s@Connector' {} a -> s {vmManagerName = a} :: Connector)
 
 -- | The IP address of the connector.
-cIpAddress :: Lens' Connector (Maybe Text)
-cIpAddress = lens _cIpAddress (\s a -> s {_cIpAddress = a})
+connector_ipAddress :: Lens.Lens' Connector (Prelude.Maybe Prelude.Text)
+connector_ipAddress = Lens.lens (\Connector' {ipAddress} -> ipAddress) (\s@Connector' {} a -> s {ipAddress = a} :: Connector)
 
 -- | The VM management product.
-cVmManagerType :: Lens' Connector (Maybe VMManagerType)
-cVmManagerType = lens _cVmManagerType (\s a -> s {_cVmManagerType = a})
+connector_vmManagerType :: Lens.Lens' Connector (Prelude.Maybe VmManagerType)
+connector_vmManagerType = Lens.lens (\Connector' {vmManagerType} -> vmManagerType) (\s@Connector' {} a -> s {vmManagerType = a} :: Connector)
 
 -- | The capabilities of the connector.
-cCapabilityList :: Lens' Connector [ConnectorCapability]
-cCapabilityList = lens _cCapabilityList (\s a -> s {_cCapabilityList = a}) . _Default . _Coerce
+connector_capabilityList :: Lens.Lens' Connector (Prelude.Maybe [ConnectorCapability])
+connector_capabilityList = Lens.lens (\Connector' {capabilityList} -> capabilityList) (\s@Connector' {} a -> s {capabilityList = a} :: Connector) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Connector where
+instance Prelude.FromJSON Connector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Connector"
       ( \x ->
           Connector'
-            <$> (x .:? "status")
-            <*> (x .:? "macAddress")
-            <*> (x .:? "associatedOn")
-            <*> (x .:? "connectorId")
-            <*> (x .:? "vmManagerId")
-            <*> (x .:? "version")
-            <*> (x .:? "vmManagerName")
-            <*> (x .:? "ipAddress")
-            <*> (x .:? "vmManagerType")
-            <*> (x .:? "capabilityList" .!= mempty)
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "macAddress")
+            Prelude.<*> (x Prelude..:? "associatedOn")
+            Prelude.<*> (x Prelude..:? "connectorId")
+            Prelude.<*> (x Prelude..:? "vmManagerId")
+            Prelude.<*> (x Prelude..:? "version")
+            Prelude.<*> (x Prelude..:? "vmManagerName")
+            Prelude.<*> (x Prelude..:? "ipAddress")
+            Prelude.<*> (x Prelude..:? "vmManagerType")
+            Prelude.<*> ( x Prelude..:? "capabilityList"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Connector
+instance Prelude.Hashable Connector
 
-instance NFData Connector
+instance Prelude.NFData Connector

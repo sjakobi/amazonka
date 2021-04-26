@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ReplicationRunStageDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details of the current stage of a replication run.
 --
---
---
--- /See:/ 'replicationRunStageDetails' smart constructor.
+-- /See:/ 'newReplicationRunStageDetails' smart constructor.
 data ReplicationRunStageDetails = ReplicationRunStageDetails'
-  { _rrsdStage ::
-      !(Maybe Text),
-    _rrsdStageProgress ::
-      !(Maybe Text)
+  { -- | The current stage of a replication run.
+    stage :: Prelude.Maybe Prelude.Text,
+    -- | The progress of the current stage of a replication run.
+    stageProgress :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationRunStageDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationRunStageDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrsdStage' - The current stage of a replication run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrsdStageProgress' - The progress of the current stage of a replication run.
-replicationRunStageDetails ::
+-- 'stage', 'replicationRunStageDetails_stage' - The current stage of a replication run.
+--
+-- 'stageProgress', 'replicationRunStageDetails_stageProgress' - The progress of the current stage of a replication run.
+newReplicationRunStageDetails ::
   ReplicationRunStageDetails
-replicationRunStageDetails =
+newReplicationRunStageDetails =
   ReplicationRunStageDetails'
-    { _rrsdStage = Nothing,
-      _rrsdStageProgress = Nothing
+    { stage =
+        Prelude.Nothing,
+      stageProgress = Prelude.Nothing
     }
 
 -- | The current stage of a replication run.
-rrsdStage :: Lens' ReplicationRunStageDetails (Maybe Text)
-rrsdStage = lens _rrsdStage (\s a -> s {_rrsdStage = a})
+replicationRunStageDetails_stage :: Lens.Lens' ReplicationRunStageDetails (Prelude.Maybe Prelude.Text)
+replicationRunStageDetails_stage = Lens.lens (\ReplicationRunStageDetails' {stage} -> stage) (\s@ReplicationRunStageDetails' {} a -> s {stage = a} :: ReplicationRunStageDetails)
 
 -- | The progress of the current stage of a replication run.
-rrsdStageProgress :: Lens' ReplicationRunStageDetails (Maybe Text)
-rrsdStageProgress = lens _rrsdStageProgress (\s a -> s {_rrsdStageProgress = a})
+replicationRunStageDetails_stageProgress :: Lens.Lens' ReplicationRunStageDetails (Prelude.Maybe Prelude.Text)
+replicationRunStageDetails_stageProgress = Lens.lens (\ReplicationRunStageDetails' {stageProgress} -> stageProgress) (\s@ReplicationRunStageDetails' {} a -> s {stageProgress = a} :: ReplicationRunStageDetails)
 
-instance FromJSON ReplicationRunStageDetails where
+instance Prelude.FromJSON ReplicationRunStageDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicationRunStageDetails"
       ( \x ->
           ReplicationRunStageDetails'
-            <$> (x .:? "stage") <*> (x .:? "stageProgress")
+            Prelude.<$> (x Prelude..:? "stage")
+            Prelude.<*> (x Prelude..:? "stageProgress")
       )
 
-instance Hashable ReplicationRunStageDetails
+instance Prelude.Hashable ReplicationRunStageDetails
 
-instance NFData ReplicationRunStageDetails
+instance Prelude.NFData ReplicationRunStageDetails

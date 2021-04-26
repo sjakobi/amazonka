@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,101 +24,107 @@
 -- Deletes all servers from your server catalog.
 module Network.AWS.SMS.DeleteServerCatalog
   ( -- * Creating a Request
-    deleteServerCatalog,
-    DeleteServerCatalog,
+    DeleteServerCatalog (..),
+    newDeleteServerCatalog,
 
     -- * Destructuring the Response
-    deleteServerCatalogResponse,
-    DeleteServerCatalogResponse,
+    DeleteServerCatalogResponse (..),
+    newDeleteServerCatalogResponse,
 
     -- * Response Lenses
-    dscrrsResponseStatus,
+    deleteServerCatalogResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'deleteServerCatalog' smart constructor.
+-- | /See:/ 'newDeleteServerCatalog' smart constructor.
 data DeleteServerCatalog = DeleteServerCatalog'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServerCatalog' with the minimum fields required to make a request.
-deleteServerCatalog ::
+-- |
+-- Create a value of 'DeleteServerCatalog' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteServerCatalog ::
   DeleteServerCatalog
-deleteServerCatalog = DeleteServerCatalog'
+newDeleteServerCatalog = DeleteServerCatalog'
 
-instance AWSRequest DeleteServerCatalog where
+instance Prelude.AWSRequest DeleteServerCatalog where
   type
     Rs DeleteServerCatalog =
       DeleteServerCatalogResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteServerCatalogResponse' <$> (pure (fromEnum s))
+          DeleteServerCatalogResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteServerCatalog
+instance Prelude.Hashable DeleteServerCatalog
 
-instance NFData DeleteServerCatalog
+instance Prelude.NFData DeleteServerCatalog
 
-instance ToHeaders DeleteServerCatalog where
+instance Prelude.ToHeaders DeleteServerCatalog where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.DeleteServerCatalog" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.DeleteServerCatalog" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteServerCatalog where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DeleteServerCatalog where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DeleteServerCatalog where
-  toPath = const "/"
+instance Prelude.ToPath DeleteServerCatalog where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteServerCatalog where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteServerCatalog where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteServerCatalogResponse' smart constructor.
-newtype DeleteServerCatalogResponse = DeleteServerCatalogResponse'
-  { _dscrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteServerCatalogResponse' smart constructor.
+data DeleteServerCatalogResponse = DeleteServerCatalogResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServerCatalogResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteServerCatalogResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscrrsResponseStatus' - -- | The response status code.
-deleteServerCatalogResponse ::
-  -- | 'dscrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteServerCatalogResponse_httpStatus' - The response's http status code.
+newDeleteServerCatalogResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteServerCatalogResponse
-deleteServerCatalogResponse pResponseStatus_ =
+newDeleteServerCatalogResponse pHttpStatus_ =
   DeleteServerCatalogResponse'
-    { _dscrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dscrrsResponseStatus :: Lens' DeleteServerCatalogResponse Int
-dscrrsResponseStatus = lens _dscrrsResponseStatus (\s a -> s {_dscrrsResponseStatus = a})
+-- | The response's http status code.
+deleteServerCatalogResponse_httpStatus :: Lens.Lens' DeleteServerCatalogResponse Prelude.Int
+deleteServerCatalogResponse_httpStatus = Lens.lens (\DeleteServerCatalogResponse' {httpStatus} -> httpStatus) (\s@DeleteServerCatalogResponse' {} a -> s {httpStatus = a} :: DeleteServerCatalogResponse)
 
-instance NFData DeleteServerCatalogResponse
+instance Prelude.NFData DeleteServerCatalogResponse

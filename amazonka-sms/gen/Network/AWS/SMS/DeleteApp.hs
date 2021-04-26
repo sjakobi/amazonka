@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified application. Optionally deletes the launched stack associated with the application and all AWS SMS replication jobs for servers in the application.
+-- Deletes the specified application. Optionally deletes the launched stack
+-- associated with the application and all AWS SMS replication jobs for
+-- servers in the application.
 module Network.AWS.SMS.DeleteApp
   ( -- * Creating a Request
-    deleteApp,
-    DeleteApp,
+    DeleteApp (..),
+    newDeleteApp,
 
     -- * Request Lenses
-    daAppId,
-    daForceStopAppReplication,
-    daForceTerminateApp,
+    deleteApp_appId,
+    deleteApp_forceStopAppReplication,
+    deleteApp_forceTerminateApp,
 
     -- * Destructuring the Response
-    deleteAppResponse,
-    DeleteAppResponse,
+    DeleteAppResponse (..),
+    newDeleteAppResponse,
 
     -- * Response Lenses
-    darrsResponseStatus,
+    deleteAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'deleteApp' smart constructor.
+-- | /See:/ 'newDeleteApp' smart constructor.
 data DeleteApp = DeleteApp'
-  { _daAppId ::
-      !(Maybe Text),
-    _daForceStopAppReplication :: !(Maybe Bool),
-    _daForceTerminateApp :: !(Maybe Bool)
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether to stop all replication jobs corresponding to the
+    -- servers in the application while deleting the application.
+    forceStopAppReplication :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether to terminate the stack corresponding to the
+    -- application while deleting the application.
+    forceTerminateApp :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAppId' - The ID of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daForceStopAppReplication' - Indicates whether to stop all replication jobs corresponding to the servers in the application while deleting the application.
+-- 'appId', 'deleteApp_appId' - The ID of the application.
 --
--- * 'daForceTerminateApp' - Indicates whether to terminate the stack corresponding to the application while deleting the application.
-deleteApp ::
+-- 'forceStopAppReplication', 'deleteApp_forceStopAppReplication' - Indicates whether to stop all replication jobs corresponding to the
+-- servers in the application while deleting the application.
+--
+-- 'forceTerminateApp', 'deleteApp_forceTerminateApp' - Indicates whether to terminate the stack corresponding to the
+-- application while deleting the application.
+newDeleteApp ::
   DeleteApp
-deleteApp =
+newDeleteApp =
   DeleteApp'
-    { _daAppId = Nothing,
-      _daForceStopAppReplication = Nothing,
-      _daForceTerminateApp = Nothing
+    { appId = Prelude.Nothing,
+      forceStopAppReplication = Prelude.Nothing,
+      forceTerminateApp = Prelude.Nothing
     }
 
 -- | The ID of the application.
-daAppId :: Lens' DeleteApp (Maybe Text)
-daAppId = lens _daAppId (\s a -> s {_daAppId = a})
+deleteApp_appId :: Lens.Lens' DeleteApp (Prelude.Maybe Prelude.Text)
+deleteApp_appId = Lens.lens (\DeleteApp' {appId} -> appId) (\s@DeleteApp' {} a -> s {appId = a} :: DeleteApp)
 
--- | Indicates whether to stop all replication jobs corresponding to the servers in the application while deleting the application.
-daForceStopAppReplication :: Lens' DeleteApp (Maybe Bool)
-daForceStopAppReplication = lens _daForceStopAppReplication (\s a -> s {_daForceStopAppReplication = a})
+-- | Indicates whether to stop all replication jobs corresponding to the
+-- servers in the application while deleting the application.
+deleteApp_forceStopAppReplication :: Lens.Lens' DeleteApp (Prelude.Maybe Prelude.Bool)
+deleteApp_forceStopAppReplication = Lens.lens (\DeleteApp' {forceStopAppReplication} -> forceStopAppReplication) (\s@DeleteApp' {} a -> s {forceStopAppReplication = a} :: DeleteApp)
 
--- | Indicates whether to terminate the stack corresponding to the application while deleting the application.
-daForceTerminateApp :: Lens' DeleteApp (Maybe Bool)
-daForceTerminateApp = lens _daForceTerminateApp (\s a -> s {_daForceTerminateApp = a})
+-- | Indicates whether to terminate the stack corresponding to the
+-- application while deleting the application.
+deleteApp_forceTerminateApp :: Lens.Lens' DeleteApp (Prelude.Maybe Prelude.Bool)
+deleteApp_forceTerminateApp = Lens.lens (\DeleteApp' {forceTerminateApp} -> forceTerminateApp) (\s@DeleteApp' {} a -> s {forceTerminateApp = a} :: DeleteApp)
 
-instance AWSRequest DeleteApp where
+instance Prelude.AWSRequest DeleteApp where
   type Rs DeleteApp = DeleteAppResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteAppResponse' <$> (pure (fromEnum s))
+          DeleteAppResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteApp
+instance Prelude.Hashable DeleteApp
 
-instance NFData DeleteApp
+instance Prelude.NFData DeleteApp
 
-instance ToHeaders DeleteApp where
+instance Prelude.ToHeaders DeleteApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.DeleteApp" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.DeleteApp" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteApp where
+instance Prelude.ToJSON DeleteApp where
   toJSON DeleteApp' {..} =
-    object
-      ( catMaybes
-          [ ("appId" .=) <$> _daAppId,
-            ("forceStopAppReplication" .=)
-              <$> _daForceStopAppReplication,
-            ("forceTerminateApp" .=) <$> _daForceTerminateApp
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("appId" Prelude..=) Prelude.<$> appId,
+            ("forceStopAppReplication" Prelude..=)
+              Prelude.<$> forceStopAppReplication,
+            ("forceTerminateApp" Prelude..=)
+              Prelude.<$> forceTerminateApp
           ]
       )
 
-instance ToPath DeleteApp where
-  toPath = const "/"
+instance Prelude.ToPath DeleteApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteApp where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAppResponse' smart constructor.
-newtype DeleteAppResponse = DeleteAppResponse'
-  { _darrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteAppResponse' smart constructor.
+data DeleteAppResponse = DeleteAppResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-deleteAppResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAppResponse_httpStatus' - The response's http status code.
+newDeleteAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAppResponse
-deleteAppResponse pResponseStatus_ =
-  DeleteAppResponse'
-    { _darrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteAppResponse pHttpStatus_ =
+  DeleteAppResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DeleteAppResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+deleteAppResponse_httpStatus :: Lens.Lens' DeleteAppResponse Prelude.Int
+deleteAppResponse_httpStatus = Lens.lens (\DeleteAppResponse' {httpStatus} -> httpStatus) (\s@DeleteAppResponse' {} a -> s {httpStatus = a} :: DeleteAppResponse)
 
-instance NFData DeleteAppResponse
+instance Prelude.NFData DeleteAppResponse

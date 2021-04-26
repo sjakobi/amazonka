@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,131 +19,163 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SMS.Types.ServerReplicationParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SMS.Types.LicenseType
 
 -- | The replication parameters for replicating a server.
 --
---
---
--- /See:/ 'serverReplicationParameters' smart constructor.
+-- /See:/ 'newServerReplicationParameters' smart constructor.
 data ServerReplicationParameters = ServerReplicationParameters'
-  { _srpNumberOfRecentAMIsToKeep ::
-      !(Maybe Int),
-    _srpEncrypted ::
-      !(Maybe Bool),
-    _srpSeedTime ::
-      !(Maybe POSIX),
-    _srpKmsKeyId ::
-      !(Maybe Text),
-    _srpFrequency ::
-      !(Maybe Int),
-    _srpRunOnce ::
-      !(Maybe Bool),
-    _srpLicenseType ::
-      !( Maybe
-           LicenseType
-       )
+  { -- | The number of recent AMIs to keep when creating a replication job for
+    -- this server.
+    numberOfRecentAmisToKeep :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether the replication job produces encrypted AMIs.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The seed time for creating a replication job for the server.
+    seedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the KMS key for replication jobs that produce encrypted AMIs.
+    -- This value can be any of the following:
+    --
+    -- -   KMS key ID
+    --
+    -- -   KMS key alias
+    --
+    -- -   ARN referring to the KMS key ID
+    --
+    -- -   ARN referring to the KMS key alias
+    --
+    -- If encrypted is enabled but a KMS key ID is not specified, the
+    -- customer\'s default KMS key for Amazon EBS is used.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The frequency of creating replication jobs for the server.
+    frequency :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether to run the replication job one time.
+    runOnce :: Prelude.Maybe Prelude.Bool,
+    -- | The license type for creating a replication job for the server.
+    licenseType :: Prelude.Maybe LicenseType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerReplicationParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerReplicationParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srpNumberOfRecentAMIsToKeep' - The number of recent AMIs to keep when creating a replication job for this server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srpEncrypted' - Indicates whether the replication job produces encrypted AMIs.
+-- 'numberOfRecentAmisToKeep', 'serverReplicationParameters_numberOfRecentAmisToKeep' - The number of recent AMIs to keep when creating a replication job for
+-- this server.
 --
--- * 'srpSeedTime' - The seed time for creating a replication job for the server.
+-- 'encrypted', 'serverReplicationParameters_encrypted' - Indicates whether the replication job produces encrypted AMIs.
 --
--- * 'srpKmsKeyId' - The ID of the KMS key for replication jobs that produce encrypted AMIs. This value can be any of the following:     * KMS key ID     * KMS key alias     * ARN referring to the KMS key ID     * ARN referring to the KMS key alias If encrypted is enabled but a KMS key ID is not specified, the customer's default KMS key for Amazon EBS is used.
+-- 'seedTime', 'serverReplicationParameters_seedTime' - The seed time for creating a replication job for the server.
 --
--- * 'srpFrequency' - The frequency of creating replication jobs for the server.
+-- 'kmsKeyId', 'serverReplicationParameters_kmsKeyId' - The ID of the KMS key for replication jobs that produce encrypted AMIs.
+-- This value can be any of the following:
 --
--- * 'srpRunOnce' - Indicates whether to run the replication job one time.
+-- -   KMS key ID
 --
--- * 'srpLicenseType' - The license type for creating a replication job for the server.
-serverReplicationParameters ::
+-- -   KMS key alias
+--
+-- -   ARN referring to the KMS key ID
+--
+-- -   ARN referring to the KMS key alias
+--
+-- If encrypted is enabled but a KMS key ID is not specified, the
+-- customer\'s default KMS key for Amazon EBS is used.
+--
+-- 'frequency', 'serverReplicationParameters_frequency' - The frequency of creating replication jobs for the server.
+--
+-- 'runOnce', 'serverReplicationParameters_runOnce' - Indicates whether to run the replication job one time.
+--
+-- 'licenseType', 'serverReplicationParameters_licenseType' - The license type for creating a replication job for the server.
+newServerReplicationParameters ::
   ServerReplicationParameters
-serverReplicationParameters =
+newServerReplicationParameters =
   ServerReplicationParameters'
-    { _srpNumberOfRecentAMIsToKeep =
-        Nothing,
-      _srpEncrypted = Nothing,
-      _srpSeedTime = Nothing,
-      _srpKmsKeyId = Nothing,
-      _srpFrequency = Nothing,
-      _srpRunOnce = Nothing,
-      _srpLicenseType = Nothing
+    { numberOfRecentAmisToKeep =
+        Prelude.Nothing,
+      encrypted = Prelude.Nothing,
+      seedTime = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      frequency = Prelude.Nothing,
+      runOnce = Prelude.Nothing,
+      licenseType = Prelude.Nothing
     }
 
--- | The number of recent AMIs to keep when creating a replication job for this server.
-srpNumberOfRecentAMIsToKeep :: Lens' ServerReplicationParameters (Maybe Int)
-srpNumberOfRecentAMIsToKeep = lens _srpNumberOfRecentAMIsToKeep (\s a -> s {_srpNumberOfRecentAMIsToKeep = a})
+-- | The number of recent AMIs to keep when creating a replication job for
+-- this server.
+serverReplicationParameters_numberOfRecentAmisToKeep :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe Prelude.Int)
+serverReplicationParameters_numberOfRecentAmisToKeep = Lens.lens (\ServerReplicationParameters' {numberOfRecentAmisToKeep} -> numberOfRecentAmisToKeep) (\s@ServerReplicationParameters' {} a -> s {numberOfRecentAmisToKeep = a} :: ServerReplicationParameters)
 
 -- | Indicates whether the replication job produces encrypted AMIs.
-srpEncrypted :: Lens' ServerReplicationParameters (Maybe Bool)
-srpEncrypted = lens _srpEncrypted (\s a -> s {_srpEncrypted = a})
+serverReplicationParameters_encrypted :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe Prelude.Bool)
+serverReplicationParameters_encrypted = Lens.lens (\ServerReplicationParameters' {encrypted} -> encrypted) (\s@ServerReplicationParameters' {} a -> s {encrypted = a} :: ServerReplicationParameters)
 
 -- | The seed time for creating a replication job for the server.
-srpSeedTime :: Lens' ServerReplicationParameters (Maybe UTCTime)
-srpSeedTime = lens _srpSeedTime (\s a -> s {_srpSeedTime = a}) . mapping _Time
+serverReplicationParameters_seedTime :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe Prelude.UTCTime)
+serverReplicationParameters_seedTime = Lens.lens (\ServerReplicationParameters' {seedTime} -> seedTime) (\s@ServerReplicationParameters' {} a -> s {seedTime = a} :: ServerReplicationParameters) Prelude.. Lens.mapping Prelude._Time
 
--- | The ID of the KMS key for replication jobs that produce encrypted AMIs. This value can be any of the following:     * KMS key ID     * KMS key alias     * ARN referring to the KMS key ID     * ARN referring to the KMS key alias If encrypted is enabled but a KMS key ID is not specified, the customer's default KMS key for Amazon EBS is used.
-srpKmsKeyId :: Lens' ServerReplicationParameters (Maybe Text)
-srpKmsKeyId = lens _srpKmsKeyId (\s a -> s {_srpKmsKeyId = a})
+-- | The ID of the KMS key for replication jobs that produce encrypted AMIs.
+-- This value can be any of the following:
+--
+-- -   KMS key ID
+--
+-- -   KMS key alias
+--
+-- -   ARN referring to the KMS key ID
+--
+-- -   ARN referring to the KMS key alias
+--
+-- If encrypted is enabled but a KMS key ID is not specified, the
+-- customer\'s default KMS key for Amazon EBS is used.
+serverReplicationParameters_kmsKeyId :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe Prelude.Text)
+serverReplicationParameters_kmsKeyId = Lens.lens (\ServerReplicationParameters' {kmsKeyId} -> kmsKeyId) (\s@ServerReplicationParameters' {} a -> s {kmsKeyId = a} :: ServerReplicationParameters)
 
 -- | The frequency of creating replication jobs for the server.
-srpFrequency :: Lens' ServerReplicationParameters (Maybe Int)
-srpFrequency = lens _srpFrequency (\s a -> s {_srpFrequency = a})
+serverReplicationParameters_frequency :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe Prelude.Int)
+serverReplicationParameters_frequency = Lens.lens (\ServerReplicationParameters' {frequency} -> frequency) (\s@ServerReplicationParameters' {} a -> s {frequency = a} :: ServerReplicationParameters)
 
 -- | Indicates whether to run the replication job one time.
-srpRunOnce :: Lens' ServerReplicationParameters (Maybe Bool)
-srpRunOnce = lens _srpRunOnce (\s a -> s {_srpRunOnce = a})
+serverReplicationParameters_runOnce :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe Prelude.Bool)
+serverReplicationParameters_runOnce = Lens.lens (\ServerReplicationParameters' {runOnce} -> runOnce) (\s@ServerReplicationParameters' {} a -> s {runOnce = a} :: ServerReplicationParameters)
 
 -- | The license type for creating a replication job for the server.
-srpLicenseType :: Lens' ServerReplicationParameters (Maybe LicenseType)
-srpLicenseType = lens _srpLicenseType (\s a -> s {_srpLicenseType = a})
+serverReplicationParameters_licenseType :: Lens.Lens' ServerReplicationParameters (Prelude.Maybe LicenseType)
+serverReplicationParameters_licenseType = Lens.lens (\ServerReplicationParameters' {licenseType} -> licenseType) (\s@ServerReplicationParameters' {} a -> s {licenseType = a} :: ServerReplicationParameters)
 
-instance FromJSON ServerReplicationParameters where
+instance Prelude.FromJSON ServerReplicationParameters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServerReplicationParameters"
       ( \x ->
           ServerReplicationParameters'
-            <$> (x .:? "numberOfRecentAmisToKeep")
-            <*> (x .:? "encrypted")
-            <*> (x .:? "seedTime")
-            <*> (x .:? "kmsKeyId")
-            <*> (x .:? "frequency")
-            <*> (x .:? "runOnce")
-            <*> (x .:? "licenseType")
+            Prelude.<$> (x Prelude..:? "numberOfRecentAmisToKeep")
+            Prelude.<*> (x Prelude..:? "encrypted")
+            Prelude.<*> (x Prelude..:? "seedTime")
+            Prelude.<*> (x Prelude..:? "kmsKeyId")
+            Prelude.<*> (x Prelude..:? "frequency")
+            Prelude.<*> (x Prelude..:? "runOnce")
+            Prelude.<*> (x Prelude..:? "licenseType")
       )
 
-instance Hashable ServerReplicationParameters
+instance Prelude.Hashable ServerReplicationParameters
 
-instance NFData ServerReplicationParameters
+instance Prelude.NFData ServerReplicationParameters
 
-instance ToJSON ServerReplicationParameters where
+instance Prelude.ToJSON ServerReplicationParameters where
   toJSON ServerReplicationParameters' {..} =
-    object
-      ( catMaybes
-          [ ("numberOfRecentAmisToKeep" .=)
-              <$> _srpNumberOfRecentAMIsToKeep,
-            ("encrypted" .=) <$> _srpEncrypted,
-            ("seedTime" .=) <$> _srpSeedTime,
-            ("kmsKeyId" .=) <$> _srpKmsKeyId,
-            ("frequency" .=) <$> _srpFrequency,
-            ("runOnce" .=) <$> _srpRunOnce,
-            ("licenseType" .=) <$> _srpLicenseType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("numberOfRecentAmisToKeep" Prelude..=)
+              Prelude.<$> numberOfRecentAmisToKeep,
+            ("encrypted" Prelude..=) Prelude.<$> encrypted,
+            ("seedTime" Prelude..=) Prelude.<$> seedTime,
+            ("kmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            ("frequency" Prelude..=) Prelude.<$> frequency,
+            ("runOnce" Prelude..=) Prelude.<$> runOnce,
+            ("licenseType" Prelude..=) Prelude.<$> licenseType
           ]
       )

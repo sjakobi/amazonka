@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,140 +24,142 @@
 -- Retrieves output from validating an application.
 module Network.AWS.SMS.GetAppValidationOutput
   ( -- * Creating a Request
-    getAppValidationOutput,
-    GetAppValidationOutput,
+    GetAppValidationOutput (..),
+    newGetAppValidationOutput,
 
     -- * Request Lenses
-    gavoAppId,
+    getAppValidationOutput_appId,
 
     -- * Destructuring the Response
-    getAppValidationOutputResponse,
-    GetAppValidationOutputResponse,
+    GetAppValidationOutputResponse (..),
+    newGetAppValidationOutputResponse,
 
     -- * Response Lenses
-    gavorrsValidationOutputList,
-    gavorrsResponseStatus,
+    getAppValidationOutputResponse_validationOutputList,
+    getAppValidationOutputResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.ValidationOutput
 
--- | /See:/ 'getAppValidationOutput' smart constructor.
-newtype GetAppValidationOutput = GetAppValidationOutput'
-  { _gavoAppId ::
-      Text
+-- | /See:/ 'newGetAppValidationOutput' smart constructor.
+data GetAppValidationOutput = GetAppValidationOutput'
+  { -- | The ID of the application.
+    appId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppValidationOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppValidationOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gavoAppId' - The ID of the application.
-getAppValidationOutput ::
-  -- | 'gavoAppId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'getAppValidationOutput_appId' - The ID of the application.
+newGetAppValidationOutput ::
+  -- | 'appId'
+  Prelude.Text ->
   GetAppValidationOutput
-getAppValidationOutput pAppId_ =
-  GetAppValidationOutput' {_gavoAppId = pAppId_}
+newGetAppValidationOutput pAppId_ =
+  GetAppValidationOutput' {appId = pAppId_}
 
 -- | The ID of the application.
-gavoAppId :: Lens' GetAppValidationOutput Text
-gavoAppId = lens _gavoAppId (\s a -> s {_gavoAppId = a})
+getAppValidationOutput_appId :: Lens.Lens' GetAppValidationOutput Prelude.Text
+getAppValidationOutput_appId = Lens.lens (\GetAppValidationOutput' {appId} -> appId) (\s@GetAppValidationOutput' {} a -> s {appId = a} :: GetAppValidationOutput)
 
-instance AWSRequest GetAppValidationOutput where
+instance Prelude.AWSRequest GetAppValidationOutput where
   type
     Rs GetAppValidationOutput =
       GetAppValidationOutputResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAppValidationOutputResponse'
-            <$> (x .?> "validationOutputList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "validationOutputList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAppValidationOutput
+instance Prelude.Hashable GetAppValidationOutput
 
-instance NFData GetAppValidationOutput
+instance Prelude.NFData GetAppValidationOutput
 
-instance ToHeaders GetAppValidationOutput where
+instance Prelude.ToHeaders GetAppValidationOutput where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.GetAppValidationOutput" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.GetAppValidationOutput" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAppValidationOutput where
+instance Prelude.ToJSON GetAppValidationOutput where
   toJSON GetAppValidationOutput' {..} =
-    object (catMaybes [Just ("appId" .= _gavoAppId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("appId" Prelude..= appId)]
+      )
 
-instance ToPath GetAppValidationOutput where
-  toPath = const "/"
+instance Prelude.ToPath GetAppValidationOutput where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAppValidationOutput where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAppValidationOutput where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAppValidationOutputResponse' smart constructor.
+-- | /See:/ 'newGetAppValidationOutputResponse' smart constructor.
 data GetAppValidationOutputResponse = GetAppValidationOutputResponse'
-  { _gavorrsValidationOutputList ::
-      !( Maybe
-           [ValidationOutput]
-       ),
-    _gavorrsResponseStatus ::
-      !Int
+  { -- | The validation output.
+    validationOutputList :: Prelude.Maybe [ValidationOutput],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAppValidationOutputResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAppValidationOutputResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gavorrsValidationOutputList' - The validation output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gavorrsResponseStatus' - -- | The response status code.
-getAppValidationOutputResponse ::
-  -- | 'gavorrsResponseStatus'
-  Int ->
+-- 'validationOutputList', 'getAppValidationOutputResponse_validationOutputList' - The validation output.
+--
+-- 'httpStatus', 'getAppValidationOutputResponse_httpStatus' - The response's http status code.
+newGetAppValidationOutputResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAppValidationOutputResponse
-getAppValidationOutputResponse pResponseStatus_ =
+newGetAppValidationOutputResponse pHttpStatus_ =
   GetAppValidationOutputResponse'
-    { _gavorrsValidationOutputList =
-        Nothing,
-      _gavorrsResponseStatus = pResponseStatus_
+    { validationOutputList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The validation output.
-gavorrsValidationOutputList :: Lens' GetAppValidationOutputResponse [ValidationOutput]
-gavorrsValidationOutputList = lens _gavorrsValidationOutputList (\s a -> s {_gavorrsValidationOutputList = a}) . _Default . _Coerce
+getAppValidationOutputResponse_validationOutputList :: Lens.Lens' GetAppValidationOutputResponse (Prelude.Maybe [ValidationOutput])
+getAppValidationOutputResponse_validationOutputList = Lens.lens (\GetAppValidationOutputResponse' {validationOutputList} -> validationOutputList) (\s@GetAppValidationOutputResponse' {} a -> s {validationOutputList = a} :: GetAppValidationOutputResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gavorrsResponseStatus :: Lens' GetAppValidationOutputResponse Int
-gavorrsResponseStatus = lens _gavorrsResponseStatus (\s a -> s {_gavorrsResponseStatus = a})
+-- | The response's http status code.
+getAppValidationOutputResponse_httpStatus :: Lens.Lens' GetAppValidationOutputResponse Prelude.Int
+getAppValidationOutputResponse_httpStatus = Lens.lens (\GetAppValidationOutputResponse' {httpStatus} -> httpStatus) (\s@GetAppValidationOutputResponse' {} a -> s {httpStatus = a} :: GetAppValidationOutputResponse)
 
-instance NFData GetAppValidationOutputResponse
+instance
+  Prelude.NFData
+    GetAppValidationOutputResponse

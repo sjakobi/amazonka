@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,118 +19,120 @@
 module Network.AWS.SMS.Types.AppLaunchStatus
   ( AppLaunchStatus
       ( ..,
-        ALSConfigurationInProgress,
-        ALSConfigurationInvalid,
-        ALSDeltaLaunchFailed,
-        ALSDeltaLaunchInProgress,
-        ALSLaunchFailed,
-        ALSLaunchInProgress,
-        ALSLaunchPending,
-        ALSLaunched,
-        ALSPartiallyLaunched,
-        ALSReadyForConfiguration,
-        ALSReadyForLaunch,
-        ALSTerminateFailed,
-        ALSTerminateInProgress,
-        ALSTerminated,
-        ALSValidationInProgress
+        AppLaunchStatusCONFIGURATIONINPROGRESS,
+        AppLaunchStatusCONFIGURATIONINVALID,
+        AppLaunchStatusDELTALAUNCHFAILED,
+        AppLaunchStatusDELTALAUNCHINPROGRESS,
+        AppLaunchStatusLAUNCHED,
+        AppLaunchStatusLAUNCHFAILED,
+        AppLaunchStatusLAUNCHINPROGRESS,
+        AppLaunchStatusLAUNCHPENDING,
+        AppLaunchStatusPARTIALLYLAUNCHED,
+        AppLaunchStatusREADYFORCONFIGURATION,
+        AppLaunchStatusREADYFORLAUNCH,
+        AppLaunchStatusTERMINATED,
+        AppLaunchStatusTERMINATEFAILED,
+        AppLaunchStatusTERMINATEINPROGRESS,
+        AppLaunchStatusVALIDATIONINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppLaunchStatus = AppLaunchStatus' (CI Text)
+newtype AppLaunchStatus = AppLaunchStatus'
+  { fromAppLaunchStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ALSConfigurationInProgress :: AppLaunchStatus
-pattern ALSConfigurationInProgress = AppLaunchStatus' "CONFIGURATION_IN_PROGRESS"
+pattern AppLaunchStatusCONFIGURATIONINPROGRESS :: AppLaunchStatus
+pattern AppLaunchStatusCONFIGURATIONINPROGRESS = AppLaunchStatus' "CONFIGURATION_IN_PROGRESS"
 
-pattern ALSConfigurationInvalid :: AppLaunchStatus
-pattern ALSConfigurationInvalid = AppLaunchStatus' "CONFIGURATION_INVALID"
+pattern AppLaunchStatusCONFIGURATIONINVALID :: AppLaunchStatus
+pattern AppLaunchStatusCONFIGURATIONINVALID = AppLaunchStatus' "CONFIGURATION_INVALID"
 
-pattern ALSDeltaLaunchFailed :: AppLaunchStatus
-pattern ALSDeltaLaunchFailed = AppLaunchStatus' "DELTA_LAUNCH_FAILED"
+pattern AppLaunchStatusDELTALAUNCHFAILED :: AppLaunchStatus
+pattern AppLaunchStatusDELTALAUNCHFAILED = AppLaunchStatus' "DELTA_LAUNCH_FAILED"
 
-pattern ALSDeltaLaunchInProgress :: AppLaunchStatus
-pattern ALSDeltaLaunchInProgress = AppLaunchStatus' "DELTA_LAUNCH_IN_PROGRESS"
+pattern AppLaunchStatusDELTALAUNCHINPROGRESS :: AppLaunchStatus
+pattern AppLaunchStatusDELTALAUNCHINPROGRESS = AppLaunchStatus' "DELTA_LAUNCH_IN_PROGRESS"
 
-pattern ALSLaunchFailed :: AppLaunchStatus
-pattern ALSLaunchFailed = AppLaunchStatus' "LAUNCH_FAILED"
+pattern AppLaunchStatusLAUNCHED :: AppLaunchStatus
+pattern AppLaunchStatusLAUNCHED = AppLaunchStatus' "LAUNCHED"
 
-pattern ALSLaunchInProgress :: AppLaunchStatus
-pattern ALSLaunchInProgress = AppLaunchStatus' "LAUNCH_IN_PROGRESS"
+pattern AppLaunchStatusLAUNCHFAILED :: AppLaunchStatus
+pattern AppLaunchStatusLAUNCHFAILED = AppLaunchStatus' "LAUNCH_FAILED"
 
-pattern ALSLaunchPending :: AppLaunchStatus
-pattern ALSLaunchPending = AppLaunchStatus' "LAUNCH_PENDING"
+pattern AppLaunchStatusLAUNCHINPROGRESS :: AppLaunchStatus
+pattern AppLaunchStatusLAUNCHINPROGRESS = AppLaunchStatus' "LAUNCH_IN_PROGRESS"
 
-pattern ALSLaunched :: AppLaunchStatus
-pattern ALSLaunched = AppLaunchStatus' "LAUNCHED"
+pattern AppLaunchStatusLAUNCHPENDING :: AppLaunchStatus
+pattern AppLaunchStatusLAUNCHPENDING = AppLaunchStatus' "LAUNCH_PENDING"
 
-pattern ALSPartiallyLaunched :: AppLaunchStatus
-pattern ALSPartiallyLaunched = AppLaunchStatus' "PARTIALLY_LAUNCHED"
+pattern AppLaunchStatusPARTIALLYLAUNCHED :: AppLaunchStatus
+pattern AppLaunchStatusPARTIALLYLAUNCHED = AppLaunchStatus' "PARTIALLY_LAUNCHED"
 
-pattern ALSReadyForConfiguration :: AppLaunchStatus
-pattern ALSReadyForConfiguration = AppLaunchStatus' "READY_FOR_CONFIGURATION"
+pattern AppLaunchStatusREADYFORCONFIGURATION :: AppLaunchStatus
+pattern AppLaunchStatusREADYFORCONFIGURATION = AppLaunchStatus' "READY_FOR_CONFIGURATION"
 
-pattern ALSReadyForLaunch :: AppLaunchStatus
-pattern ALSReadyForLaunch = AppLaunchStatus' "READY_FOR_LAUNCH"
+pattern AppLaunchStatusREADYFORLAUNCH :: AppLaunchStatus
+pattern AppLaunchStatusREADYFORLAUNCH = AppLaunchStatus' "READY_FOR_LAUNCH"
 
-pattern ALSTerminateFailed :: AppLaunchStatus
-pattern ALSTerminateFailed = AppLaunchStatus' "TERMINATE_FAILED"
+pattern AppLaunchStatusTERMINATED :: AppLaunchStatus
+pattern AppLaunchStatusTERMINATED = AppLaunchStatus' "TERMINATED"
 
-pattern ALSTerminateInProgress :: AppLaunchStatus
-pattern ALSTerminateInProgress = AppLaunchStatus' "TERMINATE_IN_PROGRESS"
+pattern AppLaunchStatusTERMINATEFAILED :: AppLaunchStatus
+pattern AppLaunchStatusTERMINATEFAILED = AppLaunchStatus' "TERMINATE_FAILED"
 
-pattern ALSTerminated :: AppLaunchStatus
-pattern ALSTerminated = AppLaunchStatus' "TERMINATED"
+pattern AppLaunchStatusTERMINATEINPROGRESS :: AppLaunchStatus
+pattern AppLaunchStatusTERMINATEINPROGRESS = AppLaunchStatus' "TERMINATE_IN_PROGRESS"
 
-pattern ALSValidationInProgress :: AppLaunchStatus
-pattern ALSValidationInProgress = AppLaunchStatus' "VALIDATION_IN_PROGRESS"
+pattern AppLaunchStatusVALIDATIONINPROGRESS :: AppLaunchStatus
+pattern AppLaunchStatusVALIDATIONINPROGRESS = AppLaunchStatus' "VALIDATION_IN_PROGRESS"
 
 {-# COMPLETE
-  ALSConfigurationInProgress,
-  ALSConfigurationInvalid,
-  ALSDeltaLaunchFailed,
-  ALSDeltaLaunchInProgress,
-  ALSLaunchFailed,
-  ALSLaunchInProgress,
-  ALSLaunchPending,
-  ALSLaunched,
-  ALSPartiallyLaunched,
-  ALSReadyForConfiguration,
-  ALSReadyForLaunch,
-  ALSTerminateFailed,
-  ALSTerminateInProgress,
-  ALSTerminated,
-  ALSValidationInProgress,
+  AppLaunchStatusCONFIGURATIONINPROGRESS,
+  AppLaunchStatusCONFIGURATIONINVALID,
+  AppLaunchStatusDELTALAUNCHFAILED,
+  AppLaunchStatusDELTALAUNCHINPROGRESS,
+  AppLaunchStatusLAUNCHED,
+  AppLaunchStatusLAUNCHFAILED,
+  AppLaunchStatusLAUNCHINPROGRESS,
+  AppLaunchStatusLAUNCHPENDING,
+  AppLaunchStatusPARTIALLYLAUNCHED,
+  AppLaunchStatusREADYFORCONFIGURATION,
+  AppLaunchStatusREADYFORLAUNCH,
+  AppLaunchStatusTERMINATED,
+  AppLaunchStatusTERMINATEFAILED,
+  AppLaunchStatusTERMINATEINPROGRESS,
+  AppLaunchStatusVALIDATIONINPROGRESS,
   AppLaunchStatus'
   #-}
 
-instance FromText AppLaunchStatus where
-  parser = (AppLaunchStatus' . mk) <$> takeText
+instance Prelude.FromText AppLaunchStatus where
+  parser = AppLaunchStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AppLaunchStatus where
-  toText (AppLaunchStatus' ci) = original ci
+instance Prelude.ToText AppLaunchStatus where
+  toText (AppLaunchStatus' x) = x
 
-instance Hashable AppLaunchStatus
+instance Prelude.Hashable AppLaunchStatus
 
-instance NFData AppLaunchStatus
+instance Prelude.NFData AppLaunchStatus
 
-instance ToByteString AppLaunchStatus
+instance Prelude.ToByteString AppLaunchStatus
 
-instance ToQuery AppLaunchStatus
+instance Prelude.ToQuery AppLaunchStatus
 
-instance ToHeader AppLaunchStatus
+instance Prelude.ToHeader AppLaunchStatus
 
-instance FromJSON AppLaunchStatus where
-  parseJSON = parseJSONText "AppLaunchStatus"
+instance Prelude.FromJSON AppLaunchStatus where
+  parseJSON = Prelude.parseJSONText "AppLaunchStatus"

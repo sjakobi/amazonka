@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SMS.Types.AppReplicationConfigurationStatus
   ( AppReplicationConfigurationStatus
       ( ..,
-        Configured,
-        NotConfigured
+        AppReplicationConfigurationStatusCONFIGURED,
+        AppReplicationConfigurationStatusNOTCONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppReplicationConfigurationStatus
-  = AppReplicationConfigurationStatus'
-      ( CI
-          Text
-      )
+newtype AppReplicationConfigurationStatus = AppReplicationConfigurationStatus'
+  { fromAppReplicationConfigurationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Configured :: AppReplicationConfigurationStatus
-pattern Configured = AppReplicationConfigurationStatus' "CONFIGURED"
+pattern AppReplicationConfigurationStatusCONFIGURED :: AppReplicationConfigurationStatus
+pattern AppReplicationConfigurationStatusCONFIGURED = AppReplicationConfigurationStatus' "CONFIGURED"
 
-pattern NotConfigured :: AppReplicationConfigurationStatus
-pattern NotConfigured = AppReplicationConfigurationStatus' "NOT_CONFIGURED"
+pattern AppReplicationConfigurationStatusNOTCONFIGURED :: AppReplicationConfigurationStatus
+pattern AppReplicationConfigurationStatusNOTCONFIGURED = AppReplicationConfigurationStatus' "NOT_CONFIGURED"
 
 {-# COMPLETE
-  Configured,
-  NotConfigured,
+  AppReplicationConfigurationStatusCONFIGURED,
+  AppReplicationConfigurationStatusNOTCONFIGURED,
   AppReplicationConfigurationStatus'
   #-}
 
-instance FromText AppReplicationConfigurationStatus where
-  parser = (AppReplicationConfigurationStatus' . mk) <$> takeText
+instance Prelude.FromText AppReplicationConfigurationStatus where
+  parser = AppReplicationConfigurationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AppReplicationConfigurationStatus where
-  toText (AppReplicationConfigurationStatus' ci) = original ci
+instance Prelude.ToText AppReplicationConfigurationStatus where
+  toText (AppReplicationConfigurationStatus' x) = x
 
-instance Hashable AppReplicationConfigurationStatus
+instance Prelude.Hashable AppReplicationConfigurationStatus
 
-instance NFData AppReplicationConfigurationStatus
+instance Prelude.NFData AppReplicationConfigurationStatus
 
-instance ToByteString AppReplicationConfigurationStatus
+instance Prelude.ToByteString AppReplicationConfigurationStatus
 
-instance ToQuery AppReplicationConfigurationStatus
+instance Prelude.ToQuery AppReplicationConfigurationStatus
 
-instance ToHeader AppReplicationConfigurationStatus
+instance Prelude.ToHeader AppReplicationConfigurationStatus
 
-instance FromJSON AppReplicationConfigurationStatus where
-  parseJSON = parseJSONText "AppReplicationConfigurationStatus"
+instance Prelude.FromJSON AppReplicationConfigurationStatus where
+  parseJSON = Prelude.parseJSONText "AppReplicationConfigurationStatus"

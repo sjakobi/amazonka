@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,195 +24,217 @@
 -- Updates the specified application.
 module Network.AWS.SMS.UpdateApp
   ( -- * Creating a Request
-    updateApp,
-    UpdateApp,
+    UpdateApp (..),
+    newUpdateApp,
 
     -- * Request Lenses
-    uaAppId,
-    uaRoleName,
-    uaName,
-    uaServerGroups,
-    uaTags,
-    uaDescription,
+    updateApp_appId,
+    updateApp_roleName,
+    updateApp_name,
+    updateApp_serverGroups,
+    updateApp_tags,
+    updateApp_description,
 
     -- * Destructuring the Response
-    updateAppResponse,
-    UpdateAppResponse,
+    UpdateAppResponse (..),
+    newUpdateAppResponse,
 
     -- * Response Lenses
-    uarrsAppSummary,
-    uarrsServerGroups,
-    uarrsTags,
-    uarrsResponseStatus,
+    updateAppResponse_appSummary,
+    updateAppResponse_serverGroups,
+    updateAppResponse_tags,
+    updateAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
+import Network.AWS.SMS.Types.AppSummary
+import Network.AWS.SMS.Types.ServerGroup
+import Network.AWS.SMS.Types.Tag
 
--- | /See:/ 'updateApp' smart constructor.
+-- | /See:/ 'newUpdateApp' smart constructor.
 data UpdateApp = UpdateApp'
-  { _uaAppId ::
-      !(Maybe Text),
-    _uaRoleName :: !(Maybe Text),
-    _uaName :: !(Maybe Text),
-    _uaServerGroups :: !(Maybe [ServerGroup]),
-    _uaTags :: !(Maybe [Tag]),
-    _uaDescription :: !(Maybe Text)
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service role in the customer\'s account used by AWS SMS.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | The new name of the application.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The server groups in the application to update.
+    serverGroups :: Prelude.Maybe [ServerGroup],
+    -- | The tags to associate with the application.
+    tags :: Prelude.Maybe [Tag],
+    -- | The new description of the application.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaAppId' - The ID of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaRoleName' - The name of the service role in the customer's account used by AWS SMS.
+-- 'appId', 'updateApp_appId' - The ID of the application.
 --
--- * 'uaName' - The new name of the application.
+-- 'roleName', 'updateApp_roleName' - The name of the service role in the customer\'s account used by AWS SMS.
 --
--- * 'uaServerGroups' - The server groups in the application to update.
+-- 'name', 'updateApp_name' - The new name of the application.
 --
--- * 'uaTags' - The tags to associate with the application.
+-- 'serverGroups', 'updateApp_serverGroups' - The server groups in the application to update.
 --
--- * 'uaDescription' - The new description of the application.
-updateApp ::
+-- 'tags', 'updateApp_tags' - The tags to associate with the application.
+--
+-- 'description', 'updateApp_description' - The new description of the application.
+newUpdateApp ::
   UpdateApp
-updateApp =
+newUpdateApp =
   UpdateApp'
-    { _uaAppId = Nothing,
-      _uaRoleName = Nothing,
-      _uaName = Nothing,
-      _uaServerGroups = Nothing,
-      _uaTags = Nothing,
-      _uaDescription = Nothing
+    { appId = Prelude.Nothing,
+      roleName = Prelude.Nothing,
+      name = Prelude.Nothing,
+      serverGroups = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The ID of the application.
-uaAppId :: Lens' UpdateApp (Maybe Text)
-uaAppId = lens _uaAppId (\s a -> s {_uaAppId = a})
+updateApp_appId :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_appId = Lens.lens (\UpdateApp' {appId} -> appId) (\s@UpdateApp' {} a -> s {appId = a} :: UpdateApp)
 
--- | The name of the service role in the customer's account used by AWS SMS.
-uaRoleName :: Lens' UpdateApp (Maybe Text)
-uaRoleName = lens _uaRoleName (\s a -> s {_uaRoleName = a})
+-- | The name of the service role in the customer\'s account used by AWS SMS.
+updateApp_roleName :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_roleName = Lens.lens (\UpdateApp' {roleName} -> roleName) (\s@UpdateApp' {} a -> s {roleName = a} :: UpdateApp)
 
 -- | The new name of the application.
-uaName :: Lens' UpdateApp (Maybe Text)
-uaName = lens _uaName (\s a -> s {_uaName = a})
+updateApp_name :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_name = Lens.lens (\UpdateApp' {name} -> name) (\s@UpdateApp' {} a -> s {name = a} :: UpdateApp)
 
 -- | The server groups in the application to update.
-uaServerGroups :: Lens' UpdateApp [ServerGroup]
-uaServerGroups = lens _uaServerGroups (\s a -> s {_uaServerGroups = a}) . _Default . _Coerce
+updateApp_serverGroups :: Lens.Lens' UpdateApp (Prelude.Maybe [ServerGroup])
+updateApp_serverGroups = Lens.lens (\UpdateApp' {serverGroups} -> serverGroups) (\s@UpdateApp' {} a -> s {serverGroups = a} :: UpdateApp) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags to associate with the application.
-uaTags :: Lens' UpdateApp [Tag]
-uaTags = lens _uaTags (\s a -> s {_uaTags = a}) . _Default . _Coerce
+updateApp_tags :: Lens.Lens' UpdateApp (Prelude.Maybe [Tag])
+updateApp_tags = Lens.lens (\UpdateApp' {tags} -> tags) (\s@UpdateApp' {} a -> s {tags = a} :: UpdateApp) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The new description of the application.
-uaDescription :: Lens' UpdateApp (Maybe Text)
-uaDescription = lens _uaDescription (\s a -> s {_uaDescription = a})
+updateApp_description :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_description = Lens.lens (\UpdateApp' {description} -> description) (\s@UpdateApp' {} a -> s {description = a} :: UpdateApp)
 
-instance AWSRequest UpdateApp where
+instance Prelude.AWSRequest UpdateApp where
   type Rs UpdateApp = UpdateAppResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateAppResponse'
-            <$> (x .?> "appSummary")
-            <*> (x .?> "serverGroups" .!@ mempty)
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "appSummary")
+            Prelude.<*> ( x Prelude..?> "serverGroups"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateApp
+instance Prelude.Hashable UpdateApp
 
-instance NFData UpdateApp
+instance Prelude.NFData UpdateApp
 
-instance ToHeaders UpdateApp where
+instance Prelude.ToHeaders UpdateApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.UpdateApp" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.UpdateApp" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateApp where
+instance Prelude.ToJSON UpdateApp where
   toJSON UpdateApp' {..} =
-    object
-      ( catMaybes
-          [ ("appId" .=) <$> _uaAppId,
-            ("roleName" .=) <$> _uaRoleName,
-            ("name" .=) <$> _uaName,
-            ("serverGroups" .=) <$> _uaServerGroups,
-            ("tags" .=) <$> _uaTags,
-            ("description" .=) <$> _uaDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("appId" Prelude..=) Prelude.<$> appId,
+            ("roleName" Prelude..=) Prelude.<$> roleName,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("serverGroups" Prelude..=) Prelude.<$> serverGroups,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateApp where
-  toPath = const "/"
+instance Prelude.ToPath UpdateApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateApp where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAppResponse' smart constructor.
+-- | /See:/ 'newUpdateAppResponse' smart constructor.
 data UpdateAppResponse = UpdateAppResponse'
-  { _uarrsAppSummary ::
-      !(Maybe AppSummary),
-    _uarrsServerGroups ::
-      !(Maybe [ServerGroup]),
-    _uarrsTags :: !(Maybe [Tag]),
-    _uarrsResponseStatus :: !Int
+  { -- | A summary description of the application.
+    appSummary :: Prelude.Maybe AppSummary,
+    -- | The updated server groups in the application.
+    serverGroups :: Prelude.Maybe [ServerGroup],
+    -- | The tags associated with the application.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarrsAppSummary' - A summary description of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uarrsServerGroups' - The updated server groups in the application.
+-- 'appSummary', 'updateAppResponse_appSummary' - A summary description of the application.
 --
--- * 'uarrsTags' - The tags associated with the application.
+-- 'serverGroups', 'updateAppResponse_serverGroups' - The updated server groups in the application.
 --
--- * 'uarrsResponseStatus' - -- | The response status code.
-updateAppResponse ::
-  -- | 'uarrsResponseStatus'
-  Int ->
+-- 'tags', 'updateAppResponse_tags' - The tags associated with the application.
+--
+-- 'httpStatus', 'updateAppResponse_httpStatus' - The response's http status code.
+newUpdateAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateAppResponse
-updateAppResponse pResponseStatus_ =
+newUpdateAppResponse pHttpStatus_ =
   UpdateAppResponse'
-    { _uarrsAppSummary = Nothing,
-      _uarrsServerGroups = Nothing,
-      _uarrsTags = Nothing,
-      _uarrsResponseStatus = pResponseStatus_
+    { appSummary = Prelude.Nothing,
+      serverGroups = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A summary description of the application.
-uarrsAppSummary :: Lens' UpdateAppResponse (Maybe AppSummary)
-uarrsAppSummary = lens _uarrsAppSummary (\s a -> s {_uarrsAppSummary = a})
+updateAppResponse_appSummary :: Lens.Lens' UpdateAppResponse (Prelude.Maybe AppSummary)
+updateAppResponse_appSummary = Lens.lens (\UpdateAppResponse' {appSummary} -> appSummary) (\s@UpdateAppResponse' {} a -> s {appSummary = a} :: UpdateAppResponse)
 
 -- | The updated server groups in the application.
-uarrsServerGroups :: Lens' UpdateAppResponse [ServerGroup]
-uarrsServerGroups = lens _uarrsServerGroups (\s a -> s {_uarrsServerGroups = a}) . _Default . _Coerce
+updateAppResponse_serverGroups :: Lens.Lens' UpdateAppResponse (Prelude.Maybe [ServerGroup])
+updateAppResponse_serverGroups = Lens.lens (\UpdateAppResponse' {serverGroups} -> serverGroups) (\s@UpdateAppResponse' {} a -> s {serverGroups = a} :: UpdateAppResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags associated with the application.
-uarrsTags :: Lens' UpdateAppResponse [Tag]
-uarrsTags = lens _uarrsTags (\s a -> s {_uarrsTags = a}) . _Default . _Coerce
+updateAppResponse_tags :: Lens.Lens' UpdateAppResponse (Prelude.Maybe [Tag])
+updateAppResponse_tags = Lens.lens (\UpdateAppResponse' {tags} -> tags) (\s@UpdateAppResponse' {} a -> s {tags = a} :: UpdateAppResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-uarrsResponseStatus :: Lens' UpdateAppResponse Int
-uarrsResponseStatus = lens _uarrsResponseStatus (\s a -> s {_uarrsResponseStatus = a})
+-- | The response's http status code.
+updateAppResponse_httpStatus :: Lens.Lens' UpdateAppResponse Prelude.Int
+updateAppResponse_httpStatus = Lens.lens (\UpdateAppResponse' {httpStatus} -> httpStatus) (\s@UpdateAppResponse' {} a -> s {httpStatus = a} :: UpdateAppResponse)
 
-instance NFData UpdateAppResponse
+instance Prelude.NFData UpdateAppResponse

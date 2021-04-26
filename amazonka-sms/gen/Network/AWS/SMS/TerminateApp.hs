@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,114 +24,119 @@
 -- Terminates the stack for the specified application.
 module Network.AWS.SMS.TerminateApp
   ( -- * Creating a Request
-    terminateApp,
-    TerminateApp,
+    TerminateApp (..),
+    newTerminateApp,
 
     -- * Request Lenses
-    taAppId,
+    terminateApp_appId,
 
     -- * Destructuring the Response
-    terminateAppResponse,
-    TerminateAppResponse,
+    TerminateAppResponse (..),
+    newTerminateAppResponse,
 
     -- * Response Lenses
-    tarrsResponseStatus,
+    terminateAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SMS.Types
 
--- | /See:/ 'terminateApp' smart constructor.
-newtype TerminateApp = TerminateApp'
-  { _taAppId ::
-      Maybe Text
+-- | /See:/ 'newTerminateApp' smart constructor.
+data TerminateApp = TerminateApp'
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'taAppId' - The ID of the application.
-terminateApp ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appId', 'terminateApp_appId' - The ID of the application.
+newTerminateApp ::
   TerminateApp
-terminateApp = TerminateApp' {_taAppId = Nothing}
+newTerminateApp =
+  TerminateApp' {appId = Prelude.Nothing}
 
 -- | The ID of the application.
-taAppId :: Lens' TerminateApp (Maybe Text)
-taAppId = lens _taAppId (\s a -> s {_taAppId = a})
+terminateApp_appId :: Lens.Lens' TerminateApp (Prelude.Maybe Prelude.Text)
+terminateApp_appId = Lens.lens (\TerminateApp' {appId} -> appId) (\s@TerminateApp' {} a -> s {appId = a} :: TerminateApp)
 
-instance AWSRequest TerminateApp where
+instance Prelude.AWSRequest TerminateApp where
   type Rs TerminateApp = TerminateAppResponse
-  request = postJSON sms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          TerminateAppResponse' <$> (pure (fromEnum s))
+          TerminateAppResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TerminateApp
+instance Prelude.Hashable TerminateApp
 
-instance NFData TerminateApp
+instance Prelude.NFData TerminateApp
 
-instance ToHeaders TerminateApp where
+instance Prelude.ToHeaders TerminateApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSServerMigrationService_V2016_10_24.TerminateApp" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSServerMigrationService_V2016_10_24.TerminateApp" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TerminateApp where
+instance Prelude.ToJSON TerminateApp where
   toJSON TerminateApp' {..} =
-    object (catMaybes [("appId" .=) <$> _taAppId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("appId" Prelude..=) Prelude.<$> appId]
+      )
 
-instance ToPath TerminateApp where
-  toPath = const "/"
+instance Prelude.ToPath TerminateApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery TerminateApp where
-  toQuery = const mempty
+instance Prelude.ToQuery TerminateApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'terminateAppResponse' smart constructor.
-newtype TerminateAppResponse = TerminateAppResponse'
-  { _tarrsResponseStatus ::
-      Int
+-- | /See:/ 'newTerminateAppResponse' smart constructor.
+data TerminateAppResponse = TerminateAppResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tarrsResponseStatus' - -- | The response status code.
-terminateAppResponse ::
-  -- | 'tarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'terminateAppResponse_httpStatus' - The response's http status code.
+newTerminateAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TerminateAppResponse
-terminateAppResponse pResponseStatus_ =
-  TerminateAppResponse'
-    { _tarrsResponseStatus =
-        pResponseStatus_
-    }
+newTerminateAppResponse pHttpStatus_ =
+  TerminateAppResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-tarrsResponseStatus :: Lens' TerminateAppResponse Int
-tarrsResponseStatus = lens _tarrsResponseStatus (\s a -> s {_tarrsResponseStatus = a})
+-- | The response's http status code.
+terminateAppResponse_httpStatus :: Lens.Lens' TerminateAppResponse Prelude.Int
+terminateAppResponse_httpStatus = Lens.lens (\TerminateAppResponse' {httpStatus} -> httpStatus) (\s@TerminateAppResponse' {} a -> s {httpStatus = a} :: TerminateAppResponse)
 
-instance NFData TerminateAppResponse
+instance Prelude.NFData TerminateAppResponse
