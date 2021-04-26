@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostExplorer.Types.OfferingClass
   ( OfferingClass
       ( ..,
-        Convertible,
-        Standard
+        OfferingClassCONVERTIBLE,
+        OfferingClassSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OfferingClass = OfferingClass' (CI Text)
+newtype OfferingClass = OfferingClass'
+  { fromOfferingClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Convertible :: OfferingClass
-pattern Convertible = OfferingClass' "CONVERTIBLE"
+pattern OfferingClassCONVERTIBLE :: OfferingClass
+pattern OfferingClassCONVERTIBLE = OfferingClass' "CONVERTIBLE"
 
-pattern Standard :: OfferingClass
-pattern Standard = OfferingClass' "STANDARD"
+pattern OfferingClassSTANDARD :: OfferingClass
+pattern OfferingClassSTANDARD = OfferingClass' "STANDARD"
 
 {-# COMPLETE
-  Convertible,
-  Standard,
+  OfferingClassCONVERTIBLE,
+  OfferingClassSTANDARD,
   OfferingClass'
   #-}
 
-instance FromText OfferingClass where
-  parser = (OfferingClass' . mk) <$> takeText
+instance Prelude.FromText OfferingClass where
+  parser = OfferingClass' Prelude.<$> Prelude.takeText
 
-instance ToText OfferingClass where
-  toText (OfferingClass' ci) = original ci
+instance Prelude.ToText OfferingClass where
+  toText (OfferingClass' x) = x
 
-instance Hashable OfferingClass
+instance Prelude.Hashable OfferingClass
 
-instance NFData OfferingClass
+instance Prelude.NFData OfferingClass
 
-instance ToByteString OfferingClass
+instance Prelude.ToByteString OfferingClass
 
-instance ToQuery OfferingClass
+instance Prelude.ToQuery OfferingClass
 
-instance ToHeader OfferingClass
+instance Prelude.ToHeader OfferingClass
 
-instance ToJSON OfferingClass where
-  toJSON = toJSONText
+instance Prelude.ToJSON OfferingClass where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OfferingClass where
-  parseJSON = parseJSONText "OfferingClass"
+instance Prelude.FromJSON OfferingClass where
+  parseJSON = Prelude.parseJSONText "OfferingClass"

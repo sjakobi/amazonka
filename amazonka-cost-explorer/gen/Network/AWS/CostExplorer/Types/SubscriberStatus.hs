@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostExplorer.Types.SubscriberStatus
   ( SubscriberStatus
       ( ..,
-        Confirmed,
-        Declined
+        SubscriberStatusCONFIRMED,
+        SubscriberStatusDECLINED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SubscriberStatus = SubscriberStatus' (CI Text)
+newtype SubscriberStatus = SubscriberStatus'
+  { fromSubscriberStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Confirmed :: SubscriberStatus
-pattern Confirmed = SubscriberStatus' "CONFIRMED"
+pattern SubscriberStatusCONFIRMED :: SubscriberStatus
+pattern SubscriberStatusCONFIRMED = SubscriberStatus' "CONFIRMED"
 
-pattern Declined :: SubscriberStatus
-pattern Declined = SubscriberStatus' "DECLINED"
+pattern SubscriberStatusDECLINED :: SubscriberStatus
+pattern SubscriberStatusDECLINED = SubscriberStatus' "DECLINED"
 
 {-# COMPLETE
-  Confirmed,
-  Declined,
+  SubscriberStatusCONFIRMED,
+  SubscriberStatusDECLINED,
   SubscriberStatus'
   #-}
 
-instance FromText SubscriberStatus where
-  parser = (SubscriberStatus' . mk) <$> takeText
+instance Prelude.FromText SubscriberStatus where
+  parser = SubscriberStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SubscriberStatus where
-  toText (SubscriberStatus' ci) = original ci
+instance Prelude.ToText SubscriberStatus where
+  toText (SubscriberStatus' x) = x
 
-instance Hashable SubscriberStatus
+instance Prelude.Hashable SubscriberStatus
 
-instance NFData SubscriberStatus
+instance Prelude.NFData SubscriberStatus
 
-instance ToByteString SubscriberStatus
+instance Prelude.ToByteString SubscriberStatus
 
-instance ToQuery SubscriberStatus
+instance Prelude.ToQuery SubscriberStatus
 
-instance ToHeader SubscriberStatus
+instance Prelude.ToHeader SubscriberStatus
 
-instance ToJSON SubscriberStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON SubscriberStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SubscriberStatus where
-  parseJSON = parseJSONText "SubscriberStatus"
+instance Prelude.FromJSON SubscriberStatus where
+  parseJSON = Prelude.parseJSONText "SubscriberStatus"

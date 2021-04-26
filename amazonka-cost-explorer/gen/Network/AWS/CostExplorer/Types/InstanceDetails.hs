@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,86 +24,88 @@ import Network.AWS.CostExplorer.Types.ESInstanceDetails
 import Network.AWS.CostExplorer.Types.ElastiCacheInstanceDetails
 import Network.AWS.CostExplorer.Types.RDSInstanceDetails
 import Network.AWS.CostExplorer.Types.RedshiftInstanceDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details about the instances that AWS recommends that you purchase.
 --
---
---
--- /See:/ 'instanceDetails' smart constructor.
+-- /See:/ 'newInstanceDetails' smart constructor.
 data InstanceDetails = InstanceDetails'
-  { _idElastiCacheInstanceDetails ::
-      !(Maybe ElastiCacheInstanceDetails),
-    _idRedshiftInstanceDetails ::
-      !(Maybe RedshiftInstanceDetails),
-    _idESInstanceDetails ::
-      !(Maybe ESInstanceDetails),
-    _idEC2InstanceDetails ::
-      !(Maybe EC2InstanceDetails),
-    _idRDSInstanceDetails ::
-      !(Maybe RDSInstanceDetails)
+  { -- | The ElastiCache instances that AWS recommends that you purchase.
+    elastiCacheInstanceDetails :: Prelude.Maybe ElastiCacheInstanceDetails,
+    -- | The Amazon Redshift instances that AWS recommends that you purchase.
+    redshiftInstanceDetails :: Prelude.Maybe RedshiftInstanceDetails,
+    -- | The Amazon ES instances that AWS recommends that you purchase.
+    eSInstanceDetails :: Prelude.Maybe ESInstanceDetails,
+    -- | The Amazon EC2 instances that AWS recommends that you purchase.
+    eC2InstanceDetails :: Prelude.Maybe EC2InstanceDetails,
+    -- | The Amazon RDS instances that AWS recommends that you purchase.
+    rDSInstanceDetails :: Prelude.Maybe RDSInstanceDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idElastiCacheInstanceDetails' - The ElastiCache instances that AWS recommends that you purchase.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idRedshiftInstanceDetails' - The Amazon Redshift instances that AWS recommends that you purchase.
+-- 'elastiCacheInstanceDetails', 'instanceDetails_elastiCacheInstanceDetails' - The ElastiCache instances that AWS recommends that you purchase.
 --
--- * 'idESInstanceDetails' - The Amazon ES instances that AWS recommends that you purchase.
+-- 'redshiftInstanceDetails', 'instanceDetails_redshiftInstanceDetails' - The Amazon Redshift instances that AWS recommends that you purchase.
 --
--- * 'idEC2InstanceDetails' - The Amazon EC2 instances that AWS recommends that you purchase.
+-- 'eSInstanceDetails', 'instanceDetails_eSInstanceDetails' - The Amazon ES instances that AWS recommends that you purchase.
 --
--- * 'idRDSInstanceDetails' - The Amazon RDS instances that AWS recommends that you purchase.
-instanceDetails ::
+-- 'eC2InstanceDetails', 'instanceDetails_eC2InstanceDetails' - The Amazon EC2 instances that AWS recommends that you purchase.
+--
+-- 'rDSInstanceDetails', 'instanceDetails_rDSInstanceDetails' - The Amazon RDS instances that AWS recommends that you purchase.
+newInstanceDetails ::
   InstanceDetails
-instanceDetails =
+newInstanceDetails =
   InstanceDetails'
-    { _idElastiCacheInstanceDetails =
-        Nothing,
-      _idRedshiftInstanceDetails = Nothing,
-      _idESInstanceDetails = Nothing,
-      _idEC2InstanceDetails = Nothing,
-      _idRDSInstanceDetails = Nothing
+    { elastiCacheInstanceDetails =
+        Prelude.Nothing,
+      redshiftInstanceDetails = Prelude.Nothing,
+      eSInstanceDetails = Prelude.Nothing,
+      eC2InstanceDetails = Prelude.Nothing,
+      rDSInstanceDetails = Prelude.Nothing
     }
 
 -- | The ElastiCache instances that AWS recommends that you purchase.
-idElastiCacheInstanceDetails :: Lens' InstanceDetails (Maybe ElastiCacheInstanceDetails)
-idElastiCacheInstanceDetails = lens _idElastiCacheInstanceDetails (\s a -> s {_idElastiCacheInstanceDetails = a})
+instanceDetails_elastiCacheInstanceDetails :: Lens.Lens' InstanceDetails (Prelude.Maybe ElastiCacheInstanceDetails)
+instanceDetails_elastiCacheInstanceDetails = Lens.lens (\InstanceDetails' {elastiCacheInstanceDetails} -> elastiCacheInstanceDetails) (\s@InstanceDetails' {} a -> s {elastiCacheInstanceDetails = a} :: InstanceDetails)
 
 -- | The Amazon Redshift instances that AWS recommends that you purchase.
-idRedshiftInstanceDetails :: Lens' InstanceDetails (Maybe RedshiftInstanceDetails)
-idRedshiftInstanceDetails = lens _idRedshiftInstanceDetails (\s a -> s {_idRedshiftInstanceDetails = a})
+instanceDetails_redshiftInstanceDetails :: Lens.Lens' InstanceDetails (Prelude.Maybe RedshiftInstanceDetails)
+instanceDetails_redshiftInstanceDetails = Lens.lens (\InstanceDetails' {redshiftInstanceDetails} -> redshiftInstanceDetails) (\s@InstanceDetails' {} a -> s {redshiftInstanceDetails = a} :: InstanceDetails)
 
 -- | The Amazon ES instances that AWS recommends that you purchase.
-idESInstanceDetails :: Lens' InstanceDetails (Maybe ESInstanceDetails)
-idESInstanceDetails = lens _idESInstanceDetails (\s a -> s {_idESInstanceDetails = a})
+instanceDetails_eSInstanceDetails :: Lens.Lens' InstanceDetails (Prelude.Maybe ESInstanceDetails)
+instanceDetails_eSInstanceDetails = Lens.lens (\InstanceDetails' {eSInstanceDetails} -> eSInstanceDetails) (\s@InstanceDetails' {} a -> s {eSInstanceDetails = a} :: InstanceDetails)
 
 -- | The Amazon EC2 instances that AWS recommends that you purchase.
-idEC2InstanceDetails :: Lens' InstanceDetails (Maybe EC2InstanceDetails)
-idEC2InstanceDetails = lens _idEC2InstanceDetails (\s a -> s {_idEC2InstanceDetails = a})
+instanceDetails_eC2InstanceDetails :: Lens.Lens' InstanceDetails (Prelude.Maybe EC2InstanceDetails)
+instanceDetails_eC2InstanceDetails = Lens.lens (\InstanceDetails' {eC2InstanceDetails} -> eC2InstanceDetails) (\s@InstanceDetails' {} a -> s {eC2InstanceDetails = a} :: InstanceDetails)
 
 -- | The Amazon RDS instances that AWS recommends that you purchase.
-idRDSInstanceDetails :: Lens' InstanceDetails (Maybe RDSInstanceDetails)
-idRDSInstanceDetails = lens _idRDSInstanceDetails (\s a -> s {_idRDSInstanceDetails = a})
+instanceDetails_rDSInstanceDetails :: Lens.Lens' InstanceDetails (Prelude.Maybe RDSInstanceDetails)
+instanceDetails_rDSInstanceDetails = Lens.lens (\InstanceDetails' {rDSInstanceDetails} -> rDSInstanceDetails) (\s@InstanceDetails' {} a -> s {rDSInstanceDetails = a} :: InstanceDetails)
 
-instance FromJSON InstanceDetails where
+instance Prelude.FromJSON InstanceDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceDetails"
       ( \x ->
           InstanceDetails'
-            <$> (x .:? "ElastiCacheInstanceDetails")
-            <*> (x .:? "RedshiftInstanceDetails")
-            <*> (x .:? "ESInstanceDetails")
-            <*> (x .:? "EC2InstanceDetails")
-            <*> (x .:? "RDSInstanceDetails")
+            Prelude.<$> (x Prelude..:? "ElastiCacheInstanceDetails")
+            Prelude.<*> (x Prelude..:? "RedshiftInstanceDetails")
+            Prelude.<*> (x Prelude..:? "ESInstanceDetails")
+            Prelude.<*> (x Prelude..:? "EC2InstanceDetails")
+            Prelude.<*> (x Prelude..:? "RDSInstanceDetails")
       )
 
-instance Hashable InstanceDetails
+instance Prelude.Hashable InstanceDetails
 
-instance NFData InstanceDetails
+instance Prelude.NFData InstanceDetails

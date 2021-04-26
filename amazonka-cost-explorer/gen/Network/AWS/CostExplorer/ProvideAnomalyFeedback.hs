@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,161 +24,162 @@
 -- Modifies the feedback property of a given cost anomaly.
 module Network.AWS.CostExplorer.ProvideAnomalyFeedback
   ( -- * Creating a Request
-    provideAnomalyFeedback,
-    ProvideAnomalyFeedback,
+    ProvideAnomalyFeedback (..),
+    newProvideAnomalyFeedback,
 
     -- * Request Lenses
-    pafAnomalyId,
-    pafFeedback,
+    provideAnomalyFeedback_anomalyId,
+    provideAnomalyFeedback_feedback,
 
     -- * Destructuring the Response
-    provideAnomalyFeedbackResponse,
-    ProvideAnomalyFeedbackResponse,
+    ProvideAnomalyFeedbackResponse (..),
+    newProvideAnomalyFeedbackResponse,
 
     -- * Response Lenses
-    pafrrsResponseStatus,
-    pafrrsAnomalyId,
+    provideAnomalyFeedbackResponse_httpStatus,
+    provideAnomalyFeedbackResponse_anomalyId,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'provideAnomalyFeedback' smart constructor.
+-- | /See:/ 'newProvideAnomalyFeedback' smart constructor.
 data ProvideAnomalyFeedback = ProvideAnomalyFeedback'
-  { _pafAnomalyId ::
-      !Text,
-    _pafFeedback ::
-      !AnomalyFeedbackType
+  { -- | A cost anomaly ID.
+    anomalyId :: Prelude.Text,
+    -- | Describes whether the cost anomaly was a planned activity or you
+    -- considered it an anomaly.
+    feedback :: AnomalyFeedbackType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvideAnomalyFeedback' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvideAnomalyFeedback' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pafAnomalyId' - A cost anomaly ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pafFeedback' - Describes whether the cost anomaly was a planned activity or you considered it an anomaly.
-provideAnomalyFeedback ::
-  -- | 'pafAnomalyId'
-  Text ->
-  -- | 'pafFeedback'
+-- 'anomalyId', 'provideAnomalyFeedback_anomalyId' - A cost anomaly ID.
+--
+-- 'feedback', 'provideAnomalyFeedback_feedback' - Describes whether the cost anomaly was a planned activity or you
+-- considered it an anomaly.
+newProvideAnomalyFeedback ::
+  -- | 'anomalyId'
+  Prelude.Text ->
+  -- | 'feedback'
   AnomalyFeedbackType ->
   ProvideAnomalyFeedback
-provideAnomalyFeedback pAnomalyId_ pFeedback_ =
+newProvideAnomalyFeedback pAnomalyId_ pFeedback_ =
   ProvideAnomalyFeedback'
-    { _pafAnomalyId =
-        pAnomalyId_,
-      _pafFeedback = pFeedback_
+    { anomalyId = pAnomalyId_,
+      feedback = pFeedback_
     }
 
 -- | A cost anomaly ID.
-pafAnomalyId :: Lens' ProvideAnomalyFeedback Text
-pafAnomalyId = lens _pafAnomalyId (\s a -> s {_pafAnomalyId = a})
+provideAnomalyFeedback_anomalyId :: Lens.Lens' ProvideAnomalyFeedback Prelude.Text
+provideAnomalyFeedback_anomalyId = Lens.lens (\ProvideAnomalyFeedback' {anomalyId} -> anomalyId) (\s@ProvideAnomalyFeedback' {} a -> s {anomalyId = a} :: ProvideAnomalyFeedback)
 
--- | Describes whether the cost anomaly was a planned activity or you considered it an anomaly.
-pafFeedback :: Lens' ProvideAnomalyFeedback AnomalyFeedbackType
-pafFeedback = lens _pafFeedback (\s a -> s {_pafFeedback = a})
+-- | Describes whether the cost anomaly was a planned activity or you
+-- considered it an anomaly.
+provideAnomalyFeedback_feedback :: Lens.Lens' ProvideAnomalyFeedback AnomalyFeedbackType
+provideAnomalyFeedback_feedback = Lens.lens (\ProvideAnomalyFeedback' {feedback} -> feedback) (\s@ProvideAnomalyFeedback' {} a -> s {feedback = a} :: ProvideAnomalyFeedback)
 
-instance AWSRequest ProvideAnomalyFeedback where
+instance Prelude.AWSRequest ProvideAnomalyFeedback where
   type
     Rs ProvideAnomalyFeedback =
       ProvideAnomalyFeedbackResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ProvideAnomalyFeedbackResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "AnomalyId")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "AnomalyId")
       )
 
-instance Hashable ProvideAnomalyFeedback
+instance Prelude.Hashable ProvideAnomalyFeedback
 
-instance NFData ProvideAnomalyFeedback
+instance Prelude.NFData ProvideAnomalyFeedback
 
-instance ToHeaders ProvideAnomalyFeedback where
+instance Prelude.ToHeaders ProvideAnomalyFeedback where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.ProvideAnomalyFeedback" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.ProvideAnomalyFeedback" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ProvideAnomalyFeedback where
+instance Prelude.ToJSON ProvideAnomalyFeedback where
   toJSON ProvideAnomalyFeedback' {..} =
-    object
-      ( catMaybes
-          [ Just ("AnomalyId" .= _pafAnomalyId),
-            Just ("Feedback" .= _pafFeedback)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AnomalyId" Prelude..= anomalyId),
+            Prelude.Just ("Feedback" Prelude..= feedback)
           ]
       )
 
-instance ToPath ProvideAnomalyFeedback where
-  toPath = const "/"
+instance Prelude.ToPath ProvideAnomalyFeedback where
+  toPath = Prelude.const "/"
 
-instance ToQuery ProvideAnomalyFeedback where
-  toQuery = const mempty
+instance Prelude.ToQuery ProvideAnomalyFeedback where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'provideAnomalyFeedbackResponse' smart constructor.
+-- | /See:/ 'newProvideAnomalyFeedbackResponse' smart constructor.
 data ProvideAnomalyFeedbackResponse = ProvideAnomalyFeedbackResponse'
-  { _pafrrsResponseStatus ::
-      !Int,
-    _pafrrsAnomalyId ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the modified cost anomaly.
+    anomalyId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvideAnomalyFeedbackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvideAnomalyFeedbackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pafrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pafrrsAnomalyId' - The ID of the modified cost anomaly.
-provideAnomalyFeedbackResponse ::
-  -- | 'pafrrsResponseStatus'
-  Int ->
-  -- | 'pafrrsAnomalyId'
-  Text ->
+-- 'httpStatus', 'provideAnomalyFeedbackResponse_httpStatus' - The response's http status code.
+--
+-- 'anomalyId', 'provideAnomalyFeedbackResponse_anomalyId' - The ID of the modified cost anomaly.
+newProvideAnomalyFeedbackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'anomalyId'
+  Prelude.Text ->
   ProvideAnomalyFeedbackResponse
-provideAnomalyFeedbackResponse
-  pResponseStatus_
+newProvideAnomalyFeedbackResponse
+  pHttpStatus_
   pAnomalyId_ =
     ProvideAnomalyFeedbackResponse'
-      { _pafrrsResponseStatus =
-          pResponseStatus_,
-        _pafrrsAnomalyId = pAnomalyId_
+      { httpStatus =
+          pHttpStatus_,
+        anomalyId = pAnomalyId_
       }
 
--- | -- | The response status code.
-pafrrsResponseStatus :: Lens' ProvideAnomalyFeedbackResponse Int
-pafrrsResponseStatus = lens _pafrrsResponseStatus (\s a -> s {_pafrrsResponseStatus = a})
+-- | The response's http status code.
+provideAnomalyFeedbackResponse_httpStatus :: Lens.Lens' ProvideAnomalyFeedbackResponse Prelude.Int
+provideAnomalyFeedbackResponse_httpStatus = Lens.lens (\ProvideAnomalyFeedbackResponse' {httpStatus} -> httpStatus) (\s@ProvideAnomalyFeedbackResponse' {} a -> s {httpStatus = a} :: ProvideAnomalyFeedbackResponse)
 
 -- | The ID of the modified cost anomaly.
-pafrrsAnomalyId :: Lens' ProvideAnomalyFeedbackResponse Text
-pafrrsAnomalyId = lens _pafrrsAnomalyId (\s a -> s {_pafrrsAnomalyId = a})
+provideAnomalyFeedbackResponse_anomalyId :: Lens.Lens' ProvideAnomalyFeedbackResponse Prelude.Text
+provideAnomalyFeedbackResponse_anomalyId = Lens.lens (\ProvideAnomalyFeedbackResponse' {anomalyId} -> anomalyId) (\s@ProvideAnomalyFeedbackResponse' {} a -> s {anomalyId = a} :: ProvideAnomalyFeedbackResponse)
 
-instance NFData ProvideAnomalyFeedbackResponse
+instance
+  Prelude.NFData
+    ProvideAnomalyFeedbackResponse

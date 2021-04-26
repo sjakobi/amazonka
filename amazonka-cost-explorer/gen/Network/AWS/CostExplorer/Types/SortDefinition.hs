@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,55 +20,58 @@
 module Network.AWS.CostExplorer.Types.SortDefinition where
 
 import Network.AWS.CostExplorer.Types.SortOrder
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of how to sort the data.
 --
---
---
--- /See:/ 'sortDefinition' smart constructor.
+-- /See:/ 'newSortDefinition' smart constructor.
 data SortDefinition = SortDefinition'
-  { _sdSortOrder ::
-      !(Maybe SortOrder),
-    _sdKey :: !Text
+  { -- | The order in which to sort the data.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | The key by which to sort the data.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SortDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SortDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdSortOrder' - The order in which to sort the data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdKey' - The key by which to sort the data.
-sortDefinition ::
-  -- | 'sdKey'
-  Text ->
+-- 'sortOrder', 'sortDefinition_sortOrder' - The order in which to sort the data.
+--
+-- 'key', 'sortDefinition_key' - The key by which to sort the data.
+newSortDefinition ::
+  -- | 'key'
+  Prelude.Text ->
   SortDefinition
-sortDefinition pKey_ =
+newSortDefinition pKey_ =
   SortDefinition'
-    { _sdSortOrder = Nothing,
-      _sdKey = pKey_
+    { sortOrder = Prelude.Nothing,
+      key = pKey_
     }
 
 -- | The order in which to sort the data.
-sdSortOrder :: Lens' SortDefinition (Maybe SortOrder)
-sdSortOrder = lens _sdSortOrder (\s a -> s {_sdSortOrder = a})
+sortDefinition_sortOrder :: Lens.Lens' SortDefinition (Prelude.Maybe SortOrder)
+sortDefinition_sortOrder = Lens.lens (\SortDefinition' {sortOrder} -> sortOrder) (\s@SortDefinition' {} a -> s {sortOrder = a} :: SortDefinition)
 
 -- | The key by which to sort the data.
-sdKey :: Lens' SortDefinition Text
-sdKey = lens _sdKey (\s a -> s {_sdKey = a})
+sortDefinition_key :: Lens.Lens' SortDefinition Prelude.Text
+sortDefinition_key = Lens.lens (\SortDefinition' {key} -> key) (\s@SortDefinition' {} a -> s {key = a} :: SortDefinition)
 
-instance Hashable SortDefinition
+instance Prelude.Hashable SortDefinition
 
-instance NFData SortDefinition
+instance Prelude.NFData SortDefinition
 
-instance ToJSON SortDefinition where
+instance Prelude.ToJSON SortDefinition where
   toJSON SortDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _sdSortOrder,
-            Just ("Key" .= _sdKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            Prelude.Just ("Key" Prelude..= key)
           ]
       )

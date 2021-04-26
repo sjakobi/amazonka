@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.TerminateRecommendationDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details on termination recommendation.
 --
---
---
--- /See:/ 'terminateRecommendationDetail' smart constructor.
+-- /See:/ 'newTerminateRecommendationDetail' smart constructor.
 data TerminateRecommendationDetail = TerminateRecommendationDetail'
-  { _trdEstimatedMonthlySavings ::
-      !( Maybe
-           Text
-       ),
-    _trdCurrencyCode ::
-      !( Maybe
-           Text
-       )
+  { -- | Estimated savings resulting from modification, on a monthly basis.
+    estimatedMonthlySavings :: Prelude.Maybe Prelude.Text,
+    -- | The currency code that AWS used to calculate the costs for this
+    -- instance.
+    currencyCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TerminateRecommendationDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TerminateRecommendationDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trdEstimatedMonthlySavings' - Estimated savings resulting from modification, on a monthly basis.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trdCurrencyCode' - The currency code that AWS used to calculate the costs for this instance.
-terminateRecommendationDetail ::
+-- 'estimatedMonthlySavings', 'terminateRecommendationDetail_estimatedMonthlySavings' - Estimated savings resulting from modification, on a monthly basis.
+--
+-- 'currencyCode', 'terminateRecommendationDetail_currencyCode' - The currency code that AWS used to calculate the costs for this
+-- instance.
+newTerminateRecommendationDetail ::
   TerminateRecommendationDetail
-terminateRecommendationDetail =
+newTerminateRecommendationDetail =
   TerminateRecommendationDetail'
-    { _trdEstimatedMonthlySavings =
-        Nothing,
-      _trdCurrencyCode = Nothing
+    { estimatedMonthlySavings =
+        Prelude.Nothing,
+      currencyCode = Prelude.Nothing
     }
 
 -- | Estimated savings resulting from modification, on a monthly basis.
-trdEstimatedMonthlySavings :: Lens' TerminateRecommendationDetail (Maybe Text)
-trdEstimatedMonthlySavings = lens _trdEstimatedMonthlySavings (\s a -> s {_trdEstimatedMonthlySavings = a})
+terminateRecommendationDetail_estimatedMonthlySavings :: Lens.Lens' TerminateRecommendationDetail (Prelude.Maybe Prelude.Text)
+terminateRecommendationDetail_estimatedMonthlySavings = Lens.lens (\TerminateRecommendationDetail' {estimatedMonthlySavings} -> estimatedMonthlySavings) (\s@TerminateRecommendationDetail' {} a -> s {estimatedMonthlySavings = a} :: TerminateRecommendationDetail)
 
--- | The currency code that AWS used to calculate the costs for this instance.
-trdCurrencyCode :: Lens' TerminateRecommendationDetail (Maybe Text)
-trdCurrencyCode = lens _trdCurrencyCode (\s a -> s {_trdCurrencyCode = a})
+-- | The currency code that AWS used to calculate the costs for this
+-- instance.
+terminateRecommendationDetail_currencyCode :: Lens.Lens' TerminateRecommendationDetail (Prelude.Maybe Prelude.Text)
+terminateRecommendationDetail_currencyCode = Lens.lens (\TerminateRecommendationDetail' {currencyCode} -> currencyCode) (\s@TerminateRecommendationDetail' {} a -> s {currencyCode = a} :: TerminateRecommendationDetail)
 
-instance FromJSON TerminateRecommendationDetail where
+instance
+  Prelude.FromJSON
+    TerminateRecommendationDetail
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TerminateRecommendationDetail"
       ( \x ->
           TerminateRecommendationDetail'
-            <$> (x .:? "EstimatedMonthlySavings")
-            <*> (x .:? "CurrencyCode")
+            Prelude.<$> (x Prelude..:? "EstimatedMonthlySavings")
+            Prelude.<*> (x Prelude..:? "CurrencyCode")
       )
 
-instance Hashable TerminateRecommendationDetail
+instance
+  Prelude.Hashable
+    TerminateRecommendationDetail
 
-instance NFData TerminateRecommendationDetail
+instance Prelude.NFData TerminateRecommendationDetail

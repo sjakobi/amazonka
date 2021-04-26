@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CostExplorer.Types.CostCategoryStatus
   ( CostCategoryStatus
       ( ..,
-        Applied,
-        Processing
+        CostCategoryStatusAPPLIED,
+        CostCategoryStatusPROCESSING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CostCategoryStatus
-  = CostCategoryStatus'
-      ( CI
-          Text
-      )
+newtype CostCategoryStatus = CostCategoryStatus'
+  { fromCostCategoryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Applied :: CostCategoryStatus
-pattern Applied = CostCategoryStatus' "APPLIED"
+pattern CostCategoryStatusAPPLIED :: CostCategoryStatus
+pattern CostCategoryStatusAPPLIED = CostCategoryStatus' "APPLIED"
 
-pattern Processing :: CostCategoryStatus
-pattern Processing = CostCategoryStatus' "PROCESSING"
+pattern CostCategoryStatusPROCESSING :: CostCategoryStatus
+pattern CostCategoryStatusPROCESSING = CostCategoryStatus' "PROCESSING"
 
 {-# COMPLETE
-  Applied,
-  Processing,
+  CostCategoryStatusAPPLIED,
+  CostCategoryStatusPROCESSING,
   CostCategoryStatus'
   #-}
 
-instance FromText CostCategoryStatus where
-  parser = (CostCategoryStatus' . mk) <$> takeText
+instance Prelude.FromText CostCategoryStatus where
+  parser = CostCategoryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CostCategoryStatus where
-  toText (CostCategoryStatus' ci) = original ci
+instance Prelude.ToText CostCategoryStatus where
+  toText (CostCategoryStatus' x) = x
 
-instance Hashable CostCategoryStatus
+instance Prelude.Hashable CostCategoryStatus
 
-instance NFData CostCategoryStatus
+instance Prelude.NFData CostCategoryStatus
 
-instance ToByteString CostCategoryStatus
+instance Prelude.ToByteString CostCategoryStatus
 
-instance ToQuery CostCategoryStatus
+instance Prelude.ToQuery CostCategoryStatus
 
-instance ToHeader CostCategoryStatus
+instance Prelude.ToHeader CostCategoryStatus
 
-instance FromJSON CostCategoryStatus where
-  parseJSON = parseJSONText "CostCategoryStatus"
+instance Prelude.FromJSON CostCategoryStatus where
+  parseJSON = Prelude.parseJSONText "CostCategoryStatus"

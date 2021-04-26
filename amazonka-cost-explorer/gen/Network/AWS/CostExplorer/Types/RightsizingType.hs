@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CostExplorer.Types.RightsizingType
   ( RightsizingType
       ( ..,
-        Modify,
-        Terminate
+        RightsizingTypeMODIFY,
+        RightsizingTypeTERMINATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RightsizingType = RightsizingType' (CI Text)
+newtype RightsizingType = RightsizingType'
+  { fromRightsizingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Modify :: RightsizingType
-pattern Modify = RightsizingType' "MODIFY"
+pattern RightsizingTypeMODIFY :: RightsizingType
+pattern RightsizingTypeMODIFY = RightsizingType' "MODIFY"
 
-pattern Terminate :: RightsizingType
-pattern Terminate = RightsizingType' "TERMINATE"
+pattern RightsizingTypeTERMINATE :: RightsizingType
+pattern RightsizingTypeTERMINATE = RightsizingType' "TERMINATE"
 
 {-# COMPLETE
-  Modify,
-  Terminate,
+  RightsizingTypeMODIFY,
+  RightsizingTypeTERMINATE,
   RightsizingType'
   #-}
 
-instance FromText RightsizingType where
-  parser = (RightsizingType' . mk) <$> takeText
+instance Prelude.FromText RightsizingType where
+  parser = RightsizingType' Prelude.<$> Prelude.takeText
 
-instance ToText RightsizingType where
-  toText (RightsizingType' ci) = original ci
+instance Prelude.ToText RightsizingType where
+  toText (RightsizingType' x) = x
 
-instance Hashable RightsizingType
+instance Prelude.Hashable RightsizingType
 
-instance NFData RightsizingType
+instance Prelude.NFData RightsizingType
 
-instance ToByteString RightsizingType
+instance Prelude.ToByteString RightsizingType
 
-instance ToQuery RightsizingType
+instance Prelude.ToQuery RightsizingType
 
-instance ToHeader RightsizingType
+instance Prelude.ToHeader RightsizingType
 
-instance FromJSON RightsizingType where
-  parseJSON = parseJSONText "RightsizingType"
+instance Prelude.FromJSON RightsizingType where
+  parseJSON = Prelude.parseJSONText "RightsizingType"

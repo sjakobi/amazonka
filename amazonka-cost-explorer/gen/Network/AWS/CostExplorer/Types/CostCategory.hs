@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,114 +22,132 @@ module Network.AWS.CostExplorer.Types.CostCategory where
 import Network.AWS.CostExplorer.Types.CostCategoryProcessingStatus
 import Network.AWS.CostExplorer.Types.CostCategoryRule
 import Network.AWS.CostExplorer.Types.CostCategoryRuleVersion
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The structure of Cost Categories. This includes detailed metadata and the set of rules for the @CostCategory@ object.
+-- | The structure of Cost Categories. This includes detailed metadata and
+-- the set of rules for the @CostCategory@ object.
 --
---
---
--- /See:/ 'costCategory' smart constructor.
+-- /See:/ 'newCostCategory' smart constructor.
 data CostCategory = CostCategory'
-  { _ccProcessingStatus ::
-      !(Maybe [CostCategoryProcessingStatus]),
-    _ccEffectiveEnd :: !(Maybe Text),
-    _ccCostCategoryARN :: !Text,
-    _ccEffectiveStart :: !Text,
-    _ccName :: !Text,
-    _ccRuleVersion :: !CostCategoryRuleVersion,
-    _ccRules :: !(List1 CostCategoryRule)
+  { -- | The list of processing statuses for Cost Management products for a
+    -- specific cost category.
+    processingStatus :: Prelude.Maybe [CostCategoryProcessingStatus],
+    -- | The Cost Category\'s effective end date.
+    effectiveEnd :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for your Cost Category.
+    costCategoryArn :: Prelude.Text,
+    -- | The Cost Category\'s effective start date.
+    effectiveStart :: Prelude.Text,
+    name :: Prelude.Text,
+    ruleVersion :: CostCategoryRuleVersion,
+    -- | Rules are processed in order. If there are multiple rules that match the
+    -- line item, then the first rule to match is used to determine that Cost
+    -- Category value.
+    rules :: Prelude.List1 CostCategoryRule
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CostCategory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CostCategory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccProcessingStatus' - The list of processing statuses for Cost Management products for a specific cost category.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccEffectiveEnd' - The Cost Category's effective end date.
+-- 'processingStatus', 'costCategory_processingStatus' - The list of processing statuses for Cost Management products for a
+-- specific cost category.
 --
--- * 'ccCostCategoryARN' - The unique identifier for your Cost Category.
+-- 'effectiveEnd', 'costCategory_effectiveEnd' - The Cost Category\'s effective end date.
 --
--- * 'ccEffectiveStart' - The Cost Category's effective start date.
+-- 'costCategoryArn', 'costCategory_costCategoryArn' - The unique identifier for your Cost Category.
 --
--- * 'ccName' - Undocumented member.
+-- 'effectiveStart', 'costCategory_effectiveStart' - The Cost Category\'s effective start date.
 --
--- * 'ccRuleVersion' - Undocumented member.
+-- 'name', 'costCategory_name' - Undocumented member.
 --
--- * 'ccRules' - Rules are processed in order. If there are multiple rules that match the line item, then the first rule to match is used to determine that Cost Category value.
-costCategory ::
-  -- | 'ccCostCategoryARN'
-  Text ->
-  -- | 'ccEffectiveStart'
-  Text ->
-  -- | 'ccName'
-  Text ->
-  -- | 'ccRuleVersion'
+-- 'ruleVersion', 'costCategory_ruleVersion' - Undocumented member.
+--
+-- 'rules', 'costCategory_rules' - Rules are processed in order. If there are multiple rules that match the
+-- line item, then the first rule to match is used to determine that Cost
+-- Category value.
+newCostCategory ::
+  -- | 'costCategoryArn'
+  Prelude.Text ->
+  -- | 'effectiveStart'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'ruleVersion'
   CostCategoryRuleVersion ->
-  -- | 'ccRules'
-  NonEmpty CostCategoryRule ->
+  -- | 'rules'
+  Prelude.NonEmpty CostCategoryRule ->
   CostCategory
-costCategory
-  pCostCategoryARN_
+newCostCategory
+  pCostCategoryArn_
   pEffectiveStart_
   pName_
   pRuleVersion_
   pRules_ =
     CostCategory'
-      { _ccProcessingStatus = Nothing,
-        _ccEffectiveEnd = Nothing,
-        _ccCostCategoryARN = pCostCategoryARN_,
-        _ccEffectiveStart = pEffectiveStart_,
-        _ccName = pName_,
-        _ccRuleVersion = pRuleVersion_,
-        _ccRules = _List1 # pRules_
+      { processingStatus = Prelude.Nothing,
+        effectiveEnd = Prelude.Nothing,
+        costCategoryArn = pCostCategoryArn_,
+        effectiveStart = pEffectiveStart_,
+        name = pName_,
+        ruleVersion = pRuleVersion_,
+        rules = Prelude._List1 Lens.# pRules_
       }
 
--- | The list of processing statuses for Cost Management products for a specific cost category.
-ccProcessingStatus :: Lens' CostCategory [CostCategoryProcessingStatus]
-ccProcessingStatus = lens _ccProcessingStatus (\s a -> s {_ccProcessingStatus = a}) . _Default . _Coerce
+-- | The list of processing statuses for Cost Management products for a
+-- specific cost category.
+costCategory_processingStatus :: Lens.Lens' CostCategory (Prelude.Maybe [CostCategoryProcessingStatus])
+costCategory_processingStatus = Lens.lens (\CostCategory' {processingStatus} -> processingStatus) (\s@CostCategory' {} a -> s {processingStatus = a} :: CostCategory) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Cost Category's effective end date.
-ccEffectiveEnd :: Lens' CostCategory (Maybe Text)
-ccEffectiveEnd = lens _ccEffectiveEnd (\s a -> s {_ccEffectiveEnd = a})
+-- | The Cost Category\'s effective end date.
+costCategory_effectiveEnd :: Lens.Lens' CostCategory (Prelude.Maybe Prelude.Text)
+costCategory_effectiveEnd = Lens.lens (\CostCategory' {effectiveEnd} -> effectiveEnd) (\s@CostCategory' {} a -> s {effectiveEnd = a} :: CostCategory)
 
 -- | The unique identifier for your Cost Category.
-ccCostCategoryARN :: Lens' CostCategory Text
-ccCostCategoryARN = lens _ccCostCategoryARN (\s a -> s {_ccCostCategoryARN = a})
+costCategory_costCategoryArn :: Lens.Lens' CostCategory Prelude.Text
+costCategory_costCategoryArn = Lens.lens (\CostCategory' {costCategoryArn} -> costCategoryArn) (\s@CostCategory' {} a -> s {costCategoryArn = a} :: CostCategory)
 
--- | The Cost Category's effective start date.
-ccEffectiveStart :: Lens' CostCategory Text
-ccEffectiveStart = lens _ccEffectiveStart (\s a -> s {_ccEffectiveStart = a})
-
--- | Undocumented member.
-ccName :: Lens' CostCategory Text
-ccName = lens _ccName (\s a -> s {_ccName = a})
+-- | The Cost Category\'s effective start date.
+costCategory_effectiveStart :: Lens.Lens' CostCategory Prelude.Text
+costCategory_effectiveStart = Lens.lens (\CostCategory' {effectiveStart} -> effectiveStart) (\s@CostCategory' {} a -> s {effectiveStart = a} :: CostCategory)
 
 -- | Undocumented member.
-ccRuleVersion :: Lens' CostCategory CostCategoryRuleVersion
-ccRuleVersion = lens _ccRuleVersion (\s a -> s {_ccRuleVersion = a})
+costCategory_name :: Lens.Lens' CostCategory Prelude.Text
+costCategory_name = Lens.lens (\CostCategory' {name} -> name) (\s@CostCategory' {} a -> s {name = a} :: CostCategory)
 
--- | Rules are processed in order. If there are multiple rules that match the line item, then the first rule to match is used to determine that Cost Category value.
-ccRules :: Lens' CostCategory (NonEmpty CostCategoryRule)
-ccRules = lens _ccRules (\s a -> s {_ccRules = a}) . _List1
+-- | Undocumented member.
+costCategory_ruleVersion :: Lens.Lens' CostCategory CostCategoryRuleVersion
+costCategory_ruleVersion = Lens.lens (\CostCategory' {ruleVersion} -> ruleVersion) (\s@CostCategory' {} a -> s {ruleVersion = a} :: CostCategory)
 
-instance FromJSON CostCategory where
+-- | Rules are processed in order. If there are multiple rules that match the
+-- line item, then the first rule to match is used to determine that Cost
+-- Category value.
+costCategory_rules :: Lens.Lens' CostCategory (Prelude.NonEmpty CostCategoryRule)
+costCategory_rules = Lens.lens (\CostCategory' {rules} -> rules) (\s@CostCategory' {} a -> s {rules = a} :: CostCategory) Prelude.. Prelude._List1
+
+instance Prelude.FromJSON CostCategory where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CostCategory"
       ( \x ->
           CostCategory'
-            <$> (x .:? "ProcessingStatus" .!= mempty)
-            <*> (x .:? "EffectiveEnd")
-            <*> (x .: "CostCategoryArn")
-            <*> (x .: "EffectiveStart")
-            <*> (x .: "Name")
-            <*> (x .: "RuleVersion")
-            <*> (x .: "Rules")
+            Prelude.<$> ( x Prelude..:? "ProcessingStatus"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "EffectiveEnd")
+            Prelude.<*> (x Prelude..: "CostCategoryArn")
+            Prelude.<*> (x Prelude..: "EffectiveStart")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "RuleVersion")
+            Prelude.<*> (x Prelude..: "Rules")
       )
 
-instance Hashable CostCategory
+instance Prelude.Hashable CostCategory
 
-instance NFData CostCategory
+instance Prelude.NFData CostCategory

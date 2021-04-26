@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing cost anomaly monitor. The changes made are applied going forward, and does not change anomalies detected in the past.
+-- Updates an existing cost anomaly monitor. The changes made are applied
+-- going forward, and does not change anomalies detected in the past.
 module Network.AWS.CostExplorer.UpdateAnomalyMonitor
   ( -- * Creating a Request
-    updateAnomalyMonitor,
-    UpdateAnomalyMonitor,
+    UpdateAnomalyMonitor (..),
+    newUpdateAnomalyMonitor,
 
     -- * Request Lenses
-    uamMonitorName,
-    uamMonitorARN,
+    updateAnomalyMonitor_monitorName,
+    updateAnomalyMonitor_monitorArn,
 
     -- * Destructuring the Response
-    updateAnomalyMonitorResponse,
-    UpdateAnomalyMonitorResponse,
+    UpdateAnomalyMonitorResponse (..),
+    newUpdateAnomalyMonitorResponse,
 
     -- * Response Lenses
-    uamrrsResponseStatus,
-    uamrrsMonitorARN,
+    updateAnomalyMonitorResponse_httpStatus,
+    updateAnomalyMonitorResponse_monitorArn,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateAnomalyMonitor' smart constructor.
+-- | /See:/ 'newUpdateAnomalyMonitor' smart constructor.
 data UpdateAnomalyMonitor = UpdateAnomalyMonitor'
-  { _uamMonitorName ::
-      !(Maybe Text),
-    _uamMonitorARN :: !Text
+  { -- | The new name for the cost anomaly monitor.
+    monitorName :: Prelude.Maybe Prelude.Text,
+    -- | Cost anomaly monitor Amazon Resource Names (ARNs).
+    monitorArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAnomalyMonitor' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAnomalyMonitor' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uamMonitorName' - The new name for the cost anomaly monitor.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uamMonitorARN' - Cost anomaly monitor Amazon Resource Names (ARNs).
-updateAnomalyMonitor ::
-  -- | 'uamMonitorARN'
-  Text ->
+-- 'monitorName', 'updateAnomalyMonitor_monitorName' - The new name for the cost anomaly monitor.
+--
+-- 'monitorArn', 'updateAnomalyMonitor_monitorArn' - Cost anomaly monitor Amazon Resource Names (ARNs).
+newUpdateAnomalyMonitor ::
+  -- | 'monitorArn'
+  Prelude.Text ->
   UpdateAnomalyMonitor
-updateAnomalyMonitor pMonitorARN_ =
+newUpdateAnomalyMonitor pMonitorArn_ =
   UpdateAnomalyMonitor'
-    { _uamMonitorName = Nothing,
-      _uamMonitorARN = pMonitorARN_
+    { monitorName =
+        Prelude.Nothing,
+      monitorArn = pMonitorArn_
     }
 
 -- | The new name for the cost anomaly monitor.
-uamMonitorName :: Lens' UpdateAnomalyMonitor (Maybe Text)
-uamMonitorName = lens _uamMonitorName (\s a -> s {_uamMonitorName = a})
+updateAnomalyMonitor_monitorName :: Lens.Lens' UpdateAnomalyMonitor (Prelude.Maybe Prelude.Text)
+updateAnomalyMonitor_monitorName = Lens.lens (\UpdateAnomalyMonitor' {monitorName} -> monitorName) (\s@UpdateAnomalyMonitor' {} a -> s {monitorName = a} :: UpdateAnomalyMonitor)
 
 -- | Cost anomaly monitor Amazon Resource Names (ARNs).
-uamMonitorARN :: Lens' UpdateAnomalyMonitor Text
-uamMonitorARN = lens _uamMonitorARN (\s a -> s {_uamMonitorARN = a})
+updateAnomalyMonitor_monitorArn :: Lens.Lens' UpdateAnomalyMonitor Prelude.Text
+updateAnomalyMonitor_monitorArn = Lens.lens (\UpdateAnomalyMonitor' {monitorArn} -> monitorArn) (\s@UpdateAnomalyMonitor' {} a -> s {monitorArn = a} :: UpdateAnomalyMonitor)
 
-instance AWSRequest UpdateAnomalyMonitor where
+instance Prelude.AWSRequest UpdateAnomalyMonitor where
   type
     Rs UpdateAnomalyMonitor =
       UpdateAnomalyMonitorResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateAnomalyMonitorResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "MonitorArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "MonitorArn")
       )
 
-instance Hashable UpdateAnomalyMonitor
+instance Prelude.Hashable UpdateAnomalyMonitor
 
-instance NFData UpdateAnomalyMonitor
+instance Prelude.NFData UpdateAnomalyMonitor
 
-instance ToHeaders UpdateAnomalyMonitor where
+instance Prelude.ToHeaders UpdateAnomalyMonitor where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.UpdateAnomalyMonitor" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.UpdateAnomalyMonitor" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAnomalyMonitor where
+instance Prelude.ToJSON UpdateAnomalyMonitor where
   toJSON UpdateAnomalyMonitor' {..} =
-    object
-      ( catMaybes
-          [ ("MonitorName" .=) <$> _uamMonitorName,
-            Just ("MonitorArn" .= _uamMonitorARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MonitorName" Prelude..=) Prelude.<$> monitorName,
+            Prelude.Just ("MonitorArn" Prelude..= monitorArn)
           ]
       )
 
-instance ToPath UpdateAnomalyMonitor where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAnomalyMonitor where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAnomalyMonitor where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAnomalyMonitor where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAnomalyMonitorResponse' smart constructor.
+-- | /See:/ 'newUpdateAnomalyMonitorResponse' smart constructor.
 data UpdateAnomalyMonitorResponse = UpdateAnomalyMonitorResponse'
-  { _uamrrsResponseStatus ::
-      !Int,
-    _uamrrsMonitorARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A cost anomaly monitor ARN.
+    monitorArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAnomalyMonitorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAnomalyMonitorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uamrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uamrrsMonitorARN' - A cost anomaly monitor ARN.
-updateAnomalyMonitorResponse ::
-  -- | 'uamrrsResponseStatus'
-  Int ->
-  -- | 'uamrrsMonitorARN'
-  Text ->
+-- 'httpStatus', 'updateAnomalyMonitorResponse_httpStatus' - The response's http status code.
+--
+-- 'monitorArn', 'updateAnomalyMonitorResponse_monitorArn' - A cost anomaly monitor ARN.
+newUpdateAnomalyMonitorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'monitorArn'
+  Prelude.Text ->
   UpdateAnomalyMonitorResponse
-updateAnomalyMonitorResponse
-  pResponseStatus_
-  pMonitorARN_ =
+newUpdateAnomalyMonitorResponse
+  pHttpStatus_
+  pMonitorArn_ =
     UpdateAnomalyMonitorResponse'
-      { _uamrrsResponseStatus =
-          pResponseStatus_,
-        _uamrrsMonitorARN = pMonitorARN_
+      { httpStatus =
+          pHttpStatus_,
+        monitorArn = pMonitorArn_
       }
 
--- | -- | The response status code.
-uamrrsResponseStatus :: Lens' UpdateAnomalyMonitorResponse Int
-uamrrsResponseStatus = lens _uamrrsResponseStatus (\s a -> s {_uamrrsResponseStatus = a})
+-- | The response's http status code.
+updateAnomalyMonitorResponse_httpStatus :: Lens.Lens' UpdateAnomalyMonitorResponse Prelude.Int
+updateAnomalyMonitorResponse_httpStatus = Lens.lens (\UpdateAnomalyMonitorResponse' {httpStatus} -> httpStatus) (\s@UpdateAnomalyMonitorResponse' {} a -> s {httpStatus = a} :: UpdateAnomalyMonitorResponse)
 
 -- | A cost anomaly monitor ARN.
-uamrrsMonitorARN :: Lens' UpdateAnomalyMonitorResponse Text
-uamrrsMonitorARN = lens _uamrrsMonitorARN (\s a -> s {_uamrrsMonitorARN = a})
+updateAnomalyMonitorResponse_monitorArn :: Lens.Lens' UpdateAnomalyMonitorResponse Prelude.Text
+updateAnomalyMonitorResponse_monitorArn = Lens.lens (\UpdateAnomalyMonitorResponse' {monitorArn} -> monitorArn) (\s@UpdateAnomalyMonitorResponse' {} a -> s {monitorArn = a} :: UpdateAnomalyMonitorResponse)
 
-instance NFData UpdateAnomalyMonitorResponse
+instance Prelude.NFData UpdateAnomalyMonitorResponse

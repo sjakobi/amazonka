@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,250 +22,389 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Retrieves an array of Cost Category names and values incurred cost.
+--
+-- If some Cost Category names and values are not associated with any cost,
+-- they will not be returned by this API.
 module Network.AWS.CostExplorer.GetCostCategories
   ( -- * Creating a Request
-    getCostCategories,
-    GetCostCategories,
+    GetCostCategories (..),
+    newGetCostCategories,
 
     -- * Request Lenses
-    gccMaxResults,
-    gccSearchString,
-    gccNextPageToken,
-    gccCostCategoryName,
-    gccSortBy,
-    gccFilter,
-    gccTimePeriod,
+    getCostCategories_maxResults,
+    getCostCategories_searchString,
+    getCostCategories_nextPageToken,
+    getCostCategories_costCategoryName,
+    getCostCategories_sortBy,
+    getCostCategories_filter,
+    getCostCategories_timePeriod,
 
     -- * Destructuring the Response
-    getCostCategoriesResponse,
-    GetCostCategoriesResponse,
+    GetCostCategoriesResponse (..),
+    newGetCostCategoriesResponse,
 
     -- * Response Lenses
-    gccrrsCostCategoryValues,
-    gccrrsNextPageToken,
-    gccrrsCostCategoryNames,
-    gccrrsResponseStatus,
-    gccrrsReturnSize,
-    gccrrsTotalSize,
+    getCostCategoriesResponse_costCategoryValues,
+    getCostCategoriesResponse_nextPageToken,
+    getCostCategoriesResponse_costCategoryNames,
+    getCostCategoriesResponse_httpStatus,
+    getCostCategoriesResponse_returnSize,
+    getCostCategoriesResponse_totalSize,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCostCategories' smart constructor.
+-- | /See:/ 'newGetCostCategories' smart constructor.
 data GetCostCategories = GetCostCategories'
-  { _gccMaxResults ::
-      !(Maybe Nat),
-    _gccSearchString :: !(Maybe Text),
-    _gccNextPageToken :: !(Maybe Text),
-    _gccCostCategoryName ::
-      !(Maybe Text),
-    _gccSortBy ::
-      !(Maybe [SortDefinition]),
-    _gccFilter :: !(Maybe Expression),
-    _gccTimePeriod :: !DateInterval
+  { -- | This field is only used when @SortBy@ is provided in the request.
+    --
+    -- The maximum number of objects that to be returned for this request. If
+    -- @MaxResults@ is not specified with @SortBy@, the request will return
+    -- 1000 results as the default value for this parameter.
+    --
+    -- For @GetCostCategories@, MaxResults has an upper limit of 1000.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The value that you want to search the filter values for.
+    --
+    -- If you do not specify a @CostCategoryName@, @SearchString@ will be used
+    -- to filter Cost Category names that match the @SearchString@ pattern. If
+    -- you do specifiy a @CostCategoryName@, @SearchString@ will be used to
+    -- filter Cost Category values that match the @SearchString@ pattern.
+    searchString :: Prelude.Maybe Prelude.Text,
+    -- | If the number of objects that are still available for retrieval exceeds
+    -- the limit, AWS returns a NextPageToken value in the response. To
+    -- retrieve the next batch of objects, provide the NextPageToken from the
+    -- prior call in your next request.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    costCategoryName :: Prelude.Maybe Prelude.Text,
+    -- | The value by which you want to sort the data.
+    --
+    -- The key represents cost and usage metrics. The following values are
+    -- supported:
+    --
+    -- -   @BlendedCost@
+    --
+    -- -   @UnblendedCost@
+    --
+    -- -   @AmortizedCost@
+    --
+    -- -   @NetAmortizedCost@
+    --
+    -- -   @NetUnblendedCost@
+    --
+    -- -   @UsageQuantity@
+    --
+    -- -   @NormalizedUsageAmount@
+    --
+    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    --
+    -- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+    -- supported.
+    sortBy :: Prelude.Maybe [SortDefinition],
+    filter' :: Prelude.Maybe Expression,
+    timePeriod :: DateInterval
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCostCategories' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCostCategories' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gccMaxResults' - This field is only used when @SortBy@ is provided in the request. The maximum number of objects that to be returned for this request. If @MaxResults@ is not specified with @SortBy@ , the request will return 1000 results as the default value for this parameter. For @GetCostCategories@ , MaxResults has an upper limit of 1000.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gccSearchString' - The value that you want to search the filter values for. If you do not specify a @CostCategoryName@ , @SearchString@ will be used to filter Cost Category names that match the @SearchString@ pattern. If you do specifiy a @CostCategoryName@ , @SearchString@ will be used to filter Cost Category values that match the @SearchString@ pattern.
+-- 'maxResults', 'getCostCategories_maxResults' - This field is only used when @SortBy@ is provided in the request.
 --
--- * 'gccNextPageToken' - If the number of objects that are still available for retrieval exceeds the limit, AWS returns a NextPageToken value in the response. To retrieve the next batch of objects, provide the NextPageToken from the prior call in your next request.
+-- The maximum number of objects that to be returned for this request. If
+-- @MaxResults@ is not specified with @SortBy@, the request will return
+-- 1000 results as the default value for this parameter.
 --
--- * 'gccCostCategoryName' - Undocumented member.
+-- For @GetCostCategories@, MaxResults has an upper limit of 1000.
 --
--- * 'gccSortBy' - The value by which you want to sort the data. The key represents cost and usage metrics. The following values are supported:     * @BlendedCost@      * @UnblendedCost@      * @AmortizedCost@      * @NetAmortizedCost@      * @NetUnblendedCost@      * @UsageQuantity@      * @NormalizedUsageAmount@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ . When using @SortBy@ , @NextPageToken@ and @SearchString@ are not supported.
+-- 'searchString', 'getCostCategories_searchString' - The value that you want to search the filter values for.
 --
--- * 'gccFilter' - Undocumented member.
+-- If you do not specify a @CostCategoryName@, @SearchString@ will be used
+-- to filter Cost Category names that match the @SearchString@ pattern. If
+-- you do specifiy a @CostCategoryName@, @SearchString@ will be used to
+-- filter Cost Category values that match the @SearchString@ pattern.
 --
--- * 'gccTimePeriod' - Undocumented member.
-getCostCategories ::
-  -- | 'gccTimePeriod'
+-- 'nextPageToken', 'getCostCategories_nextPageToken' - If the number of objects that are still available for retrieval exceeds
+-- the limit, AWS returns a NextPageToken value in the response. To
+-- retrieve the next batch of objects, provide the NextPageToken from the
+-- prior call in your next request.
+--
+-- 'costCategoryName', 'getCostCategories_costCategoryName' - Undocumented member.
+--
+-- 'sortBy', 'getCostCategories_sortBy' - The value by which you want to sort the data.
+--
+-- The key represents cost and usage metrics. The following values are
+-- supported:
+--
+-- -   @BlendedCost@
+--
+-- -   @UnblendedCost@
+--
+-- -   @AmortizedCost@
+--
+-- -   @NetAmortizedCost@
+--
+-- -   @NetUnblendedCost@
+--
+-- -   @UsageQuantity@
+--
+-- -   @NormalizedUsageAmount@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+--
+-- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+-- supported.
+--
+-- 'filter'', 'getCostCategories_filter' - Undocumented member.
+--
+-- 'timePeriod', 'getCostCategories_timePeriod' - Undocumented member.
+newGetCostCategories ::
+  -- | 'timePeriod'
   DateInterval ->
   GetCostCategories
-getCostCategories pTimePeriod_ =
+newGetCostCategories pTimePeriod_ =
   GetCostCategories'
-    { _gccMaxResults = Nothing,
-      _gccSearchString = Nothing,
-      _gccNextPageToken = Nothing,
-      _gccCostCategoryName = Nothing,
-      _gccSortBy = Nothing,
-      _gccFilter = Nothing,
-      _gccTimePeriod = pTimePeriod_
+    { maxResults = Prelude.Nothing,
+      searchString = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      costCategoryName = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      timePeriod = pTimePeriod_
     }
 
--- | This field is only used when @SortBy@ is provided in the request. The maximum number of objects that to be returned for this request. If @MaxResults@ is not specified with @SortBy@ , the request will return 1000 results as the default value for this parameter. For @GetCostCategories@ , MaxResults has an upper limit of 1000.
-gccMaxResults :: Lens' GetCostCategories (Maybe Natural)
-gccMaxResults = lens _gccMaxResults (\s a -> s {_gccMaxResults = a}) . mapping _Nat
+-- | This field is only used when @SortBy@ is provided in the request.
+--
+-- The maximum number of objects that to be returned for this request. If
+-- @MaxResults@ is not specified with @SortBy@, the request will return
+-- 1000 results as the default value for this parameter.
+--
+-- For @GetCostCategories@, MaxResults has an upper limit of 1000.
+getCostCategories_maxResults :: Lens.Lens' GetCostCategories (Prelude.Maybe Prelude.Natural)
+getCostCategories_maxResults = Lens.lens (\GetCostCategories' {maxResults} -> maxResults) (\s@GetCostCategories' {} a -> s {maxResults = a} :: GetCostCategories) Prelude.. Lens.mapping Prelude._Nat
 
--- | The value that you want to search the filter values for. If you do not specify a @CostCategoryName@ , @SearchString@ will be used to filter Cost Category names that match the @SearchString@ pattern. If you do specifiy a @CostCategoryName@ , @SearchString@ will be used to filter Cost Category values that match the @SearchString@ pattern.
-gccSearchString :: Lens' GetCostCategories (Maybe Text)
-gccSearchString = lens _gccSearchString (\s a -> s {_gccSearchString = a})
+-- | The value that you want to search the filter values for.
+--
+-- If you do not specify a @CostCategoryName@, @SearchString@ will be used
+-- to filter Cost Category names that match the @SearchString@ pattern. If
+-- you do specifiy a @CostCategoryName@, @SearchString@ will be used to
+-- filter Cost Category values that match the @SearchString@ pattern.
+getCostCategories_searchString :: Lens.Lens' GetCostCategories (Prelude.Maybe Prelude.Text)
+getCostCategories_searchString = Lens.lens (\GetCostCategories' {searchString} -> searchString) (\s@GetCostCategories' {} a -> s {searchString = a} :: GetCostCategories)
 
--- | If the number of objects that are still available for retrieval exceeds the limit, AWS returns a NextPageToken value in the response. To retrieve the next batch of objects, provide the NextPageToken from the prior call in your next request.
-gccNextPageToken :: Lens' GetCostCategories (Maybe Text)
-gccNextPageToken = lens _gccNextPageToken (\s a -> s {_gccNextPageToken = a})
+-- | If the number of objects that are still available for retrieval exceeds
+-- the limit, AWS returns a NextPageToken value in the response. To
+-- retrieve the next batch of objects, provide the NextPageToken from the
+-- prior call in your next request.
+getCostCategories_nextPageToken :: Lens.Lens' GetCostCategories (Prelude.Maybe Prelude.Text)
+getCostCategories_nextPageToken = Lens.lens (\GetCostCategories' {nextPageToken} -> nextPageToken) (\s@GetCostCategories' {} a -> s {nextPageToken = a} :: GetCostCategories)
 
 -- | Undocumented member.
-gccCostCategoryName :: Lens' GetCostCategories (Maybe Text)
-gccCostCategoryName = lens _gccCostCategoryName (\s a -> s {_gccCostCategoryName = a})
+getCostCategories_costCategoryName :: Lens.Lens' GetCostCategories (Prelude.Maybe Prelude.Text)
+getCostCategories_costCategoryName = Lens.lens (\GetCostCategories' {costCategoryName} -> costCategoryName) (\s@GetCostCategories' {} a -> s {costCategoryName = a} :: GetCostCategories)
 
--- | The value by which you want to sort the data. The key represents cost and usage metrics. The following values are supported:     * @BlendedCost@      * @UnblendedCost@      * @AmortizedCost@      * @NetAmortizedCost@      * @NetUnblendedCost@      * @UsageQuantity@      * @NormalizedUsageAmount@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ . When using @SortBy@ , @NextPageToken@ and @SearchString@ are not supported.
-gccSortBy :: Lens' GetCostCategories [SortDefinition]
-gccSortBy = lens _gccSortBy (\s a -> s {_gccSortBy = a}) . _Default . _Coerce
+-- | The value by which you want to sort the data.
+--
+-- The key represents cost and usage metrics. The following values are
+-- supported:
+--
+-- -   @BlendedCost@
+--
+-- -   @UnblendedCost@
+--
+-- -   @AmortizedCost@
+--
+-- -   @NetAmortizedCost@
+--
+-- -   @NetUnblendedCost@
+--
+-- -   @UsageQuantity@
+--
+-- -   @NormalizedUsageAmount@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+--
+-- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+-- supported.
+getCostCategories_sortBy :: Lens.Lens' GetCostCategories (Prelude.Maybe [SortDefinition])
+getCostCategories_sortBy = Lens.lens (\GetCostCategories' {sortBy} -> sortBy) (\s@GetCostCategories' {} a -> s {sortBy = a} :: GetCostCategories) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-gccFilter :: Lens' GetCostCategories (Maybe Expression)
-gccFilter = lens _gccFilter (\s a -> s {_gccFilter = a})
+getCostCategories_filter :: Lens.Lens' GetCostCategories (Prelude.Maybe Expression)
+getCostCategories_filter = Lens.lens (\GetCostCategories' {filter'} -> filter') (\s@GetCostCategories' {} a -> s {filter' = a} :: GetCostCategories)
 
 -- | Undocumented member.
-gccTimePeriod :: Lens' GetCostCategories DateInterval
-gccTimePeriod = lens _gccTimePeriod (\s a -> s {_gccTimePeriod = a})
+getCostCategories_timePeriod :: Lens.Lens' GetCostCategories DateInterval
+getCostCategories_timePeriod = Lens.lens (\GetCostCategories' {timePeriod} -> timePeriod) (\s@GetCostCategories' {} a -> s {timePeriod = a} :: GetCostCategories)
 
-instance AWSRequest GetCostCategories where
+instance Prelude.AWSRequest GetCostCategories where
   type Rs GetCostCategories = GetCostCategoriesResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCostCategoriesResponse'
-            <$> (x .?> "CostCategoryValues" .!@ mempty)
-            <*> (x .?> "NextPageToken")
-            <*> (x .?> "CostCategoryNames" .!@ mempty)
-            <*> (pure (fromEnum s))
-            <*> (x .:> "ReturnSize")
-            <*> (x .:> "TotalSize")
+            Prelude.<$> ( x Prelude..?> "CostCategoryValues"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextPageToken")
+            Prelude.<*> ( x Prelude..?> "CostCategoryNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ReturnSize")
+            Prelude.<*> (x Prelude..:> "TotalSize")
       )
 
-instance Hashable GetCostCategories
+instance Prelude.Hashable GetCostCategories
 
-instance NFData GetCostCategories
+instance Prelude.NFData GetCostCategories
 
-instance ToHeaders GetCostCategories where
+instance Prelude.ToHeaders GetCostCategories where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.GetCostCategories" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.GetCostCategories" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCostCategories where
+instance Prelude.ToJSON GetCostCategories where
   toJSON GetCostCategories' {..} =
-    object
-      ( catMaybes
-          [ ("MaxResults" .=) <$> _gccMaxResults,
-            ("SearchString" .=) <$> _gccSearchString,
-            ("NextPageToken" .=) <$> _gccNextPageToken,
-            ("CostCategoryName" .=) <$> _gccCostCategoryName,
-            ("SortBy" .=) <$> _gccSortBy,
-            ("Filter" .=) <$> _gccFilter,
-            Just ("TimePeriod" .= _gccTimePeriod)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SearchString" Prelude..=) Prelude.<$> searchString,
+            ("NextPageToken" Prelude..=)
+              Prelude.<$> nextPageToken,
+            ("CostCategoryName" Prelude..=)
+              Prelude.<$> costCategoryName,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("TimePeriod" Prelude..= timePeriod)
           ]
       )
 
-instance ToPath GetCostCategories where
-  toPath = const "/"
+instance Prelude.ToPath GetCostCategories where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCostCategories where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCostCategories where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCostCategoriesResponse' smart constructor.
+-- | /See:/ 'newGetCostCategoriesResponse' smart constructor.
 data GetCostCategoriesResponse = GetCostCategoriesResponse'
-  { _gccrrsCostCategoryValues ::
-      !(Maybe [Text]),
-    _gccrrsNextPageToken ::
-      !(Maybe Text),
-    _gccrrsCostCategoryNames ::
-      !(Maybe [Text]),
-    _gccrrsResponseStatus ::
-      !Int,
-    _gccrrsReturnSize ::
-      !Int,
-    _gccrrsTotalSize ::
-      !Int
+  { -- | The Cost Category values.
+    --
+    -- @CostCategoryValues@ are not returned if @CostCategoryName@ is not
+    -- specified in the request.
+    costCategoryValues :: Prelude.Maybe [Prelude.Text],
+    -- | If the number of objects that are still available for retrieval exceeds
+    -- the limit, AWS returns a NextPageToken value in the response. To
+    -- retrieve the next batch of objects, provide the marker from the prior
+    -- call in your next request.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of the Cost Categories.
+    costCategoryNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The number of objects returned.
+    returnSize :: Prelude.Int,
+    -- | The total number of objects.
+    totalSize :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCostCategoriesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCostCategoriesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gccrrsCostCategoryValues' - The Cost Category values. @CostCategoryValues@ are not returned if @CostCategoryName@ is not specified in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gccrrsNextPageToken' - If the number of objects that are still available for retrieval exceeds the limit, AWS returns a NextPageToken value in the response. To retrieve the next batch of objects, provide the marker from the prior call in your next request.
+-- 'costCategoryValues', 'getCostCategoriesResponse_costCategoryValues' - The Cost Category values.
 --
--- * 'gccrrsCostCategoryNames' - The names of the Cost Categories.
+-- @CostCategoryValues@ are not returned if @CostCategoryName@ is not
+-- specified in the request.
 --
--- * 'gccrrsResponseStatus' - -- | The response status code.
+-- 'nextPageToken', 'getCostCategoriesResponse_nextPageToken' - If the number of objects that are still available for retrieval exceeds
+-- the limit, AWS returns a NextPageToken value in the response. To
+-- retrieve the next batch of objects, provide the marker from the prior
+-- call in your next request.
 --
--- * 'gccrrsReturnSize' - The number of objects returned.
+-- 'costCategoryNames', 'getCostCategoriesResponse_costCategoryNames' - The names of the Cost Categories.
 --
--- * 'gccrrsTotalSize' - The total number of objects.
-getCostCategoriesResponse ::
-  -- | 'gccrrsResponseStatus'
-  Int ->
-  -- | 'gccrrsReturnSize'
-  Int ->
-  -- | 'gccrrsTotalSize'
-  Int ->
+-- 'httpStatus', 'getCostCategoriesResponse_httpStatus' - The response's http status code.
+--
+-- 'returnSize', 'getCostCategoriesResponse_returnSize' - The number of objects returned.
+--
+-- 'totalSize', 'getCostCategoriesResponse_totalSize' - The total number of objects.
+newGetCostCategoriesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'returnSize'
+  Prelude.Int ->
+  -- | 'totalSize'
+  Prelude.Int ->
   GetCostCategoriesResponse
-getCostCategoriesResponse
-  pResponseStatus_
+newGetCostCategoriesResponse
+  pHttpStatus_
   pReturnSize_
   pTotalSize_ =
     GetCostCategoriesResponse'
-      { _gccrrsCostCategoryValues =
-          Nothing,
-        _gccrrsNextPageToken = Nothing,
-        _gccrrsCostCategoryNames = Nothing,
-        _gccrrsResponseStatus = pResponseStatus_,
-        _gccrrsReturnSize = pReturnSize_,
-        _gccrrsTotalSize = pTotalSize_
+      { costCategoryValues =
+          Prelude.Nothing,
+        nextPageToken = Prelude.Nothing,
+        costCategoryNames = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        returnSize = pReturnSize_,
+        totalSize = pTotalSize_
       }
 
--- | The Cost Category values. @CostCategoryValues@ are not returned if @CostCategoryName@ is not specified in the request.
-gccrrsCostCategoryValues :: Lens' GetCostCategoriesResponse [Text]
-gccrrsCostCategoryValues = lens _gccrrsCostCategoryValues (\s a -> s {_gccrrsCostCategoryValues = a}) . _Default . _Coerce
+-- | The Cost Category values.
+--
+-- @CostCategoryValues@ are not returned if @CostCategoryName@ is not
+-- specified in the request.
+getCostCategoriesResponse_costCategoryValues :: Lens.Lens' GetCostCategoriesResponse (Prelude.Maybe [Prelude.Text])
+getCostCategoriesResponse_costCategoryValues = Lens.lens (\GetCostCategoriesResponse' {costCategoryValues} -> costCategoryValues) (\s@GetCostCategoriesResponse' {} a -> s {costCategoryValues = a} :: GetCostCategoriesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If the number of objects that are still available for retrieval exceeds the limit, AWS returns a NextPageToken value in the response. To retrieve the next batch of objects, provide the marker from the prior call in your next request.
-gccrrsNextPageToken :: Lens' GetCostCategoriesResponse (Maybe Text)
-gccrrsNextPageToken = lens _gccrrsNextPageToken (\s a -> s {_gccrrsNextPageToken = a})
+-- | If the number of objects that are still available for retrieval exceeds
+-- the limit, AWS returns a NextPageToken value in the response. To
+-- retrieve the next batch of objects, provide the marker from the prior
+-- call in your next request.
+getCostCategoriesResponse_nextPageToken :: Lens.Lens' GetCostCategoriesResponse (Prelude.Maybe Prelude.Text)
+getCostCategoriesResponse_nextPageToken = Lens.lens (\GetCostCategoriesResponse' {nextPageToken} -> nextPageToken) (\s@GetCostCategoriesResponse' {} a -> s {nextPageToken = a} :: GetCostCategoriesResponse)
 
 -- | The names of the Cost Categories.
-gccrrsCostCategoryNames :: Lens' GetCostCategoriesResponse [Text]
-gccrrsCostCategoryNames = lens _gccrrsCostCategoryNames (\s a -> s {_gccrrsCostCategoryNames = a}) . _Default . _Coerce
+getCostCategoriesResponse_costCategoryNames :: Lens.Lens' GetCostCategoriesResponse (Prelude.Maybe [Prelude.Text])
+getCostCategoriesResponse_costCategoryNames = Lens.lens (\GetCostCategoriesResponse' {costCategoryNames} -> costCategoryNames) (\s@GetCostCategoriesResponse' {} a -> s {costCategoryNames = a} :: GetCostCategoriesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gccrrsResponseStatus :: Lens' GetCostCategoriesResponse Int
-gccrrsResponseStatus = lens _gccrrsResponseStatus (\s a -> s {_gccrrsResponseStatus = a})
+-- | The response's http status code.
+getCostCategoriesResponse_httpStatus :: Lens.Lens' GetCostCategoriesResponse Prelude.Int
+getCostCategoriesResponse_httpStatus = Lens.lens (\GetCostCategoriesResponse' {httpStatus} -> httpStatus) (\s@GetCostCategoriesResponse' {} a -> s {httpStatus = a} :: GetCostCategoriesResponse)
 
 -- | The number of objects returned.
-gccrrsReturnSize :: Lens' GetCostCategoriesResponse Int
-gccrrsReturnSize = lens _gccrrsReturnSize (\s a -> s {_gccrrsReturnSize = a})
+getCostCategoriesResponse_returnSize :: Lens.Lens' GetCostCategoriesResponse Prelude.Int
+getCostCategoriesResponse_returnSize = Lens.lens (\GetCostCategoriesResponse' {returnSize} -> returnSize) (\s@GetCostCategoriesResponse' {} a -> s {returnSize = a} :: GetCostCategoriesResponse)
 
 -- | The total number of objects.
-gccrrsTotalSize :: Lens' GetCostCategoriesResponse Int
-gccrrsTotalSize = lens _gccrrsTotalSize (\s a -> s {_gccrrsTotalSize = a})
+getCostCategoriesResponse_totalSize :: Lens.Lens' GetCostCategoriesResponse Prelude.Int
+getCostCategoriesResponse_totalSize = Lens.lens (\GetCostCategoriesResponse' {totalSize} -> totalSize) (\s@GetCostCategoriesResponse' {} a -> s {totalSize = a} :: GetCostCategoriesResponse)
 
-instance NFData GetCostCategoriesResponse
+instance Prelude.NFData GetCostCategoriesResponse

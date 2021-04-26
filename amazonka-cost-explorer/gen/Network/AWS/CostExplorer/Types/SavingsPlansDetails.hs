@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.SavingsPlansDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Attribute details on a specific Savings Plan.
 --
---
---
--- /See:/ 'savingsPlansDetails' smart constructor.
+-- /See:/ 'newSavingsPlansDetails' smart constructor.
 data SavingsPlansDetails = SavingsPlansDetails'
-  { _spdInstanceFamily ::
-      !(Maybe Text),
-    _spdOfferingId :: !(Maybe Text),
-    _spdRegion :: !(Maybe Text)
+  { -- | A group of instance types that Savings Plans applies to.
+    instanceFamily :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID used to distinguish Savings Plans from one another.
+    offeringId :: Prelude.Maybe Prelude.Text,
+    -- | A collection of AWS resources in a geographic area. Each AWS Region is
+    -- isolated and independent of the other Regions.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SavingsPlansDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SavingsPlansDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spdInstanceFamily' - A group of instance types that Savings Plans applies to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spdOfferingId' - The unique ID used to distinguish Savings Plans from one another.
+-- 'instanceFamily', 'savingsPlansDetails_instanceFamily' - A group of instance types that Savings Plans applies to.
 --
--- * 'spdRegion' - A collection of AWS resources in a geographic area. Each AWS Region is isolated and independent of the other Regions.
-savingsPlansDetails ::
+-- 'offeringId', 'savingsPlansDetails_offeringId' - The unique ID used to distinguish Savings Plans from one another.
+--
+-- 'region', 'savingsPlansDetails_region' - A collection of AWS resources in a geographic area. Each AWS Region is
+-- isolated and independent of the other Regions.
+newSavingsPlansDetails ::
   SavingsPlansDetails
-savingsPlansDetails =
+newSavingsPlansDetails =
   SavingsPlansDetails'
-    { _spdInstanceFamily = Nothing,
-      _spdOfferingId = Nothing,
-      _spdRegion = Nothing
+    { instanceFamily =
+        Prelude.Nothing,
+      offeringId = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
 -- | A group of instance types that Savings Plans applies to.
-spdInstanceFamily :: Lens' SavingsPlansDetails (Maybe Text)
-spdInstanceFamily = lens _spdInstanceFamily (\s a -> s {_spdInstanceFamily = a})
+savingsPlansDetails_instanceFamily :: Lens.Lens' SavingsPlansDetails (Prelude.Maybe Prelude.Text)
+savingsPlansDetails_instanceFamily = Lens.lens (\SavingsPlansDetails' {instanceFamily} -> instanceFamily) (\s@SavingsPlansDetails' {} a -> s {instanceFamily = a} :: SavingsPlansDetails)
 
 -- | The unique ID used to distinguish Savings Plans from one another.
-spdOfferingId :: Lens' SavingsPlansDetails (Maybe Text)
-spdOfferingId = lens _spdOfferingId (\s a -> s {_spdOfferingId = a})
+savingsPlansDetails_offeringId :: Lens.Lens' SavingsPlansDetails (Prelude.Maybe Prelude.Text)
+savingsPlansDetails_offeringId = Lens.lens (\SavingsPlansDetails' {offeringId} -> offeringId) (\s@SavingsPlansDetails' {} a -> s {offeringId = a} :: SavingsPlansDetails)
 
--- | A collection of AWS resources in a geographic area. Each AWS Region is isolated and independent of the other Regions.
-spdRegion :: Lens' SavingsPlansDetails (Maybe Text)
-spdRegion = lens _spdRegion (\s a -> s {_spdRegion = a})
+-- | A collection of AWS resources in a geographic area. Each AWS Region is
+-- isolated and independent of the other Regions.
+savingsPlansDetails_region :: Lens.Lens' SavingsPlansDetails (Prelude.Maybe Prelude.Text)
+savingsPlansDetails_region = Lens.lens (\SavingsPlansDetails' {region} -> region) (\s@SavingsPlansDetails' {} a -> s {region = a} :: SavingsPlansDetails)
 
-instance FromJSON SavingsPlansDetails where
+instance Prelude.FromJSON SavingsPlansDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SavingsPlansDetails"
       ( \x ->
           SavingsPlansDetails'
-            <$> (x .:? "InstanceFamily")
-            <*> (x .:? "OfferingId")
-            <*> (x .:? "Region")
+            Prelude.<$> (x Prelude..:? "InstanceFamily")
+            Prelude.<*> (x Prelude..:? "OfferingId")
+            Prelude.<*> (x Prelude..:? "Region")
       )
 
-instance Hashable SavingsPlansDetails
+instance Prelude.Hashable SavingsPlansDetails
 
-instance NFData SavingsPlansDetails
+instance Prelude.NFData SavingsPlansDetails

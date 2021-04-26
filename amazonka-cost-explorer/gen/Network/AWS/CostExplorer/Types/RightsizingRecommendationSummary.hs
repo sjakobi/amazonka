@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.RightsizingRecommendationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary of rightsizing recommendations
 --
---
---
--- /See:/ 'rightsizingRecommendationSummary' smart constructor.
+-- /See:/ 'newRightsizingRecommendationSummary' smart constructor.
 data RightsizingRecommendationSummary = RightsizingRecommendationSummary'
-  { _rrsEstimatedTotalMonthlySavingsAmount ::
-      !( Maybe
-           Text
-       ),
-    _rrsSavingsPercentage ::
-      !( Maybe
-           Text
-       ),
-    _rrsTotalRecommendationCount ::
-      !( Maybe
-           Text
-       ),
-    _rrsSavingsCurrencyCode ::
-      !( Maybe
-           Text
-       )
+  { -- | Estimated total savings resulting from modifications, on a monthly
+    -- basis.
+    estimatedTotalMonthlySavingsAmount :: Prelude.Maybe Prelude.Text,
+    -- | Savings percentage based on the recommended modifications, relative to
+    -- the total On-Demand costs associated with these instances.
+    savingsPercentage :: Prelude.Maybe Prelude.Text,
+    -- | Total number of instance recommendations.
+    totalRecommendationCount :: Prelude.Maybe Prelude.Text,
+    -- | The currency code that AWS used to calculate the savings.
+    savingsCurrencyCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RightsizingRecommendationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RightsizingRecommendationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrsEstimatedTotalMonthlySavingsAmount' - Estimated total savings resulting from modifications, on a monthly basis.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrsSavingsPercentage' - Savings percentage based on the recommended modifications, relative to the total On-Demand costs associated with these instances.
+-- 'estimatedTotalMonthlySavingsAmount', 'rightsizingRecommendationSummary_estimatedTotalMonthlySavingsAmount' - Estimated total savings resulting from modifications, on a monthly
+-- basis.
 --
--- * 'rrsTotalRecommendationCount' - Total number of instance recommendations.
+-- 'savingsPercentage', 'rightsizingRecommendationSummary_savingsPercentage' - Savings percentage based on the recommended modifications, relative to
+-- the total On-Demand costs associated with these instances.
 --
--- * 'rrsSavingsCurrencyCode' - The currency code that AWS used to calculate the savings.
-rightsizingRecommendationSummary ::
+-- 'totalRecommendationCount', 'rightsizingRecommendationSummary_totalRecommendationCount' - Total number of instance recommendations.
+--
+-- 'savingsCurrencyCode', 'rightsizingRecommendationSummary_savingsCurrencyCode' - The currency code that AWS used to calculate the savings.
+newRightsizingRecommendationSummary ::
   RightsizingRecommendationSummary
-rightsizingRecommendationSummary =
+newRightsizingRecommendationSummary =
   RightsizingRecommendationSummary'
-    { _rrsEstimatedTotalMonthlySavingsAmount =
-        Nothing,
-      _rrsSavingsPercentage = Nothing,
-      _rrsTotalRecommendationCount = Nothing,
-      _rrsSavingsCurrencyCode = Nothing
+    { estimatedTotalMonthlySavingsAmount =
+        Prelude.Nothing,
+      savingsPercentage = Prelude.Nothing,
+      totalRecommendationCount =
+        Prelude.Nothing,
+      savingsCurrencyCode = Prelude.Nothing
     }
 
--- | Estimated total savings resulting from modifications, on a monthly basis.
-rrsEstimatedTotalMonthlySavingsAmount :: Lens' RightsizingRecommendationSummary (Maybe Text)
-rrsEstimatedTotalMonthlySavingsAmount = lens _rrsEstimatedTotalMonthlySavingsAmount (\s a -> s {_rrsEstimatedTotalMonthlySavingsAmount = a})
+-- | Estimated total savings resulting from modifications, on a monthly
+-- basis.
+rightsizingRecommendationSummary_estimatedTotalMonthlySavingsAmount :: Lens.Lens' RightsizingRecommendationSummary (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationSummary_estimatedTotalMonthlySavingsAmount = Lens.lens (\RightsizingRecommendationSummary' {estimatedTotalMonthlySavingsAmount} -> estimatedTotalMonthlySavingsAmount) (\s@RightsizingRecommendationSummary' {} a -> s {estimatedTotalMonthlySavingsAmount = a} :: RightsizingRecommendationSummary)
 
--- | Savings percentage based on the recommended modifications, relative to the total On-Demand costs associated with these instances.
-rrsSavingsPercentage :: Lens' RightsizingRecommendationSummary (Maybe Text)
-rrsSavingsPercentage = lens _rrsSavingsPercentage (\s a -> s {_rrsSavingsPercentage = a})
+-- | Savings percentage based on the recommended modifications, relative to
+-- the total On-Demand costs associated with these instances.
+rightsizingRecommendationSummary_savingsPercentage :: Lens.Lens' RightsizingRecommendationSummary (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationSummary_savingsPercentage = Lens.lens (\RightsizingRecommendationSummary' {savingsPercentage} -> savingsPercentage) (\s@RightsizingRecommendationSummary' {} a -> s {savingsPercentage = a} :: RightsizingRecommendationSummary)
 
 -- | Total number of instance recommendations.
-rrsTotalRecommendationCount :: Lens' RightsizingRecommendationSummary (Maybe Text)
-rrsTotalRecommendationCount = lens _rrsTotalRecommendationCount (\s a -> s {_rrsTotalRecommendationCount = a})
+rightsizingRecommendationSummary_totalRecommendationCount :: Lens.Lens' RightsizingRecommendationSummary (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationSummary_totalRecommendationCount = Lens.lens (\RightsizingRecommendationSummary' {totalRecommendationCount} -> totalRecommendationCount) (\s@RightsizingRecommendationSummary' {} a -> s {totalRecommendationCount = a} :: RightsizingRecommendationSummary)
 
 -- | The currency code that AWS used to calculate the savings.
-rrsSavingsCurrencyCode :: Lens' RightsizingRecommendationSummary (Maybe Text)
-rrsSavingsCurrencyCode = lens _rrsSavingsCurrencyCode (\s a -> s {_rrsSavingsCurrencyCode = a})
+rightsizingRecommendationSummary_savingsCurrencyCode :: Lens.Lens' RightsizingRecommendationSummary (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationSummary_savingsCurrencyCode = Lens.lens (\RightsizingRecommendationSummary' {savingsCurrencyCode} -> savingsCurrencyCode) (\s@RightsizingRecommendationSummary' {} a -> s {savingsCurrencyCode = a} :: RightsizingRecommendationSummary)
 
-instance FromJSON RightsizingRecommendationSummary where
+instance
+  Prelude.FromJSON
+    RightsizingRecommendationSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RightsizingRecommendationSummary"
       ( \x ->
           RightsizingRecommendationSummary'
-            <$> (x .:? "EstimatedTotalMonthlySavingsAmount")
-            <*> (x .:? "SavingsPercentage")
-            <*> (x .:? "TotalRecommendationCount")
-            <*> (x .:? "SavingsCurrencyCode")
+            Prelude.<$> (x Prelude..:? "EstimatedTotalMonthlySavingsAmount")
+            Prelude.<*> (x Prelude..:? "SavingsPercentage")
+            Prelude.<*> (x Prelude..:? "TotalRecommendationCount")
+            Prelude.<*> (x Prelude..:? "SavingsCurrencyCode")
       )
 
-instance Hashable RightsizingRecommendationSummary
+instance
+  Prelude.Hashable
+    RightsizingRecommendationSummary
 
-instance NFData RightsizingRecommendationSummary
+instance
+  Prelude.NFData
+    RightsizingRecommendationSummary

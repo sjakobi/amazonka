@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,91 +20,88 @@
 module Network.AWS.CostExplorer.Types.RightsizingRecommendationMetadata where
 
 import Network.AWS.CostExplorer.Types.LookbackPeriodInDays
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Metadata for this recommendation set.
 --
---
---
--- /See:/ 'rightsizingRecommendationMetadata' smart constructor.
+-- /See:/ 'newRightsizingRecommendationMetadata' smart constructor.
 data RightsizingRecommendationMetadata = RightsizingRecommendationMetadata'
-  { _rrmRecommendationId ::
-      !( Maybe
-           Text
-       ),
-    _rrmAdditionalMetadata ::
-      !( Maybe
-           Text
-       ),
-    _rrmLookbackPeriodInDays ::
-      !( Maybe
-           LookbackPeriodInDays
-       ),
-    _rrmGenerationTimestamp ::
-      !( Maybe
-           Text
-       )
+  { -- | The ID for this specific recommendation.
+    recommendationId :: Prelude.Maybe Prelude.Text,
+    -- | Additional metadata that may be applicable to the recommendation.
+    additionalMetadata :: Prelude.Maybe Prelude.Text,
+    -- | How many days of previous usage that AWS considers when making this
+    -- recommendation.
+    lookbackPeriodInDays :: Prelude.Maybe LookbackPeriodInDays,
+    -- | The timestamp for when AWS made this recommendation.
+    generationTimestamp :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RightsizingRecommendationMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RightsizingRecommendationMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrmRecommendationId' - The ID for this specific recommendation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrmAdditionalMetadata' - Additional metadata that may be applicable to the recommendation.
+-- 'recommendationId', 'rightsizingRecommendationMetadata_recommendationId' - The ID for this specific recommendation.
 --
--- * 'rrmLookbackPeriodInDays' - How many days of previous usage that AWS considers when making this recommendation.
+-- 'additionalMetadata', 'rightsizingRecommendationMetadata_additionalMetadata' - Additional metadata that may be applicable to the recommendation.
 --
--- * 'rrmGenerationTimestamp' - The timestamp for when AWS made this recommendation.
-rightsizingRecommendationMetadata ::
+-- 'lookbackPeriodInDays', 'rightsizingRecommendationMetadata_lookbackPeriodInDays' - How many days of previous usage that AWS considers when making this
+-- recommendation.
+--
+-- 'generationTimestamp', 'rightsizingRecommendationMetadata_generationTimestamp' - The timestamp for when AWS made this recommendation.
+newRightsizingRecommendationMetadata ::
   RightsizingRecommendationMetadata
-rightsizingRecommendationMetadata =
+newRightsizingRecommendationMetadata =
   RightsizingRecommendationMetadata'
-    { _rrmRecommendationId =
-        Nothing,
-      _rrmAdditionalMetadata = Nothing,
-      _rrmLookbackPeriodInDays = Nothing,
-      _rrmGenerationTimestamp = Nothing
+    { recommendationId =
+        Prelude.Nothing,
+      additionalMetadata = Prelude.Nothing,
+      lookbackPeriodInDays = Prelude.Nothing,
+      generationTimestamp = Prelude.Nothing
     }
 
 -- | The ID for this specific recommendation.
-rrmRecommendationId :: Lens' RightsizingRecommendationMetadata (Maybe Text)
-rrmRecommendationId = lens _rrmRecommendationId (\s a -> s {_rrmRecommendationId = a})
+rightsizingRecommendationMetadata_recommendationId :: Lens.Lens' RightsizingRecommendationMetadata (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationMetadata_recommendationId = Lens.lens (\RightsizingRecommendationMetadata' {recommendationId} -> recommendationId) (\s@RightsizingRecommendationMetadata' {} a -> s {recommendationId = a} :: RightsizingRecommendationMetadata)
 
 -- | Additional metadata that may be applicable to the recommendation.
-rrmAdditionalMetadata :: Lens' RightsizingRecommendationMetadata (Maybe Text)
-rrmAdditionalMetadata = lens _rrmAdditionalMetadata (\s a -> s {_rrmAdditionalMetadata = a})
+rightsizingRecommendationMetadata_additionalMetadata :: Lens.Lens' RightsizingRecommendationMetadata (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationMetadata_additionalMetadata = Lens.lens (\RightsizingRecommendationMetadata' {additionalMetadata} -> additionalMetadata) (\s@RightsizingRecommendationMetadata' {} a -> s {additionalMetadata = a} :: RightsizingRecommendationMetadata)
 
--- | How many days of previous usage that AWS considers when making this recommendation.
-rrmLookbackPeriodInDays :: Lens' RightsizingRecommendationMetadata (Maybe LookbackPeriodInDays)
-rrmLookbackPeriodInDays = lens _rrmLookbackPeriodInDays (\s a -> s {_rrmLookbackPeriodInDays = a})
+-- | How many days of previous usage that AWS considers when making this
+-- recommendation.
+rightsizingRecommendationMetadata_lookbackPeriodInDays :: Lens.Lens' RightsizingRecommendationMetadata (Prelude.Maybe LookbackPeriodInDays)
+rightsizingRecommendationMetadata_lookbackPeriodInDays = Lens.lens (\RightsizingRecommendationMetadata' {lookbackPeriodInDays} -> lookbackPeriodInDays) (\s@RightsizingRecommendationMetadata' {} a -> s {lookbackPeriodInDays = a} :: RightsizingRecommendationMetadata)
 
 -- | The timestamp for when AWS made this recommendation.
-rrmGenerationTimestamp :: Lens' RightsizingRecommendationMetadata (Maybe Text)
-rrmGenerationTimestamp = lens _rrmGenerationTimestamp (\s a -> s {_rrmGenerationTimestamp = a})
+rightsizingRecommendationMetadata_generationTimestamp :: Lens.Lens' RightsizingRecommendationMetadata (Prelude.Maybe Prelude.Text)
+rightsizingRecommendationMetadata_generationTimestamp = Lens.lens (\RightsizingRecommendationMetadata' {generationTimestamp} -> generationTimestamp) (\s@RightsizingRecommendationMetadata' {} a -> s {generationTimestamp = a} :: RightsizingRecommendationMetadata)
 
-instance FromJSON RightsizingRecommendationMetadata where
+instance
+  Prelude.FromJSON
+    RightsizingRecommendationMetadata
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RightsizingRecommendationMetadata"
       ( \x ->
           RightsizingRecommendationMetadata'
-            <$> (x .:? "RecommendationId")
-            <*> (x .:? "AdditionalMetadata")
-            <*> (x .:? "LookbackPeriodInDays")
-            <*> (x .:? "GenerationTimestamp")
+            Prelude.<$> (x Prelude..:? "RecommendationId")
+            Prelude.<*> (x Prelude..:? "AdditionalMetadata")
+            Prelude.<*> (x Prelude..:? "LookbackPeriodInDays")
+            Prelude.<*> (x Prelude..:? "GenerationTimestamp")
       )
 
-instance Hashable RightsizingRecommendationMetadata
+instance
+  Prelude.Hashable
+    RightsizingRecommendationMetadata
 
-instance NFData RightsizingRecommendationMetadata
+instance
+  Prelude.NFData
+    RightsizingRecommendationMetadata

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,205 +21,331 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the Savings Plans utilization for your account across date ranges with daily or monthly granularity. Management account in an organization have access to member accounts. You can use @GetDimensionValues@ in @SAVINGS_PLANS@ to determine the possible dimension values.
+-- Retrieves the Savings Plans utilization for your account across date
+-- ranges with daily or monthly granularity. Management account in an
+-- organization have access to member accounts. You can use
+-- @GetDimensionValues@ in @SAVINGS_PLANS@ to determine the possible
+-- dimension values.
+--
+-- You cannot group by any dimension values for
+-- @GetSavingsPlansUtilization@.
 module Network.AWS.CostExplorer.GetSavingsPlansUtilization
   ( -- * Creating a Request
-    getSavingsPlansUtilization,
-    GetSavingsPlansUtilization,
+    GetSavingsPlansUtilization (..),
+    newGetSavingsPlansUtilization,
 
     -- * Request Lenses
-    gspuGranularity,
-    gspuSortBy,
-    gspuFilter,
-    gspuTimePeriod,
+    getSavingsPlansUtilization_granularity,
+    getSavingsPlansUtilization_sortBy,
+    getSavingsPlansUtilization_filter,
+    getSavingsPlansUtilization_timePeriod,
 
     -- * Destructuring the Response
-    getSavingsPlansUtilizationResponse,
-    GetSavingsPlansUtilizationResponse,
+    GetSavingsPlansUtilizationResponse (..),
+    newGetSavingsPlansUtilizationResponse,
 
     -- * Response Lenses
-    gspurrsSavingsPlansUtilizationsByTime,
-    gspurrsResponseStatus,
-    gspurrsTotal,
+    getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime,
+    getSavingsPlansUtilizationResponse_httpStatus,
+    getSavingsPlansUtilizationResponse_total,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CostExplorer.Types.SavingsPlansUtilizationAggregates
+import Network.AWS.CostExplorer.Types.SavingsPlansUtilizationByTime
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSavingsPlansUtilization' smart constructor.
+-- | /See:/ 'newGetSavingsPlansUtilization' smart constructor.
 data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
-  { _gspuGranularity ::
-      !( Maybe
-           Granularity
-       ),
-    _gspuSortBy ::
-      !( Maybe
-           SortDefinition
-       ),
-    _gspuFilter ::
-      !( Maybe
-           Expression
-       ),
-    _gspuTimePeriod ::
-      !DateInterval
+  { -- | The granularity of the Amazon Web Services utillization data for your
+    -- Savings Plans.
+    --
+    -- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
+    -- @MONTHLY@ granularities.
+    granularity :: Prelude.Maybe Granularity,
+    -- | The value by which you want to sort the data.
+    --
+    -- The following values are supported for @Key@:
+    --
+    -- -   @UtilizationPercentage@
+    --
+    -- -   @TotalCommitment@
+    --
+    -- -   @UsedCommitment@
+    --
+    -- -   @UnusedCommitment@
+    --
+    -- -   @NetSavings@
+    --
+    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    sortBy :: Prelude.Maybe SortDefinition,
+    -- | Filters Savings Plans utilization coverage data for active Savings Plans
+    -- dimensions. You can filter data with the following dimensions:
+    --
+    -- -   @LINKED_ACCOUNT@
+    --
+    -- -   @SAVINGS_PLAN_ARN@
+    --
+    -- -   @SAVINGS_PLANS_TYPE@
+    --
+    -- -   @REGION@
+    --
+    -- -   @PAYMENT_OPTION@
+    --
+    -- -   @INSTANCE_TYPE_FAMILY@
+    --
+    -- @GetSavingsPlansUtilization@ uses the same
+    -- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression>
+    -- object as the other operations, but only @AND@ is supported among each
+    -- dimension.
+    filter' :: Prelude.Maybe Expression,
+    -- | The time period that you want the usage and costs for. The @Start@ date
+    -- must be within 13 months. The @End@ date must be after the @Start@ date,
+    -- and before the current date. Future dates can\'t be used as an @End@
+    -- date.
+    timePeriod :: DateInterval
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSavingsPlansUtilization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSavingsPlansUtilization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gspuGranularity' - The granularity of the Amazon Web Services utillization data for your Savings Plans. The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and @MONTHLY@ granularities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gspuSortBy' - The value by which you want to sort the data. The following values are supported for @Key@ :     * @UtilizationPercentage@      * @TotalCommitment@      * @UsedCommitment@      * @UnusedCommitment@      * @NetSavings@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ .
+-- 'granularity', 'getSavingsPlansUtilization_granularity' - The granularity of the Amazon Web Services utillization data for your
+-- Savings Plans.
 --
--- * 'gspuFilter' - Filters Savings Plans utilization coverage data for active Savings Plans dimensions. You can filter data with the following dimensions:     * @LINKED_ACCOUNT@      * @SAVINGS_PLAN_ARN@      * @SAVINGS_PLANS_TYPE@      * @REGION@      * @PAYMENT_OPTION@      * @INSTANCE_TYPE_FAMILY@  @GetSavingsPlansUtilization@ uses the same <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression> object as the other operations, but only @AND@ is supported among each dimension.
+-- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
 --
--- * 'gspuTimePeriod' - The time period that you want the usage and costs for. The @Start@ date must be within 13 months. The @End@ date must be after the @Start@ date, and before the current date. Future dates can't be used as an @End@ date.
-getSavingsPlansUtilization ::
-  -- | 'gspuTimePeriod'
+-- 'sortBy', 'getSavingsPlansUtilization_sortBy' - The value by which you want to sort the data.
+--
+-- The following values are supported for @Key@:
+--
+-- -   @UtilizationPercentage@
+--
+-- -   @TotalCommitment@
+--
+-- -   @UsedCommitment@
+--
+-- -   @UnusedCommitment@
+--
+-- -   @NetSavings@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+--
+-- 'filter'', 'getSavingsPlansUtilization_filter' - Filters Savings Plans utilization coverage data for active Savings Plans
+-- dimensions. You can filter data with the following dimensions:
+--
+-- -   @LINKED_ACCOUNT@
+--
+-- -   @SAVINGS_PLAN_ARN@
+--
+-- -   @SAVINGS_PLANS_TYPE@
+--
+-- -   @REGION@
+--
+-- -   @PAYMENT_OPTION@
+--
+-- -   @INSTANCE_TYPE_FAMILY@
+--
+-- @GetSavingsPlansUtilization@ uses the same
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression>
+-- object as the other operations, but only @AND@ is supported among each
+-- dimension.
+--
+-- 'timePeriod', 'getSavingsPlansUtilization_timePeriod' - The time period that you want the usage and costs for. The @Start@ date
+-- must be within 13 months. The @End@ date must be after the @Start@ date,
+-- and before the current date. Future dates can\'t be used as an @End@
+-- date.
+newGetSavingsPlansUtilization ::
+  -- | 'timePeriod'
   DateInterval ->
   GetSavingsPlansUtilization
-getSavingsPlansUtilization pTimePeriod_ =
+newGetSavingsPlansUtilization pTimePeriod_ =
   GetSavingsPlansUtilization'
-    { _gspuGranularity =
-        Nothing,
-      _gspuSortBy = Nothing,
-      _gspuFilter = Nothing,
-      _gspuTimePeriod = pTimePeriod_
+    { granularity =
+        Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      timePeriod = pTimePeriod_
     }
 
--- | The granularity of the Amazon Web Services utillization data for your Savings Plans. The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and @MONTHLY@ granularities.
-gspuGranularity :: Lens' GetSavingsPlansUtilization (Maybe Granularity)
-gspuGranularity = lens _gspuGranularity (\s a -> s {_gspuGranularity = a})
+-- | The granularity of the Amazon Web Services utillization data for your
+-- Savings Plans.
+--
+-- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+getSavingsPlansUtilization_granularity :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe Granularity)
+getSavingsPlansUtilization_granularity = Lens.lens (\GetSavingsPlansUtilization' {granularity} -> granularity) (\s@GetSavingsPlansUtilization' {} a -> s {granularity = a} :: GetSavingsPlansUtilization)
 
--- | The value by which you want to sort the data. The following values are supported for @Key@ :     * @UtilizationPercentage@      * @TotalCommitment@      * @UsedCommitment@      * @UnusedCommitment@      * @NetSavings@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ .
-gspuSortBy :: Lens' GetSavingsPlansUtilization (Maybe SortDefinition)
-gspuSortBy = lens _gspuSortBy (\s a -> s {_gspuSortBy = a})
+-- | The value by which you want to sort the data.
+--
+-- The following values are supported for @Key@:
+--
+-- -   @UtilizationPercentage@
+--
+-- -   @TotalCommitment@
+--
+-- -   @UsedCommitment@
+--
+-- -   @UnusedCommitment@
+--
+-- -   @NetSavings@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+getSavingsPlansUtilization_sortBy :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe SortDefinition)
+getSavingsPlansUtilization_sortBy = Lens.lens (\GetSavingsPlansUtilization' {sortBy} -> sortBy) (\s@GetSavingsPlansUtilization' {} a -> s {sortBy = a} :: GetSavingsPlansUtilization)
 
--- | Filters Savings Plans utilization coverage data for active Savings Plans dimensions. You can filter data with the following dimensions:     * @LINKED_ACCOUNT@      * @SAVINGS_PLAN_ARN@      * @SAVINGS_PLANS_TYPE@      * @REGION@      * @PAYMENT_OPTION@      * @INSTANCE_TYPE_FAMILY@  @GetSavingsPlansUtilization@ uses the same <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression> object as the other operations, but only @AND@ is supported among each dimension.
-gspuFilter :: Lens' GetSavingsPlansUtilization (Maybe Expression)
-gspuFilter = lens _gspuFilter (\s a -> s {_gspuFilter = a})
+-- | Filters Savings Plans utilization coverage data for active Savings Plans
+-- dimensions. You can filter data with the following dimensions:
+--
+-- -   @LINKED_ACCOUNT@
+--
+-- -   @SAVINGS_PLAN_ARN@
+--
+-- -   @SAVINGS_PLANS_TYPE@
+--
+-- -   @REGION@
+--
+-- -   @PAYMENT_OPTION@
+--
+-- -   @INSTANCE_TYPE_FAMILY@
+--
+-- @GetSavingsPlansUtilization@ uses the same
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression>
+-- object as the other operations, but only @AND@ is supported among each
+-- dimension.
+getSavingsPlansUtilization_filter :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe Expression)
+getSavingsPlansUtilization_filter = Lens.lens (\GetSavingsPlansUtilization' {filter'} -> filter') (\s@GetSavingsPlansUtilization' {} a -> s {filter' = a} :: GetSavingsPlansUtilization)
 
--- | The time period that you want the usage and costs for. The @Start@ date must be within 13 months. The @End@ date must be after the @Start@ date, and before the current date. Future dates can't be used as an @End@ date.
-gspuTimePeriod :: Lens' GetSavingsPlansUtilization DateInterval
-gspuTimePeriod = lens _gspuTimePeriod (\s a -> s {_gspuTimePeriod = a})
+-- | The time period that you want the usage and costs for. The @Start@ date
+-- must be within 13 months. The @End@ date must be after the @Start@ date,
+-- and before the current date. Future dates can\'t be used as an @End@
+-- date.
+getSavingsPlansUtilization_timePeriod :: Lens.Lens' GetSavingsPlansUtilization DateInterval
+getSavingsPlansUtilization_timePeriod = Lens.lens (\GetSavingsPlansUtilization' {timePeriod} -> timePeriod) (\s@GetSavingsPlansUtilization' {} a -> s {timePeriod = a} :: GetSavingsPlansUtilization)
 
-instance AWSRequest GetSavingsPlansUtilization where
+instance
+  Prelude.AWSRequest
+    GetSavingsPlansUtilization
+  where
   type
     Rs GetSavingsPlansUtilization =
       GetSavingsPlansUtilizationResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSavingsPlansUtilizationResponse'
-            <$> (x .?> "SavingsPlansUtilizationsByTime" .!@ mempty)
-            <*> (pure (fromEnum s))
-            <*> (x .:> "Total")
+            Prelude.<$> ( x Prelude..?> "SavingsPlansUtilizationsByTime"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Total")
       )
 
-instance Hashable GetSavingsPlansUtilization
+instance Prelude.Hashable GetSavingsPlansUtilization
 
-instance NFData GetSavingsPlansUtilization
+instance Prelude.NFData GetSavingsPlansUtilization
 
-instance ToHeaders GetSavingsPlansUtilization where
+instance Prelude.ToHeaders GetSavingsPlansUtilization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.GetSavingsPlansUtilization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.GetSavingsPlansUtilization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSavingsPlansUtilization where
+instance Prelude.ToJSON GetSavingsPlansUtilization where
   toJSON GetSavingsPlansUtilization' {..} =
-    object
-      ( catMaybes
-          [ ("Granularity" .=) <$> _gspuGranularity,
-            ("SortBy" .=) <$> _gspuSortBy,
-            ("Filter" .=) <$> _gspuFilter,
-            Just ("TimePeriod" .= _gspuTimePeriod)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Granularity" Prelude..=) Prelude.<$> granularity,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("TimePeriod" Prelude..= timePeriod)
           ]
       )
 
-instance ToPath GetSavingsPlansUtilization where
-  toPath = const "/"
+instance Prelude.ToPath GetSavingsPlansUtilization where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSavingsPlansUtilization where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSavingsPlansUtilization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSavingsPlansUtilizationResponse' smart constructor.
+-- | /See:/ 'newGetSavingsPlansUtilizationResponse' smart constructor.
 data GetSavingsPlansUtilizationResponse = GetSavingsPlansUtilizationResponse'
-  { _gspurrsSavingsPlansUtilizationsByTime ::
-      !( Maybe
-           [SavingsPlansUtilizationByTime]
-       ),
-    _gspurrsResponseStatus ::
-      !Int,
-    _gspurrsTotal ::
-      !SavingsPlansUtilizationAggregates
+  { -- | The amount of cost\/commitment you used your Savings Plans. This allows
+    -- you to specify date ranges.
+    savingsPlansUtilizationsByTime :: Prelude.Maybe [SavingsPlansUtilizationByTime],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The total amount of cost\/commitment that you used your Savings Plans,
+    -- regardless of date ranges.
+    total :: SavingsPlansUtilizationAggregates
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSavingsPlansUtilizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSavingsPlansUtilizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gspurrsSavingsPlansUtilizationsByTime' - The amount of cost/commitment you used your Savings Plans. This allows you to specify date ranges.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gspurrsResponseStatus' - -- | The response status code.
+-- 'savingsPlansUtilizationsByTime', 'getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime' - The amount of cost\/commitment you used your Savings Plans. This allows
+-- you to specify date ranges.
 --
--- * 'gspurrsTotal' - The total amount of cost/commitment that you used your Savings Plans, regardless of date ranges.
-getSavingsPlansUtilizationResponse ::
-  -- | 'gspurrsResponseStatus'
-  Int ->
-  -- | 'gspurrsTotal'
+-- 'httpStatus', 'getSavingsPlansUtilizationResponse_httpStatus' - The response's http status code.
+--
+-- 'total', 'getSavingsPlansUtilizationResponse_total' - The total amount of cost\/commitment that you used your Savings Plans,
+-- regardless of date ranges.
+newGetSavingsPlansUtilizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'total'
   SavingsPlansUtilizationAggregates ->
   GetSavingsPlansUtilizationResponse
-getSavingsPlansUtilizationResponse
-  pResponseStatus_
+newGetSavingsPlansUtilizationResponse
+  pHttpStatus_
   pTotal_ =
     GetSavingsPlansUtilizationResponse'
-      { _gspurrsSavingsPlansUtilizationsByTime =
-          Nothing,
-        _gspurrsResponseStatus =
-          pResponseStatus_,
-        _gspurrsTotal = pTotal_
+      { savingsPlansUtilizationsByTime =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        total = pTotal_
       }
 
--- | The amount of cost/commitment you used your Savings Plans. This allows you to specify date ranges.
-gspurrsSavingsPlansUtilizationsByTime :: Lens' GetSavingsPlansUtilizationResponse [SavingsPlansUtilizationByTime]
-gspurrsSavingsPlansUtilizationsByTime = lens _gspurrsSavingsPlansUtilizationsByTime (\s a -> s {_gspurrsSavingsPlansUtilizationsByTime = a}) . _Default . _Coerce
+-- | The amount of cost\/commitment you used your Savings Plans. This allows
+-- you to specify date ranges.
+getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime :: Lens.Lens' GetSavingsPlansUtilizationResponse (Prelude.Maybe [SavingsPlansUtilizationByTime])
+getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime = Lens.lens (\GetSavingsPlansUtilizationResponse' {savingsPlansUtilizationsByTime} -> savingsPlansUtilizationsByTime) (\s@GetSavingsPlansUtilizationResponse' {} a -> s {savingsPlansUtilizationsByTime = a} :: GetSavingsPlansUtilizationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gspurrsResponseStatus :: Lens' GetSavingsPlansUtilizationResponse Int
-gspurrsResponseStatus = lens _gspurrsResponseStatus (\s a -> s {_gspurrsResponseStatus = a})
+-- | The response's http status code.
+getSavingsPlansUtilizationResponse_httpStatus :: Lens.Lens' GetSavingsPlansUtilizationResponse Prelude.Int
+getSavingsPlansUtilizationResponse_httpStatus = Lens.lens (\GetSavingsPlansUtilizationResponse' {httpStatus} -> httpStatus) (\s@GetSavingsPlansUtilizationResponse' {} a -> s {httpStatus = a} :: GetSavingsPlansUtilizationResponse)
 
--- | The total amount of cost/commitment that you used your Savings Plans, regardless of date ranges.
-gspurrsTotal :: Lens' GetSavingsPlansUtilizationResponse SavingsPlansUtilizationAggregates
-gspurrsTotal = lens _gspurrsTotal (\s a -> s {_gspurrsTotal = a})
+-- | The total amount of cost\/commitment that you used your Savings Plans,
+-- regardless of date ranges.
+getSavingsPlansUtilizationResponse_total :: Lens.Lens' GetSavingsPlansUtilizationResponse SavingsPlansUtilizationAggregates
+getSavingsPlansUtilizationResponse_total = Lens.lens (\GetSavingsPlansUtilizationResponse' {total} -> total) (\s@GetSavingsPlansUtilizationResponse' {} a -> s {total = a} :: GetSavingsPlansUtilizationResponse)
 
-instance NFData GetSavingsPlansUtilizationResponse
+instance
+  Prelude.NFData
+    GetSavingsPlansUtilizationResponse

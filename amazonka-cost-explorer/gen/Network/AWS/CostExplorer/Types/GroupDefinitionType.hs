@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CostExplorer.Types.GroupDefinitionType
   ( GroupDefinitionType
       ( ..,
-        CostCategory,
-        Dimension,
-        Tag
+        GroupDefinitionTypeCOSTCATEGORY,
+        GroupDefinitionTypeDIMENSION,
+        GroupDefinitionTypeTAG
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GroupDefinitionType
-  = GroupDefinitionType'
-      ( CI
-          Text
-      )
+newtype GroupDefinitionType = GroupDefinitionType'
+  { fromGroupDefinitionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CostCategory :: GroupDefinitionType
-pattern CostCategory = GroupDefinitionType' "COST_CATEGORY"
+pattern GroupDefinitionTypeCOSTCATEGORY :: GroupDefinitionType
+pattern GroupDefinitionTypeCOSTCATEGORY = GroupDefinitionType' "COST_CATEGORY"
 
-pattern Dimension :: GroupDefinitionType
-pattern Dimension = GroupDefinitionType' "DIMENSION"
+pattern GroupDefinitionTypeDIMENSION :: GroupDefinitionType
+pattern GroupDefinitionTypeDIMENSION = GroupDefinitionType' "DIMENSION"
 
-pattern Tag :: GroupDefinitionType
-pattern Tag = GroupDefinitionType' "TAG"
+pattern GroupDefinitionTypeTAG :: GroupDefinitionType
+pattern GroupDefinitionTypeTAG = GroupDefinitionType' "TAG"
 
 {-# COMPLETE
-  CostCategory,
-  Dimension,
-  Tag,
+  GroupDefinitionTypeCOSTCATEGORY,
+  GroupDefinitionTypeDIMENSION,
+  GroupDefinitionTypeTAG,
   GroupDefinitionType'
   #-}
 
-instance FromText GroupDefinitionType where
-  parser = (GroupDefinitionType' . mk) <$> takeText
+instance Prelude.FromText GroupDefinitionType where
+  parser = GroupDefinitionType' Prelude.<$> Prelude.takeText
 
-instance ToText GroupDefinitionType where
-  toText (GroupDefinitionType' ci) = original ci
+instance Prelude.ToText GroupDefinitionType where
+  toText (GroupDefinitionType' x) = x
 
-instance Hashable GroupDefinitionType
+instance Prelude.Hashable GroupDefinitionType
 
-instance NFData GroupDefinitionType
+instance Prelude.NFData GroupDefinitionType
 
-instance ToByteString GroupDefinitionType
+instance Prelude.ToByteString GroupDefinitionType
 
-instance ToQuery GroupDefinitionType
+instance Prelude.ToQuery GroupDefinitionType
 
-instance ToHeader GroupDefinitionType
+instance Prelude.ToHeader GroupDefinitionType
 
-instance ToJSON GroupDefinitionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON GroupDefinitionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GroupDefinitionType where
-  parseJSON = parseJSONText "GroupDefinitionType"
+instance Prelude.FromJSON GroupDefinitionType where
+  parseJSON = Prelude.parseJSONText "GroupDefinitionType"

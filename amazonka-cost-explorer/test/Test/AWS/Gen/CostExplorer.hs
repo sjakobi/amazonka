@@ -28,187 +28,187 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListCostCategoryDefinitions $
---             listCostCategoryDefinitions
+--             newListCostCategoryDefinitions
 --
 --         , requestGetRightsizingRecommendation $
---             getRightsizingRecommendation
+--             newGetRightsizingRecommendation
 --
 --         , requestGetAnomalySubscriptions $
---             getAnomalySubscriptions
+--             newGetAnomalySubscriptions
 --
 --         , requestGetAnomalies $
---             getAnomalies
+--             newGetAnomalies
 --
 --         , requestGetSavingsPlansUtilizationDetails $
---             getSavingsPlansUtilizationDetails
+--             newGetSavingsPlansUtilizationDetails
 --
 --         , requestGetCostForecast $
---             getCostForecast
+--             newGetCostForecast
 --
 --         , requestGetCostAndUsage $
---             getCostAndUsage
+--             newGetCostAndUsage
 --
 --         , requestGetSavingsPlansPurchaseRecommendation $
---             getSavingsPlansPurchaseRecommendation
+--             newGetSavingsPlansPurchaseRecommendation
 --
 --         , requestUpdateAnomalySubscription $
---             updateAnomalySubscription
+--             newUpdateAnomalySubscription
 --
 --         , requestDeleteAnomalySubscription $
---             deleteAnomalySubscription
+--             newDeleteAnomalySubscription
 --
 --         , requestGetReservationCoverage $
---             getReservationCoverage
+--             newGetReservationCoverage
 --
 --         , requestGetUsageForecast $
---             getUsageForecast
+--             newGetUsageForecast
 --
 --         , requestGetCostAndUsageWithResources $
---             getCostAndUsageWithResources
+--             newGetCostAndUsageWithResources
 --
 --         , requestGetTags $
---             getTags
+--             newGetTags
 --
 --         , requestDeleteCostCategoryDefinition $
---             deleteCostCategoryDefinition
+--             newDeleteCostCategoryDefinition
 --
 --         , requestUpdateCostCategoryDefinition $
---             updateCostCategoryDefinition
+--             newUpdateCostCategoryDefinition
 --
 --         , requestGetSavingsPlansCoverage $
---             getSavingsPlansCoverage
+--             newGetSavingsPlansCoverage
 --
 --         , requestDeleteAnomalyMonitor $
---             deleteAnomalyMonitor
+--             newDeleteAnomalyMonitor
 --
 --         , requestGetReservationUtilization $
---             getReservationUtilization
+--             newGetReservationUtilization
 --
 --         , requestGetReservationPurchaseRecommendation $
---             getReservationPurchaseRecommendation
+--             newGetReservationPurchaseRecommendation
 --
 --         , requestUpdateAnomalyMonitor $
---             updateAnomalyMonitor
+--             newUpdateAnomalyMonitor
 --
 --         , requestCreateAnomalyMonitor $
---             createAnomalyMonitor
+--             newCreateAnomalyMonitor
 --
 --         , requestGetDimensionValues $
---             getDimensionValues
+--             newGetDimensionValues
 --
 --         , requestCreateAnomalySubscription $
---             createAnomalySubscription
+--             newCreateAnomalySubscription
 --
 --         , requestDescribeCostCategoryDefinition $
---             describeCostCategoryDefinition
+--             newDescribeCostCategoryDefinition
 --
 --         , requestGetCostCategories $
---             getCostCategories
+--             newGetCostCategories
 --
 --         , requestGetSavingsPlansUtilization $
---             getSavingsPlansUtilization
+--             newGetSavingsPlansUtilization
 --
 --         , requestProvideAnomalyFeedback $
---             provideAnomalyFeedback
+--             newProvideAnomalyFeedback
 --
 --         , requestGetAnomalyMonitors $
---             getAnomalyMonitors
+--             newGetAnomalyMonitors
 --
 --         , requestCreateCostCategoryDefinition $
---             createCostCategoryDefinition
+--             newCreateCostCategoryDefinition
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListCostCategoryDefinitions $
---             listCostCategoryDefinitionsResponse
+--             newListCostCategoryDefinitionsResponse
 --
 --         , responseGetRightsizingRecommendation $
---             getRightsizingRecommendationResponse
+--             newGetRightsizingRecommendationResponse
 --
 --         , responseGetAnomalySubscriptions $
---             getAnomalySubscriptionsResponse
+--             newGetAnomalySubscriptionsResponse
 --
 --         , responseGetAnomalies $
---             getAnomaliesResponse
+--             newGetAnomaliesResponse
 --
 --         , responseGetSavingsPlansUtilizationDetails $
---             getSavingsPlansUtilizationDetailsResponse
+--             newGetSavingsPlansUtilizationDetailsResponse
 --
 --         , responseGetCostForecast $
---             getCostForecastResponse
+--             newGetCostForecastResponse
 --
 --         , responseGetCostAndUsage $
---             getCostAndUsageResponse
+--             newGetCostAndUsageResponse
 --
 --         , responseGetSavingsPlansPurchaseRecommendation $
---             getSavingsPlansPurchaseRecommendationResponse
+--             newGetSavingsPlansPurchaseRecommendationResponse
 --
 --         , responseUpdateAnomalySubscription $
---             updateAnomalySubscriptionResponse
+--             newUpdateAnomalySubscriptionResponse
 --
 --         , responseDeleteAnomalySubscription $
---             deleteAnomalySubscriptionResponse
+--             newDeleteAnomalySubscriptionResponse
 --
 --         , responseGetReservationCoverage $
---             getReservationCoverageResponse
+--             newGetReservationCoverageResponse
 --
 --         , responseGetUsageForecast $
---             getUsageForecastResponse
+--             newGetUsageForecastResponse
 --
 --         , responseGetCostAndUsageWithResources $
---             getCostAndUsageWithResourcesResponse
+--             newGetCostAndUsageWithResourcesResponse
 --
 --         , responseGetTags $
---             getTagsResponse
+--             newGetTagsResponse
 --
 --         , responseDeleteCostCategoryDefinition $
---             deleteCostCategoryDefinitionResponse
+--             newDeleteCostCategoryDefinitionResponse
 --
 --         , responseUpdateCostCategoryDefinition $
---             updateCostCategoryDefinitionResponse
+--             newUpdateCostCategoryDefinitionResponse
 --
 --         , responseGetSavingsPlansCoverage $
---             getSavingsPlansCoverageResponse
+--             newGetSavingsPlansCoverageResponse
 --
 --         , responseDeleteAnomalyMonitor $
---             deleteAnomalyMonitorResponse
+--             newDeleteAnomalyMonitorResponse
 --
 --         , responseGetReservationUtilization $
---             getReservationUtilizationResponse
+--             newGetReservationUtilizationResponse
 --
 --         , responseGetReservationPurchaseRecommendation $
---             getReservationPurchaseRecommendationResponse
+--             newGetReservationPurchaseRecommendationResponse
 --
 --         , responseUpdateAnomalyMonitor $
---             updateAnomalyMonitorResponse
+--             newUpdateAnomalyMonitorResponse
 --
 --         , responseCreateAnomalyMonitor $
---             createAnomalyMonitorResponse
+--             newCreateAnomalyMonitorResponse
 --
 --         , responseGetDimensionValues $
---             getDimensionValuesResponse
+--             newGetDimensionValuesResponse
 --
 --         , responseCreateAnomalySubscription $
---             createAnomalySubscriptionResponse
+--             newCreateAnomalySubscriptionResponse
 --
 --         , responseDescribeCostCategoryDefinition $
---             describeCostCategoryDefinitionResponse
+--             newDescribeCostCategoryDefinitionResponse
 --
 --         , responseGetCostCategories $
---             getCostCategoriesResponse
+--             newGetCostCategoriesResponse
 --
 --         , responseGetSavingsPlansUtilization $
---             getSavingsPlansUtilizationResponse
+--             newGetSavingsPlansUtilizationResponse
 --
 --         , responseProvideAnomalyFeedback $
---             provideAnomalyFeedbackResponse
+--             newProvideAnomalyFeedbackResponse
 --
 --         , responseGetAnomalyMonitors $
---             getAnomalyMonitorsResponse
+--             newGetAnomalyMonitorsResponse
 --
 --         , responseCreateCostCategoryDefinition $
---             createCostCategoryDefinitionResponse
+--             newCreateCostCategoryDefinitionResponse
 --
 --           ]
 --     ]
@@ -402,7 +402,7 @@ responseListCostCategoryDefinitions =
   res
     "ListCostCategoryDefinitionsResponse"
     "fixture/ListCostCategoryDefinitionsResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy ListCostCategoryDefinitions)
 
 responseGetRightsizingRecommendation :: GetRightsizingRecommendationResponse -> TestTree
@@ -410,7 +410,7 @@ responseGetRightsizingRecommendation =
   res
     "GetRightsizingRecommendationResponse"
     "fixture/GetRightsizingRecommendationResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetRightsizingRecommendation)
 
 responseGetAnomalySubscriptions :: GetAnomalySubscriptionsResponse -> TestTree
@@ -418,7 +418,7 @@ responseGetAnomalySubscriptions =
   res
     "GetAnomalySubscriptionsResponse"
     "fixture/GetAnomalySubscriptionsResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetAnomalySubscriptions)
 
 responseGetAnomalies :: GetAnomaliesResponse -> TestTree
@@ -426,7 +426,7 @@ responseGetAnomalies =
   res
     "GetAnomaliesResponse"
     "fixture/GetAnomaliesResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetAnomalies)
 
 responseGetSavingsPlansUtilizationDetails :: GetSavingsPlansUtilizationDetailsResponse -> TestTree
@@ -434,7 +434,7 @@ responseGetSavingsPlansUtilizationDetails =
   res
     "GetSavingsPlansUtilizationDetailsResponse"
     "fixture/GetSavingsPlansUtilizationDetailsResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetSavingsPlansUtilizationDetails)
 
 responseGetCostForecast :: GetCostForecastResponse -> TestTree
@@ -442,7 +442,7 @@ responseGetCostForecast =
   res
     "GetCostForecastResponse"
     "fixture/GetCostForecastResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetCostForecast)
 
 responseGetCostAndUsage :: GetCostAndUsageResponse -> TestTree
@@ -450,7 +450,7 @@ responseGetCostAndUsage =
   res
     "GetCostAndUsageResponse"
     "fixture/GetCostAndUsageResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetCostAndUsage)
 
 responseGetSavingsPlansPurchaseRecommendation :: GetSavingsPlansPurchaseRecommendationResponse -> TestTree
@@ -458,7 +458,7 @@ responseGetSavingsPlansPurchaseRecommendation =
   res
     "GetSavingsPlansPurchaseRecommendationResponse"
     "fixture/GetSavingsPlansPurchaseRecommendationResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetSavingsPlansPurchaseRecommendation)
 
 responseUpdateAnomalySubscription :: UpdateAnomalySubscriptionResponse -> TestTree
@@ -466,7 +466,7 @@ responseUpdateAnomalySubscription =
   res
     "UpdateAnomalySubscriptionResponse"
     "fixture/UpdateAnomalySubscriptionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy UpdateAnomalySubscription)
 
 responseDeleteAnomalySubscription :: DeleteAnomalySubscriptionResponse -> TestTree
@@ -474,7 +474,7 @@ responseDeleteAnomalySubscription =
   res
     "DeleteAnomalySubscriptionResponse"
     "fixture/DeleteAnomalySubscriptionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy DeleteAnomalySubscription)
 
 responseGetReservationCoverage :: GetReservationCoverageResponse -> TestTree
@@ -482,7 +482,7 @@ responseGetReservationCoverage =
   res
     "GetReservationCoverageResponse"
     "fixture/GetReservationCoverageResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetReservationCoverage)
 
 responseGetUsageForecast :: GetUsageForecastResponse -> TestTree
@@ -490,7 +490,7 @@ responseGetUsageForecast =
   res
     "GetUsageForecastResponse"
     "fixture/GetUsageForecastResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetUsageForecast)
 
 responseGetCostAndUsageWithResources :: GetCostAndUsageWithResourcesResponse -> TestTree
@@ -498,7 +498,7 @@ responseGetCostAndUsageWithResources =
   res
     "GetCostAndUsageWithResourcesResponse"
     "fixture/GetCostAndUsageWithResourcesResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetCostAndUsageWithResources)
 
 responseGetTags :: GetTagsResponse -> TestTree
@@ -506,7 +506,7 @@ responseGetTags =
   res
     "GetTagsResponse"
     "fixture/GetTagsResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetTags)
 
 responseDeleteCostCategoryDefinition :: DeleteCostCategoryDefinitionResponse -> TestTree
@@ -514,7 +514,7 @@ responseDeleteCostCategoryDefinition =
   res
     "DeleteCostCategoryDefinitionResponse"
     "fixture/DeleteCostCategoryDefinitionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy DeleteCostCategoryDefinition)
 
 responseUpdateCostCategoryDefinition :: UpdateCostCategoryDefinitionResponse -> TestTree
@@ -522,7 +522,7 @@ responseUpdateCostCategoryDefinition =
   res
     "UpdateCostCategoryDefinitionResponse"
     "fixture/UpdateCostCategoryDefinitionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy UpdateCostCategoryDefinition)
 
 responseGetSavingsPlansCoverage :: GetSavingsPlansCoverageResponse -> TestTree
@@ -530,7 +530,7 @@ responseGetSavingsPlansCoverage =
   res
     "GetSavingsPlansCoverageResponse"
     "fixture/GetSavingsPlansCoverageResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetSavingsPlansCoverage)
 
 responseDeleteAnomalyMonitor :: DeleteAnomalyMonitorResponse -> TestTree
@@ -538,7 +538,7 @@ responseDeleteAnomalyMonitor =
   res
     "DeleteAnomalyMonitorResponse"
     "fixture/DeleteAnomalyMonitorResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy DeleteAnomalyMonitor)
 
 responseGetReservationUtilization :: GetReservationUtilizationResponse -> TestTree
@@ -546,7 +546,7 @@ responseGetReservationUtilization =
   res
     "GetReservationUtilizationResponse"
     "fixture/GetReservationUtilizationResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetReservationUtilization)
 
 responseGetReservationPurchaseRecommendation :: GetReservationPurchaseRecommendationResponse -> TestTree
@@ -554,7 +554,7 @@ responseGetReservationPurchaseRecommendation =
   res
     "GetReservationPurchaseRecommendationResponse"
     "fixture/GetReservationPurchaseRecommendationResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetReservationPurchaseRecommendation)
 
 responseUpdateAnomalyMonitor :: UpdateAnomalyMonitorResponse -> TestTree
@@ -562,7 +562,7 @@ responseUpdateAnomalyMonitor =
   res
     "UpdateAnomalyMonitorResponse"
     "fixture/UpdateAnomalyMonitorResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy UpdateAnomalyMonitor)
 
 responseCreateAnomalyMonitor :: CreateAnomalyMonitorResponse -> TestTree
@@ -570,7 +570,7 @@ responseCreateAnomalyMonitor =
   res
     "CreateAnomalyMonitorResponse"
     "fixture/CreateAnomalyMonitorResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy CreateAnomalyMonitor)
 
 responseGetDimensionValues :: GetDimensionValuesResponse -> TestTree
@@ -578,7 +578,7 @@ responseGetDimensionValues =
   res
     "GetDimensionValuesResponse"
     "fixture/GetDimensionValuesResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetDimensionValues)
 
 responseCreateAnomalySubscription :: CreateAnomalySubscriptionResponse -> TestTree
@@ -586,7 +586,7 @@ responseCreateAnomalySubscription =
   res
     "CreateAnomalySubscriptionResponse"
     "fixture/CreateAnomalySubscriptionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy CreateAnomalySubscription)
 
 responseDescribeCostCategoryDefinition :: DescribeCostCategoryDefinitionResponse -> TestTree
@@ -594,7 +594,7 @@ responseDescribeCostCategoryDefinition =
   res
     "DescribeCostCategoryDefinitionResponse"
     "fixture/DescribeCostCategoryDefinitionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy DescribeCostCategoryDefinition)
 
 responseGetCostCategories :: GetCostCategoriesResponse -> TestTree
@@ -602,7 +602,7 @@ responseGetCostCategories =
   res
     "GetCostCategoriesResponse"
     "fixture/GetCostCategoriesResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetCostCategories)
 
 responseGetSavingsPlansUtilization :: GetSavingsPlansUtilizationResponse -> TestTree
@@ -610,7 +610,7 @@ responseGetSavingsPlansUtilization =
   res
     "GetSavingsPlansUtilizationResponse"
     "fixture/GetSavingsPlansUtilizationResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetSavingsPlansUtilization)
 
 responseProvideAnomalyFeedback :: ProvideAnomalyFeedbackResponse -> TestTree
@@ -618,7 +618,7 @@ responseProvideAnomalyFeedback =
   res
     "ProvideAnomalyFeedbackResponse"
     "fixture/ProvideAnomalyFeedbackResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy ProvideAnomalyFeedback)
 
 responseGetAnomalyMonitors :: GetAnomalyMonitorsResponse -> TestTree
@@ -626,7 +626,7 @@ responseGetAnomalyMonitors =
   res
     "GetAnomalyMonitorsResponse"
     "fixture/GetAnomalyMonitorsResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy GetAnomalyMonitors)
 
 responseCreateCostCategoryDefinition :: CreateCostCategoryDefinitionResponse -> TestTree
@@ -634,5 +634,5 @@ responseCreateCostCategoryDefinition =
   res
     "CreateCostCategoryDefinitionResponse"
     "fixture/CreateCostCategoryDefinitionResponse.proto"
-    costExplorer
+    defaultService
     (Proxy :: Proxy CreateCostCategoryDefinition)

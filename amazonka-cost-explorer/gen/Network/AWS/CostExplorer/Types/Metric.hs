@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,77 @@
 module Network.AWS.CostExplorer.Types.Metric
   ( Metric
       ( ..,
-        AmortizedCost,
-        BlendedCost,
-        NetAmortizedCost,
-        NetUnblendedCost,
-        NormalizedUsageAmount,
-        UnblendedCost,
-        UsageQuantity
+        MetricAMORTIZEDCOST,
+        MetricBLENDEDCOST,
+        MetricNETAMORTIZEDCOST,
+        MetricNETUNBLENDEDCOST,
+        MetricNORMALIZEDUSAGEAMOUNT,
+        MetricUNBLENDEDCOST,
+        MetricUSAGEQUANTITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Metric = Metric' (CI Text)
+newtype Metric = Metric' {fromMetric :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmortizedCost :: Metric
-pattern AmortizedCost = Metric' "AMORTIZED_COST"
+pattern MetricAMORTIZEDCOST :: Metric
+pattern MetricAMORTIZEDCOST = Metric' "AMORTIZED_COST"
 
-pattern BlendedCost :: Metric
-pattern BlendedCost = Metric' "BLENDED_COST"
+pattern MetricBLENDEDCOST :: Metric
+pattern MetricBLENDEDCOST = Metric' "BLENDED_COST"
 
-pattern NetAmortizedCost :: Metric
-pattern NetAmortizedCost = Metric' "NET_AMORTIZED_COST"
+pattern MetricNETAMORTIZEDCOST :: Metric
+pattern MetricNETAMORTIZEDCOST = Metric' "NET_AMORTIZED_COST"
 
-pattern NetUnblendedCost :: Metric
-pattern NetUnblendedCost = Metric' "NET_UNBLENDED_COST"
+pattern MetricNETUNBLENDEDCOST :: Metric
+pattern MetricNETUNBLENDEDCOST = Metric' "NET_UNBLENDED_COST"
 
-pattern NormalizedUsageAmount :: Metric
-pattern NormalizedUsageAmount = Metric' "NORMALIZED_USAGE_AMOUNT"
+pattern MetricNORMALIZEDUSAGEAMOUNT :: Metric
+pattern MetricNORMALIZEDUSAGEAMOUNT = Metric' "NORMALIZED_USAGE_AMOUNT"
 
-pattern UnblendedCost :: Metric
-pattern UnblendedCost = Metric' "UNBLENDED_COST"
+pattern MetricUNBLENDEDCOST :: Metric
+pattern MetricUNBLENDEDCOST = Metric' "UNBLENDED_COST"
 
-pattern UsageQuantity :: Metric
-pattern UsageQuantity = Metric' "USAGE_QUANTITY"
+pattern MetricUSAGEQUANTITY :: Metric
+pattern MetricUSAGEQUANTITY = Metric' "USAGE_QUANTITY"
 
 {-# COMPLETE
-  AmortizedCost,
-  BlendedCost,
-  NetAmortizedCost,
-  NetUnblendedCost,
-  NormalizedUsageAmount,
-  UnblendedCost,
-  UsageQuantity,
+  MetricAMORTIZEDCOST,
+  MetricBLENDEDCOST,
+  MetricNETAMORTIZEDCOST,
+  MetricNETUNBLENDEDCOST,
+  MetricNORMALIZEDUSAGEAMOUNT,
+  MetricUNBLENDEDCOST,
+  MetricUSAGEQUANTITY,
   Metric'
   #-}
 
-instance FromText Metric where
-  parser = (Metric' . mk) <$> takeText
+instance Prelude.FromText Metric where
+  parser = Metric' Prelude.<$> Prelude.takeText
 
-instance ToText Metric where
-  toText (Metric' ci) = original ci
+instance Prelude.ToText Metric where
+  toText (Metric' x) = x
 
-instance Hashable Metric
+instance Prelude.Hashable Metric
 
-instance NFData Metric
+instance Prelude.NFData Metric
 
-instance ToByteString Metric
+instance Prelude.ToByteString Metric
 
-instance ToQuery Metric
+instance Prelude.ToQuery Metric
 
-instance ToHeader Metric
+instance Prelude.ToHeader Metric
 
-instance ToJSON Metric where
-  toJSON = toJSONText
+instance Prelude.ToJSON Metric where
+  toJSON = Prelude.toJSONText

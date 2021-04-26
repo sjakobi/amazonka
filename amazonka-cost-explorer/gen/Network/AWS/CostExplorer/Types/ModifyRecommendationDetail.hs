@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,50 @@
 module Network.AWS.CostExplorer.Types.ModifyRecommendationDetail where
 
 import Network.AWS.CostExplorer.Types.TargetInstance
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details on the modification recommendation.
 --
---
---
--- /See:/ 'modifyRecommendationDetail' smart constructor.
-newtype ModifyRecommendationDetail = ModifyRecommendationDetail'
-  { _mrdTargetInstances ::
-      Maybe
-        [TargetInstance]
+-- /See:/ 'newModifyRecommendationDetail' smart constructor.
+data ModifyRecommendationDetail = ModifyRecommendationDetail'
+  { -- | Identifies whether this instance type is the AWS default recommendation.
+    targetInstances :: Prelude.Maybe [TargetInstance]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyRecommendationDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyRecommendationDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrdTargetInstances' - Identifies whether this instance type is the AWS default recommendation.
-modifyRecommendationDetail ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'targetInstances', 'modifyRecommendationDetail_targetInstances' - Identifies whether this instance type is the AWS default recommendation.
+newModifyRecommendationDetail ::
   ModifyRecommendationDetail
-modifyRecommendationDetail =
+newModifyRecommendationDetail =
   ModifyRecommendationDetail'
-    { _mrdTargetInstances =
-        Nothing
+    { targetInstances =
+        Prelude.Nothing
     }
 
 -- | Identifies whether this instance type is the AWS default recommendation.
-mrdTargetInstances :: Lens' ModifyRecommendationDetail [TargetInstance]
-mrdTargetInstances = lens _mrdTargetInstances (\s a -> s {_mrdTargetInstances = a}) . _Default . _Coerce
+modifyRecommendationDetail_targetInstances :: Lens.Lens' ModifyRecommendationDetail (Prelude.Maybe [TargetInstance])
+modifyRecommendationDetail_targetInstances = Lens.lens (\ModifyRecommendationDetail' {targetInstances} -> targetInstances) (\s@ModifyRecommendationDetail' {} a -> s {targetInstances = a} :: ModifyRecommendationDetail) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ModifyRecommendationDetail where
+instance Prelude.FromJSON ModifyRecommendationDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModifyRecommendationDetail"
       ( \x ->
           ModifyRecommendationDetail'
-            <$> (x .:? "TargetInstances" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "TargetInstances"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ModifyRecommendationDetail
+instance Prelude.Hashable ModifyRecommendationDetail
 
-instance NFData ModifyRecommendationDetail
+instance Prelude.NFData ModifyRecommendationDetail

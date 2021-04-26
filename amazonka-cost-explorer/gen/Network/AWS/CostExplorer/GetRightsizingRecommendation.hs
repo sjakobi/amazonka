@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,255 +21,290 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates recommendations that help you save cost by identifying idle and underutilized Amazon EC2 instances.
+-- Creates recommendations that help you save cost by identifying idle and
+-- underutilized Amazon EC2 instances.
 --
---
--- Recommendations are generated to either downsize or terminate instances, along with providing savings detail and metrics. For details on calculation and function, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-rightsizing.html Optimizing Your Cost with Rightsizing Recommendations> in the /AWS Billing and Cost Management User Guide/ .
+-- Recommendations are generated to either downsize or terminate instances,
+-- along with providing savings detail and metrics. For details on
+-- calculation and function, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-rightsizing.html Optimizing Your Cost with Rightsizing Recommendations>
+-- in the /AWS Billing and Cost Management User Guide/.
 module Network.AWS.CostExplorer.GetRightsizingRecommendation
   ( -- * Creating a Request
-    getRightsizingRecommendation,
-    GetRightsizingRecommendation,
+    GetRightsizingRecommendation (..),
+    newGetRightsizingRecommendation,
 
     -- * Request Lenses
-    grrPageSize,
-    grrConfiguration,
-    grrNextPageToken,
-    grrFilter,
-    grrService,
+    getRightsizingRecommendation_pageSize,
+    getRightsizingRecommendation_configuration,
+    getRightsizingRecommendation_nextPageToken,
+    getRightsizingRecommendation_filter,
+    getRightsizingRecommendation_service,
 
     -- * Destructuring the Response
-    getRightsizingRecommendationResponse,
-    GetRightsizingRecommendationResponse,
+    GetRightsizingRecommendationResponse (..),
+    newGetRightsizingRecommendationResponse,
 
     -- * Response Lenses
-    grrrrsConfiguration,
-    grrrrsMetadata,
-    grrrrsNextPageToken,
-    grrrrsSummary,
-    grrrrsRightsizingRecommendations,
-    grrrrsResponseStatus,
+    getRightsizingRecommendationResponse_configuration,
+    getRightsizingRecommendationResponse_metadata,
+    getRightsizingRecommendationResponse_nextPageToken,
+    getRightsizingRecommendationResponse_summary,
+    getRightsizingRecommendationResponse_rightsizingRecommendations,
+    getRightsizingRecommendationResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CostExplorer.Types.RightsizingRecommendation
+import Network.AWS.CostExplorer.Types.RightsizingRecommendationConfiguration
+import Network.AWS.CostExplorer.Types.RightsizingRecommendationMetadata
+import Network.AWS.CostExplorer.Types.RightsizingRecommendationSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRightsizingRecommendation' smart constructor.
+-- | /See:/ 'newGetRightsizingRecommendation' smart constructor.
 data GetRightsizingRecommendation = GetRightsizingRecommendation'
-  { _grrPageSize ::
-      !(Maybe Nat),
-    _grrConfiguration ::
-      !( Maybe
-           RightsizingRecommendationConfiguration
-       ),
-    _grrNextPageToken ::
-      !(Maybe Text),
-    _grrFilter ::
-      !( Maybe
-           Expression
-       ),
-    _grrService ::
-      !Text
+  { -- | The number of recommendations that you want returned in a single
+    -- response object.
+    pageSize :: Prelude.Maybe Prelude.Nat,
+    -- | Enables you to customize recommendations across two attributes. You can
+    -- choose to view recommendations for instances within the same instance
+    -- families or across different instance families. You can also choose to
+    -- view your estimated savings associated with recommendations with
+    -- consideration of existing Savings Plans or RI benefits, or neither.
+    configuration :: Prelude.Maybe RightsizingRecommendationConfiguration,
+    -- | The pagination token that indicates the next set of results that you
+    -- want to retrieve.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    filter' :: Prelude.Maybe Expression,
+    -- | The specific service that you want recommendations for. The only valid
+    -- value for @GetRightsizingRecommendation@ is \"@AmazonEC2@\".
+    service :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRightsizingRecommendation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRightsizingRecommendation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrPageSize' - The number of recommendations that you want returned in a single response object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrConfiguration' - Enables you to customize recommendations across two attributes. You can choose to view recommendations for instances within the same instance families or across different instance families. You can also choose to view your estimated savings associated with recommendations with consideration of existing Savings Plans or RI benefits, or neither.
+-- 'pageSize', 'getRightsizingRecommendation_pageSize' - The number of recommendations that you want returned in a single
+-- response object.
 --
--- * 'grrNextPageToken' - The pagination token that indicates the next set of results that you want to retrieve.
+-- 'configuration', 'getRightsizingRecommendation_configuration' - Enables you to customize recommendations across two attributes. You can
+-- choose to view recommendations for instances within the same instance
+-- families or across different instance families. You can also choose to
+-- view your estimated savings associated with recommendations with
+-- consideration of existing Savings Plans or RI benefits, or neither.
 --
--- * 'grrFilter' - Undocumented member.
+-- 'nextPageToken', 'getRightsizingRecommendation_nextPageToken' - The pagination token that indicates the next set of results that you
+-- want to retrieve.
 --
--- * 'grrService' - The specific service that you want recommendations for. The only valid value for @GetRightsizingRecommendation@ is "@AmazonEC2@ ".
-getRightsizingRecommendation ::
-  -- | 'grrService'
-  Text ->
+-- 'filter'', 'getRightsizingRecommendation_filter' - Undocumented member.
+--
+-- 'service', 'getRightsizingRecommendation_service' - The specific service that you want recommendations for. The only valid
+-- value for @GetRightsizingRecommendation@ is \"@AmazonEC2@\".
+newGetRightsizingRecommendation ::
+  -- | 'service'
+  Prelude.Text ->
   GetRightsizingRecommendation
-getRightsizingRecommendation pService_ =
+newGetRightsizingRecommendation pService_ =
   GetRightsizingRecommendation'
-    { _grrPageSize =
-        Nothing,
-      _grrConfiguration = Nothing,
-      _grrNextPageToken = Nothing,
-      _grrFilter = Nothing,
-      _grrService = pService_
+    { pageSize =
+        Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      service = pService_
     }
 
--- | The number of recommendations that you want returned in a single response object.
-grrPageSize :: Lens' GetRightsizingRecommendation (Maybe Natural)
-grrPageSize = lens _grrPageSize (\s a -> s {_grrPageSize = a}) . mapping _Nat
+-- | The number of recommendations that you want returned in a single
+-- response object.
+getRightsizingRecommendation_pageSize :: Lens.Lens' GetRightsizingRecommendation (Prelude.Maybe Prelude.Natural)
+getRightsizingRecommendation_pageSize = Lens.lens (\GetRightsizingRecommendation' {pageSize} -> pageSize) (\s@GetRightsizingRecommendation' {} a -> s {pageSize = a} :: GetRightsizingRecommendation) Prelude.. Lens.mapping Prelude._Nat
 
--- | Enables you to customize recommendations across two attributes. You can choose to view recommendations for instances within the same instance families or across different instance families. You can also choose to view your estimated savings associated with recommendations with consideration of existing Savings Plans or RI benefits, or neither.
-grrConfiguration :: Lens' GetRightsizingRecommendation (Maybe RightsizingRecommendationConfiguration)
-grrConfiguration = lens _grrConfiguration (\s a -> s {_grrConfiguration = a})
+-- | Enables you to customize recommendations across two attributes. You can
+-- choose to view recommendations for instances within the same instance
+-- families or across different instance families. You can also choose to
+-- view your estimated savings associated with recommendations with
+-- consideration of existing Savings Plans or RI benefits, or neither.
+getRightsizingRecommendation_configuration :: Lens.Lens' GetRightsizingRecommendation (Prelude.Maybe RightsizingRecommendationConfiguration)
+getRightsizingRecommendation_configuration = Lens.lens (\GetRightsizingRecommendation' {configuration} -> configuration) (\s@GetRightsizingRecommendation' {} a -> s {configuration = a} :: GetRightsizingRecommendation)
 
--- | The pagination token that indicates the next set of results that you want to retrieve.
-grrNextPageToken :: Lens' GetRightsizingRecommendation (Maybe Text)
-grrNextPageToken = lens _grrNextPageToken (\s a -> s {_grrNextPageToken = a})
+-- | The pagination token that indicates the next set of results that you
+-- want to retrieve.
+getRightsizingRecommendation_nextPageToken :: Lens.Lens' GetRightsizingRecommendation (Prelude.Maybe Prelude.Text)
+getRightsizingRecommendation_nextPageToken = Lens.lens (\GetRightsizingRecommendation' {nextPageToken} -> nextPageToken) (\s@GetRightsizingRecommendation' {} a -> s {nextPageToken = a} :: GetRightsizingRecommendation)
 
 -- | Undocumented member.
-grrFilter :: Lens' GetRightsizingRecommendation (Maybe Expression)
-grrFilter = lens _grrFilter (\s a -> s {_grrFilter = a})
+getRightsizingRecommendation_filter :: Lens.Lens' GetRightsizingRecommendation (Prelude.Maybe Expression)
+getRightsizingRecommendation_filter = Lens.lens (\GetRightsizingRecommendation' {filter'} -> filter') (\s@GetRightsizingRecommendation' {} a -> s {filter' = a} :: GetRightsizingRecommendation)
 
--- | The specific service that you want recommendations for. The only valid value for @GetRightsizingRecommendation@ is "@AmazonEC2@ ".
-grrService :: Lens' GetRightsizingRecommendation Text
-grrService = lens _grrService (\s a -> s {_grrService = a})
+-- | The specific service that you want recommendations for. The only valid
+-- value for @GetRightsizingRecommendation@ is \"@AmazonEC2@\".
+getRightsizingRecommendation_service :: Lens.Lens' GetRightsizingRecommendation Prelude.Text
+getRightsizingRecommendation_service = Lens.lens (\GetRightsizingRecommendation' {service} -> service) (\s@GetRightsizingRecommendation' {} a -> s {service = a} :: GetRightsizingRecommendation)
 
-instance AWSRequest GetRightsizingRecommendation where
+instance
+  Prelude.AWSRequest
+    GetRightsizingRecommendation
+  where
   type
     Rs GetRightsizingRecommendation =
       GetRightsizingRecommendationResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRightsizingRecommendationResponse'
-            <$> (x .?> "Configuration")
-            <*> (x .?> "Metadata")
-            <*> (x .?> "NextPageToken")
-            <*> (x .?> "Summary")
-            <*> (x .?> "RightsizingRecommendations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Configuration")
+            Prelude.<*> (x Prelude..?> "Metadata")
+            Prelude.<*> (x Prelude..?> "NextPageToken")
+            Prelude.<*> (x Prelude..?> "Summary")
+            Prelude.<*> ( x Prelude..?> "RightsizingRecommendations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRightsizingRecommendation
+instance
+  Prelude.Hashable
+    GetRightsizingRecommendation
 
-instance NFData GetRightsizingRecommendation
+instance Prelude.NFData GetRightsizingRecommendation
 
-instance ToHeaders GetRightsizingRecommendation where
+instance
+  Prelude.ToHeaders
+    GetRightsizingRecommendation
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.GetRightsizingRecommendation" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.GetRightsizingRecommendation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRightsizingRecommendation where
+instance Prelude.ToJSON GetRightsizingRecommendation where
   toJSON GetRightsizingRecommendation' {..} =
-    object
-      ( catMaybes
-          [ ("PageSize" .=) <$> _grrPageSize,
-            ("Configuration" .=) <$> _grrConfiguration,
-            ("NextPageToken" .=) <$> _grrNextPageToken,
-            ("Filter" .=) <$> _grrFilter,
-            Just ("Service" .= _grrService)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PageSize" Prelude..=) Prelude.<$> pageSize,
+            ("Configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("NextPageToken" Prelude..=)
+              Prelude.<$> nextPageToken,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("Service" Prelude..= service)
           ]
       )
 
-instance ToPath GetRightsizingRecommendation where
-  toPath = const "/"
+instance Prelude.ToPath GetRightsizingRecommendation where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRightsizingRecommendation where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRightsizingRecommendation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRightsizingRecommendationResponse' smart constructor.
+-- | /See:/ 'newGetRightsizingRecommendationResponse' smart constructor.
 data GetRightsizingRecommendationResponse = GetRightsizingRecommendationResponse'
-  { _grrrrsConfiguration ::
-      !( Maybe
-           RightsizingRecommendationConfiguration
-       ),
-    _grrrrsMetadata ::
-      !( Maybe
-           RightsizingRecommendationMetadata
-       ),
-    _grrrrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _grrrrsSummary ::
-      !( Maybe
-           RightsizingRecommendationSummary
-       ),
-    _grrrrsRightsizingRecommendations ::
-      !( Maybe
-           [RightsizingRecommendation]
-       ),
-    _grrrrsResponseStatus ::
-      !Int
+  { -- | Enables you to customize recommendations across two attributes. You can
+    -- choose to view recommendations for instances within the same instance
+    -- families or across different instance families. You can also choose to
+    -- view your estimated savings associated with recommendations with
+    -- consideration of existing Savings Plans or RI benefits, or neither.
+    configuration :: Prelude.Maybe RightsizingRecommendationConfiguration,
+    -- | Information regarding this specific recommendation set.
+    metadata :: Prelude.Maybe RightsizingRecommendationMetadata,
+    -- | The token to retrieve the next set of results.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary of this recommendation set.
+    summary :: Prelude.Maybe RightsizingRecommendationSummary,
+    -- | Recommendations to rightsize resources.
+    rightsizingRecommendations :: Prelude.Maybe [RightsizingRecommendation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRightsizingRecommendationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRightsizingRecommendationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrrsConfiguration' - Enables you to customize recommendations across two attributes. You can choose to view recommendations for instances within the same instance families or across different instance families. You can also choose to view your estimated savings associated with recommendations with consideration of existing Savings Plans or RI benefits, or neither.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrrsMetadata' - Information regarding this specific recommendation set.
+-- 'configuration', 'getRightsizingRecommendationResponse_configuration' - Enables you to customize recommendations across two attributes. You can
+-- choose to view recommendations for instances within the same instance
+-- families or across different instance families. You can also choose to
+-- view your estimated savings associated with recommendations with
+-- consideration of existing Savings Plans or RI benefits, or neither.
 --
--- * 'grrrrsNextPageToken' - The token to retrieve the next set of results.
+-- 'metadata', 'getRightsizingRecommendationResponse_metadata' - Information regarding this specific recommendation set.
 --
--- * 'grrrrsSummary' - Summary of this recommendation set.
+-- 'nextPageToken', 'getRightsizingRecommendationResponse_nextPageToken' - The token to retrieve the next set of results.
 --
--- * 'grrrrsRightsizingRecommendations' - Recommendations to rightsize resources.
+-- 'summary', 'getRightsizingRecommendationResponse_summary' - Summary of this recommendation set.
 --
--- * 'grrrrsResponseStatus' - -- | The response status code.
-getRightsizingRecommendationResponse ::
-  -- | 'grrrrsResponseStatus'
-  Int ->
+-- 'rightsizingRecommendations', 'getRightsizingRecommendationResponse_rightsizingRecommendations' - Recommendations to rightsize resources.
+--
+-- 'httpStatus', 'getRightsizingRecommendationResponse_httpStatus' - The response's http status code.
+newGetRightsizingRecommendationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRightsizingRecommendationResponse
-getRightsizingRecommendationResponse pResponseStatus_ =
+newGetRightsizingRecommendationResponse pHttpStatus_ =
   GetRightsizingRecommendationResponse'
-    { _grrrrsConfiguration =
-        Nothing,
-      _grrrrsMetadata = Nothing,
-      _grrrrsNextPageToken = Nothing,
-      _grrrrsSummary = Nothing,
-      _grrrrsRightsizingRecommendations =
-        Nothing,
-      _grrrrsResponseStatus =
-        pResponseStatus_
+    { configuration =
+        Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      summary = Prelude.Nothing,
+      rightsizingRecommendations =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Enables you to customize recommendations across two attributes. You can choose to view recommendations for instances within the same instance families or across different instance families. You can also choose to view your estimated savings associated with recommendations with consideration of existing Savings Plans or RI benefits, or neither.
-grrrrsConfiguration :: Lens' GetRightsizingRecommendationResponse (Maybe RightsizingRecommendationConfiguration)
-grrrrsConfiguration = lens _grrrrsConfiguration (\s a -> s {_grrrrsConfiguration = a})
+-- | Enables you to customize recommendations across two attributes. You can
+-- choose to view recommendations for instances within the same instance
+-- families or across different instance families. You can also choose to
+-- view your estimated savings associated with recommendations with
+-- consideration of existing Savings Plans or RI benefits, or neither.
+getRightsizingRecommendationResponse_configuration :: Lens.Lens' GetRightsizingRecommendationResponse (Prelude.Maybe RightsizingRecommendationConfiguration)
+getRightsizingRecommendationResponse_configuration = Lens.lens (\GetRightsizingRecommendationResponse' {configuration} -> configuration) (\s@GetRightsizingRecommendationResponse' {} a -> s {configuration = a} :: GetRightsizingRecommendationResponse)
 
 -- | Information regarding this specific recommendation set.
-grrrrsMetadata :: Lens' GetRightsizingRecommendationResponse (Maybe RightsizingRecommendationMetadata)
-grrrrsMetadata = lens _grrrrsMetadata (\s a -> s {_grrrrsMetadata = a})
+getRightsizingRecommendationResponse_metadata :: Lens.Lens' GetRightsizingRecommendationResponse (Prelude.Maybe RightsizingRecommendationMetadata)
+getRightsizingRecommendationResponse_metadata = Lens.lens (\GetRightsizingRecommendationResponse' {metadata} -> metadata) (\s@GetRightsizingRecommendationResponse' {} a -> s {metadata = a} :: GetRightsizingRecommendationResponse)
 
 -- | The token to retrieve the next set of results.
-grrrrsNextPageToken :: Lens' GetRightsizingRecommendationResponse (Maybe Text)
-grrrrsNextPageToken = lens _grrrrsNextPageToken (\s a -> s {_grrrrsNextPageToken = a})
+getRightsizingRecommendationResponse_nextPageToken :: Lens.Lens' GetRightsizingRecommendationResponse (Prelude.Maybe Prelude.Text)
+getRightsizingRecommendationResponse_nextPageToken = Lens.lens (\GetRightsizingRecommendationResponse' {nextPageToken} -> nextPageToken) (\s@GetRightsizingRecommendationResponse' {} a -> s {nextPageToken = a} :: GetRightsizingRecommendationResponse)
 
 -- | Summary of this recommendation set.
-grrrrsSummary :: Lens' GetRightsizingRecommendationResponse (Maybe RightsizingRecommendationSummary)
-grrrrsSummary = lens _grrrrsSummary (\s a -> s {_grrrrsSummary = a})
+getRightsizingRecommendationResponse_summary :: Lens.Lens' GetRightsizingRecommendationResponse (Prelude.Maybe RightsizingRecommendationSummary)
+getRightsizingRecommendationResponse_summary = Lens.lens (\GetRightsizingRecommendationResponse' {summary} -> summary) (\s@GetRightsizingRecommendationResponse' {} a -> s {summary = a} :: GetRightsizingRecommendationResponse)
 
 -- | Recommendations to rightsize resources.
-grrrrsRightsizingRecommendations :: Lens' GetRightsizingRecommendationResponse [RightsizingRecommendation]
-grrrrsRightsizingRecommendations = lens _grrrrsRightsizingRecommendations (\s a -> s {_grrrrsRightsizingRecommendations = a}) . _Default . _Coerce
+getRightsizingRecommendationResponse_rightsizingRecommendations :: Lens.Lens' GetRightsizingRecommendationResponse (Prelude.Maybe [RightsizingRecommendation])
+getRightsizingRecommendationResponse_rightsizingRecommendations = Lens.lens (\GetRightsizingRecommendationResponse' {rightsizingRecommendations} -> rightsizingRecommendations) (\s@GetRightsizingRecommendationResponse' {} a -> s {rightsizingRecommendations = a} :: GetRightsizingRecommendationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-grrrrsResponseStatus :: Lens' GetRightsizingRecommendationResponse Int
-grrrrsResponseStatus = lens _grrrrsResponseStatus (\s a -> s {_grrrrsResponseStatus = a})
+-- | The response's http status code.
+getRightsizingRecommendationResponse_httpStatus :: Lens.Lens' GetRightsizingRecommendationResponse Prelude.Int
+getRightsizingRecommendationResponse_httpStatus = Lens.lens (\GetRightsizingRecommendationResponse' {httpStatus} -> httpStatus) (\s@GetRightsizingRecommendationResponse' {} a -> s {httpStatus = a} :: GetRightsizingRecommendationResponse)
 
-instance NFData GetRightsizingRecommendationResponse
+instance
+  Prelude.NFData
+    GetRightsizingRecommendationResponse

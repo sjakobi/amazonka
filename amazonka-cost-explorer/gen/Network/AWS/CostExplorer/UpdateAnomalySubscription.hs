@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,207 +24,208 @@
 -- Updates an existing cost anomaly monitor subscription.
 module Network.AWS.CostExplorer.UpdateAnomalySubscription
   ( -- * Creating a Request
-    updateAnomalySubscription,
-    UpdateAnomalySubscription,
+    UpdateAnomalySubscription (..),
+    newUpdateAnomalySubscription,
 
     -- * Request Lenses
-    uasThreshold,
-    uasSubscriptionName,
-    uasSubscribers,
-    uasFrequency,
-    uasMonitorARNList,
-    uasSubscriptionARN,
+    updateAnomalySubscription_threshold,
+    updateAnomalySubscription_subscriptionName,
+    updateAnomalySubscription_subscribers,
+    updateAnomalySubscription_frequency,
+    updateAnomalySubscription_monitorArnList,
+    updateAnomalySubscription_subscriptionArn,
 
     -- * Destructuring the Response
-    updateAnomalySubscriptionResponse,
-    UpdateAnomalySubscriptionResponse,
+    UpdateAnomalySubscriptionResponse (..),
+    newUpdateAnomalySubscriptionResponse,
 
     -- * Response Lenses
-    uasrrsResponseStatus,
-    uasrrsSubscriptionARN,
+    updateAnomalySubscriptionResponse_httpStatus,
+    updateAnomalySubscriptionResponse_subscriptionArn,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateAnomalySubscription' smart constructor.
+-- | /See:/ 'newUpdateAnomalySubscription' smart constructor.
 data UpdateAnomalySubscription = UpdateAnomalySubscription'
-  { _uasThreshold ::
-      !(Maybe Double),
-    _uasSubscriptionName ::
-      !(Maybe Text),
-    _uasSubscribers ::
-      !( Maybe
-           [Subscriber]
-       ),
-    _uasFrequency ::
-      !( Maybe
-           AnomalySubscriptionFrequency
-       ),
-    _uasMonitorARNList ::
-      !(Maybe [Text]),
-    _uasSubscriptionARN ::
-      !Text
+  { -- | The update to the threshold value for receiving notifications.
+    threshold :: Prelude.Maybe Prelude.Double,
+    -- | The subscription\'s new name.
+    subscriptionName :: Prelude.Maybe Prelude.Text,
+    -- | The update to the subscriber list.
+    subscribers :: Prelude.Maybe [Subscriber],
+    -- | The update to the frequency value at which subscribers will receive
+    -- notifications.
+    frequency :: Prelude.Maybe AnomalySubscriptionFrequency,
+    -- | A list of cost anomaly monitor ARNs.
+    monitorArnList :: Prelude.Maybe [Prelude.Text],
+    -- | A cost anomaly subscription Amazon Resource Name (ARN).
+    subscriptionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAnomalySubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAnomalySubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasThreshold' - The update to the threshold value for receiving notifications.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasSubscriptionName' - The subscription's new name.
+-- 'threshold', 'updateAnomalySubscription_threshold' - The update to the threshold value for receiving notifications.
 --
--- * 'uasSubscribers' - The update to the subscriber list.
+-- 'subscriptionName', 'updateAnomalySubscription_subscriptionName' - The subscription\'s new name.
 --
--- * 'uasFrequency' - The update to the frequency value at which subscribers will receive notifications.
+-- 'subscribers', 'updateAnomalySubscription_subscribers' - The update to the subscriber list.
 --
--- * 'uasMonitorARNList' - A list of cost anomaly monitor ARNs.
+-- 'frequency', 'updateAnomalySubscription_frequency' - The update to the frequency value at which subscribers will receive
+-- notifications.
 --
--- * 'uasSubscriptionARN' - A cost anomaly subscription Amazon Resource Name (ARN).
-updateAnomalySubscription ::
-  -- | 'uasSubscriptionARN'
-  Text ->
+-- 'monitorArnList', 'updateAnomalySubscription_monitorArnList' - A list of cost anomaly monitor ARNs.
+--
+-- 'subscriptionArn', 'updateAnomalySubscription_subscriptionArn' - A cost anomaly subscription Amazon Resource Name (ARN).
+newUpdateAnomalySubscription ::
+  -- | 'subscriptionArn'
+  Prelude.Text ->
   UpdateAnomalySubscription
-updateAnomalySubscription pSubscriptionARN_ =
+newUpdateAnomalySubscription pSubscriptionArn_ =
   UpdateAnomalySubscription'
-    { _uasThreshold = Nothing,
-      _uasSubscriptionName = Nothing,
-      _uasSubscribers = Nothing,
-      _uasFrequency = Nothing,
-      _uasMonitorARNList = Nothing,
-      _uasSubscriptionARN = pSubscriptionARN_
+    { threshold =
+        Prelude.Nothing,
+      subscriptionName = Prelude.Nothing,
+      subscribers = Prelude.Nothing,
+      frequency = Prelude.Nothing,
+      monitorArnList = Prelude.Nothing,
+      subscriptionArn = pSubscriptionArn_
     }
 
 -- | The update to the threshold value for receiving notifications.
-uasThreshold :: Lens' UpdateAnomalySubscription (Maybe Double)
-uasThreshold = lens _uasThreshold (\s a -> s {_uasThreshold = a})
+updateAnomalySubscription_threshold :: Lens.Lens' UpdateAnomalySubscription (Prelude.Maybe Prelude.Double)
+updateAnomalySubscription_threshold = Lens.lens (\UpdateAnomalySubscription' {threshold} -> threshold) (\s@UpdateAnomalySubscription' {} a -> s {threshold = a} :: UpdateAnomalySubscription)
 
--- | The subscription's new name.
-uasSubscriptionName :: Lens' UpdateAnomalySubscription (Maybe Text)
-uasSubscriptionName = lens _uasSubscriptionName (\s a -> s {_uasSubscriptionName = a})
+-- | The subscription\'s new name.
+updateAnomalySubscription_subscriptionName :: Lens.Lens' UpdateAnomalySubscription (Prelude.Maybe Prelude.Text)
+updateAnomalySubscription_subscriptionName = Lens.lens (\UpdateAnomalySubscription' {subscriptionName} -> subscriptionName) (\s@UpdateAnomalySubscription' {} a -> s {subscriptionName = a} :: UpdateAnomalySubscription)
 
 -- | The update to the subscriber list.
-uasSubscribers :: Lens' UpdateAnomalySubscription [Subscriber]
-uasSubscribers = lens _uasSubscribers (\s a -> s {_uasSubscribers = a}) . _Default . _Coerce
+updateAnomalySubscription_subscribers :: Lens.Lens' UpdateAnomalySubscription (Prelude.Maybe [Subscriber])
+updateAnomalySubscription_subscribers = Lens.lens (\UpdateAnomalySubscription' {subscribers} -> subscribers) (\s@UpdateAnomalySubscription' {} a -> s {subscribers = a} :: UpdateAnomalySubscription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The update to the frequency value at which subscribers will receive notifications.
-uasFrequency :: Lens' UpdateAnomalySubscription (Maybe AnomalySubscriptionFrequency)
-uasFrequency = lens _uasFrequency (\s a -> s {_uasFrequency = a})
+-- | The update to the frequency value at which subscribers will receive
+-- notifications.
+updateAnomalySubscription_frequency :: Lens.Lens' UpdateAnomalySubscription (Prelude.Maybe AnomalySubscriptionFrequency)
+updateAnomalySubscription_frequency = Lens.lens (\UpdateAnomalySubscription' {frequency} -> frequency) (\s@UpdateAnomalySubscription' {} a -> s {frequency = a} :: UpdateAnomalySubscription)
 
 -- | A list of cost anomaly monitor ARNs.
-uasMonitorARNList :: Lens' UpdateAnomalySubscription [Text]
-uasMonitorARNList = lens _uasMonitorARNList (\s a -> s {_uasMonitorARNList = a}) . _Default . _Coerce
+updateAnomalySubscription_monitorArnList :: Lens.Lens' UpdateAnomalySubscription (Prelude.Maybe [Prelude.Text])
+updateAnomalySubscription_monitorArnList = Lens.lens (\UpdateAnomalySubscription' {monitorArnList} -> monitorArnList) (\s@UpdateAnomalySubscription' {} a -> s {monitorArnList = a} :: UpdateAnomalySubscription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A cost anomaly subscription Amazon Resource Name (ARN).
-uasSubscriptionARN :: Lens' UpdateAnomalySubscription Text
-uasSubscriptionARN = lens _uasSubscriptionARN (\s a -> s {_uasSubscriptionARN = a})
+updateAnomalySubscription_subscriptionArn :: Lens.Lens' UpdateAnomalySubscription Prelude.Text
+updateAnomalySubscription_subscriptionArn = Lens.lens (\UpdateAnomalySubscription' {subscriptionArn} -> subscriptionArn) (\s@UpdateAnomalySubscription' {} a -> s {subscriptionArn = a} :: UpdateAnomalySubscription)
 
-instance AWSRequest UpdateAnomalySubscription where
+instance Prelude.AWSRequest UpdateAnomalySubscription where
   type
     Rs UpdateAnomalySubscription =
       UpdateAnomalySubscriptionResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateAnomalySubscriptionResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "SubscriptionArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "SubscriptionArn")
       )
 
-instance Hashable UpdateAnomalySubscription
+instance Prelude.Hashable UpdateAnomalySubscription
 
-instance NFData UpdateAnomalySubscription
+instance Prelude.NFData UpdateAnomalySubscription
 
-instance ToHeaders UpdateAnomalySubscription where
+instance Prelude.ToHeaders UpdateAnomalySubscription where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.UpdateAnomalySubscription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.UpdateAnomalySubscription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAnomalySubscription where
+instance Prelude.ToJSON UpdateAnomalySubscription where
   toJSON UpdateAnomalySubscription' {..} =
-    object
-      ( catMaybes
-          [ ("Threshold" .=) <$> _uasThreshold,
-            ("SubscriptionName" .=) <$> _uasSubscriptionName,
-            ("Subscribers" .=) <$> _uasSubscribers,
-            ("Frequency" .=) <$> _uasFrequency,
-            ("MonitorArnList" .=) <$> _uasMonitorARNList,
-            Just ("SubscriptionArn" .= _uasSubscriptionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Threshold" Prelude..=) Prelude.<$> threshold,
+            ("SubscriptionName" Prelude..=)
+              Prelude.<$> subscriptionName,
+            ("Subscribers" Prelude..=) Prelude.<$> subscribers,
+            ("Frequency" Prelude..=) Prelude.<$> frequency,
+            ("MonitorArnList" Prelude..=)
+              Prelude.<$> monitorArnList,
+            Prelude.Just
+              ("SubscriptionArn" Prelude..= subscriptionArn)
           ]
       )
 
-instance ToPath UpdateAnomalySubscription where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAnomalySubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAnomalySubscription where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAnomalySubscription where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateAnomalySubscriptionResponse' smart constructor.
+-- | /See:/ 'newUpdateAnomalySubscriptionResponse' smart constructor.
 data UpdateAnomalySubscriptionResponse = UpdateAnomalySubscriptionResponse'
-  { _uasrrsResponseStatus ::
-      !Int,
-    _uasrrsSubscriptionARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A cost anomaly subscription ARN.
+    subscriptionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAnomalySubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAnomalySubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uasrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uasrrsSubscriptionARN' - A cost anomaly subscription ARN.
-updateAnomalySubscriptionResponse ::
-  -- | 'uasrrsResponseStatus'
-  Int ->
-  -- | 'uasrrsSubscriptionARN'
-  Text ->
+-- 'httpStatus', 'updateAnomalySubscriptionResponse_httpStatus' - The response's http status code.
+--
+-- 'subscriptionArn', 'updateAnomalySubscriptionResponse_subscriptionArn' - A cost anomaly subscription ARN.
+newUpdateAnomalySubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'subscriptionArn'
+  Prelude.Text ->
   UpdateAnomalySubscriptionResponse
-updateAnomalySubscriptionResponse
-  pResponseStatus_
-  pSubscriptionARN_ =
+newUpdateAnomalySubscriptionResponse
+  pHttpStatus_
+  pSubscriptionArn_ =
     UpdateAnomalySubscriptionResponse'
-      { _uasrrsResponseStatus =
-          pResponseStatus_,
-        _uasrrsSubscriptionARN =
-          pSubscriptionARN_
+      { httpStatus =
+          pHttpStatus_,
+        subscriptionArn = pSubscriptionArn_
       }
 
--- | -- | The response status code.
-uasrrsResponseStatus :: Lens' UpdateAnomalySubscriptionResponse Int
-uasrrsResponseStatus = lens _uasrrsResponseStatus (\s a -> s {_uasrrsResponseStatus = a})
+-- | The response's http status code.
+updateAnomalySubscriptionResponse_httpStatus :: Lens.Lens' UpdateAnomalySubscriptionResponse Prelude.Int
+updateAnomalySubscriptionResponse_httpStatus = Lens.lens (\UpdateAnomalySubscriptionResponse' {httpStatus} -> httpStatus) (\s@UpdateAnomalySubscriptionResponse' {} a -> s {httpStatus = a} :: UpdateAnomalySubscriptionResponse)
 
 -- | A cost anomaly subscription ARN.
-uasrrsSubscriptionARN :: Lens' UpdateAnomalySubscriptionResponse Text
-uasrrsSubscriptionARN = lens _uasrrsSubscriptionARN (\s a -> s {_uasrrsSubscriptionARN = a})
+updateAnomalySubscriptionResponse_subscriptionArn :: Lens.Lens' UpdateAnomalySubscriptionResponse Prelude.Text
+updateAnomalySubscriptionResponse_subscriptionArn = Lens.lens (\UpdateAnomalySubscriptionResponse' {subscriptionArn} -> subscriptionArn) (\s@UpdateAnomalySubscriptionResponse' {} a -> s {subscriptionArn = a} :: UpdateAnomalySubscriptionResponse)
 
-instance NFData UpdateAnomalySubscriptionResponse
+instance
+  Prelude.NFData
+    UpdateAnomalySubscriptionResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.CostExplorer.Types.MonitorDimension
   ( MonitorDimension
       ( ..,
-        Service
+        MonitorDimensionSERVICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitorDimension = MonitorDimension' (CI Text)
+newtype MonitorDimension = MonitorDimension'
+  { fromMonitorDimension ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Service :: MonitorDimension
-pattern Service = MonitorDimension' "SERVICE"
+pattern MonitorDimensionSERVICE :: MonitorDimension
+pattern MonitorDimensionSERVICE = MonitorDimension' "SERVICE"
 
 {-# COMPLETE
-  Service,
+  MonitorDimensionSERVICE,
   MonitorDimension'
   #-}
 
-instance FromText MonitorDimension where
-  parser = (MonitorDimension' . mk) <$> takeText
+instance Prelude.FromText MonitorDimension where
+  parser = MonitorDimension' Prelude.<$> Prelude.takeText
 
-instance ToText MonitorDimension where
-  toText (MonitorDimension' ci) = original ci
+instance Prelude.ToText MonitorDimension where
+  toText (MonitorDimension' x) = x
 
-instance Hashable MonitorDimension
+instance Prelude.Hashable MonitorDimension
 
-instance NFData MonitorDimension
+instance Prelude.NFData MonitorDimension
 
-instance ToByteString MonitorDimension
+instance Prelude.ToByteString MonitorDimension
 
-instance ToQuery MonitorDimension
+instance Prelude.ToQuery MonitorDimension
 
-instance ToHeader MonitorDimension
+instance Prelude.ToHeader MonitorDimension
 
-instance ToJSON MonitorDimension where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitorDimension where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MonitorDimension where
-  parseJSON = parseJSONText "MonitorDimension"
+instance Prelude.FromJSON MonitorDimension where
+  parseJSON = Prelude.parseJSONText "MonitorDimension"

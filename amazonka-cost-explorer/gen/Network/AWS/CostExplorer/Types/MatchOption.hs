@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.CostExplorer.Types.MatchOption
   ( MatchOption
       ( ..,
-        Absent,
-        CaseInsensitive,
-        CaseSensitive,
-        Contains,
-        EndsWith,
-        Equals,
-        StartsWith
+        MatchOptionABSENT,
+        MatchOptionCASEINSENSITIVE,
+        MatchOptionCASESENSITIVE,
+        MatchOptionCONTAINS,
+        MatchOptionENDSWITH,
+        MatchOptionEQUALS,
+        MatchOptionSTARTSWITH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MatchOption = MatchOption' (CI Text)
+newtype MatchOption = MatchOption'
+  { fromMatchOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Absent :: MatchOption
-pattern Absent = MatchOption' "ABSENT"
+pattern MatchOptionABSENT :: MatchOption
+pattern MatchOptionABSENT = MatchOption' "ABSENT"
 
-pattern CaseInsensitive :: MatchOption
-pattern CaseInsensitive = MatchOption' "CASE_INSENSITIVE"
+pattern MatchOptionCASEINSENSITIVE :: MatchOption
+pattern MatchOptionCASEINSENSITIVE = MatchOption' "CASE_INSENSITIVE"
 
-pattern CaseSensitive :: MatchOption
-pattern CaseSensitive = MatchOption' "CASE_SENSITIVE"
+pattern MatchOptionCASESENSITIVE :: MatchOption
+pattern MatchOptionCASESENSITIVE = MatchOption' "CASE_SENSITIVE"
 
-pattern Contains :: MatchOption
-pattern Contains = MatchOption' "CONTAINS"
+pattern MatchOptionCONTAINS :: MatchOption
+pattern MatchOptionCONTAINS = MatchOption' "CONTAINS"
 
-pattern EndsWith :: MatchOption
-pattern EndsWith = MatchOption' "ENDS_WITH"
+pattern MatchOptionENDSWITH :: MatchOption
+pattern MatchOptionENDSWITH = MatchOption' "ENDS_WITH"
 
-pattern Equals :: MatchOption
-pattern Equals = MatchOption' "EQUALS"
+pattern MatchOptionEQUALS :: MatchOption
+pattern MatchOptionEQUALS = MatchOption' "EQUALS"
 
-pattern StartsWith :: MatchOption
-pattern StartsWith = MatchOption' "STARTS_WITH"
+pattern MatchOptionSTARTSWITH :: MatchOption
+pattern MatchOptionSTARTSWITH = MatchOption' "STARTS_WITH"
 
 {-# COMPLETE
-  Absent,
-  CaseInsensitive,
-  CaseSensitive,
-  Contains,
-  EndsWith,
-  Equals,
-  StartsWith,
+  MatchOptionABSENT,
+  MatchOptionCASEINSENSITIVE,
+  MatchOptionCASESENSITIVE,
+  MatchOptionCONTAINS,
+  MatchOptionENDSWITH,
+  MatchOptionEQUALS,
+  MatchOptionSTARTSWITH,
   MatchOption'
   #-}
 
-instance FromText MatchOption where
-  parser = (MatchOption' . mk) <$> takeText
+instance Prelude.FromText MatchOption where
+  parser = MatchOption' Prelude.<$> Prelude.takeText
 
-instance ToText MatchOption where
-  toText (MatchOption' ci) = original ci
+instance Prelude.ToText MatchOption where
+  toText (MatchOption' x) = x
 
-instance Hashable MatchOption
+instance Prelude.Hashable MatchOption
 
-instance NFData MatchOption
+instance Prelude.NFData MatchOption
 
-instance ToByteString MatchOption
+instance Prelude.ToByteString MatchOption
 
-instance ToQuery MatchOption
+instance Prelude.ToQuery MatchOption
 
-instance ToHeader MatchOption
+instance Prelude.ToHeader MatchOption
 
-instance ToJSON MatchOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON MatchOption where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MatchOption where
-  parseJSON = parseJSONText "MatchOption"
+instance Prelude.FromJSON MatchOption where
+  parseJSON = Prelude.parseJSONText "MatchOption"

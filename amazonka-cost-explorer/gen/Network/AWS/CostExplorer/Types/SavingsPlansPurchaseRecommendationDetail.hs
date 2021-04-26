@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,253 +20,263 @@
 module Network.AWS.CostExplorer.Types.SavingsPlansPurchaseRecommendationDetail where
 
 import Network.AWS.CostExplorer.Types.SavingsPlansDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details for your recommended Savings Plans.
 --
---
---
--- /See:/ 'savingsPlansPurchaseRecommendationDetail' smart constructor.
+-- /See:/ 'newSavingsPlansPurchaseRecommendationDetail' smart constructor.
 data SavingsPlansPurchaseRecommendationDetail = SavingsPlansPurchaseRecommendationDetail'
-  { _spprdUpfrontCost ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedOnDemandCost ::
-      !( Maybe
-           Text
-       ),
-    _spprdAccountId ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedMonthlySavingsAmount ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedSavingsAmount ::
-      !( Maybe
-           Text
-       ),
-    _spprdCurrentMaximumHourlyOnDemandSpend ::
-      !( Maybe
-           Text
-       ),
-    _spprdHourlyCommitmentToPurchase ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedAverageUtilization ::
-      !( Maybe
-           Text
-       ),
-    _spprdCurrentAverageHourlyOnDemandSpend ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedSavingsPercentage ::
-      !( Maybe
-           Text
-       ),
-    _spprdSavingsPlansDetails ::
-      !( Maybe
-           SavingsPlansDetails
-       ),
-    _spprdCurrencyCode ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedSPCost ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedOnDemandCostWithCurrentCommitment ::
-      !( Maybe
-           Text
-       ),
-    _spprdEstimatedROI ::
-      !( Maybe
-           Text
-       ),
-    _spprdCurrentMinimumHourlyOnDemandSpend ::
-      !( Maybe
-           Text
-       )
+  { -- | The upfront cost of the recommended Savings Plans, based on the selected
+    -- payment option.
+    upfrontCost :: Prelude.Maybe Prelude.Text,
+    -- | The remaining On-Demand cost estimated to not be covered by the
+    -- recommended Savings Plans, over the length of the lookback period.
+    estimatedOnDemandCost :: Prelude.Maybe Prelude.Text,
+    -- | The @AccountID@ the recommendation is generated for.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The estimated monthly savings amount, based on the recommended Savings
+    -- Plans.
+    estimatedMonthlySavingsAmount :: Prelude.Maybe Prelude.Text,
+    -- | The estimated savings amount based on the recommended Savings Plans over
+    -- the length of the lookback period.
+    estimatedSavingsAmount :: Prelude.Maybe Prelude.Text,
+    -- | The highest value of hourly On-Demand spend over the lookback period of
+    -- the applicable usage type.
+    currentMaximumHourlyOnDemandSpend :: Prelude.Maybe Prelude.Text,
+    -- | The recommended hourly commitment level for the Savings Plans type, and
+    -- configuration based on the usage during the lookback period.
+    hourlyCommitmentToPurchase :: Prelude.Maybe Prelude.Text,
+    -- | The estimated utilization of the recommended Savings Plans.
+    estimatedAverageUtilization :: Prelude.Maybe Prelude.Text,
+    -- | The average value of hourly On-Demand spend over the lookback period of
+    -- the applicable usage type.
+    currentAverageHourlyOnDemandSpend :: Prelude.Maybe Prelude.Text,
+    -- | The estimated savings percentage relative to the total cost of
+    -- applicable On-Demand usage over the lookback period.
+    estimatedSavingsPercentage :: Prelude.Maybe Prelude.Text,
+    -- | Details for your recommended Savings Plans.
+    savingsPlansDetails :: Prelude.Maybe SavingsPlansDetails,
+    -- | The currency code AWS used to generate the recommendations and present
+    -- potential savings.
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | The cost of the recommended Savings Plans over the length of the
+    -- lookback period.
+    estimatedSPCost :: Prelude.Maybe Prelude.Text,
+    -- | The estimated On-Demand costs you would expect with no additional
+    -- commitment, based on your usage of the selected time period and the
+    -- Savings Plans you own.
+    estimatedOnDemandCostWithCurrentCommitment :: Prelude.Maybe Prelude.Text,
+    -- | The estimated return on investment based on the recommended Savings
+    -- Plans purchased. This is calculated as @estimatedSavingsAmount@\/
+    -- @estimatedSPCost@*100.
+    estimatedROI :: Prelude.Maybe Prelude.Text,
+    -- | The lowest value of hourly On-Demand spend over the lookback period of
+    -- the applicable usage type.
+    currentMinimumHourlyOnDemandSpend :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SavingsPlansPurchaseRecommendationDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SavingsPlansPurchaseRecommendationDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spprdUpfrontCost' - The upfront cost of the recommended Savings Plans, based on the selected payment option.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spprdEstimatedOnDemandCost' - The remaining On-Demand cost estimated to not be covered by the recommended Savings Plans, over the length of the lookback period.
+-- 'upfrontCost', 'savingsPlansPurchaseRecommendationDetail_upfrontCost' - The upfront cost of the recommended Savings Plans, based on the selected
+-- payment option.
 --
--- * 'spprdAccountId' - The @AccountID@ the recommendation is generated for.
+-- 'estimatedOnDemandCost', 'savingsPlansPurchaseRecommendationDetail_estimatedOnDemandCost' - The remaining On-Demand cost estimated to not be covered by the
+-- recommended Savings Plans, over the length of the lookback period.
 --
--- * 'spprdEstimatedMonthlySavingsAmount' - The estimated monthly savings amount, based on the recommended Savings Plans.
+-- 'accountId', 'savingsPlansPurchaseRecommendationDetail_accountId' - The @AccountID@ the recommendation is generated for.
 --
--- * 'spprdEstimatedSavingsAmount' - The estimated savings amount based on the recommended Savings Plans over the length of the lookback period.
+-- 'estimatedMonthlySavingsAmount', 'savingsPlansPurchaseRecommendationDetail_estimatedMonthlySavingsAmount' - The estimated monthly savings amount, based on the recommended Savings
+-- Plans.
 --
--- * 'spprdCurrentMaximumHourlyOnDemandSpend' - The highest value of hourly On-Demand spend over the lookback period of the applicable usage type.
+-- 'estimatedSavingsAmount', 'savingsPlansPurchaseRecommendationDetail_estimatedSavingsAmount' - The estimated savings amount based on the recommended Savings Plans over
+-- the length of the lookback period.
 --
--- * 'spprdHourlyCommitmentToPurchase' - The recommended hourly commitment level for the Savings Plans type, and configuration based on the usage during the lookback period.
+-- 'currentMaximumHourlyOnDemandSpend', 'savingsPlansPurchaseRecommendationDetail_currentMaximumHourlyOnDemandSpend' - The highest value of hourly On-Demand spend over the lookback period of
+-- the applicable usage type.
 --
--- * 'spprdEstimatedAverageUtilization' - The estimated utilization of the recommended Savings Plans.
+-- 'hourlyCommitmentToPurchase', 'savingsPlansPurchaseRecommendationDetail_hourlyCommitmentToPurchase' - The recommended hourly commitment level for the Savings Plans type, and
+-- configuration based on the usage during the lookback period.
 --
--- * 'spprdCurrentAverageHourlyOnDemandSpend' - The average value of hourly On-Demand spend over the lookback period of the applicable usage type.
+-- 'estimatedAverageUtilization', 'savingsPlansPurchaseRecommendationDetail_estimatedAverageUtilization' - The estimated utilization of the recommended Savings Plans.
 --
--- * 'spprdEstimatedSavingsPercentage' - The estimated savings percentage relative to the total cost of applicable On-Demand usage over the lookback period.
+-- 'currentAverageHourlyOnDemandSpend', 'savingsPlansPurchaseRecommendationDetail_currentAverageHourlyOnDemandSpend' - The average value of hourly On-Demand spend over the lookback period of
+-- the applicable usage type.
 --
--- * 'spprdSavingsPlansDetails' - Details for your recommended Savings Plans.
+-- 'estimatedSavingsPercentage', 'savingsPlansPurchaseRecommendationDetail_estimatedSavingsPercentage' - The estimated savings percentage relative to the total cost of
+-- applicable On-Demand usage over the lookback period.
 --
--- * 'spprdCurrencyCode' - The currency code AWS used to generate the recommendations and present potential savings.
+-- 'savingsPlansDetails', 'savingsPlansPurchaseRecommendationDetail_savingsPlansDetails' - Details for your recommended Savings Plans.
 --
--- * 'spprdEstimatedSPCost' - The cost of the recommended Savings Plans over the length of the lookback period.
+-- 'currencyCode', 'savingsPlansPurchaseRecommendationDetail_currencyCode' - The currency code AWS used to generate the recommendations and present
+-- potential savings.
 --
--- * 'spprdEstimatedOnDemandCostWithCurrentCommitment' - The estimated On-Demand costs you would expect with no additional commitment, based on your usage of the selected time period and the Savings Plans you own.
+-- 'estimatedSPCost', 'savingsPlansPurchaseRecommendationDetail_estimatedSPCost' - The cost of the recommended Savings Plans over the length of the
+-- lookback period.
 --
--- * 'spprdEstimatedROI' - The estimated return on investment based on the recommended Savings Plans purchased. This is calculated as @estimatedSavingsAmount@ / @estimatedSPCost@ *100.
+-- 'estimatedOnDemandCostWithCurrentCommitment', 'savingsPlansPurchaseRecommendationDetail_estimatedOnDemandCostWithCurrentCommitment' - The estimated On-Demand costs you would expect with no additional
+-- commitment, based on your usage of the selected time period and the
+-- Savings Plans you own.
 --
--- * 'spprdCurrentMinimumHourlyOnDemandSpend' - The lowest value of hourly On-Demand spend over the lookback period of the applicable usage type.
-savingsPlansPurchaseRecommendationDetail ::
+-- 'estimatedROI', 'savingsPlansPurchaseRecommendationDetail_estimatedROI' - The estimated return on investment based on the recommended Savings
+-- Plans purchased. This is calculated as @estimatedSavingsAmount@\/
+-- @estimatedSPCost@*100.
+--
+-- 'currentMinimumHourlyOnDemandSpend', 'savingsPlansPurchaseRecommendationDetail_currentMinimumHourlyOnDemandSpend' - The lowest value of hourly On-Demand spend over the lookback period of
+-- the applicable usage type.
+newSavingsPlansPurchaseRecommendationDetail ::
   SavingsPlansPurchaseRecommendationDetail
-savingsPlansPurchaseRecommendationDetail =
+newSavingsPlansPurchaseRecommendationDetail =
   SavingsPlansPurchaseRecommendationDetail'
-    { _spprdUpfrontCost =
-        Nothing,
-      _spprdEstimatedOnDemandCost =
-        Nothing,
-      _spprdAccountId = Nothing,
-      _spprdEstimatedMonthlySavingsAmount =
-        Nothing,
-      _spprdEstimatedSavingsAmount =
-        Nothing,
-      _spprdCurrentMaximumHourlyOnDemandSpend =
-        Nothing,
-      _spprdHourlyCommitmentToPurchase =
-        Nothing,
-      _spprdEstimatedAverageUtilization =
-        Nothing,
-      _spprdCurrentAverageHourlyOnDemandSpend =
-        Nothing,
-      _spprdEstimatedSavingsPercentage =
-        Nothing,
-      _spprdSavingsPlansDetails =
-        Nothing,
-      _spprdCurrencyCode = Nothing,
-      _spprdEstimatedSPCost = Nothing,
-      _spprdEstimatedOnDemandCostWithCurrentCommitment =
-        Nothing,
-      _spprdEstimatedROI = Nothing,
-      _spprdCurrentMinimumHourlyOnDemandSpend =
-        Nothing
+    { upfrontCost =
+        Prelude.Nothing,
+      estimatedOnDemandCost =
+        Prelude.Nothing,
+      accountId = Prelude.Nothing,
+      estimatedMonthlySavingsAmount =
+        Prelude.Nothing,
+      estimatedSavingsAmount =
+        Prelude.Nothing,
+      currentMaximumHourlyOnDemandSpend =
+        Prelude.Nothing,
+      hourlyCommitmentToPurchase =
+        Prelude.Nothing,
+      estimatedAverageUtilization =
+        Prelude.Nothing,
+      currentAverageHourlyOnDemandSpend =
+        Prelude.Nothing,
+      estimatedSavingsPercentage =
+        Prelude.Nothing,
+      savingsPlansDetails =
+        Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      estimatedSPCost = Prelude.Nothing,
+      estimatedOnDemandCostWithCurrentCommitment =
+        Prelude.Nothing,
+      estimatedROI = Prelude.Nothing,
+      currentMinimumHourlyOnDemandSpend =
+        Prelude.Nothing
     }
 
--- | The upfront cost of the recommended Savings Plans, based on the selected payment option.
-spprdUpfrontCost :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdUpfrontCost = lens _spprdUpfrontCost (\s a -> s {_spprdUpfrontCost = a})
+-- | The upfront cost of the recommended Savings Plans, based on the selected
+-- payment option.
+savingsPlansPurchaseRecommendationDetail_upfrontCost :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_upfrontCost = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {upfrontCost} -> upfrontCost) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {upfrontCost = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The remaining On-Demand cost estimated to not be covered by the recommended Savings Plans, over the length of the lookback period.
-spprdEstimatedOnDemandCost :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedOnDemandCost = lens _spprdEstimatedOnDemandCost (\s a -> s {_spprdEstimatedOnDemandCost = a})
+-- | The remaining On-Demand cost estimated to not be covered by the
+-- recommended Savings Plans, over the length of the lookback period.
+savingsPlansPurchaseRecommendationDetail_estimatedOnDemandCost :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedOnDemandCost = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedOnDemandCost} -> estimatedOnDemandCost) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedOnDemandCost = a} :: SavingsPlansPurchaseRecommendationDetail)
 
 -- | The @AccountID@ the recommendation is generated for.
-spprdAccountId :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdAccountId = lens _spprdAccountId (\s a -> s {_spprdAccountId = a})
+savingsPlansPurchaseRecommendationDetail_accountId :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_accountId = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {accountId} -> accountId) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {accountId = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The estimated monthly savings amount, based on the recommended Savings Plans.
-spprdEstimatedMonthlySavingsAmount :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedMonthlySavingsAmount = lens _spprdEstimatedMonthlySavingsAmount (\s a -> s {_spprdEstimatedMonthlySavingsAmount = a})
+-- | The estimated monthly savings amount, based on the recommended Savings
+-- Plans.
+savingsPlansPurchaseRecommendationDetail_estimatedMonthlySavingsAmount :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedMonthlySavingsAmount = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedMonthlySavingsAmount} -> estimatedMonthlySavingsAmount) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedMonthlySavingsAmount = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The estimated savings amount based on the recommended Savings Plans over the length of the lookback period.
-spprdEstimatedSavingsAmount :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedSavingsAmount = lens _spprdEstimatedSavingsAmount (\s a -> s {_spprdEstimatedSavingsAmount = a})
+-- | The estimated savings amount based on the recommended Savings Plans over
+-- the length of the lookback period.
+savingsPlansPurchaseRecommendationDetail_estimatedSavingsAmount :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedSavingsAmount = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedSavingsAmount} -> estimatedSavingsAmount) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedSavingsAmount = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The highest value of hourly On-Demand spend over the lookback period of the applicable usage type.
-spprdCurrentMaximumHourlyOnDemandSpend :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdCurrentMaximumHourlyOnDemandSpend = lens _spprdCurrentMaximumHourlyOnDemandSpend (\s a -> s {_spprdCurrentMaximumHourlyOnDemandSpend = a})
+-- | The highest value of hourly On-Demand spend over the lookback period of
+-- the applicable usage type.
+savingsPlansPurchaseRecommendationDetail_currentMaximumHourlyOnDemandSpend :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_currentMaximumHourlyOnDemandSpend = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {currentMaximumHourlyOnDemandSpend} -> currentMaximumHourlyOnDemandSpend) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {currentMaximumHourlyOnDemandSpend = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The recommended hourly commitment level for the Savings Plans type, and configuration based on the usage during the lookback period.
-spprdHourlyCommitmentToPurchase :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdHourlyCommitmentToPurchase = lens _spprdHourlyCommitmentToPurchase (\s a -> s {_spprdHourlyCommitmentToPurchase = a})
+-- | The recommended hourly commitment level for the Savings Plans type, and
+-- configuration based on the usage during the lookback period.
+savingsPlansPurchaseRecommendationDetail_hourlyCommitmentToPurchase :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_hourlyCommitmentToPurchase = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {hourlyCommitmentToPurchase} -> hourlyCommitmentToPurchase) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {hourlyCommitmentToPurchase = a} :: SavingsPlansPurchaseRecommendationDetail)
 
 -- | The estimated utilization of the recommended Savings Plans.
-spprdEstimatedAverageUtilization :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedAverageUtilization = lens _spprdEstimatedAverageUtilization (\s a -> s {_spprdEstimatedAverageUtilization = a})
+savingsPlansPurchaseRecommendationDetail_estimatedAverageUtilization :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedAverageUtilization = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedAverageUtilization} -> estimatedAverageUtilization) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedAverageUtilization = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The average value of hourly On-Demand spend over the lookback period of the applicable usage type.
-spprdCurrentAverageHourlyOnDemandSpend :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdCurrentAverageHourlyOnDemandSpend = lens _spprdCurrentAverageHourlyOnDemandSpend (\s a -> s {_spprdCurrentAverageHourlyOnDemandSpend = a})
+-- | The average value of hourly On-Demand spend over the lookback period of
+-- the applicable usage type.
+savingsPlansPurchaseRecommendationDetail_currentAverageHourlyOnDemandSpend :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_currentAverageHourlyOnDemandSpend = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {currentAverageHourlyOnDemandSpend} -> currentAverageHourlyOnDemandSpend) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {currentAverageHourlyOnDemandSpend = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The estimated savings percentage relative to the total cost of applicable On-Demand usage over the lookback period.
-spprdEstimatedSavingsPercentage :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedSavingsPercentage = lens _spprdEstimatedSavingsPercentage (\s a -> s {_spprdEstimatedSavingsPercentage = a})
+-- | The estimated savings percentage relative to the total cost of
+-- applicable On-Demand usage over the lookback period.
+savingsPlansPurchaseRecommendationDetail_estimatedSavingsPercentage :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedSavingsPercentage = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedSavingsPercentage} -> estimatedSavingsPercentage) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedSavingsPercentage = a} :: SavingsPlansPurchaseRecommendationDetail)
 
 -- | Details for your recommended Savings Plans.
-spprdSavingsPlansDetails :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe SavingsPlansDetails)
-spprdSavingsPlansDetails = lens _spprdSavingsPlansDetails (\s a -> s {_spprdSavingsPlansDetails = a})
+savingsPlansPurchaseRecommendationDetail_savingsPlansDetails :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe SavingsPlansDetails)
+savingsPlansPurchaseRecommendationDetail_savingsPlansDetails = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {savingsPlansDetails} -> savingsPlansDetails) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {savingsPlansDetails = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The currency code AWS used to generate the recommendations and present potential savings.
-spprdCurrencyCode :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdCurrencyCode = lens _spprdCurrencyCode (\s a -> s {_spprdCurrencyCode = a})
+-- | The currency code AWS used to generate the recommendations and present
+-- potential savings.
+savingsPlansPurchaseRecommendationDetail_currencyCode :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_currencyCode = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {currencyCode} -> currencyCode) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {currencyCode = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The cost of the recommended Savings Plans over the length of the lookback period.
-spprdEstimatedSPCost :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedSPCost = lens _spprdEstimatedSPCost (\s a -> s {_spprdEstimatedSPCost = a})
+-- | The cost of the recommended Savings Plans over the length of the
+-- lookback period.
+savingsPlansPurchaseRecommendationDetail_estimatedSPCost :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedSPCost = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedSPCost} -> estimatedSPCost) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedSPCost = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The estimated On-Demand costs you would expect with no additional commitment, based on your usage of the selected time period and the Savings Plans you own.
-spprdEstimatedOnDemandCostWithCurrentCommitment :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedOnDemandCostWithCurrentCommitment = lens _spprdEstimatedOnDemandCostWithCurrentCommitment (\s a -> s {_spprdEstimatedOnDemandCostWithCurrentCommitment = a})
+-- | The estimated On-Demand costs you would expect with no additional
+-- commitment, based on your usage of the selected time period and the
+-- Savings Plans you own.
+savingsPlansPurchaseRecommendationDetail_estimatedOnDemandCostWithCurrentCommitment :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedOnDemandCostWithCurrentCommitment = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedOnDemandCostWithCurrentCommitment} -> estimatedOnDemandCostWithCurrentCommitment) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedOnDemandCostWithCurrentCommitment = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The estimated return on investment based on the recommended Savings Plans purchased. This is calculated as @estimatedSavingsAmount@ / @estimatedSPCost@ *100.
-spprdEstimatedROI :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdEstimatedROI = lens _spprdEstimatedROI (\s a -> s {_spprdEstimatedROI = a})
+-- | The estimated return on investment based on the recommended Savings
+-- Plans purchased. This is calculated as @estimatedSavingsAmount@\/
+-- @estimatedSPCost@*100.
+savingsPlansPurchaseRecommendationDetail_estimatedROI :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_estimatedROI = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {estimatedROI} -> estimatedROI) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {estimatedROI = a} :: SavingsPlansPurchaseRecommendationDetail)
 
--- | The lowest value of hourly On-Demand spend over the lookback period of the applicable usage type.
-spprdCurrentMinimumHourlyOnDemandSpend :: Lens' SavingsPlansPurchaseRecommendationDetail (Maybe Text)
-spprdCurrentMinimumHourlyOnDemandSpend = lens _spprdCurrentMinimumHourlyOnDemandSpend (\s a -> s {_spprdCurrentMinimumHourlyOnDemandSpend = a})
+-- | The lowest value of hourly On-Demand spend over the lookback period of
+-- the applicable usage type.
+savingsPlansPurchaseRecommendationDetail_currentMinimumHourlyOnDemandSpend :: Lens.Lens' SavingsPlansPurchaseRecommendationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansPurchaseRecommendationDetail_currentMinimumHourlyOnDemandSpend = Lens.lens (\SavingsPlansPurchaseRecommendationDetail' {currentMinimumHourlyOnDemandSpend} -> currentMinimumHourlyOnDemandSpend) (\s@SavingsPlansPurchaseRecommendationDetail' {} a -> s {currentMinimumHourlyOnDemandSpend = a} :: SavingsPlansPurchaseRecommendationDetail)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     SavingsPlansPurchaseRecommendationDetail
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SavingsPlansPurchaseRecommendationDetail"
       ( \x ->
           SavingsPlansPurchaseRecommendationDetail'
-            <$> (x .:? "UpfrontCost")
-            <*> (x .:? "EstimatedOnDemandCost")
-            <*> (x .:? "AccountId")
-            <*> (x .:? "EstimatedMonthlySavingsAmount")
-            <*> (x .:? "EstimatedSavingsAmount")
-            <*> (x .:? "CurrentMaximumHourlyOnDemandSpend")
-            <*> (x .:? "HourlyCommitmentToPurchase")
-            <*> (x .:? "EstimatedAverageUtilization")
-            <*> (x .:? "CurrentAverageHourlyOnDemandSpend")
-            <*> (x .:? "EstimatedSavingsPercentage")
-            <*> (x .:? "SavingsPlansDetails")
-            <*> (x .:? "CurrencyCode")
-            <*> (x .:? "EstimatedSPCost")
-            <*> (x .:? "EstimatedOnDemandCostWithCurrentCommitment")
-            <*> (x .:? "EstimatedROI")
-            <*> (x .:? "CurrentMinimumHourlyOnDemandSpend")
+            Prelude.<$> (x Prelude..:? "UpfrontCost")
+            Prelude.<*> (x Prelude..:? "EstimatedOnDemandCost")
+            Prelude.<*> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "EstimatedMonthlySavingsAmount")
+            Prelude.<*> (x Prelude..:? "EstimatedSavingsAmount")
+            Prelude.<*> (x Prelude..:? "CurrentMaximumHourlyOnDemandSpend")
+            Prelude.<*> (x Prelude..:? "HourlyCommitmentToPurchase")
+            Prelude.<*> (x Prelude..:? "EstimatedAverageUtilization")
+            Prelude.<*> (x Prelude..:? "CurrentAverageHourlyOnDemandSpend")
+            Prelude.<*> (x Prelude..:? "EstimatedSavingsPercentage")
+            Prelude.<*> (x Prelude..:? "SavingsPlansDetails")
+            Prelude.<*> (x Prelude..:? "CurrencyCode")
+            Prelude.<*> (x Prelude..:? "EstimatedSPCost")
+            Prelude.<*> ( x
+                            Prelude..:? "EstimatedOnDemandCostWithCurrentCommitment"
+                        )
+            Prelude.<*> (x Prelude..:? "EstimatedROI")
+            Prelude.<*> (x Prelude..:? "CurrentMinimumHourlyOnDemandSpend")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     SavingsPlansPurchaseRecommendationDetail
 
 instance
-  NFData
+  Prelude.NFData
     SavingsPlansPurchaseRecommendationDetail

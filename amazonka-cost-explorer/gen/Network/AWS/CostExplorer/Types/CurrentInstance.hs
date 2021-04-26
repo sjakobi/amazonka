@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,142 +22,162 @@ module Network.AWS.CostExplorer.Types.CurrentInstance where
 import Network.AWS.CostExplorer.Types.ResourceDetails
 import Network.AWS.CostExplorer.Types.ResourceUtilization
 import Network.AWS.CostExplorer.Types.TagValues
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Context about the current instance.
 --
---
---
--- /See:/ 'currentInstance' smart constructor.
+-- /See:/ 'newCurrentInstance' smart constructor.
 data CurrentInstance = CurrentInstance'
-  { _ciResourceId ::
-      !(Maybe Text),
-    _ciInstanceName :: !(Maybe Text),
-    _ciSavingsPlansCoveredHoursInLookbackPeriod ::
-      !(Maybe Text),
-    _ciOnDemandHoursInLookbackPeriod ::
-      !(Maybe Text),
-    _ciCurrencyCode :: !(Maybe Text),
-    _ciTags :: !(Maybe [TagValues]),
-    _ciReservationCoveredHoursInLookbackPeriod ::
-      !(Maybe Text),
-    _ciMonthlyCost :: !(Maybe Text),
-    _ciResourceUtilization ::
-      !(Maybe ResourceUtilization),
-    _ciResourceDetails ::
-      !(Maybe ResourceDetails),
-    _ciTotalRunningHoursInLookbackPeriod ::
-      !(Maybe Text)
+  { -- | Resource ID of the current instance.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The name you\'ve given an instance. This field will show as blank if you
+    -- haven\'t given the instance a name.
+    instanceName :: Prelude.Maybe Prelude.Text,
+    -- | Number of hours during the lookback period covered by Savings Plans.
+    savingsPlansCoveredHoursInLookbackPeriod :: Prelude.Maybe Prelude.Text,
+    -- | Number of hours during the lookback period billed at On-Demand rates.
+    onDemandHoursInLookbackPeriod :: Prelude.Maybe Prelude.Text,
+    -- | The currency code that AWS used to calculate the costs for this
+    -- instance.
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | Cost allocation resource tags applied to the instance.
+    tags :: Prelude.Maybe [TagValues],
+    -- | Number of hours during the lookback period covered by reservations.
+    reservationCoveredHoursInLookbackPeriod :: Prelude.Maybe Prelude.Text,
+    -- | Current On-Demand cost of operating this instance on a monthly basis.
+    monthlyCost :: Prelude.Maybe Prelude.Text,
+    -- | Utilization information of the current instance during the lookback
+    -- period.
+    resourceUtilization :: Prelude.Maybe ResourceUtilization,
+    -- | Details about the resource and utilization.
+    resourceDetails :: Prelude.Maybe ResourceDetails,
+    -- | The total number of hours the instance ran during the lookback period.
+    totalRunningHoursInLookbackPeriod :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CurrentInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CurrentInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciResourceId' - Resource ID of the current instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciInstanceName' - The name you've given an instance. This field will show as blank if you haven't given the instance a name.
+-- 'resourceId', 'currentInstance_resourceId' - Resource ID of the current instance.
 --
--- * 'ciSavingsPlansCoveredHoursInLookbackPeriod' - Number of hours during the lookback period covered by Savings Plans.
+-- 'instanceName', 'currentInstance_instanceName' - The name you\'ve given an instance. This field will show as blank if you
+-- haven\'t given the instance a name.
 --
--- * 'ciOnDemandHoursInLookbackPeriod' - Number of hours during the lookback period billed at On-Demand rates.
+-- 'savingsPlansCoveredHoursInLookbackPeriod', 'currentInstance_savingsPlansCoveredHoursInLookbackPeriod' - Number of hours during the lookback period covered by Savings Plans.
 --
--- * 'ciCurrencyCode' - The currency code that AWS used to calculate the costs for this instance.
+-- 'onDemandHoursInLookbackPeriod', 'currentInstance_onDemandHoursInLookbackPeriod' - Number of hours during the lookback period billed at On-Demand rates.
 --
--- * 'ciTags' - Cost allocation resource tags applied to the instance.
+-- 'currencyCode', 'currentInstance_currencyCode' - The currency code that AWS used to calculate the costs for this
+-- instance.
 --
--- * 'ciReservationCoveredHoursInLookbackPeriod' - Number of hours during the lookback period covered by reservations.
+-- 'tags', 'currentInstance_tags' - Cost allocation resource tags applied to the instance.
 --
--- * 'ciMonthlyCost' - Current On-Demand cost of operating this instance on a monthly basis.
+-- 'reservationCoveredHoursInLookbackPeriod', 'currentInstance_reservationCoveredHoursInLookbackPeriod' - Number of hours during the lookback period covered by reservations.
 --
--- * 'ciResourceUtilization' - Utilization information of the current instance during the lookback period.
+-- 'monthlyCost', 'currentInstance_monthlyCost' - Current On-Demand cost of operating this instance on a monthly basis.
 --
--- * 'ciResourceDetails' - Details about the resource and utilization.
+-- 'resourceUtilization', 'currentInstance_resourceUtilization' - Utilization information of the current instance during the lookback
+-- period.
 --
--- * 'ciTotalRunningHoursInLookbackPeriod' - The total number of hours the instance ran during the lookback period.
-currentInstance ::
+-- 'resourceDetails', 'currentInstance_resourceDetails' - Details about the resource and utilization.
+--
+-- 'totalRunningHoursInLookbackPeriod', 'currentInstance_totalRunningHoursInLookbackPeriod' - The total number of hours the instance ran during the lookback period.
+newCurrentInstance ::
   CurrentInstance
-currentInstance =
+newCurrentInstance =
   CurrentInstance'
-    { _ciResourceId = Nothing,
-      _ciInstanceName = Nothing,
-      _ciSavingsPlansCoveredHoursInLookbackPeriod =
-        Nothing,
-      _ciOnDemandHoursInLookbackPeriod = Nothing,
-      _ciCurrencyCode = Nothing,
-      _ciTags = Nothing,
-      _ciReservationCoveredHoursInLookbackPeriod = Nothing,
-      _ciMonthlyCost = Nothing,
-      _ciResourceUtilization = Nothing,
-      _ciResourceDetails = Nothing,
-      _ciTotalRunningHoursInLookbackPeriod = Nothing
+    { resourceId = Prelude.Nothing,
+      instanceName = Prelude.Nothing,
+      savingsPlansCoveredHoursInLookbackPeriod =
+        Prelude.Nothing,
+      onDemandHoursInLookbackPeriod = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      reservationCoveredHoursInLookbackPeriod =
+        Prelude.Nothing,
+      monthlyCost = Prelude.Nothing,
+      resourceUtilization = Prelude.Nothing,
+      resourceDetails = Prelude.Nothing,
+      totalRunningHoursInLookbackPeriod = Prelude.Nothing
     }
 
 -- | Resource ID of the current instance.
-ciResourceId :: Lens' CurrentInstance (Maybe Text)
-ciResourceId = lens _ciResourceId (\s a -> s {_ciResourceId = a})
+currentInstance_resourceId :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_resourceId = Lens.lens (\CurrentInstance' {resourceId} -> resourceId) (\s@CurrentInstance' {} a -> s {resourceId = a} :: CurrentInstance)
 
--- | The name you've given an instance. This field will show as blank if you haven't given the instance a name.
-ciInstanceName :: Lens' CurrentInstance (Maybe Text)
-ciInstanceName = lens _ciInstanceName (\s a -> s {_ciInstanceName = a})
+-- | The name you\'ve given an instance. This field will show as blank if you
+-- haven\'t given the instance a name.
+currentInstance_instanceName :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_instanceName = Lens.lens (\CurrentInstance' {instanceName} -> instanceName) (\s@CurrentInstance' {} a -> s {instanceName = a} :: CurrentInstance)
 
 -- | Number of hours during the lookback period covered by Savings Plans.
-ciSavingsPlansCoveredHoursInLookbackPeriod :: Lens' CurrentInstance (Maybe Text)
-ciSavingsPlansCoveredHoursInLookbackPeriod = lens _ciSavingsPlansCoveredHoursInLookbackPeriod (\s a -> s {_ciSavingsPlansCoveredHoursInLookbackPeriod = a})
+currentInstance_savingsPlansCoveredHoursInLookbackPeriod :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_savingsPlansCoveredHoursInLookbackPeriod = Lens.lens (\CurrentInstance' {savingsPlansCoveredHoursInLookbackPeriod} -> savingsPlansCoveredHoursInLookbackPeriod) (\s@CurrentInstance' {} a -> s {savingsPlansCoveredHoursInLookbackPeriod = a} :: CurrentInstance)
 
 -- | Number of hours during the lookback period billed at On-Demand rates.
-ciOnDemandHoursInLookbackPeriod :: Lens' CurrentInstance (Maybe Text)
-ciOnDemandHoursInLookbackPeriod = lens _ciOnDemandHoursInLookbackPeriod (\s a -> s {_ciOnDemandHoursInLookbackPeriod = a})
+currentInstance_onDemandHoursInLookbackPeriod :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_onDemandHoursInLookbackPeriod = Lens.lens (\CurrentInstance' {onDemandHoursInLookbackPeriod} -> onDemandHoursInLookbackPeriod) (\s@CurrentInstance' {} a -> s {onDemandHoursInLookbackPeriod = a} :: CurrentInstance)
 
--- | The currency code that AWS used to calculate the costs for this instance.
-ciCurrencyCode :: Lens' CurrentInstance (Maybe Text)
-ciCurrencyCode = lens _ciCurrencyCode (\s a -> s {_ciCurrencyCode = a})
+-- | The currency code that AWS used to calculate the costs for this
+-- instance.
+currentInstance_currencyCode :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_currencyCode = Lens.lens (\CurrentInstance' {currencyCode} -> currencyCode) (\s@CurrentInstance' {} a -> s {currencyCode = a} :: CurrentInstance)
 
 -- | Cost allocation resource tags applied to the instance.
-ciTags :: Lens' CurrentInstance [TagValues]
-ciTags = lens _ciTags (\s a -> s {_ciTags = a}) . _Default . _Coerce
+currentInstance_tags :: Lens.Lens' CurrentInstance (Prelude.Maybe [TagValues])
+currentInstance_tags = Lens.lens (\CurrentInstance' {tags} -> tags) (\s@CurrentInstance' {} a -> s {tags = a} :: CurrentInstance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Number of hours during the lookback period covered by reservations.
-ciReservationCoveredHoursInLookbackPeriod :: Lens' CurrentInstance (Maybe Text)
-ciReservationCoveredHoursInLookbackPeriod = lens _ciReservationCoveredHoursInLookbackPeriod (\s a -> s {_ciReservationCoveredHoursInLookbackPeriod = a})
+currentInstance_reservationCoveredHoursInLookbackPeriod :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_reservationCoveredHoursInLookbackPeriod = Lens.lens (\CurrentInstance' {reservationCoveredHoursInLookbackPeriod} -> reservationCoveredHoursInLookbackPeriod) (\s@CurrentInstance' {} a -> s {reservationCoveredHoursInLookbackPeriod = a} :: CurrentInstance)
 
 -- | Current On-Demand cost of operating this instance on a monthly basis.
-ciMonthlyCost :: Lens' CurrentInstance (Maybe Text)
-ciMonthlyCost = lens _ciMonthlyCost (\s a -> s {_ciMonthlyCost = a})
+currentInstance_monthlyCost :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_monthlyCost = Lens.lens (\CurrentInstance' {monthlyCost} -> monthlyCost) (\s@CurrentInstance' {} a -> s {monthlyCost = a} :: CurrentInstance)
 
--- | Utilization information of the current instance during the lookback period.
-ciResourceUtilization :: Lens' CurrentInstance (Maybe ResourceUtilization)
-ciResourceUtilization = lens _ciResourceUtilization (\s a -> s {_ciResourceUtilization = a})
+-- | Utilization information of the current instance during the lookback
+-- period.
+currentInstance_resourceUtilization :: Lens.Lens' CurrentInstance (Prelude.Maybe ResourceUtilization)
+currentInstance_resourceUtilization = Lens.lens (\CurrentInstance' {resourceUtilization} -> resourceUtilization) (\s@CurrentInstance' {} a -> s {resourceUtilization = a} :: CurrentInstance)
 
 -- | Details about the resource and utilization.
-ciResourceDetails :: Lens' CurrentInstance (Maybe ResourceDetails)
-ciResourceDetails = lens _ciResourceDetails (\s a -> s {_ciResourceDetails = a})
+currentInstance_resourceDetails :: Lens.Lens' CurrentInstance (Prelude.Maybe ResourceDetails)
+currentInstance_resourceDetails = Lens.lens (\CurrentInstance' {resourceDetails} -> resourceDetails) (\s@CurrentInstance' {} a -> s {resourceDetails = a} :: CurrentInstance)
 
 -- | The total number of hours the instance ran during the lookback period.
-ciTotalRunningHoursInLookbackPeriod :: Lens' CurrentInstance (Maybe Text)
-ciTotalRunningHoursInLookbackPeriod = lens _ciTotalRunningHoursInLookbackPeriod (\s a -> s {_ciTotalRunningHoursInLookbackPeriod = a})
+currentInstance_totalRunningHoursInLookbackPeriod :: Lens.Lens' CurrentInstance (Prelude.Maybe Prelude.Text)
+currentInstance_totalRunningHoursInLookbackPeriod = Lens.lens (\CurrentInstance' {totalRunningHoursInLookbackPeriod} -> totalRunningHoursInLookbackPeriod) (\s@CurrentInstance' {} a -> s {totalRunningHoursInLookbackPeriod = a} :: CurrentInstance)
 
-instance FromJSON CurrentInstance where
+instance Prelude.FromJSON CurrentInstance where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CurrentInstance"
       ( \x ->
           CurrentInstance'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "InstanceName")
-            <*> (x .:? "SavingsPlansCoveredHoursInLookbackPeriod")
-            <*> (x .:? "OnDemandHoursInLookbackPeriod")
-            <*> (x .:? "CurrencyCode")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "ReservationCoveredHoursInLookbackPeriod")
-            <*> (x .:? "MonthlyCost")
-            <*> (x .:? "ResourceUtilization")
-            <*> (x .:? "ResourceDetails")
-            <*> (x .:? "TotalRunningHoursInLookbackPeriod")
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> (x Prelude..:? "InstanceName")
+            Prelude.<*> ( x
+                            Prelude..:? "SavingsPlansCoveredHoursInLookbackPeriod"
+                        )
+            Prelude.<*> (x Prelude..:? "OnDemandHoursInLookbackPeriod")
+            Prelude.<*> (x Prelude..:? "CurrencyCode")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x
+                            Prelude..:? "ReservationCoveredHoursInLookbackPeriod"
+                        )
+            Prelude.<*> (x Prelude..:? "MonthlyCost")
+            Prelude.<*> (x Prelude..:? "ResourceUtilization")
+            Prelude.<*> (x Prelude..:? "ResourceDetails")
+            Prelude.<*> (x Prelude..:? "TotalRunningHoursInLookbackPeriod")
       )
 
-instance Hashable CurrentInstance
+instance Prelude.Hashable CurrentInstance
 
-instance NFData CurrentInstance
+instance Prelude.NFData CurrentInstance

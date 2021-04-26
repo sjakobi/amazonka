@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.SavingsPlansAmortizedCommitment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The amortized amount of Savings Plans purchased in a specific account during a specific time interval.
+-- | The amortized amount of Savings Plans purchased in a specific account
+-- during a specific time interval.
 --
---
---
--- /See:/ 'savingsPlansAmortizedCommitment' smart constructor.
+-- /See:/ 'newSavingsPlansAmortizedCommitment' smart constructor.
 data SavingsPlansAmortizedCommitment = SavingsPlansAmortizedCommitment'
-  { _spacAmortizedUpfrontCommitment ::
-      !( Maybe
-           Text
-       ),
-    _spacAmortizedRecurringCommitment ::
-      !( Maybe
-           Text
-       ),
-    _spacTotalAmortizedCommitment ::
-      !( Maybe
-           Text
-       )
+  { -- | The amortized amount of your Savings Plans commitment that was purchased
+    -- with an @Upfront@ or @PartialUpfront@ Savings Plans.
+    amortizedUpfrontCommitment :: Prelude.Maybe Prelude.Text,
+    -- | The amortized amount of your Savings Plans commitment that was purchased
+    -- with either a @Partial@ or a @NoUpfront@.
+    amortizedRecurringCommitment :: Prelude.Maybe Prelude.Text,
+    -- | The total amortized amount of your Savings Plans commitment, regardless
+    -- of your Savings Plans purchase method.
+    totalAmortizedCommitment :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SavingsPlansAmortizedCommitment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SavingsPlansAmortizedCommitment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spacAmortizedUpfrontCommitment' - The amortized amount of your Savings Plans commitment that was purchased with an @Upfront@ or @PartialUpfront@ Savings Plans.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spacAmortizedRecurringCommitment' - The amortized amount of your Savings Plans commitment that was purchased with either a @Partial@ or a @NoUpfront@ .
+-- 'amortizedUpfrontCommitment', 'savingsPlansAmortizedCommitment_amortizedUpfrontCommitment' - The amortized amount of your Savings Plans commitment that was purchased
+-- with an @Upfront@ or @PartialUpfront@ Savings Plans.
 --
--- * 'spacTotalAmortizedCommitment' - The total amortized amount of your Savings Plans commitment, regardless of your Savings Plans purchase method.
-savingsPlansAmortizedCommitment ::
+-- 'amortizedRecurringCommitment', 'savingsPlansAmortizedCommitment_amortizedRecurringCommitment' - The amortized amount of your Savings Plans commitment that was purchased
+-- with either a @Partial@ or a @NoUpfront@.
+--
+-- 'totalAmortizedCommitment', 'savingsPlansAmortizedCommitment_totalAmortizedCommitment' - The total amortized amount of your Savings Plans commitment, regardless
+-- of your Savings Plans purchase method.
+newSavingsPlansAmortizedCommitment ::
   SavingsPlansAmortizedCommitment
-savingsPlansAmortizedCommitment =
+newSavingsPlansAmortizedCommitment =
   SavingsPlansAmortizedCommitment'
-    { _spacAmortizedUpfrontCommitment =
-        Nothing,
-      _spacAmortizedRecurringCommitment =
-        Nothing,
-      _spacTotalAmortizedCommitment = Nothing
+    { amortizedUpfrontCommitment =
+        Prelude.Nothing,
+      amortizedRecurringCommitment =
+        Prelude.Nothing,
+      totalAmortizedCommitment = Prelude.Nothing
     }
 
--- | The amortized amount of your Savings Plans commitment that was purchased with an @Upfront@ or @PartialUpfront@ Savings Plans.
-spacAmortizedUpfrontCommitment :: Lens' SavingsPlansAmortizedCommitment (Maybe Text)
-spacAmortizedUpfrontCommitment = lens _spacAmortizedUpfrontCommitment (\s a -> s {_spacAmortizedUpfrontCommitment = a})
+-- | The amortized amount of your Savings Plans commitment that was purchased
+-- with an @Upfront@ or @PartialUpfront@ Savings Plans.
+savingsPlansAmortizedCommitment_amortizedUpfrontCommitment :: Lens.Lens' SavingsPlansAmortizedCommitment (Prelude.Maybe Prelude.Text)
+savingsPlansAmortizedCommitment_amortizedUpfrontCommitment = Lens.lens (\SavingsPlansAmortizedCommitment' {amortizedUpfrontCommitment} -> amortizedUpfrontCommitment) (\s@SavingsPlansAmortizedCommitment' {} a -> s {amortizedUpfrontCommitment = a} :: SavingsPlansAmortizedCommitment)
 
--- | The amortized amount of your Savings Plans commitment that was purchased with either a @Partial@ or a @NoUpfront@ .
-spacAmortizedRecurringCommitment :: Lens' SavingsPlansAmortizedCommitment (Maybe Text)
-spacAmortizedRecurringCommitment = lens _spacAmortizedRecurringCommitment (\s a -> s {_spacAmortizedRecurringCommitment = a})
+-- | The amortized amount of your Savings Plans commitment that was purchased
+-- with either a @Partial@ or a @NoUpfront@.
+savingsPlansAmortizedCommitment_amortizedRecurringCommitment :: Lens.Lens' SavingsPlansAmortizedCommitment (Prelude.Maybe Prelude.Text)
+savingsPlansAmortizedCommitment_amortizedRecurringCommitment = Lens.lens (\SavingsPlansAmortizedCommitment' {amortizedRecurringCommitment} -> amortizedRecurringCommitment) (\s@SavingsPlansAmortizedCommitment' {} a -> s {amortizedRecurringCommitment = a} :: SavingsPlansAmortizedCommitment)
 
--- | The total amortized amount of your Savings Plans commitment, regardless of your Savings Plans purchase method.
-spacTotalAmortizedCommitment :: Lens' SavingsPlansAmortizedCommitment (Maybe Text)
-spacTotalAmortizedCommitment = lens _spacTotalAmortizedCommitment (\s a -> s {_spacTotalAmortizedCommitment = a})
+-- | The total amortized amount of your Savings Plans commitment, regardless
+-- of your Savings Plans purchase method.
+savingsPlansAmortizedCommitment_totalAmortizedCommitment :: Lens.Lens' SavingsPlansAmortizedCommitment (Prelude.Maybe Prelude.Text)
+savingsPlansAmortizedCommitment_totalAmortizedCommitment = Lens.lens (\SavingsPlansAmortizedCommitment' {totalAmortizedCommitment} -> totalAmortizedCommitment) (\s@SavingsPlansAmortizedCommitment' {} a -> s {totalAmortizedCommitment = a} :: SavingsPlansAmortizedCommitment)
 
-instance FromJSON SavingsPlansAmortizedCommitment where
+instance
+  Prelude.FromJSON
+    SavingsPlansAmortizedCommitment
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SavingsPlansAmortizedCommitment"
       ( \x ->
           SavingsPlansAmortizedCommitment'
-            <$> (x .:? "AmortizedUpfrontCommitment")
-            <*> (x .:? "AmortizedRecurringCommitment")
-            <*> (x .:? "TotalAmortizedCommitment")
+            Prelude.<$> (x Prelude..:? "AmortizedUpfrontCommitment")
+            Prelude.<*> (x Prelude..:? "AmortizedRecurringCommitment")
+            Prelude.<*> (x Prelude..:? "TotalAmortizedCommitment")
       )
 
-instance Hashable SavingsPlansAmortizedCommitment
+instance
+  Prelude.Hashable
+    SavingsPlansAmortizedCommitment
 
-instance NFData SavingsPlansAmortizedCommitment
+instance
+  Prelude.NFData
+    SavingsPlansAmortizedCommitment

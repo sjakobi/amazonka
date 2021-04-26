@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostExplorer.Types.TermInYears
   ( TermInYears
       ( ..,
-        OneYear,
-        ThreeYears
+        TermInYearsONEYEAR,
+        TermInYearsTHREEYEARS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TermInYears = TermInYears' (CI Text)
+newtype TermInYears = TermInYears'
+  { fromTermInYears ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneYear :: TermInYears
-pattern OneYear = TermInYears' "ONE_YEAR"
+pattern TermInYearsONEYEAR :: TermInYears
+pattern TermInYearsONEYEAR = TermInYears' "ONE_YEAR"
 
-pattern ThreeYears :: TermInYears
-pattern ThreeYears = TermInYears' "THREE_YEARS"
+pattern TermInYearsTHREEYEARS :: TermInYears
+pattern TermInYearsTHREEYEARS = TermInYears' "THREE_YEARS"
 
 {-# COMPLETE
-  OneYear,
-  ThreeYears,
+  TermInYearsONEYEAR,
+  TermInYearsTHREEYEARS,
   TermInYears'
   #-}
 
-instance FromText TermInYears where
-  parser = (TermInYears' . mk) <$> takeText
+instance Prelude.FromText TermInYears where
+  parser = TermInYears' Prelude.<$> Prelude.takeText
 
-instance ToText TermInYears where
-  toText (TermInYears' ci) = original ci
+instance Prelude.ToText TermInYears where
+  toText (TermInYears' x) = x
 
-instance Hashable TermInYears
+instance Prelude.Hashable TermInYears
 
-instance NFData TermInYears
+instance Prelude.NFData TermInYears
 
-instance ToByteString TermInYears
+instance Prelude.ToByteString TermInYears
 
-instance ToQuery TermInYears
+instance Prelude.ToQuery TermInYears
 
-instance ToHeader TermInYears
+instance Prelude.ToHeader TermInYears
 
-instance ToJSON TermInYears where
-  toJSON = toJSONText
+instance Prelude.ToJSON TermInYears where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TermInYears where
-  parseJSON = parseJSONText "TermInYears"
+instance Prelude.FromJSON TermInYears where
+  parseJSON = Prelude.parseJSONText "TermInYears"

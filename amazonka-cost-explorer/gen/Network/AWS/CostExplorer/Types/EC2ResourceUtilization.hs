@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,85 +20,84 @@
 module Network.AWS.CostExplorer.Types.EC2ResourceUtilization where
 
 import Network.AWS.CostExplorer.Types.EBSResourceUtilization
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Utilization metrics of the instance.
 --
---
---
--- /See:/ 'ec2ResourceUtilization' smart constructor.
+-- /See:/ 'newEC2ResourceUtilization' smart constructor.
 data EC2ResourceUtilization = EC2ResourceUtilization'
-  { _eruMaxStorageUtilizationPercentage ::
-      !(Maybe Text),
-    _eruMaxMemoryUtilizationPercentage ::
-      !(Maybe Text),
-    _eruEBSResourceUtilization ::
-      !( Maybe
-           EBSResourceUtilization
-       ),
-    _eruMaxCPUUtilizationPercentage ::
-      !(Maybe Text)
+  { -- | Maximum observed or expected storage utilization of the instance (does
+    -- not measure EBS storage).
+    maxStorageUtilizationPercentage :: Prelude.Maybe Prelude.Text,
+    -- | Maximum observed or expected memory utilization of the instance.
+    maxMemoryUtilizationPercentage :: Prelude.Maybe Prelude.Text,
+    -- | The EBS field that contains a list of EBS metrics associated with the
+    -- current instance.
+    eBSResourceUtilization :: Prelude.Maybe EBSResourceUtilization,
+    -- | Maximum observed or expected CPU utilization of the instance.
+    maxCpuUtilizationPercentage :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EC2ResourceUtilization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EC2ResourceUtilization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eruMaxStorageUtilizationPercentage' - Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eruMaxMemoryUtilizationPercentage' - Maximum observed or expected memory utilization of the instance.
+-- 'maxStorageUtilizationPercentage', 'eC2ResourceUtilization_maxStorageUtilizationPercentage' - Maximum observed or expected storage utilization of the instance (does
+-- not measure EBS storage).
 --
--- * 'eruEBSResourceUtilization' - The EBS field that contains a list of EBS metrics associated with the current instance.
+-- 'maxMemoryUtilizationPercentage', 'eC2ResourceUtilization_maxMemoryUtilizationPercentage' - Maximum observed or expected memory utilization of the instance.
 --
--- * 'eruMaxCPUUtilizationPercentage' - Maximum observed or expected CPU utilization of the instance.
-ec2ResourceUtilization ::
+-- 'eBSResourceUtilization', 'eC2ResourceUtilization_eBSResourceUtilization' - The EBS field that contains a list of EBS metrics associated with the
+-- current instance.
+--
+-- 'maxCpuUtilizationPercentage', 'eC2ResourceUtilization_maxCpuUtilizationPercentage' - Maximum observed or expected CPU utilization of the instance.
+newEC2ResourceUtilization ::
   EC2ResourceUtilization
-ec2ResourceUtilization =
+newEC2ResourceUtilization =
   EC2ResourceUtilization'
-    { _eruMaxStorageUtilizationPercentage =
-        Nothing,
-      _eruMaxMemoryUtilizationPercentage = Nothing,
-      _eruEBSResourceUtilization = Nothing,
-      _eruMaxCPUUtilizationPercentage = Nothing
+    { maxStorageUtilizationPercentage =
+        Prelude.Nothing,
+      maxMemoryUtilizationPercentage = Prelude.Nothing,
+      eBSResourceUtilization = Prelude.Nothing,
+      maxCpuUtilizationPercentage = Prelude.Nothing
     }
 
--- | Maximum observed or expected storage utilization of the instance (does not measure EBS storage).
-eruMaxStorageUtilizationPercentage :: Lens' EC2ResourceUtilization (Maybe Text)
-eruMaxStorageUtilizationPercentage = lens _eruMaxStorageUtilizationPercentage (\s a -> s {_eruMaxStorageUtilizationPercentage = a})
+-- | Maximum observed or expected storage utilization of the instance (does
+-- not measure EBS storage).
+eC2ResourceUtilization_maxStorageUtilizationPercentage :: Lens.Lens' EC2ResourceUtilization (Prelude.Maybe Prelude.Text)
+eC2ResourceUtilization_maxStorageUtilizationPercentage = Lens.lens (\EC2ResourceUtilization' {maxStorageUtilizationPercentage} -> maxStorageUtilizationPercentage) (\s@EC2ResourceUtilization' {} a -> s {maxStorageUtilizationPercentage = a} :: EC2ResourceUtilization)
 
 -- | Maximum observed or expected memory utilization of the instance.
-eruMaxMemoryUtilizationPercentage :: Lens' EC2ResourceUtilization (Maybe Text)
-eruMaxMemoryUtilizationPercentage = lens _eruMaxMemoryUtilizationPercentage (\s a -> s {_eruMaxMemoryUtilizationPercentage = a})
+eC2ResourceUtilization_maxMemoryUtilizationPercentage :: Lens.Lens' EC2ResourceUtilization (Prelude.Maybe Prelude.Text)
+eC2ResourceUtilization_maxMemoryUtilizationPercentage = Lens.lens (\EC2ResourceUtilization' {maxMemoryUtilizationPercentage} -> maxMemoryUtilizationPercentage) (\s@EC2ResourceUtilization' {} a -> s {maxMemoryUtilizationPercentage = a} :: EC2ResourceUtilization)
 
--- | The EBS field that contains a list of EBS metrics associated with the current instance.
-eruEBSResourceUtilization :: Lens' EC2ResourceUtilization (Maybe EBSResourceUtilization)
-eruEBSResourceUtilization = lens _eruEBSResourceUtilization (\s a -> s {_eruEBSResourceUtilization = a})
+-- | The EBS field that contains a list of EBS metrics associated with the
+-- current instance.
+eC2ResourceUtilization_eBSResourceUtilization :: Lens.Lens' EC2ResourceUtilization (Prelude.Maybe EBSResourceUtilization)
+eC2ResourceUtilization_eBSResourceUtilization = Lens.lens (\EC2ResourceUtilization' {eBSResourceUtilization} -> eBSResourceUtilization) (\s@EC2ResourceUtilization' {} a -> s {eBSResourceUtilization = a} :: EC2ResourceUtilization)
 
 -- | Maximum observed or expected CPU utilization of the instance.
-eruMaxCPUUtilizationPercentage :: Lens' EC2ResourceUtilization (Maybe Text)
-eruMaxCPUUtilizationPercentage = lens _eruMaxCPUUtilizationPercentage (\s a -> s {_eruMaxCPUUtilizationPercentage = a})
+eC2ResourceUtilization_maxCpuUtilizationPercentage :: Lens.Lens' EC2ResourceUtilization (Prelude.Maybe Prelude.Text)
+eC2ResourceUtilization_maxCpuUtilizationPercentage = Lens.lens (\EC2ResourceUtilization' {maxCpuUtilizationPercentage} -> maxCpuUtilizationPercentage) (\s@EC2ResourceUtilization' {} a -> s {maxCpuUtilizationPercentage = a} :: EC2ResourceUtilization)
 
-instance FromJSON EC2ResourceUtilization where
+instance Prelude.FromJSON EC2ResourceUtilization where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EC2ResourceUtilization"
       ( \x ->
           EC2ResourceUtilization'
-            <$> (x .:? "MaxStorageUtilizationPercentage")
-            <*> (x .:? "MaxMemoryUtilizationPercentage")
-            <*> (x .:? "EBSResourceUtilization")
-            <*> (x .:? "MaxCpuUtilizationPercentage")
+            Prelude.<$> (x Prelude..:? "MaxStorageUtilizationPercentage")
+            Prelude.<*> (x Prelude..:? "MaxMemoryUtilizationPercentage")
+            Prelude.<*> (x Prelude..:? "EBSResourceUtilization")
+            Prelude.<*> (x Prelude..:? "MaxCpuUtilizationPercentage")
       )
 
-instance Hashable EC2ResourceUtilization
+instance Prelude.Hashable EC2ResourceUtilization
 
-instance NFData EC2ResourceUtilization
+instance Prelude.NFData EC2ResourceUtilization

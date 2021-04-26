@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +21,80 @@ module Network.AWS.CostExplorer.Types.Subscriber where
 
 import Network.AWS.CostExplorer.Types.SubscriberStatus
 import Network.AWS.CostExplorer.Types.SubscriberType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The recipient of @AnomalySubscription@ notifications.
 --
---
---
--- /See:/ 'subscriber' smart constructor.
+-- /See:/ 'newSubscriber' smart constructor.
 data Subscriber = Subscriber'
-  { _sStatus ::
-      !(Maybe SubscriberStatus),
-    _sAddress :: !(Maybe Text),
-    _sType :: !(Maybe SubscriberType)
+  { -- | Indicates if the subscriber accepts the notifications.
+    status :: Prelude.Maybe SubscriberStatus,
+    -- | The email address or SNS Amazon Resource Name (ARN), depending on the
+    -- @Type@.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | The notification delivery channel.
+    type' :: Prelude.Maybe SubscriberType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Subscriber' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Subscriber' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sStatus' - Indicates if the subscriber accepts the notifications.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sAddress' - The email address or SNS Amazon Resource Name (ARN), depending on the @Type@ .
+-- 'status', 'subscriber_status' - Indicates if the subscriber accepts the notifications.
 --
--- * 'sType' - The notification delivery channel.
-subscriber ::
+-- 'address', 'subscriber_address' - The email address or SNS Amazon Resource Name (ARN), depending on the
+-- @Type@.
+--
+-- 'type'', 'subscriber_type' - The notification delivery channel.
+newSubscriber ::
   Subscriber
-subscriber =
+newSubscriber =
   Subscriber'
-    { _sStatus = Nothing,
-      _sAddress = Nothing,
-      _sType = Nothing
+    { status = Prelude.Nothing,
+      address = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | Indicates if the subscriber accepts the notifications.
-sStatus :: Lens' Subscriber (Maybe SubscriberStatus)
-sStatus = lens _sStatus (\s a -> s {_sStatus = a})
+subscriber_status :: Lens.Lens' Subscriber (Prelude.Maybe SubscriberStatus)
+subscriber_status = Lens.lens (\Subscriber' {status} -> status) (\s@Subscriber' {} a -> s {status = a} :: Subscriber)
 
--- | The email address or SNS Amazon Resource Name (ARN), depending on the @Type@ .
-sAddress :: Lens' Subscriber (Maybe Text)
-sAddress = lens _sAddress (\s a -> s {_sAddress = a})
+-- | The email address or SNS Amazon Resource Name (ARN), depending on the
+-- @Type@.
+subscriber_address :: Lens.Lens' Subscriber (Prelude.Maybe Prelude.Text)
+subscriber_address = Lens.lens (\Subscriber' {address} -> address) (\s@Subscriber' {} a -> s {address = a} :: Subscriber)
 
 -- | The notification delivery channel.
-sType :: Lens' Subscriber (Maybe SubscriberType)
-sType = lens _sType (\s a -> s {_sType = a})
+subscriber_type :: Lens.Lens' Subscriber (Prelude.Maybe SubscriberType)
+subscriber_type = Lens.lens (\Subscriber' {type'} -> type') (\s@Subscriber' {} a -> s {type' = a} :: Subscriber)
 
-instance FromJSON Subscriber where
+instance Prelude.FromJSON Subscriber where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Subscriber"
       ( \x ->
           Subscriber'
-            <$> (x .:? "Status")
-            <*> (x .:? "Address")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Address")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable Subscriber
+instance Prelude.Hashable Subscriber
 
-instance NFData Subscriber
+instance Prelude.NFData Subscriber
 
-instance ToJSON Subscriber where
+instance Prelude.ToJSON Subscriber where
   toJSON Subscriber' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _sStatus,
-            ("Address" .=) <$> _sAddress,
-            ("Type" .=) <$> _sType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("Address" Prelude..=) Prelude.<$> address,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the name, ARN, rules, definition, and effective dates of a Cost Category that's defined in the account.
+-- Returns the name, ARN, rules, definition, and effective dates of a Cost
+-- Category that\'s defined in the account.
 --
---
--- You have the option to use @EffectiveOn@ to return a Cost Category that is active on a specific date. If there is no @EffectiveOn@ specified, you’ll see a Cost Category that is effective on the current date. If Cost Category is still effective, @EffectiveEnd@ is omitted in the response.
+-- You have the option to use @EffectiveOn@ to return a Cost Category that
+-- is active on a specific date. If there is no @EffectiveOn@ specified,
+-- you’ll see a Cost Category that is effective on the current date. If
+-- Cost Category is still effective, @EffectiveEnd@ is omitted in the
+-- response.
 module Network.AWS.CostExplorer.DescribeCostCategoryDefinition
   ( -- * Creating a Request
-    describeCostCategoryDefinition,
-    DescribeCostCategoryDefinition,
+    DescribeCostCategoryDefinition (..),
+    newDescribeCostCategoryDefinition,
 
     -- * Request Lenses
-    dEffectiveOn,
-    dCostCategoryARN,
+    describeCostCategoryDefinition_effectiveOn,
+    describeCostCategoryDefinition_costCategoryArn,
 
     -- * Destructuring the Response
-    describeCostCategoryDefinitionResponse,
-    DescribeCostCategoryDefinitionResponse,
+    DescribeCostCategoryDefinitionResponse (..),
+    newDescribeCostCategoryDefinitionResponse,
 
     -- * Response Lenses
-    drsCostCategory,
-    drsResponseStatus,
+    describeCostCategoryDefinitionResponse_costCategory,
+    describeCostCategoryDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CostExplorer.Types.CostCategory
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCostCategoryDefinition' smart constructor.
+-- | /See:/ 'newDescribeCostCategoryDefinition' smart constructor.
 data DescribeCostCategoryDefinition = DescribeCostCategoryDefinition'
-  { _dEffectiveOn ::
-      !( Maybe
-           Text
-       ),
-    _dCostCategoryARN ::
-      !Text
+  { -- | The date when the Cost Category was effective.
+    effectiveOn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for your Cost Category.
+    costCategoryArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCostCategoryDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCostCategoryDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dEffectiveOn' - The date when the Cost Category was effective.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dCostCategoryARN' - The unique identifier for your Cost Category.
-describeCostCategoryDefinition ::
-  -- | 'dCostCategoryARN'
-  Text ->
+-- 'effectiveOn', 'describeCostCategoryDefinition_effectiveOn' - The date when the Cost Category was effective.
+--
+-- 'costCategoryArn', 'describeCostCategoryDefinition_costCategoryArn' - The unique identifier for your Cost Category.
+newDescribeCostCategoryDefinition ::
+  -- | 'costCategoryArn'
+  Prelude.Text ->
   DescribeCostCategoryDefinition
-describeCostCategoryDefinition pCostCategoryARN_ =
+newDescribeCostCategoryDefinition pCostCategoryArn_ =
   DescribeCostCategoryDefinition'
-    { _dEffectiveOn =
-        Nothing,
-      _dCostCategoryARN = pCostCategoryARN_
+    { effectiveOn =
+        Prelude.Nothing,
+      costCategoryArn = pCostCategoryArn_
     }
 
 -- | The date when the Cost Category was effective.
-dEffectiveOn :: Lens' DescribeCostCategoryDefinition (Maybe Text)
-dEffectiveOn = lens _dEffectiveOn (\s a -> s {_dEffectiveOn = a})
+describeCostCategoryDefinition_effectiveOn :: Lens.Lens' DescribeCostCategoryDefinition (Prelude.Maybe Prelude.Text)
+describeCostCategoryDefinition_effectiveOn = Lens.lens (\DescribeCostCategoryDefinition' {effectiveOn} -> effectiveOn) (\s@DescribeCostCategoryDefinition' {} a -> s {effectiveOn = a} :: DescribeCostCategoryDefinition)
 
 -- | The unique identifier for your Cost Category.
-dCostCategoryARN :: Lens' DescribeCostCategoryDefinition Text
-dCostCategoryARN = lens _dCostCategoryARN (\s a -> s {_dCostCategoryARN = a})
+describeCostCategoryDefinition_costCategoryArn :: Lens.Lens' DescribeCostCategoryDefinition Prelude.Text
+describeCostCategoryDefinition_costCategoryArn = Lens.lens (\DescribeCostCategoryDefinition' {costCategoryArn} -> costCategoryArn) (\s@DescribeCostCategoryDefinition' {} a -> s {costCategoryArn = a} :: DescribeCostCategoryDefinition)
 
-instance AWSRequest DescribeCostCategoryDefinition where
+instance
+  Prelude.AWSRequest
+    DescribeCostCategoryDefinition
+  where
   type
     Rs DescribeCostCategoryDefinition =
       DescribeCostCategoryDefinitionResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCostCategoryDefinitionResponse'
-            <$> (x .?> "CostCategory") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CostCategory")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCostCategoryDefinition
+instance
+  Prelude.Hashable
+    DescribeCostCategoryDefinition
 
-instance NFData DescribeCostCategoryDefinition
+instance
+  Prelude.NFData
+    DescribeCostCategoryDefinition
 
-instance ToHeaders DescribeCostCategoryDefinition where
+instance
+  Prelude.ToHeaders
+    DescribeCostCategoryDefinition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.DescribeCostCategoryDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.DescribeCostCategoryDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCostCategoryDefinition where
+instance
+  Prelude.ToJSON
+    DescribeCostCategoryDefinition
+  where
   toJSON DescribeCostCategoryDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("EffectiveOn" .=) <$> _dEffectiveOn,
-            Just ("CostCategoryArn" .= _dCostCategoryARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EffectiveOn" Prelude..=) Prelude.<$> effectiveOn,
+            Prelude.Just
+              ("CostCategoryArn" Prelude..= costCategoryArn)
           ]
       )
 
-instance ToPath DescribeCostCategoryDefinition where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeCostCategoryDefinition
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCostCategoryDefinition where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeCostCategoryDefinition
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCostCategoryDefinitionResponse' smart constructor.
+-- | /See:/ 'newDescribeCostCategoryDefinitionResponse' smart constructor.
 data DescribeCostCategoryDefinitionResponse = DescribeCostCategoryDefinitionResponse'
-  { _drsCostCategory ::
-      !( Maybe
-           CostCategory
-       ),
-    _drsResponseStatus ::
-      !Int
+  { costCategory :: Prelude.Maybe CostCategory,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCostCategoryDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCostCategoryDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsCostCategory' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeCostCategoryDefinitionResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'costCategory', 'describeCostCategoryDefinitionResponse_costCategory' - Undocumented member.
+--
+-- 'httpStatus', 'describeCostCategoryDefinitionResponse_httpStatus' - The response's http status code.
+newDescribeCostCategoryDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCostCategoryDefinitionResponse
-describeCostCategoryDefinitionResponse
-  pResponseStatus_ =
+newDescribeCostCategoryDefinitionResponse
+  pHttpStatus_ =
     DescribeCostCategoryDefinitionResponse'
-      { _drsCostCategory =
-          Nothing,
-        _drsResponseStatus =
-          pResponseStatus_
+      { costCategory =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-drsCostCategory :: Lens' DescribeCostCategoryDefinitionResponse (Maybe CostCategory)
-drsCostCategory = lens _drsCostCategory (\s a -> s {_drsCostCategory = a})
+describeCostCategoryDefinitionResponse_costCategory :: Lens.Lens' DescribeCostCategoryDefinitionResponse (Prelude.Maybe CostCategory)
+describeCostCategoryDefinitionResponse_costCategory = Lens.lens (\DescribeCostCategoryDefinitionResponse' {costCategory} -> costCategory) (\s@DescribeCostCategoryDefinitionResponse' {} a -> s {costCategory = a} :: DescribeCostCategoryDefinitionResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeCostCategoryDefinitionResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeCostCategoryDefinitionResponse_httpStatus :: Lens.Lens' DescribeCostCategoryDefinitionResponse Prelude.Int
+describeCostCategoryDefinitionResponse_httpStatus = Lens.lens (\DescribeCostCategoryDefinitionResponse' {httpStatus} -> httpStatus) (\s@DescribeCostCategoryDefinitionResponse' {} a -> s {httpStatus = a} :: DescribeCostCategoryDefinitionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeCostCategoryDefinitionResponse

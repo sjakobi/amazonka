@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.CoverageHours where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | How long a running instance either used a reservation or was On-Demand.
 --
---
---
--- /See:/ 'coverageHours' smart constructor.
+-- /See:/ 'newCoverageHours' smart constructor.
 data CoverageHours = CoverageHours'
-  { _chReservedHours ::
-      !(Maybe Text),
-    _chTotalRunningHours :: !(Maybe Text),
-    _chOnDemandHours :: !(Maybe Text),
-    _chCoverageHoursPercentage :: !(Maybe Text)
+  { -- | The number of instance running hours that reservations covered.
+    reservedHours :: Prelude.Maybe Prelude.Text,
+    -- | The total instance usage, in hours.
+    totalRunningHours :: Prelude.Maybe Prelude.Text,
+    -- | The number of instance running hours that On-Demand Instances covered.
+    onDemandHours :: Prelude.Maybe Prelude.Text,
+    -- | The percentage of instance hours that a reservation covered.
+    coverageHoursPercentage :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CoverageHours' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CoverageHours' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chReservedHours' - The number of instance running hours that reservations covered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chTotalRunningHours' - The total instance usage, in hours.
+-- 'reservedHours', 'coverageHours_reservedHours' - The number of instance running hours that reservations covered.
 --
--- * 'chOnDemandHours' - The number of instance running hours that On-Demand Instances covered.
+-- 'totalRunningHours', 'coverageHours_totalRunningHours' - The total instance usage, in hours.
 --
--- * 'chCoverageHoursPercentage' - The percentage of instance hours that a reservation covered.
-coverageHours ::
+-- 'onDemandHours', 'coverageHours_onDemandHours' - The number of instance running hours that On-Demand Instances covered.
+--
+-- 'coverageHoursPercentage', 'coverageHours_coverageHoursPercentage' - The percentage of instance hours that a reservation covered.
+newCoverageHours ::
   CoverageHours
-coverageHours =
+newCoverageHours =
   CoverageHours'
-    { _chReservedHours = Nothing,
-      _chTotalRunningHours = Nothing,
-      _chOnDemandHours = Nothing,
-      _chCoverageHoursPercentage = Nothing
+    { reservedHours = Prelude.Nothing,
+      totalRunningHours = Prelude.Nothing,
+      onDemandHours = Prelude.Nothing,
+      coverageHoursPercentage = Prelude.Nothing
     }
 
 -- | The number of instance running hours that reservations covered.
-chReservedHours :: Lens' CoverageHours (Maybe Text)
-chReservedHours = lens _chReservedHours (\s a -> s {_chReservedHours = a})
+coverageHours_reservedHours :: Lens.Lens' CoverageHours (Prelude.Maybe Prelude.Text)
+coverageHours_reservedHours = Lens.lens (\CoverageHours' {reservedHours} -> reservedHours) (\s@CoverageHours' {} a -> s {reservedHours = a} :: CoverageHours)
 
 -- | The total instance usage, in hours.
-chTotalRunningHours :: Lens' CoverageHours (Maybe Text)
-chTotalRunningHours = lens _chTotalRunningHours (\s a -> s {_chTotalRunningHours = a})
+coverageHours_totalRunningHours :: Lens.Lens' CoverageHours (Prelude.Maybe Prelude.Text)
+coverageHours_totalRunningHours = Lens.lens (\CoverageHours' {totalRunningHours} -> totalRunningHours) (\s@CoverageHours' {} a -> s {totalRunningHours = a} :: CoverageHours)
 
 -- | The number of instance running hours that On-Demand Instances covered.
-chOnDemandHours :: Lens' CoverageHours (Maybe Text)
-chOnDemandHours = lens _chOnDemandHours (\s a -> s {_chOnDemandHours = a})
+coverageHours_onDemandHours :: Lens.Lens' CoverageHours (Prelude.Maybe Prelude.Text)
+coverageHours_onDemandHours = Lens.lens (\CoverageHours' {onDemandHours} -> onDemandHours) (\s@CoverageHours' {} a -> s {onDemandHours = a} :: CoverageHours)
 
 -- | The percentage of instance hours that a reservation covered.
-chCoverageHoursPercentage :: Lens' CoverageHours (Maybe Text)
-chCoverageHoursPercentage = lens _chCoverageHoursPercentage (\s a -> s {_chCoverageHoursPercentage = a})
+coverageHours_coverageHoursPercentage :: Lens.Lens' CoverageHours (Prelude.Maybe Prelude.Text)
+coverageHours_coverageHoursPercentage = Lens.lens (\CoverageHours' {coverageHoursPercentage} -> coverageHoursPercentage) (\s@CoverageHours' {} a -> s {coverageHoursPercentage = a} :: CoverageHours)
 
-instance FromJSON CoverageHours where
+instance Prelude.FromJSON CoverageHours where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CoverageHours"
       ( \x ->
           CoverageHours'
-            <$> (x .:? "ReservedHours")
-            <*> (x .:? "TotalRunningHours")
-            <*> (x .:? "OnDemandHours")
-            <*> (x .:? "CoverageHoursPercentage")
+            Prelude.<$> (x Prelude..:? "ReservedHours")
+            Prelude.<*> (x Prelude..:? "TotalRunningHours")
+            Prelude.<*> (x Prelude..:? "OnDemandHours")
+            Prelude.<*> (x Prelude..:? "CoverageHoursPercentage")
       )
 
-instance Hashable CoverageHours
+instance Prelude.Hashable CoverageHours
 
-instance NFData CoverageHours
+instance Prelude.NFData CoverageHours

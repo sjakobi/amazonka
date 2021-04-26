@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,64 @@ module Network.AWS.CostExplorer.Types.CostCategoryProcessingStatus where
 
 import Network.AWS.CostExplorer.Types.CostCategoryStatus
 import Network.AWS.CostExplorer.Types.CostCategoryStatusComponent
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The list of processing statuses for Cost Management products for a specific cost category.
+-- | The list of processing statuses for Cost Management products for a
+-- specific cost category.
 --
---
---
--- /See:/ 'costCategoryProcessingStatus' smart constructor.
+-- /See:/ 'newCostCategoryProcessingStatus' smart constructor.
 data CostCategoryProcessingStatus = CostCategoryProcessingStatus'
-  { _ccpsStatus ::
-      !( Maybe
-           CostCategoryStatus
-       ),
-    _ccpsComponent ::
-      !( Maybe
-           CostCategoryStatusComponent
-       )
+  { -- | The process status for a specific cost category.
+    status :: Prelude.Maybe CostCategoryStatus,
+    -- | The Cost Management product name of the applied status.
+    component :: Prelude.Maybe CostCategoryStatusComponent
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CostCategoryProcessingStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CostCategoryProcessingStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccpsStatus' - The process status for a specific cost category.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccpsComponent' - The Cost Management product name of the applied status.
-costCategoryProcessingStatus ::
+-- 'status', 'costCategoryProcessingStatus_status' - The process status for a specific cost category.
+--
+-- 'component', 'costCategoryProcessingStatus_component' - The Cost Management product name of the applied status.
+newCostCategoryProcessingStatus ::
   CostCategoryProcessingStatus
-costCategoryProcessingStatus =
+newCostCategoryProcessingStatus =
   CostCategoryProcessingStatus'
-    { _ccpsStatus =
-        Nothing,
-      _ccpsComponent = Nothing
+    { status =
+        Prelude.Nothing,
+      component = Prelude.Nothing
     }
 
 -- | The process status for a specific cost category.
-ccpsStatus :: Lens' CostCategoryProcessingStatus (Maybe CostCategoryStatus)
-ccpsStatus = lens _ccpsStatus (\s a -> s {_ccpsStatus = a})
+costCategoryProcessingStatus_status :: Lens.Lens' CostCategoryProcessingStatus (Prelude.Maybe CostCategoryStatus)
+costCategoryProcessingStatus_status = Lens.lens (\CostCategoryProcessingStatus' {status} -> status) (\s@CostCategoryProcessingStatus' {} a -> s {status = a} :: CostCategoryProcessingStatus)
 
 -- | The Cost Management product name of the applied status.
-ccpsComponent :: Lens' CostCategoryProcessingStatus (Maybe CostCategoryStatusComponent)
-ccpsComponent = lens _ccpsComponent (\s a -> s {_ccpsComponent = a})
+costCategoryProcessingStatus_component :: Lens.Lens' CostCategoryProcessingStatus (Prelude.Maybe CostCategoryStatusComponent)
+costCategoryProcessingStatus_component = Lens.lens (\CostCategoryProcessingStatus' {component} -> component) (\s@CostCategoryProcessingStatus' {} a -> s {component = a} :: CostCategoryProcessingStatus)
 
-instance FromJSON CostCategoryProcessingStatus where
+instance
+  Prelude.FromJSON
+    CostCategoryProcessingStatus
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CostCategoryProcessingStatus"
       ( \x ->
           CostCategoryProcessingStatus'
-            <$> (x .:? "Status") <*> (x .:? "Component")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "Component")
       )
 
-instance Hashable CostCategoryProcessingStatus
+instance
+  Prelude.Hashable
+    CostCategoryProcessingStatus
 
-instance NFData CostCategoryProcessingStatus
+instance Prelude.NFData CostCategoryProcessingStatus

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostExplorer.Types.SubscriberType
   ( SubscriberType
       ( ..,
-        Email,
-        SNS
+        SubscriberTypeEMAIL,
+        SubscriberTypeSNS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SubscriberType = SubscriberType' (CI Text)
+newtype SubscriberType = SubscriberType'
+  { fromSubscriberType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Email :: SubscriberType
-pattern Email = SubscriberType' "EMAIL"
+pattern SubscriberTypeEMAIL :: SubscriberType
+pattern SubscriberTypeEMAIL = SubscriberType' "EMAIL"
 
-pattern SNS :: SubscriberType
-pattern SNS = SubscriberType' "SNS"
+pattern SubscriberTypeSNS :: SubscriberType
+pattern SubscriberTypeSNS = SubscriberType' "SNS"
 
 {-# COMPLETE
-  Email,
-  SNS,
+  SubscriberTypeEMAIL,
+  SubscriberTypeSNS,
   SubscriberType'
   #-}
 
-instance FromText SubscriberType where
-  parser = (SubscriberType' . mk) <$> takeText
+instance Prelude.FromText SubscriberType where
+  parser = SubscriberType' Prelude.<$> Prelude.takeText
 
-instance ToText SubscriberType where
-  toText (SubscriberType' ci) = original ci
+instance Prelude.ToText SubscriberType where
+  toText (SubscriberType' x) = x
 
-instance Hashable SubscriberType
+instance Prelude.Hashable SubscriberType
 
-instance NFData SubscriberType
+instance Prelude.NFData SubscriberType
 
-instance ToByteString SubscriberType
+instance Prelude.ToByteString SubscriberType
 
-instance ToQuery SubscriberType
+instance Prelude.ToQuery SubscriberType
 
-instance ToHeader SubscriberType
+instance Prelude.ToHeader SubscriberType
 
-instance ToJSON SubscriberType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SubscriberType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SubscriberType where
-  parseJSON = parseJSONText "SubscriberType"
+instance Prelude.FromJSON SubscriberType where
+  parseJSON = Prelude.parseJSONText "SubscriberType"

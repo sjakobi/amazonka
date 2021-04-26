@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,136 @@
 -- Deletes a cost anomaly subscription.
 module Network.AWS.CostExplorer.DeleteAnomalySubscription
   ( -- * Creating a Request
-    deleteAnomalySubscription,
-    DeleteAnomalySubscription,
+    DeleteAnomalySubscription (..),
+    newDeleteAnomalySubscription,
 
     -- * Request Lenses
-    dasSubscriptionARN,
+    deleteAnomalySubscription_subscriptionArn,
 
     -- * Destructuring the Response
-    deleteAnomalySubscriptionResponse,
-    DeleteAnomalySubscriptionResponse,
+    DeleteAnomalySubscriptionResponse (..),
+    newDeleteAnomalySubscriptionResponse,
 
     -- * Response Lenses
-    dasrrsResponseStatus,
+    deleteAnomalySubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAnomalySubscription' smart constructor.
-newtype DeleteAnomalySubscription = DeleteAnomalySubscription'
-  { _dasSubscriptionARN ::
-      Text
+-- | /See:/ 'newDeleteAnomalySubscription' smart constructor.
+data DeleteAnomalySubscription = DeleteAnomalySubscription'
+  { -- | The unique identifier of the cost anomaly subscription that you want to
+    -- delete.
+    subscriptionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAnomalySubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAnomalySubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasSubscriptionARN' - The unique identifier of the cost anomaly subscription that you want to delete.
-deleteAnomalySubscription ::
-  -- | 'dasSubscriptionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subscriptionArn', 'deleteAnomalySubscription_subscriptionArn' - The unique identifier of the cost anomaly subscription that you want to
+-- delete.
+newDeleteAnomalySubscription ::
+  -- | 'subscriptionArn'
+  Prelude.Text ->
   DeleteAnomalySubscription
-deleteAnomalySubscription pSubscriptionARN_ =
+newDeleteAnomalySubscription pSubscriptionArn_ =
   DeleteAnomalySubscription'
-    { _dasSubscriptionARN =
-        pSubscriptionARN_
+    { subscriptionArn =
+        pSubscriptionArn_
     }
 
--- | The unique identifier of the cost anomaly subscription that you want to delete.
-dasSubscriptionARN :: Lens' DeleteAnomalySubscription Text
-dasSubscriptionARN = lens _dasSubscriptionARN (\s a -> s {_dasSubscriptionARN = a})
+-- | The unique identifier of the cost anomaly subscription that you want to
+-- delete.
+deleteAnomalySubscription_subscriptionArn :: Lens.Lens' DeleteAnomalySubscription Prelude.Text
+deleteAnomalySubscription_subscriptionArn = Lens.lens (\DeleteAnomalySubscription' {subscriptionArn} -> subscriptionArn) (\s@DeleteAnomalySubscription' {} a -> s {subscriptionArn = a} :: DeleteAnomalySubscription)
 
-instance AWSRequest DeleteAnomalySubscription where
+instance Prelude.AWSRequest DeleteAnomalySubscription where
   type
     Rs DeleteAnomalySubscription =
       DeleteAnomalySubscriptionResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteAnomalySubscriptionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAnomalySubscription
+instance Prelude.Hashable DeleteAnomalySubscription
 
-instance NFData DeleteAnomalySubscription
+instance Prelude.NFData DeleteAnomalySubscription
 
-instance ToHeaders DeleteAnomalySubscription where
+instance Prelude.ToHeaders DeleteAnomalySubscription where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.DeleteAnomalySubscription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.DeleteAnomalySubscription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAnomalySubscription where
+instance Prelude.ToJSON DeleteAnomalySubscription where
   toJSON DeleteAnomalySubscription' {..} =
-    object
-      ( catMaybes
-          [Just ("SubscriptionArn" .= _dasSubscriptionARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SubscriptionArn" Prelude..= subscriptionArn)
+          ]
       )
 
-instance ToPath DeleteAnomalySubscription where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAnomalySubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAnomalySubscription where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAnomalySubscription where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAnomalySubscriptionResponse' smart constructor.
-newtype DeleteAnomalySubscriptionResponse = DeleteAnomalySubscriptionResponse'
-  { _dasrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteAnomalySubscriptionResponse' smart constructor.
+data DeleteAnomalySubscriptionResponse = DeleteAnomalySubscriptionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAnomalySubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAnomalySubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasrrsResponseStatus' - -- | The response status code.
-deleteAnomalySubscriptionResponse ::
-  -- | 'dasrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteAnomalySubscriptionResponse_httpStatus' - The response's http status code.
+newDeleteAnomalySubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteAnomalySubscriptionResponse
-deleteAnomalySubscriptionResponse pResponseStatus_ =
+newDeleteAnomalySubscriptionResponse pHttpStatus_ =
   DeleteAnomalySubscriptionResponse'
-    { _dasrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dasrrsResponseStatus :: Lens' DeleteAnomalySubscriptionResponse Int
-dasrrsResponseStatus = lens _dasrrsResponseStatus (\s a -> s {_dasrrsResponseStatus = a})
+-- | The response's http status code.
+deleteAnomalySubscriptionResponse_httpStatus :: Lens.Lens' DeleteAnomalySubscriptionResponse Prelude.Int
+deleteAnomalySubscriptionResponse_httpStatus = Lens.lens (\DeleteAnomalySubscriptionResponse' {httpStatus} -> httpStatus) (\s@DeleteAnomalySubscriptionResponse' {} a -> s {httpStatus = a} :: DeleteAnomalySubscriptionResponse)
 
-instance NFData DeleteAnomalySubscriptionResponse
+instance
+  Prelude.NFData
+    DeleteAnomalySubscriptionResponse

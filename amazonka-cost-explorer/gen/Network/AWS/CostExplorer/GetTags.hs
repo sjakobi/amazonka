@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,352 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Queries for available tag keys and tag values for a specified period. You can search the tag values for an arbitrary string.
+-- Queries for available tag keys and tag values for a specified period.
+-- You can search the tag values for an arbitrary string.
 module Network.AWS.CostExplorer.GetTags
   ( -- * Creating a Request
-    getTags,
-    GetTags,
+    GetTags (..),
+    newGetTags,
 
     -- * Request Lenses
-    gtMaxResults,
-    gtSearchString,
-    gtTagKey,
-    gtNextPageToken,
-    gtSortBy,
-    gtFilter,
-    gtTimePeriod,
+    getTags_maxResults,
+    getTags_searchString,
+    getTags_tagKey,
+    getTags_nextPageToken,
+    getTags_sortBy,
+    getTags_filter,
+    getTags_timePeriod,
 
     -- * Destructuring the Response
-    getTagsResponse,
-    GetTagsResponse,
+    GetTagsResponse (..),
+    newGetTagsResponse,
 
     -- * Response Lenses
-    gtrrsNextPageToken,
-    gtrrsResponseStatus,
-    gtrrsTags,
-    gtrrsReturnSize,
-    gtrrsTotalSize,
+    getTagsResponse_nextPageToken,
+    getTagsResponse_httpStatus,
+    getTagsResponse_tags,
+    getTagsResponse_returnSize,
+    getTagsResponse_totalSize,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTags' smart constructor.
+-- | /See:/ 'newGetTags' smart constructor.
 data GetTags = GetTags'
-  { _gtMaxResults ::
-      !(Maybe Nat),
-    _gtSearchString :: !(Maybe Text),
-    _gtTagKey :: !(Maybe Text),
-    _gtNextPageToken :: !(Maybe Text),
-    _gtSortBy :: !(Maybe [SortDefinition]),
-    _gtFilter :: !(Maybe Expression),
-    _gtTimePeriod :: !DateInterval
+  { -- | This field is only used when SortBy is provided in the request. The
+    -- maximum number of objects that to be returned for this request. If
+    -- MaxResults is not specified with SortBy, the request will return 1000
+    -- results as the default value for this parameter.
+    --
+    -- For @GetTags@, MaxResults has an upper limit of 1000.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The value that you want to search for.
+    searchString :: Prelude.Maybe Prelude.Text,
+    -- | The key of the tag that you want to return values for.
+    tagKey :: Prelude.Maybe Prelude.Text,
+    -- | The token to retrieve the next set of results. AWS provides the token
+    -- when the response from a previous call has more results than the maximum
+    -- page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The value by which you want to sort the data.
+    --
+    -- The key represents cost and usage metrics. The following values are
+    -- supported:
+    --
+    -- -   @BlendedCost@
+    --
+    -- -   @UnblendedCost@
+    --
+    -- -   @AmortizedCost@
+    --
+    -- -   @NetAmortizedCost@
+    --
+    -- -   @NetUnblendedCost@
+    --
+    -- -   @UsageQuantity@
+    --
+    -- -   @NormalizedUsageAmount@
+    --
+    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    --
+    -- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+    -- supported.
+    sortBy :: Prelude.Maybe [SortDefinition],
+    filter' :: Prelude.Maybe Expression,
+    -- | The start and end dates for retrieving the dimension values. The start
+    -- date is inclusive, but the end date is exclusive. For example, if
+    -- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
+    -- usage data is retrieved from @2017-01-01@ up to and including
+    -- @2017-04-30@ but not including @2017-05-01@.
+    timePeriod :: DateInterval
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtMaxResults' - This field is only used when SortBy is provided in the request. The maximum number of objects that to be returned for this request. If MaxResults is not specified with SortBy, the request will return 1000 results as the default value for this parameter. For @GetTags@ , MaxResults has an upper limit of 1000.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtSearchString' - The value that you want to search for.
+-- 'maxResults', 'getTags_maxResults' - This field is only used when SortBy is provided in the request. The
+-- maximum number of objects that to be returned for this request. If
+-- MaxResults is not specified with SortBy, the request will return 1000
+-- results as the default value for this parameter.
 --
--- * 'gtTagKey' - The key of the tag that you want to return values for.
+-- For @GetTags@, MaxResults has an upper limit of 1000.
 --
--- * 'gtNextPageToken' - The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
+-- 'searchString', 'getTags_searchString' - The value that you want to search for.
 --
--- * 'gtSortBy' - The value by which you want to sort the data. The key represents cost and usage metrics. The following values are supported:     * @BlendedCost@      * @UnblendedCost@      * @AmortizedCost@      * @NetAmortizedCost@      * @NetUnblendedCost@      * @UsageQuantity@      * @NormalizedUsageAmount@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ . When using @SortBy@ , @NextPageToken@ and @SearchString@ are not supported.
+-- 'tagKey', 'getTags_tagKey' - The key of the tag that you want to return values for.
 --
--- * 'gtFilter' - Undocumented member.
+-- 'nextPageToken', 'getTags_nextPageToken' - The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
 --
--- * 'gtTimePeriod' - The start and end dates for retrieving the dimension values. The start date is inclusive, but the end date is exclusive. For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@ , then the cost and usage data is retrieved from @2017-01-01@ up to and including @2017-04-30@ but not including @2017-05-01@ .
-getTags ::
-  -- | 'gtTimePeriod'
+-- 'sortBy', 'getTags_sortBy' - The value by which you want to sort the data.
+--
+-- The key represents cost and usage metrics. The following values are
+-- supported:
+--
+-- -   @BlendedCost@
+--
+-- -   @UnblendedCost@
+--
+-- -   @AmortizedCost@
+--
+-- -   @NetAmortizedCost@
+--
+-- -   @NetUnblendedCost@
+--
+-- -   @UsageQuantity@
+--
+-- -   @NormalizedUsageAmount@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+--
+-- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+-- supported.
+--
+-- 'filter'', 'getTags_filter' - Undocumented member.
+--
+-- 'timePeriod', 'getTags_timePeriod' - The start and end dates for retrieving the dimension values. The start
+-- date is inclusive, but the end date is exclusive. For example, if
+-- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
+-- usage data is retrieved from @2017-01-01@ up to and including
+-- @2017-04-30@ but not including @2017-05-01@.
+newGetTags ::
+  -- | 'timePeriod'
   DateInterval ->
   GetTags
-getTags pTimePeriod_ =
+newGetTags pTimePeriod_ =
   GetTags'
-    { _gtMaxResults = Nothing,
-      _gtSearchString = Nothing,
-      _gtTagKey = Nothing,
-      _gtNextPageToken = Nothing,
-      _gtSortBy = Nothing,
-      _gtFilter = Nothing,
-      _gtTimePeriod = pTimePeriod_
+    { maxResults = Prelude.Nothing,
+      searchString = Prelude.Nothing,
+      tagKey = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      timePeriod = pTimePeriod_
     }
 
--- | This field is only used when SortBy is provided in the request. The maximum number of objects that to be returned for this request. If MaxResults is not specified with SortBy, the request will return 1000 results as the default value for this parameter. For @GetTags@ , MaxResults has an upper limit of 1000.
-gtMaxResults :: Lens' GetTags (Maybe Natural)
-gtMaxResults = lens _gtMaxResults (\s a -> s {_gtMaxResults = a}) . mapping _Nat
+-- | This field is only used when SortBy is provided in the request. The
+-- maximum number of objects that to be returned for this request. If
+-- MaxResults is not specified with SortBy, the request will return 1000
+-- results as the default value for this parameter.
+--
+-- For @GetTags@, MaxResults has an upper limit of 1000.
+getTags_maxResults :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Natural)
+getTags_maxResults = Lens.lens (\GetTags' {maxResults} -> maxResults) (\s@GetTags' {} a -> s {maxResults = a} :: GetTags) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The value that you want to search for.
-gtSearchString :: Lens' GetTags (Maybe Text)
-gtSearchString = lens _gtSearchString (\s a -> s {_gtSearchString = a})
+getTags_searchString :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
+getTags_searchString = Lens.lens (\GetTags' {searchString} -> searchString) (\s@GetTags' {} a -> s {searchString = a} :: GetTags)
 
 -- | The key of the tag that you want to return values for.
-gtTagKey :: Lens' GetTags (Maybe Text)
-gtTagKey = lens _gtTagKey (\s a -> s {_gtTagKey = a})
+getTags_tagKey :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
+getTags_tagKey = Lens.lens (\GetTags' {tagKey} -> tagKey) (\s@GetTags' {} a -> s {tagKey = a} :: GetTags)
 
--- | The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
-gtNextPageToken :: Lens' GetTags (Maybe Text)
-gtNextPageToken = lens _gtNextPageToken (\s a -> s {_gtNextPageToken = a})
+-- | The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
+getTags_nextPageToken :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
+getTags_nextPageToken = Lens.lens (\GetTags' {nextPageToken} -> nextPageToken) (\s@GetTags' {} a -> s {nextPageToken = a} :: GetTags)
 
--- | The value by which you want to sort the data. The key represents cost and usage metrics. The following values are supported:     * @BlendedCost@      * @UnblendedCost@      * @AmortizedCost@      * @NetAmortizedCost@      * @NetUnblendedCost@      * @UsageQuantity@      * @NormalizedUsageAmount@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ . When using @SortBy@ , @NextPageToken@ and @SearchString@ are not supported.
-gtSortBy :: Lens' GetTags [SortDefinition]
-gtSortBy = lens _gtSortBy (\s a -> s {_gtSortBy = a}) . _Default . _Coerce
+-- | The value by which you want to sort the data.
+--
+-- The key represents cost and usage metrics. The following values are
+-- supported:
+--
+-- -   @BlendedCost@
+--
+-- -   @UnblendedCost@
+--
+-- -   @AmortizedCost@
+--
+-- -   @NetAmortizedCost@
+--
+-- -   @NetUnblendedCost@
+--
+-- -   @UsageQuantity@
+--
+-- -   @NormalizedUsageAmount@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+--
+-- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+-- supported.
+getTags_sortBy :: Lens.Lens' GetTags (Prelude.Maybe [SortDefinition])
+getTags_sortBy = Lens.lens (\GetTags' {sortBy} -> sortBy) (\s@GetTags' {} a -> s {sortBy = a} :: GetTags) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-gtFilter :: Lens' GetTags (Maybe Expression)
-gtFilter = lens _gtFilter (\s a -> s {_gtFilter = a})
+getTags_filter :: Lens.Lens' GetTags (Prelude.Maybe Expression)
+getTags_filter = Lens.lens (\GetTags' {filter'} -> filter') (\s@GetTags' {} a -> s {filter' = a} :: GetTags)
 
--- | The start and end dates for retrieving the dimension values. The start date is inclusive, but the end date is exclusive. For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@ , then the cost and usage data is retrieved from @2017-01-01@ up to and including @2017-04-30@ but not including @2017-05-01@ .
-gtTimePeriod :: Lens' GetTags DateInterval
-gtTimePeriod = lens _gtTimePeriod (\s a -> s {_gtTimePeriod = a})
+-- | The start and end dates for retrieving the dimension values. The start
+-- date is inclusive, but the end date is exclusive. For example, if
+-- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
+-- usage data is retrieved from @2017-01-01@ up to and including
+-- @2017-04-30@ but not including @2017-05-01@.
+getTags_timePeriod :: Lens.Lens' GetTags DateInterval
+getTags_timePeriod = Lens.lens (\GetTags' {timePeriod} -> timePeriod) (\s@GetTags' {} a -> s {timePeriod = a} :: GetTags)
 
-instance AWSRequest GetTags where
+instance Prelude.AWSRequest GetTags where
   type Rs GetTags = GetTagsResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTagsResponse'
-            <$> (x .?> "NextPageToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (x .:> "ReturnSize")
-            <*> (x .:> "TotalSize")
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..:> "ReturnSize")
+            Prelude.<*> (x Prelude..:> "TotalSize")
       )
 
-instance Hashable GetTags
+instance Prelude.Hashable GetTags
 
-instance NFData GetTags
+instance Prelude.NFData GetTags
 
-instance ToHeaders GetTags where
+instance Prelude.ToHeaders GetTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSInsightsIndexService.GetTags" :: ByteString),
+              Prelude.=# ( "AWSInsightsIndexService.GetTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTags where
+instance Prelude.ToJSON GetTags where
   toJSON GetTags' {..} =
-    object
-      ( catMaybes
-          [ ("MaxResults" .=) <$> _gtMaxResults,
-            ("SearchString" .=) <$> _gtSearchString,
-            ("TagKey" .=) <$> _gtTagKey,
-            ("NextPageToken" .=) <$> _gtNextPageToken,
-            ("SortBy" .=) <$> _gtSortBy,
-            ("Filter" .=) <$> _gtFilter,
-            Just ("TimePeriod" .= _gtTimePeriod)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SearchString" Prelude..=) Prelude.<$> searchString,
+            ("TagKey" Prelude..=) Prelude.<$> tagKey,
+            ("NextPageToken" Prelude..=)
+              Prelude.<$> nextPageToken,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("TimePeriod" Prelude..= timePeriod)
           ]
       )
 
-instance ToPath GetTags where
-  toPath = const "/"
+instance Prelude.ToPath GetTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTags where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTagsResponse' smart constructor.
+-- | /See:/ 'newGetTagsResponse' smart constructor.
 data GetTagsResponse = GetTagsResponse'
-  { _gtrrsNextPageToken ::
-      !(Maybe Text),
-    _gtrrsResponseStatus :: !Int,
-    _gtrrsTags :: ![Text],
-    _gtrrsReturnSize :: !Int,
-    _gtrrsTotalSize :: !Int
+  { -- | The token for the next set of retrievable results. AWS provides the
+    -- token when the response from a previous call has more results than the
+    -- maximum page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The tags that match your request.
+    tags :: [Prelude.Text],
+    -- | The number of query results that AWS returns at a time.
+    returnSize :: Prelude.Int,
+    -- | The total number of query results.
+    totalSize :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsNextPageToken' - The token for the next set of retrievable results. AWS provides the token when the response from a previous call has more results than the maximum page size.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
+-- 'nextPageToken', 'getTagsResponse_nextPageToken' - The token for the next set of retrievable results. AWS provides the
+-- token when the response from a previous call has more results than the
+-- maximum page size.
 --
--- * 'gtrrsTags' - The tags that match your request.
+-- 'httpStatus', 'getTagsResponse_httpStatus' - The response's http status code.
 --
--- * 'gtrrsReturnSize' - The number of query results that AWS returns at a time.
+-- 'tags', 'getTagsResponse_tags' - The tags that match your request.
 --
--- * 'gtrrsTotalSize' - The total number of query results.
-getTagsResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
-  -- | 'gtrrsReturnSize'
-  Int ->
-  -- | 'gtrrsTotalSize'
-  Int ->
+-- 'returnSize', 'getTagsResponse_returnSize' - The number of query results that AWS returns at a time.
+--
+-- 'totalSize', 'getTagsResponse_totalSize' - The total number of query results.
+newGetTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'returnSize'
+  Prelude.Int ->
+  -- | 'totalSize'
+  Prelude.Int ->
   GetTagsResponse
-getTagsResponse
-  pResponseStatus_
+newGetTagsResponse
+  pHttpStatus_
   pReturnSize_
   pTotalSize_ =
     GetTagsResponse'
-      { _gtrrsNextPageToken = Nothing,
-        _gtrrsResponseStatus = pResponseStatus_,
-        _gtrrsTags = mempty,
-        _gtrrsReturnSize = pReturnSize_,
-        _gtrrsTotalSize = pTotalSize_
+      { nextPageToken = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        tags = Prelude.mempty,
+        returnSize = pReturnSize_,
+        totalSize = pTotalSize_
       }
 
--- | The token for the next set of retrievable results. AWS provides the token when the response from a previous call has more results than the maximum page size.
-gtrrsNextPageToken :: Lens' GetTagsResponse (Maybe Text)
-gtrrsNextPageToken = lens _gtrrsNextPageToken (\s a -> s {_gtrrsNextPageToken = a})
+-- | The token for the next set of retrievable results. AWS provides the
+-- token when the response from a previous call has more results than the
+-- maximum page size.
+getTagsResponse_nextPageToken :: Lens.Lens' GetTagsResponse (Prelude.Maybe Prelude.Text)
+getTagsResponse_nextPageToken = Lens.lens (\GetTagsResponse' {nextPageToken} -> nextPageToken) (\s@GetTagsResponse' {} a -> s {nextPageToken = a} :: GetTagsResponse)
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GetTagsResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+getTagsResponse_httpStatus :: Lens.Lens' GetTagsResponse Prelude.Int
+getTagsResponse_httpStatus = Lens.lens (\GetTagsResponse' {httpStatus} -> httpStatus) (\s@GetTagsResponse' {} a -> s {httpStatus = a} :: GetTagsResponse)
 
 -- | The tags that match your request.
-gtrrsTags :: Lens' GetTagsResponse [Text]
-gtrrsTags = lens _gtrrsTags (\s a -> s {_gtrrsTags = a}) . _Coerce
+getTagsResponse_tags :: Lens.Lens' GetTagsResponse [Prelude.Text]
+getTagsResponse_tags = Lens.lens (\GetTagsResponse' {tags} -> tags) (\s@GetTagsResponse' {} a -> s {tags = a} :: GetTagsResponse) Prelude.. Prelude._Coerce
 
 -- | The number of query results that AWS returns at a time.
-gtrrsReturnSize :: Lens' GetTagsResponse Int
-gtrrsReturnSize = lens _gtrrsReturnSize (\s a -> s {_gtrrsReturnSize = a})
+getTagsResponse_returnSize :: Lens.Lens' GetTagsResponse Prelude.Int
+getTagsResponse_returnSize = Lens.lens (\GetTagsResponse' {returnSize} -> returnSize) (\s@GetTagsResponse' {} a -> s {returnSize = a} :: GetTagsResponse)
 
 -- | The total number of query results.
-gtrrsTotalSize :: Lens' GetTagsResponse Int
-gtrrsTotalSize = lens _gtrrsTotalSize (\s a -> s {_gtrrsTotalSize = a})
+getTagsResponse_totalSize :: Lens.Lens' GetTagsResponse Prelude.Int
+getTagsResponse_totalSize = Lens.lens (\GetTagsResponse' {totalSize} -> totalSize) (\s@GetTagsResponse' {} a -> s {totalSize = a} :: GetTagsResponse)
 
-instance NFData GetTagsResponse
+instance Prelude.NFData GetTagsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,427 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a forecast for how much Amazon Web Services predicts that you will spend over the forecast time period that you select, based on your past costs.
+-- Retrieves a forecast for how much Amazon Web Services predicts that you
+-- will spend over the forecast time period that you select, based on your
+-- past costs.
 module Network.AWS.CostExplorer.GetCostForecast
   ( -- * Creating a Request
-    getCostForecast,
-    GetCostForecast,
+    GetCostForecast (..),
+    newGetCostForecast,
 
     -- * Request Lenses
-    gcfPredictionIntervalLevel,
-    gcfFilter,
-    gcfTimePeriod,
-    gcfMetric,
-    gcfGranularity,
+    getCostForecast_predictionIntervalLevel,
+    getCostForecast_filter,
+    getCostForecast_timePeriod,
+    getCostForecast_metric,
+    getCostForecast_granularity,
 
     -- * Destructuring the Response
-    getCostForecastResponse,
-    GetCostForecastResponse,
+    GetCostForecastResponse (..),
+    newGetCostForecastResponse,
 
     -- * Response Lenses
-    gcfrrsForecastResultsByTime,
-    gcfrrsTotal,
-    gcfrrsResponseStatus,
+    getCostForecastResponse_forecastResultsByTime,
+    getCostForecastResponse_total,
+    getCostForecastResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CostExplorer.Types.ForecastResult
+import Network.AWS.CostExplorer.Types.MetricValue
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getCostForecast' smart constructor.
+-- | /See:/ 'newGetCostForecast' smart constructor.
 data GetCostForecast = GetCostForecast'
-  { _gcfPredictionIntervalLevel ::
-      !(Maybe Nat),
-    _gcfFilter :: !(Maybe Expression),
-    _gcfTimePeriod :: !DateInterval,
-    _gcfMetric :: !Metric,
-    _gcfGranularity :: !Granularity
+  { -- | Cost Explorer always returns the mean forecast as a single point. You
+    -- can request a prediction interval around the mean by specifying a
+    -- confidence level. The higher the confidence level, the more confident
+    -- Cost Explorer is about the actual value falling in the prediction
+    -- interval. Higher confidence levels result in wider prediction intervals.
+    predictionIntervalLevel :: Prelude.Maybe Prelude.Nat,
+    -- | The filters that you want to use to filter your forecast. The
+    -- @GetCostForecast@ API supports filtering by the following dimensions:
+    --
+    -- -   @AZ@
+    --
+    -- -   @INSTANCE_TYPE@
+    --
+    -- -   @LINKED_ACCOUNT@
+    --
+    -- -   @LINKED_ACCOUNT_NAME@
+    --
+    -- -   @OPERATION@
+    --
+    -- -   @PURCHASE_TYPE@
+    --
+    -- -   @REGION@
+    --
+    -- -   @SERVICE@
+    --
+    -- -   @USAGE_TYPE@
+    --
+    -- -   @USAGE_TYPE_GROUP@
+    --
+    -- -   @RECORD_TYPE@
+    --
+    -- -   @OPERATING_SYSTEM@
+    --
+    -- -   @TENANCY@
+    --
+    -- -   @SCOPE@
+    --
+    -- -   @PLATFORM@
+    --
+    -- -   @SUBSCRIPTION_ID@
+    --
+    -- -   @LEGAL_ENTITY_NAME@
+    --
+    -- -   @DEPLOYMENT_OPTION@
+    --
+    -- -   @DATABASE_ENGINE@
+    --
+    -- -   @INSTANCE_TYPE_FAMILY@
+    --
+    -- -   @BILLING_ENTITY@
+    --
+    -- -   @RESERVATION_ID@
+    --
+    -- -   @SAVINGS_PLAN_ARN@
+    filter' :: Prelude.Maybe Expression,
+    -- | The period of time that you want the forecast to cover. The start date
+    -- must be equal to or no later than the current date to avoid a validation
+    -- error.
+    timePeriod :: DateInterval,
+    -- | Which metric Cost Explorer uses to create your forecast. For more
+    -- information about blended and unblended rates, see
+    -- <http://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/ Why does the \"blended\" annotation appear on some line items in my bill?>.
+    --
+    -- Valid values for a @GetCostForecast@ call are the following:
+    --
+    -- -   AMORTIZED_COST
+    --
+    -- -   BLENDED_COST
+    --
+    -- -   NET_AMORTIZED_COST
+    --
+    -- -   NET_UNBLENDED_COST
+    --
+    -- -   UNBLENDED_COST
+    metric :: Metric,
+    -- | How granular you want the forecast to be. You can get 3 months of
+    -- @DAILY@ forecasts or 12 months of @MONTHLY@ forecasts.
+    --
+    -- The @GetCostForecast@ operation supports only @DAILY@ and @MONTHLY@
+    -- granularities.
+    granularity :: Granularity
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCostForecast' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCostForecast' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcfPredictionIntervalLevel' - Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction intervals.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcfFilter' - The filters that you want to use to filter your forecast. The @GetCostForecast@ API supports filtering by the following dimensions:     * @AZ@      * @INSTANCE_TYPE@      * @LINKED_ACCOUNT@      * @LINKED_ACCOUNT_NAME@      * @OPERATION@      * @PURCHASE_TYPE@      * @REGION@      * @SERVICE@      * @USAGE_TYPE@      * @USAGE_TYPE_GROUP@      * @RECORD_TYPE@      * @OPERATING_SYSTEM@      * @TENANCY@      * @SCOPE@      * @PLATFORM@      * @SUBSCRIPTION_ID@      * @LEGAL_ENTITY_NAME@      * @DEPLOYMENT_OPTION@      * @DATABASE_ENGINE@      * @INSTANCE_TYPE_FAMILY@      * @BILLING_ENTITY@      * @RESERVATION_ID@      * @SAVINGS_PLAN_ARN@
+-- 'predictionIntervalLevel', 'getCostForecast_predictionIntervalLevel' - Cost Explorer always returns the mean forecast as a single point. You
+-- can request a prediction interval around the mean by specifying a
+-- confidence level. The higher the confidence level, the more confident
+-- Cost Explorer is about the actual value falling in the prediction
+-- interval. Higher confidence levels result in wider prediction intervals.
 --
--- * 'gcfTimePeriod' - The period of time that you want the forecast to cover. The start date must be equal to or no later than the current date to avoid a validation error.
+-- 'filter'', 'getCostForecast_filter' - The filters that you want to use to filter your forecast. The
+-- @GetCostForecast@ API supports filtering by the following dimensions:
 --
--- * 'gcfMetric' - Which metric Cost Explorer uses to create your forecast. For more information about blended and unblended rates, see <http://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/ Why does the "blended" annotation appear on some line items in my bill?> .  Valid values for a @GetCostForecast@ call are the following:     * AMORTIZED_COST     * BLENDED_COST     * NET_AMORTIZED_COST     * NET_UNBLENDED_COST     * UNBLENDED_COST
+-- -   @AZ@
 --
--- * 'gcfGranularity' - How granular you want the forecast to be. You can get 3 months of @DAILY@ forecasts or 12 months of @MONTHLY@ forecasts. The @GetCostForecast@ operation supports only @DAILY@ and @MONTHLY@ granularities.
-getCostForecast ::
-  -- | 'gcfTimePeriod'
+-- -   @INSTANCE_TYPE@
+--
+-- -   @LINKED_ACCOUNT@
+--
+-- -   @LINKED_ACCOUNT_NAME@
+--
+-- -   @OPERATION@
+--
+-- -   @PURCHASE_TYPE@
+--
+-- -   @REGION@
+--
+-- -   @SERVICE@
+--
+-- -   @USAGE_TYPE@
+--
+-- -   @USAGE_TYPE_GROUP@
+--
+-- -   @RECORD_TYPE@
+--
+-- -   @OPERATING_SYSTEM@
+--
+-- -   @TENANCY@
+--
+-- -   @SCOPE@
+--
+-- -   @PLATFORM@
+--
+-- -   @SUBSCRIPTION_ID@
+--
+-- -   @LEGAL_ENTITY_NAME@
+--
+-- -   @DEPLOYMENT_OPTION@
+--
+-- -   @DATABASE_ENGINE@
+--
+-- -   @INSTANCE_TYPE_FAMILY@
+--
+-- -   @BILLING_ENTITY@
+--
+-- -   @RESERVATION_ID@
+--
+-- -   @SAVINGS_PLAN_ARN@
+--
+-- 'timePeriod', 'getCostForecast_timePeriod' - The period of time that you want the forecast to cover. The start date
+-- must be equal to or no later than the current date to avoid a validation
+-- error.
+--
+-- 'metric', 'getCostForecast_metric' - Which metric Cost Explorer uses to create your forecast. For more
+-- information about blended and unblended rates, see
+-- <http://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/ Why does the \"blended\" annotation appear on some line items in my bill?>.
+--
+-- Valid values for a @GetCostForecast@ call are the following:
+--
+-- -   AMORTIZED_COST
+--
+-- -   BLENDED_COST
+--
+-- -   NET_AMORTIZED_COST
+--
+-- -   NET_UNBLENDED_COST
+--
+-- -   UNBLENDED_COST
+--
+-- 'granularity', 'getCostForecast_granularity' - How granular you want the forecast to be. You can get 3 months of
+-- @DAILY@ forecasts or 12 months of @MONTHLY@ forecasts.
+--
+-- The @GetCostForecast@ operation supports only @DAILY@ and @MONTHLY@
+-- granularities.
+newGetCostForecast ::
+  -- | 'timePeriod'
   DateInterval ->
-  -- | 'gcfMetric'
+  -- | 'metric'
   Metric ->
-  -- | 'gcfGranularity'
+  -- | 'granularity'
   Granularity ->
   GetCostForecast
-getCostForecast pTimePeriod_ pMetric_ pGranularity_ =
-  GetCostForecast'
-    { _gcfPredictionIntervalLevel =
-        Nothing,
-      _gcfFilter = Nothing,
-      _gcfTimePeriod = pTimePeriod_,
-      _gcfMetric = pMetric_,
-      _gcfGranularity = pGranularity_
-    }
+newGetCostForecast
+  pTimePeriod_
+  pMetric_
+  pGranularity_ =
+    GetCostForecast'
+      { predictionIntervalLevel =
+          Prelude.Nothing,
+        filter' = Prelude.Nothing,
+        timePeriod = pTimePeriod_,
+        metric = pMetric_,
+        granularity = pGranularity_
+      }
 
--- | Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction intervals.
-gcfPredictionIntervalLevel :: Lens' GetCostForecast (Maybe Natural)
-gcfPredictionIntervalLevel = lens _gcfPredictionIntervalLevel (\s a -> s {_gcfPredictionIntervalLevel = a}) . mapping _Nat
+-- | Cost Explorer always returns the mean forecast as a single point. You
+-- can request a prediction interval around the mean by specifying a
+-- confidence level. The higher the confidence level, the more confident
+-- Cost Explorer is about the actual value falling in the prediction
+-- interval. Higher confidence levels result in wider prediction intervals.
+getCostForecast_predictionIntervalLevel :: Lens.Lens' GetCostForecast (Prelude.Maybe Prelude.Natural)
+getCostForecast_predictionIntervalLevel = Lens.lens (\GetCostForecast' {predictionIntervalLevel} -> predictionIntervalLevel) (\s@GetCostForecast' {} a -> s {predictionIntervalLevel = a} :: GetCostForecast) Prelude.. Lens.mapping Prelude._Nat
 
--- | The filters that you want to use to filter your forecast. The @GetCostForecast@ API supports filtering by the following dimensions:     * @AZ@      * @INSTANCE_TYPE@      * @LINKED_ACCOUNT@      * @LINKED_ACCOUNT_NAME@      * @OPERATION@      * @PURCHASE_TYPE@      * @REGION@      * @SERVICE@      * @USAGE_TYPE@      * @USAGE_TYPE_GROUP@      * @RECORD_TYPE@      * @OPERATING_SYSTEM@      * @TENANCY@      * @SCOPE@      * @PLATFORM@      * @SUBSCRIPTION_ID@      * @LEGAL_ENTITY_NAME@      * @DEPLOYMENT_OPTION@      * @DATABASE_ENGINE@      * @INSTANCE_TYPE_FAMILY@      * @BILLING_ENTITY@      * @RESERVATION_ID@      * @SAVINGS_PLAN_ARN@
-gcfFilter :: Lens' GetCostForecast (Maybe Expression)
-gcfFilter = lens _gcfFilter (\s a -> s {_gcfFilter = a})
+-- | The filters that you want to use to filter your forecast. The
+-- @GetCostForecast@ API supports filtering by the following dimensions:
+--
+-- -   @AZ@
+--
+-- -   @INSTANCE_TYPE@
+--
+-- -   @LINKED_ACCOUNT@
+--
+-- -   @LINKED_ACCOUNT_NAME@
+--
+-- -   @OPERATION@
+--
+-- -   @PURCHASE_TYPE@
+--
+-- -   @REGION@
+--
+-- -   @SERVICE@
+--
+-- -   @USAGE_TYPE@
+--
+-- -   @USAGE_TYPE_GROUP@
+--
+-- -   @RECORD_TYPE@
+--
+-- -   @OPERATING_SYSTEM@
+--
+-- -   @TENANCY@
+--
+-- -   @SCOPE@
+--
+-- -   @PLATFORM@
+--
+-- -   @SUBSCRIPTION_ID@
+--
+-- -   @LEGAL_ENTITY_NAME@
+--
+-- -   @DEPLOYMENT_OPTION@
+--
+-- -   @DATABASE_ENGINE@
+--
+-- -   @INSTANCE_TYPE_FAMILY@
+--
+-- -   @BILLING_ENTITY@
+--
+-- -   @RESERVATION_ID@
+--
+-- -   @SAVINGS_PLAN_ARN@
+getCostForecast_filter :: Lens.Lens' GetCostForecast (Prelude.Maybe Expression)
+getCostForecast_filter = Lens.lens (\GetCostForecast' {filter'} -> filter') (\s@GetCostForecast' {} a -> s {filter' = a} :: GetCostForecast)
 
--- | The period of time that you want the forecast to cover. The start date must be equal to or no later than the current date to avoid a validation error.
-gcfTimePeriod :: Lens' GetCostForecast DateInterval
-gcfTimePeriod = lens _gcfTimePeriod (\s a -> s {_gcfTimePeriod = a})
+-- | The period of time that you want the forecast to cover. The start date
+-- must be equal to or no later than the current date to avoid a validation
+-- error.
+getCostForecast_timePeriod :: Lens.Lens' GetCostForecast DateInterval
+getCostForecast_timePeriod = Lens.lens (\GetCostForecast' {timePeriod} -> timePeriod) (\s@GetCostForecast' {} a -> s {timePeriod = a} :: GetCostForecast)
 
--- | Which metric Cost Explorer uses to create your forecast. For more information about blended and unblended rates, see <http://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/ Why does the "blended" annotation appear on some line items in my bill?> .  Valid values for a @GetCostForecast@ call are the following:     * AMORTIZED_COST     * BLENDED_COST     * NET_AMORTIZED_COST     * NET_UNBLENDED_COST     * UNBLENDED_COST
-gcfMetric :: Lens' GetCostForecast Metric
-gcfMetric = lens _gcfMetric (\s a -> s {_gcfMetric = a})
+-- | Which metric Cost Explorer uses to create your forecast. For more
+-- information about blended and unblended rates, see
+-- <http://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/ Why does the \"blended\" annotation appear on some line items in my bill?>.
+--
+-- Valid values for a @GetCostForecast@ call are the following:
+--
+-- -   AMORTIZED_COST
+--
+-- -   BLENDED_COST
+--
+-- -   NET_AMORTIZED_COST
+--
+-- -   NET_UNBLENDED_COST
+--
+-- -   UNBLENDED_COST
+getCostForecast_metric :: Lens.Lens' GetCostForecast Metric
+getCostForecast_metric = Lens.lens (\GetCostForecast' {metric} -> metric) (\s@GetCostForecast' {} a -> s {metric = a} :: GetCostForecast)
 
--- | How granular you want the forecast to be. You can get 3 months of @DAILY@ forecasts or 12 months of @MONTHLY@ forecasts. The @GetCostForecast@ operation supports only @DAILY@ and @MONTHLY@ granularities.
-gcfGranularity :: Lens' GetCostForecast Granularity
-gcfGranularity = lens _gcfGranularity (\s a -> s {_gcfGranularity = a})
+-- | How granular you want the forecast to be. You can get 3 months of
+-- @DAILY@ forecasts or 12 months of @MONTHLY@ forecasts.
+--
+-- The @GetCostForecast@ operation supports only @DAILY@ and @MONTHLY@
+-- granularities.
+getCostForecast_granularity :: Lens.Lens' GetCostForecast Granularity
+getCostForecast_granularity = Lens.lens (\GetCostForecast' {granularity} -> granularity) (\s@GetCostForecast' {} a -> s {granularity = a} :: GetCostForecast)
 
-instance AWSRequest GetCostForecast where
+instance Prelude.AWSRequest GetCostForecast where
   type Rs GetCostForecast = GetCostForecastResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCostForecastResponse'
-            <$> (x .?> "ForecastResultsByTime" .!@ mempty)
-            <*> (x .?> "Total")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ForecastResultsByTime"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Total")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCostForecast
+instance Prelude.Hashable GetCostForecast
 
-instance NFData GetCostForecast
+instance Prelude.NFData GetCostForecast
 
-instance ToHeaders GetCostForecast where
+instance Prelude.ToHeaders GetCostForecast where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.GetCostForecast" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.GetCostForecast" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetCostForecast where
+instance Prelude.ToJSON GetCostForecast where
   toJSON GetCostForecast' {..} =
-    object
-      ( catMaybes
-          [ ("PredictionIntervalLevel" .=)
-              <$> _gcfPredictionIntervalLevel,
-            ("Filter" .=) <$> _gcfFilter,
-            Just ("TimePeriod" .= _gcfTimePeriod),
-            Just ("Metric" .= _gcfMetric),
-            Just ("Granularity" .= _gcfGranularity)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PredictionIntervalLevel" Prelude..=)
+              Prelude.<$> predictionIntervalLevel,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("TimePeriod" Prelude..= timePeriod),
+            Prelude.Just ("Metric" Prelude..= metric),
+            Prelude.Just ("Granularity" Prelude..= granularity)
           ]
       )
 
-instance ToPath GetCostForecast where
-  toPath = const "/"
+instance Prelude.ToPath GetCostForecast where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetCostForecast where
-  toQuery = const mempty
+instance Prelude.ToQuery GetCostForecast where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getCostForecastResponse' smart constructor.
+-- | /See:/ 'newGetCostForecastResponse' smart constructor.
 data GetCostForecastResponse = GetCostForecastResponse'
-  { _gcfrrsForecastResultsByTime ::
-      !( Maybe
-           [ForecastResult]
-       ),
-    _gcfrrsTotal ::
-      !(Maybe MetricValue),
-    _gcfrrsResponseStatus ::
-      !Int
+  { -- | The forecasts for your query, in order. For @DAILY@ forecasts, this is a
+    -- list of days. For @MONTHLY@ forecasts, this is a list of months.
+    forecastResultsByTime :: Prelude.Maybe [ForecastResult],
+    -- | How much you are forecasted to spend over the forecast period, in @USD@.
+    total :: Prelude.Maybe MetricValue,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCostForecastResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCostForecastResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcfrrsForecastResultsByTime' - The forecasts for your query, in order. For @DAILY@ forecasts, this is a list of days. For @MONTHLY@ forecasts, this is a list of months.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcfrrsTotal' - How much you are forecasted to spend over the forecast period, in @USD@ .
+-- 'forecastResultsByTime', 'getCostForecastResponse_forecastResultsByTime' - The forecasts for your query, in order. For @DAILY@ forecasts, this is a
+-- list of days. For @MONTHLY@ forecasts, this is a list of months.
 --
--- * 'gcfrrsResponseStatus' - -- | The response status code.
-getCostForecastResponse ::
-  -- | 'gcfrrsResponseStatus'
-  Int ->
+-- 'total', 'getCostForecastResponse_total' - How much you are forecasted to spend over the forecast period, in @USD@.
+--
+-- 'httpStatus', 'getCostForecastResponse_httpStatus' - The response's http status code.
+newGetCostForecastResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetCostForecastResponse
-getCostForecastResponse pResponseStatus_ =
+newGetCostForecastResponse pHttpStatus_ =
   GetCostForecastResponse'
-    { _gcfrrsForecastResultsByTime =
-        Nothing,
-      _gcfrrsTotal = Nothing,
-      _gcfrrsResponseStatus = pResponseStatus_
+    { forecastResultsByTime =
+        Prelude.Nothing,
+      total = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The forecasts for your query, in order. For @DAILY@ forecasts, this is a list of days. For @MONTHLY@ forecasts, this is a list of months.
-gcfrrsForecastResultsByTime :: Lens' GetCostForecastResponse [ForecastResult]
-gcfrrsForecastResultsByTime = lens _gcfrrsForecastResultsByTime (\s a -> s {_gcfrrsForecastResultsByTime = a}) . _Default . _Coerce
+-- | The forecasts for your query, in order. For @DAILY@ forecasts, this is a
+-- list of days. For @MONTHLY@ forecasts, this is a list of months.
+getCostForecastResponse_forecastResultsByTime :: Lens.Lens' GetCostForecastResponse (Prelude.Maybe [ForecastResult])
+getCostForecastResponse_forecastResultsByTime = Lens.lens (\GetCostForecastResponse' {forecastResultsByTime} -> forecastResultsByTime) (\s@GetCostForecastResponse' {} a -> s {forecastResultsByTime = a} :: GetCostForecastResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | How much you are forecasted to spend over the forecast period, in @USD@ .
-gcfrrsTotal :: Lens' GetCostForecastResponse (Maybe MetricValue)
-gcfrrsTotal = lens _gcfrrsTotal (\s a -> s {_gcfrrsTotal = a})
+-- | How much you are forecasted to spend over the forecast period, in @USD@.
+getCostForecastResponse_total :: Lens.Lens' GetCostForecastResponse (Prelude.Maybe MetricValue)
+getCostForecastResponse_total = Lens.lens (\GetCostForecastResponse' {total} -> total) (\s@GetCostForecastResponse' {} a -> s {total = a} :: GetCostForecastResponse)
 
--- | -- | The response status code.
-gcfrrsResponseStatus :: Lens' GetCostForecastResponse Int
-gcfrrsResponseStatus = lens _gcfrrsResponseStatus (\s a -> s {_gcfrrsResponseStatus = a})
+-- | The response's http status code.
+getCostForecastResponse_httpStatus :: Lens.Lens' GetCostForecastResponse Prelude.Int
+getCostForecastResponse_httpStatus = Lens.lens (\GetCostForecastResponse' {httpStatus} -> httpStatus) (\s@GetCostForecastResponse' {} a -> s {httpStatus = a} :: GetCostForecastResponse)
 
-instance NFData GetCostForecastResponse
+instance Prelude.NFData GetCostForecastResponse

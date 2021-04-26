@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CostExplorer.Types.AnomalySubscriptionFrequency
   ( AnomalySubscriptionFrequency
       ( ..,
-        ASFDaily,
-        ASFImmediate,
-        ASFWeekly
+        AnomalySubscriptionFrequencyDAILY,
+        AnomalySubscriptionFrequencyIMMEDIATE,
+        AnomalySubscriptionFrequencyWEEKLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AnomalySubscriptionFrequency
-  = AnomalySubscriptionFrequency'
-      ( CI
-          Text
-      )
+newtype AnomalySubscriptionFrequency = AnomalySubscriptionFrequency'
+  { fromAnomalySubscriptionFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASFDaily :: AnomalySubscriptionFrequency
-pattern ASFDaily = AnomalySubscriptionFrequency' "DAILY"
+pattern AnomalySubscriptionFrequencyDAILY :: AnomalySubscriptionFrequency
+pattern AnomalySubscriptionFrequencyDAILY = AnomalySubscriptionFrequency' "DAILY"
 
-pattern ASFImmediate :: AnomalySubscriptionFrequency
-pattern ASFImmediate = AnomalySubscriptionFrequency' "IMMEDIATE"
+pattern AnomalySubscriptionFrequencyIMMEDIATE :: AnomalySubscriptionFrequency
+pattern AnomalySubscriptionFrequencyIMMEDIATE = AnomalySubscriptionFrequency' "IMMEDIATE"
 
-pattern ASFWeekly :: AnomalySubscriptionFrequency
-pattern ASFWeekly = AnomalySubscriptionFrequency' "WEEKLY"
+pattern AnomalySubscriptionFrequencyWEEKLY :: AnomalySubscriptionFrequency
+pattern AnomalySubscriptionFrequencyWEEKLY = AnomalySubscriptionFrequency' "WEEKLY"
 
 {-# COMPLETE
-  ASFDaily,
-  ASFImmediate,
-  ASFWeekly,
+  AnomalySubscriptionFrequencyDAILY,
+  AnomalySubscriptionFrequencyIMMEDIATE,
+  AnomalySubscriptionFrequencyWEEKLY,
   AnomalySubscriptionFrequency'
   #-}
 
-instance FromText AnomalySubscriptionFrequency where
-  parser = (AnomalySubscriptionFrequency' . mk) <$> takeText
+instance Prelude.FromText AnomalySubscriptionFrequency where
+  parser = AnomalySubscriptionFrequency' Prelude.<$> Prelude.takeText
 
-instance ToText AnomalySubscriptionFrequency where
-  toText (AnomalySubscriptionFrequency' ci) = original ci
+instance Prelude.ToText AnomalySubscriptionFrequency where
+  toText (AnomalySubscriptionFrequency' x) = x
 
-instance Hashable AnomalySubscriptionFrequency
+instance Prelude.Hashable AnomalySubscriptionFrequency
 
-instance NFData AnomalySubscriptionFrequency
+instance Prelude.NFData AnomalySubscriptionFrequency
 
-instance ToByteString AnomalySubscriptionFrequency
+instance Prelude.ToByteString AnomalySubscriptionFrequency
 
-instance ToQuery AnomalySubscriptionFrequency
+instance Prelude.ToQuery AnomalySubscriptionFrequency
 
-instance ToHeader AnomalySubscriptionFrequency
+instance Prelude.ToHeader AnomalySubscriptionFrequency
 
-instance ToJSON AnomalySubscriptionFrequency where
-  toJSON = toJSONText
+instance Prelude.ToJSON AnomalySubscriptionFrequency where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AnomalySubscriptionFrequency where
-  parseJSON = parseJSONText "AnomalySubscriptionFrequency"
+instance Prelude.FromJSON AnomalySubscriptionFrequency where
+  parseJSON = Prelude.parseJSONText "AnomalySubscriptionFrequency"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.RootCause where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The combination of AWS service, linked account, Region, and usage type where a cost anomaly is observed.
+-- | The combination of AWS service, linked account, Region, and usage type
+-- where a cost anomaly is observed.
 --
---
---
--- /See:/ 'rootCause' smart constructor.
+-- /See:/ 'newRootCause' smart constructor.
 data RootCause = RootCause'
-  { _rcService ::
-      !(Maybe Text),
-    _rcUsageType :: !(Maybe Text),
-    _rcLinkedAccount :: !(Maybe Text),
-    _rcRegion :: !(Maybe Text)
+  { -- | The AWS service name associated with the cost anomaly.
+    service :: Prelude.Maybe Prelude.Text,
+    -- | The @UsageType@ value associated with the cost anomaly.
+    usageType :: Prelude.Maybe Prelude.Text,
+    -- | The linked account value associated with the cost anomaly.
+    linkedAccount :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region associated with the cost anomaly.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RootCause' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RootCause' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcService' - The AWS service name associated with the cost anomaly.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcUsageType' - The @UsageType@ value associated with the cost anomaly.
+-- 'service', 'rootCause_service' - The AWS service name associated with the cost anomaly.
 --
--- * 'rcLinkedAccount' - The linked account value associated with the cost anomaly.
+-- 'usageType', 'rootCause_usageType' - The @UsageType@ value associated with the cost anomaly.
 --
--- * 'rcRegion' - The AWS Region associated with the cost anomaly.
-rootCause ::
+-- 'linkedAccount', 'rootCause_linkedAccount' - The linked account value associated with the cost anomaly.
+--
+-- 'region', 'rootCause_region' - The AWS Region associated with the cost anomaly.
+newRootCause ::
   RootCause
-rootCause =
+newRootCause =
   RootCause'
-    { _rcService = Nothing,
-      _rcUsageType = Nothing,
-      _rcLinkedAccount = Nothing,
-      _rcRegion = Nothing
+    { service = Prelude.Nothing,
+      usageType = Prelude.Nothing,
+      linkedAccount = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
 -- | The AWS service name associated with the cost anomaly.
-rcService :: Lens' RootCause (Maybe Text)
-rcService = lens _rcService (\s a -> s {_rcService = a})
+rootCause_service :: Lens.Lens' RootCause (Prelude.Maybe Prelude.Text)
+rootCause_service = Lens.lens (\RootCause' {service} -> service) (\s@RootCause' {} a -> s {service = a} :: RootCause)
 
 -- | The @UsageType@ value associated with the cost anomaly.
-rcUsageType :: Lens' RootCause (Maybe Text)
-rcUsageType = lens _rcUsageType (\s a -> s {_rcUsageType = a})
+rootCause_usageType :: Lens.Lens' RootCause (Prelude.Maybe Prelude.Text)
+rootCause_usageType = Lens.lens (\RootCause' {usageType} -> usageType) (\s@RootCause' {} a -> s {usageType = a} :: RootCause)
 
 -- | The linked account value associated with the cost anomaly.
-rcLinkedAccount :: Lens' RootCause (Maybe Text)
-rcLinkedAccount = lens _rcLinkedAccount (\s a -> s {_rcLinkedAccount = a})
+rootCause_linkedAccount :: Lens.Lens' RootCause (Prelude.Maybe Prelude.Text)
+rootCause_linkedAccount = Lens.lens (\RootCause' {linkedAccount} -> linkedAccount) (\s@RootCause' {} a -> s {linkedAccount = a} :: RootCause)
 
 -- | The AWS Region associated with the cost anomaly.
-rcRegion :: Lens' RootCause (Maybe Text)
-rcRegion = lens _rcRegion (\s a -> s {_rcRegion = a})
+rootCause_region :: Lens.Lens' RootCause (Prelude.Maybe Prelude.Text)
+rootCause_region = Lens.lens (\RootCause' {region} -> region) (\s@RootCause' {} a -> s {region = a} :: RootCause)
 
-instance FromJSON RootCause where
+instance Prelude.FromJSON RootCause where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RootCause"
       ( \x ->
           RootCause'
-            <$> (x .:? "Service")
-            <*> (x .:? "UsageType")
-            <*> (x .:? "LinkedAccount")
-            <*> (x .:? "Region")
+            Prelude.<$> (x Prelude..:? "Service")
+            Prelude.<*> (x Prelude..:? "UsageType")
+            Prelude.<*> (x Prelude..:? "LinkedAccount")
+            Prelude.<*> (x Prelude..:? "Region")
       )
 
-instance Hashable RootCause
+instance Prelude.Hashable RootCause
 
-instance NFData RootCause
+instance Prelude.NFData RootCause

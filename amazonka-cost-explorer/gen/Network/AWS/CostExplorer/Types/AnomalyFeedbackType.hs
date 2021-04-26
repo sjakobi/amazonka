@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CostExplorer.Types.AnomalyFeedbackType
   ( AnomalyFeedbackType
       ( ..,
-        NO,
-        PlannedActivity,
-        Yes
+        AnomalyFeedbackTypeNO,
+        AnomalyFeedbackTypePLANNEDACTIVITY,
+        AnomalyFeedbackTypeYES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AnomalyFeedbackType
-  = AnomalyFeedbackType'
-      ( CI
-          Text
-      )
+newtype AnomalyFeedbackType = AnomalyFeedbackType'
+  { fromAnomalyFeedbackType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NO :: AnomalyFeedbackType
-pattern NO = AnomalyFeedbackType' "NO"
+pattern AnomalyFeedbackTypeNO :: AnomalyFeedbackType
+pattern AnomalyFeedbackTypeNO = AnomalyFeedbackType' "NO"
 
-pattern PlannedActivity :: AnomalyFeedbackType
-pattern PlannedActivity = AnomalyFeedbackType' "PLANNED_ACTIVITY"
+pattern AnomalyFeedbackTypePLANNEDACTIVITY :: AnomalyFeedbackType
+pattern AnomalyFeedbackTypePLANNEDACTIVITY = AnomalyFeedbackType' "PLANNED_ACTIVITY"
 
-pattern Yes :: AnomalyFeedbackType
-pattern Yes = AnomalyFeedbackType' "YES"
+pattern AnomalyFeedbackTypeYES :: AnomalyFeedbackType
+pattern AnomalyFeedbackTypeYES = AnomalyFeedbackType' "YES"
 
 {-# COMPLETE
-  NO,
-  PlannedActivity,
-  Yes,
+  AnomalyFeedbackTypeNO,
+  AnomalyFeedbackTypePLANNEDACTIVITY,
+  AnomalyFeedbackTypeYES,
   AnomalyFeedbackType'
   #-}
 
-instance FromText AnomalyFeedbackType where
-  parser = (AnomalyFeedbackType' . mk) <$> takeText
+instance Prelude.FromText AnomalyFeedbackType where
+  parser = AnomalyFeedbackType' Prelude.<$> Prelude.takeText
 
-instance ToText AnomalyFeedbackType where
-  toText (AnomalyFeedbackType' ci) = original ci
+instance Prelude.ToText AnomalyFeedbackType where
+  toText (AnomalyFeedbackType' x) = x
 
-instance Hashable AnomalyFeedbackType
+instance Prelude.Hashable AnomalyFeedbackType
 
-instance NFData AnomalyFeedbackType
+instance Prelude.NFData AnomalyFeedbackType
 
-instance ToByteString AnomalyFeedbackType
+instance Prelude.ToByteString AnomalyFeedbackType
 
-instance ToQuery AnomalyFeedbackType
+instance Prelude.ToQuery AnomalyFeedbackType
 
-instance ToHeader AnomalyFeedbackType
+instance Prelude.ToHeader AnomalyFeedbackType
 
-instance ToJSON AnomalyFeedbackType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AnomalyFeedbackType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AnomalyFeedbackType where
-  parseJSON = parseJSONText "AnomalyFeedbackType"
+instance Prelude.FromJSON AnomalyFeedbackType where
+  parseJSON = Prelude.parseJSONText "AnomalyFeedbackType"

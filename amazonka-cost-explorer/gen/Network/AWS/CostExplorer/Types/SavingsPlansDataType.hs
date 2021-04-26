@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.CostExplorer.Types.SavingsPlansDataType
   ( SavingsPlansDataType
       ( ..,
-        AmortizedCommitment,
-        Attributes,
-        Savings,
-        Utilization
+        SavingsPlansDataTypeAMORTIZEDCOMMITMENT,
+        SavingsPlansDataTypeATTRIBUTES,
+        SavingsPlansDataTypeSAVINGS,
+        SavingsPlansDataTypeUTILIZATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SavingsPlansDataType
-  = SavingsPlansDataType'
-      ( CI
-          Text
-      )
+newtype SavingsPlansDataType = SavingsPlansDataType'
+  { fromSavingsPlansDataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmortizedCommitment :: SavingsPlansDataType
-pattern AmortizedCommitment = SavingsPlansDataType' "AMORTIZED_COMMITMENT"
+pattern SavingsPlansDataTypeAMORTIZEDCOMMITMENT :: SavingsPlansDataType
+pattern SavingsPlansDataTypeAMORTIZEDCOMMITMENT = SavingsPlansDataType' "AMORTIZED_COMMITMENT"
 
-pattern Attributes :: SavingsPlansDataType
-pattern Attributes = SavingsPlansDataType' "ATTRIBUTES"
+pattern SavingsPlansDataTypeATTRIBUTES :: SavingsPlansDataType
+pattern SavingsPlansDataTypeATTRIBUTES = SavingsPlansDataType' "ATTRIBUTES"
 
-pattern Savings :: SavingsPlansDataType
-pattern Savings = SavingsPlansDataType' "SAVINGS"
+pattern SavingsPlansDataTypeSAVINGS :: SavingsPlansDataType
+pattern SavingsPlansDataTypeSAVINGS = SavingsPlansDataType' "SAVINGS"
 
-pattern Utilization :: SavingsPlansDataType
-pattern Utilization = SavingsPlansDataType' "UTILIZATION"
+pattern SavingsPlansDataTypeUTILIZATION :: SavingsPlansDataType
+pattern SavingsPlansDataTypeUTILIZATION = SavingsPlansDataType' "UTILIZATION"
 
 {-# COMPLETE
-  AmortizedCommitment,
-  Attributes,
-  Savings,
-  Utilization,
+  SavingsPlansDataTypeAMORTIZEDCOMMITMENT,
+  SavingsPlansDataTypeATTRIBUTES,
+  SavingsPlansDataTypeSAVINGS,
+  SavingsPlansDataTypeUTILIZATION,
   SavingsPlansDataType'
   #-}
 
-instance FromText SavingsPlansDataType where
-  parser = (SavingsPlansDataType' . mk) <$> takeText
+instance Prelude.FromText SavingsPlansDataType where
+  parser = SavingsPlansDataType' Prelude.<$> Prelude.takeText
 
-instance ToText SavingsPlansDataType where
-  toText (SavingsPlansDataType' ci) = original ci
+instance Prelude.ToText SavingsPlansDataType where
+  toText (SavingsPlansDataType' x) = x
 
-instance Hashable SavingsPlansDataType
+instance Prelude.Hashable SavingsPlansDataType
 
-instance NFData SavingsPlansDataType
+instance Prelude.NFData SavingsPlansDataType
 
-instance ToByteString SavingsPlansDataType
+instance Prelude.ToByteString SavingsPlansDataType
 
-instance ToQuery SavingsPlansDataType
+instance Prelude.ToQuery SavingsPlansDataType
 
-instance ToHeader SavingsPlansDataType
+instance Prelude.ToHeader SavingsPlansDataType
 
-instance ToJSON SavingsPlansDataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SavingsPlansDataType where
+  toJSON = Prelude.toJSONText

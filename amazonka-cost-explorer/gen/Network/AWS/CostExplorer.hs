@@ -11,21 +11,23 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The Cost Explorer API enables you to programmatically query your cost and usage data. You can query for aggregated data such as total monthly costs or total daily usage. You can also query for granular data, such as the number of daily write operations for Amazon DynamoDB database tables in your production environment.
---
+-- The Cost Explorer API enables you to programmatically query your cost
+-- and usage data. You can query for aggregated data such as total monthly
+-- costs or total daily usage. You can also query for granular data, such
+-- as the number of daily write operations for Amazon DynamoDB database
+-- tables in your production environment.
 --
 -- Service Endpoint
 --
 -- The Cost Explorer API provides the following endpoint:
 --
---     * @https://ce.us-east-1.amazonaws.com@
+-- -   @https:\/\/ce.us-east-1.amazonaws.com@
 --
---
---
--- For information about costs associated with the Cost Explorer API, see <http://aws.amazon.com/aws-cost-management/pricing/ AWS Cost Management Pricing> .
+-- For information about costs associated with the Cost Explorer API, see
+-- <http://aws.amazon.com/aws-cost-management/pricing/ AWS Cost Management Pricing>.
 module Network.AWS.CostExplorer
   ( -- * Service Configuration
-    costExplorer,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -67,94 +69,184 @@ module Network.AWS.CostExplorer
     -- $operations
 
     -- ** ListCostCategoryDefinitions
-    module Network.AWS.CostExplorer.ListCostCategoryDefinitions,
+    ListCostCategoryDefinitions (ListCostCategoryDefinitions'),
+    newListCostCategoryDefinitions,
+    ListCostCategoryDefinitionsResponse (ListCostCategoryDefinitionsResponse'),
+    newListCostCategoryDefinitionsResponse,
 
     -- ** GetRightsizingRecommendation
-    module Network.AWS.CostExplorer.GetRightsizingRecommendation,
+    GetRightsizingRecommendation (GetRightsizingRecommendation'),
+    newGetRightsizingRecommendation,
+    GetRightsizingRecommendationResponse (GetRightsizingRecommendationResponse'),
+    newGetRightsizingRecommendationResponse,
 
     -- ** GetAnomalySubscriptions
-    module Network.AWS.CostExplorer.GetAnomalySubscriptions,
+    GetAnomalySubscriptions (GetAnomalySubscriptions'),
+    newGetAnomalySubscriptions,
+    GetAnomalySubscriptionsResponse (GetAnomalySubscriptionsResponse'),
+    newGetAnomalySubscriptionsResponse,
 
     -- ** GetAnomalies
-    module Network.AWS.CostExplorer.GetAnomalies,
+    GetAnomalies (GetAnomalies'),
+    newGetAnomalies,
+    GetAnomaliesResponse (GetAnomaliesResponse'),
+    newGetAnomaliesResponse,
 
     -- ** GetSavingsPlansUtilizationDetails
-    module Network.AWS.CostExplorer.GetSavingsPlansUtilizationDetails,
+    GetSavingsPlansUtilizationDetails (GetSavingsPlansUtilizationDetails'),
+    newGetSavingsPlansUtilizationDetails,
+    GetSavingsPlansUtilizationDetailsResponse (GetSavingsPlansUtilizationDetailsResponse'),
+    newGetSavingsPlansUtilizationDetailsResponse,
 
     -- ** GetCostForecast
-    module Network.AWS.CostExplorer.GetCostForecast,
+    GetCostForecast (GetCostForecast'),
+    newGetCostForecast,
+    GetCostForecastResponse (GetCostForecastResponse'),
+    newGetCostForecastResponse,
 
     -- ** GetCostAndUsage
-    module Network.AWS.CostExplorer.GetCostAndUsage,
+    GetCostAndUsage (GetCostAndUsage'),
+    newGetCostAndUsage,
+    GetCostAndUsageResponse (GetCostAndUsageResponse'),
+    newGetCostAndUsageResponse,
 
     -- ** GetSavingsPlansPurchaseRecommendation
-    module Network.AWS.CostExplorer.GetSavingsPlansPurchaseRecommendation,
+    GetSavingsPlansPurchaseRecommendation (GetSavingsPlansPurchaseRecommendation'),
+    newGetSavingsPlansPurchaseRecommendation,
+    GetSavingsPlansPurchaseRecommendationResponse (GetSavingsPlansPurchaseRecommendationResponse'),
+    newGetSavingsPlansPurchaseRecommendationResponse,
 
     -- ** UpdateAnomalySubscription
-    module Network.AWS.CostExplorer.UpdateAnomalySubscription,
+    UpdateAnomalySubscription (UpdateAnomalySubscription'),
+    newUpdateAnomalySubscription,
+    UpdateAnomalySubscriptionResponse (UpdateAnomalySubscriptionResponse'),
+    newUpdateAnomalySubscriptionResponse,
 
     -- ** DeleteAnomalySubscription
-    module Network.AWS.CostExplorer.DeleteAnomalySubscription,
+    DeleteAnomalySubscription (DeleteAnomalySubscription'),
+    newDeleteAnomalySubscription,
+    DeleteAnomalySubscriptionResponse (DeleteAnomalySubscriptionResponse'),
+    newDeleteAnomalySubscriptionResponse,
 
     -- ** GetReservationCoverage
-    module Network.AWS.CostExplorer.GetReservationCoverage,
+    GetReservationCoverage (GetReservationCoverage'),
+    newGetReservationCoverage,
+    GetReservationCoverageResponse (GetReservationCoverageResponse'),
+    newGetReservationCoverageResponse,
 
     -- ** GetUsageForecast
-    module Network.AWS.CostExplorer.GetUsageForecast,
+    GetUsageForecast (GetUsageForecast'),
+    newGetUsageForecast,
+    GetUsageForecastResponse (GetUsageForecastResponse'),
+    newGetUsageForecastResponse,
 
     -- ** GetCostAndUsageWithResources
-    module Network.AWS.CostExplorer.GetCostAndUsageWithResources,
+    GetCostAndUsageWithResources (GetCostAndUsageWithResources'),
+    newGetCostAndUsageWithResources,
+    GetCostAndUsageWithResourcesResponse (GetCostAndUsageWithResourcesResponse'),
+    newGetCostAndUsageWithResourcesResponse,
 
     -- ** GetTags
-    module Network.AWS.CostExplorer.GetTags,
+    GetTags (GetTags'),
+    newGetTags,
+    GetTagsResponse (GetTagsResponse'),
+    newGetTagsResponse,
 
     -- ** DeleteCostCategoryDefinition
-    module Network.AWS.CostExplorer.DeleteCostCategoryDefinition,
+    DeleteCostCategoryDefinition (DeleteCostCategoryDefinition'),
+    newDeleteCostCategoryDefinition,
+    DeleteCostCategoryDefinitionResponse (DeleteCostCategoryDefinitionResponse'),
+    newDeleteCostCategoryDefinitionResponse,
 
     -- ** UpdateCostCategoryDefinition
-    module Network.AWS.CostExplorer.UpdateCostCategoryDefinition,
+    UpdateCostCategoryDefinition (UpdateCostCategoryDefinition'),
+    newUpdateCostCategoryDefinition,
+    UpdateCostCategoryDefinitionResponse (UpdateCostCategoryDefinitionResponse'),
+    newUpdateCostCategoryDefinitionResponse,
 
     -- ** GetSavingsPlansCoverage
-    module Network.AWS.CostExplorer.GetSavingsPlansCoverage,
+    GetSavingsPlansCoverage (GetSavingsPlansCoverage'),
+    newGetSavingsPlansCoverage,
+    GetSavingsPlansCoverageResponse (GetSavingsPlansCoverageResponse'),
+    newGetSavingsPlansCoverageResponse,
 
     -- ** DeleteAnomalyMonitor
-    module Network.AWS.CostExplorer.DeleteAnomalyMonitor,
+    DeleteAnomalyMonitor (DeleteAnomalyMonitor'),
+    newDeleteAnomalyMonitor,
+    DeleteAnomalyMonitorResponse (DeleteAnomalyMonitorResponse'),
+    newDeleteAnomalyMonitorResponse,
 
     -- ** GetReservationUtilization
-    module Network.AWS.CostExplorer.GetReservationUtilization,
+    GetReservationUtilization (GetReservationUtilization'),
+    newGetReservationUtilization,
+    GetReservationUtilizationResponse (GetReservationUtilizationResponse'),
+    newGetReservationUtilizationResponse,
 
     -- ** GetReservationPurchaseRecommendation
-    module Network.AWS.CostExplorer.GetReservationPurchaseRecommendation,
+    GetReservationPurchaseRecommendation (GetReservationPurchaseRecommendation'),
+    newGetReservationPurchaseRecommendation,
+    GetReservationPurchaseRecommendationResponse (GetReservationPurchaseRecommendationResponse'),
+    newGetReservationPurchaseRecommendationResponse,
 
     -- ** UpdateAnomalyMonitor
-    module Network.AWS.CostExplorer.UpdateAnomalyMonitor,
+    UpdateAnomalyMonitor (UpdateAnomalyMonitor'),
+    newUpdateAnomalyMonitor,
+    UpdateAnomalyMonitorResponse (UpdateAnomalyMonitorResponse'),
+    newUpdateAnomalyMonitorResponse,
 
     -- ** CreateAnomalyMonitor
-    module Network.AWS.CostExplorer.CreateAnomalyMonitor,
+    CreateAnomalyMonitor (CreateAnomalyMonitor'),
+    newCreateAnomalyMonitor,
+    CreateAnomalyMonitorResponse (CreateAnomalyMonitorResponse'),
+    newCreateAnomalyMonitorResponse,
 
     -- ** GetDimensionValues
-    module Network.AWS.CostExplorer.GetDimensionValues,
+    GetDimensionValues (GetDimensionValues'),
+    newGetDimensionValues,
+    GetDimensionValuesResponse (GetDimensionValuesResponse'),
+    newGetDimensionValuesResponse,
 
     -- ** CreateAnomalySubscription
-    module Network.AWS.CostExplorer.CreateAnomalySubscription,
+    CreateAnomalySubscription (CreateAnomalySubscription'),
+    newCreateAnomalySubscription,
+    CreateAnomalySubscriptionResponse (CreateAnomalySubscriptionResponse'),
+    newCreateAnomalySubscriptionResponse,
 
     -- ** DescribeCostCategoryDefinition
-    module Network.AWS.CostExplorer.DescribeCostCategoryDefinition,
+    DescribeCostCategoryDefinition (DescribeCostCategoryDefinition'),
+    newDescribeCostCategoryDefinition,
+    DescribeCostCategoryDefinitionResponse (DescribeCostCategoryDefinitionResponse'),
+    newDescribeCostCategoryDefinitionResponse,
 
     -- ** GetCostCategories
-    module Network.AWS.CostExplorer.GetCostCategories,
+    GetCostCategories (GetCostCategories'),
+    newGetCostCategories,
+    GetCostCategoriesResponse (GetCostCategoriesResponse'),
+    newGetCostCategoriesResponse,
 
     -- ** GetSavingsPlansUtilization
-    module Network.AWS.CostExplorer.GetSavingsPlansUtilization,
+    GetSavingsPlansUtilization (GetSavingsPlansUtilization'),
+    newGetSavingsPlansUtilization,
+    GetSavingsPlansUtilizationResponse (GetSavingsPlansUtilizationResponse'),
+    newGetSavingsPlansUtilizationResponse,
 
     -- ** ProvideAnomalyFeedback
-    module Network.AWS.CostExplorer.ProvideAnomalyFeedback,
+    ProvideAnomalyFeedback (ProvideAnomalyFeedback'),
+    newProvideAnomalyFeedback,
+    ProvideAnomalyFeedbackResponse (ProvideAnomalyFeedbackResponse'),
+    newProvideAnomalyFeedbackResponse,
 
     -- ** GetAnomalyMonitors
-    module Network.AWS.CostExplorer.GetAnomalyMonitors,
+    GetAnomalyMonitors (GetAnomalyMonitors'),
+    newGetAnomalyMonitors,
+    GetAnomalyMonitorsResponse (GetAnomalyMonitorsResponse'),
+    newGetAnomalyMonitorsResponse,
 
     -- ** CreateCostCategoryDefinition
-    module Network.AWS.CostExplorer.CreateCostCategoryDefinition,
+    CreateCostCategoryDefinition (CreateCostCategoryDefinition'),
+    newCreateCostCategoryDefinition,
+    CreateCostCategoryDefinitionResponse (CreateCostCategoryDefinitionResponse'),
+    newCreateCostCategoryDefinitionResponse,
 
     -- * Types
 
@@ -237,620 +329,292 @@ module Network.AWS.CostExplorer
     TermInYears (..),
 
     -- ** Anomaly
-    Anomaly,
-    anomaly,
-    aDimensionValue,
-    aRootCauses,
-    aFeedback,
-    aAnomalyStartDate,
-    aAnomalyEndDate,
-    aAnomalyId,
-    aAnomalyScore,
-    aImpact,
-    aMonitorARN,
+    Anomaly (Anomaly'),
+    newAnomaly,
 
     -- ** AnomalyDateInterval
-    AnomalyDateInterval,
-    anomalyDateInterval,
-    adiEndDate,
-    adiStartDate,
+    AnomalyDateInterval (AnomalyDateInterval'),
+    newAnomalyDateInterval,
 
     -- ** AnomalyMonitor
-    AnomalyMonitor,
-    anomalyMonitor,
-    amLastEvaluatedDate,
-    amMonitorSpecification,
-    amLastUpdatedDate,
-    amCreationDate,
-    amDimensionalValueCount,
-    amMonitorDimension,
-    amMonitorARN,
-    amMonitorName,
-    amMonitorType,
+    AnomalyMonitor (AnomalyMonitor'),
+    newAnomalyMonitor,
 
     -- ** AnomalyScore
-    AnomalyScore,
-    anomalyScore,
-    asMaxScore,
-    asCurrentScore,
+    AnomalyScore (AnomalyScore'),
+    newAnomalyScore,
 
     -- ** AnomalySubscription
-    AnomalySubscription,
-    anomalySubscription,
-    asAccountId,
-    asSubscriptionARN,
-    asMonitorARNList,
-    asSubscribers,
-    asThreshold,
-    asFrequency,
-    asSubscriptionName,
+    AnomalySubscription (AnomalySubscription'),
+    newAnomalySubscription,
 
     -- ** CostCategory
-    CostCategory,
-    costCategory,
-    ccProcessingStatus,
-    ccEffectiveEnd,
-    ccCostCategoryARN,
-    ccEffectiveStart,
-    ccName,
-    ccRuleVersion,
-    ccRules,
+    CostCategory (CostCategory'),
+    newCostCategory,
 
     -- ** CostCategoryProcessingStatus
-    CostCategoryProcessingStatus,
-    costCategoryProcessingStatus,
-    ccpsStatus,
-    ccpsComponent,
+    CostCategoryProcessingStatus (CostCategoryProcessingStatus'),
+    newCostCategoryProcessingStatus,
 
     -- ** CostCategoryReference
-    CostCategoryReference,
-    costCategoryReference,
-    ccrNumberOfRules,
-    ccrCostCategoryARN,
-    ccrValues,
-    ccrProcessingStatus,
-    ccrName,
-    ccrEffectiveStart,
-    ccrEffectiveEnd,
+    CostCategoryReference (CostCategoryReference'),
+    newCostCategoryReference,
 
     -- ** CostCategoryRule
-    CostCategoryRule,
-    costCategoryRule,
-    ccrValue,
-    ccrRule,
+    CostCategoryRule (CostCategoryRule'),
+    newCostCategoryRule,
 
     -- ** CostCategoryValues
-    CostCategoryValues,
-    costCategoryValues,
-    ccvKey,
-    ccvValues,
-    ccvMatchOptions,
+    CostCategoryValues (CostCategoryValues'),
+    newCostCategoryValues,
 
     -- ** Coverage
-    Coverage,
-    coverage,
-    cCoverageCost,
-    cCoverageHours,
-    cCoverageNormalizedUnits,
+    Coverage (Coverage'),
+    newCoverage,
 
     -- ** CoverageByTime
-    CoverageByTime,
-    coverageByTime,
-    cbtGroups,
-    cbtTimePeriod,
-    cbtTotal,
+    CoverageByTime (CoverageByTime'),
+    newCoverageByTime,
 
     -- ** CoverageCost
-    CoverageCost,
-    coverageCost,
-    ccOnDemandCost,
+    CoverageCost (CoverageCost'),
+    newCoverageCost,
 
     -- ** CoverageHours
-    CoverageHours,
-    coverageHours,
-    chReservedHours,
-    chTotalRunningHours,
-    chOnDemandHours,
-    chCoverageHoursPercentage,
+    CoverageHours (CoverageHours'),
+    newCoverageHours,
 
     -- ** CoverageNormalizedUnits
-    CoverageNormalizedUnits,
-    coverageNormalizedUnits,
-    cnuOnDemandNormalizedUnits,
-    cnuCoverageNormalizedUnitsPercentage,
-    cnuTotalRunningNormalizedUnits,
-    cnuReservedNormalizedUnits,
+    CoverageNormalizedUnits (CoverageNormalizedUnits'),
+    newCoverageNormalizedUnits,
 
     -- ** CurrentInstance
-    CurrentInstance,
-    currentInstance,
-    ciResourceId,
-    ciInstanceName,
-    ciSavingsPlansCoveredHoursInLookbackPeriod,
-    ciOnDemandHoursInLookbackPeriod,
-    ciCurrencyCode,
-    ciTags,
-    ciReservationCoveredHoursInLookbackPeriod,
-    ciMonthlyCost,
-    ciResourceUtilization,
-    ciResourceDetails,
-    ciTotalRunningHoursInLookbackPeriod,
+    CurrentInstance (CurrentInstance'),
+    newCurrentInstance,
 
     -- ** DateInterval
-    DateInterval,
-    dateInterval,
-    diStart,
-    diEnd,
+    DateInterval (DateInterval'),
+    newDateInterval,
 
     -- ** DimensionValues
-    DimensionValues,
-    dimensionValues,
-    dvKey,
-    dvValues,
-    dvMatchOptions,
+    DimensionValues (DimensionValues'),
+    newDimensionValues,
 
     -- ** DimensionValuesWithAttributes
-    DimensionValuesWithAttributes,
-    dimensionValuesWithAttributes,
-    dvwaAttributes,
-    dvwaValue,
+    DimensionValuesWithAttributes (DimensionValuesWithAttributes'),
+    newDimensionValuesWithAttributes,
 
     -- ** EBSResourceUtilization
-    EBSResourceUtilization,
-    ebsResourceUtilization,
-    eruEBSWriteBytesPerSecond,
-    eruEBSReadOpsPerSecond,
-    eruEBSWriteOpsPerSecond,
-    eruEBSReadBytesPerSecond,
+    EBSResourceUtilization (EBSResourceUtilization'),
+    newEBSResourceUtilization,
 
     -- ** EC2InstanceDetails
-    EC2InstanceDetails,
-    ec2InstanceDetails,
-    eidPlatform,
-    eidInstanceType,
-    eidTenancy,
-    eidCurrentGeneration,
-    eidSizeFlexEligible,
-    eidAvailabilityZone,
-    eidFamily,
-    eidRegion,
+    EC2InstanceDetails (EC2InstanceDetails'),
+    newEC2InstanceDetails,
 
     -- ** EC2ResourceDetails
-    EC2ResourceDetails,
-    ec2ResourceDetails,
-    erdPlatform,
-    erdInstanceType,
-    erdMemory,
-    erdVcpu,
-    erdHourlyOnDemandRate,
-    erdStorage,
-    erdNetworkPerformance,
-    erdRegion,
-    erdSku,
+    EC2ResourceDetails (EC2ResourceDetails'),
+    newEC2ResourceDetails,
 
     -- ** EC2ResourceUtilization
-    EC2ResourceUtilization,
-    ec2ResourceUtilization,
-    eruMaxStorageUtilizationPercentage,
-    eruMaxMemoryUtilizationPercentage,
-    eruEBSResourceUtilization,
-    eruMaxCPUUtilizationPercentage,
+    EC2ResourceUtilization (EC2ResourceUtilization'),
+    newEC2ResourceUtilization,
 
     -- ** EC2Specification
-    EC2Specification,
-    ec2Specification,
-    esOfferingClass,
+    EC2Specification (EC2Specification'),
+    newEC2Specification,
 
     -- ** ESInstanceDetails
-    ESInstanceDetails,
-    eSInstanceDetails,
-    esidInstanceClass,
-    esidCurrentGeneration,
-    esidSizeFlexEligible,
-    esidInstanceSize,
-    esidRegion,
+    ESInstanceDetails (ESInstanceDetails'),
+    newESInstanceDetails,
 
     -- ** ElastiCacheInstanceDetails
-    ElastiCacheInstanceDetails,
-    elastiCacheInstanceDetails,
-    ecidCurrentGeneration,
-    ecidSizeFlexEligible,
-    ecidFamily,
-    ecidNodeType,
-    ecidRegion,
-    ecidProductDescription,
+    ElastiCacheInstanceDetails (ElastiCacheInstanceDetails'),
+    newElastiCacheInstanceDetails,
 
     -- ** Expression
-    Expression,
-    expression,
-    eNot,
-    eOr,
-    eCostCategories,
-    eTags,
-    eAnd,
-    eDimensions,
+    Expression (Expression'),
+    newExpression,
 
     -- ** ForecastResult
-    ForecastResult,
-    forecastResult,
-    frMeanValue,
-    frTimePeriod,
-    frPredictionIntervalLowerBound,
-    frPredictionIntervalUpperBound,
+    ForecastResult (ForecastResult'),
+    newForecastResult,
 
     -- ** Group
-    Group,
-    group',
-    gMetrics,
-    gKeys,
+    Group (Group'),
+    newGroup,
 
     -- ** GroupDefinition
-    GroupDefinition,
-    groupDefinition,
-    gdKey,
-    gdType,
+    GroupDefinition (GroupDefinition'),
+    newGroupDefinition,
 
     -- ** Impact
-    Impact,
-    impact,
-    iTotalImpact,
-    iMaxImpact,
+    Impact (Impact'),
+    newImpact,
 
     -- ** InstanceDetails
-    InstanceDetails,
-    instanceDetails,
-    idElastiCacheInstanceDetails,
-    idRedshiftInstanceDetails,
-    idESInstanceDetails,
-    idEC2InstanceDetails,
-    idRDSInstanceDetails,
+    InstanceDetails (InstanceDetails'),
+    newInstanceDetails,
 
     -- ** MetricValue
-    MetricValue,
-    metricValue,
-    mvAmount,
-    mvUnit,
+    MetricValue (MetricValue'),
+    newMetricValue,
 
     -- ** ModifyRecommendationDetail
-    ModifyRecommendationDetail,
-    modifyRecommendationDetail,
-    mrdTargetInstances,
+    ModifyRecommendationDetail (ModifyRecommendationDetail'),
+    newModifyRecommendationDetail,
 
     -- ** RDSInstanceDetails
-    RDSInstanceDetails,
-    rdsInstanceDetails,
-    rdsidInstanceType,
-    rdsidDatabaseEdition,
-    rdsidDeploymentOption,
-    rdsidCurrentGeneration,
-    rdsidSizeFlexEligible,
-    rdsidLicenseModel,
-    rdsidFamily,
-    rdsidDatabaseEngine,
-    rdsidRegion,
+    RDSInstanceDetails (RDSInstanceDetails'),
+    newRDSInstanceDetails,
 
     -- ** RedshiftInstanceDetails
-    RedshiftInstanceDetails,
-    redshiftInstanceDetails,
-    ridCurrentGeneration,
-    ridSizeFlexEligible,
-    ridFamily,
-    ridNodeType,
-    ridRegion,
+    RedshiftInstanceDetails (RedshiftInstanceDetails'),
+    newRedshiftInstanceDetails,
 
     -- ** ReservationAggregates
-    ReservationAggregates,
-    reservationAggregates,
-    raUnusedHours,
-    raRealizedSavings,
-    raTotalActualHours,
-    raPurchasedHours,
-    raUnrealizedSavings,
-    raOnDemandCostOfRIHoursUsed,
-    raAmortizedRecurringFee,
-    raRICostForUnusedHours,
-    raUnusedUnits,
-    raTotalActualUnits,
-    raTotalPotentialRISavings,
-    raNetRISavings,
-    raTotalAmortizedFee,
-    raUtilizationPercentageInUnits,
-    raAmortizedUpfrontFee,
-    raUtilizationPercentage,
-    raPurchasedUnits,
+    ReservationAggregates (ReservationAggregates'),
+    newReservationAggregates,
 
     -- ** ReservationCoverageGroup
-    ReservationCoverageGroup,
-    reservationCoverageGroup,
-    rcgAttributes,
-    rcgCoverage,
+    ReservationCoverageGroup (ReservationCoverageGroup'),
+    newReservationCoverageGroup,
 
     -- ** ReservationPurchaseRecommendation
-    ReservationPurchaseRecommendation,
-    reservationPurchaseRecommendation,
-    rprPaymentOption,
-    rprAccountScope,
-    rprRecommendationDetails,
-    rprServiceSpecification,
-    rprTermInYears,
-    rprRecommendationSummary,
-    rprLookbackPeriodInDays,
+    ReservationPurchaseRecommendation (ReservationPurchaseRecommendation'),
+    newReservationPurchaseRecommendation,
 
     -- ** ReservationPurchaseRecommendationDetail
-    ReservationPurchaseRecommendationDetail,
-    reservationPurchaseRecommendationDetail,
-    rprdUpfrontCost,
-    rprdAccountId,
-    rprdEstimatedMonthlySavingsAmount,
-    rprdRecurringStandardMonthlyCost,
-    rprdRecommendedNormalizedUnitsToPurchase,
-    rprdAverageUtilization,
-    rprdAverageNumberOfInstancesUsedPerHour,
-    rprdEstimatedReservationCostForLookbackPeriod,
-    rprdInstanceDetails,
-    rprdMaximumNumberOfInstancesUsedPerHour,
-    rprdRecommendedNumberOfInstancesToPurchase,
-    rprdCurrencyCode,
-    rprdMinimumNormalizedUnitsUsedPerHour,
-    rprdAverageNormalizedUnitsUsedPerHour,
-    rprdMaximumNormalizedUnitsUsedPerHour,
-    rprdEstimatedBreakEvenInMonths,
-    rprdMinimumNumberOfInstancesUsedPerHour,
-    rprdEstimatedMonthlySavingsPercentage,
-    rprdEstimatedMonthlyOnDemandCost,
+    ReservationPurchaseRecommendationDetail (ReservationPurchaseRecommendationDetail'),
+    newReservationPurchaseRecommendationDetail,
 
     -- ** ReservationPurchaseRecommendationMetadata
-    ReservationPurchaseRecommendationMetadata,
-    reservationPurchaseRecommendationMetadata,
-    rprmRecommendationId,
-    rprmGenerationTimestamp,
+    ReservationPurchaseRecommendationMetadata (ReservationPurchaseRecommendationMetadata'),
+    newReservationPurchaseRecommendationMetadata,
 
     -- ** ReservationPurchaseRecommendationSummary
-    ReservationPurchaseRecommendationSummary,
-    reservationPurchaseRecommendationSummary,
-    rprsTotalEstimatedMonthlySavingsAmount,
-    rprsCurrencyCode,
-    rprsTotalEstimatedMonthlySavingsPercentage,
+    ReservationPurchaseRecommendationSummary (ReservationPurchaseRecommendationSummary'),
+    newReservationPurchaseRecommendationSummary,
 
     -- ** ReservationUtilizationGroup
-    ReservationUtilizationGroup,
-    reservationUtilizationGroup,
-    rugKey,
-    rugUtilization,
-    rugAttributes,
-    rugValue,
+    ReservationUtilizationGroup (ReservationUtilizationGroup'),
+    newReservationUtilizationGroup,
 
     -- ** ResourceDetails
-    ResourceDetails,
-    resourceDetails,
-    rdEC2ResourceDetails,
+    ResourceDetails (ResourceDetails'),
+    newResourceDetails,
 
     -- ** ResourceUtilization
-    ResourceUtilization,
-    resourceUtilization,
-    ruEC2ResourceUtilization,
+    ResourceUtilization (ResourceUtilization'),
+    newResourceUtilization,
 
     -- ** ResultByTime
-    ResultByTime,
-    resultByTime,
-    rbtGroups,
-    rbtTimePeriod,
-    rbtEstimated,
-    rbtTotal,
+    ResultByTime (ResultByTime'),
+    newResultByTime,
 
     -- ** RightsizingRecommendation
-    RightsizingRecommendation,
-    rightsizingRecommendation,
-    rrAccountId,
-    rrTerminateRecommendationDetail,
-    rrRightsizingType,
-    rrCurrentInstance,
-    rrModifyRecommendationDetail,
+    RightsizingRecommendation (RightsizingRecommendation'),
+    newRightsizingRecommendation,
 
     -- ** RightsizingRecommendationConfiguration
-    RightsizingRecommendationConfiguration,
-    rightsizingRecommendationConfiguration,
-    rrcRecommendationTarget,
-    rrcBenefitsConsidered,
+    RightsizingRecommendationConfiguration (RightsizingRecommendationConfiguration'),
+    newRightsizingRecommendationConfiguration,
 
     -- ** RightsizingRecommendationMetadata
-    RightsizingRecommendationMetadata,
-    rightsizingRecommendationMetadata,
-    rrmRecommendationId,
-    rrmAdditionalMetadata,
-    rrmLookbackPeriodInDays,
-    rrmGenerationTimestamp,
+    RightsizingRecommendationMetadata (RightsizingRecommendationMetadata'),
+    newRightsizingRecommendationMetadata,
 
     -- ** RightsizingRecommendationSummary
-    RightsizingRecommendationSummary,
-    rightsizingRecommendationSummary,
-    rrsEstimatedTotalMonthlySavingsAmount,
-    rrsSavingsPercentage,
-    rrsTotalRecommendationCount,
-    rrsSavingsCurrencyCode,
+    RightsizingRecommendationSummary (RightsizingRecommendationSummary'),
+    newRightsizingRecommendationSummary,
 
     -- ** RootCause
-    RootCause,
-    rootCause,
-    rcService,
-    rcUsageType,
-    rcLinkedAccount,
-    rcRegion,
+    RootCause (RootCause'),
+    newRootCause,
 
     -- ** SavingsPlansAmortizedCommitment
-    SavingsPlansAmortizedCommitment,
-    savingsPlansAmortizedCommitment,
-    spacAmortizedUpfrontCommitment,
-    spacAmortizedRecurringCommitment,
-    spacTotalAmortizedCommitment,
+    SavingsPlansAmortizedCommitment (SavingsPlansAmortizedCommitment'),
+    newSavingsPlansAmortizedCommitment,
 
     -- ** SavingsPlansCoverage
-    SavingsPlansCoverage,
-    savingsPlansCoverage,
-    spcTimePeriod,
-    spcAttributes,
-    spcCoverage,
+    SavingsPlansCoverage (SavingsPlansCoverage'),
+    newSavingsPlansCoverage,
 
     -- ** SavingsPlansCoverageData
-    SavingsPlansCoverageData,
-    savingsPlansCoverageData,
-    spcdTotalCost,
-    spcdCoveragePercentage,
-    spcdSpendCoveredBySavingsPlans,
-    spcdOnDemandCost,
+    SavingsPlansCoverageData (SavingsPlansCoverageData'),
+    newSavingsPlansCoverageData,
 
     -- ** SavingsPlansDetails
-    SavingsPlansDetails,
-    savingsPlansDetails,
-    spdInstanceFamily,
-    spdOfferingId,
-    spdRegion,
+    SavingsPlansDetails (SavingsPlansDetails'),
+    newSavingsPlansDetails,
 
     -- ** SavingsPlansPurchaseRecommendation
-    SavingsPlansPurchaseRecommendation,
-    savingsPlansPurchaseRecommendation,
-    spprPaymentOption,
-    spprSavingsPlansPurchaseRecommendationSummary,
-    spprAccountScope,
-    spprTermInYears,
-    spprSavingsPlansPurchaseRecommendationDetails,
-    spprSavingsPlansType,
-    spprLookbackPeriodInDays,
+    SavingsPlansPurchaseRecommendation (SavingsPlansPurchaseRecommendation'),
+    newSavingsPlansPurchaseRecommendation,
 
     -- ** SavingsPlansPurchaseRecommendationDetail
-    SavingsPlansPurchaseRecommendationDetail,
-    savingsPlansPurchaseRecommendationDetail,
-    spprdUpfrontCost,
-    spprdEstimatedOnDemandCost,
-    spprdAccountId,
-    spprdEstimatedMonthlySavingsAmount,
-    spprdEstimatedSavingsAmount,
-    spprdCurrentMaximumHourlyOnDemandSpend,
-    spprdHourlyCommitmentToPurchase,
-    spprdEstimatedAverageUtilization,
-    spprdCurrentAverageHourlyOnDemandSpend,
-    spprdEstimatedSavingsPercentage,
-    spprdSavingsPlansDetails,
-    spprdCurrencyCode,
-    spprdEstimatedSPCost,
-    spprdEstimatedOnDemandCostWithCurrentCommitment,
-    spprdEstimatedROI,
-    spprdCurrentMinimumHourlyOnDemandSpend,
+    SavingsPlansPurchaseRecommendationDetail (SavingsPlansPurchaseRecommendationDetail'),
+    newSavingsPlansPurchaseRecommendationDetail,
 
     -- ** SavingsPlansPurchaseRecommendationMetadata
-    SavingsPlansPurchaseRecommendationMetadata,
-    savingsPlansPurchaseRecommendationMetadata,
-    spprmRecommendationId,
-    spprmAdditionalMetadata,
-    spprmGenerationTimestamp,
+    SavingsPlansPurchaseRecommendationMetadata (SavingsPlansPurchaseRecommendationMetadata'),
+    newSavingsPlansPurchaseRecommendationMetadata,
 
     -- ** SavingsPlansPurchaseRecommendationSummary
-    SavingsPlansPurchaseRecommendationSummary,
-    savingsPlansPurchaseRecommendationSummary,
-    spprsEstimatedMonthlySavingsAmount,
-    spprsEstimatedSavingsAmount,
-    spprsHourlyCommitmentToPurchase,
-    spprsEstimatedTotalCost,
-    spprsEstimatedSavingsPercentage,
-    spprsCurrencyCode,
-    spprsEstimatedOnDemandCostWithCurrentCommitment,
-    spprsEstimatedROI,
-    spprsCurrentOnDemandSpend,
-    spprsTotalRecommendationCount,
-    spprsDailyCommitmentToPurchase,
+    SavingsPlansPurchaseRecommendationSummary (SavingsPlansPurchaseRecommendationSummary'),
+    newSavingsPlansPurchaseRecommendationSummary,
 
     -- ** SavingsPlansSavings
-    SavingsPlansSavings,
-    savingsPlansSavings,
-    spsOnDemandCostEquivalent,
-    spsNetSavings,
+    SavingsPlansSavings (SavingsPlansSavings'),
+    newSavingsPlansSavings,
 
     -- ** SavingsPlansUtilization
-    SavingsPlansUtilization,
-    savingsPlansUtilization,
-    spuUnusedCommitment,
-    spuUsedCommitment,
-    spuTotalCommitment,
-    spuUtilizationPercentage,
+    SavingsPlansUtilization (SavingsPlansUtilization'),
+    newSavingsPlansUtilization,
 
     -- ** SavingsPlansUtilizationAggregates
-    SavingsPlansUtilizationAggregates,
-    savingsPlansUtilizationAggregates,
-    spuaSavings,
-    spuaAmortizedCommitment,
-    spuaUtilization,
+    SavingsPlansUtilizationAggregates (SavingsPlansUtilizationAggregates'),
+    newSavingsPlansUtilizationAggregates,
 
     -- ** SavingsPlansUtilizationByTime
-    SavingsPlansUtilizationByTime,
-    savingsPlansUtilizationByTime,
-    spubtSavings,
-    spubtAmortizedCommitment,
-    spubtTimePeriod,
-    spubtUtilization,
+    SavingsPlansUtilizationByTime (SavingsPlansUtilizationByTime'),
+    newSavingsPlansUtilizationByTime,
 
     -- ** SavingsPlansUtilizationDetail
-    SavingsPlansUtilizationDetail,
-    savingsPlansUtilizationDetail,
-    spudSavings,
-    spudUtilization,
-    spudAttributes,
-    spudAmortizedCommitment,
-    spudSavingsPlanARN,
+    SavingsPlansUtilizationDetail (SavingsPlansUtilizationDetail'),
+    newSavingsPlansUtilizationDetail,
 
     -- ** ServiceSpecification
-    ServiceSpecification,
-    serviceSpecification,
-    ssEC2Specification,
+    ServiceSpecification (ServiceSpecification'),
+    newServiceSpecification,
 
     -- ** SortDefinition
-    SortDefinition,
-    sortDefinition,
-    sdSortOrder,
-    sdKey,
+    SortDefinition (SortDefinition'),
+    newSortDefinition,
 
     -- ** Subscriber
-    Subscriber,
-    subscriber,
-    sStatus,
-    sAddress,
-    sType,
+    Subscriber (Subscriber'),
+    newSubscriber,
 
     -- ** TagValues
-    TagValues,
-    tagValues,
-    tvKey,
-    tvValues,
-    tvMatchOptions,
+    TagValues (TagValues'),
+    newTagValues,
 
     -- ** TargetInstance
-    TargetInstance,
-    targetInstance,
-    tiEstimatedMonthlySavings,
-    tiCurrencyCode,
-    tiEstimatedMonthlyCost,
-    tiExpectedResourceUtilization,
-    tiDefaultTargetInstance,
-    tiResourceDetails,
+    TargetInstance (TargetInstance'),
+    newTargetInstance,
 
     -- ** TerminateRecommendationDetail
-    TerminateRecommendationDetail,
-    terminateRecommendationDetail,
-    trdEstimatedMonthlySavings,
-    trdCurrencyCode,
+    TerminateRecommendationDetail (TerminateRecommendationDetail'),
+    newTerminateRecommendationDetail,
 
     -- ** TotalImpactFilter
-    TotalImpactFilter,
-    totalImpactFilter,
-    tifEndValue,
-    tifNumericOperator,
-    tifStartValue,
+    TotalImpactFilter (TotalImpactFilter'),
+    newTotalImpactFilter,
 
     -- ** UtilizationByTime
-    UtilizationByTime,
-    utilizationByTime,
-    ubtGroups,
-    ubtTimePeriod,
-    ubtTotal,
+    UtilizationByTime (UtilizationByTime'),
+    newUtilizationByTime,
   )
 where
 
@@ -879,6 +643,7 @@ import Network.AWS.CostExplorer.GetSavingsPlansUtilization
 import Network.AWS.CostExplorer.GetSavingsPlansUtilizationDetails
 import Network.AWS.CostExplorer.GetTags
 import Network.AWS.CostExplorer.GetUsageForecast
+import Network.AWS.CostExplorer.Lens
 import Network.AWS.CostExplorer.ListCostCategoryDefinitions
 import Network.AWS.CostExplorer.ProvideAnomalyFeedback
 import Network.AWS.CostExplorer.Types

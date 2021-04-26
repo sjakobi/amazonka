@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types
   ( -- * Service Configuration
-    costExplorer,
+    defaultService,
 
     -- * Errors
     _ServiceQuotaExceededException,
@@ -105,619 +108,291 @@ module Network.AWS.CostExplorer.Types
 
     -- * Anomaly
     Anomaly (..),
-    anomaly,
-    aDimensionValue,
-    aRootCauses,
-    aFeedback,
-    aAnomalyStartDate,
-    aAnomalyEndDate,
-    aAnomalyId,
-    aAnomalyScore,
-    aImpact,
-    aMonitorARN,
+    newAnomaly,
 
     -- * AnomalyDateInterval
     AnomalyDateInterval (..),
-    anomalyDateInterval,
-    adiEndDate,
-    adiStartDate,
+    newAnomalyDateInterval,
 
     -- * AnomalyMonitor
     AnomalyMonitor (..),
-    anomalyMonitor,
-    amLastEvaluatedDate,
-    amMonitorSpecification,
-    amLastUpdatedDate,
-    amCreationDate,
-    amDimensionalValueCount,
-    amMonitorDimension,
-    amMonitorARN,
-    amMonitorName,
-    amMonitorType,
+    newAnomalyMonitor,
 
     -- * AnomalyScore
     AnomalyScore (..),
-    anomalyScore,
-    asMaxScore,
-    asCurrentScore,
+    newAnomalyScore,
 
     -- * AnomalySubscription
     AnomalySubscription (..),
-    anomalySubscription,
-    asAccountId,
-    asSubscriptionARN,
-    asMonitorARNList,
-    asSubscribers,
-    asThreshold,
-    asFrequency,
-    asSubscriptionName,
+    newAnomalySubscription,
 
     -- * CostCategory
     CostCategory (..),
-    costCategory,
-    ccProcessingStatus,
-    ccEffectiveEnd,
-    ccCostCategoryARN,
-    ccEffectiveStart,
-    ccName,
-    ccRuleVersion,
-    ccRules,
+    newCostCategory,
 
     -- * CostCategoryProcessingStatus
     CostCategoryProcessingStatus (..),
-    costCategoryProcessingStatus,
-    ccpsStatus,
-    ccpsComponent,
+    newCostCategoryProcessingStatus,
 
     -- * CostCategoryReference
     CostCategoryReference (..),
-    costCategoryReference,
-    ccrNumberOfRules,
-    ccrCostCategoryARN,
-    ccrValues,
-    ccrProcessingStatus,
-    ccrName,
-    ccrEffectiveStart,
-    ccrEffectiveEnd,
+    newCostCategoryReference,
 
     -- * CostCategoryRule
     CostCategoryRule (..),
-    costCategoryRule,
-    ccrValue,
-    ccrRule,
+    newCostCategoryRule,
 
     -- * CostCategoryValues
     CostCategoryValues (..),
-    costCategoryValues,
-    ccvKey,
-    ccvValues,
-    ccvMatchOptions,
+    newCostCategoryValues,
 
     -- * Coverage
     Coverage (..),
-    coverage,
-    cCoverageCost,
-    cCoverageHours,
-    cCoverageNormalizedUnits,
+    newCoverage,
 
     -- * CoverageByTime
     CoverageByTime (..),
-    coverageByTime,
-    cbtGroups,
-    cbtTimePeriod,
-    cbtTotal,
+    newCoverageByTime,
 
     -- * CoverageCost
     CoverageCost (..),
-    coverageCost,
-    ccOnDemandCost,
+    newCoverageCost,
 
     -- * CoverageHours
     CoverageHours (..),
-    coverageHours,
-    chReservedHours,
-    chTotalRunningHours,
-    chOnDemandHours,
-    chCoverageHoursPercentage,
+    newCoverageHours,
 
     -- * CoverageNormalizedUnits
     CoverageNormalizedUnits (..),
-    coverageNormalizedUnits,
-    cnuOnDemandNormalizedUnits,
-    cnuCoverageNormalizedUnitsPercentage,
-    cnuTotalRunningNormalizedUnits,
-    cnuReservedNormalizedUnits,
+    newCoverageNormalizedUnits,
 
     -- * CurrentInstance
     CurrentInstance (..),
-    currentInstance,
-    ciResourceId,
-    ciInstanceName,
-    ciSavingsPlansCoveredHoursInLookbackPeriod,
-    ciOnDemandHoursInLookbackPeriod,
-    ciCurrencyCode,
-    ciTags,
-    ciReservationCoveredHoursInLookbackPeriod,
-    ciMonthlyCost,
-    ciResourceUtilization,
-    ciResourceDetails,
-    ciTotalRunningHoursInLookbackPeriod,
+    newCurrentInstance,
 
     -- * DateInterval
     DateInterval (..),
-    dateInterval,
-    diStart,
-    diEnd,
+    newDateInterval,
 
     -- * DimensionValues
     DimensionValues (..),
-    dimensionValues,
-    dvKey,
-    dvValues,
-    dvMatchOptions,
+    newDimensionValues,
 
     -- * DimensionValuesWithAttributes
     DimensionValuesWithAttributes (..),
-    dimensionValuesWithAttributes,
-    dvwaAttributes,
-    dvwaValue,
+    newDimensionValuesWithAttributes,
 
     -- * EBSResourceUtilization
     EBSResourceUtilization (..),
-    ebsResourceUtilization,
-    eruEBSWriteBytesPerSecond,
-    eruEBSReadOpsPerSecond,
-    eruEBSWriteOpsPerSecond,
-    eruEBSReadBytesPerSecond,
+    newEBSResourceUtilization,
 
     -- * EC2InstanceDetails
     EC2InstanceDetails (..),
-    ec2InstanceDetails,
-    eidPlatform,
-    eidInstanceType,
-    eidTenancy,
-    eidCurrentGeneration,
-    eidSizeFlexEligible,
-    eidAvailabilityZone,
-    eidFamily,
-    eidRegion,
+    newEC2InstanceDetails,
 
     -- * EC2ResourceDetails
     EC2ResourceDetails (..),
-    ec2ResourceDetails,
-    erdPlatform,
-    erdInstanceType,
-    erdMemory,
-    erdVcpu,
-    erdHourlyOnDemandRate,
-    erdStorage,
-    erdNetworkPerformance,
-    erdRegion,
-    erdSku,
+    newEC2ResourceDetails,
 
     -- * EC2ResourceUtilization
     EC2ResourceUtilization (..),
-    ec2ResourceUtilization,
-    eruMaxStorageUtilizationPercentage,
-    eruMaxMemoryUtilizationPercentage,
-    eruEBSResourceUtilization,
-    eruMaxCPUUtilizationPercentage,
+    newEC2ResourceUtilization,
 
     -- * EC2Specification
     EC2Specification (..),
-    ec2Specification,
-    esOfferingClass,
+    newEC2Specification,
 
     -- * ESInstanceDetails
     ESInstanceDetails (..),
-    eSInstanceDetails,
-    esidInstanceClass,
-    esidCurrentGeneration,
-    esidSizeFlexEligible,
-    esidInstanceSize,
-    esidRegion,
+    newESInstanceDetails,
 
     -- * ElastiCacheInstanceDetails
     ElastiCacheInstanceDetails (..),
-    elastiCacheInstanceDetails,
-    ecidCurrentGeneration,
-    ecidSizeFlexEligible,
-    ecidFamily,
-    ecidNodeType,
-    ecidRegion,
-    ecidProductDescription,
+    newElastiCacheInstanceDetails,
 
     -- * Expression
     Expression (..),
-    expression,
-    eNot,
-    eOr,
-    eCostCategories,
-    eTags,
-    eAnd,
-    eDimensions,
+    newExpression,
 
     -- * ForecastResult
     ForecastResult (..),
-    forecastResult,
-    frMeanValue,
-    frTimePeriod,
-    frPredictionIntervalLowerBound,
-    frPredictionIntervalUpperBound,
+    newForecastResult,
 
     -- * Group
     Group (..),
-    group',
-    gMetrics,
-    gKeys,
+    newGroup,
 
     -- * GroupDefinition
     GroupDefinition (..),
-    groupDefinition,
-    gdKey,
-    gdType,
+    newGroupDefinition,
 
     -- * Impact
     Impact (..),
-    impact,
-    iTotalImpact,
-    iMaxImpact,
+    newImpact,
 
     -- * InstanceDetails
     InstanceDetails (..),
-    instanceDetails,
-    idElastiCacheInstanceDetails,
-    idRedshiftInstanceDetails,
-    idESInstanceDetails,
-    idEC2InstanceDetails,
-    idRDSInstanceDetails,
+    newInstanceDetails,
 
     -- * MetricValue
     MetricValue (..),
-    metricValue,
-    mvAmount,
-    mvUnit,
+    newMetricValue,
 
     -- * ModifyRecommendationDetail
     ModifyRecommendationDetail (..),
-    modifyRecommendationDetail,
-    mrdTargetInstances,
+    newModifyRecommendationDetail,
 
     -- * RDSInstanceDetails
     RDSInstanceDetails (..),
-    rdsInstanceDetails,
-    rdsidInstanceType,
-    rdsidDatabaseEdition,
-    rdsidDeploymentOption,
-    rdsidCurrentGeneration,
-    rdsidSizeFlexEligible,
-    rdsidLicenseModel,
-    rdsidFamily,
-    rdsidDatabaseEngine,
-    rdsidRegion,
+    newRDSInstanceDetails,
 
     -- * RedshiftInstanceDetails
     RedshiftInstanceDetails (..),
-    redshiftInstanceDetails,
-    ridCurrentGeneration,
-    ridSizeFlexEligible,
-    ridFamily,
-    ridNodeType,
-    ridRegion,
+    newRedshiftInstanceDetails,
 
     -- * ReservationAggregates
     ReservationAggregates (..),
-    reservationAggregates,
-    raUnusedHours,
-    raRealizedSavings,
-    raTotalActualHours,
-    raPurchasedHours,
-    raUnrealizedSavings,
-    raOnDemandCostOfRIHoursUsed,
-    raAmortizedRecurringFee,
-    raRICostForUnusedHours,
-    raUnusedUnits,
-    raTotalActualUnits,
-    raTotalPotentialRISavings,
-    raNetRISavings,
-    raTotalAmortizedFee,
-    raUtilizationPercentageInUnits,
-    raAmortizedUpfrontFee,
-    raUtilizationPercentage,
-    raPurchasedUnits,
+    newReservationAggregates,
 
     -- * ReservationCoverageGroup
     ReservationCoverageGroup (..),
-    reservationCoverageGroup,
-    rcgAttributes,
-    rcgCoverage,
+    newReservationCoverageGroup,
 
     -- * ReservationPurchaseRecommendation
     ReservationPurchaseRecommendation (..),
-    reservationPurchaseRecommendation,
-    rprPaymentOption,
-    rprAccountScope,
-    rprRecommendationDetails,
-    rprServiceSpecification,
-    rprTermInYears,
-    rprRecommendationSummary,
-    rprLookbackPeriodInDays,
+    newReservationPurchaseRecommendation,
 
     -- * ReservationPurchaseRecommendationDetail
     ReservationPurchaseRecommendationDetail (..),
-    reservationPurchaseRecommendationDetail,
-    rprdUpfrontCost,
-    rprdAccountId,
-    rprdEstimatedMonthlySavingsAmount,
-    rprdRecurringStandardMonthlyCost,
-    rprdRecommendedNormalizedUnitsToPurchase,
-    rprdAverageUtilization,
-    rprdAverageNumberOfInstancesUsedPerHour,
-    rprdEstimatedReservationCostForLookbackPeriod,
-    rprdInstanceDetails,
-    rprdMaximumNumberOfInstancesUsedPerHour,
-    rprdRecommendedNumberOfInstancesToPurchase,
-    rprdCurrencyCode,
-    rprdMinimumNormalizedUnitsUsedPerHour,
-    rprdAverageNormalizedUnitsUsedPerHour,
-    rprdMaximumNormalizedUnitsUsedPerHour,
-    rprdEstimatedBreakEvenInMonths,
-    rprdMinimumNumberOfInstancesUsedPerHour,
-    rprdEstimatedMonthlySavingsPercentage,
-    rprdEstimatedMonthlyOnDemandCost,
+    newReservationPurchaseRecommendationDetail,
 
     -- * ReservationPurchaseRecommendationMetadata
     ReservationPurchaseRecommendationMetadata (..),
-    reservationPurchaseRecommendationMetadata,
-    rprmRecommendationId,
-    rprmGenerationTimestamp,
+    newReservationPurchaseRecommendationMetadata,
 
     -- * ReservationPurchaseRecommendationSummary
     ReservationPurchaseRecommendationSummary (..),
-    reservationPurchaseRecommendationSummary,
-    rprsTotalEstimatedMonthlySavingsAmount,
-    rprsCurrencyCode,
-    rprsTotalEstimatedMonthlySavingsPercentage,
+    newReservationPurchaseRecommendationSummary,
 
     -- * ReservationUtilizationGroup
     ReservationUtilizationGroup (..),
-    reservationUtilizationGroup,
-    rugKey,
-    rugUtilization,
-    rugAttributes,
-    rugValue,
+    newReservationUtilizationGroup,
 
     -- * ResourceDetails
     ResourceDetails (..),
-    resourceDetails,
-    rdEC2ResourceDetails,
+    newResourceDetails,
 
     -- * ResourceUtilization
     ResourceUtilization (..),
-    resourceUtilization,
-    ruEC2ResourceUtilization,
+    newResourceUtilization,
 
     -- * ResultByTime
     ResultByTime (..),
-    resultByTime,
-    rbtGroups,
-    rbtTimePeriod,
-    rbtEstimated,
-    rbtTotal,
+    newResultByTime,
 
     -- * RightsizingRecommendation
     RightsizingRecommendation (..),
-    rightsizingRecommendation,
-    rrAccountId,
-    rrTerminateRecommendationDetail,
-    rrRightsizingType,
-    rrCurrentInstance,
-    rrModifyRecommendationDetail,
+    newRightsizingRecommendation,
 
     -- * RightsizingRecommendationConfiguration
     RightsizingRecommendationConfiguration (..),
-    rightsizingRecommendationConfiguration,
-    rrcRecommendationTarget,
-    rrcBenefitsConsidered,
+    newRightsizingRecommendationConfiguration,
 
     -- * RightsizingRecommendationMetadata
     RightsizingRecommendationMetadata (..),
-    rightsizingRecommendationMetadata,
-    rrmRecommendationId,
-    rrmAdditionalMetadata,
-    rrmLookbackPeriodInDays,
-    rrmGenerationTimestamp,
+    newRightsizingRecommendationMetadata,
 
     -- * RightsizingRecommendationSummary
     RightsizingRecommendationSummary (..),
-    rightsizingRecommendationSummary,
-    rrsEstimatedTotalMonthlySavingsAmount,
-    rrsSavingsPercentage,
-    rrsTotalRecommendationCount,
-    rrsSavingsCurrencyCode,
+    newRightsizingRecommendationSummary,
 
     -- * RootCause
     RootCause (..),
-    rootCause,
-    rcService,
-    rcUsageType,
-    rcLinkedAccount,
-    rcRegion,
+    newRootCause,
 
     -- * SavingsPlansAmortizedCommitment
     SavingsPlansAmortizedCommitment (..),
-    savingsPlansAmortizedCommitment,
-    spacAmortizedUpfrontCommitment,
-    spacAmortizedRecurringCommitment,
-    spacTotalAmortizedCommitment,
+    newSavingsPlansAmortizedCommitment,
 
     -- * SavingsPlansCoverage
     SavingsPlansCoverage (..),
-    savingsPlansCoverage,
-    spcTimePeriod,
-    spcAttributes,
-    spcCoverage,
+    newSavingsPlansCoverage,
 
     -- * SavingsPlansCoverageData
     SavingsPlansCoverageData (..),
-    savingsPlansCoverageData,
-    spcdTotalCost,
-    spcdCoveragePercentage,
-    spcdSpendCoveredBySavingsPlans,
-    spcdOnDemandCost,
+    newSavingsPlansCoverageData,
 
     -- * SavingsPlansDetails
     SavingsPlansDetails (..),
-    savingsPlansDetails,
-    spdInstanceFamily,
-    spdOfferingId,
-    spdRegion,
+    newSavingsPlansDetails,
 
     -- * SavingsPlansPurchaseRecommendation
     SavingsPlansPurchaseRecommendation (..),
-    savingsPlansPurchaseRecommendation,
-    spprPaymentOption,
-    spprSavingsPlansPurchaseRecommendationSummary,
-    spprAccountScope,
-    spprTermInYears,
-    spprSavingsPlansPurchaseRecommendationDetails,
-    spprSavingsPlansType,
-    spprLookbackPeriodInDays,
+    newSavingsPlansPurchaseRecommendation,
 
     -- * SavingsPlansPurchaseRecommendationDetail
     SavingsPlansPurchaseRecommendationDetail (..),
-    savingsPlansPurchaseRecommendationDetail,
-    spprdUpfrontCost,
-    spprdEstimatedOnDemandCost,
-    spprdAccountId,
-    spprdEstimatedMonthlySavingsAmount,
-    spprdEstimatedSavingsAmount,
-    spprdCurrentMaximumHourlyOnDemandSpend,
-    spprdHourlyCommitmentToPurchase,
-    spprdEstimatedAverageUtilization,
-    spprdCurrentAverageHourlyOnDemandSpend,
-    spprdEstimatedSavingsPercentage,
-    spprdSavingsPlansDetails,
-    spprdCurrencyCode,
-    spprdEstimatedSPCost,
-    spprdEstimatedOnDemandCostWithCurrentCommitment,
-    spprdEstimatedROI,
-    spprdCurrentMinimumHourlyOnDemandSpend,
+    newSavingsPlansPurchaseRecommendationDetail,
 
     -- * SavingsPlansPurchaseRecommendationMetadata
     SavingsPlansPurchaseRecommendationMetadata (..),
-    savingsPlansPurchaseRecommendationMetadata,
-    spprmRecommendationId,
-    spprmAdditionalMetadata,
-    spprmGenerationTimestamp,
+    newSavingsPlansPurchaseRecommendationMetadata,
 
     -- * SavingsPlansPurchaseRecommendationSummary
     SavingsPlansPurchaseRecommendationSummary (..),
-    savingsPlansPurchaseRecommendationSummary,
-    spprsEstimatedMonthlySavingsAmount,
-    spprsEstimatedSavingsAmount,
-    spprsHourlyCommitmentToPurchase,
-    spprsEstimatedTotalCost,
-    spprsEstimatedSavingsPercentage,
-    spprsCurrencyCode,
-    spprsEstimatedOnDemandCostWithCurrentCommitment,
-    spprsEstimatedROI,
-    spprsCurrentOnDemandSpend,
-    spprsTotalRecommendationCount,
-    spprsDailyCommitmentToPurchase,
+    newSavingsPlansPurchaseRecommendationSummary,
 
     -- * SavingsPlansSavings
     SavingsPlansSavings (..),
-    savingsPlansSavings,
-    spsOnDemandCostEquivalent,
-    spsNetSavings,
+    newSavingsPlansSavings,
 
     -- * SavingsPlansUtilization
     SavingsPlansUtilization (..),
-    savingsPlansUtilization,
-    spuUnusedCommitment,
-    spuUsedCommitment,
-    spuTotalCommitment,
-    spuUtilizationPercentage,
+    newSavingsPlansUtilization,
 
     -- * SavingsPlansUtilizationAggregates
     SavingsPlansUtilizationAggregates (..),
-    savingsPlansUtilizationAggregates,
-    spuaSavings,
-    spuaAmortizedCommitment,
-    spuaUtilization,
+    newSavingsPlansUtilizationAggregates,
 
     -- * SavingsPlansUtilizationByTime
     SavingsPlansUtilizationByTime (..),
-    savingsPlansUtilizationByTime,
-    spubtSavings,
-    spubtAmortizedCommitment,
-    spubtTimePeriod,
-    spubtUtilization,
+    newSavingsPlansUtilizationByTime,
 
     -- * SavingsPlansUtilizationDetail
     SavingsPlansUtilizationDetail (..),
-    savingsPlansUtilizationDetail,
-    spudSavings,
-    spudUtilization,
-    spudAttributes,
-    spudAmortizedCommitment,
-    spudSavingsPlanARN,
+    newSavingsPlansUtilizationDetail,
 
     -- * ServiceSpecification
     ServiceSpecification (..),
-    serviceSpecification,
-    ssEC2Specification,
+    newServiceSpecification,
 
     -- * SortDefinition
     SortDefinition (..),
-    sortDefinition,
-    sdSortOrder,
-    sdKey,
+    newSortDefinition,
 
     -- * Subscriber
     Subscriber (..),
-    subscriber,
-    sStatus,
-    sAddress,
-    sType,
+    newSubscriber,
 
     -- * TagValues
     TagValues (..),
-    tagValues,
-    tvKey,
-    tvValues,
-    tvMatchOptions,
+    newTagValues,
 
     -- * TargetInstance
     TargetInstance (..),
-    targetInstance,
-    tiEstimatedMonthlySavings,
-    tiCurrencyCode,
-    tiEstimatedMonthlyCost,
-    tiExpectedResourceUtilization,
-    tiDefaultTargetInstance,
-    tiResourceDetails,
+    newTargetInstance,
 
     -- * TerminateRecommendationDetail
     TerminateRecommendationDetail (..),
-    terminateRecommendationDetail,
-    trdEstimatedMonthlySavings,
-    trdCurrencyCode,
+    newTerminateRecommendationDetail,
 
     -- * TotalImpactFilter
     TotalImpactFilter (..),
-    totalImpactFilter,
-    tifEndValue,
-    tifNumericOperator,
-    tifStartValue,
+    newTotalImpactFilter,
 
     -- * UtilizationByTime
     UtilizationByTime (..),
-    utilizationByTime,
-    ubtGroups,
-    ubtTimePeriod,
-    ubtTotal,
+    newUtilizationByTime,
   )
 where
 
@@ -819,127 +494,151 @@ import Network.AWS.CostExplorer.Types.TermInYears
 import Network.AWS.CostExplorer.Types.TerminateRecommendationDetail
 import Network.AWS.CostExplorer.Types.TotalImpactFilter
 import Network.AWS.CostExplorer.Types.UtilizationByTime
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-10-25@ of the Amazon Cost Explorer Service SDK configuration.
-costExplorer :: Service
-costExplorer =
-  Service
-    { _svcAbbrev = "CostExplorer",
-      _svcSigner = v4,
-      _svcPrefix = "ce",
-      _svcVersion = "2017-10-25",
-      _svcEndpoint = defaultEndpoint costExplorer,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CostExplorer",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "CostExplorer",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "ce",
+      Prelude._svcVersion = "2017-10-25",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CostExplorer",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | You've reached the limit on the number of resources you can create, or exceeded the size of an individual resource.
-_ServiceQuotaExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You\'ve reached the limit on the number of resources you can create, or
+-- exceeded the size of an individual resource.
+_ServiceQuotaExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceQuotaExceededException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "ServiceQuotaExceededException"
 
--- | Your request parameters changed between pages. Try again with the old parameters or without a pagination token.
-_RequestChangedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Your request parameters changed between pages. Try again with the old
+-- parameters or without a pagination token.
+_RequestChangedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _RequestChangedException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "RequestChangedException"
 
 -- | The cost anomaly subscription does not exist for the account.
-_UnknownSubscriptionException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnknownSubscriptionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnknownSubscriptionException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "UnknownSubscriptionException"
 
 -- | The cost anomaly monitor does not exist for the account.
-_UnknownMonitorException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnknownMonitorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnknownMonitorException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "UnknownMonitorException"
 
 -- | The requested data is unavailable.
-_DataUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_DataUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DataUnavailableException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "DataUnavailableException"
 
 -- | The pagination token is invalid. Try again without a pagination token.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
 -- | The requested report expired. Update the date interval and try again.
-_BillExpirationException :: AsError a => Getting (First ServiceError) a ServiceError
+_BillExpirationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BillExpirationException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "BillExpirationException"
 
--- | Cost Explorer was unable to identify the usage unit. Provide @UsageType/UsageTypeGroup@ filter selections that contain matching units, for example: @hours@ .
-_UnresolvableUsageUnitException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Cost Explorer was unable to identify the usage unit. Provide
+-- @UsageType\/UsageTypeGroup@ filter selections that contain matching
+-- units, for example: @hours@.
+_UnresolvableUsageUnitException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnresolvableUsageUnitException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "UnresolvableUsageUnitException"
 
 -- | You made too many calls in a short period of time. Try again later.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
--- | The specified ARN in the request doesn't exist.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified ARN in the request doesn\'t exist.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    costExplorer
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"

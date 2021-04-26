@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,63 +22,67 @@ module Network.AWS.CostExplorer.Types.CoverageByTime where
 import Network.AWS.CostExplorer.Types.Coverage
 import Network.AWS.CostExplorer.Types.DateInterval
 import Network.AWS.CostExplorer.Types.ReservationCoverageGroup
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Reservation coverage for a specified period, in hours.
 --
---
---
--- /See:/ 'coverageByTime' smart constructor.
+-- /See:/ 'newCoverageByTime' smart constructor.
 data CoverageByTime = CoverageByTime'
-  { _cbtGroups ::
-      !(Maybe [ReservationCoverageGroup]),
-    _cbtTimePeriod :: !(Maybe DateInterval),
-    _cbtTotal :: !(Maybe Coverage)
+  { -- | The groups of instances that the reservation covered.
+    groups :: Prelude.Maybe [ReservationCoverageGroup],
+    -- | The period that this coverage was used over.
+    timePeriod :: Prelude.Maybe DateInterval,
+    -- | The total reservation coverage, in hours.
+    total :: Prelude.Maybe Coverage
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CoverageByTime' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CoverageByTime' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbtGroups' - The groups of instances that the reservation covered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbtTimePeriod' - The period that this coverage was used over.
+-- 'groups', 'coverageByTime_groups' - The groups of instances that the reservation covered.
 --
--- * 'cbtTotal' - The total reservation coverage, in hours.
-coverageByTime ::
+-- 'timePeriod', 'coverageByTime_timePeriod' - The period that this coverage was used over.
+--
+-- 'total', 'coverageByTime_total' - The total reservation coverage, in hours.
+newCoverageByTime ::
   CoverageByTime
-coverageByTime =
+newCoverageByTime =
   CoverageByTime'
-    { _cbtGroups = Nothing,
-      _cbtTimePeriod = Nothing,
-      _cbtTotal = Nothing
+    { groups = Prelude.Nothing,
+      timePeriod = Prelude.Nothing,
+      total = Prelude.Nothing
     }
 
 -- | The groups of instances that the reservation covered.
-cbtGroups :: Lens' CoverageByTime [ReservationCoverageGroup]
-cbtGroups = lens _cbtGroups (\s a -> s {_cbtGroups = a}) . _Default . _Coerce
+coverageByTime_groups :: Lens.Lens' CoverageByTime (Prelude.Maybe [ReservationCoverageGroup])
+coverageByTime_groups = Lens.lens (\CoverageByTime' {groups} -> groups) (\s@CoverageByTime' {} a -> s {groups = a} :: CoverageByTime) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The period that this coverage was used over.
-cbtTimePeriod :: Lens' CoverageByTime (Maybe DateInterval)
-cbtTimePeriod = lens _cbtTimePeriod (\s a -> s {_cbtTimePeriod = a})
+coverageByTime_timePeriod :: Lens.Lens' CoverageByTime (Prelude.Maybe DateInterval)
+coverageByTime_timePeriod = Lens.lens (\CoverageByTime' {timePeriod} -> timePeriod) (\s@CoverageByTime' {} a -> s {timePeriod = a} :: CoverageByTime)
 
 -- | The total reservation coverage, in hours.
-cbtTotal :: Lens' CoverageByTime (Maybe Coverage)
-cbtTotal = lens _cbtTotal (\s a -> s {_cbtTotal = a})
+coverageByTime_total :: Lens.Lens' CoverageByTime (Prelude.Maybe Coverage)
+coverageByTime_total = Lens.lens (\CoverageByTime' {total} -> total) (\s@CoverageByTime' {} a -> s {total = a} :: CoverageByTime)
 
-instance FromJSON CoverageByTime where
+instance Prelude.FromJSON CoverageByTime where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CoverageByTime"
       ( \x ->
           CoverageByTime'
-            <$> (x .:? "Groups" .!= mempty)
-            <*> (x .:? "TimePeriod")
-            <*> (x .:? "Total")
+            Prelude.<$> (x Prelude..:? "Groups" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "TimePeriod")
+            Prelude.<*> (x Prelude..:? "Total")
       )
 
-instance Hashable CoverageByTime
+instance Prelude.Hashable CoverageByTime
 
-instance NFData CoverageByTime
+instance Prelude.NFData CoverageByTime

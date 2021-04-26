@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.Impact where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The anomaly's dollar value.
+-- | The anomaly\'s dollar value.
 --
---
---
--- /See:/ 'impact' smart constructor.
+-- /See:/ 'newImpact' smart constructor.
 data Impact = Impact'
-  { _iTotalImpact ::
-      !(Maybe Double),
-    _iMaxImpact :: !Double
+  { -- | The cumulative dollar value observed for an anomaly.
+    totalImpact :: Prelude.Maybe Prelude.Double,
+    -- | The maximum dollar value observed for an anomaly.
+    maxImpact :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Impact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Impact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iTotalImpact' - The cumulative dollar value observed for an anomaly.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iMaxImpact' - The maximum dollar value observed for an anomaly.
-impact ::
-  -- | 'iMaxImpact'
-  Double ->
+-- 'totalImpact', 'impact_totalImpact' - The cumulative dollar value observed for an anomaly.
+--
+-- 'maxImpact', 'impact_maxImpact' - The maximum dollar value observed for an anomaly.
+newImpact ::
+  -- | 'maxImpact'
+  Prelude.Double ->
   Impact
-impact pMaxImpact_ =
+newImpact pMaxImpact_ =
   Impact'
-    { _iTotalImpact = Nothing,
-      _iMaxImpact = pMaxImpact_
+    { totalImpact = Prelude.Nothing,
+      maxImpact = pMaxImpact_
     }
 
 -- | The cumulative dollar value observed for an anomaly.
-iTotalImpact :: Lens' Impact (Maybe Double)
-iTotalImpact = lens _iTotalImpact (\s a -> s {_iTotalImpact = a})
+impact_totalImpact :: Lens.Lens' Impact (Prelude.Maybe Prelude.Double)
+impact_totalImpact = Lens.lens (\Impact' {totalImpact} -> totalImpact) (\s@Impact' {} a -> s {totalImpact = a} :: Impact)
 
 -- | The maximum dollar value observed for an anomaly.
-iMaxImpact :: Lens' Impact Double
-iMaxImpact = lens _iMaxImpact (\s a -> s {_iMaxImpact = a})
+impact_maxImpact :: Lens.Lens' Impact Prelude.Double
+impact_maxImpact = Lens.lens (\Impact' {maxImpact} -> maxImpact) (\s@Impact' {} a -> s {maxImpact = a} :: Impact)
 
-instance FromJSON Impact where
+instance Prelude.FromJSON Impact where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Impact"
       ( \x ->
           Impact'
-            <$> (x .:? "TotalImpact") <*> (x .: "MaxImpact")
+            Prelude.<$> (x Prelude..:? "TotalImpact")
+            Prelude.<*> (x Prelude..: "MaxImpact")
       )
 
-instance Hashable Impact
+instance Prelude.Hashable Impact
 
-instance NFData Impact
+instance Prelude.NFData Impact

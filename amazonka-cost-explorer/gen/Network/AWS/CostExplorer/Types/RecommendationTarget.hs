@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CostExplorer.Types.RecommendationTarget
   ( RecommendationTarget
       ( ..,
-        CrossInstanceFamily,
-        SameInstanceFamily
+        RecommendationTargetCROSSINSTANCEFAMILY,
+        RecommendationTargetSAMEINSTANCEFAMILY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecommendationTarget
-  = RecommendationTarget'
-      ( CI
-          Text
-      )
+newtype RecommendationTarget = RecommendationTarget'
+  { fromRecommendationTarget ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CrossInstanceFamily :: RecommendationTarget
-pattern CrossInstanceFamily = RecommendationTarget' "CROSS_INSTANCE_FAMILY"
+pattern RecommendationTargetCROSSINSTANCEFAMILY :: RecommendationTarget
+pattern RecommendationTargetCROSSINSTANCEFAMILY = RecommendationTarget' "CROSS_INSTANCE_FAMILY"
 
-pattern SameInstanceFamily :: RecommendationTarget
-pattern SameInstanceFamily = RecommendationTarget' "SAME_INSTANCE_FAMILY"
+pattern RecommendationTargetSAMEINSTANCEFAMILY :: RecommendationTarget
+pattern RecommendationTargetSAMEINSTANCEFAMILY = RecommendationTarget' "SAME_INSTANCE_FAMILY"
 
 {-# COMPLETE
-  CrossInstanceFamily,
-  SameInstanceFamily,
+  RecommendationTargetCROSSINSTANCEFAMILY,
+  RecommendationTargetSAMEINSTANCEFAMILY,
   RecommendationTarget'
   #-}
 
-instance FromText RecommendationTarget where
-  parser = (RecommendationTarget' . mk) <$> takeText
+instance Prelude.FromText RecommendationTarget where
+  parser = RecommendationTarget' Prelude.<$> Prelude.takeText
 
-instance ToText RecommendationTarget where
-  toText (RecommendationTarget' ci) = original ci
+instance Prelude.ToText RecommendationTarget where
+  toText (RecommendationTarget' x) = x
 
-instance Hashable RecommendationTarget
+instance Prelude.Hashable RecommendationTarget
 
-instance NFData RecommendationTarget
+instance Prelude.NFData RecommendationTarget
 
-instance ToByteString RecommendationTarget
+instance Prelude.ToByteString RecommendationTarget
 
-instance ToQuery RecommendationTarget
+instance Prelude.ToQuery RecommendationTarget
 
-instance ToHeader RecommendationTarget
+instance Prelude.ToHeader RecommendationTarget
 
-instance ToJSON RecommendationTarget where
-  toJSON = toJSONText
+instance Prelude.ToJSON RecommendationTarget where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RecommendationTarget where
-  parseJSON = parseJSONText "RecommendationTarget"
+instance Prelude.FromJSON RecommendationTarget where
+  parseJSON = Prelude.parseJSONText "RecommendationTarget"

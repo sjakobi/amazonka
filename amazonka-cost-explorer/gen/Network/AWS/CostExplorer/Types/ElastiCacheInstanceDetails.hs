@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.ElastiCacheInstanceDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about the Amazon ElastiCache instances that AWS recommends that you purchase.
+-- | Details about the Amazon ElastiCache instances that AWS recommends that
+-- you purchase.
 --
---
---
--- /See:/ 'elastiCacheInstanceDetails' smart constructor.
+-- /See:/ 'newElastiCacheInstanceDetails' smart constructor.
 data ElastiCacheInstanceDetails = ElastiCacheInstanceDetails'
-  { _ecidCurrentGeneration ::
-      !(Maybe Bool),
-    _ecidSizeFlexEligible ::
-      !(Maybe Bool),
-    _ecidFamily ::
-      !(Maybe Text),
-    _ecidNodeType ::
-      !(Maybe Text),
-    _ecidRegion ::
-      !(Maybe Text),
-    _ecidProductDescription ::
-      !(Maybe Text)
+  { -- | Whether the recommendation is for a current generation instance.
+    currentGeneration :: Prelude.Maybe Prelude.Bool,
+    -- | Whether the recommended reservation is size flexible.
+    sizeFlexEligible :: Prelude.Maybe Prelude.Bool,
+    -- | The instance family of the recommended reservation.
+    family :: Prelude.Maybe Prelude.Text,
+    -- | The type of node that AWS recommends.
+    nodeType :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Region of the recommended reservation.
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The description of the recommended reservation.
+    productDescription :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElastiCacheInstanceDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElastiCacheInstanceDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecidCurrentGeneration' - Whether the recommendation is for a current generation instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecidSizeFlexEligible' - Whether the recommended reservation is size flexible.
+-- 'currentGeneration', 'elastiCacheInstanceDetails_currentGeneration' - Whether the recommendation is for a current generation instance.
 --
--- * 'ecidFamily' - The instance family of the recommended reservation.
+-- 'sizeFlexEligible', 'elastiCacheInstanceDetails_sizeFlexEligible' - Whether the recommended reservation is size flexible.
 --
--- * 'ecidNodeType' - The type of node that AWS recommends.
+-- 'family', 'elastiCacheInstanceDetails_family' - The instance family of the recommended reservation.
 --
--- * 'ecidRegion' - The AWS Region of the recommended reservation.
+-- 'nodeType', 'elastiCacheInstanceDetails_nodeType' - The type of node that AWS recommends.
 --
--- * 'ecidProductDescription' - The description of the recommended reservation.
-elastiCacheInstanceDetails ::
+-- 'region', 'elastiCacheInstanceDetails_region' - The AWS Region of the recommended reservation.
+--
+-- 'productDescription', 'elastiCacheInstanceDetails_productDescription' - The description of the recommended reservation.
+newElastiCacheInstanceDetails ::
   ElastiCacheInstanceDetails
-elastiCacheInstanceDetails =
+newElastiCacheInstanceDetails =
   ElastiCacheInstanceDetails'
-    { _ecidCurrentGeneration =
-        Nothing,
-      _ecidSizeFlexEligible = Nothing,
-      _ecidFamily = Nothing,
-      _ecidNodeType = Nothing,
-      _ecidRegion = Nothing,
-      _ecidProductDescription = Nothing
+    { currentGeneration =
+        Prelude.Nothing,
+      sizeFlexEligible = Prelude.Nothing,
+      family = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      region = Prelude.Nothing,
+      productDescription = Prelude.Nothing
     }
 
 -- | Whether the recommendation is for a current generation instance.
-ecidCurrentGeneration :: Lens' ElastiCacheInstanceDetails (Maybe Bool)
-ecidCurrentGeneration = lens _ecidCurrentGeneration (\s a -> s {_ecidCurrentGeneration = a})
+elastiCacheInstanceDetails_currentGeneration :: Lens.Lens' ElastiCacheInstanceDetails (Prelude.Maybe Prelude.Bool)
+elastiCacheInstanceDetails_currentGeneration = Lens.lens (\ElastiCacheInstanceDetails' {currentGeneration} -> currentGeneration) (\s@ElastiCacheInstanceDetails' {} a -> s {currentGeneration = a} :: ElastiCacheInstanceDetails)
 
 -- | Whether the recommended reservation is size flexible.
-ecidSizeFlexEligible :: Lens' ElastiCacheInstanceDetails (Maybe Bool)
-ecidSizeFlexEligible = lens _ecidSizeFlexEligible (\s a -> s {_ecidSizeFlexEligible = a})
+elastiCacheInstanceDetails_sizeFlexEligible :: Lens.Lens' ElastiCacheInstanceDetails (Prelude.Maybe Prelude.Bool)
+elastiCacheInstanceDetails_sizeFlexEligible = Lens.lens (\ElastiCacheInstanceDetails' {sizeFlexEligible} -> sizeFlexEligible) (\s@ElastiCacheInstanceDetails' {} a -> s {sizeFlexEligible = a} :: ElastiCacheInstanceDetails)
 
 -- | The instance family of the recommended reservation.
-ecidFamily :: Lens' ElastiCacheInstanceDetails (Maybe Text)
-ecidFamily = lens _ecidFamily (\s a -> s {_ecidFamily = a})
+elastiCacheInstanceDetails_family :: Lens.Lens' ElastiCacheInstanceDetails (Prelude.Maybe Prelude.Text)
+elastiCacheInstanceDetails_family = Lens.lens (\ElastiCacheInstanceDetails' {family} -> family) (\s@ElastiCacheInstanceDetails' {} a -> s {family = a} :: ElastiCacheInstanceDetails)
 
 -- | The type of node that AWS recommends.
-ecidNodeType :: Lens' ElastiCacheInstanceDetails (Maybe Text)
-ecidNodeType = lens _ecidNodeType (\s a -> s {_ecidNodeType = a})
+elastiCacheInstanceDetails_nodeType :: Lens.Lens' ElastiCacheInstanceDetails (Prelude.Maybe Prelude.Text)
+elastiCacheInstanceDetails_nodeType = Lens.lens (\ElastiCacheInstanceDetails' {nodeType} -> nodeType) (\s@ElastiCacheInstanceDetails' {} a -> s {nodeType = a} :: ElastiCacheInstanceDetails)
 
 -- | The AWS Region of the recommended reservation.
-ecidRegion :: Lens' ElastiCacheInstanceDetails (Maybe Text)
-ecidRegion = lens _ecidRegion (\s a -> s {_ecidRegion = a})
+elastiCacheInstanceDetails_region :: Lens.Lens' ElastiCacheInstanceDetails (Prelude.Maybe Prelude.Text)
+elastiCacheInstanceDetails_region = Lens.lens (\ElastiCacheInstanceDetails' {region} -> region) (\s@ElastiCacheInstanceDetails' {} a -> s {region = a} :: ElastiCacheInstanceDetails)
 
 -- | The description of the recommended reservation.
-ecidProductDescription :: Lens' ElastiCacheInstanceDetails (Maybe Text)
-ecidProductDescription = lens _ecidProductDescription (\s a -> s {_ecidProductDescription = a})
+elastiCacheInstanceDetails_productDescription :: Lens.Lens' ElastiCacheInstanceDetails (Prelude.Maybe Prelude.Text)
+elastiCacheInstanceDetails_productDescription = Lens.lens (\ElastiCacheInstanceDetails' {productDescription} -> productDescription) (\s@ElastiCacheInstanceDetails' {} a -> s {productDescription = a} :: ElastiCacheInstanceDetails)
 
-instance FromJSON ElastiCacheInstanceDetails where
+instance Prelude.FromJSON ElastiCacheInstanceDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ElastiCacheInstanceDetails"
       ( \x ->
           ElastiCacheInstanceDetails'
-            <$> (x .:? "CurrentGeneration")
-            <*> (x .:? "SizeFlexEligible")
-            <*> (x .:? "Family")
-            <*> (x .:? "NodeType")
-            <*> (x .:? "Region")
-            <*> (x .:? "ProductDescription")
+            Prelude.<$> (x Prelude..:? "CurrentGeneration")
+            Prelude.<*> (x Prelude..:? "SizeFlexEligible")
+            Prelude.<*> (x Prelude..:? "Family")
+            Prelude.<*> (x Prelude..:? "NodeType")
+            Prelude.<*> (x Prelude..:? "Region")
+            Prelude.<*> (x Prelude..:? "ProductDescription")
       )
 
-instance Hashable ElastiCacheInstanceDetails
+instance Prelude.Hashable ElastiCacheInstanceDetails
 
-instance NFData ElastiCacheInstanceDetails
+instance Prelude.NFData ElastiCacheInstanceDetails

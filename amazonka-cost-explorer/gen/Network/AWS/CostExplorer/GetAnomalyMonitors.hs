@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the cost anomaly monitor definitions for your account. You can filter using a list of cost anomaly monitor Amazon Resource Names (ARNs).
+-- Retrieves the cost anomaly monitor definitions for your account. You can
+-- filter using a list of cost anomaly monitor Amazon Resource Names
+-- (ARNs).
 module Network.AWS.CostExplorer.GetAnomalyMonitors
   ( -- * Creating a Request
-    getAnomalyMonitors,
-    GetAnomalyMonitors,
+    GetAnomalyMonitors (..),
+    newGetAnomalyMonitors,
 
     -- * Request Lenses
-    gamMaxResults,
-    gamNextPageToken,
-    gamMonitorARNList,
+    getAnomalyMonitors_maxResults,
+    getAnomalyMonitors_nextPageToken,
+    getAnomalyMonitors_monitorArnList,
 
     -- * Destructuring the Response
-    getAnomalyMonitorsResponse,
-    GetAnomalyMonitorsResponse,
+    GetAnomalyMonitorsResponse (..),
+    newGetAnomalyMonitorsResponse,
 
     -- * Response Lenses
-    gamrrsNextPageToken,
-    gamrrsResponseStatus,
-    gamrrsAnomalyMonitors,
+    getAnomalyMonitorsResponse_nextPageToken,
+    getAnomalyMonitorsResponse_httpStatus,
+    getAnomalyMonitorsResponse_anomalyMonitors,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CostExplorer.Types.AnomalyMonitor
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAnomalyMonitors' smart constructor.
+-- | /See:/ 'newGetAnomalyMonitors' smart constructor.
 data GetAnomalyMonitors = GetAnomalyMonitors'
-  { _gamMaxResults ::
-      !(Maybe Int),
-    _gamNextPageToken ::
-      !(Maybe Text),
-    _gamMonitorARNList ::
-      !(Maybe [Text])
+  { -- | The number of entries a paginated response contains.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to retrieve the next set of results. AWS provides the token
+    -- when the response from a previous call has more results than the maximum
+    -- page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of cost anomaly monitor ARNs.
+    monitorArnList :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAnomalyMonitors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAnomalyMonitors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gamMaxResults' - The number of entries a paginated response contains.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gamNextPageToken' - The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
+-- 'maxResults', 'getAnomalyMonitors_maxResults' - The number of entries a paginated response contains.
 --
--- * 'gamMonitorARNList' - A list of cost anomaly monitor ARNs.
-getAnomalyMonitors ::
+-- 'nextPageToken', 'getAnomalyMonitors_nextPageToken' - The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
+--
+-- 'monitorArnList', 'getAnomalyMonitors_monitorArnList' - A list of cost anomaly monitor ARNs.
+newGetAnomalyMonitors ::
   GetAnomalyMonitors
-getAnomalyMonitors =
+newGetAnomalyMonitors =
   GetAnomalyMonitors'
-    { _gamMaxResults = Nothing,
-      _gamNextPageToken = Nothing,
-      _gamMonitorARNList = Nothing
+    { maxResults = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      monitorArnList = Prelude.Nothing
     }
 
 -- | The number of entries a paginated response contains.
-gamMaxResults :: Lens' GetAnomalyMonitors (Maybe Int)
-gamMaxResults = lens _gamMaxResults (\s a -> s {_gamMaxResults = a})
+getAnomalyMonitors_maxResults :: Lens.Lens' GetAnomalyMonitors (Prelude.Maybe Prelude.Int)
+getAnomalyMonitors_maxResults = Lens.lens (\GetAnomalyMonitors' {maxResults} -> maxResults) (\s@GetAnomalyMonitors' {} a -> s {maxResults = a} :: GetAnomalyMonitors)
 
--- | The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
-gamNextPageToken :: Lens' GetAnomalyMonitors (Maybe Text)
-gamNextPageToken = lens _gamNextPageToken (\s a -> s {_gamNextPageToken = a})
+-- | The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
+getAnomalyMonitors_nextPageToken :: Lens.Lens' GetAnomalyMonitors (Prelude.Maybe Prelude.Text)
+getAnomalyMonitors_nextPageToken = Lens.lens (\GetAnomalyMonitors' {nextPageToken} -> nextPageToken) (\s@GetAnomalyMonitors' {} a -> s {nextPageToken = a} :: GetAnomalyMonitors)
 
 -- | A list of cost anomaly monitor ARNs.
-gamMonitorARNList :: Lens' GetAnomalyMonitors [Text]
-gamMonitorARNList = lens _gamMonitorARNList (\s a -> s {_gamMonitorARNList = a}) . _Default . _Coerce
+getAnomalyMonitors_monitorArnList :: Lens.Lens' GetAnomalyMonitors (Prelude.Maybe [Prelude.Text])
+getAnomalyMonitors_monitorArnList = Lens.lens (\GetAnomalyMonitors' {monitorArnList} -> monitorArnList) (\s@GetAnomalyMonitors' {} a -> s {monitorArnList = a} :: GetAnomalyMonitors) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest GetAnomalyMonitors where
+instance Prelude.AWSRequest GetAnomalyMonitors where
   type
     Rs GetAnomalyMonitors =
       GetAnomalyMonitorsResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAnomalyMonitorsResponse'
-            <$> (x .?> "NextPageToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "AnomalyMonitors" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "AnomalyMonitors"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable GetAnomalyMonitors
+instance Prelude.Hashable GetAnomalyMonitors
 
-instance NFData GetAnomalyMonitors
+instance Prelude.NFData GetAnomalyMonitors
 
-instance ToHeaders GetAnomalyMonitors where
+instance Prelude.ToHeaders GetAnomalyMonitors where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.GetAnomalyMonitors" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.GetAnomalyMonitors" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAnomalyMonitors where
+instance Prelude.ToJSON GetAnomalyMonitors where
   toJSON GetAnomalyMonitors' {..} =
-    object
-      ( catMaybes
-          [ ("MaxResults" .=) <$> _gamMaxResults,
-            ("NextPageToken" .=) <$> _gamNextPageToken,
-            ("MonitorArnList" .=) <$> _gamMonitorARNList
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("NextPageToken" Prelude..=)
+              Prelude.<$> nextPageToken,
+            ("MonitorArnList" Prelude..=)
+              Prelude.<$> monitorArnList
           ]
       )
 
-instance ToPath GetAnomalyMonitors where
-  toPath = const "/"
+instance Prelude.ToPath GetAnomalyMonitors where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAnomalyMonitors where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAnomalyMonitors where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAnomalyMonitorsResponse' smart constructor.
+-- | /See:/ 'newGetAnomalyMonitorsResponse' smart constructor.
 data GetAnomalyMonitorsResponse = GetAnomalyMonitorsResponse'
-  { _gamrrsNextPageToken ::
-      !(Maybe Text),
-    _gamrrsResponseStatus ::
-      !Int,
-    _gamrrsAnomalyMonitors ::
-      ![AnomalyMonitor]
+  { -- | The token to retrieve the next set of results. AWS provides the token
+    -- when the response from a previous call has more results than the maximum
+    -- page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of cost anomaly monitors that includes the detailed metadata for
+    -- each monitor.
+    anomalyMonitors :: [AnomalyMonitor]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAnomalyMonitorsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAnomalyMonitorsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gamrrsNextPageToken' - The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gamrrsResponseStatus' - -- | The response status code.
+-- 'nextPageToken', 'getAnomalyMonitorsResponse_nextPageToken' - The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
 --
--- * 'gamrrsAnomalyMonitors' - A list of cost anomaly monitors that includes the detailed metadata for each monitor.
-getAnomalyMonitorsResponse ::
-  -- | 'gamrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getAnomalyMonitorsResponse_httpStatus' - The response's http status code.
+--
+-- 'anomalyMonitors', 'getAnomalyMonitorsResponse_anomalyMonitors' - A list of cost anomaly monitors that includes the detailed metadata for
+-- each monitor.
+newGetAnomalyMonitorsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAnomalyMonitorsResponse
-getAnomalyMonitorsResponse pResponseStatus_ =
+newGetAnomalyMonitorsResponse pHttpStatus_ =
   GetAnomalyMonitorsResponse'
-    { _gamrrsNextPageToken =
-        Nothing,
-      _gamrrsResponseStatus = pResponseStatus_,
-      _gamrrsAnomalyMonitors = mempty
+    { nextPageToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      anomalyMonitors = Prelude.mempty
     }
 
--- | The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
-gamrrsNextPageToken :: Lens' GetAnomalyMonitorsResponse (Maybe Text)
-gamrrsNextPageToken = lens _gamrrsNextPageToken (\s a -> s {_gamrrsNextPageToken = a})
+-- | The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
+getAnomalyMonitorsResponse_nextPageToken :: Lens.Lens' GetAnomalyMonitorsResponse (Prelude.Maybe Prelude.Text)
+getAnomalyMonitorsResponse_nextPageToken = Lens.lens (\GetAnomalyMonitorsResponse' {nextPageToken} -> nextPageToken) (\s@GetAnomalyMonitorsResponse' {} a -> s {nextPageToken = a} :: GetAnomalyMonitorsResponse)
 
--- | -- | The response status code.
-gamrrsResponseStatus :: Lens' GetAnomalyMonitorsResponse Int
-gamrrsResponseStatus = lens _gamrrsResponseStatus (\s a -> s {_gamrrsResponseStatus = a})
+-- | The response's http status code.
+getAnomalyMonitorsResponse_httpStatus :: Lens.Lens' GetAnomalyMonitorsResponse Prelude.Int
+getAnomalyMonitorsResponse_httpStatus = Lens.lens (\GetAnomalyMonitorsResponse' {httpStatus} -> httpStatus) (\s@GetAnomalyMonitorsResponse' {} a -> s {httpStatus = a} :: GetAnomalyMonitorsResponse)
 
--- | A list of cost anomaly monitors that includes the detailed metadata for each monitor.
-gamrrsAnomalyMonitors :: Lens' GetAnomalyMonitorsResponse [AnomalyMonitor]
-gamrrsAnomalyMonitors = lens _gamrrsAnomalyMonitors (\s a -> s {_gamrrsAnomalyMonitors = a}) . _Coerce
+-- | A list of cost anomaly monitors that includes the detailed metadata for
+-- each monitor.
+getAnomalyMonitorsResponse_anomalyMonitors :: Lens.Lens' GetAnomalyMonitorsResponse [AnomalyMonitor]
+getAnomalyMonitorsResponse_anomalyMonitors = Lens.lens (\GetAnomalyMonitorsResponse' {anomalyMonitors} -> anomalyMonitors) (\s@GetAnomalyMonitorsResponse' {} a -> s {anomalyMonitors = a} :: GetAnomalyMonitorsResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetAnomalyMonitorsResponse
+instance Prelude.NFData GetAnomalyMonitorsResponse

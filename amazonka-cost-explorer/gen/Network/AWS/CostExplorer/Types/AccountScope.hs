@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostExplorer.Types.AccountScope
   ( AccountScope
       ( ..,
-        Linked,
-        Payer
+        AccountScopeLINKED,
+        AccountScopePAYER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccountScope = AccountScope' (CI Text)
+newtype AccountScope = AccountScope'
+  { fromAccountScope ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Linked :: AccountScope
-pattern Linked = AccountScope' "LINKED"
+pattern AccountScopeLINKED :: AccountScope
+pattern AccountScopeLINKED = AccountScope' "LINKED"
 
-pattern Payer :: AccountScope
-pattern Payer = AccountScope' "PAYER"
+pattern AccountScopePAYER :: AccountScope
+pattern AccountScopePAYER = AccountScope' "PAYER"
 
 {-# COMPLETE
-  Linked,
-  Payer,
+  AccountScopeLINKED,
+  AccountScopePAYER,
   AccountScope'
   #-}
 
-instance FromText AccountScope where
-  parser = (AccountScope' . mk) <$> takeText
+instance Prelude.FromText AccountScope where
+  parser = AccountScope' Prelude.<$> Prelude.takeText
 
-instance ToText AccountScope where
-  toText (AccountScope' ci) = original ci
+instance Prelude.ToText AccountScope where
+  toText (AccountScope' x) = x
 
-instance Hashable AccountScope
+instance Prelude.Hashable AccountScope
 
-instance NFData AccountScope
+instance Prelude.NFData AccountScope
 
-instance ToByteString AccountScope
+instance Prelude.ToByteString AccountScope
 
-instance ToQuery AccountScope
+instance Prelude.ToQuery AccountScope
 
-instance ToHeader AccountScope
+instance Prelude.ToHeader AccountScope
 
-instance ToJSON AccountScope where
-  toJSON = toJSONText
+instance Prelude.ToJSON AccountScope where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AccountScope where
-  parseJSON = parseJSONText "AccountScope"
+instance Prelude.FromJSON AccountScope where
+  parseJSON = Prelude.parseJSONText "AccountScope"

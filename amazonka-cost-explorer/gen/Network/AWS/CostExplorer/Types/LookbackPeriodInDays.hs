@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CostExplorer.Types.LookbackPeriodInDays
   ( LookbackPeriodInDays
       ( ..,
-        SevenDays,
-        SixtyDays,
-        ThirtyDays
+        LookbackPeriodInDaysSEVENDAYS,
+        LookbackPeriodInDaysSIXTYDAYS,
+        LookbackPeriodInDaysTHIRTYDAYS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LookbackPeriodInDays
-  = LookbackPeriodInDays'
-      ( CI
-          Text
-      )
+newtype LookbackPeriodInDays = LookbackPeriodInDays'
+  { fromLookbackPeriodInDays ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SevenDays :: LookbackPeriodInDays
-pattern SevenDays = LookbackPeriodInDays' "SEVEN_DAYS"
+pattern LookbackPeriodInDaysSEVENDAYS :: LookbackPeriodInDays
+pattern LookbackPeriodInDaysSEVENDAYS = LookbackPeriodInDays' "SEVEN_DAYS"
 
-pattern SixtyDays :: LookbackPeriodInDays
-pattern SixtyDays = LookbackPeriodInDays' "SIXTY_DAYS"
+pattern LookbackPeriodInDaysSIXTYDAYS :: LookbackPeriodInDays
+pattern LookbackPeriodInDaysSIXTYDAYS = LookbackPeriodInDays' "SIXTY_DAYS"
 
-pattern ThirtyDays :: LookbackPeriodInDays
-pattern ThirtyDays = LookbackPeriodInDays' "THIRTY_DAYS"
+pattern LookbackPeriodInDaysTHIRTYDAYS :: LookbackPeriodInDays
+pattern LookbackPeriodInDaysTHIRTYDAYS = LookbackPeriodInDays' "THIRTY_DAYS"
 
 {-# COMPLETE
-  SevenDays,
-  SixtyDays,
-  ThirtyDays,
+  LookbackPeriodInDaysSEVENDAYS,
+  LookbackPeriodInDaysSIXTYDAYS,
+  LookbackPeriodInDaysTHIRTYDAYS,
   LookbackPeriodInDays'
   #-}
 
-instance FromText LookbackPeriodInDays where
-  parser = (LookbackPeriodInDays' . mk) <$> takeText
+instance Prelude.FromText LookbackPeriodInDays where
+  parser = LookbackPeriodInDays' Prelude.<$> Prelude.takeText
 
-instance ToText LookbackPeriodInDays where
-  toText (LookbackPeriodInDays' ci) = original ci
+instance Prelude.ToText LookbackPeriodInDays where
+  toText (LookbackPeriodInDays' x) = x
 
-instance Hashable LookbackPeriodInDays
+instance Prelude.Hashable LookbackPeriodInDays
 
-instance NFData LookbackPeriodInDays
+instance Prelude.NFData LookbackPeriodInDays
 
-instance ToByteString LookbackPeriodInDays
+instance Prelude.ToByteString LookbackPeriodInDays
 
-instance ToQuery LookbackPeriodInDays
+instance Prelude.ToQuery LookbackPeriodInDays
 
-instance ToHeader LookbackPeriodInDays
+instance Prelude.ToHeader LookbackPeriodInDays
 
-instance ToJSON LookbackPeriodInDays where
-  toJSON = toJSONText
+instance Prelude.ToJSON LookbackPeriodInDays where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LookbackPeriodInDays where
-  parseJSON = parseJSONText "LookbackPeriodInDays"
+instance Prelude.FromJSON LookbackPeriodInDays where
+  parseJSON = Prelude.parseJSONText "LookbackPeriodInDays"

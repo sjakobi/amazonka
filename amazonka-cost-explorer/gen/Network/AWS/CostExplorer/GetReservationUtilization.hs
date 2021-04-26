@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,246 +21,495 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the reservation utilization for your account. Management account in an organization have access to member accounts. You can filter data by dimensions in a time period. You can use @GetDimensionValues@ to determine the possible dimension values. Currently, you can group only by @SUBSCRIPTION_ID@ .
+-- Retrieves the reservation utilization for your account. Management
+-- account in an organization have access to member accounts. You can
+-- filter data by dimensions in a time period. You can use
+-- @GetDimensionValues@ to determine the possible dimension values.
+-- Currently, you can group only by @SUBSCRIPTION_ID@.
 module Network.AWS.CostExplorer.GetReservationUtilization
   ( -- * Creating a Request
-    getReservationUtilization,
-    GetReservationUtilization,
+    GetReservationUtilization (..),
+    newGetReservationUtilization,
 
     -- * Request Lenses
-    gruGranularity,
-    gruMaxResults,
-    gruNextPageToken,
-    gruGroupBy,
-    gruSortBy,
-    gruFilter,
-    gruTimePeriod,
+    getReservationUtilization_granularity,
+    getReservationUtilization_maxResults,
+    getReservationUtilization_nextPageToken,
+    getReservationUtilization_groupBy,
+    getReservationUtilization_sortBy,
+    getReservationUtilization_filter,
+    getReservationUtilization_timePeriod,
 
     -- * Destructuring the Response
-    getReservationUtilizationResponse,
-    GetReservationUtilizationResponse,
+    GetReservationUtilizationResponse (..),
+    newGetReservationUtilizationResponse,
 
     -- * Response Lenses
-    grurrsTotal,
-    grurrsNextPageToken,
-    grurrsResponseStatus,
-    grurrsUtilizationsByTime,
+    getReservationUtilizationResponse_total,
+    getReservationUtilizationResponse_nextPageToken,
+    getReservationUtilizationResponse_httpStatus,
+    getReservationUtilizationResponse_utilizationsByTime,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CostExplorer.Types.ReservationAggregates
+import Network.AWS.CostExplorer.Types.UtilizationByTime
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getReservationUtilization' smart constructor.
+-- | /See:/ 'newGetReservationUtilization' smart constructor.
 data GetReservationUtilization = GetReservationUtilization'
-  { _gruGranularity ::
-      !( Maybe
-           Granularity
-       ),
-    _gruMaxResults ::
-      !(Maybe Nat),
-    _gruNextPageToken ::
-      !(Maybe Text),
-    _gruGroupBy ::
-      !( Maybe
-           [GroupDefinition]
-       ),
-    _gruSortBy ::
-      !( Maybe
-           SortDefinition
-       ),
-    _gruFilter ::
-      !(Maybe Expression),
-    _gruTimePeriod ::
-      !DateInterval
+  { -- | If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+    -- isn\'t set, the response object doesn\'t include @Granularity@, either
+    -- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
+    -- @GetReservationUtilization@ defaults to @DAILY@.
+    --
+    -- The @GetReservationUtilization@ operation supports only @DAILY@ and
+    -- @MONTHLY@ granularities.
+    granularity :: Prelude.Maybe Granularity,
+    -- | The maximum number of objects that you returned for this request. If
+    -- more objects are available, in the response, AWS provides a
+    -- NextPageToken value that you can use in a subsequent call to get the
+    -- next batch of objects.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The token to retrieve the next set of results. AWS provides the token
+    -- when the response from a previous call has more results than the maximum
+    -- page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | Groups only by @SUBSCRIPTION_ID@. Metadata is included.
+    groupBy :: Prelude.Maybe [GroupDefinition],
+    -- | The value by which you want to sort the data.
+    --
+    -- The following values are supported for @Key@:
+    --
+    -- -   @UtilizationPercentage@
+    --
+    -- -   @UtilizationPercentageInUnits@
+    --
+    -- -   @PurchasedHours@
+    --
+    -- -   @PurchasedUnits@
+    --
+    -- -   @TotalActualHours@
+    --
+    -- -   @TotalActualUnits@
+    --
+    -- -   @UnusedHours@
+    --
+    -- -   @UnusedUnits@
+    --
+    -- -   @OnDemandCostOfRIHoursUsed@
+    --
+    -- -   @NetRISavings@
+    --
+    -- -   @TotalPotentialRISavings@
+    --
+    -- -   @AmortizedUpfrontFee@
+    --
+    -- -   @AmortizedRecurringFee@
+    --
+    -- -   @TotalAmortizedFee@
+    --
+    -- -   @RICostForUnusedHours@
+    --
+    -- -   @RealizedSavings@
+    --
+    -- -   @UnrealizedSavings@
+    --
+    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    sortBy :: Prelude.Maybe SortDefinition,
+    -- | Filters utilization data by dimensions. You can filter by the following
+    -- dimensions:
+    --
+    -- -   AZ
+    --
+    -- -   CACHE_ENGINE
+    --
+    -- -   DEPLOYMENT_OPTION
+    --
+    -- -   INSTANCE_TYPE
+    --
+    -- -   LINKED_ACCOUNT
+    --
+    -- -   OPERATING_SYSTEM
+    --
+    -- -   PLATFORM
+    --
+    -- -   REGION
+    --
+    -- -   SERVICE
+    --
+    -- -   SCOPE
+    --
+    -- -   TENANCY
+    --
+    -- @GetReservationUtilization@ uses the same
+    -- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression>
+    -- object as the other operations, but only @AND@ is supported among each
+    -- dimension, and nesting is supported up to only one level deep. If there
+    -- are multiple values for a dimension, they are OR\'d together.
+    filter' :: Prelude.Maybe Expression,
+    -- | Sets the start and end dates for retrieving RI utilization. The start
+    -- date is inclusive, but the end date is exclusive. For example, if
+    -- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
+    -- usage data is retrieved from @2017-01-01@ up to and including
+    -- @2017-04-30@ but not including @2017-05-01@.
+    timePeriod :: DateInterval
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetReservationUtilization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetReservationUtilization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gruGranularity' - If @GroupBy@ is set, @Granularity@ can't be set. If @Granularity@ isn't set, the response object doesn't include @Granularity@ , either @MONTHLY@ or @DAILY@ . If both @GroupBy@ and @Granularity@ aren't set, @GetReservationUtilization@ defaults to @DAILY@ . The @GetReservationUtilization@ operation supports only @DAILY@ and @MONTHLY@ granularities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gruMaxResults' - The maximum number of objects that you returned for this request. If more objects are available, in the response, AWS provides a NextPageToken value that you can use in a subsequent call to get the next batch of objects.
+-- 'granularity', 'getReservationUtilization_granularity' - If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+-- isn\'t set, the response object doesn\'t include @Granularity@, either
+-- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
+-- @GetReservationUtilization@ defaults to @DAILY@.
 --
--- * 'gruNextPageToken' - The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
+-- The @GetReservationUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
 --
--- * 'gruGroupBy' - Groups only by @SUBSCRIPTION_ID@ . Metadata is included.
+-- 'maxResults', 'getReservationUtilization_maxResults' - The maximum number of objects that you returned for this request. If
+-- more objects are available, in the response, AWS provides a
+-- NextPageToken value that you can use in a subsequent call to get the
+-- next batch of objects.
 --
--- * 'gruSortBy' - The value by which you want to sort the data. The following values are supported for @Key@ :     * @UtilizationPercentage@      * @UtilizationPercentageInUnits@      * @PurchasedHours@      * @PurchasedUnits@      * @TotalActualHours@      * @TotalActualUnits@      * @UnusedHours@      * @UnusedUnits@      * @OnDemandCostOfRIHoursUsed@      * @NetRISavings@      * @TotalPotentialRISavings@      * @AmortizedUpfrontFee@      * @AmortizedRecurringFee@      * @TotalAmortizedFee@      * @RICostForUnusedHours@      * @RealizedSavings@      * @UnrealizedSavings@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ .
+-- 'nextPageToken', 'getReservationUtilization_nextPageToken' - The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
 --
--- * 'gruFilter' - Filters utilization data by dimensions. You can filter by the following dimensions:     * AZ     * CACHE_ENGINE     * DEPLOYMENT_OPTION     * INSTANCE_TYPE     * LINKED_ACCOUNT     * OPERATING_SYSTEM     * PLATFORM     * REGION     * SERVICE     * SCOPE     * TENANCY @GetReservationUtilization@ uses the same <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression> object as the other operations, but only @AND@ is supported among each dimension, and nesting is supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.
+-- 'groupBy', 'getReservationUtilization_groupBy' - Groups only by @SUBSCRIPTION_ID@. Metadata is included.
 --
--- * 'gruTimePeriod' - Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is exclusive. For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@ , then the cost and usage data is retrieved from @2017-01-01@ up to and including @2017-04-30@ but not including @2017-05-01@ .
-getReservationUtilization ::
-  -- | 'gruTimePeriod'
+-- 'sortBy', 'getReservationUtilization_sortBy' - The value by which you want to sort the data.
+--
+-- The following values are supported for @Key@:
+--
+-- -   @UtilizationPercentage@
+--
+-- -   @UtilizationPercentageInUnits@
+--
+-- -   @PurchasedHours@
+--
+-- -   @PurchasedUnits@
+--
+-- -   @TotalActualHours@
+--
+-- -   @TotalActualUnits@
+--
+-- -   @UnusedHours@
+--
+-- -   @UnusedUnits@
+--
+-- -   @OnDemandCostOfRIHoursUsed@
+--
+-- -   @NetRISavings@
+--
+-- -   @TotalPotentialRISavings@
+--
+-- -   @AmortizedUpfrontFee@
+--
+-- -   @AmortizedRecurringFee@
+--
+-- -   @TotalAmortizedFee@
+--
+-- -   @RICostForUnusedHours@
+--
+-- -   @RealizedSavings@
+--
+-- -   @UnrealizedSavings@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+--
+-- 'filter'', 'getReservationUtilization_filter' - Filters utilization data by dimensions. You can filter by the following
+-- dimensions:
+--
+-- -   AZ
+--
+-- -   CACHE_ENGINE
+--
+-- -   DEPLOYMENT_OPTION
+--
+-- -   INSTANCE_TYPE
+--
+-- -   LINKED_ACCOUNT
+--
+-- -   OPERATING_SYSTEM
+--
+-- -   PLATFORM
+--
+-- -   REGION
+--
+-- -   SERVICE
+--
+-- -   SCOPE
+--
+-- -   TENANCY
+--
+-- @GetReservationUtilization@ uses the same
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression>
+-- object as the other operations, but only @AND@ is supported among each
+-- dimension, and nesting is supported up to only one level deep. If there
+-- are multiple values for a dimension, they are OR\'d together.
+--
+-- 'timePeriod', 'getReservationUtilization_timePeriod' - Sets the start and end dates for retrieving RI utilization. The start
+-- date is inclusive, but the end date is exclusive. For example, if
+-- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
+-- usage data is retrieved from @2017-01-01@ up to and including
+-- @2017-04-30@ but not including @2017-05-01@.
+newGetReservationUtilization ::
+  -- | 'timePeriod'
   DateInterval ->
   GetReservationUtilization
-getReservationUtilization pTimePeriod_ =
+newGetReservationUtilization pTimePeriod_ =
   GetReservationUtilization'
-    { _gruGranularity =
-        Nothing,
-      _gruMaxResults = Nothing,
-      _gruNextPageToken = Nothing,
-      _gruGroupBy = Nothing,
-      _gruSortBy = Nothing,
-      _gruFilter = Nothing,
-      _gruTimePeriod = pTimePeriod_
+    { granularity =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      groupBy = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      timePeriod = pTimePeriod_
     }
 
--- | If @GroupBy@ is set, @Granularity@ can't be set. If @Granularity@ isn't set, the response object doesn't include @Granularity@ , either @MONTHLY@ or @DAILY@ . If both @GroupBy@ and @Granularity@ aren't set, @GetReservationUtilization@ defaults to @DAILY@ . The @GetReservationUtilization@ operation supports only @DAILY@ and @MONTHLY@ granularities.
-gruGranularity :: Lens' GetReservationUtilization (Maybe Granularity)
-gruGranularity = lens _gruGranularity (\s a -> s {_gruGranularity = a})
+-- | If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+-- isn\'t set, the response object doesn\'t include @Granularity@, either
+-- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
+-- @GetReservationUtilization@ defaults to @DAILY@.
+--
+-- The @GetReservationUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+getReservationUtilization_granularity :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Granularity)
+getReservationUtilization_granularity = Lens.lens (\GetReservationUtilization' {granularity} -> granularity) (\s@GetReservationUtilization' {} a -> s {granularity = a} :: GetReservationUtilization)
 
--- | The maximum number of objects that you returned for this request. If more objects are available, in the response, AWS provides a NextPageToken value that you can use in a subsequent call to get the next batch of objects.
-gruMaxResults :: Lens' GetReservationUtilization (Maybe Natural)
-gruMaxResults = lens _gruMaxResults (\s a -> s {_gruMaxResults = a}) . mapping _Nat
+-- | The maximum number of objects that you returned for this request. If
+-- more objects are available, in the response, AWS provides a
+-- NextPageToken value that you can use in a subsequent call to get the
+-- next batch of objects.
+getReservationUtilization_maxResults :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Prelude.Natural)
+getReservationUtilization_maxResults = Lens.lens (\GetReservationUtilization' {maxResults} -> maxResults) (\s@GetReservationUtilization' {} a -> s {maxResults = a} :: GetReservationUtilization) Prelude.. Lens.mapping Prelude._Nat
 
--- | The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.
-gruNextPageToken :: Lens' GetReservationUtilization (Maybe Text)
-gruNextPageToken = lens _gruNextPageToken (\s a -> s {_gruNextPageToken = a})
+-- | The token to retrieve the next set of results. AWS provides the token
+-- when the response from a previous call has more results than the maximum
+-- page size.
+getReservationUtilization_nextPageToken :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Prelude.Text)
+getReservationUtilization_nextPageToken = Lens.lens (\GetReservationUtilization' {nextPageToken} -> nextPageToken) (\s@GetReservationUtilization' {} a -> s {nextPageToken = a} :: GetReservationUtilization)
 
--- | Groups only by @SUBSCRIPTION_ID@ . Metadata is included.
-gruGroupBy :: Lens' GetReservationUtilization [GroupDefinition]
-gruGroupBy = lens _gruGroupBy (\s a -> s {_gruGroupBy = a}) . _Default . _Coerce
+-- | Groups only by @SUBSCRIPTION_ID@. Metadata is included.
+getReservationUtilization_groupBy :: Lens.Lens' GetReservationUtilization (Prelude.Maybe [GroupDefinition])
+getReservationUtilization_groupBy = Lens.lens (\GetReservationUtilization' {groupBy} -> groupBy) (\s@GetReservationUtilization' {} a -> s {groupBy = a} :: GetReservationUtilization) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The value by which you want to sort the data. The following values are supported for @Key@ :     * @UtilizationPercentage@      * @UtilizationPercentageInUnits@      * @PurchasedHours@      * @PurchasedUnits@      * @TotalActualHours@      * @TotalActualUnits@      * @UnusedHours@      * @UnusedUnits@      * @OnDemandCostOfRIHoursUsed@      * @NetRISavings@      * @TotalPotentialRISavings@      * @AmortizedUpfrontFee@      * @AmortizedRecurringFee@      * @TotalAmortizedFee@      * @RICostForUnusedHours@      * @RealizedSavings@      * @UnrealizedSavings@  Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@ .
-gruSortBy :: Lens' GetReservationUtilization (Maybe SortDefinition)
-gruSortBy = lens _gruSortBy (\s a -> s {_gruSortBy = a})
+-- | The value by which you want to sort the data.
+--
+-- The following values are supported for @Key@:
+--
+-- -   @UtilizationPercentage@
+--
+-- -   @UtilizationPercentageInUnits@
+--
+-- -   @PurchasedHours@
+--
+-- -   @PurchasedUnits@
+--
+-- -   @TotalActualHours@
+--
+-- -   @TotalActualUnits@
+--
+-- -   @UnusedHours@
+--
+-- -   @UnusedUnits@
+--
+-- -   @OnDemandCostOfRIHoursUsed@
+--
+-- -   @NetRISavings@
+--
+-- -   @TotalPotentialRISavings@
+--
+-- -   @AmortizedUpfrontFee@
+--
+-- -   @AmortizedRecurringFee@
+--
+-- -   @TotalAmortizedFee@
+--
+-- -   @RICostForUnusedHours@
+--
+-- -   @RealizedSavings@
+--
+-- -   @UnrealizedSavings@
+--
+-- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+getReservationUtilization_sortBy :: Lens.Lens' GetReservationUtilization (Prelude.Maybe SortDefinition)
+getReservationUtilization_sortBy = Lens.lens (\GetReservationUtilization' {sortBy} -> sortBy) (\s@GetReservationUtilization' {} a -> s {sortBy = a} :: GetReservationUtilization)
 
--- | Filters utilization data by dimensions. You can filter by the following dimensions:     * AZ     * CACHE_ENGINE     * DEPLOYMENT_OPTION     * INSTANCE_TYPE     * LINKED_ACCOUNT     * OPERATING_SYSTEM     * PLATFORM     * REGION     * SERVICE     * SCOPE     * TENANCY @GetReservationUtilization@ uses the same <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression> object as the other operations, but only @AND@ is supported among each dimension, and nesting is supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.
-gruFilter :: Lens' GetReservationUtilization (Maybe Expression)
-gruFilter = lens _gruFilter (\s a -> s {_gruFilter = a})
+-- | Filters utilization data by dimensions. You can filter by the following
+-- dimensions:
+--
+-- -   AZ
+--
+-- -   CACHE_ENGINE
+--
+-- -   DEPLOYMENT_OPTION
+--
+-- -   INSTANCE_TYPE
+--
+-- -   LINKED_ACCOUNT
+--
+-- -   OPERATING_SYSTEM
+--
+-- -   PLATFORM
+--
+-- -   REGION
+--
+-- -   SERVICE
+--
+-- -   SCOPE
+--
+-- -   TENANCY
+--
+-- @GetReservationUtilization@ uses the same
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html Expression>
+-- object as the other operations, but only @AND@ is supported among each
+-- dimension, and nesting is supported up to only one level deep. If there
+-- are multiple values for a dimension, they are OR\'d together.
+getReservationUtilization_filter :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Expression)
+getReservationUtilization_filter = Lens.lens (\GetReservationUtilization' {filter'} -> filter') (\s@GetReservationUtilization' {} a -> s {filter' = a} :: GetReservationUtilization)
 
--- | Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is exclusive. For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@ , then the cost and usage data is retrieved from @2017-01-01@ up to and including @2017-04-30@ but not including @2017-05-01@ .
-gruTimePeriod :: Lens' GetReservationUtilization DateInterval
-gruTimePeriod = lens _gruTimePeriod (\s a -> s {_gruTimePeriod = a})
+-- | Sets the start and end dates for retrieving RI utilization. The start
+-- date is inclusive, but the end date is exclusive. For example, if
+-- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
+-- usage data is retrieved from @2017-01-01@ up to and including
+-- @2017-04-30@ but not including @2017-05-01@.
+getReservationUtilization_timePeriod :: Lens.Lens' GetReservationUtilization DateInterval
+getReservationUtilization_timePeriod = Lens.lens (\GetReservationUtilization' {timePeriod} -> timePeriod) (\s@GetReservationUtilization' {} a -> s {timePeriod = a} :: GetReservationUtilization)
 
-instance AWSRequest GetReservationUtilization where
+instance Prelude.AWSRequest GetReservationUtilization where
   type
     Rs GetReservationUtilization =
       GetReservationUtilizationResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetReservationUtilizationResponse'
-            <$> (x .?> "Total")
-            <*> (x .?> "NextPageToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "UtilizationsByTime" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "Total")
+            Prelude.<*> (x Prelude..?> "NextPageToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "UtilizationsByTime"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable GetReservationUtilization
+instance Prelude.Hashable GetReservationUtilization
 
-instance NFData GetReservationUtilization
+instance Prelude.NFData GetReservationUtilization
 
-instance ToHeaders GetReservationUtilization where
+instance Prelude.ToHeaders GetReservationUtilization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.GetReservationUtilization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.GetReservationUtilization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetReservationUtilization where
+instance Prelude.ToJSON GetReservationUtilization where
   toJSON GetReservationUtilization' {..} =
-    object
-      ( catMaybes
-          [ ("Granularity" .=) <$> _gruGranularity,
-            ("MaxResults" .=) <$> _gruMaxResults,
-            ("NextPageToken" .=) <$> _gruNextPageToken,
-            ("GroupBy" .=) <$> _gruGroupBy,
-            ("SortBy" .=) <$> _gruSortBy,
-            ("Filter" .=) <$> _gruFilter,
-            Just ("TimePeriod" .= _gruTimePeriod)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Granularity" Prelude..=) Prelude.<$> granularity,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("NextPageToken" Prelude..=)
+              Prelude.<$> nextPageToken,
+            ("GroupBy" Prelude..=) Prelude.<$> groupBy,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("Filter" Prelude..=) Prelude.<$> filter',
+            Prelude.Just ("TimePeriod" Prelude..= timePeriod)
           ]
       )
 
-instance ToPath GetReservationUtilization where
-  toPath = const "/"
+instance Prelude.ToPath GetReservationUtilization where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetReservationUtilization where
-  toQuery = const mempty
+instance Prelude.ToQuery GetReservationUtilization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getReservationUtilizationResponse' smart constructor.
+-- | /See:/ 'newGetReservationUtilizationResponse' smart constructor.
 data GetReservationUtilizationResponse = GetReservationUtilizationResponse'
-  { _grurrsTotal ::
-      !( Maybe
-           ReservationAggregates
-       ),
-    _grurrsNextPageToken ::
-      !( Maybe
-           Text
-       ),
-    _grurrsResponseStatus ::
-      !Int,
-    _grurrsUtilizationsByTime ::
-      ![UtilizationByTime]
+  { -- | The total amount of time that you used your RIs.
+    total :: Prelude.Maybe ReservationAggregates,
+    -- | The token for the next set of retrievable results. AWS provides the
+    -- token when the response from a previous call has more results than the
+    -- maximum page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The amount of time that you used your RIs.
+    utilizationsByTime :: [UtilizationByTime]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetReservationUtilizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetReservationUtilizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grurrsTotal' - The total amount of time that you used your RIs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grurrsNextPageToken' - The token for the next set of retrievable results. AWS provides the token when the response from a previous call has more results than the maximum page size.
+-- 'total', 'getReservationUtilizationResponse_total' - The total amount of time that you used your RIs.
 --
--- * 'grurrsResponseStatus' - -- | The response status code.
+-- 'nextPageToken', 'getReservationUtilizationResponse_nextPageToken' - The token for the next set of retrievable results. AWS provides the
+-- token when the response from a previous call has more results than the
+-- maximum page size.
 --
--- * 'grurrsUtilizationsByTime' - The amount of time that you used your RIs.
-getReservationUtilizationResponse ::
-  -- | 'grurrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getReservationUtilizationResponse_httpStatus' - The response's http status code.
+--
+-- 'utilizationsByTime', 'getReservationUtilizationResponse_utilizationsByTime' - The amount of time that you used your RIs.
+newGetReservationUtilizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetReservationUtilizationResponse
-getReservationUtilizationResponse pResponseStatus_ =
+newGetReservationUtilizationResponse pHttpStatus_ =
   GetReservationUtilizationResponse'
-    { _grurrsTotal =
-        Nothing,
-      _grurrsNextPageToken = Nothing,
-      _grurrsResponseStatus = pResponseStatus_,
-      _grurrsUtilizationsByTime = mempty
+    { total =
+        Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      utilizationsByTime = Prelude.mempty
     }
 
 -- | The total amount of time that you used your RIs.
-grurrsTotal :: Lens' GetReservationUtilizationResponse (Maybe ReservationAggregates)
-grurrsTotal = lens _grurrsTotal (\s a -> s {_grurrsTotal = a})
+getReservationUtilizationResponse_total :: Lens.Lens' GetReservationUtilizationResponse (Prelude.Maybe ReservationAggregates)
+getReservationUtilizationResponse_total = Lens.lens (\GetReservationUtilizationResponse' {total} -> total) (\s@GetReservationUtilizationResponse' {} a -> s {total = a} :: GetReservationUtilizationResponse)
 
--- | The token for the next set of retrievable results. AWS provides the token when the response from a previous call has more results than the maximum page size.
-grurrsNextPageToken :: Lens' GetReservationUtilizationResponse (Maybe Text)
-grurrsNextPageToken = lens _grurrsNextPageToken (\s a -> s {_grurrsNextPageToken = a})
+-- | The token for the next set of retrievable results. AWS provides the
+-- token when the response from a previous call has more results than the
+-- maximum page size.
+getReservationUtilizationResponse_nextPageToken :: Lens.Lens' GetReservationUtilizationResponse (Prelude.Maybe Prelude.Text)
+getReservationUtilizationResponse_nextPageToken = Lens.lens (\GetReservationUtilizationResponse' {nextPageToken} -> nextPageToken) (\s@GetReservationUtilizationResponse' {} a -> s {nextPageToken = a} :: GetReservationUtilizationResponse)
 
--- | -- | The response status code.
-grurrsResponseStatus :: Lens' GetReservationUtilizationResponse Int
-grurrsResponseStatus = lens _grurrsResponseStatus (\s a -> s {_grurrsResponseStatus = a})
+-- | The response's http status code.
+getReservationUtilizationResponse_httpStatus :: Lens.Lens' GetReservationUtilizationResponse Prelude.Int
+getReservationUtilizationResponse_httpStatus = Lens.lens (\GetReservationUtilizationResponse' {httpStatus} -> httpStatus) (\s@GetReservationUtilizationResponse' {} a -> s {httpStatus = a} :: GetReservationUtilizationResponse)
 
 -- | The amount of time that you used your RIs.
-grurrsUtilizationsByTime :: Lens' GetReservationUtilizationResponse [UtilizationByTime]
-grurrsUtilizationsByTime = lens _grurrsUtilizationsByTime (\s a -> s {_grurrsUtilizationsByTime = a}) . _Coerce
+getReservationUtilizationResponse_utilizationsByTime :: Lens.Lens' GetReservationUtilizationResponse [UtilizationByTime]
+getReservationUtilizationResponse_utilizationsByTime = Lens.lens (\GetReservationUtilizationResponse' {utilizationsByTime} -> utilizationsByTime) (\s@GetReservationUtilizationResponse' {} a -> s {utilizationsByTime = a} :: GetReservationUtilizationResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetReservationUtilizationResponse
+instance
+  Prelude.NFData
+    GetReservationUtilizationResponse

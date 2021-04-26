@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +21,73 @@ module Network.AWS.CostExplorer.Types.SavingsPlansCoverage where
 
 import Network.AWS.CostExplorer.Types.DateInterval
 import Network.AWS.CostExplorer.Types.SavingsPlansCoverageData
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The amount of Savings Plans eligible usage that is covered by Savings Plans. All calculations consider the On-Demand equivalent of your Savings Plans usage.
+-- | The amount of Savings Plans eligible usage that is covered by Savings
+-- Plans. All calculations consider the On-Demand equivalent of your
+-- Savings Plans usage.
 --
---
---
--- /See:/ 'savingsPlansCoverage' smart constructor.
+-- /See:/ 'newSavingsPlansCoverage' smart constructor.
 data SavingsPlansCoverage = SavingsPlansCoverage'
-  { _spcTimePeriod ::
-      !(Maybe DateInterval),
-    _spcAttributes ::
-      !(Maybe (Map Text Text)),
-    _spcCoverage ::
-      !( Maybe
-           SavingsPlansCoverageData
-       )
+  { timePeriod :: Prelude.Maybe DateInterval,
+    -- | The attribute that applies to a specific @Dimension@.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The amount of Savings Plans eligible usage that the Savings Plans
+    -- covered.
+    coverage :: Prelude.Maybe SavingsPlansCoverageData
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SavingsPlansCoverage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SavingsPlansCoverage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spcTimePeriod' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spcAttributes' - The attribute that applies to a specific @Dimension@ .
+-- 'timePeriod', 'savingsPlansCoverage_timePeriod' - Undocumented member.
 --
--- * 'spcCoverage' - The amount of Savings Plans eligible usage that the Savings Plans covered.
-savingsPlansCoverage ::
+-- 'attributes', 'savingsPlansCoverage_attributes' - The attribute that applies to a specific @Dimension@.
+--
+-- 'coverage', 'savingsPlansCoverage_coverage' - The amount of Savings Plans eligible usage that the Savings Plans
+-- covered.
+newSavingsPlansCoverage ::
   SavingsPlansCoverage
-savingsPlansCoverage =
+newSavingsPlansCoverage =
   SavingsPlansCoverage'
-    { _spcTimePeriod = Nothing,
-      _spcAttributes = Nothing,
-      _spcCoverage = Nothing
+    { timePeriod = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      coverage = Prelude.Nothing
     }
 
 -- | Undocumented member.
-spcTimePeriod :: Lens' SavingsPlansCoverage (Maybe DateInterval)
-spcTimePeriod = lens _spcTimePeriod (\s a -> s {_spcTimePeriod = a})
+savingsPlansCoverage_timePeriod :: Lens.Lens' SavingsPlansCoverage (Prelude.Maybe DateInterval)
+savingsPlansCoverage_timePeriod = Lens.lens (\SavingsPlansCoverage' {timePeriod} -> timePeriod) (\s@SavingsPlansCoverage' {} a -> s {timePeriod = a} :: SavingsPlansCoverage)
 
--- | The attribute that applies to a specific @Dimension@ .
-spcAttributes :: Lens' SavingsPlansCoverage (HashMap Text Text)
-spcAttributes = lens _spcAttributes (\s a -> s {_spcAttributes = a}) . _Default . _Map
+-- | The attribute that applies to a specific @Dimension@.
+savingsPlansCoverage_attributes :: Lens.Lens' SavingsPlansCoverage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+savingsPlansCoverage_attributes = Lens.lens (\SavingsPlansCoverage' {attributes} -> attributes) (\s@SavingsPlansCoverage' {} a -> s {attributes = a} :: SavingsPlansCoverage) Prelude.. Lens.mapping Prelude._Map
 
--- | The amount of Savings Plans eligible usage that the Savings Plans covered.
-spcCoverage :: Lens' SavingsPlansCoverage (Maybe SavingsPlansCoverageData)
-spcCoverage = lens _spcCoverage (\s a -> s {_spcCoverage = a})
+-- | The amount of Savings Plans eligible usage that the Savings Plans
+-- covered.
+savingsPlansCoverage_coverage :: Lens.Lens' SavingsPlansCoverage (Prelude.Maybe SavingsPlansCoverageData)
+savingsPlansCoverage_coverage = Lens.lens (\SavingsPlansCoverage' {coverage} -> coverage) (\s@SavingsPlansCoverage' {} a -> s {coverage = a} :: SavingsPlansCoverage)
 
-instance FromJSON SavingsPlansCoverage where
+instance Prelude.FromJSON SavingsPlansCoverage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SavingsPlansCoverage"
       ( \x ->
           SavingsPlansCoverage'
-            <$> (x .:? "TimePeriod")
-            <*> (x .:? "Attributes" .!= mempty)
-            <*> (x .:? "Coverage")
+            Prelude.<$> (x Prelude..:? "TimePeriod")
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Coverage")
       )
 
-instance Hashable SavingsPlansCoverage
+instance Prelude.Hashable SavingsPlansCoverage
 
-instance NFData SavingsPlansCoverage
+instance Prelude.NFData SavingsPlansCoverage

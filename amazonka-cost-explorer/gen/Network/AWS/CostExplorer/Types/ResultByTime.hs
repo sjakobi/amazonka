@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,72 +22,77 @@ module Network.AWS.CostExplorer.Types.ResultByTime where
 import Network.AWS.CostExplorer.Types.DateInterval
 import Network.AWS.CostExplorer.Types.Group
 import Network.AWS.CostExplorer.Types.MetricValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The result that is associated with a time period.
 --
---
---
--- /See:/ 'resultByTime' smart constructor.
+-- /See:/ 'newResultByTime' smart constructor.
 data ResultByTime = ResultByTime'
-  { _rbtGroups ::
-      !(Maybe [Group]),
-    _rbtTimePeriod :: !(Maybe DateInterval),
-    _rbtEstimated :: !(Maybe Bool),
-    _rbtTotal :: !(Maybe (Map Text MetricValue))
+  { -- | The groups that this time period includes.
+    groups :: Prelude.Maybe [Group],
+    -- | The time period that the result covers.
+    timePeriod :: Prelude.Maybe DateInterval,
+    -- | Whether the result is estimated.
+    estimated :: Prelude.Maybe Prelude.Bool,
+    -- | The total amount of cost or usage accrued during the time period.
+    total :: Prelude.Maybe (Prelude.Map Prelude.Text MetricValue)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResultByTime' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResultByTime' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbtGroups' - The groups that this time period includes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rbtTimePeriod' - The time period that the result covers.
+-- 'groups', 'resultByTime_groups' - The groups that this time period includes.
 --
--- * 'rbtEstimated' - Whether the result is estimated.
+-- 'timePeriod', 'resultByTime_timePeriod' - The time period that the result covers.
 --
--- * 'rbtTotal' - The total amount of cost or usage accrued during the time period.
-resultByTime ::
+-- 'estimated', 'resultByTime_estimated' - Whether the result is estimated.
+--
+-- 'total', 'resultByTime_total' - The total amount of cost or usage accrued during the time period.
+newResultByTime ::
   ResultByTime
-resultByTime =
+newResultByTime =
   ResultByTime'
-    { _rbtGroups = Nothing,
-      _rbtTimePeriod = Nothing,
-      _rbtEstimated = Nothing,
-      _rbtTotal = Nothing
+    { groups = Prelude.Nothing,
+      timePeriod = Prelude.Nothing,
+      estimated = Prelude.Nothing,
+      total = Prelude.Nothing
     }
 
 -- | The groups that this time period includes.
-rbtGroups :: Lens' ResultByTime [Group]
-rbtGroups = lens _rbtGroups (\s a -> s {_rbtGroups = a}) . _Default . _Coerce
+resultByTime_groups :: Lens.Lens' ResultByTime (Prelude.Maybe [Group])
+resultByTime_groups = Lens.lens (\ResultByTime' {groups} -> groups) (\s@ResultByTime' {} a -> s {groups = a} :: ResultByTime) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time period that the result covers.
-rbtTimePeriod :: Lens' ResultByTime (Maybe DateInterval)
-rbtTimePeriod = lens _rbtTimePeriod (\s a -> s {_rbtTimePeriod = a})
+resultByTime_timePeriod :: Lens.Lens' ResultByTime (Prelude.Maybe DateInterval)
+resultByTime_timePeriod = Lens.lens (\ResultByTime' {timePeriod} -> timePeriod) (\s@ResultByTime' {} a -> s {timePeriod = a} :: ResultByTime)
 
 -- | Whether the result is estimated.
-rbtEstimated :: Lens' ResultByTime (Maybe Bool)
-rbtEstimated = lens _rbtEstimated (\s a -> s {_rbtEstimated = a})
+resultByTime_estimated :: Lens.Lens' ResultByTime (Prelude.Maybe Prelude.Bool)
+resultByTime_estimated = Lens.lens (\ResultByTime' {estimated} -> estimated) (\s@ResultByTime' {} a -> s {estimated = a} :: ResultByTime)
 
 -- | The total amount of cost or usage accrued during the time period.
-rbtTotal :: Lens' ResultByTime (HashMap Text MetricValue)
-rbtTotal = lens _rbtTotal (\s a -> s {_rbtTotal = a}) . _Default . _Map
+resultByTime_total :: Lens.Lens' ResultByTime (Prelude.Maybe (Prelude.HashMap Prelude.Text MetricValue))
+resultByTime_total = Lens.lens (\ResultByTime' {total} -> total) (\s@ResultByTime' {} a -> s {total = a} :: ResultByTime) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON ResultByTime where
+instance Prelude.FromJSON ResultByTime where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResultByTime"
       ( \x ->
           ResultByTime'
-            <$> (x .:? "Groups" .!= mempty)
-            <*> (x .:? "TimePeriod")
-            <*> (x .:? "Estimated")
-            <*> (x .:? "Total" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Groups" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "TimePeriod")
+            Prelude.<*> (x Prelude..:? "Estimated")
+            Prelude.<*> (x Prelude..:? "Total" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ResultByTime
+instance Prelude.Hashable ResultByTime
 
-instance NFData ResultByTime
+instance Prelude.NFData ResultByTime

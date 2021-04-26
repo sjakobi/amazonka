@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,106 +22,110 @@ module Network.AWS.CostExplorer.Types.SavingsPlansUtilizationDetail where
 import Network.AWS.CostExplorer.Types.SavingsPlansAmortizedCommitment
 import Network.AWS.CostExplorer.Types.SavingsPlansSavings
 import Network.AWS.CostExplorer.Types.SavingsPlansUtilization
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A single daily or monthly Savings Plans utilization rate, and details for your account. A management account in an organization have access to member accounts. You can use @GetDimensionValues@ to determine the possible dimension values.
+-- | A single daily or monthly Savings Plans utilization rate, and details
+-- for your account. A management account in an organization have access to
+-- member accounts. You can use @GetDimensionValues@ to determine the
+-- possible dimension values.
 --
---
---
--- /See:/ 'savingsPlansUtilizationDetail' smart constructor.
+-- /See:/ 'newSavingsPlansUtilizationDetail' smart constructor.
 data SavingsPlansUtilizationDetail = SavingsPlansUtilizationDetail'
-  { _spudSavings ::
-      !( Maybe
-           SavingsPlansSavings
-       ),
-    _spudUtilization ::
-      !( Maybe
-           SavingsPlansUtilization
-       ),
-    _spudAttributes ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _spudAmortizedCommitment ::
-      !( Maybe
-           SavingsPlansAmortizedCommitment
-       ),
-    _spudSavingsPlanARN ::
-      !( Maybe
-           Text
-       )
+  { -- | The amount saved by using existing Savings Plans. Savings returns both
+    -- net savings from savings plans as well as the @onDemandCostEquivalent@
+    -- of the Savings Plans when considering the utilization rate.
+    savings :: Prelude.Maybe SavingsPlansSavings,
+    -- | A ratio of your effectiveness of using existing Savings Plans to apply
+    -- to workloads that are Savings Plans eligible.
+    utilization :: Prelude.Maybe SavingsPlansUtilization,
+    -- | The attribute that applies to a specific @Dimension@.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The total amortized commitment for a Savings Plans. Includes the sum of
+    -- the upfront and recurring Savings Plans fees.
+    amortizedCommitment :: Prelude.Maybe SavingsPlansAmortizedCommitment,
+    -- | The unique Amazon Resource Name (ARN) for a particular Savings Plan.
+    savingsPlanArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SavingsPlansUtilizationDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SavingsPlansUtilizationDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spudSavings' - The amount saved by using existing Savings Plans. Savings returns both net savings from savings plans as well as the @onDemandCostEquivalent@ of the Savings Plans when considering the utilization rate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spudUtilization' - A ratio of your effectiveness of using existing Savings Plans to apply to workloads that are Savings Plans eligible.
+-- 'savings', 'savingsPlansUtilizationDetail_savings' - The amount saved by using existing Savings Plans. Savings returns both
+-- net savings from savings plans as well as the @onDemandCostEquivalent@
+-- of the Savings Plans when considering the utilization rate.
 --
--- * 'spudAttributes' - The attribute that applies to a specific @Dimension@ .
+-- 'utilization', 'savingsPlansUtilizationDetail_utilization' - A ratio of your effectiveness of using existing Savings Plans to apply
+-- to workloads that are Savings Plans eligible.
 --
--- * 'spudAmortizedCommitment' - The total amortized commitment for a Savings Plans. Includes the sum of the upfront and recurring Savings Plans fees.
+-- 'attributes', 'savingsPlansUtilizationDetail_attributes' - The attribute that applies to a specific @Dimension@.
 --
--- * 'spudSavingsPlanARN' - The unique Amazon Resource Name (ARN) for a particular Savings Plan.
-savingsPlansUtilizationDetail ::
+-- 'amortizedCommitment', 'savingsPlansUtilizationDetail_amortizedCommitment' - The total amortized commitment for a Savings Plans. Includes the sum of
+-- the upfront and recurring Savings Plans fees.
+--
+-- 'savingsPlanArn', 'savingsPlansUtilizationDetail_savingsPlanArn' - The unique Amazon Resource Name (ARN) for a particular Savings Plan.
+newSavingsPlansUtilizationDetail ::
   SavingsPlansUtilizationDetail
-savingsPlansUtilizationDetail =
+newSavingsPlansUtilizationDetail =
   SavingsPlansUtilizationDetail'
-    { _spudSavings =
-        Nothing,
-      _spudUtilization = Nothing,
-      _spudAttributes = Nothing,
-      _spudAmortizedCommitment = Nothing,
-      _spudSavingsPlanARN = Nothing
+    { savings =
+        Prelude.Nothing,
+      utilization = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      amortizedCommitment = Prelude.Nothing,
+      savingsPlanArn = Prelude.Nothing
     }
 
--- | The amount saved by using existing Savings Plans. Savings returns both net savings from savings plans as well as the @onDemandCostEquivalent@ of the Savings Plans when considering the utilization rate.
-spudSavings :: Lens' SavingsPlansUtilizationDetail (Maybe SavingsPlansSavings)
-spudSavings = lens _spudSavings (\s a -> s {_spudSavings = a})
+-- | The amount saved by using existing Savings Plans. Savings returns both
+-- net savings from savings plans as well as the @onDemandCostEquivalent@
+-- of the Savings Plans when considering the utilization rate.
+savingsPlansUtilizationDetail_savings :: Lens.Lens' SavingsPlansUtilizationDetail (Prelude.Maybe SavingsPlansSavings)
+savingsPlansUtilizationDetail_savings = Lens.lens (\SavingsPlansUtilizationDetail' {savings} -> savings) (\s@SavingsPlansUtilizationDetail' {} a -> s {savings = a} :: SavingsPlansUtilizationDetail)
 
--- | A ratio of your effectiveness of using existing Savings Plans to apply to workloads that are Savings Plans eligible.
-spudUtilization :: Lens' SavingsPlansUtilizationDetail (Maybe SavingsPlansUtilization)
-spudUtilization = lens _spudUtilization (\s a -> s {_spudUtilization = a})
+-- | A ratio of your effectiveness of using existing Savings Plans to apply
+-- to workloads that are Savings Plans eligible.
+savingsPlansUtilizationDetail_utilization :: Lens.Lens' SavingsPlansUtilizationDetail (Prelude.Maybe SavingsPlansUtilization)
+savingsPlansUtilizationDetail_utilization = Lens.lens (\SavingsPlansUtilizationDetail' {utilization} -> utilization) (\s@SavingsPlansUtilizationDetail' {} a -> s {utilization = a} :: SavingsPlansUtilizationDetail)
 
--- | The attribute that applies to a specific @Dimension@ .
-spudAttributes :: Lens' SavingsPlansUtilizationDetail (HashMap Text Text)
-spudAttributes = lens _spudAttributes (\s a -> s {_spudAttributes = a}) . _Default . _Map
+-- | The attribute that applies to a specific @Dimension@.
+savingsPlansUtilizationDetail_attributes :: Lens.Lens' SavingsPlansUtilizationDetail (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+savingsPlansUtilizationDetail_attributes = Lens.lens (\SavingsPlansUtilizationDetail' {attributes} -> attributes) (\s@SavingsPlansUtilizationDetail' {} a -> s {attributes = a} :: SavingsPlansUtilizationDetail) Prelude.. Lens.mapping Prelude._Map
 
--- | The total amortized commitment for a Savings Plans. Includes the sum of the upfront and recurring Savings Plans fees.
-spudAmortizedCommitment :: Lens' SavingsPlansUtilizationDetail (Maybe SavingsPlansAmortizedCommitment)
-spudAmortizedCommitment = lens _spudAmortizedCommitment (\s a -> s {_spudAmortizedCommitment = a})
+-- | The total amortized commitment for a Savings Plans. Includes the sum of
+-- the upfront and recurring Savings Plans fees.
+savingsPlansUtilizationDetail_amortizedCommitment :: Lens.Lens' SavingsPlansUtilizationDetail (Prelude.Maybe SavingsPlansAmortizedCommitment)
+savingsPlansUtilizationDetail_amortizedCommitment = Lens.lens (\SavingsPlansUtilizationDetail' {amortizedCommitment} -> amortizedCommitment) (\s@SavingsPlansUtilizationDetail' {} a -> s {amortizedCommitment = a} :: SavingsPlansUtilizationDetail)
 
 -- | The unique Amazon Resource Name (ARN) for a particular Savings Plan.
-spudSavingsPlanARN :: Lens' SavingsPlansUtilizationDetail (Maybe Text)
-spudSavingsPlanARN = lens _spudSavingsPlanARN (\s a -> s {_spudSavingsPlanARN = a})
+savingsPlansUtilizationDetail_savingsPlanArn :: Lens.Lens' SavingsPlansUtilizationDetail (Prelude.Maybe Prelude.Text)
+savingsPlansUtilizationDetail_savingsPlanArn = Lens.lens (\SavingsPlansUtilizationDetail' {savingsPlanArn} -> savingsPlanArn) (\s@SavingsPlansUtilizationDetail' {} a -> s {savingsPlanArn = a} :: SavingsPlansUtilizationDetail)
 
-instance FromJSON SavingsPlansUtilizationDetail where
+instance
+  Prelude.FromJSON
+    SavingsPlansUtilizationDetail
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SavingsPlansUtilizationDetail"
       ( \x ->
           SavingsPlansUtilizationDetail'
-            <$> (x .:? "Savings")
-            <*> (x .:? "Utilization")
-            <*> (x .:? "Attributes" .!= mempty)
-            <*> (x .:? "AmortizedCommitment")
-            <*> (x .:? "SavingsPlanArn")
+            Prelude.<$> (x Prelude..:? "Savings")
+            Prelude.<*> (x Prelude..:? "Utilization")
+            Prelude.<*> ( x Prelude..:? "Attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "AmortizedCommitment")
+            Prelude.<*> (x Prelude..:? "SavingsPlanArn")
       )
 
-instance Hashable SavingsPlansUtilizationDetail
+instance
+  Prelude.Hashable
+    SavingsPlansUtilizationDetail
 
-instance NFData SavingsPlansUtilizationDetail
+instance Prelude.NFData SavingsPlansUtilizationDetail

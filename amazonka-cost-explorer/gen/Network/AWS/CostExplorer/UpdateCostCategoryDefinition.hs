@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing Cost Category. Changes made to the Cost Category rules will be used to categorize the current month’s expenses and future expenses. This won’t change categorization for the previous months.
+-- Updates an existing Cost Category. Changes made to the Cost Category
+-- rules will be used to categorize the current month’s expenses and future
+-- expenses. This won’t change categorization for the previous months.
 module Network.AWS.CostExplorer.UpdateCostCategoryDefinition
   ( -- * Creating a Request
-    updateCostCategoryDefinition,
-    UpdateCostCategoryDefinition,
+    UpdateCostCategoryDefinition (..),
+    newUpdateCostCategoryDefinition,
 
     -- * Request Lenses
-    uccdCostCategoryARN,
-    uccdRuleVersion,
-    uccdRules,
+    updateCostCategoryDefinition_costCategoryArn,
+    updateCostCategoryDefinition_ruleVersion,
+    updateCostCategoryDefinition_rules,
 
     -- * Destructuring the Response
-    updateCostCategoryDefinitionResponse,
-    UpdateCostCategoryDefinitionResponse,
+    UpdateCostCategoryDefinitionResponse (..),
+    newUpdateCostCategoryDefinitionResponse,
 
     -- * Response Lenses
-    uccdrrsCostCategoryARN,
-    uccdrrsEffectiveStart,
-    uccdrrsResponseStatus,
+    updateCostCategoryDefinitionResponse_costCategoryArn,
+    updateCostCategoryDefinitionResponse_effectiveStart,
+    updateCostCategoryDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateCostCategoryDefinition' smart constructor.
+-- | /See:/ 'newUpdateCostCategoryDefinition' smart constructor.
 data UpdateCostCategoryDefinition = UpdateCostCategoryDefinition'
-  { _uccdCostCategoryARN ::
-      !Text,
-    _uccdRuleVersion ::
-      !CostCategoryRuleVersion,
-    _uccdRules ::
-      !( List1
-           CostCategoryRule
-       )
+  { -- | The unique identifier for your Cost Category.
+    costCategoryArn :: Prelude.Text,
+    ruleVersion :: CostCategoryRuleVersion,
+    -- | The @Expression@ object used to categorize costs. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html CostCategoryRule>
+    -- .
+    rules :: Prelude.List1 CostCategoryRule
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCostCategoryDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCostCategoryDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uccdCostCategoryARN' - The unique identifier for your Cost Category.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uccdRuleVersion' - Undocumented member.
+-- 'costCategoryArn', 'updateCostCategoryDefinition_costCategoryArn' - The unique identifier for your Cost Category.
 --
--- * 'uccdRules' - The @Expression@ object used to categorize costs. For more information, see <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html CostCategoryRule > .
-updateCostCategoryDefinition ::
-  -- | 'uccdCostCategoryARN'
-  Text ->
-  -- | 'uccdRuleVersion'
+-- 'ruleVersion', 'updateCostCategoryDefinition_ruleVersion' - Undocumented member.
+--
+-- 'rules', 'updateCostCategoryDefinition_rules' - The @Expression@ object used to categorize costs. For more information,
+-- see
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html CostCategoryRule>
+-- .
+newUpdateCostCategoryDefinition ::
+  -- | 'costCategoryArn'
+  Prelude.Text ->
+  -- | 'ruleVersion'
   CostCategoryRuleVersion ->
-  -- | 'uccdRules'
-  NonEmpty CostCategoryRule ->
+  -- | 'rules'
+  Prelude.NonEmpty CostCategoryRule ->
   UpdateCostCategoryDefinition
-updateCostCategoryDefinition
-  pCostCategoryARN_
+newUpdateCostCategoryDefinition
+  pCostCategoryArn_
   pRuleVersion_
   pRules_ =
     UpdateCostCategoryDefinition'
-      { _uccdCostCategoryARN =
-          pCostCategoryARN_,
-        _uccdRuleVersion = pRuleVersion_,
-        _uccdRules = _List1 # pRules_
+      { costCategoryArn =
+          pCostCategoryArn_,
+        ruleVersion = pRuleVersion_,
+        rules = Prelude._List1 Lens.# pRules_
       }
 
 -- | The unique identifier for your Cost Category.
-uccdCostCategoryARN :: Lens' UpdateCostCategoryDefinition Text
-uccdCostCategoryARN = lens _uccdCostCategoryARN (\s a -> s {_uccdCostCategoryARN = a})
+updateCostCategoryDefinition_costCategoryArn :: Lens.Lens' UpdateCostCategoryDefinition Prelude.Text
+updateCostCategoryDefinition_costCategoryArn = Lens.lens (\UpdateCostCategoryDefinition' {costCategoryArn} -> costCategoryArn) (\s@UpdateCostCategoryDefinition' {} a -> s {costCategoryArn = a} :: UpdateCostCategoryDefinition)
 
 -- | Undocumented member.
-uccdRuleVersion :: Lens' UpdateCostCategoryDefinition CostCategoryRuleVersion
-uccdRuleVersion = lens _uccdRuleVersion (\s a -> s {_uccdRuleVersion = a})
+updateCostCategoryDefinition_ruleVersion :: Lens.Lens' UpdateCostCategoryDefinition CostCategoryRuleVersion
+updateCostCategoryDefinition_ruleVersion = Lens.lens (\UpdateCostCategoryDefinition' {ruleVersion} -> ruleVersion) (\s@UpdateCostCategoryDefinition' {} a -> s {ruleVersion = a} :: UpdateCostCategoryDefinition)
 
--- | The @Expression@ object used to categorize costs. For more information, see <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html CostCategoryRule > .
-uccdRules :: Lens' UpdateCostCategoryDefinition (NonEmpty CostCategoryRule)
-uccdRules = lens _uccdRules (\s a -> s {_uccdRules = a}) . _List1
+-- | The @Expression@ object used to categorize costs. For more information,
+-- see
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_CostCategoryRule.html CostCategoryRule>
+-- .
+updateCostCategoryDefinition_rules :: Lens.Lens' UpdateCostCategoryDefinition (Prelude.NonEmpty CostCategoryRule)
+updateCostCategoryDefinition_rules = Lens.lens (\UpdateCostCategoryDefinition' {rules} -> rules) (\s@UpdateCostCategoryDefinition' {} a -> s {rules = a} :: UpdateCostCategoryDefinition) Prelude.. Prelude._List1
 
-instance AWSRequest UpdateCostCategoryDefinition where
+instance
+  Prelude.AWSRequest
+    UpdateCostCategoryDefinition
+  where
   type
     Rs UpdateCostCategoryDefinition =
       UpdateCostCategoryDefinitionResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateCostCategoryDefinitionResponse'
-            <$> (x .?> "CostCategoryArn")
-            <*> (x .?> "EffectiveStart")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CostCategoryArn")
+            Prelude.<*> (x Prelude..?> "EffectiveStart")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateCostCategoryDefinition
+instance
+  Prelude.Hashable
+    UpdateCostCategoryDefinition
 
-instance NFData UpdateCostCategoryDefinition
+instance Prelude.NFData UpdateCostCategoryDefinition
 
-instance ToHeaders UpdateCostCategoryDefinition where
+instance
+  Prelude.ToHeaders
+    UpdateCostCategoryDefinition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.UpdateCostCategoryDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.UpdateCostCategoryDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateCostCategoryDefinition where
+instance Prelude.ToJSON UpdateCostCategoryDefinition where
   toJSON UpdateCostCategoryDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just ("CostCategoryArn" .= _uccdCostCategoryARN),
-            Just ("RuleVersion" .= _uccdRuleVersion),
-            Just ("Rules" .= _uccdRules)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CostCategoryArn" Prelude..= costCategoryArn),
+            Prelude.Just ("RuleVersion" Prelude..= ruleVersion),
+            Prelude.Just ("Rules" Prelude..= rules)
           ]
       )
 
-instance ToPath UpdateCostCategoryDefinition where
-  toPath = const "/"
+instance Prelude.ToPath UpdateCostCategoryDefinition where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateCostCategoryDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateCostCategoryDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateCostCategoryDefinitionResponse' smart constructor.
+-- | /See:/ 'newUpdateCostCategoryDefinitionResponse' smart constructor.
 data UpdateCostCategoryDefinitionResponse = UpdateCostCategoryDefinitionResponse'
-  { _uccdrrsCostCategoryARN ::
-      !( Maybe
-           Text
-       ),
-    _uccdrrsEffectiveStart ::
-      !( Maybe
-           Text
-       ),
-    _uccdrrsResponseStatus ::
-      !Int
+  { -- | The unique identifier for your Cost Category.
+    costCategoryArn :: Prelude.Maybe Prelude.Text,
+    -- | The Cost Category\'s effective start date.
+    effectiveStart :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateCostCategoryDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateCostCategoryDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uccdrrsCostCategoryARN' - The unique identifier for your Cost Category.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uccdrrsEffectiveStart' - The Cost Category's effective start date.
+-- 'costCategoryArn', 'updateCostCategoryDefinitionResponse_costCategoryArn' - The unique identifier for your Cost Category.
 --
--- * 'uccdrrsResponseStatus' - -- | The response status code.
-updateCostCategoryDefinitionResponse ::
-  -- | 'uccdrrsResponseStatus'
-  Int ->
+-- 'effectiveStart', 'updateCostCategoryDefinitionResponse_effectiveStart' - The Cost Category\'s effective start date.
+--
+-- 'httpStatus', 'updateCostCategoryDefinitionResponse_httpStatus' - The response's http status code.
+newUpdateCostCategoryDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateCostCategoryDefinitionResponse
-updateCostCategoryDefinitionResponse pResponseStatus_ =
+newUpdateCostCategoryDefinitionResponse pHttpStatus_ =
   UpdateCostCategoryDefinitionResponse'
-    { _uccdrrsCostCategoryARN =
-        Nothing,
-      _uccdrrsEffectiveStart = Nothing,
-      _uccdrrsResponseStatus =
-        pResponseStatus_
+    { costCategoryArn =
+        Prelude.Nothing,
+      effectiveStart = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique identifier for your Cost Category.
-uccdrrsCostCategoryARN :: Lens' UpdateCostCategoryDefinitionResponse (Maybe Text)
-uccdrrsCostCategoryARN = lens _uccdrrsCostCategoryARN (\s a -> s {_uccdrrsCostCategoryARN = a})
+updateCostCategoryDefinitionResponse_costCategoryArn :: Lens.Lens' UpdateCostCategoryDefinitionResponse (Prelude.Maybe Prelude.Text)
+updateCostCategoryDefinitionResponse_costCategoryArn = Lens.lens (\UpdateCostCategoryDefinitionResponse' {costCategoryArn} -> costCategoryArn) (\s@UpdateCostCategoryDefinitionResponse' {} a -> s {costCategoryArn = a} :: UpdateCostCategoryDefinitionResponse)
 
--- | The Cost Category's effective start date.
-uccdrrsEffectiveStart :: Lens' UpdateCostCategoryDefinitionResponse (Maybe Text)
-uccdrrsEffectiveStart = lens _uccdrrsEffectiveStart (\s a -> s {_uccdrrsEffectiveStart = a})
+-- | The Cost Category\'s effective start date.
+updateCostCategoryDefinitionResponse_effectiveStart :: Lens.Lens' UpdateCostCategoryDefinitionResponse (Prelude.Maybe Prelude.Text)
+updateCostCategoryDefinitionResponse_effectiveStart = Lens.lens (\UpdateCostCategoryDefinitionResponse' {effectiveStart} -> effectiveStart) (\s@UpdateCostCategoryDefinitionResponse' {} a -> s {effectiveStart = a} :: UpdateCostCategoryDefinitionResponse)
 
--- | -- | The response status code.
-uccdrrsResponseStatus :: Lens' UpdateCostCategoryDefinitionResponse Int
-uccdrrsResponseStatus = lens _uccdrrsResponseStatus (\s a -> s {_uccdrrsResponseStatus = a})
+-- | The response's http status code.
+updateCostCategoryDefinitionResponse_httpStatus :: Lens.Lens' UpdateCostCategoryDefinitionResponse Prelude.Int
+updateCostCategoryDefinitionResponse_httpStatus = Lens.lens (\UpdateCostCategoryDefinitionResponse' {httpStatus} -> httpStatus) (\s@UpdateCostCategoryDefinitionResponse' {} a -> s {httpStatus = a} :: UpdateCostCategoryDefinitionResponse)
 
-instance NFData UpdateCostCategoryDefinitionResponse
+instance
+  Prelude.NFData
+    UpdateCostCategoryDefinitionResponse

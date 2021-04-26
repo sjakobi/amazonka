@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CostExplorer.Types.Context
   ( Context
       ( ..,
-        CostAndUsage,
-        Reservations,
-        SavingsPlans
+        ContextCOSTANDUSAGE,
+        ContextRESERVATIONS,
+        ContextSAVINGSPLANS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Context = Context' (CI Text)
+newtype Context = Context'
+  { fromContext ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CostAndUsage :: Context
-pattern CostAndUsage = Context' "COST_AND_USAGE"
+pattern ContextCOSTANDUSAGE :: Context
+pattern ContextCOSTANDUSAGE = Context' "COST_AND_USAGE"
 
-pattern Reservations :: Context
-pattern Reservations = Context' "RESERVATIONS"
+pattern ContextRESERVATIONS :: Context
+pattern ContextRESERVATIONS = Context' "RESERVATIONS"
 
-pattern SavingsPlans :: Context
-pattern SavingsPlans = Context' "SAVINGS_PLANS"
+pattern ContextSAVINGSPLANS :: Context
+pattern ContextSAVINGSPLANS = Context' "SAVINGS_PLANS"
 
 {-# COMPLETE
-  CostAndUsage,
-  Reservations,
-  SavingsPlans,
+  ContextCOSTANDUSAGE,
+  ContextRESERVATIONS,
+  ContextSAVINGSPLANS,
   Context'
   #-}
 
-instance FromText Context where
-  parser = (Context' . mk) <$> takeText
+instance Prelude.FromText Context where
+  parser = Context' Prelude.<$> Prelude.takeText
 
-instance ToText Context where
-  toText (Context' ci) = original ci
+instance Prelude.ToText Context where
+  toText (Context' x) = x
 
-instance Hashable Context
+instance Prelude.Hashable Context
 
-instance NFData Context
+instance Prelude.NFData Context
 
-instance ToByteString Context
+instance Prelude.ToByteString Context
 
-instance ToQuery Context
+instance Prelude.ToQuery Context
 
-instance ToHeader Context
+instance Prelude.ToHeader Context
 
-instance ToJSON Context where
-  toJSON = toJSONText
+instance Prelude.ToJSON Context where
+  toJSON = Prelude.toJSONText

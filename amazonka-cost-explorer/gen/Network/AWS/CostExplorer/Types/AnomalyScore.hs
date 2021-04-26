@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.AnomalyScore where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Quantifies the anomaly. The higher score means that it is more anomalous.
+-- | Quantifies the anomaly. The higher score means that it is more
+-- anomalous.
 --
---
---
--- /See:/ 'anomalyScore' smart constructor.
+-- /See:/ 'newAnomalyScore' smart constructor.
 data AnomalyScore = AnomalyScore'
-  { _asMaxScore ::
-      !Double,
-    _asCurrentScore :: !Double
+  { -- | The maximum score observed during the @AnomalyDateInterval@.
+    maxScore :: Prelude.Double,
+    -- | The last observed score.
+    currentScore :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnomalyScore' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnomalyScore' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asMaxScore' - The maximum score observed during the @AnomalyDateInterval@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asCurrentScore' - The last observed score.
-anomalyScore ::
-  -- | 'asMaxScore'
-  Double ->
-  -- | 'asCurrentScore'
-  Double ->
+-- 'maxScore', 'anomalyScore_maxScore' - The maximum score observed during the @AnomalyDateInterval@.
+--
+-- 'currentScore', 'anomalyScore_currentScore' - The last observed score.
+newAnomalyScore ::
+  -- | 'maxScore'
+  Prelude.Double ->
+  -- | 'currentScore'
+  Prelude.Double ->
   AnomalyScore
-anomalyScore pMaxScore_ pCurrentScore_ =
+newAnomalyScore pMaxScore_ pCurrentScore_ =
   AnomalyScore'
-    { _asMaxScore = pMaxScore_,
-      _asCurrentScore = pCurrentScore_
+    { maxScore = pMaxScore_,
+      currentScore = pCurrentScore_
     }
 
--- | The maximum score observed during the @AnomalyDateInterval@ .
-asMaxScore :: Lens' AnomalyScore Double
-asMaxScore = lens _asMaxScore (\s a -> s {_asMaxScore = a})
+-- | The maximum score observed during the @AnomalyDateInterval@.
+anomalyScore_maxScore :: Lens.Lens' AnomalyScore Prelude.Double
+anomalyScore_maxScore = Lens.lens (\AnomalyScore' {maxScore} -> maxScore) (\s@AnomalyScore' {} a -> s {maxScore = a} :: AnomalyScore)
 
 -- | The last observed score.
-asCurrentScore :: Lens' AnomalyScore Double
-asCurrentScore = lens _asCurrentScore (\s a -> s {_asCurrentScore = a})
+anomalyScore_currentScore :: Lens.Lens' AnomalyScore Prelude.Double
+anomalyScore_currentScore = Lens.lens (\AnomalyScore' {currentScore} -> currentScore) (\s@AnomalyScore' {} a -> s {currentScore = a} :: AnomalyScore)
 
-instance FromJSON AnomalyScore where
+instance Prelude.FromJSON AnomalyScore where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AnomalyScore"
       ( \x ->
           AnomalyScore'
-            <$> (x .: "MaxScore") <*> (x .: "CurrentScore")
+            Prelude.<$> (x Prelude..: "MaxScore")
+            Prelude.<*> (x Prelude..: "CurrentScore")
       )
 
-instance Hashable AnomalyScore
+instance Prelude.Hashable AnomalyScore
 
-instance NFData AnomalyScore
+instance Prelude.NFData AnomalyScore

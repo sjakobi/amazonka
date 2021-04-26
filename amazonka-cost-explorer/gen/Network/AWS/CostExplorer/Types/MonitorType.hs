@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostExplorer.Types.MonitorType
   ( MonitorType
       ( ..,
-        Custom,
-        Dimensional
+        MonitorTypeCUSTOM,
+        MonitorTypeDIMENSIONAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitorType = MonitorType' (CI Text)
+newtype MonitorType = MonitorType'
+  { fromMonitorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Custom :: MonitorType
-pattern Custom = MonitorType' "CUSTOM"
+pattern MonitorTypeCUSTOM :: MonitorType
+pattern MonitorTypeCUSTOM = MonitorType' "CUSTOM"
 
-pattern Dimensional :: MonitorType
-pattern Dimensional = MonitorType' "DIMENSIONAL"
+pattern MonitorTypeDIMENSIONAL :: MonitorType
+pattern MonitorTypeDIMENSIONAL = MonitorType' "DIMENSIONAL"
 
 {-# COMPLETE
-  Custom,
-  Dimensional,
+  MonitorTypeCUSTOM,
+  MonitorTypeDIMENSIONAL,
   MonitorType'
   #-}
 
-instance FromText MonitorType where
-  parser = (MonitorType' . mk) <$> takeText
+instance Prelude.FromText MonitorType where
+  parser = MonitorType' Prelude.<$> Prelude.takeText
 
-instance ToText MonitorType where
-  toText (MonitorType' ci) = original ci
+instance Prelude.ToText MonitorType where
+  toText (MonitorType' x) = x
 
-instance Hashable MonitorType
+instance Prelude.Hashable MonitorType
 
-instance NFData MonitorType
+instance Prelude.NFData MonitorType
 
-instance ToByteString MonitorType
+instance Prelude.ToByteString MonitorType
 
-instance ToQuery MonitorType
+instance Prelude.ToQuery MonitorType
 
-instance ToHeader MonitorType
+instance Prelude.ToHeader MonitorType
 
-instance ToJSON MonitorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MonitorType where
-  parseJSON = parseJSONText "MonitorType"
+instance Prelude.FromJSON MonitorType where
+  parseJSON = Prelude.parseJSONText "MonitorType"

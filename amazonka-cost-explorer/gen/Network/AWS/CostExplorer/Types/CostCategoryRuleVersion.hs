@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,54 @@
 module Network.AWS.CostExplorer.Types.CostCategoryRuleVersion
   ( CostCategoryRuleVersion
       ( ..,
-        CostCategoryExpression_V1
+        CostCategoryRuleVersionCostCategoryExpression_V1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The rule schema version in this particular Cost Category.
-data CostCategoryRuleVersion
-  = CostCategoryRuleVersion'
-      ( CI
-          Text
-      )
+newtype CostCategoryRuleVersion = CostCategoryRuleVersion'
+  { fromCostCategoryRuleVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CostCategoryExpression_V1 :: CostCategoryRuleVersion
-pattern CostCategoryExpression_V1 = CostCategoryRuleVersion' "CostCategoryExpression.v1"
+pattern CostCategoryRuleVersionCostCategoryExpression_V1 :: CostCategoryRuleVersion
+pattern CostCategoryRuleVersionCostCategoryExpression_V1 = CostCategoryRuleVersion' "CostCategoryExpression.v1"
 
 {-# COMPLETE
-  CostCategoryExpression_V1,
+  CostCategoryRuleVersionCostCategoryExpression_V1,
   CostCategoryRuleVersion'
   #-}
 
-instance FromText CostCategoryRuleVersion where
-  parser = (CostCategoryRuleVersion' . mk) <$> takeText
+instance Prelude.FromText CostCategoryRuleVersion where
+  parser = CostCategoryRuleVersion' Prelude.<$> Prelude.takeText
 
-instance ToText CostCategoryRuleVersion where
-  toText (CostCategoryRuleVersion' ci) = original ci
+instance Prelude.ToText CostCategoryRuleVersion where
+  toText (CostCategoryRuleVersion' x) = x
 
-instance Hashable CostCategoryRuleVersion
+instance Prelude.Hashable CostCategoryRuleVersion
 
-instance NFData CostCategoryRuleVersion
+instance Prelude.NFData CostCategoryRuleVersion
 
-instance ToByteString CostCategoryRuleVersion
+instance Prelude.ToByteString CostCategoryRuleVersion
 
-instance ToQuery CostCategoryRuleVersion
+instance Prelude.ToQuery CostCategoryRuleVersion
 
-instance ToHeader CostCategoryRuleVersion
+instance Prelude.ToHeader CostCategoryRuleVersion
 
-instance ToJSON CostCategoryRuleVersion where
-  toJSON = toJSONText
+instance Prelude.ToJSON CostCategoryRuleVersion where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CostCategoryRuleVersion where
-  parseJSON = parseJSONText "CostCategoryRuleVersion"
+instance Prelude.FromJSON CostCategoryRuleVersion where
+  parseJSON = Prelude.parseJSONText "CostCategoryRuleVersion"

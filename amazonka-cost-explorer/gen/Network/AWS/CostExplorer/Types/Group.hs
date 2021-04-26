@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,57 @@
 module Network.AWS.CostExplorer.Types.Group where
 
 import Network.AWS.CostExplorer.Types.MetricValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | One level of grouped data in the results.
 --
---
---
--- /See:/ 'group'' smart constructor.
+-- /See:/ 'newGroup' smart constructor.
 data Group = Group'
-  { _gMetrics ::
-      !(Maybe (Map Text MetricValue)),
-    _gKeys :: !(Maybe [Text])
+  { -- | The metrics that are included in this group.
+    metrics :: Prelude.Maybe (Prelude.Map Prelude.Text MetricValue),
+    -- | The keys that are included in this group.
+    keys :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Group' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Group' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gMetrics' - The metrics that are included in this group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gKeys' - The keys that are included in this group.
-group' ::
+-- 'metrics', 'group_metrics' - The metrics that are included in this group.
+--
+-- 'keys', 'group_keys' - The keys that are included in this group.
+newGroup ::
   Group
-group' =
-  Group' {_gMetrics = Nothing, _gKeys = Nothing}
+newGroup =
+  Group'
+    { metrics = Prelude.Nothing,
+      keys = Prelude.Nothing
+    }
 
 -- | The metrics that are included in this group.
-gMetrics :: Lens' Group (HashMap Text MetricValue)
-gMetrics = lens _gMetrics (\s a -> s {_gMetrics = a}) . _Default . _Map
+group_metrics :: Lens.Lens' Group (Prelude.Maybe (Prelude.HashMap Prelude.Text MetricValue))
+group_metrics = Lens.lens (\Group' {metrics} -> metrics) (\s@Group' {} a -> s {metrics = a} :: Group) Prelude.. Lens.mapping Prelude._Map
 
 -- | The keys that are included in this group.
-gKeys :: Lens' Group [Text]
-gKeys = lens _gKeys (\s a -> s {_gKeys = a}) . _Default . _Coerce
+group_keys :: Lens.Lens' Group (Prelude.Maybe [Prelude.Text])
+group_keys = Lens.lens (\Group' {keys} -> keys) (\s@Group' {} a -> s {keys = a} :: Group) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Group where
+instance Prelude.FromJSON Group where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Group"
       ( \x ->
           Group'
-            <$> (x .:? "Metrics" .!= mempty)
-            <*> (x .:? "Keys" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Metrics" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "Keys" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable Group
+instance Prelude.Hashable Group
 
-instance NFData Group
+instance Prelude.NFData Group

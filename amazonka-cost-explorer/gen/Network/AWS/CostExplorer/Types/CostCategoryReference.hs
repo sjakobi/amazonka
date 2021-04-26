@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,115 +20,116 @@
 module Network.AWS.CostExplorer.Types.CostCategoryReference where
 
 import Network.AWS.CostExplorer.Types.CostCategoryProcessingStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A reference to a Cost Category containing only enough information to identify the Cost Category.
+-- | A reference to a Cost Category containing only enough information to
+-- identify the Cost Category.
 --
+-- You can use this information to retrieve the full Cost Category
+-- information using @DescribeCostCategory@.
 --
--- You can use this information to retrieve the full Cost Category information using @DescribeCostCategory@ .
---
---
--- /See:/ 'costCategoryReference' smart constructor.
+-- /See:/ 'newCostCategoryReference' smart constructor.
 data CostCategoryReference = CostCategoryReference'
-  { _ccrNumberOfRules ::
-      !(Maybe Nat),
-    _ccrCostCategoryARN ::
-      !(Maybe Text),
-    _ccrValues ::
-      !(Maybe [Text]),
-    _ccrProcessingStatus ::
-      !( Maybe
-           [CostCategoryProcessingStatus]
-       ),
-    _ccrName :: !(Maybe Text),
-    _ccrEffectiveStart ::
-      !(Maybe Text),
-    _ccrEffectiveEnd ::
-      !(Maybe Text)
+  { -- | The number of rules associated with a specific Cost Category.
+    numberOfRules :: Prelude.Maybe Prelude.Nat,
+    -- | The unique identifier for your Cost Category.
+    costCategoryArn :: Prelude.Maybe Prelude.Text,
+    -- | A list of unique cost category values in a specific cost category.
+    values :: Prelude.Maybe [Prelude.Text],
+    -- | The list of processing statuses for Cost Management products for a
+    -- specific cost category.
+    processingStatus :: Prelude.Maybe [CostCategoryProcessingStatus],
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The Cost Category\'s effective start date.
+    effectiveStart :: Prelude.Maybe Prelude.Text,
+    -- | The Cost Category\'s effective end date.
+    effectiveEnd :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CostCategoryReference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CostCategoryReference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrNumberOfRules' - The number of rules associated with a specific Cost Category.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrCostCategoryARN' - The unique identifier for your Cost Category.
+-- 'numberOfRules', 'costCategoryReference_numberOfRules' - The number of rules associated with a specific Cost Category.
 --
--- * 'ccrValues' - A list of unique cost category values in a specific cost category.
+-- 'costCategoryArn', 'costCategoryReference_costCategoryArn' - The unique identifier for your Cost Category.
 --
--- * 'ccrProcessingStatus' - The list of processing statuses for Cost Management products for a specific cost category.
+-- 'values', 'costCategoryReference_values' - A list of unique cost category values in a specific cost category.
 --
--- * 'ccrName' - Undocumented member.
+-- 'processingStatus', 'costCategoryReference_processingStatus' - The list of processing statuses for Cost Management products for a
+-- specific cost category.
 --
--- * 'ccrEffectiveStart' - The Cost Category's effective start date.
+-- 'name', 'costCategoryReference_name' - Undocumented member.
 --
--- * 'ccrEffectiveEnd' - The Cost Category's effective end date.
-costCategoryReference ::
+-- 'effectiveStart', 'costCategoryReference_effectiveStart' - The Cost Category\'s effective start date.
+--
+-- 'effectiveEnd', 'costCategoryReference_effectiveEnd' - The Cost Category\'s effective end date.
+newCostCategoryReference ::
   CostCategoryReference
-costCategoryReference =
+newCostCategoryReference =
   CostCategoryReference'
-    { _ccrNumberOfRules = Nothing,
-      _ccrCostCategoryARN = Nothing,
-      _ccrValues = Nothing,
-      _ccrProcessingStatus = Nothing,
-      _ccrName = Nothing,
-      _ccrEffectiveStart = Nothing,
-      _ccrEffectiveEnd = Nothing
+    { numberOfRules =
+        Prelude.Nothing,
+      costCategoryArn = Prelude.Nothing,
+      values = Prelude.Nothing,
+      processingStatus = Prelude.Nothing,
+      name = Prelude.Nothing,
+      effectiveStart = Prelude.Nothing,
+      effectiveEnd = Prelude.Nothing
     }
 
 -- | The number of rules associated with a specific Cost Category.
-ccrNumberOfRules :: Lens' CostCategoryReference (Maybe Natural)
-ccrNumberOfRules = lens _ccrNumberOfRules (\s a -> s {_ccrNumberOfRules = a}) . mapping _Nat
+costCategoryReference_numberOfRules :: Lens.Lens' CostCategoryReference (Prelude.Maybe Prelude.Natural)
+costCategoryReference_numberOfRules = Lens.lens (\CostCategoryReference' {numberOfRules} -> numberOfRules) (\s@CostCategoryReference' {} a -> s {numberOfRules = a} :: CostCategoryReference) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The unique identifier for your Cost Category.
-ccrCostCategoryARN :: Lens' CostCategoryReference (Maybe Text)
-ccrCostCategoryARN = lens _ccrCostCategoryARN (\s a -> s {_ccrCostCategoryARN = a})
+costCategoryReference_costCategoryArn :: Lens.Lens' CostCategoryReference (Prelude.Maybe Prelude.Text)
+costCategoryReference_costCategoryArn = Lens.lens (\CostCategoryReference' {costCategoryArn} -> costCategoryArn) (\s@CostCategoryReference' {} a -> s {costCategoryArn = a} :: CostCategoryReference)
 
 -- | A list of unique cost category values in a specific cost category.
-ccrValues :: Lens' CostCategoryReference [Text]
-ccrValues = lens _ccrValues (\s a -> s {_ccrValues = a}) . _Default . _Coerce
+costCategoryReference_values :: Lens.Lens' CostCategoryReference (Prelude.Maybe [Prelude.Text])
+costCategoryReference_values = Lens.lens (\CostCategoryReference' {values} -> values) (\s@CostCategoryReference' {} a -> s {values = a} :: CostCategoryReference) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The list of processing statuses for Cost Management products for a specific cost category.
-ccrProcessingStatus :: Lens' CostCategoryReference [CostCategoryProcessingStatus]
-ccrProcessingStatus = lens _ccrProcessingStatus (\s a -> s {_ccrProcessingStatus = a}) . _Default . _Coerce
+-- | The list of processing statuses for Cost Management products for a
+-- specific cost category.
+costCategoryReference_processingStatus :: Lens.Lens' CostCategoryReference (Prelude.Maybe [CostCategoryProcessingStatus])
+costCategoryReference_processingStatus = Lens.lens (\CostCategoryReference' {processingStatus} -> processingStatus) (\s@CostCategoryReference' {} a -> s {processingStatus = a} :: CostCategoryReference) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-ccrName :: Lens' CostCategoryReference (Maybe Text)
-ccrName = lens _ccrName (\s a -> s {_ccrName = a})
+costCategoryReference_name :: Lens.Lens' CostCategoryReference (Prelude.Maybe Prelude.Text)
+costCategoryReference_name = Lens.lens (\CostCategoryReference' {name} -> name) (\s@CostCategoryReference' {} a -> s {name = a} :: CostCategoryReference)
 
--- | The Cost Category's effective start date.
-ccrEffectiveStart :: Lens' CostCategoryReference (Maybe Text)
-ccrEffectiveStart = lens _ccrEffectiveStart (\s a -> s {_ccrEffectiveStart = a})
+-- | The Cost Category\'s effective start date.
+costCategoryReference_effectiveStart :: Lens.Lens' CostCategoryReference (Prelude.Maybe Prelude.Text)
+costCategoryReference_effectiveStart = Lens.lens (\CostCategoryReference' {effectiveStart} -> effectiveStart) (\s@CostCategoryReference' {} a -> s {effectiveStart = a} :: CostCategoryReference)
 
--- | The Cost Category's effective end date.
-ccrEffectiveEnd :: Lens' CostCategoryReference (Maybe Text)
-ccrEffectiveEnd = lens _ccrEffectiveEnd (\s a -> s {_ccrEffectiveEnd = a})
+-- | The Cost Category\'s effective end date.
+costCategoryReference_effectiveEnd :: Lens.Lens' CostCategoryReference (Prelude.Maybe Prelude.Text)
+costCategoryReference_effectiveEnd = Lens.lens (\CostCategoryReference' {effectiveEnd} -> effectiveEnd) (\s@CostCategoryReference' {} a -> s {effectiveEnd = a} :: CostCategoryReference)
 
-instance FromJSON CostCategoryReference where
+instance Prelude.FromJSON CostCategoryReference where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CostCategoryReference"
       ( \x ->
           CostCategoryReference'
-            <$> (x .:? "NumberOfRules")
-            <*> (x .:? "CostCategoryArn")
-            <*> (x .:? "Values" .!= mempty)
-            <*> (x .:? "ProcessingStatus" .!= mempty)
-            <*> (x .:? "Name")
-            <*> (x .:? "EffectiveStart")
-            <*> (x .:? "EffectiveEnd")
+            Prelude.<$> (x Prelude..:? "NumberOfRules")
+            Prelude.<*> (x Prelude..:? "CostCategoryArn")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "ProcessingStatus"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "EffectiveStart")
+            Prelude.<*> (x Prelude..:? "EffectiveEnd")
       )
 
-instance Hashable CostCategoryReference
+instance Prelude.Hashable CostCategoryReference
 
-instance NFData CostCategoryReference
+instance Prelude.NFData CostCategoryReference

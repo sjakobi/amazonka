@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CostExplorer.Types.SavingsPlansSavings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The amount of savings you're accumulating, against the public On-Demand rate of the usage accrued in an account.
+-- | The amount of savings you\'re accumulating, against the public On-Demand
+-- rate of the usage accrued in an account.
 --
---
---
--- /See:/ 'savingsPlansSavings' smart constructor.
+-- /See:/ 'newSavingsPlansSavings' smart constructor.
 data SavingsPlansSavings = SavingsPlansSavings'
-  { _spsOnDemandCostEquivalent ::
-      !(Maybe Text),
-    _spsNetSavings :: !(Maybe Text)
+  { -- | How much the amount that the usage would have cost if it was accrued at
+    -- the On-Demand rate.
+    onDemandCostEquivalent :: Prelude.Maybe Prelude.Text,
+    -- | The savings amount that you are accumulating for the usage that is
+    -- covered by a Savings Plans, when compared to the On-Demand equivalent of
+    -- the same usage.
+    netSavings :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SavingsPlansSavings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SavingsPlansSavings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spsOnDemandCostEquivalent' - How much the amount that the usage would have cost if it was accrued at the On-Demand rate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spsNetSavings' - The savings amount that you are accumulating for the usage that is covered by a Savings Plans, when compared to the On-Demand equivalent of the same usage.
-savingsPlansSavings ::
+-- 'onDemandCostEquivalent', 'savingsPlansSavings_onDemandCostEquivalent' - How much the amount that the usage would have cost if it was accrued at
+-- the On-Demand rate.
+--
+-- 'netSavings', 'savingsPlansSavings_netSavings' - The savings amount that you are accumulating for the usage that is
+-- covered by a Savings Plans, when compared to the On-Demand equivalent of
+-- the same usage.
+newSavingsPlansSavings ::
   SavingsPlansSavings
-savingsPlansSavings =
+newSavingsPlansSavings =
   SavingsPlansSavings'
-    { _spsOnDemandCostEquivalent =
-        Nothing,
-      _spsNetSavings = Nothing
+    { onDemandCostEquivalent =
+        Prelude.Nothing,
+      netSavings = Prelude.Nothing
     }
 
--- | How much the amount that the usage would have cost if it was accrued at the On-Demand rate.
-spsOnDemandCostEquivalent :: Lens' SavingsPlansSavings (Maybe Text)
-spsOnDemandCostEquivalent = lens _spsOnDemandCostEquivalent (\s a -> s {_spsOnDemandCostEquivalent = a})
+-- | How much the amount that the usage would have cost if it was accrued at
+-- the On-Demand rate.
+savingsPlansSavings_onDemandCostEquivalent :: Lens.Lens' SavingsPlansSavings (Prelude.Maybe Prelude.Text)
+savingsPlansSavings_onDemandCostEquivalent = Lens.lens (\SavingsPlansSavings' {onDemandCostEquivalent} -> onDemandCostEquivalent) (\s@SavingsPlansSavings' {} a -> s {onDemandCostEquivalent = a} :: SavingsPlansSavings)
 
--- | The savings amount that you are accumulating for the usage that is covered by a Savings Plans, when compared to the On-Demand equivalent of the same usage.
-spsNetSavings :: Lens' SavingsPlansSavings (Maybe Text)
-spsNetSavings = lens _spsNetSavings (\s a -> s {_spsNetSavings = a})
+-- | The savings amount that you are accumulating for the usage that is
+-- covered by a Savings Plans, when compared to the On-Demand equivalent of
+-- the same usage.
+savingsPlansSavings_netSavings :: Lens.Lens' SavingsPlansSavings (Prelude.Maybe Prelude.Text)
+savingsPlansSavings_netSavings = Lens.lens (\SavingsPlansSavings' {netSavings} -> netSavings) (\s@SavingsPlansSavings' {} a -> s {netSavings = a} :: SavingsPlansSavings)
 
-instance FromJSON SavingsPlansSavings where
+instance Prelude.FromJSON SavingsPlansSavings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SavingsPlansSavings"
       ( \x ->
           SavingsPlansSavings'
-            <$> (x .:? "OnDemandCostEquivalent")
-            <*> (x .:? "NetSavings")
+            Prelude.<$> (x Prelude..:? "OnDemandCostEquivalent")
+            Prelude.<*> (x Prelude..:? "NetSavings")
       )
 
-instance Hashable SavingsPlansSavings
+instance Prelude.Hashable SavingsPlansSavings
 
-instance NFData SavingsPlansSavings
+instance Prelude.NFData SavingsPlansSavings

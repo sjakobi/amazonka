@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,124 +21,143 @@ module Network.AWS.CostExplorer.Types.AnomalySubscription where
 
 import Network.AWS.CostExplorer.Types.AnomalySubscriptionFrequency
 import Network.AWS.CostExplorer.Types.Subscriber
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The association between a monitor, threshold, and list of subscribers used to deliver notifications about anomalies detected by a monitor that exceeds a threshold. The content consists of the detailed metadata and the current status of the @AnomalySubscription@ object.
+-- | The association between a monitor, threshold, and list of subscribers
+-- used to deliver notifications about anomalies detected by a monitor that
+-- exceeds a threshold. The content consists of the detailed metadata and
+-- the current status of the @AnomalySubscription@ object.
 --
---
---
--- /See:/ 'anomalySubscription' smart constructor.
+-- /See:/ 'newAnomalySubscription' smart constructor.
 data AnomalySubscription = AnomalySubscription'
-  { _asAccountId ::
-      !(Maybe Text),
-    _asSubscriptionARN ::
-      !(Maybe Text),
-    _asMonitorARNList :: ![Text],
-    _asSubscribers :: ![Subscriber],
-    _asThreshold :: !Double,
-    _asFrequency ::
-      !AnomalySubscriptionFrequency,
-    _asSubscriptionName :: !Text
+  { -- | Your unique account identifier.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The @AnomalySubscription@ Amazon Resource Name (ARN).
+    subscriptionArn :: Prelude.Maybe Prelude.Text,
+    -- | A list of cost anomaly monitors.
+    monitorArnList :: [Prelude.Text],
+    -- | A list of subscribers to notify.
+    subscribers :: [Subscriber],
+    -- | The dollar value that triggers a notification if the threshold is
+    -- exceeded.
+    threshold :: Prelude.Double,
+    -- | The frequency at which anomaly reports are sent over email.
+    frequency :: AnomalySubscriptionFrequency,
+    -- | The name for the subscription.
+    subscriptionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnomalySubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnomalySubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asAccountId' - Your unique account identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asSubscriptionARN' - The @AnomalySubscription@ Amazon Resource Name (ARN).
+-- 'accountId', 'anomalySubscription_accountId' - Your unique account identifier.
 --
--- * 'asMonitorARNList' - A list of cost anomaly monitors.
+-- 'subscriptionArn', 'anomalySubscription_subscriptionArn' - The @AnomalySubscription@ Amazon Resource Name (ARN).
 --
--- * 'asSubscribers' - A list of subscribers to notify.
+-- 'monitorArnList', 'anomalySubscription_monitorArnList' - A list of cost anomaly monitors.
 --
--- * 'asThreshold' - The dollar value that triggers a notification if the threshold is exceeded.
+-- 'subscribers', 'anomalySubscription_subscribers' - A list of subscribers to notify.
 --
--- * 'asFrequency' - The frequency at which anomaly reports are sent over email.
+-- 'threshold', 'anomalySubscription_threshold' - The dollar value that triggers a notification if the threshold is
+-- exceeded.
 --
--- * 'asSubscriptionName' - The name for the subscription.
-anomalySubscription ::
-  -- | 'asThreshold'
-  Double ->
-  -- | 'asFrequency'
+-- 'frequency', 'anomalySubscription_frequency' - The frequency at which anomaly reports are sent over email.
+--
+-- 'subscriptionName', 'anomalySubscription_subscriptionName' - The name for the subscription.
+newAnomalySubscription ::
+  -- | 'threshold'
+  Prelude.Double ->
+  -- | 'frequency'
   AnomalySubscriptionFrequency ->
-  -- | 'asSubscriptionName'
-  Text ->
+  -- | 'subscriptionName'
+  Prelude.Text ->
   AnomalySubscription
-anomalySubscription
+newAnomalySubscription
   pThreshold_
   pFrequency_
   pSubscriptionName_ =
     AnomalySubscription'
-      { _asAccountId = Nothing,
-        _asSubscriptionARN = Nothing,
-        _asMonitorARNList = mempty,
-        _asSubscribers = mempty,
-        _asThreshold = pThreshold_,
-        _asFrequency = pFrequency_,
-        _asSubscriptionName = pSubscriptionName_
+      { accountId = Prelude.Nothing,
+        subscriptionArn = Prelude.Nothing,
+        monitorArnList = Prelude.mempty,
+        subscribers = Prelude.mempty,
+        threshold = pThreshold_,
+        frequency = pFrequency_,
+        subscriptionName = pSubscriptionName_
       }
 
 -- | Your unique account identifier.
-asAccountId :: Lens' AnomalySubscription (Maybe Text)
-asAccountId = lens _asAccountId (\s a -> s {_asAccountId = a})
+anomalySubscription_accountId :: Lens.Lens' AnomalySubscription (Prelude.Maybe Prelude.Text)
+anomalySubscription_accountId = Lens.lens (\AnomalySubscription' {accountId} -> accountId) (\s@AnomalySubscription' {} a -> s {accountId = a} :: AnomalySubscription)
 
 -- | The @AnomalySubscription@ Amazon Resource Name (ARN).
-asSubscriptionARN :: Lens' AnomalySubscription (Maybe Text)
-asSubscriptionARN = lens _asSubscriptionARN (\s a -> s {_asSubscriptionARN = a})
+anomalySubscription_subscriptionArn :: Lens.Lens' AnomalySubscription (Prelude.Maybe Prelude.Text)
+anomalySubscription_subscriptionArn = Lens.lens (\AnomalySubscription' {subscriptionArn} -> subscriptionArn) (\s@AnomalySubscription' {} a -> s {subscriptionArn = a} :: AnomalySubscription)
 
 -- | A list of cost anomaly monitors.
-asMonitorARNList :: Lens' AnomalySubscription [Text]
-asMonitorARNList = lens _asMonitorARNList (\s a -> s {_asMonitorARNList = a}) . _Coerce
+anomalySubscription_monitorArnList :: Lens.Lens' AnomalySubscription [Prelude.Text]
+anomalySubscription_monitorArnList = Lens.lens (\AnomalySubscription' {monitorArnList} -> monitorArnList) (\s@AnomalySubscription' {} a -> s {monitorArnList = a} :: AnomalySubscription) Prelude.. Prelude._Coerce
 
 -- | A list of subscribers to notify.
-asSubscribers :: Lens' AnomalySubscription [Subscriber]
-asSubscribers = lens _asSubscribers (\s a -> s {_asSubscribers = a}) . _Coerce
+anomalySubscription_subscribers :: Lens.Lens' AnomalySubscription [Subscriber]
+anomalySubscription_subscribers = Lens.lens (\AnomalySubscription' {subscribers} -> subscribers) (\s@AnomalySubscription' {} a -> s {subscribers = a} :: AnomalySubscription) Prelude.. Prelude._Coerce
 
--- | The dollar value that triggers a notification if the threshold is exceeded.
-asThreshold :: Lens' AnomalySubscription Double
-asThreshold = lens _asThreshold (\s a -> s {_asThreshold = a})
+-- | The dollar value that triggers a notification if the threshold is
+-- exceeded.
+anomalySubscription_threshold :: Lens.Lens' AnomalySubscription Prelude.Double
+anomalySubscription_threshold = Lens.lens (\AnomalySubscription' {threshold} -> threshold) (\s@AnomalySubscription' {} a -> s {threshold = a} :: AnomalySubscription)
 
 -- | The frequency at which anomaly reports are sent over email.
-asFrequency :: Lens' AnomalySubscription AnomalySubscriptionFrequency
-asFrequency = lens _asFrequency (\s a -> s {_asFrequency = a})
+anomalySubscription_frequency :: Lens.Lens' AnomalySubscription AnomalySubscriptionFrequency
+anomalySubscription_frequency = Lens.lens (\AnomalySubscription' {frequency} -> frequency) (\s@AnomalySubscription' {} a -> s {frequency = a} :: AnomalySubscription)
 
 -- | The name for the subscription.
-asSubscriptionName :: Lens' AnomalySubscription Text
-asSubscriptionName = lens _asSubscriptionName (\s a -> s {_asSubscriptionName = a})
+anomalySubscription_subscriptionName :: Lens.Lens' AnomalySubscription Prelude.Text
+anomalySubscription_subscriptionName = Lens.lens (\AnomalySubscription' {subscriptionName} -> subscriptionName) (\s@AnomalySubscription' {} a -> s {subscriptionName = a} :: AnomalySubscription)
 
-instance FromJSON AnomalySubscription where
+instance Prelude.FromJSON AnomalySubscription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AnomalySubscription"
       ( \x ->
           AnomalySubscription'
-            <$> (x .:? "AccountId")
-            <*> (x .:? "SubscriptionArn")
-            <*> (x .:? "MonitorArnList" .!= mempty)
-            <*> (x .:? "Subscribers" .!= mempty)
-            <*> (x .: "Threshold")
-            <*> (x .: "Frequency")
-            <*> (x .: "SubscriptionName")
+            Prelude.<$> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "SubscriptionArn")
+            Prelude.<*> ( x Prelude..:? "MonitorArnList"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "Subscribers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Threshold")
+            Prelude.<*> (x Prelude..: "Frequency")
+            Prelude.<*> (x Prelude..: "SubscriptionName")
       )
 
-instance Hashable AnomalySubscription
+instance Prelude.Hashable AnomalySubscription
 
-instance NFData AnomalySubscription
+instance Prelude.NFData AnomalySubscription
 
-instance ToJSON AnomalySubscription where
+instance Prelude.ToJSON AnomalySubscription where
   toJSON AnomalySubscription' {..} =
-    object
-      ( catMaybes
-          [ ("AccountId" .=) <$> _asAccountId,
-            ("SubscriptionArn" .=) <$> _asSubscriptionARN,
-            Just ("MonitorArnList" .= _asMonitorARNList),
-            Just ("Subscribers" .= _asSubscribers),
-            Just ("Threshold" .= _asThreshold),
-            Just ("Frequency" .= _asFrequency),
-            Just ("SubscriptionName" .= _asSubscriptionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccountId" Prelude..=) Prelude.<$> accountId,
+            ("SubscriptionArn" Prelude..=)
+              Prelude.<$> subscriptionArn,
+            Prelude.Just
+              ("MonitorArnList" Prelude..= monitorArnList),
+            Prelude.Just ("Subscribers" Prelude..= subscribers),
+            Prelude.Just ("Threshold" Prelude..= threshold),
+            Prelude.Just ("Frequency" Prelude..= frequency),
+            Prelude.Just
+              ("SubscriptionName" Prelude..= subscriptionName)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CostExplorer.Types.SupportedSavingsPlansType
   ( SupportedSavingsPlansType
       ( ..,
-        ComputeSp,
-        EC2InstanceSp
+        SupportedSavingsPlansTypeCOMPUTESP,
+        SupportedSavingsPlansTypeEC2INSTANCESP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SupportedSavingsPlansType
-  = SupportedSavingsPlansType'
-      ( CI
-          Text
-      )
+newtype SupportedSavingsPlansType = SupportedSavingsPlansType'
+  { fromSupportedSavingsPlansType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ComputeSp :: SupportedSavingsPlansType
-pattern ComputeSp = SupportedSavingsPlansType' "COMPUTE_SP"
+pattern SupportedSavingsPlansTypeCOMPUTESP :: SupportedSavingsPlansType
+pattern SupportedSavingsPlansTypeCOMPUTESP = SupportedSavingsPlansType' "COMPUTE_SP"
 
-pattern EC2InstanceSp :: SupportedSavingsPlansType
-pattern EC2InstanceSp = SupportedSavingsPlansType' "EC2_INSTANCE_SP"
+pattern SupportedSavingsPlansTypeEC2INSTANCESP :: SupportedSavingsPlansType
+pattern SupportedSavingsPlansTypeEC2INSTANCESP = SupportedSavingsPlansType' "EC2_INSTANCE_SP"
 
 {-# COMPLETE
-  ComputeSp,
-  EC2InstanceSp,
+  SupportedSavingsPlansTypeCOMPUTESP,
+  SupportedSavingsPlansTypeEC2INSTANCESP,
   SupportedSavingsPlansType'
   #-}
 
-instance FromText SupportedSavingsPlansType where
-  parser = (SupportedSavingsPlansType' . mk) <$> takeText
+instance Prelude.FromText SupportedSavingsPlansType where
+  parser = SupportedSavingsPlansType' Prelude.<$> Prelude.takeText
 
-instance ToText SupportedSavingsPlansType where
-  toText (SupportedSavingsPlansType' ci) = original ci
+instance Prelude.ToText SupportedSavingsPlansType where
+  toText (SupportedSavingsPlansType' x) = x
 
-instance Hashable SupportedSavingsPlansType
+instance Prelude.Hashable SupportedSavingsPlansType
 
-instance NFData SupportedSavingsPlansType
+instance Prelude.NFData SupportedSavingsPlansType
 
-instance ToByteString SupportedSavingsPlansType
+instance Prelude.ToByteString SupportedSavingsPlansType
 
-instance ToQuery SupportedSavingsPlansType
+instance Prelude.ToQuery SupportedSavingsPlansType
 
-instance ToHeader SupportedSavingsPlansType
+instance Prelude.ToHeader SupportedSavingsPlansType
 
-instance ToJSON SupportedSavingsPlansType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SupportedSavingsPlansType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SupportedSavingsPlansType where
-  parseJSON = parseJSONText "SupportedSavingsPlansType"
+instance Prelude.FromJSON SupportedSavingsPlansType where
+  parseJSON = Prelude.parseJSONText "SupportedSavingsPlansType"

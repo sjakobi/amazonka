@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new cost anomaly detection monitor with the requested type and monitor specification.
+-- Creates a new cost anomaly detection monitor with the requested type and
+-- monitor specification.
 module Network.AWS.CostExplorer.CreateAnomalyMonitor
   ( -- * Creating a Request
-    createAnomalyMonitor,
-    CreateAnomalyMonitor,
+    CreateAnomalyMonitor (..),
+    newCreateAnomalyMonitor,
 
     -- * Request Lenses
-    camAnomalyMonitor,
+    createAnomalyMonitor_anomalyMonitor,
 
     -- * Destructuring the Response
-    createAnomalyMonitorResponse,
-    CreateAnomalyMonitorResponse,
+    CreateAnomalyMonitorResponse (..),
+    newCreateAnomalyMonitorResponse,
 
     -- * Response Lenses
-    camrrsResponseStatus,
-    camrrsMonitorARN,
+    createAnomalyMonitorResponse_httpStatus,
+    createAnomalyMonitorResponse_monitorArn,
   )
 where
 
 import Network.AWS.CostExplorer.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createAnomalyMonitor' smart constructor.
-newtype CreateAnomalyMonitor = CreateAnomalyMonitor'
-  { _camAnomalyMonitor ::
-      AnomalyMonitor
+-- | /See:/ 'newCreateAnomalyMonitor' smart constructor.
+data CreateAnomalyMonitor = CreateAnomalyMonitor'
+  { -- | The cost anomaly detection monitor object that you want to create.
+    anomalyMonitor :: AnomalyMonitor
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAnomalyMonitor' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAnomalyMonitor' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'camAnomalyMonitor' - The cost anomaly detection monitor object that you want to create.
-createAnomalyMonitor ::
-  -- | 'camAnomalyMonitor'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'anomalyMonitor', 'createAnomalyMonitor_anomalyMonitor' - The cost anomaly detection monitor object that you want to create.
+newCreateAnomalyMonitor ::
+  -- | 'anomalyMonitor'
   AnomalyMonitor ->
   CreateAnomalyMonitor
-createAnomalyMonitor pAnomalyMonitor_ =
+newCreateAnomalyMonitor pAnomalyMonitor_ =
   CreateAnomalyMonitor'
-    { _camAnomalyMonitor =
+    { anomalyMonitor =
         pAnomalyMonitor_
     }
 
 -- | The cost anomaly detection monitor object that you want to create.
-camAnomalyMonitor :: Lens' CreateAnomalyMonitor AnomalyMonitor
-camAnomalyMonitor = lens _camAnomalyMonitor (\s a -> s {_camAnomalyMonitor = a})
+createAnomalyMonitor_anomalyMonitor :: Lens.Lens' CreateAnomalyMonitor AnomalyMonitor
+createAnomalyMonitor_anomalyMonitor = Lens.lens (\CreateAnomalyMonitor' {anomalyMonitor} -> anomalyMonitor) (\s@CreateAnomalyMonitor' {} a -> s {anomalyMonitor = a} :: CreateAnomalyMonitor)
 
-instance AWSRequest CreateAnomalyMonitor where
+instance Prelude.AWSRequest CreateAnomalyMonitor where
   type
     Rs CreateAnomalyMonitor =
       CreateAnomalyMonitorResponse
-  request = postJSON costExplorer
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAnomalyMonitorResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "MonitorArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "MonitorArn")
       )
 
-instance Hashable CreateAnomalyMonitor
+instance Prelude.Hashable CreateAnomalyMonitor
 
-instance NFData CreateAnomalyMonitor
+instance Prelude.NFData CreateAnomalyMonitor
 
-instance ToHeaders CreateAnomalyMonitor where
+instance Prelude.ToHeaders CreateAnomalyMonitor where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSInsightsIndexService.CreateAnomalyMonitor" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSInsightsIndexService.CreateAnomalyMonitor" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAnomalyMonitor where
+instance Prelude.ToJSON CreateAnomalyMonitor where
   toJSON CreateAnomalyMonitor' {..} =
-    object
-      ( catMaybes
-          [Just ("AnomalyMonitor" .= _camAnomalyMonitor)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AnomalyMonitor" Prelude..= anomalyMonitor)
+          ]
       )
 
-instance ToPath CreateAnomalyMonitor where
-  toPath = const "/"
+instance Prelude.ToPath CreateAnomalyMonitor where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAnomalyMonitor where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAnomalyMonitor where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAnomalyMonitorResponse' smart constructor.
+-- | /See:/ 'newCreateAnomalyMonitorResponse' smart constructor.
 data CreateAnomalyMonitorResponse = CreateAnomalyMonitorResponse'
-  { _camrrsResponseStatus ::
-      !Int,
-    _camrrsMonitorARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The unique identifier of your newly created cost anomaly detection
+    -- monitor.
+    monitorArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAnomalyMonitorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAnomalyMonitorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'camrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'camrrsMonitorARN' - The unique identifier of your newly created cost anomaly detection monitor.
-createAnomalyMonitorResponse ::
-  -- | 'camrrsResponseStatus'
-  Int ->
-  -- | 'camrrsMonitorARN'
-  Text ->
+-- 'httpStatus', 'createAnomalyMonitorResponse_httpStatus' - The response's http status code.
+--
+-- 'monitorArn', 'createAnomalyMonitorResponse_monitorArn' - The unique identifier of your newly created cost anomaly detection
+-- monitor.
+newCreateAnomalyMonitorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'monitorArn'
+  Prelude.Text ->
   CreateAnomalyMonitorResponse
-createAnomalyMonitorResponse
-  pResponseStatus_
-  pMonitorARN_ =
+newCreateAnomalyMonitorResponse
+  pHttpStatus_
+  pMonitorArn_ =
     CreateAnomalyMonitorResponse'
-      { _camrrsResponseStatus =
-          pResponseStatus_,
-        _camrrsMonitorARN = pMonitorARN_
+      { httpStatus =
+          pHttpStatus_,
+        monitorArn = pMonitorArn_
       }
 
--- | -- | The response status code.
-camrrsResponseStatus :: Lens' CreateAnomalyMonitorResponse Int
-camrrsResponseStatus = lens _camrrsResponseStatus (\s a -> s {_camrrsResponseStatus = a})
+-- | The response's http status code.
+createAnomalyMonitorResponse_httpStatus :: Lens.Lens' CreateAnomalyMonitorResponse Prelude.Int
+createAnomalyMonitorResponse_httpStatus = Lens.lens (\CreateAnomalyMonitorResponse' {httpStatus} -> httpStatus) (\s@CreateAnomalyMonitorResponse' {} a -> s {httpStatus = a} :: CreateAnomalyMonitorResponse)
 
--- | The unique identifier of your newly created cost anomaly detection monitor.
-camrrsMonitorARN :: Lens' CreateAnomalyMonitorResponse Text
-camrrsMonitorARN = lens _camrrsMonitorARN (\s a -> s {_camrrsMonitorARN = a})
+-- | The unique identifier of your newly created cost anomaly detection
+-- monitor.
+createAnomalyMonitorResponse_monitorArn :: Lens.Lens' CreateAnomalyMonitorResponse Prelude.Text
+createAnomalyMonitorResponse_monitorArn = Lens.lens (\CreateAnomalyMonitorResponse' {monitorArn} -> monitorArn) (\s@CreateAnomalyMonitorResponse' {} a -> s {monitorArn = a} :: CreateAnomalyMonitorResponse)
 
-instance NFData CreateAnomalyMonitorResponse
+instance Prelude.NFData CreateAnomalyMonitorResponse
