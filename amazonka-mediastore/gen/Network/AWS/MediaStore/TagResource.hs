@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds tags to the specified AWS Elemental MediaStore container. Tags are key:value pairs that you can associate with AWS resources. For example, the tag key might be "customer" and the tag value might be "companyA." You can specify one or more tags to add to each container. You can add up to 50 tags to each container. For more information about tagging, including naming and usage conventions, see <https://docs.aws.amazon.com/mediastore/latest/ug/tagging.html Tagging Resources in MediaStore> .
+-- Adds tags to the specified AWS Elemental MediaStore container. Tags are
+-- key:value pairs that you can associate with AWS resources. For example,
+-- the tag key might be \"customer\" and the tag value might be
+-- \"companyA.\" You can specify one or more tags to add to each container.
+-- You can add up to 50 tags to each container. For more information about
+-- tagging, including naming and usage conventions, see
+-- <https://docs.aws.amazon.com/mediastore/latest/ug/tagging.html Tagging Resources in MediaStore>.
 module Network.AWS.MediaStore.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResource,
-    trTags,
+    tagResource_resource,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
 
     -- * Response Lenses
-    trrrsResponseStatus,
+    tagResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStore.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResource :: !Text,
-    _trTags :: !(List1 Tag)
+  { -- | The Amazon Resource Name (ARN) for the container.
+    resource :: Prelude.Text,
+    -- | An array of key:value pairs that you want to add to the container. You
+    -- need to specify only the tags that you want to add or update. For
+    -- example, suppose a container already has two tags (customer:CompanyA and
+    -- priority:High). You want to change the priority tag and also add a third
+    -- tag (type:Contract). For TagResource, you specify the following tags:
+    -- priority:Medium, type:Contract. The result is that your container has
+    -- three tags: customer:CompanyA, priority:Medium, and type:Contract.
+    tags :: Prelude.List1 Tag
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResource' - The Amazon Resource Name (ARN) for the container.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - An array of key:value pairs that you want to add to the container. You need to specify only the tags that you want to add or update. For example, suppose a container already has two tags (customer:CompanyA and priority:High). You want to change the priority tag and also add a third tag (type:Contract). For TagResource, you specify the following tags: priority:Medium, type:Contract. The result is that your container has three tags: customer:CompanyA, priority:Medium, and type:Contract.
-tagResource ::
-  -- | 'trResource'
-  Text ->
-  -- | 'trTags'
-  NonEmpty Tag ->
+-- 'resource', 'tagResource_resource' - The Amazon Resource Name (ARN) for the container.
+--
+-- 'tags', 'tagResource_tags' - An array of key:value pairs that you want to add to the container. You
+-- need to specify only the tags that you want to add or update. For
+-- example, suppose a container already has two tags (customer:CompanyA and
+-- priority:High). You want to change the priority tag and also add a third
+-- tag (type:Contract). For TagResource, you specify the following tags:
+-- priority:Medium, type:Contract. The result is that your container has
+-- three tags: customer:CompanyA, priority:Medium, and type:Contract.
+newTagResource ::
+  -- | 'resource'
+  Prelude.Text ->
+  -- | 'tags'
+  Prelude.NonEmpty Tag ->
   TagResource
-tagResource pResource_ pTags_ =
+newTagResource pResource_ pTags_ =
   TagResource'
-    { _trResource = pResource_,
-      _trTags = _List1 # pTags_
+    { resource = pResource_,
+      tags = Prelude._List1 Lens.# pTags_
     }
 
 -- | The Amazon Resource Name (ARN) for the container.
-trResource :: Lens' TagResource Text
-trResource = lens _trResource (\s a -> s {_trResource = a})
+tagResource_resource :: Lens.Lens' TagResource Prelude.Text
+tagResource_resource = Lens.lens (\TagResource' {resource} -> resource) (\s@TagResource' {} a -> s {resource = a} :: TagResource)
 
--- | An array of key:value pairs that you want to add to the container. You need to specify only the tags that you want to add or update. For example, suppose a container already has two tags (customer:CompanyA and priority:High). You want to change the priority tag and also add a third tag (type:Contract). For TagResource, you specify the following tags: priority:Medium, type:Contract. The result is that your container has three tags: customer:CompanyA, priority:Medium, and type:Contract.
-trTags :: Lens' TagResource (NonEmpty Tag)
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _List1
+-- | An array of key:value pairs that you want to add to the container. You
+-- need to specify only the tags that you want to add or update. For
+-- example, suppose a container already has two tags (customer:CompanyA and
+-- priority:High). You want to change the priority tag and also add a third
+-- tag (type:Contract). For TagResource, you specify the following tags:
+-- priority:Medium, type:Contract. The result is that your container has
+-- three tags: customer:CompanyA, priority:Medium, and type:Contract.
+tagResource_tags :: Lens.Lens' TagResource (Prelude.NonEmpty Tag)
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._List1
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON mediaStore
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          TagResourceResponse' <$> (pure (fromEnum s))
+          TagResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("MediaStore_20170901.TagResource" :: ByteString),
+              Prelude.=# ( "MediaStore_20170901.TagResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("Resource" .= _trResource),
-            Just ("Tags" .= _trTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Resource" Prelude..= resource),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
-newtype TagResourceResponse = TagResourceResponse'
-  { _trrrsResponseStatus ::
-      Int
+-- | /See:/ 'newTagResourceResponse' smart constructor.
+data TagResourceResponse = TagResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trrrsResponseStatus' - -- | The response status code.
-tagResourceResponse ::
-  -- | 'trrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'tagResourceResponse_httpStatus' - The response's http status code.
+newTagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagResourceResponse
-tagResourceResponse pResponseStatus_ =
-  TagResourceResponse'
-    { _trrrsResponseStatus =
-        pResponseStatus_
-    }
+newTagResourceResponse pHttpStatus_ =
+  TagResourceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-trrrsResponseStatus :: Lens' TagResourceResponse Int
-trrrsResponseStatus = lens _trrrsResponseStatus (\s a -> s {_trrrsResponseStatus = a})
+-- | The response's http status code.
+tagResourceResponse_httpStatus :: Lens.Lens' TagResourceResponse Prelude.Int
+tagResourceResponse_httpStatus = Lens.lens (\TagResourceResponse' {httpStatus} -> httpStatus) (\s@TagResourceResponse' {} a -> s {httpStatus = a} :: TagResourceResponse)
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

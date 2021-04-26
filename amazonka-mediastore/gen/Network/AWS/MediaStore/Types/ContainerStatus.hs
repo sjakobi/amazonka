@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.MediaStore.Types.ContainerStatus
   ( ContainerStatus
       ( ..,
-        Active,
-        Creating,
-        Deleting
+        ContainerStatusACTIVE,
+        ContainerStatusCREATING,
+        ContainerStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerStatus = ContainerStatus' (CI Text)
+newtype ContainerStatus = ContainerStatus'
+  { fromContainerStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ContainerStatus
-pattern Active = ContainerStatus' "ACTIVE"
+pattern ContainerStatusACTIVE :: ContainerStatus
+pattern ContainerStatusACTIVE = ContainerStatus' "ACTIVE"
 
-pattern Creating :: ContainerStatus
-pattern Creating = ContainerStatus' "CREATING"
+pattern ContainerStatusCREATING :: ContainerStatus
+pattern ContainerStatusCREATING = ContainerStatus' "CREATING"
 
-pattern Deleting :: ContainerStatus
-pattern Deleting = ContainerStatus' "DELETING"
+pattern ContainerStatusDELETING :: ContainerStatus
+pattern ContainerStatusDELETING = ContainerStatus' "DELETING"
 
 {-# COMPLETE
-  Active,
-  Creating,
-  Deleting,
+  ContainerStatusACTIVE,
+  ContainerStatusCREATING,
+  ContainerStatusDELETING,
   ContainerStatus'
   #-}
 
-instance FromText ContainerStatus where
-  parser = (ContainerStatus' . mk) <$> takeText
+instance Prelude.FromText ContainerStatus where
+  parser = ContainerStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerStatus where
-  toText (ContainerStatus' ci) = original ci
+instance Prelude.ToText ContainerStatus where
+  toText (ContainerStatus' x) = x
 
-instance Hashable ContainerStatus
+instance Prelude.Hashable ContainerStatus
 
-instance NFData ContainerStatus
+instance Prelude.NFData ContainerStatus
 
-instance ToByteString ContainerStatus
+instance Prelude.ToByteString ContainerStatus
 
-instance ToQuery ContainerStatus
+instance Prelude.ToQuery ContainerStatus
 
-instance ToHeader ContainerStatus
+instance Prelude.ToHeader ContainerStatus
 
-instance FromJSON ContainerStatus where
-  parseJSON = parseJSONText "ContainerStatus"
+instance Prelude.FromJSON ContainerStatus where
+  parseJSON = Prelude.parseJSONText "ContainerStatus"

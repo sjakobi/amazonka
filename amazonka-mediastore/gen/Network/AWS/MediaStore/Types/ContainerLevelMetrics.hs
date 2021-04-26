@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.MediaStore.Types.ContainerLevelMetrics
   ( ContainerLevelMetrics
       ( ..,
-        Disabled,
-        Enabled
+        ContainerLevelMetricsDISABLED,
+        ContainerLevelMetricsENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerLevelMetrics
-  = ContainerLevelMetrics'
-      ( CI
-          Text
-      )
+newtype ContainerLevelMetrics = ContainerLevelMetrics'
+  { fromContainerLevelMetrics ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: ContainerLevelMetrics
-pattern Disabled = ContainerLevelMetrics' "DISABLED"
+pattern ContainerLevelMetricsDISABLED :: ContainerLevelMetrics
+pattern ContainerLevelMetricsDISABLED = ContainerLevelMetrics' "DISABLED"
 
-pattern Enabled :: ContainerLevelMetrics
-pattern Enabled = ContainerLevelMetrics' "ENABLED"
+pattern ContainerLevelMetricsENABLED :: ContainerLevelMetrics
+pattern ContainerLevelMetricsENABLED = ContainerLevelMetrics' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  ContainerLevelMetricsDISABLED,
+  ContainerLevelMetricsENABLED,
   ContainerLevelMetrics'
   #-}
 
-instance FromText ContainerLevelMetrics where
-  parser = (ContainerLevelMetrics' . mk) <$> takeText
+instance Prelude.FromText ContainerLevelMetrics where
+  parser = ContainerLevelMetrics' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerLevelMetrics where
-  toText (ContainerLevelMetrics' ci) = original ci
+instance Prelude.ToText ContainerLevelMetrics where
+  toText (ContainerLevelMetrics' x) = x
 
-instance Hashable ContainerLevelMetrics
+instance Prelude.Hashable ContainerLevelMetrics
 
-instance NFData ContainerLevelMetrics
+instance Prelude.NFData ContainerLevelMetrics
 
-instance ToByteString ContainerLevelMetrics
+instance Prelude.ToByteString ContainerLevelMetrics
 
-instance ToQuery ContainerLevelMetrics
+instance Prelude.ToQuery ContainerLevelMetrics
 
-instance ToHeader ContainerLevelMetrics
+instance Prelude.ToHeader ContainerLevelMetrics
 
-instance ToJSON ContainerLevelMetrics where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerLevelMetrics where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContainerLevelMetrics where
-  parseJSON = parseJSONText "ContainerLevelMetrics"
+instance Prelude.FromJSON ContainerLevelMetrics where
+  parseJSON = Prelude.parseJSONText "ContainerLevelMetrics"

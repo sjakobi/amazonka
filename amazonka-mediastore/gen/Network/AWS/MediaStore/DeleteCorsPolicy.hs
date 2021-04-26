@@ -14,31 +14,33 @@
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
--- Module      : Network.AWS.MediaStore.StopAccessLogging
+-- Module      : Network.AWS.MediaStore.DeleteCorsPolicy
 -- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops access logging on the specified container. When you stop access
--- logging on a container, MediaStore stops sending access logs to Amazon
--- CloudWatch Logs. These access logs are not saved and are not
--- retrievable.
-module Network.AWS.MediaStore.StopAccessLogging
+-- Deletes the cross-origin resource sharing (CORS) configuration
+-- information that is set for the container.
+--
+-- To use this operation, you must have permission to perform the
+-- @MediaStore:DeleteCorsPolicy@ action. The container owner has this
+-- permission by default and can grant this permission to others.
+module Network.AWS.MediaStore.DeleteCorsPolicy
   ( -- * Creating a Request
-    StopAccessLogging (..),
-    newStopAccessLogging,
+    DeleteCorsPolicy (..),
+    newDeleteCorsPolicy,
 
     -- * Request Lenses
-    stopAccessLogging_containerName,
+    deleteCorsPolicy_containerName,
 
     -- * Destructuring the Response
-    StopAccessLoggingResponse (..),
-    newStopAccessLoggingResponse,
+    DeleteCorsPolicyResponse (..),
+    newDeleteCorsPolicyResponse,
 
     -- * Response Lenses
-    stopAccessLoggingResponse_httpStatus,
+    deleteCorsPolicyResponse_httpStatus,
   )
 where
 
@@ -48,53 +50,53 @@ import qualified Network.AWS.Prelude as Prelude
 import qualified Network.AWS.Request as Request
 import qualified Network.AWS.Response as Response
 
--- | /See:/ 'newStopAccessLogging' smart constructor.
-data StopAccessLogging = StopAccessLogging'
-  { -- | The name of the container that you want to stop access logging on.
+-- | /See:/ 'newDeleteCorsPolicy' smart constructor.
+data DeleteCorsPolicy = DeleteCorsPolicy'
+  { -- | The name of the container to remove the policy from.
     containerName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
--- Create a value of 'StopAccessLogging' with all optional fields omitted.
+-- Create a value of 'DeleteCorsPolicy' with all optional fields omitted.
 --
 -- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'containerName', 'stopAccessLogging_containerName' - The name of the container that you want to stop access logging on.
-newStopAccessLogging ::
+-- 'containerName', 'deleteCorsPolicy_containerName' - The name of the container to remove the policy from.
+newDeleteCorsPolicy ::
   -- | 'containerName'
   Prelude.Text ->
-  StopAccessLogging
-newStopAccessLogging pContainerName_ =
-  StopAccessLogging' {containerName = pContainerName_}
+  DeleteCorsPolicy
+newDeleteCorsPolicy pContainerName_ =
+  DeleteCorsPolicy' {containerName = pContainerName_}
 
--- | The name of the container that you want to stop access logging on.
-stopAccessLogging_containerName :: Lens.Lens' StopAccessLogging Prelude.Text
-stopAccessLogging_containerName = Lens.lens (\StopAccessLogging' {containerName} -> containerName) (\s@StopAccessLogging' {} a -> s {containerName = a} :: StopAccessLogging)
+-- | The name of the container to remove the policy from.
+deleteCorsPolicy_containerName :: Lens.Lens' DeleteCorsPolicy Prelude.Text
+deleteCorsPolicy_containerName = Lens.lens (\DeleteCorsPolicy' {containerName} -> containerName) (\s@DeleteCorsPolicy' {} a -> s {containerName = a} :: DeleteCorsPolicy)
 
-instance Prelude.AWSRequest StopAccessLogging where
-  type Rs StopAccessLogging = StopAccessLoggingResponse
+instance Prelude.AWSRequest DeleteCorsPolicy where
+  type Rs DeleteCorsPolicy = DeleteCorsPolicyResponse
   request = Request.postJSON defaultService
   response =
     Response.receiveEmpty
       ( \s h x ->
-          StopAccessLoggingResponse'
+          DeleteCorsPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Prelude.Hashable StopAccessLogging
+instance Prelude.Hashable DeleteCorsPolicy
 
-instance Prelude.NFData StopAccessLogging
+instance Prelude.NFData DeleteCorsPolicy
 
-instance Prelude.ToHeaders StopAccessLogging where
+instance Prelude.ToHeaders DeleteCorsPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Prelude.=# ( "MediaStore_20170901.StopAccessLogging" ::
+              Prelude.=# ( "MediaStore_20170901.DeleteCorsPolicy" ::
                              Prelude.ByteString
                          ),
             "Content-Type"
@@ -104,8 +106,8 @@ instance Prelude.ToHeaders StopAccessLogging where
           ]
       )
 
-instance Prelude.ToJSON StopAccessLogging where
-  toJSON StopAccessLogging' {..} =
+instance Prelude.ToJSON DeleteCorsPolicy where
+  toJSON DeleteCorsPolicy' {..} =
     Prelude.object
       ( Prelude.catMaybes
           [ Prelude.Just
@@ -113,40 +115,40 @@ instance Prelude.ToJSON StopAccessLogging where
           ]
       )
 
-instance Prelude.ToPath StopAccessLogging where
+instance Prelude.ToPath DeleteCorsPolicy where
   toPath = Prelude.const "/"
 
-instance Prelude.ToQuery StopAccessLogging where
+instance Prelude.ToQuery DeleteCorsPolicy where
   toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'newStopAccessLoggingResponse' smart constructor.
-data StopAccessLoggingResponse = StopAccessLoggingResponse'
+-- | /See:/ 'newDeleteCorsPolicyResponse' smart constructor.
+data DeleteCorsPolicyResponse = DeleteCorsPolicyResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
--- Create a value of 'StopAccessLoggingResponse' with all optional fields omitted.
+-- Create a value of 'DeleteCorsPolicyResponse' with all optional fields omitted.
 --
 -- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'httpStatus', 'stopAccessLoggingResponse_httpStatus' - The response's http status code.
-newStopAccessLoggingResponse ::
+-- 'httpStatus', 'deleteCorsPolicyResponse_httpStatus' - The response's http status code.
+newDeleteCorsPolicyResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
-  StopAccessLoggingResponse
-newStopAccessLoggingResponse pHttpStatus_ =
-  StopAccessLoggingResponse'
+  DeleteCorsPolicyResponse
+newDeleteCorsPolicyResponse pHttpStatus_ =
+  DeleteCorsPolicyResponse'
     { httpStatus =
         pHttpStatus_
     }
 
 -- | The response's http status code.
-stopAccessLoggingResponse_httpStatus :: Lens.Lens' StopAccessLoggingResponse Prelude.Int
-stopAccessLoggingResponse_httpStatus = Lens.lens (\StopAccessLoggingResponse' {httpStatus} -> httpStatus) (\s@StopAccessLoggingResponse' {} a -> s {httpStatus = a} :: StopAccessLoggingResponse)
+deleteCorsPolicyResponse_httpStatus :: Lens.Lens' DeleteCorsPolicyResponse Prelude.Int
+deleteCorsPolicyResponse_httpStatus = Lens.lens (\DeleteCorsPolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteCorsPolicyResponse' {} a -> s {httpStatus = a} :: DeleteCorsPolicyResponse)
 
-instance Prelude.NFData StopAccessLoggingResponse
+instance Prelude.NFData DeleteCorsPolicyResponse

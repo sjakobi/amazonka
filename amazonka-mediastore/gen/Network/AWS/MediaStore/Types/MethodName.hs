@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.MediaStore.Types.MethodName
   ( MethodName
       ( ..,
-        Delete,
-        Get,
-        Head,
-        Put
+        MethodNameDELETE,
+        MethodNameGET,
+        MethodNameHEAD,
+        MethodNamePUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MethodName = MethodName' (CI Text)
+newtype MethodName = MethodName'
+  { fromMethodName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Delete :: MethodName
-pattern Delete = MethodName' "DELETE"
+pattern MethodNameDELETE :: MethodName
+pattern MethodNameDELETE = MethodName' "DELETE"
 
-pattern Get :: MethodName
-pattern Get = MethodName' "GET"
+pattern MethodNameGET :: MethodName
+pattern MethodNameGET = MethodName' "GET"
 
-pattern Head :: MethodName
-pattern Head = MethodName' "HEAD"
+pattern MethodNameHEAD :: MethodName
+pattern MethodNameHEAD = MethodName' "HEAD"
 
-pattern Put :: MethodName
-pattern Put = MethodName' "PUT"
+pattern MethodNamePUT :: MethodName
+pattern MethodNamePUT = MethodName' "PUT"
 
 {-# COMPLETE
-  Delete,
-  Get,
-  Head,
-  Put,
+  MethodNameDELETE,
+  MethodNameGET,
+  MethodNameHEAD,
+  MethodNamePUT,
   MethodName'
   #-}
 
-instance FromText MethodName where
-  parser = (MethodName' . mk) <$> takeText
+instance Prelude.FromText MethodName where
+  parser = MethodName' Prelude.<$> Prelude.takeText
 
-instance ToText MethodName where
-  toText (MethodName' ci) = original ci
+instance Prelude.ToText MethodName where
+  toText (MethodName' x) = x
 
-instance Hashable MethodName
+instance Prelude.Hashable MethodName
 
-instance NFData MethodName
+instance Prelude.NFData MethodName
 
-instance ToByteString MethodName
+instance Prelude.ToByteString MethodName
 
-instance ToQuery MethodName
+instance Prelude.ToQuery MethodName
 
-instance ToHeader MethodName
+instance Prelude.ToHeader MethodName
 
-instance ToJSON MethodName where
-  toJSON = toJSONText
+instance Prelude.ToJSON MethodName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MethodName where
-  parseJSON = parseJSONText "MethodName"
+instance Prelude.FromJSON MethodName where
+  parseJSON = Prelude.parseJSONText "MethodName"

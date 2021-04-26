@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the metric policy that is associated with the specified container. If there is no metric policy associated with the container, MediaStore doesn't send metrics to CloudWatch.
+-- Deletes the metric policy that is associated with the specified
+-- container. If there is no metric policy associated with the container,
+-- MediaStore doesn\'t send metrics to CloudWatch.
 module Network.AWS.MediaStore.DeleteMetricPolicy
   ( -- * Creating a Request
-    deleteMetricPolicy,
-    DeleteMetricPolicy,
+    DeleteMetricPolicy (..),
+    newDeleteMetricPolicy,
 
     -- * Request Lenses
-    dmpContainerName,
+    deleteMetricPolicy_containerName,
 
     -- * Destructuring the Response
-    deleteMetricPolicyResponse,
-    DeleteMetricPolicyResponse,
+    DeleteMetricPolicyResponse (..),
+    newDeleteMetricPolicyResponse,
 
     -- * Response Lenses
-    dmprrsResponseStatus,
+    deleteMetricPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStore.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteMetricPolicy' smart constructor.
-newtype DeleteMetricPolicy = DeleteMetricPolicy'
-  { _dmpContainerName ::
-      Text
+-- | /See:/ 'newDeleteMetricPolicy' smart constructor.
+data DeleteMetricPolicy = DeleteMetricPolicy'
+  { -- | The name of the container that is associated with the metric policy that
+    -- you want to delete.
+    containerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMetricPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMetricPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmpContainerName' - The name of the container that is associated with the metric policy that you want to delete.
-deleteMetricPolicy ::
-  -- | 'dmpContainerName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'containerName', 'deleteMetricPolicy_containerName' - The name of the container that is associated with the metric policy that
+-- you want to delete.
+newDeleteMetricPolicy ::
+  -- | 'containerName'
+  Prelude.Text ->
   DeleteMetricPolicy
-deleteMetricPolicy pContainerName_ =
+newDeleteMetricPolicy pContainerName_ =
   DeleteMetricPolicy'
-    { _dmpContainerName =
+    { containerName =
         pContainerName_
     }
 
--- | The name of the container that is associated with the metric policy that you want to delete.
-dmpContainerName :: Lens' DeleteMetricPolicy Text
-dmpContainerName = lens _dmpContainerName (\s a -> s {_dmpContainerName = a})
+-- | The name of the container that is associated with the metric policy that
+-- you want to delete.
+deleteMetricPolicy_containerName :: Lens.Lens' DeleteMetricPolicy Prelude.Text
+deleteMetricPolicy_containerName = Lens.lens (\DeleteMetricPolicy' {containerName} -> containerName) (\s@DeleteMetricPolicy' {} a -> s {containerName = a} :: DeleteMetricPolicy)
 
-instance AWSRequest DeleteMetricPolicy where
+instance Prelude.AWSRequest DeleteMetricPolicy where
   type
     Rs DeleteMetricPolicy =
       DeleteMetricPolicyResponse
-  request = postJSON mediaStore
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteMetricPolicyResponse' <$> (pure (fromEnum s))
+          DeleteMetricPolicyResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteMetricPolicy
+instance Prelude.Hashable DeleteMetricPolicy
 
-instance NFData DeleteMetricPolicy
+instance Prelude.NFData DeleteMetricPolicy
 
-instance ToHeaders DeleteMetricPolicy where
+instance Prelude.ToHeaders DeleteMetricPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MediaStore_20170901.DeleteMetricPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MediaStore_20170901.DeleteMetricPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteMetricPolicy where
+instance Prelude.ToJSON DeleteMetricPolicy where
   toJSON DeleteMetricPolicy' {..} =
-    object
-      ( catMaybes
-          [Just ("ContainerName" .= _dmpContainerName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ContainerName" Prelude..= containerName)
+          ]
       )
 
-instance ToPath DeleteMetricPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteMetricPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteMetricPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMetricPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMetricPolicyResponse' smart constructor.
-newtype DeleteMetricPolicyResponse = DeleteMetricPolicyResponse'
-  { _dmprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteMetricPolicyResponse' smart constructor.
+data DeleteMetricPolicyResponse = DeleteMetricPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMetricPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMetricPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmprrsResponseStatus' - -- | The response status code.
-deleteMetricPolicyResponse ::
-  -- | 'dmprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteMetricPolicyResponse_httpStatus' - The response's http status code.
+newDeleteMetricPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteMetricPolicyResponse
-deleteMetricPolicyResponse pResponseStatus_ =
+newDeleteMetricPolicyResponse pHttpStatus_ =
   DeleteMetricPolicyResponse'
-    { _dmprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dmprrsResponseStatus :: Lens' DeleteMetricPolicyResponse Int
-dmprrsResponseStatus = lens _dmprrsResponseStatus (\s a -> s {_dmprrsResponseStatus = a})
+-- | The response's http status code.
+deleteMetricPolicyResponse_httpStatus :: Lens.Lens' DeleteMetricPolicyResponse Prelude.Int
+deleteMetricPolicyResponse_httpStatus = Lens.lens (\DeleteMetricPolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteMetricPolicyResponse' {} a -> s {httpStatus = a} :: DeleteMetricPolicyResponse)
 
-instance NFData DeleteMetricPolicyResponse
+instance Prelude.NFData DeleteMetricPolicyResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,136 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts access logging on the specified container. When you enable access logging on a container, MediaStore delivers access logs for objects stored in that container to Amazon CloudWatch Logs.
+-- Starts access logging on the specified container. When you enable access
+-- logging on a container, MediaStore delivers access logs for objects
+-- stored in that container to Amazon CloudWatch Logs.
 module Network.AWS.MediaStore.StartAccessLogging
   ( -- * Creating a Request
-    startAccessLogging,
-    StartAccessLogging,
+    StartAccessLogging (..),
+    newStartAccessLogging,
 
     -- * Request Lenses
-    salContainerName,
+    startAccessLogging_containerName,
 
     -- * Destructuring the Response
-    startAccessLoggingResponse,
-    StartAccessLoggingResponse,
+    StartAccessLoggingResponse (..),
+    newStartAccessLoggingResponse,
 
     -- * Response Lenses
-    salrrsResponseStatus,
+    startAccessLoggingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStore.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startAccessLogging' smart constructor.
-newtype StartAccessLogging = StartAccessLogging'
-  { _salContainerName ::
-      Text
+-- | /See:/ 'newStartAccessLogging' smart constructor.
+data StartAccessLogging = StartAccessLogging'
+  { -- | The name of the container that you want to start access logging on.
+    containerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAccessLogging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAccessLogging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'salContainerName' - The name of the container that you want to start access logging on.
-startAccessLogging ::
-  -- | 'salContainerName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'containerName', 'startAccessLogging_containerName' - The name of the container that you want to start access logging on.
+newStartAccessLogging ::
+  -- | 'containerName'
+  Prelude.Text ->
   StartAccessLogging
-startAccessLogging pContainerName_ =
+newStartAccessLogging pContainerName_ =
   StartAccessLogging'
-    { _salContainerName =
+    { containerName =
         pContainerName_
     }
 
 -- | The name of the container that you want to start access logging on.
-salContainerName :: Lens' StartAccessLogging Text
-salContainerName = lens _salContainerName (\s a -> s {_salContainerName = a})
+startAccessLogging_containerName :: Lens.Lens' StartAccessLogging Prelude.Text
+startAccessLogging_containerName = Lens.lens (\StartAccessLogging' {containerName} -> containerName) (\s@StartAccessLogging' {} a -> s {containerName = a} :: StartAccessLogging)
 
-instance AWSRequest StartAccessLogging where
+instance Prelude.AWSRequest StartAccessLogging where
   type
     Rs StartAccessLogging =
       StartAccessLoggingResponse
-  request = postJSON mediaStore
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StartAccessLoggingResponse' <$> (pure (fromEnum s))
+          StartAccessLoggingResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartAccessLogging
+instance Prelude.Hashable StartAccessLogging
 
-instance NFData StartAccessLogging
+instance Prelude.NFData StartAccessLogging
 
-instance ToHeaders StartAccessLogging where
+instance Prelude.ToHeaders StartAccessLogging where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MediaStore_20170901.StartAccessLogging" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MediaStore_20170901.StartAccessLogging" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartAccessLogging where
+instance Prelude.ToJSON StartAccessLogging where
   toJSON StartAccessLogging' {..} =
-    object
-      ( catMaybes
-          [Just ("ContainerName" .= _salContainerName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ContainerName" Prelude..= containerName)
+          ]
       )
 
-instance ToPath StartAccessLogging where
-  toPath = const "/"
+instance Prelude.ToPath StartAccessLogging where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartAccessLogging where
-  toQuery = const mempty
+instance Prelude.ToQuery StartAccessLogging where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startAccessLoggingResponse' smart constructor.
-newtype StartAccessLoggingResponse = StartAccessLoggingResponse'
-  { _salrrsResponseStatus ::
-      Int
+-- | /See:/ 'newStartAccessLoggingResponse' smart constructor.
+data StartAccessLoggingResponse = StartAccessLoggingResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartAccessLoggingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartAccessLoggingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'salrrsResponseStatus' - -- | The response status code.
-startAccessLoggingResponse ::
-  -- | 'salrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startAccessLoggingResponse_httpStatus' - The response's http status code.
+newStartAccessLoggingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartAccessLoggingResponse
-startAccessLoggingResponse pResponseStatus_ =
+newStartAccessLoggingResponse pHttpStatus_ =
   StartAccessLoggingResponse'
-    { _salrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-salrrsResponseStatus :: Lens' StartAccessLoggingResponse Int
-salrrsResponseStatus = lens _salrrsResponseStatus (\s a -> s {_salrrsResponseStatus = a})
+-- | The response's http status code.
+startAccessLoggingResponse_httpStatus :: Lens.Lens' StartAccessLoggingResponse Prelude.Int
+startAccessLoggingResponse_httpStatus = Lens.lens (\StartAccessLoggingResponse' {httpStatus} -> httpStatus) (\s@StartAccessLoggingResponse' {} a -> s {httpStatus = a} :: StartAccessLoggingResponse)
 
-instance NFData StartAccessLoggingResponse
+instance Prelude.NFData StartAccessLoggingResponse

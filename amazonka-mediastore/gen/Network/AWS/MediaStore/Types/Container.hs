@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,150 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaStore.Types.Container where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStore.Types.ContainerStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | This section describes operations that you can perform on an AWS Elemental MediaStore container.
+-- | This section describes operations that you can perform on an AWS
+-- Elemental MediaStore container.
 --
---
---
--- /See:/ 'container' smart constructor.
+-- /See:/ 'newContainer' smart constructor.
 data Container = Container'
-  { _cStatus ::
-      !(Maybe ContainerStatus),
-    _cCreationTime :: !(Maybe POSIX),
-    _cARN :: !(Maybe Text),
-    _cAccessLoggingEnabled :: !(Maybe Bool),
-    _cName :: !(Maybe Text),
-    _cEndpoint :: !(Maybe Text)
+  { -- | The status of container creation or deletion. The status is one of the
+    -- following: @CREATING@, @ACTIVE@, or @DELETING@. While the service is
+    -- creating the container, the status is @CREATING@. When the endpoint is
+    -- available, the status changes to @ACTIVE@.
+    status :: Prelude.Maybe ContainerStatus,
+    -- | Unix timestamp.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the container. The ARN has the
+    -- following format:
+    --
+    -- arn:aws:\<region>:\<account that owns this container>:container\/\<name
+    -- of container>
+    --
+    -- For example: arn:aws:mediastore:us-west-2:111122223333:container\/movies
+    aRN :: Prelude.Maybe Prelude.Text,
+    -- | The state of access logging on the container. This value is @false@ by
+    -- default, indicating that AWS Elemental MediaStore does not send access
+    -- logs to Amazon CloudWatch Logs. When you enable access logging on the
+    -- container, MediaStore changes this value to @true@, indicating that the
+    -- service delivers access logs for objects stored in that container to
+    -- CloudWatch Logs.
+    accessLoggingEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the container.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The DNS endpoint of the container. Use the endpoint to identify the
+    -- specific container when sending requests to the data plane. The service
+    -- assigns this value when the container is created. Once the value has
+    -- been assigned, it does not change.
+    endpoint :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Container' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Container' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cStatus' - The status of container creation or deletion. The status is one of the following: @CREATING@ , @ACTIVE@ , or @DELETING@ . While the service is creating the container, the status is @CREATING@ . When the endpoint is available, the status changes to @ACTIVE@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCreationTime' - Unix timestamp.
+-- 'status', 'container_status' - The status of container creation or deletion. The status is one of the
+-- following: @CREATING@, @ACTIVE@, or @DELETING@. While the service is
+-- creating the container, the status is @CREATING@. When the endpoint is
+-- available, the status changes to @ACTIVE@.
 --
--- * 'cARN' - The Amazon Resource Name (ARN) of the container. The ARN has the following format: arn:aws:<region>:<account that owns this container>:container/<name of container>  For example: arn:aws:mediastore:us-west-2:111122223333:container/movies
+-- 'creationTime', 'container_creationTime' - Unix timestamp.
 --
--- * 'cAccessLoggingEnabled' - The state of access logging on the container. This value is @false@ by default, indicating that AWS Elemental MediaStore does not send access logs to Amazon CloudWatch Logs. When you enable access logging on the container, MediaStore changes this value to @true@ , indicating that the service delivers access logs for objects stored in that container to CloudWatch Logs.
+-- 'aRN', 'container_aRN' - The Amazon Resource Name (ARN) of the container. The ARN has the
+-- following format:
 --
--- * 'cName' - The name of the container.
+-- arn:aws:\<region>:\<account that owns this container>:container\/\<name
+-- of container>
 --
--- * 'cEndpoint' - The DNS endpoint of the container. Use the endpoint to identify the specific container when sending requests to the data plane. The service assigns this value when the container is created. Once the value has been assigned, it does not change.
-container ::
+-- For example: arn:aws:mediastore:us-west-2:111122223333:container\/movies
+--
+-- 'accessLoggingEnabled', 'container_accessLoggingEnabled' - The state of access logging on the container. This value is @false@ by
+-- default, indicating that AWS Elemental MediaStore does not send access
+-- logs to Amazon CloudWatch Logs. When you enable access logging on the
+-- container, MediaStore changes this value to @true@, indicating that the
+-- service delivers access logs for objects stored in that container to
+-- CloudWatch Logs.
+--
+-- 'name', 'container_name' - The name of the container.
+--
+-- 'endpoint', 'container_endpoint' - The DNS endpoint of the container. Use the endpoint to identify the
+-- specific container when sending requests to the data plane. The service
+-- assigns this value when the container is created. Once the value has
+-- been assigned, it does not change.
+newContainer ::
   Container
-container =
+newContainer =
   Container'
-    { _cStatus = Nothing,
-      _cCreationTime = Nothing,
-      _cARN = Nothing,
-      _cAccessLoggingEnabled = Nothing,
-      _cName = Nothing,
-      _cEndpoint = Nothing
+    { status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      aRN = Prelude.Nothing,
+      accessLoggingEnabled = Prelude.Nothing,
+      name = Prelude.Nothing,
+      endpoint = Prelude.Nothing
     }
 
--- | The status of container creation or deletion. The status is one of the following: @CREATING@ , @ACTIVE@ , or @DELETING@ . While the service is creating the container, the status is @CREATING@ . When the endpoint is available, the status changes to @ACTIVE@ .
-cStatus :: Lens' Container (Maybe ContainerStatus)
-cStatus = lens _cStatus (\s a -> s {_cStatus = a})
+-- | The status of container creation or deletion. The status is one of the
+-- following: @CREATING@, @ACTIVE@, or @DELETING@. While the service is
+-- creating the container, the status is @CREATING@. When the endpoint is
+-- available, the status changes to @ACTIVE@.
+container_status :: Lens.Lens' Container (Prelude.Maybe ContainerStatus)
+container_status = Lens.lens (\Container' {status} -> status) (\s@Container' {} a -> s {status = a} :: Container)
 
 -- | Unix timestamp.
-cCreationTime :: Lens' Container (Maybe UTCTime)
-cCreationTime = lens _cCreationTime (\s a -> s {_cCreationTime = a}) . mapping _Time
+container_creationTime :: Lens.Lens' Container (Prelude.Maybe Prelude.UTCTime)
+container_creationTime = Lens.lens (\Container' {creationTime} -> creationTime) (\s@Container' {} a -> s {creationTime = a} :: Container) Prelude.. Lens.mapping Prelude._Time
 
--- | The Amazon Resource Name (ARN) of the container. The ARN has the following format: arn:aws:<region>:<account that owns this container>:container/<name of container>  For example: arn:aws:mediastore:us-west-2:111122223333:container/movies
-cARN :: Lens' Container (Maybe Text)
-cARN = lens _cARN (\s a -> s {_cARN = a})
+-- | The Amazon Resource Name (ARN) of the container. The ARN has the
+-- following format:
+--
+-- arn:aws:\<region>:\<account that owns this container>:container\/\<name
+-- of container>
+--
+-- For example: arn:aws:mediastore:us-west-2:111122223333:container\/movies
+container_aRN :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
+container_aRN = Lens.lens (\Container' {aRN} -> aRN) (\s@Container' {} a -> s {aRN = a} :: Container)
 
--- | The state of access logging on the container. This value is @false@ by default, indicating that AWS Elemental MediaStore does not send access logs to Amazon CloudWatch Logs. When you enable access logging on the container, MediaStore changes this value to @true@ , indicating that the service delivers access logs for objects stored in that container to CloudWatch Logs.
-cAccessLoggingEnabled :: Lens' Container (Maybe Bool)
-cAccessLoggingEnabled = lens _cAccessLoggingEnabled (\s a -> s {_cAccessLoggingEnabled = a})
+-- | The state of access logging on the container. This value is @false@ by
+-- default, indicating that AWS Elemental MediaStore does not send access
+-- logs to Amazon CloudWatch Logs. When you enable access logging on the
+-- container, MediaStore changes this value to @true@, indicating that the
+-- service delivers access logs for objects stored in that container to
+-- CloudWatch Logs.
+container_accessLoggingEnabled :: Lens.Lens' Container (Prelude.Maybe Prelude.Bool)
+container_accessLoggingEnabled = Lens.lens (\Container' {accessLoggingEnabled} -> accessLoggingEnabled) (\s@Container' {} a -> s {accessLoggingEnabled = a} :: Container)
 
 -- | The name of the container.
-cName :: Lens' Container (Maybe Text)
-cName = lens _cName (\s a -> s {_cName = a})
+container_name :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
+container_name = Lens.lens (\Container' {name} -> name) (\s@Container' {} a -> s {name = a} :: Container)
 
--- | The DNS endpoint of the container. Use the endpoint to identify the specific container when sending requests to the data plane. The service assigns this value when the container is created. Once the value has been assigned, it does not change.
-cEndpoint :: Lens' Container (Maybe Text)
-cEndpoint = lens _cEndpoint (\s a -> s {_cEndpoint = a})
+-- | The DNS endpoint of the container. Use the endpoint to identify the
+-- specific container when sending requests to the data plane. The service
+-- assigns this value when the container is created. Once the value has
+-- been assigned, it does not change.
+container_endpoint :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
+container_endpoint = Lens.lens (\Container' {endpoint} -> endpoint) (\s@Container' {} a -> s {endpoint = a} :: Container)
 
-instance FromJSON Container where
+instance Prelude.FromJSON Container where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Container"
       ( \x ->
           Container'
-            <$> (x .:? "Status")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "ARN")
-            <*> (x .:? "AccessLoggingEnabled")
-            <*> (x .:? "Name")
-            <*> (x .:? "Endpoint")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "ARN")
+            Prelude.<*> (x Prelude..:? "AccessLoggingEnabled")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Endpoint")
       )
 
-instance Hashable Container
+instance Prelude.Hashable Container
 
-instance NFData Container
+instance Prelude.NFData Container

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the access policy for the specified container. For information about the data that is included in an access policy, see the <https://aws.amazon.com/documentation/iam/ AWS Identity and Access Management User Guide> .
+-- Retrieves the access policy for the specified container. For information
+-- about the data that is included in an access policy, see the
+-- <https://aws.amazon.com/documentation/iam/ AWS Identity and Access Management User Guide>.
 module Network.AWS.MediaStore.GetContainerPolicy
   ( -- * Creating a Request
-    getContainerPolicy,
-    GetContainerPolicy,
+    GetContainerPolicy (..),
+    newGetContainerPolicy,
 
     -- * Request Lenses
-    gContainerName,
+    getContainerPolicy_containerName,
 
     -- * Destructuring the Response
-    getContainerPolicyResponse,
-    GetContainerPolicyResponse,
+    GetContainerPolicyResponse (..),
+    newGetContainerPolicyResponse,
 
     -- * Response Lenses
-    grsResponseStatus,
-    grsPolicy,
+    getContainerPolicyResponse_httpStatus,
+    getContainerPolicyResponse_policy,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaStore.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContainerPolicy' smart constructor.
-newtype GetContainerPolicy = GetContainerPolicy'
-  { _gContainerName ::
-      Text
+-- | /See:/ 'newGetContainerPolicy' smart constructor.
+data GetContainerPolicy = GetContainerPolicy'
+  { -- | The name of the container.
+    containerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gContainerName' - The name of the container.
-getContainerPolicy ::
-  -- | 'gContainerName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'containerName', 'getContainerPolicy_containerName' - The name of the container.
+newGetContainerPolicy ::
+  -- | 'containerName'
+  Prelude.Text ->
   GetContainerPolicy
-getContainerPolicy pContainerName_ =
+newGetContainerPolicy pContainerName_ =
   GetContainerPolicy'
-    { _gContainerName =
+    { containerName =
         pContainerName_
     }
 
 -- | The name of the container.
-gContainerName :: Lens' GetContainerPolicy Text
-gContainerName = lens _gContainerName (\s a -> s {_gContainerName = a})
+getContainerPolicy_containerName :: Lens.Lens' GetContainerPolicy Prelude.Text
+getContainerPolicy_containerName = Lens.lens (\GetContainerPolicy' {containerName} -> containerName) (\s@GetContainerPolicy' {} a -> s {containerName = a} :: GetContainerPolicy)
 
-instance AWSRequest GetContainerPolicy where
+instance Prelude.AWSRequest GetContainerPolicy where
   type
     Rs GetContainerPolicy =
       GetContainerPolicyResponse
-  request = postJSON mediaStore
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContainerPolicyResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Policy")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Policy")
       )
 
-instance Hashable GetContainerPolicy
+instance Prelude.Hashable GetContainerPolicy
 
-instance NFData GetContainerPolicy
+instance Prelude.NFData GetContainerPolicy
 
-instance ToHeaders GetContainerPolicy where
+instance Prelude.ToHeaders GetContainerPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MediaStore_20170901.GetContainerPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MediaStore_20170901.GetContainerPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContainerPolicy where
+instance Prelude.ToJSON GetContainerPolicy where
   toJSON GetContainerPolicy' {..} =
-    object
-      ( catMaybes
-          [Just ("ContainerName" .= _gContainerName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ContainerName" Prelude..= containerName)
+          ]
       )
 
-instance ToPath GetContainerPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetContainerPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContainerPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContainerPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContainerPolicyResponse' smart constructor.
+-- | /See:/ 'newGetContainerPolicyResponse' smart constructor.
 data GetContainerPolicyResponse = GetContainerPolicyResponse'
-  { _grsResponseStatus ::
-      !Int,
-    _grsPolicy ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The contents of the access policy.
+    policy :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContainerPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContainerPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grsPolicy' - The contents of the access policy.
-getContainerPolicyResponse ::
-  -- | 'grsResponseStatus'
-  Int ->
-  -- | 'grsPolicy'
-  Text ->
+-- 'httpStatus', 'getContainerPolicyResponse_httpStatus' - The response's http status code.
+--
+-- 'policy', 'getContainerPolicyResponse_policy' - The contents of the access policy.
+newGetContainerPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'policy'
+  Prelude.Text ->
   GetContainerPolicyResponse
-getContainerPolicyResponse pResponseStatus_ pPolicy_ =
+newGetContainerPolicyResponse pHttpStatus_ pPolicy_ =
   GetContainerPolicyResponse'
-    { _grsResponseStatus =
-        pResponseStatus_,
-      _grsPolicy = pPolicy_
+    { httpStatus =
+        pHttpStatus_,
+      policy = pPolicy_
     }
 
--- | -- | The response status code.
-grsResponseStatus :: Lens' GetContainerPolicyResponse Int
-grsResponseStatus = lens _grsResponseStatus (\s a -> s {_grsResponseStatus = a})
+-- | The response's http status code.
+getContainerPolicyResponse_httpStatus :: Lens.Lens' GetContainerPolicyResponse Prelude.Int
+getContainerPolicyResponse_httpStatus = Lens.lens (\GetContainerPolicyResponse' {httpStatus} -> httpStatus) (\s@GetContainerPolicyResponse' {} a -> s {httpStatus = a} :: GetContainerPolicyResponse)
 
 -- | The contents of the access policy.
-grsPolicy :: Lens' GetContainerPolicyResponse Text
-grsPolicy = lens _grsPolicy (\s a -> s {_grsPolicy = a})
+getContainerPolicyResponse_policy :: Lens.Lens' GetContainerPolicyResponse Prelude.Text
+getContainerPolicyResponse_policy = Lens.lens (\GetContainerPolicyResponse' {policy} -> policy) (\s@GetContainerPolicyResponse' {} a -> s {policy = a} :: GetContainerPolicyResponse)
 
-instance NFData GetContainerPolicyResponse
+instance Prelude.NFData GetContainerPolicyResponse
