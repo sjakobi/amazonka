@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,63 @@
 module Network.AWS.MediaConvert.Types.MovPaddingControl
   ( MovPaddingControl
       ( ..,
-        MPCNone,
-        MPCOmneon
+        MovPaddingControlNONE,
+        MovPaddingControlOMNEON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | To make this output compatible with Omenon, keep the default value, OMNEON. Unless you need Omneon compatibility, set this value to NONE. When you keep the default value, OMNEON, MediaConvert increases the length of the edit list atom. This might cause file rejections when a recipient of the output file doesn't expct this extra padding.
-data MovPaddingControl = MovPaddingControl' (CI Text)
+-- | To make this output compatible with Omenon, keep the default value,
+-- OMNEON. Unless you need Omneon compatibility, set this value to NONE.
+-- When you keep the default value, OMNEON, MediaConvert increases the
+-- length of the edit list atom. This might cause file rejections when a
+-- recipient of the output file doesn\'t expct this extra padding.
+newtype MovPaddingControl = MovPaddingControl'
+  { fromMovPaddingControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPCNone :: MovPaddingControl
-pattern MPCNone = MovPaddingControl' "NONE"
+pattern MovPaddingControlNONE :: MovPaddingControl
+pattern MovPaddingControlNONE = MovPaddingControl' "NONE"
 
-pattern MPCOmneon :: MovPaddingControl
-pattern MPCOmneon = MovPaddingControl' "OMNEON"
+pattern MovPaddingControlOMNEON :: MovPaddingControl
+pattern MovPaddingControlOMNEON = MovPaddingControl' "OMNEON"
 
 {-# COMPLETE
-  MPCNone,
-  MPCOmneon,
+  MovPaddingControlNONE,
+  MovPaddingControlOMNEON,
   MovPaddingControl'
   #-}
 
-instance FromText MovPaddingControl where
-  parser = (MovPaddingControl' . mk) <$> takeText
+instance Prelude.FromText MovPaddingControl where
+  parser = MovPaddingControl' Prelude.<$> Prelude.takeText
 
-instance ToText MovPaddingControl where
-  toText (MovPaddingControl' ci) = original ci
+instance Prelude.ToText MovPaddingControl where
+  toText (MovPaddingControl' x) = x
 
-instance Hashable MovPaddingControl
+instance Prelude.Hashable MovPaddingControl
 
-instance NFData MovPaddingControl
+instance Prelude.NFData MovPaddingControl
 
-instance ToByteString MovPaddingControl
+instance Prelude.ToByteString MovPaddingControl
 
-instance ToQuery MovPaddingControl
+instance Prelude.ToQuery MovPaddingControl
 
-instance ToHeader MovPaddingControl
+instance Prelude.ToHeader MovPaddingControl
 
-instance ToJSON MovPaddingControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON MovPaddingControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MovPaddingControl where
-  parseJSON = parseJSONText "MovPaddingControl"
+instance Prelude.FromJSON MovPaddingControl where
+  parseJSON = Prelude.parseJSONText "MovPaddingControl"

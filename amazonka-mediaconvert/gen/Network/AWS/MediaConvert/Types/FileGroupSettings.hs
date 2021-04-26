@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.FileGroupSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.DestinationSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to FILE_GROUP_SETTINGS.
 --
--- /See:/ 'fileGroupSettings' smart constructor.
+-- /See:/ 'newFileGroupSettings' smart constructor.
 data FileGroupSettings = FileGroupSettings'
-  { _fgsDestination ::
-      !(Maybe Text),
-    _fgsDestinationSettings ::
-      !(Maybe DestinationSettings)
+  { -- | Use Destination (Destination) to specify the S3 output location and the
+    -- output filename base. Destination accepts format identifiers. If you do
+    -- not specify the base filename in the URI, the service will use the
+    -- filename of the input file. If your job has multiple inputs, the service
+    -- uses the filename of the first input file.
+    destination :: Prelude.Maybe Prelude.Text,
+    -- | Settings associated with the destination. Will vary based on the type of
+    -- destination
+    destinationSettings :: Prelude.Maybe DestinationSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileGroupSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileGroupSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fgsDestination' - Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file. If your job has multiple inputs, the service uses the filename of the first input file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fgsDestinationSettings' - Settings associated with the destination. Will vary based on the type of destination
-fileGroupSettings ::
+-- 'destination', 'fileGroupSettings_destination' - Use Destination (Destination) to specify the S3 output location and the
+-- output filename base. Destination accepts format identifiers. If you do
+-- not specify the base filename in the URI, the service will use the
+-- filename of the input file. If your job has multiple inputs, the service
+-- uses the filename of the first input file.
+--
+-- 'destinationSettings', 'fileGroupSettings_destinationSettings' - Settings associated with the destination. Will vary based on the type of
+-- destination
+newFileGroupSettings ::
   FileGroupSettings
-fileGroupSettings =
+newFileGroupSettings =
   FileGroupSettings'
-    { _fgsDestination = Nothing,
-      _fgsDestinationSettings = Nothing
+    { destination = Prelude.Nothing,
+      destinationSettings = Prelude.Nothing
     }
 
--- | Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file. If your job has multiple inputs, the service uses the filename of the first input file.
-fgsDestination :: Lens' FileGroupSettings (Maybe Text)
-fgsDestination = lens _fgsDestination (\s a -> s {_fgsDestination = a})
+-- | Use Destination (Destination) to specify the S3 output location and the
+-- output filename base. Destination accepts format identifiers. If you do
+-- not specify the base filename in the URI, the service will use the
+-- filename of the input file. If your job has multiple inputs, the service
+-- uses the filename of the first input file.
+fileGroupSettings_destination :: Lens.Lens' FileGroupSettings (Prelude.Maybe Prelude.Text)
+fileGroupSettings_destination = Lens.lens (\FileGroupSettings' {destination} -> destination) (\s@FileGroupSettings' {} a -> s {destination = a} :: FileGroupSettings)
 
--- | Settings associated with the destination. Will vary based on the type of destination
-fgsDestinationSettings :: Lens' FileGroupSettings (Maybe DestinationSettings)
-fgsDestinationSettings = lens _fgsDestinationSettings (\s a -> s {_fgsDestinationSettings = a})
+-- | Settings associated with the destination. Will vary based on the type of
+-- destination
+fileGroupSettings_destinationSettings :: Lens.Lens' FileGroupSettings (Prelude.Maybe DestinationSettings)
+fileGroupSettings_destinationSettings = Lens.lens (\FileGroupSettings' {destinationSettings} -> destinationSettings) (\s@FileGroupSettings' {} a -> s {destinationSettings = a} :: FileGroupSettings)
 
-instance FromJSON FileGroupSettings where
+instance Prelude.FromJSON FileGroupSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileGroupSettings"
       ( \x ->
           FileGroupSettings'
-            <$> (x .:? "destination")
-            <*> (x .:? "destinationSettings")
+            Prelude.<$> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "destinationSettings")
       )
 
-instance Hashable FileGroupSettings
+instance Prelude.Hashable FileGroupSettings
 
-instance NFData FileGroupSettings
+instance Prelude.NFData FileGroupSettings
 
-instance ToJSON FileGroupSettings where
+instance Prelude.ToJSON FileGroupSettings where
   toJSON FileGroupSettings' {..} =
-    object
-      ( catMaybes
-          [ ("destination" .=) <$> _fgsDestination,
-            ("destinationSettings" .=)
-              <$> _fgsDestinationSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("destination" Prelude..=) Prelude.<$> destination,
+            ("destinationSettings" Prelude..=)
+              Prelude.<$> destinationSettings
           ]
       )

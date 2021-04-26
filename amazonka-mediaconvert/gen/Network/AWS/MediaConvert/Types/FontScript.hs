@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,67 @@
 module Network.AWS.MediaConvert.Types.FontScript
   ( FontScript
       ( ..,
-        Automatic,
-        Hans,
-        Hant
+        FontScriptAUTOMATIC,
+        FontScriptHANS,
+        FontScriptHANT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provide the font script, using an ISO 15924 script code, if the LanguageCode is not sufficient for determining the script type. Where LanguageCode or CustomLanguageCode is sufficient, use "AUTOMATIC" or leave unset.
-data FontScript = FontScript' (CI Text)
+-- | Provide the font script, using an ISO 15924 script code, if the
+-- LanguageCode is not sufficient for determining the script type. Where
+-- LanguageCode or CustomLanguageCode is sufficient, use \"AUTOMATIC\" or
+-- leave unset.
+newtype FontScript = FontScript'
+  { fromFontScript ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Automatic :: FontScript
-pattern Automatic = FontScript' "AUTOMATIC"
+pattern FontScriptAUTOMATIC :: FontScript
+pattern FontScriptAUTOMATIC = FontScript' "AUTOMATIC"
 
-pattern Hans :: FontScript
-pattern Hans = FontScript' "HANS"
+pattern FontScriptHANS :: FontScript
+pattern FontScriptHANS = FontScript' "HANS"
 
-pattern Hant :: FontScript
-pattern Hant = FontScript' "HANT"
+pattern FontScriptHANT :: FontScript
+pattern FontScriptHANT = FontScript' "HANT"
 
 {-# COMPLETE
-  Automatic,
-  Hans,
-  Hant,
+  FontScriptAUTOMATIC,
+  FontScriptHANS,
+  FontScriptHANT,
   FontScript'
   #-}
 
-instance FromText FontScript where
-  parser = (FontScript' . mk) <$> takeText
+instance Prelude.FromText FontScript where
+  parser = FontScript' Prelude.<$> Prelude.takeText
 
-instance ToText FontScript where
-  toText (FontScript' ci) = original ci
+instance Prelude.ToText FontScript where
+  toText (FontScript' x) = x
 
-instance Hashable FontScript
+instance Prelude.Hashable FontScript
 
-instance NFData FontScript
+instance Prelude.NFData FontScript
 
-instance ToByteString FontScript
+instance Prelude.ToByteString FontScript
 
-instance ToQuery FontScript
+instance Prelude.ToQuery FontScript
 
-instance ToHeader FontScript
+instance Prelude.ToHeader FontScript
 
-instance ToJSON FontScript where
-  toJSON = toJSONText
+instance Prelude.ToJSON FontScript where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FontScript where
-  parseJSON = parseJSONText "FontScript"
+instance Prelude.FromJSON FontScript where
+  parseJSON = Prelude.parseJSONText "FontScript"

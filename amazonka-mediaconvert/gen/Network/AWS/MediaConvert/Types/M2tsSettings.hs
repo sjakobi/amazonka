@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.M2tsSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.DvbNitSettings
 import Network.AWS.MediaConvert.Types.DvbSdtSettings
 import Network.AWS.MediaConvert.Types.DvbTdtSettings
@@ -33,417 +37,763 @@ import Network.AWS.MediaConvert.Types.M2tsScte35Esam
 import Network.AWS.MediaConvert.Types.M2tsScte35Source
 import Network.AWS.MediaConvert.Types.M2tsSegmentationMarkers
 import Network.AWS.MediaConvert.Types.M2tsSegmentationStyle
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | MPEG-2 TS container settings. These apply to outputs in a File output group when the output's container (ContainerType) is MPEG-2 Transport Stream (M2TS). In these assets, data is organized by the program map table (PMT). Each transport stream program contains subsets of data, including audio, video, and metadata. Each of these subsets of data has a numerical label called a packet identifier (PID). Each transport stream program corresponds to one MediaConvert output. The PMT lists the types of data in a program along with their PID. Downstream systems and players use the program map table to look up the PID for each type of data it accesses and then uses the PIDs to locate specific data within the asset.
+-- | MPEG-2 TS container settings. These apply to outputs in a File output
+-- group when the output\'s container (ContainerType) is MPEG-2 Transport
+-- Stream (M2TS). In these assets, data is organized by the program map
+-- table (PMT). Each transport stream program contains subsets of data,
+-- including audio, video, and metadata. Each of these subsets of data has
+-- a numerical label called a packet identifier (PID). Each transport
+-- stream program corresponds to one MediaConvert output. The PMT lists the
+-- types of data in a program along with their PID. Downstream systems and
+-- players use the program map table to look up the PID for each type of
+-- data it accesses and then uses the PIDs to locate specific data within
+-- the asset.
 --
--- /See:/ 'm2tsSettings' smart constructor.
+-- /See:/ 'newM2tsSettings' smart constructor.
 data M2tsSettings = M2tsSettings'
-  { _m2tSegmentationMarkers ::
-      !(Maybe M2tsSegmentationMarkers),
-    _m2tPmtPid :: !(Maybe Nat),
-    _m2tVideoPid :: !(Maybe Nat),
-    _m2tAudioBufferModel ::
-      !(Maybe M2tsAudioBufferModel),
-    _m2tTimedMetadataPid :: !(Maybe Nat),
-    _m2tSegmentationStyle ::
-      !(Maybe M2tsSegmentationStyle),
-    _m2tDvbNitSettings :: !(Maybe DvbNitSettings),
-    _m2tNullPacketBitrate :: !(Maybe Double),
-    _m2tPcrControl :: !(Maybe M2tsPcrControl),
-    _m2tEbpAudioInterval ::
-      !(Maybe M2tsEbpAudioInterval),
-    _m2tEbpPlacement :: !(Maybe M2tsEbpPlacement),
-    _m2tPmtInterval :: !(Maybe Nat),
-    _m2tAudioPids :: !(Maybe [Nat]),
-    _m2tPatInterval :: !(Maybe Nat),
-    _m2tMinEbpInterval :: !(Maybe Nat),
-    _m2tMaxPcrInterval :: !(Maybe Nat),
-    _m2tProgramNumber :: !(Maybe Nat),
-    _m2tBufferModel :: !(Maybe M2tsBufferModel),
-    _m2tPcrPid :: !(Maybe Nat),
-    _m2tAudioFramesPerPes :: !(Maybe Nat),
-    _m2tRateMode :: !(Maybe M2tsRateMode),
-    _m2tDvbTdtSettings :: !(Maybe DvbTdtSettings),
-    _m2tDvbSdtSettings :: !(Maybe DvbSdtSettings),
-    _m2tSegmentationTime :: !(Maybe Double),
-    _m2tAudioDuration ::
-      !(Maybe M2tsAudioDuration),
-    _m2tNielsenId3 :: !(Maybe M2tsNielsenId3),
-    _m2tDvbTeletextPid :: !(Maybe Nat),
-    _m2tBitrate :: !(Maybe Nat),
-    _m2tFragmentTime :: !(Maybe Double),
-    _m2tEsRateInPes :: !(Maybe M2tsEsRateInPes),
-    _m2tPrivateMetadataPid :: !(Maybe Nat),
-    _m2tScte35Esam :: !(Maybe M2tsScte35Esam),
-    _m2tScte35Source :: !(Maybe M2tsScte35Source),
-    _m2tForceTsVideoEbpOrder ::
-      !(Maybe M2tsForceTsVideoEbpOrder),
-    _m2tTransportStreamId :: !(Maybe Nat),
-    _m2tDvbSubPids :: !(Maybe [Nat]),
-    _m2tScte35Pid :: !(Maybe Nat)
+  { -- | Inserts segmentation markers at each segmentation_time period.
+    -- rai_segstart sets the Random Access Indicator bit in the adaptation
+    -- field. rai_adapt sets the RAI bit and adds the current timecode in the
+    -- private data bytes. psi_segstart inserts PAT and PMT tables at the start
+    -- of segments. ebp adds Encoder Boundary Point information to the
+    -- adaptation field as per OpenCable specification OC-SP-EBP-I01-130118.
+    -- ebp_legacy adds Encoder Boundary Point information to the adaptation
+    -- field using a legacy proprietary format.
+    segmentationMarkers :: Prelude.Maybe M2tsSegmentationMarkers,
+    -- | Specify the packet identifier (PID) for the program map table (PMT)
+    -- itself. Default is 480.
+    pmtPid :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the packet identifier (PID) of the elementary video stream in
+    -- the transport stream.
+    videoPid :: Prelude.Maybe Prelude.Nat,
+    -- | Selects between the DVB and ATSC buffer models for Dolby Digital audio.
+    audioBufferModel :: Prelude.Maybe M2tsAudioBufferModel,
+    -- | Specify the packet identifier (PID) for timed metadata in this output.
+    -- Default is 502.
+    timedMetadataPid :: Prelude.Maybe Prelude.Nat,
+    -- | The segmentation style parameter controls how segmentation markers are
+    -- inserted into the transport stream. With avails, it is possible that
+    -- segments may be truncated, which can influence where future segmentation
+    -- markers are inserted. When a segmentation style of \"reset_cadence\" is
+    -- selected and a segment is truncated due to an avail, we will reset the
+    -- segmentation cadence. This means the subsequent segment will have a
+    -- duration of of $segmentation_time seconds. When a segmentation style of
+    -- \"maintain_cadence\" is selected and a segment is truncated due to an
+    -- avail, we will not reset the segmentation cadence. This means the
+    -- subsequent segment will likely be truncated as well. However, all
+    -- segments after that will have a duration of $segmentation_time seconds.
+    -- Note that EBP lookahead is a slight exception to this rule.
+    segmentationStyle :: Prelude.Maybe M2tsSegmentationStyle,
+    -- | Inserts DVB Network Information Table (NIT) at the specified table
+    -- repetition interval.
+    dvbNitSettings :: Prelude.Maybe DvbNitSettings,
+    -- | Value in bits per second of extra null packets to insert into the
+    -- transport stream. This can be used if a downstream encryption system
+    -- requires periodic null packets.
+    nullPacketBitrate :: Prelude.Maybe Prelude.Double,
+    -- | When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is
+    -- inserted for every Packetized Elementary Stream (PES) header. This is
+    -- effective only when the PCR PID is the same as the video or audio
+    -- elementary stream.
+    pcrControl :: Prelude.Maybe M2tsPcrControl,
+    -- | When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added
+    -- to partitions 3 and 4. The interval between these additional markers
+    -- will be fixed, and will be slightly shorter than the video EBP marker
+    -- interval. When set to VIDEO_INTERVAL, these additional markers will not
+    -- be inserted. Only applicable when EBP segmentation markers are is
+    -- selected (segmentationMarkers is EBP or EBP_LEGACY).
+    ebpAudioInterval :: Prelude.Maybe M2tsEbpAudioInterval,
+    -- | Selects which PIDs to place EBP markers on. They can either be placed
+    -- only on the video PID, or on both the video PID and all audio PIDs. Only
+    -- applicable when EBP segmentation markers are is selected
+    -- (segmentationMarkers is EBP or EBP_LEGACY).
+    ebpPlacement :: Prelude.Maybe M2tsEbpPlacement,
+    -- | Specify the number of milliseconds between instances of the program map
+    -- table (PMT) in the output transport stream.
+    pmtInterval :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the packet identifiers (PIDs) for any elementary audio streams
+    -- you include in this output. Specify multiple PIDs as a JSON array.
+    -- Default is the range 482-492.
+    audioPids :: Prelude.Maybe [Prelude.Nat],
+    -- | The number of milliseconds between instances of this table in the output
+    -- transport stream.
+    patInterval :: Prelude.Maybe Prelude.Nat,
+    -- | When set, enforces that Encoder Boundary Points do not come within the
+    -- specified time interval of each other by looking ahead at input video.
+    -- If another EBP is going to come in within the specified time interval,
+    -- the current EBP is not emitted, and the segment is \"stretched\" to the
+    -- next marker. The lookahead value does not add latency to the system. The
+    -- Live Event must be configured elsewhere to create sufficient latency to
+    -- make the lookahead accurate.
+    minEbpInterval :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the maximum time, in milliseconds, between Program Clock
+    -- References (PCRs) inserted into the transport stream.
+    maxPcrInterval :: Prelude.Maybe Prelude.Nat,
+    -- | Use Program number (programNumber) to specify the program number used in
+    -- the program map table (PMT) for this output. Default is 1. Program
+    -- numbers and program map tables are parts of MPEG-2 transport stream
+    -- containers, used for organizing data.
+    programNumber :: Prelude.Maybe Prelude.Nat,
+    -- | Controls what buffer model to use for accurate interleaving. If set to
+    -- MULTIPLEX, use multiplex buffer model. If set to NONE, this can lead to
+    -- lower latency, but low-memory devices may not be able to play back the
+    -- stream without interruptions.
+    bufferModel :: Prelude.Maybe M2tsBufferModel,
+    -- | Specify the packet identifier (PID) for the program clock reference
+    -- (PCR) in this output. If you do not specify a value, the service will
+    -- use the value for Video PID (VideoPid).
+    pcrPid :: Prelude.Maybe Prelude.Nat,
+    -- | The number of audio frames to insert for each PES packet.
+    audioFramesPerPes :: Prelude.Maybe Prelude.Nat,
+    -- | When set to CBR, inserts null packets into transport stream to fill
+    -- specified bitrate. When set to VBR, the bitrate setting acts as the
+    -- maximum bitrate, but the output will not be padded up to that bitrate.
+    rateMode :: Prelude.Maybe M2tsRateMode,
+    -- | Inserts DVB Time and Date Table (TDT) at the specified table repetition
+    -- interval.
+    dvbTdtSettings :: Prelude.Maybe DvbTdtSettings,
+    -- | Inserts DVB Service Description Table (NIT) at the specified table
+    -- repetition interval.
+    dvbSdtSettings :: Prelude.Maybe DvbSdtSettings,
+    -- | Specify the length, in seconds, of each segment. Required unless markers
+    -- is set to _none_.
+    segmentationTime :: Prelude.Maybe Prelude.Double,
+    -- | Specify this setting only when your output will be consumed by a
+    -- downstream repackaging workflow that is sensitive to very small duration
+    -- differences between video and audio. For this situation, choose Match
+    -- video duration (MATCH_VIDEO_DURATION). In all other cases, keep the
+    -- default value, Default codec duration (DEFAULT_CODEC_DURATION). When you
+    -- choose Match video duration, MediaConvert pads the output audio streams
+    -- with silence or trims them to ensure that the total duration of each
+    -- audio stream is at least as long as the total duration of the video
+    -- stream. After padding or trimming, the audio stream duration is no more
+    -- than one frame longer than the video stream. MediaConvert applies audio
+    -- padding or trimming only to the end of the last segment of the output.
+    -- For unsegmented outputs, MediaConvert adds padding only to the end of
+    -- the file. When you keep the default value, any minor discrepancies
+    -- between audio and video duration will depend on your output audio codec.
+    audioDuration :: Prelude.Maybe M2tsAudioDuration,
+    -- | If INSERT, Nielsen inaudible tones for media tracking will be detected
+    -- in the input audio and an equivalent ID3 tag will be inserted in the
+    -- output.
+    nielsenId3 :: Prelude.Maybe M2tsNielsenId3,
+    -- | Specify the packet identifier (PID) for DVB teletext data you include in
+    -- this output. Default is 499.
+    dvbTeletextPid :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the output bitrate of the transport stream in bits per second.
+    -- Setting to 0 lets the muxer automatically determine the appropriate
+    -- bitrate. Other common values are 3750000, 7500000, and 15000000.
+    bitrate :: Prelude.Maybe Prelude.Nat,
+    -- | The length, in seconds, of each fragment. Only used with EBP markers.
+    fragmentTime :: Prelude.Maybe Prelude.Double,
+    -- | Controls whether to include the ES Rate field in the PES header.
+    esRateInPes :: Prelude.Maybe M2tsEsRateInPes,
+    -- | Specify the packet identifier (PID) of the private metadata stream.
+    -- Default is 503.
+    privateMetadataPid :: Prelude.Maybe Prelude.Nat,
+    -- | Include this in your job settings to put SCTE-35 markers in your HLS and
+    -- transport stream outputs at the insertion points that you specify in an
+    -- ESAM XML document. Provide the document in the setting SCC XML (sccXml).
+    scte35Esam :: Prelude.Maybe M2tsScte35Esam,
+    -- | For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH)
+    -- if you want SCTE-35 markers that appear in your input to also appear in
+    -- this output. Choose None (NONE) if you don\'t want SCTE-35 markers in
+    -- this output. For SCTE-35 markers from an ESAM XML document-- Choose None
+    -- (NONE). Also provide the ESAM XML as a string in the setting Signal
+    -- processing notification XML (sccXml). Also enable ESAM SCTE-35 (include
+    -- the property scte35Esam).
+    scte35Source :: Prelude.Maybe M2tsScte35Source,
+    -- | Keep the default value (DEFAULT) unless you know that your audio EBP
+    -- markers are incorrectly appearing before your video EBP markers. To
+    -- correct this problem, set this value to Force (FORCE).
+    forceTsVideoEbpOrder :: Prelude.Maybe M2tsForceTsVideoEbpOrder,
+    -- | Specify the ID for the transport stream itself in the program map table
+    -- for this output. Transport stream IDs and program map tables are parts
+    -- of MPEG-2 transport stream containers, used for organizing data.
+    transportStreamId :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the packet identifiers (PIDs) for DVB subtitle data included in
+    -- this output. Specify multiple PIDs as a JSON array. Default is the range
+    -- 460-479.
+    dvbSubPids :: Prelude.Maybe [Prelude.Nat],
+    -- | Specify the packet identifier (PID) of the SCTE-35 stream in the
+    -- transport stream.
+    scte35Pid :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'M2tsSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'M2tsSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'm2tSegmentationMarkers' - Inserts segmentation markers at each segmentation_time period. rai_segstart sets the Random Access Indicator bit in the adaptation field. rai_adapt sets the RAI bit and adds the current timecode in the private data bytes. psi_segstart inserts PAT and PMT tables at the start of segments. ebp adds Encoder Boundary Point information to the adaptation field as per OpenCable specification OC-SP-EBP-I01-130118. ebp_legacy adds Encoder Boundary Point information to the adaptation field using a legacy proprietary format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'm2tPmtPid' - Specify the packet identifier (PID) for the program map table (PMT) itself. Default is 480.
+-- 'segmentationMarkers', 'm2tsSettings_segmentationMarkers' - Inserts segmentation markers at each segmentation_time period.
+-- rai_segstart sets the Random Access Indicator bit in the adaptation
+-- field. rai_adapt sets the RAI bit and adds the current timecode in the
+-- private data bytes. psi_segstart inserts PAT and PMT tables at the start
+-- of segments. ebp adds Encoder Boundary Point information to the
+-- adaptation field as per OpenCable specification OC-SP-EBP-I01-130118.
+-- ebp_legacy adds Encoder Boundary Point information to the adaptation
+-- field using a legacy proprietary format.
 --
--- * 'm2tVideoPid' - Specify the packet identifier (PID) of the elementary video stream in the transport stream.
+-- 'pmtPid', 'm2tsSettings_pmtPid' - Specify the packet identifier (PID) for the program map table (PMT)
+-- itself. Default is 480.
 --
--- * 'm2tAudioBufferModel' - Selects between the DVB and ATSC buffer models for Dolby Digital audio.
+-- 'videoPid', 'm2tsSettings_videoPid' - Specify the packet identifier (PID) of the elementary video stream in
+-- the transport stream.
 --
--- * 'm2tTimedMetadataPid' - Specify the packet identifier (PID) for timed metadata in this output. Default is 502.
+-- 'audioBufferModel', 'm2tsSettings_audioBufferModel' - Selects between the DVB and ATSC buffer models for Dolby Digital audio.
 --
--- * 'm2tSegmentationStyle' - The segmentation style parameter controls how segmentation markers are inserted into the transport stream. With avails, it is possible that segments may be truncated, which can influence where future segmentation markers are inserted. When a segmentation style of "reset_cadence" is selected and a segment is truncated due to an avail, we will reset the segmentation cadence. This means the subsequent segment will have a duration of of $segmentation_time seconds. When a segmentation style of "maintain_cadence" is selected and a segment is truncated due to an avail, we will not reset the segmentation cadence. This means the subsequent segment will likely be truncated as well. However, all segments after that will have a duration of $segmentation_time seconds. Note that EBP lookahead is a slight exception to this rule.
+-- 'timedMetadataPid', 'm2tsSettings_timedMetadataPid' - Specify the packet identifier (PID) for timed metadata in this output.
+-- Default is 502.
 --
--- * 'm2tDvbNitSettings' - Inserts DVB Network Information Table (NIT) at the specified table repetition interval.
+-- 'segmentationStyle', 'm2tsSettings_segmentationStyle' - The segmentation style parameter controls how segmentation markers are
+-- inserted into the transport stream. With avails, it is possible that
+-- segments may be truncated, which can influence where future segmentation
+-- markers are inserted. When a segmentation style of \"reset_cadence\" is
+-- selected and a segment is truncated due to an avail, we will reset the
+-- segmentation cadence. This means the subsequent segment will have a
+-- duration of of $segmentation_time seconds. When a segmentation style of
+-- \"maintain_cadence\" is selected and a segment is truncated due to an
+-- avail, we will not reset the segmentation cadence. This means the
+-- subsequent segment will likely be truncated as well. However, all
+-- segments after that will have a duration of $segmentation_time seconds.
+-- Note that EBP lookahead is a slight exception to this rule.
 --
--- * 'm2tNullPacketBitrate' - Value in bits per second of extra null packets to insert into the transport stream. This can be used if a downstream encryption system requires periodic null packets.
+-- 'dvbNitSettings', 'm2tsSettings_dvbNitSettings' - Inserts DVB Network Information Table (NIT) at the specified table
+-- repetition interval.
 --
--- * 'm2tPcrControl' - When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is inserted for every Packetized Elementary Stream (PES) header. This is effective only when the PCR PID is the same as the video or audio elementary stream.
+-- 'nullPacketBitrate', 'm2tsSettings_nullPacketBitrate' - Value in bits per second of extra null packets to insert into the
+-- transport stream. This can be used if a downstream encryption system
+-- requires periodic null packets.
 --
--- * 'm2tEbpAudioInterval' - When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added to partitions 3 and 4. The interval between these additional markers will be fixed, and will be slightly shorter than the video EBP marker interval. When set to VIDEO_INTERVAL, these additional markers will not be inserted. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or EBP_LEGACY).
+-- 'pcrControl', 'm2tsSettings_pcrControl' - When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is
+-- inserted for every Packetized Elementary Stream (PES) header. This is
+-- effective only when the PCR PID is the same as the video or audio
+-- elementary stream.
 --
--- * 'm2tEbpPlacement' - Selects which PIDs to place EBP markers on. They can either be placed only on the video PID, or on both the video PID and all audio PIDs. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or EBP_LEGACY).
+-- 'ebpAudioInterval', 'm2tsSettings_ebpAudioInterval' - When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added
+-- to partitions 3 and 4. The interval between these additional markers
+-- will be fixed, and will be slightly shorter than the video EBP marker
+-- interval. When set to VIDEO_INTERVAL, these additional markers will not
+-- be inserted. Only applicable when EBP segmentation markers are is
+-- selected (segmentationMarkers is EBP or EBP_LEGACY).
 --
--- * 'm2tPmtInterval' - Specify the number of milliseconds between instances of the program map table (PMT) in the output transport stream.
+-- 'ebpPlacement', 'm2tsSettings_ebpPlacement' - Selects which PIDs to place EBP markers on. They can either be placed
+-- only on the video PID, or on both the video PID and all audio PIDs. Only
+-- applicable when EBP segmentation markers are is selected
+-- (segmentationMarkers is EBP or EBP_LEGACY).
 --
--- * 'm2tAudioPids' - Specify the packet identifiers (PIDs) for any elementary audio streams you include in this output. Specify multiple PIDs as a JSON array. Default is the range 482-492.
+-- 'pmtInterval', 'm2tsSettings_pmtInterval' - Specify the number of milliseconds between instances of the program map
+-- table (PMT) in the output transport stream.
 --
--- * 'm2tPatInterval' - The number of milliseconds between instances of this table in the output transport stream.
+-- 'audioPids', 'm2tsSettings_audioPids' - Specify the packet identifiers (PIDs) for any elementary audio streams
+-- you include in this output. Specify multiple PIDs as a JSON array.
+-- Default is the range 482-492.
 --
--- * 'm2tMinEbpInterval' - When set, enforces that Encoder Boundary Points do not come within the specified time interval of each other by looking ahead at input video. If another EBP is going to come in within the specified time interval, the current EBP is not emitted, and the segment is "stretched" to the next marker. The lookahead value does not add latency to the system. The Live Event must be configured elsewhere to create sufficient latency to make the lookahead accurate.
+-- 'patInterval', 'm2tsSettings_patInterval' - The number of milliseconds between instances of this table in the output
+-- transport stream.
 --
--- * 'm2tMaxPcrInterval' - Specify the maximum time, in milliseconds, between Program Clock References (PCRs) inserted into the transport stream.
+-- 'minEbpInterval', 'm2tsSettings_minEbpInterval' - When set, enforces that Encoder Boundary Points do not come within the
+-- specified time interval of each other by looking ahead at input video.
+-- If another EBP is going to come in within the specified time interval,
+-- the current EBP is not emitted, and the segment is \"stretched\" to the
+-- next marker. The lookahead value does not add latency to the system. The
+-- Live Event must be configured elsewhere to create sufficient latency to
+-- make the lookahead accurate.
 --
--- * 'm2tProgramNumber' - Use Program number (programNumber) to specify the program number used in the program map table (PMT) for this output. Default is 1. Program numbers and program map tables are parts of MPEG-2 transport stream containers, used for organizing data.
+-- 'maxPcrInterval', 'm2tsSettings_maxPcrInterval' - Specify the maximum time, in milliseconds, between Program Clock
+-- References (PCRs) inserted into the transport stream.
 --
--- * 'm2tBufferModel' - Controls what buffer model to use for accurate interleaving. If set to MULTIPLEX, use multiplex  buffer model. If set to NONE, this can lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
+-- 'programNumber', 'm2tsSettings_programNumber' - Use Program number (programNumber) to specify the program number used in
+-- the program map table (PMT) for this output. Default is 1. Program
+-- numbers and program map tables are parts of MPEG-2 transport stream
+-- containers, used for organizing data.
 --
--- * 'm2tPcrPid' - Specify the packet identifier (PID) for the program clock reference (PCR) in this output. If you do not specify a value, the service will use the value for Video PID (VideoPid).
+-- 'bufferModel', 'm2tsSettings_bufferModel' - Controls what buffer model to use for accurate interleaving. If set to
+-- MULTIPLEX, use multiplex buffer model. If set to NONE, this can lead to
+-- lower latency, but low-memory devices may not be able to play back the
+-- stream without interruptions.
 --
--- * 'm2tAudioFramesPerPes' - The number of audio frames to insert for each PES packet.
+-- 'pcrPid', 'm2tsSettings_pcrPid' - Specify the packet identifier (PID) for the program clock reference
+-- (PCR) in this output. If you do not specify a value, the service will
+-- use the value for Video PID (VideoPid).
 --
--- * 'm2tRateMode' - When set to CBR, inserts null packets into transport stream to fill specified bitrate. When set to VBR, the bitrate setting acts as the maximum bitrate, but the output will not be padded up to that bitrate.
+-- 'audioFramesPerPes', 'm2tsSettings_audioFramesPerPes' - The number of audio frames to insert for each PES packet.
 --
--- * 'm2tDvbTdtSettings' - Inserts DVB Time and Date Table (TDT) at the specified table repetition interval.
+-- 'rateMode', 'm2tsSettings_rateMode' - When set to CBR, inserts null packets into transport stream to fill
+-- specified bitrate. When set to VBR, the bitrate setting acts as the
+-- maximum bitrate, but the output will not be padded up to that bitrate.
 --
--- * 'm2tDvbSdtSettings' - Inserts DVB Service Description Table (NIT) at the specified table repetition interval.
+-- 'dvbTdtSettings', 'm2tsSettings_dvbTdtSettings' - Inserts DVB Time and Date Table (TDT) at the specified table repetition
+-- interval.
 --
--- * 'm2tSegmentationTime' - Specify the length, in seconds, of each segment. Required unless markers is set to _none_.
+-- 'dvbSdtSettings', 'm2tsSettings_dvbSdtSettings' - Inserts DVB Service Description Table (NIT) at the specified table
+-- repetition interval.
 --
--- * 'm2tAudioDuration' - Specify this setting only when your output will be consumed by a downstream repackaging workflow that is sensitive to very small duration differences between video and audio. For this situation, choose Match video duration (MATCH_VIDEO_DURATION). In all other cases, keep the default value, Default codec duration (DEFAULT_CODEC_DURATION). When you choose Match video duration, MediaConvert pads the output audio streams with silence or trims them to ensure that the total duration of each audio stream is at least as long as the total duration of the video stream. After padding or trimming, the audio stream duration is no more than one frame longer than the video stream. MediaConvert applies audio padding or trimming only to the end of the last segment of the output. For unsegmented outputs, MediaConvert adds padding only to the end of the file. When you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio codec.
+-- 'segmentationTime', 'm2tsSettings_segmentationTime' - Specify the length, in seconds, of each segment. Required unless markers
+-- is set to _none_.
 --
--- * 'm2tNielsenId3' - If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag will be inserted in the output.
+-- 'audioDuration', 'm2tsSettings_audioDuration' - Specify this setting only when your output will be consumed by a
+-- downstream repackaging workflow that is sensitive to very small duration
+-- differences between video and audio. For this situation, choose Match
+-- video duration (MATCH_VIDEO_DURATION). In all other cases, keep the
+-- default value, Default codec duration (DEFAULT_CODEC_DURATION). When you
+-- choose Match video duration, MediaConvert pads the output audio streams
+-- with silence or trims them to ensure that the total duration of each
+-- audio stream is at least as long as the total duration of the video
+-- stream. After padding or trimming, the audio stream duration is no more
+-- than one frame longer than the video stream. MediaConvert applies audio
+-- padding or trimming only to the end of the last segment of the output.
+-- For unsegmented outputs, MediaConvert adds padding only to the end of
+-- the file. When you keep the default value, any minor discrepancies
+-- between audio and video duration will depend on your output audio codec.
 --
--- * 'm2tDvbTeletextPid' - Specify the packet identifier (PID) for DVB teletext data you include in this output. Default is 499.
+-- 'nielsenId3', 'm2tsSettings_nielsenId3' - If INSERT, Nielsen inaudible tones for media tracking will be detected
+-- in the input audio and an equivalent ID3 tag will be inserted in the
+-- output.
 --
--- * 'm2tBitrate' - Specify the output bitrate of the transport stream in bits per second. Setting to 0 lets the muxer automatically determine the appropriate bitrate. Other common values are 3750000, 7500000, and 15000000.
+-- 'dvbTeletextPid', 'm2tsSettings_dvbTeletextPid' - Specify the packet identifier (PID) for DVB teletext data you include in
+-- this output. Default is 499.
 --
--- * 'm2tFragmentTime' - The length, in seconds, of each fragment. Only used with EBP markers.
+-- 'bitrate', 'm2tsSettings_bitrate' - Specify the output bitrate of the transport stream in bits per second.
+-- Setting to 0 lets the muxer automatically determine the appropriate
+-- bitrate. Other common values are 3750000, 7500000, and 15000000.
 --
--- * 'm2tEsRateInPes' - Controls whether to include the ES Rate field in the PES header.
+-- 'fragmentTime', 'm2tsSettings_fragmentTime' - The length, in seconds, of each fragment. Only used with EBP markers.
 --
--- * 'm2tPrivateMetadataPid' - Specify the packet identifier (PID) of the private metadata stream. Default is 503.
+-- 'esRateInPes', 'm2tsSettings_esRateInPes' - Controls whether to include the ES Rate field in the PES header.
 --
--- * 'm2tScte35Esam' - Include this in your job settings to put SCTE-35 markers in your HLS and transport stream outputs at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML (sccXml).
+-- 'privateMetadataPid', 'm2tsSettings_privateMetadataPid' - Specify the packet identifier (PID) of the private metadata stream.
+-- Default is 503.
 --
--- * 'm2tScte35Source' - For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want SCTE-35 markers in this output. For SCTE-35 markers from an ESAM XML document-- Choose None (NONE). Also provide the ESAM XML as a string in the setting Signal processing notification XML (sccXml). Also enable ESAM SCTE-35 (include the property scte35Esam).
+-- 'scte35Esam', 'm2tsSettings_scte35Esam' - Include this in your job settings to put SCTE-35 markers in your HLS and
+-- transport stream outputs at the insertion points that you specify in an
+-- ESAM XML document. Provide the document in the setting SCC XML (sccXml).
 --
--- * 'm2tForceTsVideoEbpOrder' - Keep the default value (DEFAULT) unless you know that your audio EBP markers are incorrectly appearing before your video EBP markers. To correct this problem, set this value to Force (FORCE).
+-- 'scte35Source', 'm2tsSettings_scte35Source' - For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH)
+-- if you want SCTE-35 markers that appear in your input to also appear in
+-- this output. Choose None (NONE) if you don\'t want SCTE-35 markers in
+-- this output. For SCTE-35 markers from an ESAM XML document-- Choose None
+-- (NONE). Also provide the ESAM XML as a string in the setting Signal
+-- processing notification XML (sccXml). Also enable ESAM SCTE-35 (include
+-- the property scte35Esam).
 --
--- * 'm2tTransportStreamId' - Specify the ID for the transport stream itself in the program map table for this output. Transport stream IDs and program map tables are parts of MPEG-2 transport stream containers, used for organizing data.
+-- 'forceTsVideoEbpOrder', 'm2tsSettings_forceTsVideoEbpOrder' - Keep the default value (DEFAULT) unless you know that your audio EBP
+-- markers are incorrectly appearing before your video EBP markers. To
+-- correct this problem, set this value to Force (FORCE).
 --
--- * 'm2tDvbSubPids' - Specify the packet identifiers (PIDs) for DVB subtitle data included in this output. Specify multiple PIDs as a JSON array. Default is the range 460-479.
+-- 'transportStreamId', 'm2tsSettings_transportStreamId' - Specify the ID for the transport stream itself in the program map table
+-- for this output. Transport stream IDs and program map tables are parts
+-- of MPEG-2 transport stream containers, used for organizing data.
 --
--- * 'm2tScte35Pid' - Specify the packet identifier (PID) of the SCTE-35 stream in the transport stream.
-m2tsSettings ::
+-- 'dvbSubPids', 'm2tsSettings_dvbSubPids' - Specify the packet identifiers (PIDs) for DVB subtitle data included in
+-- this output. Specify multiple PIDs as a JSON array. Default is the range
+-- 460-479.
+--
+-- 'scte35Pid', 'm2tsSettings_scte35Pid' - Specify the packet identifier (PID) of the SCTE-35 stream in the
+-- transport stream.
+newM2tsSettings ::
   M2tsSettings
-m2tsSettings =
+newM2tsSettings =
   M2tsSettings'
-    { _m2tSegmentationMarkers = Nothing,
-      _m2tPmtPid = Nothing,
-      _m2tVideoPid = Nothing,
-      _m2tAudioBufferModel = Nothing,
-      _m2tTimedMetadataPid = Nothing,
-      _m2tSegmentationStyle = Nothing,
-      _m2tDvbNitSettings = Nothing,
-      _m2tNullPacketBitrate = Nothing,
-      _m2tPcrControl = Nothing,
-      _m2tEbpAudioInterval = Nothing,
-      _m2tEbpPlacement = Nothing,
-      _m2tPmtInterval = Nothing,
-      _m2tAudioPids = Nothing,
-      _m2tPatInterval = Nothing,
-      _m2tMinEbpInterval = Nothing,
-      _m2tMaxPcrInterval = Nothing,
-      _m2tProgramNumber = Nothing,
-      _m2tBufferModel = Nothing,
-      _m2tPcrPid = Nothing,
-      _m2tAudioFramesPerPes = Nothing,
-      _m2tRateMode = Nothing,
-      _m2tDvbTdtSettings = Nothing,
-      _m2tDvbSdtSettings = Nothing,
-      _m2tSegmentationTime = Nothing,
-      _m2tAudioDuration = Nothing,
-      _m2tNielsenId3 = Nothing,
-      _m2tDvbTeletextPid = Nothing,
-      _m2tBitrate = Nothing,
-      _m2tFragmentTime = Nothing,
-      _m2tEsRateInPes = Nothing,
-      _m2tPrivateMetadataPid = Nothing,
-      _m2tScte35Esam = Nothing,
-      _m2tScte35Source = Nothing,
-      _m2tForceTsVideoEbpOrder = Nothing,
-      _m2tTransportStreamId = Nothing,
-      _m2tDvbSubPids = Nothing,
-      _m2tScte35Pid = Nothing
+    { segmentationMarkers =
+        Prelude.Nothing,
+      pmtPid = Prelude.Nothing,
+      videoPid = Prelude.Nothing,
+      audioBufferModel = Prelude.Nothing,
+      timedMetadataPid = Prelude.Nothing,
+      segmentationStyle = Prelude.Nothing,
+      dvbNitSettings = Prelude.Nothing,
+      nullPacketBitrate = Prelude.Nothing,
+      pcrControl = Prelude.Nothing,
+      ebpAudioInterval = Prelude.Nothing,
+      ebpPlacement = Prelude.Nothing,
+      pmtInterval = Prelude.Nothing,
+      audioPids = Prelude.Nothing,
+      patInterval = Prelude.Nothing,
+      minEbpInterval = Prelude.Nothing,
+      maxPcrInterval = Prelude.Nothing,
+      programNumber = Prelude.Nothing,
+      bufferModel = Prelude.Nothing,
+      pcrPid = Prelude.Nothing,
+      audioFramesPerPes = Prelude.Nothing,
+      rateMode = Prelude.Nothing,
+      dvbTdtSettings = Prelude.Nothing,
+      dvbSdtSettings = Prelude.Nothing,
+      segmentationTime = Prelude.Nothing,
+      audioDuration = Prelude.Nothing,
+      nielsenId3 = Prelude.Nothing,
+      dvbTeletextPid = Prelude.Nothing,
+      bitrate = Prelude.Nothing,
+      fragmentTime = Prelude.Nothing,
+      esRateInPes = Prelude.Nothing,
+      privateMetadataPid = Prelude.Nothing,
+      scte35Esam = Prelude.Nothing,
+      scte35Source = Prelude.Nothing,
+      forceTsVideoEbpOrder = Prelude.Nothing,
+      transportStreamId = Prelude.Nothing,
+      dvbSubPids = Prelude.Nothing,
+      scte35Pid = Prelude.Nothing
     }
 
--- | Inserts segmentation markers at each segmentation_time period. rai_segstart sets the Random Access Indicator bit in the adaptation field. rai_adapt sets the RAI bit and adds the current timecode in the private data bytes. psi_segstart inserts PAT and PMT tables at the start of segments. ebp adds Encoder Boundary Point information to the adaptation field as per OpenCable specification OC-SP-EBP-I01-130118. ebp_legacy adds Encoder Boundary Point information to the adaptation field using a legacy proprietary format.
-m2tSegmentationMarkers :: Lens' M2tsSettings (Maybe M2tsSegmentationMarkers)
-m2tSegmentationMarkers = lens _m2tSegmentationMarkers (\s a -> s {_m2tSegmentationMarkers = a})
+-- | Inserts segmentation markers at each segmentation_time period.
+-- rai_segstart sets the Random Access Indicator bit in the adaptation
+-- field. rai_adapt sets the RAI bit and adds the current timecode in the
+-- private data bytes. psi_segstart inserts PAT and PMT tables at the start
+-- of segments. ebp adds Encoder Boundary Point information to the
+-- adaptation field as per OpenCable specification OC-SP-EBP-I01-130118.
+-- ebp_legacy adds Encoder Boundary Point information to the adaptation
+-- field using a legacy proprietary format.
+m2tsSettings_segmentationMarkers :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsSegmentationMarkers)
+m2tsSettings_segmentationMarkers = Lens.lens (\M2tsSettings' {segmentationMarkers} -> segmentationMarkers) (\s@M2tsSettings' {} a -> s {segmentationMarkers = a} :: M2tsSettings)
 
--- | Specify the packet identifier (PID) for the program map table (PMT) itself. Default is 480.
-m2tPmtPid :: Lens' M2tsSettings (Maybe Natural)
-m2tPmtPid = lens _m2tPmtPid (\s a -> s {_m2tPmtPid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) for the program map table (PMT)
+-- itself. Default is 480.
+m2tsSettings_pmtPid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_pmtPid = Lens.lens (\M2tsSettings' {pmtPid} -> pmtPid) (\s@M2tsSettings' {} a -> s {pmtPid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the packet identifier (PID) of the elementary video stream in the transport stream.
-m2tVideoPid :: Lens' M2tsSettings (Maybe Natural)
-m2tVideoPid = lens _m2tVideoPid (\s a -> s {_m2tVideoPid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) of the elementary video stream in
+-- the transport stream.
+m2tsSettings_videoPid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_videoPid = Lens.lens (\M2tsSettings' {videoPid} -> videoPid) (\s@M2tsSettings' {} a -> s {videoPid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Selects between the DVB and ATSC buffer models for Dolby Digital audio.
-m2tAudioBufferModel :: Lens' M2tsSettings (Maybe M2tsAudioBufferModel)
-m2tAudioBufferModel = lens _m2tAudioBufferModel (\s a -> s {_m2tAudioBufferModel = a})
+m2tsSettings_audioBufferModel :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsAudioBufferModel)
+m2tsSettings_audioBufferModel = Lens.lens (\M2tsSettings' {audioBufferModel} -> audioBufferModel) (\s@M2tsSettings' {} a -> s {audioBufferModel = a} :: M2tsSettings)
 
--- | Specify the packet identifier (PID) for timed metadata in this output. Default is 502.
-m2tTimedMetadataPid :: Lens' M2tsSettings (Maybe Natural)
-m2tTimedMetadataPid = lens _m2tTimedMetadataPid (\s a -> s {_m2tTimedMetadataPid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) for timed metadata in this output.
+-- Default is 502.
+m2tsSettings_timedMetadataPid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_timedMetadataPid = Lens.lens (\M2tsSettings' {timedMetadataPid} -> timedMetadataPid) (\s@M2tsSettings' {} a -> s {timedMetadataPid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The segmentation style parameter controls how segmentation markers are inserted into the transport stream. With avails, it is possible that segments may be truncated, which can influence where future segmentation markers are inserted. When a segmentation style of "reset_cadence" is selected and a segment is truncated due to an avail, we will reset the segmentation cadence. This means the subsequent segment will have a duration of of $segmentation_time seconds. When a segmentation style of "maintain_cadence" is selected and a segment is truncated due to an avail, we will not reset the segmentation cadence. This means the subsequent segment will likely be truncated as well. However, all segments after that will have a duration of $segmentation_time seconds. Note that EBP lookahead is a slight exception to this rule.
-m2tSegmentationStyle :: Lens' M2tsSettings (Maybe M2tsSegmentationStyle)
-m2tSegmentationStyle = lens _m2tSegmentationStyle (\s a -> s {_m2tSegmentationStyle = a})
+-- | The segmentation style parameter controls how segmentation markers are
+-- inserted into the transport stream. With avails, it is possible that
+-- segments may be truncated, which can influence where future segmentation
+-- markers are inserted. When a segmentation style of \"reset_cadence\" is
+-- selected and a segment is truncated due to an avail, we will reset the
+-- segmentation cadence. This means the subsequent segment will have a
+-- duration of of $segmentation_time seconds. When a segmentation style of
+-- \"maintain_cadence\" is selected and a segment is truncated due to an
+-- avail, we will not reset the segmentation cadence. This means the
+-- subsequent segment will likely be truncated as well. However, all
+-- segments after that will have a duration of $segmentation_time seconds.
+-- Note that EBP lookahead is a slight exception to this rule.
+m2tsSettings_segmentationStyle :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsSegmentationStyle)
+m2tsSettings_segmentationStyle = Lens.lens (\M2tsSettings' {segmentationStyle} -> segmentationStyle) (\s@M2tsSettings' {} a -> s {segmentationStyle = a} :: M2tsSettings)
 
--- | Inserts DVB Network Information Table (NIT) at the specified table repetition interval.
-m2tDvbNitSettings :: Lens' M2tsSettings (Maybe DvbNitSettings)
-m2tDvbNitSettings = lens _m2tDvbNitSettings (\s a -> s {_m2tDvbNitSettings = a})
+-- | Inserts DVB Network Information Table (NIT) at the specified table
+-- repetition interval.
+m2tsSettings_dvbNitSettings :: Lens.Lens' M2tsSettings (Prelude.Maybe DvbNitSettings)
+m2tsSettings_dvbNitSettings = Lens.lens (\M2tsSettings' {dvbNitSettings} -> dvbNitSettings) (\s@M2tsSettings' {} a -> s {dvbNitSettings = a} :: M2tsSettings)
 
--- | Value in bits per second of extra null packets to insert into the transport stream. This can be used if a downstream encryption system requires periodic null packets.
-m2tNullPacketBitrate :: Lens' M2tsSettings (Maybe Double)
-m2tNullPacketBitrate = lens _m2tNullPacketBitrate (\s a -> s {_m2tNullPacketBitrate = a})
+-- | Value in bits per second of extra null packets to insert into the
+-- transport stream. This can be used if a downstream encryption system
+-- requires periodic null packets.
+m2tsSettings_nullPacketBitrate :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Double)
+m2tsSettings_nullPacketBitrate = Lens.lens (\M2tsSettings' {nullPacketBitrate} -> nullPacketBitrate) (\s@M2tsSettings' {} a -> s {nullPacketBitrate = a} :: M2tsSettings)
 
--- | When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is inserted for every Packetized Elementary Stream (PES) header. This is effective only when the PCR PID is the same as the video or audio elementary stream.
-m2tPcrControl :: Lens' M2tsSettings (Maybe M2tsPcrControl)
-m2tPcrControl = lens _m2tPcrControl (\s a -> s {_m2tPcrControl = a})
+-- | When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is
+-- inserted for every Packetized Elementary Stream (PES) header. This is
+-- effective only when the PCR PID is the same as the video or audio
+-- elementary stream.
+m2tsSettings_pcrControl :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsPcrControl)
+m2tsSettings_pcrControl = Lens.lens (\M2tsSettings' {pcrControl} -> pcrControl) (\s@M2tsSettings' {} a -> s {pcrControl = a} :: M2tsSettings)
 
--- | When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added to partitions 3 and 4. The interval between these additional markers will be fixed, and will be slightly shorter than the video EBP marker interval. When set to VIDEO_INTERVAL, these additional markers will not be inserted. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or EBP_LEGACY).
-m2tEbpAudioInterval :: Lens' M2tsSettings (Maybe M2tsEbpAudioInterval)
-m2tEbpAudioInterval = lens _m2tEbpAudioInterval (\s a -> s {_m2tEbpAudioInterval = a})
+-- | When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added
+-- to partitions 3 and 4. The interval between these additional markers
+-- will be fixed, and will be slightly shorter than the video EBP marker
+-- interval. When set to VIDEO_INTERVAL, these additional markers will not
+-- be inserted. Only applicable when EBP segmentation markers are is
+-- selected (segmentationMarkers is EBP or EBP_LEGACY).
+m2tsSettings_ebpAudioInterval :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsEbpAudioInterval)
+m2tsSettings_ebpAudioInterval = Lens.lens (\M2tsSettings' {ebpAudioInterval} -> ebpAudioInterval) (\s@M2tsSettings' {} a -> s {ebpAudioInterval = a} :: M2tsSettings)
 
--- | Selects which PIDs to place EBP markers on. They can either be placed only on the video PID, or on both the video PID and all audio PIDs. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or EBP_LEGACY).
-m2tEbpPlacement :: Lens' M2tsSettings (Maybe M2tsEbpPlacement)
-m2tEbpPlacement = lens _m2tEbpPlacement (\s a -> s {_m2tEbpPlacement = a})
+-- | Selects which PIDs to place EBP markers on. They can either be placed
+-- only on the video PID, or on both the video PID and all audio PIDs. Only
+-- applicable when EBP segmentation markers are is selected
+-- (segmentationMarkers is EBP or EBP_LEGACY).
+m2tsSettings_ebpPlacement :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsEbpPlacement)
+m2tsSettings_ebpPlacement = Lens.lens (\M2tsSettings' {ebpPlacement} -> ebpPlacement) (\s@M2tsSettings' {} a -> s {ebpPlacement = a} :: M2tsSettings)
 
--- | Specify the number of milliseconds between instances of the program map table (PMT) in the output transport stream.
-m2tPmtInterval :: Lens' M2tsSettings (Maybe Natural)
-m2tPmtInterval = lens _m2tPmtInterval (\s a -> s {_m2tPmtInterval = a}) . mapping _Nat
+-- | Specify the number of milliseconds between instances of the program map
+-- table (PMT) in the output transport stream.
+m2tsSettings_pmtInterval :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_pmtInterval = Lens.lens (\M2tsSettings' {pmtInterval} -> pmtInterval) (\s@M2tsSettings' {} a -> s {pmtInterval = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the packet identifiers (PIDs) for any elementary audio streams you include in this output. Specify multiple PIDs as a JSON array. Default is the range 482-492.
-m2tAudioPids :: Lens' M2tsSettings [Natural]
-m2tAudioPids = lens _m2tAudioPids (\s a -> s {_m2tAudioPids = a}) . _Default . _Coerce
+-- | Specify the packet identifiers (PIDs) for any elementary audio streams
+-- you include in this output. Specify multiple PIDs as a JSON array.
+-- Default is the range 482-492.
+m2tsSettings_audioPids :: Lens.Lens' M2tsSettings (Prelude.Maybe [Prelude.Natural])
+m2tsSettings_audioPids = Lens.lens (\M2tsSettings' {audioPids} -> audioPids) (\s@M2tsSettings' {} a -> s {audioPids = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of milliseconds between instances of this table in the output transport stream.
-m2tPatInterval :: Lens' M2tsSettings (Maybe Natural)
-m2tPatInterval = lens _m2tPatInterval (\s a -> s {_m2tPatInterval = a}) . mapping _Nat
+-- | The number of milliseconds between instances of this table in the output
+-- transport stream.
+m2tsSettings_patInterval :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_patInterval = Lens.lens (\M2tsSettings' {patInterval} -> patInterval) (\s@M2tsSettings' {} a -> s {patInterval = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | When set, enforces that Encoder Boundary Points do not come within the specified time interval of each other by looking ahead at input video. If another EBP is going to come in within the specified time interval, the current EBP is not emitted, and the segment is "stretched" to the next marker. The lookahead value does not add latency to the system. The Live Event must be configured elsewhere to create sufficient latency to make the lookahead accurate.
-m2tMinEbpInterval :: Lens' M2tsSettings (Maybe Natural)
-m2tMinEbpInterval = lens _m2tMinEbpInterval (\s a -> s {_m2tMinEbpInterval = a}) . mapping _Nat
+-- | When set, enforces that Encoder Boundary Points do not come within the
+-- specified time interval of each other by looking ahead at input video.
+-- If another EBP is going to come in within the specified time interval,
+-- the current EBP is not emitted, and the segment is \"stretched\" to the
+-- next marker. The lookahead value does not add latency to the system. The
+-- Live Event must be configured elsewhere to create sufficient latency to
+-- make the lookahead accurate.
+m2tsSettings_minEbpInterval :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_minEbpInterval = Lens.lens (\M2tsSettings' {minEbpInterval} -> minEbpInterval) (\s@M2tsSettings' {} a -> s {minEbpInterval = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the maximum time, in milliseconds, between Program Clock References (PCRs) inserted into the transport stream.
-m2tMaxPcrInterval :: Lens' M2tsSettings (Maybe Natural)
-m2tMaxPcrInterval = lens _m2tMaxPcrInterval (\s a -> s {_m2tMaxPcrInterval = a}) . mapping _Nat
+-- | Specify the maximum time, in milliseconds, between Program Clock
+-- References (PCRs) inserted into the transport stream.
+m2tsSettings_maxPcrInterval :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_maxPcrInterval = Lens.lens (\M2tsSettings' {maxPcrInterval} -> maxPcrInterval) (\s@M2tsSettings' {} a -> s {maxPcrInterval = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use Program number (programNumber) to specify the program number used in the program map table (PMT) for this output. Default is 1. Program numbers and program map tables are parts of MPEG-2 transport stream containers, used for organizing data.
-m2tProgramNumber :: Lens' M2tsSettings (Maybe Natural)
-m2tProgramNumber = lens _m2tProgramNumber (\s a -> s {_m2tProgramNumber = a}) . mapping _Nat
+-- | Use Program number (programNumber) to specify the program number used in
+-- the program map table (PMT) for this output. Default is 1. Program
+-- numbers and program map tables are parts of MPEG-2 transport stream
+-- containers, used for organizing data.
+m2tsSettings_programNumber :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_programNumber = Lens.lens (\M2tsSettings' {programNumber} -> programNumber) (\s@M2tsSettings' {} a -> s {programNumber = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Controls what buffer model to use for accurate interleaving. If set to MULTIPLEX, use multiplex  buffer model. If set to NONE, this can lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
-m2tBufferModel :: Lens' M2tsSettings (Maybe M2tsBufferModel)
-m2tBufferModel = lens _m2tBufferModel (\s a -> s {_m2tBufferModel = a})
+-- | Controls what buffer model to use for accurate interleaving. If set to
+-- MULTIPLEX, use multiplex buffer model. If set to NONE, this can lead to
+-- lower latency, but low-memory devices may not be able to play back the
+-- stream without interruptions.
+m2tsSettings_bufferModel :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsBufferModel)
+m2tsSettings_bufferModel = Lens.lens (\M2tsSettings' {bufferModel} -> bufferModel) (\s@M2tsSettings' {} a -> s {bufferModel = a} :: M2tsSettings)
 
--- | Specify the packet identifier (PID) for the program clock reference (PCR) in this output. If you do not specify a value, the service will use the value for Video PID (VideoPid).
-m2tPcrPid :: Lens' M2tsSettings (Maybe Natural)
-m2tPcrPid = lens _m2tPcrPid (\s a -> s {_m2tPcrPid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) for the program clock reference
+-- (PCR) in this output. If you do not specify a value, the service will
+-- use the value for Video PID (VideoPid).
+m2tsSettings_pcrPid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_pcrPid = Lens.lens (\M2tsSettings' {pcrPid} -> pcrPid) (\s@M2tsSettings' {} a -> s {pcrPid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The number of audio frames to insert for each PES packet.
-m2tAudioFramesPerPes :: Lens' M2tsSettings (Maybe Natural)
-m2tAudioFramesPerPes = lens _m2tAudioFramesPerPes (\s a -> s {_m2tAudioFramesPerPes = a}) . mapping _Nat
+m2tsSettings_audioFramesPerPes :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_audioFramesPerPes = Lens.lens (\M2tsSettings' {audioFramesPerPes} -> audioFramesPerPes) (\s@M2tsSettings' {} a -> s {audioFramesPerPes = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | When set to CBR, inserts null packets into transport stream to fill specified bitrate. When set to VBR, the bitrate setting acts as the maximum bitrate, but the output will not be padded up to that bitrate.
-m2tRateMode :: Lens' M2tsSettings (Maybe M2tsRateMode)
-m2tRateMode = lens _m2tRateMode (\s a -> s {_m2tRateMode = a})
+-- | When set to CBR, inserts null packets into transport stream to fill
+-- specified bitrate. When set to VBR, the bitrate setting acts as the
+-- maximum bitrate, but the output will not be padded up to that bitrate.
+m2tsSettings_rateMode :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsRateMode)
+m2tsSettings_rateMode = Lens.lens (\M2tsSettings' {rateMode} -> rateMode) (\s@M2tsSettings' {} a -> s {rateMode = a} :: M2tsSettings)
 
--- | Inserts DVB Time and Date Table (TDT) at the specified table repetition interval.
-m2tDvbTdtSettings :: Lens' M2tsSettings (Maybe DvbTdtSettings)
-m2tDvbTdtSettings = lens _m2tDvbTdtSettings (\s a -> s {_m2tDvbTdtSettings = a})
+-- | Inserts DVB Time and Date Table (TDT) at the specified table repetition
+-- interval.
+m2tsSettings_dvbTdtSettings :: Lens.Lens' M2tsSettings (Prelude.Maybe DvbTdtSettings)
+m2tsSettings_dvbTdtSettings = Lens.lens (\M2tsSettings' {dvbTdtSettings} -> dvbTdtSettings) (\s@M2tsSettings' {} a -> s {dvbTdtSettings = a} :: M2tsSettings)
 
--- | Inserts DVB Service Description Table (NIT) at the specified table repetition interval.
-m2tDvbSdtSettings :: Lens' M2tsSettings (Maybe DvbSdtSettings)
-m2tDvbSdtSettings = lens _m2tDvbSdtSettings (\s a -> s {_m2tDvbSdtSettings = a})
+-- | Inserts DVB Service Description Table (NIT) at the specified table
+-- repetition interval.
+m2tsSettings_dvbSdtSettings :: Lens.Lens' M2tsSettings (Prelude.Maybe DvbSdtSettings)
+m2tsSettings_dvbSdtSettings = Lens.lens (\M2tsSettings' {dvbSdtSettings} -> dvbSdtSettings) (\s@M2tsSettings' {} a -> s {dvbSdtSettings = a} :: M2tsSettings)
 
--- | Specify the length, in seconds, of each segment. Required unless markers is set to _none_.
-m2tSegmentationTime :: Lens' M2tsSettings (Maybe Double)
-m2tSegmentationTime = lens _m2tSegmentationTime (\s a -> s {_m2tSegmentationTime = a})
+-- | Specify the length, in seconds, of each segment. Required unless markers
+-- is set to _none_.
+m2tsSettings_segmentationTime :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Double)
+m2tsSettings_segmentationTime = Lens.lens (\M2tsSettings' {segmentationTime} -> segmentationTime) (\s@M2tsSettings' {} a -> s {segmentationTime = a} :: M2tsSettings)
 
--- | Specify this setting only when your output will be consumed by a downstream repackaging workflow that is sensitive to very small duration differences between video and audio. For this situation, choose Match video duration (MATCH_VIDEO_DURATION). In all other cases, keep the default value, Default codec duration (DEFAULT_CODEC_DURATION). When you choose Match video duration, MediaConvert pads the output audio streams with silence or trims them to ensure that the total duration of each audio stream is at least as long as the total duration of the video stream. After padding or trimming, the audio stream duration is no more than one frame longer than the video stream. MediaConvert applies audio padding or trimming only to the end of the last segment of the output. For unsegmented outputs, MediaConvert adds padding only to the end of the file. When you keep the default value, any minor discrepancies between audio and video duration will depend on your output audio codec.
-m2tAudioDuration :: Lens' M2tsSettings (Maybe M2tsAudioDuration)
-m2tAudioDuration = lens _m2tAudioDuration (\s a -> s {_m2tAudioDuration = a})
+-- | Specify this setting only when your output will be consumed by a
+-- downstream repackaging workflow that is sensitive to very small duration
+-- differences between video and audio. For this situation, choose Match
+-- video duration (MATCH_VIDEO_DURATION). In all other cases, keep the
+-- default value, Default codec duration (DEFAULT_CODEC_DURATION). When you
+-- choose Match video duration, MediaConvert pads the output audio streams
+-- with silence or trims them to ensure that the total duration of each
+-- audio stream is at least as long as the total duration of the video
+-- stream. After padding or trimming, the audio stream duration is no more
+-- than one frame longer than the video stream. MediaConvert applies audio
+-- padding or trimming only to the end of the last segment of the output.
+-- For unsegmented outputs, MediaConvert adds padding only to the end of
+-- the file. When you keep the default value, any minor discrepancies
+-- between audio and video duration will depend on your output audio codec.
+m2tsSettings_audioDuration :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsAudioDuration)
+m2tsSettings_audioDuration = Lens.lens (\M2tsSettings' {audioDuration} -> audioDuration) (\s@M2tsSettings' {} a -> s {audioDuration = a} :: M2tsSettings)
 
--- | If INSERT, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag will be inserted in the output.
-m2tNielsenId3 :: Lens' M2tsSettings (Maybe M2tsNielsenId3)
-m2tNielsenId3 = lens _m2tNielsenId3 (\s a -> s {_m2tNielsenId3 = a})
+-- | If INSERT, Nielsen inaudible tones for media tracking will be detected
+-- in the input audio and an equivalent ID3 tag will be inserted in the
+-- output.
+m2tsSettings_nielsenId3 :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsNielsenId3)
+m2tsSettings_nielsenId3 = Lens.lens (\M2tsSettings' {nielsenId3} -> nielsenId3) (\s@M2tsSettings' {} a -> s {nielsenId3 = a} :: M2tsSettings)
 
--- | Specify the packet identifier (PID) for DVB teletext data you include in this output. Default is 499.
-m2tDvbTeletextPid :: Lens' M2tsSettings (Maybe Natural)
-m2tDvbTeletextPid = lens _m2tDvbTeletextPid (\s a -> s {_m2tDvbTeletextPid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) for DVB teletext data you include in
+-- this output. Default is 499.
+m2tsSettings_dvbTeletextPid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_dvbTeletextPid = Lens.lens (\M2tsSettings' {dvbTeletextPid} -> dvbTeletextPid) (\s@M2tsSettings' {} a -> s {dvbTeletextPid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the output bitrate of the transport stream in bits per second. Setting to 0 lets the muxer automatically determine the appropriate bitrate. Other common values are 3750000, 7500000, and 15000000.
-m2tBitrate :: Lens' M2tsSettings (Maybe Natural)
-m2tBitrate = lens _m2tBitrate (\s a -> s {_m2tBitrate = a}) . mapping _Nat
+-- | Specify the output bitrate of the transport stream in bits per second.
+-- Setting to 0 lets the muxer automatically determine the appropriate
+-- bitrate. Other common values are 3750000, 7500000, and 15000000.
+m2tsSettings_bitrate :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_bitrate = Lens.lens (\M2tsSettings' {bitrate} -> bitrate) (\s@M2tsSettings' {} a -> s {bitrate = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The length, in seconds, of each fragment. Only used with EBP markers.
-m2tFragmentTime :: Lens' M2tsSettings (Maybe Double)
-m2tFragmentTime = lens _m2tFragmentTime (\s a -> s {_m2tFragmentTime = a})
+m2tsSettings_fragmentTime :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Double)
+m2tsSettings_fragmentTime = Lens.lens (\M2tsSettings' {fragmentTime} -> fragmentTime) (\s@M2tsSettings' {} a -> s {fragmentTime = a} :: M2tsSettings)
 
 -- | Controls whether to include the ES Rate field in the PES header.
-m2tEsRateInPes :: Lens' M2tsSettings (Maybe M2tsEsRateInPes)
-m2tEsRateInPes = lens _m2tEsRateInPes (\s a -> s {_m2tEsRateInPes = a})
+m2tsSettings_esRateInPes :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsEsRateInPes)
+m2tsSettings_esRateInPes = Lens.lens (\M2tsSettings' {esRateInPes} -> esRateInPes) (\s@M2tsSettings' {} a -> s {esRateInPes = a} :: M2tsSettings)
 
--- | Specify the packet identifier (PID) of the private metadata stream. Default is 503.
-m2tPrivateMetadataPid :: Lens' M2tsSettings (Maybe Natural)
-m2tPrivateMetadataPid = lens _m2tPrivateMetadataPid (\s a -> s {_m2tPrivateMetadataPid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) of the private metadata stream.
+-- Default is 503.
+m2tsSettings_privateMetadataPid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_privateMetadataPid = Lens.lens (\M2tsSettings' {privateMetadataPid} -> privateMetadataPid) (\s@M2tsSettings' {} a -> s {privateMetadataPid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Include this in your job settings to put SCTE-35 markers in your HLS and transport stream outputs at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML (sccXml).
-m2tScte35Esam :: Lens' M2tsSettings (Maybe M2tsScte35Esam)
-m2tScte35Esam = lens _m2tScte35Esam (\s a -> s {_m2tScte35Esam = a})
+-- | Include this in your job settings to put SCTE-35 markers in your HLS and
+-- transport stream outputs at the insertion points that you specify in an
+-- ESAM XML document. Provide the document in the setting SCC XML (sccXml).
+m2tsSettings_scte35Esam :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsScte35Esam)
+m2tsSettings_scte35Esam = Lens.lens (\M2tsSettings' {scte35Esam} -> scte35Esam) (\s@M2tsSettings' {} a -> s {scte35Esam = a} :: M2tsSettings)
 
--- | For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want SCTE-35 markers in this output. For SCTE-35 markers from an ESAM XML document-- Choose None (NONE). Also provide the ESAM XML as a string in the setting Signal processing notification XML (sccXml). Also enable ESAM SCTE-35 (include the property scte35Esam).
-m2tScte35Source :: Lens' M2tsSettings (Maybe M2tsScte35Source)
-m2tScte35Source = lens _m2tScte35Source (\s a -> s {_m2tScte35Source = a})
+-- | For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH)
+-- if you want SCTE-35 markers that appear in your input to also appear in
+-- this output. Choose None (NONE) if you don\'t want SCTE-35 markers in
+-- this output. For SCTE-35 markers from an ESAM XML document-- Choose None
+-- (NONE). Also provide the ESAM XML as a string in the setting Signal
+-- processing notification XML (sccXml). Also enable ESAM SCTE-35 (include
+-- the property scte35Esam).
+m2tsSettings_scte35Source :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsScte35Source)
+m2tsSettings_scte35Source = Lens.lens (\M2tsSettings' {scte35Source} -> scte35Source) (\s@M2tsSettings' {} a -> s {scte35Source = a} :: M2tsSettings)
 
--- | Keep the default value (DEFAULT) unless you know that your audio EBP markers are incorrectly appearing before your video EBP markers. To correct this problem, set this value to Force (FORCE).
-m2tForceTsVideoEbpOrder :: Lens' M2tsSettings (Maybe M2tsForceTsVideoEbpOrder)
-m2tForceTsVideoEbpOrder = lens _m2tForceTsVideoEbpOrder (\s a -> s {_m2tForceTsVideoEbpOrder = a})
+-- | Keep the default value (DEFAULT) unless you know that your audio EBP
+-- markers are incorrectly appearing before your video EBP markers. To
+-- correct this problem, set this value to Force (FORCE).
+m2tsSettings_forceTsVideoEbpOrder :: Lens.Lens' M2tsSettings (Prelude.Maybe M2tsForceTsVideoEbpOrder)
+m2tsSettings_forceTsVideoEbpOrder = Lens.lens (\M2tsSettings' {forceTsVideoEbpOrder} -> forceTsVideoEbpOrder) (\s@M2tsSettings' {} a -> s {forceTsVideoEbpOrder = a} :: M2tsSettings)
 
--- | Specify the ID for the transport stream itself in the program map table for this output. Transport stream IDs and program map tables are parts of MPEG-2 transport stream containers, used for organizing data.
-m2tTransportStreamId :: Lens' M2tsSettings (Maybe Natural)
-m2tTransportStreamId = lens _m2tTransportStreamId (\s a -> s {_m2tTransportStreamId = a}) . mapping _Nat
+-- | Specify the ID for the transport stream itself in the program map table
+-- for this output. Transport stream IDs and program map tables are parts
+-- of MPEG-2 transport stream containers, used for organizing data.
+m2tsSettings_transportStreamId :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_transportStreamId = Lens.lens (\M2tsSettings' {transportStreamId} -> transportStreamId) (\s@M2tsSettings' {} a -> s {transportStreamId = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the packet identifiers (PIDs) for DVB subtitle data included in this output. Specify multiple PIDs as a JSON array. Default is the range 460-479.
-m2tDvbSubPids :: Lens' M2tsSettings [Natural]
-m2tDvbSubPids = lens _m2tDvbSubPids (\s a -> s {_m2tDvbSubPids = a}) . _Default . _Coerce
+-- | Specify the packet identifiers (PIDs) for DVB subtitle data included in
+-- this output. Specify multiple PIDs as a JSON array. Default is the range
+-- 460-479.
+m2tsSettings_dvbSubPids :: Lens.Lens' M2tsSettings (Prelude.Maybe [Prelude.Natural])
+m2tsSettings_dvbSubPids = Lens.lens (\M2tsSettings' {dvbSubPids} -> dvbSubPids) (\s@M2tsSettings' {} a -> s {dvbSubPids = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specify the packet identifier (PID) of the SCTE-35 stream in the transport stream.
-m2tScte35Pid :: Lens' M2tsSettings (Maybe Natural)
-m2tScte35Pid = lens _m2tScte35Pid (\s a -> s {_m2tScte35Pid = a}) . mapping _Nat
+-- | Specify the packet identifier (PID) of the SCTE-35 stream in the
+-- transport stream.
+m2tsSettings_scte35Pid :: Lens.Lens' M2tsSettings (Prelude.Maybe Prelude.Natural)
+m2tsSettings_scte35Pid = Lens.lens (\M2tsSettings' {scte35Pid} -> scte35Pid) (\s@M2tsSettings' {} a -> s {scte35Pid = a} :: M2tsSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON M2tsSettings where
+instance Prelude.FromJSON M2tsSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "M2tsSettings"
       ( \x ->
           M2tsSettings'
-            <$> (x .:? "segmentationMarkers")
-            <*> (x .:? "pmtPid")
-            <*> (x .:? "videoPid")
-            <*> (x .:? "audioBufferModel")
-            <*> (x .:? "timedMetadataPid")
-            <*> (x .:? "segmentationStyle")
-            <*> (x .:? "dvbNitSettings")
-            <*> (x .:? "nullPacketBitrate")
-            <*> (x .:? "pcrControl")
-            <*> (x .:? "ebpAudioInterval")
-            <*> (x .:? "ebpPlacement")
-            <*> (x .:? "pmtInterval")
-            <*> (x .:? "audioPids" .!= mempty)
-            <*> (x .:? "patInterval")
-            <*> (x .:? "minEbpInterval")
-            <*> (x .:? "maxPcrInterval")
-            <*> (x .:? "programNumber")
-            <*> (x .:? "bufferModel")
-            <*> (x .:? "pcrPid")
-            <*> (x .:? "audioFramesPerPes")
-            <*> (x .:? "rateMode")
-            <*> (x .:? "dvbTdtSettings")
-            <*> (x .:? "dvbSdtSettings")
-            <*> (x .:? "segmentationTime")
-            <*> (x .:? "audioDuration")
-            <*> (x .:? "nielsenId3")
-            <*> (x .:? "dvbTeletextPid")
-            <*> (x .:? "bitrate")
-            <*> (x .:? "fragmentTime")
-            <*> (x .:? "esRateInPes")
-            <*> (x .:? "privateMetadataPid")
-            <*> (x .:? "scte35Esam")
-            <*> (x .:? "scte35Source")
-            <*> (x .:? "forceTsVideoEbpOrder")
-            <*> (x .:? "transportStreamId")
-            <*> (x .:? "dvbSubPids" .!= mempty)
-            <*> (x .:? "scte35Pid")
+            Prelude.<$> (x Prelude..:? "segmentationMarkers")
+            Prelude.<*> (x Prelude..:? "pmtPid")
+            Prelude.<*> (x Prelude..:? "videoPid")
+            Prelude.<*> (x Prelude..:? "audioBufferModel")
+            Prelude.<*> (x Prelude..:? "timedMetadataPid")
+            Prelude.<*> (x Prelude..:? "segmentationStyle")
+            Prelude.<*> (x Prelude..:? "dvbNitSettings")
+            Prelude.<*> (x Prelude..:? "nullPacketBitrate")
+            Prelude.<*> (x Prelude..:? "pcrControl")
+            Prelude.<*> (x Prelude..:? "ebpAudioInterval")
+            Prelude.<*> (x Prelude..:? "ebpPlacement")
+            Prelude.<*> (x Prelude..:? "pmtInterval")
+            Prelude.<*> ( x Prelude..:? "audioPids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "patInterval")
+            Prelude.<*> (x Prelude..:? "minEbpInterval")
+            Prelude.<*> (x Prelude..:? "maxPcrInterval")
+            Prelude.<*> (x Prelude..:? "programNumber")
+            Prelude.<*> (x Prelude..:? "bufferModel")
+            Prelude.<*> (x Prelude..:? "pcrPid")
+            Prelude.<*> (x Prelude..:? "audioFramesPerPes")
+            Prelude.<*> (x Prelude..:? "rateMode")
+            Prelude.<*> (x Prelude..:? "dvbTdtSettings")
+            Prelude.<*> (x Prelude..:? "dvbSdtSettings")
+            Prelude.<*> (x Prelude..:? "segmentationTime")
+            Prelude.<*> (x Prelude..:? "audioDuration")
+            Prelude.<*> (x Prelude..:? "nielsenId3")
+            Prelude.<*> (x Prelude..:? "dvbTeletextPid")
+            Prelude.<*> (x Prelude..:? "bitrate")
+            Prelude.<*> (x Prelude..:? "fragmentTime")
+            Prelude.<*> (x Prelude..:? "esRateInPes")
+            Prelude.<*> (x Prelude..:? "privateMetadataPid")
+            Prelude.<*> (x Prelude..:? "scte35Esam")
+            Prelude.<*> (x Prelude..:? "scte35Source")
+            Prelude.<*> (x Prelude..:? "forceTsVideoEbpOrder")
+            Prelude.<*> (x Prelude..:? "transportStreamId")
+            Prelude.<*> ( x Prelude..:? "dvbSubPids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "scte35Pid")
       )
 
-instance Hashable M2tsSettings
+instance Prelude.Hashable M2tsSettings
 
-instance NFData M2tsSettings
+instance Prelude.NFData M2tsSettings
 
-instance ToJSON M2tsSettings where
+instance Prelude.ToJSON M2tsSettings where
   toJSON M2tsSettings' {..} =
-    object
-      ( catMaybes
-          [ ("segmentationMarkers" .=)
-              <$> _m2tSegmentationMarkers,
-            ("pmtPid" .=) <$> _m2tPmtPid,
-            ("videoPid" .=) <$> _m2tVideoPid,
-            ("audioBufferModel" .=) <$> _m2tAudioBufferModel,
-            ("timedMetadataPid" .=) <$> _m2tTimedMetadataPid,
-            ("segmentationStyle" .=) <$> _m2tSegmentationStyle,
-            ("dvbNitSettings" .=) <$> _m2tDvbNitSettings,
-            ("nullPacketBitrate" .=) <$> _m2tNullPacketBitrate,
-            ("pcrControl" .=) <$> _m2tPcrControl,
-            ("ebpAudioInterval" .=) <$> _m2tEbpAudioInterval,
-            ("ebpPlacement" .=) <$> _m2tEbpPlacement,
-            ("pmtInterval" .=) <$> _m2tPmtInterval,
-            ("audioPids" .=) <$> _m2tAudioPids,
-            ("patInterval" .=) <$> _m2tPatInterval,
-            ("minEbpInterval" .=) <$> _m2tMinEbpInterval,
-            ("maxPcrInterval" .=) <$> _m2tMaxPcrInterval,
-            ("programNumber" .=) <$> _m2tProgramNumber,
-            ("bufferModel" .=) <$> _m2tBufferModel,
-            ("pcrPid" .=) <$> _m2tPcrPid,
-            ("audioFramesPerPes" .=) <$> _m2tAudioFramesPerPes,
-            ("rateMode" .=) <$> _m2tRateMode,
-            ("dvbTdtSettings" .=) <$> _m2tDvbTdtSettings,
-            ("dvbSdtSettings" .=) <$> _m2tDvbSdtSettings,
-            ("segmentationTime" .=) <$> _m2tSegmentationTime,
-            ("audioDuration" .=) <$> _m2tAudioDuration,
-            ("nielsenId3" .=) <$> _m2tNielsenId3,
-            ("dvbTeletextPid" .=) <$> _m2tDvbTeletextPid,
-            ("bitrate" .=) <$> _m2tBitrate,
-            ("fragmentTime" .=) <$> _m2tFragmentTime,
-            ("esRateInPes" .=) <$> _m2tEsRateInPes,
-            ("privateMetadataPid" .=) <$> _m2tPrivateMetadataPid,
-            ("scte35Esam" .=) <$> _m2tScte35Esam,
-            ("scte35Source" .=) <$> _m2tScte35Source,
-            ("forceTsVideoEbpOrder" .=)
-              <$> _m2tForceTsVideoEbpOrder,
-            ("transportStreamId" .=) <$> _m2tTransportStreamId,
-            ("dvbSubPids" .=) <$> _m2tDvbSubPids,
-            ("scte35Pid" .=) <$> _m2tScte35Pid
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("segmentationMarkers" Prelude..=)
+              Prelude.<$> segmentationMarkers,
+            ("pmtPid" Prelude..=) Prelude.<$> pmtPid,
+            ("videoPid" Prelude..=) Prelude.<$> videoPid,
+            ("audioBufferModel" Prelude..=)
+              Prelude.<$> audioBufferModel,
+            ("timedMetadataPid" Prelude..=)
+              Prelude.<$> timedMetadataPid,
+            ("segmentationStyle" Prelude..=)
+              Prelude.<$> segmentationStyle,
+            ("dvbNitSettings" Prelude..=)
+              Prelude.<$> dvbNitSettings,
+            ("nullPacketBitrate" Prelude..=)
+              Prelude.<$> nullPacketBitrate,
+            ("pcrControl" Prelude..=) Prelude.<$> pcrControl,
+            ("ebpAudioInterval" Prelude..=)
+              Prelude.<$> ebpAudioInterval,
+            ("ebpPlacement" Prelude..=) Prelude.<$> ebpPlacement,
+            ("pmtInterval" Prelude..=) Prelude.<$> pmtInterval,
+            ("audioPids" Prelude..=) Prelude.<$> audioPids,
+            ("patInterval" Prelude..=) Prelude.<$> patInterval,
+            ("minEbpInterval" Prelude..=)
+              Prelude.<$> minEbpInterval,
+            ("maxPcrInterval" Prelude..=)
+              Prelude.<$> maxPcrInterval,
+            ("programNumber" Prelude..=)
+              Prelude.<$> programNumber,
+            ("bufferModel" Prelude..=) Prelude.<$> bufferModel,
+            ("pcrPid" Prelude..=) Prelude.<$> pcrPid,
+            ("audioFramesPerPes" Prelude..=)
+              Prelude.<$> audioFramesPerPes,
+            ("rateMode" Prelude..=) Prelude.<$> rateMode,
+            ("dvbTdtSettings" Prelude..=)
+              Prelude.<$> dvbTdtSettings,
+            ("dvbSdtSettings" Prelude..=)
+              Prelude.<$> dvbSdtSettings,
+            ("segmentationTime" Prelude..=)
+              Prelude.<$> segmentationTime,
+            ("audioDuration" Prelude..=)
+              Prelude.<$> audioDuration,
+            ("nielsenId3" Prelude..=) Prelude.<$> nielsenId3,
+            ("dvbTeletextPid" Prelude..=)
+              Prelude.<$> dvbTeletextPid,
+            ("bitrate" Prelude..=) Prelude.<$> bitrate,
+            ("fragmentTime" Prelude..=) Prelude.<$> fragmentTime,
+            ("esRateInPes" Prelude..=) Prelude.<$> esRateInPes,
+            ("privateMetadataPid" Prelude..=)
+              Prelude.<$> privateMetadataPid,
+            ("scte35Esam" Prelude..=) Prelude.<$> scte35Esam,
+            ("scte35Source" Prelude..=) Prelude.<$> scte35Source,
+            ("forceTsVideoEbpOrder" Prelude..=)
+              Prelude.<$> forceTsVideoEbpOrder,
+            ("transportStreamId" Prelude..=)
+              Prelude.<$> transportStreamId,
+            ("dvbSubPids" Prelude..=) Prelude.<$> dvbSubPids,
+            ("scte35Pid" Prelude..=) Prelude.<$> scte35Pid
           ]
       )

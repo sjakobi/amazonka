@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +19,115 @@
 module Network.AWS.MediaConvert.Types.CaptionSourceType
   ( CaptionSourceType
       ( ..,
-        CSTAncillary,
-        CSTDvbSub,
-        CSTEmbedded,
-        CSTImsc,
-        CSTNullSource,
-        CSTSCTE20,
-        CSTScc,
-        CSTSmi,
-        CSTSmpteTt,
-        CSTSrt,
-        CSTStl,
-        CSTTeletext,
-        CSTTtml
+        CaptionSourceTypeANCILLARY,
+        CaptionSourceTypeDVBSUB,
+        CaptionSourceTypeEMBEDDED,
+        CaptionSourceTypeIMSC,
+        CaptionSourceTypeNULLSOURCE,
+        CaptionSourceTypeSCC,
+        CaptionSourceTypeSCTE20,
+        CaptionSourceTypeSMI,
+        CaptionSourceTypeSMPTETT,
+        CaptionSourceTypeSRT,
+        CaptionSourceTypeSTL,
+        CaptionSourceTypeTELETEXT,
+        CaptionSourceTypeTTML
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Source (SourceType) to identify the format of your input captions.  The service cannot auto-detect caption format.
-data CaptionSourceType = CaptionSourceType' (CI Text)
+-- | Use Source (SourceType) to identify the format of your input captions.
+-- The service cannot auto-detect caption format.
+newtype CaptionSourceType = CaptionSourceType'
+  { fromCaptionSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSTAncillary :: CaptionSourceType
-pattern CSTAncillary = CaptionSourceType' "ANCILLARY"
+pattern CaptionSourceTypeANCILLARY :: CaptionSourceType
+pattern CaptionSourceTypeANCILLARY = CaptionSourceType' "ANCILLARY"
 
-pattern CSTDvbSub :: CaptionSourceType
-pattern CSTDvbSub = CaptionSourceType' "DVB_SUB"
+pattern CaptionSourceTypeDVBSUB :: CaptionSourceType
+pattern CaptionSourceTypeDVBSUB = CaptionSourceType' "DVB_SUB"
 
-pattern CSTEmbedded :: CaptionSourceType
-pattern CSTEmbedded = CaptionSourceType' "EMBEDDED"
+pattern CaptionSourceTypeEMBEDDED :: CaptionSourceType
+pattern CaptionSourceTypeEMBEDDED = CaptionSourceType' "EMBEDDED"
 
-pattern CSTImsc :: CaptionSourceType
-pattern CSTImsc = CaptionSourceType' "IMSC"
+pattern CaptionSourceTypeIMSC :: CaptionSourceType
+pattern CaptionSourceTypeIMSC = CaptionSourceType' "IMSC"
 
-pattern CSTNullSource :: CaptionSourceType
-pattern CSTNullSource = CaptionSourceType' "NULL_SOURCE"
+pattern CaptionSourceTypeNULLSOURCE :: CaptionSourceType
+pattern CaptionSourceTypeNULLSOURCE = CaptionSourceType' "NULL_SOURCE"
 
-pattern CSTSCTE20 :: CaptionSourceType
-pattern CSTSCTE20 = CaptionSourceType' "SCTE20"
+pattern CaptionSourceTypeSCC :: CaptionSourceType
+pattern CaptionSourceTypeSCC = CaptionSourceType' "SCC"
 
-pattern CSTScc :: CaptionSourceType
-pattern CSTScc = CaptionSourceType' "SCC"
+pattern CaptionSourceTypeSCTE20 :: CaptionSourceType
+pattern CaptionSourceTypeSCTE20 = CaptionSourceType' "SCTE20"
 
-pattern CSTSmi :: CaptionSourceType
-pattern CSTSmi = CaptionSourceType' "SMI"
+pattern CaptionSourceTypeSMI :: CaptionSourceType
+pattern CaptionSourceTypeSMI = CaptionSourceType' "SMI"
 
-pattern CSTSmpteTt :: CaptionSourceType
-pattern CSTSmpteTt = CaptionSourceType' "SMPTE_TT"
+pattern CaptionSourceTypeSMPTETT :: CaptionSourceType
+pattern CaptionSourceTypeSMPTETT = CaptionSourceType' "SMPTE_TT"
 
-pattern CSTSrt :: CaptionSourceType
-pattern CSTSrt = CaptionSourceType' "SRT"
+pattern CaptionSourceTypeSRT :: CaptionSourceType
+pattern CaptionSourceTypeSRT = CaptionSourceType' "SRT"
 
-pattern CSTStl :: CaptionSourceType
-pattern CSTStl = CaptionSourceType' "STL"
+pattern CaptionSourceTypeSTL :: CaptionSourceType
+pattern CaptionSourceTypeSTL = CaptionSourceType' "STL"
 
-pattern CSTTeletext :: CaptionSourceType
-pattern CSTTeletext = CaptionSourceType' "TELETEXT"
+pattern CaptionSourceTypeTELETEXT :: CaptionSourceType
+pattern CaptionSourceTypeTELETEXT = CaptionSourceType' "TELETEXT"
 
-pattern CSTTtml :: CaptionSourceType
-pattern CSTTtml = CaptionSourceType' "TTML"
+pattern CaptionSourceTypeTTML :: CaptionSourceType
+pattern CaptionSourceTypeTTML = CaptionSourceType' "TTML"
 
 {-# COMPLETE
-  CSTAncillary,
-  CSTDvbSub,
-  CSTEmbedded,
-  CSTImsc,
-  CSTNullSource,
-  CSTSCTE20,
-  CSTScc,
-  CSTSmi,
-  CSTSmpteTt,
-  CSTSrt,
-  CSTStl,
-  CSTTeletext,
-  CSTTtml,
+  CaptionSourceTypeANCILLARY,
+  CaptionSourceTypeDVBSUB,
+  CaptionSourceTypeEMBEDDED,
+  CaptionSourceTypeIMSC,
+  CaptionSourceTypeNULLSOURCE,
+  CaptionSourceTypeSCC,
+  CaptionSourceTypeSCTE20,
+  CaptionSourceTypeSMI,
+  CaptionSourceTypeSMPTETT,
+  CaptionSourceTypeSRT,
+  CaptionSourceTypeSTL,
+  CaptionSourceTypeTELETEXT,
+  CaptionSourceTypeTTML,
   CaptionSourceType'
   #-}
 
-instance FromText CaptionSourceType where
-  parser = (CaptionSourceType' . mk) <$> takeText
+instance Prelude.FromText CaptionSourceType where
+  parser = CaptionSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText CaptionSourceType where
-  toText (CaptionSourceType' ci) = original ci
+instance Prelude.ToText CaptionSourceType where
+  toText (CaptionSourceType' x) = x
 
-instance Hashable CaptionSourceType
+instance Prelude.Hashable CaptionSourceType
 
-instance NFData CaptionSourceType
+instance Prelude.NFData CaptionSourceType
 
-instance ToByteString CaptionSourceType
+instance Prelude.ToByteString CaptionSourceType
 
-instance ToQuery CaptionSourceType
+instance Prelude.ToQuery CaptionSourceType
 
-instance ToHeader CaptionSourceType
+instance Prelude.ToHeader CaptionSourceType
 
-instance ToJSON CaptionSourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CaptionSourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CaptionSourceType where
-  parseJSON = parseJSONText "CaptionSourceType"
+instance Prelude.FromJSON CaptionSourceType where
+  parseJSON = Prelude.parseJSONText "CaptionSourceType"

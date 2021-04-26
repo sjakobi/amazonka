@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,63 @@
 module Network.AWS.MediaConvert.Types.PresetListBy
   ( PresetListBy
       ( ..,
-        PLBCreationDate,
-        PLBName,
-        PLBSystem
+        PresetListByCREATIONDATE,
+        PresetListByNAME,
+        PresetListBySYSTEM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. When you request a list of presets, you can choose to list them alphabetically by NAME or chronologically by CREATION_DATE. If you don't specify, the service will list them by name.
-data PresetListBy = PresetListBy' (CI Text)
+-- | Optional. When you request a list of presets, you can choose to list
+-- them alphabetically by NAME or chronologically by CREATION_DATE. If you
+-- don\'t specify, the service will list them by name.
+newtype PresetListBy = PresetListBy'
+  { fromPresetListBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PLBCreationDate :: PresetListBy
-pattern PLBCreationDate = PresetListBy' "CREATION_DATE"
+pattern PresetListByCREATIONDATE :: PresetListBy
+pattern PresetListByCREATIONDATE = PresetListBy' "CREATION_DATE"
 
-pattern PLBName :: PresetListBy
-pattern PLBName = PresetListBy' "NAME"
+pattern PresetListByNAME :: PresetListBy
+pattern PresetListByNAME = PresetListBy' "NAME"
 
-pattern PLBSystem :: PresetListBy
-pattern PLBSystem = PresetListBy' "SYSTEM"
+pattern PresetListBySYSTEM :: PresetListBy
+pattern PresetListBySYSTEM = PresetListBy' "SYSTEM"
 
 {-# COMPLETE
-  PLBCreationDate,
-  PLBName,
-  PLBSystem,
+  PresetListByCREATIONDATE,
+  PresetListByNAME,
+  PresetListBySYSTEM,
   PresetListBy'
   #-}
 
-instance FromText PresetListBy where
-  parser = (PresetListBy' . mk) <$> takeText
+instance Prelude.FromText PresetListBy where
+  parser = PresetListBy' Prelude.<$> Prelude.takeText
 
-instance ToText PresetListBy where
-  toText (PresetListBy' ci) = original ci
+instance Prelude.ToText PresetListBy where
+  toText (PresetListBy' x) = x
 
-instance Hashable PresetListBy
+instance Prelude.Hashable PresetListBy
 
-instance NFData PresetListBy
+instance Prelude.NFData PresetListBy
 
-instance ToByteString PresetListBy
+instance Prelude.ToByteString PresetListBy
 
-instance ToQuery PresetListBy
+instance Prelude.ToQuery PresetListBy
 
-instance ToHeader PresetListBy
+instance Prelude.ToHeader PresetListBy
 
-instance ToJSON PresetListBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON PresetListBy where
+  toJSON = Prelude.toJSONText

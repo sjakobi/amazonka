@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.ColorMetadata
   ( ColorMetadata
       ( ..,
-        Ignore,
-        Insert
+        ColorMetadataIGNORE,
+        ColorMetadataINSERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose Insert (INSERT) for this setting to include color metadata in this output. Choose Ignore (IGNORE) to exclude color metadata from this output. If you don't specify a value, the service sets this to Insert by default.
-data ColorMetadata = ColorMetadata' (CI Text)
+-- | Choose Insert (INSERT) for this setting to include color metadata in
+-- this output. Choose Ignore (IGNORE) to exclude color metadata from this
+-- output. If you don\'t specify a value, the service sets this to Insert
+-- by default.
+newtype ColorMetadata = ColorMetadata'
+  { fromColorMetadata ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ignore :: ColorMetadata
-pattern Ignore = ColorMetadata' "IGNORE"
+pattern ColorMetadataIGNORE :: ColorMetadata
+pattern ColorMetadataIGNORE = ColorMetadata' "IGNORE"
 
-pattern Insert :: ColorMetadata
-pattern Insert = ColorMetadata' "INSERT"
+pattern ColorMetadataINSERT :: ColorMetadata
+pattern ColorMetadataINSERT = ColorMetadata' "INSERT"
 
 {-# COMPLETE
-  Ignore,
-  Insert,
+  ColorMetadataIGNORE,
+  ColorMetadataINSERT,
   ColorMetadata'
   #-}
 
-instance FromText ColorMetadata where
-  parser = (ColorMetadata' . mk) <$> takeText
+instance Prelude.FromText ColorMetadata where
+  parser = ColorMetadata' Prelude.<$> Prelude.takeText
 
-instance ToText ColorMetadata where
-  toText (ColorMetadata' ci) = original ci
+instance Prelude.ToText ColorMetadata where
+  toText (ColorMetadata' x) = x
 
-instance Hashable ColorMetadata
+instance Prelude.Hashable ColorMetadata
 
-instance NFData ColorMetadata
+instance Prelude.NFData ColorMetadata
 
-instance ToByteString ColorMetadata
+instance Prelude.ToByteString ColorMetadata
 
-instance ToQuery ColorMetadata
+instance Prelude.ToQuery ColorMetadata
 
-instance ToHeader ColorMetadata
+instance Prelude.ToHeader ColorMetadata
 
-instance ToJSON ColorMetadata where
-  toJSON = toJSONText
+instance Prelude.ToJSON ColorMetadata where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ColorMetadata where
-  parseJSON = parseJSONText "ColorMetadata"
+instance Prelude.FromJSON ColorMetadata where
+  parseJSON = Prelude.parseJSONText "ColorMetadata"

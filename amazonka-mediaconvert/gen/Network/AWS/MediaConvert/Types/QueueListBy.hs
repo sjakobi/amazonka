@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,58 @@
 module Network.AWS.MediaConvert.Types.QueueListBy
   ( QueueListBy
       ( ..,
-        CreationDate,
-        Name
+        QueueListByCREATIONDATE,
+        QueueListByNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. When you request a list of queues, you can choose to list them alphabetically by NAME or chronologically by CREATION_DATE. If you don't specify, the service will list them by creation date.
-data QueueListBy = QueueListBy' (CI Text)
+-- | Optional. When you request a list of queues, you can choose to list them
+-- alphabetically by NAME or chronologically by CREATION_DATE. If you
+-- don\'t specify, the service will list them by creation date.
+newtype QueueListBy = QueueListBy'
+  { fromQueueListBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreationDate :: QueueListBy
-pattern CreationDate = QueueListBy' "CREATION_DATE"
+pattern QueueListByCREATIONDATE :: QueueListBy
+pattern QueueListByCREATIONDATE = QueueListBy' "CREATION_DATE"
 
-pattern Name :: QueueListBy
-pattern Name = QueueListBy' "NAME"
+pattern QueueListByNAME :: QueueListBy
+pattern QueueListByNAME = QueueListBy' "NAME"
 
 {-# COMPLETE
-  CreationDate,
-  Name,
+  QueueListByCREATIONDATE,
+  QueueListByNAME,
   QueueListBy'
   #-}
 
-instance FromText QueueListBy where
-  parser = (QueueListBy' . mk) <$> takeText
+instance Prelude.FromText QueueListBy where
+  parser = QueueListBy' Prelude.<$> Prelude.takeText
 
-instance ToText QueueListBy where
-  toText (QueueListBy' ci) = original ci
+instance Prelude.ToText QueueListBy where
+  toText (QueueListBy' x) = x
 
-instance Hashable QueueListBy
+instance Prelude.Hashable QueueListBy
 
-instance NFData QueueListBy
+instance Prelude.NFData QueueListBy
 
-instance ToByteString QueueListBy
+instance Prelude.ToByteString QueueListBy
 
-instance ToQuery QueueListBy
+instance Prelude.ToQuery QueueListBy
 
-instance ToHeader QueueListBy
+instance Prelude.ToHeader QueueListBy
 
-instance ToJSON QueueListBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON QueueListBy where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaConvert.Types.AudioNormalizationLoudnessLogging
   ( AudioNormalizationLoudnessLogging
       ( ..,
-        DontLog,
-        Log
+        AudioNormalizationLoudnessLoggingDONTLOG,
+        AudioNormalizationLoudnessLoggingLOG
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If set to LOG, log each output's audio track loudness to a CSV file.
-data AudioNormalizationLoudnessLogging
-  = AudioNormalizationLoudnessLogging'
-      ( CI
-          Text
-      )
+-- | If set to LOG, log each output\'s audio track loudness to a CSV file.
+newtype AudioNormalizationLoudnessLogging = AudioNormalizationLoudnessLogging'
+  { fromAudioNormalizationLoudnessLogging ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DontLog :: AudioNormalizationLoudnessLogging
-pattern DontLog = AudioNormalizationLoudnessLogging' "DONT_LOG"
+pattern AudioNormalizationLoudnessLoggingDONTLOG :: AudioNormalizationLoudnessLogging
+pattern AudioNormalizationLoudnessLoggingDONTLOG = AudioNormalizationLoudnessLogging' "DONT_LOG"
 
-pattern Log :: AudioNormalizationLoudnessLogging
-pattern Log = AudioNormalizationLoudnessLogging' "LOG"
+pattern AudioNormalizationLoudnessLoggingLOG :: AudioNormalizationLoudnessLogging
+pattern AudioNormalizationLoudnessLoggingLOG = AudioNormalizationLoudnessLogging' "LOG"
 
 {-# COMPLETE
-  DontLog,
-  Log,
+  AudioNormalizationLoudnessLoggingDONTLOG,
+  AudioNormalizationLoudnessLoggingLOG,
   AudioNormalizationLoudnessLogging'
   #-}
 
-instance FromText AudioNormalizationLoudnessLogging where
-  parser = (AudioNormalizationLoudnessLogging' . mk) <$> takeText
+instance Prelude.FromText AudioNormalizationLoudnessLogging where
+  parser = AudioNormalizationLoudnessLogging' Prelude.<$> Prelude.takeText
 
-instance ToText AudioNormalizationLoudnessLogging where
-  toText (AudioNormalizationLoudnessLogging' ci) = original ci
+instance Prelude.ToText AudioNormalizationLoudnessLogging where
+  toText (AudioNormalizationLoudnessLogging' x) = x
 
-instance Hashable AudioNormalizationLoudnessLogging
+instance Prelude.Hashable AudioNormalizationLoudnessLogging
 
-instance NFData AudioNormalizationLoudnessLogging
+instance Prelude.NFData AudioNormalizationLoudnessLogging
 
-instance ToByteString AudioNormalizationLoudnessLogging
+instance Prelude.ToByteString AudioNormalizationLoudnessLogging
 
-instance ToQuery AudioNormalizationLoudnessLogging
+instance Prelude.ToQuery AudioNormalizationLoudnessLogging
 
-instance ToHeader AudioNormalizationLoudnessLogging
+instance Prelude.ToHeader AudioNormalizationLoudnessLogging
 
-instance ToJSON AudioNormalizationLoudnessLogging where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioNormalizationLoudnessLogging where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioNormalizationLoudnessLogging where
-  parseJSON = parseJSONText "AudioNormalizationLoudnessLogging"
+instance Prelude.FromJSON AudioNormalizationLoudnessLogging where
+  parseJSON = Prelude.parseJSONText "AudioNormalizationLoudnessLogging"

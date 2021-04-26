@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,219 +24,267 @@
 -- Modify one of your existing job templates.
 module Network.AWS.MediaConvert.UpdateJobTemplate
   ( -- * Creating a Request
-    updateJobTemplate,
-    UpdateJobTemplate,
+    UpdateJobTemplate (..),
+    newUpdateJobTemplate,
 
     -- * Request Lenses
-    ujtAccelerationSettings,
-    ujtCategory,
-    ujtPriority,
-    ujtStatusUpdateInterval,
-    ujtQueue,
-    ujtDescription,
-    ujtHopDestinations,
-    ujtSettings,
-    ujtName,
+    updateJobTemplate_accelerationSettings,
+    updateJobTemplate_category,
+    updateJobTemplate_priority,
+    updateJobTemplate_statusUpdateInterval,
+    updateJobTemplate_queue,
+    updateJobTemplate_description,
+    updateJobTemplate_hopDestinations,
+    updateJobTemplate_settings,
+    updateJobTemplate_name,
 
     -- * Destructuring the Response
-    updateJobTemplateResponse,
-    UpdateJobTemplateResponse,
+    UpdateJobTemplateResponse (..),
+    newUpdateJobTemplateResponse,
 
     -- * Response Lenses
-    ujtrrsJobTemplate,
-    ujtrrsResponseStatus,
+    updateJobTemplateResponse_jobTemplate,
+    updateJobTemplateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.JobTemplate
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateJobTemplate' smart constructor.
+-- | /See:/ 'newUpdateJobTemplate' smart constructor.
 data UpdateJobTemplate = UpdateJobTemplate'
-  { _ujtAccelerationSettings ::
-      !(Maybe AccelerationSettings),
-    _ujtCategory :: !(Maybe Text),
-    _ujtPriority :: !(Maybe Int),
-    _ujtStatusUpdateInterval ::
-      !(Maybe StatusUpdateInterval),
-    _ujtQueue :: !(Maybe Text),
-    _ujtDescription :: !(Maybe Text),
-    _ujtHopDestinations ::
-      !(Maybe [HopDestination]),
-    _ujtSettings ::
-      !(Maybe JobTemplateSettings),
-    _ujtName :: !Text
+  { -- | Accelerated transcoding can significantly speed up jobs with long,
+    -- visually complex content. Outputs that use this feature incur pro-tier
+    -- pricing. For information about feature limitations, see the AWS
+    -- Elemental MediaConvert User Guide.
+    accelerationSettings :: Prelude.Maybe AccelerationSettings,
+    -- | The new category for the job template, if you are changing it.
+    category :: Prelude.Maybe Prelude.Text,
+    -- | Specify the relative priority for this job. In any given queue, the
+    -- service begins processing the job with the highest value first. When
+    -- more than one job has the same priority, the service begins processing
+    -- the job that you submitted first. If you don\'t specify a priority, the
+    -- service uses the default value 0.
+    priority :: Prelude.Maybe Prelude.Int,
+    -- | Specify how often MediaConvert sends STATUS_UPDATE events to Amazon
+    -- CloudWatch Events. Set the interval, in seconds, between status updates.
+    -- MediaConvert sends an update at this interval from the time the service
+    -- begins processing your job to the time it completes the transcode or
+    -- encounters an error.
+    statusUpdateInterval :: Prelude.Maybe StatusUpdateInterval,
+    -- | The new queue for the job template, if you are changing it.
+    queue :: Prelude.Maybe Prelude.Text,
+    -- | The new description for the job template, if you are changing it.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Optional list of hop destinations.
+    hopDestinations :: Prelude.Maybe [HopDestination],
+    -- | JobTemplateSettings contains all the transcode settings saved in the
+    -- template that will be applied to jobs created from it.
+    settings :: Prelude.Maybe JobTemplateSettings,
+    -- | The name of the job template you are modifying
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJobTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJobTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujtAccelerationSettings' - Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujtCategory' - The new category for the job template, if you are changing it.
+-- 'accelerationSettings', 'updateJobTemplate_accelerationSettings' - Accelerated transcoding can significantly speed up jobs with long,
+-- visually complex content. Outputs that use this feature incur pro-tier
+-- pricing. For information about feature limitations, see the AWS
+-- Elemental MediaConvert User Guide.
 --
--- * 'ujtPriority' - Specify the relative priority for this job. In any given queue, the service begins processing the job with the highest value first. When more than one job has the same priority, the service begins processing the job that you submitted first. If you don't specify a priority, the service uses the default value 0.
+-- 'category', 'updateJobTemplate_category' - The new category for the job template, if you are changing it.
 --
--- * 'ujtStatusUpdateInterval' - Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds, between status updates. MediaConvert sends an update at this interval from the time the service begins processing your job to the time it completes the transcode or encounters an error.
+-- 'priority', 'updateJobTemplate_priority' - Specify the relative priority for this job. In any given queue, the
+-- service begins processing the job with the highest value first. When
+-- more than one job has the same priority, the service begins processing
+-- the job that you submitted first. If you don\'t specify a priority, the
+-- service uses the default value 0.
 --
--- * 'ujtQueue' - The new queue for the job template, if you are changing it.
+-- 'statusUpdateInterval', 'updateJobTemplate_statusUpdateInterval' - Specify how often MediaConvert sends STATUS_UPDATE events to Amazon
+-- CloudWatch Events. Set the interval, in seconds, between status updates.
+-- MediaConvert sends an update at this interval from the time the service
+-- begins processing your job to the time it completes the transcode or
+-- encounters an error.
 --
--- * 'ujtDescription' - The new description for the job template, if you are changing it.
+-- 'queue', 'updateJobTemplate_queue' - The new queue for the job template, if you are changing it.
 --
--- * 'ujtHopDestinations' - Optional list of hop destinations.
+-- 'description', 'updateJobTemplate_description' - The new description for the job template, if you are changing it.
 --
--- * 'ujtSettings' - JobTemplateSettings contains all the transcode settings saved in the template that will be applied to jobs created from it.
+-- 'hopDestinations', 'updateJobTemplate_hopDestinations' - Optional list of hop destinations.
 --
--- * 'ujtName' - The name of the job template you are modifying
-updateJobTemplate ::
-  -- | 'ujtName'
-  Text ->
+-- 'settings', 'updateJobTemplate_settings' - JobTemplateSettings contains all the transcode settings saved in the
+-- template that will be applied to jobs created from it.
+--
+-- 'name', 'updateJobTemplate_name' - The name of the job template you are modifying
+newUpdateJobTemplate ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateJobTemplate
-updateJobTemplate pName_ =
+newUpdateJobTemplate pName_ =
   UpdateJobTemplate'
-    { _ujtAccelerationSettings =
-        Nothing,
-      _ujtCategory = Nothing,
-      _ujtPriority = Nothing,
-      _ujtStatusUpdateInterval = Nothing,
-      _ujtQueue = Nothing,
-      _ujtDescription = Nothing,
-      _ujtHopDestinations = Nothing,
-      _ujtSettings = Nothing,
-      _ujtName = pName_
+    { accelerationSettings =
+        Prelude.Nothing,
+      category = Prelude.Nothing,
+      priority = Prelude.Nothing,
+      statusUpdateInterval = Prelude.Nothing,
+      queue = Prelude.Nothing,
+      description = Prelude.Nothing,
+      hopDestinations = Prelude.Nothing,
+      settings = Prelude.Nothing,
+      name = pName_
     }
 
--- | Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
-ujtAccelerationSettings :: Lens' UpdateJobTemplate (Maybe AccelerationSettings)
-ujtAccelerationSettings = lens _ujtAccelerationSettings (\s a -> s {_ujtAccelerationSettings = a})
+-- | Accelerated transcoding can significantly speed up jobs with long,
+-- visually complex content. Outputs that use this feature incur pro-tier
+-- pricing. For information about feature limitations, see the AWS
+-- Elemental MediaConvert User Guide.
+updateJobTemplate_accelerationSettings :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe AccelerationSettings)
+updateJobTemplate_accelerationSettings = Lens.lens (\UpdateJobTemplate' {accelerationSettings} -> accelerationSettings) (\s@UpdateJobTemplate' {} a -> s {accelerationSettings = a} :: UpdateJobTemplate)
 
 -- | The new category for the job template, if you are changing it.
-ujtCategory :: Lens' UpdateJobTemplate (Maybe Text)
-ujtCategory = lens _ujtCategory (\s a -> s {_ujtCategory = a})
+updateJobTemplate_category :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe Prelude.Text)
+updateJobTemplate_category = Lens.lens (\UpdateJobTemplate' {category} -> category) (\s@UpdateJobTemplate' {} a -> s {category = a} :: UpdateJobTemplate)
 
--- | Specify the relative priority for this job. In any given queue, the service begins processing the job with the highest value first. When more than one job has the same priority, the service begins processing the job that you submitted first. If you don't specify a priority, the service uses the default value 0.
-ujtPriority :: Lens' UpdateJobTemplate (Maybe Int)
-ujtPriority = lens _ujtPriority (\s a -> s {_ujtPriority = a})
+-- | Specify the relative priority for this job. In any given queue, the
+-- service begins processing the job with the highest value first. When
+-- more than one job has the same priority, the service begins processing
+-- the job that you submitted first. If you don\'t specify a priority, the
+-- service uses the default value 0.
+updateJobTemplate_priority :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe Prelude.Int)
+updateJobTemplate_priority = Lens.lens (\UpdateJobTemplate' {priority} -> priority) (\s@UpdateJobTemplate' {} a -> s {priority = a} :: UpdateJobTemplate)
 
--- | Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds, between status updates. MediaConvert sends an update at this interval from the time the service begins processing your job to the time it completes the transcode or encounters an error.
-ujtStatusUpdateInterval :: Lens' UpdateJobTemplate (Maybe StatusUpdateInterval)
-ujtStatusUpdateInterval = lens _ujtStatusUpdateInterval (\s a -> s {_ujtStatusUpdateInterval = a})
+-- | Specify how often MediaConvert sends STATUS_UPDATE events to Amazon
+-- CloudWatch Events. Set the interval, in seconds, between status updates.
+-- MediaConvert sends an update at this interval from the time the service
+-- begins processing your job to the time it completes the transcode or
+-- encounters an error.
+updateJobTemplate_statusUpdateInterval :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe StatusUpdateInterval)
+updateJobTemplate_statusUpdateInterval = Lens.lens (\UpdateJobTemplate' {statusUpdateInterval} -> statusUpdateInterval) (\s@UpdateJobTemplate' {} a -> s {statusUpdateInterval = a} :: UpdateJobTemplate)
 
 -- | The new queue for the job template, if you are changing it.
-ujtQueue :: Lens' UpdateJobTemplate (Maybe Text)
-ujtQueue = lens _ujtQueue (\s a -> s {_ujtQueue = a})
+updateJobTemplate_queue :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe Prelude.Text)
+updateJobTemplate_queue = Lens.lens (\UpdateJobTemplate' {queue} -> queue) (\s@UpdateJobTemplate' {} a -> s {queue = a} :: UpdateJobTemplate)
 
 -- | The new description for the job template, if you are changing it.
-ujtDescription :: Lens' UpdateJobTemplate (Maybe Text)
-ujtDescription = lens _ujtDescription (\s a -> s {_ujtDescription = a})
+updateJobTemplate_description :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe Prelude.Text)
+updateJobTemplate_description = Lens.lens (\UpdateJobTemplate' {description} -> description) (\s@UpdateJobTemplate' {} a -> s {description = a} :: UpdateJobTemplate)
 
 -- | Optional list of hop destinations.
-ujtHopDestinations :: Lens' UpdateJobTemplate [HopDestination]
-ujtHopDestinations = lens _ujtHopDestinations (\s a -> s {_ujtHopDestinations = a}) . _Default . _Coerce
+updateJobTemplate_hopDestinations :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe [HopDestination])
+updateJobTemplate_hopDestinations = Lens.lens (\UpdateJobTemplate' {hopDestinations} -> hopDestinations) (\s@UpdateJobTemplate' {} a -> s {hopDestinations = a} :: UpdateJobTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
--- | JobTemplateSettings contains all the transcode settings saved in the template that will be applied to jobs created from it.
-ujtSettings :: Lens' UpdateJobTemplate (Maybe JobTemplateSettings)
-ujtSettings = lens _ujtSettings (\s a -> s {_ujtSettings = a})
+-- | JobTemplateSettings contains all the transcode settings saved in the
+-- template that will be applied to jobs created from it.
+updateJobTemplate_settings :: Lens.Lens' UpdateJobTemplate (Prelude.Maybe JobTemplateSettings)
+updateJobTemplate_settings = Lens.lens (\UpdateJobTemplate' {settings} -> settings) (\s@UpdateJobTemplate' {} a -> s {settings = a} :: UpdateJobTemplate)
 
 -- | The name of the job template you are modifying
-ujtName :: Lens' UpdateJobTemplate Text
-ujtName = lens _ujtName (\s a -> s {_ujtName = a})
+updateJobTemplate_name :: Lens.Lens' UpdateJobTemplate Prelude.Text
+updateJobTemplate_name = Lens.lens (\UpdateJobTemplate' {name} -> name) (\s@UpdateJobTemplate' {} a -> s {name = a} :: UpdateJobTemplate)
 
-instance AWSRequest UpdateJobTemplate where
+instance Prelude.AWSRequest UpdateJobTemplate where
   type Rs UpdateJobTemplate = UpdateJobTemplateResponse
-  request = putJSON mediaConvert
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateJobTemplateResponse'
-            <$> (x .?> "jobTemplate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "jobTemplate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateJobTemplate
+instance Prelude.Hashable UpdateJobTemplate
 
-instance NFData UpdateJobTemplate
+instance Prelude.NFData UpdateJobTemplate
 
-instance ToHeaders UpdateJobTemplate where
+instance Prelude.ToHeaders UpdateJobTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateJobTemplate where
+instance Prelude.ToJSON UpdateJobTemplate where
   toJSON UpdateJobTemplate' {..} =
-    object
-      ( catMaybes
-          [ ("accelerationSettings" .=)
-              <$> _ujtAccelerationSettings,
-            ("category" .=) <$> _ujtCategory,
-            ("priority" .=) <$> _ujtPriority,
-            ("statusUpdateInterval" .=)
-              <$> _ujtStatusUpdateInterval,
-            ("queue" .=) <$> _ujtQueue,
-            ("description" .=) <$> _ujtDescription,
-            ("hopDestinations" .=) <$> _ujtHopDestinations,
-            ("settings" .=) <$> _ujtSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("accelerationSettings" Prelude..=)
+              Prelude.<$> accelerationSettings,
+            ("category" Prelude..=) Prelude.<$> category,
+            ("priority" Prelude..=) Prelude.<$> priority,
+            ("statusUpdateInterval" Prelude..=)
+              Prelude.<$> statusUpdateInterval,
+            ("queue" Prelude..=) Prelude.<$> queue,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("hopDestinations" Prelude..=)
+              Prelude.<$> hopDestinations,
+            ("settings" Prelude..=) Prelude.<$> settings
           ]
       )
 
-instance ToPath UpdateJobTemplate where
+instance Prelude.ToPath UpdateJobTemplate where
   toPath UpdateJobTemplate' {..} =
-    mconcat
-      ["/2017-08-29/jobTemplates/", toBS _ujtName]
+    Prelude.mconcat
+      ["/2017-08-29/jobTemplates/", Prelude.toBS name]
 
-instance ToQuery UpdateJobTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateJobTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateJobTemplateResponse' smart constructor.
+-- | /See:/ 'newUpdateJobTemplateResponse' smart constructor.
 data UpdateJobTemplateResponse = UpdateJobTemplateResponse'
-  { _ujtrrsJobTemplate ::
-      !( Maybe
-           JobTemplate
-       ),
-    _ujtrrsResponseStatus ::
-      !Int
+  { -- | A job template is a pre-made set of encoding instructions that you can
+    -- use to quickly create a job.
+    jobTemplate :: Prelude.Maybe JobTemplate,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateJobTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateJobTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ujtrrsJobTemplate' - A job template is a pre-made set of encoding instructions that you can use to quickly create a job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ujtrrsResponseStatus' - -- | The response status code.
-updateJobTemplateResponse ::
-  -- | 'ujtrrsResponseStatus'
-  Int ->
+-- 'jobTemplate', 'updateJobTemplateResponse_jobTemplate' - A job template is a pre-made set of encoding instructions that you can
+-- use to quickly create a job.
+--
+-- 'httpStatus', 'updateJobTemplateResponse_httpStatus' - The response's http status code.
+newUpdateJobTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateJobTemplateResponse
-updateJobTemplateResponse pResponseStatus_ =
+newUpdateJobTemplateResponse pHttpStatus_ =
   UpdateJobTemplateResponse'
-    { _ujtrrsJobTemplate =
-        Nothing,
-      _ujtrrsResponseStatus = pResponseStatus_
+    { jobTemplate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A job template is a pre-made set of encoding instructions that you can use to quickly create a job.
-ujtrrsJobTemplate :: Lens' UpdateJobTemplateResponse (Maybe JobTemplate)
-ujtrrsJobTemplate = lens _ujtrrsJobTemplate (\s a -> s {_ujtrrsJobTemplate = a})
+-- | A job template is a pre-made set of encoding instructions that you can
+-- use to quickly create a job.
+updateJobTemplateResponse_jobTemplate :: Lens.Lens' UpdateJobTemplateResponse (Prelude.Maybe JobTemplate)
+updateJobTemplateResponse_jobTemplate = Lens.lens (\UpdateJobTemplateResponse' {jobTemplate} -> jobTemplate) (\s@UpdateJobTemplateResponse' {} a -> s {jobTemplate = a} :: UpdateJobTemplateResponse)
 
--- | -- | The response status code.
-ujtrrsResponseStatus :: Lens' UpdateJobTemplateResponse Int
-ujtrrsResponseStatus = lens _ujtrrsResponseStatus (\s a -> s {_ujtrrsResponseStatus = a})
+-- | The response's http status code.
+updateJobTemplateResponse_httpStatus :: Lens.Lens' UpdateJobTemplateResponse Prelude.Int
+updateJobTemplateResponse_httpStatus = Lens.lens (\UpdateJobTemplateResponse' {httpStatus} -> httpStatus) (\s@UpdateJobTemplateResponse' {} a -> s {httpStatus = a} :: UpdateJobTemplateResponse)
 
-instance NFData UpdateJobTemplateResponse
+instance Prelude.NFData UpdateJobTemplateResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaConvert.Types.AudioDefaultSelection
   ( AudioDefaultSelection
       ( ..,
-        ADSDefault,
-        ADSNotDefault
+        AudioDefaultSelectionDEFAULT,
+        AudioDefaultSelectionNOTDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable this setting on one audio selector to set it as the default for the job. The service uses this default for outputs where it can't find the specified input audio. If you don't set a default, those outputs have no audio.
-data AudioDefaultSelection
-  = AudioDefaultSelection'
-      ( CI
-          Text
-      )
+-- | Enable this setting on one audio selector to set it as the default for
+-- the job. The service uses this default for outputs where it can\'t find
+-- the specified input audio. If you don\'t set a default, those outputs
+-- have no audio.
+newtype AudioDefaultSelection = AudioDefaultSelection'
+  { fromAudioDefaultSelection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADSDefault :: AudioDefaultSelection
-pattern ADSDefault = AudioDefaultSelection' "DEFAULT"
+pattern AudioDefaultSelectionDEFAULT :: AudioDefaultSelection
+pattern AudioDefaultSelectionDEFAULT = AudioDefaultSelection' "DEFAULT"
 
-pattern ADSNotDefault :: AudioDefaultSelection
-pattern ADSNotDefault = AudioDefaultSelection' "NOT_DEFAULT"
+pattern AudioDefaultSelectionNOTDEFAULT :: AudioDefaultSelection
+pattern AudioDefaultSelectionNOTDEFAULT = AudioDefaultSelection' "NOT_DEFAULT"
 
 {-# COMPLETE
-  ADSDefault,
-  ADSNotDefault,
+  AudioDefaultSelectionDEFAULT,
+  AudioDefaultSelectionNOTDEFAULT,
   AudioDefaultSelection'
   #-}
 
-instance FromText AudioDefaultSelection where
-  parser = (AudioDefaultSelection' . mk) <$> takeText
+instance Prelude.FromText AudioDefaultSelection where
+  parser = AudioDefaultSelection' Prelude.<$> Prelude.takeText
 
-instance ToText AudioDefaultSelection where
-  toText (AudioDefaultSelection' ci) = original ci
+instance Prelude.ToText AudioDefaultSelection where
+  toText (AudioDefaultSelection' x) = x
 
-instance Hashable AudioDefaultSelection
+instance Prelude.Hashable AudioDefaultSelection
 
-instance NFData AudioDefaultSelection
+instance Prelude.NFData AudioDefaultSelection
 
-instance ToByteString AudioDefaultSelection
+instance Prelude.ToByteString AudioDefaultSelection
 
-instance ToQuery AudioDefaultSelection
+instance Prelude.ToQuery AudioDefaultSelection
 
-instance ToHeader AudioDefaultSelection
+instance Prelude.ToHeader AudioDefaultSelection
 
-instance ToJSON AudioDefaultSelection where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioDefaultSelection where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioDefaultSelection where
-  parseJSON = parseJSONText "AudioDefaultSelection"
+instance Prelude.FromJSON AudioDefaultSelection where
+  parseJSON = Prelude.parseJSONText "AudioDefaultSelection"

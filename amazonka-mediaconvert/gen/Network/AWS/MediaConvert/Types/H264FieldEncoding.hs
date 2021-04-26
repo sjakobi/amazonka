@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.H264FieldEncoding
   ( H264FieldEncoding
       ( ..,
-        ForceField,
-        Paff
+        H264FieldEncodingFORCEFIELD,
+        H264FieldEncodingPAFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Keep the default value, PAFF, to have MediaConvert use PAFF encoding for interlaced outputs. Choose Force field (FORCE_FIELD) to disable PAFF encoding and create separate interlaced fields.
-data H264FieldEncoding = H264FieldEncoding' (CI Text)
+-- | Keep the default value, PAFF, to have MediaConvert use PAFF encoding for
+-- interlaced outputs. Choose Force field (FORCE_FIELD) to disable PAFF
+-- encoding and create separate interlaced fields.
+newtype H264FieldEncoding = H264FieldEncoding'
+  { fromH264FieldEncoding ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ForceField :: H264FieldEncoding
-pattern ForceField = H264FieldEncoding' "FORCE_FIELD"
+pattern H264FieldEncodingFORCEFIELD :: H264FieldEncoding
+pattern H264FieldEncodingFORCEFIELD = H264FieldEncoding' "FORCE_FIELD"
 
-pattern Paff :: H264FieldEncoding
-pattern Paff = H264FieldEncoding' "PAFF"
+pattern H264FieldEncodingPAFF :: H264FieldEncoding
+pattern H264FieldEncodingPAFF = H264FieldEncoding' "PAFF"
 
 {-# COMPLETE
-  ForceField,
-  Paff,
+  H264FieldEncodingFORCEFIELD,
+  H264FieldEncodingPAFF,
   H264FieldEncoding'
   #-}
 
-instance FromText H264FieldEncoding where
-  parser = (H264FieldEncoding' . mk) <$> takeText
+instance Prelude.FromText H264FieldEncoding where
+  parser = H264FieldEncoding' Prelude.<$> Prelude.takeText
 
-instance ToText H264FieldEncoding where
-  toText (H264FieldEncoding' ci) = original ci
+instance Prelude.ToText H264FieldEncoding where
+  toText (H264FieldEncoding' x) = x
 
-instance Hashable H264FieldEncoding
+instance Prelude.Hashable H264FieldEncoding
 
-instance NFData H264FieldEncoding
+instance Prelude.NFData H264FieldEncoding
 
-instance ToByteString H264FieldEncoding
+instance Prelude.ToByteString H264FieldEncoding
 
-instance ToQuery H264FieldEncoding
+instance Prelude.ToQuery H264FieldEncoding
 
-instance ToHeader H264FieldEncoding
+instance Prelude.ToHeader H264FieldEncoding
 
-instance ToJSON H264FieldEncoding where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264FieldEncoding where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264FieldEncoding where
-  parseJSON = parseJSONText "H264FieldEncoding"
+instance Prelude.FromJSON H264FieldEncoding where
+  parseJSON = Prelude.parseJSONText "H264FieldEncoding"

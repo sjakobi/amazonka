@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.HlsKeyProviderType
   ( HlsKeyProviderType
       ( ..,
-        HKPTSpeke,
-        HKPTStaticKey
+        HlsKeyProviderTypeSPEKE,
+        HlsKeyProviderTypeSTATICKEY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify whether your DRM encryption key is static or from a key provider that follows the SPEKE standard. For more information about SPEKE, see https://docs.aws.amazon.com/speke/latest/documentation/what-is-speke.html.
-data HlsKeyProviderType
-  = HlsKeyProviderType'
-      ( CI
-          Text
-      )
+-- | Specify whether your DRM encryption key is static or from a key provider
+-- that follows the SPEKE standard. For more information about SPEKE, see
+-- https:\/\/docs.aws.amazon.com\/speke\/latest\/documentation\/what-is-speke.html.
+newtype HlsKeyProviderType = HlsKeyProviderType'
+  { fromHlsKeyProviderType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HKPTSpeke :: HlsKeyProviderType
-pattern HKPTSpeke = HlsKeyProviderType' "SPEKE"
+pattern HlsKeyProviderTypeSPEKE :: HlsKeyProviderType
+pattern HlsKeyProviderTypeSPEKE = HlsKeyProviderType' "SPEKE"
 
-pattern HKPTStaticKey :: HlsKeyProviderType
-pattern HKPTStaticKey = HlsKeyProviderType' "STATIC_KEY"
+pattern HlsKeyProviderTypeSTATICKEY :: HlsKeyProviderType
+pattern HlsKeyProviderTypeSTATICKEY = HlsKeyProviderType' "STATIC_KEY"
 
 {-# COMPLETE
-  HKPTSpeke,
-  HKPTStaticKey,
+  HlsKeyProviderTypeSPEKE,
+  HlsKeyProviderTypeSTATICKEY,
   HlsKeyProviderType'
   #-}
 
-instance FromText HlsKeyProviderType where
-  parser = (HlsKeyProviderType' . mk) <$> takeText
+instance Prelude.FromText HlsKeyProviderType where
+  parser = HlsKeyProviderType' Prelude.<$> Prelude.takeText
 
-instance ToText HlsKeyProviderType where
-  toText (HlsKeyProviderType' ci) = original ci
+instance Prelude.ToText HlsKeyProviderType where
+  toText (HlsKeyProviderType' x) = x
 
-instance Hashable HlsKeyProviderType
+instance Prelude.Hashable HlsKeyProviderType
 
-instance NFData HlsKeyProviderType
+instance Prelude.NFData HlsKeyProviderType
 
-instance ToByteString HlsKeyProviderType
+instance Prelude.ToByteString HlsKeyProviderType
 
-instance ToQuery HlsKeyProviderType
+instance Prelude.ToQuery HlsKeyProviderType
 
-instance ToHeader HlsKeyProviderType
+instance Prelude.ToHeader HlsKeyProviderType
 
-instance ToJSON HlsKeyProviderType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsKeyProviderType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsKeyProviderType where
-  parseJSON = parseJSONText "HlsKeyProviderType"
+instance Prelude.FromJSON HlsKeyProviderType where
+  parseJSON = Prelude.parseJSONText "HlsKeyProviderType"

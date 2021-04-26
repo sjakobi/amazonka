@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,70 @@
 module Network.AWS.MediaConvert.Types.ProresCodecProfile
   ( ProresCodecProfile
       ( ..,
-        AppleProres422,
-        AppleProres422Hq,
-        AppleProres422LT,
-        AppleProres422Proxy
+        ProresCodecProfileAPPLEPRORES422,
+        ProresCodecProfileAPPLEPRORES422HQ,
+        ProresCodecProfileAPPLEPRORES422LT,
+        ProresCodecProfileAPPLEPRORES422PROXY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Profile (ProResCodecProfile) to specify the type of Apple ProRes codec to use for this output.
-data ProresCodecProfile
-  = ProresCodecProfile'
-      ( CI
-          Text
-      )
+-- | Use Profile (ProResCodecProfile) to specify the type of Apple ProRes
+-- codec to use for this output.
+newtype ProresCodecProfile = ProresCodecProfile'
+  { fromProresCodecProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AppleProres422 :: ProresCodecProfile
-pattern AppleProres422 = ProresCodecProfile' "APPLE_PRORES_422"
+pattern ProresCodecProfileAPPLEPRORES422 :: ProresCodecProfile
+pattern ProresCodecProfileAPPLEPRORES422 = ProresCodecProfile' "APPLE_PRORES_422"
 
-pattern AppleProres422Hq :: ProresCodecProfile
-pattern AppleProres422Hq = ProresCodecProfile' "APPLE_PRORES_422_HQ"
+pattern ProresCodecProfileAPPLEPRORES422HQ :: ProresCodecProfile
+pattern ProresCodecProfileAPPLEPRORES422HQ = ProresCodecProfile' "APPLE_PRORES_422_HQ"
 
-pattern AppleProres422LT :: ProresCodecProfile
-pattern AppleProres422LT = ProresCodecProfile' "APPLE_PRORES_422_LT"
+pattern ProresCodecProfileAPPLEPRORES422LT :: ProresCodecProfile
+pattern ProresCodecProfileAPPLEPRORES422LT = ProresCodecProfile' "APPLE_PRORES_422_LT"
 
-pattern AppleProres422Proxy :: ProresCodecProfile
-pattern AppleProres422Proxy = ProresCodecProfile' "APPLE_PRORES_422_PROXY"
+pattern ProresCodecProfileAPPLEPRORES422PROXY :: ProresCodecProfile
+pattern ProresCodecProfileAPPLEPRORES422PROXY = ProresCodecProfile' "APPLE_PRORES_422_PROXY"
 
 {-# COMPLETE
-  AppleProres422,
-  AppleProres422Hq,
-  AppleProres422LT,
-  AppleProres422Proxy,
+  ProresCodecProfileAPPLEPRORES422,
+  ProresCodecProfileAPPLEPRORES422HQ,
+  ProresCodecProfileAPPLEPRORES422LT,
+  ProresCodecProfileAPPLEPRORES422PROXY,
   ProresCodecProfile'
   #-}
 
-instance FromText ProresCodecProfile where
-  parser = (ProresCodecProfile' . mk) <$> takeText
+instance Prelude.FromText ProresCodecProfile where
+  parser = ProresCodecProfile' Prelude.<$> Prelude.takeText
 
-instance ToText ProresCodecProfile where
-  toText (ProresCodecProfile' ci) = original ci
+instance Prelude.ToText ProresCodecProfile where
+  toText (ProresCodecProfile' x) = x
 
-instance Hashable ProresCodecProfile
+instance Prelude.Hashable ProresCodecProfile
 
-instance NFData ProresCodecProfile
+instance Prelude.NFData ProresCodecProfile
 
-instance ToByteString ProresCodecProfile
+instance Prelude.ToByteString ProresCodecProfile
 
-instance ToQuery ProresCodecProfile
+instance Prelude.ToQuery ProresCodecProfile
 
-instance ToHeader ProresCodecProfile
+instance Prelude.ToHeader ProresCodecProfile
 
-instance ToJSON ProresCodecProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProresCodecProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProresCodecProfile where
-  parseJSON = parseJSONText "ProresCodecProfile"
+instance Prelude.FromJSON ProresCodecProfile where
+  parseJSON = Prelude.parseJSONText "ProresCodecProfile"

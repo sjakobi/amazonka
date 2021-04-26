@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.Mpeg2Syntax
   ( Mpeg2Syntax
       ( ..,
-        MSD10,
-        MSDefault
+        Mpeg2SyntaxD10,
+        Mpeg2SyntaxDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify whether this output's video uses the D10 syntax. Keep the default value to  not use the syntax. Related settings: When you choose D10 (D_10) for your MXF  profile (profile), you must also set this value to to D10 (D_10).
-data Mpeg2Syntax = Mpeg2Syntax' (CI Text)
+-- | Specify whether this output\'s video uses the D10 syntax. Keep the
+-- default value to not use the syntax. Related settings: When you choose
+-- D10 (D_10) for your MXF profile (profile), you must also set this value
+-- to to D10 (D_10).
+newtype Mpeg2Syntax = Mpeg2Syntax'
+  { fromMpeg2Syntax ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSD10 :: Mpeg2Syntax
-pattern MSD10 = Mpeg2Syntax' "D_10"
+pattern Mpeg2SyntaxD10 :: Mpeg2Syntax
+pattern Mpeg2SyntaxD10 = Mpeg2Syntax' "D_10"
 
-pattern MSDefault :: Mpeg2Syntax
-pattern MSDefault = Mpeg2Syntax' "DEFAULT"
+pattern Mpeg2SyntaxDEFAULT :: Mpeg2Syntax
+pattern Mpeg2SyntaxDEFAULT = Mpeg2Syntax' "DEFAULT"
 
 {-# COMPLETE
-  MSD10,
-  MSDefault,
+  Mpeg2SyntaxD10,
+  Mpeg2SyntaxDEFAULT,
   Mpeg2Syntax'
   #-}
 
-instance FromText Mpeg2Syntax where
-  parser = (Mpeg2Syntax' . mk) <$> takeText
+instance Prelude.FromText Mpeg2Syntax where
+  parser = Mpeg2Syntax' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2Syntax where
-  toText (Mpeg2Syntax' ci) = original ci
+instance Prelude.ToText Mpeg2Syntax where
+  toText (Mpeg2Syntax' x) = x
 
-instance Hashable Mpeg2Syntax
+instance Prelude.Hashable Mpeg2Syntax
 
-instance NFData Mpeg2Syntax
+instance Prelude.NFData Mpeg2Syntax
 
-instance ToByteString Mpeg2Syntax
+instance Prelude.ToByteString Mpeg2Syntax
 
-instance ToQuery Mpeg2Syntax
+instance Prelude.ToQuery Mpeg2Syntax
 
-instance ToHeader Mpeg2Syntax
+instance Prelude.ToHeader Mpeg2Syntax
 
-instance ToJSON Mpeg2Syntax where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2Syntax where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2Syntax where
-  parseJSON = parseJSONText "Mpeg2Syntax"
+instance Prelude.FromJSON Mpeg2Syntax where
+  parseJSON = Prelude.parseJSONText "Mpeg2Syntax"

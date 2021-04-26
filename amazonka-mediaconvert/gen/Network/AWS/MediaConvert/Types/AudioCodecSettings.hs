@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.AudioCodecSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AacSettings
 import Network.AWS.MediaConvert.Types.Ac3Settings
 import Network.AWS.MediaConvert.Types.AiffSettings
@@ -27,159 +31,219 @@ import Network.AWS.MediaConvert.Types.Mp3Settings
 import Network.AWS.MediaConvert.Types.OpusSettings
 import Network.AWS.MediaConvert.Types.VorbisSettings
 import Network.AWS.MediaConvert.Types.WavSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Audio codec settings (CodecSettings) under (AudioDescriptions) contains the group of settings related to audio encoding. The settings in this group vary depending on the value that you choose for Audio codec (Codec). For each codec enum that you choose, define the corresponding settings object. The following lists the codec enum, settings object pairs. * AAC, AacSettings * MP2, Mp2Settings * MP3, Mp3Settings * WAV, WavSettings * AIFF, AiffSettings * AC3, Ac3Settings * EAC3, Eac3Settings * EAC3_ATMOS, Eac3AtmosSettings * VORBIS, VorbisSettings * OPUS, OpusSettings
+-- | Audio codec settings (CodecSettings) under (AudioDescriptions) contains
+-- the group of settings related to audio encoding. The settings in this
+-- group vary depending on the value that you choose for Audio codec
+-- (Codec). For each codec enum that you choose, define the corresponding
+-- settings object. The following lists the codec enum, settings object
+-- pairs. * AAC, AacSettings * MP2, Mp2Settings * MP3, Mp3Settings * WAV,
+-- WavSettings * AIFF, AiffSettings * AC3, Ac3Settings * EAC3, Eac3Settings
+-- * EAC3_ATMOS, Eac3AtmosSettings * VORBIS, VorbisSettings * OPUS,
+-- OpusSettings
 --
--- /See:/ 'audioCodecSettings' smart constructor.
+-- /See:/ 'newAudioCodecSettings' smart constructor.
 data AudioCodecSettings = AudioCodecSettings'
-  { _acsAc3Settings ::
-      !(Maybe Ac3Settings),
-    _acsVorbisSettings ::
-      !(Maybe VorbisSettings),
-    _acsCodec :: !(Maybe AudioCodec),
-    _acsMp3Settings ::
-      !(Maybe Mp3Settings),
-    _acsMp2Settings ::
-      !(Maybe Mp2Settings),
-    _acsOpusSettings ::
-      !(Maybe OpusSettings),
-    _acsEac3Settings ::
-      !(Maybe Eac3Settings),
-    _acsAacSettings ::
-      !(Maybe AacSettings),
-    _acsWavSettings ::
-      !(Maybe WavSettings),
-    _acsAiffSettings ::
-      !(Maybe AiffSettings),
-    _acsEac3AtmosSettings ::
-      !(Maybe Eac3AtmosSettings)
+  { -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value AC3.
+    ac3Settings :: Prelude.Maybe Ac3Settings,
+    -- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+    -- the value Vorbis.
+    vorbisSettings :: Prelude.Maybe VorbisSettings,
+    -- | Type of Audio codec.
+    codec :: Prelude.Maybe AudioCodec,
+    -- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+    -- the value MP3.
+    mp3Settings :: Prelude.Maybe Mp3Settings,
+    -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value MP2.
+    mp2Settings :: Prelude.Maybe Mp2Settings,
+    -- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+    -- the value OPUS.
+    opusSettings :: Prelude.Maybe OpusSettings,
+    -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value EAC3.
+    eac3Settings :: Prelude.Maybe Eac3Settings,
+    -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value AAC. The service accepts one of two mutually exclusive
+    -- groups of AAC settings--VBR and CBR. To select one of these modes, set
+    -- the value of Bitrate control mode (rateControlMode) to \"VBR\" or
+    -- \"CBR\". In VBR mode, you control the audio quality with the setting VBR
+    -- quality (vbrQuality). In CBR mode, you use the setting Bitrate
+    -- (bitrate). Defaults and valid values depend on the rate control mode.
+    aacSettings :: Prelude.Maybe AacSettings,
+    -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value WAV.
+    wavSettings :: Prelude.Maybe WavSettings,
+    -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value AIFF.
+    aiffSettings :: Prelude.Maybe AiffSettings,
+    -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+    -- to the value EAC3_ATMOS.
+    eac3AtmosSettings :: Prelude.Maybe Eac3AtmosSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioCodecSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioCodecSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acsAc3Settings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AC3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acsVorbisSettings' - Required when you set Codec, under AudioDescriptions>CodecSettings, to the value Vorbis.
+-- 'ac3Settings', 'audioCodecSettings_ac3Settings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AC3.
 --
--- * 'acsCodec' - Type of Audio codec.
+-- 'vorbisSettings', 'audioCodecSettings_vorbisSettings' - Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value Vorbis.
 --
--- * 'acsMp3Settings' - Required when you set Codec, under AudioDescriptions>CodecSettings, to the value MP3.
+-- 'codec', 'audioCodecSettings_codec' - Type of Audio codec.
 --
--- * 'acsMp2Settings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value MP2.
+-- 'mp3Settings', 'audioCodecSettings_mp3Settings' - Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value MP3.
 --
--- * 'acsOpusSettings' - Required when you set Codec, under AudioDescriptions>CodecSettings, to the value OPUS.
+-- 'mp2Settings', 'audioCodecSettings_mp2Settings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value MP2.
 --
--- * 'acsEac3Settings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3.
+-- 'opusSettings', 'audioCodecSettings_opusSettings' - Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value OPUS.
 --
--- * 'acsAacSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AAC. The service accepts one of two mutually exclusive groups of AAC settings--VBR and CBR. To select one of these modes, set the value of Bitrate control mode (rateControlMode) to "VBR" or "CBR".  In VBR mode, you control the audio quality with the setting VBR quality (vbrQuality). In CBR mode, you use the setting Bitrate (bitrate). Defaults and valid values depend on the rate control mode.
+-- 'eac3Settings', 'audioCodecSettings_eac3Settings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value EAC3.
 --
--- * 'acsWavSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value WAV.
+-- 'aacSettings', 'audioCodecSettings_aacSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AAC. The service accepts one of two mutually exclusive
+-- groups of AAC settings--VBR and CBR. To select one of these modes, set
+-- the value of Bitrate control mode (rateControlMode) to \"VBR\" or
+-- \"CBR\". In VBR mode, you control the audio quality with the setting VBR
+-- quality (vbrQuality). In CBR mode, you use the setting Bitrate
+-- (bitrate). Defaults and valid values depend on the rate control mode.
 --
--- * 'acsAiffSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AIFF.
+-- 'wavSettings', 'audioCodecSettings_wavSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value WAV.
 --
--- * 'acsEac3AtmosSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3_ATMOS.
-audioCodecSettings ::
+-- 'aiffSettings', 'audioCodecSettings_aiffSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AIFF.
+--
+-- 'eac3AtmosSettings', 'audioCodecSettings_eac3AtmosSettings' - Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value EAC3_ATMOS.
+newAudioCodecSettings ::
   AudioCodecSettings
-audioCodecSettings =
+newAudioCodecSettings =
   AudioCodecSettings'
-    { _acsAc3Settings = Nothing,
-      _acsVorbisSettings = Nothing,
-      _acsCodec = Nothing,
-      _acsMp3Settings = Nothing,
-      _acsMp2Settings = Nothing,
-      _acsOpusSettings = Nothing,
-      _acsEac3Settings = Nothing,
-      _acsAacSettings = Nothing,
-      _acsWavSettings = Nothing,
-      _acsAiffSettings = Nothing,
-      _acsEac3AtmosSettings = Nothing
+    { ac3Settings = Prelude.Nothing,
+      vorbisSettings = Prelude.Nothing,
+      codec = Prelude.Nothing,
+      mp3Settings = Prelude.Nothing,
+      mp2Settings = Prelude.Nothing,
+      opusSettings = Prelude.Nothing,
+      eac3Settings = Prelude.Nothing,
+      aacSettings = Prelude.Nothing,
+      wavSettings = Prelude.Nothing,
+      aiffSettings = Prelude.Nothing,
+      eac3AtmosSettings = Prelude.Nothing
     }
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AC3.
-acsAc3Settings :: Lens' AudioCodecSettings (Maybe Ac3Settings)
-acsAc3Settings = lens _acsAc3Settings (\s a -> s {_acsAc3Settings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AC3.
+audioCodecSettings_ac3Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Ac3Settings)
+audioCodecSettings_ac3Settings = Lens.lens (\AudioCodecSettings' {ac3Settings} -> ac3Settings) (\s@AudioCodecSettings' {} a -> s {ac3Settings = a} :: AudioCodecSettings)
 
--- | Required when you set Codec, under AudioDescriptions>CodecSettings, to the value Vorbis.
-acsVorbisSettings :: Lens' AudioCodecSettings (Maybe VorbisSettings)
-acsVorbisSettings = lens _acsVorbisSettings (\s a -> s {_acsVorbisSettings = a})
+-- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value Vorbis.
+audioCodecSettings_vorbisSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe VorbisSettings)
+audioCodecSettings_vorbisSettings = Lens.lens (\AudioCodecSettings' {vorbisSettings} -> vorbisSettings) (\s@AudioCodecSettings' {} a -> s {vorbisSettings = a} :: AudioCodecSettings)
 
 -- | Type of Audio codec.
-acsCodec :: Lens' AudioCodecSettings (Maybe AudioCodec)
-acsCodec = lens _acsCodec (\s a -> s {_acsCodec = a})
+audioCodecSettings_codec :: Lens.Lens' AudioCodecSettings (Prelude.Maybe AudioCodec)
+audioCodecSettings_codec = Lens.lens (\AudioCodecSettings' {codec} -> codec) (\s@AudioCodecSettings' {} a -> s {codec = a} :: AudioCodecSettings)
 
--- | Required when you set Codec, under AudioDescriptions>CodecSettings, to the value MP3.
-acsMp3Settings :: Lens' AudioCodecSettings (Maybe Mp3Settings)
-acsMp3Settings = lens _acsMp3Settings (\s a -> s {_acsMp3Settings = a})
+-- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value MP3.
+audioCodecSettings_mp3Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Mp3Settings)
+audioCodecSettings_mp3Settings = Lens.lens (\AudioCodecSettings' {mp3Settings} -> mp3Settings) (\s@AudioCodecSettings' {} a -> s {mp3Settings = a} :: AudioCodecSettings)
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value MP2.
-acsMp2Settings :: Lens' AudioCodecSettings (Maybe Mp2Settings)
-acsMp2Settings = lens _acsMp2Settings (\s a -> s {_acsMp2Settings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value MP2.
+audioCodecSettings_mp2Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Mp2Settings)
+audioCodecSettings_mp2Settings = Lens.lens (\AudioCodecSettings' {mp2Settings} -> mp2Settings) (\s@AudioCodecSettings' {} a -> s {mp2Settings = a} :: AudioCodecSettings)
 
--- | Required when you set Codec, under AudioDescriptions>CodecSettings, to the value OPUS.
-acsOpusSettings :: Lens' AudioCodecSettings (Maybe OpusSettings)
-acsOpusSettings = lens _acsOpusSettings (\s a -> s {_acsOpusSettings = a})
+-- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value OPUS.
+audioCodecSettings_opusSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe OpusSettings)
+audioCodecSettings_opusSettings = Lens.lens (\AudioCodecSettings' {opusSettings} -> opusSettings) (\s@AudioCodecSettings' {} a -> s {opusSettings = a} :: AudioCodecSettings)
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3.
-acsEac3Settings :: Lens' AudioCodecSettings (Maybe Eac3Settings)
-acsEac3Settings = lens _acsEac3Settings (\s a -> s {_acsEac3Settings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value EAC3.
+audioCodecSettings_eac3Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Eac3Settings)
+audioCodecSettings_eac3Settings = Lens.lens (\AudioCodecSettings' {eac3Settings} -> eac3Settings) (\s@AudioCodecSettings' {} a -> s {eac3Settings = a} :: AudioCodecSettings)
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AAC. The service accepts one of two mutually exclusive groups of AAC settings--VBR and CBR. To select one of these modes, set the value of Bitrate control mode (rateControlMode) to "VBR" or "CBR".  In VBR mode, you control the audio quality with the setting VBR quality (vbrQuality). In CBR mode, you use the setting Bitrate (bitrate). Defaults and valid values depend on the rate control mode.
-acsAacSettings :: Lens' AudioCodecSettings (Maybe AacSettings)
-acsAacSettings = lens _acsAacSettings (\s a -> s {_acsAacSettings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AAC. The service accepts one of two mutually exclusive
+-- groups of AAC settings--VBR and CBR. To select one of these modes, set
+-- the value of Bitrate control mode (rateControlMode) to \"VBR\" or
+-- \"CBR\". In VBR mode, you control the audio quality with the setting VBR
+-- quality (vbrQuality). In CBR mode, you use the setting Bitrate
+-- (bitrate). Defaults and valid values depend on the rate control mode.
+audioCodecSettings_aacSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe AacSettings)
+audioCodecSettings_aacSettings = Lens.lens (\AudioCodecSettings' {aacSettings} -> aacSettings) (\s@AudioCodecSettings' {} a -> s {aacSettings = a} :: AudioCodecSettings)
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value WAV.
-acsWavSettings :: Lens' AudioCodecSettings (Maybe WavSettings)
-acsWavSettings = lens _acsWavSettings (\s a -> s {_acsWavSettings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value WAV.
+audioCodecSettings_wavSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe WavSettings)
+audioCodecSettings_wavSettings = Lens.lens (\AudioCodecSettings' {wavSettings} -> wavSettings) (\s@AudioCodecSettings' {} a -> s {wavSettings = a} :: AudioCodecSettings)
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AIFF.
-acsAiffSettings :: Lens' AudioCodecSettings (Maybe AiffSettings)
-acsAiffSettings = lens _acsAiffSettings (\s a -> s {_acsAiffSettings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AIFF.
+audioCodecSettings_aiffSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe AiffSettings)
+audioCodecSettings_aiffSettings = Lens.lens (\AudioCodecSettings' {aiffSettings} -> aiffSettings) (\s@AudioCodecSettings' {} a -> s {aiffSettings = a} :: AudioCodecSettings)
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value EAC3_ATMOS.
-acsEac3AtmosSettings :: Lens' AudioCodecSettings (Maybe Eac3AtmosSettings)
-acsEac3AtmosSettings = lens _acsEac3AtmosSettings (\s a -> s {_acsEac3AtmosSettings = a})
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value EAC3_ATMOS.
+audioCodecSettings_eac3AtmosSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Eac3AtmosSettings)
+audioCodecSettings_eac3AtmosSettings = Lens.lens (\AudioCodecSettings' {eac3AtmosSettings} -> eac3AtmosSettings) (\s@AudioCodecSettings' {} a -> s {eac3AtmosSettings = a} :: AudioCodecSettings)
 
-instance FromJSON AudioCodecSettings where
+instance Prelude.FromJSON AudioCodecSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioCodecSettings"
       ( \x ->
           AudioCodecSettings'
-            <$> (x .:? "ac3Settings")
-            <*> (x .:? "vorbisSettings")
-            <*> (x .:? "codec")
-            <*> (x .:? "mp3Settings")
-            <*> (x .:? "mp2Settings")
-            <*> (x .:? "opusSettings")
-            <*> (x .:? "eac3Settings")
-            <*> (x .:? "aacSettings")
-            <*> (x .:? "wavSettings")
-            <*> (x .:? "aiffSettings")
-            <*> (x .:? "eac3AtmosSettings")
+            Prelude.<$> (x Prelude..:? "ac3Settings")
+            Prelude.<*> (x Prelude..:? "vorbisSettings")
+            Prelude.<*> (x Prelude..:? "codec")
+            Prelude.<*> (x Prelude..:? "mp3Settings")
+            Prelude.<*> (x Prelude..:? "mp2Settings")
+            Prelude.<*> (x Prelude..:? "opusSettings")
+            Prelude.<*> (x Prelude..:? "eac3Settings")
+            Prelude.<*> (x Prelude..:? "aacSettings")
+            Prelude.<*> (x Prelude..:? "wavSettings")
+            Prelude.<*> (x Prelude..:? "aiffSettings")
+            Prelude.<*> (x Prelude..:? "eac3AtmosSettings")
       )
 
-instance Hashable AudioCodecSettings
+instance Prelude.Hashable AudioCodecSettings
 
-instance NFData AudioCodecSettings
+instance Prelude.NFData AudioCodecSettings
 
-instance ToJSON AudioCodecSettings where
+instance Prelude.ToJSON AudioCodecSettings where
   toJSON AudioCodecSettings' {..} =
-    object
-      ( catMaybes
-          [ ("ac3Settings" .=) <$> _acsAc3Settings,
-            ("vorbisSettings" .=) <$> _acsVorbisSettings,
-            ("codec" .=) <$> _acsCodec,
-            ("mp3Settings" .=) <$> _acsMp3Settings,
-            ("mp2Settings" .=) <$> _acsMp2Settings,
-            ("opusSettings" .=) <$> _acsOpusSettings,
-            ("eac3Settings" .=) <$> _acsEac3Settings,
-            ("aacSettings" .=) <$> _acsAacSettings,
-            ("wavSettings" .=) <$> _acsWavSettings,
-            ("aiffSettings" .=) <$> _acsAiffSettings,
-            ("eac3AtmosSettings" .=) <$> _acsEac3AtmosSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ac3Settings" Prelude..=) Prelude.<$> ac3Settings,
+            ("vorbisSettings" Prelude..=)
+              Prelude.<$> vorbisSettings,
+            ("codec" Prelude..=) Prelude.<$> codec,
+            ("mp3Settings" Prelude..=) Prelude.<$> mp3Settings,
+            ("mp2Settings" Prelude..=) Prelude.<$> mp2Settings,
+            ("opusSettings" Prelude..=) Prelude.<$> opusSettings,
+            ("eac3Settings" Prelude..=) Prelude.<$> eac3Settings,
+            ("aacSettings" Prelude..=) Prelude.<$> aacSettings,
+            ("wavSettings" Prelude..=) Prelude.<$> wavSettings,
+            ("aiffSettings" Prelude..=) Prelude.<$> aiffSettings,
+            ("eac3AtmosSettings" Prelude..=)
+              Prelude.<$> eac3AtmosSettings
           ]
       )

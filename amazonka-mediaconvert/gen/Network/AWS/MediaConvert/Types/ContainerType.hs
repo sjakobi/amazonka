@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,102 +19,105 @@
 module Network.AWS.MediaConvert.Types.ContainerType
   ( ContainerType
       ( ..,
-        CTCmfc,
-        CTF4V,
-        CTIsmv,
-        CTM2TS,
-        CTM3U8,
-        CTMP4,
-        CTMov,
-        CTMpd,
-        CTMxf,
-        CTRaw,
-        CTWebm
+        ContainerTypeCMFC,
+        ContainerTypeF4V,
+        ContainerTypeISMV,
+        ContainerTypeM2TS,
+        ContainerTypeM3U8,
+        ContainerTypeMOV,
+        ContainerTypeMP4,
+        ContainerTypeMPD,
+        ContainerTypeMXF,
+        ContainerTypeRAW,
+        ContainerTypeWEBM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Container for this output. Some containers require a container settings object. If not specified, the default object will be created.
-data ContainerType = ContainerType' (CI Text)
+-- | Container for this output. Some containers require a container settings
+-- object. If not specified, the default object will be created.
+newtype ContainerType = ContainerType'
+  { fromContainerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTCmfc :: ContainerType
-pattern CTCmfc = ContainerType' "CMFC"
+pattern ContainerTypeCMFC :: ContainerType
+pattern ContainerTypeCMFC = ContainerType' "CMFC"
 
-pattern CTF4V :: ContainerType
-pattern CTF4V = ContainerType' "F4V"
+pattern ContainerTypeF4V :: ContainerType
+pattern ContainerTypeF4V = ContainerType' "F4V"
 
-pattern CTIsmv :: ContainerType
-pattern CTIsmv = ContainerType' "ISMV"
+pattern ContainerTypeISMV :: ContainerType
+pattern ContainerTypeISMV = ContainerType' "ISMV"
 
-pattern CTM2TS :: ContainerType
-pattern CTM2TS = ContainerType' "M2TS"
+pattern ContainerTypeM2TS :: ContainerType
+pattern ContainerTypeM2TS = ContainerType' "M2TS"
 
-pattern CTM3U8 :: ContainerType
-pattern CTM3U8 = ContainerType' "M3U8"
+pattern ContainerTypeM3U8 :: ContainerType
+pattern ContainerTypeM3U8 = ContainerType' "M3U8"
 
-pattern CTMP4 :: ContainerType
-pattern CTMP4 = ContainerType' "MP4"
+pattern ContainerTypeMOV :: ContainerType
+pattern ContainerTypeMOV = ContainerType' "MOV"
 
-pattern CTMov :: ContainerType
-pattern CTMov = ContainerType' "MOV"
+pattern ContainerTypeMP4 :: ContainerType
+pattern ContainerTypeMP4 = ContainerType' "MP4"
 
-pattern CTMpd :: ContainerType
-pattern CTMpd = ContainerType' "MPD"
+pattern ContainerTypeMPD :: ContainerType
+pattern ContainerTypeMPD = ContainerType' "MPD"
 
-pattern CTMxf :: ContainerType
-pattern CTMxf = ContainerType' "MXF"
+pattern ContainerTypeMXF :: ContainerType
+pattern ContainerTypeMXF = ContainerType' "MXF"
 
-pattern CTRaw :: ContainerType
-pattern CTRaw = ContainerType' "RAW"
+pattern ContainerTypeRAW :: ContainerType
+pattern ContainerTypeRAW = ContainerType' "RAW"
 
-pattern CTWebm :: ContainerType
-pattern CTWebm = ContainerType' "WEBM"
+pattern ContainerTypeWEBM :: ContainerType
+pattern ContainerTypeWEBM = ContainerType' "WEBM"
 
 {-# COMPLETE
-  CTCmfc,
-  CTF4V,
-  CTIsmv,
-  CTM2TS,
-  CTM3U8,
-  CTMP4,
-  CTMov,
-  CTMpd,
-  CTMxf,
-  CTRaw,
-  CTWebm,
+  ContainerTypeCMFC,
+  ContainerTypeF4V,
+  ContainerTypeISMV,
+  ContainerTypeM2TS,
+  ContainerTypeM3U8,
+  ContainerTypeMOV,
+  ContainerTypeMP4,
+  ContainerTypeMPD,
+  ContainerTypeMXF,
+  ContainerTypeRAW,
+  ContainerTypeWEBM,
   ContainerType'
   #-}
 
-instance FromText ContainerType where
-  parser = (ContainerType' . mk) <$> takeText
+instance Prelude.FromText ContainerType where
+  parser = ContainerType' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerType where
-  toText (ContainerType' ci) = original ci
+instance Prelude.ToText ContainerType where
+  toText (ContainerType' x) = x
 
-instance Hashable ContainerType
+instance Prelude.Hashable ContainerType
 
-instance NFData ContainerType
+instance Prelude.NFData ContainerType
 
-instance ToByteString ContainerType
+instance Prelude.ToByteString ContainerType
 
-instance ToQuery ContainerType
+instance Prelude.ToQuery ContainerType
 
-instance ToHeader ContainerType
+instance Prelude.ToHeader ContainerType
 
-instance ToJSON ContainerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContainerType where
-  parseJSON = parseJSONText "ContainerType"
+instance Prelude.FromJSON ContainerType where
+  parseJSON = Prelude.parseJSONText "ContainerType"

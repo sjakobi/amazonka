@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.AiffSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value AIFF.
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value AIFF.
 --
--- /See:/ 'aiffSettings' smart constructor.
+-- /See:/ 'newAiffSettings' smart constructor.
 data AiffSettings = AiffSettings'
-  { _assChannels ::
-      !(Maybe Nat),
-    _assBitDepth :: !(Maybe Nat),
-    _assSampleRate :: !(Maybe Nat)
+  { -- | Specify the number of channels in this output audio track. Valid values
+    -- are 1 and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up
+    -- to 64.
+    channels :: Prelude.Maybe Prelude.Nat,
+    -- | Specify Bit depth (BitDepth), in bits per sample, to choose the encoding
+    -- quality for this audio track.
+    bitDepth :: Prelude.Maybe Prelude.Nat,
+    -- | Sample rate in hz.
+    sampleRate :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AiffSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AiffSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'assChannels' - Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up to 64.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'assBitDepth' - Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
+-- 'channels', 'aiffSettings_channels' - Specify the number of channels in this output audio track. Valid values
+-- are 1 and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up
+-- to 64.
 --
--- * 'assSampleRate' - Sample rate in hz.
-aiffSettings ::
+-- 'bitDepth', 'aiffSettings_bitDepth' - Specify Bit depth (BitDepth), in bits per sample, to choose the encoding
+-- quality for this audio track.
+--
+-- 'sampleRate', 'aiffSettings_sampleRate' - Sample rate in hz.
+newAiffSettings ::
   AiffSettings
-aiffSettings =
+newAiffSettings =
   AiffSettings'
-    { _assChannels = Nothing,
-      _assBitDepth = Nothing,
-      _assSampleRate = Nothing
+    { channels = Prelude.Nothing,
+      bitDepth = Prelude.Nothing,
+      sampleRate = Prelude.Nothing
     }
 
--- | Specify the number of channels in this output audio track. Valid values are 1 and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up to 64.
-assChannels :: Lens' AiffSettings (Maybe Natural)
-assChannels = lens _assChannels (\s a -> s {_assChannels = a}) . mapping _Nat
+-- | Specify the number of channels in this output audio track. Valid values
+-- are 1 and even numbers up to 64. For example, 1, 2, 4, 6, and so on, up
+-- to 64.
+aiffSettings_channels :: Lens.Lens' AiffSettings (Prelude.Maybe Prelude.Natural)
+aiffSettings_channels = Lens.lens (\AiffSettings' {channels} -> channels) (\s@AiffSettings' {} a -> s {channels = a} :: AiffSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify Bit depth (BitDepth), in bits per sample, to choose the encoding quality for this audio track.
-assBitDepth :: Lens' AiffSettings (Maybe Natural)
-assBitDepth = lens _assBitDepth (\s a -> s {_assBitDepth = a}) . mapping _Nat
+-- | Specify Bit depth (BitDepth), in bits per sample, to choose the encoding
+-- quality for this audio track.
+aiffSettings_bitDepth :: Lens.Lens' AiffSettings (Prelude.Maybe Prelude.Natural)
+aiffSettings_bitDepth = Lens.lens (\AiffSettings' {bitDepth} -> bitDepth) (\s@AiffSettings' {} a -> s {bitDepth = a} :: AiffSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Sample rate in hz.
-assSampleRate :: Lens' AiffSettings (Maybe Natural)
-assSampleRate = lens _assSampleRate (\s a -> s {_assSampleRate = a}) . mapping _Nat
+aiffSettings_sampleRate :: Lens.Lens' AiffSettings (Prelude.Maybe Prelude.Natural)
+aiffSettings_sampleRate = Lens.lens (\AiffSettings' {sampleRate} -> sampleRate) (\s@AiffSettings' {} a -> s {sampleRate = a} :: AiffSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON AiffSettings where
+instance Prelude.FromJSON AiffSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AiffSettings"
       ( \x ->
           AiffSettings'
-            <$> (x .:? "channels")
-            <*> (x .:? "bitDepth")
-            <*> (x .:? "sampleRate")
+            Prelude.<$> (x Prelude..:? "channels")
+            Prelude.<*> (x Prelude..:? "bitDepth")
+            Prelude.<*> (x Prelude..:? "sampleRate")
       )
 
-instance Hashable AiffSettings
+instance Prelude.Hashable AiffSettings
 
-instance NFData AiffSettings
+instance Prelude.NFData AiffSettings
 
-instance ToJSON AiffSettings where
+instance Prelude.ToJSON AiffSettings where
   toJSON AiffSettings' {..} =
-    object
-      ( catMaybes
-          [ ("channels" .=) <$> _assChannels,
-            ("bitDepth" .=) <$> _assBitDepth,
-            ("sampleRate" .=) <$> _assSampleRate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channels" Prelude..=) Prelude.<$> channels,
+            ("bitDepth" Prelude..=) Prelude.<$> bitDepth,
+            ("sampleRate" Prelude..=) Prelude.<$> sampleRate
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,161 +19,207 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.JobTemplate where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AccelerationSettings
 import Network.AWS.MediaConvert.Types.HopDestination
 import Network.AWS.MediaConvert.Types.JobTemplateSettings
 import Network.AWS.MediaConvert.Types.StatusUpdateInterval
 import Network.AWS.MediaConvert.Types.Type
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A job template is a pre-made set of encoding instructions that you can use to quickly create a job.
+-- | A job template is a pre-made set of encoding instructions that you can
+-- use to quickly create a job.
 --
--- /See:/ 'jobTemplate' smart constructor.
+-- /See:/ 'newJobTemplate' smart constructor.
 data JobTemplate = JobTemplate'
-  { _jtAccelerationSettings ::
-      !(Maybe AccelerationSettings),
-    _jtCategory :: !(Maybe Text),
-    _jtARN :: !(Maybe Text),
-    _jtCreatedAt :: !(Maybe POSIX),
-    _jtPriority :: !(Maybe Int),
-    _jtStatusUpdateInterval ::
-      !(Maybe StatusUpdateInterval),
-    _jtLastUpdated :: !(Maybe POSIX),
-    _jtQueue :: !(Maybe Text),
-    _jtDescription :: !(Maybe Text),
-    _jtType :: !(Maybe Type),
-    _jtHopDestinations :: !(Maybe [HopDestination]),
-    _jtSettings :: !JobTemplateSettings,
-    _jtName :: !Text
+  { -- | Accelerated transcoding can significantly speed up jobs with long,
+    -- visually complex content.
+    accelerationSettings :: Prelude.Maybe AccelerationSettings,
+    -- | An optional category you create to organize your job templates.
+    category :: Prelude.Maybe Prelude.Text,
+    -- | An identifier for this resource that is unique within all of AWS.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp in epoch seconds for Job template creation.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | Relative priority on the job.
+    priority :: Prelude.Maybe Prelude.Int,
+    -- | Specify how often MediaConvert sends STATUS_UPDATE events to Amazon
+    -- CloudWatch Events. Set the interval, in seconds, between status updates.
+    -- MediaConvert sends an update at this interval from the time the service
+    -- begins processing your job to the time it completes the transcode or
+    -- encounters an error.
+    statusUpdateInterval :: Prelude.Maybe StatusUpdateInterval,
+    -- | The timestamp in epoch seconds when the Job template was last updated.
+    lastUpdated :: Prelude.Maybe Prelude.POSIX,
+    -- | Optional. The queue that jobs created from this template are assigned
+    -- to. If you don\'t specify this, jobs will go to the default queue.
+    queue :: Prelude.Maybe Prelude.Text,
+    -- | An optional description you create for each job template.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A job template can be of two types: system or custom. System or built-in
+    -- job templates can\'t be modified or deleted by the user.
+    type' :: Prelude.Maybe Type,
+    -- | Optional list of hop destinations.
+    hopDestinations :: Prelude.Maybe [HopDestination],
+    -- | JobTemplateSettings contains all the transcode settings saved in the
+    -- template that will be applied to jobs created from it.
+    settings :: JobTemplateSettings,
+    -- | A name you create for each job template. Each name must be unique within
+    -- your account.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jtAccelerationSettings' - Accelerated transcoding can significantly speed up jobs with long, visually complex content.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jtCategory' - An optional category you create to organize your job templates.
+-- 'accelerationSettings', 'jobTemplate_accelerationSettings' - Accelerated transcoding can significantly speed up jobs with long,
+-- visually complex content.
 --
--- * 'jtARN' - An identifier for this resource that is unique within all of AWS.
+-- 'category', 'jobTemplate_category' - An optional category you create to organize your job templates.
 --
--- * 'jtCreatedAt' - The timestamp in epoch seconds for Job template creation.
+-- 'arn', 'jobTemplate_arn' - An identifier for this resource that is unique within all of AWS.
 --
--- * 'jtPriority' - Relative priority on the job.
+-- 'createdAt', 'jobTemplate_createdAt' - The timestamp in epoch seconds for Job template creation.
 --
--- * 'jtStatusUpdateInterval' - Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds, between status updates. MediaConvert sends an update at this interval from the time the service begins processing your job to the time it completes the transcode or encounters an error.
+-- 'priority', 'jobTemplate_priority' - Relative priority on the job.
 --
--- * 'jtLastUpdated' - The timestamp in epoch seconds when the Job template was last updated.
+-- 'statusUpdateInterval', 'jobTemplate_statusUpdateInterval' - Specify how often MediaConvert sends STATUS_UPDATE events to Amazon
+-- CloudWatch Events. Set the interval, in seconds, between status updates.
+-- MediaConvert sends an update at this interval from the time the service
+-- begins processing your job to the time it completes the transcode or
+-- encounters an error.
 --
--- * 'jtQueue' - Optional. The queue that jobs created from this template are assigned to. If you don't specify this, jobs will go to the default queue.
+-- 'lastUpdated', 'jobTemplate_lastUpdated' - The timestamp in epoch seconds when the Job template was last updated.
 --
--- * 'jtDescription' - An optional description you create for each job template.
+-- 'queue', 'jobTemplate_queue' - Optional. The queue that jobs created from this template are assigned
+-- to. If you don\'t specify this, jobs will go to the default queue.
 --
--- * 'jtType' - A job template can be of two types: system or custom. System or built-in job templates can't be modified or deleted by the user.
+-- 'description', 'jobTemplate_description' - An optional description you create for each job template.
 --
--- * 'jtHopDestinations' - Optional list of hop destinations.
+-- 'type'', 'jobTemplate_type' - A job template can be of two types: system or custom. System or built-in
+-- job templates can\'t be modified or deleted by the user.
 --
--- * 'jtSettings' - JobTemplateSettings contains all the transcode settings saved in the template that will be applied to jobs created from it.
+-- 'hopDestinations', 'jobTemplate_hopDestinations' - Optional list of hop destinations.
 --
--- * 'jtName' - A name you create for each job template. Each name must be unique within your account.
-jobTemplate ::
-  -- | 'jtSettings'
+-- 'settings', 'jobTemplate_settings' - JobTemplateSettings contains all the transcode settings saved in the
+-- template that will be applied to jobs created from it.
+--
+-- 'name', 'jobTemplate_name' - A name you create for each job template. Each name must be unique within
+-- your account.
+newJobTemplate ::
+  -- | 'settings'
   JobTemplateSettings ->
-  -- | 'jtName'
-  Text ->
+  -- | 'name'
+  Prelude.Text ->
   JobTemplate
-jobTemplate pSettings_ pName_ =
+newJobTemplate pSettings_ pName_ =
   JobTemplate'
-    { _jtAccelerationSettings = Nothing,
-      _jtCategory = Nothing,
-      _jtARN = Nothing,
-      _jtCreatedAt = Nothing,
-      _jtPriority = Nothing,
-      _jtStatusUpdateInterval = Nothing,
-      _jtLastUpdated = Nothing,
-      _jtQueue = Nothing,
-      _jtDescription = Nothing,
-      _jtType = Nothing,
-      _jtHopDestinations = Nothing,
-      _jtSettings = pSettings_,
-      _jtName = pName_
+    { accelerationSettings =
+        Prelude.Nothing,
+      category = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      priority = Prelude.Nothing,
+      statusUpdateInterval = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      queue = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      hopDestinations = Prelude.Nothing,
+      settings = pSettings_,
+      name = pName_
     }
 
--- | Accelerated transcoding can significantly speed up jobs with long, visually complex content.
-jtAccelerationSettings :: Lens' JobTemplate (Maybe AccelerationSettings)
-jtAccelerationSettings = lens _jtAccelerationSettings (\s a -> s {_jtAccelerationSettings = a})
+-- | Accelerated transcoding can significantly speed up jobs with long,
+-- visually complex content.
+jobTemplate_accelerationSettings :: Lens.Lens' JobTemplate (Prelude.Maybe AccelerationSettings)
+jobTemplate_accelerationSettings = Lens.lens (\JobTemplate' {accelerationSettings} -> accelerationSettings) (\s@JobTemplate' {} a -> s {accelerationSettings = a} :: JobTemplate)
 
 -- | An optional category you create to organize your job templates.
-jtCategory :: Lens' JobTemplate (Maybe Text)
-jtCategory = lens _jtCategory (\s a -> s {_jtCategory = a})
+jobTemplate_category :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.Text)
+jobTemplate_category = Lens.lens (\JobTemplate' {category} -> category) (\s@JobTemplate' {} a -> s {category = a} :: JobTemplate)
 
 -- | An identifier for this resource that is unique within all of AWS.
-jtARN :: Lens' JobTemplate (Maybe Text)
-jtARN = lens _jtARN (\s a -> s {_jtARN = a})
+jobTemplate_arn :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.Text)
+jobTemplate_arn = Lens.lens (\JobTemplate' {arn} -> arn) (\s@JobTemplate' {} a -> s {arn = a} :: JobTemplate)
 
 -- | The timestamp in epoch seconds for Job template creation.
-jtCreatedAt :: Lens' JobTemplate (Maybe UTCTime)
-jtCreatedAt = lens _jtCreatedAt (\s a -> s {_jtCreatedAt = a}) . mapping _Time
+jobTemplate_createdAt :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.UTCTime)
+jobTemplate_createdAt = Lens.lens (\JobTemplate' {createdAt} -> createdAt) (\s@JobTemplate' {} a -> s {createdAt = a} :: JobTemplate) Prelude.. Lens.mapping Prelude._Time
 
 -- | Relative priority on the job.
-jtPriority :: Lens' JobTemplate (Maybe Int)
-jtPriority = lens _jtPriority (\s a -> s {_jtPriority = a})
+jobTemplate_priority :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.Int)
+jobTemplate_priority = Lens.lens (\JobTemplate' {priority} -> priority) (\s@JobTemplate' {} a -> s {priority = a} :: JobTemplate)
 
--- | Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds, between status updates. MediaConvert sends an update at this interval from the time the service begins processing your job to the time it completes the transcode or encounters an error.
-jtStatusUpdateInterval :: Lens' JobTemplate (Maybe StatusUpdateInterval)
-jtStatusUpdateInterval = lens _jtStatusUpdateInterval (\s a -> s {_jtStatusUpdateInterval = a})
+-- | Specify how often MediaConvert sends STATUS_UPDATE events to Amazon
+-- CloudWatch Events. Set the interval, in seconds, between status updates.
+-- MediaConvert sends an update at this interval from the time the service
+-- begins processing your job to the time it completes the transcode or
+-- encounters an error.
+jobTemplate_statusUpdateInterval :: Lens.Lens' JobTemplate (Prelude.Maybe StatusUpdateInterval)
+jobTemplate_statusUpdateInterval = Lens.lens (\JobTemplate' {statusUpdateInterval} -> statusUpdateInterval) (\s@JobTemplate' {} a -> s {statusUpdateInterval = a} :: JobTemplate)
 
 -- | The timestamp in epoch seconds when the Job template was last updated.
-jtLastUpdated :: Lens' JobTemplate (Maybe UTCTime)
-jtLastUpdated = lens _jtLastUpdated (\s a -> s {_jtLastUpdated = a}) . mapping _Time
+jobTemplate_lastUpdated :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.UTCTime)
+jobTemplate_lastUpdated = Lens.lens (\JobTemplate' {lastUpdated} -> lastUpdated) (\s@JobTemplate' {} a -> s {lastUpdated = a} :: JobTemplate) Prelude.. Lens.mapping Prelude._Time
 
--- | Optional. The queue that jobs created from this template are assigned to. If you don't specify this, jobs will go to the default queue.
-jtQueue :: Lens' JobTemplate (Maybe Text)
-jtQueue = lens _jtQueue (\s a -> s {_jtQueue = a})
+-- | Optional. The queue that jobs created from this template are assigned
+-- to. If you don\'t specify this, jobs will go to the default queue.
+jobTemplate_queue :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.Text)
+jobTemplate_queue = Lens.lens (\JobTemplate' {queue} -> queue) (\s@JobTemplate' {} a -> s {queue = a} :: JobTemplate)
 
 -- | An optional description you create for each job template.
-jtDescription :: Lens' JobTemplate (Maybe Text)
-jtDescription = lens _jtDescription (\s a -> s {_jtDescription = a})
+jobTemplate_description :: Lens.Lens' JobTemplate (Prelude.Maybe Prelude.Text)
+jobTemplate_description = Lens.lens (\JobTemplate' {description} -> description) (\s@JobTemplate' {} a -> s {description = a} :: JobTemplate)
 
--- | A job template can be of two types: system or custom. System or built-in job templates can't be modified or deleted by the user.
-jtType :: Lens' JobTemplate (Maybe Type)
-jtType = lens _jtType (\s a -> s {_jtType = a})
+-- | A job template can be of two types: system or custom. System or built-in
+-- job templates can\'t be modified or deleted by the user.
+jobTemplate_type :: Lens.Lens' JobTemplate (Prelude.Maybe Type)
+jobTemplate_type = Lens.lens (\JobTemplate' {type'} -> type') (\s@JobTemplate' {} a -> s {type' = a} :: JobTemplate)
 
 -- | Optional list of hop destinations.
-jtHopDestinations :: Lens' JobTemplate [HopDestination]
-jtHopDestinations = lens _jtHopDestinations (\s a -> s {_jtHopDestinations = a}) . _Default . _Coerce
+jobTemplate_hopDestinations :: Lens.Lens' JobTemplate (Prelude.Maybe [HopDestination])
+jobTemplate_hopDestinations = Lens.lens (\JobTemplate' {hopDestinations} -> hopDestinations) (\s@JobTemplate' {} a -> s {hopDestinations = a} :: JobTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
--- | JobTemplateSettings contains all the transcode settings saved in the template that will be applied to jobs created from it.
-jtSettings :: Lens' JobTemplate JobTemplateSettings
-jtSettings = lens _jtSettings (\s a -> s {_jtSettings = a})
+-- | JobTemplateSettings contains all the transcode settings saved in the
+-- template that will be applied to jobs created from it.
+jobTemplate_settings :: Lens.Lens' JobTemplate JobTemplateSettings
+jobTemplate_settings = Lens.lens (\JobTemplate' {settings} -> settings) (\s@JobTemplate' {} a -> s {settings = a} :: JobTemplate)
 
--- | A name you create for each job template. Each name must be unique within your account.
-jtName :: Lens' JobTemplate Text
-jtName = lens _jtName (\s a -> s {_jtName = a})
+-- | A name you create for each job template. Each name must be unique within
+-- your account.
+jobTemplate_name :: Lens.Lens' JobTemplate Prelude.Text
+jobTemplate_name = Lens.lens (\JobTemplate' {name} -> name) (\s@JobTemplate' {} a -> s {name = a} :: JobTemplate)
 
-instance FromJSON JobTemplate where
+instance Prelude.FromJSON JobTemplate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobTemplate"
       ( \x ->
           JobTemplate'
-            <$> (x .:? "accelerationSettings")
-            <*> (x .:? "category")
-            <*> (x .:? "arn")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "priority")
-            <*> (x .:? "statusUpdateInterval")
-            <*> (x .:? "lastUpdated")
-            <*> (x .:? "queue")
-            <*> (x .:? "description")
-            <*> (x .:? "type")
-            <*> (x .:? "hopDestinations" .!= mempty)
-            <*> (x .: "settings")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "accelerationSettings")
+            Prelude.<*> (x Prelude..:? "category")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "priority")
+            Prelude.<*> (x Prelude..:? "statusUpdateInterval")
+            Prelude.<*> (x Prelude..:? "lastUpdated")
+            Prelude.<*> (x Prelude..:? "queue")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "type")
+            Prelude.<*> ( x Prelude..:? "hopDestinations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "settings")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable JobTemplate
+instance Prelude.Hashable JobTemplate
 
-instance NFData JobTemplate
+instance Prelude.NFData JobTemplate

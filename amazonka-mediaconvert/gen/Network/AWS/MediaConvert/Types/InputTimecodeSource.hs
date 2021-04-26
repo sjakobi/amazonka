@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,75 @@
 module Network.AWS.MediaConvert.Types.InputTimecodeSource
   ( InputTimecodeSource
       ( ..,
-        ITSEmbedded,
-        ITSSpecifiedstart,
-        ITSZerobased
+        InputTimecodeSourceEMBEDDED,
+        InputTimecodeSourceSPECIFIEDSTART,
+        InputTimecodeSourceZEROBASED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this Timecode source setting, located under the input settings (InputTimecodeSource), to specify how the service counts input video frames. This input frame count affects only the behavior of features that apply to a single input at a time, such as input clipping and synchronizing some captions formats. Choose Embedded (EMBEDDED) to use the timecodes in your input video. Choose Start at zero (ZEROBASED) to start the first frame at zero. Choose Specified start (SPECIFIEDSTART) to start the first frame at the timecode that you specify in the setting Start timecode (timecodeStart). If you don't specify a value for Timecode source, the service will use Embedded by default. For more information about timecodes, see https://docs.aws.amazon.com/console/mediaconvert/timecode.
-data InputTimecodeSource
-  = InputTimecodeSource'
-      ( CI
-          Text
-      )
+-- | Use this Timecode source setting, located under the input settings
+-- (InputTimecodeSource), to specify how the service counts input video
+-- frames. This input frame count affects only the behavior of features
+-- that apply to a single input at a time, such as input clipping and
+-- synchronizing some captions formats. Choose Embedded (EMBEDDED) to use
+-- the timecodes in your input video. Choose Start at zero (ZEROBASED) to
+-- start the first frame at zero. Choose Specified start (SPECIFIEDSTART)
+-- to start the first frame at the timecode that you specify in the setting
+-- Start timecode (timecodeStart). If you don\'t specify a value for
+-- Timecode source, the service will use Embedded by default. For more
+-- information about timecodes, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/timecode.
+newtype InputTimecodeSource = InputTimecodeSource'
+  { fromInputTimecodeSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ITSEmbedded :: InputTimecodeSource
-pattern ITSEmbedded = InputTimecodeSource' "EMBEDDED"
+pattern InputTimecodeSourceEMBEDDED :: InputTimecodeSource
+pattern InputTimecodeSourceEMBEDDED = InputTimecodeSource' "EMBEDDED"
 
-pattern ITSSpecifiedstart :: InputTimecodeSource
-pattern ITSSpecifiedstart = InputTimecodeSource' "SPECIFIEDSTART"
+pattern InputTimecodeSourceSPECIFIEDSTART :: InputTimecodeSource
+pattern InputTimecodeSourceSPECIFIEDSTART = InputTimecodeSource' "SPECIFIEDSTART"
 
-pattern ITSZerobased :: InputTimecodeSource
-pattern ITSZerobased = InputTimecodeSource' "ZEROBASED"
+pattern InputTimecodeSourceZEROBASED :: InputTimecodeSource
+pattern InputTimecodeSourceZEROBASED = InputTimecodeSource' "ZEROBASED"
 
 {-# COMPLETE
-  ITSEmbedded,
-  ITSSpecifiedstart,
-  ITSZerobased,
+  InputTimecodeSourceEMBEDDED,
+  InputTimecodeSourceSPECIFIEDSTART,
+  InputTimecodeSourceZEROBASED,
   InputTimecodeSource'
   #-}
 
-instance FromText InputTimecodeSource where
-  parser = (InputTimecodeSource' . mk) <$> takeText
+instance Prelude.FromText InputTimecodeSource where
+  parser = InputTimecodeSource' Prelude.<$> Prelude.takeText
 
-instance ToText InputTimecodeSource where
-  toText (InputTimecodeSource' ci) = original ci
+instance Prelude.ToText InputTimecodeSource where
+  toText (InputTimecodeSource' x) = x
 
-instance Hashable InputTimecodeSource
+instance Prelude.Hashable InputTimecodeSource
 
-instance NFData InputTimecodeSource
+instance Prelude.NFData InputTimecodeSource
 
-instance ToByteString InputTimecodeSource
+instance Prelude.ToByteString InputTimecodeSource
 
-instance ToQuery InputTimecodeSource
+instance Prelude.ToQuery InputTimecodeSource
 
-instance ToHeader InputTimecodeSource
+instance Prelude.ToHeader InputTimecodeSource
 
-instance ToJSON InputTimecodeSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputTimecodeSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputTimecodeSource where
-  parseJSON = parseJSONText "InputTimecodeSource"
+instance Prelude.FromJSON InputTimecodeSource where
+  parseJSON = Prelude.parseJSONText "InputTimecodeSource"

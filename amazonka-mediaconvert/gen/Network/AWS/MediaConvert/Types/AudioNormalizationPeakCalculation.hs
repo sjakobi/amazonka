@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.AudioNormalizationPeakCalculation
   ( AudioNormalizationPeakCalculation
       ( ..,
-        ANPCNone,
-        ANPCTruePeak
+        AudioNormalizationPeakCalculationNONE,
+        AudioNormalizationPeakCalculationTRUEPEAK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If set to TRUE_PEAK, calculate and log the TruePeak for each output's audio track loudness.
-data AudioNormalizationPeakCalculation
-  = AudioNormalizationPeakCalculation'
-      ( CI
-          Text
-      )
+-- | If set to TRUE_PEAK, calculate and log the TruePeak for each output\'s
+-- audio track loudness.
+newtype AudioNormalizationPeakCalculation = AudioNormalizationPeakCalculation'
+  { fromAudioNormalizationPeakCalculation ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ANPCNone :: AudioNormalizationPeakCalculation
-pattern ANPCNone = AudioNormalizationPeakCalculation' "NONE"
+pattern AudioNormalizationPeakCalculationNONE :: AudioNormalizationPeakCalculation
+pattern AudioNormalizationPeakCalculationNONE = AudioNormalizationPeakCalculation' "NONE"
 
-pattern ANPCTruePeak :: AudioNormalizationPeakCalculation
-pattern ANPCTruePeak = AudioNormalizationPeakCalculation' "TRUE_PEAK"
+pattern AudioNormalizationPeakCalculationTRUEPEAK :: AudioNormalizationPeakCalculation
+pattern AudioNormalizationPeakCalculationTRUEPEAK = AudioNormalizationPeakCalculation' "TRUE_PEAK"
 
 {-# COMPLETE
-  ANPCNone,
-  ANPCTruePeak,
+  AudioNormalizationPeakCalculationNONE,
+  AudioNormalizationPeakCalculationTRUEPEAK,
   AudioNormalizationPeakCalculation'
   #-}
 
-instance FromText AudioNormalizationPeakCalculation where
-  parser = (AudioNormalizationPeakCalculation' . mk) <$> takeText
+instance Prelude.FromText AudioNormalizationPeakCalculation where
+  parser = AudioNormalizationPeakCalculation' Prelude.<$> Prelude.takeText
 
-instance ToText AudioNormalizationPeakCalculation where
-  toText (AudioNormalizationPeakCalculation' ci) = original ci
+instance Prelude.ToText AudioNormalizationPeakCalculation where
+  toText (AudioNormalizationPeakCalculation' x) = x
 
-instance Hashable AudioNormalizationPeakCalculation
+instance Prelude.Hashable AudioNormalizationPeakCalculation
 
-instance NFData AudioNormalizationPeakCalculation
+instance Prelude.NFData AudioNormalizationPeakCalculation
 
-instance ToByteString AudioNormalizationPeakCalculation
+instance Prelude.ToByteString AudioNormalizationPeakCalculation
 
-instance ToQuery AudioNormalizationPeakCalculation
+instance Prelude.ToQuery AudioNormalizationPeakCalculation
 
-instance ToHeader AudioNormalizationPeakCalculation
+instance Prelude.ToHeader AudioNormalizationPeakCalculation
 
-instance ToJSON AudioNormalizationPeakCalculation where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioNormalizationPeakCalculation where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioNormalizationPeakCalculation where
-  parseJSON = parseJSONText "AudioNormalizationPeakCalculation"
+instance Prelude.FromJSON AudioNormalizationPeakCalculation where
+  parseJSON = Prelude.parseJSONText "AudioNormalizationPeakCalculation"

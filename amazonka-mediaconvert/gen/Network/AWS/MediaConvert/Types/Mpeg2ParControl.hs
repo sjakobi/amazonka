@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,66 @@
 module Network.AWS.MediaConvert.Types.Mpeg2ParControl
   ( Mpeg2ParControl
       ( ..,
-        MPCInitializeFromSource,
-        MPCSpecified
+        Mpeg2ParControlINITIALIZEFROMSOURCE,
+        Mpeg2ParControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior, Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and parDenominator settings.
-data Mpeg2ParControl = Mpeg2ParControl' (CI Text)
+-- | Optional. Specify how the service determines the pixel aspect ratio
+-- (PAR) for this output. The default behavior, Follow source
+-- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+-- output. To specify a different PAR in the console, choose any value
+-- other than Follow source. To specify a different PAR by editing the JSON
+-- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+-- setting, you must also specify values for the parNumerator and
+-- parDenominator settings.
+newtype Mpeg2ParControl = Mpeg2ParControl'
+  { fromMpeg2ParControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPCInitializeFromSource :: Mpeg2ParControl
-pattern MPCInitializeFromSource = Mpeg2ParControl' "INITIALIZE_FROM_SOURCE"
+pattern Mpeg2ParControlINITIALIZEFROMSOURCE :: Mpeg2ParControl
+pattern Mpeg2ParControlINITIALIZEFROMSOURCE = Mpeg2ParControl' "INITIALIZE_FROM_SOURCE"
 
-pattern MPCSpecified :: Mpeg2ParControl
-pattern MPCSpecified = Mpeg2ParControl' "SPECIFIED"
+pattern Mpeg2ParControlSPECIFIED :: Mpeg2ParControl
+pattern Mpeg2ParControlSPECIFIED = Mpeg2ParControl' "SPECIFIED"
 
 {-# COMPLETE
-  MPCInitializeFromSource,
-  MPCSpecified,
+  Mpeg2ParControlINITIALIZEFROMSOURCE,
+  Mpeg2ParControlSPECIFIED,
   Mpeg2ParControl'
   #-}
 
-instance FromText Mpeg2ParControl where
-  parser = (Mpeg2ParControl' . mk) <$> takeText
+instance Prelude.FromText Mpeg2ParControl where
+  parser = Mpeg2ParControl' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2ParControl where
-  toText (Mpeg2ParControl' ci) = original ci
+instance Prelude.ToText Mpeg2ParControl where
+  toText (Mpeg2ParControl' x) = x
 
-instance Hashable Mpeg2ParControl
+instance Prelude.Hashable Mpeg2ParControl
 
-instance NFData Mpeg2ParControl
+instance Prelude.NFData Mpeg2ParControl
 
-instance ToByteString Mpeg2ParControl
+instance Prelude.ToByteString Mpeg2ParControl
 
-instance ToQuery Mpeg2ParControl
+instance Prelude.ToQuery Mpeg2ParControl
 
-instance ToHeader Mpeg2ParControl
+instance Prelude.ToHeader Mpeg2ParControl
 
-instance ToJSON Mpeg2ParControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2ParControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2ParControl where
-  parseJSON = parseJSONText "Mpeg2ParControl"
+instance Prelude.FromJSON Mpeg2ParControl where
+  parseJSON = Prelude.parseJSONText "Mpeg2ParControl"

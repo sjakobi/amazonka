@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.CmafWriteHLSManifest
   ( CmafWriteHLSManifest
       ( ..,
-        CWHLSMDisabled,
-        CWHLSMEnabled
+        CmafWriteHLSManifestDISABLED,
+        CmafWriteHLSManifestENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to ENABLED, an Apple HLS manifest will be generated for this output.
-data CmafWriteHLSManifest
-  = CmafWriteHLSManifest'
-      ( CI
-          Text
-      )
+-- | When set to ENABLED, an Apple HLS manifest will be generated for this
+-- output.
+newtype CmafWriteHLSManifest = CmafWriteHLSManifest'
+  { fromCmafWriteHLSManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CWHLSMDisabled :: CmafWriteHLSManifest
-pattern CWHLSMDisabled = CmafWriteHLSManifest' "DISABLED"
+pattern CmafWriteHLSManifestDISABLED :: CmafWriteHLSManifest
+pattern CmafWriteHLSManifestDISABLED = CmafWriteHLSManifest' "DISABLED"
 
-pattern CWHLSMEnabled :: CmafWriteHLSManifest
-pattern CWHLSMEnabled = CmafWriteHLSManifest' "ENABLED"
+pattern CmafWriteHLSManifestENABLED :: CmafWriteHLSManifest
+pattern CmafWriteHLSManifestENABLED = CmafWriteHLSManifest' "ENABLED"
 
 {-# COMPLETE
-  CWHLSMDisabled,
-  CWHLSMEnabled,
+  CmafWriteHLSManifestDISABLED,
+  CmafWriteHLSManifestENABLED,
   CmafWriteHLSManifest'
   #-}
 
-instance FromText CmafWriteHLSManifest where
-  parser = (CmafWriteHLSManifest' . mk) <$> takeText
+instance Prelude.FromText CmafWriteHLSManifest where
+  parser = CmafWriteHLSManifest' Prelude.<$> Prelude.takeText
 
-instance ToText CmafWriteHLSManifest where
-  toText (CmafWriteHLSManifest' ci) = original ci
+instance Prelude.ToText CmafWriteHLSManifest where
+  toText (CmafWriteHLSManifest' x) = x
 
-instance Hashable CmafWriteHLSManifest
+instance Prelude.Hashable CmafWriteHLSManifest
 
-instance NFData CmafWriteHLSManifest
+instance Prelude.NFData CmafWriteHLSManifest
 
-instance ToByteString CmafWriteHLSManifest
+instance Prelude.ToByteString CmafWriteHLSManifest
 
-instance ToQuery CmafWriteHLSManifest
+instance Prelude.ToQuery CmafWriteHLSManifest
 
-instance ToHeader CmafWriteHLSManifest
+instance Prelude.ToHeader CmafWriteHLSManifest
 
-instance ToJSON CmafWriteHLSManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafWriteHLSManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafWriteHLSManifest where
-  parseJSON = parseJSONText "CmafWriteHLSManifest"
+instance Prelude.FromJSON CmafWriteHLSManifest where
+  parseJSON = Prelude.parseJSONText "CmafWriteHLSManifest"

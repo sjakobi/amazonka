@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.NielsenConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of nielsenConfiguration in your JSON job specification. Even if you don't include any children of nielsenConfiguration, you still enable the setting.
+-- | Settings for your Nielsen configuration. If you don\'t do Nielsen
+-- measurement and analytics, ignore these settings. When you enable
+-- Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM
+-- to ID3 tagging for all outputs in the job. To enable Nielsen
+-- configuration programmatically, include an instance of
+-- nielsenConfiguration in your JSON job specification. Even if you don\'t
+-- include any children of nielsenConfiguration, you still enable the
+-- setting.
 --
--- /See:/ 'nielsenConfiguration' smart constructor.
+-- /See:/ 'newNielsenConfiguration' smart constructor.
 data NielsenConfiguration = NielsenConfiguration'
-  { _ncBreakoutCode ::
-      !(Maybe Nat),
-    _ncDistributorId ::
-      !(Maybe Text)
+  { -- | Nielsen has discontinued the use of breakout code functionality. If you
+    -- must include this property, set the value to zero.
+    breakoutCode :: Prelude.Maybe Prelude.Nat,
+    -- | Use Distributor ID (DistributorID) to specify the distributor ID that is
+    -- assigned to your organization by Neilsen.
+    distributorId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NielsenConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NielsenConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncBreakoutCode' - Nielsen has discontinued the use of breakout code functionality. If you must include this property, set the value to zero.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncDistributorId' - Use Distributor ID (DistributorID) to specify the distributor ID that is assigned to your organization by Neilsen.
-nielsenConfiguration ::
+-- 'breakoutCode', 'nielsenConfiguration_breakoutCode' - Nielsen has discontinued the use of breakout code functionality. If you
+-- must include this property, set the value to zero.
+--
+-- 'distributorId', 'nielsenConfiguration_distributorId' - Use Distributor ID (DistributorID) to specify the distributor ID that is
+-- assigned to your organization by Neilsen.
+newNielsenConfiguration ::
   NielsenConfiguration
-nielsenConfiguration =
+newNielsenConfiguration =
   NielsenConfiguration'
-    { _ncBreakoutCode = Nothing,
-      _ncDistributorId = Nothing
+    { breakoutCode =
+        Prelude.Nothing,
+      distributorId = Prelude.Nothing
     }
 
--- | Nielsen has discontinued the use of breakout code functionality. If you must include this property, set the value to zero.
-ncBreakoutCode :: Lens' NielsenConfiguration (Maybe Natural)
-ncBreakoutCode = lens _ncBreakoutCode (\s a -> s {_ncBreakoutCode = a}) . mapping _Nat
+-- | Nielsen has discontinued the use of breakout code functionality. If you
+-- must include this property, set the value to zero.
+nielsenConfiguration_breakoutCode :: Lens.Lens' NielsenConfiguration (Prelude.Maybe Prelude.Natural)
+nielsenConfiguration_breakoutCode = Lens.lens (\NielsenConfiguration' {breakoutCode} -> breakoutCode) (\s@NielsenConfiguration' {} a -> s {breakoutCode = a} :: NielsenConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use Distributor ID (DistributorID) to specify the distributor ID that is assigned to your organization by Neilsen.
-ncDistributorId :: Lens' NielsenConfiguration (Maybe Text)
-ncDistributorId = lens _ncDistributorId (\s a -> s {_ncDistributorId = a})
+-- | Use Distributor ID (DistributorID) to specify the distributor ID that is
+-- assigned to your organization by Neilsen.
+nielsenConfiguration_distributorId :: Lens.Lens' NielsenConfiguration (Prelude.Maybe Prelude.Text)
+nielsenConfiguration_distributorId = Lens.lens (\NielsenConfiguration' {distributorId} -> distributorId) (\s@NielsenConfiguration' {} a -> s {distributorId = a} :: NielsenConfiguration)
 
-instance FromJSON NielsenConfiguration where
+instance Prelude.FromJSON NielsenConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NielsenConfiguration"
       ( \x ->
           NielsenConfiguration'
-            <$> (x .:? "breakoutCode") <*> (x .:? "distributorId")
+            Prelude.<$> (x Prelude..:? "breakoutCode")
+            Prelude.<*> (x Prelude..:? "distributorId")
       )
 
-instance Hashable NielsenConfiguration
+instance Prelude.Hashable NielsenConfiguration
 
-instance NFData NielsenConfiguration
+instance Prelude.NFData NielsenConfiguration
 
-instance ToJSON NielsenConfiguration where
+instance Prelude.ToJSON NielsenConfiguration where
   toJSON NielsenConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("breakoutCode" .=) <$> _ncBreakoutCode,
-            ("distributorId" .=) <$> _ncDistributorId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("breakoutCode" Prelude..=)
+              Prelude.<$> breakoutCode,
+            ("distributorId" Prelude..=)
+              Prelude.<$> distributorId
           ]
       )

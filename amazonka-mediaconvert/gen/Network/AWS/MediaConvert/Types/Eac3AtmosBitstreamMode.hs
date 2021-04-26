@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,56 @@
 module Network.AWS.MediaConvert.Types.Eac3AtmosBitstreamMode
   ( Eac3AtmosBitstreamMode
       ( ..,
-        EABMCompleteMain
+        Eac3AtmosBitstreamModeCOMPLETEMAIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the bitstream mode for the E-AC-3 stream that the encoder emits. For more information about the EAC3 bitstream mode, see ATSC A/52-2012 (Annex E).
-data Eac3AtmosBitstreamMode
-  = Eac3AtmosBitstreamMode'
-      ( CI
-          Text
-      )
+-- | Specify the bitstream mode for the E-AC-3 stream that the encoder emits.
+-- For more information about the EAC3 bitstream mode, see ATSC A\/52-2012
+-- (Annex E).
+newtype Eac3AtmosBitstreamMode = Eac3AtmosBitstreamMode'
+  { fromEac3AtmosBitstreamMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EABMCompleteMain :: Eac3AtmosBitstreamMode
-pattern EABMCompleteMain = Eac3AtmosBitstreamMode' "COMPLETE_MAIN"
+pattern Eac3AtmosBitstreamModeCOMPLETEMAIN :: Eac3AtmosBitstreamMode
+pattern Eac3AtmosBitstreamModeCOMPLETEMAIN = Eac3AtmosBitstreamMode' "COMPLETE_MAIN"
 
 {-# COMPLETE
-  EABMCompleteMain,
+  Eac3AtmosBitstreamModeCOMPLETEMAIN,
   Eac3AtmosBitstreamMode'
   #-}
 
-instance FromText Eac3AtmosBitstreamMode where
-  parser = (Eac3AtmosBitstreamMode' . mk) <$> takeText
+instance Prelude.FromText Eac3AtmosBitstreamMode where
+  parser = Eac3AtmosBitstreamMode' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3AtmosBitstreamMode where
-  toText (Eac3AtmosBitstreamMode' ci) = original ci
+instance Prelude.ToText Eac3AtmosBitstreamMode where
+  toText (Eac3AtmosBitstreamMode' x) = x
 
-instance Hashable Eac3AtmosBitstreamMode
+instance Prelude.Hashable Eac3AtmosBitstreamMode
 
-instance NFData Eac3AtmosBitstreamMode
+instance Prelude.NFData Eac3AtmosBitstreamMode
 
-instance ToByteString Eac3AtmosBitstreamMode
+instance Prelude.ToByteString Eac3AtmosBitstreamMode
 
-instance ToQuery Eac3AtmosBitstreamMode
+instance Prelude.ToQuery Eac3AtmosBitstreamMode
 
-instance ToHeader Eac3AtmosBitstreamMode
+instance Prelude.ToHeader Eac3AtmosBitstreamMode
 
-instance ToJSON Eac3AtmosBitstreamMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3AtmosBitstreamMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3AtmosBitstreamMode where
-  parseJSON = parseJSONText "Eac3AtmosBitstreamMode"
+instance Prelude.FromJSON Eac3AtmosBitstreamMode where
+  parseJSON = Prelude.parseJSONText "Eac3AtmosBitstreamMode"

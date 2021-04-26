@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,68 @@
 module Network.AWS.MediaConvert.Types.AacAudioDescriptionBroadcasterMix
   ( AacAudioDescriptionBroadcasterMix
       ( ..,
-        BroadcasterMixedAd,
-        Normal
+        AacAudioDescriptionBroadcasterMixBROADCASTERMIXEDAD,
+        AacAudioDescriptionBroadcasterMixNORMAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose BROADCASTER_MIXED_AD when the input contains pre-mixed main audio + audio description (AD) as a stereo pair. The value for AudioType will be set to 3, which signals to downstream systems that this stream contains "broadcaster mixed AD". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. When you choose BROADCASTER_MIXED_AD, the encoder ignores any values you provide in AudioType and  FollowInputAudioType. Choose NORMAL when the input does not contain pre-mixed audio + audio description (AD). In this case, the encoder will use any values you provide for AudioType and FollowInputAudioType.
-data AacAudioDescriptionBroadcasterMix
-  = AacAudioDescriptionBroadcasterMix'
-      ( CI
-          Text
-      )
+-- | Choose BROADCASTER_MIXED_AD when the input contains pre-mixed main audio
+-- + audio description (AD) as a stereo pair. The value for AudioType will
+-- be set to 3, which signals to downstream systems that this stream
+-- contains \"broadcaster mixed AD\". Note that the input received by the
+-- encoder must contain pre-mixed audio; the encoder does not perform the
+-- mixing. When you choose BROADCASTER_MIXED_AD, the encoder ignores any
+-- values you provide in AudioType and FollowInputAudioType. Choose NORMAL
+-- when the input does not contain pre-mixed audio + audio description
+-- (AD). In this case, the encoder will use any values you provide for
+-- AudioType and FollowInputAudioType.
+newtype AacAudioDescriptionBroadcasterMix = AacAudioDescriptionBroadcasterMix'
+  { fromAacAudioDescriptionBroadcasterMix ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BroadcasterMixedAd :: AacAudioDescriptionBroadcasterMix
-pattern BroadcasterMixedAd = AacAudioDescriptionBroadcasterMix' "BROADCASTER_MIXED_AD"
+pattern AacAudioDescriptionBroadcasterMixBROADCASTERMIXEDAD :: AacAudioDescriptionBroadcasterMix
+pattern AacAudioDescriptionBroadcasterMixBROADCASTERMIXEDAD = AacAudioDescriptionBroadcasterMix' "BROADCASTER_MIXED_AD"
 
-pattern Normal :: AacAudioDescriptionBroadcasterMix
-pattern Normal = AacAudioDescriptionBroadcasterMix' "NORMAL"
+pattern AacAudioDescriptionBroadcasterMixNORMAL :: AacAudioDescriptionBroadcasterMix
+pattern AacAudioDescriptionBroadcasterMixNORMAL = AacAudioDescriptionBroadcasterMix' "NORMAL"
 
 {-# COMPLETE
-  BroadcasterMixedAd,
-  Normal,
+  AacAudioDescriptionBroadcasterMixBROADCASTERMIXEDAD,
+  AacAudioDescriptionBroadcasterMixNORMAL,
   AacAudioDescriptionBroadcasterMix'
   #-}
 
-instance FromText AacAudioDescriptionBroadcasterMix where
-  parser = (AacAudioDescriptionBroadcasterMix' . mk) <$> takeText
+instance Prelude.FromText AacAudioDescriptionBroadcasterMix where
+  parser = AacAudioDescriptionBroadcasterMix' Prelude.<$> Prelude.takeText
 
-instance ToText AacAudioDescriptionBroadcasterMix where
-  toText (AacAudioDescriptionBroadcasterMix' ci) = original ci
+instance Prelude.ToText AacAudioDescriptionBroadcasterMix where
+  toText (AacAudioDescriptionBroadcasterMix' x) = x
 
-instance Hashable AacAudioDescriptionBroadcasterMix
+instance Prelude.Hashable AacAudioDescriptionBroadcasterMix
 
-instance NFData AacAudioDescriptionBroadcasterMix
+instance Prelude.NFData AacAudioDescriptionBroadcasterMix
 
-instance ToByteString AacAudioDescriptionBroadcasterMix
+instance Prelude.ToByteString AacAudioDescriptionBroadcasterMix
 
-instance ToQuery AacAudioDescriptionBroadcasterMix
+instance Prelude.ToQuery AacAudioDescriptionBroadcasterMix
 
-instance ToHeader AacAudioDescriptionBroadcasterMix
+instance Prelude.ToHeader AacAudioDescriptionBroadcasterMix
 
-instance ToJSON AacAudioDescriptionBroadcasterMix where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacAudioDescriptionBroadcasterMix where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacAudioDescriptionBroadcasterMix where
-  parseJSON = parseJSONText "AacAudioDescriptionBroadcasterMix"
+instance Prelude.FromJSON AacAudioDescriptionBroadcasterMix where
+  parseJSON = Prelude.parseJSONText "AacAudioDescriptionBroadcasterMix"

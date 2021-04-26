@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,73 @@
 module Network.AWS.MediaConvert.Types.ProresScanTypeConversionMode
   ( ProresScanTypeConversionMode
       ( ..,
-        PSTCMInterlaced,
-        PSTCMInterlacedOptimize
+        ProresScanTypeConversionModeINTERLACED,
+        ProresScanTypeConversionModeINTERLACEDOPTIMIZE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE) or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode (interlaceMode) to a value other than Progressive (PROGRESSIVE).
-data ProresScanTypeConversionMode
-  = ProresScanTypeConversionMode'
-      ( CI
-          Text
-      )
+-- | Use this setting for interlaced outputs, when your output frame rate is
+-- half of your input frame rate. In this situation, choose Optimized
+-- interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced
+-- output. In this case, each progressive frame from the input corresponds
+-- to an interlaced field in the output. Keep the default value, Basic
+-- interlacing (INTERLACED), for all other output frame rates. With basic
+-- interlacing, MediaConvert performs any frame rate conversion first and
+-- then interlaces the frames. When you choose Optimized interlacing and
+-- you set your output frame rate to a value that isn\'t suitable for
+-- optimized interlacing, MediaConvert automatically falls back to basic
+-- interlacing. Required settings: To use optimized interlacing, you must
+-- set Telecine (telecine) to None (NONE) or Soft (SOFT). You can\'t use
+-- optimized interlacing for hard telecine outputs. You must also set
+-- Interlace mode (interlaceMode) to a value other than Progressive
+-- (PROGRESSIVE).
+newtype ProresScanTypeConversionMode = ProresScanTypeConversionMode'
+  { fromProresScanTypeConversionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSTCMInterlaced :: ProresScanTypeConversionMode
-pattern PSTCMInterlaced = ProresScanTypeConversionMode' "INTERLACED"
+pattern ProresScanTypeConversionModeINTERLACED :: ProresScanTypeConversionMode
+pattern ProresScanTypeConversionModeINTERLACED = ProresScanTypeConversionMode' "INTERLACED"
 
-pattern PSTCMInterlacedOptimize :: ProresScanTypeConversionMode
-pattern PSTCMInterlacedOptimize = ProresScanTypeConversionMode' "INTERLACED_OPTIMIZE"
+pattern ProresScanTypeConversionModeINTERLACEDOPTIMIZE :: ProresScanTypeConversionMode
+pattern ProresScanTypeConversionModeINTERLACEDOPTIMIZE = ProresScanTypeConversionMode' "INTERLACED_OPTIMIZE"
 
 {-# COMPLETE
-  PSTCMInterlaced,
-  PSTCMInterlacedOptimize,
+  ProresScanTypeConversionModeINTERLACED,
+  ProresScanTypeConversionModeINTERLACEDOPTIMIZE,
   ProresScanTypeConversionMode'
   #-}
 
-instance FromText ProresScanTypeConversionMode where
-  parser = (ProresScanTypeConversionMode' . mk) <$> takeText
+instance Prelude.FromText ProresScanTypeConversionMode where
+  parser = ProresScanTypeConversionMode' Prelude.<$> Prelude.takeText
 
-instance ToText ProresScanTypeConversionMode where
-  toText (ProresScanTypeConversionMode' ci) = original ci
+instance Prelude.ToText ProresScanTypeConversionMode where
+  toText (ProresScanTypeConversionMode' x) = x
 
-instance Hashable ProresScanTypeConversionMode
+instance Prelude.Hashable ProresScanTypeConversionMode
 
-instance NFData ProresScanTypeConversionMode
+instance Prelude.NFData ProresScanTypeConversionMode
 
-instance ToByteString ProresScanTypeConversionMode
+instance Prelude.ToByteString ProresScanTypeConversionMode
 
-instance ToQuery ProresScanTypeConversionMode
+instance Prelude.ToQuery ProresScanTypeConversionMode
 
-instance ToHeader ProresScanTypeConversionMode
+instance Prelude.ToHeader ProresScanTypeConversionMode
 
-instance ToJSON ProresScanTypeConversionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProresScanTypeConversionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProresScanTypeConversionMode where
-  parseJSON = parseJSONText "ProresScanTypeConversionMode"
+instance Prelude.FromJSON ProresScanTypeConversionMode where
+  parseJSON = Prelude.parseJSONText "ProresScanTypeConversionMode"

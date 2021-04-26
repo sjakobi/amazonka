@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,64 @@
 module Network.AWS.MediaConvert.Types.AudioTypeControl
   ( AudioTypeControl
       ( ..,
-        ATCFollowInput,
-        ATCUseConfigured
+        AudioTypeControlFOLLOWINPUT,
+        AudioTypeControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to FOLLOW_INPUT, if the input contains an ISO 639 audio_type, then that value is passed through to the output. If the input contains no ISO 639 audio_type, the value in Audio Type is included in the output. Otherwise the value in Audio Type is included in the output. Note that this field and audioType are both ignored if audioDescriptionBroadcasterMix is set to BROADCASTER_MIXED_AD.
-data AudioTypeControl = AudioTypeControl' (CI Text)
+-- | When set to FOLLOW_INPUT, if the input contains an ISO 639 audio_type,
+-- then that value is passed through to the output. If the input contains
+-- no ISO 639 audio_type, the value in Audio Type is included in the
+-- output. Otherwise the value in Audio Type is included in the output.
+-- Note that this field and audioType are both ignored if
+-- audioDescriptionBroadcasterMix is set to BROADCASTER_MIXED_AD.
+newtype AudioTypeControl = AudioTypeControl'
+  { fromAudioTypeControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATCFollowInput :: AudioTypeControl
-pattern ATCFollowInput = AudioTypeControl' "FOLLOW_INPUT"
+pattern AudioTypeControlFOLLOWINPUT :: AudioTypeControl
+pattern AudioTypeControlFOLLOWINPUT = AudioTypeControl' "FOLLOW_INPUT"
 
-pattern ATCUseConfigured :: AudioTypeControl
-pattern ATCUseConfigured = AudioTypeControl' "USE_CONFIGURED"
+pattern AudioTypeControlUSECONFIGURED :: AudioTypeControl
+pattern AudioTypeControlUSECONFIGURED = AudioTypeControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  ATCFollowInput,
-  ATCUseConfigured,
+  AudioTypeControlFOLLOWINPUT,
+  AudioTypeControlUSECONFIGURED,
   AudioTypeControl'
   #-}
 
-instance FromText AudioTypeControl where
-  parser = (AudioTypeControl' . mk) <$> takeText
+instance Prelude.FromText AudioTypeControl where
+  parser = AudioTypeControl' Prelude.<$> Prelude.takeText
 
-instance ToText AudioTypeControl where
-  toText (AudioTypeControl' ci) = original ci
+instance Prelude.ToText AudioTypeControl where
+  toText (AudioTypeControl' x) = x
 
-instance Hashable AudioTypeControl
+instance Prelude.Hashable AudioTypeControl
 
-instance NFData AudioTypeControl
+instance Prelude.NFData AudioTypeControl
 
-instance ToByteString AudioTypeControl
+instance Prelude.ToByteString AudioTypeControl
 
-instance ToQuery AudioTypeControl
+instance Prelude.ToQuery AudioTypeControl
 
-instance ToHeader AudioTypeControl
+instance Prelude.ToHeader AudioTypeControl
 
-instance ToJSON AudioTypeControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioTypeControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioTypeControl where
-  parseJSON = parseJSONText "AudioTypeControl"
+instance Prelude.FromJSON AudioTypeControl where
+  parseJSON = Prelude.parseJSONText "AudioTypeControl"

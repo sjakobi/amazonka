@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.H265AlternateTransferFunctionSei
   ( H265AlternateTransferFunctionSei
       ( ..,
-        HATFSDisabled,
-        HATFSEnabled
+        H265AlternateTransferFunctionSeiDISABLED,
+        H265AlternateTransferFunctionSeiENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enables Alternate Transfer Function SEI message for outputs using Hybrid Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
-data H265AlternateTransferFunctionSei
-  = H265AlternateTransferFunctionSei'
-      ( CI
-          Text
-      )
+-- | Enables Alternate Transfer Function SEI message for outputs using Hybrid
+-- Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
+newtype H265AlternateTransferFunctionSei = H265AlternateTransferFunctionSei'
+  { fromH265AlternateTransferFunctionSei ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HATFSDisabled :: H265AlternateTransferFunctionSei
-pattern HATFSDisabled = H265AlternateTransferFunctionSei' "DISABLED"
+pattern H265AlternateTransferFunctionSeiDISABLED :: H265AlternateTransferFunctionSei
+pattern H265AlternateTransferFunctionSeiDISABLED = H265AlternateTransferFunctionSei' "DISABLED"
 
-pattern HATFSEnabled :: H265AlternateTransferFunctionSei
-pattern HATFSEnabled = H265AlternateTransferFunctionSei' "ENABLED"
+pattern H265AlternateTransferFunctionSeiENABLED :: H265AlternateTransferFunctionSei
+pattern H265AlternateTransferFunctionSeiENABLED = H265AlternateTransferFunctionSei' "ENABLED"
 
 {-# COMPLETE
-  HATFSDisabled,
-  HATFSEnabled,
+  H265AlternateTransferFunctionSeiDISABLED,
+  H265AlternateTransferFunctionSeiENABLED,
   H265AlternateTransferFunctionSei'
   #-}
 
-instance FromText H265AlternateTransferFunctionSei where
-  parser = (H265AlternateTransferFunctionSei' . mk) <$> takeText
+instance Prelude.FromText H265AlternateTransferFunctionSei where
+  parser = H265AlternateTransferFunctionSei' Prelude.<$> Prelude.takeText
 
-instance ToText H265AlternateTransferFunctionSei where
-  toText (H265AlternateTransferFunctionSei' ci) = original ci
+instance Prelude.ToText H265AlternateTransferFunctionSei where
+  toText (H265AlternateTransferFunctionSei' x) = x
 
-instance Hashable H265AlternateTransferFunctionSei
+instance Prelude.Hashable H265AlternateTransferFunctionSei
 
-instance NFData H265AlternateTransferFunctionSei
+instance Prelude.NFData H265AlternateTransferFunctionSei
 
-instance ToByteString H265AlternateTransferFunctionSei
+instance Prelude.ToByteString H265AlternateTransferFunctionSei
 
-instance ToQuery H265AlternateTransferFunctionSei
+instance Prelude.ToQuery H265AlternateTransferFunctionSei
 
-instance ToHeader H265AlternateTransferFunctionSei
+instance Prelude.ToHeader H265AlternateTransferFunctionSei
 
-instance ToJSON H265AlternateTransferFunctionSei where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265AlternateTransferFunctionSei where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265AlternateTransferFunctionSei where
-  parseJSON = parseJSONText "H265AlternateTransferFunctionSei"
+instance Prelude.FromJSON H265AlternateTransferFunctionSei where
+  parseJSON = Prelude.parseJSONText "H265AlternateTransferFunctionSei"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,122 +24,130 @@
 -- Retrieve the JSON for a specific job template.
 module Network.AWS.MediaConvert.GetJobTemplate
   ( -- * Creating a Request
-    getJobTemplate,
-    GetJobTemplate,
+    GetJobTemplate (..),
+    newGetJobTemplate,
 
     -- * Request Lenses
-    gjtName,
+    getJobTemplate_name,
 
     -- * Destructuring the Response
-    getJobTemplateResponse,
-    GetJobTemplateResponse,
+    GetJobTemplateResponse (..),
+    newGetJobTemplateResponse,
 
     -- * Response Lenses
-    gjtrrsJobTemplate,
-    gjtrrsResponseStatus,
+    getJobTemplateResponse_jobTemplate,
+    getJobTemplateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.JobTemplate
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getJobTemplate' smart constructor.
-newtype GetJobTemplate = GetJobTemplate'
-  { _gjtName ::
-      Text
+-- | /See:/ 'newGetJobTemplate' smart constructor.
+data GetJobTemplate = GetJobTemplate'
+  { -- | The name of the job template.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJobTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJobTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjtName' - The name of the job template.
-getJobTemplate ::
-  -- | 'gjtName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'getJobTemplate_name' - The name of the job template.
+newGetJobTemplate ::
+  -- | 'name'
+  Prelude.Text ->
   GetJobTemplate
-getJobTemplate pName_ =
-  GetJobTemplate' {_gjtName = pName_}
+newGetJobTemplate pName_ =
+  GetJobTemplate' {name = pName_}
 
 -- | The name of the job template.
-gjtName :: Lens' GetJobTemplate Text
-gjtName = lens _gjtName (\s a -> s {_gjtName = a})
+getJobTemplate_name :: Lens.Lens' GetJobTemplate Prelude.Text
+getJobTemplate_name = Lens.lens (\GetJobTemplate' {name} -> name) (\s@GetJobTemplate' {} a -> s {name = a} :: GetJobTemplate)
 
-instance AWSRequest GetJobTemplate where
+instance Prelude.AWSRequest GetJobTemplate where
   type Rs GetJobTemplate = GetJobTemplateResponse
-  request = get mediaConvert
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetJobTemplateResponse'
-            <$> (x .?> "jobTemplate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "jobTemplate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetJobTemplate
+instance Prelude.Hashable GetJobTemplate
 
-instance NFData GetJobTemplate
+instance Prelude.NFData GetJobTemplate
 
-instance ToHeaders GetJobTemplate where
+instance Prelude.ToHeaders GetJobTemplate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetJobTemplate where
+instance Prelude.ToPath GetJobTemplate where
   toPath GetJobTemplate' {..} =
-    mconcat
-      ["/2017-08-29/jobTemplates/", toBS _gjtName]
+    Prelude.mconcat
+      ["/2017-08-29/jobTemplates/", Prelude.toBS name]
 
-instance ToQuery GetJobTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery GetJobTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getJobTemplateResponse' smart constructor.
+-- | /See:/ 'newGetJobTemplateResponse' smart constructor.
 data GetJobTemplateResponse = GetJobTemplateResponse'
-  { _gjtrrsJobTemplate ::
-      !(Maybe JobTemplate),
-    _gjtrrsResponseStatus ::
-      !Int
+  { -- | A job template is a pre-made set of encoding instructions that you can
+    -- use to quickly create a job.
+    jobTemplate :: Prelude.Maybe JobTemplate,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetJobTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetJobTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gjtrrsJobTemplate' - A job template is a pre-made set of encoding instructions that you can use to quickly create a job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gjtrrsResponseStatus' - -- | The response status code.
-getJobTemplateResponse ::
-  -- | 'gjtrrsResponseStatus'
-  Int ->
+-- 'jobTemplate', 'getJobTemplateResponse_jobTemplate' - A job template is a pre-made set of encoding instructions that you can
+-- use to quickly create a job.
+--
+-- 'httpStatus', 'getJobTemplateResponse_httpStatus' - The response's http status code.
+newGetJobTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetJobTemplateResponse
-getJobTemplateResponse pResponseStatus_ =
+newGetJobTemplateResponse pHttpStatus_ =
   GetJobTemplateResponse'
-    { _gjtrrsJobTemplate =
-        Nothing,
-      _gjtrrsResponseStatus = pResponseStatus_
+    { jobTemplate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A job template is a pre-made set of encoding instructions that you can use to quickly create a job.
-gjtrrsJobTemplate :: Lens' GetJobTemplateResponse (Maybe JobTemplate)
-gjtrrsJobTemplate = lens _gjtrrsJobTemplate (\s a -> s {_gjtrrsJobTemplate = a})
+-- | A job template is a pre-made set of encoding instructions that you can
+-- use to quickly create a job.
+getJobTemplateResponse_jobTemplate :: Lens.Lens' GetJobTemplateResponse (Prelude.Maybe JobTemplate)
+getJobTemplateResponse_jobTemplate = Lens.lens (\GetJobTemplateResponse' {jobTemplate} -> jobTemplate) (\s@GetJobTemplateResponse' {} a -> s {jobTemplate = a} :: GetJobTemplateResponse)
 
--- | -- | The response status code.
-gjtrrsResponseStatus :: Lens' GetJobTemplateResponse Int
-gjtrrsResponseStatus = lens _gjtrrsResponseStatus (\s a -> s {_gjtrrsResponseStatus = a})
+-- | The response's http status code.
+getJobTemplateResponse_httpStatus :: Lens.Lens' GetJobTemplateResponse Prelude.Int
+getJobTemplateResponse_httpStatus = Lens.lens (\GetJobTemplateResponse' {httpStatus} -> httpStatus) (\s@GetJobTemplateResponse' {} a -> s {httpStatus = a} :: GetJobTemplateResponse)
 
-instance NFData GetJobTemplateResponse
+instance Prelude.NFData GetJobTemplateResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,64 @@
 module Network.AWS.MediaConvert.Types.MpdAccessibilityCaptionHints
   ( MpdAccessibilityCaptionHints
       ( ..,
-        Exclude,
-        Include
+        MpdAccessibilityCaptionHintsEXCLUDE,
+        MpdAccessibilityCaptionHintsINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | <Accessibility>elements for embedded 608 captions. This markup isn't generally required, but some video players require it to discover and play embedded 608 captions. Keep the default value, Exclude (EXCLUDE), to leave these elements out. When you enable this setting, this is the markup that MediaConvert includes in your manifest: <Accessibility>
-data MpdAccessibilityCaptionHints
-  = MpdAccessibilityCaptionHints'
-      ( CI
-          Text
-      )
+-- | Optional. Choose Include (INCLUDE) to have MediaConvert mark up your
+-- DASH manifest with elements for embedded 608 captions. This markup
+-- isn\'t generally required, but some video players require it to discover
+-- and play embedded 608 captions. Keep the default value, Exclude
+-- (EXCLUDE), to leave these elements out. When you enable this setting,
+-- this is the markup that MediaConvert includes in your manifest:
+newtype MpdAccessibilityCaptionHints = MpdAccessibilityCaptionHints'
+  { fromMpdAccessibilityCaptionHints ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Exclude :: MpdAccessibilityCaptionHints
-pattern Exclude = MpdAccessibilityCaptionHints' "EXCLUDE"
+pattern MpdAccessibilityCaptionHintsEXCLUDE :: MpdAccessibilityCaptionHints
+pattern MpdAccessibilityCaptionHintsEXCLUDE = MpdAccessibilityCaptionHints' "EXCLUDE"
 
-pattern Include :: MpdAccessibilityCaptionHints
-pattern Include = MpdAccessibilityCaptionHints' "INCLUDE"
+pattern MpdAccessibilityCaptionHintsINCLUDE :: MpdAccessibilityCaptionHints
+pattern MpdAccessibilityCaptionHintsINCLUDE = MpdAccessibilityCaptionHints' "INCLUDE"
 
 {-# COMPLETE
-  Exclude,
-  Include,
+  MpdAccessibilityCaptionHintsEXCLUDE,
+  MpdAccessibilityCaptionHintsINCLUDE,
   MpdAccessibilityCaptionHints'
   #-}
 
-instance FromText MpdAccessibilityCaptionHints where
-  parser = (MpdAccessibilityCaptionHints' . mk) <$> takeText
+instance Prelude.FromText MpdAccessibilityCaptionHints where
+  parser = MpdAccessibilityCaptionHints' Prelude.<$> Prelude.takeText
 
-instance ToText MpdAccessibilityCaptionHints where
-  toText (MpdAccessibilityCaptionHints' ci) = original ci
+instance Prelude.ToText MpdAccessibilityCaptionHints where
+  toText (MpdAccessibilityCaptionHints' x) = x
 
-instance Hashable MpdAccessibilityCaptionHints
+instance Prelude.Hashable MpdAccessibilityCaptionHints
 
-instance NFData MpdAccessibilityCaptionHints
+instance Prelude.NFData MpdAccessibilityCaptionHints
 
-instance ToByteString MpdAccessibilityCaptionHints
+instance Prelude.ToByteString MpdAccessibilityCaptionHints
 
-instance ToQuery MpdAccessibilityCaptionHints
+instance Prelude.ToQuery MpdAccessibilityCaptionHints
 
-instance ToHeader MpdAccessibilityCaptionHints
+instance Prelude.ToHeader MpdAccessibilityCaptionHints
 
-instance ToJSON MpdAccessibilityCaptionHints where
-  toJSON = toJSONText
+instance Prelude.ToJSON MpdAccessibilityCaptionHints where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MpdAccessibilityCaptionHints where
-  parseJSON = parseJSONText "MpdAccessibilityCaptionHints"
+instance Prelude.FromJSON MpdAccessibilityCaptionHints where
+  parseJSON = Prelude.parseJSONText "MpdAccessibilityCaptionHints"

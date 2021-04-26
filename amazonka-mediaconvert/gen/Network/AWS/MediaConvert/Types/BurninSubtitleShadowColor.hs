@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,65 @@
 module Network.AWS.MediaConvert.Types.BurninSubtitleShadowColor
   ( BurninSubtitleShadowColor
       ( ..,
-        BSSCBlack,
-        BSSCNone,
-        BSSCWhite
+        BurninSubtitleShadowColorBLACK,
+        BurninSubtitleShadowColorNONE,
+        BurninSubtitleShadowColorWHITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the color of the shadow cast by the captions.
---
--- All burn-in and DVB-Sub font settings must match.
-data BurninSubtitleShadowColor
-  = BurninSubtitleShadowColor'
-      ( CI
-          Text
-      )
+-- | Specifies the color of the shadow cast by the captions. All burn-in and
+-- DVB-Sub font settings must match.
+newtype BurninSubtitleShadowColor = BurninSubtitleShadowColor'
+  { fromBurninSubtitleShadowColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSSCBlack :: BurninSubtitleShadowColor
-pattern BSSCBlack = BurninSubtitleShadowColor' "BLACK"
+pattern BurninSubtitleShadowColorBLACK :: BurninSubtitleShadowColor
+pattern BurninSubtitleShadowColorBLACK = BurninSubtitleShadowColor' "BLACK"
 
-pattern BSSCNone :: BurninSubtitleShadowColor
-pattern BSSCNone = BurninSubtitleShadowColor' "NONE"
+pattern BurninSubtitleShadowColorNONE :: BurninSubtitleShadowColor
+pattern BurninSubtitleShadowColorNONE = BurninSubtitleShadowColor' "NONE"
 
-pattern BSSCWhite :: BurninSubtitleShadowColor
-pattern BSSCWhite = BurninSubtitleShadowColor' "WHITE"
+pattern BurninSubtitleShadowColorWHITE :: BurninSubtitleShadowColor
+pattern BurninSubtitleShadowColorWHITE = BurninSubtitleShadowColor' "WHITE"
 
 {-# COMPLETE
-  BSSCBlack,
-  BSSCNone,
-  BSSCWhite,
+  BurninSubtitleShadowColorBLACK,
+  BurninSubtitleShadowColorNONE,
+  BurninSubtitleShadowColorWHITE,
   BurninSubtitleShadowColor'
   #-}
 
-instance FromText BurninSubtitleShadowColor where
-  parser = (BurninSubtitleShadowColor' . mk) <$> takeText
+instance Prelude.FromText BurninSubtitleShadowColor where
+  parser = BurninSubtitleShadowColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurninSubtitleShadowColor where
-  toText (BurninSubtitleShadowColor' ci) = original ci
+instance Prelude.ToText BurninSubtitleShadowColor where
+  toText (BurninSubtitleShadowColor' x) = x
 
-instance Hashable BurninSubtitleShadowColor
+instance Prelude.Hashable BurninSubtitleShadowColor
 
-instance NFData BurninSubtitleShadowColor
+instance Prelude.NFData BurninSubtitleShadowColor
 
-instance ToByteString BurninSubtitleShadowColor
+instance Prelude.ToByteString BurninSubtitleShadowColor
 
-instance ToQuery BurninSubtitleShadowColor
+instance Prelude.ToQuery BurninSubtitleShadowColor
 
-instance ToHeader BurninSubtitleShadowColor
+instance Prelude.ToHeader BurninSubtitleShadowColor
 
-instance ToJSON BurninSubtitleShadowColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurninSubtitleShadowColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurninSubtitleShadowColor where
-  parseJSON = parseJSONText "BurninSubtitleShadowColor"
+instance Prelude.FromJSON BurninSubtitleShadowColor where
+  parseJSON = Prelude.parseJSONText "BurninSubtitleShadowColor"

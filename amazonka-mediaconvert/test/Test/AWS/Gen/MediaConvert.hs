@@ -28,157 +28,157 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDisassociateCertificate $
---             disassociateCertificate
+--             newDisassociateCertificate
 --
 --         , requestUpdatePreset $
---             updatePreset
+--             newUpdatePreset
 --
 --         , requestListPresets $
---             listPresets
+--             newListPresets
 --
 --         , requestDeletePreset $
---             deletePreset
+--             newDeletePreset
 --
 --         , requestCancelJob $
---             cancelJob
+--             newCancelJob
 --
 --         , requestCreatePreset $
---             createPreset
+--             newCreatePreset
 --
 --         , requestGetJob $
---             getJob
+--             newGetJob
 --
 --         , requestListJobTemplates $
---             listJobTemplates
+--             newListJobTemplates
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestCreateJobTemplate $
---             createJobTemplate
+--             newCreateJobTemplate
 --
 --         , requestListQueues $
---             listQueues
+--             newListQueues
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestGetQueue $
---             getQueue
+--             newGetQueue
 --
 --         , requestGetJobTemplate $
---             getJobTemplate
+--             newGetJobTemplate
 --
 --         , requestAssociateCertificate $
---             associateCertificate
+--             newAssociateCertificate
 --
 --         , requestListJobs $
---             listJobs
+--             newListJobs
 --
 --         , requestUpdateJobTemplate $
---             updateJobTemplate
+--             newUpdateJobTemplate
 --
 --         , requestDeleteJobTemplate $
---             deleteJobTemplate
+--             newDeleteJobTemplate
 --
 --         , requestCreateJob $
---             createJob
+--             newCreateJob
 --
 --         , requestGetPreset $
---             getPreset
+--             newGetPreset
 --
 --         , requestUpdateQueue $
---             updateQueue
+--             newUpdateQueue
 --
 --         , requestDeleteQueue $
---             deleteQueue
+--             newDeleteQueue
 --
 --         , requestCreateQueue $
---             createQueue
+--             newCreateQueue
 --
 --         , requestDescribeEndpoints $
---             describeEndpoints
+--             newDescribeEndpoints
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDisassociateCertificate $
---             disassociateCertificateResponse
+--             newDisassociateCertificateResponse
 --
 --         , responseUpdatePreset $
---             updatePresetResponse
+--             newUpdatePresetResponse
 --
 --         , responseListPresets $
---             listPresetsResponse
+--             newListPresetsResponse
 --
 --         , responseDeletePreset $
---             deletePresetResponse
+--             newDeletePresetResponse
 --
 --         , responseCancelJob $
---             cancelJobResponse
+--             newCancelJobResponse
 --
 --         , responseCreatePreset $
---             createPresetResponse
+--             newCreatePresetResponse
 --
 --         , responseGetJob $
---             getJobResponse
+--             newGetJobResponse
 --
 --         , responseListJobTemplates $
---             listJobTemplatesResponse
+--             newListJobTemplatesResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseCreateJobTemplate $
---             createJobTemplateResponse
+--             newCreateJobTemplateResponse
 --
 --         , responseListQueues $
---             listQueuesResponse
+--             newListQueuesResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseGetQueue $
---             getQueueResponse
+--             newGetQueueResponse
 --
 --         , responseGetJobTemplate $
---             getJobTemplateResponse
+--             newGetJobTemplateResponse
 --
 --         , responseAssociateCertificate $
---             associateCertificateResponse
+--             newAssociateCertificateResponse
 --
 --         , responseListJobs $
---             listJobsResponse
+--             newListJobsResponse
 --
 --         , responseUpdateJobTemplate $
---             updateJobTemplateResponse
+--             newUpdateJobTemplateResponse
 --
 --         , responseDeleteJobTemplate $
---             deleteJobTemplateResponse
+--             newDeleteJobTemplateResponse
 --
 --         , responseCreateJob $
---             createJobResponse
+--             newCreateJobResponse
 --
 --         , responseGetPreset $
---             getPresetResponse
+--             newGetPresetResponse
 --
 --         , responseUpdateQueue $
---             updateQueueResponse
+--             newUpdateQueueResponse
 --
 --         , responseDeleteQueue $
---             deleteQueueResponse
+--             newDeleteQueueResponse
 --
 --         , responseCreateQueue $
---             createQueueResponse
+--             newCreateQueueResponse
 --
 --         , responseDescribeEndpoints $
---             describeEndpointsResponse
+--             newDescribeEndpointsResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --           ]
 --     ]
@@ -342,7 +342,7 @@ responseDisassociateCertificate =
   res
     "DisassociateCertificateResponse"
     "fixture/DisassociateCertificateResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy DisassociateCertificate)
 
 responseUpdatePreset :: UpdatePresetResponse -> TestTree
@@ -350,7 +350,7 @@ responseUpdatePreset =
   res
     "UpdatePresetResponse"
     "fixture/UpdatePresetResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy UpdatePreset)
 
 responseListPresets :: ListPresetsResponse -> TestTree
@@ -358,7 +358,7 @@ responseListPresets =
   res
     "ListPresetsResponse"
     "fixture/ListPresetsResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy ListPresets)
 
 responseDeletePreset :: DeletePresetResponse -> TestTree
@@ -366,7 +366,7 @@ responseDeletePreset =
   res
     "DeletePresetResponse"
     "fixture/DeletePresetResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy DeletePreset)
 
 responseCancelJob :: CancelJobResponse -> TestTree
@@ -374,7 +374,7 @@ responseCancelJob =
   res
     "CancelJobResponse"
     "fixture/CancelJobResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy CancelJob)
 
 responseCreatePreset :: CreatePresetResponse -> TestTree
@@ -382,7 +382,7 @@ responseCreatePreset =
   res
     "CreatePresetResponse"
     "fixture/CreatePresetResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy CreatePreset)
 
 responseGetJob :: GetJobResponse -> TestTree
@@ -390,7 +390,7 @@ responseGetJob =
   res
     "GetJobResponse"
     "fixture/GetJobResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy GetJob)
 
 responseListJobTemplates :: ListJobTemplatesResponse -> TestTree
@@ -398,7 +398,7 @@ responseListJobTemplates =
   res
     "ListJobTemplatesResponse"
     "fixture/ListJobTemplatesResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy ListJobTemplates)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -406,7 +406,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseCreateJobTemplate :: CreateJobTemplateResponse -> TestTree
@@ -414,7 +414,7 @@ responseCreateJobTemplate =
   res
     "CreateJobTemplateResponse"
     "fixture/CreateJobTemplateResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy CreateJobTemplate)
 
 responseListQueues :: ListQueuesResponse -> TestTree
@@ -422,7 +422,7 @@ responseListQueues =
   res
     "ListQueuesResponse"
     "fixture/ListQueuesResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy ListQueues)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -430,7 +430,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseGetQueue :: GetQueueResponse -> TestTree
@@ -438,7 +438,7 @@ responseGetQueue =
   res
     "GetQueueResponse"
     "fixture/GetQueueResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy GetQueue)
 
 responseGetJobTemplate :: GetJobTemplateResponse -> TestTree
@@ -446,7 +446,7 @@ responseGetJobTemplate =
   res
     "GetJobTemplateResponse"
     "fixture/GetJobTemplateResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy GetJobTemplate)
 
 responseAssociateCertificate :: AssociateCertificateResponse -> TestTree
@@ -454,7 +454,7 @@ responseAssociateCertificate =
   res
     "AssociateCertificateResponse"
     "fixture/AssociateCertificateResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy AssociateCertificate)
 
 responseListJobs :: ListJobsResponse -> TestTree
@@ -462,7 +462,7 @@ responseListJobs =
   res
     "ListJobsResponse"
     "fixture/ListJobsResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy ListJobs)
 
 responseUpdateJobTemplate :: UpdateJobTemplateResponse -> TestTree
@@ -470,7 +470,7 @@ responseUpdateJobTemplate =
   res
     "UpdateJobTemplateResponse"
     "fixture/UpdateJobTemplateResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy UpdateJobTemplate)
 
 responseDeleteJobTemplate :: DeleteJobTemplateResponse -> TestTree
@@ -478,7 +478,7 @@ responseDeleteJobTemplate =
   res
     "DeleteJobTemplateResponse"
     "fixture/DeleteJobTemplateResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy DeleteJobTemplate)
 
 responseCreateJob :: CreateJobResponse -> TestTree
@@ -486,7 +486,7 @@ responseCreateJob =
   res
     "CreateJobResponse"
     "fixture/CreateJobResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy CreateJob)
 
 responseGetPreset :: GetPresetResponse -> TestTree
@@ -494,7 +494,7 @@ responseGetPreset =
   res
     "GetPresetResponse"
     "fixture/GetPresetResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy GetPreset)
 
 responseUpdateQueue :: UpdateQueueResponse -> TestTree
@@ -502,7 +502,7 @@ responseUpdateQueue =
   res
     "UpdateQueueResponse"
     "fixture/UpdateQueueResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy UpdateQueue)
 
 responseDeleteQueue :: DeleteQueueResponse -> TestTree
@@ -510,7 +510,7 @@ responseDeleteQueue =
   res
     "DeleteQueueResponse"
     "fixture/DeleteQueueResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy DeleteQueue)
 
 responseCreateQueue :: CreateQueueResponse -> TestTree
@@ -518,7 +518,7 @@ responseCreateQueue =
   res
     "CreateQueueResponse"
     "fixture/CreateQueueResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy CreateQueue)
 
 responseDescribeEndpoints :: DescribeEndpointsResponse -> TestTree
@@ -526,7 +526,7 @@ responseDescribeEndpoints =
   res
     "DescribeEndpointsResponse"
     "fixture/DescribeEndpointsResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy DescribeEndpoints)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -534,5 +534,5 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    mediaConvert
+    defaultService
     (Proxy :: Proxy ListTagsForResource)

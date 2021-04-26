@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.H264EntropyEncoding
   ( H264EntropyEncoding
       ( ..,
-        Cabac,
-        Cavlc
+        H264EntropyEncodingCABAC,
+        H264EntropyEncodingCAVLC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Entropy encoding mode. Use CABAC (must be in Main or High profile) or CAVLC.
-data H264EntropyEncoding
-  = H264EntropyEncoding'
-      ( CI
-          Text
-      )
+-- | Entropy encoding mode. Use CABAC (must be in Main or High profile) or
+-- CAVLC.
+newtype H264EntropyEncoding = H264EntropyEncoding'
+  { fromH264EntropyEncoding ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cabac :: H264EntropyEncoding
-pattern Cabac = H264EntropyEncoding' "CABAC"
+pattern H264EntropyEncodingCABAC :: H264EntropyEncoding
+pattern H264EntropyEncodingCABAC = H264EntropyEncoding' "CABAC"
 
-pattern Cavlc :: H264EntropyEncoding
-pattern Cavlc = H264EntropyEncoding' "CAVLC"
+pattern H264EntropyEncodingCAVLC :: H264EntropyEncoding
+pattern H264EntropyEncodingCAVLC = H264EntropyEncoding' "CAVLC"
 
 {-# COMPLETE
-  Cabac,
-  Cavlc,
+  H264EntropyEncodingCABAC,
+  H264EntropyEncodingCAVLC,
   H264EntropyEncoding'
   #-}
 
-instance FromText H264EntropyEncoding where
-  parser = (H264EntropyEncoding' . mk) <$> takeText
+instance Prelude.FromText H264EntropyEncoding where
+  parser = H264EntropyEncoding' Prelude.<$> Prelude.takeText
 
-instance ToText H264EntropyEncoding where
-  toText (H264EntropyEncoding' ci) = original ci
+instance Prelude.ToText H264EntropyEncoding where
+  toText (H264EntropyEncoding' x) = x
 
-instance Hashable H264EntropyEncoding
+instance Prelude.Hashable H264EntropyEncoding
 
-instance NFData H264EntropyEncoding
+instance Prelude.NFData H264EntropyEncoding
 
-instance ToByteString H264EntropyEncoding
+instance Prelude.ToByteString H264EntropyEncoding
 
-instance ToQuery H264EntropyEncoding
+instance Prelude.ToQuery H264EntropyEncoding
 
-instance ToHeader H264EntropyEncoding
+instance Prelude.ToHeader H264EntropyEncoding
 
-instance ToJSON H264EntropyEncoding where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264EntropyEncoding where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264EntropyEncoding where
-  parseJSON = parseJSONText "H264EntropyEncoding"
+instance Prelude.FromJSON H264EntropyEncoding where
+  parseJSON = Prelude.parseJSONText "H264EntropyEncoding"

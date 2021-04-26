@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.CmafInitializationVectorInManifest
   ( CmafInitializationVectorInManifest
       ( ..,
-        CIVIMExclude,
-        CIVIMInclude
+        CmafInitializationVectorInManifestEXCLUDE,
+        CmafInitializationVectorInManifestINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When you use DRM with CMAF outputs, choose whether the service writes the 128-bit encryption initialization vector in the HLS and DASH manifests.
-data CmafInitializationVectorInManifest
-  = CmafInitializationVectorInManifest'
-      ( CI
-          Text
-      )
+-- | When you use DRM with CMAF outputs, choose whether the service writes
+-- the 128-bit encryption initialization vector in the HLS and DASH
+-- manifests.
+newtype CmafInitializationVectorInManifest = CmafInitializationVectorInManifest'
+  { fromCmafInitializationVectorInManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CIVIMExclude :: CmafInitializationVectorInManifest
-pattern CIVIMExclude = CmafInitializationVectorInManifest' "EXCLUDE"
+pattern CmafInitializationVectorInManifestEXCLUDE :: CmafInitializationVectorInManifest
+pattern CmafInitializationVectorInManifestEXCLUDE = CmafInitializationVectorInManifest' "EXCLUDE"
 
-pattern CIVIMInclude :: CmafInitializationVectorInManifest
-pattern CIVIMInclude = CmafInitializationVectorInManifest' "INCLUDE"
+pattern CmafInitializationVectorInManifestINCLUDE :: CmafInitializationVectorInManifest
+pattern CmafInitializationVectorInManifestINCLUDE = CmafInitializationVectorInManifest' "INCLUDE"
 
 {-# COMPLETE
-  CIVIMExclude,
-  CIVIMInclude,
+  CmafInitializationVectorInManifestEXCLUDE,
+  CmafInitializationVectorInManifestINCLUDE,
   CmafInitializationVectorInManifest'
   #-}
 
-instance FromText CmafInitializationVectorInManifest where
-  parser = (CmafInitializationVectorInManifest' . mk) <$> takeText
+instance Prelude.FromText CmafInitializationVectorInManifest where
+  parser = CmafInitializationVectorInManifest' Prelude.<$> Prelude.takeText
 
-instance ToText CmafInitializationVectorInManifest where
-  toText (CmafInitializationVectorInManifest' ci) = original ci
+instance Prelude.ToText CmafInitializationVectorInManifest where
+  toText (CmafInitializationVectorInManifest' x) = x
 
-instance Hashable CmafInitializationVectorInManifest
+instance Prelude.Hashable CmafInitializationVectorInManifest
 
-instance NFData CmafInitializationVectorInManifest
+instance Prelude.NFData CmafInitializationVectorInManifest
 
-instance ToByteString CmafInitializationVectorInManifest
+instance Prelude.ToByteString CmafInitializationVectorInManifest
 
-instance ToQuery CmafInitializationVectorInManifest
+instance Prelude.ToQuery CmafInitializationVectorInManifest
 
-instance ToHeader CmafInitializationVectorInManifest
+instance Prelude.ToHeader CmafInitializationVectorInManifest
 
-instance ToJSON CmafInitializationVectorInManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafInitializationVectorInManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafInitializationVectorInManifest where
-  parseJSON = parseJSONText "CmafInitializationVectorInManifest"
+instance Prelude.FromJSON CmafInitializationVectorInManifest where
+  parseJSON = Prelude.parseJSONText "CmafInitializationVectorInManifest"

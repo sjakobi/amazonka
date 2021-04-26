@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,69 @@
 module Network.AWS.MediaConvert.Types.AacVbrQuality
   ( AacVbrQuality
       ( ..,
-        High,
-        Low,
-        MediumHigh,
-        MediumLow
+        AacVbrQualityHIGH,
+        AacVbrQualityLOW,
+        AacVbrQualityMEDIUMHIGH,
+        AacVbrQualityMEDIUMLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | VBR Quality Level - Only used if rate_control_mode is VBR.
-data AacVbrQuality = AacVbrQuality' (CI Text)
+newtype AacVbrQuality = AacVbrQuality'
+  { fromAacVbrQuality ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern High :: AacVbrQuality
-pattern High = AacVbrQuality' "HIGH"
+pattern AacVbrQualityHIGH :: AacVbrQuality
+pattern AacVbrQualityHIGH = AacVbrQuality' "HIGH"
 
-pattern Low :: AacVbrQuality
-pattern Low = AacVbrQuality' "LOW"
+pattern AacVbrQualityLOW :: AacVbrQuality
+pattern AacVbrQualityLOW = AacVbrQuality' "LOW"
 
-pattern MediumHigh :: AacVbrQuality
-pattern MediumHigh = AacVbrQuality' "MEDIUM_HIGH"
+pattern AacVbrQualityMEDIUMHIGH :: AacVbrQuality
+pattern AacVbrQualityMEDIUMHIGH = AacVbrQuality' "MEDIUM_HIGH"
 
-pattern MediumLow :: AacVbrQuality
-pattern MediumLow = AacVbrQuality' "MEDIUM_LOW"
+pattern AacVbrQualityMEDIUMLOW :: AacVbrQuality
+pattern AacVbrQualityMEDIUMLOW = AacVbrQuality' "MEDIUM_LOW"
 
 {-# COMPLETE
-  High,
-  Low,
-  MediumHigh,
-  MediumLow,
+  AacVbrQualityHIGH,
+  AacVbrQualityLOW,
+  AacVbrQualityMEDIUMHIGH,
+  AacVbrQualityMEDIUMLOW,
   AacVbrQuality'
   #-}
 
-instance FromText AacVbrQuality where
-  parser = (AacVbrQuality' . mk) <$> takeText
+instance Prelude.FromText AacVbrQuality where
+  parser = AacVbrQuality' Prelude.<$> Prelude.takeText
 
-instance ToText AacVbrQuality where
-  toText (AacVbrQuality' ci) = original ci
+instance Prelude.ToText AacVbrQuality where
+  toText (AacVbrQuality' x) = x
 
-instance Hashable AacVbrQuality
+instance Prelude.Hashable AacVbrQuality
 
-instance NFData AacVbrQuality
+instance Prelude.NFData AacVbrQuality
 
-instance ToByteString AacVbrQuality
+instance Prelude.ToByteString AacVbrQuality
 
-instance ToQuery AacVbrQuality
+instance Prelude.ToQuery AacVbrQuality
 
-instance ToHeader AacVbrQuality
+instance Prelude.ToHeader AacVbrQuality
 
-instance ToJSON AacVbrQuality where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacVbrQuality where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacVbrQuality where
-  parseJSON = parseJSONText "AacVbrQuality"
+instance Prelude.FromJSON AacVbrQuality where
+  parseJSON = Prelude.parseJSONText "AacVbrQuality"

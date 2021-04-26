@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,120 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.AutomatedAbrSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use automated ABR to have MediaConvert set up the renditions in your ABR package for you automatically, based on characteristics of your input video. This feature optimizes video quality while minimizing the overall size of your ABR package.
+-- | Use automated ABR to have MediaConvert set up the renditions in your ABR
+-- package for you automatically, based on characteristics of your input
+-- video. This feature optimizes video quality while minimizing the overall
+-- size of your ABR package.
 --
--- /See:/ 'automatedAbrSettings' smart constructor.
+-- /See:/ 'newAutomatedAbrSettings' smart constructor.
 data AutomatedAbrSettings = AutomatedAbrSettings'
-  { _aasMinAbrBitrate ::
-      !(Maybe Nat),
-    _aasMaxRenditions ::
-      !(Maybe Nat),
-    _aasMaxAbrBitrate ::
-      !(Maybe Nat)
+  { -- | Optional. The minimum target bitrate used in your automated ABR stack.
+    -- Use this value to set a lower limit on the bitrate of video delivered to
+    -- viewers with slow internet connections. If you don\'t specify a value,
+    -- MediaConvert uses 600,000 (600 kb\/s) by default.
+    minAbrBitrate :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. The maximum number of renditions that MediaConvert will create
+    -- in your automated ABR stack. The number of renditions is determined
+    -- automatically, based on analysis of each job, but will never exceed this
+    -- limit. When you set this to Auto in the console, which is equivalent to
+    -- excluding it from your JSON job specification, MediaConvert defaults to
+    -- a limit of 15.
+    maxRenditions :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. The maximum target bit rate used in your automated ABR stack.
+    -- Use this value to set an upper limit on the bandwidth consumed by the
+    -- highest-quality rendition. This is the rendition that is delivered to
+    -- viewers with the fastest internet connections. If you don\'t specify a
+    -- value, MediaConvert uses 8,000,000 (8 mb\/s) by default.
+    maxAbrBitrate :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutomatedAbrSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutomatedAbrSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aasMinAbrBitrate' - Optional. The minimum target bitrate used in your automated ABR stack. Use this value to set a lower limit on the bitrate of video delivered to viewers with slow internet connections. If you don't specify a value, MediaConvert uses 600,000 (600 kb/s) by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aasMaxRenditions' - Optional. The maximum number of renditions that MediaConvert will create in your automated ABR stack. The number of renditions is determined automatically, based on analysis of each job, but will never exceed this limit. When you set this to Auto in the console, which is equivalent to excluding it from your JSON job specification, MediaConvert defaults to a limit of 15.
+-- 'minAbrBitrate', 'automatedAbrSettings_minAbrBitrate' - Optional. The minimum target bitrate used in your automated ABR stack.
+-- Use this value to set a lower limit on the bitrate of video delivered to
+-- viewers with slow internet connections. If you don\'t specify a value,
+-- MediaConvert uses 600,000 (600 kb\/s) by default.
 --
--- * 'aasMaxAbrBitrate' - Optional. The maximum target bit rate used in your automated ABR stack. Use this value to set an upper limit on the bandwidth consumed by the highest-quality rendition. This is the rendition that is delivered to viewers with the fastest internet connections. If you don't specify a value, MediaConvert uses 8,000,000 (8 mb/s) by default.
-automatedAbrSettings ::
+-- 'maxRenditions', 'automatedAbrSettings_maxRenditions' - Optional. The maximum number of renditions that MediaConvert will create
+-- in your automated ABR stack. The number of renditions is determined
+-- automatically, based on analysis of each job, but will never exceed this
+-- limit. When you set this to Auto in the console, which is equivalent to
+-- excluding it from your JSON job specification, MediaConvert defaults to
+-- a limit of 15.
+--
+-- 'maxAbrBitrate', 'automatedAbrSettings_maxAbrBitrate' - Optional. The maximum target bit rate used in your automated ABR stack.
+-- Use this value to set an upper limit on the bandwidth consumed by the
+-- highest-quality rendition. This is the rendition that is delivered to
+-- viewers with the fastest internet connections. If you don\'t specify a
+-- value, MediaConvert uses 8,000,000 (8 mb\/s) by default.
+newAutomatedAbrSettings ::
   AutomatedAbrSettings
-automatedAbrSettings =
+newAutomatedAbrSettings =
   AutomatedAbrSettings'
-    { _aasMinAbrBitrate = Nothing,
-      _aasMaxRenditions = Nothing,
-      _aasMaxAbrBitrate = Nothing
+    { minAbrBitrate =
+        Prelude.Nothing,
+      maxRenditions = Prelude.Nothing,
+      maxAbrBitrate = Prelude.Nothing
     }
 
--- | Optional. The minimum target bitrate used in your automated ABR stack. Use this value to set a lower limit on the bitrate of video delivered to viewers with slow internet connections. If you don't specify a value, MediaConvert uses 600,000 (600 kb/s) by default.
-aasMinAbrBitrate :: Lens' AutomatedAbrSettings (Maybe Natural)
-aasMinAbrBitrate = lens _aasMinAbrBitrate (\s a -> s {_aasMinAbrBitrate = a}) . mapping _Nat
+-- | Optional. The minimum target bitrate used in your automated ABR stack.
+-- Use this value to set a lower limit on the bitrate of video delivered to
+-- viewers with slow internet connections. If you don\'t specify a value,
+-- MediaConvert uses 600,000 (600 kb\/s) by default.
+automatedAbrSettings_minAbrBitrate :: Lens.Lens' AutomatedAbrSettings (Prelude.Maybe Prelude.Natural)
+automatedAbrSettings_minAbrBitrate = Lens.lens (\AutomatedAbrSettings' {minAbrBitrate} -> minAbrBitrate) (\s@AutomatedAbrSettings' {} a -> s {minAbrBitrate = a} :: AutomatedAbrSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional. The maximum number of renditions that MediaConvert will create in your automated ABR stack. The number of renditions is determined automatically, based on analysis of each job, but will never exceed this limit. When you set this to Auto in the console, which is equivalent to excluding it from your JSON job specification, MediaConvert defaults to a limit of 15.
-aasMaxRenditions :: Lens' AutomatedAbrSettings (Maybe Natural)
-aasMaxRenditions = lens _aasMaxRenditions (\s a -> s {_aasMaxRenditions = a}) . mapping _Nat
+-- | Optional. The maximum number of renditions that MediaConvert will create
+-- in your automated ABR stack. The number of renditions is determined
+-- automatically, based on analysis of each job, but will never exceed this
+-- limit. When you set this to Auto in the console, which is equivalent to
+-- excluding it from your JSON job specification, MediaConvert defaults to
+-- a limit of 15.
+automatedAbrSettings_maxRenditions :: Lens.Lens' AutomatedAbrSettings (Prelude.Maybe Prelude.Natural)
+automatedAbrSettings_maxRenditions = Lens.lens (\AutomatedAbrSettings' {maxRenditions} -> maxRenditions) (\s@AutomatedAbrSettings' {} a -> s {maxRenditions = a} :: AutomatedAbrSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional. The maximum target bit rate used in your automated ABR stack. Use this value to set an upper limit on the bandwidth consumed by the highest-quality rendition. This is the rendition that is delivered to viewers with the fastest internet connections. If you don't specify a value, MediaConvert uses 8,000,000 (8 mb/s) by default.
-aasMaxAbrBitrate :: Lens' AutomatedAbrSettings (Maybe Natural)
-aasMaxAbrBitrate = lens _aasMaxAbrBitrate (\s a -> s {_aasMaxAbrBitrate = a}) . mapping _Nat
+-- | Optional. The maximum target bit rate used in your automated ABR stack.
+-- Use this value to set an upper limit on the bandwidth consumed by the
+-- highest-quality rendition. This is the rendition that is delivered to
+-- viewers with the fastest internet connections. If you don\'t specify a
+-- value, MediaConvert uses 8,000,000 (8 mb\/s) by default.
+automatedAbrSettings_maxAbrBitrate :: Lens.Lens' AutomatedAbrSettings (Prelude.Maybe Prelude.Natural)
+automatedAbrSettings_maxAbrBitrate = Lens.lens (\AutomatedAbrSettings' {maxAbrBitrate} -> maxAbrBitrate) (\s@AutomatedAbrSettings' {} a -> s {maxAbrBitrate = a} :: AutomatedAbrSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON AutomatedAbrSettings where
+instance Prelude.FromJSON AutomatedAbrSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutomatedAbrSettings"
       ( \x ->
           AutomatedAbrSettings'
-            <$> (x .:? "minAbrBitrate")
-            <*> (x .:? "maxRenditions")
-            <*> (x .:? "maxAbrBitrate")
+            Prelude.<$> (x Prelude..:? "minAbrBitrate")
+            Prelude.<*> (x Prelude..:? "maxRenditions")
+            Prelude.<*> (x Prelude..:? "maxAbrBitrate")
       )
 
-instance Hashable AutomatedAbrSettings
+instance Prelude.Hashable AutomatedAbrSettings
 
-instance NFData AutomatedAbrSettings
+instance Prelude.NFData AutomatedAbrSettings
 
-instance ToJSON AutomatedAbrSettings where
+instance Prelude.ToJSON AutomatedAbrSettings where
   toJSON AutomatedAbrSettings' {..} =
-    object
-      ( catMaybes
-          [ ("minAbrBitrate" .=) <$> _aasMinAbrBitrate,
-            ("maxRenditions" .=) <$> _aasMaxRenditions,
-            ("maxAbrBitrate" .=) <$> _aasMaxAbrBitrate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("minAbrBitrate" Prelude..=)
+              Prelude.<$> minAbrBitrate,
+            ("maxRenditions" Prelude..=)
+              Prelude.<$> maxRenditions,
+            ("maxAbrBitrate" Prelude..=)
+              Prelude.<$> maxAbrBitrate
           ]
       )

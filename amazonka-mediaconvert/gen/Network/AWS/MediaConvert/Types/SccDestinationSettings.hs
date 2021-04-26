@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.SccDestinationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.SccDestinationFramerate
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for SCC caption output.
 --
--- /See:/ 'sccDestinationSettings' smart constructor.
-newtype SccDestinationSettings = SccDestinationSettings'
-  { _sdsFramerate ::
-      Maybe
-        SccDestinationFramerate
+-- /See:/ 'newSccDestinationSettings' smart constructor.
+data SccDestinationSettings = SccDestinationSettings'
+  { -- | Set Framerate (SccDestinationFramerate) to make sure that the captions
+    -- and the video are synchronized in the output. Specify a frame rate that
+    -- matches the frame rate of the associated video. If the video frame rate
+    -- is 29.97, choose 29.97 dropframe (FRAMERATE_29_97_DROPFRAME) only if the
+    -- video has video_insertion=true and drop_frame_timecode=true; otherwise,
+    -- choose 29.97 non-dropframe (FRAMERATE_29_97_NON_DROPFRAME).
+    framerate :: Prelude.Maybe SccDestinationFramerate
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SccDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SccDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdsFramerate' - Set Framerate (SccDestinationFramerate) to make sure that the captions and the video are synchronized in the output. Specify a frame rate that matches the frame rate of the associated video. If the video frame rate is 29.97, choose 29.97 dropframe (FRAMERATE_29_97_DROPFRAME) only if the video has video_insertion=true and drop_frame_timecode=true; otherwise, choose 29.97 non-dropframe (FRAMERATE_29_97_NON_DROPFRAME).
-sccDestinationSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'framerate', 'sccDestinationSettings_framerate' - Set Framerate (SccDestinationFramerate) to make sure that the captions
+-- and the video are synchronized in the output. Specify a frame rate that
+-- matches the frame rate of the associated video. If the video frame rate
+-- is 29.97, choose 29.97 dropframe (FRAMERATE_29_97_DROPFRAME) only if the
+-- video has video_insertion=true and drop_frame_timecode=true; otherwise,
+-- choose 29.97 non-dropframe (FRAMERATE_29_97_NON_DROPFRAME).
+newSccDestinationSettings ::
   SccDestinationSettings
-sccDestinationSettings =
-  SccDestinationSettings' {_sdsFramerate = Nothing}
+newSccDestinationSettings =
+  SccDestinationSettings'
+    { framerate =
+        Prelude.Nothing
+    }
 
--- | Set Framerate (SccDestinationFramerate) to make sure that the captions and the video are synchronized in the output. Specify a frame rate that matches the frame rate of the associated video. If the video frame rate is 29.97, choose 29.97 dropframe (FRAMERATE_29_97_DROPFRAME) only if the video has video_insertion=true and drop_frame_timecode=true; otherwise, choose 29.97 non-dropframe (FRAMERATE_29_97_NON_DROPFRAME).
-sdsFramerate :: Lens' SccDestinationSettings (Maybe SccDestinationFramerate)
-sdsFramerate = lens _sdsFramerate (\s a -> s {_sdsFramerate = a})
+-- | Set Framerate (SccDestinationFramerate) to make sure that the captions
+-- and the video are synchronized in the output. Specify a frame rate that
+-- matches the frame rate of the associated video. If the video frame rate
+-- is 29.97, choose 29.97 dropframe (FRAMERATE_29_97_DROPFRAME) only if the
+-- video has video_insertion=true and drop_frame_timecode=true; otherwise,
+-- choose 29.97 non-dropframe (FRAMERATE_29_97_NON_DROPFRAME).
+sccDestinationSettings_framerate :: Lens.Lens' SccDestinationSettings (Prelude.Maybe SccDestinationFramerate)
+sccDestinationSettings_framerate = Lens.lens (\SccDestinationSettings' {framerate} -> framerate) (\s@SccDestinationSettings' {} a -> s {framerate = a} :: SccDestinationSettings)
 
-instance FromJSON SccDestinationSettings where
+instance Prelude.FromJSON SccDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SccDestinationSettings"
       ( \x ->
-          SccDestinationSettings' <$> (x .:? "framerate")
+          SccDestinationSettings'
+            Prelude.<$> (x Prelude..:? "framerate")
       )
 
-instance Hashable SccDestinationSettings
+instance Prelude.Hashable SccDestinationSettings
 
-instance NFData SccDestinationSettings
+instance Prelude.NFData SccDestinationSettings
 
-instance ToJSON SccDestinationSettings where
+instance Prelude.ToJSON SccDestinationSettings where
   toJSON SccDestinationSettings' {..} =
-    object
-      (catMaybes [("framerate" .=) <$> _sdsFramerate])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("framerate" Prelude..=) Prelude.<$> framerate]
+      )

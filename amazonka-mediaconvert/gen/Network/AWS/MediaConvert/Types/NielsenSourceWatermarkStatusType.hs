@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MediaConvert.Types.NielsenSourceWatermarkStatusType
   ( NielsenSourceWatermarkStatusType
       ( ..,
-        Clean,
-        Watermarked
+        NielsenSourceWatermarkStatusTypeCLEAN,
+        NielsenSourceWatermarkStatusTypeWATERMARKED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required. Specify whether your source content already contains Nielsen non-linear watermarks. When you set this value to Watermarked (WATERMARKED), the service fails the job. Nielsen requires that you add non-linear watermarking to only clean content that doesn't already  have non-linear Nielsen watermarks.
-data NielsenSourceWatermarkStatusType
-  = NielsenSourceWatermarkStatusType'
-      ( CI
-          Text
-      )
+-- | Required. Specify whether your source content already contains Nielsen
+-- non-linear watermarks. When you set this value to Watermarked
+-- (WATERMARKED), the service fails the job. Nielsen requires that you add
+-- non-linear watermarking to only clean content that doesn\'t already have
+-- non-linear Nielsen watermarks.
+newtype NielsenSourceWatermarkStatusType = NielsenSourceWatermarkStatusType'
+  { fromNielsenSourceWatermarkStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Clean :: NielsenSourceWatermarkStatusType
-pattern Clean = NielsenSourceWatermarkStatusType' "CLEAN"
+pattern NielsenSourceWatermarkStatusTypeCLEAN :: NielsenSourceWatermarkStatusType
+pattern NielsenSourceWatermarkStatusTypeCLEAN = NielsenSourceWatermarkStatusType' "CLEAN"
 
-pattern Watermarked :: NielsenSourceWatermarkStatusType
-pattern Watermarked = NielsenSourceWatermarkStatusType' "WATERMARKED"
+pattern NielsenSourceWatermarkStatusTypeWATERMARKED :: NielsenSourceWatermarkStatusType
+pattern NielsenSourceWatermarkStatusTypeWATERMARKED = NielsenSourceWatermarkStatusType' "WATERMARKED"
 
 {-# COMPLETE
-  Clean,
-  Watermarked,
+  NielsenSourceWatermarkStatusTypeCLEAN,
+  NielsenSourceWatermarkStatusTypeWATERMARKED,
   NielsenSourceWatermarkStatusType'
   #-}
 
-instance FromText NielsenSourceWatermarkStatusType where
-  parser = (NielsenSourceWatermarkStatusType' . mk) <$> takeText
+instance Prelude.FromText NielsenSourceWatermarkStatusType where
+  parser = NielsenSourceWatermarkStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText NielsenSourceWatermarkStatusType where
-  toText (NielsenSourceWatermarkStatusType' ci) = original ci
+instance Prelude.ToText NielsenSourceWatermarkStatusType where
+  toText (NielsenSourceWatermarkStatusType' x) = x
 
-instance Hashable NielsenSourceWatermarkStatusType
+instance Prelude.Hashable NielsenSourceWatermarkStatusType
 
-instance NFData NielsenSourceWatermarkStatusType
+instance Prelude.NFData NielsenSourceWatermarkStatusType
 
-instance ToByteString NielsenSourceWatermarkStatusType
+instance Prelude.ToByteString NielsenSourceWatermarkStatusType
 
-instance ToQuery NielsenSourceWatermarkStatusType
+instance Prelude.ToQuery NielsenSourceWatermarkStatusType
 
-instance ToHeader NielsenSourceWatermarkStatusType
+instance Prelude.ToHeader NielsenSourceWatermarkStatusType
 
-instance ToJSON NielsenSourceWatermarkStatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON NielsenSourceWatermarkStatusType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NielsenSourceWatermarkStatusType where
-  parseJSON = parseJSONText "NielsenSourceWatermarkStatusType"
+instance Prelude.FromJSON NielsenSourceWatermarkStatusType where
+  parseJSON = Prelude.parseJSONText "NielsenSourceWatermarkStatusType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.InputPsiControl
   ( InputPsiControl
       ( ..,
-        IgnorePsi,
-        UsePsi
+        InputPsiControlIGNOREPSI,
+        InputPsiControlUSEPSI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Set PSI control (InputPsiControl) for transport stream inputs to specify which data the demux process to scans. * Ignore PSI - Scan all PIDs for audio and video. * Use PSI - Scan only PSI data.
-data InputPsiControl = InputPsiControl' (CI Text)
+-- | Set PSI control (InputPsiControl) for transport stream inputs to specify
+-- which data the demux process to scans. * Ignore PSI - Scan all PIDs for
+-- audio and video. * Use PSI - Scan only PSI data.
+newtype InputPsiControl = InputPsiControl'
+  { fromInputPsiControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IgnorePsi :: InputPsiControl
-pattern IgnorePsi = InputPsiControl' "IGNORE_PSI"
+pattern InputPsiControlIGNOREPSI :: InputPsiControl
+pattern InputPsiControlIGNOREPSI = InputPsiControl' "IGNORE_PSI"
 
-pattern UsePsi :: InputPsiControl
-pattern UsePsi = InputPsiControl' "USE_PSI"
+pattern InputPsiControlUSEPSI :: InputPsiControl
+pattern InputPsiControlUSEPSI = InputPsiControl' "USE_PSI"
 
 {-# COMPLETE
-  IgnorePsi,
-  UsePsi,
+  InputPsiControlIGNOREPSI,
+  InputPsiControlUSEPSI,
   InputPsiControl'
   #-}
 
-instance FromText InputPsiControl where
-  parser = (InputPsiControl' . mk) <$> takeText
+instance Prelude.FromText InputPsiControl where
+  parser = InputPsiControl' Prelude.<$> Prelude.takeText
 
-instance ToText InputPsiControl where
-  toText (InputPsiControl' ci) = original ci
+instance Prelude.ToText InputPsiControl where
+  toText (InputPsiControl' x) = x
 
-instance Hashable InputPsiControl
+instance Prelude.Hashable InputPsiControl
 
-instance NFData InputPsiControl
+instance Prelude.NFData InputPsiControl
 
-instance ToByteString InputPsiControl
+instance Prelude.ToByteString InputPsiControl
 
-instance ToQuery InputPsiControl
+instance Prelude.ToQuery InputPsiControl
 
-instance ToHeader InputPsiControl
+instance Prelude.ToHeader InputPsiControl
 
-instance ToJSON InputPsiControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputPsiControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputPsiControl where
-  parseJSON = parseJSONText "InputPsiControl"
+instance Prelude.FromJSON InputPsiControl where
+  parseJSON = Prelude.parseJSONText "InputPsiControl"

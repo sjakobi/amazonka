@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,64 @@
 module Network.AWS.MediaConvert.Types.Mpeg2DynamicSubGop
   ( Mpeg2DynamicSubGop
       ( ..,
-        Adaptive,
-        Static
+        Mpeg2DynamicSubGopADAPTIVE,
+        Mpeg2DynamicSubGopSTATIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
-data Mpeg2DynamicSubGop
-  = Mpeg2DynamicSubGop'
-      ( CI
-          Text
-      )
+-- | Choose Adaptive to improve subjective video quality for high-motion
+-- content. This will cause the service to use fewer B-frames (which infer
+-- information based on other frames) for high-motion portions of the video
+-- and more B-frames for low-motion portions. The maximum number of
+-- B-frames is limited by the value you provide for the setting B frames
+-- between reference frames (numberBFramesBetweenReferenceFrames).
+newtype Mpeg2DynamicSubGop = Mpeg2DynamicSubGop'
+  { fromMpeg2DynamicSubGop ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Adaptive :: Mpeg2DynamicSubGop
-pattern Adaptive = Mpeg2DynamicSubGop' "ADAPTIVE"
+pattern Mpeg2DynamicSubGopADAPTIVE :: Mpeg2DynamicSubGop
+pattern Mpeg2DynamicSubGopADAPTIVE = Mpeg2DynamicSubGop' "ADAPTIVE"
 
-pattern Static :: Mpeg2DynamicSubGop
-pattern Static = Mpeg2DynamicSubGop' "STATIC"
+pattern Mpeg2DynamicSubGopSTATIC :: Mpeg2DynamicSubGop
+pattern Mpeg2DynamicSubGopSTATIC = Mpeg2DynamicSubGop' "STATIC"
 
 {-# COMPLETE
-  Adaptive,
-  Static,
+  Mpeg2DynamicSubGopADAPTIVE,
+  Mpeg2DynamicSubGopSTATIC,
   Mpeg2DynamicSubGop'
   #-}
 
-instance FromText Mpeg2DynamicSubGop where
-  parser = (Mpeg2DynamicSubGop' . mk) <$> takeText
+instance Prelude.FromText Mpeg2DynamicSubGop where
+  parser = Mpeg2DynamicSubGop' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2DynamicSubGop where
-  toText (Mpeg2DynamicSubGop' ci) = original ci
+instance Prelude.ToText Mpeg2DynamicSubGop where
+  toText (Mpeg2DynamicSubGop' x) = x
 
-instance Hashable Mpeg2DynamicSubGop
+instance Prelude.Hashable Mpeg2DynamicSubGop
 
-instance NFData Mpeg2DynamicSubGop
+instance Prelude.NFData Mpeg2DynamicSubGop
 
-instance ToByteString Mpeg2DynamicSubGop
+instance Prelude.ToByteString Mpeg2DynamicSubGop
 
-instance ToQuery Mpeg2DynamicSubGop
+instance Prelude.ToQuery Mpeg2DynamicSubGop
 
-instance ToHeader Mpeg2DynamicSubGop
+instance Prelude.ToHeader Mpeg2DynamicSubGop
 
-instance ToJSON Mpeg2DynamicSubGop where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2DynamicSubGop where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2DynamicSubGop where
-  parseJSON = parseJSONText "Mpeg2DynamicSubGop"
+instance Prelude.FromJSON Mpeg2DynamicSubGop where
+  parseJSON = Prelude.parseJSONText "Mpeg2DynamicSubGop"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,82 @@
 module Network.AWS.MediaConvert.Types.BurninSubtitleOutlineColor
   ( BurninSubtitleOutlineColor
       ( ..,
-        BSOCBlack,
-        BSOCBlue,
-        BSOCGreen,
-        BSOCRed,
-        BSOCWhite,
-        BSOCYellow
+        BurninSubtitleOutlineColorBLACK,
+        BurninSubtitleOutlineColorBLUE,
+        BurninSubtitleOutlineColorGREEN,
+        BurninSubtitleOutlineColorRED,
+        BurninSubtitleOutlineColorWHITE,
+        BurninSubtitleOutlineColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies font outline color. This option is not valid for source captions that are either 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
-data BurninSubtitleOutlineColor
-  = BurninSubtitleOutlineColor'
-      ( CI
-          Text
-      )
+-- | Specifies font outline color. This option is not valid for source
+-- captions that are either 608\/embedded or teletext. These source
+-- settings are already pre-defined by the caption stream. All burn-in and
+-- DVB-Sub font settings must match.
+newtype BurninSubtitleOutlineColor = BurninSubtitleOutlineColor'
+  { fromBurninSubtitleOutlineColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSOCBlack :: BurninSubtitleOutlineColor
-pattern BSOCBlack = BurninSubtitleOutlineColor' "BLACK"
+pattern BurninSubtitleOutlineColorBLACK :: BurninSubtitleOutlineColor
+pattern BurninSubtitleOutlineColorBLACK = BurninSubtitleOutlineColor' "BLACK"
 
-pattern BSOCBlue :: BurninSubtitleOutlineColor
-pattern BSOCBlue = BurninSubtitleOutlineColor' "BLUE"
+pattern BurninSubtitleOutlineColorBLUE :: BurninSubtitleOutlineColor
+pattern BurninSubtitleOutlineColorBLUE = BurninSubtitleOutlineColor' "BLUE"
 
-pattern BSOCGreen :: BurninSubtitleOutlineColor
-pattern BSOCGreen = BurninSubtitleOutlineColor' "GREEN"
+pattern BurninSubtitleOutlineColorGREEN :: BurninSubtitleOutlineColor
+pattern BurninSubtitleOutlineColorGREEN = BurninSubtitleOutlineColor' "GREEN"
 
-pattern BSOCRed :: BurninSubtitleOutlineColor
-pattern BSOCRed = BurninSubtitleOutlineColor' "RED"
+pattern BurninSubtitleOutlineColorRED :: BurninSubtitleOutlineColor
+pattern BurninSubtitleOutlineColorRED = BurninSubtitleOutlineColor' "RED"
 
-pattern BSOCWhite :: BurninSubtitleOutlineColor
-pattern BSOCWhite = BurninSubtitleOutlineColor' "WHITE"
+pattern BurninSubtitleOutlineColorWHITE :: BurninSubtitleOutlineColor
+pattern BurninSubtitleOutlineColorWHITE = BurninSubtitleOutlineColor' "WHITE"
 
-pattern BSOCYellow :: BurninSubtitleOutlineColor
-pattern BSOCYellow = BurninSubtitleOutlineColor' "YELLOW"
+pattern BurninSubtitleOutlineColorYELLOW :: BurninSubtitleOutlineColor
+pattern BurninSubtitleOutlineColorYELLOW = BurninSubtitleOutlineColor' "YELLOW"
 
 {-# COMPLETE
-  BSOCBlack,
-  BSOCBlue,
-  BSOCGreen,
-  BSOCRed,
-  BSOCWhite,
-  BSOCYellow,
+  BurninSubtitleOutlineColorBLACK,
+  BurninSubtitleOutlineColorBLUE,
+  BurninSubtitleOutlineColorGREEN,
+  BurninSubtitleOutlineColorRED,
+  BurninSubtitleOutlineColorWHITE,
+  BurninSubtitleOutlineColorYELLOW,
   BurninSubtitleOutlineColor'
   #-}
 
-instance FromText BurninSubtitleOutlineColor where
-  parser = (BurninSubtitleOutlineColor' . mk) <$> takeText
+instance Prelude.FromText BurninSubtitleOutlineColor where
+  parser = BurninSubtitleOutlineColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurninSubtitleOutlineColor where
-  toText (BurninSubtitleOutlineColor' ci) = original ci
+instance Prelude.ToText BurninSubtitleOutlineColor where
+  toText (BurninSubtitleOutlineColor' x) = x
 
-instance Hashable BurninSubtitleOutlineColor
+instance Prelude.Hashable BurninSubtitleOutlineColor
 
-instance NFData BurninSubtitleOutlineColor
+instance Prelude.NFData BurninSubtitleOutlineColor
 
-instance ToByteString BurninSubtitleOutlineColor
+instance Prelude.ToByteString BurninSubtitleOutlineColor
 
-instance ToQuery BurninSubtitleOutlineColor
+instance Prelude.ToQuery BurninSubtitleOutlineColor
 
-instance ToHeader BurninSubtitleOutlineColor
+instance Prelude.ToHeader BurninSubtitleOutlineColor
 
-instance ToJSON BurninSubtitleOutlineColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurninSubtitleOutlineColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurninSubtitleOutlineColor where
-  parseJSON = parseJSONText "BurninSubtitleOutlineColor"
+instance Prelude.FromJSON BurninSubtitleOutlineColor where
+  parseJSON = Prelude.parseJSONText "BurninSubtitleOutlineColor"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.JobTemplateSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AvailBlanking
 import Network.AWS.MediaConvert.Types.EsamSettings
 import Network.AWS.MediaConvert.Types.InputTemplate
@@ -25,155 +29,263 @@ import Network.AWS.MediaConvert.Types.NielsenNonLinearWatermarkSettings
 import Network.AWS.MediaConvert.Types.OutputGroup
 import Network.AWS.MediaConvert.Types.TimecodeConfig
 import Network.AWS.MediaConvert.Types.TimedMetadataInsertion
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | JobTemplateSettings contains all the transcode settings saved in the template that will be applied to jobs created from it.
+-- | JobTemplateSettings contains all the transcode settings saved in the
+-- template that will be applied to jobs created from it.
 --
--- /See:/ 'jobTemplateSettings' smart constructor.
+-- /See:/ 'newJobTemplateSettings' smart constructor.
 data JobTemplateSettings = JobTemplateSettings'
-  { _jtsAdAvailOffset ::
-      !(Maybe Int),
-    _jtsTimedMetadataInsertion ::
-      !(Maybe TimedMetadataInsertion),
-    _jtsEsam ::
-      !(Maybe EsamSettings),
-    _jtsNielsenNonLinearWatermark ::
-      !( Maybe
-           NielsenNonLinearWatermarkSettings
-       ),
-    _jtsMotionImageInserter ::
-      !(Maybe MotionImageInserter),
-    _jtsAvailBlanking ::
-      !(Maybe AvailBlanking),
-    _jtsNielsenConfiguration ::
-      !(Maybe NielsenConfiguration),
-    _jtsOutputGroups ::
-      !(Maybe [OutputGroup]),
-    _jtsInputs ::
-      !(Maybe [InputTemplate]),
-    _jtsTimecodeConfig ::
-      !(Maybe TimecodeConfig)
+  { -- | When specified, this offset (in milliseconds) is added to the input Ad
+    -- Avail PTS time.
+    adAvailOffset :: Prelude.Maybe Prelude.Int,
+    -- | Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3
+    -- tags in any HLS outputs. To include timed metadata, you must enable it
+    -- here, enable it in each output container, and specify tags and timecodes
+    -- in ID3 insertion (Id3Insertion) objects.
+    timedMetadataInsertion :: Prelude.Maybe TimedMetadataInsertion,
+    -- | Settings for Event Signaling And Messaging (ESAM).
+    esam :: Prelude.Maybe EsamSettings,
+    -- | Ignore these settings unless you are using Nielsen non-linear
+    -- watermarking. Specify the values that MediaConvert uses to generate and
+    -- place Nielsen watermarks in your output audio. In addition to specifying
+    -- these values, you also need to set up your cloud TIC server. These
+    -- settings apply to every output in your job. The MediaConvert
+    -- implementation is currently with the following Nielsen versions: Nielsen
+    -- Watermark SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7
+    -- Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
+    nielsenNonLinearWatermark :: Prelude.Maybe NielsenNonLinearWatermarkSettings,
+    -- | Overlay motion graphics on top of your video. The motion graphics that
+    -- you specify here appear on all outputs in all output groups.
+    motionImageInserter :: Prelude.Maybe MotionImageInserter,
+    -- | Settings for ad avail blanking. Video can be blanked or overlaid with an
+    -- image, and audio muted during SCTE-35 triggered ad avails.
+    availBlanking :: Prelude.Maybe AvailBlanking,
+    -- | Settings for your Nielsen configuration. If you don\'t do Nielsen
+    -- measurement and analytics, ignore these settings. When you enable
+    -- Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM
+    -- to ID3 tagging for all outputs in the job. To enable Nielsen
+    -- configuration programmatically, include an instance of
+    -- nielsenConfiguration in your JSON job specification. Even if you don\'t
+    -- include any children of nielsenConfiguration, you still enable the
+    -- setting.
+    nielsenConfiguration :: Prelude.Maybe NielsenConfiguration,
+    -- | (OutputGroups) contains one group of settings for each set of outputs
+    -- that share a common package type. All unpackaged files (MPEG-4, MPEG-2
+    -- TS, Quicktime, MXF, and no container) are grouped in a single output
+    -- group as well. Required in (OutputGroups) is a group of settings that
+    -- apply to the whole group. This required object depends on the value you
+    -- set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
+    -- settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+    -- FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
+    -- DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings *
+    -- MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS,
+    -- CmafGroupSettings
+    outputGroups :: Prelude.Maybe [OutputGroup],
+    -- | Use Inputs (inputs) to define the source file used in the transcode job.
+    -- There can only be one input in a job template. Using the API, you can
+    -- include multiple inputs when referencing a job template.
+    inputs :: Prelude.Maybe [InputTemplate],
+    -- | Contains settings used to acquire and adjust timecode information from
+    -- inputs.
+    timecodeConfig :: Prelude.Maybe TimecodeConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobTemplateSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobTemplateSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jtsAdAvailOffset' - When specified, this offset (in milliseconds) is added to the input Ad Avail PTS time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jtsTimedMetadataInsertion' - Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in any HLS outputs. To include timed metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3 insertion (Id3Insertion) objects.
+-- 'adAvailOffset', 'jobTemplateSettings_adAvailOffset' - When specified, this offset (in milliseconds) is added to the input Ad
+-- Avail PTS time.
 --
--- * 'jtsEsam' - Settings for Event Signaling And Messaging (ESAM).
+-- 'timedMetadataInsertion', 'jobTemplateSettings_timedMetadataInsertion' - Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3
+-- tags in any HLS outputs. To include timed metadata, you must enable it
+-- here, enable it in each output container, and specify tags and timecodes
+-- in ID3 insertion (Id3Insertion) objects.
 --
--- * 'jtsNielsenNonLinearWatermark' - Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that  MediaConvert uses to generate and place Nielsen watermarks in your output audio. In addition to  specifying these values, you also need to set up your cloud TIC server. These settings apply to  every output in your job. The MediaConvert implementation is currently with the following Nielsen versions: Nielsen Watermark SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
+-- 'esam', 'jobTemplateSettings_esam' - Settings for Event Signaling And Messaging (ESAM).
 --
--- * 'jtsMotionImageInserter' - Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in all output groups.
+-- 'nielsenNonLinearWatermark', 'jobTemplateSettings_nielsenNonLinearWatermark' - Ignore these settings unless you are using Nielsen non-linear
+-- watermarking. Specify the values that MediaConvert uses to generate and
+-- place Nielsen watermarks in your output audio. In addition to specifying
+-- these values, you also need to set up your cloud TIC server. These
+-- settings apply to every output in your job. The MediaConvert
+-- implementation is currently with the following Nielsen versions: Nielsen
+-- Watermark SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7
+-- Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
 --
--- * 'jtsAvailBlanking' - Settings for ad avail blanking.  Video can be blanked or overlaid with an image, and audio muted during SCTE-35 triggered ad avails.
+-- 'motionImageInserter', 'jobTemplateSettings_motionImageInserter' - Overlay motion graphics on top of your video. The motion graphics that
+-- you specify here appear on all outputs in all output groups.
 --
--- * 'jtsNielsenConfiguration' - Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of nielsenConfiguration in your JSON job specification. Even if you don't include any children of nielsenConfiguration, you still enable the setting.
+-- 'availBlanking', 'jobTemplateSettings_availBlanking' - Settings for ad avail blanking. Video can be blanked or overlaid with an
+-- image, and audio muted during SCTE-35 triggered ad avails.
 --
--- * 'jtsOutputGroups' - (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
+-- 'nielsenConfiguration', 'jobTemplateSettings_nielsenConfiguration' - Settings for your Nielsen configuration. If you don\'t do Nielsen
+-- measurement and analytics, ignore these settings. When you enable
+-- Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM
+-- to ID3 tagging for all outputs in the job. To enable Nielsen
+-- configuration programmatically, include an instance of
+-- nielsenConfiguration in your JSON job specification. Even if you don\'t
+-- include any children of nielsenConfiguration, you still enable the
+-- setting.
 --
--- * 'jtsInputs' - Use Inputs (inputs) to define the source file used in the transcode job. There can only be one input in a job template.  Using the API, you can include multiple inputs when referencing a job template.
+-- 'outputGroups', 'jobTemplateSettings_outputGroups' - (OutputGroups) contains one group of settings for each set of outputs
+-- that share a common package type. All unpackaged files (MPEG-4, MPEG-2
+-- TS, Quicktime, MXF, and no container) are grouped in a single output
+-- group as well. Required in (OutputGroups) is a group of settings that
+-- apply to the whole group. This required object depends on the value you
+-- set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
+-- settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+-- FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
+-- DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings *
+-- MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS,
+-- CmafGroupSettings
 --
--- * 'jtsTimecodeConfig' - Contains settings used to acquire and adjust timecode information from inputs.
-jobTemplateSettings ::
+-- 'inputs', 'jobTemplateSettings_inputs' - Use Inputs (inputs) to define the source file used in the transcode job.
+-- There can only be one input in a job template. Using the API, you can
+-- include multiple inputs when referencing a job template.
+--
+-- 'timecodeConfig', 'jobTemplateSettings_timecodeConfig' - Contains settings used to acquire and adjust timecode information from
+-- inputs.
+newJobTemplateSettings ::
   JobTemplateSettings
-jobTemplateSettings =
+newJobTemplateSettings =
   JobTemplateSettings'
-    { _jtsAdAvailOffset = Nothing,
-      _jtsTimedMetadataInsertion = Nothing,
-      _jtsEsam = Nothing,
-      _jtsNielsenNonLinearWatermark = Nothing,
-      _jtsMotionImageInserter = Nothing,
-      _jtsAvailBlanking = Nothing,
-      _jtsNielsenConfiguration = Nothing,
-      _jtsOutputGroups = Nothing,
-      _jtsInputs = Nothing,
-      _jtsTimecodeConfig = Nothing
+    { adAvailOffset =
+        Prelude.Nothing,
+      timedMetadataInsertion = Prelude.Nothing,
+      esam = Prelude.Nothing,
+      nielsenNonLinearWatermark = Prelude.Nothing,
+      motionImageInserter = Prelude.Nothing,
+      availBlanking = Prelude.Nothing,
+      nielsenConfiguration = Prelude.Nothing,
+      outputGroups = Prelude.Nothing,
+      inputs = Prelude.Nothing,
+      timecodeConfig = Prelude.Nothing
     }
 
--- | When specified, this offset (in milliseconds) is added to the input Ad Avail PTS time.
-jtsAdAvailOffset :: Lens' JobTemplateSettings (Maybe Int)
-jtsAdAvailOffset = lens _jtsAdAvailOffset (\s a -> s {_jtsAdAvailOffset = a})
+-- | When specified, this offset (in milliseconds) is added to the input Ad
+-- Avail PTS time.
+jobTemplateSettings_adAvailOffset :: Lens.Lens' JobTemplateSettings (Prelude.Maybe Prelude.Int)
+jobTemplateSettings_adAvailOffset = Lens.lens (\JobTemplateSettings' {adAvailOffset} -> adAvailOffset) (\s@JobTemplateSettings' {} a -> s {adAvailOffset = a} :: JobTemplateSettings)
 
--- | Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in any HLS outputs. To include timed metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3 insertion (Id3Insertion) objects.
-jtsTimedMetadataInsertion :: Lens' JobTemplateSettings (Maybe TimedMetadataInsertion)
-jtsTimedMetadataInsertion = lens _jtsTimedMetadataInsertion (\s a -> s {_jtsTimedMetadataInsertion = a})
+-- | Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3
+-- tags in any HLS outputs. To include timed metadata, you must enable it
+-- here, enable it in each output container, and specify tags and timecodes
+-- in ID3 insertion (Id3Insertion) objects.
+jobTemplateSettings_timedMetadataInsertion :: Lens.Lens' JobTemplateSettings (Prelude.Maybe TimedMetadataInsertion)
+jobTemplateSettings_timedMetadataInsertion = Lens.lens (\JobTemplateSettings' {timedMetadataInsertion} -> timedMetadataInsertion) (\s@JobTemplateSettings' {} a -> s {timedMetadataInsertion = a} :: JobTemplateSettings)
 
 -- | Settings for Event Signaling And Messaging (ESAM).
-jtsEsam :: Lens' JobTemplateSettings (Maybe EsamSettings)
-jtsEsam = lens _jtsEsam (\s a -> s {_jtsEsam = a})
+jobTemplateSettings_esam :: Lens.Lens' JobTemplateSettings (Prelude.Maybe EsamSettings)
+jobTemplateSettings_esam = Lens.lens (\JobTemplateSettings' {esam} -> esam) (\s@JobTemplateSettings' {} a -> s {esam = a} :: JobTemplateSettings)
 
--- | Ignore these settings unless you are using Nielsen non-linear watermarking. Specify the values that  MediaConvert uses to generate and place Nielsen watermarks in your output audio. In addition to  specifying these values, you also need to set up your cloud TIC server. These settings apply to  every output in your job. The MediaConvert implementation is currently with the following Nielsen versions: Nielsen Watermark SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7 Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
-jtsNielsenNonLinearWatermark :: Lens' JobTemplateSettings (Maybe NielsenNonLinearWatermarkSettings)
-jtsNielsenNonLinearWatermark = lens _jtsNielsenNonLinearWatermark (\s a -> s {_jtsNielsenNonLinearWatermark = a})
+-- | Ignore these settings unless you are using Nielsen non-linear
+-- watermarking. Specify the values that MediaConvert uses to generate and
+-- place Nielsen watermarks in your output audio. In addition to specifying
+-- these values, you also need to set up your cloud TIC server. These
+-- settings apply to every output in your job. The MediaConvert
+-- implementation is currently with the following Nielsen versions: Nielsen
+-- Watermark SDK Version 5.2.1 Nielsen NLM Watermark Engine Version 1.2.7
+-- Nielsen Watermark Authenticator [SID_TIC] Version [5.0.0]
+jobTemplateSettings_nielsenNonLinearWatermark :: Lens.Lens' JobTemplateSettings (Prelude.Maybe NielsenNonLinearWatermarkSettings)
+jobTemplateSettings_nielsenNonLinearWatermark = Lens.lens (\JobTemplateSettings' {nielsenNonLinearWatermark} -> nielsenNonLinearWatermark) (\s@JobTemplateSettings' {} a -> s {nielsenNonLinearWatermark = a} :: JobTemplateSettings)
 
--- | Overlay motion graphics on top of your video. The motion graphics that you specify here appear on all outputs in all output groups.
-jtsMotionImageInserter :: Lens' JobTemplateSettings (Maybe MotionImageInserter)
-jtsMotionImageInserter = lens _jtsMotionImageInserter (\s a -> s {_jtsMotionImageInserter = a})
+-- | Overlay motion graphics on top of your video. The motion graphics that
+-- you specify here appear on all outputs in all output groups.
+jobTemplateSettings_motionImageInserter :: Lens.Lens' JobTemplateSettings (Prelude.Maybe MotionImageInserter)
+jobTemplateSettings_motionImageInserter = Lens.lens (\JobTemplateSettings' {motionImageInserter} -> motionImageInserter) (\s@JobTemplateSettings' {} a -> s {motionImageInserter = a} :: JobTemplateSettings)
 
--- | Settings for ad avail blanking.  Video can be blanked or overlaid with an image, and audio muted during SCTE-35 triggered ad avails.
-jtsAvailBlanking :: Lens' JobTemplateSettings (Maybe AvailBlanking)
-jtsAvailBlanking = lens _jtsAvailBlanking (\s a -> s {_jtsAvailBlanking = a})
+-- | Settings for ad avail blanking. Video can be blanked or overlaid with an
+-- image, and audio muted during SCTE-35 triggered ad avails.
+jobTemplateSettings_availBlanking :: Lens.Lens' JobTemplateSettings (Prelude.Maybe AvailBlanking)
+jobTemplateSettings_availBlanking = Lens.lens (\JobTemplateSettings' {availBlanking} -> availBlanking) (\s@JobTemplateSettings' {} a -> s {availBlanking = a} :: JobTemplateSettings)
 
--- | Settings for your Nielsen configuration. If you don't do Nielsen measurement and analytics, ignore these settings. When you enable Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging for all outputs in the job. To enable Nielsen configuration programmatically, include an instance of nielsenConfiguration in your JSON job specification. Even if you don't include any children of nielsenConfiguration, you still enable the setting.
-jtsNielsenConfiguration :: Lens' JobTemplateSettings (Maybe NielsenConfiguration)
-jtsNielsenConfiguration = lens _jtsNielsenConfiguration (\s a -> s {_jtsNielsenConfiguration = a})
+-- | Settings for your Nielsen configuration. If you don\'t do Nielsen
+-- measurement and analytics, ignore these settings. When you enable
+-- Nielsen configuration (nielsenConfiguration), MediaConvert enables PCM
+-- to ID3 tagging for all outputs in the job. To enable Nielsen
+-- configuration programmatically, include an instance of
+-- nielsenConfiguration in your JSON job specification. Even if you don\'t
+-- include any children of nielsenConfiguration, you still enable the
+-- setting.
+jobTemplateSettings_nielsenConfiguration :: Lens.Lens' JobTemplateSettings (Prelude.Maybe NielsenConfiguration)
+jobTemplateSettings_nielsenConfiguration = Lens.lens (\JobTemplateSettings' {nielsenConfiguration} -> nielsenConfiguration) (\s@JobTemplateSettings' {} a -> s {nielsenConfiguration = a} :: JobTemplateSettings)
 
--- | (OutputGroups) contains one group of settings for each set of outputs that share a common package type. All unpackaged files (MPEG-4, MPEG-2 TS, Quicktime, MXF, and no container) are grouped in a single output group as well. Required in (OutputGroups) is a group of settings that apply to the whole group. This required object depends on the value you set for (Type) under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS, CmafGroupSettings
-jtsOutputGroups :: Lens' JobTemplateSettings [OutputGroup]
-jtsOutputGroups = lens _jtsOutputGroups (\s a -> s {_jtsOutputGroups = a}) . _Default . _Coerce
+-- | (OutputGroups) contains one group of settings for each set of outputs
+-- that share a common package type. All unpackaged files (MPEG-4, MPEG-2
+-- TS, Quicktime, MXF, and no container) are grouped in a single output
+-- group as well. Required in (OutputGroups) is a group of settings that
+-- apply to the whole group. This required object depends on the value you
+-- set for (Type) under (OutputGroups)>(OutputGroupSettings). Type,
+-- settings object pairs are as follows. * FILE_GROUP_SETTINGS,
+-- FileGroupSettings * HLS_GROUP_SETTINGS, HlsGroupSettings *
+-- DASH_ISO_GROUP_SETTINGS, DashIsoGroupSettings *
+-- MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings * CMAF_GROUP_SETTINGS,
+-- CmafGroupSettings
+jobTemplateSettings_outputGroups :: Lens.Lens' JobTemplateSettings (Prelude.Maybe [OutputGroup])
+jobTemplateSettings_outputGroups = Lens.lens (\JobTemplateSettings' {outputGroups} -> outputGroups) (\s@JobTemplateSettings' {} a -> s {outputGroups = a} :: JobTemplateSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Use Inputs (inputs) to define the source file used in the transcode job. There can only be one input in a job template.  Using the API, you can include multiple inputs when referencing a job template.
-jtsInputs :: Lens' JobTemplateSettings [InputTemplate]
-jtsInputs = lens _jtsInputs (\s a -> s {_jtsInputs = a}) . _Default . _Coerce
+-- | Use Inputs (inputs) to define the source file used in the transcode job.
+-- There can only be one input in a job template. Using the API, you can
+-- include multiple inputs when referencing a job template.
+jobTemplateSettings_inputs :: Lens.Lens' JobTemplateSettings (Prelude.Maybe [InputTemplate])
+jobTemplateSettings_inputs = Lens.lens (\JobTemplateSettings' {inputs} -> inputs) (\s@JobTemplateSettings' {} a -> s {inputs = a} :: JobTemplateSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Contains settings used to acquire and adjust timecode information from inputs.
-jtsTimecodeConfig :: Lens' JobTemplateSettings (Maybe TimecodeConfig)
-jtsTimecodeConfig = lens _jtsTimecodeConfig (\s a -> s {_jtsTimecodeConfig = a})
+-- | Contains settings used to acquire and adjust timecode information from
+-- inputs.
+jobTemplateSettings_timecodeConfig :: Lens.Lens' JobTemplateSettings (Prelude.Maybe TimecodeConfig)
+jobTemplateSettings_timecodeConfig = Lens.lens (\JobTemplateSettings' {timecodeConfig} -> timecodeConfig) (\s@JobTemplateSettings' {} a -> s {timecodeConfig = a} :: JobTemplateSettings)
 
-instance FromJSON JobTemplateSettings where
+instance Prelude.FromJSON JobTemplateSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobTemplateSettings"
       ( \x ->
           JobTemplateSettings'
-            <$> (x .:? "adAvailOffset")
-            <*> (x .:? "timedMetadataInsertion")
-            <*> (x .:? "esam")
-            <*> (x .:? "nielsenNonLinearWatermark")
-            <*> (x .:? "motionImageInserter")
-            <*> (x .:? "availBlanking")
-            <*> (x .:? "nielsenConfiguration")
-            <*> (x .:? "outputGroups" .!= mempty)
-            <*> (x .:? "inputs" .!= mempty)
-            <*> (x .:? "timecodeConfig")
+            Prelude.<$> (x Prelude..:? "adAvailOffset")
+            Prelude.<*> (x Prelude..:? "timedMetadataInsertion")
+            Prelude.<*> (x Prelude..:? "esam")
+            Prelude.<*> (x Prelude..:? "nielsenNonLinearWatermark")
+            Prelude.<*> (x Prelude..:? "motionImageInserter")
+            Prelude.<*> (x Prelude..:? "availBlanking")
+            Prelude.<*> (x Prelude..:? "nielsenConfiguration")
+            Prelude.<*> ( x Prelude..:? "outputGroups"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "inputs" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "timecodeConfig")
       )
 
-instance Hashable JobTemplateSettings
+instance Prelude.Hashable JobTemplateSettings
 
-instance NFData JobTemplateSettings
+instance Prelude.NFData JobTemplateSettings
 
-instance ToJSON JobTemplateSettings where
+instance Prelude.ToJSON JobTemplateSettings where
   toJSON JobTemplateSettings' {..} =
-    object
-      ( catMaybes
-          [ ("adAvailOffset" .=) <$> _jtsAdAvailOffset,
-            ("timedMetadataInsertion" .=)
-              <$> _jtsTimedMetadataInsertion,
-            ("esam" .=) <$> _jtsEsam,
-            ("nielsenNonLinearWatermark" .=)
-              <$> _jtsNielsenNonLinearWatermark,
-            ("motionImageInserter" .=)
-              <$> _jtsMotionImageInserter,
-            ("availBlanking" .=) <$> _jtsAvailBlanking,
-            ("nielsenConfiguration" .=)
-              <$> _jtsNielsenConfiguration,
-            ("outputGroups" .=) <$> _jtsOutputGroups,
-            ("inputs" .=) <$> _jtsInputs,
-            ("timecodeConfig" .=) <$> _jtsTimecodeConfig
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("adAvailOffset" Prelude..=)
+              Prelude.<$> adAvailOffset,
+            ("timedMetadataInsertion" Prelude..=)
+              Prelude.<$> timedMetadataInsertion,
+            ("esam" Prelude..=) Prelude.<$> esam,
+            ("nielsenNonLinearWatermark" Prelude..=)
+              Prelude.<$> nielsenNonLinearWatermark,
+            ("motionImageInserter" Prelude..=)
+              Prelude.<$> motionImageInserter,
+            ("availBlanking" Prelude..=)
+              Prelude.<$> availBlanking,
+            ("nielsenConfiguration" Prelude..=)
+              Prelude.<$> nielsenConfiguration,
+            ("outputGroups" Prelude..=) Prelude.<$> outputGroups,
+            ("inputs" Prelude..=) Prelude.<$> inputs,
+            ("timecodeConfig" Prelude..=)
+              Prelude.<$> timecodeConfig
           ]
       )

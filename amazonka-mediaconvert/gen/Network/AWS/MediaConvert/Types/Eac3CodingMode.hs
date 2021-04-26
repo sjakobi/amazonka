@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaConvert.Types.Eac3CodingMode
   ( Eac3CodingMode
       ( ..,
-        ECMCodingMode10,
-        ECMCodingMode20,
-        ECMCodingMode32
+        Eac3CodingModeCODINGMODE10,
+        Eac3CodingModeCODINGMODE20,
+        Eac3CodingModeCODINGMODE32
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Dolby Digital Plus coding mode. Determines number of channels.
-data Eac3CodingMode = Eac3CodingMode' (CI Text)
+newtype Eac3CodingMode = Eac3CodingMode'
+  { fromEac3CodingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ECMCodingMode10 :: Eac3CodingMode
-pattern ECMCodingMode10 = Eac3CodingMode' "CODING_MODE_1_0"
+pattern Eac3CodingModeCODINGMODE10 :: Eac3CodingMode
+pattern Eac3CodingModeCODINGMODE10 = Eac3CodingMode' "CODING_MODE_1_0"
 
-pattern ECMCodingMode20 :: Eac3CodingMode
-pattern ECMCodingMode20 = Eac3CodingMode' "CODING_MODE_2_0"
+pattern Eac3CodingModeCODINGMODE20 :: Eac3CodingMode
+pattern Eac3CodingModeCODINGMODE20 = Eac3CodingMode' "CODING_MODE_2_0"
 
-pattern ECMCodingMode32 :: Eac3CodingMode
-pattern ECMCodingMode32 = Eac3CodingMode' "CODING_MODE_3_2"
+pattern Eac3CodingModeCODINGMODE32 :: Eac3CodingMode
+pattern Eac3CodingModeCODINGMODE32 = Eac3CodingMode' "CODING_MODE_3_2"
 
 {-# COMPLETE
-  ECMCodingMode10,
-  ECMCodingMode20,
-  ECMCodingMode32,
+  Eac3CodingModeCODINGMODE10,
+  Eac3CodingModeCODINGMODE20,
+  Eac3CodingModeCODINGMODE32,
   Eac3CodingMode'
   #-}
 
-instance FromText Eac3CodingMode where
-  parser = (Eac3CodingMode' . mk) <$> takeText
+instance Prelude.FromText Eac3CodingMode where
+  parser = Eac3CodingMode' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3CodingMode where
-  toText (Eac3CodingMode' ci) = original ci
+instance Prelude.ToText Eac3CodingMode where
+  toText (Eac3CodingMode' x) = x
 
-instance Hashable Eac3CodingMode
+instance Prelude.Hashable Eac3CodingMode
 
-instance NFData Eac3CodingMode
+instance Prelude.NFData Eac3CodingMode
 
-instance ToByteString Eac3CodingMode
+instance Prelude.ToByteString Eac3CodingMode
 
-instance ToQuery Eac3CodingMode
+instance Prelude.ToQuery Eac3CodingMode
 
-instance ToHeader Eac3CodingMode
+instance Prelude.ToHeader Eac3CodingMode
 
-instance ToJSON Eac3CodingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3CodingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3CodingMode where
-  parseJSON = parseJSONText "Eac3CodingMode"
+instance Prelude.FromJSON Eac3CodingMode where
+  parseJSON = Prelude.parseJSONText "Eac3CodingMode"

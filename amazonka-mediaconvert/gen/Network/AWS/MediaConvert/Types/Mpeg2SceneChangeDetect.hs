@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.Mpeg2SceneChangeDetect
   ( Mpeg2SceneChangeDetect
       ( ..,
-        MSCDDisabled,
-        MSCDEnabled
+        Mpeg2SceneChangeDetectDISABLED,
+        Mpeg2SceneChangeDetectENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video quality and is enabled by default.
-data Mpeg2SceneChangeDetect
-  = Mpeg2SceneChangeDetect'
-      ( CI
-          Text
-      )
+-- | Enable this setting to insert I-frames at scene changes that the service
+-- automatically detects. This improves video quality and is enabled by
+-- default.
+newtype Mpeg2SceneChangeDetect = Mpeg2SceneChangeDetect'
+  { fromMpeg2SceneChangeDetect ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSCDDisabled :: Mpeg2SceneChangeDetect
-pattern MSCDDisabled = Mpeg2SceneChangeDetect' "DISABLED"
+pattern Mpeg2SceneChangeDetectDISABLED :: Mpeg2SceneChangeDetect
+pattern Mpeg2SceneChangeDetectDISABLED = Mpeg2SceneChangeDetect' "DISABLED"
 
-pattern MSCDEnabled :: Mpeg2SceneChangeDetect
-pattern MSCDEnabled = Mpeg2SceneChangeDetect' "ENABLED"
+pattern Mpeg2SceneChangeDetectENABLED :: Mpeg2SceneChangeDetect
+pattern Mpeg2SceneChangeDetectENABLED = Mpeg2SceneChangeDetect' "ENABLED"
 
 {-# COMPLETE
-  MSCDDisabled,
-  MSCDEnabled,
+  Mpeg2SceneChangeDetectDISABLED,
+  Mpeg2SceneChangeDetectENABLED,
   Mpeg2SceneChangeDetect'
   #-}
 
-instance FromText Mpeg2SceneChangeDetect where
-  parser = (Mpeg2SceneChangeDetect' . mk) <$> takeText
+instance Prelude.FromText Mpeg2SceneChangeDetect where
+  parser = Mpeg2SceneChangeDetect' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2SceneChangeDetect where
-  toText (Mpeg2SceneChangeDetect' ci) = original ci
+instance Prelude.ToText Mpeg2SceneChangeDetect where
+  toText (Mpeg2SceneChangeDetect' x) = x
 
-instance Hashable Mpeg2SceneChangeDetect
+instance Prelude.Hashable Mpeg2SceneChangeDetect
 
-instance NFData Mpeg2SceneChangeDetect
+instance Prelude.NFData Mpeg2SceneChangeDetect
 
-instance ToByteString Mpeg2SceneChangeDetect
+instance Prelude.ToByteString Mpeg2SceneChangeDetect
 
-instance ToQuery Mpeg2SceneChangeDetect
+instance Prelude.ToQuery Mpeg2SceneChangeDetect
 
-instance ToHeader Mpeg2SceneChangeDetect
+instance Prelude.ToHeader Mpeg2SceneChangeDetect
 
-instance ToJSON Mpeg2SceneChangeDetect where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2SceneChangeDetect where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2SceneChangeDetect where
-  parseJSON = parseJSONText "Mpeg2SceneChangeDetect"
+instance Prelude.FromJSON Mpeg2SceneChangeDetect where
+  parseJSON = Prelude.parseJSONText "Mpeg2SceneChangeDetect"

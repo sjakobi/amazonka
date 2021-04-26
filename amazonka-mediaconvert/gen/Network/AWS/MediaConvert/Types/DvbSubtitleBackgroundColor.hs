@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,65 @@
 module Network.AWS.MediaConvert.Types.DvbSubtitleBackgroundColor
   ( DvbSubtitleBackgroundColor
       ( ..,
-        DSBCBlack,
-        DSBCNone,
-        DSBCWhite
+        DvbSubtitleBackgroundColorBLACK,
+        DvbSubtitleBackgroundColorNONE,
+        DvbSubtitleBackgroundColorWHITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the color of the rectangle behind the captions.
---
--- All burn-in and DVB-Sub font settings must match.
-data DvbSubtitleBackgroundColor
-  = DvbSubtitleBackgroundColor'
-      ( CI
-          Text
-      )
+-- | Specifies the color of the rectangle behind the captions. All burn-in
+-- and DVB-Sub font settings must match.
+newtype DvbSubtitleBackgroundColor = DvbSubtitleBackgroundColor'
+  { fromDvbSubtitleBackgroundColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSBCBlack :: DvbSubtitleBackgroundColor
-pattern DSBCBlack = DvbSubtitleBackgroundColor' "BLACK"
+pattern DvbSubtitleBackgroundColorBLACK :: DvbSubtitleBackgroundColor
+pattern DvbSubtitleBackgroundColorBLACK = DvbSubtitleBackgroundColor' "BLACK"
 
-pattern DSBCNone :: DvbSubtitleBackgroundColor
-pattern DSBCNone = DvbSubtitleBackgroundColor' "NONE"
+pattern DvbSubtitleBackgroundColorNONE :: DvbSubtitleBackgroundColor
+pattern DvbSubtitleBackgroundColorNONE = DvbSubtitleBackgroundColor' "NONE"
 
-pattern DSBCWhite :: DvbSubtitleBackgroundColor
-pattern DSBCWhite = DvbSubtitleBackgroundColor' "WHITE"
+pattern DvbSubtitleBackgroundColorWHITE :: DvbSubtitleBackgroundColor
+pattern DvbSubtitleBackgroundColorWHITE = DvbSubtitleBackgroundColor' "WHITE"
 
 {-# COMPLETE
-  DSBCBlack,
-  DSBCNone,
-  DSBCWhite,
+  DvbSubtitleBackgroundColorBLACK,
+  DvbSubtitleBackgroundColorNONE,
+  DvbSubtitleBackgroundColorWHITE,
   DvbSubtitleBackgroundColor'
   #-}
 
-instance FromText DvbSubtitleBackgroundColor where
-  parser = (DvbSubtitleBackgroundColor' . mk) <$> takeText
+instance Prelude.FromText DvbSubtitleBackgroundColor where
+  parser = DvbSubtitleBackgroundColor' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubtitleBackgroundColor where
-  toText (DvbSubtitleBackgroundColor' ci) = original ci
+instance Prelude.ToText DvbSubtitleBackgroundColor where
+  toText (DvbSubtitleBackgroundColor' x) = x
 
-instance Hashable DvbSubtitleBackgroundColor
+instance Prelude.Hashable DvbSubtitleBackgroundColor
 
-instance NFData DvbSubtitleBackgroundColor
+instance Prelude.NFData DvbSubtitleBackgroundColor
 
-instance ToByteString DvbSubtitleBackgroundColor
+instance Prelude.ToByteString DvbSubtitleBackgroundColor
 
-instance ToQuery DvbSubtitleBackgroundColor
+instance Prelude.ToQuery DvbSubtitleBackgroundColor
 
-instance ToHeader DvbSubtitleBackgroundColor
+instance Prelude.ToHeader DvbSubtitleBackgroundColor
 
-instance ToJSON DvbSubtitleBackgroundColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubtitleBackgroundColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubtitleBackgroundColor where
-  parseJSON = parseJSONText "DvbSubtitleBackgroundColor"
+instance Prelude.FromJSON DvbSubtitleBackgroundColor where
+  parseJSON = Prelude.parseJSONText "DvbSubtitleBackgroundColor"

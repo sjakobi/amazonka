@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.CmafEncryptionType
   ( CmafEncryptionType
       ( ..,
-        CETAESCtr,
-        CETSampleAES
+        CmafEncryptionTypeAESCTR,
+        CmafEncryptionTypeSAMPLEAES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the encryption scheme that you want the service to use when encrypting your CMAF segments. Choose AES-CBC subsample (SAMPLE-AES) or AES_CTR (AES-CTR).
-data CmafEncryptionType
-  = CmafEncryptionType'
-      ( CI
-          Text
-      )
+-- | Specify the encryption scheme that you want the service to use when
+-- encrypting your CMAF segments. Choose AES-CBC subsample (SAMPLE-AES) or
+-- AES_CTR (AES-CTR).
+newtype CmafEncryptionType = CmafEncryptionType'
+  { fromCmafEncryptionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CETAESCtr :: CmafEncryptionType
-pattern CETAESCtr = CmafEncryptionType' "AES_CTR"
+pattern CmafEncryptionTypeAESCTR :: CmafEncryptionType
+pattern CmafEncryptionTypeAESCTR = CmafEncryptionType' "AES_CTR"
 
-pattern CETSampleAES :: CmafEncryptionType
-pattern CETSampleAES = CmafEncryptionType' "SAMPLE_AES"
+pattern CmafEncryptionTypeSAMPLEAES :: CmafEncryptionType
+pattern CmafEncryptionTypeSAMPLEAES = CmafEncryptionType' "SAMPLE_AES"
 
 {-# COMPLETE
-  CETAESCtr,
-  CETSampleAES,
+  CmafEncryptionTypeAESCTR,
+  CmafEncryptionTypeSAMPLEAES,
   CmafEncryptionType'
   #-}
 
-instance FromText CmafEncryptionType where
-  parser = (CmafEncryptionType' . mk) <$> takeText
+instance Prelude.FromText CmafEncryptionType where
+  parser = CmafEncryptionType' Prelude.<$> Prelude.takeText
 
-instance ToText CmafEncryptionType where
-  toText (CmafEncryptionType' ci) = original ci
+instance Prelude.ToText CmafEncryptionType where
+  toText (CmafEncryptionType' x) = x
 
-instance Hashable CmafEncryptionType
+instance Prelude.Hashable CmafEncryptionType
 
-instance NFData CmafEncryptionType
+instance Prelude.NFData CmafEncryptionType
 
-instance ToByteString CmafEncryptionType
+instance Prelude.ToByteString CmafEncryptionType
 
-instance ToQuery CmafEncryptionType
+instance Prelude.ToQuery CmafEncryptionType
 
-instance ToHeader CmafEncryptionType
+instance Prelude.ToHeader CmafEncryptionType
 
-instance ToJSON CmafEncryptionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafEncryptionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafEncryptionType where
-  parseJSON = parseJSONText "CmafEncryptionType"
+instance Prelude.FromJSON CmafEncryptionType where
+  parseJSON = Prelude.parseJSONText "CmafEncryptionType"

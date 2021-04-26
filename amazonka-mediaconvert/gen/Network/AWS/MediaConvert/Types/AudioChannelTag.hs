@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,122 +19,126 @@
 module Network.AWS.MediaConvert.Types.AudioChannelTag
   ( AudioChannelTag
       ( ..,
-        ACTC,
-        ACTCS,
-        ACTL,
-        ACTLC,
-        ACTLS,
-        ACTLfe,
-        ACTLsd,
-        ACTR,
-        ACTRC,
-        ACTRS,
-        ACTRsd,
-        ACTTcs,
-        ACTVhc,
-        ACTVhl,
-        ACTVhr
+        AudioChannelTagC,
+        AudioChannelTagCS,
+        AudioChannelTagL,
+        AudioChannelTagLC,
+        AudioChannelTagLFE,
+        AudioChannelTagLS,
+        AudioChannelTagLSD,
+        AudioChannelTagR,
+        AudioChannelTagRC,
+        AudioChannelTagRS,
+        AudioChannelTagRSD,
+        AudioChannelTagTCS,
+        AudioChannelTagVHC,
+        AudioChannelTagVHL,
+        AudioChannelTagVHR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | You can add a tag for this mono-channel audio track to mimic its placement in a multi-channel layout.  For example, if this track is the left surround channel, choose Left surround (LS).
-data AudioChannelTag = AudioChannelTag' (CI Text)
+-- | You can add a tag for this mono-channel audio track to mimic its
+-- placement in a multi-channel layout. For example, if this track is the
+-- left surround channel, choose Left surround (LS).
+newtype AudioChannelTag = AudioChannelTag'
+  { fromAudioChannelTag ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ACTC :: AudioChannelTag
-pattern ACTC = AudioChannelTag' "C"
+pattern AudioChannelTagC :: AudioChannelTag
+pattern AudioChannelTagC = AudioChannelTag' "C"
 
-pattern ACTCS :: AudioChannelTag
-pattern ACTCS = AudioChannelTag' "CS"
+pattern AudioChannelTagCS :: AudioChannelTag
+pattern AudioChannelTagCS = AudioChannelTag' "CS"
 
-pattern ACTL :: AudioChannelTag
-pattern ACTL = AudioChannelTag' "L"
+pattern AudioChannelTagL :: AudioChannelTag
+pattern AudioChannelTagL = AudioChannelTag' "L"
 
-pattern ACTLC :: AudioChannelTag
-pattern ACTLC = AudioChannelTag' "LC"
+pattern AudioChannelTagLC :: AudioChannelTag
+pattern AudioChannelTagLC = AudioChannelTag' "LC"
 
-pattern ACTLS :: AudioChannelTag
-pattern ACTLS = AudioChannelTag' "LS"
+pattern AudioChannelTagLFE :: AudioChannelTag
+pattern AudioChannelTagLFE = AudioChannelTag' "LFE"
 
-pattern ACTLfe :: AudioChannelTag
-pattern ACTLfe = AudioChannelTag' "LFE"
+pattern AudioChannelTagLS :: AudioChannelTag
+pattern AudioChannelTagLS = AudioChannelTag' "LS"
 
-pattern ACTLsd :: AudioChannelTag
-pattern ACTLsd = AudioChannelTag' "LSD"
+pattern AudioChannelTagLSD :: AudioChannelTag
+pattern AudioChannelTagLSD = AudioChannelTag' "LSD"
 
-pattern ACTR :: AudioChannelTag
-pattern ACTR = AudioChannelTag' "R"
+pattern AudioChannelTagR :: AudioChannelTag
+pattern AudioChannelTagR = AudioChannelTag' "R"
 
-pattern ACTRC :: AudioChannelTag
-pattern ACTRC = AudioChannelTag' "RC"
+pattern AudioChannelTagRC :: AudioChannelTag
+pattern AudioChannelTagRC = AudioChannelTag' "RC"
 
-pattern ACTRS :: AudioChannelTag
-pattern ACTRS = AudioChannelTag' "RS"
+pattern AudioChannelTagRS :: AudioChannelTag
+pattern AudioChannelTagRS = AudioChannelTag' "RS"
 
-pattern ACTRsd :: AudioChannelTag
-pattern ACTRsd = AudioChannelTag' "RSD"
+pattern AudioChannelTagRSD :: AudioChannelTag
+pattern AudioChannelTagRSD = AudioChannelTag' "RSD"
 
-pattern ACTTcs :: AudioChannelTag
-pattern ACTTcs = AudioChannelTag' "TCS"
+pattern AudioChannelTagTCS :: AudioChannelTag
+pattern AudioChannelTagTCS = AudioChannelTag' "TCS"
 
-pattern ACTVhc :: AudioChannelTag
-pattern ACTVhc = AudioChannelTag' "VHC"
+pattern AudioChannelTagVHC :: AudioChannelTag
+pattern AudioChannelTagVHC = AudioChannelTag' "VHC"
 
-pattern ACTVhl :: AudioChannelTag
-pattern ACTVhl = AudioChannelTag' "VHL"
+pattern AudioChannelTagVHL :: AudioChannelTag
+pattern AudioChannelTagVHL = AudioChannelTag' "VHL"
 
-pattern ACTVhr :: AudioChannelTag
-pattern ACTVhr = AudioChannelTag' "VHR"
+pattern AudioChannelTagVHR :: AudioChannelTag
+pattern AudioChannelTagVHR = AudioChannelTag' "VHR"
 
 {-# COMPLETE
-  ACTC,
-  ACTCS,
-  ACTL,
-  ACTLC,
-  ACTLS,
-  ACTLfe,
-  ACTLsd,
-  ACTR,
-  ACTRC,
-  ACTRS,
-  ACTRsd,
-  ACTTcs,
-  ACTVhc,
-  ACTVhl,
-  ACTVhr,
+  AudioChannelTagC,
+  AudioChannelTagCS,
+  AudioChannelTagL,
+  AudioChannelTagLC,
+  AudioChannelTagLFE,
+  AudioChannelTagLS,
+  AudioChannelTagLSD,
+  AudioChannelTagR,
+  AudioChannelTagRC,
+  AudioChannelTagRS,
+  AudioChannelTagRSD,
+  AudioChannelTagTCS,
+  AudioChannelTagVHC,
+  AudioChannelTagVHL,
+  AudioChannelTagVHR,
   AudioChannelTag'
   #-}
 
-instance FromText AudioChannelTag where
-  parser = (AudioChannelTag' . mk) <$> takeText
+instance Prelude.FromText AudioChannelTag where
+  parser = AudioChannelTag' Prelude.<$> Prelude.takeText
 
-instance ToText AudioChannelTag where
-  toText (AudioChannelTag' ci) = original ci
+instance Prelude.ToText AudioChannelTag where
+  toText (AudioChannelTag' x) = x
 
-instance Hashable AudioChannelTag
+instance Prelude.Hashable AudioChannelTag
 
-instance NFData AudioChannelTag
+instance Prelude.NFData AudioChannelTag
 
-instance ToByteString AudioChannelTag
+instance Prelude.ToByteString AudioChannelTag
 
-instance ToQuery AudioChannelTag
+instance Prelude.ToQuery AudioChannelTag
 
-instance ToHeader AudioChannelTag
+instance Prelude.ToHeader AudioChannelTag
 
-instance ToJSON AudioChannelTag where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioChannelTag where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioChannelTag where
-  parseJSON = parseJSONText "AudioChannelTag"
+instance Prelude.FromJSON AudioChannelTag where
+  parseJSON = Prelude.parseJSONText "AudioChannelTag"

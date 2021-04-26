@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,65 @@
 module Network.AWS.MediaConvert.Types.DolbyVisionLevel6Mode
   ( DolbyVisionLevel6Mode
       ( ..,
-        DVLMPassthrough,
-        DVLMRecalculate,
-        DVLMSpecify
+        DolbyVisionLevel6ModePASSTHROUGH,
+        DolbyVisionLevel6ModeRECALCULATE,
+        DolbyVisionLevel6ModeSPECIFY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
-data DolbyVisionLevel6Mode
-  = DolbyVisionLevel6Mode'
-      ( CI
-          Text
-      )
+-- | Use Dolby Vision Mode to choose how the service will handle Dolby Vision
+-- MaxCLL and MaxFALL properies.
+newtype DolbyVisionLevel6Mode = DolbyVisionLevel6Mode'
+  { fromDolbyVisionLevel6Mode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DVLMPassthrough :: DolbyVisionLevel6Mode
-pattern DVLMPassthrough = DolbyVisionLevel6Mode' "PASSTHROUGH"
+pattern DolbyVisionLevel6ModePASSTHROUGH :: DolbyVisionLevel6Mode
+pattern DolbyVisionLevel6ModePASSTHROUGH = DolbyVisionLevel6Mode' "PASSTHROUGH"
 
-pattern DVLMRecalculate :: DolbyVisionLevel6Mode
-pattern DVLMRecalculate = DolbyVisionLevel6Mode' "RECALCULATE"
+pattern DolbyVisionLevel6ModeRECALCULATE :: DolbyVisionLevel6Mode
+pattern DolbyVisionLevel6ModeRECALCULATE = DolbyVisionLevel6Mode' "RECALCULATE"
 
-pattern DVLMSpecify :: DolbyVisionLevel6Mode
-pattern DVLMSpecify = DolbyVisionLevel6Mode' "SPECIFY"
+pattern DolbyVisionLevel6ModeSPECIFY :: DolbyVisionLevel6Mode
+pattern DolbyVisionLevel6ModeSPECIFY = DolbyVisionLevel6Mode' "SPECIFY"
 
 {-# COMPLETE
-  DVLMPassthrough,
-  DVLMRecalculate,
-  DVLMSpecify,
+  DolbyVisionLevel6ModePASSTHROUGH,
+  DolbyVisionLevel6ModeRECALCULATE,
+  DolbyVisionLevel6ModeSPECIFY,
   DolbyVisionLevel6Mode'
   #-}
 
-instance FromText DolbyVisionLevel6Mode where
-  parser = (DolbyVisionLevel6Mode' . mk) <$> takeText
+instance Prelude.FromText DolbyVisionLevel6Mode where
+  parser = DolbyVisionLevel6Mode' Prelude.<$> Prelude.takeText
 
-instance ToText DolbyVisionLevel6Mode where
-  toText (DolbyVisionLevel6Mode' ci) = original ci
+instance Prelude.ToText DolbyVisionLevel6Mode where
+  toText (DolbyVisionLevel6Mode' x) = x
 
-instance Hashable DolbyVisionLevel6Mode
+instance Prelude.Hashable DolbyVisionLevel6Mode
 
-instance NFData DolbyVisionLevel6Mode
+instance Prelude.NFData DolbyVisionLevel6Mode
 
-instance ToByteString DolbyVisionLevel6Mode
+instance Prelude.ToByteString DolbyVisionLevel6Mode
 
-instance ToQuery DolbyVisionLevel6Mode
+instance Prelude.ToQuery DolbyVisionLevel6Mode
 
-instance ToHeader DolbyVisionLevel6Mode
+instance Prelude.ToHeader DolbyVisionLevel6Mode
 
-instance ToJSON DolbyVisionLevel6Mode where
-  toJSON = toJSONText
+instance Prelude.ToJSON DolbyVisionLevel6Mode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DolbyVisionLevel6Mode where
-  parseJSON = parseJSONText "DolbyVisionLevel6Mode"
+instance Prelude.FromJSON DolbyVisionLevel6Mode where
+  parseJSON = Prelude.parseJSONText "DolbyVisionLevel6Mode"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,56 @@
 module Network.AWS.MediaConvert.Types.DolbyVisionProfile
   ( DolbyVisionProfile
       ( ..,
-        Profile5
+        DolbyVisionProfilePROFILE5
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | In the current MediaConvert implementation, the Dolby Vision profile is always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby Vision frame interleaved data.
-data DolbyVisionProfile
-  = DolbyVisionProfile'
-      ( CI
-          Text
-      )
+-- | In the current MediaConvert implementation, the Dolby Vision profile is
+-- always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby
+-- Vision frame interleaved data.
+newtype DolbyVisionProfile = DolbyVisionProfile'
+  { fromDolbyVisionProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Profile5 :: DolbyVisionProfile
-pattern Profile5 = DolbyVisionProfile' "PROFILE_5"
+pattern DolbyVisionProfilePROFILE5 :: DolbyVisionProfile
+pattern DolbyVisionProfilePROFILE5 = DolbyVisionProfile' "PROFILE_5"
 
 {-# COMPLETE
-  Profile5,
+  DolbyVisionProfilePROFILE5,
   DolbyVisionProfile'
   #-}
 
-instance FromText DolbyVisionProfile where
-  parser = (DolbyVisionProfile' . mk) <$> takeText
+instance Prelude.FromText DolbyVisionProfile where
+  parser = DolbyVisionProfile' Prelude.<$> Prelude.takeText
 
-instance ToText DolbyVisionProfile where
-  toText (DolbyVisionProfile' ci) = original ci
+instance Prelude.ToText DolbyVisionProfile where
+  toText (DolbyVisionProfile' x) = x
 
-instance Hashable DolbyVisionProfile
+instance Prelude.Hashable DolbyVisionProfile
 
-instance NFData DolbyVisionProfile
+instance Prelude.NFData DolbyVisionProfile
 
-instance ToByteString DolbyVisionProfile
+instance Prelude.ToByteString DolbyVisionProfile
 
-instance ToQuery DolbyVisionProfile
+instance Prelude.ToQuery DolbyVisionProfile
 
-instance ToHeader DolbyVisionProfile
+instance Prelude.ToHeader DolbyVisionProfile
 
-instance ToJSON DolbyVisionProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON DolbyVisionProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DolbyVisionProfile where
-  parseJSON = parseJSONText "DolbyVisionProfile"
+instance Prelude.FromJSON DolbyVisionProfile where
+  parseJSON = Prelude.parseJSONText "DolbyVisionProfile"

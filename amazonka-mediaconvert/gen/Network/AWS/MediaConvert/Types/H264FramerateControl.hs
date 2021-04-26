@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,71 @@
 module Network.AWS.MediaConvert.Types.H264FramerateControl
   ( H264FramerateControl
       ( ..,
-        HFCInitializeFromSource,
-        HFCSpecified
+        H264FramerateControlINITIALIZEFROMSOURCE,
+        H264FramerateControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings FramerateNumerator and FramerateDenominator.
-data H264FramerateControl
-  = H264FramerateControl'
-      ( CI
-          Text
-      )
+-- | If you are using the console, use the Framerate setting to specify the
+-- frame rate for this output. If you want to keep the same frame rate as
+-- the input video, choose Follow source. If you want to do frame rate
+-- conversion, choose a frame rate from the dropdown list or choose Custom.
+-- The framerates shown in the dropdown list are decimal approximations of
+-- fractions. If you choose Custom, specify your frame rate as a fraction.
+-- If you are creating your transcoding job specification as a JSON file
+-- without the console, use FramerateControl to specify which value the
+-- service uses for the frame rate for this output. Choose
+-- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+-- from the input. Choose SPECIFIED if you want the service to use the
+-- frame rate you specify in the settings FramerateNumerator and
+-- FramerateDenominator.
+newtype H264FramerateControl = H264FramerateControl'
+  { fromH264FramerateControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HFCInitializeFromSource :: H264FramerateControl
-pattern HFCInitializeFromSource = H264FramerateControl' "INITIALIZE_FROM_SOURCE"
+pattern H264FramerateControlINITIALIZEFROMSOURCE :: H264FramerateControl
+pattern H264FramerateControlINITIALIZEFROMSOURCE = H264FramerateControl' "INITIALIZE_FROM_SOURCE"
 
-pattern HFCSpecified :: H264FramerateControl
-pattern HFCSpecified = H264FramerateControl' "SPECIFIED"
+pattern H264FramerateControlSPECIFIED :: H264FramerateControl
+pattern H264FramerateControlSPECIFIED = H264FramerateControl' "SPECIFIED"
 
 {-# COMPLETE
-  HFCInitializeFromSource,
-  HFCSpecified,
+  H264FramerateControlINITIALIZEFROMSOURCE,
+  H264FramerateControlSPECIFIED,
   H264FramerateControl'
   #-}
 
-instance FromText H264FramerateControl where
-  parser = (H264FramerateControl' . mk) <$> takeText
+instance Prelude.FromText H264FramerateControl where
+  parser = H264FramerateControl' Prelude.<$> Prelude.takeText
 
-instance ToText H264FramerateControl where
-  toText (H264FramerateControl' ci) = original ci
+instance Prelude.ToText H264FramerateControl where
+  toText (H264FramerateControl' x) = x
 
-instance Hashable H264FramerateControl
+instance Prelude.Hashable H264FramerateControl
 
-instance NFData H264FramerateControl
+instance Prelude.NFData H264FramerateControl
 
-instance ToByteString H264FramerateControl
+instance Prelude.ToByteString H264FramerateControl
 
-instance ToQuery H264FramerateControl
+instance Prelude.ToQuery H264FramerateControl
 
-instance ToHeader H264FramerateControl
+instance Prelude.ToHeader H264FramerateControl
 
-instance ToJSON H264FramerateControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264FramerateControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264FramerateControl where
-  parseJSON = parseJSONText "H264FramerateControl"
+instance Prelude.FromJSON H264FramerateControl where
+  parseJSON = Prelude.parseJSONText "H264FramerateControl"

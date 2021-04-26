@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,95 +19,146 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.NexGuardFileMarkerSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.WatermarkingStrength
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | For forensic video watermarking, MediaConvert supports Nagra NexGuard File Marker watermarking. MediaConvert supports both PreRelease Content (NGPR/G2) and OTT Streaming workflows.
+-- | For forensic video watermarking, MediaConvert supports Nagra NexGuard
+-- File Marker watermarking. MediaConvert supports both PreRelease Content
+-- (NGPR\/G2) and OTT Streaming workflows.
 --
--- /See:/ 'nexGuardFileMarkerSettings' smart constructor.
+-- /See:/ 'newNexGuardFileMarkerSettings' smart constructor.
 data NexGuardFileMarkerSettings = NexGuardFileMarkerSettings'
-  { _ngfmsPayload ::
-      !(Maybe Nat),
-    _ngfmsLicense ::
-      !(Maybe Text),
-    _ngfmsPreset ::
-      !(Maybe Text),
-    _ngfmsStrength ::
-      !( Maybe
-           WatermarkingStrength
-       )
+  { -- | Specify the payload ID that you want associated with this output. Valid
+    -- values vary depending on your Nagra NexGuard forensic watermarking
+    -- workflow. Required when you include Nagra NexGuard File Marker
+    -- watermarking (NexGuardWatermarkingSettings) in your job. For PreRelease
+    -- Content (NGPR\/G2), specify an integer from 1 through 4,194,303. You
+    -- must generate a unique ID for each asset you watermark, and keep a
+    -- record of which ID you have assigned to each asset. Neither Nagra nor
+    -- MediaConvert keep track of the relationship between output files and
+    -- your IDs. For OTT Streaming, create two adaptive bitrate (ABR) stacks
+    -- for each asset. Do this by setting up two output groups. For one output
+    -- group, set the value of Payload ID (payload) to 0 in every output. For
+    -- the other output group, set Payload ID (payload) to 1 in every output.
+    payload :: Prelude.Maybe Prelude.Nat,
+    -- | Use the base64 license string that Nagra provides you. Enter it directly
+    -- in your JSON job specification or in the console. Required when you
+    -- include Nagra NexGuard File Marker watermarking
+    -- (NexGuardWatermarkingSettings) in your job.
+    license :: Prelude.Maybe Prelude.Text,
+    -- | Enter one of the watermarking preset strings that Nagra provides you.
+    -- Required when you include Nagra NexGuard File Marker watermarking
+    -- (NexGuardWatermarkingSettings) in your job.
+    preset :: Prelude.Maybe Prelude.Text,
+    -- | Optional. Ignore this setting unless Nagra support directs you to
+    -- specify a value. When you don\'t specify a value here, the Nagra
+    -- NexGuard library uses its default value.
+    strength :: Prelude.Maybe WatermarkingStrength
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NexGuardFileMarkerSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NexGuardFileMarkerSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ngfmsPayload' - Specify the payload ID that you want associated with this output. Valid values vary depending on your Nagra NexGuard forensic watermarking workflow. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your job. For PreRelease Content (NGPR/G2), specify an integer from 1 through 4,194,303. You must generate a unique ID for each asset you watermark, and keep a record of which ID you have assigned to each asset. Neither Nagra nor MediaConvert keep track of the relationship between output files and your IDs. For OTT Streaming, create two adaptive bitrate (ABR) stacks for each asset. Do this by setting up two output groups. For one output group, set the value of Payload ID (payload) to 0 in every output. For the other output group, set Payload ID (payload) to 1 in every output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ngfmsLicense' - Use the base64 license string that Nagra provides you. Enter it directly in your JSON job specification or in the console. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your job.
+-- 'payload', 'nexGuardFileMarkerSettings_payload' - Specify the payload ID that you want associated with this output. Valid
+-- values vary depending on your Nagra NexGuard forensic watermarking
+-- workflow. Required when you include Nagra NexGuard File Marker
+-- watermarking (NexGuardWatermarkingSettings) in your job. For PreRelease
+-- Content (NGPR\/G2), specify an integer from 1 through 4,194,303. You
+-- must generate a unique ID for each asset you watermark, and keep a
+-- record of which ID you have assigned to each asset. Neither Nagra nor
+-- MediaConvert keep track of the relationship between output files and
+-- your IDs. For OTT Streaming, create two adaptive bitrate (ABR) stacks
+-- for each asset. Do this by setting up two output groups. For one output
+-- group, set the value of Payload ID (payload) to 0 in every output. For
+-- the other output group, set Payload ID (payload) to 1 in every output.
 --
--- * 'ngfmsPreset' - Enter one of the watermarking preset strings that Nagra provides you. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your job.
+-- 'license', 'nexGuardFileMarkerSettings_license' - Use the base64 license string that Nagra provides you. Enter it directly
+-- in your JSON job specification or in the console. Required when you
+-- include Nagra NexGuard File Marker watermarking
+-- (NexGuardWatermarkingSettings) in your job.
 --
--- * 'ngfmsStrength' - Optional. Ignore this setting unless Nagra support directs you to specify a value. When you don't specify a value here, the Nagra NexGuard library uses its default value.
-nexGuardFileMarkerSettings ::
+-- 'preset', 'nexGuardFileMarkerSettings_preset' - Enter one of the watermarking preset strings that Nagra provides you.
+-- Required when you include Nagra NexGuard File Marker watermarking
+-- (NexGuardWatermarkingSettings) in your job.
+--
+-- 'strength', 'nexGuardFileMarkerSettings_strength' - Optional. Ignore this setting unless Nagra support directs you to
+-- specify a value. When you don\'t specify a value here, the Nagra
+-- NexGuard library uses its default value.
+newNexGuardFileMarkerSettings ::
   NexGuardFileMarkerSettings
-nexGuardFileMarkerSettings =
+newNexGuardFileMarkerSettings =
   NexGuardFileMarkerSettings'
-    { _ngfmsPayload =
-        Nothing,
-      _ngfmsLicense = Nothing,
-      _ngfmsPreset = Nothing,
-      _ngfmsStrength = Nothing
+    { payload =
+        Prelude.Nothing,
+      license = Prelude.Nothing,
+      preset = Prelude.Nothing,
+      strength = Prelude.Nothing
     }
 
--- | Specify the payload ID that you want associated with this output. Valid values vary depending on your Nagra NexGuard forensic watermarking workflow. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your job. For PreRelease Content (NGPR/G2), specify an integer from 1 through 4,194,303. You must generate a unique ID for each asset you watermark, and keep a record of which ID you have assigned to each asset. Neither Nagra nor MediaConvert keep track of the relationship between output files and your IDs. For OTT Streaming, create two adaptive bitrate (ABR) stacks for each asset. Do this by setting up two output groups. For one output group, set the value of Payload ID (payload) to 0 in every output. For the other output group, set Payload ID (payload) to 1 in every output.
-ngfmsPayload :: Lens' NexGuardFileMarkerSettings (Maybe Natural)
-ngfmsPayload = lens _ngfmsPayload (\s a -> s {_ngfmsPayload = a}) . mapping _Nat
+-- | Specify the payload ID that you want associated with this output. Valid
+-- values vary depending on your Nagra NexGuard forensic watermarking
+-- workflow. Required when you include Nagra NexGuard File Marker
+-- watermarking (NexGuardWatermarkingSettings) in your job. For PreRelease
+-- Content (NGPR\/G2), specify an integer from 1 through 4,194,303. You
+-- must generate a unique ID for each asset you watermark, and keep a
+-- record of which ID you have assigned to each asset. Neither Nagra nor
+-- MediaConvert keep track of the relationship between output files and
+-- your IDs. For OTT Streaming, create two adaptive bitrate (ABR) stacks
+-- for each asset. Do this by setting up two output groups. For one output
+-- group, set the value of Payload ID (payload) to 0 in every output. For
+-- the other output group, set Payload ID (payload) to 1 in every output.
+nexGuardFileMarkerSettings_payload :: Lens.Lens' NexGuardFileMarkerSettings (Prelude.Maybe Prelude.Natural)
+nexGuardFileMarkerSettings_payload = Lens.lens (\NexGuardFileMarkerSettings' {payload} -> payload) (\s@NexGuardFileMarkerSettings' {} a -> s {payload = a} :: NexGuardFileMarkerSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use the base64 license string that Nagra provides you. Enter it directly in your JSON job specification or in the console. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your job.
-ngfmsLicense :: Lens' NexGuardFileMarkerSettings (Maybe Text)
-ngfmsLicense = lens _ngfmsLicense (\s a -> s {_ngfmsLicense = a})
+-- | Use the base64 license string that Nagra provides you. Enter it directly
+-- in your JSON job specification or in the console. Required when you
+-- include Nagra NexGuard File Marker watermarking
+-- (NexGuardWatermarkingSettings) in your job.
+nexGuardFileMarkerSettings_license :: Lens.Lens' NexGuardFileMarkerSettings (Prelude.Maybe Prelude.Text)
+nexGuardFileMarkerSettings_license = Lens.lens (\NexGuardFileMarkerSettings' {license} -> license) (\s@NexGuardFileMarkerSettings' {} a -> s {license = a} :: NexGuardFileMarkerSettings)
 
--- | Enter one of the watermarking preset strings that Nagra provides you. Required when you include Nagra NexGuard File Marker watermarking (NexGuardWatermarkingSettings) in your job.
-ngfmsPreset :: Lens' NexGuardFileMarkerSettings (Maybe Text)
-ngfmsPreset = lens _ngfmsPreset (\s a -> s {_ngfmsPreset = a})
+-- | Enter one of the watermarking preset strings that Nagra provides you.
+-- Required when you include Nagra NexGuard File Marker watermarking
+-- (NexGuardWatermarkingSettings) in your job.
+nexGuardFileMarkerSettings_preset :: Lens.Lens' NexGuardFileMarkerSettings (Prelude.Maybe Prelude.Text)
+nexGuardFileMarkerSettings_preset = Lens.lens (\NexGuardFileMarkerSettings' {preset} -> preset) (\s@NexGuardFileMarkerSettings' {} a -> s {preset = a} :: NexGuardFileMarkerSettings)
 
--- | Optional. Ignore this setting unless Nagra support directs you to specify a value. When you don't specify a value here, the Nagra NexGuard library uses its default value.
-ngfmsStrength :: Lens' NexGuardFileMarkerSettings (Maybe WatermarkingStrength)
-ngfmsStrength = lens _ngfmsStrength (\s a -> s {_ngfmsStrength = a})
+-- | Optional. Ignore this setting unless Nagra support directs you to
+-- specify a value. When you don\'t specify a value here, the Nagra
+-- NexGuard library uses its default value.
+nexGuardFileMarkerSettings_strength :: Lens.Lens' NexGuardFileMarkerSettings (Prelude.Maybe WatermarkingStrength)
+nexGuardFileMarkerSettings_strength = Lens.lens (\NexGuardFileMarkerSettings' {strength} -> strength) (\s@NexGuardFileMarkerSettings' {} a -> s {strength = a} :: NexGuardFileMarkerSettings)
 
-instance FromJSON NexGuardFileMarkerSettings where
+instance Prelude.FromJSON NexGuardFileMarkerSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NexGuardFileMarkerSettings"
       ( \x ->
           NexGuardFileMarkerSettings'
-            <$> (x .:? "payload")
-            <*> (x .:? "license")
-            <*> (x .:? "preset")
-            <*> (x .:? "strength")
+            Prelude.<$> (x Prelude..:? "payload")
+            Prelude.<*> (x Prelude..:? "license")
+            Prelude.<*> (x Prelude..:? "preset")
+            Prelude.<*> (x Prelude..:? "strength")
       )
 
-instance Hashable NexGuardFileMarkerSettings
+instance Prelude.Hashable NexGuardFileMarkerSettings
 
-instance NFData NexGuardFileMarkerSettings
+instance Prelude.NFData NexGuardFileMarkerSettings
 
-instance ToJSON NexGuardFileMarkerSettings where
+instance Prelude.ToJSON NexGuardFileMarkerSettings where
   toJSON NexGuardFileMarkerSettings' {..} =
-    object
-      ( catMaybes
-          [ ("payload" .=) <$> _ngfmsPayload,
-            ("license" .=) <$> _ngfmsLicense,
-            ("preset" .=) <$> _ngfmsPreset,
-            ("strength" .=) <$> _ngfmsStrength
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("payload" Prelude..=) Prelude.<$> payload,
+            ("license" Prelude..=) Prelude.<$> license,
+            ("preset" Prelude..=) Prelude.<$> preset,
+            ("strength" Prelude..=) Prelude.<$> strength
           ]
       )

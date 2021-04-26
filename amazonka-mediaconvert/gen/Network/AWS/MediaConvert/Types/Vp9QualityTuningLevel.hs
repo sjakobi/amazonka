@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.Vp9QualityTuningLevel
   ( Vp9QualityTuningLevel
       ( ..,
-        VQTLMultiPass,
-        VQTLMultiPassHq
+        Vp9QualityTuningLevelMULTIPASS,
+        Vp9QualityTuningLevelMULTIPASSHQ
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output video quality. The default behavior is faster, lower quality, multi-pass encoding.
-data Vp9QualityTuningLevel
-  = Vp9QualityTuningLevel'
-      ( CI
-          Text
-      )
+-- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- you want to trade off encoding speed for output video quality. The
+-- default behavior is faster, lower quality, multi-pass encoding.
+newtype Vp9QualityTuningLevel = Vp9QualityTuningLevel'
+  { fromVp9QualityTuningLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VQTLMultiPass :: Vp9QualityTuningLevel
-pattern VQTLMultiPass = Vp9QualityTuningLevel' "MULTI_PASS"
+pattern Vp9QualityTuningLevelMULTIPASS :: Vp9QualityTuningLevel
+pattern Vp9QualityTuningLevelMULTIPASS = Vp9QualityTuningLevel' "MULTI_PASS"
 
-pattern VQTLMultiPassHq :: Vp9QualityTuningLevel
-pattern VQTLMultiPassHq = Vp9QualityTuningLevel' "MULTI_PASS_HQ"
+pattern Vp9QualityTuningLevelMULTIPASSHQ :: Vp9QualityTuningLevel
+pattern Vp9QualityTuningLevelMULTIPASSHQ = Vp9QualityTuningLevel' "MULTI_PASS_HQ"
 
 {-# COMPLETE
-  VQTLMultiPass,
-  VQTLMultiPassHq,
+  Vp9QualityTuningLevelMULTIPASS,
+  Vp9QualityTuningLevelMULTIPASSHQ,
   Vp9QualityTuningLevel'
   #-}
 
-instance FromText Vp9QualityTuningLevel where
-  parser = (Vp9QualityTuningLevel' . mk) <$> takeText
+instance Prelude.FromText Vp9QualityTuningLevel where
+  parser = Vp9QualityTuningLevel' Prelude.<$> Prelude.takeText
 
-instance ToText Vp9QualityTuningLevel where
-  toText (Vp9QualityTuningLevel' ci) = original ci
+instance Prelude.ToText Vp9QualityTuningLevel where
+  toText (Vp9QualityTuningLevel' x) = x
 
-instance Hashable Vp9QualityTuningLevel
+instance Prelude.Hashable Vp9QualityTuningLevel
 
-instance NFData Vp9QualityTuningLevel
+instance Prelude.NFData Vp9QualityTuningLevel
 
-instance ToByteString Vp9QualityTuningLevel
+instance Prelude.ToByteString Vp9QualityTuningLevel
 
-instance ToQuery Vp9QualityTuningLevel
+instance Prelude.ToQuery Vp9QualityTuningLevel
 
-instance ToHeader Vp9QualityTuningLevel
+instance Prelude.ToHeader Vp9QualityTuningLevel
 
-instance ToJSON Vp9QualityTuningLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vp9QualityTuningLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vp9QualityTuningLevel where
-  parseJSON = parseJSONText "Vp9QualityTuningLevel"
+instance Prelude.FromJSON Vp9QualityTuningLevel where
+  parseJSON = Prelude.parseJSONText "Vp9QualityTuningLevel"

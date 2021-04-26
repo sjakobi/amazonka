@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,74 @@
 module Network.AWS.MediaConvert.Types.Av1FramerateConversionAlgorithm
   ( Av1FramerateConversionAlgorithm
       ( ..,
-        AFCADuplicateDrop,
-        AFCAFrameformer,
-        AFCAInterpolate
+        Av1FramerateConversionAlgorithmDUPLICATEDROP,
+        Av1FramerateConversionAlgorithmFRAMEFORMER,
+        Av1FramerateConversionAlgorithmINTERPOLATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. We recommend using drop duplicate (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to 30 fps. For numerically complex conversions, you can use interpolate (INTERPOLATE) to avoid stutter. This results in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has already been converted from its original cadence, use FrameFormer (FRAMEFORMER) to do motion-compensated interpolation. FrameFormer chooses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding time and incurs a significant add-on cost.
-data Av1FramerateConversionAlgorithm
-  = Av1FramerateConversionAlgorithm'
-      ( CI
-          Text
-      )
+-- | Choose the method that you want MediaConvert to use when increasing or
+-- decreasing the frame rate. We recommend using drop duplicate
+-- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+-- 30 fps. For numerically complex conversions, you can use interpolate
+-- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+-- might introduce undesirable video artifacts. For complex frame rate
+-- conversions, especially if your source video has already been converted
+-- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+-- motion-compensated interpolation. FrameFormer chooses the best
+-- conversion method frame by frame. Note that using FrameFormer increases
+-- the transcoding time and incurs a significant add-on cost.
+newtype Av1FramerateConversionAlgorithm = Av1FramerateConversionAlgorithm'
+  { fromAv1FramerateConversionAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AFCADuplicateDrop :: Av1FramerateConversionAlgorithm
-pattern AFCADuplicateDrop = Av1FramerateConversionAlgorithm' "DUPLICATE_DROP"
+pattern Av1FramerateConversionAlgorithmDUPLICATEDROP :: Av1FramerateConversionAlgorithm
+pattern Av1FramerateConversionAlgorithmDUPLICATEDROP = Av1FramerateConversionAlgorithm' "DUPLICATE_DROP"
 
-pattern AFCAFrameformer :: Av1FramerateConversionAlgorithm
-pattern AFCAFrameformer = Av1FramerateConversionAlgorithm' "FRAMEFORMER"
+pattern Av1FramerateConversionAlgorithmFRAMEFORMER :: Av1FramerateConversionAlgorithm
+pattern Av1FramerateConversionAlgorithmFRAMEFORMER = Av1FramerateConversionAlgorithm' "FRAMEFORMER"
 
-pattern AFCAInterpolate :: Av1FramerateConversionAlgorithm
-pattern AFCAInterpolate = Av1FramerateConversionAlgorithm' "INTERPOLATE"
+pattern Av1FramerateConversionAlgorithmINTERPOLATE :: Av1FramerateConversionAlgorithm
+pattern Av1FramerateConversionAlgorithmINTERPOLATE = Av1FramerateConversionAlgorithm' "INTERPOLATE"
 
 {-# COMPLETE
-  AFCADuplicateDrop,
-  AFCAFrameformer,
-  AFCAInterpolate,
+  Av1FramerateConversionAlgorithmDUPLICATEDROP,
+  Av1FramerateConversionAlgorithmFRAMEFORMER,
+  Av1FramerateConversionAlgorithmINTERPOLATE,
   Av1FramerateConversionAlgorithm'
   #-}
 
-instance FromText Av1FramerateConversionAlgorithm where
-  parser = (Av1FramerateConversionAlgorithm' . mk) <$> takeText
+instance Prelude.FromText Av1FramerateConversionAlgorithm where
+  parser = Av1FramerateConversionAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText Av1FramerateConversionAlgorithm where
-  toText (Av1FramerateConversionAlgorithm' ci) = original ci
+instance Prelude.ToText Av1FramerateConversionAlgorithm where
+  toText (Av1FramerateConversionAlgorithm' x) = x
 
-instance Hashable Av1FramerateConversionAlgorithm
+instance Prelude.Hashable Av1FramerateConversionAlgorithm
 
-instance NFData Av1FramerateConversionAlgorithm
+instance Prelude.NFData Av1FramerateConversionAlgorithm
 
-instance ToByteString Av1FramerateConversionAlgorithm
+instance Prelude.ToByteString Av1FramerateConversionAlgorithm
 
-instance ToQuery Av1FramerateConversionAlgorithm
+instance Prelude.ToQuery Av1FramerateConversionAlgorithm
 
-instance ToHeader Av1FramerateConversionAlgorithm
+instance Prelude.ToHeader Av1FramerateConversionAlgorithm
 
-instance ToJSON Av1FramerateConversionAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON Av1FramerateConversionAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Av1FramerateConversionAlgorithm where
-  parseJSON = parseJSONText "Av1FramerateConversionAlgorithm"
+instance Prelude.FromJSON Av1FramerateConversionAlgorithm where
+  parseJSON = Prelude.parseJSONText "Av1FramerateConversionAlgorithm"

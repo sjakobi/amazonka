@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.OpusSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required when you set Codec, under AudioDescriptions>CodecSettings, to the value OPUS.
+-- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value OPUS.
 --
--- /See:/ 'opusSettings' smart constructor.
+-- /See:/ 'newOpusSettings' smart constructor.
 data OpusSettings = OpusSettings'
-  { _osChannels ::
-      !(Maybe Nat),
-    _osSampleRate :: !(Maybe Nat),
-    _osBitrate :: !(Maybe Nat)
+  { -- | Specify the number of channels in this output audio track. Choosing Mono
+    -- on the console gives you 1 output channel; choosing Stereo gives you 2.
+    -- In the API, valid values are 1 and 2.
+    channels :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. Sample rate in hz. Valid values are 16000, 24000, and 48000.
+    -- The default value is 48000.
+    sampleRate :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. Specify the average bitrate in bits per second. Valid values
+    -- are multiples of 8000, from 32000 through 192000. The default value is
+    -- 96000, which we recommend for quality and bandwidth.
+    bitrate :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OpusSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OpusSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osChannels' - Specify the number of channels in this output audio track. Choosing Mono on the console gives you 1 output channel; choosing Stereo gives you 2. In the API, valid values are 1 and 2.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osSampleRate' - Optional. Sample rate in hz. Valid values are 16000, 24000, and 48000. The default value is 48000.
+-- 'channels', 'opusSettings_channels' - Specify the number of channels in this output audio track. Choosing Mono
+-- on the console gives you 1 output channel; choosing Stereo gives you 2.
+-- In the API, valid values are 1 and 2.
 --
--- * 'osBitrate' - Optional. Specify the average bitrate in bits per second. Valid values are multiples of 8000, from 32000 through 192000. The default value is 96000, which we recommend for quality and bandwidth.
-opusSettings ::
+-- 'sampleRate', 'opusSettings_sampleRate' - Optional. Sample rate in hz. Valid values are 16000, 24000, and 48000.
+-- The default value is 48000.
+--
+-- 'bitrate', 'opusSettings_bitrate' - Optional. Specify the average bitrate in bits per second. Valid values
+-- are multiples of 8000, from 32000 through 192000. The default value is
+-- 96000, which we recommend for quality and bandwidth.
+newOpusSettings ::
   OpusSettings
-opusSettings =
+newOpusSettings =
   OpusSettings'
-    { _osChannels = Nothing,
-      _osSampleRate = Nothing,
-      _osBitrate = Nothing
+    { channels = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      bitrate = Prelude.Nothing
     }
 
--- | Specify the number of channels in this output audio track. Choosing Mono on the console gives you 1 output channel; choosing Stereo gives you 2. In the API, valid values are 1 and 2.
-osChannels :: Lens' OpusSettings (Maybe Natural)
-osChannels = lens _osChannels (\s a -> s {_osChannels = a}) . mapping _Nat
+-- | Specify the number of channels in this output audio track. Choosing Mono
+-- on the console gives you 1 output channel; choosing Stereo gives you 2.
+-- In the API, valid values are 1 and 2.
+opusSettings_channels :: Lens.Lens' OpusSettings (Prelude.Maybe Prelude.Natural)
+opusSettings_channels = Lens.lens (\OpusSettings' {channels} -> channels) (\s@OpusSettings' {} a -> s {channels = a} :: OpusSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional. Sample rate in hz. Valid values are 16000, 24000, and 48000. The default value is 48000.
-osSampleRate :: Lens' OpusSettings (Maybe Natural)
-osSampleRate = lens _osSampleRate (\s a -> s {_osSampleRate = a}) . mapping _Nat
+-- | Optional. Sample rate in hz. Valid values are 16000, 24000, and 48000.
+-- The default value is 48000.
+opusSettings_sampleRate :: Lens.Lens' OpusSettings (Prelude.Maybe Prelude.Natural)
+opusSettings_sampleRate = Lens.lens (\OpusSettings' {sampleRate} -> sampleRate) (\s@OpusSettings' {} a -> s {sampleRate = a} :: OpusSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional. Specify the average bitrate in bits per second. Valid values are multiples of 8000, from 32000 through 192000. The default value is 96000, which we recommend for quality and bandwidth.
-osBitrate :: Lens' OpusSettings (Maybe Natural)
-osBitrate = lens _osBitrate (\s a -> s {_osBitrate = a}) . mapping _Nat
+-- | Optional. Specify the average bitrate in bits per second. Valid values
+-- are multiples of 8000, from 32000 through 192000. The default value is
+-- 96000, which we recommend for quality and bandwidth.
+opusSettings_bitrate :: Lens.Lens' OpusSettings (Prelude.Maybe Prelude.Natural)
+opusSettings_bitrate = Lens.lens (\OpusSettings' {bitrate} -> bitrate) (\s@OpusSettings' {} a -> s {bitrate = a} :: OpusSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON OpusSettings where
+instance Prelude.FromJSON OpusSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OpusSettings"
       ( \x ->
           OpusSettings'
-            <$> (x .:? "channels")
-            <*> (x .:? "sampleRate")
-            <*> (x .:? "bitrate")
+            Prelude.<$> (x Prelude..:? "channels")
+            Prelude.<*> (x Prelude..:? "sampleRate")
+            Prelude.<*> (x Prelude..:? "bitrate")
       )
 
-instance Hashable OpusSettings
+instance Prelude.Hashable OpusSettings
 
-instance NFData OpusSettings
+instance Prelude.NFData OpusSettings
 
-instance ToJSON OpusSettings where
+instance Prelude.ToJSON OpusSettings where
   toJSON OpusSettings' {..} =
-    object
-      ( catMaybes
-          [ ("channels" .=) <$> _osChannels,
-            ("sampleRate" .=) <$> _osSampleRate,
-            ("bitrate" .=) <$> _osBitrate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channels" Prelude..=) Prelude.<$> channels,
+            ("sampleRate" Prelude..=) Prelude.<$> sampleRate,
+            ("bitrate" Prelude..=) Prelude.<$> bitrate
           ]
       )

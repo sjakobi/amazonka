@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaConvert.Types.Eac3LfeControl
   ( Eac3LfeControl
       ( ..,
-        Lfe,
-        NoLfe
+        Eac3LfeControlLFE,
+        Eac3LfeControlNOLFE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When encoding 3/2 audio, controls whether the LFE channel is enabled
-data Eac3LfeControl = Eac3LfeControl' (CI Text)
+-- | When encoding 3\/2 audio, controls whether the LFE channel is enabled
+newtype Eac3LfeControl = Eac3LfeControl'
+  { fromEac3LfeControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Lfe :: Eac3LfeControl
-pattern Lfe = Eac3LfeControl' "LFE"
+pattern Eac3LfeControlLFE :: Eac3LfeControl
+pattern Eac3LfeControlLFE = Eac3LfeControl' "LFE"
 
-pattern NoLfe :: Eac3LfeControl
-pattern NoLfe = Eac3LfeControl' "NO_LFE"
+pattern Eac3LfeControlNOLFE :: Eac3LfeControl
+pattern Eac3LfeControlNOLFE = Eac3LfeControl' "NO_LFE"
 
 {-# COMPLETE
-  Lfe,
-  NoLfe,
+  Eac3LfeControlLFE,
+  Eac3LfeControlNOLFE,
   Eac3LfeControl'
   #-}
 
-instance FromText Eac3LfeControl where
-  parser = (Eac3LfeControl' . mk) <$> takeText
+instance Prelude.FromText Eac3LfeControl where
+  parser = Eac3LfeControl' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3LfeControl where
-  toText (Eac3LfeControl' ci) = original ci
+instance Prelude.ToText Eac3LfeControl where
+  toText (Eac3LfeControl' x) = x
 
-instance Hashable Eac3LfeControl
+instance Prelude.Hashable Eac3LfeControl
 
-instance NFData Eac3LfeControl
+instance Prelude.NFData Eac3LfeControl
 
-instance ToByteString Eac3LfeControl
+instance Prelude.ToByteString Eac3LfeControl
 
-instance ToQuery Eac3LfeControl
+instance Prelude.ToQuery Eac3LfeControl
 
-instance ToHeader Eac3LfeControl
+instance Prelude.ToHeader Eac3LfeControl
 
-instance ToJSON Eac3LfeControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3LfeControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3LfeControl where
-  parseJSON = parseJSONText "Eac3LfeControl"
+instance Prelude.FromJSON Eac3LfeControl where
+  parseJSON = Prelude.parseJSONText "Eac3LfeControl"

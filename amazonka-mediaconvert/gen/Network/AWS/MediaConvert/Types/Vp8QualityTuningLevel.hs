@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.Vp8QualityTuningLevel
   ( Vp8QualityTuningLevel
       ( ..,
-        MultiPass,
-        MultiPassHq
+        Vp8QualityTuningLevelMULTIPASS,
+        Vp8QualityTuningLevelMULTIPASSHQ
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output video quality. The default behavior is faster, lower quality, multi-pass encoding.
-data Vp8QualityTuningLevel
-  = Vp8QualityTuningLevel'
-      ( CI
-          Text
-      )
+-- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- you want to trade off encoding speed for output video quality. The
+-- default behavior is faster, lower quality, multi-pass encoding.
+newtype Vp8QualityTuningLevel = Vp8QualityTuningLevel'
+  { fromVp8QualityTuningLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MultiPass :: Vp8QualityTuningLevel
-pattern MultiPass = Vp8QualityTuningLevel' "MULTI_PASS"
+pattern Vp8QualityTuningLevelMULTIPASS :: Vp8QualityTuningLevel
+pattern Vp8QualityTuningLevelMULTIPASS = Vp8QualityTuningLevel' "MULTI_PASS"
 
-pattern MultiPassHq :: Vp8QualityTuningLevel
-pattern MultiPassHq = Vp8QualityTuningLevel' "MULTI_PASS_HQ"
+pattern Vp8QualityTuningLevelMULTIPASSHQ :: Vp8QualityTuningLevel
+pattern Vp8QualityTuningLevelMULTIPASSHQ = Vp8QualityTuningLevel' "MULTI_PASS_HQ"
 
 {-# COMPLETE
-  MultiPass,
-  MultiPassHq,
+  Vp8QualityTuningLevelMULTIPASS,
+  Vp8QualityTuningLevelMULTIPASSHQ,
   Vp8QualityTuningLevel'
   #-}
 
-instance FromText Vp8QualityTuningLevel where
-  parser = (Vp8QualityTuningLevel' . mk) <$> takeText
+instance Prelude.FromText Vp8QualityTuningLevel where
+  parser = Vp8QualityTuningLevel' Prelude.<$> Prelude.takeText
 
-instance ToText Vp8QualityTuningLevel where
-  toText (Vp8QualityTuningLevel' ci) = original ci
+instance Prelude.ToText Vp8QualityTuningLevel where
+  toText (Vp8QualityTuningLevel' x) = x
 
-instance Hashable Vp8QualityTuningLevel
+instance Prelude.Hashable Vp8QualityTuningLevel
 
-instance NFData Vp8QualityTuningLevel
+instance Prelude.NFData Vp8QualityTuningLevel
 
-instance ToByteString Vp8QualityTuningLevel
+instance Prelude.ToByteString Vp8QualityTuningLevel
 
-instance ToQuery Vp8QualityTuningLevel
+instance Prelude.ToQuery Vp8QualityTuningLevel
 
-instance ToHeader Vp8QualityTuningLevel
+instance Prelude.ToHeader Vp8QualityTuningLevel
 
-instance ToJSON Vp8QualityTuningLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vp8QualityTuningLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vp8QualityTuningLevel where
-  parseJSON = parseJSONText "Vp8QualityTuningLevel"
+instance Prelude.FromJSON Vp8QualityTuningLevel where
+  parseJSON = Prelude.parseJSONText "Vp8QualityTuningLevel"

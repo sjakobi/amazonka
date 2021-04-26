@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,102 +19,104 @@
 module Network.AWS.MediaConvert.Types.AudioCodec
   ( AudioCodec
       ( ..,
-        AC3,
-        Aac,
-        Aiff,
-        EAC3,
-        EAC3Atmos,
-        MP2,
-        MP3,
-        Opus,
-        Passthrough,
-        Vorbis,
-        Wav
+        AudioCodecAAC,
+        AudioCodecAC3,
+        AudioCodecAIFF,
+        AudioCodecEAC3,
+        AudioCodecEAC3ATMOS,
+        AudioCodecMP2,
+        AudioCodecMP3,
+        AudioCodecOPUS,
+        AudioCodecPASSTHROUGH,
+        AudioCodecVORBIS,
+        AudioCodecWAV
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Type of Audio codec.
-data AudioCodec = AudioCodec' (CI Text)
+newtype AudioCodec = AudioCodec'
+  { fromAudioCodec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AC3 :: AudioCodec
-pattern AC3 = AudioCodec' "AC3"
+pattern AudioCodecAAC :: AudioCodec
+pattern AudioCodecAAC = AudioCodec' "AAC"
 
-pattern Aac :: AudioCodec
-pattern Aac = AudioCodec' "AAC"
+pattern AudioCodecAC3 :: AudioCodec
+pattern AudioCodecAC3 = AudioCodec' "AC3"
 
-pattern Aiff :: AudioCodec
-pattern Aiff = AudioCodec' "AIFF"
+pattern AudioCodecAIFF :: AudioCodec
+pattern AudioCodecAIFF = AudioCodec' "AIFF"
 
-pattern EAC3 :: AudioCodec
-pattern EAC3 = AudioCodec' "EAC3"
+pattern AudioCodecEAC3 :: AudioCodec
+pattern AudioCodecEAC3 = AudioCodec' "EAC3"
 
-pattern EAC3Atmos :: AudioCodec
-pattern EAC3Atmos = AudioCodec' "EAC3_ATMOS"
+pattern AudioCodecEAC3ATMOS :: AudioCodec
+pattern AudioCodecEAC3ATMOS = AudioCodec' "EAC3_ATMOS"
 
-pattern MP2 :: AudioCodec
-pattern MP2 = AudioCodec' "MP2"
+pattern AudioCodecMP2 :: AudioCodec
+pattern AudioCodecMP2 = AudioCodec' "MP2"
 
-pattern MP3 :: AudioCodec
-pattern MP3 = AudioCodec' "MP3"
+pattern AudioCodecMP3 :: AudioCodec
+pattern AudioCodecMP3 = AudioCodec' "MP3"
 
-pattern Opus :: AudioCodec
-pattern Opus = AudioCodec' "OPUS"
+pattern AudioCodecOPUS :: AudioCodec
+pattern AudioCodecOPUS = AudioCodec' "OPUS"
 
-pattern Passthrough :: AudioCodec
-pattern Passthrough = AudioCodec' "PASSTHROUGH"
+pattern AudioCodecPASSTHROUGH :: AudioCodec
+pattern AudioCodecPASSTHROUGH = AudioCodec' "PASSTHROUGH"
 
-pattern Vorbis :: AudioCodec
-pattern Vorbis = AudioCodec' "VORBIS"
+pattern AudioCodecVORBIS :: AudioCodec
+pattern AudioCodecVORBIS = AudioCodec' "VORBIS"
 
-pattern Wav :: AudioCodec
-pattern Wav = AudioCodec' "WAV"
+pattern AudioCodecWAV :: AudioCodec
+pattern AudioCodecWAV = AudioCodec' "WAV"
 
 {-# COMPLETE
-  AC3,
-  Aac,
-  Aiff,
-  EAC3,
-  EAC3Atmos,
-  MP2,
-  MP3,
-  Opus,
-  Passthrough,
-  Vorbis,
-  Wav,
+  AudioCodecAAC,
+  AudioCodecAC3,
+  AudioCodecAIFF,
+  AudioCodecEAC3,
+  AudioCodecEAC3ATMOS,
+  AudioCodecMP2,
+  AudioCodecMP3,
+  AudioCodecOPUS,
+  AudioCodecPASSTHROUGH,
+  AudioCodecVORBIS,
+  AudioCodecWAV,
   AudioCodec'
   #-}
 
-instance FromText AudioCodec where
-  parser = (AudioCodec' . mk) <$> takeText
+instance Prelude.FromText AudioCodec where
+  parser = AudioCodec' Prelude.<$> Prelude.takeText
 
-instance ToText AudioCodec where
-  toText (AudioCodec' ci) = original ci
+instance Prelude.ToText AudioCodec where
+  toText (AudioCodec' x) = x
 
-instance Hashable AudioCodec
+instance Prelude.Hashable AudioCodec
 
-instance NFData AudioCodec
+instance Prelude.NFData AudioCodec
 
-instance ToByteString AudioCodec
+instance Prelude.ToByteString AudioCodec
 
-instance ToQuery AudioCodec
+instance Prelude.ToQuery AudioCodec
 
-instance ToHeader AudioCodec
+instance Prelude.ToHeader AudioCodec
 
-instance ToJSON AudioCodec where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioCodec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioCodec where
-  parseJSON = parseJSONText "AudioCodec"
+instance Prelude.FromJSON AudioCodec where
+  parseJSON = Prelude.parseJSONText "AudioCodec"

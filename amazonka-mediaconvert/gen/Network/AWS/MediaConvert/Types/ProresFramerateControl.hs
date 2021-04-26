@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,71 @@
 module Network.AWS.MediaConvert.Types.ProresFramerateControl
   ( ProresFramerateControl
       ( ..,
-        PFCInitializeFromSource,
-        PFCSpecified
+        ProresFramerateControlINITIALIZEFROMSOURCE,
+        ProresFramerateControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings FramerateNumerator and FramerateDenominator.
-data ProresFramerateControl
-  = ProresFramerateControl'
-      ( CI
-          Text
-      )
+-- | If you are using the console, use the Framerate setting to specify the
+-- frame rate for this output. If you want to keep the same frame rate as
+-- the input video, choose Follow source. If you want to do frame rate
+-- conversion, choose a frame rate from the dropdown list or choose Custom.
+-- The framerates shown in the dropdown list are decimal approximations of
+-- fractions. If you choose Custom, specify your frame rate as a fraction.
+-- If you are creating your transcoding job specification as a JSON file
+-- without the console, use FramerateControl to specify which value the
+-- service uses for the frame rate for this output. Choose
+-- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+-- from the input. Choose SPECIFIED if you want the service to use the
+-- frame rate you specify in the settings FramerateNumerator and
+-- FramerateDenominator.
+newtype ProresFramerateControl = ProresFramerateControl'
+  { fromProresFramerateControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PFCInitializeFromSource :: ProresFramerateControl
-pattern PFCInitializeFromSource = ProresFramerateControl' "INITIALIZE_FROM_SOURCE"
+pattern ProresFramerateControlINITIALIZEFROMSOURCE :: ProresFramerateControl
+pattern ProresFramerateControlINITIALIZEFROMSOURCE = ProresFramerateControl' "INITIALIZE_FROM_SOURCE"
 
-pattern PFCSpecified :: ProresFramerateControl
-pattern PFCSpecified = ProresFramerateControl' "SPECIFIED"
+pattern ProresFramerateControlSPECIFIED :: ProresFramerateControl
+pattern ProresFramerateControlSPECIFIED = ProresFramerateControl' "SPECIFIED"
 
 {-# COMPLETE
-  PFCInitializeFromSource,
-  PFCSpecified,
+  ProresFramerateControlINITIALIZEFROMSOURCE,
+  ProresFramerateControlSPECIFIED,
   ProresFramerateControl'
   #-}
 
-instance FromText ProresFramerateControl where
-  parser = (ProresFramerateControl' . mk) <$> takeText
+instance Prelude.FromText ProresFramerateControl where
+  parser = ProresFramerateControl' Prelude.<$> Prelude.takeText
 
-instance ToText ProresFramerateControl where
-  toText (ProresFramerateControl' ci) = original ci
+instance Prelude.ToText ProresFramerateControl where
+  toText (ProresFramerateControl' x) = x
 
-instance Hashable ProresFramerateControl
+instance Prelude.Hashable ProresFramerateControl
 
-instance NFData ProresFramerateControl
+instance Prelude.NFData ProresFramerateControl
 
-instance ToByteString ProresFramerateControl
+instance Prelude.ToByteString ProresFramerateControl
 
-instance ToQuery ProresFramerateControl
+instance Prelude.ToQuery ProresFramerateControl
 
-instance ToHeader ProresFramerateControl
+instance Prelude.ToHeader ProresFramerateControl
 
-instance ToJSON ProresFramerateControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProresFramerateControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProresFramerateControl where
-  parseJSON = parseJSONText "ProresFramerateControl"
+instance Prelude.FromJSON ProresFramerateControl where
+  parseJSON = Prelude.parseJSONText "ProresFramerateControl"

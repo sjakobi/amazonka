@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,81 @@
 module Network.AWS.MediaConvert.Types.Av1AdaptiveQuantization
   ( Av1AdaptiveQuantization
       ( ..,
-        AAQHigh,
-        AAQHigher,
-        AAQLow,
-        AAQMax,
-        AAQMedium,
-        AAQOff
+        Av1AdaptiveQuantizationHIGH,
+        Av1AdaptiveQuantizationHIGHER,
+        Av1AdaptiveQuantizationLOW,
+        Av1AdaptiveQuantizationMAX,
+        Av1AdaptiveQuantizationMEDIUM,
+        Av1AdaptiveQuantizationOFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to Spatial adaptive quantization (spatialAdaptiveQuantization).
-data Av1AdaptiveQuantization
-  = Av1AdaptiveQuantization'
-      ( CI
-          Text
-      )
+-- | Specify the strength of any adaptive quantization filters that you
+-- enable. The value that you choose here applies to Spatial adaptive
+-- quantization (spatialAdaptiveQuantization).
+newtype Av1AdaptiveQuantization = Av1AdaptiveQuantization'
+  { fromAv1AdaptiveQuantization ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AAQHigh :: Av1AdaptiveQuantization
-pattern AAQHigh = Av1AdaptiveQuantization' "HIGH"
+pattern Av1AdaptiveQuantizationHIGH :: Av1AdaptiveQuantization
+pattern Av1AdaptiveQuantizationHIGH = Av1AdaptiveQuantization' "HIGH"
 
-pattern AAQHigher :: Av1AdaptiveQuantization
-pattern AAQHigher = Av1AdaptiveQuantization' "HIGHER"
+pattern Av1AdaptiveQuantizationHIGHER :: Av1AdaptiveQuantization
+pattern Av1AdaptiveQuantizationHIGHER = Av1AdaptiveQuantization' "HIGHER"
 
-pattern AAQLow :: Av1AdaptiveQuantization
-pattern AAQLow = Av1AdaptiveQuantization' "LOW"
+pattern Av1AdaptiveQuantizationLOW :: Av1AdaptiveQuantization
+pattern Av1AdaptiveQuantizationLOW = Av1AdaptiveQuantization' "LOW"
 
-pattern AAQMax :: Av1AdaptiveQuantization
-pattern AAQMax = Av1AdaptiveQuantization' "MAX"
+pattern Av1AdaptiveQuantizationMAX :: Av1AdaptiveQuantization
+pattern Av1AdaptiveQuantizationMAX = Av1AdaptiveQuantization' "MAX"
 
-pattern AAQMedium :: Av1AdaptiveQuantization
-pattern AAQMedium = Av1AdaptiveQuantization' "MEDIUM"
+pattern Av1AdaptiveQuantizationMEDIUM :: Av1AdaptiveQuantization
+pattern Av1AdaptiveQuantizationMEDIUM = Av1AdaptiveQuantization' "MEDIUM"
 
-pattern AAQOff :: Av1AdaptiveQuantization
-pattern AAQOff = Av1AdaptiveQuantization' "OFF"
+pattern Av1AdaptiveQuantizationOFF :: Av1AdaptiveQuantization
+pattern Av1AdaptiveQuantizationOFF = Av1AdaptiveQuantization' "OFF"
 
 {-# COMPLETE
-  AAQHigh,
-  AAQHigher,
-  AAQLow,
-  AAQMax,
-  AAQMedium,
-  AAQOff,
+  Av1AdaptiveQuantizationHIGH,
+  Av1AdaptiveQuantizationHIGHER,
+  Av1AdaptiveQuantizationLOW,
+  Av1AdaptiveQuantizationMAX,
+  Av1AdaptiveQuantizationMEDIUM,
+  Av1AdaptiveQuantizationOFF,
   Av1AdaptiveQuantization'
   #-}
 
-instance FromText Av1AdaptiveQuantization where
-  parser = (Av1AdaptiveQuantization' . mk) <$> takeText
+instance Prelude.FromText Av1AdaptiveQuantization where
+  parser = Av1AdaptiveQuantization' Prelude.<$> Prelude.takeText
 
-instance ToText Av1AdaptiveQuantization where
-  toText (Av1AdaptiveQuantization' ci) = original ci
+instance Prelude.ToText Av1AdaptiveQuantization where
+  toText (Av1AdaptiveQuantization' x) = x
 
-instance Hashable Av1AdaptiveQuantization
+instance Prelude.Hashable Av1AdaptiveQuantization
 
-instance NFData Av1AdaptiveQuantization
+instance Prelude.NFData Av1AdaptiveQuantization
 
-instance ToByteString Av1AdaptiveQuantization
+instance Prelude.ToByteString Av1AdaptiveQuantization
 
-instance ToQuery Av1AdaptiveQuantization
+instance Prelude.ToQuery Av1AdaptiveQuantization
 
-instance ToHeader Av1AdaptiveQuantization
+instance Prelude.ToHeader Av1AdaptiveQuantization
 
-instance ToJSON Av1AdaptiveQuantization where
-  toJSON = toJSONText
+instance Prelude.ToJSON Av1AdaptiveQuantization where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Av1AdaptiveQuantization where
-  parseJSON = parseJSONText "Av1AdaptiveQuantization"
+instance Prelude.FromJSON Av1AdaptiveQuantization where
+  parseJSON = Prelude.parseJSONText "Av1AdaptiveQuantization"

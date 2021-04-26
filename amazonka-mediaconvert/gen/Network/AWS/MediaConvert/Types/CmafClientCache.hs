@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.CmafClientCache
   ( CmafClientCache
       ( ..,
-        CCCDisabled,
-        CCCEnabled
+        CmafClientCacheDISABLED,
+        CmafClientCacheENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Disable this setting only when your workflow requires the #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default value Enabled (ENABLED) and control caching in your video distribution set up. For example, use the Cache-Control http header.
-data CmafClientCache = CmafClientCache' (CI Text)
+-- | Disable this setting only when your workflow requires the
+-- #EXT-X-ALLOW-CACHE:no tag. Otherwise, keep the default value Enabled
+-- (ENABLED) and control caching in your video distribution set up. For
+-- example, use the Cache-Control http header.
+newtype CmafClientCache = CmafClientCache'
+  { fromCmafClientCache ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CCCDisabled :: CmafClientCache
-pattern CCCDisabled = CmafClientCache' "DISABLED"
+pattern CmafClientCacheDISABLED :: CmafClientCache
+pattern CmafClientCacheDISABLED = CmafClientCache' "DISABLED"
 
-pattern CCCEnabled :: CmafClientCache
-pattern CCCEnabled = CmafClientCache' "ENABLED"
+pattern CmafClientCacheENABLED :: CmafClientCache
+pattern CmafClientCacheENABLED = CmafClientCache' "ENABLED"
 
 {-# COMPLETE
-  CCCDisabled,
-  CCCEnabled,
+  CmafClientCacheDISABLED,
+  CmafClientCacheENABLED,
   CmafClientCache'
   #-}
 
-instance FromText CmafClientCache where
-  parser = (CmafClientCache' . mk) <$> takeText
+instance Prelude.FromText CmafClientCache where
+  parser = CmafClientCache' Prelude.<$> Prelude.takeText
 
-instance ToText CmafClientCache where
-  toText (CmafClientCache' ci) = original ci
+instance Prelude.ToText CmafClientCache where
+  toText (CmafClientCache' x) = x
 
-instance Hashable CmafClientCache
+instance Prelude.Hashable CmafClientCache
 
-instance NFData CmafClientCache
+instance Prelude.NFData CmafClientCache
 
-instance ToByteString CmafClientCache
+instance Prelude.ToByteString CmafClientCache
 
-instance ToQuery CmafClientCache
+instance Prelude.ToQuery CmafClientCache
 
-instance ToHeader CmafClientCache
+instance Prelude.ToHeader CmafClientCache
 
-instance ToJSON CmafClientCache where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafClientCache where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafClientCache where
-  parseJSON = parseJSONText "CmafClientCache"
+instance Prelude.FromJSON CmafClientCache where
+  parseJSON = Prelude.parseJSONText "CmafClientCache"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,65 @@
 module Network.AWS.MediaConvert.Types.DashIsoPlaybackDeviceCompatibility
   ( DashIsoPlaybackDeviceCompatibility
       ( ..,
-        CencV1,
-        UnencryptedSei
+        DashIsoPlaybackDeviceCompatibilityCENCV1,
+        DashIsoPlaybackDeviceCompatibilityUNENCRYPTEDSEI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | This setting can improve the compatibility of your output with video players on obsolete devices. It applies only to DASH H.264 outputs with DRM encryption. Choose Unencrypted SEI (UNENCRYPTED_SEI) only to correct problems with playback on older devices. Otherwise, keep the default setting CENC v1 (CENC_V1). If you choose Unencrypted SEI, for that output, the service will exclude the access unit delimiter and will leave the SEI NAL units unencrypted.
-data DashIsoPlaybackDeviceCompatibility
-  = DashIsoPlaybackDeviceCompatibility'
-      ( CI
-          Text
-      )
+-- | This setting can improve the compatibility of your output with video
+-- players on obsolete devices. It applies only to DASH H.264 outputs with
+-- DRM encryption. Choose Unencrypted SEI (UNENCRYPTED_SEI) only to correct
+-- problems with playback on older devices. Otherwise, keep the default
+-- setting CENC v1 (CENC_V1). If you choose Unencrypted SEI, for that
+-- output, the service will exclude the access unit delimiter and will
+-- leave the SEI NAL units unencrypted.
+newtype DashIsoPlaybackDeviceCompatibility = DashIsoPlaybackDeviceCompatibility'
+  { fromDashIsoPlaybackDeviceCompatibility ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CencV1 :: DashIsoPlaybackDeviceCompatibility
-pattern CencV1 = DashIsoPlaybackDeviceCompatibility' "CENC_V1"
+pattern DashIsoPlaybackDeviceCompatibilityCENCV1 :: DashIsoPlaybackDeviceCompatibility
+pattern DashIsoPlaybackDeviceCompatibilityCENCV1 = DashIsoPlaybackDeviceCompatibility' "CENC_V1"
 
-pattern UnencryptedSei :: DashIsoPlaybackDeviceCompatibility
-pattern UnencryptedSei = DashIsoPlaybackDeviceCompatibility' "UNENCRYPTED_SEI"
+pattern DashIsoPlaybackDeviceCompatibilityUNENCRYPTEDSEI :: DashIsoPlaybackDeviceCompatibility
+pattern DashIsoPlaybackDeviceCompatibilityUNENCRYPTEDSEI = DashIsoPlaybackDeviceCompatibility' "UNENCRYPTED_SEI"
 
 {-# COMPLETE
-  CencV1,
-  UnencryptedSei,
+  DashIsoPlaybackDeviceCompatibilityCENCV1,
+  DashIsoPlaybackDeviceCompatibilityUNENCRYPTEDSEI,
   DashIsoPlaybackDeviceCompatibility'
   #-}
 
-instance FromText DashIsoPlaybackDeviceCompatibility where
-  parser = (DashIsoPlaybackDeviceCompatibility' . mk) <$> takeText
+instance Prelude.FromText DashIsoPlaybackDeviceCompatibility where
+  parser = DashIsoPlaybackDeviceCompatibility' Prelude.<$> Prelude.takeText
 
-instance ToText DashIsoPlaybackDeviceCompatibility where
-  toText (DashIsoPlaybackDeviceCompatibility' ci) = original ci
+instance Prelude.ToText DashIsoPlaybackDeviceCompatibility where
+  toText (DashIsoPlaybackDeviceCompatibility' x) = x
 
-instance Hashable DashIsoPlaybackDeviceCompatibility
+instance Prelude.Hashable DashIsoPlaybackDeviceCompatibility
 
-instance NFData DashIsoPlaybackDeviceCompatibility
+instance Prelude.NFData DashIsoPlaybackDeviceCompatibility
 
-instance ToByteString DashIsoPlaybackDeviceCompatibility
+instance Prelude.ToByteString DashIsoPlaybackDeviceCompatibility
 
-instance ToQuery DashIsoPlaybackDeviceCompatibility
+instance Prelude.ToQuery DashIsoPlaybackDeviceCompatibility
 
-instance ToHeader DashIsoPlaybackDeviceCompatibility
+instance Prelude.ToHeader DashIsoPlaybackDeviceCompatibility
 
-instance ToJSON DashIsoPlaybackDeviceCompatibility where
-  toJSON = toJSONText
+instance Prelude.ToJSON DashIsoPlaybackDeviceCompatibility where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DashIsoPlaybackDeviceCompatibility where
-  parseJSON = parseJSONText "DashIsoPlaybackDeviceCompatibility"
+instance Prelude.FromJSON DashIsoPlaybackDeviceCompatibility where
+  parseJSON = Prelude.parseJSONText "DashIsoPlaybackDeviceCompatibility"

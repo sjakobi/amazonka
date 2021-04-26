@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.Mpeg2CodecProfile
   ( Mpeg2CodecProfile
       ( ..,
-        Main,
-        Profile422
+        Mpeg2CodecProfileMAIN,
+        Mpeg2CodecProfilePROFILE422
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Profile (Mpeg2CodecProfile) to set the MPEG-2 profile for the video output.
-data Mpeg2CodecProfile = Mpeg2CodecProfile' (CI Text)
+-- | Use Profile (Mpeg2CodecProfile) to set the MPEG-2 profile for the video
+-- output.
+newtype Mpeg2CodecProfile = Mpeg2CodecProfile'
+  { fromMpeg2CodecProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Main :: Mpeg2CodecProfile
-pattern Main = Mpeg2CodecProfile' "MAIN"
+pattern Mpeg2CodecProfileMAIN :: Mpeg2CodecProfile
+pattern Mpeg2CodecProfileMAIN = Mpeg2CodecProfile' "MAIN"
 
-pattern Profile422 :: Mpeg2CodecProfile
-pattern Profile422 = Mpeg2CodecProfile' "PROFILE_422"
+pattern Mpeg2CodecProfilePROFILE422 :: Mpeg2CodecProfile
+pattern Mpeg2CodecProfilePROFILE422 = Mpeg2CodecProfile' "PROFILE_422"
 
 {-# COMPLETE
-  Main,
-  Profile422,
+  Mpeg2CodecProfileMAIN,
+  Mpeg2CodecProfilePROFILE422,
   Mpeg2CodecProfile'
   #-}
 
-instance FromText Mpeg2CodecProfile where
-  parser = (Mpeg2CodecProfile' . mk) <$> takeText
+instance Prelude.FromText Mpeg2CodecProfile where
+  parser = Mpeg2CodecProfile' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2CodecProfile where
-  toText (Mpeg2CodecProfile' ci) = original ci
+instance Prelude.ToText Mpeg2CodecProfile where
+  toText (Mpeg2CodecProfile' x) = x
 
-instance Hashable Mpeg2CodecProfile
+instance Prelude.Hashable Mpeg2CodecProfile
 
-instance NFData Mpeg2CodecProfile
+instance Prelude.NFData Mpeg2CodecProfile
 
-instance ToByteString Mpeg2CodecProfile
+instance Prelude.ToByteString Mpeg2CodecProfile
 
-instance ToQuery Mpeg2CodecProfile
+instance Prelude.ToQuery Mpeg2CodecProfile
 
-instance ToHeader Mpeg2CodecProfile
+instance Prelude.ToHeader Mpeg2CodecProfile
 
-instance ToJSON Mpeg2CodecProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2CodecProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2CodecProfile where
-  parseJSON = parseJSONText "Mpeg2CodecProfile"
+instance Prelude.FromJSON Mpeg2CodecProfile where
+  parseJSON = Prelude.parseJSONText "Mpeg2CodecProfile"

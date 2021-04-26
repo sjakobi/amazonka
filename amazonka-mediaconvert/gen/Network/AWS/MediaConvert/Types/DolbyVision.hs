@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.DolbyVision where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.DolbyVisionLevel6Metadata
 import Network.AWS.MediaConvert.Types.DolbyVisionLevel6Mode
 import Network.AWS.MediaConvert.Types.DolbyVisionProfile
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for Dolby Vision
 --
--- /See:/ 'dolbyVision' smart constructor.
+-- /See:/ 'newDolbyVision' smart constructor.
 data DolbyVision = DolbyVision'
-  { _dvL6Mode ::
-      !(Maybe DolbyVisionLevel6Mode),
-    _dvL6Metadata ::
-      !(Maybe DolbyVisionLevel6Metadata),
-    _dvProfile :: !(Maybe DolbyVisionProfile)
+  { -- | Use Dolby Vision Mode to choose how the service will handle Dolby Vision
+    -- MaxCLL and MaxFALL properies.
+    l6Mode :: Prelude.Maybe DolbyVisionLevel6Mode,
+    -- | Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to
+    -- override the MaxCLL and MaxFALL values in your input with new values.
+    l6Metadata :: Prelude.Maybe DolbyVisionLevel6Metadata,
+    -- | In the current MediaConvert implementation, the Dolby Vision profile is
+    -- always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby
+    -- Vision frame interleaved data.
+    profile :: Prelude.Maybe DolbyVisionProfile
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DolbyVision' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DolbyVision' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dvL6Mode' - Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dvL6Metadata' - Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to override the MaxCLL and MaxFALL values in your input with new values.
+-- 'l6Mode', 'dolbyVision_l6Mode' - Use Dolby Vision Mode to choose how the service will handle Dolby Vision
+-- MaxCLL and MaxFALL properies.
 --
--- * 'dvProfile' - In the current MediaConvert implementation, the Dolby Vision profile is always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby Vision frame interleaved data.
-dolbyVision ::
+-- 'l6Metadata', 'dolbyVision_l6Metadata' - Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to
+-- override the MaxCLL and MaxFALL values in your input with new values.
+--
+-- 'profile', 'dolbyVision_profile' - In the current MediaConvert implementation, the Dolby Vision profile is
+-- always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby
+-- Vision frame interleaved data.
+newDolbyVision ::
   DolbyVision
-dolbyVision =
+newDolbyVision =
   DolbyVision'
-    { _dvL6Mode = Nothing,
-      _dvL6Metadata = Nothing,
-      _dvProfile = Nothing
+    { l6Mode = Prelude.Nothing,
+      l6Metadata = Prelude.Nothing,
+      profile = Prelude.Nothing
     }
 
--- | Use Dolby Vision Mode to choose how the service will handle Dolby Vision MaxCLL and MaxFALL properies.
-dvL6Mode :: Lens' DolbyVision (Maybe DolbyVisionLevel6Mode)
-dvL6Mode = lens _dvL6Mode (\s a -> s {_dvL6Mode = a})
+-- | Use Dolby Vision Mode to choose how the service will handle Dolby Vision
+-- MaxCLL and MaxFALL properies.
+dolbyVision_l6Mode :: Lens.Lens' DolbyVision (Prelude.Maybe DolbyVisionLevel6Mode)
+dolbyVision_l6Mode = Lens.lens (\DolbyVision' {l6Mode} -> l6Mode) (\s@DolbyVision' {} a -> s {l6Mode = a} :: DolbyVision)
 
--- | Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to override the MaxCLL and MaxFALL values in your input with new values.
-dvL6Metadata :: Lens' DolbyVision (Maybe DolbyVisionLevel6Metadata)
-dvL6Metadata = lens _dvL6Metadata (\s a -> s {_dvL6Metadata = a})
+-- | Use these settings when you set DolbyVisionLevel6Mode to SPECIFY to
+-- override the MaxCLL and MaxFALL values in your input with new values.
+dolbyVision_l6Metadata :: Lens.Lens' DolbyVision (Prelude.Maybe DolbyVisionLevel6Metadata)
+dolbyVision_l6Metadata = Lens.lens (\DolbyVision' {l6Metadata} -> l6Metadata) (\s@DolbyVision' {} a -> s {l6Metadata = a} :: DolbyVision)
 
--- | In the current MediaConvert implementation, the Dolby Vision profile is always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby Vision frame interleaved data.
-dvProfile :: Lens' DolbyVision (Maybe DolbyVisionProfile)
-dvProfile = lens _dvProfile (\s a -> s {_dvProfile = a})
+-- | In the current MediaConvert implementation, the Dolby Vision profile is
+-- always 5 (PROFILE_5). Therefore, all of your inputs must contain Dolby
+-- Vision frame interleaved data.
+dolbyVision_profile :: Lens.Lens' DolbyVision (Prelude.Maybe DolbyVisionProfile)
+dolbyVision_profile = Lens.lens (\DolbyVision' {profile} -> profile) (\s@DolbyVision' {} a -> s {profile = a} :: DolbyVision)
 
-instance FromJSON DolbyVision where
+instance Prelude.FromJSON DolbyVision where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DolbyVision"
       ( \x ->
           DolbyVision'
-            <$> (x .:? "l6Mode")
-            <*> (x .:? "l6Metadata")
-            <*> (x .:? "profile")
+            Prelude.<$> (x Prelude..:? "l6Mode")
+            Prelude.<*> (x Prelude..:? "l6Metadata")
+            Prelude.<*> (x Prelude..:? "profile")
       )
 
-instance Hashable DolbyVision
+instance Prelude.Hashable DolbyVision
 
-instance NFData DolbyVision
+instance Prelude.NFData DolbyVision
 
-instance ToJSON DolbyVision where
+instance Prelude.ToJSON DolbyVision where
   toJSON DolbyVision' {..} =
-    object
-      ( catMaybes
-          [ ("l6Mode" .=) <$> _dvL6Mode,
-            ("l6Metadata" .=) <$> _dvL6Metadata,
-            ("profile" .=) <$> _dvProfile
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("l6Mode" Prelude..=) Prelude.<$> l6Mode,
+            ("l6Metadata" Prelude..=) Prelude.<$> l6Metadata,
+            ("profile" Prelude..=) Prelude.<$> profile
           ]
       )

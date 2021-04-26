@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,117 +19,119 @@
 module Network.AWS.MediaConvert.Types.H265CodecLevel
   ( H265CodecLevel
       ( ..,
-        HAuto,
-        HLevel1,
-        HLevel2,
-        HLevel21,
-        HLevel3,
-        HLevel31,
-        HLevel4,
-        HLevel41,
-        HLevel5,
-        HLevel51,
-        HLevel52,
-        HLevel6,
-        HLevel61,
-        HLevel62
+        H265CodecLevelAUTO,
+        H265CodecLevelLEVEL1,
+        H265CodecLevelLEVEL2,
+        H265CodecLevelLEVEL21,
+        H265CodecLevelLEVEL3,
+        H265CodecLevelLEVEL31,
+        H265CodecLevelLEVEL4,
+        H265CodecLevelLEVEL41,
+        H265CodecLevelLEVEL5,
+        H265CodecLevelLEVEL51,
+        H265CodecLevelLEVEL52,
+        H265CodecLevelLEVEL6,
+        H265CodecLevelLEVEL61,
+        H265CodecLevelLEVEL62
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H.265 Level.
-data H265CodecLevel = H265CodecLevel' (CI Text)
+newtype H265CodecLevel = H265CodecLevel'
+  { fromH265CodecLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HAuto :: H265CodecLevel
-pattern HAuto = H265CodecLevel' "AUTO"
+pattern H265CodecLevelAUTO :: H265CodecLevel
+pattern H265CodecLevelAUTO = H265CodecLevel' "AUTO"
 
-pattern HLevel1 :: H265CodecLevel
-pattern HLevel1 = H265CodecLevel' "LEVEL_1"
+pattern H265CodecLevelLEVEL1 :: H265CodecLevel
+pattern H265CodecLevelLEVEL1 = H265CodecLevel' "LEVEL_1"
 
-pattern HLevel2 :: H265CodecLevel
-pattern HLevel2 = H265CodecLevel' "LEVEL_2"
+pattern H265CodecLevelLEVEL2 :: H265CodecLevel
+pattern H265CodecLevelLEVEL2 = H265CodecLevel' "LEVEL_2"
 
-pattern HLevel21 :: H265CodecLevel
-pattern HLevel21 = H265CodecLevel' "LEVEL_2_1"
+pattern H265CodecLevelLEVEL21 :: H265CodecLevel
+pattern H265CodecLevelLEVEL21 = H265CodecLevel' "LEVEL_2_1"
 
-pattern HLevel3 :: H265CodecLevel
-pattern HLevel3 = H265CodecLevel' "LEVEL_3"
+pattern H265CodecLevelLEVEL3 :: H265CodecLevel
+pattern H265CodecLevelLEVEL3 = H265CodecLevel' "LEVEL_3"
 
-pattern HLevel31 :: H265CodecLevel
-pattern HLevel31 = H265CodecLevel' "LEVEL_3_1"
+pattern H265CodecLevelLEVEL31 :: H265CodecLevel
+pattern H265CodecLevelLEVEL31 = H265CodecLevel' "LEVEL_3_1"
 
-pattern HLevel4 :: H265CodecLevel
-pattern HLevel4 = H265CodecLevel' "LEVEL_4"
+pattern H265CodecLevelLEVEL4 :: H265CodecLevel
+pattern H265CodecLevelLEVEL4 = H265CodecLevel' "LEVEL_4"
 
-pattern HLevel41 :: H265CodecLevel
-pattern HLevel41 = H265CodecLevel' "LEVEL_4_1"
+pattern H265CodecLevelLEVEL41 :: H265CodecLevel
+pattern H265CodecLevelLEVEL41 = H265CodecLevel' "LEVEL_4_1"
 
-pattern HLevel5 :: H265CodecLevel
-pattern HLevel5 = H265CodecLevel' "LEVEL_5"
+pattern H265CodecLevelLEVEL5 :: H265CodecLevel
+pattern H265CodecLevelLEVEL5 = H265CodecLevel' "LEVEL_5"
 
-pattern HLevel51 :: H265CodecLevel
-pattern HLevel51 = H265CodecLevel' "LEVEL_5_1"
+pattern H265CodecLevelLEVEL51 :: H265CodecLevel
+pattern H265CodecLevelLEVEL51 = H265CodecLevel' "LEVEL_5_1"
 
-pattern HLevel52 :: H265CodecLevel
-pattern HLevel52 = H265CodecLevel' "LEVEL_5_2"
+pattern H265CodecLevelLEVEL52 :: H265CodecLevel
+pattern H265CodecLevelLEVEL52 = H265CodecLevel' "LEVEL_5_2"
 
-pattern HLevel6 :: H265CodecLevel
-pattern HLevel6 = H265CodecLevel' "LEVEL_6"
+pattern H265CodecLevelLEVEL6 :: H265CodecLevel
+pattern H265CodecLevelLEVEL6 = H265CodecLevel' "LEVEL_6"
 
-pattern HLevel61 :: H265CodecLevel
-pattern HLevel61 = H265CodecLevel' "LEVEL_6_1"
+pattern H265CodecLevelLEVEL61 :: H265CodecLevel
+pattern H265CodecLevelLEVEL61 = H265CodecLevel' "LEVEL_6_1"
 
-pattern HLevel62 :: H265CodecLevel
-pattern HLevel62 = H265CodecLevel' "LEVEL_6_2"
+pattern H265CodecLevelLEVEL62 :: H265CodecLevel
+pattern H265CodecLevelLEVEL62 = H265CodecLevel' "LEVEL_6_2"
 
 {-# COMPLETE
-  HAuto,
-  HLevel1,
-  HLevel2,
-  HLevel21,
-  HLevel3,
-  HLevel31,
-  HLevel4,
-  HLevel41,
-  HLevel5,
-  HLevel51,
-  HLevel52,
-  HLevel6,
-  HLevel61,
-  HLevel62,
+  H265CodecLevelAUTO,
+  H265CodecLevelLEVEL1,
+  H265CodecLevelLEVEL2,
+  H265CodecLevelLEVEL21,
+  H265CodecLevelLEVEL3,
+  H265CodecLevelLEVEL31,
+  H265CodecLevelLEVEL4,
+  H265CodecLevelLEVEL41,
+  H265CodecLevelLEVEL5,
+  H265CodecLevelLEVEL51,
+  H265CodecLevelLEVEL52,
+  H265CodecLevelLEVEL6,
+  H265CodecLevelLEVEL61,
+  H265CodecLevelLEVEL62,
   H265CodecLevel'
   #-}
 
-instance FromText H265CodecLevel where
-  parser = (H265CodecLevel' . mk) <$> takeText
+instance Prelude.FromText H265CodecLevel where
+  parser = H265CodecLevel' Prelude.<$> Prelude.takeText
 
-instance ToText H265CodecLevel where
-  toText (H265CodecLevel' ci) = original ci
+instance Prelude.ToText H265CodecLevel where
+  toText (H265CodecLevel' x) = x
 
-instance Hashable H265CodecLevel
+instance Prelude.Hashable H265CodecLevel
 
-instance NFData H265CodecLevel
+instance Prelude.NFData H265CodecLevel
 
-instance ToByteString H265CodecLevel
+instance Prelude.ToByteString H265CodecLevel
 
-instance ToQuery H265CodecLevel
+instance Prelude.ToQuery H265CodecLevel
 
-instance ToHeader H265CodecLevel
+instance Prelude.ToHeader H265CodecLevel
 
-instance ToJSON H265CodecLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265CodecLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265CodecLevel where
-  parseJSON = parseJSONText "H265CodecLevel"
+instance Prelude.FromJSON H265CodecLevel where
+  parseJSON = Prelude.parseJSONText "H265CodecLevel"

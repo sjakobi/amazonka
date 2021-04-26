@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,65 @@
 module Network.AWS.MediaConvert.Types.Vc3SlowPal
   ( Vc3SlowPal
       ( ..,
-        VSPDisabled,
-        VSPEnabled
+        Vc3SlowPalDISABLED,
+        Vc3SlowPalENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a 25 fps output by relabeling the video frames and resampling your audio. Note that enabling this setting will slightly reduce the duration of your video. Related settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
-data Vc3SlowPal = Vc3SlowPal' (CI Text)
+-- | Ignore this setting unless your input frame rate is 23.976 or 24 frames
+-- per second (fps). Enable slow PAL to create a 25 fps output by
+-- relabeling the video frames and resampling your audio. Note that
+-- enabling this setting will slightly reduce the duration of your video.
+-- Related settings: You must also set Framerate to 25. In your JSON job
+-- specification, set (framerateControl) to (SPECIFIED),
+-- (framerateNumerator) to 25 and (framerateDenominator) to 1.
+newtype Vc3SlowPal = Vc3SlowPal'
+  { fromVc3SlowPal ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VSPDisabled :: Vc3SlowPal
-pattern VSPDisabled = Vc3SlowPal' "DISABLED"
+pattern Vc3SlowPalDISABLED :: Vc3SlowPal
+pattern Vc3SlowPalDISABLED = Vc3SlowPal' "DISABLED"
 
-pattern VSPEnabled :: Vc3SlowPal
-pattern VSPEnabled = Vc3SlowPal' "ENABLED"
+pattern Vc3SlowPalENABLED :: Vc3SlowPal
+pattern Vc3SlowPalENABLED = Vc3SlowPal' "ENABLED"
 
 {-# COMPLETE
-  VSPDisabled,
-  VSPEnabled,
+  Vc3SlowPalDISABLED,
+  Vc3SlowPalENABLED,
   Vc3SlowPal'
   #-}
 
-instance FromText Vc3SlowPal where
-  parser = (Vc3SlowPal' . mk) <$> takeText
+instance Prelude.FromText Vc3SlowPal where
+  parser = Vc3SlowPal' Prelude.<$> Prelude.takeText
 
-instance ToText Vc3SlowPal where
-  toText (Vc3SlowPal' ci) = original ci
+instance Prelude.ToText Vc3SlowPal where
+  toText (Vc3SlowPal' x) = x
 
-instance Hashable Vc3SlowPal
+instance Prelude.Hashable Vc3SlowPal
 
-instance NFData Vc3SlowPal
+instance Prelude.NFData Vc3SlowPal
 
-instance ToByteString Vc3SlowPal
+instance Prelude.ToByteString Vc3SlowPal
 
-instance ToQuery Vc3SlowPal
+instance Prelude.ToQuery Vc3SlowPal
 
-instance ToHeader Vc3SlowPal
+instance Prelude.ToHeader Vc3SlowPal
 
-instance ToJSON Vc3SlowPal where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vc3SlowPal where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vc3SlowPal where
-  parseJSON = parseJSONText "Vc3SlowPal"
+instance Prelude.FromJSON Vc3SlowPal where
+  parseJSON = Prelude.parseJSONText "Vc3SlowPal"

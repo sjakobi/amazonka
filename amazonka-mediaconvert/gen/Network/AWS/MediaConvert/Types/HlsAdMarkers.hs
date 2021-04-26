@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.MediaConvert.Types.HlsAdMarkers
   ( HlsAdMarkers
       ( ..,
-        Elemental,
-        ElementalSCTE35
+        HlsAdMarkersELEMENTAL,
+        HlsAdMarkersELEMENTALSCTE35
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HlsAdMarkers = HlsAdMarkers' (CI Text)
+newtype HlsAdMarkers = HlsAdMarkers'
+  { fromHlsAdMarkers ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Elemental :: HlsAdMarkers
-pattern Elemental = HlsAdMarkers' "ELEMENTAL"
+pattern HlsAdMarkersELEMENTAL :: HlsAdMarkers
+pattern HlsAdMarkersELEMENTAL = HlsAdMarkers' "ELEMENTAL"
 
-pattern ElementalSCTE35 :: HlsAdMarkers
-pattern ElementalSCTE35 = HlsAdMarkers' "ELEMENTAL_SCTE35"
+pattern HlsAdMarkersELEMENTALSCTE35 :: HlsAdMarkers
+pattern HlsAdMarkersELEMENTALSCTE35 = HlsAdMarkers' "ELEMENTAL_SCTE35"
 
 {-# COMPLETE
-  Elemental,
-  ElementalSCTE35,
+  HlsAdMarkersELEMENTAL,
+  HlsAdMarkersELEMENTALSCTE35,
   HlsAdMarkers'
   #-}
 
-instance FromText HlsAdMarkers where
-  parser = (HlsAdMarkers' . mk) <$> takeText
+instance Prelude.FromText HlsAdMarkers where
+  parser = HlsAdMarkers' Prelude.<$> Prelude.takeText
 
-instance ToText HlsAdMarkers where
-  toText (HlsAdMarkers' ci) = original ci
+instance Prelude.ToText HlsAdMarkers where
+  toText (HlsAdMarkers' x) = x
 
-instance Hashable HlsAdMarkers
+instance Prelude.Hashable HlsAdMarkers
 
-instance NFData HlsAdMarkers
+instance Prelude.NFData HlsAdMarkers
 
-instance ToByteString HlsAdMarkers
+instance Prelude.ToByteString HlsAdMarkers
 
-instance ToQuery HlsAdMarkers
+instance Prelude.ToQuery HlsAdMarkers
 
-instance ToHeader HlsAdMarkers
+instance Prelude.ToHeader HlsAdMarkers
 
-instance ToJSON HlsAdMarkers where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsAdMarkers where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsAdMarkers where
-  parseJSON = parseJSONText "HlsAdMarkers"
+instance Prelude.FromJSON HlsAdMarkers where
+  parseJSON = Prelude.parseJSONText "HlsAdMarkers"

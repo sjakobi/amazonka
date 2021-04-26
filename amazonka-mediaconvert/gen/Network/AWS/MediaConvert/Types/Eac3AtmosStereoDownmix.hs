@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,69 @@
 module Network.AWS.MediaConvert.Types.Eac3AtmosStereoDownmix
   ( Eac3AtmosStereoDownmix
       ( ..,
-        EASDDPL2,
-        EASDNotIndicated,
-        EASDStereo,
-        EASDSurround
+        Eac3AtmosStereoDownmixDPL2,
+        Eac3AtmosStereoDownmixNOTINDICATED,
+        Eac3AtmosStereoDownmixSTEREO,
+        Eac3AtmosStereoDownmixSURROUND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Choose how the service does stereo downmixing.
-data Eac3AtmosStereoDownmix
-  = Eac3AtmosStereoDownmix'
-      ( CI
-          Text
-      )
+newtype Eac3AtmosStereoDownmix = Eac3AtmosStereoDownmix'
+  { fromEac3AtmosStereoDownmix ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EASDDPL2 :: Eac3AtmosStereoDownmix
-pattern EASDDPL2 = Eac3AtmosStereoDownmix' "DPL2"
+pattern Eac3AtmosStereoDownmixDPL2 :: Eac3AtmosStereoDownmix
+pattern Eac3AtmosStereoDownmixDPL2 = Eac3AtmosStereoDownmix' "DPL2"
 
-pattern EASDNotIndicated :: Eac3AtmosStereoDownmix
-pattern EASDNotIndicated = Eac3AtmosStereoDownmix' "NOT_INDICATED"
+pattern Eac3AtmosStereoDownmixNOTINDICATED :: Eac3AtmosStereoDownmix
+pattern Eac3AtmosStereoDownmixNOTINDICATED = Eac3AtmosStereoDownmix' "NOT_INDICATED"
 
-pattern EASDStereo :: Eac3AtmosStereoDownmix
-pattern EASDStereo = Eac3AtmosStereoDownmix' "STEREO"
+pattern Eac3AtmosStereoDownmixSTEREO :: Eac3AtmosStereoDownmix
+pattern Eac3AtmosStereoDownmixSTEREO = Eac3AtmosStereoDownmix' "STEREO"
 
-pattern EASDSurround :: Eac3AtmosStereoDownmix
-pattern EASDSurround = Eac3AtmosStereoDownmix' "SURROUND"
+pattern Eac3AtmosStereoDownmixSURROUND :: Eac3AtmosStereoDownmix
+pattern Eac3AtmosStereoDownmixSURROUND = Eac3AtmosStereoDownmix' "SURROUND"
 
 {-# COMPLETE
-  EASDDPL2,
-  EASDNotIndicated,
-  EASDStereo,
-  EASDSurround,
+  Eac3AtmosStereoDownmixDPL2,
+  Eac3AtmosStereoDownmixNOTINDICATED,
+  Eac3AtmosStereoDownmixSTEREO,
+  Eac3AtmosStereoDownmixSURROUND,
   Eac3AtmosStereoDownmix'
   #-}
 
-instance FromText Eac3AtmosStereoDownmix where
-  parser = (Eac3AtmosStereoDownmix' . mk) <$> takeText
+instance Prelude.FromText Eac3AtmosStereoDownmix where
+  parser = Eac3AtmosStereoDownmix' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3AtmosStereoDownmix where
-  toText (Eac3AtmosStereoDownmix' ci) = original ci
+instance Prelude.ToText Eac3AtmosStereoDownmix where
+  toText (Eac3AtmosStereoDownmix' x) = x
 
-instance Hashable Eac3AtmosStereoDownmix
+instance Prelude.Hashable Eac3AtmosStereoDownmix
 
-instance NFData Eac3AtmosStereoDownmix
+instance Prelude.NFData Eac3AtmosStereoDownmix
 
-instance ToByteString Eac3AtmosStereoDownmix
+instance Prelude.ToByteString Eac3AtmosStereoDownmix
 
-instance ToQuery Eac3AtmosStereoDownmix
+instance Prelude.ToQuery Eac3AtmosStereoDownmix
 
-instance ToHeader Eac3AtmosStereoDownmix
+instance Prelude.ToHeader Eac3AtmosStereoDownmix
 
-instance ToJSON Eac3AtmosStereoDownmix where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3AtmosStereoDownmix where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3AtmosStereoDownmix where
-  parseJSON = parseJSONText "Eac3AtmosStereoDownmix"
+instance Prelude.FromJSON Eac3AtmosStereoDownmix where
+  parseJSON = Prelude.parseJSONText "Eac3AtmosStereoDownmix"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.EmbeddedTerminateCaptions
   ( EmbeddedTerminateCaptions
       ( ..,
-        ETCDisabled,
-        ETCEndOfInput
+        EmbeddedTerminateCaptionsDISABLED,
+        EmbeddedTerminateCaptionsENDOFINPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | By default, the service terminates any unterminated captions at the end of each input. If you want the caption to continue onto your next input, disable this setting.
-data EmbeddedTerminateCaptions
-  = EmbeddedTerminateCaptions'
-      ( CI
-          Text
-      )
+-- | By default, the service terminates any unterminated captions at the end
+-- of each input. If you want the caption to continue onto your next input,
+-- disable this setting.
+newtype EmbeddedTerminateCaptions = EmbeddedTerminateCaptions'
+  { fromEmbeddedTerminateCaptions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ETCDisabled :: EmbeddedTerminateCaptions
-pattern ETCDisabled = EmbeddedTerminateCaptions' "DISABLED"
+pattern EmbeddedTerminateCaptionsDISABLED :: EmbeddedTerminateCaptions
+pattern EmbeddedTerminateCaptionsDISABLED = EmbeddedTerminateCaptions' "DISABLED"
 
-pattern ETCEndOfInput :: EmbeddedTerminateCaptions
-pattern ETCEndOfInput = EmbeddedTerminateCaptions' "END_OF_INPUT"
+pattern EmbeddedTerminateCaptionsENDOFINPUT :: EmbeddedTerminateCaptions
+pattern EmbeddedTerminateCaptionsENDOFINPUT = EmbeddedTerminateCaptions' "END_OF_INPUT"
 
 {-# COMPLETE
-  ETCDisabled,
-  ETCEndOfInput,
+  EmbeddedTerminateCaptionsDISABLED,
+  EmbeddedTerminateCaptionsENDOFINPUT,
   EmbeddedTerminateCaptions'
   #-}
 
-instance FromText EmbeddedTerminateCaptions where
-  parser = (EmbeddedTerminateCaptions' . mk) <$> takeText
+instance Prelude.FromText EmbeddedTerminateCaptions where
+  parser = EmbeddedTerminateCaptions' Prelude.<$> Prelude.takeText
 
-instance ToText EmbeddedTerminateCaptions where
-  toText (EmbeddedTerminateCaptions' ci) = original ci
+instance Prelude.ToText EmbeddedTerminateCaptions where
+  toText (EmbeddedTerminateCaptions' x) = x
 
-instance Hashable EmbeddedTerminateCaptions
+instance Prelude.Hashable EmbeddedTerminateCaptions
 
-instance NFData EmbeddedTerminateCaptions
+instance Prelude.NFData EmbeddedTerminateCaptions
 
-instance ToByteString EmbeddedTerminateCaptions
+instance Prelude.ToByteString EmbeddedTerminateCaptions
 
-instance ToQuery EmbeddedTerminateCaptions
+instance Prelude.ToQuery EmbeddedTerminateCaptions
 
-instance ToHeader EmbeddedTerminateCaptions
+instance Prelude.ToHeader EmbeddedTerminateCaptions
 
-instance ToJSON EmbeddedTerminateCaptions where
-  toJSON = toJSONText
+instance Prelude.ToJSON EmbeddedTerminateCaptions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EmbeddedTerminateCaptions where
-  parseJSON = parseJSONText "EmbeddedTerminateCaptions"
+instance Prelude.FromJSON EmbeddedTerminateCaptions where
+  parseJSON = Prelude.parseJSONText "EmbeddedTerminateCaptions"

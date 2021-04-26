@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaConvert.Types.HlsInitializationVectorInManifest
   ( HlsInitializationVectorInManifest
       ( ..,
-        HIVIMExclude,
-        HIVIMInclude
+        HlsInitializationVectorInManifestEXCLUDE,
+        HlsInitializationVectorInManifestINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Initialization Vector is a 128-bit number used in conjunction with the key for encrypting blocks. If set to INCLUDE, Initialization Vector is listed in the manifest. Otherwise Initialization Vector is not in the manifest.
-data HlsInitializationVectorInManifest
-  = HlsInitializationVectorInManifest'
-      ( CI
-          Text
-      )
+-- | The Initialization Vector is a 128-bit number used in conjunction with
+-- the key for encrypting blocks. If set to INCLUDE, Initialization Vector
+-- is listed in the manifest. Otherwise Initialization Vector is not in the
+-- manifest.
+newtype HlsInitializationVectorInManifest = HlsInitializationVectorInManifest'
+  { fromHlsInitializationVectorInManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HIVIMExclude :: HlsInitializationVectorInManifest
-pattern HIVIMExclude = HlsInitializationVectorInManifest' "EXCLUDE"
+pattern HlsInitializationVectorInManifestEXCLUDE :: HlsInitializationVectorInManifest
+pattern HlsInitializationVectorInManifestEXCLUDE = HlsInitializationVectorInManifest' "EXCLUDE"
 
-pattern HIVIMInclude :: HlsInitializationVectorInManifest
-pattern HIVIMInclude = HlsInitializationVectorInManifest' "INCLUDE"
+pattern HlsInitializationVectorInManifestINCLUDE :: HlsInitializationVectorInManifest
+pattern HlsInitializationVectorInManifestINCLUDE = HlsInitializationVectorInManifest' "INCLUDE"
 
 {-# COMPLETE
-  HIVIMExclude,
-  HIVIMInclude,
+  HlsInitializationVectorInManifestEXCLUDE,
+  HlsInitializationVectorInManifestINCLUDE,
   HlsInitializationVectorInManifest'
   #-}
 
-instance FromText HlsInitializationVectorInManifest where
-  parser = (HlsInitializationVectorInManifest' . mk) <$> takeText
+instance Prelude.FromText HlsInitializationVectorInManifest where
+  parser = HlsInitializationVectorInManifest' Prelude.<$> Prelude.takeText
 
-instance ToText HlsInitializationVectorInManifest where
-  toText (HlsInitializationVectorInManifest' ci) = original ci
+instance Prelude.ToText HlsInitializationVectorInManifest where
+  toText (HlsInitializationVectorInManifest' x) = x
 
-instance Hashable HlsInitializationVectorInManifest
+instance Prelude.Hashable HlsInitializationVectorInManifest
 
-instance NFData HlsInitializationVectorInManifest
+instance Prelude.NFData HlsInitializationVectorInManifest
 
-instance ToByteString HlsInitializationVectorInManifest
+instance Prelude.ToByteString HlsInitializationVectorInManifest
 
-instance ToQuery HlsInitializationVectorInManifest
+instance Prelude.ToQuery HlsInitializationVectorInManifest
 
-instance ToHeader HlsInitializationVectorInManifest
+instance Prelude.ToHeader HlsInitializationVectorInManifest
 
-instance ToJSON HlsInitializationVectorInManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsInitializationVectorInManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsInitializationVectorInManifest where
-  parseJSON = parseJSONText "HlsInitializationVectorInManifest"
+instance Prelude.FromJSON HlsInitializationVectorInManifest where
+  parseJSON = Prelude.parseJSONText "HlsInitializationVectorInManifest"

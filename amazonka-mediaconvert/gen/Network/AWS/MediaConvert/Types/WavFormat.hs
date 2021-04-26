@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.WavFormat
   ( WavFormat
       ( ..,
-        RF64,
-        Riff
+        WavFormatRF64,
+        WavFormatRIFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The service defaults to using RIFF for WAV outputs. If your output audio is likely to exceed 4 GB in file size, or if you otherwise need the extended support of the RF64 format, set your output WAV file format to RF64.
-data WavFormat = WavFormat' (CI Text)
+-- | The service defaults to using RIFF for WAV outputs. If your output audio
+-- is likely to exceed 4 GB in file size, or if you otherwise need the
+-- extended support of the RF64 format, set your output WAV file format to
+-- RF64.
+newtype WavFormat = WavFormat'
+  { fromWavFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RF64 :: WavFormat
-pattern RF64 = WavFormat' "RF64"
+pattern WavFormatRF64 :: WavFormat
+pattern WavFormatRF64 = WavFormat' "RF64"
 
-pattern Riff :: WavFormat
-pattern Riff = WavFormat' "RIFF"
+pattern WavFormatRIFF :: WavFormat
+pattern WavFormatRIFF = WavFormat' "RIFF"
 
 {-# COMPLETE
-  RF64,
-  Riff,
+  WavFormatRF64,
+  WavFormatRIFF,
   WavFormat'
   #-}
 
-instance FromText WavFormat where
-  parser = (WavFormat' . mk) <$> takeText
+instance Prelude.FromText WavFormat where
+  parser = WavFormat' Prelude.<$> Prelude.takeText
 
-instance ToText WavFormat where
-  toText (WavFormat' ci) = original ci
+instance Prelude.ToText WavFormat where
+  toText (WavFormat' x) = x
 
-instance Hashable WavFormat
+instance Prelude.Hashable WavFormat
 
-instance NFData WavFormat
+instance Prelude.NFData WavFormat
 
-instance ToByteString WavFormat
+instance Prelude.ToByteString WavFormat
 
-instance ToQuery WavFormat
+instance Prelude.ToQuery WavFormat
 
-instance ToHeader WavFormat
+instance Prelude.ToHeader WavFormat
 
-instance ToJSON WavFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON WavFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WavFormat where
-  parseJSON = parseJSONText "WavFormat"
+instance Prelude.FromJSON WavFormat where
+  parseJSON = Prelude.parseJSONText "WavFormat"

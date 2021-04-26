@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.OutputDetail where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.VideoDetail
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details regarding output
 --
--- /See:/ 'outputDetail' smart constructor.
+-- /See:/ 'newOutputDetail' smart constructor.
 data OutputDetail = OutputDetail'
-  { _odVideoDetails ::
-      !(Maybe VideoDetail),
-    _odDurationInMs :: !(Maybe Int)
+  { -- | Contains details about the output\'s video stream
+    videoDetails :: Prelude.Maybe VideoDetail,
+    -- | Duration in milliseconds
+    durationInMs :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'odVideoDetails' - Contains details about the output's video stream
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'odDurationInMs' - Duration in milliseconds
-outputDetail ::
+-- 'videoDetails', 'outputDetail_videoDetails' - Contains details about the output\'s video stream
+--
+-- 'durationInMs', 'outputDetail_durationInMs' - Duration in milliseconds
+newOutputDetail ::
   OutputDetail
-outputDetail =
+newOutputDetail =
   OutputDetail'
-    { _odVideoDetails = Nothing,
-      _odDurationInMs = Nothing
+    { videoDetails = Prelude.Nothing,
+      durationInMs = Prelude.Nothing
     }
 
--- | Contains details about the output's video stream
-odVideoDetails :: Lens' OutputDetail (Maybe VideoDetail)
-odVideoDetails = lens _odVideoDetails (\s a -> s {_odVideoDetails = a})
+-- | Contains details about the output\'s video stream
+outputDetail_videoDetails :: Lens.Lens' OutputDetail (Prelude.Maybe VideoDetail)
+outputDetail_videoDetails = Lens.lens (\OutputDetail' {videoDetails} -> videoDetails) (\s@OutputDetail' {} a -> s {videoDetails = a} :: OutputDetail)
 
 -- | Duration in milliseconds
-odDurationInMs :: Lens' OutputDetail (Maybe Int)
-odDurationInMs = lens _odDurationInMs (\s a -> s {_odDurationInMs = a})
+outputDetail_durationInMs :: Lens.Lens' OutputDetail (Prelude.Maybe Prelude.Int)
+outputDetail_durationInMs = Lens.lens (\OutputDetail' {durationInMs} -> durationInMs) (\s@OutputDetail' {} a -> s {durationInMs = a} :: OutputDetail)
 
-instance FromJSON OutputDetail where
+instance Prelude.FromJSON OutputDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputDetail"
       ( \x ->
           OutputDetail'
-            <$> (x .:? "videoDetails") <*> (x .:? "durationInMs")
+            Prelude.<$> (x Prelude..:? "videoDetails")
+            Prelude.<*> (x Prelude..:? "durationInMs")
       )
 
-instance Hashable OutputDetail
+instance Prelude.Hashable OutputDetail
 
-instance NFData OutputDetail
+instance Prelude.NFData OutputDetail

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,68 @@
 module Network.AWS.MediaConvert.Types.ColorSpaceUsage
   ( ColorSpaceUsage
       ( ..,
-        Fallback,
-        Force
+        ColorSpaceUsageFALLBACK,
+        ColorSpaceUsageFORCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | There are two sources for color metadata, the input file and the job input settings Color space (ColorSpace) and HDR master display information settings(Hdr10Metadata). The Color space usage setting determines which takes precedence. Choose Force (FORCE) to use color metadata from the input job settings. If you don't specify values for those settings, the service defaults to using metadata from your input. FALLBACK - Choose Fallback (FALLBACK) to use color metadata from the source when it is present. If there's no color metadata in your input file, the service defaults to using values you specify in the input settings.
-data ColorSpaceUsage = ColorSpaceUsage' (CI Text)
+-- | There are two sources for color metadata, the input file and the job
+-- input settings Color space (ColorSpace) and HDR master display
+-- information settings(Hdr10Metadata). The Color space usage setting
+-- determines which takes precedence. Choose Force (FORCE) to use color
+-- metadata from the input job settings. If you don\'t specify values for
+-- those settings, the service defaults to using metadata from your input.
+-- FALLBACK - Choose Fallback (FALLBACK) to use color metadata from the
+-- source when it is present. If there\'s no color metadata in your input
+-- file, the service defaults to using values you specify in the input
+-- settings.
+newtype ColorSpaceUsage = ColorSpaceUsage'
+  { fromColorSpaceUsage ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Fallback :: ColorSpaceUsage
-pattern Fallback = ColorSpaceUsage' "FALLBACK"
+pattern ColorSpaceUsageFALLBACK :: ColorSpaceUsage
+pattern ColorSpaceUsageFALLBACK = ColorSpaceUsage' "FALLBACK"
 
-pattern Force :: ColorSpaceUsage
-pattern Force = ColorSpaceUsage' "FORCE"
+pattern ColorSpaceUsageFORCE :: ColorSpaceUsage
+pattern ColorSpaceUsageFORCE = ColorSpaceUsage' "FORCE"
 
 {-# COMPLETE
-  Fallback,
-  Force,
+  ColorSpaceUsageFALLBACK,
+  ColorSpaceUsageFORCE,
   ColorSpaceUsage'
   #-}
 
-instance FromText ColorSpaceUsage where
-  parser = (ColorSpaceUsage' . mk) <$> takeText
+instance Prelude.FromText ColorSpaceUsage where
+  parser = ColorSpaceUsage' Prelude.<$> Prelude.takeText
 
-instance ToText ColorSpaceUsage where
-  toText (ColorSpaceUsage' ci) = original ci
+instance Prelude.ToText ColorSpaceUsage where
+  toText (ColorSpaceUsage' x) = x
 
-instance Hashable ColorSpaceUsage
+instance Prelude.Hashable ColorSpaceUsage
 
-instance NFData ColorSpaceUsage
+instance Prelude.NFData ColorSpaceUsage
 
-instance ToByteString ColorSpaceUsage
+instance Prelude.ToByteString ColorSpaceUsage
 
-instance ToQuery ColorSpaceUsage
+instance Prelude.ToQuery ColorSpaceUsage
 
-instance ToHeader ColorSpaceUsage
+instance Prelude.ToHeader ColorSpaceUsage
 
-instance ToJSON ColorSpaceUsage where
-  toJSON = toJSONText
+instance Prelude.ToJSON ColorSpaceUsage where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ColorSpaceUsage where
-  parseJSON = parseJSONText "ColorSpaceUsage"
+instance Prelude.FromJSON ColorSpaceUsage where
+  parseJSON = Prelude.parseJSONText "ColorSpaceUsage"

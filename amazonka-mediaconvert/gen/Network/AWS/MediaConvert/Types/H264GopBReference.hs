@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.H264GopBReference
   ( H264GopBReference
       ( ..,
-        HGBRDisabled,
-        HGBREnabled
+        H264GopBReferenceDISABLED,
+        H264GopBReferenceENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If enable, use reference B frames for GOP structures that have B frames > 1.
-data H264GopBReference = H264GopBReference' (CI Text)
+-- | If enable, use reference B frames for GOP structures that have B frames
+-- > 1.
+newtype H264GopBReference = H264GopBReference'
+  { fromH264GopBReference ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HGBRDisabled :: H264GopBReference
-pattern HGBRDisabled = H264GopBReference' "DISABLED"
+pattern H264GopBReferenceDISABLED :: H264GopBReference
+pattern H264GopBReferenceDISABLED = H264GopBReference' "DISABLED"
 
-pattern HGBREnabled :: H264GopBReference
-pattern HGBREnabled = H264GopBReference' "ENABLED"
+pattern H264GopBReferenceENABLED :: H264GopBReference
+pattern H264GopBReferenceENABLED = H264GopBReference' "ENABLED"
 
 {-# COMPLETE
-  HGBRDisabled,
-  HGBREnabled,
+  H264GopBReferenceDISABLED,
+  H264GopBReferenceENABLED,
   H264GopBReference'
   #-}
 
-instance FromText H264GopBReference where
-  parser = (H264GopBReference' . mk) <$> takeText
+instance Prelude.FromText H264GopBReference where
+  parser = H264GopBReference' Prelude.<$> Prelude.takeText
 
-instance ToText H264GopBReference where
-  toText (H264GopBReference' ci) = original ci
+instance Prelude.ToText H264GopBReference where
+  toText (H264GopBReference' x) = x
 
-instance Hashable H264GopBReference
+instance Prelude.Hashable H264GopBReference
 
-instance NFData H264GopBReference
+instance Prelude.NFData H264GopBReference
 
-instance ToByteString H264GopBReference
+instance Prelude.ToByteString H264GopBReference
 
-instance ToQuery H264GopBReference
+instance Prelude.ToQuery H264GopBReference
 
-instance ToHeader H264GopBReference
+instance Prelude.ToHeader H264GopBReference
 
-instance ToJSON H264GopBReference where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264GopBReference where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264GopBReference where
-  parseJSON = parseJSONText "H264GopBReference"
+instance Prelude.FromJSON H264GopBReference where
+  parseJSON = Prelude.parseJSONText "H264GopBReference"

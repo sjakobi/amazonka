@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,69 @@
 module Network.AWS.MediaConvert.Types.NielsenActiveWatermarkProcessType
   ( NielsenActiveWatermarkProcessType
       ( ..,
-        Cbet,
-        NAES2AndNw,
-        NAES2AndNwAndCbet
+        NielsenActiveWatermarkProcessTypeCBET,
+        NielsenActiveWatermarkProcessTypeNAES2ANDNW,
+        NielsenActiveWatermarkProcessTypeNAES2ANDNWANDCBET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the type of Nielsen watermarks that you want in your outputs. When you choose NAES 2 and NW (NAES2_AND_NW), you must provide a value for the setting SID (sourceId). When you choose CBET (CBET), you must provide a value for the setting CSID (cbetSourceId). When you choose NAES 2, NW, and CBET (NAES2_AND_NW_AND_CBET), you must provide values for both of these settings.
-data NielsenActiveWatermarkProcessType
-  = NielsenActiveWatermarkProcessType'
-      ( CI
-          Text
-      )
+-- | Choose the type of Nielsen watermarks that you want in your outputs.
+-- When you choose NAES 2 and NW (NAES2_AND_NW), you must provide a value
+-- for the setting SID (sourceId). When you choose CBET (CBET), you must
+-- provide a value for the setting CSID (cbetSourceId). When you choose
+-- NAES 2, NW, and CBET (NAES2_AND_NW_AND_CBET), you must provide values
+-- for both of these settings.
+newtype NielsenActiveWatermarkProcessType = NielsenActiveWatermarkProcessType'
+  { fromNielsenActiveWatermarkProcessType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cbet :: NielsenActiveWatermarkProcessType
-pattern Cbet = NielsenActiveWatermarkProcessType' "CBET"
+pattern NielsenActiveWatermarkProcessTypeCBET :: NielsenActiveWatermarkProcessType
+pattern NielsenActiveWatermarkProcessTypeCBET = NielsenActiveWatermarkProcessType' "CBET"
 
-pattern NAES2AndNw :: NielsenActiveWatermarkProcessType
-pattern NAES2AndNw = NielsenActiveWatermarkProcessType' "NAES2_AND_NW"
+pattern NielsenActiveWatermarkProcessTypeNAES2ANDNW :: NielsenActiveWatermarkProcessType
+pattern NielsenActiveWatermarkProcessTypeNAES2ANDNW = NielsenActiveWatermarkProcessType' "NAES2_AND_NW"
 
-pattern NAES2AndNwAndCbet :: NielsenActiveWatermarkProcessType
-pattern NAES2AndNwAndCbet = NielsenActiveWatermarkProcessType' "NAES2_AND_NW_AND_CBET"
+pattern NielsenActiveWatermarkProcessTypeNAES2ANDNWANDCBET :: NielsenActiveWatermarkProcessType
+pattern NielsenActiveWatermarkProcessTypeNAES2ANDNWANDCBET = NielsenActiveWatermarkProcessType' "NAES2_AND_NW_AND_CBET"
 
 {-# COMPLETE
-  Cbet,
-  NAES2AndNw,
-  NAES2AndNwAndCbet,
+  NielsenActiveWatermarkProcessTypeCBET,
+  NielsenActiveWatermarkProcessTypeNAES2ANDNW,
+  NielsenActiveWatermarkProcessTypeNAES2ANDNWANDCBET,
   NielsenActiveWatermarkProcessType'
   #-}
 
-instance FromText NielsenActiveWatermarkProcessType where
-  parser = (NielsenActiveWatermarkProcessType' . mk) <$> takeText
+instance Prelude.FromText NielsenActiveWatermarkProcessType where
+  parser = NielsenActiveWatermarkProcessType' Prelude.<$> Prelude.takeText
 
-instance ToText NielsenActiveWatermarkProcessType where
-  toText (NielsenActiveWatermarkProcessType' ci) = original ci
+instance Prelude.ToText NielsenActiveWatermarkProcessType where
+  toText (NielsenActiveWatermarkProcessType' x) = x
 
-instance Hashable NielsenActiveWatermarkProcessType
+instance Prelude.Hashable NielsenActiveWatermarkProcessType
 
-instance NFData NielsenActiveWatermarkProcessType
+instance Prelude.NFData NielsenActiveWatermarkProcessType
 
-instance ToByteString NielsenActiveWatermarkProcessType
+instance Prelude.ToByteString NielsenActiveWatermarkProcessType
 
-instance ToQuery NielsenActiveWatermarkProcessType
+instance Prelude.ToQuery NielsenActiveWatermarkProcessType
 
-instance ToHeader NielsenActiveWatermarkProcessType
+instance Prelude.ToHeader NielsenActiveWatermarkProcessType
 
-instance ToJSON NielsenActiveWatermarkProcessType where
-  toJSON = toJSONText
+instance Prelude.ToJSON NielsenActiveWatermarkProcessType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NielsenActiveWatermarkProcessType where
-  parseJSON = parseJSONText "NielsenActiveWatermarkProcessType"
+instance Prelude.FromJSON NielsenActiveWatermarkProcessType where
+  parseJSON = Prelude.parseJSONText "NielsenActiveWatermarkProcessType"

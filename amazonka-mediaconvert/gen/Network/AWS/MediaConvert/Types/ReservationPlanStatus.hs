@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,57 @@
 module Network.AWS.MediaConvert.Types.ReservationPlanStatus
   ( ReservationPlanStatus
       ( ..,
-        RPSActive,
-        RPSExpired
+        ReservationPlanStatusACTIVE,
+        ReservationPlanStatusEXPIRED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies whether the pricing plan for your reserved queue is ACTIVE or EXPIRED.
-data ReservationPlanStatus
-  = ReservationPlanStatus'
-      ( CI
-          Text
-      )
+-- | Specifies whether the pricing plan for your reserved queue is ACTIVE or
+-- EXPIRED.
+newtype ReservationPlanStatus = ReservationPlanStatus'
+  { fromReservationPlanStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RPSActive :: ReservationPlanStatus
-pattern RPSActive = ReservationPlanStatus' "ACTIVE"
+pattern ReservationPlanStatusACTIVE :: ReservationPlanStatus
+pattern ReservationPlanStatusACTIVE = ReservationPlanStatus' "ACTIVE"
 
-pattern RPSExpired :: ReservationPlanStatus
-pattern RPSExpired = ReservationPlanStatus' "EXPIRED"
+pattern ReservationPlanStatusEXPIRED :: ReservationPlanStatus
+pattern ReservationPlanStatusEXPIRED = ReservationPlanStatus' "EXPIRED"
 
 {-# COMPLETE
-  RPSActive,
-  RPSExpired,
+  ReservationPlanStatusACTIVE,
+  ReservationPlanStatusEXPIRED,
   ReservationPlanStatus'
   #-}
 
-instance FromText ReservationPlanStatus where
-  parser = (ReservationPlanStatus' . mk) <$> takeText
+instance Prelude.FromText ReservationPlanStatus where
+  parser = ReservationPlanStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationPlanStatus where
-  toText (ReservationPlanStatus' ci) = original ci
+instance Prelude.ToText ReservationPlanStatus where
+  toText (ReservationPlanStatus' x) = x
 
-instance Hashable ReservationPlanStatus
+instance Prelude.Hashable ReservationPlanStatus
 
-instance NFData ReservationPlanStatus
+instance Prelude.NFData ReservationPlanStatus
 
-instance ToByteString ReservationPlanStatus
+instance Prelude.ToByteString ReservationPlanStatus
 
-instance ToQuery ReservationPlanStatus
+instance Prelude.ToQuery ReservationPlanStatus
 
-instance ToHeader ReservationPlanStatus
+instance Prelude.ToHeader ReservationPlanStatus
 
-instance FromJSON ReservationPlanStatus where
-  parseJSON = parseJSONText "ReservationPlanStatus"
+instance Prelude.FromJSON ReservationPlanStatus where
+  parseJSON = Prelude.parseJSONText "ReservationPlanStatus"

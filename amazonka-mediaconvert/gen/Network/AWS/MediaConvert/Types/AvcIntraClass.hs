@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,73 @@
 module Network.AWS.MediaConvert.Types.AvcIntraClass
   ( AvcIntraClass
       ( ..,
-        Class100,
-        Class200,
-        Class4K2K,
-        Class50
+        AvcIntraClassCLASS100,
+        AvcIntraClassCLASS200,
+        AvcIntraClassCLASS4K2K,
+        AvcIntraClassCLASS50
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the AVC-Intra class of your output. The AVC-Intra class selection determines the output video bit rate depending on the frame rate of the output. Outputs with higher class values have higher bitrates and improved image quality. Note that for Class 4K/2K, MediaConvert supports only 4:2:2 chroma subsampling.
-data AvcIntraClass = AvcIntraClass' (CI Text)
+-- | Specify the AVC-Intra class of your output. The AVC-Intra class
+-- selection determines the output video bit rate depending on the frame
+-- rate of the output. Outputs with higher class values have higher
+-- bitrates and improved image quality. Note that for Class 4K\/2K,
+-- MediaConvert supports only 4:2:2 chroma subsampling.
+newtype AvcIntraClass = AvcIntraClass'
+  { fromAvcIntraClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Class100 :: AvcIntraClass
-pattern Class100 = AvcIntraClass' "CLASS_100"
+pattern AvcIntraClassCLASS100 :: AvcIntraClass
+pattern AvcIntraClassCLASS100 = AvcIntraClass' "CLASS_100"
 
-pattern Class200 :: AvcIntraClass
-pattern Class200 = AvcIntraClass' "CLASS_200"
+pattern AvcIntraClassCLASS200 :: AvcIntraClass
+pattern AvcIntraClassCLASS200 = AvcIntraClass' "CLASS_200"
 
-pattern Class4K2K :: AvcIntraClass
-pattern Class4K2K = AvcIntraClass' "CLASS_4K_2K"
+pattern AvcIntraClassCLASS4K2K :: AvcIntraClass
+pattern AvcIntraClassCLASS4K2K = AvcIntraClass' "CLASS_4K_2K"
 
-pattern Class50 :: AvcIntraClass
-pattern Class50 = AvcIntraClass' "CLASS_50"
+pattern AvcIntraClassCLASS50 :: AvcIntraClass
+pattern AvcIntraClassCLASS50 = AvcIntraClass' "CLASS_50"
 
 {-# COMPLETE
-  Class100,
-  Class200,
-  Class4K2K,
-  Class50,
+  AvcIntraClassCLASS100,
+  AvcIntraClassCLASS200,
+  AvcIntraClassCLASS4K2K,
+  AvcIntraClassCLASS50,
   AvcIntraClass'
   #-}
 
-instance FromText AvcIntraClass where
-  parser = (AvcIntraClass' . mk) <$> takeText
+instance Prelude.FromText AvcIntraClass where
+  parser = AvcIntraClass' Prelude.<$> Prelude.takeText
 
-instance ToText AvcIntraClass where
-  toText (AvcIntraClass' ci) = original ci
+instance Prelude.ToText AvcIntraClass where
+  toText (AvcIntraClass' x) = x
 
-instance Hashable AvcIntraClass
+instance Prelude.Hashable AvcIntraClass
 
-instance NFData AvcIntraClass
+instance Prelude.NFData AvcIntraClass
 
-instance ToByteString AvcIntraClass
+instance Prelude.ToByteString AvcIntraClass
 
-instance ToQuery AvcIntraClass
+instance Prelude.ToQuery AvcIntraClass
 
-instance ToHeader AvcIntraClass
+instance Prelude.ToHeader AvcIntraClass
 
-instance ToJSON AvcIntraClass where
-  toJSON = toJSONText
+instance Prelude.ToJSON AvcIntraClass where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AvcIntraClass where
-  parseJSON = parseJSONText "AvcIntraClass"
+instance Prelude.FromJSON AvcIntraClass where
+  parseJSON = Prelude.parseJSONText "AvcIntraClass"

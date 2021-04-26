@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.ReservationPlanSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.Commitment
 import Network.AWS.MediaConvert.Types.RenewalType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about the pricing plan for your reserved queue. Required for reserved queues and not applicable to on-demand queues.
+-- | Details about the pricing plan for your reserved queue. Required for
+-- reserved queues and not applicable to on-demand queues.
 --
--- /See:/ 'reservationPlanSettings' smart constructor.
+-- /See:/ 'newReservationPlanSettings' smart constructor.
 data ReservationPlanSettings = ReservationPlanSettings'
-  { _rpsCommitment ::
-      !Commitment,
-    _rpsReservedSlots ::
-      !Int,
-    _rpsRenewalType ::
-      !RenewalType
+  { -- | The length of the term of your reserved queue pricing plan commitment.
+    commitment :: Commitment,
+    -- | Specifies the number of reserved transcode slots (RTS) for this queue.
+    -- The number of RTS determines how many jobs the queue can process in
+    -- parallel; each RTS can process one job at a time. You can\'t decrease
+    -- the number of RTS in your reserved queue. You can increase the number of
+    -- RTS by extending your existing commitment with a new 12-month commitment
+    -- for the larger number. The new commitment begins when you purchase the
+    -- additional capacity. You can\'t cancel your commitment or revert to your
+    -- original commitment after you increase the capacity.
+    reservedSlots :: Prelude.Int,
+    -- | Specifies whether the term of your reserved queue pricing plan is
+    -- automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of
+    -- the term. When your term is auto renewed, you extend your commitment by
+    -- 12 months from the auto renew date. You can cancel this commitment.
+    renewalType :: RenewalType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReservationPlanSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReservationPlanSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpsCommitment' - The length of the term of your reserved queue pricing plan commitment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpsReservedSlots' - Specifies the number of reserved transcode slots (RTS) for this queue. The number of RTS determines how many jobs the queue can process in parallel; each RTS can process one job at a time. You can't decrease the number of RTS in your reserved queue. You can increase the number of RTS by extending your existing commitment with a new 12-month commitment for the larger number. The new commitment begins when you purchase the additional capacity. You can't cancel your commitment or revert to your original commitment after you increase the capacity.
+-- 'commitment', 'reservationPlanSettings_commitment' - The length of the term of your reserved queue pricing plan commitment.
 --
--- * 'rpsRenewalType' - Specifies whether the term of your reserved queue pricing plan is automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of the term. When your term is auto renewed, you extend your commitment by 12 months from the auto renew date. You can cancel this commitment.
-reservationPlanSettings ::
-  -- | 'rpsCommitment'
+-- 'reservedSlots', 'reservationPlanSettings_reservedSlots' - Specifies the number of reserved transcode slots (RTS) for this queue.
+-- The number of RTS determines how many jobs the queue can process in
+-- parallel; each RTS can process one job at a time. You can\'t decrease
+-- the number of RTS in your reserved queue. You can increase the number of
+-- RTS by extending your existing commitment with a new 12-month commitment
+-- for the larger number. The new commitment begins when you purchase the
+-- additional capacity. You can\'t cancel your commitment or revert to your
+-- original commitment after you increase the capacity.
+--
+-- 'renewalType', 'reservationPlanSettings_renewalType' - Specifies whether the term of your reserved queue pricing plan is
+-- automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of
+-- the term. When your term is auto renewed, you extend your commitment by
+-- 12 months from the auto renew date. You can cancel this commitment.
+newReservationPlanSettings ::
+  -- | 'commitment'
   Commitment ->
-  -- | 'rpsReservedSlots'
-  Int ->
-  -- | 'rpsRenewalType'
+  -- | 'reservedSlots'
+  Prelude.Int ->
+  -- | 'renewalType'
   RenewalType ->
   ReservationPlanSettings
-reservationPlanSettings
+newReservationPlanSettings
   pCommitment_
   pReservedSlots_
   pRenewalType_ =
     ReservationPlanSettings'
-      { _rpsCommitment =
-          pCommitment_,
-        _rpsReservedSlots = pReservedSlots_,
-        _rpsRenewalType = pRenewalType_
+      { commitment = pCommitment_,
+        reservedSlots = pReservedSlots_,
+        renewalType = pRenewalType_
       }
 
 -- | The length of the term of your reserved queue pricing plan commitment.
-rpsCommitment :: Lens' ReservationPlanSettings Commitment
-rpsCommitment = lens _rpsCommitment (\s a -> s {_rpsCommitment = a})
+reservationPlanSettings_commitment :: Lens.Lens' ReservationPlanSettings Commitment
+reservationPlanSettings_commitment = Lens.lens (\ReservationPlanSettings' {commitment} -> commitment) (\s@ReservationPlanSettings' {} a -> s {commitment = a} :: ReservationPlanSettings)
 
--- | Specifies the number of reserved transcode slots (RTS) for this queue. The number of RTS determines how many jobs the queue can process in parallel; each RTS can process one job at a time. You can't decrease the number of RTS in your reserved queue. You can increase the number of RTS by extending your existing commitment with a new 12-month commitment for the larger number. The new commitment begins when you purchase the additional capacity. You can't cancel your commitment or revert to your original commitment after you increase the capacity.
-rpsReservedSlots :: Lens' ReservationPlanSettings Int
-rpsReservedSlots = lens _rpsReservedSlots (\s a -> s {_rpsReservedSlots = a})
+-- | Specifies the number of reserved transcode slots (RTS) for this queue.
+-- The number of RTS determines how many jobs the queue can process in
+-- parallel; each RTS can process one job at a time. You can\'t decrease
+-- the number of RTS in your reserved queue. You can increase the number of
+-- RTS by extending your existing commitment with a new 12-month commitment
+-- for the larger number. The new commitment begins when you purchase the
+-- additional capacity. You can\'t cancel your commitment or revert to your
+-- original commitment after you increase the capacity.
+reservationPlanSettings_reservedSlots :: Lens.Lens' ReservationPlanSettings Prelude.Int
+reservationPlanSettings_reservedSlots = Lens.lens (\ReservationPlanSettings' {reservedSlots} -> reservedSlots) (\s@ReservationPlanSettings' {} a -> s {reservedSlots = a} :: ReservationPlanSettings)
 
--- | Specifies whether the term of your reserved queue pricing plan is automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of the term. When your term is auto renewed, you extend your commitment by 12 months from the auto renew date. You can cancel this commitment.
-rpsRenewalType :: Lens' ReservationPlanSettings RenewalType
-rpsRenewalType = lens _rpsRenewalType (\s a -> s {_rpsRenewalType = a})
+-- | Specifies whether the term of your reserved queue pricing plan is
+-- automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of
+-- the term. When your term is auto renewed, you extend your commitment by
+-- 12 months from the auto renew date. You can cancel this commitment.
+reservationPlanSettings_renewalType :: Lens.Lens' ReservationPlanSettings RenewalType
+reservationPlanSettings_renewalType = Lens.lens (\ReservationPlanSettings' {renewalType} -> renewalType) (\s@ReservationPlanSettings' {} a -> s {renewalType = a} :: ReservationPlanSettings)
 
-instance Hashable ReservationPlanSettings
+instance Prelude.Hashable ReservationPlanSettings
 
-instance NFData ReservationPlanSettings
+instance Prelude.NFData ReservationPlanSettings
 
-instance ToJSON ReservationPlanSettings where
+instance Prelude.ToJSON ReservationPlanSettings where
   toJSON ReservationPlanSettings' {..} =
-    object
-      ( catMaybes
-          [ Just ("commitment" .= _rpsCommitment),
-            Just ("reservedSlots" .= _rpsReservedSlots),
-            Just ("renewalType" .= _rpsRenewalType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("commitment" Prelude..= commitment),
+            Prelude.Just
+              ("reservedSlots" Prelude..= reservedSlots),
+            Prelude.Just ("renewalType" Prelude..= renewalType)
           ]
       )

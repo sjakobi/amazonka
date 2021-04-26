@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,134 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.FileSourceSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.CaptionSourceFramerate
 import Network.AWS.MediaConvert.Types.FileSourceConvert608To708
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If your input captions are SCC, SMI, SRT, STL, TTML, or IMSC 1.1 in an xml file, specify the URI of the input caption source file. If your caption source is IMSC in an IMF package, use TrackSourceSettings instead of FileSoureSettings.
+-- | If your input captions are SCC, SMI, SRT, STL, TTML, or IMSC 1.1 in an
+-- xml file, specify the URI of the input caption source file. If your
+-- caption source is IMSC in an IMF package, use TrackSourceSettings
+-- instead of FileSoureSettings.
 --
--- /See:/ 'fileSourceSettings' smart constructor.
+-- /See:/ 'newFileSourceSettings' smart constructor.
 data FileSourceSettings = FileSourceSettings'
-  { _fssConvert608To708 ::
-      !( Maybe
-           FileSourceConvert608To708
-       ),
-    _fssFramerate ::
-      !(Maybe CaptionSourceFramerate),
-    _fssSourceFile :: !(Maybe Text),
-    _fssTimeDelta :: !(Maybe Int)
+  { -- | Specify whether this set of input captions appears in your outputs in
+    -- both 608 and 708 format. If you choose Upconvert (UPCONVERT),
+    -- MediaConvert includes the captions data in two ways: it passes the 608
+    -- data through using the 608 compatibility bytes fields of the 708
+    -- wrapper, and it also translates the 608 data into 708.
+    convert608To708 :: Prelude.Maybe FileSourceConvert608To708,
+    -- | Ignore this setting unless your input captions format is SCC. To have
+    -- the service compensate for differing frame rates between your input
+    -- captions and input video, specify the frame rate of the captions file.
+    -- Specify this value as a fraction, using the settings Framerate numerator
+    -- (framerateNumerator) and Framerate denominator (framerateDenominator).
+    -- For example, you might specify 24 \/ 1 for 24 fps, 25 \/ 1 for 25 fps,
+    -- 24000 \/ 1001 for 23.976 fps, or 30000 \/ 1001 for 29.97 fps.
+    framerate :: Prelude.Maybe CaptionSourceFramerate,
+    -- | External caption file used for loading captions. Accepted file
+    -- extensions are \'scc\', \'ttml\', \'dfxp\', \'stl\', \'srt\', \'xml\',
+    -- and \'smi\'.
+    sourceFile :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a time delta in seconds to offset the captions from the source
+    -- file.
+    timeDelta :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSourceSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSourceSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fssConvert608To708' - Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608 compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fssFramerate' - Ignore this setting unless your input captions format is SCC. To have the service compensate for differing frame rates between your input captions and input video, specify the frame rate of the captions file. Specify this value as a fraction, using the settings Framerate numerator (framerateNumerator) and Framerate denominator (framerateDenominator). For example, you might specify 24 / 1 for 24 fps, 25 / 1 for 25 fps, 24000 / 1001 for 23.976 fps, or 30000 / 1001 for 29.97 fps.
+-- 'convert608To708', 'fileSourceSettings_convert608To708' - Specify whether this set of input captions appears in your outputs in
+-- both 608 and 708 format. If you choose Upconvert (UPCONVERT),
+-- MediaConvert includes the captions data in two ways: it passes the 608
+-- data through using the 608 compatibility bytes fields of the 708
+-- wrapper, and it also translates the 608 data into 708.
 --
--- * 'fssSourceFile' - External caption file used for loading captions. Accepted file extensions are 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
+-- 'framerate', 'fileSourceSettings_framerate' - Ignore this setting unless your input captions format is SCC. To have
+-- the service compensate for differing frame rates between your input
+-- captions and input video, specify the frame rate of the captions file.
+-- Specify this value as a fraction, using the settings Framerate numerator
+-- (framerateNumerator) and Framerate denominator (framerateDenominator).
+-- For example, you might specify 24 \/ 1 for 24 fps, 25 \/ 1 for 25 fps,
+-- 24000 \/ 1001 for 23.976 fps, or 30000 \/ 1001 for 29.97 fps.
 --
--- * 'fssTimeDelta' - Specifies a time delta in seconds to offset the captions from the source file.
-fileSourceSettings ::
+-- 'sourceFile', 'fileSourceSettings_sourceFile' - External caption file used for loading captions. Accepted file
+-- extensions are \'scc\', \'ttml\', \'dfxp\', \'stl\', \'srt\', \'xml\',
+-- and \'smi\'.
+--
+-- 'timeDelta', 'fileSourceSettings_timeDelta' - Specifies a time delta in seconds to offset the captions from the source
+-- file.
+newFileSourceSettings ::
   FileSourceSettings
-fileSourceSettings =
+newFileSourceSettings =
   FileSourceSettings'
-    { _fssConvert608To708 = Nothing,
-      _fssFramerate = Nothing,
-      _fssSourceFile = Nothing,
-      _fssTimeDelta = Nothing
+    { convert608To708 =
+        Prelude.Nothing,
+      framerate = Prelude.Nothing,
+      sourceFile = Prelude.Nothing,
+      timeDelta = Prelude.Nothing
     }
 
--- | Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608 compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
-fssConvert608To708 :: Lens' FileSourceSettings (Maybe FileSourceConvert608To708)
-fssConvert608To708 = lens _fssConvert608To708 (\s a -> s {_fssConvert608To708 = a})
+-- | Specify whether this set of input captions appears in your outputs in
+-- both 608 and 708 format. If you choose Upconvert (UPCONVERT),
+-- MediaConvert includes the captions data in two ways: it passes the 608
+-- data through using the 608 compatibility bytes fields of the 708
+-- wrapper, and it also translates the 608 data into 708.
+fileSourceSettings_convert608To708 :: Lens.Lens' FileSourceSettings (Prelude.Maybe FileSourceConvert608To708)
+fileSourceSettings_convert608To708 = Lens.lens (\FileSourceSettings' {convert608To708} -> convert608To708) (\s@FileSourceSettings' {} a -> s {convert608To708 = a} :: FileSourceSettings)
 
--- | Ignore this setting unless your input captions format is SCC. To have the service compensate for differing frame rates between your input captions and input video, specify the frame rate of the captions file. Specify this value as a fraction, using the settings Framerate numerator (framerateNumerator) and Framerate denominator (framerateDenominator). For example, you might specify 24 / 1 for 24 fps, 25 / 1 for 25 fps, 24000 / 1001 for 23.976 fps, or 30000 / 1001 for 29.97 fps.
-fssFramerate :: Lens' FileSourceSettings (Maybe CaptionSourceFramerate)
-fssFramerate = lens _fssFramerate (\s a -> s {_fssFramerate = a})
+-- | Ignore this setting unless your input captions format is SCC. To have
+-- the service compensate for differing frame rates between your input
+-- captions and input video, specify the frame rate of the captions file.
+-- Specify this value as a fraction, using the settings Framerate numerator
+-- (framerateNumerator) and Framerate denominator (framerateDenominator).
+-- For example, you might specify 24 \/ 1 for 24 fps, 25 \/ 1 for 25 fps,
+-- 24000 \/ 1001 for 23.976 fps, or 30000 \/ 1001 for 29.97 fps.
+fileSourceSettings_framerate :: Lens.Lens' FileSourceSettings (Prelude.Maybe CaptionSourceFramerate)
+fileSourceSettings_framerate = Lens.lens (\FileSourceSettings' {framerate} -> framerate) (\s@FileSourceSettings' {} a -> s {framerate = a} :: FileSourceSettings)
 
--- | External caption file used for loading captions. Accepted file extensions are 'scc', 'ttml', 'dfxp', 'stl', 'srt', 'xml', and 'smi'.
-fssSourceFile :: Lens' FileSourceSettings (Maybe Text)
-fssSourceFile = lens _fssSourceFile (\s a -> s {_fssSourceFile = a})
+-- | External caption file used for loading captions. Accepted file
+-- extensions are \'scc\', \'ttml\', \'dfxp\', \'stl\', \'srt\', \'xml\',
+-- and \'smi\'.
+fileSourceSettings_sourceFile :: Lens.Lens' FileSourceSettings (Prelude.Maybe Prelude.Text)
+fileSourceSettings_sourceFile = Lens.lens (\FileSourceSettings' {sourceFile} -> sourceFile) (\s@FileSourceSettings' {} a -> s {sourceFile = a} :: FileSourceSettings)
 
--- | Specifies a time delta in seconds to offset the captions from the source file.
-fssTimeDelta :: Lens' FileSourceSettings (Maybe Int)
-fssTimeDelta = lens _fssTimeDelta (\s a -> s {_fssTimeDelta = a})
+-- | Specifies a time delta in seconds to offset the captions from the source
+-- file.
+fileSourceSettings_timeDelta :: Lens.Lens' FileSourceSettings (Prelude.Maybe Prelude.Int)
+fileSourceSettings_timeDelta = Lens.lens (\FileSourceSettings' {timeDelta} -> timeDelta) (\s@FileSourceSettings' {} a -> s {timeDelta = a} :: FileSourceSettings)
 
-instance FromJSON FileSourceSettings where
+instance Prelude.FromJSON FileSourceSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSourceSettings"
       ( \x ->
           FileSourceSettings'
-            <$> (x .:? "convert608To708")
-            <*> (x .:? "framerate")
-            <*> (x .:? "sourceFile")
-            <*> (x .:? "timeDelta")
+            Prelude.<$> (x Prelude..:? "convert608To708")
+            Prelude.<*> (x Prelude..:? "framerate")
+            Prelude.<*> (x Prelude..:? "sourceFile")
+            Prelude.<*> (x Prelude..:? "timeDelta")
       )
 
-instance Hashable FileSourceSettings
+instance Prelude.Hashable FileSourceSettings
 
-instance NFData FileSourceSettings
+instance Prelude.NFData FileSourceSettings
 
-instance ToJSON FileSourceSettings where
+instance Prelude.ToJSON FileSourceSettings where
   toJSON FileSourceSettings' {..} =
-    object
-      ( catMaybes
-          [ ("convert608To708" .=) <$> _fssConvert608To708,
-            ("framerate" .=) <$> _fssFramerate,
-            ("sourceFile" .=) <$> _fssSourceFile,
-            ("timeDelta" .=) <$> _fssTimeDelta
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("convert608To708" Prelude..=)
+              Prelude.<$> convert608To708,
+            ("framerate" Prelude..=) Prelude.<$> framerate,
+            ("sourceFile" Prelude..=) Prelude.<$> sourceFile,
+            ("timeDelta" Prelude..=) Prelude.<$> timeDelta
           ]
       )

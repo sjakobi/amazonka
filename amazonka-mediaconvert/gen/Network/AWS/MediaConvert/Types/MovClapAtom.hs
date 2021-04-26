@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.MovClapAtom
   ( MovClapAtom
       ( ..,
-        MovExclude,
-        MovInclude
+        MovClapAtomEXCLUDE,
+        MovClapAtomINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When enabled, include 'clap' atom if appropriate for the video output settings.
-data MovClapAtom = MovClapAtom' (CI Text)
+-- | When enabled, include \'clap\' atom if appropriate for the video output
+-- settings.
+newtype MovClapAtom = MovClapAtom'
+  { fromMovClapAtom ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MovExclude :: MovClapAtom
-pattern MovExclude = MovClapAtom' "EXCLUDE"
+pattern MovClapAtomEXCLUDE :: MovClapAtom
+pattern MovClapAtomEXCLUDE = MovClapAtom' "EXCLUDE"
 
-pattern MovInclude :: MovClapAtom
-pattern MovInclude = MovClapAtom' "INCLUDE"
+pattern MovClapAtomINCLUDE :: MovClapAtom
+pattern MovClapAtomINCLUDE = MovClapAtom' "INCLUDE"
 
 {-# COMPLETE
-  MovExclude,
-  MovInclude,
+  MovClapAtomEXCLUDE,
+  MovClapAtomINCLUDE,
   MovClapAtom'
   #-}
 
-instance FromText MovClapAtom where
-  parser = (MovClapAtom' . mk) <$> takeText
+instance Prelude.FromText MovClapAtom where
+  parser = MovClapAtom' Prelude.<$> Prelude.takeText
 
-instance ToText MovClapAtom where
-  toText (MovClapAtom' ci) = original ci
+instance Prelude.ToText MovClapAtom where
+  toText (MovClapAtom' x) = x
 
-instance Hashable MovClapAtom
+instance Prelude.Hashable MovClapAtom
 
-instance NFData MovClapAtom
+instance Prelude.NFData MovClapAtom
 
-instance ToByteString MovClapAtom
+instance Prelude.ToByteString MovClapAtom
 
-instance ToQuery MovClapAtom
+instance Prelude.ToQuery MovClapAtom
 
-instance ToHeader MovClapAtom
+instance Prelude.ToHeader MovClapAtom
 
-instance ToJSON MovClapAtom where
-  toJSON = toJSONText
+instance Prelude.ToJSON MovClapAtom where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MovClapAtom where
-  parseJSON = parseJSONText "MovClapAtom"
+instance Prelude.FromJSON MovClapAtom where
+  parseJSON = Prelude.parseJSONText "MovClapAtom"

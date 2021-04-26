@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,80 @@
 module Network.AWS.MediaConvert.Types.H264CodecProfile
   ( H264CodecProfile
       ( ..,
-        HCPBaseline,
-        HCPHigh,
-        HCPHigh10BIT,
-        HCPHigh422,
-        HCPHigh42210BIT,
-        HCPMain
+        H264CodecProfileBASELINE,
+        H264CodecProfileHIGH,
+        H264CodecProfileHIGH10BIT,
+        H264CodecProfileHIGH422,
+        H264CodecProfileHIGH42210BIT,
+        H264CodecProfileMAIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | H.264 Profile. High 4:2:2 and 10-bit profiles are only available with the AVC-I License.
-data H264CodecProfile = H264CodecProfile' (CI Text)
+-- | H.264 Profile. High 4:2:2 and 10-bit profiles are only available with
+-- the AVC-I License.
+newtype H264CodecProfile = H264CodecProfile'
+  { fromH264CodecProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HCPBaseline :: H264CodecProfile
-pattern HCPBaseline = H264CodecProfile' "BASELINE"
+pattern H264CodecProfileBASELINE :: H264CodecProfile
+pattern H264CodecProfileBASELINE = H264CodecProfile' "BASELINE"
 
-pattern HCPHigh :: H264CodecProfile
-pattern HCPHigh = H264CodecProfile' "HIGH"
+pattern H264CodecProfileHIGH :: H264CodecProfile
+pattern H264CodecProfileHIGH = H264CodecProfile' "HIGH"
 
-pattern HCPHigh10BIT :: H264CodecProfile
-pattern HCPHigh10BIT = H264CodecProfile' "HIGH_10BIT"
+pattern H264CodecProfileHIGH10BIT :: H264CodecProfile
+pattern H264CodecProfileHIGH10BIT = H264CodecProfile' "HIGH_10BIT"
 
-pattern HCPHigh422 :: H264CodecProfile
-pattern HCPHigh422 = H264CodecProfile' "HIGH_422"
+pattern H264CodecProfileHIGH422 :: H264CodecProfile
+pattern H264CodecProfileHIGH422 = H264CodecProfile' "HIGH_422"
 
-pattern HCPHigh42210BIT :: H264CodecProfile
-pattern HCPHigh42210BIT = H264CodecProfile' "HIGH_422_10BIT"
+pattern H264CodecProfileHIGH42210BIT :: H264CodecProfile
+pattern H264CodecProfileHIGH42210BIT = H264CodecProfile' "HIGH_422_10BIT"
 
-pattern HCPMain :: H264CodecProfile
-pattern HCPMain = H264CodecProfile' "MAIN"
+pattern H264CodecProfileMAIN :: H264CodecProfile
+pattern H264CodecProfileMAIN = H264CodecProfile' "MAIN"
 
 {-# COMPLETE
-  HCPBaseline,
-  HCPHigh,
-  HCPHigh10BIT,
-  HCPHigh422,
-  HCPHigh42210BIT,
-  HCPMain,
+  H264CodecProfileBASELINE,
+  H264CodecProfileHIGH,
+  H264CodecProfileHIGH10BIT,
+  H264CodecProfileHIGH422,
+  H264CodecProfileHIGH42210BIT,
+  H264CodecProfileMAIN,
   H264CodecProfile'
   #-}
 
-instance FromText H264CodecProfile where
-  parser = (H264CodecProfile' . mk) <$> takeText
+instance Prelude.FromText H264CodecProfile where
+  parser = H264CodecProfile' Prelude.<$> Prelude.takeText
 
-instance ToText H264CodecProfile where
-  toText (H264CodecProfile' ci) = original ci
+instance Prelude.ToText H264CodecProfile where
+  toText (H264CodecProfile' x) = x
 
-instance Hashable H264CodecProfile
+instance Prelude.Hashable H264CodecProfile
 
-instance NFData H264CodecProfile
+instance Prelude.NFData H264CodecProfile
 
-instance ToByteString H264CodecProfile
+instance Prelude.ToByteString H264CodecProfile
 
-instance ToQuery H264CodecProfile
+instance Prelude.ToQuery H264CodecProfile
 
-instance ToHeader H264CodecProfile
+instance Prelude.ToHeader H264CodecProfile
 
-instance ToJSON H264CodecProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264CodecProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264CodecProfile where
-  parseJSON = parseJSONText "H264CodecProfile"
+instance Prelude.FromJSON H264CodecProfile where
+  parseJSON = Prelude.parseJSONText "H264CodecProfile"

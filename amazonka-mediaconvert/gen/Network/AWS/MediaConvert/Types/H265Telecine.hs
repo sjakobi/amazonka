@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,70 @@
 module Network.AWS.MediaConvert.Types.H265Telecine
   ( H265Telecine
       ( ..,
-        HHard,
-        HNone,
-        HSoft
+        H265TelecineHARD,
+        H265TelecineNONE,
+        H265TelecineSOFT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | This field applies only if the Streams > Advanced > Framerate (framerate) field  is set to 29.970. This field works with the Streams > Advanced > Preprocessors > Deinterlacer  field (deinterlace_mode) and the Streams > Advanced > Interlaced Mode field (interlace_mode)  to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
-data H265Telecine = H265Telecine' (CI Text)
+-- | This field applies only if the Streams > Advanced > Framerate
+-- (framerate) field is set to 29.970. This field works with the Streams >
+-- Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
+-- Streams > Advanced > Interlaced Mode field (interlace_mode) to identify
+-- the scan type for the output: Progressive, Interlaced, Hard Telecine or
+-- Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft:
+-- produces 23.976; the player converts this output to 29.97i.
+newtype H265Telecine = H265Telecine'
+  { fromH265Telecine ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HHard :: H265Telecine
-pattern HHard = H265Telecine' "HARD"
+pattern H265TelecineHARD :: H265Telecine
+pattern H265TelecineHARD = H265Telecine' "HARD"
 
-pattern HNone :: H265Telecine
-pattern HNone = H265Telecine' "NONE"
+pattern H265TelecineNONE :: H265Telecine
+pattern H265TelecineNONE = H265Telecine' "NONE"
 
-pattern HSoft :: H265Telecine
-pattern HSoft = H265Telecine' "SOFT"
+pattern H265TelecineSOFT :: H265Telecine
+pattern H265TelecineSOFT = H265Telecine' "SOFT"
 
 {-# COMPLETE
-  HHard,
-  HNone,
-  HSoft,
+  H265TelecineHARD,
+  H265TelecineNONE,
+  H265TelecineSOFT,
   H265Telecine'
   #-}
 
-instance FromText H265Telecine where
-  parser = (H265Telecine' . mk) <$> takeText
+instance Prelude.FromText H265Telecine where
+  parser = H265Telecine' Prelude.<$> Prelude.takeText
 
-instance ToText H265Telecine where
-  toText (H265Telecine' ci) = original ci
+instance Prelude.ToText H265Telecine where
+  toText (H265Telecine' x) = x
 
-instance Hashable H265Telecine
+instance Prelude.Hashable H265Telecine
 
-instance NFData H265Telecine
+instance Prelude.NFData H265Telecine
 
-instance ToByteString H265Telecine
+instance Prelude.ToByteString H265Telecine
 
-instance ToQuery H265Telecine
+instance Prelude.ToQuery H265Telecine
 
-instance ToHeader H265Telecine
+instance Prelude.ToHeader H265Telecine
 
-instance ToJSON H265Telecine where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265Telecine where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265Telecine where
-  parseJSON = parseJSONText "H265Telecine"
+instance Prelude.FromJSON H265Telecine where
+  parseJSON = Prelude.parseJSONText "H265Telecine"

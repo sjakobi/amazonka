@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,106 +19,202 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.HlsSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.HlsAudioOnlyContainer
 import Network.AWS.MediaConvert.Types.HlsAudioTrackType
 import Network.AWS.MediaConvert.Types.HlsIFrameOnlyManifest
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for HLS output groups
 --
--- /See:/ 'hlsSettings' smart constructor.
+-- /See:/ 'newHlsSettings' smart constructor.
 data HlsSettings = HlsSettings'
-  { _hsAudioRenditionSets ::
-      !(Maybe Text),
-    _hsIFrameOnlyManifest ::
-      !(Maybe HlsIFrameOnlyManifest),
-    _hsSegmentModifier :: !(Maybe Text),
-    _hsAudioOnlyContainer ::
-      !(Maybe HlsAudioOnlyContainer),
-    _hsAudioGroupId :: !(Maybe Text),
-    _hsAudioTrackType :: !(Maybe HlsAudioTrackType)
+  { -- | List all the audio groups that are used with the video output stream.
+    -- Input all the audio GROUP-IDs that are associated to the video, separate
+    -- by \',\'.
+    audioRenditionSets :: Prelude.Maybe Prelude.Text,
+    -- | Choose Include (INCLUDE) to have MediaConvert generate a child manifest
+    -- that lists only the I-frames for this rendition, in addition to your
+    -- regular manifest for this rendition. You might use this manifest as part
+    -- of a workflow that creates preview functions for your video.
+    -- MediaConvert adds both the I-frame only child manifest and the regular
+    -- child manifest to the parent manifest. When you don\'t need the I-frame
+    -- only child manifest, keep the default value Exclude (EXCLUDE).
+    iFrameOnlyManifest :: Prelude.Maybe HlsIFrameOnlyManifest,
+    -- | Use this setting to add an identifying string to the filename of each
+    -- segment. The service adds this string between the name modifier and
+    -- segment index number. You can use format identifiers in the string. For
+    -- more information, see
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/using-variables-in-your-job-settings.html
+    segmentModifier :: Prelude.Maybe Prelude.Text,
+    -- | Use this setting only in audio-only outputs. Choose MPEG-2 Transport
+    -- Stream (M2TS) to create a file in an MPEG2-TS container. Keep the
+    -- default value Automatic (AUTOMATIC) to create an audio-only file in a
+    -- raw container. Regardless of the value that you specify here, if this
+    -- output has video, the service will place the output into an MPEG2-TS
+    -- container.
+    audioOnlyContainer :: Prelude.Maybe HlsAudioOnlyContainer,
+    -- | Specifies the group to which the audio Rendition belongs.
+    audioGroupId :: Prelude.Maybe Prelude.Text,
+    -- | Four types of audio-only tracks are supported: Audio-Only Variant Stream
+    -- The client can play back this audio-only stream instead of video in
+    -- low-bandwidth scenarios. Represented as an EXT-X-STREAM-INF in the HLS
+    -- manifest. Alternate Audio, Auto Select, Default Alternate rendition that
+    -- the client should try to play back by default. Represented as an
+    -- EXT-X-MEDIA in the HLS manifest with DEFAULT=YES, AUTOSELECT=YES
+    -- Alternate Audio, Auto Select, Not Default Alternate rendition that the
+    -- client may try to play back by default. Represented as an EXT-X-MEDIA in
+    -- the HLS manifest with DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not
+    -- Auto Select Alternate rendition that the client will not try to play
+    -- back by default. Represented as an EXT-X-MEDIA in the HLS manifest with
+    -- DEFAULT=NO, AUTOSELECT=NO
+    audioTrackType :: Prelude.Maybe HlsAudioTrackType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HlsSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HlsSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hsAudioRenditionSets' - List all the audio groups that are used with the video output stream. Input all the audio GROUP-IDs that are associated to the video, separate by ','.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hsIFrameOnlyManifest' - Choose Include (INCLUDE) to have MediaConvert generate a child manifest that lists only the I-frames for this rendition, in addition to your regular manifest for this rendition. You might use this manifest as part of a workflow that creates preview functions for your video. MediaConvert adds both the I-frame only child manifest and the regular child manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value Exclude (EXCLUDE).
+-- 'audioRenditionSets', 'hlsSettings_audioRenditionSets' - List all the audio groups that are used with the video output stream.
+-- Input all the audio GROUP-IDs that are associated to the video, separate
+-- by \',\'.
 --
--- * 'hsSegmentModifier' - Use this setting to add an identifying string to the filename of each segment. The service adds this string between the name modifier and segment index number. You can use format identifiers in the string. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html
+-- 'iFrameOnlyManifest', 'hlsSettings_iFrameOnlyManifest' - Choose Include (INCLUDE) to have MediaConvert generate a child manifest
+-- that lists only the I-frames for this rendition, in addition to your
+-- regular manifest for this rendition. You might use this manifest as part
+-- of a workflow that creates preview functions for your video.
+-- MediaConvert adds both the I-frame only child manifest and the regular
+-- child manifest to the parent manifest. When you don\'t need the I-frame
+-- only child manifest, keep the default value Exclude (EXCLUDE).
 --
--- * 'hsAudioOnlyContainer' - Use this setting only in audio-only outputs. Choose MPEG-2 Transport Stream (M2TS) to create a file in an MPEG2-TS container. Keep the default value Automatic (AUTOMATIC) to create an audio-only file in a raw container. Regardless of the value that you specify here, if this output has video, the service will place the output into an MPEG2-TS container.
+-- 'segmentModifier', 'hlsSettings_segmentModifier' - Use this setting to add an identifying string to the filename of each
+-- segment. The service adds this string between the name modifier and
+-- segment index number. You can use format identifiers in the string. For
+-- more information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/using-variables-in-your-job-settings.html
 --
--- * 'hsAudioGroupId' - Specifies the group to which the audio Rendition belongs.
+-- 'audioOnlyContainer', 'hlsSettings_audioOnlyContainer' - Use this setting only in audio-only outputs. Choose MPEG-2 Transport
+-- Stream (M2TS) to create a file in an MPEG2-TS container. Keep the
+-- default value Automatic (AUTOMATIC) to create an audio-only file in a
+-- raw container. Regardless of the value that you specify here, if this
+-- output has video, the service will place the output into an MPEG2-TS
+-- container.
 --
--- * 'hsAudioTrackType' - Four types of audio-only tracks are supported: Audio-Only Variant Stream The client can play back this audio-only stream instead of video in low-bandwidth scenarios. Represented as an EXT-X-STREAM-INF in the HLS manifest. Alternate Audio, Auto Select, Default Alternate rendition that the client should try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=YES, AUTOSELECT=YES Alternate Audio, Auto Select, Not Default Alternate rendition that the client may try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not Auto Select Alternate rendition that the client will not try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=NO
-hlsSettings ::
+-- 'audioGroupId', 'hlsSettings_audioGroupId' - Specifies the group to which the audio Rendition belongs.
+--
+-- 'audioTrackType', 'hlsSettings_audioTrackType' - Four types of audio-only tracks are supported: Audio-Only Variant Stream
+-- The client can play back this audio-only stream instead of video in
+-- low-bandwidth scenarios. Represented as an EXT-X-STREAM-INF in the HLS
+-- manifest. Alternate Audio, Auto Select, Default Alternate rendition that
+-- the client should try to play back by default. Represented as an
+-- EXT-X-MEDIA in the HLS manifest with DEFAULT=YES, AUTOSELECT=YES
+-- Alternate Audio, Auto Select, Not Default Alternate rendition that the
+-- client may try to play back by default. Represented as an EXT-X-MEDIA in
+-- the HLS manifest with DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not
+-- Auto Select Alternate rendition that the client will not try to play
+-- back by default. Represented as an EXT-X-MEDIA in the HLS manifest with
+-- DEFAULT=NO, AUTOSELECT=NO
+newHlsSettings ::
   HlsSettings
-hlsSettings =
+newHlsSettings =
   HlsSettings'
-    { _hsAudioRenditionSets = Nothing,
-      _hsIFrameOnlyManifest = Nothing,
-      _hsSegmentModifier = Nothing,
-      _hsAudioOnlyContainer = Nothing,
-      _hsAudioGroupId = Nothing,
-      _hsAudioTrackType = Nothing
+    { audioRenditionSets = Prelude.Nothing,
+      iFrameOnlyManifest = Prelude.Nothing,
+      segmentModifier = Prelude.Nothing,
+      audioOnlyContainer = Prelude.Nothing,
+      audioGroupId = Prelude.Nothing,
+      audioTrackType = Prelude.Nothing
     }
 
--- | List all the audio groups that are used with the video output stream. Input all the audio GROUP-IDs that are associated to the video, separate by ','.
-hsAudioRenditionSets :: Lens' HlsSettings (Maybe Text)
-hsAudioRenditionSets = lens _hsAudioRenditionSets (\s a -> s {_hsAudioRenditionSets = a})
+-- | List all the audio groups that are used with the video output stream.
+-- Input all the audio GROUP-IDs that are associated to the video, separate
+-- by \',\'.
+hlsSettings_audioRenditionSets :: Lens.Lens' HlsSettings (Prelude.Maybe Prelude.Text)
+hlsSettings_audioRenditionSets = Lens.lens (\HlsSettings' {audioRenditionSets} -> audioRenditionSets) (\s@HlsSettings' {} a -> s {audioRenditionSets = a} :: HlsSettings)
 
--- | Choose Include (INCLUDE) to have MediaConvert generate a child manifest that lists only the I-frames for this rendition, in addition to your regular manifest for this rendition. You might use this manifest as part of a workflow that creates preview functions for your video. MediaConvert adds both the I-frame only child manifest and the regular child manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value Exclude (EXCLUDE).
-hsIFrameOnlyManifest :: Lens' HlsSettings (Maybe HlsIFrameOnlyManifest)
-hsIFrameOnlyManifest = lens _hsIFrameOnlyManifest (\s a -> s {_hsIFrameOnlyManifest = a})
+-- | Choose Include (INCLUDE) to have MediaConvert generate a child manifest
+-- that lists only the I-frames for this rendition, in addition to your
+-- regular manifest for this rendition. You might use this manifest as part
+-- of a workflow that creates preview functions for your video.
+-- MediaConvert adds both the I-frame only child manifest and the regular
+-- child manifest to the parent manifest. When you don\'t need the I-frame
+-- only child manifest, keep the default value Exclude (EXCLUDE).
+hlsSettings_iFrameOnlyManifest :: Lens.Lens' HlsSettings (Prelude.Maybe HlsIFrameOnlyManifest)
+hlsSettings_iFrameOnlyManifest = Lens.lens (\HlsSettings' {iFrameOnlyManifest} -> iFrameOnlyManifest) (\s@HlsSettings' {} a -> s {iFrameOnlyManifest = a} :: HlsSettings)
 
--- | Use this setting to add an identifying string to the filename of each segment. The service adds this string between the name modifier and segment index number. You can use format identifiers in the string. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/using-variables-in-your-job-settings.html
-hsSegmentModifier :: Lens' HlsSettings (Maybe Text)
-hsSegmentModifier = lens _hsSegmentModifier (\s a -> s {_hsSegmentModifier = a})
+-- | Use this setting to add an identifying string to the filename of each
+-- segment. The service adds this string between the name modifier and
+-- segment index number. You can use format identifiers in the string. For
+-- more information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/using-variables-in-your-job-settings.html
+hlsSettings_segmentModifier :: Lens.Lens' HlsSettings (Prelude.Maybe Prelude.Text)
+hlsSettings_segmentModifier = Lens.lens (\HlsSettings' {segmentModifier} -> segmentModifier) (\s@HlsSettings' {} a -> s {segmentModifier = a} :: HlsSettings)
 
--- | Use this setting only in audio-only outputs. Choose MPEG-2 Transport Stream (M2TS) to create a file in an MPEG2-TS container. Keep the default value Automatic (AUTOMATIC) to create an audio-only file in a raw container. Regardless of the value that you specify here, if this output has video, the service will place the output into an MPEG2-TS container.
-hsAudioOnlyContainer :: Lens' HlsSettings (Maybe HlsAudioOnlyContainer)
-hsAudioOnlyContainer = lens _hsAudioOnlyContainer (\s a -> s {_hsAudioOnlyContainer = a})
+-- | Use this setting only in audio-only outputs. Choose MPEG-2 Transport
+-- Stream (M2TS) to create a file in an MPEG2-TS container. Keep the
+-- default value Automatic (AUTOMATIC) to create an audio-only file in a
+-- raw container. Regardless of the value that you specify here, if this
+-- output has video, the service will place the output into an MPEG2-TS
+-- container.
+hlsSettings_audioOnlyContainer :: Lens.Lens' HlsSettings (Prelude.Maybe HlsAudioOnlyContainer)
+hlsSettings_audioOnlyContainer = Lens.lens (\HlsSettings' {audioOnlyContainer} -> audioOnlyContainer) (\s@HlsSettings' {} a -> s {audioOnlyContainer = a} :: HlsSettings)
 
 -- | Specifies the group to which the audio Rendition belongs.
-hsAudioGroupId :: Lens' HlsSettings (Maybe Text)
-hsAudioGroupId = lens _hsAudioGroupId (\s a -> s {_hsAudioGroupId = a})
+hlsSettings_audioGroupId :: Lens.Lens' HlsSettings (Prelude.Maybe Prelude.Text)
+hlsSettings_audioGroupId = Lens.lens (\HlsSettings' {audioGroupId} -> audioGroupId) (\s@HlsSettings' {} a -> s {audioGroupId = a} :: HlsSettings)
 
--- | Four types of audio-only tracks are supported: Audio-Only Variant Stream The client can play back this audio-only stream instead of video in low-bandwidth scenarios. Represented as an EXT-X-STREAM-INF in the HLS manifest. Alternate Audio, Auto Select, Default Alternate rendition that the client should try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=YES, AUTOSELECT=YES Alternate Audio, Auto Select, Not Default Alternate rendition that the client may try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not Auto Select Alternate rendition that the client will not try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=NO
-hsAudioTrackType :: Lens' HlsSettings (Maybe HlsAudioTrackType)
-hsAudioTrackType = lens _hsAudioTrackType (\s a -> s {_hsAudioTrackType = a})
+-- | Four types of audio-only tracks are supported: Audio-Only Variant Stream
+-- The client can play back this audio-only stream instead of video in
+-- low-bandwidth scenarios. Represented as an EXT-X-STREAM-INF in the HLS
+-- manifest. Alternate Audio, Auto Select, Default Alternate rendition that
+-- the client should try to play back by default. Represented as an
+-- EXT-X-MEDIA in the HLS manifest with DEFAULT=YES, AUTOSELECT=YES
+-- Alternate Audio, Auto Select, Not Default Alternate rendition that the
+-- client may try to play back by default. Represented as an EXT-X-MEDIA in
+-- the HLS manifest with DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not
+-- Auto Select Alternate rendition that the client will not try to play
+-- back by default. Represented as an EXT-X-MEDIA in the HLS manifest with
+-- DEFAULT=NO, AUTOSELECT=NO
+hlsSettings_audioTrackType :: Lens.Lens' HlsSettings (Prelude.Maybe HlsAudioTrackType)
+hlsSettings_audioTrackType = Lens.lens (\HlsSettings' {audioTrackType} -> audioTrackType) (\s@HlsSettings' {} a -> s {audioTrackType = a} :: HlsSettings)
 
-instance FromJSON HlsSettings where
+instance Prelude.FromJSON HlsSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HlsSettings"
       ( \x ->
           HlsSettings'
-            <$> (x .:? "audioRenditionSets")
-            <*> (x .:? "iFrameOnlyManifest")
-            <*> (x .:? "segmentModifier")
-            <*> (x .:? "audioOnlyContainer")
-            <*> (x .:? "audioGroupId")
-            <*> (x .:? "audioTrackType")
+            Prelude.<$> (x Prelude..:? "audioRenditionSets")
+            Prelude.<*> (x Prelude..:? "iFrameOnlyManifest")
+            Prelude.<*> (x Prelude..:? "segmentModifier")
+            Prelude.<*> (x Prelude..:? "audioOnlyContainer")
+            Prelude.<*> (x Prelude..:? "audioGroupId")
+            Prelude.<*> (x Prelude..:? "audioTrackType")
       )
 
-instance Hashable HlsSettings
+instance Prelude.Hashable HlsSettings
 
-instance NFData HlsSettings
+instance Prelude.NFData HlsSettings
 
-instance ToJSON HlsSettings where
+instance Prelude.ToJSON HlsSettings where
   toJSON HlsSettings' {..} =
-    object
-      ( catMaybes
-          [ ("audioRenditionSets" .=) <$> _hsAudioRenditionSets,
-            ("iFrameOnlyManifest" .=) <$> _hsIFrameOnlyManifest,
-            ("segmentModifier" .=) <$> _hsSegmentModifier,
-            ("audioOnlyContainer" .=) <$> _hsAudioOnlyContainer,
-            ("audioGroupId" .=) <$> _hsAudioGroupId,
-            ("audioTrackType" .=) <$> _hsAudioTrackType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("audioRenditionSets" Prelude..=)
+              Prelude.<$> audioRenditionSets,
+            ("iFrameOnlyManifest" Prelude..=)
+              Prelude.<$> iFrameOnlyManifest,
+            ("segmentModifier" Prelude..=)
+              Prelude.<$> segmentModifier,
+            ("audioOnlyContainer" Prelude..=)
+              Prelude.<$> audioOnlyContainer,
+            ("audioGroupId" Prelude..=) Prelude.<$> audioGroupId,
+            ("audioTrackType" Prelude..=)
+              Prelude.<$> audioTrackType
           ]
       )

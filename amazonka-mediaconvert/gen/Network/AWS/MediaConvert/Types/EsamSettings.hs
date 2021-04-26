@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.EsamSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.EsamManifestConfirmConditionNotification
 import Network.AWS.MediaConvert.Types.EsamSignalProcessingNotification
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings for Event Signaling And Messaging (ESAM). If you don't do ad insertion, you can ignore these settings.
+-- | Settings for Event Signaling And Messaging (ESAM). If you don\'t do ad
+-- insertion, you can ignore these settings.
 --
--- /See:/ 'esamSettings' smart constructor.
+-- /See:/ 'newEsamSettings' smart constructor.
 data EsamSettings = EsamSettings'
-  { _esResponseSignalPreroll ::
-      !(Maybe Nat),
-    _esManifestConfirmConditionNotification ::
-      !( Maybe
-           EsamManifestConfirmConditionNotification
-       ),
-    _esSignalProcessingNotification ::
-      !(Maybe EsamSignalProcessingNotification)
+  { -- | Specifies the stream distance, in milliseconds, between the SCTE 35
+    -- messages that the transcoder places and the splice points that they
+    -- refer to. If the time between the start of the asset and the SCTE-35
+    -- message is less than this value, then the transcoder places the SCTE-35
+    -- marker at the beginning of the stream.
+    responseSignalPreroll :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies an ESAM ManifestConfirmConditionNotification XML as per
+    -- OC-SP-ESAM-API-I03-131025. The transcoder uses the manifest conditioning
+    -- instructions that you provide in the setting MCC XML (mccXml).
+    manifestConfirmConditionNotification :: Prelude.Maybe EsamManifestConfirmConditionNotification,
+    -- | Specifies an ESAM SignalProcessingNotification XML as per
+    -- OC-SP-ESAM-API-I03-131025. The transcoder uses the signal processing
+    -- instructions that you provide in the setting SCC XML (sccXml).
+    signalProcessingNotification :: Prelude.Maybe EsamSignalProcessingNotification
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EsamSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EsamSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esResponseSignalPreroll' - Specifies the stream distance, in milliseconds, between the SCTE 35 messages that the transcoder places and the splice points that they refer to. If the time between the start of the asset and the SCTE-35 message is less than this value, then the transcoder places the SCTE-35 marker at the beginning of the stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esManifestConfirmConditionNotification' - Specifies an ESAM ManifestConfirmConditionNotification XML as per OC-SP-ESAM-API-I03-131025. The transcoder uses the manifest conditioning instructions that you provide in the setting MCC XML (mccXml).
+-- 'responseSignalPreroll', 'esamSettings_responseSignalPreroll' - Specifies the stream distance, in milliseconds, between the SCTE 35
+-- messages that the transcoder places and the splice points that they
+-- refer to. If the time between the start of the asset and the SCTE-35
+-- message is less than this value, then the transcoder places the SCTE-35
+-- marker at the beginning of the stream.
 --
--- * 'esSignalProcessingNotification' - Specifies an ESAM SignalProcessingNotification XML as per OC-SP-ESAM-API-I03-131025. The transcoder uses the signal processing instructions that you provide in the setting SCC XML (sccXml).
-esamSettings ::
+-- 'manifestConfirmConditionNotification', 'esamSettings_manifestConfirmConditionNotification' - Specifies an ESAM ManifestConfirmConditionNotification XML as per
+-- OC-SP-ESAM-API-I03-131025. The transcoder uses the manifest conditioning
+-- instructions that you provide in the setting MCC XML (mccXml).
+--
+-- 'signalProcessingNotification', 'esamSettings_signalProcessingNotification' - Specifies an ESAM SignalProcessingNotification XML as per
+-- OC-SP-ESAM-API-I03-131025. The transcoder uses the signal processing
+-- instructions that you provide in the setting SCC XML (sccXml).
+newEsamSettings ::
   EsamSettings
-esamSettings =
+newEsamSettings =
   EsamSettings'
-    { _esResponseSignalPreroll = Nothing,
-      _esManifestConfirmConditionNotification = Nothing,
-      _esSignalProcessingNotification = Nothing
+    { responseSignalPreroll =
+        Prelude.Nothing,
+      manifestConfirmConditionNotification =
+        Prelude.Nothing,
+      signalProcessingNotification = Prelude.Nothing
     }
 
--- | Specifies the stream distance, in milliseconds, between the SCTE 35 messages that the transcoder places and the splice points that they refer to. If the time between the start of the asset and the SCTE-35 message is less than this value, then the transcoder places the SCTE-35 marker at the beginning of the stream.
-esResponseSignalPreroll :: Lens' EsamSettings (Maybe Natural)
-esResponseSignalPreroll = lens _esResponseSignalPreroll (\s a -> s {_esResponseSignalPreroll = a}) . mapping _Nat
+-- | Specifies the stream distance, in milliseconds, between the SCTE 35
+-- messages that the transcoder places and the splice points that they
+-- refer to. If the time between the start of the asset and the SCTE-35
+-- message is less than this value, then the transcoder places the SCTE-35
+-- marker at the beginning of the stream.
+esamSettings_responseSignalPreroll :: Lens.Lens' EsamSettings (Prelude.Maybe Prelude.Natural)
+esamSettings_responseSignalPreroll = Lens.lens (\EsamSettings' {responseSignalPreroll} -> responseSignalPreroll) (\s@EsamSettings' {} a -> s {responseSignalPreroll = a} :: EsamSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies an ESAM ManifestConfirmConditionNotification XML as per OC-SP-ESAM-API-I03-131025. The transcoder uses the manifest conditioning instructions that you provide in the setting MCC XML (mccXml).
-esManifestConfirmConditionNotification :: Lens' EsamSettings (Maybe EsamManifestConfirmConditionNotification)
-esManifestConfirmConditionNotification = lens _esManifestConfirmConditionNotification (\s a -> s {_esManifestConfirmConditionNotification = a})
+-- | Specifies an ESAM ManifestConfirmConditionNotification XML as per
+-- OC-SP-ESAM-API-I03-131025. The transcoder uses the manifest conditioning
+-- instructions that you provide in the setting MCC XML (mccXml).
+esamSettings_manifestConfirmConditionNotification :: Lens.Lens' EsamSettings (Prelude.Maybe EsamManifestConfirmConditionNotification)
+esamSettings_manifestConfirmConditionNotification = Lens.lens (\EsamSettings' {manifestConfirmConditionNotification} -> manifestConfirmConditionNotification) (\s@EsamSettings' {} a -> s {manifestConfirmConditionNotification = a} :: EsamSettings)
 
--- | Specifies an ESAM SignalProcessingNotification XML as per OC-SP-ESAM-API-I03-131025. The transcoder uses the signal processing instructions that you provide in the setting SCC XML (sccXml).
-esSignalProcessingNotification :: Lens' EsamSettings (Maybe EsamSignalProcessingNotification)
-esSignalProcessingNotification = lens _esSignalProcessingNotification (\s a -> s {_esSignalProcessingNotification = a})
+-- | Specifies an ESAM SignalProcessingNotification XML as per
+-- OC-SP-ESAM-API-I03-131025. The transcoder uses the signal processing
+-- instructions that you provide in the setting SCC XML (sccXml).
+esamSettings_signalProcessingNotification :: Lens.Lens' EsamSettings (Prelude.Maybe EsamSignalProcessingNotification)
+esamSettings_signalProcessingNotification = Lens.lens (\EsamSettings' {signalProcessingNotification} -> signalProcessingNotification) (\s@EsamSettings' {} a -> s {signalProcessingNotification = a} :: EsamSettings)
 
-instance FromJSON EsamSettings where
+instance Prelude.FromJSON EsamSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EsamSettings"
       ( \x ->
           EsamSettings'
-            <$> (x .:? "responseSignalPreroll")
-            <*> (x .:? "manifestConfirmConditionNotification")
-            <*> (x .:? "signalProcessingNotification")
+            Prelude.<$> (x Prelude..:? "responseSignalPreroll")
+            Prelude.<*> ( x
+                            Prelude..:? "manifestConfirmConditionNotification"
+                        )
+            Prelude.<*> (x Prelude..:? "signalProcessingNotification")
       )
 
-instance Hashable EsamSettings
+instance Prelude.Hashable EsamSettings
 
-instance NFData EsamSettings
+instance Prelude.NFData EsamSettings
 
-instance ToJSON EsamSettings where
+instance Prelude.ToJSON EsamSettings where
   toJSON EsamSettings' {..} =
-    object
-      ( catMaybes
-          [ ("responseSignalPreroll" .=)
-              <$> _esResponseSignalPreroll,
-            ("manifestConfirmConditionNotification" .=)
-              <$> _esManifestConfirmConditionNotification,
-            ("signalProcessingNotification" .=)
-              <$> _esSignalProcessingNotification
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("responseSignalPreroll" Prelude..=)
+              Prelude.<$> responseSignalPreroll,
+            ("manifestConfirmConditionNotification" Prelude..=)
+              Prelude.<$> manifestConfirmConditionNotification,
+            ("signalProcessingNotification" Prelude..=)
+              Prelude.<$> signalProcessingNotification
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,164 +19,274 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.Hdr10Metadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use these settings to specify static color calibration metadata, as defined by SMPTE ST 2086. These values don't affect the pixel values that are encoded in the video stream. They are intended to help the downstream video player display content in a way that reflects the intentions of the the content creator.
+-- | Use these settings to specify static color calibration metadata, as
+-- defined by SMPTE ST 2086. These values don\'t affect the pixel values
+-- that are encoded in the video stream. They are intended to help the
+-- downstream video player display content in a way that reflects the
+-- intentions of the the content creator.
 --
--- /See:/ 'hdr10Metadata' smart constructor.
+-- /See:/ 'newHdr10Metadata' smart constructor.
 data Hdr10Metadata = Hdr10Metadata'
-  { _hmGreenPrimaryX ::
-      !(Maybe Nat),
-    _hmMaxLuminance :: !(Maybe Nat),
-    _hmGreenPrimaryY :: !(Maybe Nat),
-    _hmBluePrimaryY :: !(Maybe Nat),
-    _hmBluePrimaryX :: !(Maybe Nat),
-    _hmRedPrimaryX :: !(Maybe Nat),
-    _hmRedPrimaryY :: !(Maybe Nat),
-    _hmWhitePointX :: !(Maybe Nat),
-    _hmMinLuminance :: !(Maybe Nat),
-    _hmMaxContentLightLevel :: !(Maybe Nat),
-    _hmMaxFrameAverageLightLevel ::
-      !(Maybe Nat),
-    _hmWhitePointY :: !(Maybe Nat)
+  { -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    greenPrimaryX :: Prelude.Maybe Prelude.Nat,
+    -- | Nominal maximum mastering display luminance in units of of 0.0001
+    -- candelas per square meter.
+    maxLuminance :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    greenPrimaryY :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    bluePrimaryY :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    bluePrimaryX :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    redPrimaryX :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    redPrimaryY :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    whitePointX :: Prelude.Maybe Prelude.Nat,
+    -- | Nominal minimum mastering display luminance in units of of 0.0001
+    -- candelas per square meter
+    minLuminance :: Prelude.Maybe Prelude.Nat,
+    -- | Maximum light level among all samples in the coded video sequence, in
+    -- units of candelas per square meter. This setting doesn\'t have a default
+    -- value; you must specify a value that is suitable for the content.
+    maxContentLightLevel :: Prelude.Maybe Prelude.Nat,
+    -- | Maximum average light level of any frame in the coded video sequence, in
+    -- units of candelas per square meter. This setting doesn\'t have a default
+    -- value; you must specify a value that is suitable for the content.
+    maxFrameAverageLightLevel :: Prelude.Maybe Prelude.Nat,
+    -- | HDR Master Display Information must be provided by a color grader, using
+    -- color grading tools. Range is 0 to 50,000, each increment represents
+    -- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+    -- color correction.
+    whitePointY :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Hdr10Metadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Hdr10Metadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hmGreenPrimaryX' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hmMaxLuminance' - Nominal maximum mastering display luminance in units of of 0.0001 candelas per square meter.
+-- 'greenPrimaryX', 'hdr10Metadata_greenPrimaryX' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmGreenPrimaryY' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- 'maxLuminance', 'hdr10Metadata_maxLuminance' - Nominal maximum mastering display luminance in units of of 0.0001
+-- candelas per square meter.
 --
--- * 'hmBluePrimaryY' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- 'greenPrimaryY', 'hdr10Metadata_greenPrimaryY' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmBluePrimaryX' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- 'bluePrimaryY', 'hdr10Metadata_bluePrimaryY' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmRedPrimaryX' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- 'bluePrimaryX', 'hdr10Metadata_bluePrimaryX' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmRedPrimaryY' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- 'redPrimaryX', 'hdr10Metadata_redPrimaryX' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmWhitePointX' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
+-- 'redPrimaryY', 'hdr10Metadata_redPrimaryY' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmMinLuminance' - Nominal minimum mastering display luminance in units of of 0.0001 candelas per square meter
+-- 'whitePointX', 'hdr10Metadata_whitePointX' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
 --
--- * 'hmMaxContentLightLevel' - Maximum light level among all samples in the coded video sequence, in units of candelas per square meter.  This setting doesn't have a default value; you must specify a value that is suitable for the content.
+-- 'minLuminance', 'hdr10Metadata_minLuminance' - Nominal minimum mastering display luminance in units of of 0.0001
+-- candelas per square meter
 --
--- * 'hmMaxFrameAverageLightLevel' - Maximum average light level of any frame in the coded video sequence, in units of candelas per square meter. This setting doesn't have a default value; you must specify a value that is suitable for the content.
+-- 'maxContentLightLevel', 'hdr10Metadata_maxContentLightLevel' - Maximum light level among all samples in the coded video sequence, in
+-- units of candelas per square meter. This setting doesn\'t have a default
+-- value; you must specify a value that is suitable for the content.
 --
--- * 'hmWhitePointY' - HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hdr10Metadata ::
+-- 'maxFrameAverageLightLevel', 'hdr10Metadata_maxFrameAverageLightLevel' - Maximum average light level of any frame in the coded video sequence, in
+-- units of candelas per square meter. This setting doesn\'t have a default
+-- value; you must specify a value that is suitable for the content.
+--
+-- 'whitePointY', 'hdr10Metadata_whitePointY' - HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+newHdr10Metadata ::
   Hdr10Metadata
-hdr10Metadata =
+newHdr10Metadata =
   Hdr10Metadata'
-    { _hmGreenPrimaryX = Nothing,
-      _hmMaxLuminance = Nothing,
-      _hmGreenPrimaryY = Nothing,
-      _hmBluePrimaryY = Nothing,
-      _hmBluePrimaryX = Nothing,
-      _hmRedPrimaryX = Nothing,
-      _hmRedPrimaryY = Nothing,
-      _hmWhitePointX = Nothing,
-      _hmMinLuminance = Nothing,
-      _hmMaxContentLightLevel = Nothing,
-      _hmMaxFrameAverageLightLevel = Nothing,
-      _hmWhitePointY = Nothing
+    { greenPrimaryX = Prelude.Nothing,
+      maxLuminance = Prelude.Nothing,
+      greenPrimaryY = Prelude.Nothing,
+      bluePrimaryY = Prelude.Nothing,
+      bluePrimaryX = Prelude.Nothing,
+      redPrimaryX = Prelude.Nothing,
+      redPrimaryY = Prelude.Nothing,
+      whitePointX = Prelude.Nothing,
+      minLuminance = Prelude.Nothing,
+      maxContentLightLevel = Prelude.Nothing,
+      maxFrameAverageLightLevel = Prelude.Nothing,
+      whitePointY = Prelude.Nothing
     }
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmGreenPrimaryX :: Lens' Hdr10Metadata (Maybe Natural)
-hmGreenPrimaryX = lens _hmGreenPrimaryX (\s a -> s {_hmGreenPrimaryX = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_greenPrimaryX :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_greenPrimaryX = Lens.lens (\Hdr10Metadata' {greenPrimaryX} -> greenPrimaryX) (\s@Hdr10Metadata' {} a -> s {greenPrimaryX = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | Nominal maximum mastering display luminance in units of of 0.0001 candelas per square meter.
-hmMaxLuminance :: Lens' Hdr10Metadata (Maybe Natural)
-hmMaxLuminance = lens _hmMaxLuminance (\s a -> s {_hmMaxLuminance = a}) . mapping _Nat
+-- | Nominal maximum mastering display luminance in units of of 0.0001
+-- candelas per square meter.
+hdr10Metadata_maxLuminance :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_maxLuminance = Lens.lens (\Hdr10Metadata' {maxLuminance} -> maxLuminance) (\s@Hdr10Metadata' {} a -> s {maxLuminance = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmGreenPrimaryY :: Lens' Hdr10Metadata (Maybe Natural)
-hmGreenPrimaryY = lens _hmGreenPrimaryY (\s a -> s {_hmGreenPrimaryY = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_greenPrimaryY :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_greenPrimaryY = Lens.lens (\Hdr10Metadata' {greenPrimaryY} -> greenPrimaryY) (\s@Hdr10Metadata' {} a -> s {greenPrimaryY = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmBluePrimaryY :: Lens' Hdr10Metadata (Maybe Natural)
-hmBluePrimaryY = lens _hmBluePrimaryY (\s a -> s {_hmBluePrimaryY = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_bluePrimaryY :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_bluePrimaryY = Lens.lens (\Hdr10Metadata' {bluePrimaryY} -> bluePrimaryY) (\s@Hdr10Metadata' {} a -> s {bluePrimaryY = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmBluePrimaryX :: Lens' Hdr10Metadata (Maybe Natural)
-hmBluePrimaryX = lens _hmBluePrimaryX (\s a -> s {_hmBluePrimaryX = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_bluePrimaryX :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_bluePrimaryX = Lens.lens (\Hdr10Metadata' {bluePrimaryX} -> bluePrimaryX) (\s@Hdr10Metadata' {} a -> s {bluePrimaryX = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmRedPrimaryX :: Lens' Hdr10Metadata (Maybe Natural)
-hmRedPrimaryX = lens _hmRedPrimaryX (\s a -> s {_hmRedPrimaryX = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_redPrimaryX :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_redPrimaryX = Lens.lens (\Hdr10Metadata' {redPrimaryX} -> redPrimaryX) (\s@Hdr10Metadata' {} a -> s {redPrimaryX = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmRedPrimaryY :: Lens' Hdr10Metadata (Maybe Natural)
-hmRedPrimaryY = lens _hmRedPrimaryY (\s a -> s {_hmRedPrimaryY = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_redPrimaryY :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_redPrimaryY = Lens.lens (\Hdr10Metadata' {redPrimaryY} -> redPrimaryY) (\s@Hdr10Metadata' {} a -> s {redPrimaryY = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmWhitePointX :: Lens' Hdr10Metadata (Maybe Natural)
-hmWhitePointX = lens _hmWhitePointX (\s a -> s {_hmWhitePointX = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_whitePointX :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_whitePointX = Lens.lens (\Hdr10Metadata' {whitePointX} -> whitePointX) (\s@Hdr10Metadata' {} a -> s {whitePointX = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | Nominal minimum mastering display luminance in units of of 0.0001 candelas per square meter
-hmMinLuminance :: Lens' Hdr10Metadata (Maybe Natural)
-hmMinLuminance = lens _hmMinLuminance (\s a -> s {_hmMinLuminance = a}) . mapping _Nat
+-- | Nominal minimum mastering display luminance in units of of 0.0001
+-- candelas per square meter
+hdr10Metadata_minLuminance :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_minLuminance = Lens.lens (\Hdr10Metadata' {minLuminance} -> minLuminance) (\s@Hdr10Metadata' {} a -> s {minLuminance = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | Maximum light level among all samples in the coded video sequence, in units of candelas per square meter.  This setting doesn't have a default value; you must specify a value that is suitable for the content.
-hmMaxContentLightLevel :: Lens' Hdr10Metadata (Maybe Natural)
-hmMaxContentLightLevel = lens _hmMaxContentLightLevel (\s a -> s {_hmMaxContentLightLevel = a}) . mapping _Nat
+-- | Maximum light level among all samples in the coded video sequence, in
+-- units of candelas per square meter. This setting doesn\'t have a default
+-- value; you must specify a value that is suitable for the content.
+hdr10Metadata_maxContentLightLevel :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_maxContentLightLevel = Lens.lens (\Hdr10Metadata' {maxContentLightLevel} -> maxContentLightLevel) (\s@Hdr10Metadata' {} a -> s {maxContentLightLevel = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | Maximum average light level of any frame in the coded video sequence, in units of candelas per square meter. This setting doesn't have a default value; you must specify a value that is suitable for the content.
-hmMaxFrameAverageLightLevel :: Lens' Hdr10Metadata (Maybe Natural)
-hmMaxFrameAverageLightLevel = lens _hmMaxFrameAverageLightLevel (\s a -> s {_hmMaxFrameAverageLightLevel = a}) . mapping _Nat
+-- | Maximum average light level of any frame in the coded video sequence, in
+-- units of candelas per square meter. This setting doesn\'t have a default
+-- value; you must specify a value that is suitable for the content.
+hdr10Metadata_maxFrameAverageLightLevel :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_maxFrameAverageLightLevel = Lens.lens (\Hdr10Metadata' {maxFrameAverageLightLevel} -> maxFrameAverageLightLevel) (\s@Hdr10Metadata' {} a -> s {maxFrameAverageLightLevel = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
--- | HDR Master Display Information must be provided by a color grader, using color grading tools. Range is 0 to 50,000, each increment represents 0.00002 in CIE1931 color coordinate. Note that this setting is not for color correction.
-hmWhitePointY :: Lens' Hdr10Metadata (Maybe Natural)
-hmWhitePointY = lens _hmWhitePointY (\s a -> s {_hmWhitePointY = a}) . mapping _Nat
+-- | HDR Master Display Information must be provided by a color grader, using
+-- color grading tools. Range is 0 to 50,000, each increment represents
+-- 0.00002 in CIE1931 color coordinate. Note that this setting is not for
+-- color correction.
+hdr10Metadata_whitePointY :: Lens.Lens' Hdr10Metadata (Prelude.Maybe Prelude.Natural)
+hdr10Metadata_whitePointY = Lens.lens (\Hdr10Metadata' {whitePointY} -> whitePointY) (\s@Hdr10Metadata' {} a -> s {whitePointY = a} :: Hdr10Metadata) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON Hdr10Metadata where
+instance Prelude.FromJSON Hdr10Metadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Hdr10Metadata"
       ( \x ->
           Hdr10Metadata'
-            <$> (x .:? "greenPrimaryX")
-            <*> (x .:? "maxLuminance")
-            <*> (x .:? "greenPrimaryY")
-            <*> (x .:? "bluePrimaryY")
-            <*> (x .:? "bluePrimaryX")
-            <*> (x .:? "redPrimaryX")
-            <*> (x .:? "redPrimaryY")
-            <*> (x .:? "whitePointX")
-            <*> (x .:? "minLuminance")
-            <*> (x .:? "maxContentLightLevel")
-            <*> (x .:? "maxFrameAverageLightLevel")
-            <*> (x .:? "whitePointY")
+            Prelude.<$> (x Prelude..:? "greenPrimaryX")
+            Prelude.<*> (x Prelude..:? "maxLuminance")
+            Prelude.<*> (x Prelude..:? "greenPrimaryY")
+            Prelude.<*> (x Prelude..:? "bluePrimaryY")
+            Prelude.<*> (x Prelude..:? "bluePrimaryX")
+            Prelude.<*> (x Prelude..:? "redPrimaryX")
+            Prelude.<*> (x Prelude..:? "redPrimaryY")
+            Prelude.<*> (x Prelude..:? "whitePointX")
+            Prelude.<*> (x Prelude..:? "minLuminance")
+            Prelude.<*> (x Prelude..:? "maxContentLightLevel")
+            Prelude.<*> (x Prelude..:? "maxFrameAverageLightLevel")
+            Prelude.<*> (x Prelude..:? "whitePointY")
       )
 
-instance Hashable Hdr10Metadata
+instance Prelude.Hashable Hdr10Metadata
 
-instance NFData Hdr10Metadata
+instance Prelude.NFData Hdr10Metadata
 
-instance ToJSON Hdr10Metadata where
+instance Prelude.ToJSON Hdr10Metadata where
   toJSON Hdr10Metadata' {..} =
-    object
-      ( catMaybes
-          [ ("greenPrimaryX" .=) <$> _hmGreenPrimaryX,
-            ("maxLuminance" .=) <$> _hmMaxLuminance,
-            ("greenPrimaryY" .=) <$> _hmGreenPrimaryY,
-            ("bluePrimaryY" .=) <$> _hmBluePrimaryY,
-            ("bluePrimaryX" .=) <$> _hmBluePrimaryX,
-            ("redPrimaryX" .=) <$> _hmRedPrimaryX,
-            ("redPrimaryY" .=) <$> _hmRedPrimaryY,
-            ("whitePointX" .=) <$> _hmWhitePointX,
-            ("minLuminance" .=) <$> _hmMinLuminance,
-            ("maxContentLightLevel" .=)
-              <$> _hmMaxContentLightLevel,
-            ("maxFrameAverageLightLevel" .=)
-              <$> _hmMaxFrameAverageLightLevel,
-            ("whitePointY" .=) <$> _hmWhitePointY
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("greenPrimaryX" Prelude..=)
+              Prelude.<$> greenPrimaryX,
+            ("maxLuminance" Prelude..=) Prelude.<$> maxLuminance,
+            ("greenPrimaryY" Prelude..=)
+              Prelude.<$> greenPrimaryY,
+            ("bluePrimaryY" Prelude..=) Prelude.<$> bluePrimaryY,
+            ("bluePrimaryX" Prelude..=) Prelude.<$> bluePrimaryX,
+            ("redPrimaryX" Prelude..=) Prelude.<$> redPrimaryX,
+            ("redPrimaryY" Prelude..=) Prelude.<$> redPrimaryY,
+            ("whitePointX" Prelude..=) Prelude.<$> whitePointX,
+            ("minLuminance" Prelude..=) Prelude.<$> minLuminance,
+            ("maxContentLightLevel" Prelude..=)
+              Prelude.<$> maxContentLightLevel,
+            ("maxFrameAverageLightLevel" Prelude..=)
+              Prelude.<$> maxFrameAverageLightLevel,
+            ("whitePointY" Prelude..=) Prelude.<$> whitePointY
           ]
       )

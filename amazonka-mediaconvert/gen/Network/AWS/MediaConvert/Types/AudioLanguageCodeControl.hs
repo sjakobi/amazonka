@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,65 @@
 module Network.AWS.MediaConvert.Types.AudioLanguageCodeControl
   ( AudioLanguageCodeControl
       ( ..,
-        ALCCFollowInput,
-        ALCCUseConfigured
+        AudioLanguageCodeControlFOLLOWINPUT,
+        AudioLanguageCodeControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify which source for language code takes precedence for this audio track. When you choose Follow input (FOLLOW_INPUT), the service uses the language code from the input track if it's present. If there's no languge code on the input track, the service uses the code that you specify in the setting Language code (languageCode or customLanguageCode). When you choose Use configured (USE_CONFIGURED), the service uses the language code that you specify.
-data AudioLanguageCodeControl
-  = AudioLanguageCodeControl'
-      ( CI
-          Text
-      )
+-- | Specify which source for language code takes precedence for this audio
+-- track. When you choose Follow input (FOLLOW_INPUT), the service uses the
+-- language code from the input track if it\'s present. If there\'s no
+-- languge code on the input track, the service uses the code that you
+-- specify in the setting Language code (languageCode or
+-- customLanguageCode). When you choose Use configured (USE_CONFIGURED),
+-- the service uses the language code that you specify.
+newtype AudioLanguageCodeControl = AudioLanguageCodeControl'
+  { fromAudioLanguageCodeControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ALCCFollowInput :: AudioLanguageCodeControl
-pattern ALCCFollowInput = AudioLanguageCodeControl' "FOLLOW_INPUT"
+pattern AudioLanguageCodeControlFOLLOWINPUT :: AudioLanguageCodeControl
+pattern AudioLanguageCodeControlFOLLOWINPUT = AudioLanguageCodeControl' "FOLLOW_INPUT"
 
-pattern ALCCUseConfigured :: AudioLanguageCodeControl
-pattern ALCCUseConfigured = AudioLanguageCodeControl' "USE_CONFIGURED"
+pattern AudioLanguageCodeControlUSECONFIGURED :: AudioLanguageCodeControl
+pattern AudioLanguageCodeControlUSECONFIGURED = AudioLanguageCodeControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  ALCCFollowInput,
-  ALCCUseConfigured,
+  AudioLanguageCodeControlFOLLOWINPUT,
+  AudioLanguageCodeControlUSECONFIGURED,
   AudioLanguageCodeControl'
   #-}
 
-instance FromText AudioLanguageCodeControl where
-  parser = (AudioLanguageCodeControl' . mk) <$> takeText
+instance Prelude.FromText AudioLanguageCodeControl where
+  parser = AudioLanguageCodeControl' Prelude.<$> Prelude.takeText
 
-instance ToText AudioLanguageCodeControl where
-  toText (AudioLanguageCodeControl' ci) = original ci
+instance Prelude.ToText AudioLanguageCodeControl where
+  toText (AudioLanguageCodeControl' x) = x
 
-instance Hashable AudioLanguageCodeControl
+instance Prelude.Hashable AudioLanguageCodeControl
 
-instance NFData AudioLanguageCodeControl
+instance Prelude.NFData AudioLanguageCodeControl
 
-instance ToByteString AudioLanguageCodeControl
+instance Prelude.ToByteString AudioLanguageCodeControl
 
-instance ToQuery AudioLanguageCodeControl
+instance Prelude.ToQuery AudioLanguageCodeControl
 
-instance ToHeader AudioLanguageCodeControl
+instance Prelude.ToHeader AudioLanguageCodeControl
 
-instance ToJSON AudioLanguageCodeControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioLanguageCodeControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioLanguageCodeControl where
-  parseJSON = parseJSONText "AudioLanguageCodeControl"
+instance Prelude.FromJSON AudioLanguageCodeControl where
+  parseJSON = Prelude.parseJSONText "AudioLanguageCodeControl"

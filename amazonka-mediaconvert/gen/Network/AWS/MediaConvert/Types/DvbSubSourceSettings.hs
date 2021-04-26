@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.DvbSubSourceSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | DVB Sub Source Settings
 --
--- /See:/ 'dvbSubSourceSettings' smart constructor.
-newtype DvbSubSourceSettings = DvbSubSourceSettings'
-  { _dsssPid ::
-      Maybe Nat
+-- /See:/ 'newDvbSubSourceSettings' smart constructor.
+data DvbSubSourceSettings = DvbSubSourceSettings'
+  { -- | When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source
+    -- content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed
+    -- through, regardless of selectors.
+    pid :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DvbSubSourceSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DvbSubSourceSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsssPid' - When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed through, regardless of selectors.
-dvbSubSourceSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pid', 'dvbSubSourceSettings_pid' - When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source
+-- content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed
+-- through, regardless of selectors.
+newDvbSubSourceSettings ::
   DvbSubSourceSettings
-dvbSubSourceSettings =
-  DvbSubSourceSettings' {_dsssPid = Nothing}
+newDvbSubSourceSettings =
+  DvbSubSourceSettings' {pid = Prelude.Nothing}
 
--- | When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed through, regardless of selectors.
-dsssPid :: Lens' DvbSubSourceSettings (Maybe Natural)
-dsssPid = lens _dsssPid (\s a -> s {_dsssPid = a}) . mapping _Nat
+-- | When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source
+-- content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed
+-- through, regardless of selectors.
+dvbSubSourceSettings_pid :: Lens.Lens' DvbSubSourceSettings (Prelude.Maybe Prelude.Natural)
+dvbSubSourceSettings_pid = Lens.lens (\DvbSubSourceSettings' {pid} -> pid) (\s@DvbSubSourceSettings' {} a -> s {pid = a} :: DvbSubSourceSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON DvbSubSourceSettings where
+instance Prelude.FromJSON DvbSubSourceSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DvbSubSourceSettings"
-      (\x -> DvbSubSourceSettings' <$> (x .:? "pid"))
+      ( \x ->
+          DvbSubSourceSettings'
+            Prelude.<$> (x Prelude..:? "pid")
+      )
 
-instance Hashable DvbSubSourceSettings
+instance Prelude.Hashable DvbSubSourceSettings
 
-instance NFData DvbSubSourceSettings
+instance Prelude.NFData DvbSubSourceSettings
 
-instance ToJSON DvbSubSourceSettings where
+instance Prelude.ToJSON DvbSubSourceSettings where
   toJSON DvbSubSourceSettings' {..} =
-    object (catMaybes [("pid" .=) <$> _dsssPid])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pid" Prelude..=) Prelude.<$> pid]
+      )

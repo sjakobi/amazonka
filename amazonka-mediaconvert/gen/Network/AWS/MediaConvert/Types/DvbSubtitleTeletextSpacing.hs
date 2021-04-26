@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,64 @@
 module Network.AWS.MediaConvert.Types.DvbSubtitleTeletextSpacing
   ( DvbSubtitleTeletextSpacing
       ( ..,
-        FixedGrid,
-        Proportional
+        DvbSubtitleTeletextSpacingFIXEDGRID,
+        DvbSubtitleTeletextSpacingPROPORTIONAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if the captions are closed caption.
-data DvbSubtitleTeletextSpacing
-  = DvbSubtitleTeletextSpacing'
-      ( CI
-          Text
-      )
+-- | Only applies to jobs with input captions in Teletext or STL formats.
+-- Specify whether the spacing between letters in your captions is set by
+-- the captions grid or varies depending on letter width. Choose fixed grid
+-- to conform to the spacing specified in the captions file more
+-- accurately. Choose proportional to make the text easier to read if the
+-- captions are closed caption.
+newtype DvbSubtitleTeletextSpacing = DvbSubtitleTeletextSpacing'
+  { fromDvbSubtitleTeletextSpacing ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FixedGrid :: DvbSubtitleTeletextSpacing
-pattern FixedGrid = DvbSubtitleTeletextSpacing' "FIXED_GRID"
+pattern DvbSubtitleTeletextSpacingFIXEDGRID :: DvbSubtitleTeletextSpacing
+pattern DvbSubtitleTeletextSpacingFIXEDGRID = DvbSubtitleTeletextSpacing' "FIXED_GRID"
 
-pattern Proportional :: DvbSubtitleTeletextSpacing
-pattern Proportional = DvbSubtitleTeletextSpacing' "PROPORTIONAL"
+pattern DvbSubtitleTeletextSpacingPROPORTIONAL :: DvbSubtitleTeletextSpacing
+pattern DvbSubtitleTeletextSpacingPROPORTIONAL = DvbSubtitleTeletextSpacing' "PROPORTIONAL"
 
 {-# COMPLETE
-  FixedGrid,
-  Proportional,
+  DvbSubtitleTeletextSpacingFIXEDGRID,
+  DvbSubtitleTeletextSpacingPROPORTIONAL,
   DvbSubtitleTeletextSpacing'
   #-}
 
-instance FromText DvbSubtitleTeletextSpacing where
-  parser = (DvbSubtitleTeletextSpacing' . mk) <$> takeText
+instance Prelude.FromText DvbSubtitleTeletextSpacing where
+  parser = DvbSubtitleTeletextSpacing' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubtitleTeletextSpacing where
-  toText (DvbSubtitleTeletextSpacing' ci) = original ci
+instance Prelude.ToText DvbSubtitleTeletextSpacing where
+  toText (DvbSubtitleTeletextSpacing' x) = x
 
-instance Hashable DvbSubtitleTeletextSpacing
+instance Prelude.Hashable DvbSubtitleTeletextSpacing
 
-instance NFData DvbSubtitleTeletextSpacing
+instance Prelude.NFData DvbSubtitleTeletextSpacing
 
-instance ToByteString DvbSubtitleTeletextSpacing
+instance Prelude.ToByteString DvbSubtitleTeletextSpacing
 
-instance ToQuery DvbSubtitleTeletextSpacing
+instance Prelude.ToQuery DvbSubtitleTeletextSpacing
 
-instance ToHeader DvbSubtitleTeletextSpacing
+instance Prelude.ToHeader DvbSubtitleTeletextSpacing
 
-instance ToJSON DvbSubtitleTeletextSpacing where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubtitleTeletextSpacing where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubtitleTeletextSpacing where
-  parseJSON = parseJSONText "DvbSubtitleTeletextSpacing"
+instance Prelude.FromJSON DvbSubtitleTeletextSpacing where
+  parseJSON = Prelude.parseJSONText "DvbSubtitleTeletextSpacing"

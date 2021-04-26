@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,70 @@
 module Network.AWS.MediaConvert.Types.AccelerationMode
   ( AccelerationMode
       ( ..,
-        AMDisabled,
-        AMEnabled,
-        AMPreferred
+        AccelerationModeDISABLED,
+        AccelerationModeENABLED,
+        AccelerationModePREFERRED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify whether the service runs your job with accelerated transcoding. Choose DISABLED if you don't want accelerated transcoding. Choose ENABLED if you want your job to run with accelerated transcoding and to fail if your input files or your job settings aren't compatible with accelerated transcoding. Choose PREFERRED if you want your job to run with accelerated transcoding if the job is compatible with the feature and to run at standard speed if it's not.
-data AccelerationMode = AccelerationMode' (CI Text)
+-- | Specify whether the service runs your job with accelerated transcoding.
+-- Choose DISABLED if you don\'t want accelerated transcoding. Choose
+-- ENABLED if you want your job to run with accelerated transcoding and to
+-- fail if your input files or your job settings aren\'t compatible with
+-- accelerated transcoding. Choose PREFERRED if you want your job to run
+-- with accelerated transcoding if the job is compatible with the feature
+-- and to run at standard speed if it\'s not.
+newtype AccelerationMode = AccelerationMode'
+  { fromAccelerationMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMDisabled :: AccelerationMode
-pattern AMDisabled = AccelerationMode' "DISABLED"
+pattern AccelerationModeDISABLED :: AccelerationMode
+pattern AccelerationModeDISABLED = AccelerationMode' "DISABLED"
 
-pattern AMEnabled :: AccelerationMode
-pattern AMEnabled = AccelerationMode' "ENABLED"
+pattern AccelerationModeENABLED :: AccelerationMode
+pattern AccelerationModeENABLED = AccelerationMode' "ENABLED"
 
-pattern AMPreferred :: AccelerationMode
-pattern AMPreferred = AccelerationMode' "PREFERRED"
+pattern AccelerationModePREFERRED :: AccelerationMode
+pattern AccelerationModePREFERRED = AccelerationMode' "PREFERRED"
 
 {-# COMPLETE
-  AMDisabled,
-  AMEnabled,
-  AMPreferred,
+  AccelerationModeDISABLED,
+  AccelerationModeENABLED,
+  AccelerationModePREFERRED,
   AccelerationMode'
   #-}
 
-instance FromText AccelerationMode where
-  parser = (AccelerationMode' . mk) <$> takeText
+instance Prelude.FromText AccelerationMode where
+  parser = AccelerationMode' Prelude.<$> Prelude.takeText
 
-instance ToText AccelerationMode where
-  toText (AccelerationMode' ci) = original ci
+instance Prelude.ToText AccelerationMode where
+  toText (AccelerationMode' x) = x
 
-instance Hashable AccelerationMode
+instance Prelude.Hashable AccelerationMode
 
-instance NFData AccelerationMode
+instance Prelude.NFData AccelerationMode
 
-instance ToByteString AccelerationMode
+instance Prelude.ToByteString AccelerationMode
 
-instance ToQuery AccelerationMode
+instance Prelude.ToQuery AccelerationMode
 
-instance ToHeader AccelerationMode
+instance Prelude.ToHeader AccelerationMode
 
-instance ToJSON AccelerationMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON AccelerationMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AccelerationMode where
-  parseJSON = parseJSONText "AccelerationMode"
+instance Prelude.FromJSON AccelerationMode where
+  parseJSON = Prelude.parseJSONText "AccelerationMode"

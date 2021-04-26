@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,82 @@
 module Network.AWS.MediaConvert.Types.DvbSubtitleOutlineColor
   ( DvbSubtitleOutlineColor
       ( ..,
-        DSOCBlack,
-        DSOCBlue,
-        DSOCGreen,
-        DSOCRed,
-        DSOCWhite,
-        DSOCYellow
+        DvbSubtitleOutlineColorBLACK,
+        DvbSubtitleOutlineColorBLUE,
+        DvbSubtitleOutlineColorGREEN,
+        DvbSubtitleOutlineColorRED,
+        DvbSubtitleOutlineColorWHITE,
+        DvbSubtitleOutlineColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies font outline color. This option is not valid for source captions that are either 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
-data DvbSubtitleOutlineColor
-  = DvbSubtitleOutlineColor'
-      ( CI
-          Text
-      )
+-- | Specifies font outline color. This option is not valid for source
+-- captions that are either 608\/embedded or teletext. These source
+-- settings are already pre-defined by the caption stream. All burn-in and
+-- DVB-Sub font settings must match.
+newtype DvbSubtitleOutlineColor = DvbSubtitleOutlineColor'
+  { fromDvbSubtitleOutlineColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSOCBlack :: DvbSubtitleOutlineColor
-pattern DSOCBlack = DvbSubtitleOutlineColor' "BLACK"
+pattern DvbSubtitleOutlineColorBLACK :: DvbSubtitleOutlineColor
+pattern DvbSubtitleOutlineColorBLACK = DvbSubtitleOutlineColor' "BLACK"
 
-pattern DSOCBlue :: DvbSubtitleOutlineColor
-pattern DSOCBlue = DvbSubtitleOutlineColor' "BLUE"
+pattern DvbSubtitleOutlineColorBLUE :: DvbSubtitleOutlineColor
+pattern DvbSubtitleOutlineColorBLUE = DvbSubtitleOutlineColor' "BLUE"
 
-pattern DSOCGreen :: DvbSubtitleOutlineColor
-pattern DSOCGreen = DvbSubtitleOutlineColor' "GREEN"
+pattern DvbSubtitleOutlineColorGREEN :: DvbSubtitleOutlineColor
+pattern DvbSubtitleOutlineColorGREEN = DvbSubtitleOutlineColor' "GREEN"
 
-pattern DSOCRed :: DvbSubtitleOutlineColor
-pattern DSOCRed = DvbSubtitleOutlineColor' "RED"
+pattern DvbSubtitleOutlineColorRED :: DvbSubtitleOutlineColor
+pattern DvbSubtitleOutlineColorRED = DvbSubtitleOutlineColor' "RED"
 
-pattern DSOCWhite :: DvbSubtitleOutlineColor
-pattern DSOCWhite = DvbSubtitleOutlineColor' "WHITE"
+pattern DvbSubtitleOutlineColorWHITE :: DvbSubtitleOutlineColor
+pattern DvbSubtitleOutlineColorWHITE = DvbSubtitleOutlineColor' "WHITE"
 
-pattern DSOCYellow :: DvbSubtitleOutlineColor
-pattern DSOCYellow = DvbSubtitleOutlineColor' "YELLOW"
+pattern DvbSubtitleOutlineColorYELLOW :: DvbSubtitleOutlineColor
+pattern DvbSubtitleOutlineColorYELLOW = DvbSubtitleOutlineColor' "YELLOW"
 
 {-# COMPLETE
-  DSOCBlack,
-  DSOCBlue,
-  DSOCGreen,
-  DSOCRed,
-  DSOCWhite,
-  DSOCYellow,
+  DvbSubtitleOutlineColorBLACK,
+  DvbSubtitleOutlineColorBLUE,
+  DvbSubtitleOutlineColorGREEN,
+  DvbSubtitleOutlineColorRED,
+  DvbSubtitleOutlineColorWHITE,
+  DvbSubtitleOutlineColorYELLOW,
   DvbSubtitleOutlineColor'
   #-}
 
-instance FromText DvbSubtitleOutlineColor where
-  parser = (DvbSubtitleOutlineColor' . mk) <$> takeText
+instance Prelude.FromText DvbSubtitleOutlineColor where
+  parser = DvbSubtitleOutlineColor' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubtitleOutlineColor where
-  toText (DvbSubtitleOutlineColor' ci) = original ci
+instance Prelude.ToText DvbSubtitleOutlineColor where
+  toText (DvbSubtitleOutlineColor' x) = x
 
-instance Hashable DvbSubtitleOutlineColor
+instance Prelude.Hashable DvbSubtitleOutlineColor
 
-instance NFData DvbSubtitleOutlineColor
+instance Prelude.NFData DvbSubtitleOutlineColor
 
-instance ToByteString DvbSubtitleOutlineColor
+instance Prelude.ToByteString DvbSubtitleOutlineColor
 
-instance ToQuery DvbSubtitleOutlineColor
+instance Prelude.ToQuery DvbSubtitleOutlineColor
 
-instance ToHeader DvbSubtitleOutlineColor
+instance Prelude.ToHeader DvbSubtitleOutlineColor
 
-instance ToJSON DvbSubtitleOutlineColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubtitleOutlineColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubtitleOutlineColor where
-  parseJSON = parseJSONText "DvbSubtitleOutlineColor"
+instance Prelude.FromJSON DvbSubtitleOutlineColor where
+  parseJSON = Prelude.parseJSONText "DvbSubtitleOutlineColor"

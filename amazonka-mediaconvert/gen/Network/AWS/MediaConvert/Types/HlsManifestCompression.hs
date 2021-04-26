@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaConvert.Types.HlsManifestCompression
   ( HlsManifestCompression
       ( ..,
-        HMCGzip,
-        HMCNone
+        HlsManifestCompressionGZIP,
+        HlsManifestCompressionNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | When set to GZIP, compresses HLS playlist.
-data HlsManifestCompression
-  = HlsManifestCompression'
-      ( CI
-          Text
-      )
+newtype HlsManifestCompression = HlsManifestCompression'
+  { fromHlsManifestCompression ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HMCGzip :: HlsManifestCompression
-pattern HMCGzip = HlsManifestCompression' "GZIP"
+pattern HlsManifestCompressionGZIP :: HlsManifestCompression
+pattern HlsManifestCompressionGZIP = HlsManifestCompression' "GZIP"
 
-pattern HMCNone :: HlsManifestCompression
-pattern HMCNone = HlsManifestCompression' "NONE"
+pattern HlsManifestCompressionNONE :: HlsManifestCompression
+pattern HlsManifestCompressionNONE = HlsManifestCompression' "NONE"
 
 {-# COMPLETE
-  HMCGzip,
-  HMCNone,
+  HlsManifestCompressionGZIP,
+  HlsManifestCompressionNONE,
   HlsManifestCompression'
   #-}
 
-instance FromText HlsManifestCompression where
-  parser = (HlsManifestCompression' . mk) <$> takeText
+instance Prelude.FromText HlsManifestCompression where
+  parser = HlsManifestCompression' Prelude.<$> Prelude.takeText
 
-instance ToText HlsManifestCompression where
-  toText (HlsManifestCompression' ci) = original ci
+instance Prelude.ToText HlsManifestCompression where
+  toText (HlsManifestCompression' x) = x
 
-instance Hashable HlsManifestCompression
+instance Prelude.Hashable HlsManifestCompression
 
-instance NFData HlsManifestCompression
+instance Prelude.NFData HlsManifestCompression
 
-instance ToByteString HlsManifestCompression
+instance Prelude.ToByteString HlsManifestCompression
 
-instance ToQuery HlsManifestCompression
+instance Prelude.ToQuery HlsManifestCompression
 
-instance ToHeader HlsManifestCompression
+instance Prelude.ToHeader HlsManifestCompression
 
-instance ToJSON HlsManifestCompression where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsManifestCompression where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsManifestCompression where
-  parseJSON = parseJSONText "HlsManifestCompression"
+instance Prelude.FromJSON HlsManifestCompression where
+  parseJSON = Prelude.parseJSONText "HlsManifestCompression"

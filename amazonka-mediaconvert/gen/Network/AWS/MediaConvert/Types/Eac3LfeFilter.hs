@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.Eac3LfeFilter
   ( Eac3LfeFilter
       ( ..,
-        ELFDisabled,
-        ELFEnabled
+        Eac3LfeFilterDISABLED,
+        Eac3LfeFilterENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Applies a 120Hz lowpass filter to the LFE channel prior to encoding. Only valid with 3_2_LFE coding mode.
-data Eac3LfeFilter = Eac3LfeFilter' (CI Text)
+-- | Applies a 120Hz lowpass filter to the LFE channel prior to encoding.
+-- Only valid with 3_2_LFE coding mode.
+newtype Eac3LfeFilter = Eac3LfeFilter'
+  { fromEac3LfeFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ELFDisabled :: Eac3LfeFilter
-pattern ELFDisabled = Eac3LfeFilter' "DISABLED"
+pattern Eac3LfeFilterDISABLED :: Eac3LfeFilter
+pattern Eac3LfeFilterDISABLED = Eac3LfeFilter' "DISABLED"
 
-pattern ELFEnabled :: Eac3LfeFilter
-pattern ELFEnabled = Eac3LfeFilter' "ENABLED"
+pattern Eac3LfeFilterENABLED :: Eac3LfeFilter
+pattern Eac3LfeFilterENABLED = Eac3LfeFilter' "ENABLED"
 
 {-# COMPLETE
-  ELFDisabled,
-  ELFEnabled,
+  Eac3LfeFilterDISABLED,
+  Eac3LfeFilterENABLED,
   Eac3LfeFilter'
   #-}
 
-instance FromText Eac3LfeFilter where
-  parser = (Eac3LfeFilter' . mk) <$> takeText
+instance Prelude.FromText Eac3LfeFilter where
+  parser = Eac3LfeFilter' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3LfeFilter where
-  toText (Eac3LfeFilter' ci) = original ci
+instance Prelude.ToText Eac3LfeFilter where
+  toText (Eac3LfeFilter' x) = x
 
-instance Hashable Eac3LfeFilter
+instance Prelude.Hashable Eac3LfeFilter
 
-instance NFData Eac3LfeFilter
+instance Prelude.NFData Eac3LfeFilter
 
-instance ToByteString Eac3LfeFilter
+instance Prelude.ToByteString Eac3LfeFilter
 
-instance ToQuery Eac3LfeFilter
+instance Prelude.ToQuery Eac3LfeFilter
 
-instance ToHeader Eac3LfeFilter
+instance Prelude.ToHeader Eac3LfeFilter
 
-instance ToJSON Eac3LfeFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3LfeFilter where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3LfeFilter where
-  parseJSON = parseJSONText "Eac3LfeFilter"
+instance Prelude.FromJSON Eac3LfeFilter where
+  parseJSON = Prelude.parseJSONText "Eac3LfeFilter"

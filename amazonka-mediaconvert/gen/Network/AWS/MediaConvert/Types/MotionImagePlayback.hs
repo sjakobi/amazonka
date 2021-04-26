@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.MotionImagePlayback
   ( MotionImagePlayback
       ( ..,
-        Once,
-        Repeat
+        MotionImagePlaybackONCE,
+        MotionImagePlaybackREPEAT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify whether your motion graphic overlay repeats on a loop or plays only once.
-data MotionImagePlayback
-  = MotionImagePlayback'
-      ( CI
-          Text
-      )
+-- | Specify whether your motion graphic overlay repeats on a loop or plays
+-- only once.
+newtype MotionImagePlayback = MotionImagePlayback'
+  { fromMotionImagePlayback ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Once :: MotionImagePlayback
-pattern Once = MotionImagePlayback' "ONCE"
+pattern MotionImagePlaybackONCE :: MotionImagePlayback
+pattern MotionImagePlaybackONCE = MotionImagePlayback' "ONCE"
 
-pattern Repeat :: MotionImagePlayback
-pattern Repeat = MotionImagePlayback' "REPEAT"
+pattern MotionImagePlaybackREPEAT :: MotionImagePlayback
+pattern MotionImagePlaybackREPEAT = MotionImagePlayback' "REPEAT"
 
 {-# COMPLETE
-  Once,
-  Repeat,
+  MotionImagePlaybackONCE,
+  MotionImagePlaybackREPEAT,
   MotionImagePlayback'
   #-}
 
-instance FromText MotionImagePlayback where
-  parser = (MotionImagePlayback' . mk) <$> takeText
+instance Prelude.FromText MotionImagePlayback where
+  parser = MotionImagePlayback' Prelude.<$> Prelude.takeText
 
-instance ToText MotionImagePlayback where
-  toText (MotionImagePlayback' ci) = original ci
+instance Prelude.ToText MotionImagePlayback where
+  toText (MotionImagePlayback' x) = x
 
-instance Hashable MotionImagePlayback
+instance Prelude.Hashable MotionImagePlayback
 
-instance NFData MotionImagePlayback
+instance Prelude.NFData MotionImagePlayback
 
-instance ToByteString MotionImagePlayback
+instance Prelude.ToByteString MotionImagePlayback
 
-instance ToQuery MotionImagePlayback
+instance Prelude.ToQuery MotionImagePlayback
 
-instance ToHeader MotionImagePlayback
+instance Prelude.ToHeader MotionImagePlayback
 
-instance ToJSON MotionImagePlayback where
-  toJSON = toJSONText
+instance Prelude.ToJSON MotionImagePlayback where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MotionImagePlayback where
-  parseJSON = parseJSONText "MotionImagePlayback"
+instance Prelude.FromJSON MotionImagePlayback where
+  parseJSON = Prelude.parseJSONText "MotionImagePlayback"

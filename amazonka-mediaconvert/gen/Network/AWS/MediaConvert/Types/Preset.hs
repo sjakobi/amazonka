@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,111 +19,131 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.Preset where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.PresetSettings
 import Network.AWS.MediaConvert.Types.Type
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A preset is a collection of preconfigured media conversion settings that you want MediaConvert to apply to the output during the conversion process.
+-- | A preset is a collection of preconfigured media conversion settings that
+-- you want MediaConvert to apply to the output during the conversion
+-- process.
 --
--- /See:/ 'preset' smart constructor.
+-- /See:/ 'newPreset' smart constructor.
 data Preset = Preset'
-  { _pCategory :: !(Maybe Text),
-    _pARN :: !(Maybe Text),
-    _pCreatedAt :: !(Maybe POSIX),
-    _pLastUpdated :: !(Maybe POSIX),
-    _pDescription :: !(Maybe Text),
-    _pType :: !(Maybe Type),
-    _pSettings :: !PresetSettings,
-    _pName :: !Text
+  { -- | An optional category you create to organize your presets.
+    category :: Prelude.Maybe Prelude.Text,
+    -- | An identifier for this resource that is unique within all of AWS.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp in epoch seconds for preset creation.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The timestamp in epoch seconds when the preset was last updated.
+    lastUpdated :: Prelude.Maybe Prelude.POSIX,
+    -- | An optional description you create for each preset.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A preset can be of two types: system or custom. System or built-in
+    -- preset can\'t be modified or deleted by the user.
+    type' :: Prelude.Maybe Type,
+    -- | Settings for preset
+    settings :: PresetSettings,
+    -- | A name you create for each preset. Each name must be unique within your
+    -- account.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Preset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Preset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pCategory' - An optional category you create to organize your presets.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pARN' - An identifier for this resource that is unique within all of AWS.
+-- 'category', 'preset_category' - An optional category you create to organize your presets.
 --
--- * 'pCreatedAt' - The timestamp in epoch seconds for preset creation.
+-- 'arn', 'preset_arn' - An identifier for this resource that is unique within all of AWS.
 --
--- * 'pLastUpdated' - The timestamp in epoch seconds when the preset was last updated.
+-- 'createdAt', 'preset_createdAt' - The timestamp in epoch seconds for preset creation.
 --
--- * 'pDescription' - An optional description you create for each preset.
+-- 'lastUpdated', 'preset_lastUpdated' - The timestamp in epoch seconds when the preset was last updated.
 --
--- * 'pType' - A preset can be of two types: system or custom. System or built-in preset can't be modified or deleted by the user.
+-- 'description', 'preset_description' - An optional description you create for each preset.
 --
--- * 'pSettings' - Settings for preset
+-- 'type'', 'preset_type' - A preset can be of two types: system or custom. System or built-in
+-- preset can\'t be modified or deleted by the user.
 --
--- * 'pName' - A name you create for each preset. Each name must be unique within your account.
-preset ::
-  -- | 'pSettings'
+-- 'settings', 'preset_settings' - Settings for preset
+--
+-- 'name', 'preset_name' - A name you create for each preset. Each name must be unique within your
+-- account.
+newPreset ::
+  -- | 'settings'
   PresetSettings ->
-  -- | 'pName'
-  Text ->
+  -- | 'name'
+  Prelude.Text ->
   Preset
-preset pSettings_ pName_ =
+newPreset pSettings_ pName_ =
   Preset'
-    { _pCategory = Nothing,
-      _pARN = Nothing,
-      _pCreatedAt = Nothing,
-      _pLastUpdated = Nothing,
-      _pDescription = Nothing,
-      _pType = Nothing,
-      _pSettings = pSettings_,
-      _pName = pName_
+    { category = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      settings = pSettings_,
+      name = pName_
     }
 
 -- | An optional category you create to organize your presets.
-pCategory :: Lens' Preset (Maybe Text)
-pCategory = lens _pCategory (\s a -> s {_pCategory = a})
+preset_category :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_category = Lens.lens (\Preset' {category} -> category) (\s@Preset' {} a -> s {category = a} :: Preset)
 
 -- | An identifier for this resource that is unique within all of AWS.
-pARN :: Lens' Preset (Maybe Text)
-pARN = lens _pARN (\s a -> s {_pARN = a})
+preset_arn :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_arn = Lens.lens (\Preset' {arn} -> arn) (\s@Preset' {} a -> s {arn = a} :: Preset)
 
 -- | The timestamp in epoch seconds for preset creation.
-pCreatedAt :: Lens' Preset (Maybe UTCTime)
-pCreatedAt = lens _pCreatedAt (\s a -> s {_pCreatedAt = a}) . mapping _Time
+preset_createdAt :: Lens.Lens' Preset (Prelude.Maybe Prelude.UTCTime)
+preset_createdAt = Lens.lens (\Preset' {createdAt} -> createdAt) (\s@Preset' {} a -> s {createdAt = a} :: Preset) Prelude.. Lens.mapping Prelude._Time
 
 -- | The timestamp in epoch seconds when the preset was last updated.
-pLastUpdated :: Lens' Preset (Maybe UTCTime)
-pLastUpdated = lens _pLastUpdated (\s a -> s {_pLastUpdated = a}) . mapping _Time
+preset_lastUpdated :: Lens.Lens' Preset (Prelude.Maybe Prelude.UTCTime)
+preset_lastUpdated = Lens.lens (\Preset' {lastUpdated} -> lastUpdated) (\s@Preset' {} a -> s {lastUpdated = a} :: Preset) Prelude.. Lens.mapping Prelude._Time
 
 -- | An optional description you create for each preset.
-pDescription :: Lens' Preset (Maybe Text)
-pDescription = lens _pDescription (\s a -> s {_pDescription = a})
+preset_description :: Lens.Lens' Preset (Prelude.Maybe Prelude.Text)
+preset_description = Lens.lens (\Preset' {description} -> description) (\s@Preset' {} a -> s {description = a} :: Preset)
 
--- | A preset can be of two types: system or custom. System or built-in preset can't be modified or deleted by the user.
-pType :: Lens' Preset (Maybe Type)
-pType = lens _pType (\s a -> s {_pType = a})
+-- | A preset can be of two types: system or custom. System or built-in
+-- preset can\'t be modified or deleted by the user.
+preset_type :: Lens.Lens' Preset (Prelude.Maybe Type)
+preset_type = Lens.lens (\Preset' {type'} -> type') (\s@Preset' {} a -> s {type' = a} :: Preset)
 
 -- | Settings for preset
-pSettings :: Lens' Preset PresetSettings
-pSettings = lens _pSettings (\s a -> s {_pSettings = a})
+preset_settings :: Lens.Lens' Preset PresetSettings
+preset_settings = Lens.lens (\Preset' {settings} -> settings) (\s@Preset' {} a -> s {settings = a} :: Preset)
 
--- | A name you create for each preset. Each name must be unique within your account.
-pName :: Lens' Preset Text
-pName = lens _pName (\s a -> s {_pName = a})
+-- | A name you create for each preset. Each name must be unique within your
+-- account.
+preset_name :: Lens.Lens' Preset Prelude.Text
+preset_name = Lens.lens (\Preset' {name} -> name) (\s@Preset' {} a -> s {name = a} :: Preset)
 
-instance FromJSON Preset where
+instance Prelude.FromJSON Preset where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Preset"
       ( \x ->
           Preset'
-            <$> (x .:? "category")
-            <*> (x .:? "arn")
-            <*> (x .:? "createdAt")
-            <*> (x .:? "lastUpdated")
-            <*> (x .:? "description")
-            <*> (x .:? "type")
-            <*> (x .: "settings")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "category")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "createdAt")
+            Prelude.<*> (x Prelude..:? "lastUpdated")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "type")
+            Prelude.<*> (x Prelude..: "settings")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable Preset
+instance Prelude.Hashable Preset
 
-instance NFData Preset
+instance Prelude.NFData Preset

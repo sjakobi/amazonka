@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,69 @@
 module Network.AWS.MediaConvert.Types.MxfProfile
   ( MxfProfile
       ( ..,
-        D10,
-        OP1A,
-        Xdcam
+        MxfProfileD10,
+        MxfProfileOP1A,
+        MxfProfileXDCAM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the MXF profile, also called shim, for this output. When you choose Auto, MediaConvert chooses a profile based on the video codec and resolution. For a list of codecs supported with each MXF profile, see https://docs.aws.amazon.com/mediaconvert/latest/ug/codecs-supported-with-each-mxf-profile.html. For more information about the automatic selection behavior, see https://docs.aws.amazon.com/mediaconvert/latest/ug/default-automatic-selection-of-mxf-profiles.html.
-data MxfProfile = MxfProfile' (CI Text)
+-- | Specify the MXF profile, also called shim, for this output. When you
+-- choose Auto, MediaConvert chooses a profile based on the video codec and
+-- resolution. For a list of codecs supported with each MXF profile, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/codecs-supported-with-each-mxf-profile.html.
+-- For more information about the automatic selection behavior, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/default-automatic-selection-of-mxf-profiles.html.
+newtype MxfProfile = MxfProfile'
+  { fromMxfProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern D10 :: MxfProfile
-pattern D10 = MxfProfile' "D_10"
+pattern MxfProfileD10 :: MxfProfile
+pattern MxfProfileD10 = MxfProfile' "D_10"
 
-pattern OP1A :: MxfProfile
-pattern OP1A = MxfProfile' "OP1A"
+pattern MxfProfileOP1A :: MxfProfile
+pattern MxfProfileOP1A = MxfProfile' "OP1A"
 
-pattern Xdcam :: MxfProfile
-pattern Xdcam = MxfProfile' "XDCAM"
+pattern MxfProfileXDCAM :: MxfProfile
+pattern MxfProfileXDCAM = MxfProfile' "XDCAM"
 
 {-# COMPLETE
-  D10,
-  OP1A,
-  Xdcam,
+  MxfProfileD10,
+  MxfProfileOP1A,
+  MxfProfileXDCAM,
   MxfProfile'
   #-}
 
-instance FromText MxfProfile where
-  parser = (MxfProfile' . mk) <$> takeText
+instance Prelude.FromText MxfProfile where
+  parser = MxfProfile' Prelude.<$> Prelude.takeText
 
-instance ToText MxfProfile where
-  toText (MxfProfile' ci) = original ci
+instance Prelude.ToText MxfProfile where
+  toText (MxfProfile' x) = x
 
-instance Hashable MxfProfile
+instance Prelude.Hashable MxfProfile
 
-instance NFData MxfProfile
+instance Prelude.NFData MxfProfile
 
-instance ToByteString MxfProfile
+instance Prelude.ToByteString MxfProfile
 
-instance ToQuery MxfProfile
+instance Prelude.ToQuery MxfProfile
 
-instance ToHeader MxfProfile
+instance Prelude.ToHeader MxfProfile
 
-instance ToJSON MxfProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON MxfProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MxfProfile where
-  parseJSON = parseJSONText "MxfProfile"
+instance Prelude.FromJSON MxfProfile where
+  parseJSON = Prelude.parseJSONText "MxfProfile"

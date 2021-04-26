@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.CmafCodecSpecification
   ( CmafCodecSpecification
       ( ..,
-        CCSRfc4281,
-        CCSRfc6381
+        CmafCodecSpecificationRFC4281,
+        CmafCodecSpecificationRFC6381
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation.
-data CmafCodecSpecification
-  = CmafCodecSpecification'
-      ( CI
-          Text
-      )
+-- | Specification to use (RFC-6381 or the default RFC-4281) during m3u8
+-- playlist generation.
+newtype CmafCodecSpecification = CmafCodecSpecification'
+  { fromCmafCodecSpecification ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CCSRfc4281 :: CmafCodecSpecification
-pattern CCSRfc4281 = CmafCodecSpecification' "RFC_4281"
+pattern CmafCodecSpecificationRFC4281 :: CmafCodecSpecification
+pattern CmafCodecSpecificationRFC4281 = CmafCodecSpecification' "RFC_4281"
 
-pattern CCSRfc6381 :: CmafCodecSpecification
-pattern CCSRfc6381 = CmafCodecSpecification' "RFC_6381"
+pattern CmafCodecSpecificationRFC6381 :: CmafCodecSpecification
+pattern CmafCodecSpecificationRFC6381 = CmafCodecSpecification' "RFC_6381"
 
 {-# COMPLETE
-  CCSRfc4281,
-  CCSRfc6381,
+  CmafCodecSpecificationRFC4281,
+  CmafCodecSpecificationRFC6381,
   CmafCodecSpecification'
   #-}
 
-instance FromText CmafCodecSpecification where
-  parser = (CmafCodecSpecification' . mk) <$> takeText
+instance Prelude.FromText CmafCodecSpecification where
+  parser = CmafCodecSpecification' Prelude.<$> Prelude.takeText
 
-instance ToText CmafCodecSpecification where
-  toText (CmafCodecSpecification' ci) = original ci
+instance Prelude.ToText CmafCodecSpecification where
+  toText (CmafCodecSpecification' x) = x
 
-instance Hashable CmafCodecSpecification
+instance Prelude.Hashable CmafCodecSpecification
 
-instance NFData CmafCodecSpecification
+instance Prelude.NFData CmafCodecSpecification
 
-instance ToByteString CmafCodecSpecification
+instance Prelude.ToByteString CmafCodecSpecification
 
-instance ToQuery CmafCodecSpecification
+instance Prelude.ToQuery CmafCodecSpecification
 
-instance ToHeader CmafCodecSpecification
+instance Prelude.ToHeader CmafCodecSpecification
 
-instance ToJSON CmafCodecSpecification where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafCodecSpecification where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafCodecSpecification where
-  parseJSON = parseJSONText "CmafCodecSpecification"
+instance Prelude.FromJSON CmafCodecSpecification where
+  parseJSON = Prelude.parseJSONText "CmafCodecSpecification"

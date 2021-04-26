@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.H265GopBReference
   ( H265GopBReference
       ( ..,
-        HGBRGDisabled,
-        HGBRGEnabled
+        H265GopBReferenceDISABLED,
+        H265GopBReferenceENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If enable, use reference B frames for GOP structures that have B frames > 1.
-data H265GopBReference = H265GopBReference' (CI Text)
+-- | If enable, use reference B frames for GOP structures that have B frames
+-- > 1.
+newtype H265GopBReference = H265GopBReference'
+  { fromH265GopBReference ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HGBRGDisabled :: H265GopBReference
-pattern HGBRGDisabled = H265GopBReference' "DISABLED"
+pattern H265GopBReferenceDISABLED :: H265GopBReference
+pattern H265GopBReferenceDISABLED = H265GopBReference' "DISABLED"
 
-pattern HGBRGEnabled :: H265GopBReference
-pattern HGBRGEnabled = H265GopBReference' "ENABLED"
+pattern H265GopBReferenceENABLED :: H265GopBReference
+pattern H265GopBReferenceENABLED = H265GopBReference' "ENABLED"
 
 {-# COMPLETE
-  HGBRGDisabled,
-  HGBRGEnabled,
+  H265GopBReferenceDISABLED,
+  H265GopBReferenceENABLED,
   H265GopBReference'
   #-}
 
-instance FromText H265GopBReference where
-  parser = (H265GopBReference' . mk) <$> takeText
+instance Prelude.FromText H265GopBReference where
+  parser = H265GopBReference' Prelude.<$> Prelude.takeText
 
-instance ToText H265GopBReference where
-  toText (H265GopBReference' ci) = original ci
+instance Prelude.ToText H265GopBReference where
+  toText (H265GopBReference' x) = x
 
-instance Hashable H265GopBReference
+instance Prelude.Hashable H265GopBReference
 
-instance NFData H265GopBReference
+instance Prelude.NFData H265GopBReference
 
-instance ToByteString H265GopBReference
+instance Prelude.ToByteString H265GopBReference
 
-instance ToQuery H265GopBReference
+instance Prelude.ToQuery H265GopBReference
 
-instance ToHeader H265GopBReference
+instance Prelude.ToHeader H265GopBReference
 
-instance ToJSON H265GopBReference where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265GopBReference where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265GopBReference where
-  parseJSON = parseJSONText "H265GopBReference"
+instance Prelude.FromJSON H265GopBReference where
+  parseJSON = Prelude.parseJSONText "H265GopBReference"

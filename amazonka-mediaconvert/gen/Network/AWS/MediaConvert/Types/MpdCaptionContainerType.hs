@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,65 @@
 module Network.AWS.MediaConvert.Types.MpdCaptionContainerType
   ( MpdCaptionContainerType
       ( ..,
-        FragmentedMP4,
-        Raw
+        MpdCaptionContainerTypeFRAGMENTEDMP4,
+        MpdCaptionContainerTypeRAW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this setting only in DASH output groups that include sidecar TTML or IMSC captions.  You specify sidecar captions in a separate output from your audio and video. Choose Raw (RAW) for captions in a single XML file in a raw container. Choose Fragmented MPEG-4 (FRAGMENTED_MP4) for captions in XML format contained within fragmented MP4 files. This set of fragmented MP4 files is separate from your video and audio fragmented MP4 files.
-data MpdCaptionContainerType
-  = MpdCaptionContainerType'
-      ( CI
-          Text
-      )
+-- | Use this setting only in DASH output groups that include sidecar TTML or
+-- IMSC captions. You specify sidecar captions in a separate output from
+-- your audio and video. Choose Raw (RAW) for captions in a single XML file
+-- in a raw container. Choose Fragmented MPEG-4 (FRAGMENTED_MP4) for
+-- captions in XML format contained within fragmented MP4 files. This set
+-- of fragmented MP4 files is separate from your video and audio fragmented
+-- MP4 files.
+newtype MpdCaptionContainerType = MpdCaptionContainerType'
+  { fromMpdCaptionContainerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FragmentedMP4 :: MpdCaptionContainerType
-pattern FragmentedMP4 = MpdCaptionContainerType' "FRAGMENTED_MP4"
+pattern MpdCaptionContainerTypeFRAGMENTEDMP4 :: MpdCaptionContainerType
+pattern MpdCaptionContainerTypeFRAGMENTEDMP4 = MpdCaptionContainerType' "FRAGMENTED_MP4"
 
-pattern Raw :: MpdCaptionContainerType
-pattern Raw = MpdCaptionContainerType' "RAW"
+pattern MpdCaptionContainerTypeRAW :: MpdCaptionContainerType
+pattern MpdCaptionContainerTypeRAW = MpdCaptionContainerType' "RAW"
 
 {-# COMPLETE
-  FragmentedMP4,
-  Raw,
+  MpdCaptionContainerTypeFRAGMENTEDMP4,
+  MpdCaptionContainerTypeRAW,
   MpdCaptionContainerType'
   #-}
 
-instance FromText MpdCaptionContainerType where
-  parser = (MpdCaptionContainerType' . mk) <$> takeText
+instance Prelude.FromText MpdCaptionContainerType where
+  parser = MpdCaptionContainerType' Prelude.<$> Prelude.takeText
 
-instance ToText MpdCaptionContainerType where
-  toText (MpdCaptionContainerType' ci) = original ci
+instance Prelude.ToText MpdCaptionContainerType where
+  toText (MpdCaptionContainerType' x) = x
 
-instance Hashable MpdCaptionContainerType
+instance Prelude.Hashable MpdCaptionContainerType
 
-instance NFData MpdCaptionContainerType
+instance Prelude.NFData MpdCaptionContainerType
 
-instance ToByteString MpdCaptionContainerType
+instance Prelude.ToByteString MpdCaptionContainerType
 
-instance ToQuery MpdCaptionContainerType
+instance Prelude.ToQuery MpdCaptionContainerType
 
-instance ToHeader MpdCaptionContainerType
+instance Prelude.ToHeader MpdCaptionContainerType
 
-instance ToJSON MpdCaptionContainerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MpdCaptionContainerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MpdCaptionContainerType where
-  parseJSON = parseJSONText "MpdCaptionContainerType"
+instance Prelude.FromJSON MpdCaptionContainerType where
+  parseJSON = Prelude.parseJSONText "MpdCaptionContainerType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,55 @@
 module Network.AWS.MediaConvert.Types.Order
   ( Order
       ( ..,
-        Ascending,
-        Descending
+        OrderASCENDING,
+        OrderDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. When you request lists of resources, you can specify whether they are sorted in ASCENDING or DESCENDING order. Default varies by resource.
-data Order = Order' (CI Text)
+-- | Optional. When you request lists of resources, you can specify whether
+-- they are sorted in ASCENDING or DESCENDING order. Default varies by
+-- resource.
+newtype Order = Order' {fromOrder :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ascending :: Order
-pattern Ascending = Order' "ASCENDING"
+pattern OrderASCENDING :: Order
+pattern OrderASCENDING = Order' "ASCENDING"
 
-pattern Descending :: Order
-pattern Descending = Order' "DESCENDING"
+pattern OrderDESCENDING :: Order
+pattern OrderDESCENDING = Order' "DESCENDING"
 
 {-# COMPLETE
-  Ascending,
-  Descending,
+  OrderASCENDING,
+  OrderDESCENDING,
   Order'
   #-}
 
-instance FromText Order where
-  parser = (Order' . mk) <$> takeText
+instance Prelude.FromText Order where
+  parser = Order' Prelude.<$> Prelude.takeText
 
-instance ToText Order where
-  toText (Order' ci) = original ci
+instance Prelude.ToText Order where
+  toText (Order' x) = x
 
-instance Hashable Order
+instance Prelude.Hashable Order
 
-instance NFData Order
+instance Prelude.NFData Order
 
-instance ToByteString Order
+instance Prelude.ToByteString Order
 
-instance ToQuery Order
+instance Prelude.ToQuery Order
 
-instance ToHeader Order
+instance Prelude.ToHeader Order
 
-instance ToJSON Order where
-  toJSON = toJSONText
+instance Prelude.ToJSON Order where
+  toJSON = Prelude.toJSONText

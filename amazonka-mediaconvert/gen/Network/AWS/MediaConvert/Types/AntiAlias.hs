@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.AntiAlias
   ( AntiAlias
       ( ..,
-        AADisabled,
-        AAEnabled
+        AntiAliasDISABLED,
+        AntiAliasENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The anti-alias filter is automatically applied to all outputs. The service no longer accepts the value DISABLED for AntiAlias. If you specify that in your job, the service will ignore the setting.
-data AntiAlias = AntiAlias' (CI Text)
+-- | The anti-alias filter is automatically applied to all outputs. The
+-- service no longer accepts the value DISABLED for AntiAlias. If you
+-- specify that in your job, the service will ignore the setting.
+newtype AntiAlias = AntiAlias'
+  { fromAntiAlias ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AADisabled :: AntiAlias
-pattern AADisabled = AntiAlias' "DISABLED"
+pattern AntiAliasDISABLED :: AntiAlias
+pattern AntiAliasDISABLED = AntiAlias' "DISABLED"
 
-pattern AAEnabled :: AntiAlias
-pattern AAEnabled = AntiAlias' "ENABLED"
+pattern AntiAliasENABLED :: AntiAlias
+pattern AntiAliasENABLED = AntiAlias' "ENABLED"
 
 {-# COMPLETE
-  AADisabled,
-  AAEnabled,
+  AntiAliasDISABLED,
+  AntiAliasENABLED,
   AntiAlias'
   #-}
 
-instance FromText AntiAlias where
-  parser = (AntiAlias' . mk) <$> takeText
+instance Prelude.FromText AntiAlias where
+  parser = AntiAlias' Prelude.<$> Prelude.takeText
 
-instance ToText AntiAlias where
-  toText (AntiAlias' ci) = original ci
+instance Prelude.ToText AntiAlias where
+  toText (AntiAlias' x) = x
 
-instance Hashable AntiAlias
+instance Prelude.Hashable AntiAlias
 
-instance NFData AntiAlias
+instance Prelude.NFData AntiAlias
 
-instance ToByteString AntiAlias
+instance Prelude.ToByteString AntiAlias
 
-instance ToQuery AntiAlias
+instance Prelude.ToQuery AntiAlias
 
-instance ToHeader AntiAlias
+instance Prelude.ToHeader AntiAlias
 
-instance ToJSON AntiAlias where
-  toJSON = toJSONText
+instance Prelude.ToJSON AntiAlias where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AntiAlias where
-  parseJSON = parseJSONText "AntiAlias"
+instance Prelude.FromJSON AntiAlias where
+  parseJSON = Prelude.parseJSONText "AntiAlias"

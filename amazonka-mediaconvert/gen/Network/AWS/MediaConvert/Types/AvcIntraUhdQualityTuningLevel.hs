@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,65 @@
 module Network.AWS.MediaConvert.Types.AvcIntraUhdQualityTuningLevel
   ( AvcIntraUhdQualityTuningLevel
       ( ..,
-        AIUQTLMultiPass,
-        AIUQTLSinglePass
+        AvcIntraUhdQualityTuningLevelMULTIPASS,
+        AvcIntraUhdQualityTuningLevelSINGLEPASS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how many transcoding passes MediaConvert does with your video. When you choose Multi-pass (MULTI_PASS), your video quality is better and your output bitrate is more accurate. That is, the actual bitrate of your output is closer to the target bitrate defined in the specification. When you choose Single-pass (SINGLE_PASS), your encoding time is faster. The default behavior is Single-pass (SINGLE_PASS).
-data AvcIntraUhdQualityTuningLevel
-  = AvcIntraUhdQualityTuningLevel'
-      ( CI
-          Text
-      )
+-- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- many transcoding passes MediaConvert does with your video. When you
+-- choose Multi-pass (MULTI_PASS), your video quality is better and your
+-- output bitrate is more accurate. That is, the actual bitrate of your
+-- output is closer to the target bitrate defined in the specification.
+-- When you choose Single-pass (SINGLE_PASS), your encoding time is faster.
+-- The default behavior is Single-pass (SINGLE_PASS).
+newtype AvcIntraUhdQualityTuningLevel = AvcIntraUhdQualityTuningLevel'
+  { fromAvcIntraUhdQualityTuningLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AIUQTLMultiPass :: AvcIntraUhdQualityTuningLevel
-pattern AIUQTLMultiPass = AvcIntraUhdQualityTuningLevel' "MULTI_PASS"
+pattern AvcIntraUhdQualityTuningLevelMULTIPASS :: AvcIntraUhdQualityTuningLevel
+pattern AvcIntraUhdQualityTuningLevelMULTIPASS = AvcIntraUhdQualityTuningLevel' "MULTI_PASS"
 
-pattern AIUQTLSinglePass :: AvcIntraUhdQualityTuningLevel
-pattern AIUQTLSinglePass = AvcIntraUhdQualityTuningLevel' "SINGLE_PASS"
+pattern AvcIntraUhdQualityTuningLevelSINGLEPASS :: AvcIntraUhdQualityTuningLevel
+pattern AvcIntraUhdQualityTuningLevelSINGLEPASS = AvcIntraUhdQualityTuningLevel' "SINGLE_PASS"
 
 {-# COMPLETE
-  AIUQTLMultiPass,
-  AIUQTLSinglePass,
+  AvcIntraUhdQualityTuningLevelMULTIPASS,
+  AvcIntraUhdQualityTuningLevelSINGLEPASS,
   AvcIntraUhdQualityTuningLevel'
   #-}
 
-instance FromText AvcIntraUhdQualityTuningLevel where
-  parser = (AvcIntraUhdQualityTuningLevel' . mk) <$> takeText
+instance Prelude.FromText AvcIntraUhdQualityTuningLevel where
+  parser = AvcIntraUhdQualityTuningLevel' Prelude.<$> Prelude.takeText
 
-instance ToText AvcIntraUhdQualityTuningLevel where
-  toText (AvcIntraUhdQualityTuningLevel' ci) = original ci
+instance Prelude.ToText AvcIntraUhdQualityTuningLevel where
+  toText (AvcIntraUhdQualityTuningLevel' x) = x
 
-instance Hashable AvcIntraUhdQualityTuningLevel
+instance Prelude.Hashable AvcIntraUhdQualityTuningLevel
 
-instance NFData AvcIntraUhdQualityTuningLevel
+instance Prelude.NFData AvcIntraUhdQualityTuningLevel
 
-instance ToByteString AvcIntraUhdQualityTuningLevel
+instance Prelude.ToByteString AvcIntraUhdQualityTuningLevel
 
-instance ToQuery AvcIntraUhdQualityTuningLevel
+instance Prelude.ToQuery AvcIntraUhdQualityTuningLevel
 
-instance ToHeader AvcIntraUhdQualityTuningLevel
+instance Prelude.ToHeader AvcIntraUhdQualityTuningLevel
 
-instance ToJSON AvcIntraUhdQualityTuningLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON AvcIntraUhdQualityTuningLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AvcIntraUhdQualityTuningLevel where
-  parseJSON = parseJSONText "AvcIntraUhdQualityTuningLevel"
+instance Prelude.FromJSON AvcIntraUhdQualityTuningLevel where
+  parseJSON = Prelude.parseJSONText "AvcIntraUhdQualityTuningLevel"

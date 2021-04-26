@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.MpdScte35Source
   ( MpdScte35Source
       ( ..,
-        MSSNone,
-        MSSPassthrough
+        MpdScte35SourceNONE,
+        MpdScte35SourcePASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Ignore this setting unless you have SCTE-35 markers in your input video file. Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want those SCTE-35 markers in this output.
-data MpdScte35Source = MpdScte35Source' (CI Text)
+-- | Ignore this setting unless you have SCTE-35 markers in your input video
+-- file. Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that
+-- appear in your input to also appear in this output. Choose None (NONE)
+-- if you don\'t want those SCTE-35 markers in this output.
+newtype MpdScte35Source = MpdScte35Source'
+  { fromMpdScte35Source ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSSNone :: MpdScte35Source
-pattern MSSNone = MpdScte35Source' "NONE"
+pattern MpdScte35SourceNONE :: MpdScte35Source
+pattern MpdScte35SourceNONE = MpdScte35Source' "NONE"
 
-pattern MSSPassthrough :: MpdScte35Source
-pattern MSSPassthrough = MpdScte35Source' "PASSTHROUGH"
+pattern MpdScte35SourcePASSTHROUGH :: MpdScte35Source
+pattern MpdScte35SourcePASSTHROUGH = MpdScte35Source' "PASSTHROUGH"
 
 {-# COMPLETE
-  MSSNone,
-  MSSPassthrough,
+  MpdScte35SourceNONE,
+  MpdScte35SourcePASSTHROUGH,
   MpdScte35Source'
   #-}
 
-instance FromText MpdScte35Source where
-  parser = (MpdScte35Source' . mk) <$> takeText
+instance Prelude.FromText MpdScte35Source where
+  parser = MpdScte35Source' Prelude.<$> Prelude.takeText
 
-instance ToText MpdScte35Source where
-  toText (MpdScte35Source' ci) = original ci
+instance Prelude.ToText MpdScte35Source where
+  toText (MpdScte35Source' x) = x
 
-instance Hashable MpdScte35Source
+instance Prelude.Hashable MpdScte35Source
 
-instance NFData MpdScte35Source
+instance Prelude.NFData MpdScte35Source
 
-instance ToByteString MpdScte35Source
+instance Prelude.ToByteString MpdScte35Source
 
-instance ToQuery MpdScte35Source
+instance Prelude.ToQuery MpdScte35Source
 
-instance ToHeader MpdScte35Source
+instance Prelude.ToHeader MpdScte35Source
 
-instance ToJSON MpdScte35Source where
-  toJSON = toJSONText
+instance Prelude.ToJSON MpdScte35Source where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MpdScte35Source where
-  parseJSON = parseJSONText "MpdScte35Source"
+instance Prelude.FromJSON MpdScte35Source where
+  parseJSON = Prelude.parseJSONText "MpdScte35Source"

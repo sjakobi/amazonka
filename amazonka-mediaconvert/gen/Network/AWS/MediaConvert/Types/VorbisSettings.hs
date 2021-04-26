@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.VorbisSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required when you set Codec, under AudioDescriptions>CodecSettings, to the value Vorbis.
+-- | Required when you set Codec, under AudioDescriptions>CodecSettings, to
+-- the value Vorbis.
 --
--- /See:/ 'vorbisSettings' smart constructor.
+-- /See:/ 'newVorbisSettings' smart constructor.
 data VorbisSettings = VorbisSettings'
-  { _vsChannels ::
-      !(Maybe Nat),
-    _vsSampleRate :: !(Maybe Nat),
-    _vsVbrQuality :: !(Maybe Int)
+  { -- | Optional. Specify the number of channels in this output audio track.
+    -- Choosing Mono on the console gives you 1 output channel; choosing Stereo
+    -- gives you 2. In the API, valid values are 1 and 2. The default value is
+    -- 2.
+    channels :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. Specify the audio sample rate in Hz. Valid values are 22050,
+    -- 32000, 44100, and 48000. The default value is 48000.
+    sampleRate :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. Specify the variable audio quality of this Vorbis output from
+    -- -1 (lowest quality, ~45 kbit\/s) to 10 (highest quality, ~500 kbit\/s).
+    -- The default value is 4 (~128 kbit\/s). Values 5 and 6 are approximately
+    -- 160 and 192 kbit\/s, respectively.
+    vbrQuality :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VorbisSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VorbisSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsChannels' - Optional. Specify the number of channels in this output audio track. Choosing Mono on the console gives you 1 output channel; choosing Stereo gives you 2. In the API, valid values are 1 and 2. The default value is 2.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsSampleRate' - Optional. Specify the audio sample rate in Hz. Valid values are 22050, 32000, 44100, and 48000. The default value is 48000.
+-- 'channels', 'vorbisSettings_channels' - Optional. Specify the number of channels in this output audio track.
+-- Choosing Mono on the console gives you 1 output channel; choosing Stereo
+-- gives you 2. In the API, valid values are 1 and 2. The default value is
+-- 2.
 --
--- * 'vsVbrQuality' - Optional. Specify the variable audio quality of this Vorbis output from -1 (lowest quality, ~45 kbit/s) to 10 (highest quality, ~500 kbit/s). The default value is 4 (~128 kbit/s). Values 5 and 6 are approximately 160 and 192 kbit/s, respectively.
-vorbisSettings ::
+-- 'sampleRate', 'vorbisSettings_sampleRate' - Optional. Specify the audio sample rate in Hz. Valid values are 22050,
+-- 32000, 44100, and 48000. The default value is 48000.
+--
+-- 'vbrQuality', 'vorbisSettings_vbrQuality' - Optional. Specify the variable audio quality of this Vorbis output from
+-- -1 (lowest quality, ~45 kbit\/s) to 10 (highest quality, ~500 kbit\/s).
+-- The default value is 4 (~128 kbit\/s). Values 5 and 6 are approximately
+-- 160 and 192 kbit\/s, respectively.
+newVorbisSettings ::
   VorbisSettings
-vorbisSettings =
+newVorbisSettings =
   VorbisSettings'
-    { _vsChannels = Nothing,
-      _vsSampleRate = Nothing,
-      _vsVbrQuality = Nothing
+    { channels = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      vbrQuality = Prelude.Nothing
     }
 
--- | Optional. Specify the number of channels in this output audio track. Choosing Mono on the console gives you 1 output channel; choosing Stereo gives you 2. In the API, valid values are 1 and 2. The default value is 2.
-vsChannels :: Lens' VorbisSettings (Maybe Natural)
-vsChannels = lens _vsChannels (\s a -> s {_vsChannels = a}) . mapping _Nat
+-- | Optional. Specify the number of channels in this output audio track.
+-- Choosing Mono on the console gives you 1 output channel; choosing Stereo
+-- gives you 2. In the API, valid values are 1 and 2. The default value is
+-- 2.
+vorbisSettings_channels :: Lens.Lens' VorbisSettings (Prelude.Maybe Prelude.Natural)
+vorbisSettings_channels = Lens.lens (\VorbisSettings' {channels} -> channels) (\s@VorbisSettings' {} a -> s {channels = a} :: VorbisSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional. Specify the audio sample rate in Hz. Valid values are 22050, 32000, 44100, and 48000. The default value is 48000.
-vsSampleRate :: Lens' VorbisSettings (Maybe Natural)
-vsSampleRate = lens _vsSampleRate (\s a -> s {_vsSampleRate = a}) . mapping _Nat
+-- | Optional. Specify the audio sample rate in Hz. Valid values are 22050,
+-- 32000, 44100, and 48000. The default value is 48000.
+vorbisSettings_sampleRate :: Lens.Lens' VorbisSettings (Prelude.Maybe Prelude.Natural)
+vorbisSettings_sampleRate = Lens.lens (\VorbisSettings' {sampleRate} -> sampleRate) (\s@VorbisSettings' {} a -> s {sampleRate = a} :: VorbisSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optional. Specify the variable audio quality of this Vorbis output from -1 (lowest quality, ~45 kbit/s) to 10 (highest quality, ~500 kbit/s). The default value is 4 (~128 kbit/s). Values 5 and 6 are approximately 160 and 192 kbit/s, respectively.
-vsVbrQuality :: Lens' VorbisSettings (Maybe Int)
-vsVbrQuality = lens _vsVbrQuality (\s a -> s {_vsVbrQuality = a})
+-- | Optional. Specify the variable audio quality of this Vorbis output from
+-- -1 (lowest quality, ~45 kbit\/s) to 10 (highest quality, ~500 kbit\/s).
+-- The default value is 4 (~128 kbit\/s). Values 5 and 6 are approximately
+-- 160 and 192 kbit\/s, respectively.
+vorbisSettings_vbrQuality :: Lens.Lens' VorbisSettings (Prelude.Maybe Prelude.Int)
+vorbisSettings_vbrQuality = Lens.lens (\VorbisSettings' {vbrQuality} -> vbrQuality) (\s@VorbisSettings' {} a -> s {vbrQuality = a} :: VorbisSettings)
 
-instance FromJSON VorbisSettings where
+instance Prelude.FromJSON VorbisSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VorbisSettings"
       ( \x ->
           VorbisSettings'
-            <$> (x .:? "channels")
-            <*> (x .:? "sampleRate")
-            <*> (x .:? "vbrQuality")
+            Prelude.<$> (x Prelude..:? "channels")
+            Prelude.<*> (x Prelude..:? "sampleRate")
+            Prelude.<*> (x Prelude..:? "vbrQuality")
       )
 
-instance Hashable VorbisSettings
+instance Prelude.Hashable VorbisSettings
 
-instance NFData VorbisSettings
+instance Prelude.NFData VorbisSettings
 
-instance ToJSON VorbisSettings where
+instance Prelude.ToJSON VorbisSettings where
   toJSON VorbisSettings' {..} =
-    object
-      ( catMaybes
-          [ ("channels" .=) <$> _vsChannels,
-            ("sampleRate" .=) <$> _vsSampleRate,
-            ("vbrQuality" .=) <$> _vsVbrQuality
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channels" Prelude..=) Prelude.<$> channels,
+            ("sampleRate" Prelude..=) Prelude.<$> sampleRate,
+            ("vbrQuality" Prelude..=) Prelude.<$> vbrQuality
           ]
       )

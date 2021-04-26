@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,70 @@
 module Network.AWS.MediaConvert.Types.BillingTagsSource
   ( BillingTagsSource
       ( ..,
-        Job,
-        JobTemplate,
-        Preset,
-        Queue
+        BillingTagsSourceJOB,
+        BillingTagsSourceJOBTEMPLATE,
+        BillingTagsSourcePRESET,
+        BillingTagsSourceQUEUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert costs on any billing report that you set up.
-data BillingTagsSource = BillingTagsSource' (CI Text)
+-- | The tag type that AWS Billing and Cost Management will use to sort your
+-- AWS Elemental MediaConvert costs on any billing report that you set up.
+newtype BillingTagsSource = BillingTagsSource'
+  { fromBillingTagsSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Job :: BillingTagsSource
-pattern Job = BillingTagsSource' "JOB"
+pattern BillingTagsSourceJOB :: BillingTagsSource
+pattern BillingTagsSourceJOB = BillingTagsSource' "JOB"
 
-pattern JobTemplate :: BillingTagsSource
-pattern JobTemplate = BillingTagsSource' "JOB_TEMPLATE"
+pattern BillingTagsSourceJOBTEMPLATE :: BillingTagsSource
+pattern BillingTagsSourceJOBTEMPLATE = BillingTagsSource' "JOB_TEMPLATE"
 
-pattern Preset :: BillingTagsSource
-pattern Preset = BillingTagsSource' "PRESET"
+pattern BillingTagsSourcePRESET :: BillingTagsSource
+pattern BillingTagsSourcePRESET = BillingTagsSource' "PRESET"
 
-pattern Queue :: BillingTagsSource
-pattern Queue = BillingTagsSource' "QUEUE"
+pattern BillingTagsSourceQUEUE :: BillingTagsSource
+pattern BillingTagsSourceQUEUE = BillingTagsSource' "QUEUE"
 
 {-# COMPLETE
-  Job,
-  JobTemplate,
-  Preset,
-  Queue,
+  BillingTagsSourceJOB,
+  BillingTagsSourceJOBTEMPLATE,
+  BillingTagsSourcePRESET,
+  BillingTagsSourceQUEUE,
   BillingTagsSource'
   #-}
 
-instance FromText BillingTagsSource where
-  parser = (BillingTagsSource' . mk) <$> takeText
+instance Prelude.FromText BillingTagsSource where
+  parser = BillingTagsSource' Prelude.<$> Prelude.takeText
 
-instance ToText BillingTagsSource where
-  toText (BillingTagsSource' ci) = original ci
+instance Prelude.ToText BillingTagsSource where
+  toText (BillingTagsSource' x) = x
 
-instance Hashable BillingTagsSource
+instance Prelude.Hashable BillingTagsSource
 
-instance NFData BillingTagsSource
+instance Prelude.NFData BillingTagsSource
 
-instance ToByteString BillingTagsSource
+instance Prelude.ToByteString BillingTagsSource
 
-instance ToQuery BillingTagsSource
+instance Prelude.ToQuery BillingTagsSource
 
-instance ToHeader BillingTagsSource
+instance Prelude.ToHeader BillingTagsSource
 
-instance ToJSON BillingTagsSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON BillingTagsSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BillingTagsSource where
-  parseJSON = parseJSONText "BillingTagsSource"
+instance Prelude.FromJSON BillingTagsSource where
+  parseJSON = Prelude.parseJSONText "BillingTagsSource"

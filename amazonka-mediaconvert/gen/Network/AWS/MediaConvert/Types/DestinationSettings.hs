@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.DestinationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.S3DestinationSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings associated with the destination. Will vary based on the type of destination
+-- | Settings associated with the destination. Will vary based on the type of
+-- destination
 --
--- /See:/ 'destinationSettings' smart constructor.
-newtype DestinationSettings = DestinationSettings'
-  { _dsS3Settings ::
-      Maybe S3DestinationSettings
+-- /See:/ 'newDestinationSettings' smart constructor.
+data DestinationSettings = DestinationSettings'
+  { -- | Settings associated with S3 destination
+    s3Settings :: Prelude.Maybe S3DestinationSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsS3Settings' - Settings associated with S3 destination
-destinationSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Settings', 'destinationSettings_s3Settings' - Settings associated with S3 destination
+newDestinationSettings ::
   DestinationSettings
-destinationSettings =
-  DestinationSettings' {_dsS3Settings = Nothing}
+newDestinationSettings =
+  DestinationSettings' {s3Settings = Prelude.Nothing}
 
 -- | Settings associated with S3 destination
-dsS3Settings :: Lens' DestinationSettings (Maybe S3DestinationSettings)
-dsS3Settings = lens _dsS3Settings (\s a -> s {_dsS3Settings = a})
+destinationSettings_s3Settings :: Lens.Lens' DestinationSettings (Prelude.Maybe S3DestinationSettings)
+destinationSettings_s3Settings = Lens.lens (\DestinationSettings' {s3Settings} -> s3Settings) (\s@DestinationSettings' {} a -> s {s3Settings = a} :: DestinationSettings)
 
-instance FromJSON DestinationSettings where
+instance Prelude.FromJSON DestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DestinationSettings"
       ( \x ->
-          DestinationSettings' <$> (x .:? "s3Settings")
+          DestinationSettings'
+            Prelude.<$> (x Prelude..:? "s3Settings")
       )
 
-instance Hashable DestinationSettings
+instance Prelude.Hashable DestinationSettings
 
-instance NFData DestinationSettings
+instance Prelude.NFData DestinationSettings
 
-instance ToJSON DestinationSettings where
+instance Prelude.ToJSON DestinationSettings where
   toJSON DestinationSettings' {..} =
-    object
-      (catMaybes [("s3Settings" .=) <$> _dsS3Settings])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("s3Settings" Prelude..=) Prelude.<$> s3Settings]
+      )

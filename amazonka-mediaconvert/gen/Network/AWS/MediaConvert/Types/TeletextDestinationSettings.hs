@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.TeletextDestinationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.TeletextPageType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for Teletext caption output
 --
--- /See:/ 'teletextDestinationSettings' smart constructor.
+-- /See:/ 'newTeletextDestinationSettings' smart constructor.
 data TeletextDestinationSettings = TeletextDestinationSettings'
-  { _tdsPageTypes ::
-      !( Maybe
-           [TeletextPageType]
-       ),
-    _tdsPageNumber ::
-      !(Maybe Text)
+  { -- | Specify the page types for this Teletext page. If you don\'t specify a
+    -- value here, the service sets the page type to the default value Subtitle
+    -- (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext
+    -- data, don\'t use this field. When you pass through a set of Teletext
+    -- pages, your output has the same page types as your input.
+    pageTypes :: Prelude.Maybe [TeletextPageType],
+    -- | Set pageNumber to the Teletext page number for the destination captions
+    -- for this output. This value must be a three-digit hexadecimal string;
+    -- strings ending in -FF are invalid. If you are passing through the entire
+    -- set of Teletext data, do not use this field.
+    pageNumber :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TeletextDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TeletextDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdsPageTypes' - Specify the page types for this Teletext page. If you don't specify a value here, the service sets the page type to the default value Subtitle (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext data, don't use this field. When you pass through a set of Teletext pages, your output has the same page types as your input.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tdsPageNumber' - Set pageNumber to the Teletext page number for the destination captions for this output. This value must be a three-digit hexadecimal string; strings ending in -FF are invalid. If you are passing through the entire set of Teletext data, do not use this field.
-teletextDestinationSettings ::
+-- 'pageTypes', 'teletextDestinationSettings_pageTypes' - Specify the page types for this Teletext page. If you don\'t specify a
+-- value here, the service sets the page type to the default value Subtitle
+-- (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext
+-- data, don\'t use this field. When you pass through a set of Teletext
+-- pages, your output has the same page types as your input.
+--
+-- 'pageNumber', 'teletextDestinationSettings_pageNumber' - Set pageNumber to the Teletext page number for the destination captions
+-- for this output. This value must be a three-digit hexadecimal string;
+-- strings ending in -FF are invalid. If you are passing through the entire
+-- set of Teletext data, do not use this field.
+newTeletextDestinationSettings ::
   TeletextDestinationSettings
-teletextDestinationSettings =
+newTeletextDestinationSettings =
   TeletextDestinationSettings'
-    { _tdsPageTypes =
-        Nothing,
-      _tdsPageNumber = Nothing
+    { pageTypes =
+        Prelude.Nothing,
+      pageNumber = Prelude.Nothing
     }
 
--- | Specify the page types for this Teletext page. If you don't specify a value here, the service sets the page type to the default value Subtitle (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext data, don't use this field. When you pass through a set of Teletext pages, your output has the same page types as your input.
-tdsPageTypes :: Lens' TeletextDestinationSettings [TeletextPageType]
-tdsPageTypes = lens _tdsPageTypes (\s a -> s {_tdsPageTypes = a}) . _Default . _Coerce
+-- | Specify the page types for this Teletext page. If you don\'t specify a
+-- value here, the service sets the page type to the default value Subtitle
+-- (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext
+-- data, don\'t use this field. When you pass through a set of Teletext
+-- pages, your output has the same page types as your input.
+teletextDestinationSettings_pageTypes :: Lens.Lens' TeletextDestinationSettings (Prelude.Maybe [TeletextPageType])
+teletextDestinationSettings_pageTypes = Lens.lens (\TeletextDestinationSettings' {pageTypes} -> pageTypes) (\s@TeletextDestinationSettings' {} a -> s {pageTypes = a} :: TeletextDestinationSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Set pageNumber to the Teletext page number for the destination captions for this output. This value must be a three-digit hexadecimal string; strings ending in -FF are invalid. If you are passing through the entire set of Teletext data, do not use this field.
-tdsPageNumber :: Lens' TeletextDestinationSettings (Maybe Text)
-tdsPageNumber = lens _tdsPageNumber (\s a -> s {_tdsPageNumber = a})
+-- | Set pageNumber to the Teletext page number for the destination captions
+-- for this output. This value must be a three-digit hexadecimal string;
+-- strings ending in -FF are invalid. If you are passing through the entire
+-- set of Teletext data, do not use this field.
+teletextDestinationSettings_pageNumber :: Lens.Lens' TeletextDestinationSettings (Prelude.Maybe Prelude.Text)
+teletextDestinationSettings_pageNumber = Lens.lens (\TeletextDestinationSettings' {pageNumber} -> pageNumber) (\s@TeletextDestinationSettings' {} a -> s {pageNumber = a} :: TeletextDestinationSettings)
 
-instance FromJSON TeletextDestinationSettings where
+instance Prelude.FromJSON TeletextDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TeletextDestinationSettings"
       ( \x ->
           TeletextDestinationSettings'
-            <$> (x .:? "pageTypes" .!= mempty)
-            <*> (x .:? "pageNumber")
+            Prelude.<$> ( x Prelude..:? "pageTypes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "pageNumber")
       )
 
-instance Hashable TeletextDestinationSettings
+instance Prelude.Hashable TeletextDestinationSettings
 
-instance NFData TeletextDestinationSettings
+instance Prelude.NFData TeletextDestinationSettings
 
-instance ToJSON TeletextDestinationSettings where
+instance Prelude.ToJSON TeletextDestinationSettings where
   toJSON TeletextDestinationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("pageTypes" .=) <$> _tdsPageTypes,
-            ("pageNumber" .=) <$> _tdsPageNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("pageTypes" Prelude..=) Prelude.<$> pageTypes,
+            ("pageNumber" Prelude..=) Prelude.<$> pageNumber
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,76 @@
 module Network.AWS.MediaConvert.Types.WatermarkingStrength
   ( WatermarkingStrength
       ( ..,
-        Default,
-        Lighter,
-        Lightest,
-        Stronger,
-        Strongest
+        WatermarkingStrengthDEFAULT,
+        WatermarkingStrengthLIGHTER,
+        WatermarkingStrengthLIGHTEST,
+        WatermarkingStrengthSTRONGER,
+        WatermarkingStrengthSTRONGEST
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Ignore this setting unless Nagra support directs you to specify a value. When you don't specify a value here, the Nagra NexGuard library uses its default value.
-data WatermarkingStrength
-  = WatermarkingStrength'
-      ( CI
-          Text
-      )
+-- | Optional. Ignore this setting unless Nagra support directs you to
+-- specify a value. When you don\'t specify a value here, the Nagra
+-- NexGuard library uses its default value.
+newtype WatermarkingStrength = WatermarkingStrength'
+  { fromWatermarkingStrength ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: WatermarkingStrength
-pattern Default = WatermarkingStrength' "DEFAULT"
+pattern WatermarkingStrengthDEFAULT :: WatermarkingStrength
+pattern WatermarkingStrengthDEFAULT = WatermarkingStrength' "DEFAULT"
 
-pattern Lighter :: WatermarkingStrength
-pattern Lighter = WatermarkingStrength' "LIGHTER"
+pattern WatermarkingStrengthLIGHTER :: WatermarkingStrength
+pattern WatermarkingStrengthLIGHTER = WatermarkingStrength' "LIGHTER"
 
-pattern Lightest :: WatermarkingStrength
-pattern Lightest = WatermarkingStrength' "LIGHTEST"
+pattern WatermarkingStrengthLIGHTEST :: WatermarkingStrength
+pattern WatermarkingStrengthLIGHTEST = WatermarkingStrength' "LIGHTEST"
 
-pattern Stronger :: WatermarkingStrength
-pattern Stronger = WatermarkingStrength' "STRONGER"
+pattern WatermarkingStrengthSTRONGER :: WatermarkingStrength
+pattern WatermarkingStrengthSTRONGER = WatermarkingStrength' "STRONGER"
 
-pattern Strongest :: WatermarkingStrength
-pattern Strongest = WatermarkingStrength' "STRONGEST"
+pattern WatermarkingStrengthSTRONGEST :: WatermarkingStrength
+pattern WatermarkingStrengthSTRONGEST = WatermarkingStrength' "STRONGEST"
 
 {-# COMPLETE
-  Default,
-  Lighter,
-  Lightest,
-  Stronger,
-  Strongest,
+  WatermarkingStrengthDEFAULT,
+  WatermarkingStrengthLIGHTER,
+  WatermarkingStrengthLIGHTEST,
+  WatermarkingStrengthSTRONGER,
+  WatermarkingStrengthSTRONGEST,
   WatermarkingStrength'
   #-}
 
-instance FromText WatermarkingStrength where
-  parser = (WatermarkingStrength' . mk) <$> takeText
+instance Prelude.FromText WatermarkingStrength where
+  parser = WatermarkingStrength' Prelude.<$> Prelude.takeText
 
-instance ToText WatermarkingStrength where
-  toText (WatermarkingStrength' ci) = original ci
+instance Prelude.ToText WatermarkingStrength where
+  toText (WatermarkingStrength' x) = x
 
-instance Hashable WatermarkingStrength
+instance Prelude.Hashable WatermarkingStrength
 
-instance NFData WatermarkingStrength
+instance Prelude.NFData WatermarkingStrength
 
-instance ToByteString WatermarkingStrength
+instance Prelude.ToByteString WatermarkingStrength
 
-instance ToQuery WatermarkingStrength
+instance Prelude.ToQuery WatermarkingStrength
 
-instance ToHeader WatermarkingStrength
+instance Prelude.ToHeader WatermarkingStrength
 
-instance ToJSON WatermarkingStrength where
-  toJSON = toJSONText
+instance Prelude.ToJSON WatermarkingStrength where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WatermarkingStrength where
-  parseJSON = parseJSONText "WatermarkingStrength"
+instance Prelude.FromJSON WatermarkingStrength where
+  parseJSON = Prelude.parseJSONText "WatermarkingStrength"

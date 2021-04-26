@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.CmfcScte35Esam
   ( CmfcScte35Esam
       ( ..,
-        CSEInsert,
-        CSENone
+        CmfcScte35EsamINSERT,
+        CmfcScte35EsamNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this setting only when you specify SCTE-35 markers from ESAM. Choose INSERT to put SCTE-35 markers in this output at the insertion points that you specify in an ESAM XML document. Provide the document in the setting SCC XML (sccXml).
-data CmfcScte35Esam = CmfcScte35Esam' (CI Text)
+-- | Use this setting only when you specify SCTE-35 markers from ESAM. Choose
+-- INSERT to put SCTE-35 markers in this output at the insertion points
+-- that you specify in an ESAM XML document. Provide the document in the
+-- setting SCC XML (sccXml).
+newtype CmfcScte35Esam = CmfcScte35Esam'
+  { fromCmfcScte35Esam ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSEInsert :: CmfcScte35Esam
-pattern CSEInsert = CmfcScte35Esam' "INSERT"
+pattern CmfcScte35EsamINSERT :: CmfcScte35Esam
+pattern CmfcScte35EsamINSERT = CmfcScte35Esam' "INSERT"
 
-pattern CSENone :: CmfcScte35Esam
-pattern CSENone = CmfcScte35Esam' "NONE"
+pattern CmfcScte35EsamNONE :: CmfcScte35Esam
+pattern CmfcScte35EsamNONE = CmfcScte35Esam' "NONE"
 
 {-# COMPLETE
-  CSEInsert,
-  CSENone,
+  CmfcScte35EsamINSERT,
+  CmfcScte35EsamNONE,
   CmfcScte35Esam'
   #-}
 
-instance FromText CmfcScte35Esam where
-  parser = (CmfcScte35Esam' . mk) <$> takeText
+instance Prelude.FromText CmfcScte35Esam where
+  parser = CmfcScte35Esam' Prelude.<$> Prelude.takeText
 
-instance ToText CmfcScte35Esam where
-  toText (CmfcScte35Esam' ci) = original ci
+instance Prelude.ToText CmfcScte35Esam where
+  toText (CmfcScte35Esam' x) = x
 
-instance Hashable CmfcScte35Esam
+instance Prelude.Hashable CmfcScte35Esam
 
-instance NFData CmfcScte35Esam
+instance Prelude.NFData CmfcScte35Esam
 
-instance ToByteString CmfcScte35Esam
+instance Prelude.ToByteString CmfcScte35Esam
 
-instance ToQuery CmfcScte35Esam
+instance Prelude.ToQuery CmfcScte35Esam
 
-instance ToHeader CmfcScte35Esam
+instance Prelude.ToHeader CmfcScte35Esam
 
-instance ToJSON CmfcScte35Esam where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmfcScte35Esam where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmfcScte35Esam where
-  parseJSON = parseJSONText "CmfcScte35Esam"
+instance Prelude.FromJSON CmfcScte35Esam where
+  parseJSON = Prelude.parseJSONText "CmfcScte35Esam"

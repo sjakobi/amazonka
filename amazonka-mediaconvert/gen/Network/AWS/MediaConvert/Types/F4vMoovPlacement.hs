@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.F4vMoovPlacement
   ( F4vMoovPlacement
       ( ..,
-        FMPNormal,
-        FMPProgressiveDownload
+        F4vMoovPlacementNORMAL,
+        F4vMoovPlacementPROGRESSIVEDOWNLOAD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the beginning of the archive as required for progressive downloading. Otherwise it is placed normally at the end.
-data F4vMoovPlacement = F4vMoovPlacement' (CI Text)
+-- | If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the
+-- beginning of the archive as required for progressive downloading.
+-- Otherwise it is placed normally at the end.
+newtype F4vMoovPlacement = F4vMoovPlacement'
+  { fromF4vMoovPlacement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FMPNormal :: F4vMoovPlacement
-pattern FMPNormal = F4vMoovPlacement' "NORMAL"
+pattern F4vMoovPlacementNORMAL :: F4vMoovPlacement
+pattern F4vMoovPlacementNORMAL = F4vMoovPlacement' "NORMAL"
 
-pattern FMPProgressiveDownload :: F4vMoovPlacement
-pattern FMPProgressiveDownload = F4vMoovPlacement' "PROGRESSIVE_DOWNLOAD"
+pattern F4vMoovPlacementPROGRESSIVEDOWNLOAD :: F4vMoovPlacement
+pattern F4vMoovPlacementPROGRESSIVEDOWNLOAD = F4vMoovPlacement' "PROGRESSIVE_DOWNLOAD"
 
 {-# COMPLETE
-  FMPNormal,
-  FMPProgressiveDownload,
+  F4vMoovPlacementNORMAL,
+  F4vMoovPlacementPROGRESSIVEDOWNLOAD,
   F4vMoovPlacement'
   #-}
 
-instance FromText F4vMoovPlacement where
-  parser = (F4vMoovPlacement' . mk) <$> takeText
+instance Prelude.FromText F4vMoovPlacement where
+  parser = F4vMoovPlacement' Prelude.<$> Prelude.takeText
 
-instance ToText F4vMoovPlacement where
-  toText (F4vMoovPlacement' ci) = original ci
+instance Prelude.ToText F4vMoovPlacement where
+  toText (F4vMoovPlacement' x) = x
 
-instance Hashable F4vMoovPlacement
+instance Prelude.Hashable F4vMoovPlacement
 
-instance NFData F4vMoovPlacement
+instance Prelude.NFData F4vMoovPlacement
 
-instance ToByteString F4vMoovPlacement
+instance Prelude.ToByteString F4vMoovPlacement
 
-instance ToQuery F4vMoovPlacement
+instance Prelude.ToQuery F4vMoovPlacement
 
-instance ToHeader F4vMoovPlacement
+instance Prelude.ToHeader F4vMoovPlacement
 
-instance ToJSON F4vMoovPlacement where
-  toJSON = toJSONText
+instance Prelude.ToJSON F4vMoovPlacement where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON F4vMoovPlacement where
-  parseJSON = parseJSONText "F4vMoovPlacement"
+instance Prelude.FromJSON F4vMoovPlacement where
+  parseJSON = Prelude.parseJSONText "F4vMoovPlacement"

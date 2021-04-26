@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,67 @@
 module Network.AWS.MediaConvert.Types.MxfAfdSignaling
   ( MxfAfdSignaling
       ( ..,
-        CopyFromVideo,
-        NoCopy
+        MxfAfdSignalingCOPYFROMVIDEO,
+        MxfAfdSignalingNOCOPY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. When you have AFD signaling set up in your output video stream, use this setting to choose whether to also include it in the MXF wrapper. Choose Don't copy (NO_COPY) to exclude AFD signaling from the MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the AFD values from the video stream for this output to the MXF wrapper. Regardless of which option you choose, the AFD values remain in the video stream. Related settings: To set up your output to include or exclude AFD values, see AfdSignaling, under VideoDescription. On the console, find AFD signaling under the output's video encoding settings.
-data MxfAfdSignaling = MxfAfdSignaling' (CI Text)
+-- | Optional. When you have AFD signaling set up in your output video
+-- stream, use this setting to choose whether to also include it in the MXF
+-- wrapper. Choose Don\'t copy (NO_COPY) to exclude AFD signaling from the
+-- MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the
+-- AFD values from the video stream for this output to the MXF wrapper.
+-- Regardless of which option you choose, the AFD values remain in the
+-- video stream. Related settings: To set up your output to include or
+-- exclude AFD values, see AfdSignaling, under VideoDescription. On the
+-- console, find AFD signaling under the output\'s video encoding settings.
+newtype MxfAfdSignaling = MxfAfdSignaling'
+  { fromMxfAfdSignaling ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CopyFromVideo :: MxfAfdSignaling
-pattern CopyFromVideo = MxfAfdSignaling' "COPY_FROM_VIDEO"
+pattern MxfAfdSignalingCOPYFROMVIDEO :: MxfAfdSignaling
+pattern MxfAfdSignalingCOPYFROMVIDEO = MxfAfdSignaling' "COPY_FROM_VIDEO"
 
-pattern NoCopy :: MxfAfdSignaling
-pattern NoCopy = MxfAfdSignaling' "NO_COPY"
+pattern MxfAfdSignalingNOCOPY :: MxfAfdSignaling
+pattern MxfAfdSignalingNOCOPY = MxfAfdSignaling' "NO_COPY"
 
 {-# COMPLETE
-  CopyFromVideo,
-  NoCopy,
+  MxfAfdSignalingCOPYFROMVIDEO,
+  MxfAfdSignalingNOCOPY,
   MxfAfdSignaling'
   #-}
 
-instance FromText MxfAfdSignaling where
-  parser = (MxfAfdSignaling' . mk) <$> takeText
+instance Prelude.FromText MxfAfdSignaling where
+  parser = MxfAfdSignaling' Prelude.<$> Prelude.takeText
 
-instance ToText MxfAfdSignaling where
-  toText (MxfAfdSignaling' ci) = original ci
+instance Prelude.ToText MxfAfdSignaling where
+  toText (MxfAfdSignaling' x) = x
 
-instance Hashable MxfAfdSignaling
+instance Prelude.Hashable MxfAfdSignaling
 
-instance NFData MxfAfdSignaling
+instance Prelude.NFData MxfAfdSignaling
 
-instance ToByteString MxfAfdSignaling
+instance Prelude.ToByteString MxfAfdSignaling
 
-instance ToQuery MxfAfdSignaling
+instance Prelude.ToQuery MxfAfdSignaling
 
-instance ToHeader MxfAfdSignaling
+instance Prelude.ToHeader MxfAfdSignaling
 
-instance ToJSON MxfAfdSignaling where
-  toJSON = toJSONText
+instance Prelude.ToJSON MxfAfdSignaling where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MxfAfdSignaling where
-  parseJSON = parseJSONText "MxfAfdSignaling"
+instance Prelude.FromJSON MxfAfdSignaling where
+  parseJSON = Prelude.parseJSONText "MxfAfdSignaling"

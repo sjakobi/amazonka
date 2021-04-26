@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.M2tsForceTsVideoEbpOrder
   ( M2tsForceTsVideoEbpOrder
       ( ..,
-        MFTVEODefault,
-        MFTVEOForce
+        M2tsForceTsVideoEbpOrderDEFAULT,
+        M2tsForceTsVideoEbpOrderFORCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Keep the default value (DEFAULT) unless you know that your audio EBP markers are incorrectly appearing before your video EBP markers. To correct this problem, set this value to Force (FORCE).
-data M2tsForceTsVideoEbpOrder
-  = M2tsForceTsVideoEbpOrder'
-      ( CI
-          Text
-      )
+-- | Keep the default value (DEFAULT) unless you know that your audio EBP
+-- markers are incorrectly appearing before your video EBP markers. To
+-- correct this problem, set this value to Force (FORCE).
+newtype M2tsForceTsVideoEbpOrder = M2tsForceTsVideoEbpOrder'
+  { fromM2tsForceTsVideoEbpOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MFTVEODefault :: M2tsForceTsVideoEbpOrder
-pattern MFTVEODefault = M2tsForceTsVideoEbpOrder' "DEFAULT"
+pattern M2tsForceTsVideoEbpOrderDEFAULT :: M2tsForceTsVideoEbpOrder
+pattern M2tsForceTsVideoEbpOrderDEFAULT = M2tsForceTsVideoEbpOrder' "DEFAULT"
 
-pattern MFTVEOForce :: M2tsForceTsVideoEbpOrder
-pattern MFTVEOForce = M2tsForceTsVideoEbpOrder' "FORCE"
+pattern M2tsForceTsVideoEbpOrderFORCE :: M2tsForceTsVideoEbpOrder
+pattern M2tsForceTsVideoEbpOrderFORCE = M2tsForceTsVideoEbpOrder' "FORCE"
 
 {-# COMPLETE
-  MFTVEODefault,
-  MFTVEOForce,
+  M2tsForceTsVideoEbpOrderDEFAULT,
+  M2tsForceTsVideoEbpOrderFORCE,
   M2tsForceTsVideoEbpOrder'
   #-}
 
-instance FromText M2tsForceTsVideoEbpOrder where
-  parser = (M2tsForceTsVideoEbpOrder' . mk) <$> takeText
+instance Prelude.FromText M2tsForceTsVideoEbpOrder where
+  parser = M2tsForceTsVideoEbpOrder' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsForceTsVideoEbpOrder where
-  toText (M2tsForceTsVideoEbpOrder' ci) = original ci
+instance Prelude.ToText M2tsForceTsVideoEbpOrder where
+  toText (M2tsForceTsVideoEbpOrder' x) = x
 
-instance Hashable M2tsForceTsVideoEbpOrder
+instance Prelude.Hashable M2tsForceTsVideoEbpOrder
 
-instance NFData M2tsForceTsVideoEbpOrder
+instance Prelude.NFData M2tsForceTsVideoEbpOrder
 
-instance ToByteString M2tsForceTsVideoEbpOrder
+instance Prelude.ToByteString M2tsForceTsVideoEbpOrder
 
-instance ToQuery M2tsForceTsVideoEbpOrder
+instance Prelude.ToQuery M2tsForceTsVideoEbpOrder
 
-instance ToHeader M2tsForceTsVideoEbpOrder
+instance Prelude.ToHeader M2tsForceTsVideoEbpOrder
 
-instance ToJSON M2tsForceTsVideoEbpOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsForceTsVideoEbpOrder where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsForceTsVideoEbpOrder where
-  parseJSON = parseJSONText "M2tsForceTsVideoEbpOrder"
+instance Prelude.FromJSON M2tsForceTsVideoEbpOrder where
+  parseJSON = Prelude.parseJSONText "M2tsForceTsVideoEbpOrder"

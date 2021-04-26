@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaConvert.Types.DecryptionMode
   ( DecryptionMode
       ( ..,
-        AESCbc,
-        AESCtr,
-        AESGCM
+        DecryptionModeAESCBC,
+        DecryptionModeAESCTR,
+        DecryptionModeAESGCM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specify the encryption mode that you used to encrypt your input files.
-data DecryptionMode = DecryptionMode' (CI Text)
+newtype DecryptionMode = DecryptionMode'
+  { fromDecryptionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AESCbc :: DecryptionMode
-pattern AESCbc = DecryptionMode' "AES_CBC"
+pattern DecryptionModeAESCBC :: DecryptionMode
+pattern DecryptionModeAESCBC = DecryptionMode' "AES_CBC"
 
-pattern AESCtr :: DecryptionMode
-pattern AESCtr = DecryptionMode' "AES_CTR"
+pattern DecryptionModeAESCTR :: DecryptionMode
+pattern DecryptionModeAESCTR = DecryptionMode' "AES_CTR"
 
-pattern AESGCM :: DecryptionMode
-pattern AESGCM = DecryptionMode' "AES_GCM"
+pattern DecryptionModeAESGCM :: DecryptionMode
+pattern DecryptionModeAESGCM = DecryptionMode' "AES_GCM"
 
 {-# COMPLETE
-  AESCbc,
-  AESCtr,
-  AESGCM,
+  DecryptionModeAESCBC,
+  DecryptionModeAESCTR,
+  DecryptionModeAESGCM,
   DecryptionMode'
   #-}
 
-instance FromText DecryptionMode where
-  parser = (DecryptionMode' . mk) <$> takeText
+instance Prelude.FromText DecryptionMode where
+  parser = DecryptionMode' Prelude.<$> Prelude.takeText
 
-instance ToText DecryptionMode where
-  toText (DecryptionMode' ci) = original ci
+instance Prelude.ToText DecryptionMode where
+  toText (DecryptionMode' x) = x
 
-instance Hashable DecryptionMode
+instance Prelude.Hashable DecryptionMode
 
-instance NFData DecryptionMode
+instance Prelude.NFData DecryptionMode
 
-instance ToByteString DecryptionMode
+instance Prelude.ToByteString DecryptionMode
 
-instance ToQuery DecryptionMode
+instance Prelude.ToQuery DecryptionMode
 
-instance ToHeader DecryptionMode
+instance Prelude.ToHeader DecryptionMode
 
-instance ToJSON DecryptionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON DecryptionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DecryptionMode where
-  parseJSON = parseJSONText "DecryptionMode"
+instance Prelude.FromJSON DecryptionMode where
+  parseJSON = Prelude.parseJSONText "DecryptionMode"

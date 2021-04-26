@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.OutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.HlsSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specific settings for this type of output.
 --
--- /See:/ 'outputSettings' smart constructor.
-newtype OutputSettings = OutputSettings'
-  { _osHlsSettings ::
-      Maybe HlsSettings
+-- /See:/ 'newOutputSettings' smart constructor.
+data OutputSettings = OutputSettings'
+  { -- | Settings for HLS output groups
+    hlsSettings :: Prelude.Maybe HlsSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osHlsSettings' - Settings for HLS output groups
-outputSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'hlsSettings', 'outputSettings_hlsSettings' - Settings for HLS output groups
+newOutputSettings ::
   OutputSettings
-outputSettings =
-  OutputSettings' {_osHlsSettings = Nothing}
+newOutputSettings =
+  OutputSettings' {hlsSettings = Prelude.Nothing}
 
 -- | Settings for HLS output groups
-osHlsSettings :: Lens' OutputSettings (Maybe HlsSettings)
-osHlsSettings = lens _osHlsSettings (\s a -> s {_osHlsSettings = a})
+outputSettings_hlsSettings :: Lens.Lens' OutputSettings (Prelude.Maybe HlsSettings)
+outputSettings_hlsSettings = Lens.lens (\OutputSettings' {hlsSettings} -> hlsSettings) (\s@OutputSettings' {} a -> s {hlsSettings = a} :: OutputSettings)
 
-instance FromJSON OutputSettings where
+instance Prelude.FromJSON OutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputSettings"
-      (\x -> OutputSettings' <$> (x .:? "hlsSettings"))
+      ( \x ->
+          OutputSettings'
+            Prelude.<$> (x Prelude..:? "hlsSettings")
+      )
 
-instance Hashable OutputSettings
+instance Prelude.Hashable OutputSettings
 
-instance NFData OutputSettings
+instance Prelude.NFData OutputSettings
 
-instance ToJSON OutputSettings where
+instance Prelude.ToJSON OutputSettings where
   toJSON OutputSettings' {..} =
-    object
-      (catMaybes [("hlsSettings" .=) <$> _osHlsSettings])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("hlsSettings" Prelude..=) Prelude.<$> hlsSettings]
+      )

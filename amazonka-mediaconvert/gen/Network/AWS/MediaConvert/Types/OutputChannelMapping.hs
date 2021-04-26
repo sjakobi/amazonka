@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.OutputChannelMapping where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | OutputChannel mapping settings.
 --
--- /See:/ 'outputChannelMapping' smart constructor.
+-- /See:/ 'newOutputChannelMapping' smart constructor.
 data OutputChannelMapping = OutputChannelMapping'
-  { _ocmInputChannels ::
-      !(Maybe [Int]),
-    _ocmInputChannelsFineTune ::
-      !(Maybe [Double])
+  { -- | Use this setting to specify your remix values when they are integers,
+    -- such as -10, 0, or 4.
+    inputChannels :: Prelude.Maybe [Prelude.Int],
+    -- | Use this setting to specify your remix values when they have a decimal
+    -- component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your
+    -- remixing values to the nearest thousandth.
+    inputChannelsFineTune :: Prelude.Maybe [Prelude.Double]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputChannelMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputChannelMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ocmInputChannels' - Use this setting to specify your remix values when they are integers, such as -10, 0, or 4.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ocmInputChannelsFineTune' - Use this setting to specify your remix values when they have a decimal component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your remixing values to the nearest thousandth.
-outputChannelMapping ::
+-- 'inputChannels', 'outputChannelMapping_inputChannels' - Use this setting to specify your remix values when they are integers,
+-- such as -10, 0, or 4.
+--
+-- 'inputChannelsFineTune', 'outputChannelMapping_inputChannelsFineTune' - Use this setting to specify your remix values when they have a decimal
+-- component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your
+-- remixing values to the nearest thousandth.
+newOutputChannelMapping ::
   OutputChannelMapping
-outputChannelMapping =
+newOutputChannelMapping =
   OutputChannelMapping'
-    { _ocmInputChannels = Nothing,
-      _ocmInputChannelsFineTune = Nothing
+    { inputChannels =
+        Prelude.Nothing,
+      inputChannelsFineTune = Prelude.Nothing
     }
 
--- | Use this setting to specify your remix values when they are integers, such as -10, 0, or 4.
-ocmInputChannels :: Lens' OutputChannelMapping [Int]
-ocmInputChannels = lens _ocmInputChannels (\s a -> s {_ocmInputChannels = a}) . _Default . _Coerce
+-- | Use this setting to specify your remix values when they are integers,
+-- such as -10, 0, or 4.
+outputChannelMapping_inputChannels :: Lens.Lens' OutputChannelMapping (Prelude.Maybe [Prelude.Int])
+outputChannelMapping_inputChannels = Lens.lens (\OutputChannelMapping' {inputChannels} -> inputChannels) (\s@OutputChannelMapping' {} a -> s {inputChannels = a} :: OutputChannelMapping) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Use this setting to specify your remix values when they have a decimal component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your remixing values to the nearest thousandth.
-ocmInputChannelsFineTune :: Lens' OutputChannelMapping [Double]
-ocmInputChannelsFineTune = lens _ocmInputChannelsFineTune (\s a -> s {_ocmInputChannelsFineTune = a}) . _Default . _Coerce
+-- | Use this setting to specify your remix values when they have a decimal
+-- component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your
+-- remixing values to the nearest thousandth.
+outputChannelMapping_inputChannelsFineTune :: Lens.Lens' OutputChannelMapping (Prelude.Maybe [Prelude.Double])
+outputChannelMapping_inputChannelsFineTune = Lens.lens (\OutputChannelMapping' {inputChannelsFineTune} -> inputChannelsFineTune) (\s@OutputChannelMapping' {} a -> s {inputChannelsFineTune = a} :: OutputChannelMapping) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON OutputChannelMapping where
+instance Prelude.FromJSON OutputChannelMapping where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputChannelMapping"
       ( \x ->
           OutputChannelMapping'
-            <$> (x .:? "inputChannels" .!= mempty)
-            <*> (x .:? "inputChannelsFineTune" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "inputChannels"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "inputChannelsFineTune"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable OutputChannelMapping
+instance Prelude.Hashable OutputChannelMapping
 
-instance NFData OutputChannelMapping
+instance Prelude.NFData OutputChannelMapping
 
-instance ToJSON OutputChannelMapping where
+instance Prelude.ToJSON OutputChannelMapping where
   toJSON OutputChannelMapping' {..} =
-    object
-      ( catMaybes
-          [ ("inputChannels" .=) <$> _ocmInputChannels,
-            ("inputChannelsFineTune" .=)
-              <$> _ocmInputChannelsFineTune
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("inputChannels" Prelude..=)
+              Prelude.<$> inputChannels,
+            ("inputChannelsFineTune" Prelude..=)
+              Prelude.<$> inputChannelsFineTune
           ]
       )

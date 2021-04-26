@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,226 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve a JSON array of up to twenty of your most recently created jobs. This array includes in-process, completed, and errored jobs. This will return the jobs themselves, not just a list of the jobs. To retrieve the twenty next most recent jobs, use the nextToken string returned with the array.
+-- Retrieve a JSON array of up to twenty of your most recently created
+-- jobs. This array includes in-process, completed, and errored jobs. This
+-- will return the jobs themselves, not just a list of the jobs. To
+-- retrieve the twenty next most recent jobs, use the nextToken string
+-- returned with the array.
 --
 -- This operation returns paginated results.
 module Network.AWS.MediaConvert.ListJobs
   ( -- * Creating a Request
-    listJobs,
-    ListJobs,
+    ListJobs (..),
+    newListJobs,
 
     -- * Request Lenses
-    ljStatus,
-    ljNextToken,
-    ljMaxResults,
-    ljQueue,
-    ljOrder,
+    listJobs_status,
+    listJobs_nextToken,
+    listJobs_maxResults,
+    listJobs_queue,
+    listJobs_order,
 
     -- * Destructuring the Response
-    listJobsResponse,
-    ListJobsResponse,
+    ListJobsResponse (..),
+    newListJobsResponse,
 
     -- * Response Lenses
-    ljrrsNextToken,
-    ljrrsJobs,
-    ljrrsResponseStatus,
+    listJobsResponse_nextToken,
+    listJobsResponse_jobs,
+    listJobsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.Job
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listJobs' smart constructor.
+-- | /See:/ 'newListJobs' smart constructor.
 data ListJobs = ListJobs'
-  { _ljStatus ::
-      !(Maybe JobStatus),
-    _ljNextToken :: !(Maybe Text),
-    _ljMaxResults :: !(Maybe Nat),
-    _ljQueue :: !(Maybe Text),
-    _ljOrder :: !(Maybe Order)
+  { -- | Optional. A job\'s status can be SUBMITTED, PROGRESSING, COMPLETE,
+    -- CANCELED, or ERROR.
+    status :: Prelude.Maybe JobStatus,
+    -- | Optional. Use this string, provided with the response to a previous
+    -- request, to request the next batch of jobs.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional. Number of jobs, up to twenty, that will be returned at one
+    -- time.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Optional. Provide a queue name to get back only jobs from that queue.
+    queue :: Prelude.Maybe Prelude.Text,
+    -- | Optional. When you request lists of resources, you can specify whether
+    -- they are sorted in ASCENDING or DESCENDING order. Default varies by
+    -- resource.
+    order :: Prelude.Maybe Order
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljStatus' - Optional. A job's status can be SUBMITTED, PROGRESSING, COMPLETE, CANCELED, or ERROR.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljNextToken' - Optional. Use this string, provided with the response to a previous request, to request the next batch of jobs.
+-- 'status', 'listJobs_status' - Optional. A job\'s status can be SUBMITTED, PROGRESSING, COMPLETE,
+-- CANCELED, or ERROR.
 --
--- * 'ljMaxResults' - Optional. Number of jobs, up to twenty, that will be returned at one time.
+-- 'nextToken', 'listJobs_nextToken' - Optional. Use this string, provided with the response to a previous
+-- request, to request the next batch of jobs.
 --
--- * 'ljQueue' - Optional. Provide a queue name to get back only jobs from that queue.
+-- 'maxResults', 'listJobs_maxResults' - Optional. Number of jobs, up to twenty, that will be returned at one
+-- time.
 --
--- * 'ljOrder' - Optional. When you request lists of resources, you can specify whether they are sorted in ASCENDING or DESCENDING order. Default varies by resource.
-listJobs ::
+-- 'queue', 'listJobs_queue' - Optional. Provide a queue name to get back only jobs from that queue.
+--
+-- 'order', 'listJobs_order' - Optional. When you request lists of resources, you can specify whether
+-- they are sorted in ASCENDING or DESCENDING order. Default varies by
+-- resource.
+newListJobs ::
   ListJobs
-listJobs =
+newListJobs =
   ListJobs'
-    { _ljStatus = Nothing,
-      _ljNextToken = Nothing,
-      _ljMaxResults = Nothing,
-      _ljQueue = Nothing,
-      _ljOrder = Nothing
+    { status = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      queue = Prelude.Nothing,
+      order = Prelude.Nothing
     }
 
--- | Optional. A job's status can be SUBMITTED, PROGRESSING, COMPLETE, CANCELED, or ERROR.
-ljStatus :: Lens' ListJobs (Maybe JobStatus)
-ljStatus = lens _ljStatus (\s a -> s {_ljStatus = a})
+-- | Optional. A job\'s status can be SUBMITTED, PROGRESSING, COMPLETE,
+-- CANCELED, or ERROR.
+listJobs_status :: Lens.Lens' ListJobs (Prelude.Maybe JobStatus)
+listJobs_status = Lens.lens (\ListJobs' {status} -> status) (\s@ListJobs' {} a -> s {status = a} :: ListJobs)
 
--- | Optional. Use this string, provided with the response to a previous request, to request the next batch of jobs.
-ljNextToken :: Lens' ListJobs (Maybe Text)
-ljNextToken = lens _ljNextToken (\s a -> s {_ljNextToken = a})
+-- | Optional. Use this string, provided with the response to a previous
+-- request, to request the next batch of jobs.
+listJobs_nextToken :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_nextToken = Lens.lens (\ListJobs' {nextToken} -> nextToken) (\s@ListJobs' {} a -> s {nextToken = a} :: ListJobs)
 
--- | Optional. Number of jobs, up to twenty, that will be returned at one time.
-ljMaxResults :: Lens' ListJobs (Maybe Natural)
-ljMaxResults = lens _ljMaxResults (\s a -> s {_ljMaxResults = a}) . mapping _Nat
+-- | Optional. Number of jobs, up to twenty, that will be returned at one
+-- time.
+listJobs_maxResults :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Natural)
+listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@ListJobs' {} a -> s {maxResults = a} :: ListJobs) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Optional. Provide a queue name to get back only jobs from that queue.
-ljQueue :: Lens' ListJobs (Maybe Text)
-ljQueue = lens _ljQueue (\s a -> s {_ljQueue = a})
+listJobs_queue :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_queue = Lens.lens (\ListJobs' {queue} -> queue) (\s@ListJobs' {} a -> s {queue = a} :: ListJobs)
 
--- | Optional. When you request lists of resources, you can specify whether they are sorted in ASCENDING or DESCENDING order. Default varies by resource.
-ljOrder :: Lens' ListJobs (Maybe Order)
-ljOrder = lens _ljOrder (\s a -> s {_ljOrder = a})
+-- | Optional. When you request lists of resources, you can specify whether
+-- they are sorted in ASCENDING or DESCENDING order. Default varies by
+-- resource.
+listJobs_order :: Lens.Lens' ListJobs (Prelude.Maybe Order)
+listJobs_order = Lens.lens (\ListJobs' {order} -> order) (\s@ListJobs' {} a -> s {order = a} :: ListJobs)
 
-instance AWSPager ListJobs where
+instance Pager.AWSPager ListJobs where
   page rq rs
-    | stop (rs ^. ljrrsNextToken) = Nothing
-    | stop (rs ^. ljrrsJobs) = Nothing
-    | otherwise =
-      Just $ rq & ljNextToken .~ rs ^. ljrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listJobsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listJobsResponse_jobs Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listJobs_nextToken
+          Lens..~ rs
+          Lens.^? listJobsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListJobs where
+instance Prelude.AWSRequest ListJobs where
   type Rs ListJobs = ListJobsResponse
-  request = get mediaConvert
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListJobsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "jobs" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "jobs" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListJobs
+instance Prelude.Hashable ListJobs
 
-instance NFData ListJobs
+instance Prelude.NFData ListJobs
 
-instance ToHeaders ListJobs where
+instance Prelude.ToHeaders ListJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListJobs where
-  toPath = const "/2017-08-29/jobs"
+instance Prelude.ToPath ListJobs where
+  toPath = Prelude.const "/2017-08-29/jobs"
 
-instance ToQuery ListJobs where
+instance Prelude.ToQuery ListJobs where
   toQuery ListJobs' {..} =
-    mconcat
-      [ "status" =: _ljStatus,
-        "nextToken" =: _ljNextToken,
-        "maxResults" =: _ljMaxResults,
-        "queue" =: _ljQueue,
-        "order" =: _ljOrder
+    Prelude.mconcat
+      [ "status" Prelude.=: status,
+        "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "queue" Prelude.=: queue,
+        "order" Prelude.=: order
       ]
 
--- | /See:/ 'listJobsResponse' smart constructor.
+-- | /See:/ 'newListJobsResponse' smart constructor.
 data ListJobsResponse = ListJobsResponse'
-  { _ljrrsNextToken ::
-      !(Maybe Text),
-    _ljrrsJobs :: !(Maybe [Job]),
-    _ljrrsResponseStatus :: !Int
+  { -- | Use this string to request the next batch of jobs.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of jobs
+    jobs :: Prelude.Maybe [Job],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljrrsNextToken' - Use this string to request the next batch of jobs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljrrsJobs' - List of jobs
+-- 'nextToken', 'listJobsResponse_nextToken' - Use this string to request the next batch of jobs.
 --
--- * 'ljrrsResponseStatus' - -- | The response status code.
-listJobsResponse ::
-  -- | 'ljrrsResponseStatus'
-  Int ->
+-- 'jobs', 'listJobsResponse_jobs' - List of jobs
+--
+-- 'httpStatus', 'listJobsResponse_httpStatus' - The response's http status code.
+newListJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListJobsResponse
-listJobsResponse pResponseStatus_ =
+newListJobsResponse pHttpStatus_ =
   ListJobsResponse'
-    { _ljrrsNextToken = Nothing,
-      _ljrrsJobs = Nothing,
-      _ljrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      jobs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Use this string to request the next batch of jobs.
-ljrrsNextToken :: Lens' ListJobsResponse (Maybe Text)
-ljrrsNextToken = lens _ljrrsNextToken (\s a -> s {_ljrrsNextToken = a})
+listJobsResponse_nextToken :: Lens.Lens' ListJobsResponse (Prelude.Maybe Prelude.Text)
+listJobsResponse_nextToken = Lens.lens (\ListJobsResponse' {nextToken} -> nextToken) (\s@ListJobsResponse' {} a -> s {nextToken = a} :: ListJobsResponse)
 
 -- | List of jobs
-ljrrsJobs :: Lens' ListJobsResponse [Job]
-ljrrsJobs = lens _ljrrsJobs (\s a -> s {_ljrrsJobs = a}) . _Default . _Coerce
+listJobsResponse_jobs :: Lens.Lens' ListJobsResponse (Prelude.Maybe [Job])
+listJobsResponse_jobs = Lens.lens (\ListJobsResponse' {jobs} -> jobs) (\s@ListJobsResponse' {} a -> s {jobs = a} :: ListJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ljrrsResponseStatus :: Lens' ListJobsResponse Int
-ljrrsResponseStatus = lens _ljrrsResponseStatus (\s a -> s {_ljrrsResponseStatus = a})
+-- | The response's http status code.
+listJobsResponse_httpStatus :: Lens.Lens' ListJobsResponse Prelude.Int
+listJobsResponse_httpStatus = Lens.lens (\ListJobsResponse' {httpStatus} -> httpStatus) (\s@ListJobsResponse' {} a -> s {httpStatus = a} :: ListJobsResponse)
 
-instance NFData ListJobsResponse
+instance Prelude.NFData ListJobsResponse

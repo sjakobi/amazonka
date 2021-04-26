@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,70 @@
 module Network.AWS.MediaConvert.Types.NoiseFilterPostTemporalSharpening
   ( NoiseFilterPostTemporalSharpening
       ( ..,
-        NFPTSAuto,
-        NFPTSDisabled,
-        NFPTSEnabled
+        NoiseFilterPostTemporalSharpeningAUTO,
+        NoiseFilterPostTemporalSharpeningDISABLED,
+        NoiseFilterPostTemporalSharpeningENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. When you set Noise reducer (noiseReducer) to Temporal (TEMPORAL), you can use this setting to apply sharpening. The default behavior, Auto (AUTO), allows the transcoder to determine whether to apply filtering, depending on input type and quality. When you set Noise reducer to Temporal, your output bandwidth is reduced. When Post temporal sharpening is also enabled, that bandwidth reduction is smaller.
-data NoiseFilterPostTemporalSharpening
-  = NoiseFilterPostTemporalSharpening'
-      ( CI
-          Text
-      )
+-- | Optional. When you set Noise reducer (noiseReducer) to Temporal
+-- (TEMPORAL), you can use this setting to apply sharpening. The default
+-- behavior, Auto (AUTO), allows the transcoder to determine whether to
+-- apply filtering, depending on input type and quality. When you set Noise
+-- reducer to Temporal, your output bandwidth is reduced. When Post
+-- temporal sharpening is also enabled, that bandwidth reduction is
+-- smaller.
+newtype NoiseFilterPostTemporalSharpening = NoiseFilterPostTemporalSharpening'
+  { fromNoiseFilterPostTemporalSharpening ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NFPTSAuto :: NoiseFilterPostTemporalSharpening
-pattern NFPTSAuto = NoiseFilterPostTemporalSharpening' "AUTO"
+pattern NoiseFilterPostTemporalSharpeningAUTO :: NoiseFilterPostTemporalSharpening
+pattern NoiseFilterPostTemporalSharpeningAUTO = NoiseFilterPostTemporalSharpening' "AUTO"
 
-pattern NFPTSDisabled :: NoiseFilterPostTemporalSharpening
-pattern NFPTSDisabled = NoiseFilterPostTemporalSharpening' "DISABLED"
+pattern NoiseFilterPostTemporalSharpeningDISABLED :: NoiseFilterPostTemporalSharpening
+pattern NoiseFilterPostTemporalSharpeningDISABLED = NoiseFilterPostTemporalSharpening' "DISABLED"
 
-pattern NFPTSEnabled :: NoiseFilterPostTemporalSharpening
-pattern NFPTSEnabled = NoiseFilterPostTemporalSharpening' "ENABLED"
+pattern NoiseFilterPostTemporalSharpeningENABLED :: NoiseFilterPostTemporalSharpening
+pattern NoiseFilterPostTemporalSharpeningENABLED = NoiseFilterPostTemporalSharpening' "ENABLED"
 
 {-# COMPLETE
-  NFPTSAuto,
-  NFPTSDisabled,
-  NFPTSEnabled,
+  NoiseFilterPostTemporalSharpeningAUTO,
+  NoiseFilterPostTemporalSharpeningDISABLED,
+  NoiseFilterPostTemporalSharpeningENABLED,
   NoiseFilterPostTemporalSharpening'
   #-}
 
-instance FromText NoiseFilterPostTemporalSharpening where
-  parser = (NoiseFilterPostTemporalSharpening' . mk) <$> takeText
+instance Prelude.FromText NoiseFilterPostTemporalSharpening where
+  parser = NoiseFilterPostTemporalSharpening' Prelude.<$> Prelude.takeText
 
-instance ToText NoiseFilterPostTemporalSharpening where
-  toText (NoiseFilterPostTemporalSharpening' ci) = original ci
+instance Prelude.ToText NoiseFilterPostTemporalSharpening where
+  toText (NoiseFilterPostTemporalSharpening' x) = x
 
-instance Hashable NoiseFilterPostTemporalSharpening
+instance Prelude.Hashable NoiseFilterPostTemporalSharpening
 
-instance NFData NoiseFilterPostTemporalSharpening
+instance Prelude.NFData NoiseFilterPostTemporalSharpening
 
-instance ToByteString NoiseFilterPostTemporalSharpening
+instance Prelude.ToByteString NoiseFilterPostTemporalSharpening
 
-instance ToQuery NoiseFilterPostTemporalSharpening
+instance Prelude.ToQuery NoiseFilterPostTemporalSharpening
 
-instance ToHeader NoiseFilterPostTemporalSharpening
+instance Prelude.ToHeader NoiseFilterPostTemporalSharpening
 
-instance ToJSON NoiseFilterPostTemporalSharpening where
-  toJSON = toJSONText
+instance Prelude.ToJSON NoiseFilterPostTemporalSharpening where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NoiseFilterPostTemporalSharpening where
-  parseJSON = parseJSONText "NoiseFilterPostTemporalSharpening"
+instance Prelude.FromJSON NoiseFilterPostTemporalSharpening where
+  parseJSON = Prelude.parseJSONText "NoiseFilterPostTemporalSharpening"

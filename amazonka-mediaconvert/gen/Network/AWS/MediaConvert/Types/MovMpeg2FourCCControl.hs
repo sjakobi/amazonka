@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaConvert.Types.MovMpeg2FourCCControl
   ( MovMpeg2FourCCControl
       ( ..,
-        MMFCCCMpeg,
-        MMFCCCXdcam
+        MovMpeg2FourCCControlMPEG,
+        MovMpeg2FourCCControlXDCAM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to XDCAM, writes MPEG2 video streams into the QuickTime file using XDCAM fourcc codes. This increases compatibility with Apple editors and players, but may decrease compatibility with other players. Only applicable when the video codec is MPEG2.
-data MovMpeg2FourCCControl
-  = MovMpeg2FourCCControl'
-      ( CI
-          Text
-      )
+-- | When set to XDCAM, writes MPEG2 video streams into the QuickTime file
+-- using XDCAM fourcc codes. This increases compatibility with Apple
+-- editors and players, but may decrease compatibility with other players.
+-- Only applicable when the video codec is MPEG2.
+newtype MovMpeg2FourCCControl = MovMpeg2FourCCControl'
+  { fromMovMpeg2FourCCControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MMFCCCMpeg :: MovMpeg2FourCCControl
-pattern MMFCCCMpeg = MovMpeg2FourCCControl' "MPEG"
+pattern MovMpeg2FourCCControlMPEG :: MovMpeg2FourCCControl
+pattern MovMpeg2FourCCControlMPEG = MovMpeg2FourCCControl' "MPEG"
 
-pattern MMFCCCXdcam :: MovMpeg2FourCCControl
-pattern MMFCCCXdcam = MovMpeg2FourCCControl' "XDCAM"
+pattern MovMpeg2FourCCControlXDCAM :: MovMpeg2FourCCControl
+pattern MovMpeg2FourCCControlXDCAM = MovMpeg2FourCCControl' "XDCAM"
 
 {-# COMPLETE
-  MMFCCCMpeg,
-  MMFCCCXdcam,
+  MovMpeg2FourCCControlMPEG,
+  MovMpeg2FourCCControlXDCAM,
   MovMpeg2FourCCControl'
   #-}
 
-instance FromText MovMpeg2FourCCControl where
-  parser = (MovMpeg2FourCCControl' . mk) <$> takeText
+instance Prelude.FromText MovMpeg2FourCCControl where
+  parser = MovMpeg2FourCCControl' Prelude.<$> Prelude.takeText
 
-instance ToText MovMpeg2FourCCControl where
-  toText (MovMpeg2FourCCControl' ci) = original ci
+instance Prelude.ToText MovMpeg2FourCCControl where
+  toText (MovMpeg2FourCCControl' x) = x
 
-instance Hashable MovMpeg2FourCCControl
+instance Prelude.Hashable MovMpeg2FourCCControl
 
-instance NFData MovMpeg2FourCCControl
+instance Prelude.NFData MovMpeg2FourCCControl
 
-instance ToByteString MovMpeg2FourCCControl
+instance Prelude.ToByteString MovMpeg2FourCCControl
 
-instance ToQuery MovMpeg2FourCCControl
+instance Prelude.ToQuery MovMpeg2FourCCControl
 
-instance ToHeader MovMpeg2FourCCControl
+instance Prelude.ToHeader MovMpeg2FourCCControl
 
-instance ToJSON MovMpeg2FourCCControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON MovMpeg2FourCCControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MovMpeg2FourCCControl where
-  parseJSON = parseJSONText "MovMpeg2FourCCControl"
+instance Prelude.FromJSON MovMpeg2FourCCControl where
+  parseJSON = Prelude.parseJSONText "MovMpeg2FourCCControl"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.MxfSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.MxfAfdSignaling
 import Network.AWS.MediaConvert.Types.MxfProfile
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | MXF settings
 --
--- /See:/ 'mxfSettings' smart constructor.
+-- /See:/ 'newMxfSettings' smart constructor.
 data MxfSettings = MxfSettings'
-  { _msProfile ::
-      !(Maybe MxfProfile),
-    _msAfdSignaling :: !(Maybe MxfAfdSignaling)
+  { -- | Specify the MXF profile, also called shim, for this output. When you
+    -- choose Auto, MediaConvert chooses a profile based on the video codec and
+    -- resolution. For a list of codecs supported with each MXF profile, see
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/codecs-supported-with-each-mxf-profile.html.
+    -- For more information about the automatic selection behavior, see
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/default-automatic-selection-of-mxf-profiles.html.
+    profile :: Prelude.Maybe MxfProfile,
+    -- | Optional. When you have AFD signaling set up in your output video
+    -- stream, use this setting to choose whether to also include it in the MXF
+    -- wrapper. Choose Don\'t copy (NO_COPY) to exclude AFD signaling from the
+    -- MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the
+    -- AFD values from the video stream for this output to the MXF wrapper.
+    -- Regardless of which option you choose, the AFD values remain in the
+    -- video stream. Related settings: To set up your output to include or
+    -- exclude AFD values, see AfdSignaling, under VideoDescription. On the
+    -- console, find AFD signaling under the output\'s video encoding settings.
+    afdSignaling :: Prelude.Maybe MxfAfdSignaling
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MxfSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MxfSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msProfile' - Specify the MXF profile, also called shim, for this output. When you choose Auto, MediaConvert chooses a profile based on the video codec and resolution. For a list of codecs supported with each MXF profile, see https://docs.aws.amazon.com/mediaconvert/latest/ug/codecs-supported-with-each-mxf-profile.html. For more information about the automatic selection behavior, see https://docs.aws.amazon.com/mediaconvert/latest/ug/default-automatic-selection-of-mxf-profiles.html.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msAfdSignaling' - Optional. When you have AFD signaling set up in your output video stream, use this setting to choose whether to also include it in the MXF wrapper. Choose Don't copy (NO_COPY) to exclude AFD signaling from the MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the AFD values from the video stream for this output to the MXF wrapper. Regardless of which option you choose, the AFD values remain in the video stream. Related settings: To set up your output to include or exclude AFD values, see AfdSignaling, under VideoDescription. On the console, find AFD signaling under the output's video encoding settings.
-mxfSettings ::
+-- 'profile', 'mxfSettings_profile' - Specify the MXF profile, also called shim, for this output. When you
+-- choose Auto, MediaConvert chooses a profile based on the video codec and
+-- resolution. For a list of codecs supported with each MXF profile, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/codecs-supported-with-each-mxf-profile.html.
+-- For more information about the automatic selection behavior, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/default-automatic-selection-of-mxf-profiles.html.
+--
+-- 'afdSignaling', 'mxfSettings_afdSignaling' - Optional. When you have AFD signaling set up in your output video
+-- stream, use this setting to choose whether to also include it in the MXF
+-- wrapper. Choose Don\'t copy (NO_COPY) to exclude AFD signaling from the
+-- MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the
+-- AFD values from the video stream for this output to the MXF wrapper.
+-- Regardless of which option you choose, the AFD values remain in the
+-- video stream. Related settings: To set up your output to include or
+-- exclude AFD values, see AfdSignaling, under VideoDescription. On the
+-- console, find AFD signaling under the output\'s video encoding settings.
+newMxfSettings ::
   MxfSettings
-mxfSettings =
+newMxfSettings =
   MxfSettings'
-    { _msProfile = Nothing,
-      _msAfdSignaling = Nothing
+    { profile = Prelude.Nothing,
+      afdSignaling = Prelude.Nothing
     }
 
--- | Specify the MXF profile, also called shim, for this output. When you choose Auto, MediaConvert chooses a profile based on the video codec and resolution. For a list of codecs supported with each MXF profile, see https://docs.aws.amazon.com/mediaconvert/latest/ug/codecs-supported-with-each-mxf-profile.html. For more information about the automatic selection behavior, see https://docs.aws.amazon.com/mediaconvert/latest/ug/default-automatic-selection-of-mxf-profiles.html.
-msProfile :: Lens' MxfSettings (Maybe MxfProfile)
-msProfile = lens _msProfile (\s a -> s {_msProfile = a})
+-- | Specify the MXF profile, also called shim, for this output. When you
+-- choose Auto, MediaConvert chooses a profile based on the video codec and
+-- resolution. For a list of codecs supported with each MXF profile, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/codecs-supported-with-each-mxf-profile.html.
+-- For more information about the automatic selection behavior, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/default-automatic-selection-of-mxf-profiles.html.
+mxfSettings_profile :: Lens.Lens' MxfSettings (Prelude.Maybe MxfProfile)
+mxfSettings_profile = Lens.lens (\MxfSettings' {profile} -> profile) (\s@MxfSettings' {} a -> s {profile = a} :: MxfSettings)
 
--- | Optional. When you have AFD signaling set up in your output video stream, use this setting to choose whether to also include it in the MXF wrapper. Choose Don't copy (NO_COPY) to exclude AFD signaling from the MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the AFD values from the video stream for this output to the MXF wrapper. Regardless of which option you choose, the AFD values remain in the video stream. Related settings: To set up your output to include or exclude AFD values, see AfdSignaling, under VideoDescription. On the console, find AFD signaling under the output's video encoding settings.
-msAfdSignaling :: Lens' MxfSettings (Maybe MxfAfdSignaling)
-msAfdSignaling = lens _msAfdSignaling (\s a -> s {_msAfdSignaling = a})
+-- | Optional. When you have AFD signaling set up in your output video
+-- stream, use this setting to choose whether to also include it in the MXF
+-- wrapper. Choose Don\'t copy (NO_COPY) to exclude AFD signaling from the
+-- MXF wrapper. Choose Copy from video stream (COPY_FROM_VIDEO) to copy the
+-- AFD values from the video stream for this output to the MXF wrapper.
+-- Regardless of which option you choose, the AFD values remain in the
+-- video stream. Related settings: To set up your output to include or
+-- exclude AFD values, see AfdSignaling, under VideoDescription. On the
+-- console, find AFD signaling under the output\'s video encoding settings.
+mxfSettings_afdSignaling :: Lens.Lens' MxfSettings (Prelude.Maybe MxfAfdSignaling)
+mxfSettings_afdSignaling = Lens.lens (\MxfSettings' {afdSignaling} -> afdSignaling) (\s@MxfSettings' {} a -> s {afdSignaling = a} :: MxfSettings)
 
-instance FromJSON MxfSettings where
+instance Prelude.FromJSON MxfSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MxfSettings"
       ( \x ->
           MxfSettings'
-            <$> (x .:? "profile") <*> (x .:? "afdSignaling")
+            Prelude.<$> (x Prelude..:? "profile")
+            Prelude.<*> (x Prelude..:? "afdSignaling")
       )
 
-instance Hashable MxfSettings
+instance Prelude.Hashable MxfSettings
 
-instance NFData MxfSettings
+instance Prelude.NFData MxfSettings
 
-instance ToJSON MxfSettings where
+instance Prelude.ToJSON MxfSettings where
   toJSON MxfSettings' {..} =
-    object
-      ( catMaybes
-          [ ("profile" .=) <$> _msProfile,
-            ("afdSignaling" .=) <$> _msAfdSignaling
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("profile" Prelude..=) Prelude.<$> profile,
+            ("afdSignaling" Prelude..=)
+              Prelude.<$> afdSignaling
           ]
       )

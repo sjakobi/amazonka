@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.CmafManifestDurationFormat
   ( CmafManifestDurationFormat
       ( ..,
-        CMDFFloatingPoint,
-        CMDFInteger
+        CmafManifestDurationFormatFLOATINGPOINT,
+        CmafManifestDurationFormatINTEGER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether the output manifest should use floating point values for segment duration.
-data CmafManifestDurationFormat
-  = CmafManifestDurationFormat'
-      ( CI
-          Text
-      )
+-- | Indicates whether the output manifest should use floating point values
+-- for segment duration.
+newtype CmafManifestDurationFormat = CmafManifestDurationFormat'
+  { fromCmafManifestDurationFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMDFFloatingPoint :: CmafManifestDurationFormat
-pattern CMDFFloatingPoint = CmafManifestDurationFormat' "FLOATING_POINT"
+pattern CmafManifestDurationFormatFLOATINGPOINT :: CmafManifestDurationFormat
+pattern CmafManifestDurationFormatFLOATINGPOINT = CmafManifestDurationFormat' "FLOATING_POINT"
 
-pattern CMDFInteger :: CmafManifestDurationFormat
-pattern CMDFInteger = CmafManifestDurationFormat' "INTEGER"
+pattern CmafManifestDurationFormatINTEGER :: CmafManifestDurationFormat
+pattern CmafManifestDurationFormatINTEGER = CmafManifestDurationFormat' "INTEGER"
 
 {-# COMPLETE
-  CMDFFloatingPoint,
-  CMDFInteger,
+  CmafManifestDurationFormatFLOATINGPOINT,
+  CmafManifestDurationFormatINTEGER,
   CmafManifestDurationFormat'
   #-}
 
-instance FromText CmafManifestDurationFormat where
-  parser = (CmafManifestDurationFormat' . mk) <$> takeText
+instance Prelude.FromText CmafManifestDurationFormat where
+  parser = CmafManifestDurationFormat' Prelude.<$> Prelude.takeText
 
-instance ToText CmafManifestDurationFormat where
-  toText (CmafManifestDurationFormat' ci) = original ci
+instance Prelude.ToText CmafManifestDurationFormat where
+  toText (CmafManifestDurationFormat' x) = x
 
-instance Hashable CmafManifestDurationFormat
+instance Prelude.Hashable CmafManifestDurationFormat
 
-instance NFData CmafManifestDurationFormat
+instance Prelude.NFData CmafManifestDurationFormat
 
-instance ToByteString CmafManifestDurationFormat
+instance Prelude.ToByteString CmafManifestDurationFormat
 
-instance ToQuery CmafManifestDurationFormat
+instance Prelude.ToQuery CmafManifestDurationFormat
 
-instance ToHeader CmafManifestDurationFormat
+instance Prelude.ToHeader CmafManifestDurationFormat
 
-instance ToJSON CmafManifestDurationFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafManifestDurationFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafManifestDurationFormat where
-  parseJSON = parseJSONText "CmafManifestDurationFormat"
+instance Prelude.FromJSON CmafManifestDurationFormat where
+  parseJSON = Prelude.parseJSONText "CmafManifestDurationFormat"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,143 +19,180 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.MsSmoothGroupSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.DestinationSettings
 import Network.AWS.MediaConvert.Types.MsSmoothAdditionalManifest
 import Network.AWS.MediaConvert.Types.MsSmoothAudioDeduplication
 import Network.AWS.MediaConvert.Types.MsSmoothEncryptionSettings
 import Network.AWS.MediaConvert.Types.MsSmoothManifestEncoding
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to MS_SMOOTH_GROUP_SETTINGS.
 --
--- /See:/ 'msSmoothGroupSettings' smart constructor.
+-- /See:/ 'newMsSmoothGroupSettings' smart constructor.
 data MsSmoothGroupSettings = MsSmoothGroupSettings'
-  { _msgsManifestEncoding ::
-      !( Maybe
-           MsSmoothManifestEncoding
-       ),
-    _msgsFragmentLength ::
-      !(Maybe Nat),
-    _msgsAdditionalManifests ::
-      !( Maybe
-           [MsSmoothAdditionalManifest]
-       ),
-    _msgsEncryption ::
-      !( Maybe
-           MsSmoothEncryptionSettings
-       ),
-    _msgsDestination ::
-      !(Maybe Text),
-    _msgsDestinationSettings ::
-      !( Maybe
-           DestinationSettings
-       ),
-    _msgsAudioDeduplication ::
-      !( Maybe
-           MsSmoothAudioDeduplication
-       )
+  { -- | Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding
+    -- format for the server and client manifest. Valid options are utf8 and
+    -- utf16.
+    manifestEncoding :: Prelude.Maybe MsSmoothManifestEncoding,
+    -- | Use Fragment length (FragmentLength) to specify the mp4 fragment sizes
+    -- in seconds. Fragment length must be compatible with GOP size and frame
+    -- rate.
+    fragmentLength :: Prelude.Maybe Prelude.Nat,
+    -- | By default, the service creates one .ism Microsoft Smooth Streaming
+    -- manifest for each Microsoft Smooth Streaming output group in your job.
+    -- This default manifest references every output in the output group. To
+    -- create additional manifests that reference a subset of the outputs in
+    -- the output group, specify a list of them here.
+    additionalManifests :: Prelude.Maybe [MsSmoothAdditionalManifest],
+    -- | If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to
+    -- specify the value SpekeKeyProvider.
+    encryption :: Prelude.Maybe MsSmoothEncryptionSettings,
+    -- | Use Destination (Destination) to specify the S3 output location and the
+    -- output filename base. Destination accepts format identifiers. If you do
+    -- not specify the base filename in the URI, the service will use the
+    -- filename of the input file. If your job has multiple inputs, the service
+    -- uses the filename of the first input file.
+    destination :: Prelude.Maybe Prelude.Text,
+    -- | Settings associated with the destination. Will vary based on the type of
+    -- destination
+    destinationSettings :: Prelude.Maybe DestinationSettings,
+    -- | COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings
+    -- across a Microsoft Smooth output group into a single audio stream.
+    audioDeduplication :: Prelude.Maybe MsSmoothAudioDeduplication
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MsSmoothGroupSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MsSmoothGroupSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msgsManifestEncoding' - Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding format for the server and client manifest. Valid options are utf8 and utf16.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msgsFragmentLength' - Use Fragment length (FragmentLength) to specify the mp4 fragment sizes in seconds. Fragment length must be compatible with GOP size and frame rate.
+-- 'manifestEncoding', 'msSmoothGroupSettings_manifestEncoding' - Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding
+-- format for the server and client manifest. Valid options are utf8 and
+-- utf16.
 --
--- * 'msgsAdditionalManifests' - By default, the service creates one .ism Microsoft Smooth Streaming manifest for each Microsoft Smooth Streaming output group in your job. This default manifest references every output in the output group. To create additional manifests that reference a subset of the outputs in the output group, specify a list of them here.
+-- 'fragmentLength', 'msSmoothGroupSettings_fragmentLength' - Use Fragment length (FragmentLength) to specify the mp4 fragment sizes
+-- in seconds. Fragment length must be compatible with GOP size and frame
+-- rate.
 --
--- * 'msgsEncryption' - If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify the value SpekeKeyProvider.
+-- 'additionalManifests', 'msSmoothGroupSettings_additionalManifests' - By default, the service creates one .ism Microsoft Smooth Streaming
+-- manifest for each Microsoft Smooth Streaming output group in your job.
+-- This default manifest references every output in the output group. To
+-- create additional manifests that reference a subset of the outputs in
+-- the output group, specify a list of them here.
 --
--- * 'msgsDestination' - Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file. If your job has multiple inputs, the service uses the filename of the first input file.
+-- 'encryption', 'msSmoothGroupSettings_encryption' - If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to
+-- specify the value SpekeKeyProvider.
 --
--- * 'msgsDestinationSettings' - Settings associated with the destination. Will vary based on the type of destination
+-- 'destination', 'msSmoothGroupSettings_destination' - Use Destination (Destination) to specify the S3 output location and the
+-- output filename base. Destination accepts format identifiers. If you do
+-- not specify the base filename in the URI, the service will use the
+-- filename of the input file. If your job has multiple inputs, the service
+-- uses the filename of the first input file.
 --
--- * 'msgsAudioDeduplication' - COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings across a Microsoft Smooth output group into a single audio stream.
-msSmoothGroupSettings ::
+-- 'destinationSettings', 'msSmoothGroupSettings_destinationSettings' - Settings associated with the destination. Will vary based on the type of
+-- destination
+--
+-- 'audioDeduplication', 'msSmoothGroupSettings_audioDeduplication' - COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings
+-- across a Microsoft Smooth output group into a single audio stream.
+newMsSmoothGroupSettings ::
   MsSmoothGroupSettings
-msSmoothGroupSettings =
+newMsSmoothGroupSettings =
   MsSmoothGroupSettings'
-    { _msgsManifestEncoding =
-        Nothing,
-      _msgsFragmentLength = Nothing,
-      _msgsAdditionalManifests = Nothing,
-      _msgsEncryption = Nothing,
-      _msgsDestination = Nothing,
-      _msgsDestinationSettings = Nothing,
-      _msgsAudioDeduplication = Nothing
+    { manifestEncoding =
+        Prelude.Nothing,
+      fragmentLength = Prelude.Nothing,
+      additionalManifests = Prelude.Nothing,
+      encryption = Prelude.Nothing,
+      destination = Prelude.Nothing,
+      destinationSettings = Prelude.Nothing,
+      audioDeduplication = Prelude.Nothing
     }
 
--- | Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding format for the server and client manifest. Valid options are utf8 and utf16.
-msgsManifestEncoding :: Lens' MsSmoothGroupSettings (Maybe MsSmoothManifestEncoding)
-msgsManifestEncoding = lens _msgsManifestEncoding (\s a -> s {_msgsManifestEncoding = a})
+-- | Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding
+-- format for the server and client manifest. Valid options are utf8 and
+-- utf16.
+msSmoothGroupSettings_manifestEncoding :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe MsSmoothManifestEncoding)
+msSmoothGroupSettings_manifestEncoding = Lens.lens (\MsSmoothGroupSettings' {manifestEncoding} -> manifestEncoding) (\s@MsSmoothGroupSettings' {} a -> s {manifestEncoding = a} :: MsSmoothGroupSettings)
 
--- | Use Fragment length (FragmentLength) to specify the mp4 fragment sizes in seconds. Fragment length must be compatible with GOP size and frame rate.
-msgsFragmentLength :: Lens' MsSmoothGroupSettings (Maybe Natural)
-msgsFragmentLength = lens _msgsFragmentLength (\s a -> s {_msgsFragmentLength = a}) . mapping _Nat
+-- | Use Fragment length (FragmentLength) to specify the mp4 fragment sizes
+-- in seconds. Fragment length must be compatible with GOP size and frame
+-- rate.
+msSmoothGroupSettings_fragmentLength :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe Prelude.Natural)
+msSmoothGroupSettings_fragmentLength = Lens.lens (\MsSmoothGroupSettings' {fragmentLength} -> fragmentLength) (\s@MsSmoothGroupSettings' {} a -> s {fragmentLength = a} :: MsSmoothGroupSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | By default, the service creates one .ism Microsoft Smooth Streaming manifest for each Microsoft Smooth Streaming output group in your job. This default manifest references every output in the output group. To create additional manifests that reference a subset of the outputs in the output group, specify a list of them here.
-msgsAdditionalManifests :: Lens' MsSmoothGroupSettings [MsSmoothAdditionalManifest]
-msgsAdditionalManifests = lens _msgsAdditionalManifests (\s a -> s {_msgsAdditionalManifests = a}) . _Default . _Coerce
+-- | By default, the service creates one .ism Microsoft Smooth Streaming
+-- manifest for each Microsoft Smooth Streaming output group in your job.
+-- This default manifest references every output in the output group. To
+-- create additional manifests that reference a subset of the outputs in
+-- the output group, specify a list of them here.
+msSmoothGroupSettings_additionalManifests :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe [MsSmoothAdditionalManifest])
+msSmoothGroupSettings_additionalManifests = Lens.lens (\MsSmoothGroupSettings' {additionalManifests} -> additionalManifests) (\s@MsSmoothGroupSettings' {} a -> s {additionalManifests = a} :: MsSmoothGroupSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify the value SpekeKeyProvider.
-msgsEncryption :: Lens' MsSmoothGroupSettings (Maybe MsSmoothEncryptionSettings)
-msgsEncryption = lens _msgsEncryption (\s a -> s {_msgsEncryption = a})
+-- | If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to
+-- specify the value SpekeKeyProvider.
+msSmoothGroupSettings_encryption :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe MsSmoothEncryptionSettings)
+msSmoothGroupSettings_encryption = Lens.lens (\MsSmoothGroupSettings' {encryption} -> encryption) (\s@MsSmoothGroupSettings' {} a -> s {encryption = a} :: MsSmoothGroupSettings)
 
--- | Use Destination (Destination) to specify the S3 output location and the output filename base. Destination accepts format identifiers. If you do not specify the base filename in the URI, the service will use the filename of the input file. If your job has multiple inputs, the service uses the filename of the first input file.
-msgsDestination :: Lens' MsSmoothGroupSettings (Maybe Text)
-msgsDestination = lens _msgsDestination (\s a -> s {_msgsDestination = a})
+-- | Use Destination (Destination) to specify the S3 output location and the
+-- output filename base. Destination accepts format identifiers. If you do
+-- not specify the base filename in the URI, the service will use the
+-- filename of the input file. If your job has multiple inputs, the service
+-- uses the filename of the first input file.
+msSmoothGroupSettings_destination :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe Prelude.Text)
+msSmoothGroupSettings_destination = Lens.lens (\MsSmoothGroupSettings' {destination} -> destination) (\s@MsSmoothGroupSettings' {} a -> s {destination = a} :: MsSmoothGroupSettings)
 
--- | Settings associated with the destination. Will vary based on the type of destination
-msgsDestinationSettings :: Lens' MsSmoothGroupSettings (Maybe DestinationSettings)
-msgsDestinationSettings = lens _msgsDestinationSettings (\s a -> s {_msgsDestinationSettings = a})
+-- | Settings associated with the destination. Will vary based on the type of
+-- destination
+msSmoothGroupSettings_destinationSettings :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe DestinationSettings)
+msSmoothGroupSettings_destinationSettings = Lens.lens (\MsSmoothGroupSettings' {destinationSettings} -> destinationSettings) (\s@MsSmoothGroupSettings' {} a -> s {destinationSettings = a} :: MsSmoothGroupSettings)
 
--- | COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings across a Microsoft Smooth output group into a single audio stream.
-msgsAudioDeduplication :: Lens' MsSmoothGroupSettings (Maybe MsSmoothAudioDeduplication)
-msgsAudioDeduplication = lens _msgsAudioDeduplication (\s a -> s {_msgsAudioDeduplication = a})
+-- | COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings
+-- across a Microsoft Smooth output group into a single audio stream.
+msSmoothGroupSettings_audioDeduplication :: Lens.Lens' MsSmoothGroupSettings (Prelude.Maybe MsSmoothAudioDeduplication)
+msSmoothGroupSettings_audioDeduplication = Lens.lens (\MsSmoothGroupSettings' {audioDeduplication} -> audioDeduplication) (\s@MsSmoothGroupSettings' {} a -> s {audioDeduplication = a} :: MsSmoothGroupSettings)
 
-instance FromJSON MsSmoothGroupSettings where
+instance Prelude.FromJSON MsSmoothGroupSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MsSmoothGroupSettings"
       ( \x ->
           MsSmoothGroupSettings'
-            <$> (x .:? "manifestEncoding")
-            <*> (x .:? "fragmentLength")
-            <*> (x .:? "additionalManifests" .!= mempty)
-            <*> (x .:? "encryption")
-            <*> (x .:? "destination")
-            <*> (x .:? "destinationSettings")
-            <*> (x .:? "audioDeduplication")
+            Prelude.<$> (x Prelude..:? "manifestEncoding")
+            Prelude.<*> (x Prelude..:? "fragmentLength")
+            Prelude.<*> ( x Prelude..:? "additionalManifests"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "encryption")
+            Prelude.<*> (x Prelude..:? "destination")
+            Prelude.<*> (x Prelude..:? "destinationSettings")
+            Prelude.<*> (x Prelude..:? "audioDeduplication")
       )
 
-instance Hashable MsSmoothGroupSettings
+instance Prelude.Hashable MsSmoothGroupSettings
 
-instance NFData MsSmoothGroupSettings
+instance Prelude.NFData MsSmoothGroupSettings
 
-instance ToJSON MsSmoothGroupSettings where
+instance Prelude.ToJSON MsSmoothGroupSettings where
   toJSON MsSmoothGroupSettings' {..} =
-    object
-      ( catMaybes
-          [ ("manifestEncoding" .=) <$> _msgsManifestEncoding,
-            ("fragmentLength" .=) <$> _msgsFragmentLength,
-            ("additionalManifests" .=)
-              <$> _msgsAdditionalManifests,
-            ("encryption" .=) <$> _msgsEncryption,
-            ("destination" .=) <$> _msgsDestination,
-            ("destinationSettings" .=)
-              <$> _msgsDestinationSettings,
-            ("audioDeduplication" .=)
-              <$> _msgsAudioDeduplication
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("manifestEncoding" Prelude..=)
+              Prelude.<$> manifestEncoding,
+            ("fragmentLength" Prelude..=)
+              Prelude.<$> fragmentLength,
+            ("additionalManifests" Prelude..=)
+              Prelude.<$> additionalManifests,
+            ("encryption" Prelude..=) Prelude.<$> encryption,
+            ("destination" Prelude..=) Prelude.<$> destination,
+            ("destinationSettings" Prelude..=)
+              Prelude.<$> destinationSettings,
+            ("audioDeduplication" Prelude..=)
+              Prelude.<$> audioDeduplication
           ]
       )

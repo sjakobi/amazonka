@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,65 @@
 module Network.AWS.MediaConvert.Types.M2tsScte35Source
   ( M2tsScte35Source
       ( ..,
-        MSSSNone,
-        MSSSPassthrough
+        M2tsScte35SourceNONE,
+        M2tsScte35SourcePASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want SCTE-35 markers in this output. For SCTE-35 markers from an ESAM XML document-- Choose None (NONE). Also provide the ESAM XML as a string in the setting Signal processing notification XML (sccXml). Also enable ESAM SCTE-35 (include the property scte35Esam).
-data M2tsScte35Source = M2tsScte35Source' (CI Text)
+-- | For SCTE-35 markers from your input-- Choose Passthrough (PASSTHROUGH)
+-- if you want SCTE-35 markers that appear in your input to also appear in
+-- this output. Choose None (NONE) if you don\'t want SCTE-35 markers in
+-- this output. For SCTE-35 markers from an ESAM XML document-- Choose None
+-- (NONE). Also provide the ESAM XML as a string in the setting Signal
+-- processing notification XML (sccXml). Also enable ESAM SCTE-35 (include
+-- the property scte35Esam).
+newtype M2tsScte35Source = M2tsScte35Source'
+  { fromM2tsScte35Source ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSSSNone :: M2tsScte35Source
-pattern MSSSNone = M2tsScte35Source' "NONE"
+pattern M2tsScte35SourceNONE :: M2tsScte35Source
+pattern M2tsScte35SourceNONE = M2tsScte35Source' "NONE"
 
-pattern MSSSPassthrough :: M2tsScte35Source
-pattern MSSSPassthrough = M2tsScte35Source' "PASSTHROUGH"
+pattern M2tsScte35SourcePASSTHROUGH :: M2tsScte35Source
+pattern M2tsScte35SourcePASSTHROUGH = M2tsScte35Source' "PASSTHROUGH"
 
 {-# COMPLETE
-  MSSSNone,
-  MSSSPassthrough,
+  M2tsScte35SourceNONE,
+  M2tsScte35SourcePASSTHROUGH,
   M2tsScte35Source'
   #-}
 
-instance FromText M2tsScte35Source where
-  parser = (M2tsScte35Source' . mk) <$> takeText
+instance Prelude.FromText M2tsScte35Source where
+  parser = M2tsScte35Source' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsScte35Source where
-  toText (M2tsScte35Source' ci) = original ci
+instance Prelude.ToText M2tsScte35Source where
+  toText (M2tsScte35Source' x) = x
 
-instance Hashable M2tsScte35Source
+instance Prelude.Hashable M2tsScte35Source
 
-instance NFData M2tsScte35Source
+instance Prelude.NFData M2tsScte35Source
 
-instance ToByteString M2tsScte35Source
+instance Prelude.ToByteString M2tsScte35Source
 
-instance ToQuery M2tsScte35Source
+instance Prelude.ToQuery M2tsScte35Source
 
-instance ToHeader M2tsScte35Source
+instance Prelude.ToHeader M2tsScte35Source
 
-instance ToJSON M2tsScte35Source where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsScte35Source where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsScte35Source where
-  parseJSON = parseJSONText "M2tsScte35Source"
+instance Prelude.FromJSON M2tsScte35Source where
+  parseJSON = Prelude.parseJSONText "M2tsScte35Source"

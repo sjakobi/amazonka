@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,66 @@
 module Network.AWS.MediaConvert.Types.H264ParControl
   ( H264ParControl
       ( ..,
-        HPCInitializeFromSource,
-        HPCSpecified
+        H264ParControlINITIALIZEFROMSOURCE,
+        H264ParControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior, Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and parDenominator settings.
-data H264ParControl = H264ParControl' (CI Text)
+-- | Optional. Specify how the service determines the pixel aspect ratio
+-- (PAR) for this output. The default behavior, Follow source
+-- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+-- output. To specify a different PAR in the console, choose any value
+-- other than Follow source. To specify a different PAR by editing the JSON
+-- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+-- setting, you must also specify values for the parNumerator and
+-- parDenominator settings.
+newtype H264ParControl = H264ParControl'
+  { fromH264ParControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HPCInitializeFromSource :: H264ParControl
-pattern HPCInitializeFromSource = H264ParControl' "INITIALIZE_FROM_SOURCE"
+pattern H264ParControlINITIALIZEFROMSOURCE :: H264ParControl
+pattern H264ParControlINITIALIZEFROMSOURCE = H264ParControl' "INITIALIZE_FROM_SOURCE"
 
-pattern HPCSpecified :: H264ParControl
-pattern HPCSpecified = H264ParControl' "SPECIFIED"
+pattern H264ParControlSPECIFIED :: H264ParControl
+pattern H264ParControlSPECIFIED = H264ParControl' "SPECIFIED"
 
 {-# COMPLETE
-  HPCInitializeFromSource,
-  HPCSpecified,
+  H264ParControlINITIALIZEFROMSOURCE,
+  H264ParControlSPECIFIED,
   H264ParControl'
   #-}
 
-instance FromText H264ParControl where
-  parser = (H264ParControl' . mk) <$> takeText
+instance Prelude.FromText H264ParControl where
+  parser = H264ParControl' Prelude.<$> Prelude.takeText
 
-instance ToText H264ParControl where
-  toText (H264ParControl' ci) = original ci
+instance Prelude.ToText H264ParControl where
+  toText (H264ParControl' x) = x
 
-instance Hashable H264ParControl
+instance Prelude.Hashable H264ParControl
 
-instance NFData H264ParControl
+instance Prelude.NFData H264ParControl
 
-instance ToByteString H264ParControl
+instance Prelude.ToByteString H264ParControl
 
-instance ToQuery H264ParControl
+instance Prelude.ToQuery H264ParControl
 
-instance ToHeader H264ParControl
+instance Prelude.ToHeader H264ParControl
 
-instance ToJSON H264ParControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264ParControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264ParControl where
-  parseJSON = parseJSONText "H264ParControl"
+instance Prelude.FromJSON H264ParControl where
+  parseJSON = Prelude.parseJSONText "H264ParControl"

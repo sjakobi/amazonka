@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.DvbSdtSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.OutputSdt
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Inserts DVB Service Description Table (NIT) at the specified table repetition interval.
+-- | Inserts DVB Service Description Table (NIT) at the specified table
+-- repetition interval.
 --
--- /See:/ 'dvbSdtSettings' smart constructor.
+-- /See:/ 'newDvbSdtSettings' smart constructor.
 data DvbSdtSettings = DvbSdtSettings'
-  { _dssOutputSdt ::
-      !(Maybe OutputSdt),
-    _dssServiceName :: !(Maybe Text),
-    _dssSdtInterval :: !(Maybe Nat),
-    _dssServiceProviderName :: !(Maybe Text)
+  { -- | Selects method of inserting SDT information into output stream. \"Follow
+    -- input SDT\" copies SDT information from input stream to output stream.
+    -- \"Follow input SDT if present\" copies SDT information from input stream
+    -- to output stream if SDT information is present in the input, otherwise
+    -- it will fall back on the user-defined values. Enter \"SDT Manually\"
+    -- means user will enter the SDT information. \"No SDT\" means output
+    -- stream will not contain SDT information.
+    outputSdt :: Prelude.Maybe OutputSdt,
+    -- | The service name placed in the service_descriptor in the Service
+    -- Description Table. Maximum length is 256 characters.
+    serviceName :: Prelude.Maybe Prelude.Text,
+    -- | The number of milliseconds between instances of this table in the output
+    -- transport stream.
+    sdtInterval :: Prelude.Maybe Prelude.Nat,
+    -- | The service provider name placed in the service_descriptor in the
+    -- Service Description Table. Maximum length is 256 characters.
+    serviceProviderName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DvbSdtSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DvbSdtSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dssOutputSdt' - Selects method of inserting SDT information into output stream.  "Follow input SDT" copies SDT information from input stream to  output stream. "Follow input SDT if present" copies SDT information from  input stream to output stream if SDT information is present in the input, otherwise it will fall back on the user-defined values. Enter "SDT  Manually" means user will enter the SDT information. "No SDT" means output  stream will not contain SDT information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dssServiceName' - The service name placed in the service_descriptor in the Service Description Table. Maximum length is 256 characters.
+-- 'outputSdt', 'dvbSdtSettings_outputSdt' - Selects method of inserting SDT information into output stream. \"Follow
+-- input SDT\" copies SDT information from input stream to output stream.
+-- \"Follow input SDT if present\" copies SDT information from input stream
+-- to output stream if SDT information is present in the input, otherwise
+-- it will fall back on the user-defined values. Enter \"SDT Manually\"
+-- means user will enter the SDT information. \"No SDT\" means output
+-- stream will not contain SDT information.
 --
--- * 'dssSdtInterval' - The number of milliseconds between instances of this table in the output transport stream.
+-- 'serviceName', 'dvbSdtSettings_serviceName' - The service name placed in the service_descriptor in the Service
+-- Description Table. Maximum length is 256 characters.
 --
--- * 'dssServiceProviderName' - The service provider name placed in the service_descriptor in the Service Description Table. Maximum length is 256 characters.
-dvbSdtSettings ::
+-- 'sdtInterval', 'dvbSdtSettings_sdtInterval' - The number of milliseconds between instances of this table in the output
+-- transport stream.
+--
+-- 'serviceProviderName', 'dvbSdtSettings_serviceProviderName' - The service provider name placed in the service_descriptor in the
+-- Service Description Table. Maximum length is 256 characters.
+newDvbSdtSettings ::
   DvbSdtSettings
-dvbSdtSettings =
+newDvbSdtSettings =
   DvbSdtSettings'
-    { _dssOutputSdt = Nothing,
-      _dssServiceName = Nothing,
-      _dssSdtInterval = Nothing,
-      _dssServiceProviderName = Nothing
+    { outputSdt = Prelude.Nothing,
+      serviceName = Prelude.Nothing,
+      sdtInterval = Prelude.Nothing,
+      serviceProviderName = Prelude.Nothing
     }
 
--- | Selects method of inserting SDT information into output stream.  "Follow input SDT" copies SDT information from input stream to  output stream. "Follow input SDT if present" copies SDT information from  input stream to output stream if SDT information is present in the input, otherwise it will fall back on the user-defined values. Enter "SDT  Manually" means user will enter the SDT information. "No SDT" means output  stream will not contain SDT information.
-dssOutputSdt :: Lens' DvbSdtSettings (Maybe OutputSdt)
-dssOutputSdt = lens _dssOutputSdt (\s a -> s {_dssOutputSdt = a})
+-- | Selects method of inserting SDT information into output stream. \"Follow
+-- input SDT\" copies SDT information from input stream to output stream.
+-- \"Follow input SDT if present\" copies SDT information from input stream
+-- to output stream if SDT information is present in the input, otherwise
+-- it will fall back on the user-defined values. Enter \"SDT Manually\"
+-- means user will enter the SDT information. \"No SDT\" means output
+-- stream will not contain SDT information.
+dvbSdtSettings_outputSdt :: Lens.Lens' DvbSdtSettings (Prelude.Maybe OutputSdt)
+dvbSdtSettings_outputSdt = Lens.lens (\DvbSdtSettings' {outputSdt} -> outputSdt) (\s@DvbSdtSettings' {} a -> s {outputSdt = a} :: DvbSdtSettings)
 
--- | The service name placed in the service_descriptor in the Service Description Table. Maximum length is 256 characters.
-dssServiceName :: Lens' DvbSdtSettings (Maybe Text)
-dssServiceName = lens _dssServiceName (\s a -> s {_dssServiceName = a})
+-- | The service name placed in the service_descriptor in the Service
+-- Description Table. Maximum length is 256 characters.
+dvbSdtSettings_serviceName :: Lens.Lens' DvbSdtSettings (Prelude.Maybe Prelude.Text)
+dvbSdtSettings_serviceName = Lens.lens (\DvbSdtSettings' {serviceName} -> serviceName) (\s@DvbSdtSettings' {} a -> s {serviceName = a} :: DvbSdtSettings)
 
--- | The number of milliseconds between instances of this table in the output transport stream.
-dssSdtInterval :: Lens' DvbSdtSettings (Maybe Natural)
-dssSdtInterval = lens _dssSdtInterval (\s a -> s {_dssSdtInterval = a}) . mapping _Nat
+-- | The number of milliseconds between instances of this table in the output
+-- transport stream.
+dvbSdtSettings_sdtInterval :: Lens.Lens' DvbSdtSettings (Prelude.Maybe Prelude.Natural)
+dvbSdtSettings_sdtInterval = Lens.lens (\DvbSdtSettings' {sdtInterval} -> sdtInterval) (\s@DvbSdtSettings' {} a -> s {sdtInterval = a} :: DvbSdtSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The service provider name placed in the service_descriptor in the Service Description Table. Maximum length is 256 characters.
-dssServiceProviderName :: Lens' DvbSdtSettings (Maybe Text)
-dssServiceProviderName = lens _dssServiceProviderName (\s a -> s {_dssServiceProviderName = a})
+-- | The service provider name placed in the service_descriptor in the
+-- Service Description Table. Maximum length is 256 characters.
+dvbSdtSettings_serviceProviderName :: Lens.Lens' DvbSdtSettings (Prelude.Maybe Prelude.Text)
+dvbSdtSettings_serviceProviderName = Lens.lens (\DvbSdtSettings' {serviceProviderName} -> serviceProviderName) (\s@DvbSdtSettings' {} a -> s {serviceProviderName = a} :: DvbSdtSettings)
 
-instance FromJSON DvbSdtSettings where
+instance Prelude.FromJSON DvbSdtSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DvbSdtSettings"
       ( \x ->
           DvbSdtSettings'
-            <$> (x .:? "outputSdt")
-            <*> (x .:? "serviceName")
-            <*> (x .:? "sdtInterval")
-            <*> (x .:? "serviceProviderName")
+            Prelude.<$> (x Prelude..:? "outputSdt")
+            Prelude.<*> (x Prelude..:? "serviceName")
+            Prelude.<*> (x Prelude..:? "sdtInterval")
+            Prelude.<*> (x Prelude..:? "serviceProviderName")
       )
 
-instance Hashable DvbSdtSettings
+instance Prelude.Hashable DvbSdtSettings
 
-instance NFData DvbSdtSettings
+instance Prelude.NFData DvbSdtSettings
 
-instance ToJSON DvbSdtSettings where
+instance Prelude.ToJSON DvbSdtSettings where
   toJSON DvbSdtSettings' {..} =
-    object
-      ( catMaybes
-          [ ("outputSdt" .=) <$> _dssOutputSdt,
-            ("serviceName" .=) <$> _dssServiceName,
-            ("sdtInterval" .=) <$> _dssSdtInterval,
-            ("serviceProviderName" .=)
-              <$> _dssServiceProviderName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("outputSdt" Prelude..=) Prelude.<$> outputSdt,
+            ("serviceName" Prelude..=) Prelude.<$> serviceName,
+            ("sdtInterval" Prelude..=) Prelude.<$> sdtInterval,
+            ("serviceProviderName" Prelude..=)
+              Prelude.<$> serviceProviderName
           ]
       )

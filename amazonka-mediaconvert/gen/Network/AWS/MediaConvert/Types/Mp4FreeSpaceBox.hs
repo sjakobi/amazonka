@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaConvert.Types.Mp4FreeSpaceBox
   ( Mp4FreeSpaceBox
       ( ..,
-        MFSBExclude,
-        MFSBInclude
+        Mp4FreeSpaceBoxEXCLUDE,
+        Mp4FreeSpaceBoxINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Inserts a free-space box immediately after the moov box.
-data Mp4FreeSpaceBox = Mp4FreeSpaceBox' (CI Text)
+newtype Mp4FreeSpaceBox = Mp4FreeSpaceBox'
+  { fromMp4FreeSpaceBox ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MFSBExclude :: Mp4FreeSpaceBox
-pattern MFSBExclude = Mp4FreeSpaceBox' "EXCLUDE"
+pattern Mp4FreeSpaceBoxEXCLUDE :: Mp4FreeSpaceBox
+pattern Mp4FreeSpaceBoxEXCLUDE = Mp4FreeSpaceBox' "EXCLUDE"
 
-pattern MFSBInclude :: Mp4FreeSpaceBox
-pattern MFSBInclude = Mp4FreeSpaceBox' "INCLUDE"
+pattern Mp4FreeSpaceBoxINCLUDE :: Mp4FreeSpaceBox
+pattern Mp4FreeSpaceBoxINCLUDE = Mp4FreeSpaceBox' "INCLUDE"
 
 {-# COMPLETE
-  MFSBExclude,
-  MFSBInclude,
+  Mp4FreeSpaceBoxEXCLUDE,
+  Mp4FreeSpaceBoxINCLUDE,
   Mp4FreeSpaceBox'
   #-}
 
-instance FromText Mp4FreeSpaceBox where
-  parser = (Mp4FreeSpaceBox' . mk) <$> takeText
+instance Prelude.FromText Mp4FreeSpaceBox where
+  parser = Mp4FreeSpaceBox' Prelude.<$> Prelude.takeText
 
-instance ToText Mp4FreeSpaceBox where
-  toText (Mp4FreeSpaceBox' ci) = original ci
+instance Prelude.ToText Mp4FreeSpaceBox where
+  toText (Mp4FreeSpaceBox' x) = x
 
-instance Hashable Mp4FreeSpaceBox
+instance Prelude.Hashable Mp4FreeSpaceBox
 
-instance NFData Mp4FreeSpaceBox
+instance Prelude.NFData Mp4FreeSpaceBox
 
-instance ToByteString Mp4FreeSpaceBox
+instance Prelude.ToByteString Mp4FreeSpaceBox
 
-instance ToQuery Mp4FreeSpaceBox
+instance Prelude.ToQuery Mp4FreeSpaceBox
 
-instance ToHeader Mp4FreeSpaceBox
+instance Prelude.ToHeader Mp4FreeSpaceBox
 
-instance ToJSON Mp4FreeSpaceBox where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mp4FreeSpaceBox where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mp4FreeSpaceBox where
-  parseJSON = parseJSONText "Mp4FreeSpaceBox"
+instance Prelude.FromJSON Mp4FreeSpaceBox where
+  parseJSON = Prelude.parseJSONText "Mp4FreeSpaceBox"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.EmbeddedDestinationSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+-- | Settings specific to embedded\/ancillary caption outputs, including
+-- 608\/708 Channel destination number.
 --
--- /See:/ 'embeddedDestinationSettings' smart constructor.
+-- /See:/ 'newEmbeddedDestinationSettings' smart constructor.
 data EmbeddedDestinationSettings = EmbeddedDestinationSettings'
-  { _edsDestination708ServiceNumber ::
-      !(Maybe Nat),
-    _edsDestination608ChannelNumber ::
-      !(Maybe Nat)
+  { -- | Ignore this setting unless your input captions are SCC format and you
+    -- want both 608 and 708 captions embedded in your output stream.
+    -- Optionally, specify the 708 service number for each output captions
+    -- channel. Choose a different number for each channel. To use this
+    -- setting, also set Force 608 to 708 upconvert (Convert608To708) to
+    -- Upconvert (UPCONVERT) in your input captions selector settings. If you
+    -- choose to upconvert but don\'t specify a 708 service number,
+    -- MediaConvert uses the number that you specify for CC channel number
+    -- (destination608ChannelNumber) for the 708 service number. For more
+    -- information, see
+    -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/dual-scc-to-embedded.
+    destination708ServiceNumber :: Prelude.Maybe Prelude.Nat,
+    -- | Ignore this setting unless your input captions are SCC format and your
+    -- output captions are embedded in the video stream. Specify a CC number
+    -- for each captions channel in this output. If you have two channels,
+    -- choose CC numbers that aren\'t in the same field. For example, choose 1
+    -- and 3. For more information, see
+    -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/dual-scc-to-embedded.
+    destination608ChannelNumber :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmbeddedDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmbeddedDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edsDestination708ServiceNumber' - Ignore this setting unless your input captions are SCC format and you want both 608 and 708 captions embedded in your output stream. Optionally, specify the 708 service number for each output captions channel. Choose a different number for each channel. To use this setting, also set Force 608 to 708 upconvert (Convert608To708) to Upconvert (UPCONVERT) in your input captions selector settings. If you choose to upconvert but don't specify a 708 service number, MediaConvert uses the number that you specify for CC channel number (destination608ChannelNumber) for the 708 service number. For more information, see https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edsDestination608ChannelNumber' - Ignore this setting unless your input captions are SCC format and your output captions are embedded in the video stream. Specify a CC number for each captions channel in this output. If you have two channels, choose CC numbers that aren't in the same field. For example, choose 1 and 3. For more information, see https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
-embeddedDestinationSettings ::
+-- 'destination708ServiceNumber', 'embeddedDestinationSettings_destination708ServiceNumber' - Ignore this setting unless your input captions are SCC format and you
+-- want both 608 and 708 captions embedded in your output stream.
+-- Optionally, specify the 708 service number for each output captions
+-- channel. Choose a different number for each channel. To use this
+-- setting, also set Force 608 to 708 upconvert (Convert608To708) to
+-- Upconvert (UPCONVERT) in your input captions selector settings. If you
+-- choose to upconvert but don\'t specify a 708 service number,
+-- MediaConvert uses the number that you specify for CC channel number
+-- (destination608ChannelNumber) for the 708 service number. For more
+-- information, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/dual-scc-to-embedded.
+--
+-- 'destination608ChannelNumber', 'embeddedDestinationSettings_destination608ChannelNumber' - Ignore this setting unless your input captions are SCC format and your
+-- output captions are embedded in the video stream. Specify a CC number
+-- for each captions channel in this output. If you have two channels,
+-- choose CC numbers that aren\'t in the same field. For example, choose 1
+-- and 3. For more information, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/dual-scc-to-embedded.
+newEmbeddedDestinationSettings ::
   EmbeddedDestinationSettings
-embeddedDestinationSettings =
+newEmbeddedDestinationSettings =
   EmbeddedDestinationSettings'
-    { _edsDestination708ServiceNumber =
-        Nothing,
-      _edsDestination608ChannelNumber = Nothing
+    { destination708ServiceNumber =
+        Prelude.Nothing,
+      destination608ChannelNumber = Prelude.Nothing
     }
 
--- | Ignore this setting unless your input captions are SCC format and you want both 608 and 708 captions embedded in your output stream. Optionally, specify the 708 service number for each output captions channel. Choose a different number for each channel. To use this setting, also set Force 608 to 708 upconvert (Convert608To708) to Upconvert (UPCONVERT) in your input captions selector settings. If you choose to upconvert but don't specify a 708 service number, MediaConvert uses the number that you specify for CC channel number (destination608ChannelNumber) for the 708 service number. For more information, see https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
-edsDestination708ServiceNumber :: Lens' EmbeddedDestinationSettings (Maybe Natural)
-edsDestination708ServiceNumber = lens _edsDestination708ServiceNumber (\s a -> s {_edsDestination708ServiceNumber = a}) . mapping _Nat
+-- | Ignore this setting unless your input captions are SCC format and you
+-- want both 608 and 708 captions embedded in your output stream.
+-- Optionally, specify the 708 service number for each output captions
+-- channel. Choose a different number for each channel. To use this
+-- setting, also set Force 608 to 708 upconvert (Convert608To708) to
+-- Upconvert (UPCONVERT) in your input captions selector settings. If you
+-- choose to upconvert but don\'t specify a 708 service number,
+-- MediaConvert uses the number that you specify for CC channel number
+-- (destination608ChannelNumber) for the 708 service number. For more
+-- information, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/dual-scc-to-embedded.
+embeddedDestinationSettings_destination708ServiceNumber :: Lens.Lens' EmbeddedDestinationSettings (Prelude.Maybe Prelude.Natural)
+embeddedDestinationSettings_destination708ServiceNumber = Lens.lens (\EmbeddedDestinationSettings' {destination708ServiceNumber} -> destination708ServiceNumber) (\s@EmbeddedDestinationSettings' {} a -> s {destination708ServiceNumber = a} :: EmbeddedDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Ignore this setting unless your input captions are SCC format and your output captions are embedded in the video stream. Specify a CC number for each captions channel in this output. If you have two channels, choose CC numbers that aren't in the same field. For example, choose 1 and 3. For more information, see https://docs.aws.amazon.com/console/mediaconvert/dual-scc-to-embedded.
-edsDestination608ChannelNumber :: Lens' EmbeddedDestinationSettings (Maybe Natural)
-edsDestination608ChannelNumber = lens _edsDestination608ChannelNumber (\s a -> s {_edsDestination608ChannelNumber = a}) . mapping _Nat
+-- | Ignore this setting unless your input captions are SCC format and your
+-- output captions are embedded in the video stream. Specify a CC number
+-- for each captions channel in this output. If you have two channels,
+-- choose CC numbers that aren\'t in the same field. For example, choose 1
+-- and 3. For more information, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/dual-scc-to-embedded.
+embeddedDestinationSettings_destination608ChannelNumber :: Lens.Lens' EmbeddedDestinationSettings (Prelude.Maybe Prelude.Natural)
+embeddedDestinationSettings_destination608ChannelNumber = Lens.lens (\EmbeddedDestinationSettings' {destination608ChannelNumber} -> destination608ChannelNumber) (\s@EmbeddedDestinationSettings' {} a -> s {destination608ChannelNumber = a} :: EmbeddedDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON EmbeddedDestinationSettings where
+instance Prelude.FromJSON EmbeddedDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EmbeddedDestinationSettings"
       ( \x ->
           EmbeddedDestinationSettings'
-            <$> (x .:? "destination708ServiceNumber")
-            <*> (x .:? "destination608ChannelNumber")
+            Prelude.<$> (x Prelude..:? "destination708ServiceNumber")
+            Prelude.<*> (x Prelude..:? "destination608ChannelNumber")
       )
 
-instance Hashable EmbeddedDestinationSettings
+instance Prelude.Hashable EmbeddedDestinationSettings
 
-instance NFData EmbeddedDestinationSettings
+instance Prelude.NFData EmbeddedDestinationSettings
 
-instance ToJSON EmbeddedDestinationSettings where
+instance Prelude.ToJSON EmbeddedDestinationSettings where
   toJSON EmbeddedDestinationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("destination708ServiceNumber" .=)
-              <$> _edsDestination708ServiceNumber,
-            ("destination608ChannelNumber" .=)
-              <$> _edsDestination608ChannelNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("destination708ServiceNumber" Prelude..=)
+              Prelude.<$> destination708ServiceNumber,
+            ("destination608ChannelNumber" Prelude..=)
+              Prelude.<$> destination608ChannelNumber
           ]
       )

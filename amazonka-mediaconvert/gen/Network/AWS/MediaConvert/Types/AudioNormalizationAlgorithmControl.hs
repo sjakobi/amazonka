@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.AudioNormalizationAlgorithmControl
   ( AudioNormalizationAlgorithmControl
       ( ..,
-        CorrectAudio,
-        MeasureOnly
+        AudioNormalizationAlgorithmControlCORRECTAUDIO,
+        AudioNormalizationAlgorithmControlMEASUREONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When enabled the output audio is corrected using the chosen algorithm. If disabled, the audio will be measured but not adjusted.
-data AudioNormalizationAlgorithmControl
-  = AudioNormalizationAlgorithmControl'
-      ( CI
-          Text
-      )
+-- | When enabled the output audio is corrected using the chosen algorithm.
+-- If disabled, the audio will be measured but not adjusted.
+newtype AudioNormalizationAlgorithmControl = AudioNormalizationAlgorithmControl'
+  { fromAudioNormalizationAlgorithmControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CorrectAudio :: AudioNormalizationAlgorithmControl
-pattern CorrectAudio = AudioNormalizationAlgorithmControl' "CORRECT_AUDIO"
+pattern AudioNormalizationAlgorithmControlCORRECTAUDIO :: AudioNormalizationAlgorithmControl
+pattern AudioNormalizationAlgorithmControlCORRECTAUDIO = AudioNormalizationAlgorithmControl' "CORRECT_AUDIO"
 
-pattern MeasureOnly :: AudioNormalizationAlgorithmControl
-pattern MeasureOnly = AudioNormalizationAlgorithmControl' "MEASURE_ONLY"
+pattern AudioNormalizationAlgorithmControlMEASUREONLY :: AudioNormalizationAlgorithmControl
+pattern AudioNormalizationAlgorithmControlMEASUREONLY = AudioNormalizationAlgorithmControl' "MEASURE_ONLY"
 
 {-# COMPLETE
-  CorrectAudio,
-  MeasureOnly,
+  AudioNormalizationAlgorithmControlCORRECTAUDIO,
+  AudioNormalizationAlgorithmControlMEASUREONLY,
   AudioNormalizationAlgorithmControl'
   #-}
 
-instance FromText AudioNormalizationAlgorithmControl where
-  parser = (AudioNormalizationAlgorithmControl' . mk) <$> takeText
+instance Prelude.FromText AudioNormalizationAlgorithmControl where
+  parser = AudioNormalizationAlgorithmControl' Prelude.<$> Prelude.takeText
 
-instance ToText AudioNormalizationAlgorithmControl where
-  toText (AudioNormalizationAlgorithmControl' ci) = original ci
+instance Prelude.ToText AudioNormalizationAlgorithmControl where
+  toText (AudioNormalizationAlgorithmControl' x) = x
 
-instance Hashable AudioNormalizationAlgorithmControl
+instance Prelude.Hashable AudioNormalizationAlgorithmControl
 
-instance NFData AudioNormalizationAlgorithmControl
+instance Prelude.NFData AudioNormalizationAlgorithmControl
 
-instance ToByteString AudioNormalizationAlgorithmControl
+instance Prelude.ToByteString AudioNormalizationAlgorithmControl
 
-instance ToQuery AudioNormalizationAlgorithmControl
+instance Prelude.ToQuery AudioNormalizationAlgorithmControl
 
-instance ToHeader AudioNormalizationAlgorithmControl
+instance Prelude.ToHeader AudioNormalizationAlgorithmControl
 
-instance ToJSON AudioNormalizationAlgorithmControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioNormalizationAlgorithmControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioNormalizationAlgorithmControl where
-  parseJSON = parseJSONText "AudioNormalizationAlgorithmControl"
+instance Prelude.FromJSON AudioNormalizationAlgorithmControl where
+  parseJSON = Prelude.parseJSONText "AudioNormalizationAlgorithmControl"

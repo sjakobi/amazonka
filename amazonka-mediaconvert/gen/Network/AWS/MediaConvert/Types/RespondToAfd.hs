@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,71 @@
 module Network.AWS.MediaConvert.Types.RespondToAfd
   ( RespondToAfd
       ( ..,
-        RTANone,
-        RTAPassthrough,
-        RTARespond
+        RespondToAfdNONE,
+        RespondToAfdPASSTHROUGH,
+        RespondToAfdRESPOND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Respond to AFD (RespondToAfd) to specify how the service changes the video itself in response to AFD values in the input. * Choose Respond to clip the input video frame according to the AFD value, input display aspect ratio, and output display aspect ratio. * Choose Passthrough to include the input AFD values. Do not choose this when AfdSignaling is set to (NONE). A preferred implementation of this workflow is to set RespondToAfd to (NONE) and set AfdSignaling to (AUTO). * Choose None to remove all input AFD values from this output.
-data RespondToAfd = RespondToAfd' (CI Text)
+-- | Use Respond to AFD (RespondToAfd) to specify how the service changes the
+-- video itself in response to AFD values in the input. * Choose Respond to
+-- clip the input video frame according to the AFD value, input display
+-- aspect ratio, and output display aspect ratio. * Choose Passthrough to
+-- include the input AFD values. Do not choose this when AfdSignaling is
+-- set to (NONE). A preferred implementation of this workflow is to set
+-- RespondToAfd to (NONE) and set AfdSignaling to (AUTO). * Choose None to
+-- remove all input AFD values from this output.
+newtype RespondToAfd = RespondToAfd'
+  { fromRespondToAfd ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RTANone :: RespondToAfd
-pattern RTANone = RespondToAfd' "NONE"
+pattern RespondToAfdNONE :: RespondToAfd
+pattern RespondToAfdNONE = RespondToAfd' "NONE"
 
-pattern RTAPassthrough :: RespondToAfd
-pattern RTAPassthrough = RespondToAfd' "PASSTHROUGH"
+pattern RespondToAfdPASSTHROUGH :: RespondToAfd
+pattern RespondToAfdPASSTHROUGH = RespondToAfd' "PASSTHROUGH"
 
-pattern RTARespond :: RespondToAfd
-pattern RTARespond = RespondToAfd' "RESPOND"
+pattern RespondToAfdRESPOND :: RespondToAfd
+pattern RespondToAfdRESPOND = RespondToAfd' "RESPOND"
 
 {-# COMPLETE
-  RTANone,
-  RTAPassthrough,
-  RTARespond,
+  RespondToAfdNONE,
+  RespondToAfdPASSTHROUGH,
+  RespondToAfdRESPOND,
   RespondToAfd'
   #-}
 
-instance FromText RespondToAfd where
-  parser = (RespondToAfd' . mk) <$> takeText
+instance Prelude.FromText RespondToAfd where
+  parser = RespondToAfd' Prelude.<$> Prelude.takeText
 
-instance ToText RespondToAfd where
-  toText (RespondToAfd' ci) = original ci
+instance Prelude.ToText RespondToAfd where
+  toText (RespondToAfd' x) = x
 
-instance Hashable RespondToAfd
+instance Prelude.Hashable RespondToAfd
 
-instance NFData RespondToAfd
+instance Prelude.NFData RespondToAfd
 
-instance ToByteString RespondToAfd
+instance Prelude.ToByteString RespondToAfd
 
-instance ToQuery RespondToAfd
+instance Prelude.ToQuery RespondToAfd
 
-instance ToHeader RespondToAfd
+instance Prelude.ToHeader RespondToAfd
 
-instance ToJSON RespondToAfd where
-  toJSON = toJSONText
+instance Prelude.ToJSON RespondToAfd where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RespondToAfd where
-  parseJSON = parseJSONText "RespondToAfd"
+instance Prelude.FromJSON RespondToAfd where
+  parseJSON = Prelude.parseJSONText "RespondToAfd"

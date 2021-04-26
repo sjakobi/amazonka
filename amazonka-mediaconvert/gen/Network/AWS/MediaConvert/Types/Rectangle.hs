@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.Rectangle where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Use Rectangle to identify a specific area of the video frame.
 --
--- /See:/ 'rectangle' smart constructor.
+-- /See:/ 'newRectangle' smart constructor.
 data Rectangle = Rectangle'
-  { _rHeight :: !(Maybe Nat),
-    _rY :: !(Maybe Nat),
-    _rWidth :: !(Maybe Nat),
-    _rX :: !(Maybe Nat)
+  { -- | Height of rectangle in pixels. Specify only even numbers.
+    height :: Prelude.Maybe Prelude.Nat,
+    -- | The distance, in pixels, between the rectangle and the top edge of the
+    -- video frame. Specify only even numbers.
+    y :: Prelude.Maybe Prelude.Nat,
+    -- | Width of rectangle in pixels. Specify only even numbers.
+    width :: Prelude.Maybe Prelude.Nat,
+    -- | The distance, in pixels, between the rectangle and the left edge of the
+    -- video frame. Specify only even numbers.
+    x :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Rectangle' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Rectangle' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rHeight' - Height of rectangle in pixels. Specify only even numbers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rY' - The distance, in pixels, between the rectangle and the top edge of the video frame. Specify only even numbers.
+-- 'height', 'rectangle_height' - Height of rectangle in pixels. Specify only even numbers.
 --
--- * 'rWidth' - Width of rectangle in pixels. Specify only even numbers.
+-- 'y', 'rectangle_y' - The distance, in pixels, between the rectangle and the top edge of the
+-- video frame. Specify only even numbers.
 --
--- * 'rX' - The distance, in pixels, between the rectangle and the left edge of the video frame. Specify only even numbers.
-rectangle ::
+-- 'width', 'rectangle_width' - Width of rectangle in pixels. Specify only even numbers.
+--
+-- 'x', 'rectangle_x' - The distance, in pixels, between the rectangle and the left edge of the
+-- video frame. Specify only even numbers.
+newRectangle ::
   Rectangle
-rectangle =
+newRectangle =
   Rectangle'
-    { _rHeight = Nothing,
-      _rY = Nothing,
-      _rWidth = Nothing,
-      _rX = Nothing
+    { height = Prelude.Nothing,
+      y = Prelude.Nothing,
+      width = Prelude.Nothing,
+      x = Prelude.Nothing
     }
 
 -- | Height of rectangle in pixels. Specify only even numbers.
-rHeight :: Lens' Rectangle (Maybe Natural)
-rHeight = lens _rHeight (\s a -> s {_rHeight = a}) . mapping _Nat
+rectangle_height :: Lens.Lens' Rectangle (Prelude.Maybe Prelude.Natural)
+rectangle_height = Lens.lens (\Rectangle' {height} -> height) (\s@Rectangle' {} a -> s {height = a} :: Rectangle) Prelude.. Lens.mapping Prelude._Nat
 
--- | The distance, in pixels, between the rectangle and the top edge of the video frame. Specify only even numbers.
-rY :: Lens' Rectangle (Maybe Natural)
-rY = lens _rY (\s a -> s {_rY = a}) . mapping _Nat
+-- | The distance, in pixels, between the rectangle and the top edge of the
+-- video frame. Specify only even numbers.
+rectangle_y :: Lens.Lens' Rectangle (Prelude.Maybe Prelude.Natural)
+rectangle_y = Lens.lens (\Rectangle' {y} -> y) (\s@Rectangle' {} a -> s {y = a} :: Rectangle) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Width of rectangle in pixels. Specify only even numbers.
-rWidth :: Lens' Rectangle (Maybe Natural)
-rWidth = lens _rWidth (\s a -> s {_rWidth = a}) . mapping _Nat
+rectangle_width :: Lens.Lens' Rectangle (Prelude.Maybe Prelude.Natural)
+rectangle_width = Lens.lens (\Rectangle' {width} -> width) (\s@Rectangle' {} a -> s {width = a} :: Rectangle) Prelude.. Lens.mapping Prelude._Nat
 
--- | The distance, in pixels, between the rectangle and the left edge of the video frame. Specify only even numbers.
-rX :: Lens' Rectangle (Maybe Natural)
-rX = lens _rX (\s a -> s {_rX = a}) . mapping _Nat
+-- | The distance, in pixels, between the rectangle and the left edge of the
+-- video frame. Specify only even numbers.
+rectangle_x :: Lens.Lens' Rectangle (Prelude.Maybe Prelude.Natural)
+rectangle_x = Lens.lens (\Rectangle' {x} -> x) (\s@Rectangle' {} a -> s {x = a} :: Rectangle) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON Rectangle where
+instance Prelude.FromJSON Rectangle where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Rectangle"
       ( \x ->
           Rectangle'
-            <$> (x .:? "height")
-            <*> (x .:? "y")
-            <*> (x .:? "width")
-            <*> (x .:? "x")
+            Prelude.<$> (x Prelude..:? "height")
+            Prelude.<*> (x Prelude..:? "y")
+            Prelude.<*> (x Prelude..:? "width")
+            Prelude.<*> (x Prelude..:? "x")
       )
 
-instance Hashable Rectangle
+instance Prelude.Hashable Rectangle
 
-instance NFData Rectangle
+instance Prelude.NFData Rectangle
 
-instance ToJSON Rectangle where
+instance Prelude.ToJSON Rectangle where
   toJSON Rectangle' {..} =
-    object
-      ( catMaybes
-          [ ("height" .=) <$> _rHeight,
-            ("y" .=) <$> _rY,
-            ("width" .=) <$> _rWidth,
-            ("x" .=) <$> _rX
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("height" Prelude..=) Prelude.<$> height,
+            ("y" Prelude..=) Prelude.<$> y,
+            ("width" Prelude..=) Prelude.<$> width,
+            ("x" Prelude..=) Prelude.<$> x
           ]
       )

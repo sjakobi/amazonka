@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,66 @@
 module Network.AWS.MediaConvert.Types.Vp8ParControl
   ( Vp8ParControl
       ( ..,
-        VPCInitializeFromSource,
-        VPCSpecified
+        Vp8ParControlINITIALIZEFROMSOURCE,
+        Vp8ParControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior, Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and parDenominator settings.
-data Vp8ParControl = Vp8ParControl' (CI Text)
+-- | Optional. Specify how the service determines the pixel aspect ratio
+-- (PAR) for this output. The default behavior, Follow source
+-- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+-- output. To specify a different PAR in the console, choose any value
+-- other than Follow source. To specify a different PAR by editing the JSON
+-- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+-- setting, you must also specify values for the parNumerator and
+-- parDenominator settings.
+newtype Vp8ParControl = Vp8ParControl'
+  { fromVp8ParControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VPCInitializeFromSource :: Vp8ParControl
-pattern VPCInitializeFromSource = Vp8ParControl' "INITIALIZE_FROM_SOURCE"
+pattern Vp8ParControlINITIALIZEFROMSOURCE :: Vp8ParControl
+pattern Vp8ParControlINITIALIZEFROMSOURCE = Vp8ParControl' "INITIALIZE_FROM_SOURCE"
 
-pattern VPCSpecified :: Vp8ParControl
-pattern VPCSpecified = Vp8ParControl' "SPECIFIED"
+pattern Vp8ParControlSPECIFIED :: Vp8ParControl
+pattern Vp8ParControlSPECIFIED = Vp8ParControl' "SPECIFIED"
 
 {-# COMPLETE
-  VPCInitializeFromSource,
-  VPCSpecified,
+  Vp8ParControlINITIALIZEFROMSOURCE,
+  Vp8ParControlSPECIFIED,
   Vp8ParControl'
   #-}
 
-instance FromText Vp8ParControl where
-  parser = (Vp8ParControl' . mk) <$> takeText
+instance Prelude.FromText Vp8ParControl where
+  parser = Vp8ParControl' Prelude.<$> Prelude.takeText
 
-instance ToText Vp8ParControl where
-  toText (Vp8ParControl' ci) = original ci
+instance Prelude.ToText Vp8ParControl where
+  toText (Vp8ParControl' x) = x
 
-instance Hashable Vp8ParControl
+instance Prelude.Hashable Vp8ParControl
 
-instance NFData Vp8ParControl
+instance Prelude.NFData Vp8ParControl
 
-instance ToByteString Vp8ParControl
+instance Prelude.ToByteString Vp8ParControl
 
-instance ToQuery Vp8ParControl
+instance Prelude.ToQuery Vp8ParControl
 
-instance ToHeader Vp8ParControl
+instance Prelude.ToHeader Vp8ParControl
 
-instance ToJSON Vp8ParControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vp8ParControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vp8ParControl where
-  parseJSON = parseJSONText "Vp8ParControl"
+instance Prelude.FromJSON Vp8ParControl where
+  parseJSON = Prelude.parseJSONText "Vp8ParControl"

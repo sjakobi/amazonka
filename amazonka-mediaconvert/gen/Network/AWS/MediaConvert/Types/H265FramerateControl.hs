@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,71 @@
 module Network.AWS.MediaConvert.Types.H265FramerateControl
   ( H265FramerateControl
       ( ..,
-        H26InitializeFromSource,
-        H26Specified
+        H265FramerateControlINITIALIZEFROMSOURCE,
+        H265FramerateControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings FramerateNumerator and FramerateDenominator.
-data H265FramerateControl
-  = H265FramerateControl'
-      ( CI
-          Text
-      )
+-- | If you are using the console, use the Framerate setting to specify the
+-- frame rate for this output. If you want to keep the same frame rate as
+-- the input video, choose Follow source. If you want to do frame rate
+-- conversion, choose a frame rate from the dropdown list or choose Custom.
+-- The framerates shown in the dropdown list are decimal approximations of
+-- fractions. If you choose Custom, specify your frame rate as a fraction.
+-- If you are creating your transcoding job specification as a JSON file
+-- without the console, use FramerateControl to specify which value the
+-- service uses for the frame rate for this output. Choose
+-- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+-- from the input. Choose SPECIFIED if you want the service to use the
+-- frame rate you specify in the settings FramerateNumerator and
+-- FramerateDenominator.
+newtype H265FramerateControl = H265FramerateControl'
+  { fromH265FramerateControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern H26InitializeFromSource :: H265FramerateControl
-pattern H26InitializeFromSource = H265FramerateControl' "INITIALIZE_FROM_SOURCE"
+pattern H265FramerateControlINITIALIZEFROMSOURCE :: H265FramerateControl
+pattern H265FramerateControlINITIALIZEFROMSOURCE = H265FramerateControl' "INITIALIZE_FROM_SOURCE"
 
-pattern H26Specified :: H265FramerateControl
-pattern H26Specified = H265FramerateControl' "SPECIFIED"
+pattern H265FramerateControlSPECIFIED :: H265FramerateControl
+pattern H265FramerateControlSPECIFIED = H265FramerateControl' "SPECIFIED"
 
 {-# COMPLETE
-  H26InitializeFromSource,
-  H26Specified,
+  H265FramerateControlINITIALIZEFROMSOURCE,
+  H265FramerateControlSPECIFIED,
   H265FramerateControl'
   #-}
 
-instance FromText H265FramerateControl where
-  parser = (H265FramerateControl' . mk) <$> takeText
+instance Prelude.FromText H265FramerateControl where
+  parser = H265FramerateControl' Prelude.<$> Prelude.takeText
 
-instance ToText H265FramerateControl where
-  toText (H265FramerateControl' ci) = original ci
+instance Prelude.ToText H265FramerateControl where
+  toText (H265FramerateControl' x) = x
 
-instance Hashable H265FramerateControl
+instance Prelude.Hashable H265FramerateControl
 
-instance NFData H265FramerateControl
+instance Prelude.NFData H265FramerateControl
 
-instance ToByteString H265FramerateControl
+instance Prelude.ToByteString H265FramerateControl
 
-instance ToQuery H265FramerateControl
+instance Prelude.ToQuery H265FramerateControl
 
-instance ToHeader H265FramerateControl
+instance Prelude.ToHeader H265FramerateControl
 
-instance ToJSON H265FramerateControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265FramerateControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265FramerateControl where
-  parseJSON = parseJSONText "H265FramerateControl"
+instance Prelude.FromJSON H265FramerateControl where
+  parseJSON = Prelude.parseJSONText "H265FramerateControl"

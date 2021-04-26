@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaConvert.Types.HlsAudioOnlyHeader
   ( HlsAudioOnlyHeader
       ( ..,
-        HAOHExclude,
-        HAOHInclude
+        HlsAudioOnlyHeaderEXCLUDE,
+        HlsAudioOnlyHeaderINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Ignore this setting unless you are using FairPlay DRM with Verimatrix and you encounter playback issues. Keep the default value, Include (INCLUDE), to output audio-only headers. Choose Exclude (EXCLUDE) to remove the audio-only headers from your audio segments.
-data HlsAudioOnlyHeader
-  = HlsAudioOnlyHeader'
-      ( CI
-          Text
-      )
+-- | Ignore this setting unless you are using FairPlay DRM with Verimatrix
+-- and you encounter playback issues. Keep the default value, Include
+-- (INCLUDE), to output audio-only headers. Choose Exclude (EXCLUDE) to
+-- remove the audio-only headers from your audio segments.
+newtype HlsAudioOnlyHeader = HlsAudioOnlyHeader'
+  { fromHlsAudioOnlyHeader ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HAOHExclude :: HlsAudioOnlyHeader
-pattern HAOHExclude = HlsAudioOnlyHeader' "EXCLUDE"
+pattern HlsAudioOnlyHeaderEXCLUDE :: HlsAudioOnlyHeader
+pattern HlsAudioOnlyHeaderEXCLUDE = HlsAudioOnlyHeader' "EXCLUDE"
 
-pattern HAOHInclude :: HlsAudioOnlyHeader
-pattern HAOHInclude = HlsAudioOnlyHeader' "INCLUDE"
+pattern HlsAudioOnlyHeaderINCLUDE :: HlsAudioOnlyHeader
+pattern HlsAudioOnlyHeaderINCLUDE = HlsAudioOnlyHeader' "INCLUDE"
 
 {-# COMPLETE
-  HAOHExclude,
-  HAOHInclude,
+  HlsAudioOnlyHeaderEXCLUDE,
+  HlsAudioOnlyHeaderINCLUDE,
   HlsAudioOnlyHeader'
   #-}
 
-instance FromText HlsAudioOnlyHeader where
-  parser = (HlsAudioOnlyHeader' . mk) <$> takeText
+instance Prelude.FromText HlsAudioOnlyHeader where
+  parser = HlsAudioOnlyHeader' Prelude.<$> Prelude.takeText
 
-instance ToText HlsAudioOnlyHeader where
-  toText (HlsAudioOnlyHeader' ci) = original ci
+instance Prelude.ToText HlsAudioOnlyHeader where
+  toText (HlsAudioOnlyHeader' x) = x
 
-instance Hashable HlsAudioOnlyHeader
+instance Prelude.Hashable HlsAudioOnlyHeader
 
-instance NFData HlsAudioOnlyHeader
+instance Prelude.NFData HlsAudioOnlyHeader
 
-instance ToByteString HlsAudioOnlyHeader
+instance Prelude.ToByteString HlsAudioOnlyHeader
 
-instance ToQuery HlsAudioOnlyHeader
+instance Prelude.ToQuery HlsAudioOnlyHeader
 
-instance ToHeader HlsAudioOnlyHeader
+instance Prelude.ToHeader HlsAudioOnlyHeader
 
-instance ToJSON HlsAudioOnlyHeader where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsAudioOnlyHeader where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsAudioOnlyHeader where
-  parseJSON = parseJSONText "HlsAudioOnlyHeader"
+instance Prelude.FromJSON HlsAudioOnlyHeader where
+  parseJSON = Prelude.parseJSONText "HlsAudioOnlyHeader"

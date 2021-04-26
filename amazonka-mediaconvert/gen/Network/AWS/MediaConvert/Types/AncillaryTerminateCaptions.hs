@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.AncillaryTerminateCaptions
   ( AncillaryTerminateCaptions
       ( ..,
-        Disabled,
-        EndOfInput
+        AncillaryTerminateCaptionsDISABLED,
+        AncillaryTerminateCaptionsENDOFINPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | By default, the service terminates any unterminated captions at the end of each input. If you want the caption to continue onto your next input, disable this setting.
-data AncillaryTerminateCaptions
-  = AncillaryTerminateCaptions'
-      ( CI
-          Text
-      )
+-- | By default, the service terminates any unterminated captions at the end
+-- of each input. If you want the caption to continue onto your next input,
+-- disable this setting.
+newtype AncillaryTerminateCaptions = AncillaryTerminateCaptions'
+  { fromAncillaryTerminateCaptions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: AncillaryTerminateCaptions
-pattern Disabled = AncillaryTerminateCaptions' "DISABLED"
+pattern AncillaryTerminateCaptionsDISABLED :: AncillaryTerminateCaptions
+pattern AncillaryTerminateCaptionsDISABLED = AncillaryTerminateCaptions' "DISABLED"
 
-pattern EndOfInput :: AncillaryTerminateCaptions
-pattern EndOfInput = AncillaryTerminateCaptions' "END_OF_INPUT"
+pattern AncillaryTerminateCaptionsENDOFINPUT :: AncillaryTerminateCaptions
+pattern AncillaryTerminateCaptionsENDOFINPUT = AncillaryTerminateCaptions' "END_OF_INPUT"
 
 {-# COMPLETE
-  Disabled,
-  EndOfInput,
+  AncillaryTerminateCaptionsDISABLED,
+  AncillaryTerminateCaptionsENDOFINPUT,
   AncillaryTerminateCaptions'
   #-}
 
-instance FromText AncillaryTerminateCaptions where
-  parser = (AncillaryTerminateCaptions' . mk) <$> takeText
+instance Prelude.FromText AncillaryTerminateCaptions where
+  parser = AncillaryTerminateCaptions' Prelude.<$> Prelude.takeText
 
-instance ToText AncillaryTerminateCaptions where
-  toText (AncillaryTerminateCaptions' ci) = original ci
+instance Prelude.ToText AncillaryTerminateCaptions where
+  toText (AncillaryTerminateCaptions' x) = x
 
-instance Hashable AncillaryTerminateCaptions
+instance Prelude.Hashable AncillaryTerminateCaptions
 
-instance NFData AncillaryTerminateCaptions
+instance Prelude.NFData AncillaryTerminateCaptions
 
-instance ToByteString AncillaryTerminateCaptions
+instance Prelude.ToByteString AncillaryTerminateCaptions
 
-instance ToQuery AncillaryTerminateCaptions
+instance Prelude.ToQuery AncillaryTerminateCaptions
 
-instance ToHeader AncillaryTerminateCaptions
+instance Prelude.ToHeader AncillaryTerminateCaptions
 
-instance ToJSON AncillaryTerminateCaptions where
-  toJSON = toJSONText
+instance Prelude.ToJSON AncillaryTerminateCaptions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AncillaryTerminateCaptions where
-  parseJSON = parseJSONText "AncillaryTerminateCaptions"
+instance Prelude.FromJSON AncillaryTerminateCaptions where
+  parseJSON = Prelude.parseJSONText "AncillaryTerminateCaptions"

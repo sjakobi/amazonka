@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaConvert.Types.DashIsoHbbtvCompliance
   ( DashIsoHbbtvCompliance
       ( ..,
-        DIHCHbbtv15,
-        DIHCNone
+        DashIsoHbbtvComplianceHBBTV15,
+        DashIsoHbbtvComplianceNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Supports HbbTV specification as indicated
-data DashIsoHbbtvCompliance
-  = DashIsoHbbtvCompliance'
-      ( CI
-          Text
-      )
+newtype DashIsoHbbtvCompliance = DashIsoHbbtvCompliance'
+  { fromDashIsoHbbtvCompliance ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DIHCHbbtv15 :: DashIsoHbbtvCompliance
-pattern DIHCHbbtv15 = DashIsoHbbtvCompliance' "HBBTV_1_5"
+pattern DashIsoHbbtvComplianceHBBTV15 :: DashIsoHbbtvCompliance
+pattern DashIsoHbbtvComplianceHBBTV15 = DashIsoHbbtvCompliance' "HBBTV_1_5"
 
-pattern DIHCNone :: DashIsoHbbtvCompliance
-pattern DIHCNone = DashIsoHbbtvCompliance' "NONE"
+pattern DashIsoHbbtvComplianceNONE :: DashIsoHbbtvCompliance
+pattern DashIsoHbbtvComplianceNONE = DashIsoHbbtvCompliance' "NONE"
 
 {-# COMPLETE
-  DIHCHbbtv15,
-  DIHCNone,
+  DashIsoHbbtvComplianceHBBTV15,
+  DashIsoHbbtvComplianceNONE,
   DashIsoHbbtvCompliance'
   #-}
 
-instance FromText DashIsoHbbtvCompliance where
-  parser = (DashIsoHbbtvCompliance' . mk) <$> takeText
+instance Prelude.FromText DashIsoHbbtvCompliance where
+  parser = DashIsoHbbtvCompliance' Prelude.<$> Prelude.takeText
 
-instance ToText DashIsoHbbtvCompliance where
-  toText (DashIsoHbbtvCompliance' ci) = original ci
+instance Prelude.ToText DashIsoHbbtvCompliance where
+  toText (DashIsoHbbtvCompliance' x) = x
 
-instance Hashable DashIsoHbbtvCompliance
+instance Prelude.Hashable DashIsoHbbtvCompliance
 
-instance NFData DashIsoHbbtvCompliance
+instance Prelude.NFData DashIsoHbbtvCompliance
 
-instance ToByteString DashIsoHbbtvCompliance
+instance Prelude.ToByteString DashIsoHbbtvCompliance
 
-instance ToQuery DashIsoHbbtvCompliance
+instance Prelude.ToQuery DashIsoHbbtvCompliance
 
-instance ToHeader DashIsoHbbtvCompliance
+instance Prelude.ToHeader DashIsoHbbtvCompliance
 
-instance ToJSON DashIsoHbbtvCompliance where
-  toJSON = toJSONText
+instance Prelude.ToJSON DashIsoHbbtvCompliance where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DashIsoHbbtvCompliance where
-  parseJSON = parseJSONText "DashIsoHbbtvCompliance"
+instance Prelude.FromJSON DashIsoHbbtvCompliance where
+  parseJSON = Prelude.parseJSONText "DashIsoHbbtvCompliance"

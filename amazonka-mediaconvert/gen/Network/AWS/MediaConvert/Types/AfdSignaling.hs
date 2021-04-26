@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,70 @@
 module Network.AWS.MediaConvert.Types.AfdSignaling
   ( AfdSignaling
       ( ..,
-        ASAuto,
-        ASFixed,
-        ASNone
+        AfdSignalingAUTO,
+        AfdSignalingFIXED,
+        AfdSignalingNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | This setting only applies to H.264, H.265, and MPEG2 outputs. Use Insert AFD signaling (AfdSignaling) to specify whether the service includes AFD values in the output video data and what those values are. * Choose None to remove all AFD values from this output. * Choose Fixed to ignore input AFD values and instead encode the value specified in the job. * Choose Auto to calculate output AFD values based on the input AFD scaler data.
-data AfdSignaling = AfdSignaling' (CI Text)
+-- | This setting only applies to H.264, H.265, and MPEG2 outputs. Use Insert
+-- AFD signaling (AfdSignaling) to specify whether the service includes AFD
+-- values in the output video data and what those values are. * Choose None
+-- to remove all AFD values from this output. * Choose Fixed to ignore
+-- input AFD values and instead encode the value specified in the job. *
+-- Choose Auto to calculate output AFD values based on the input AFD scaler
+-- data.
+newtype AfdSignaling = AfdSignaling'
+  { fromAfdSignaling ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASAuto :: AfdSignaling
-pattern ASAuto = AfdSignaling' "AUTO"
+pattern AfdSignalingAUTO :: AfdSignaling
+pattern AfdSignalingAUTO = AfdSignaling' "AUTO"
 
-pattern ASFixed :: AfdSignaling
-pattern ASFixed = AfdSignaling' "FIXED"
+pattern AfdSignalingFIXED :: AfdSignaling
+pattern AfdSignalingFIXED = AfdSignaling' "FIXED"
 
-pattern ASNone :: AfdSignaling
-pattern ASNone = AfdSignaling' "NONE"
+pattern AfdSignalingNONE :: AfdSignaling
+pattern AfdSignalingNONE = AfdSignaling' "NONE"
 
 {-# COMPLETE
-  ASAuto,
-  ASFixed,
-  ASNone,
+  AfdSignalingAUTO,
+  AfdSignalingFIXED,
+  AfdSignalingNONE,
   AfdSignaling'
   #-}
 
-instance FromText AfdSignaling where
-  parser = (AfdSignaling' . mk) <$> takeText
+instance Prelude.FromText AfdSignaling where
+  parser = AfdSignaling' Prelude.<$> Prelude.takeText
 
-instance ToText AfdSignaling where
-  toText (AfdSignaling' ci) = original ci
+instance Prelude.ToText AfdSignaling where
+  toText (AfdSignaling' x) = x
 
-instance Hashable AfdSignaling
+instance Prelude.Hashable AfdSignaling
 
-instance NFData AfdSignaling
+instance Prelude.NFData AfdSignaling
 
-instance ToByteString AfdSignaling
+instance Prelude.ToByteString AfdSignaling
 
-instance ToQuery AfdSignaling
+instance Prelude.ToQuery AfdSignaling
 
-instance ToHeader AfdSignaling
+instance Prelude.ToHeader AfdSignaling
 
-instance ToJSON AfdSignaling where
-  toJSON = toJSONText
+instance Prelude.ToJSON AfdSignaling where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AfdSignaling where
-  parseJSON = parseJSONText "AfdSignaling"
+instance Prelude.FromJSON AfdSignaling where
+  parseJSON = Prelude.parseJSONText "AfdSignaling"

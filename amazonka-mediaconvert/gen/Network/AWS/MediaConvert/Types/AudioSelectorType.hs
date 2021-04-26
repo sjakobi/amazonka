@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaConvert.Types.AudioSelectorType
   ( AudioSelectorType
       ( ..,
-        LanguageCode,
-        Pid,
-        Track
+        AudioSelectorTypeLANGUAGECODE,
+        AudioSelectorTypePID,
+        AudioSelectorTypeTRACK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the type of the audio selector.
-data AudioSelectorType = AudioSelectorType' (CI Text)
+newtype AudioSelectorType = AudioSelectorType'
+  { fromAudioSelectorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LanguageCode :: AudioSelectorType
-pattern LanguageCode = AudioSelectorType' "LANGUAGE_CODE"
+pattern AudioSelectorTypeLANGUAGECODE :: AudioSelectorType
+pattern AudioSelectorTypeLANGUAGECODE = AudioSelectorType' "LANGUAGE_CODE"
 
-pattern Pid :: AudioSelectorType
-pattern Pid = AudioSelectorType' "PID"
+pattern AudioSelectorTypePID :: AudioSelectorType
+pattern AudioSelectorTypePID = AudioSelectorType' "PID"
 
-pattern Track :: AudioSelectorType
-pattern Track = AudioSelectorType' "TRACK"
+pattern AudioSelectorTypeTRACK :: AudioSelectorType
+pattern AudioSelectorTypeTRACK = AudioSelectorType' "TRACK"
 
 {-# COMPLETE
-  LanguageCode,
-  Pid,
-  Track,
+  AudioSelectorTypeLANGUAGECODE,
+  AudioSelectorTypePID,
+  AudioSelectorTypeTRACK,
   AudioSelectorType'
   #-}
 
-instance FromText AudioSelectorType where
-  parser = (AudioSelectorType' . mk) <$> takeText
+instance Prelude.FromText AudioSelectorType where
+  parser = AudioSelectorType' Prelude.<$> Prelude.takeText
 
-instance ToText AudioSelectorType where
-  toText (AudioSelectorType' ci) = original ci
+instance Prelude.ToText AudioSelectorType where
+  toText (AudioSelectorType' x) = x
 
-instance Hashable AudioSelectorType
+instance Prelude.Hashable AudioSelectorType
 
-instance NFData AudioSelectorType
+instance Prelude.NFData AudioSelectorType
 
-instance ToByteString AudioSelectorType
+instance Prelude.ToByteString AudioSelectorType
 
-instance ToQuery AudioSelectorType
+instance Prelude.ToQuery AudioSelectorType
 
-instance ToHeader AudioSelectorType
+instance Prelude.ToHeader AudioSelectorType
 
-instance ToJSON AudioSelectorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioSelectorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioSelectorType where
-  parseJSON = parseJSONText "AudioSelectorType"
+instance Prelude.FromJSON AudioSelectorType where
+  parseJSON = Prelude.parseJSONText "AudioSelectorType"

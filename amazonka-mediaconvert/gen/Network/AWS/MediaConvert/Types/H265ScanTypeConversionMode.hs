@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,73 @@
 module Network.AWS.MediaConvert.Types.H265ScanTypeConversionMode
   ( H265ScanTypeConversionMode
       ( ..,
-        HInterlaced,
-        HInterlacedOptimize
+        H265ScanTypeConversionModeINTERLACED,
+        H265ScanTypeConversionModeINTERLACEDOPTIMIZE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE) or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode (interlaceMode) to a value other than Progressive (PROGRESSIVE).
-data H265ScanTypeConversionMode
-  = H265ScanTypeConversionMode'
-      ( CI
-          Text
-      )
+-- | Use this setting for interlaced outputs, when your output frame rate is
+-- half of your input frame rate. In this situation, choose Optimized
+-- interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced
+-- output. In this case, each progressive frame from the input corresponds
+-- to an interlaced field in the output. Keep the default value, Basic
+-- interlacing (INTERLACED), for all other output frame rates. With basic
+-- interlacing, MediaConvert performs any frame rate conversion first and
+-- then interlaces the frames. When you choose Optimized interlacing and
+-- you set your output frame rate to a value that isn\'t suitable for
+-- optimized interlacing, MediaConvert automatically falls back to basic
+-- interlacing. Required settings: To use optimized interlacing, you must
+-- set Telecine (telecine) to None (NONE) or Soft (SOFT). You can\'t use
+-- optimized interlacing for hard telecine outputs. You must also set
+-- Interlace mode (interlaceMode) to a value other than Progressive
+-- (PROGRESSIVE).
+newtype H265ScanTypeConversionMode = H265ScanTypeConversionMode'
+  { fromH265ScanTypeConversionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HInterlaced :: H265ScanTypeConversionMode
-pattern HInterlaced = H265ScanTypeConversionMode' "INTERLACED"
+pattern H265ScanTypeConversionModeINTERLACED :: H265ScanTypeConversionMode
+pattern H265ScanTypeConversionModeINTERLACED = H265ScanTypeConversionMode' "INTERLACED"
 
-pattern HInterlacedOptimize :: H265ScanTypeConversionMode
-pattern HInterlacedOptimize = H265ScanTypeConversionMode' "INTERLACED_OPTIMIZE"
+pattern H265ScanTypeConversionModeINTERLACEDOPTIMIZE :: H265ScanTypeConversionMode
+pattern H265ScanTypeConversionModeINTERLACEDOPTIMIZE = H265ScanTypeConversionMode' "INTERLACED_OPTIMIZE"
 
 {-# COMPLETE
-  HInterlaced,
-  HInterlacedOptimize,
+  H265ScanTypeConversionModeINTERLACED,
+  H265ScanTypeConversionModeINTERLACEDOPTIMIZE,
   H265ScanTypeConversionMode'
   #-}
 
-instance FromText H265ScanTypeConversionMode where
-  parser = (H265ScanTypeConversionMode' . mk) <$> takeText
+instance Prelude.FromText H265ScanTypeConversionMode where
+  parser = H265ScanTypeConversionMode' Prelude.<$> Prelude.takeText
 
-instance ToText H265ScanTypeConversionMode where
-  toText (H265ScanTypeConversionMode' ci) = original ci
+instance Prelude.ToText H265ScanTypeConversionMode where
+  toText (H265ScanTypeConversionMode' x) = x
 
-instance Hashable H265ScanTypeConversionMode
+instance Prelude.Hashable H265ScanTypeConversionMode
 
-instance NFData H265ScanTypeConversionMode
+instance Prelude.NFData H265ScanTypeConversionMode
 
-instance ToByteString H265ScanTypeConversionMode
+instance Prelude.ToByteString H265ScanTypeConversionMode
 
-instance ToQuery H265ScanTypeConversionMode
+instance Prelude.ToQuery H265ScanTypeConversionMode
 
-instance ToHeader H265ScanTypeConversionMode
+instance Prelude.ToHeader H265ScanTypeConversionMode
 
-instance ToJSON H265ScanTypeConversionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265ScanTypeConversionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265ScanTypeConversionMode where
-  parseJSON = parseJSONText "H265ScanTypeConversionMode"
+instance Prelude.FromJSON H265ScanTypeConversionMode where
+  parseJSON = Prelude.parseJSONText "H265ScanTypeConversionMode"

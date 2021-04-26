@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,105 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.HopDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Configuration for a destination queue to which the job can hop once a customer-defined minimum wait time has passed.
+-- | Optional. Configuration for a destination queue to which the job can hop
+-- once a customer-defined minimum wait time has passed.
 --
--- /See:/ 'hopDestination' smart constructor.
+-- /See:/ 'newHopDestination' smart constructor.
 data HopDestination = HopDestination'
-  { _hdPriority ::
-      !(Maybe Int),
-    _hdQueue :: !(Maybe Text),
-    _hdWaitMinutes :: !(Maybe Int)
+  { -- | Optional. When you set up a job to use queue hopping, you can specify a
+    -- different relative priority for the job in the destination queue. If you
+    -- don\'t specify, the relative priority will remain the same as in the
+    -- previous queue.
+    priority :: Prelude.Maybe Prelude.Int,
+    -- | Optional unless the job is submitted on the default queue. When you set
+    -- up a job to use queue hopping, you can specify a destination queue. This
+    -- queue cannot be the original queue to which the job is submitted. If the
+    -- original queue isn\'t the default queue and you don\'t specify the
+    -- destination queue, the job will move to the default queue.
+    queue :: Prelude.Maybe Prelude.Text,
+    -- | Required for setting up a job to use queue hopping. Minimum wait time in
+    -- minutes until the job can hop to the destination queue. Valid range is 1
+    -- to 1440 minutes, inclusive.
+    waitMinutes :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HopDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HopDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hdPriority' - Optional. When you set up a job to use queue hopping, you can specify a different relative priority for the job in the destination queue. If you don't specify, the relative priority will remain the same as in the previous queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hdQueue' - Optional unless the job is submitted on the default queue. When you set up a job to use queue hopping, you can specify a destination queue. This queue cannot be the original queue to which the job is submitted. If the original queue isn't the default queue and you don't specify the destination queue, the job will move to the default queue.
+-- 'priority', 'hopDestination_priority' - Optional. When you set up a job to use queue hopping, you can specify a
+-- different relative priority for the job in the destination queue. If you
+-- don\'t specify, the relative priority will remain the same as in the
+-- previous queue.
 --
--- * 'hdWaitMinutes' - Required for setting up a job to use queue hopping. Minimum wait time in minutes until the job can hop to the destination queue. Valid range is 1 to 1440 minutes, inclusive.
-hopDestination ::
+-- 'queue', 'hopDestination_queue' - Optional unless the job is submitted on the default queue. When you set
+-- up a job to use queue hopping, you can specify a destination queue. This
+-- queue cannot be the original queue to which the job is submitted. If the
+-- original queue isn\'t the default queue and you don\'t specify the
+-- destination queue, the job will move to the default queue.
+--
+-- 'waitMinutes', 'hopDestination_waitMinutes' - Required for setting up a job to use queue hopping. Minimum wait time in
+-- minutes until the job can hop to the destination queue. Valid range is 1
+-- to 1440 minutes, inclusive.
+newHopDestination ::
   HopDestination
-hopDestination =
+newHopDestination =
   HopDestination'
-    { _hdPriority = Nothing,
-      _hdQueue = Nothing,
-      _hdWaitMinutes = Nothing
+    { priority = Prelude.Nothing,
+      queue = Prelude.Nothing,
+      waitMinutes = Prelude.Nothing
     }
 
--- | Optional. When you set up a job to use queue hopping, you can specify a different relative priority for the job in the destination queue. If you don't specify, the relative priority will remain the same as in the previous queue.
-hdPriority :: Lens' HopDestination (Maybe Int)
-hdPriority = lens _hdPriority (\s a -> s {_hdPriority = a})
+-- | Optional. When you set up a job to use queue hopping, you can specify a
+-- different relative priority for the job in the destination queue. If you
+-- don\'t specify, the relative priority will remain the same as in the
+-- previous queue.
+hopDestination_priority :: Lens.Lens' HopDestination (Prelude.Maybe Prelude.Int)
+hopDestination_priority = Lens.lens (\HopDestination' {priority} -> priority) (\s@HopDestination' {} a -> s {priority = a} :: HopDestination)
 
--- | Optional unless the job is submitted on the default queue. When you set up a job to use queue hopping, you can specify a destination queue. This queue cannot be the original queue to which the job is submitted. If the original queue isn't the default queue and you don't specify the destination queue, the job will move to the default queue.
-hdQueue :: Lens' HopDestination (Maybe Text)
-hdQueue = lens _hdQueue (\s a -> s {_hdQueue = a})
+-- | Optional unless the job is submitted on the default queue. When you set
+-- up a job to use queue hopping, you can specify a destination queue. This
+-- queue cannot be the original queue to which the job is submitted. If the
+-- original queue isn\'t the default queue and you don\'t specify the
+-- destination queue, the job will move to the default queue.
+hopDestination_queue :: Lens.Lens' HopDestination (Prelude.Maybe Prelude.Text)
+hopDestination_queue = Lens.lens (\HopDestination' {queue} -> queue) (\s@HopDestination' {} a -> s {queue = a} :: HopDestination)
 
--- | Required for setting up a job to use queue hopping. Minimum wait time in minutes until the job can hop to the destination queue. Valid range is 1 to 1440 minutes, inclusive.
-hdWaitMinutes :: Lens' HopDestination (Maybe Int)
-hdWaitMinutes = lens _hdWaitMinutes (\s a -> s {_hdWaitMinutes = a})
+-- | Required for setting up a job to use queue hopping. Minimum wait time in
+-- minutes until the job can hop to the destination queue. Valid range is 1
+-- to 1440 minutes, inclusive.
+hopDestination_waitMinutes :: Lens.Lens' HopDestination (Prelude.Maybe Prelude.Int)
+hopDestination_waitMinutes = Lens.lens (\HopDestination' {waitMinutes} -> waitMinutes) (\s@HopDestination' {} a -> s {waitMinutes = a} :: HopDestination)
 
-instance FromJSON HopDestination where
+instance Prelude.FromJSON HopDestination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HopDestination"
       ( \x ->
           HopDestination'
-            <$> (x .:? "priority")
-            <*> (x .:? "queue")
-            <*> (x .:? "waitMinutes")
+            Prelude.<$> (x Prelude..:? "priority")
+            Prelude.<*> (x Prelude..:? "queue")
+            Prelude.<*> (x Prelude..:? "waitMinutes")
       )
 
-instance Hashable HopDestination
+instance Prelude.Hashable HopDestination
 
-instance NFData HopDestination
+instance Prelude.NFData HopDestination
 
-instance ToJSON HopDestination where
+instance Prelude.ToJSON HopDestination where
   toJSON HopDestination' {..} =
-    object
-      ( catMaybes
-          [ ("priority" .=) <$> _hdPriority,
-            ("queue" .=) <$> _hdQueue,
-            ("waitMinutes" .=) <$> _hdWaitMinutes
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("priority" Prelude..=) Prelude.<$> priority,
+            ("queue" Prelude..=) Prelude.<$> queue,
+            ("waitMinutes" Prelude..=) Prelude.<$> waitMinutes
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,141 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.H264QvbrSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings for quality-defined variable bitrate encoding with the H.264 codec. Required when you set Rate control mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate control mode.
+-- | Settings for quality-defined variable bitrate encoding with the H.264
+-- codec. Required when you set Rate control mode to QVBR. Not valid when
+-- you set Rate control mode to a value other than QVBR, or when you don\'t
+-- define Rate control mode.
 --
--- /See:/ 'h264QvbrSettings' smart constructor.
+-- /See:/ 'newH264QvbrSettings' smart constructor.
 data H264QvbrSettings = H264QvbrSettings'
-  { _hqsQvbrQualityLevelFineTune ::
-      !(Maybe Double),
-    _hqsQvbrQualityLevel :: !(Maybe Nat),
-    _hqsMaxAverageBitrate :: !(Maybe Nat)
+  { -- | Optional. Specify a value here to set the QVBR quality to a level that
+    -- is between whole numbers. For example, if you want your QVBR quality
+    -- level to be 7.33, set qvbrQualityLevel to 7 and set
+    -- qvbrQualityLevelFineTune to .33. MediaConvert rounds your QVBR quality
+    -- level to the nearest third of a whole number. For example, if you set
+    -- qvbrQualityLevel to 7 and you set qvbrQualityLevelFineTune to .25, your
+    -- actual QVBR quality level is 7.33.
+    qvbrQualityLevelFineTune :: Prelude.Maybe Prelude.Double,
+    -- | Required when you use QVBR rate control mode. That is, when you specify
+    -- qvbrSettings within h264Settings. Specify the general target quality
+    -- level for this output, from 1 to 10. Use higher numbers for greater
+    -- quality. Level 10 results in nearly lossless compression. The quality
+    -- level for most broadcast-quality transcodes is between 6 and 9.
+    -- Optionally, to specify a value between whole numbers, also provide a
+    -- value for the setting qvbrQualityLevelFineTune. For example, if you want
+    -- your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set
+    -- qvbrQualityLevelFineTune to .33.
+    qvbrQualityLevel :: Prelude.Maybe Prelude.Nat,
+    -- | Use this setting only when Rate control mode is QVBR and Quality tuning
+    -- level is Multi-pass HQ. For Max average bitrate values suited to the
+    -- complexity of your input video, the service limits the average bitrate
+    -- of the video part of this output to the value that you choose. That is,
+    -- the total size of the video element is less than or equal to the value
+    -- you set multiplied by the number of seconds of encoded output.
+    maxAverageBitrate :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'H264QvbrSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'H264QvbrSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hqsQvbrQualityLevelFineTune' - Optional. Specify a value here to set the QVBR quality to a level that is between whole numbers. For example, if you want your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set qvbrQualityLevelFineTune to .33. MediaConvert rounds your QVBR quality level to the nearest third of a whole number. For example, if you set qvbrQualityLevel to 7 and you set qvbrQualityLevelFineTune to .25, your actual QVBR quality level is 7.33.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hqsQvbrQualityLevel' - Required when you use QVBR rate control mode. That is, when you specify qvbrSettings within h264Settings. Specify the general target quality level for this output, from 1 to 10. Use higher numbers for greater quality. Level 10 results in nearly lossless compression. The quality level for most broadcast-quality transcodes is between 6 and 9. Optionally, to specify a value between whole numbers, also provide a value for the setting qvbrQualityLevelFineTune. For example, if you want your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set qvbrQualityLevelFineTune to .33.
+-- 'qvbrQualityLevelFineTune', 'h264QvbrSettings_qvbrQualityLevelFineTune' - Optional. Specify a value here to set the QVBR quality to a level that
+-- is between whole numbers. For example, if you want your QVBR quality
+-- level to be 7.33, set qvbrQualityLevel to 7 and set
+-- qvbrQualityLevelFineTune to .33. MediaConvert rounds your QVBR quality
+-- level to the nearest third of a whole number. For example, if you set
+-- qvbrQualityLevel to 7 and you set qvbrQualityLevelFineTune to .25, your
+-- actual QVBR quality level is 7.33.
 --
--- * 'hqsMaxAverageBitrate' - Use this setting only when Rate control mode is QVBR and Quality tuning level is Multi-pass HQ. For Max average bitrate values suited to the complexity of your input video, the service limits the average bitrate of the video part of this output to the value that you choose. That is, the total size of the video element is less than or equal to the value you set multiplied by the number of seconds of encoded output.
-h264QvbrSettings ::
+-- 'qvbrQualityLevel', 'h264QvbrSettings_qvbrQualityLevel' - Required when you use QVBR rate control mode. That is, when you specify
+-- qvbrSettings within h264Settings. Specify the general target quality
+-- level for this output, from 1 to 10. Use higher numbers for greater
+-- quality. Level 10 results in nearly lossless compression. The quality
+-- level for most broadcast-quality transcodes is between 6 and 9.
+-- Optionally, to specify a value between whole numbers, also provide a
+-- value for the setting qvbrQualityLevelFineTune. For example, if you want
+-- your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set
+-- qvbrQualityLevelFineTune to .33.
+--
+-- 'maxAverageBitrate', 'h264QvbrSettings_maxAverageBitrate' - Use this setting only when Rate control mode is QVBR and Quality tuning
+-- level is Multi-pass HQ. For Max average bitrate values suited to the
+-- complexity of your input video, the service limits the average bitrate
+-- of the video part of this output to the value that you choose. That is,
+-- the total size of the video element is less than or equal to the value
+-- you set multiplied by the number of seconds of encoded output.
+newH264QvbrSettings ::
   H264QvbrSettings
-h264QvbrSettings =
+newH264QvbrSettings =
   H264QvbrSettings'
-    { _hqsQvbrQualityLevelFineTune =
-        Nothing,
-      _hqsQvbrQualityLevel = Nothing,
-      _hqsMaxAverageBitrate = Nothing
+    { qvbrQualityLevelFineTune =
+        Prelude.Nothing,
+      qvbrQualityLevel = Prelude.Nothing,
+      maxAverageBitrate = Prelude.Nothing
     }
 
--- | Optional. Specify a value here to set the QVBR quality to a level that is between whole numbers. For example, if you want your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set qvbrQualityLevelFineTune to .33. MediaConvert rounds your QVBR quality level to the nearest third of a whole number. For example, if you set qvbrQualityLevel to 7 and you set qvbrQualityLevelFineTune to .25, your actual QVBR quality level is 7.33.
-hqsQvbrQualityLevelFineTune :: Lens' H264QvbrSettings (Maybe Double)
-hqsQvbrQualityLevelFineTune = lens _hqsQvbrQualityLevelFineTune (\s a -> s {_hqsQvbrQualityLevelFineTune = a})
+-- | Optional. Specify a value here to set the QVBR quality to a level that
+-- is between whole numbers. For example, if you want your QVBR quality
+-- level to be 7.33, set qvbrQualityLevel to 7 and set
+-- qvbrQualityLevelFineTune to .33. MediaConvert rounds your QVBR quality
+-- level to the nearest third of a whole number. For example, if you set
+-- qvbrQualityLevel to 7 and you set qvbrQualityLevelFineTune to .25, your
+-- actual QVBR quality level is 7.33.
+h264QvbrSettings_qvbrQualityLevelFineTune :: Lens.Lens' H264QvbrSettings (Prelude.Maybe Prelude.Double)
+h264QvbrSettings_qvbrQualityLevelFineTune = Lens.lens (\H264QvbrSettings' {qvbrQualityLevelFineTune} -> qvbrQualityLevelFineTune) (\s@H264QvbrSettings' {} a -> s {qvbrQualityLevelFineTune = a} :: H264QvbrSettings)
 
--- | Required when you use QVBR rate control mode. That is, when you specify qvbrSettings within h264Settings. Specify the general target quality level for this output, from 1 to 10. Use higher numbers for greater quality. Level 10 results in nearly lossless compression. The quality level for most broadcast-quality transcodes is between 6 and 9. Optionally, to specify a value between whole numbers, also provide a value for the setting qvbrQualityLevelFineTune. For example, if you want your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set qvbrQualityLevelFineTune to .33.
-hqsQvbrQualityLevel :: Lens' H264QvbrSettings (Maybe Natural)
-hqsQvbrQualityLevel = lens _hqsQvbrQualityLevel (\s a -> s {_hqsQvbrQualityLevel = a}) . mapping _Nat
+-- | Required when you use QVBR rate control mode. That is, when you specify
+-- qvbrSettings within h264Settings. Specify the general target quality
+-- level for this output, from 1 to 10. Use higher numbers for greater
+-- quality. Level 10 results in nearly lossless compression. The quality
+-- level for most broadcast-quality transcodes is between 6 and 9.
+-- Optionally, to specify a value between whole numbers, also provide a
+-- value for the setting qvbrQualityLevelFineTune. For example, if you want
+-- your QVBR quality level to be 7.33, set qvbrQualityLevel to 7 and set
+-- qvbrQualityLevelFineTune to .33.
+h264QvbrSettings_qvbrQualityLevel :: Lens.Lens' H264QvbrSettings (Prelude.Maybe Prelude.Natural)
+h264QvbrSettings_qvbrQualityLevel = Lens.lens (\H264QvbrSettings' {qvbrQualityLevel} -> qvbrQualityLevel) (\s@H264QvbrSettings' {} a -> s {qvbrQualityLevel = a} :: H264QvbrSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this setting only when Rate control mode is QVBR and Quality tuning level is Multi-pass HQ. For Max average bitrate values suited to the complexity of your input video, the service limits the average bitrate of the video part of this output to the value that you choose. That is, the total size of the video element is less than or equal to the value you set multiplied by the number of seconds of encoded output.
-hqsMaxAverageBitrate :: Lens' H264QvbrSettings (Maybe Natural)
-hqsMaxAverageBitrate = lens _hqsMaxAverageBitrate (\s a -> s {_hqsMaxAverageBitrate = a}) . mapping _Nat
+-- | Use this setting only when Rate control mode is QVBR and Quality tuning
+-- level is Multi-pass HQ. For Max average bitrate values suited to the
+-- complexity of your input video, the service limits the average bitrate
+-- of the video part of this output to the value that you choose. That is,
+-- the total size of the video element is less than or equal to the value
+-- you set multiplied by the number of seconds of encoded output.
+h264QvbrSettings_maxAverageBitrate :: Lens.Lens' H264QvbrSettings (Prelude.Maybe Prelude.Natural)
+h264QvbrSettings_maxAverageBitrate = Lens.lens (\H264QvbrSettings' {maxAverageBitrate} -> maxAverageBitrate) (\s@H264QvbrSettings' {} a -> s {maxAverageBitrate = a} :: H264QvbrSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON H264QvbrSettings where
+instance Prelude.FromJSON H264QvbrSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "H264QvbrSettings"
       ( \x ->
           H264QvbrSettings'
-            <$> (x .:? "qvbrQualityLevelFineTune")
-            <*> (x .:? "qvbrQualityLevel")
-            <*> (x .:? "maxAverageBitrate")
+            Prelude.<$> (x Prelude..:? "qvbrQualityLevelFineTune")
+            Prelude.<*> (x Prelude..:? "qvbrQualityLevel")
+            Prelude.<*> (x Prelude..:? "maxAverageBitrate")
       )
 
-instance Hashable H264QvbrSettings
+instance Prelude.Hashable H264QvbrSettings
 
-instance NFData H264QvbrSettings
+instance Prelude.NFData H264QvbrSettings
 
-instance ToJSON H264QvbrSettings where
+instance Prelude.ToJSON H264QvbrSettings where
   toJSON H264QvbrSettings' {..} =
-    object
-      ( catMaybes
-          [ ("qvbrQualityLevelFineTune" .=)
-              <$> _hqsQvbrQualityLevelFineTune,
-            ("qvbrQualityLevel" .=) <$> _hqsQvbrQualityLevel,
-            ("maxAverageBitrate" .=) <$> _hqsMaxAverageBitrate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("qvbrQualityLevelFineTune" Prelude..=)
+              Prelude.<$> qvbrQualityLevelFineTune,
+            ("qvbrQualityLevel" Prelude..=)
+              Prelude.<$> qvbrQualityLevel,
+            ("maxAverageBitrate" Prelude..=)
+              Prelude.<$> maxAverageBitrate
           ]
       )

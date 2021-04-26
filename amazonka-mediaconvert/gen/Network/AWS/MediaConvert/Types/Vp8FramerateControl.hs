@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,71 @@
 module Network.AWS.MediaConvert.Types.Vp8FramerateControl
   ( Vp8FramerateControl
       ( ..,
-        VFCInitializeFromSource,
-        VFCSpecified
+        Vp8FramerateControlINITIALIZEFROMSOURCE,
+        Vp8FramerateControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings FramerateNumerator and FramerateDenominator.
-data Vp8FramerateControl
-  = Vp8FramerateControl'
-      ( CI
-          Text
-      )
+-- | If you are using the console, use the Framerate setting to specify the
+-- frame rate for this output. If you want to keep the same frame rate as
+-- the input video, choose Follow source. If you want to do frame rate
+-- conversion, choose a frame rate from the dropdown list or choose Custom.
+-- The framerates shown in the dropdown list are decimal approximations of
+-- fractions. If you choose Custom, specify your frame rate as a fraction.
+-- If you are creating your transcoding job specification as a JSON file
+-- without the console, use FramerateControl to specify which value the
+-- service uses for the frame rate for this output. Choose
+-- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+-- from the input. Choose SPECIFIED if you want the service to use the
+-- frame rate you specify in the settings FramerateNumerator and
+-- FramerateDenominator.
+newtype Vp8FramerateControl = Vp8FramerateControl'
+  { fromVp8FramerateControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VFCInitializeFromSource :: Vp8FramerateControl
-pattern VFCInitializeFromSource = Vp8FramerateControl' "INITIALIZE_FROM_SOURCE"
+pattern Vp8FramerateControlINITIALIZEFROMSOURCE :: Vp8FramerateControl
+pattern Vp8FramerateControlINITIALIZEFROMSOURCE = Vp8FramerateControl' "INITIALIZE_FROM_SOURCE"
 
-pattern VFCSpecified :: Vp8FramerateControl
-pattern VFCSpecified = Vp8FramerateControl' "SPECIFIED"
+pattern Vp8FramerateControlSPECIFIED :: Vp8FramerateControl
+pattern Vp8FramerateControlSPECIFIED = Vp8FramerateControl' "SPECIFIED"
 
 {-# COMPLETE
-  VFCInitializeFromSource,
-  VFCSpecified,
+  Vp8FramerateControlINITIALIZEFROMSOURCE,
+  Vp8FramerateControlSPECIFIED,
   Vp8FramerateControl'
   #-}
 
-instance FromText Vp8FramerateControl where
-  parser = (Vp8FramerateControl' . mk) <$> takeText
+instance Prelude.FromText Vp8FramerateControl where
+  parser = Vp8FramerateControl' Prelude.<$> Prelude.takeText
 
-instance ToText Vp8FramerateControl where
-  toText (Vp8FramerateControl' ci) = original ci
+instance Prelude.ToText Vp8FramerateControl where
+  toText (Vp8FramerateControl' x) = x
 
-instance Hashable Vp8FramerateControl
+instance Prelude.Hashable Vp8FramerateControl
 
-instance NFData Vp8FramerateControl
+instance Prelude.NFData Vp8FramerateControl
 
-instance ToByteString Vp8FramerateControl
+instance Prelude.ToByteString Vp8FramerateControl
 
-instance ToQuery Vp8FramerateControl
+instance Prelude.ToQuery Vp8FramerateControl
 
-instance ToHeader Vp8FramerateControl
+instance Prelude.ToHeader Vp8FramerateControl
 
-instance ToJSON Vp8FramerateControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vp8FramerateControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vp8FramerateControl where
-  parseJSON = parseJSONText "Vp8FramerateControl"
+instance Prelude.FromJSON Vp8FramerateControl where
+  parseJSON = Prelude.parseJSONText "Vp8FramerateControl"

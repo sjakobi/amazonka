@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaConvert.Types.HlsDirectoryStructure
   ( HlsDirectoryStructure
       ( ..,
-        SingleDirectory,
-        SubdirectoryPerStream
+        HlsDirectoryStructureSINGLEDIRECTORY,
+        HlsDirectoryStructureSUBDIRECTORYPERSTREAM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Indicates whether segments should be placed in subdirectories.
-data HlsDirectoryStructure
-  = HlsDirectoryStructure'
-      ( CI
-          Text
-      )
+newtype HlsDirectoryStructure = HlsDirectoryStructure'
+  { fromHlsDirectoryStructure ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SingleDirectory :: HlsDirectoryStructure
-pattern SingleDirectory = HlsDirectoryStructure' "SINGLE_DIRECTORY"
+pattern HlsDirectoryStructureSINGLEDIRECTORY :: HlsDirectoryStructure
+pattern HlsDirectoryStructureSINGLEDIRECTORY = HlsDirectoryStructure' "SINGLE_DIRECTORY"
 
-pattern SubdirectoryPerStream :: HlsDirectoryStructure
-pattern SubdirectoryPerStream = HlsDirectoryStructure' "SUBDIRECTORY_PER_STREAM"
+pattern HlsDirectoryStructureSUBDIRECTORYPERSTREAM :: HlsDirectoryStructure
+pattern HlsDirectoryStructureSUBDIRECTORYPERSTREAM = HlsDirectoryStructure' "SUBDIRECTORY_PER_STREAM"
 
 {-# COMPLETE
-  SingleDirectory,
-  SubdirectoryPerStream,
+  HlsDirectoryStructureSINGLEDIRECTORY,
+  HlsDirectoryStructureSUBDIRECTORYPERSTREAM,
   HlsDirectoryStructure'
   #-}
 
-instance FromText HlsDirectoryStructure where
-  parser = (HlsDirectoryStructure' . mk) <$> takeText
+instance Prelude.FromText HlsDirectoryStructure where
+  parser = HlsDirectoryStructure' Prelude.<$> Prelude.takeText
 
-instance ToText HlsDirectoryStructure where
-  toText (HlsDirectoryStructure' ci) = original ci
+instance Prelude.ToText HlsDirectoryStructure where
+  toText (HlsDirectoryStructure' x) = x
 
-instance Hashable HlsDirectoryStructure
+instance Prelude.Hashable HlsDirectoryStructure
 
-instance NFData HlsDirectoryStructure
+instance Prelude.NFData HlsDirectoryStructure
 
-instance ToByteString HlsDirectoryStructure
+instance Prelude.ToByteString HlsDirectoryStructure
 
-instance ToQuery HlsDirectoryStructure
+instance Prelude.ToQuery HlsDirectoryStructure
 
-instance ToHeader HlsDirectoryStructure
+instance Prelude.ToHeader HlsDirectoryStructure
 
-instance ToJSON HlsDirectoryStructure where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsDirectoryStructure where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsDirectoryStructure where
-  parseJSON = parseJSONText "HlsDirectoryStructure"
+instance Prelude.FromJSON HlsDirectoryStructure where
+  parseJSON = Prelude.parseJSONText "HlsDirectoryStructure"

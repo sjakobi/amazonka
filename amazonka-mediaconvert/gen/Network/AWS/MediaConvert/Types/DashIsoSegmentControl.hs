@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.DashIsoSegmentControl
   ( DashIsoSegmentControl
       ( ..,
-        DISCSegmentedFiles,
-        DISCSingleFile
+        DashIsoSegmentControlSEGMENTEDFILES,
+        DashIsoSegmentControlSINGLEFILE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
-data DashIsoSegmentControl
-  = DashIsoSegmentControl'
-      ( CI
-          Text
-      )
+-- | When set to SINGLE_FILE, a single output file is generated, which is
+-- internally segmented using the Fragment Length and Segment Length. When
+-- set to SEGMENTED_FILES, separate segment files will be created.
+newtype DashIsoSegmentControl = DashIsoSegmentControl'
+  { fromDashIsoSegmentControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DISCSegmentedFiles :: DashIsoSegmentControl
-pattern DISCSegmentedFiles = DashIsoSegmentControl' "SEGMENTED_FILES"
+pattern DashIsoSegmentControlSEGMENTEDFILES :: DashIsoSegmentControl
+pattern DashIsoSegmentControlSEGMENTEDFILES = DashIsoSegmentControl' "SEGMENTED_FILES"
 
-pattern DISCSingleFile :: DashIsoSegmentControl
-pattern DISCSingleFile = DashIsoSegmentControl' "SINGLE_FILE"
+pattern DashIsoSegmentControlSINGLEFILE :: DashIsoSegmentControl
+pattern DashIsoSegmentControlSINGLEFILE = DashIsoSegmentControl' "SINGLE_FILE"
 
 {-# COMPLETE
-  DISCSegmentedFiles,
-  DISCSingleFile,
+  DashIsoSegmentControlSEGMENTEDFILES,
+  DashIsoSegmentControlSINGLEFILE,
   DashIsoSegmentControl'
   #-}
 
-instance FromText DashIsoSegmentControl where
-  parser = (DashIsoSegmentControl' . mk) <$> takeText
+instance Prelude.FromText DashIsoSegmentControl where
+  parser = DashIsoSegmentControl' Prelude.<$> Prelude.takeText
 
-instance ToText DashIsoSegmentControl where
-  toText (DashIsoSegmentControl' ci) = original ci
+instance Prelude.ToText DashIsoSegmentControl where
+  toText (DashIsoSegmentControl' x) = x
 
-instance Hashable DashIsoSegmentControl
+instance Prelude.Hashable DashIsoSegmentControl
 
-instance NFData DashIsoSegmentControl
+instance Prelude.NFData DashIsoSegmentControl
 
-instance ToByteString DashIsoSegmentControl
+instance Prelude.ToByteString DashIsoSegmentControl
 
-instance ToQuery DashIsoSegmentControl
+instance Prelude.ToQuery DashIsoSegmentControl
 
-instance ToHeader DashIsoSegmentControl
+instance Prelude.ToHeader DashIsoSegmentControl
 
-instance ToJSON DashIsoSegmentControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON DashIsoSegmentControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DashIsoSegmentControl where
-  parseJSON = parseJSONText "DashIsoSegmentControl"
+instance Prelude.FromJSON DashIsoSegmentControl where
+  parseJSON = Prelude.parseJSONText "DashIsoSegmentControl"

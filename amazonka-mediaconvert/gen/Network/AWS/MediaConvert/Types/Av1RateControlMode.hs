@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,55 @@
 module Network.AWS.MediaConvert.Types.Av1RateControlMode
   ( Av1RateControlMode
       ( ..,
-        ARCMQvbr
+        Av1RateControlModeQVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | 'With AV1 outputs, for rate control mode, MediaConvert supports only quality-defined variable bitrate (QVBR). You can''t use CBR or VBR.'
-data Av1RateControlMode
-  = Av1RateControlMode'
-      ( CI
-          Text
-      )
+-- | \'With AV1 outputs, for rate control mode, MediaConvert supports only
+-- quality-defined variable bitrate (QVBR). You can\'\'t use CBR or VBR.\'
+newtype Av1RateControlMode = Av1RateControlMode'
+  { fromAv1RateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARCMQvbr :: Av1RateControlMode
-pattern ARCMQvbr = Av1RateControlMode' "QVBR"
+pattern Av1RateControlModeQVBR :: Av1RateControlMode
+pattern Av1RateControlModeQVBR = Av1RateControlMode' "QVBR"
 
 {-# COMPLETE
-  ARCMQvbr,
+  Av1RateControlModeQVBR,
   Av1RateControlMode'
   #-}
 
-instance FromText Av1RateControlMode where
-  parser = (Av1RateControlMode' . mk) <$> takeText
+instance Prelude.FromText Av1RateControlMode where
+  parser = Av1RateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText Av1RateControlMode where
-  toText (Av1RateControlMode' ci) = original ci
+instance Prelude.ToText Av1RateControlMode where
+  toText (Av1RateControlMode' x) = x
 
-instance Hashable Av1RateControlMode
+instance Prelude.Hashable Av1RateControlMode
 
-instance NFData Av1RateControlMode
+instance Prelude.NFData Av1RateControlMode
 
-instance ToByteString Av1RateControlMode
+instance Prelude.ToByteString Av1RateControlMode
 
-instance ToQuery Av1RateControlMode
+instance Prelude.ToQuery Av1RateControlMode
 
-instance ToHeader Av1RateControlMode
+instance Prelude.ToHeader Av1RateControlMode
 
-instance ToJSON Av1RateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Av1RateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Av1RateControlMode where
-  parseJSON = parseJSONText "Av1RateControlMode"
+instance Prelude.FromJSON Av1RateControlMode where
+  parseJSON = Prelude.parseJSONText "Av1RateControlMode"

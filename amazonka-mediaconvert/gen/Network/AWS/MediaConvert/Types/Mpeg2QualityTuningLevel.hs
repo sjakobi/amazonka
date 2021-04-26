@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.Mpeg2QualityTuningLevel
   ( Mpeg2QualityTuningLevel
       ( ..,
-        MQTLMultiPass,
-        MQTLSinglePass
+        Mpeg2QualityTuningLevelMULTIPASS,
+        Mpeg2QualityTuningLevelSINGLEPASS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output video quality. The default behavior is faster, lower quality, single-pass encoding.
-data Mpeg2QualityTuningLevel
-  = Mpeg2QualityTuningLevel'
-      ( CI
-          Text
-      )
+-- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- you want to trade off encoding speed for output video quality. The
+-- default behavior is faster, lower quality, single-pass encoding.
+newtype Mpeg2QualityTuningLevel = Mpeg2QualityTuningLevel'
+  { fromMpeg2QualityTuningLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MQTLMultiPass :: Mpeg2QualityTuningLevel
-pattern MQTLMultiPass = Mpeg2QualityTuningLevel' "MULTI_PASS"
+pattern Mpeg2QualityTuningLevelMULTIPASS :: Mpeg2QualityTuningLevel
+pattern Mpeg2QualityTuningLevelMULTIPASS = Mpeg2QualityTuningLevel' "MULTI_PASS"
 
-pattern MQTLSinglePass :: Mpeg2QualityTuningLevel
-pattern MQTLSinglePass = Mpeg2QualityTuningLevel' "SINGLE_PASS"
+pattern Mpeg2QualityTuningLevelSINGLEPASS :: Mpeg2QualityTuningLevel
+pattern Mpeg2QualityTuningLevelSINGLEPASS = Mpeg2QualityTuningLevel' "SINGLE_PASS"
 
 {-# COMPLETE
-  MQTLMultiPass,
-  MQTLSinglePass,
+  Mpeg2QualityTuningLevelMULTIPASS,
+  Mpeg2QualityTuningLevelSINGLEPASS,
   Mpeg2QualityTuningLevel'
   #-}
 
-instance FromText Mpeg2QualityTuningLevel where
-  parser = (Mpeg2QualityTuningLevel' . mk) <$> takeText
+instance Prelude.FromText Mpeg2QualityTuningLevel where
+  parser = Mpeg2QualityTuningLevel' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2QualityTuningLevel where
-  toText (Mpeg2QualityTuningLevel' ci) = original ci
+instance Prelude.ToText Mpeg2QualityTuningLevel where
+  toText (Mpeg2QualityTuningLevel' x) = x
 
-instance Hashable Mpeg2QualityTuningLevel
+instance Prelude.Hashable Mpeg2QualityTuningLevel
 
-instance NFData Mpeg2QualityTuningLevel
+instance Prelude.NFData Mpeg2QualityTuningLevel
 
-instance ToByteString Mpeg2QualityTuningLevel
+instance Prelude.ToByteString Mpeg2QualityTuningLevel
 
-instance ToQuery Mpeg2QualityTuningLevel
+instance Prelude.ToQuery Mpeg2QualityTuningLevel
 
-instance ToHeader Mpeg2QualityTuningLevel
+instance Prelude.ToHeader Mpeg2QualityTuningLevel
 
-instance ToJSON Mpeg2QualityTuningLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2QualityTuningLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2QualityTuningLevel where
-  parseJSON = parseJSONText "Mpeg2QualityTuningLevel"
+instance Prelude.FromJSON Mpeg2QualityTuningLevel where
+  parseJSON = Prelude.parseJSONText "Mpeg2QualityTuningLevel"

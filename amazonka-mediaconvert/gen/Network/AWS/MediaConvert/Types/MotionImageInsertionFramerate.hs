@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.MotionImageInsertionFramerate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | For motion overlays that don't have a built-in frame rate, specify the frame rate of the overlay in frames per second, as a fraction. For example, specify 24 fps as 24/1. The overlay frame rate doesn't need to match the frame rate of the underlying video.
+-- | For motion overlays that don\'t have a built-in frame rate, specify the
+-- frame rate of the overlay in frames per second, as a fraction. For
+-- example, specify 24 fps as 24\/1. The overlay frame rate doesn\'t need
+-- to match the frame rate of the underlying video.
 --
--- /See:/ 'motionImageInsertionFramerate' smart constructor.
+-- /See:/ 'newMotionImageInsertionFramerate' smart constructor.
 data MotionImageInsertionFramerate = MotionImageInsertionFramerate'
-  { _miifFramerateNumerator ::
-      !( Maybe
-           Nat
-       ),
-    _miifFramerateDenominator ::
-      !( Maybe
-           Nat
-       )
+  { -- | The top of the fraction that expresses your overlay frame rate. For
+    -- example, if your frame rate is 24 fps, set this value to 24.
+    framerateNumerator :: Prelude.Maybe Prelude.Nat,
+    -- | The bottom of the fraction that expresses your overlay frame rate. For
+    -- example, if your frame rate is 24 fps, set this value to 1.
+    framerateDenominator :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MotionImageInsertionFramerate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MotionImageInsertionFramerate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'miifFramerateNumerator' - The top of the fraction that expresses your overlay frame rate. For example, if your frame rate is 24 fps, set this value to 24.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'miifFramerateDenominator' - The bottom of the fraction that expresses your overlay frame rate. For example, if your frame rate is 24 fps, set this value to 1.
-motionImageInsertionFramerate ::
+-- 'framerateNumerator', 'motionImageInsertionFramerate_framerateNumerator' - The top of the fraction that expresses your overlay frame rate. For
+-- example, if your frame rate is 24 fps, set this value to 24.
+--
+-- 'framerateDenominator', 'motionImageInsertionFramerate_framerateDenominator' - The bottom of the fraction that expresses your overlay frame rate. For
+-- example, if your frame rate is 24 fps, set this value to 1.
+newMotionImageInsertionFramerate ::
   MotionImageInsertionFramerate
-motionImageInsertionFramerate =
+newMotionImageInsertionFramerate =
   MotionImageInsertionFramerate'
-    { _miifFramerateNumerator =
-        Nothing,
-      _miifFramerateDenominator = Nothing
+    { framerateNumerator =
+        Prelude.Nothing,
+      framerateDenominator = Prelude.Nothing
     }
 
--- | The top of the fraction that expresses your overlay frame rate. For example, if your frame rate is 24 fps, set this value to 24.
-miifFramerateNumerator :: Lens' MotionImageInsertionFramerate (Maybe Natural)
-miifFramerateNumerator = lens _miifFramerateNumerator (\s a -> s {_miifFramerateNumerator = a}) . mapping _Nat
+-- | The top of the fraction that expresses your overlay frame rate. For
+-- example, if your frame rate is 24 fps, set this value to 24.
+motionImageInsertionFramerate_framerateNumerator :: Lens.Lens' MotionImageInsertionFramerate (Prelude.Maybe Prelude.Natural)
+motionImageInsertionFramerate_framerateNumerator = Lens.lens (\MotionImageInsertionFramerate' {framerateNumerator} -> framerateNumerator) (\s@MotionImageInsertionFramerate' {} a -> s {framerateNumerator = a} :: MotionImageInsertionFramerate) Prelude.. Lens.mapping Prelude._Nat
 
--- | The bottom of the fraction that expresses your overlay frame rate. For example, if your frame rate is 24 fps, set this value to 1.
-miifFramerateDenominator :: Lens' MotionImageInsertionFramerate (Maybe Natural)
-miifFramerateDenominator = lens _miifFramerateDenominator (\s a -> s {_miifFramerateDenominator = a}) . mapping _Nat
+-- | The bottom of the fraction that expresses your overlay frame rate. For
+-- example, if your frame rate is 24 fps, set this value to 1.
+motionImageInsertionFramerate_framerateDenominator :: Lens.Lens' MotionImageInsertionFramerate (Prelude.Maybe Prelude.Natural)
+motionImageInsertionFramerate_framerateDenominator = Lens.lens (\MotionImageInsertionFramerate' {framerateDenominator} -> framerateDenominator) (\s@MotionImageInsertionFramerate' {} a -> s {framerateDenominator = a} :: MotionImageInsertionFramerate) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON MotionImageInsertionFramerate where
+instance
+  Prelude.FromJSON
+    MotionImageInsertionFramerate
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MotionImageInsertionFramerate"
       ( \x ->
           MotionImageInsertionFramerate'
-            <$> (x .:? "framerateNumerator")
-            <*> (x .:? "framerateDenominator")
+            Prelude.<$> (x Prelude..:? "framerateNumerator")
+            Prelude.<*> (x Prelude..:? "framerateDenominator")
       )
 
-instance Hashable MotionImageInsertionFramerate
+instance
+  Prelude.Hashable
+    MotionImageInsertionFramerate
 
-instance NFData MotionImageInsertionFramerate
+instance Prelude.NFData MotionImageInsertionFramerate
 
-instance ToJSON MotionImageInsertionFramerate where
+instance Prelude.ToJSON MotionImageInsertionFramerate where
   toJSON MotionImageInsertionFramerate' {..} =
-    object
-      ( catMaybes
-          [ ("framerateNumerator" .=)
-              <$> _miifFramerateNumerator,
-            ("framerateDenominator" .=)
-              <$> _miifFramerateDenominator
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("framerateNumerator" Prelude..=)
+              Prelude.<$> framerateNumerator,
+            ("framerateDenominator" Prelude..=)
+              Prelude.<$> framerateDenominator
           ]
       )

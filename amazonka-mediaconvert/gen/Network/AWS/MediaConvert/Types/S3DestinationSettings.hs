@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.S3DestinationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.S3DestinationAccessControl
 import Network.AWS.MediaConvert.Types.S3EncryptionSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings associated with S3 destination
 --
--- /See:/ 's3DestinationSettings' smart constructor.
+-- /See:/ 'newS3DestinationSettings' smart constructor.
 data S3DestinationSettings = S3DestinationSettings'
-  { _sdsEncryption ::
-      !( Maybe
-           S3EncryptionSettings
-       ),
-    _sdsAccessControl ::
-      !( Maybe
-           S3DestinationAccessControl
-       )
+  { -- | Settings for how your job outputs are encrypted as they are uploaded to
+    -- Amazon S3.
+    encryption :: Prelude.Maybe S3EncryptionSettings,
+    -- | Optional. Have MediaConvert automatically apply Amazon S3 access control
+    -- for the outputs in this output group. When you don\'t use this setting,
+    -- S3 automatically applies the default access control list PRIVATE.
+    accessControl :: Prelude.Maybe S3DestinationAccessControl
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3DestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3DestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdsEncryption' - Settings for how your job outputs are encrypted as they are uploaded to Amazon S3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdsAccessControl' - Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output group. When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
-s3DestinationSettings ::
+-- 'encryption', 's3DestinationSettings_encryption' - Settings for how your job outputs are encrypted as they are uploaded to
+-- Amazon S3.
+--
+-- 'accessControl', 's3DestinationSettings_accessControl' - Optional. Have MediaConvert automatically apply Amazon S3 access control
+-- for the outputs in this output group. When you don\'t use this setting,
+-- S3 automatically applies the default access control list PRIVATE.
+newS3DestinationSettings ::
   S3DestinationSettings
-s3DestinationSettings =
+newS3DestinationSettings =
   S3DestinationSettings'
-    { _sdsEncryption = Nothing,
-      _sdsAccessControl = Nothing
+    { encryption =
+        Prelude.Nothing,
+      accessControl = Prelude.Nothing
     }
 
--- | Settings for how your job outputs are encrypted as they are uploaded to Amazon S3.
-sdsEncryption :: Lens' S3DestinationSettings (Maybe S3EncryptionSettings)
-sdsEncryption = lens _sdsEncryption (\s a -> s {_sdsEncryption = a})
+-- | Settings for how your job outputs are encrypted as they are uploaded to
+-- Amazon S3.
+s3DestinationSettings_encryption :: Lens.Lens' S3DestinationSettings (Prelude.Maybe S3EncryptionSettings)
+s3DestinationSettings_encryption = Lens.lens (\S3DestinationSettings' {encryption} -> encryption) (\s@S3DestinationSettings' {} a -> s {encryption = a} :: S3DestinationSettings)
 
--- | Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output group. When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
-sdsAccessControl :: Lens' S3DestinationSettings (Maybe S3DestinationAccessControl)
-sdsAccessControl = lens _sdsAccessControl (\s a -> s {_sdsAccessControl = a})
+-- | Optional. Have MediaConvert automatically apply Amazon S3 access control
+-- for the outputs in this output group. When you don\'t use this setting,
+-- S3 automatically applies the default access control list PRIVATE.
+s3DestinationSettings_accessControl :: Lens.Lens' S3DestinationSettings (Prelude.Maybe S3DestinationAccessControl)
+s3DestinationSettings_accessControl = Lens.lens (\S3DestinationSettings' {accessControl} -> accessControl) (\s@S3DestinationSettings' {} a -> s {accessControl = a} :: S3DestinationSettings)
 
-instance FromJSON S3DestinationSettings where
+instance Prelude.FromJSON S3DestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3DestinationSettings"
       ( \x ->
           S3DestinationSettings'
-            <$> (x .:? "encryption") <*> (x .:? "accessControl")
+            Prelude.<$> (x Prelude..:? "encryption")
+            Prelude.<*> (x Prelude..:? "accessControl")
       )
 
-instance Hashable S3DestinationSettings
+instance Prelude.Hashable S3DestinationSettings
 
-instance NFData S3DestinationSettings
+instance Prelude.NFData S3DestinationSettings
 
-instance ToJSON S3DestinationSettings where
+instance Prelude.ToJSON S3DestinationSettings where
   toJSON S3DestinationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("encryption" .=) <$> _sdsEncryption,
-            ("accessControl" .=) <$> _sdsAccessControl
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("encryption" Prelude..=) Prelude.<$> encryption,
+            ("accessControl" Prelude..=)
+              Prelude.<$> accessControl
           ]
       )

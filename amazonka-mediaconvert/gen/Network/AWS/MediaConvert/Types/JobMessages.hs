@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.JobMessages where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides messages from the service about jobs that you have already successfully submitted.
+-- | Provides messages from the service about jobs that you have already
+-- successfully submitted.
 --
--- /See:/ 'jobMessages' smart constructor.
+-- /See:/ 'newJobMessages' smart constructor.
 data JobMessages = JobMessages'
-  { _jmInfo ::
-      !(Maybe [Text]),
-    _jmWarning :: !(Maybe [Text])
+  { -- | List of messages that are informational only and don\'t indicate a
+    -- problem with your job.
+    info :: Prelude.Maybe [Prelude.Text],
+    -- | List of messages that warn about conditions that might cause your job
+    -- not to run or to fail.
+    warning :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JobMessages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JobMessages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jmInfo' - List of messages that are informational only and don't indicate a problem with your job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jmWarning' - List of messages that warn about conditions that might cause your job not to run or to fail.
-jobMessages ::
+-- 'info', 'jobMessages_info' - List of messages that are informational only and don\'t indicate a
+-- problem with your job.
+--
+-- 'warning', 'jobMessages_warning' - List of messages that warn about conditions that might cause your job
+-- not to run or to fail.
+newJobMessages ::
   JobMessages
-jobMessages =
+newJobMessages =
   JobMessages'
-    { _jmInfo = Nothing,
-      _jmWarning = Nothing
+    { info = Prelude.Nothing,
+      warning = Prelude.Nothing
     }
 
--- | List of messages that are informational only and don't indicate a problem with your job.
-jmInfo :: Lens' JobMessages [Text]
-jmInfo = lens _jmInfo (\s a -> s {_jmInfo = a}) . _Default . _Coerce
+-- | List of messages that are informational only and don\'t indicate a
+-- problem with your job.
+jobMessages_info :: Lens.Lens' JobMessages (Prelude.Maybe [Prelude.Text])
+jobMessages_info = Lens.lens (\JobMessages' {info} -> info) (\s@JobMessages' {} a -> s {info = a} :: JobMessages) Prelude.. Lens.mapping Prelude._Coerce
 
--- | List of messages that warn about conditions that might cause your job not to run or to fail.
-jmWarning :: Lens' JobMessages [Text]
-jmWarning = lens _jmWarning (\s a -> s {_jmWarning = a}) . _Default . _Coerce
+-- | List of messages that warn about conditions that might cause your job
+-- not to run or to fail.
+jobMessages_warning :: Lens.Lens' JobMessages (Prelude.Maybe [Prelude.Text])
+jobMessages_warning = Lens.lens (\JobMessages' {warning} -> warning) (\s@JobMessages' {} a -> s {warning = a} :: JobMessages) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON JobMessages where
+instance Prelude.FromJSON JobMessages where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JobMessages"
       ( \x ->
           JobMessages'
-            <$> (x .:? "info" .!= mempty)
-            <*> (x .:? "warning" .!= mempty)
+            Prelude.<$> (x Prelude..:? "info" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "warning" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable JobMessages
+instance Prelude.Hashable JobMessages
 
-instance NFData JobMessages
+instance Prelude.NFData JobMessages

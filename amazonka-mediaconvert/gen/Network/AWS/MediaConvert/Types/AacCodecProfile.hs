@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaConvert.Types.AacCodecProfile
   ( AacCodecProfile
       ( ..,
-        HEV1,
-        HEV2,
-        LC
+        AacCodecProfileHEV1,
+        AacCodecProfileHEV2,
+        AacCodecProfileLC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | AAC Profile.
-data AacCodecProfile = AacCodecProfile' (CI Text)
+newtype AacCodecProfile = AacCodecProfile'
+  { fromAacCodecProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HEV1 :: AacCodecProfile
-pattern HEV1 = AacCodecProfile' "HEV1"
+pattern AacCodecProfileHEV1 :: AacCodecProfile
+pattern AacCodecProfileHEV1 = AacCodecProfile' "HEV1"
 
-pattern HEV2 :: AacCodecProfile
-pattern HEV2 = AacCodecProfile' "HEV2"
+pattern AacCodecProfileHEV2 :: AacCodecProfile
+pattern AacCodecProfileHEV2 = AacCodecProfile' "HEV2"
 
-pattern LC :: AacCodecProfile
-pattern LC = AacCodecProfile' "LC"
+pattern AacCodecProfileLC :: AacCodecProfile
+pattern AacCodecProfileLC = AacCodecProfile' "LC"
 
 {-# COMPLETE
-  HEV1,
-  HEV2,
-  LC,
+  AacCodecProfileHEV1,
+  AacCodecProfileHEV2,
+  AacCodecProfileLC,
   AacCodecProfile'
   #-}
 
-instance FromText AacCodecProfile where
-  parser = (AacCodecProfile' . mk) <$> takeText
+instance Prelude.FromText AacCodecProfile where
+  parser = AacCodecProfile' Prelude.<$> Prelude.takeText
 
-instance ToText AacCodecProfile where
-  toText (AacCodecProfile' ci) = original ci
+instance Prelude.ToText AacCodecProfile where
+  toText (AacCodecProfile' x) = x
 
-instance Hashable AacCodecProfile
+instance Prelude.Hashable AacCodecProfile
 
-instance NFData AacCodecProfile
+instance Prelude.NFData AacCodecProfile
 
-instance ToByteString AacCodecProfile
+instance Prelude.ToByteString AacCodecProfile
 
-instance ToQuery AacCodecProfile
+instance Prelude.ToQuery AacCodecProfile
 
-instance ToHeader AacCodecProfile
+instance Prelude.ToHeader AacCodecProfile
 
-instance ToJSON AacCodecProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacCodecProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacCodecProfile where
-  parseJSON = parseJSONText "AacCodecProfile"
+instance Prelude.FromJSON AacCodecProfile where
+  parseJSON = Prelude.parseJSONText "AacCodecProfile"

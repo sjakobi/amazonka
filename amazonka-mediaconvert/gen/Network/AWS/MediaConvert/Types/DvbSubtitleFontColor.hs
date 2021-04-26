@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,82 @@
 module Network.AWS.MediaConvert.Types.DvbSubtitleFontColor
   ( DvbSubtitleFontColor
       ( ..,
-        DSFCBlack,
-        DSFCBlue,
-        DSFCGreen,
-        DSFCRed,
-        DSFCWhite,
-        DSFCYellow
+        DvbSubtitleFontColorBLACK,
+        DvbSubtitleFontColorBLUE,
+        DvbSubtitleFontColorGREEN,
+        DvbSubtitleFontColorRED,
+        DvbSubtitleFontColorWHITE,
+        DvbSubtitleFontColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the color of the burned-in captions. This option is not valid for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
-data DvbSubtitleFontColor
-  = DvbSubtitleFontColor'
-      ( CI
-          Text
-      )
+-- | Specifies the color of the burned-in captions. This option is not valid
+-- for source captions that are STL, 608\/embedded or teletext. These
+-- source settings are already pre-defined by the caption stream. All
+-- burn-in and DVB-Sub font settings must match.
+newtype DvbSubtitleFontColor = DvbSubtitleFontColor'
+  { fromDvbSubtitleFontColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSFCBlack :: DvbSubtitleFontColor
-pattern DSFCBlack = DvbSubtitleFontColor' "BLACK"
+pattern DvbSubtitleFontColorBLACK :: DvbSubtitleFontColor
+pattern DvbSubtitleFontColorBLACK = DvbSubtitleFontColor' "BLACK"
 
-pattern DSFCBlue :: DvbSubtitleFontColor
-pattern DSFCBlue = DvbSubtitleFontColor' "BLUE"
+pattern DvbSubtitleFontColorBLUE :: DvbSubtitleFontColor
+pattern DvbSubtitleFontColorBLUE = DvbSubtitleFontColor' "BLUE"
 
-pattern DSFCGreen :: DvbSubtitleFontColor
-pattern DSFCGreen = DvbSubtitleFontColor' "GREEN"
+pattern DvbSubtitleFontColorGREEN :: DvbSubtitleFontColor
+pattern DvbSubtitleFontColorGREEN = DvbSubtitleFontColor' "GREEN"
 
-pattern DSFCRed :: DvbSubtitleFontColor
-pattern DSFCRed = DvbSubtitleFontColor' "RED"
+pattern DvbSubtitleFontColorRED :: DvbSubtitleFontColor
+pattern DvbSubtitleFontColorRED = DvbSubtitleFontColor' "RED"
 
-pattern DSFCWhite :: DvbSubtitleFontColor
-pattern DSFCWhite = DvbSubtitleFontColor' "WHITE"
+pattern DvbSubtitleFontColorWHITE :: DvbSubtitleFontColor
+pattern DvbSubtitleFontColorWHITE = DvbSubtitleFontColor' "WHITE"
 
-pattern DSFCYellow :: DvbSubtitleFontColor
-pattern DSFCYellow = DvbSubtitleFontColor' "YELLOW"
+pattern DvbSubtitleFontColorYELLOW :: DvbSubtitleFontColor
+pattern DvbSubtitleFontColorYELLOW = DvbSubtitleFontColor' "YELLOW"
 
 {-# COMPLETE
-  DSFCBlack,
-  DSFCBlue,
-  DSFCGreen,
-  DSFCRed,
-  DSFCWhite,
-  DSFCYellow,
+  DvbSubtitleFontColorBLACK,
+  DvbSubtitleFontColorBLUE,
+  DvbSubtitleFontColorGREEN,
+  DvbSubtitleFontColorRED,
+  DvbSubtitleFontColorWHITE,
+  DvbSubtitleFontColorYELLOW,
   DvbSubtitleFontColor'
   #-}
 
-instance FromText DvbSubtitleFontColor where
-  parser = (DvbSubtitleFontColor' . mk) <$> takeText
+instance Prelude.FromText DvbSubtitleFontColor where
+  parser = DvbSubtitleFontColor' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubtitleFontColor where
-  toText (DvbSubtitleFontColor' ci) = original ci
+instance Prelude.ToText DvbSubtitleFontColor where
+  toText (DvbSubtitleFontColor' x) = x
 
-instance Hashable DvbSubtitleFontColor
+instance Prelude.Hashable DvbSubtitleFontColor
 
-instance NFData DvbSubtitleFontColor
+instance Prelude.NFData DvbSubtitleFontColor
 
-instance ToByteString DvbSubtitleFontColor
+instance Prelude.ToByteString DvbSubtitleFontColor
 
-instance ToQuery DvbSubtitleFontColor
+instance Prelude.ToQuery DvbSubtitleFontColor
 
-instance ToHeader DvbSubtitleFontColor
+instance Prelude.ToHeader DvbSubtitleFontColor
 
-instance ToJSON DvbSubtitleFontColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubtitleFontColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubtitleFontColor where
-  parseJSON = parseJSONText "DvbSubtitleFontColor"
+instance Prelude.FromJSON DvbSubtitleFontColor where
+  parseJSON = Prelude.parseJSONText "DvbSubtitleFontColor"

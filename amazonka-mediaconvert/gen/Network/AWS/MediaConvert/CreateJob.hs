@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,251 +21,393 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create a new transcoding job. For information about jobs and job settings, see the User Guide at http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
+-- Create a new transcoding job. For information about jobs and job
+-- settings, see the User Guide at
+-- http:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html
 module Network.AWS.MediaConvert.CreateJob
   ( -- * Creating a Request
-    createJob,
-    CreateJob,
+    CreateJob (..),
+    newCreateJob,
 
     -- * Request Lenses
-    cjAccelerationSettings,
-    cjBillingTagsSource,
-    cjPriority,
-    cjStatusUpdateInterval,
-    cjJobTemplate,
-    cjUserMetadata,
-    cjTags,
-    cjQueue,
-    cjSimulateReservedQueue,
-    cjClientRequestToken,
-    cjHopDestinations,
-    cjRole,
-    cjSettings,
+    createJob_accelerationSettings,
+    createJob_billingTagsSource,
+    createJob_priority,
+    createJob_statusUpdateInterval,
+    createJob_jobTemplate,
+    createJob_userMetadata,
+    createJob_tags,
+    createJob_queue,
+    createJob_simulateReservedQueue,
+    createJob_clientRequestToken,
+    createJob_hopDestinations,
+    createJob_role,
+    createJob_settings,
 
     -- * Destructuring the Response
-    createJobResponse,
-    CreateJobResponse,
+    CreateJobResponse (..),
+    newCreateJobResponse,
 
     -- * Response Lenses
-    crsJob,
-    crsResponseStatus,
+    createJobResponse_job,
+    createJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.Job
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createJob' smart constructor.
+-- | /See:/ 'newCreateJob' smart constructor.
 data CreateJob = CreateJob'
-  { _cjAccelerationSettings ::
-      !(Maybe AccelerationSettings),
-    _cjBillingTagsSource :: !(Maybe BillingTagsSource),
-    _cjPriority :: !(Maybe Int),
-    _cjStatusUpdateInterval ::
-      !(Maybe StatusUpdateInterval),
-    _cjJobTemplate :: !(Maybe Text),
-    _cjUserMetadata :: !(Maybe (Map Text Text)),
-    _cjTags :: !(Maybe (Map Text Text)),
-    _cjQueue :: !(Maybe Text),
-    _cjSimulateReservedQueue ::
-      !(Maybe SimulateReservedQueue),
-    _cjClientRequestToken :: !(Maybe Text),
-    _cjHopDestinations :: !(Maybe [HopDestination]),
-    _cjRole :: !Text,
-    _cjSettings :: !JobSettings
+  { -- | Optional. Accelerated transcoding can significantly speed up jobs with
+    -- long, visually complex content. Outputs that use this feature incur
+    -- pro-tier pricing. For information about feature limitations, see the AWS
+    -- Elemental MediaConvert User Guide.
+    accelerationSettings :: Prelude.Maybe AccelerationSettings,
+    -- | Optional. Choose a tag type that AWS Billing and Cost Management will
+    -- use to sort your AWS Elemental MediaConvert costs on any billing report
+    -- that you set up. Any transcoding outputs that don\'t have an associated
+    -- tag will appear in your billing report unsorted. If you don\'t choose a
+    -- valid value for this field, your job outputs will appear on the billing
+    -- report unsorted.
+    billingTagsSource :: Prelude.Maybe BillingTagsSource,
+    -- | Optional. Specify the relative priority for this job. In any given
+    -- queue, the service begins processing the job with the highest value
+    -- first. When more than one job has the same priority, the service begins
+    -- processing the job that you submitted first. If you don\'t specify a
+    -- priority, the service uses the default value 0.
+    priority :: Prelude.Maybe Prelude.Int,
+    -- | Optional. Specify how often MediaConvert sends STATUS_UPDATE events to
+    -- Amazon CloudWatch Events. Set the interval, in seconds, between status
+    -- updates. MediaConvert sends an update at this interval from the time the
+    -- service begins processing your job to the time it completes the
+    -- transcode or encounters an error.
+    statusUpdateInterval :: Prelude.Maybe StatusUpdateInterval,
+    -- | Optional. When you create a job, you can either specify a job template
+    -- or specify the transcoding settings individually.
+    jobTemplate :: Prelude.Maybe Prelude.Text,
+    -- | Optional. User-defined metadata that you want to associate with an
+    -- MediaConvert job. You specify metadata in key\/value pairs. Use only for
+    -- existing integrations or workflows that rely on job metadata tags.
+    -- Otherwise, we recommend that you use standard AWS tags.
+    userMetadata :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Optional. The tags that you want to add to the resource. You can tag
+    -- resources with a key-value pair or with only a key. Use standard AWS
+    -- tags on your job for automatic integration with AWS services and for
+    -- custom integrations and workflows.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Optional. When you create a job, you can specify a queue to send it to.
+    -- If you don\'t specify, the job will go to the default queue. For more
+    -- about queues, see the User Guide topic at
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html.
+    queue :: Prelude.Maybe Prelude.Text,
+    -- | Optional. Enable this setting when you run a test job to estimate how
+    -- many reserved transcoding slots (RTS) you need. When this is enabled,
+    -- MediaConvert runs your job from an on-demand queue with similar
+    -- performance to what you will see with one RTS in a reserved queue. This
+    -- setting is disabled by default.
+    simulateReservedQueue :: Prelude.Maybe SimulateReservedQueue,
+    -- | Optional. Idempotency token for CreateJob operation.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional. Use queue hopping to avoid overly long waits in the backlog of
+    -- the queue that you submit your job to. Specify an alternate queue and
+    -- the maximum time that your job will wait in the initial queue before
+    -- hopping. For more information about this feature, see the AWS Elemental
+    -- MediaConvert User Guide.
+    hopDestinations :: Prelude.Maybe [HopDestination],
+    -- | Required. The IAM role you use for creating this job. For details about
+    -- permissions, see the User Guide topic at the User Guide at
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/iam-role.html.
+    role' :: Prelude.Text,
+    -- | JobSettings contains all the transcode settings for a job.
+    settings :: JobSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cjAccelerationSettings' - Optional. Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cjBillingTagsSource' - Optional. Choose a tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert costs on any billing report that you set up. Any transcoding outputs that don't have an associated tag will appear in your billing report unsorted. If you don't choose a valid value for this field, your job outputs will appear on the billing report unsorted.
+-- 'accelerationSettings', 'createJob_accelerationSettings' - Optional. Accelerated transcoding can significantly speed up jobs with
+-- long, visually complex content. Outputs that use this feature incur
+-- pro-tier pricing. For information about feature limitations, see the AWS
+-- Elemental MediaConvert User Guide.
 --
--- * 'cjPriority' - Optional. Specify the relative priority for this job. In any given queue, the service begins processing the job with the highest value first. When more than one job has the same priority, the service begins processing the job that you submitted first. If you don't specify a priority, the service uses the default value 0.
+-- 'billingTagsSource', 'createJob_billingTagsSource' - Optional. Choose a tag type that AWS Billing and Cost Management will
+-- use to sort your AWS Elemental MediaConvert costs on any billing report
+-- that you set up. Any transcoding outputs that don\'t have an associated
+-- tag will appear in your billing report unsorted. If you don\'t choose a
+-- valid value for this field, your job outputs will appear on the billing
+-- report unsorted.
 --
--- * 'cjStatusUpdateInterval' - Optional. Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds, between status updates. MediaConvert sends an update at this interval from the time the service begins processing your job to the time it completes the transcode or encounters an error.
+-- 'priority', 'createJob_priority' - Optional. Specify the relative priority for this job. In any given
+-- queue, the service begins processing the job with the highest value
+-- first. When more than one job has the same priority, the service begins
+-- processing the job that you submitted first. If you don\'t specify a
+-- priority, the service uses the default value 0.
 --
--- * 'cjJobTemplate' - Optional. When you create a job, you can either specify a job template or specify the transcoding settings individually.
+-- 'statusUpdateInterval', 'createJob_statusUpdateInterval' - Optional. Specify how often MediaConvert sends STATUS_UPDATE events to
+-- Amazon CloudWatch Events. Set the interval, in seconds, between status
+-- updates. MediaConvert sends an update at this interval from the time the
+-- service begins processing your job to the time it completes the
+-- transcode or encounters an error.
 --
--- * 'cjUserMetadata' - Optional. User-defined metadata that you want to associate with an MediaConvert job. You specify metadata in key/value pairs.  Use only for existing integrations or workflows that rely on job metadata tags. Otherwise, we recommend that you use standard AWS tags.
+-- 'jobTemplate', 'createJob_jobTemplate' - Optional. When you create a job, you can either specify a job template
+-- or specify the transcoding settings individually.
 --
--- * 'cjTags' - Optional. The tags that you want to add to the resource. You can tag resources with a key-value pair or with only a key.  Use standard AWS tags on your job for automatic integration with AWS services and for custom integrations and workflows.
+-- 'userMetadata', 'createJob_userMetadata' - Optional. User-defined metadata that you want to associate with an
+-- MediaConvert job. You specify metadata in key\/value pairs. Use only for
+-- existing integrations or workflows that rely on job metadata tags.
+-- Otherwise, we recommend that you use standard AWS tags.
 --
--- * 'cjQueue' - Optional. When you create a job, you can specify a queue to send it to. If you don't specify, the job will go to the default queue. For more about queues, see the User Guide topic at https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html.
+-- 'tags', 'createJob_tags' - Optional. The tags that you want to add to the resource. You can tag
+-- resources with a key-value pair or with only a key. Use standard AWS
+-- tags on your job for automatic integration with AWS services and for
+-- custom integrations and workflows.
 --
--- * 'cjSimulateReservedQueue' - Optional. Enable this setting when you run a test job to estimate how many reserved transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your job from an on-demand queue with similar performance to what you will see with one RTS in a reserved queue. This setting is disabled by default.
+-- 'queue', 'createJob_queue' - Optional. When you create a job, you can specify a queue to send it to.
+-- If you don\'t specify, the job will go to the default queue. For more
+-- about queues, see the User Guide topic at
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html.
 --
--- * 'cjClientRequestToken' - Optional. Idempotency token for CreateJob operation.
+-- 'simulateReservedQueue', 'createJob_simulateReservedQueue' - Optional. Enable this setting when you run a test job to estimate how
+-- many reserved transcoding slots (RTS) you need. When this is enabled,
+-- MediaConvert runs your job from an on-demand queue with similar
+-- performance to what you will see with one RTS in a reserved queue. This
+-- setting is disabled by default.
 --
--- * 'cjHopDestinations' - Optional. Use queue hopping to avoid overly long waits in the backlog of the queue that you submit your job to. Specify an alternate queue and the maximum time that your job will wait in the initial queue before hopping. For more information about this feature, see the AWS Elemental MediaConvert User Guide.
+-- 'clientRequestToken', 'createJob_clientRequestToken' - Optional. Idempotency token for CreateJob operation.
 --
--- * 'cjRole' - Required. The IAM role you use for creating this job. For details about permissions, see the User Guide topic at the User Guide at https://docs.aws.amazon.com/mediaconvert/latest/ug/iam-role.html.
+-- 'hopDestinations', 'createJob_hopDestinations' - Optional. Use queue hopping to avoid overly long waits in the backlog of
+-- the queue that you submit your job to. Specify an alternate queue and
+-- the maximum time that your job will wait in the initial queue before
+-- hopping. For more information about this feature, see the AWS Elemental
+-- MediaConvert User Guide.
 --
--- * 'cjSettings' - JobSettings contains all the transcode settings for a job.
-createJob ::
-  -- | 'cjRole'
-  Text ->
-  -- | 'cjSettings'
+-- 'role'', 'createJob_role' - Required. The IAM role you use for creating this job. For details about
+-- permissions, see the User Guide topic at the User Guide at
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/iam-role.html.
+--
+-- 'settings', 'createJob_settings' - JobSettings contains all the transcode settings for a job.
+newCreateJob ::
+  -- | 'role''
+  Prelude.Text ->
+  -- | 'settings'
   JobSettings ->
   CreateJob
-createJob pRole_ pSettings_ =
+newCreateJob pRole_ pSettings_ =
   CreateJob'
-    { _cjAccelerationSettings = Nothing,
-      _cjBillingTagsSource = Nothing,
-      _cjPriority = Nothing,
-      _cjStatusUpdateInterval = Nothing,
-      _cjJobTemplate = Nothing,
-      _cjUserMetadata = Nothing,
-      _cjTags = Nothing,
-      _cjQueue = Nothing,
-      _cjSimulateReservedQueue = Nothing,
-      _cjClientRequestToken = Nothing,
-      _cjHopDestinations = Nothing,
-      _cjRole = pRole_,
-      _cjSettings = pSettings_
+    { accelerationSettings = Prelude.Nothing,
+      billingTagsSource = Prelude.Nothing,
+      priority = Prelude.Nothing,
+      statusUpdateInterval = Prelude.Nothing,
+      jobTemplate = Prelude.Nothing,
+      userMetadata = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      queue = Prelude.Nothing,
+      simulateReservedQueue = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      hopDestinations = Prelude.Nothing,
+      role' = pRole_,
+      settings = pSettings_
     }
 
--- | Optional. Accelerated transcoding can significantly speed up jobs with long, visually complex content. Outputs that use this feature incur pro-tier pricing. For information about feature limitations, see the AWS Elemental MediaConvert User Guide.
-cjAccelerationSettings :: Lens' CreateJob (Maybe AccelerationSettings)
-cjAccelerationSettings = lens _cjAccelerationSettings (\s a -> s {_cjAccelerationSettings = a})
+-- | Optional. Accelerated transcoding can significantly speed up jobs with
+-- long, visually complex content. Outputs that use this feature incur
+-- pro-tier pricing. For information about feature limitations, see the AWS
+-- Elemental MediaConvert User Guide.
+createJob_accelerationSettings :: Lens.Lens' CreateJob (Prelude.Maybe AccelerationSettings)
+createJob_accelerationSettings = Lens.lens (\CreateJob' {accelerationSettings} -> accelerationSettings) (\s@CreateJob' {} a -> s {accelerationSettings = a} :: CreateJob)
 
--- | Optional. Choose a tag type that AWS Billing and Cost Management will use to sort your AWS Elemental MediaConvert costs on any billing report that you set up. Any transcoding outputs that don't have an associated tag will appear in your billing report unsorted. If you don't choose a valid value for this field, your job outputs will appear on the billing report unsorted.
-cjBillingTagsSource :: Lens' CreateJob (Maybe BillingTagsSource)
-cjBillingTagsSource = lens _cjBillingTagsSource (\s a -> s {_cjBillingTagsSource = a})
+-- | Optional. Choose a tag type that AWS Billing and Cost Management will
+-- use to sort your AWS Elemental MediaConvert costs on any billing report
+-- that you set up. Any transcoding outputs that don\'t have an associated
+-- tag will appear in your billing report unsorted. If you don\'t choose a
+-- valid value for this field, your job outputs will appear on the billing
+-- report unsorted.
+createJob_billingTagsSource :: Lens.Lens' CreateJob (Prelude.Maybe BillingTagsSource)
+createJob_billingTagsSource = Lens.lens (\CreateJob' {billingTagsSource} -> billingTagsSource) (\s@CreateJob' {} a -> s {billingTagsSource = a} :: CreateJob)
 
--- | Optional. Specify the relative priority for this job. In any given queue, the service begins processing the job with the highest value first. When more than one job has the same priority, the service begins processing the job that you submitted first. If you don't specify a priority, the service uses the default value 0.
-cjPriority :: Lens' CreateJob (Maybe Int)
-cjPriority = lens _cjPriority (\s a -> s {_cjPriority = a})
+-- | Optional. Specify the relative priority for this job. In any given
+-- queue, the service begins processing the job with the highest value
+-- first. When more than one job has the same priority, the service begins
+-- processing the job that you submitted first. If you don\'t specify a
+-- priority, the service uses the default value 0.
+createJob_priority :: Lens.Lens' CreateJob (Prelude.Maybe Prelude.Int)
+createJob_priority = Lens.lens (\CreateJob' {priority} -> priority) (\s@CreateJob' {} a -> s {priority = a} :: CreateJob)
 
--- | Optional. Specify how often MediaConvert sends STATUS_UPDATE events to Amazon CloudWatch Events. Set the interval, in seconds, between status updates. MediaConvert sends an update at this interval from the time the service begins processing your job to the time it completes the transcode or encounters an error.
-cjStatusUpdateInterval :: Lens' CreateJob (Maybe StatusUpdateInterval)
-cjStatusUpdateInterval = lens _cjStatusUpdateInterval (\s a -> s {_cjStatusUpdateInterval = a})
+-- | Optional. Specify how often MediaConvert sends STATUS_UPDATE events to
+-- Amazon CloudWatch Events. Set the interval, in seconds, between status
+-- updates. MediaConvert sends an update at this interval from the time the
+-- service begins processing your job to the time it completes the
+-- transcode or encounters an error.
+createJob_statusUpdateInterval :: Lens.Lens' CreateJob (Prelude.Maybe StatusUpdateInterval)
+createJob_statusUpdateInterval = Lens.lens (\CreateJob' {statusUpdateInterval} -> statusUpdateInterval) (\s@CreateJob' {} a -> s {statusUpdateInterval = a} :: CreateJob)
 
--- | Optional. When you create a job, you can either specify a job template or specify the transcoding settings individually.
-cjJobTemplate :: Lens' CreateJob (Maybe Text)
-cjJobTemplate = lens _cjJobTemplate (\s a -> s {_cjJobTemplate = a})
+-- | Optional. When you create a job, you can either specify a job template
+-- or specify the transcoding settings individually.
+createJob_jobTemplate :: Lens.Lens' CreateJob (Prelude.Maybe Prelude.Text)
+createJob_jobTemplate = Lens.lens (\CreateJob' {jobTemplate} -> jobTemplate) (\s@CreateJob' {} a -> s {jobTemplate = a} :: CreateJob)
 
--- | Optional. User-defined metadata that you want to associate with an MediaConvert job. You specify metadata in key/value pairs.  Use only for existing integrations or workflows that rely on job metadata tags. Otherwise, we recommend that you use standard AWS tags.
-cjUserMetadata :: Lens' CreateJob (HashMap Text Text)
-cjUserMetadata = lens _cjUserMetadata (\s a -> s {_cjUserMetadata = a}) . _Default . _Map
+-- | Optional. User-defined metadata that you want to associate with an
+-- MediaConvert job. You specify metadata in key\/value pairs. Use only for
+-- existing integrations or workflows that rely on job metadata tags.
+-- Otherwise, we recommend that you use standard AWS tags.
+createJob_userMetadata :: Lens.Lens' CreateJob (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createJob_userMetadata = Lens.lens (\CreateJob' {userMetadata} -> userMetadata) (\s@CreateJob' {} a -> s {userMetadata = a} :: CreateJob) Prelude.. Lens.mapping Prelude._Map
 
--- | Optional. The tags that you want to add to the resource. You can tag resources with a key-value pair or with only a key.  Use standard AWS tags on your job for automatic integration with AWS services and for custom integrations and workflows.
-cjTags :: Lens' CreateJob (HashMap Text Text)
-cjTags = lens _cjTags (\s a -> s {_cjTags = a}) . _Default . _Map
+-- | Optional. The tags that you want to add to the resource. You can tag
+-- resources with a key-value pair or with only a key. Use standard AWS
+-- tags on your job for automatic integration with AWS services and for
+-- custom integrations and workflows.
+createJob_tags :: Lens.Lens' CreateJob (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createJob_tags = Lens.lens (\CreateJob' {tags} -> tags) (\s@CreateJob' {} a -> s {tags = a} :: CreateJob) Prelude.. Lens.mapping Prelude._Map
 
--- | Optional. When you create a job, you can specify a queue to send it to. If you don't specify, the job will go to the default queue. For more about queues, see the User Guide topic at https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html.
-cjQueue :: Lens' CreateJob (Maybe Text)
-cjQueue = lens _cjQueue (\s a -> s {_cjQueue = a})
+-- | Optional. When you create a job, you can specify a queue to send it to.
+-- If you don\'t specify, the job will go to the default queue. For more
+-- about queues, see the User Guide topic at
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html.
+createJob_queue :: Lens.Lens' CreateJob (Prelude.Maybe Prelude.Text)
+createJob_queue = Lens.lens (\CreateJob' {queue} -> queue) (\s@CreateJob' {} a -> s {queue = a} :: CreateJob)
 
--- | Optional. Enable this setting when you run a test job to estimate how many reserved transcoding slots (RTS) you need. When this is enabled, MediaConvert runs your job from an on-demand queue with similar performance to what you will see with one RTS in a reserved queue. This setting is disabled by default.
-cjSimulateReservedQueue :: Lens' CreateJob (Maybe SimulateReservedQueue)
-cjSimulateReservedQueue = lens _cjSimulateReservedQueue (\s a -> s {_cjSimulateReservedQueue = a})
+-- | Optional. Enable this setting when you run a test job to estimate how
+-- many reserved transcoding slots (RTS) you need. When this is enabled,
+-- MediaConvert runs your job from an on-demand queue with similar
+-- performance to what you will see with one RTS in a reserved queue. This
+-- setting is disabled by default.
+createJob_simulateReservedQueue :: Lens.Lens' CreateJob (Prelude.Maybe SimulateReservedQueue)
+createJob_simulateReservedQueue = Lens.lens (\CreateJob' {simulateReservedQueue} -> simulateReservedQueue) (\s@CreateJob' {} a -> s {simulateReservedQueue = a} :: CreateJob)
 
 -- | Optional. Idempotency token for CreateJob operation.
-cjClientRequestToken :: Lens' CreateJob (Maybe Text)
-cjClientRequestToken = lens _cjClientRequestToken (\s a -> s {_cjClientRequestToken = a})
+createJob_clientRequestToken :: Lens.Lens' CreateJob (Prelude.Maybe Prelude.Text)
+createJob_clientRequestToken = Lens.lens (\CreateJob' {clientRequestToken} -> clientRequestToken) (\s@CreateJob' {} a -> s {clientRequestToken = a} :: CreateJob)
 
--- | Optional. Use queue hopping to avoid overly long waits in the backlog of the queue that you submit your job to. Specify an alternate queue and the maximum time that your job will wait in the initial queue before hopping. For more information about this feature, see the AWS Elemental MediaConvert User Guide.
-cjHopDestinations :: Lens' CreateJob [HopDestination]
-cjHopDestinations = lens _cjHopDestinations (\s a -> s {_cjHopDestinations = a}) . _Default . _Coerce
+-- | Optional. Use queue hopping to avoid overly long waits in the backlog of
+-- the queue that you submit your job to. Specify an alternate queue and
+-- the maximum time that your job will wait in the initial queue before
+-- hopping. For more information about this feature, see the AWS Elemental
+-- MediaConvert User Guide.
+createJob_hopDestinations :: Lens.Lens' CreateJob (Prelude.Maybe [HopDestination])
+createJob_hopDestinations = Lens.lens (\CreateJob' {hopDestinations} -> hopDestinations) (\s@CreateJob' {} a -> s {hopDestinations = a} :: CreateJob) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Required. The IAM role you use for creating this job. For details about permissions, see the User Guide topic at the User Guide at https://docs.aws.amazon.com/mediaconvert/latest/ug/iam-role.html.
-cjRole :: Lens' CreateJob Text
-cjRole = lens _cjRole (\s a -> s {_cjRole = a})
+-- | Required. The IAM role you use for creating this job. For details about
+-- permissions, see the User Guide topic at the User Guide at
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/iam-role.html.
+createJob_role :: Lens.Lens' CreateJob Prelude.Text
+createJob_role = Lens.lens (\CreateJob' {role'} -> role') (\s@CreateJob' {} a -> s {role' = a} :: CreateJob)
 
 -- | JobSettings contains all the transcode settings for a job.
-cjSettings :: Lens' CreateJob JobSettings
-cjSettings = lens _cjSettings (\s a -> s {_cjSettings = a})
+createJob_settings :: Lens.Lens' CreateJob JobSettings
+createJob_settings = Lens.lens (\CreateJob' {settings} -> settings) (\s@CreateJob' {} a -> s {settings = a} :: CreateJob)
 
-instance AWSRequest CreateJob where
+instance Prelude.AWSRequest CreateJob where
   type Rs CreateJob = CreateJobResponse
-  request = postJSON mediaConvert
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateJobResponse'
-            <$> (x .?> "job") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "job")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateJob
+instance Prelude.Hashable CreateJob
 
-instance NFData CreateJob
+instance Prelude.NFData CreateJob
 
-instance ToHeaders CreateJob where
+instance Prelude.ToHeaders CreateJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateJob where
+instance Prelude.ToJSON CreateJob where
   toJSON CreateJob' {..} =
-    object
-      ( catMaybes
-          [ ("accelerationSettings" .=)
-              <$> _cjAccelerationSettings,
-            ("billingTagsSource" .=) <$> _cjBillingTagsSource,
-            ("priority" .=) <$> _cjPriority,
-            ("statusUpdateInterval" .=)
-              <$> _cjStatusUpdateInterval,
-            ("jobTemplate" .=) <$> _cjJobTemplate,
-            ("userMetadata" .=) <$> _cjUserMetadata,
-            ("tags" .=) <$> _cjTags,
-            ("queue" .=) <$> _cjQueue,
-            ("simulateReservedQueue" .=)
-              <$> _cjSimulateReservedQueue,
-            ("clientRequestToken" .=) <$> _cjClientRequestToken,
-            ("hopDestinations" .=) <$> _cjHopDestinations,
-            Just ("role" .= _cjRole),
-            Just ("settings" .= _cjSettings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("accelerationSettings" Prelude..=)
+              Prelude.<$> accelerationSettings,
+            ("billingTagsSource" Prelude..=)
+              Prelude.<$> billingTagsSource,
+            ("priority" Prelude..=) Prelude.<$> priority,
+            ("statusUpdateInterval" Prelude..=)
+              Prelude.<$> statusUpdateInterval,
+            ("jobTemplate" Prelude..=) Prelude.<$> jobTemplate,
+            ("userMetadata" Prelude..=) Prelude.<$> userMetadata,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("queue" Prelude..=) Prelude.<$> queue,
+            ("simulateReservedQueue" Prelude..=)
+              Prelude.<$> simulateReservedQueue,
+            ("clientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("hopDestinations" Prelude..=)
+              Prelude.<$> hopDestinations,
+            Prelude.Just ("role" Prelude..= role'),
+            Prelude.Just ("settings" Prelude..= settings)
           ]
       )
 
-instance ToPath CreateJob where
-  toPath = const "/2017-08-29/jobs"
+instance Prelude.ToPath CreateJob where
+  toPath = Prelude.const "/2017-08-29/jobs"
 
-instance ToQuery CreateJob where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createJobResponse' smart constructor.
+-- | /See:/ 'newCreateJobResponse' smart constructor.
 data CreateJobResponse = CreateJobResponse'
-  { _crsJob ::
-      !(Maybe Job),
-    _crsResponseStatus :: !Int
+  { -- | Each job converts an input file into an output file or files. For more
+    -- information, see the User Guide at
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html
+    job :: Prelude.Maybe Job,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsJob' - Each job converts an input file into an output file or files. For more information, see the User Guide at https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsResponseStatus' - -- | The response status code.
-createJobResponse ::
-  -- | 'crsResponseStatus'
-  Int ->
+-- 'job', 'createJobResponse_job' - Each job converts an input file into an output file or files. For more
+-- information, see the User Guide at
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html
+--
+-- 'httpStatus', 'createJobResponse_httpStatus' - The response's http status code.
+newCreateJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateJobResponse
-createJobResponse pResponseStatus_ =
+newCreateJobResponse pHttpStatus_ =
   CreateJobResponse'
-    { _crsJob = Nothing,
-      _crsResponseStatus = pResponseStatus_
+    { job = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Each job converts an input file into an output file or files. For more information, see the User Guide at https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
-crsJob :: Lens' CreateJobResponse (Maybe Job)
-crsJob = lens _crsJob (\s a -> s {_crsJob = a})
+-- | Each job converts an input file into an output file or files. For more
+-- information, see the User Guide at
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/what-is.html
+createJobResponse_job :: Lens.Lens' CreateJobResponse (Prelude.Maybe Job)
+createJobResponse_job = Lens.lens (\CreateJobResponse' {job} -> job) (\s@CreateJobResponse' {} a -> s {job = a} :: CreateJobResponse)
 
--- | -- | The response status code.
-crsResponseStatus :: Lens' CreateJobResponse Int
-crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
+-- | The response's http status code.
+createJobResponse_httpStatus :: Lens.Lens' CreateJobResponse Prelude.Int
+createJobResponse_httpStatus = Lens.lens (\CreateJobResponse' {httpStatus} -> httpStatus) (\s@CreateJobResponse' {} a -> s {httpStatus = a} :: CreateJobResponse)
 
-instance NFData CreateJobResponse
+instance Prelude.NFData CreateJobResponse

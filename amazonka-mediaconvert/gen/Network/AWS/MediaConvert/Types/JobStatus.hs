@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,75 @@
 module Network.AWS.MediaConvert.Types.JobStatus
   ( JobStatus
       ( ..,
-        Canceled,
-        Complete,
-        Error',
-        Progressing,
-        Submitted
+        JobStatusCANCELED,
+        JobStatusCOMPLETE,
+        JobStatusERROR,
+        JobStatusPROGRESSING,
+        JobStatusSUBMITTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A job's status can be SUBMITTED, PROGRESSING, COMPLETE, CANCELED, or ERROR.
-data JobStatus = JobStatus' (CI Text)
+-- | A job\'s status can be SUBMITTED, PROGRESSING, COMPLETE, CANCELED, or
+-- ERROR.
+newtype JobStatus = JobStatus'
+  { fromJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Canceled :: JobStatus
-pattern Canceled = JobStatus' "CANCELED"
+pattern JobStatusCANCELED :: JobStatus
+pattern JobStatusCANCELED = JobStatus' "CANCELED"
 
-pattern Complete :: JobStatus
-pattern Complete = JobStatus' "COMPLETE"
+pattern JobStatusCOMPLETE :: JobStatus
+pattern JobStatusCOMPLETE = JobStatus' "COMPLETE"
 
-pattern Error' :: JobStatus
-pattern Error' = JobStatus' "ERROR"
+pattern JobStatusERROR :: JobStatus
+pattern JobStatusERROR = JobStatus' "ERROR"
 
-pattern Progressing :: JobStatus
-pattern Progressing = JobStatus' "PROGRESSING"
+pattern JobStatusPROGRESSING :: JobStatus
+pattern JobStatusPROGRESSING = JobStatus' "PROGRESSING"
 
-pattern Submitted :: JobStatus
-pattern Submitted = JobStatus' "SUBMITTED"
+pattern JobStatusSUBMITTED :: JobStatus
+pattern JobStatusSUBMITTED = JobStatus' "SUBMITTED"
 
 {-# COMPLETE
-  Canceled,
-  Complete,
-  Error',
-  Progressing,
-  Submitted,
+  JobStatusCANCELED,
+  JobStatusCOMPLETE,
+  JobStatusERROR,
+  JobStatusPROGRESSING,
+  JobStatusSUBMITTED,
   JobStatus'
   #-}
 
-instance FromText JobStatus where
-  parser = (JobStatus' . mk) <$> takeText
+instance Prelude.FromText JobStatus where
+  parser = JobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JobStatus where
-  toText (JobStatus' ci) = original ci
+instance Prelude.ToText JobStatus where
+  toText (JobStatus' x) = x
 
-instance Hashable JobStatus
+instance Prelude.Hashable JobStatus
 
-instance NFData JobStatus
+instance Prelude.NFData JobStatus
 
-instance ToByteString JobStatus
+instance Prelude.ToByteString JobStatus
 
-instance ToQuery JobStatus
+instance Prelude.ToQuery JobStatus
 
-instance ToHeader JobStatus
+instance Prelude.ToHeader JobStatus
 
-instance ToJSON JobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobStatus where
-  parseJSON = parseJSONText "JobStatus"
+instance Prelude.FromJSON JobStatus where
+  parseJSON = Prelude.parseJSONText "JobStatus"

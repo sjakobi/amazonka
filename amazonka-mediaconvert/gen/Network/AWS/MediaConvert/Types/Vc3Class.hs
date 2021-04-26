@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,72 @@
 module Network.AWS.MediaConvert.Types.Vc3Class
   ( Vc3Class
       ( ..,
-        Class1458BIT,
-        Class22010BIT,
-        Class2208BIT
+        Vc3ClassCLASS1458BIT,
+        Vc3ClassCLASS22010BIT,
+        Vc3ClassCLASS2208BIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the VC3 class to choose the quality characteristics for this output. VC3 class, together with the settings Framerate (framerateNumerator and framerateDenominator) and Resolution (height and width), determine your output bitrate. For example, say that your video resolution is 1920x1080 and your framerate is 29.97. Then Class 145 (CLASS_145) gives you an output with a bitrate of approximately 145 Mbps and Class 220 (CLASS_220) gives you and output with a bitrate of approximately 220 Mbps. VC3 class also specifies the color bit depth of your output.
-data Vc3Class = Vc3Class' (CI Text)
+-- | Specify the VC3 class to choose the quality characteristics for this
+-- output. VC3 class, together with the settings Framerate
+-- (framerateNumerator and framerateDenominator) and Resolution (height and
+-- width), determine your output bitrate. For example, say that your video
+-- resolution is 1920x1080 and your framerate is 29.97. Then Class 145
+-- (CLASS_145) gives you an output with a bitrate of approximately 145 Mbps
+-- and Class 220 (CLASS_220) gives you and output with a bitrate of
+-- approximately 220 Mbps. VC3 class also specifies the color bit depth of
+-- your output.
+newtype Vc3Class = Vc3Class'
+  { fromVc3Class ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Class1458BIT :: Vc3Class
-pattern Class1458BIT = Vc3Class' "CLASS_145_8BIT"
+pattern Vc3ClassCLASS1458BIT :: Vc3Class
+pattern Vc3ClassCLASS1458BIT = Vc3Class' "CLASS_145_8BIT"
 
-pattern Class22010BIT :: Vc3Class
-pattern Class22010BIT = Vc3Class' "CLASS_220_10BIT"
+pattern Vc3ClassCLASS22010BIT :: Vc3Class
+pattern Vc3ClassCLASS22010BIT = Vc3Class' "CLASS_220_10BIT"
 
-pattern Class2208BIT :: Vc3Class
-pattern Class2208BIT = Vc3Class' "CLASS_220_8BIT"
+pattern Vc3ClassCLASS2208BIT :: Vc3Class
+pattern Vc3ClassCLASS2208BIT = Vc3Class' "CLASS_220_8BIT"
 
 {-# COMPLETE
-  Class1458BIT,
-  Class22010BIT,
-  Class2208BIT,
+  Vc3ClassCLASS1458BIT,
+  Vc3ClassCLASS22010BIT,
+  Vc3ClassCLASS2208BIT,
   Vc3Class'
   #-}
 
-instance FromText Vc3Class where
-  parser = (Vc3Class' . mk) <$> takeText
+instance Prelude.FromText Vc3Class where
+  parser = Vc3Class' Prelude.<$> Prelude.takeText
 
-instance ToText Vc3Class where
-  toText (Vc3Class' ci) = original ci
+instance Prelude.ToText Vc3Class where
+  toText (Vc3Class' x) = x
 
-instance Hashable Vc3Class
+instance Prelude.Hashable Vc3Class
 
-instance NFData Vc3Class
+instance Prelude.NFData Vc3Class
 
-instance ToByteString Vc3Class
+instance Prelude.ToByteString Vc3Class
 
-instance ToQuery Vc3Class
+instance Prelude.ToQuery Vc3Class
 
-instance ToHeader Vc3Class
+instance Prelude.ToHeader Vc3Class
 
-instance ToJSON Vc3Class where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vc3Class where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vc3Class where
-  parseJSON = parseJSONText "Vc3Class"
+instance Prelude.FromJSON Vc3Class where
+  parseJSON = Prelude.parseJSONText "Vc3Class"

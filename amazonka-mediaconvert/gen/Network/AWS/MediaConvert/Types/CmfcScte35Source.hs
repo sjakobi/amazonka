@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.CmfcScte35Source
   ( CmfcScte35Source
       ( ..,
-        CSSNone,
-        CSSPassthrough
+        CmfcScte35SourceNONE,
+        CmfcScte35SourcePASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Ignore this setting unless you have SCTE-35 markers in your input video file. Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that appear in your input to also appear in this output. Choose None (NONE) if you don't want those SCTE-35 markers in this output.
-data CmfcScte35Source = CmfcScte35Source' (CI Text)
+-- | Ignore this setting unless you have SCTE-35 markers in your input video
+-- file. Choose Passthrough (PASSTHROUGH) if you want SCTE-35 markers that
+-- appear in your input to also appear in this output. Choose None (NONE)
+-- if you don\'t want those SCTE-35 markers in this output.
+newtype CmfcScte35Source = CmfcScte35Source'
+  { fromCmfcScte35Source ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSSNone :: CmfcScte35Source
-pattern CSSNone = CmfcScte35Source' "NONE"
+pattern CmfcScte35SourceNONE :: CmfcScte35Source
+pattern CmfcScte35SourceNONE = CmfcScte35Source' "NONE"
 
-pattern CSSPassthrough :: CmfcScte35Source
-pattern CSSPassthrough = CmfcScte35Source' "PASSTHROUGH"
+pattern CmfcScte35SourcePASSTHROUGH :: CmfcScte35Source
+pattern CmfcScte35SourcePASSTHROUGH = CmfcScte35Source' "PASSTHROUGH"
 
 {-# COMPLETE
-  CSSNone,
-  CSSPassthrough,
+  CmfcScte35SourceNONE,
+  CmfcScte35SourcePASSTHROUGH,
   CmfcScte35Source'
   #-}
 
-instance FromText CmfcScte35Source where
-  parser = (CmfcScte35Source' . mk) <$> takeText
+instance Prelude.FromText CmfcScte35Source where
+  parser = CmfcScte35Source' Prelude.<$> Prelude.takeText
 
-instance ToText CmfcScte35Source where
-  toText (CmfcScte35Source' ci) = original ci
+instance Prelude.ToText CmfcScte35Source where
+  toText (CmfcScte35Source' x) = x
 
-instance Hashable CmfcScte35Source
+instance Prelude.Hashable CmfcScte35Source
 
-instance NFData CmfcScte35Source
+instance Prelude.NFData CmfcScte35Source
 
-instance ToByteString CmfcScte35Source
+instance Prelude.ToByteString CmfcScte35Source
 
-instance ToQuery CmfcScte35Source
+instance Prelude.ToQuery CmfcScte35Source
 
-instance ToHeader CmfcScte35Source
+instance Prelude.ToHeader CmfcScte35Source
 
-instance ToJSON CmfcScte35Source where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmfcScte35Source where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmfcScte35Source where
-  parseJSON = parseJSONText "CmfcScte35Source"
+instance Prelude.FromJSON CmfcScte35Source where
+  parseJSON = Prelude.parseJSONText "CmfcScte35Source"

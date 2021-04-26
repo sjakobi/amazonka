@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,65 @@
 module Network.AWS.MediaConvert.Types.CmfcIFrameOnlyManifest
   ( CmfcIFrameOnlyManifest
       ( ..,
-        CIFOMExclude,
-        CIFOMInclude
+        CmfcIFrameOnlyManifestEXCLUDE,
+        CmfcIFrameOnlyManifestINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose Include (INCLUDE) to have MediaConvert generate an HLS child manifest that lists only the I-frames for this rendition, in addition to your regular manifest for this rendition. You might use this manifest as part of a workflow that creates preview functions for your video. MediaConvert adds both the I-frame only child manifest and the regular child manifest to the parent manifest. When you don't need the I-frame only child manifest, keep the default value Exclude (EXCLUDE).
-data CmfcIFrameOnlyManifest
-  = CmfcIFrameOnlyManifest'
-      ( CI
-          Text
-      )
+-- | Choose Include (INCLUDE) to have MediaConvert generate an HLS child
+-- manifest that lists only the I-frames for this rendition, in addition to
+-- your regular manifest for this rendition. You might use this manifest as
+-- part of a workflow that creates preview functions for your video.
+-- MediaConvert adds both the I-frame only child manifest and the regular
+-- child manifest to the parent manifest. When you don\'t need the I-frame
+-- only child manifest, keep the default value Exclude (EXCLUDE).
+newtype CmfcIFrameOnlyManifest = CmfcIFrameOnlyManifest'
+  { fromCmfcIFrameOnlyManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CIFOMExclude :: CmfcIFrameOnlyManifest
-pattern CIFOMExclude = CmfcIFrameOnlyManifest' "EXCLUDE"
+pattern CmfcIFrameOnlyManifestEXCLUDE :: CmfcIFrameOnlyManifest
+pattern CmfcIFrameOnlyManifestEXCLUDE = CmfcIFrameOnlyManifest' "EXCLUDE"
 
-pattern CIFOMInclude :: CmfcIFrameOnlyManifest
-pattern CIFOMInclude = CmfcIFrameOnlyManifest' "INCLUDE"
+pattern CmfcIFrameOnlyManifestINCLUDE :: CmfcIFrameOnlyManifest
+pattern CmfcIFrameOnlyManifestINCLUDE = CmfcIFrameOnlyManifest' "INCLUDE"
 
 {-# COMPLETE
-  CIFOMExclude,
-  CIFOMInclude,
+  CmfcIFrameOnlyManifestEXCLUDE,
+  CmfcIFrameOnlyManifestINCLUDE,
   CmfcIFrameOnlyManifest'
   #-}
 
-instance FromText CmfcIFrameOnlyManifest where
-  parser = (CmfcIFrameOnlyManifest' . mk) <$> takeText
+instance Prelude.FromText CmfcIFrameOnlyManifest where
+  parser = CmfcIFrameOnlyManifest' Prelude.<$> Prelude.takeText
 
-instance ToText CmfcIFrameOnlyManifest where
-  toText (CmfcIFrameOnlyManifest' ci) = original ci
+instance Prelude.ToText CmfcIFrameOnlyManifest where
+  toText (CmfcIFrameOnlyManifest' x) = x
 
-instance Hashable CmfcIFrameOnlyManifest
+instance Prelude.Hashable CmfcIFrameOnlyManifest
 
-instance NFData CmfcIFrameOnlyManifest
+instance Prelude.NFData CmfcIFrameOnlyManifest
 
-instance ToByteString CmfcIFrameOnlyManifest
+instance Prelude.ToByteString CmfcIFrameOnlyManifest
 
-instance ToQuery CmfcIFrameOnlyManifest
+instance Prelude.ToQuery CmfcIFrameOnlyManifest
 
-instance ToHeader CmfcIFrameOnlyManifest
+instance Prelude.ToHeader CmfcIFrameOnlyManifest
 
-instance ToJSON CmfcIFrameOnlyManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmfcIFrameOnlyManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmfcIFrameOnlyManifest where
-  parseJSON = parseJSONText "CmfcIFrameOnlyManifest"
+instance Prelude.FromJSON CmfcIFrameOnlyManifest where
+  parseJSON = Prelude.parseJSONText "CmfcIFrameOnlyManifest"

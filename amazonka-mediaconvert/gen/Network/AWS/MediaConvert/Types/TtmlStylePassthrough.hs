@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.TtmlStylePassthrough
   ( TtmlStylePassthrough
       ( ..,
-        TSPDisabled,
-        TSPEnabled
+        TtmlStylePassthroughDISABLED,
+        TtmlStylePassthroughENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Pass through style and position information from a TTML-like input source (TTML, SMPTE-TT) to the TTML output.
-data TtmlStylePassthrough
-  = TtmlStylePassthrough'
-      ( CI
-          Text
-      )
+-- | Pass through style and position information from a TTML-like input
+-- source (TTML, SMPTE-TT) to the TTML output.
+newtype TtmlStylePassthrough = TtmlStylePassthrough'
+  { fromTtmlStylePassthrough ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSPDisabled :: TtmlStylePassthrough
-pattern TSPDisabled = TtmlStylePassthrough' "DISABLED"
+pattern TtmlStylePassthroughDISABLED :: TtmlStylePassthrough
+pattern TtmlStylePassthroughDISABLED = TtmlStylePassthrough' "DISABLED"
 
-pattern TSPEnabled :: TtmlStylePassthrough
-pattern TSPEnabled = TtmlStylePassthrough' "ENABLED"
+pattern TtmlStylePassthroughENABLED :: TtmlStylePassthrough
+pattern TtmlStylePassthroughENABLED = TtmlStylePassthrough' "ENABLED"
 
 {-# COMPLETE
-  TSPDisabled,
-  TSPEnabled,
+  TtmlStylePassthroughDISABLED,
+  TtmlStylePassthroughENABLED,
   TtmlStylePassthrough'
   #-}
 
-instance FromText TtmlStylePassthrough where
-  parser = (TtmlStylePassthrough' . mk) <$> takeText
+instance Prelude.FromText TtmlStylePassthrough where
+  parser = TtmlStylePassthrough' Prelude.<$> Prelude.takeText
 
-instance ToText TtmlStylePassthrough where
-  toText (TtmlStylePassthrough' ci) = original ci
+instance Prelude.ToText TtmlStylePassthrough where
+  toText (TtmlStylePassthrough' x) = x
 
-instance Hashable TtmlStylePassthrough
+instance Prelude.Hashable TtmlStylePassthrough
 
-instance NFData TtmlStylePassthrough
+instance Prelude.NFData TtmlStylePassthrough
 
-instance ToByteString TtmlStylePassthrough
+instance Prelude.ToByteString TtmlStylePassthrough
 
-instance ToQuery TtmlStylePassthrough
+instance Prelude.ToQuery TtmlStylePassthrough
 
-instance ToHeader TtmlStylePassthrough
+instance Prelude.ToHeader TtmlStylePassthrough
 
-instance ToJSON TtmlStylePassthrough where
-  toJSON = toJSONText
+instance Prelude.ToJSON TtmlStylePassthrough where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TtmlStylePassthrough where
-  parseJSON = parseJSONText "TtmlStylePassthrough"
+instance Prelude.FromJSON TtmlStylePassthrough where
+  parseJSON = Prelude.parseJSONText "TtmlStylePassthrough"

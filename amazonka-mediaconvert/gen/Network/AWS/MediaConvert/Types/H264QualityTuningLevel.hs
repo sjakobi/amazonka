@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,66 @@
 module Network.AWS.MediaConvert.Types.H264QualityTuningLevel
   ( H264QualityTuningLevel
       ( ..,
-        HQTLMultiPassHq,
-        HQTLSinglePass,
-        HQTLSinglePassHq
+        H264QualityTuningLevelMULTIPASSHQ,
+        H264QualityTuningLevelSINGLEPASS,
+        H264QualityTuningLevelSINGLEPASSHQ
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output video quality. The default behavior is faster, lower quality, single-pass encoding.
-data H264QualityTuningLevel
-  = H264QualityTuningLevel'
-      ( CI
-          Text
-      )
+-- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- you want to trade off encoding speed for output video quality. The
+-- default behavior is faster, lower quality, single-pass encoding.
+newtype H264QualityTuningLevel = H264QualityTuningLevel'
+  { fromH264QualityTuningLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HQTLMultiPassHq :: H264QualityTuningLevel
-pattern HQTLMultiPassHq = H264QualityTuningLevel' "MULTI_PASS_HQ"
+pattern H264QualityTuningLevelMULTIPASSHQ :: H264QualityTuningLevel
+pattern H264QualityTuningLevelMULTIPASSHQ = H264QualityTuningLevel' "MULTI_PASS_HQ"
 
-pattern HQTLSinglePass :: H264QualityTuningLevel
-pattern HQTLSinglePass = H264QualityTuningLevel' "SINGLE_PASS"
+pattern H264QualityTuningLevelSINGLEPASS :: H264QualityTuningLevel
+pattern H264QualityTuningLevelSINGLEPASS = H264QualityTuningLevel' "SINGLE_PASS"
 
-pattern HQTLSinglePassHq :: H264QualityTuningLevel
-pattern HQTLSinglePassHq = H264QualityTuningLevel' "SINGLE_PASS_HQ"
+pattern H264QualityTuningLevelSINGLEPASSHQ :: H264QualityTuningLevel
+pattern H264QualityTuningLevelSINGLEPASSHQ = H264QualityTuningLevel' "SINGLE_PASS_HQ"
 
 {-# COMPLETE
-  HQTLMultiPassHq,
-  HQTLSinglePass,
-  HQTLSinglePassHq,
+  H264QualityTuningLevelMULTIPASSHQ,
+  H264QualityTuningLevelSINGLEPASS,
+  H264QualityTuningLevelSINGLEPASSHQ,
   H264QualityTuningLevel'
   #-}
 
-instance FromText H264QualityTuningLevel where
-  parser = (H264QualityTuningLevel' . mk) <$> takeText
+instance Prelude.FromText H264QualityTuningLevel where
+  parser = H264QualityTuningLevel' Prelude.<$> Prelude.takeText
 
-instance ToText H264QualityTuningLevel where
-  toText (H264QualityTuningLevel' ci) = original ci
+instance Prelude.ToText H264QualityTuningLevel where
+  toText (H264QualityTuningLevel' x) = x
 
-instance Hashable H264QualityTuningLevel
+instance Prelude.Hashable H264QualityTuningLevel
 
-instance NFData H264QualityTuningLevel
+instance Prelude.NFData H264QualityTuningLevel
 
-instance ToByteString H264QualityTuningLevel
+instance Prelude.ToByteString H264QualityTuningLevel
 
-instance ToQuery H264QualityTuningLevel
+instance Prelude.ToQuery H264QualityTuningLevel
 
-instance ToHeader H264QualityTuningLevel
+instance Prelude.ToHeader H264QualityTuningLevel
 
-instance ToJSON H264QualityTuningLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264QualityTuningLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264QualityTuningLevel where
-  parseJSON = parseJSONText "H264QualityTuningLevel"
+instance Prelude.FromJSON H264QualityTuningLevel where
+  parseJSON = Prelude.parseJSONText "H264QualityTuningLevel"

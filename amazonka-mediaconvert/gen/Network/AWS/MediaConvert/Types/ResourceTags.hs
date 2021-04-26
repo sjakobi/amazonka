@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.ResourceTags where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Amazon Resource Name (ARN) and tags for an AWS Elemental MediaConvert resource.
+-- | The Amazon Resource Name (ARN) and tags for an AWS Elemental
+-- MediaConvert resource.
 --
--- /See:/ 'resourceTags' smart constructor.
+-- /See:/ 'newResourceTags' smart constructor.
 data ResourceTags = ResourceTags'
-  { _rtARN ::
-      !(Maybe Text),
-    _rtTags :: !(Maybe (Map Text Text))
+  { -- | The Amazon Resource Name (ARN) of the resource.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The tags for the resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtARN' - The Amazon Resource Name (ARN) of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtTags' - The tags for the resource.
-resourceTags ::
+-- 'arn', 'resourceTags_arn' - The Amazon Resource Name (ARN) of the resource.
+--
+-- 'tags', 'resourceTags_tags' - The tags for the resource.
+newResourceTags ::
   ResourceTags
-resourceTags =
-  ResourceTags' {_rtARN = Nothing, _rtTags = Nothing}
+newResourceTags =
+  ResourceTags'
+    { arn = Prelude.Nothing,
+      tags = Prelude.Nothing
+    }
 
 -- | The Amazon Resource Name (ARN) of the resource.
-rtARN :: Lens' ResourceTags (Maybe Text)
-rtARN = lens _rtARN (\s a -> s {_rtARN = a})
+resourceTags_arn :: Lens.Lens' ResourceTags (Prelude.Maybe Prelude.Text)
+resourceTags_arn = Lens.lens (\ResourceTags' {arn} -> arn) (\s@ResourceTags' {} a -> s {arn = a} :: ResourceTags)
 
 -- | The tags for the resource.
-rtTags :: Lens' ResourceTags (HashMap Text Text)
-rtTags = lens _rtTags (\s a -> s {_rtTags = a}) . _Default . _Map
+resourceTags_tags :: Lens.Lens' ResourceTags (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+resourceTags_tags = Lens.lens (\ResourceTags' {tags} -> tags) (\s@ResourceTags' {} a -> s {tags = a} :: ResourceTags) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON ResourceTags where
+instance Prelude.FromJSON ResourceTags where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceTags"
       ( \x ->
           ResourceTags'
-            <$> (x .:? "arn") <*> (x .:? "tags" .!= mempty)
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ResourceTags
+instance Prelude.Hashable ResourceTags
 
-instance NFData ResourceTags
+instance Prelude.NFData ResourceTags

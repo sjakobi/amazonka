@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.HlsCodecSpecification
   ( HlsCodecSpecification
       ( ..,
-        Rfc4281,
-        Rfc6381
+        HlsCodecSpecificationRFC4281,
+        HlsCodecSpecificationRFC6381
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specification to use (RFC-6381 or the default RFC-4281) during m3u8 playlist generation.
-data HlsCodecSpecification
-  = HlsCodecSpecification'
-      ( CI
-          Text
-      )
+-- | Specification to use (RFC-6381 or the default RFC-4281) during m3u8
+-- playlist generation.
+newtype HlsCodecSpecification = HlsCodecSpecification'
+  { fromHlsCodecSpecification ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Rfc4281 :: HlsCodecSpecification
-pattern Rfc4281 = HlsCodecSpecification' "RFC_4281"
+pattern HlsCodecSpecificationRFC4281 :: HlsCodecSpecification
+pattern HlsCodecSpecificationRFC4281 = HlsCodecSpecification' "RFC_4281"
 
-pattern Rfc6381 :: HlsCodecSpecification
-pattern Rfc6381 = HlsCodecSpecification' "RFC_6381"
+pattern HlsCodecSpecificationRFC6381 :: HlsCodecSpecification
+pattern HlsCodecSpecificationRFC6381 = HlsCodecSpecification' "RFC_6381"
 
 {-# COMPLETE
-  Rfc4281,
-  Rfc6381,
+  HlsCodecSpecificationRFC4281,
+  HlsCodecSpecificationRFC6381,
   HlsCodecSpecification'
   #-}
 
-instance FromText HlsCodecSpecification where
-  parser = (HlsCodecSpecification' . mk) <$> takeText
+instance Prelude.FromText HlsCodecSpecification where
+  parser = HlsCodecSpecification' Prelude.<$> Prelude.takeText
 
-instance ToText HlsCodecSpecification where
-  toText (HlsCodecSpecification' ci) = original ci
+instance Prelude.ToText HlsCodecSpecification where
+  toText (HlsCodecSpecification' x) = x
 
-instance Hashable HlsCodecSpecification
+instance Prelude.Hashable HlsCodecSpecification
 
-instance NFData HlsCodecSpecification
+instance Prelude.NFData HlsCodecSpecification
 
-instance ToByteString HlsCodecSpecification
+instance Prelude.ToByteString HlsCodecSpecification
 
-instance ToQuery HlsCodecSpecification
+instance Prelude.ToQuery HlsCodecSpecification
 
-instance ToHeader HlsCodecSpecification
+instance Prelude.ToHeader HlsCodecSpecification
 
-instance ToJSON HlsCodecSpecification where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsCodecSpecification where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsCodecSpecification where
-  parseJSON = parseJSONText "HlsCodecSpecification"
+instance Prelude.FromJSON HlsCodecSpecification where
+  parseJSON = Prelude.parseJSONText "HlsCodecSpecification"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,75 @@
 module Network.AWS.MediaConvert.Types.OutputSdt
   ( OutputSdt
       ( ..,
-        SdtFollow,
-        SdtFollowIfPresent,
-        SdtManual,
-        SdtNone
+        OutputSdtSDTFOLLOW,
+        OutputSdtSDTFOLLOWIFPRESENT,
+        OutputSdtSDTMANUAL,
+        OutputSdtSDTNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Selects method of inserting SDT information into output stream.  "Follow input SDT" copies SDT information from input stream to  output stream. "Follow input SDT if present" copies SDT information from  input stream to output stream if SDT information is present in the input, otherwise it will fall back on the user-defined values. Enter "SDT  Manually" means user will enter the SDT information. "No SDT" means output  stream will not contain SDT information.
-data OutputSdt = OutputSdt' (CI Text)
+-- | Selects method of inserting SDT information into output stream. \"Follow
+-- input SDT\" copies SDT information from input stream to output stream.
+-- \"Follow input SDT if present\" copies SDT information from input stream
+-- to output stream if SDT information is present in the input, otherwise
+-- it will fall back on the user-defined values. Enter \"SDT Manually\"
+-- means user will enter the SDT information. \"No SDT\" means output
+-- stream will not contain SDT information.
+newtype OutputSdt = OutputSdt'
+  { fromOutputSdt ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SdtFollow :: OutputSdt
-pattern SdtFollow = OutputSdt' "SDT_FOLLOW"
+pattern OutputSdtSDTFOLLOW :: OutputSdt
+pattern OutputSdtSDTFOLLOW = OutputSdt' "SDT_FOLLOW"
 
-pattern SdtFollowIfPresent :: OutputSdt
-pattern SdtFollowIfPresent = OutputSdt' "SDT_FOLLOW_IF_PRESENT"
+pattern OutputSdtSDTFOLLOWIFPRESENT :: OutputSdt
+pattern OutputSdtSDTFOLLOWIFPRESENT = OutputSdt' "SDT_FOLLOW_IF_PRESENT"
 
-pattern SdtManual :: OutputSdt
-pattern SdtManual = OutputSdt' "SDT_MANUAL"
+pattern OutputSdtSDTMANUAL :: OutputSdt
+pattern OutputSdtSDTMANUAL = OutputSdt' "SDT_MANUAL"
 
-pattern SdtNone :: OutputSdt
-pattern SdtNone = OutputSdt' "SDT_NONE"
+pattern OutputSdtSDTNONE :: OutputSdt
+pattern OutputSdtSDTNONE = OutputSdt' "SDT_NONE"
 
 {-# COMPLETE
-  SdtFollow,
-  SdtFollowIfPresent,
-  SdtManual,
-  SdtNone,
+  OutputSdtSDTFOLLOW,
+  OutputSdtSDTFOLLOWIFPRESENT,
+  OutputSdtSDTMANUAL,
+  OutputSdtSDTNONE,
   OutputSdt'
   #-}
 
-instance FromText OutputSdt where
-  parser = (OutputSdt' . mk) <$> takeText
+instance Prelude.FromText OutputSdt where
+  parser = OutputSdt' Prelude.<$> Prelude.takeText
 
-instance ToText OutputSdt where
-  toText (OutputSdt' ci) = original ci
+instance Prelude.ToText OutputSdt where
+  toText (OutputSdt' x) = x
 
-instance Hashable OutputSdt
+instance Prelude.Hashable OutputSdt
 
-instance NFData OutputSdt
+instance Prelude.NFData OutputSdt
 
-instance ToByteString OutputSdt
+instance Prelude.ToByteString OutputSdt
 
-instance ToQuery OutputSdt
+instance Prelude.ToQuery OutputSdt
 
-instance ToHeader OutputSdt
+instance Prelude.ToHeader OutputSdt
 
-instance ToJSON OutputSdt where
-  toJSON = toJSONText
+instance Prelude.ToJSON OutputSdt where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OutputSdt where
-  parseJSON = parseJSONText "OutputSdt"
+instance Prelude.FromJSON OutputSdt where
+  parseJSON = Prelude.parseJSONText "OutputSdt"

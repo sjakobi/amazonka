@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.MotionImageInsertionMode
   ( MotionImageInsertionMode
       ( ..,
-        Mov,
-        Png
+        MotionImageInsertionModeMOV,
+        MotionImageInsertionModePNG
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the type of motion graphic asset that you are providing for your overlay. You can choose either a .mov file or a series of .png files.
-data MotionImageInsertionMode
-  = MotionImageInsertionMode'
-      ( CI
-          Text
-      )
+-- | Choose the type of motion graphic asset that you are providing for your
+-- overlay. You can choose either a .mov file or a series of .png files.
+newtype MotionImageInsertionMode = MotionImageInsertionMode'
+  { fromMotionImageInsertionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mov :: MotionImageInsertionMode
-pattern Mov = MotionImageInsertionMode' "MOV"
+pattern MotionImageInsertionModeMOV :: MotionImageInsertionMode
+pattern MotionImageInsertionModeMOV = MotionImageInsertionMode' "MOV"
 
-pattern Png :: MotionImageInsertionMode
-pattern Png = MotionImageInsertionMode' "PNG"
+pattern MotionImageInsertionModePNG :: MotionImageInsertionMode
+pattern MotionImageInsertionModePNG = MotionImageInsertionMode' "PNG"
 
 {-# COMPLETE
-  Mov,
-  Png,
+  MotionImageInsertionModeMOV,
+  MotionImageInsertionModePNG,
   MotionImageInsertionMode'
   #-}
 
-instance FromText MotionImageInsertionMode where
-  parser = (MotionImageInsertionMode' . mk) <$> takeText
+instance Prelude.FromText MotionImageInsertionMode where
+  parser = MotionImageInsertionMode' Prelude.<$> Prelude.takeText
 
-instance ToText MotionImageInsertionMode where
-  toText (MotionImageInsertionMode' ci) = original ci
+instance Prelude.ToText MotionImageInsertionMode where
+  toText (MotionImageInsertionMode' x) = x
 
-instance Hashable MotionImageInsertionMode
+instance Prelude.Hashable MotionImageInsertionMode
 
-instance NFData MotionImageInsertionMode
+instance Prelude.NFData MotionImageInsertionMode
 
-instance ToByteString MotionImageInsertionMode
+instance Prelude.ToByteString MotionImageInsertionMode
 
-instance ToQuery MotionImageInsertionMode
+instance Prelude.ToQuery MotionImageInsertionMode
 
-instance ToHeader MotionImageInsertionMode
+instance Prelude.ToHeader MotionImageInsertionMode
 
-instance ToJSON MotionImageInsertionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON MotionImageInsertionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MotionImageInsertionMode where
-  parseJSON = parseJSONText "MotionImageInsertionMode"
+instance Prelude.FromJSON MotionImageInsertionMode where
+  parseJSON = Prelude.parseJSONText "MotionImageInsertionMode"

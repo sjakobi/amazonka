@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.CmafStreamInfResolution
   ( CmafStreamInfResolution
       ( ..,
-        CSIRExclude,
-        CSIRInclude
+        CmafStreamInfResolutionEXCLUDE,
+        CmafStreamInfResolutionINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF tag of variant manifest.
-data CmafStreamInfResolution
-  = CmafStreamInfResolution'
-      ( CI
-          Text
-      )
+-- | Include or exclude RESOLUTION attribute for video in EXT-X-STREAM-INF
+-- tag of variant manifest.
+newtype CmafStreamInfResolution = CmafStreamInfResolution'
+  { fromCmafStreamInfResolution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSIRExclude :: CmafStreamInfResolution
-pattern CSIRExclude = CmafStreamInfResolution' "EXCLUDE"
+pattern CmafStreamInfResolutionEXCLUDE :: CmafStreamInfResolution
+pattern CmafStreamInfResolutionEXCLUDE = CmafStreamInfResolution' "EXCLUDE"
 
-pattern CSIRInclude :: CmafStreamInfResolution
-pattern CSIRInclude = CmafStreamInfResolution' "INCLUDE"
+pattern CmafStreamInfResolutionINCLUDE :: CmafStreamInfResolution
+pattern CmafStreamInfResolutionINCLUDE = CmafStreamInfResolution' "INCLUDE"
 
 {-# COMPLETE
-  CSIRExclude,
-  CSIRInclude,
+  CmafStreamInfResolutionEXCLUDE,
+  CmafStreamInfResolutionINCLUDE,
   CmafStreamInfResolution'
   #-}
 
-instance FromText CmafStreamInfResolution where
-  parser = (CmafStreamInfResolution' . mk) <$> takeText
+instance Prelude.FromText CmafStreamInfResolution where
+  parser = CmafStreamInfResolution' Prelude.<$> Prelude.takeText
 
-instance ToText CmafStreamInfResolution where
-  toText (CmafStreamInfResolution' ci) = original ci
+instance Prelude.ToText CmafStreamInfResolution where
+  toText (CmafStreamInfResolution' x) = x
 
-instance Hashable CmafStreamInfResolution
+instance Prelude.Hashable CmafStreamInfResolution
 
-instance NFData CmafStreamInfResolution
+instance Prelude.NFData CmafStreamInfResolution
 
-instance ToByteString CmafStreamInfResolution
+instance Prelude.ToByteString CmafStreamInfResolution
 
-instance ToQuery CmafStreamInfResolution
+instance Prelude.ToQuery CmafStreamInfResolution
 
-instance ToHeader CmafStreamInfResolution
+instance Prelude.ToHeader CmafStreamInfResolution
 
-instance ToJSON CmafStreamInfResolution where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafStreamInfResolution where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafStreamInfResolution where
-  parseJSON = parseJSONText "CmafStreamInfResolution"
+instance Prelude.FromJSON CmafStreamInfResolution where
+  parseJSON = Prelude.parseJSONText "CmafStreamInfResolution"

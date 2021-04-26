@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,66 @@
 module Network.AWS.MediaConvert.Types.ProresParControl
   ( ProresParControl
       ( ..,
-        PPCInitializeFromSource,
-        PPCSpecified
+        ProresParControlINITIALIZEFROMSOURCE,
+        ProresParControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior, Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and parDenominator settings.
-data ProresParControl = ProresParControl' (CI Text)
+-- | Optional. Specify how the service determines the pixel aspect ratio
+-- (PAR) for this output. The default behavior, Follow source
+-- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+-- output. To specify a different PAR in the console, choose any value
+-- other than Follow source. To specify a different PAR by editing the JSON
+-- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+-- setting, you must also specify values for the parNumerator and
+-- parDenominator settings.
+newtype ProresParControl = ProresParControl'
+  { fromProresParControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PPCInitializeFromSource :: ProresParControl
-pattern PPCInitializeFromSource = ProresParControl' "INITIALIZE_FROM_SOURCE"
+pattern ProresParControlINITIALIZEFROMSOURCE :: ProresParControl
+pattern ProresParControlINITIALIZEFROMSOURCE = ProresParControl' "INITIALIZE_FROM_SOURCE"
 
-pattern PPCSpecified :: ProresParControl
-pattern PPCSpecified = ProresParControl' "SPECIFIED"
+pattern ProresParControlSPECIFIED :: ProresParControl
+pattern ProresParControlSPECIFIED = ProresParControl' "SPECIFIED"
 
 {-# COMPLETE
-  PPCInitializeFromSource,
-  PPCSpecified,
+  ProresParControlINITIALIZEFROMSOURCE,
+  ProresParControlSPECIFIED,
   ProresParControl'
   #-}
 
-instance FromText ProresParControl where
-  parser = (ProresParControl' . mk) <$> takeText
+instance Prelude.FromText ProresParControl where
+  parser = ProresParControl' Prelude.<$> Prelude.takeText
 
-instance ToText ProresParControl where
-  toText (ProresParControl' ci) = original ci
+instance Prelude.ToText ProresParControl where
+  toText (ProresParControl' x) = x
 
-instance Hashable ProresParControl
+instance Prelude.Hashable ProresParControl
 
-instance NFData ProresParControl
+instance Prelude.NFData ProresParControl
 
-instance ToByteString ProresParControl
+instance Prelude.ToByteString ProresParControl
 
-instance ToQuery ProresParControl
+instance Prelude.ToQuery ProresParControl
 
-instance ToHeader ProresParControl
+instance Prelude.ToHeader ProresParControl
 
-instance ToJSON ProresParControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProresParControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProresParControl where
-  parseJSON = parseJSONText "ProresParControl"
+instance Prelude.FromJSON ProresParControl where
+  parseJSON = Prelude.parseJSONText "ProresParControl"

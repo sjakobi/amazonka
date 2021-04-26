@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,74 @@
 module Network.AWS.MediaConvert.Types.Mpeg2FramerateConversionAlgorithm
   ( Mpeg2FramerateConversionAlgorithm
       ( ..,
-        MFCADuplicateDrop,
-        MFCAFrameformer,
-        MFCAInterpolate
+        Mpeg2FramerateConversionAlgorithmDUPLICATEDROP,
+        Mpeg2FramerateConversionAlgorithmFRAMEFORMER,
+        Mpeg2FramerateConversionAlgorithmINTERPOLATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. We recommend using drop duplicate (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to 30 fps. For numerically complex conversions, you can use interpolate (INTERPOLATE) to avoid stutter. This results in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has already been converted from its original cadence, use FrameFormer (FRAMEFORMER) to do motion-compensated interpolation. FrameFormer chooses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding time and incurs a significant add-on cost.
-data Mpeg2FramerateConversionAlgorithm
-  = Mpeg2FramerateConversionAlgorithm'
-      ( CI
-          Text
-      )
+-- | Choose the method that you want MediaConvert to use when increasing or
+-- decreasing the frame rate. We recommend using drop duplicate
+-- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+-- 30 fps. For numerically complex conversions, you can use interpolate
+-- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+-- might introduce undesirable video artifacts. For complex frame rate
+-- conversions, especially if your source video has already been converted
+-- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+-- motion-compensated interpolation. FrameFormer chooses the best
+-- conversion method frame by frame. Note that using FrameFormer increases
+-- the transcoding time and incurs a significant add-on cost.
+newtype Mpeg2FramerateConversionAlgorithm = Mpeg2FramerateConversionAlgorithm'
+  { fromMpeg2FramerateConversionAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MFCADuplicateDrop :: Mpeg2FramerateConversionAlgorithm
-pattern MFCADuplicateDrop = Mpeg2FramerateConversionAlgorithm' "DUPLICATE_DROP"
+pattern Mpeg2FramerateConversionAlgorithmDUPLICATEDROP :: Mpeg2FramerateConversionAlgorithm
+pattern Mpeg2FramerateConversionAlgorithmDUPLICATEDROP = Mpeg2FramerateConversionAlgorithm' "DUPLICATE_DROP"
 
-pattern MFCAFrameformer :: Mpeg2FramerateConversionAlgorithm
-pattern MFCAFrameformer = Mpeg2FramerateConversionAlgorithm' "FRAMEFORMER"
+pattern Mpeg2FramerateConversionAlgorithmFRAMEFORMER :: Mpeg2FramerateConversionAlgorithm
+pattern Mpeg2FramerateConversionAlgorithmFRAMEFORMER = Mpeg2FramerateConversionAlgorithm' "FRAMEFORMER"
 
-pattern MFCAInterpolate :: Mpeg2FramerateConversionAlgorithm
-pattern MFCAInterpolate = Mpeg2FramerateConversionAlgorithm' "INTERPOLATE"
+pattern Mpeg2FramerateConversionAlgorithmINTERPOLATE :: Mpeg2FramerateConversionAlgorithm
+pattern Mpeg2FramerateConversionAlgorithmINTERPOLATE = Mpeg2FramerateConversionAlgorithm' "INTERPOLATE"
 
 {-# COMPLETE
-  MFCADuplicateDrop,
-  MFCAFrameformer,
-  MFCAInterpolate,
+  Mpeg2FramerateConversionAlgorithmDUPLICATEDROP,
+  Mpeg2FramerateConversionAlgorithmFRAMEFORMER,
+  Mpeg2FramerateConversionAlgorithmINTERPOLATE,
   Mpeg2FramerateConversionAlgorithm'
   #-}
 
-instance FromText Mpeg2FramerateConversionAlgorithm where
-  parser = (Mpeg2FramerateConversionAlgorithm' . mk) <$> takeText
+instance Prelude.FromText Mpeg2FramerateConversionAlgorithm where
+  parser = Mpeg2FramerateConversionAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2FramerateConversionAlgorithm where
-  toText (Mpeg2FramerateConversionAlgorithm' ci) = original ci
+instance Prelude.ToText Mpeg2FramerateConversionAlgorithm where
+  toText (Mpeg2FramerateConversionAlgorithm' x) = x
 
-instance Hashable Mpeg2FramerateConversionAlgorithm
+instance Prelude.Hashable Mpeg2FramerateConversionAlgorithm
 
-instance NFData Mpeg2FramerateConversionAlgorithm
+instance Prelude.NFData Mpeg2FramerateConversionAlgorithm
 
-instance ToByteString Mpeg2FramerateConversionAlgorithm
+instance Prelude.ToByteString Mpeg2FramerateConversionAlgorithm
 
-instance ToQuery Mpeg2FramerateConversionAlgorithm
+instance Prelude.ToQuery Mpeg2FramerateConversionAlgorithm
 
-instance ToHeader Mpeg2FramerateConversionAlgorithm
+instance Prelude.ToHeader Mpeg2FramerateConversionAlgorithm
 
-instance ToJSON Mpeg2FramerateConversionAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2FramerateConversionAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2FramerateConversionAlgorithm where
-  parseJSON = parseJSONText "Mpeg2FramerateConversionAlgorithm"
+instance Prelude.FromJSON Mpeg2FramerateConversionAlgorithm where
+  parseJSON = Prelude.parseJSONText "Mpeg2FramerateConversionAlgorithm"

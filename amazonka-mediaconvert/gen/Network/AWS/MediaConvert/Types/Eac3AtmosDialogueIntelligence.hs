@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.Eac3AtmosDialogueIntelligence
   ( Eac3AtmosDialogueIntelligence
       ( ..,
-        EADIDisabled,
-        EADIEnabled
+        Eac3AtmosDialogueIntelligenceDISABLED,
+        Eac3AtmosDialogueIntelligenceENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable Dolby Dialogue Intelligence to adjust loudness based on dialogue analysis.
-data Eac3AtmosDialogueIntelligence
-  = Eac3AtmosDialogueIntelligence'
-      ( CI
-          Text
-      )
+-- | Enable Dolby Dialogue Intelligence to adjust loudness based on dialogue
+-- analysis.
+newtype Eac3AtmosDialogueIntelligence = Eac3AtmosDialogueIntelligence'
+  { fromEac3AtmosDialogueIntelligence ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EADIDisabled :: Eac3AtmosDialogueIntelligence
-pattern EADIDisabled = Eac3AtmosDialogueIntelligence' "DISABLED"
+pattern Eac3AtmosDialogueIntelligenceDISABLED :: Eac3AtmosDialogueIntelligence
+pattern Eac3AtmosDialogueIntelligenceDISABLED = Eac3AtmosDialogueIntelligence' "DISABLED"
 
-pattern EADIEnabled :: Eac3AtmosDialogueIntelligence
-pattern EADIEnabled = Eac3AtmosDialogueIntelligence' "ENABLED"
+pattern Eac3AtmosDialogueIntelligenceENABLED :: Eac3AtmosDialogueIntelligence
+pattern Eac3AtmosDialogueIntelligenceENABLED = Eac3AtmosDialogueIntelligence' "ENABLED"
 
 {-# COMPLETE
-  EADIDisabled,
-  EADIEnabled,
+  Eac3AtmosDialogueIntelligenceDISABLED,
+  Eac3AtmosDialogueIntelligenceENABLED,
   Eac3AtmosDialogueIntelligence'
   #-}
 
-instance FromText Eac3AtmosDialogueIntelligence where
-  parser = (Eac3AtmosDialogueIntelligence' . mk) <$> takeText
+instance Prelude.FromText Eac3AtmosDialogueIntelligence where
+  parser = Eac3AtmosDialogueIntelligence' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3AtmosDialogueIntelligence where
-  toText (Eac3AtmosDialogueIntelligence' ci) = original ci
+instance Prelude.ToText Eac3AtmosDialogueIntelligence where
+  toText (Eac3AtmosDialogueIntelligence' x) = x
 
-instance Hashable Eac3AtmosDialogueIntelligence
+instance Prelude.Hashable Eac3AtmosDialogueIntelligence
 
-instance NFData Eac3AtmosDialogueIntelligence
+instance Prelude.NFData Eac3AtmosDialogueIntelligence
 
-instance ToByteString Eac3AtmosDialogueIntelligence
+instance Prelude.ToByteString Eac3AtmosDialogueIntelligence
 
-instance ToQuery Eac3AtmosDialogueIntelligence
+instance Prelude.ToQuery Eac3AtmosDialogueIntelligence
 
-instance ToHeader Eac3AtmosDialogueIntelligence
+instance Prelude.ToHeader Eac3AtmosDialogueIntelligence
 
-instance ToJSON Eac3AtmosDialogueIntelligence where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3AtmosDialogueIntelligence where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3AtmosDialogueIntelligence where
-  parseJSON = parseJSONText "Eac3AtmosDialogueIntelligence"
+instance Prelude.FromJSON Eac3AtmosDialogueIntelligence where
+  parseJSON = Prelude.parseJSONText "Eac3AtmosDialogueIntelligence"

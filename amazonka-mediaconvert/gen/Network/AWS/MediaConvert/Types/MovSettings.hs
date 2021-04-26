@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,97 +19,142 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.MovSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.MovClapAtom
 import Network.AWS.MediaConvert.Types.MovCslgAtom
 import Network.AWS.MediaConvert.Types.MovMpeg2FourCCControl
 import Network.AWS.MediaConvert.Types.MovPaddingControl
 import Network.AWS.MediaConvert.Types.MovReference
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for MOV Container.
 --
--- /See:/ 'movSettings' smart constructor.
+-- /See:/ 'newMovSettings' smart constructor.
 data MovSettings = MovSettings'
-  { _msPaddingControl ::
-      !(Maybe MovPaddingControl),
-    _msCslgAtom :: !(Maybe MovCslgAtom),
-    _msMpeg2FourCCControl ::
-      !(Maybe MovMpeg2FourCCControl),
-    _msClapAtom :: !(Maybe MovClapAtom),
-    _msReference :: !(Maybe MovReference)
+  { -- | To make this output compatible with Omenon, keep the default value,
+    -- OMNEON. Unless you need Omneon compatibility, set this value to NONE.
+    -- When you keep the default value, OMNEON, MediaConvert increases the
+    -- length of the edit list atom. This might cause file rejections when a
+    -- recipient of the output file doesn\'t expct this extra padding.
+    paddingControl :: Prelude.Maybe MovPaddingControl,
+    -- | When enabled, file composition times will start at zero, composition
+    -- times in the \'ctts\' (composition time to sample) box for B-frames will
+    -- be negative, and a \'cslg\' (composition shift least greatest) box will
+    -- be included per 14496-1 amendment 1. This improves compatibility with
+    -- Apple players and tools.
+    cslgAtom :: Prelude.Maybe MovCslgAtom,
+    -- | When set to XDCAM, writes MPEG2 video streams into the QuickTime file
+    -- using XDCAM fourcc codes. This increases compatibility with Apple
+    -- editors and players, but may decrease compatibility with other players.
+    -- Only applicable when the video codec is MPEG2.
+    mpeg2FourCCControl :: Prelude.Maybe MovMpeg2FourCCControl,
+    -- | When enabled, include \'clap\' atom if appropriate for the video output
+    -- settings.
+    clapAtom :: Prelude.Maybe MovClapAtom,
+    -- | Always keep the default value (SELF_CONTAINED) for this setting.
+    reference :: Prelude.Maybe MovReference
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MovSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MovSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msPaddingControl' - To make this output compatible with Omenon, keep the default value, OMNEON. Unless you need Omneon compatibility, set this value to NONE. When you keep the default value, OMNEON, MediaConvert increases the length of the edit list atom. This might cause file rejections when a recipient of the output file doesn't expct this extra padding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msCslgAtom' - When enabled, file composition times will start at zero, composition times in the 'ctts' (composition time to sample) box for B-frames will be negative, and a 'cslg' (composition shift least greatest) box will be included per 14496-1 amendment 1. This improves compatibility with Apple players and tools.
+-- 'paddingControl', 'movSettings_paddingControl' - To make this output compatible with Omenon, keep the default value,
+-- OMNEON. Unless you need Omneon compatibility, set this value to NONE.
+-- When you keep the default value, OMNEON, MediaConvert increases the
+-- length of the edit list atom. This might cause file rejections when a
+-- recipient of the output file doesn\'t expct this extra padding.
 --
--- * 'msMpeg2FourCCControl' - When set to XDCAM, writes MPEG2 video streams into the QuickTime file using XDCAM fourcc codes. This increases compatibility with Apple editors and players, but may decrease compatibility with other players. Only applicable when the video codec is MPEG2.
+-- 'cslgAtom', 'movSettings_cslgAtom' - When enabled, file composition times will start at zero, composition
+-- times in the \'ctts\' (composition time to sample) box for B-frames will
+-- be negative, and a \'cslg\' (composition shift least greatest) box will
+-- be included per 14496-1 amendment 1. This improves compatibility with
+-- Apple players and tools.
 --
--- * 'msClapAtom' - When enabled, include 'clap' atom if appropriate for the video output settings.
+-- 'mpeg2FourCCControl', 'movSettings_mpeg2FourCCControl' - When set to XDCAM, writes MPEG2 video streams into the QuickTime file
+-- using XDCAM fourcc codes. This increases compatibility with Apple
+-- editors and players, but may decrease compatibility with other players.
+-- Only applicable when the video codec is MPEG2.
 --
--- * 'msReference' - Always keep the default value (SELF_CONTAINED) for this setting.
-movSettings ::
+-- 'clapAtom', 'movSettings_clapAtom' - When enabled, include \'clap\' atom if appropriate for the video output
+-- settings.
+--
+-- 'reference', 'movSettings_reference' - Always keep the default value (SELF_CONTAINED) for this setting.
+newMovSettings ::
   MovSettings
-movSettings =
+newMovSettings =
   MovSettings'
-    { _msPaddingControl = Nothing,
-      _msCslgAtom = Nothing,
-      _msMpeg2FourCCControl = Nothing,
-      _msClapAtom = Nothing,
-      _msReference = Nothing
+    { paddingControl = Prelude.Nothing,
+      cslgAtom = Prelude.Nothing,
+      mpeg2FourCCControl = Prelude.Nothing,
+      clapAtom = Prelude.Nothing,
+      reference = Prelude.Nothing
     }
 
--- | To make this output compatible with Omenon, keep the default value, OMNEON. Unless you need Omneon compatibility, set this value to NONE. When you keep the default value, OMNEON, MediaConvert increases the length of the edit list atom. This might cause file rejections when a recipient of the output file doesn't expct this extra padding.
-msPaddingControl :: Lens' MovSettings (Maybe MovPaddingControl)
-msPaddingControl = lens _msPaddingControl (\s a -> s {_msPaddingControl = a})
+-- | To make this output compatible with Omenon, keep the default value,
+-- OMNEON. Unless you need Omneon compatibility, set this value to NONE.
+-- When you keep the default value, OMNEON, MediaConvert increases the
+-- length of the edit list atom. This might cause file rejections when a
+-- recipient of the output file doesn\'t expct this extra padding.
+movSettings_paddingControl :: Lens.Lens' MovSettings (Prelude.Maybe MovPaddingControl)
+movSettings_paddingControl = Lens.lens (\MovSettings' {paddingControl} -> paddingControl) (\s@MovSettings' {} a -> s {paddingControl = a} :: MovSettings)
 
--- | When enabled, file composition times will start at zero, composition times in the 'ctts' (composition time to sample) box for B-frames will be negative, and a 'cslg' (composition shift least greatest) box will be included per 14496-1 amendment 1. This improves compatibility with Apple players and tools.
-msCslgAtom :: Lens' MovSettings (Maybe MovCslgAtom)
-msCslgAtom = lens _msCslgAtom (\s a -> s {_msCslgAtom = a})
+-- | When enabled, file composition times will start at zero, composition
+-- times in the \'ctts\' (composition time to sample) box for B-frames will
+-- be negative, and a \'cslg\' (composition shift least greatest) box will
+-- be included per 14496-1 amendment 1. This improves compatibility with
+-- Apple players and tools.
+movSettings_cslgAtom :: Lens.Lens' MovSettings (Prelude.Maybe MovCslgAtom)
+movSettings_cslgAtom = Lens.lens (\MovSettings' {cslgAtom} -> cslgAtom) (\s@MovSettings' {} a -> s {cslgAtom = a} :: MovSettings)
 
--- | When set to XDCAM, writes MPEG2 video streams into the QuickTime file using XDCAM fourcc codes. This increases compatibility with Apple editors and players, but may decrease compatibility with other players. Only applicable when the video codec is MPEG2.
-msMpeg2FourCCControl :: Lens' MovSettings (Maybe MovMpeg2FourCCControl)
-msMpeg2FourCCControl = lens _msMpeg2FourCCControl (\s a -> s {_msMpeg2FourCCControl = a})
+-- | When set to XDCAM, writes MPEG2 video streams into the QuickTime file
+-- using XDCAM fourcc codes. This increases compatibility with Apple
+-- editors and players, but may decrease compatibility with other players.
+-- Only applicable when the video codec is MPEG2.
+movSettings_mpeg2FourCCControl :: Lens.Lens' MovSettings (Prelude.Maybe MovMpeg2FourCCControl)
+movSettings_mpeg2FourCCControl = Lens.lens (\MovSettings' {mpeg2FourCCControl} -> mpeg2FourCCControl) (\s@MovSettings' {} a -> s {mpeg2FourCCControl = a} :: MovSettings)
 
--- | When enabled, include 'clap' atom if appropriate for the video output settings.
-msClapAtom :: Lens' MovSettings (Maybe MovClapAtom)
-msClapAtom = lens _msClapAtom (\s a -> s {_msClapAtom = a})
+-- | When enabled, include \'clap\' atom if appropriate for the video output
+-- settings.
+movSettings_clapAtom :: Lens.Lens' MovSettings (Prelude.Maybe MovClapAtom)
+movSettings_clapAtom = Lens.lens (\MovSettings' {clapAtom} -> clapAtom) (\s@MovSettings' {} a -> s {clapAtom = a} :: MovSettings)
 
 -- | Always keep the default value (SELF_CONTAINED) for this setting.
-msReference :: Lens' MovSettings (Maybe MovReference)
-msReference = lens _msReference (\s a -> s {_msReference = a})
+movSettings_reference :: Lens.Lens' MovSettings (Prelude.Maybe MovReference)
+movSettings_reference = Lens.lens (\MovSettings' {reference} -> reference) (\s@MovSettings' {} a -> s {reference = a} :: MovSettings)
 
-instance FromJSON MovSettings where
+instance Prelude.FromJSON MovSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MovSettings"
       ( \x ->
           MovSettings'
-            <$> (x .:? "paddingControl")
-            <*> (x .:? "cslgAtom")
-            <*> (x .:? "mpeg2FourCCControl")
-            <*> (x .:? "clapAtom")
-            <*> (x .:? "reference")
+            Prelude.<$> (x Prelude..:? "paddingControl")
+            Prelude.<*> (x Prelude..:? "cslgAtom")
+            Prelude.<*> (x Prelude..:? "mpeg2FourCCControl")
+            Prelude.<*> (x Prelude..:? "clapAtom")
+            Prelude.<*> (x Prelude..:? "reference")
       )
 
-instance Hashable MovSettings
+instance Prelude.Hashable MovSettings
 
-instance NFData MovSettings
+instance Prelude.NFData MovSettings
 
-instance ToJSON MovSettings where
+instance Prelude.ToJSON MovSettings where
   toJSON MovSettings' {..} =
-    object
-      ( catMaybes
-          [ ("paddingControl" .=) <$> _msPaddingControl,
-            ("cslgAtom" .=) <$> _msCslgAtom,
-            ("mpeg2FourCCControl" .=) <$> _msMpeg2FourCCControl,
-            ("clapAtom" .=) <$> _msClapAtom,
-            ("reference" .=) <$> _msReference
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("paddingControl" Prelude..=)
+              Prelude.<$> paddingControl,
+            ("cslgAtom" Prelude..=) Prelude.<$> cslgAtom,
+            ("mpeg2FourCCControl" Prelude..=)
+              Prelude.<$> mpeg2FourCCControl,
+            ("clapAtom" Prelude..=) Prelude.<$> clapAtom,
+            ("reference" Prelude..=) Prelude.<$> reference
           ]
       )

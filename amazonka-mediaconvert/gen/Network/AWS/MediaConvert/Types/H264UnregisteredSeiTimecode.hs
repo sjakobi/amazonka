@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.H264UnregisteredSeiTimecode
   ( H264UnregisteredSeiTimecode
       ( ..,
-        HUSTDisabled,
-        HUSTEnabled
+        H264UnregisteredSeiTimecodeDISABLED,
+        H264UnregisteredSeiTimecodeENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
-data H264UnregisteredSeiTimecode
-  = H264UnregisteredSeiTimecode'
-      ( CI
-          Text
-      )
+-- | Inserts timecode for each frame as 4 bytes of an unregistered SEI
+-- message.
+newtype H264UnregisteredSeiTimecode = H264UnregisteredSeiTimecode'
+  { fromH264UnregisteredSeiTimecode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HUSTDisabled :: H264UnregisteredSeiTimecode
-pattern HUSTDisabled = H264UnregisteredSeiTimecode' "DISABLED"
+pattern H264UnregisteredSeiTimecodeDISABLED :: H264UnregisteredSeiTimecode
+pattern H264UnregisteredSeiTimecodeDISABLED = H264UnregisteredSeiTimecode' "DISABLED"
 
-pattern HUSTEnabled :: H264UnregisteredSeiTimecode
-pattern HUSTEnabled = H264UnregisteredSeiTimecode' "ENABLED"
+pattern H264UnregisteredSeiTimecodeENABLED :: H264UnregisteredSeiTimecode
+pattern H264UnregisteredSeiTimecodeENABLED = H264UnregisteredSeiTimecode' "ENABLED"
 
 {-# COMPLETE
-  HUSTDisabled,
-  HUSTEnabled,
+  H264UnregisteredSeiTimecodeDISABLED,
+  H264UnregisteredSeiTimecodeENABLED,
   H264UnregisteredSeiTimecode'
   #-}
 
-instance FromText H264UnregisteredSeiTimecode where
-  parser = (H264UnregisteredSeiTimecode' . mk) <$> takeText
+instance Prelude.FromText H264UnregisteredSeiTimecode where
+  parser = H264UnregisteredSeiTimecode' Prelude.<$> Prelude.takeText
 
-instance ToText H264UnregisteredSeiTimecode where
-  toText (H264UnregisteredSeiTimecode' ci) = original ci
+instance Prelude.ToText H264UnregisteredSeiTimecode where
+  toText (H264UnregisteredSeiTimecode' x) = x
 
-instance Hashable H264UnregisteredSeiTimecode
+instance Prelude.Hashable H264UnregisteredSeiTimecode
 
-instance NFData H264UnregisteredSeiTimecode
+instance Prelude.NFData H264UnregisteredSeiTimecode
 
-instance ToByteString H264UnregisteredSeiTimecode
+instance Prelude.ToByteString H264UnregisteredSeiTimecode
 
-instance ToQuery H264UnregisteredSeiTimecode
+instance Prelude.ToQuery H264UnregisteredSeiTimecode
 
-instance ToHeader H264UnregisteredSeiTimecode
+instance Prelude.ToHeader H264UnregisteredSeiTimecode
 
-instance ToJSON H264UnregisteredSeiTimecode where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264UnregisteredSeiTimecode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264UnregisteredSeiTimecode where
-  parseJSON = parseJSONText "H264UnregisteredSeiTimecode"
+instance Prelude.FromJSON H264UnregisteredSeiTimecode where
+  parseJSON = Prelude.parseJSONText "H264UnregisteredSeiTimecode"

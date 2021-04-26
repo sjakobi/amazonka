@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,64 @@
 module Network.AWS.MediaConvert.Types.AvcIntraTelecine
   ( AvcIntraTelecine
       ( ..,
-        AITHard,
-        AITNone
+        AvcIntraTelecineHARD,
+        AvcIntraTelecineNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When you do frame rate conversion from 23.976 frames per second (fps) to 29.97 fps, and your output scan type is interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to create a smoother picture.
-data AvcIntraTelecine = AvcIntraTelecine' (CI Text)
+-- | When you do frame rate conversion from 23.976 frames per second (fps) to
+-- 29.97 fps, and your output scan type is interlaced, you can optionally
+-- enable hard telecine (HARD) to create a smoother picture. When you keep
+-- the default value, None (NONE), MediaConvert does a standard frame rate
+-- conversion to 29.97 without doing anything with the field polarity to
+-- create a smoother picture.
+newtype AvcIntraTelecine = AvcIntraTelecine'
+  { fromAvcIntraTelecine ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AITHard :: AvcIntraTelecine
-pattern AITHard = AvcIntraTelecine' "HARD"
+pattern AvcIntraTelecineHARD :: AvcIntraTelecine
+pattern AvcIntraTelecineHARD = AvcIntraTelecine' "HARD"
 
-pattern AITNone :: AvcIntraTelecine
-pattern AITNone = AvcIntraTelecine' "NONE"
+pattern AvcIntraTelecineNONE :: AvcIntraTelecine
+pattern AvcIntraTelecineNONE = AvcIntraTelecine' "NONE"
 
 {-# COMPLETE
-  AITHard,
-  AITNone,
+  AvcIntraTelecineHARD,
+  AvcIntraTelecineNONE,
   AvcIntraTelecine'
   #-}
 
-instance FromText AvcIntraTelecine where
-  parser = (AvcIntraTelecine' . mk) <$> takeText
+instance Prelude.FromText AvcIntraTelecine where
+  parser = AvcIntraTelecine' Prelude.<$> Prelude.takeText
 
-instance ToText AvcIntraTelecine where
-  toText (AvcIntraTelecine' ci) = original ci
+instance Prelude.ToText AvcIntraTelecine where
+  toText (AvcIntraTelecine' x) = x
 
-instance Hashable AvcIntraTelecine
+instance Prelude.Hashable AvcIntraTelecine
 
-instance NFData AvcIntraTelecine
+instance Prelude.NFData AvcIntraTelecine
 
-instance ToByteString AvcIntraTelecine
+instance Prelude.ToByteString AvcIntraTelecine
 
-instance ToQuery AvcIntraTelecine
+instance Prelude.ToQuery AvcIntraTelecine
 
-instance ToHeader AvcIntraTelecine
+instance Prelude.ToHeader AvcIntraTelecine
 
-instance ToJSON AvcIntraTelecine where
-  toJSON = toJSONText
+instance Prelude.ToJSON AvcIntraTelecine where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AvcIntraTelecine where
-  parseJSON = parseJSONText "AvcIntraTelecine"
+instance Prelude.FromJSON AvcIntraTelecine where
+  parseJSON = Prelude.parseJSONText "AvcIntraTelecine"

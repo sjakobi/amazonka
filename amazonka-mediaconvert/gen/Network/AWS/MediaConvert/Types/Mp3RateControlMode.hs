@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.Mp3RateControlMode
   ( Mp3RateControlMode
       ( ..,
-        MRCMCbr,
-        MRCMVbr
+        Mp3RateControlModeCBR,
+        Mp3RateControlModeVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify whether the service encodes this MP3 audio output with a constant bitrate (CBR) or a variable bitrate (VBR).
-data Mp3RateControlMode
-  = Mp3RateControlMode'
-      ( CI
-          Text
-      )
+-- | Specify whether the service encodes this MP3 audio output with a
+-- constant bitrate (CBR) or a variable bitrate (VBR).
+newtype Mp3RateControlMode = Mp3RateControlMode'
+  { fromMp3RateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MRCMCbr :: Mp3RateControlMode
-pattern MRCMCbr = Mp3RateControlMode' "CBR"
+pattern Mp3RateControlModeCBR :: Mp3RateControlMode
+pattern Mp3RateControlModeCBR = Mp3RateControlMode' "CBR"
 
-pattern MRCMVbr :: Mp3RateControlMode
-pattern MRCMVbr = Mp3RateControlMode' "VBR"
+pattern Mp3RateControlModeVBR :: Mp3RateControlMode
+pattern Mp3RateControlModeVBR = Mp3RateControlMode' "VBR"
 
 {-# COMPLETE
-  MRCMCbr,
-  MRCMVbr,
+  Mp3RateControlModeCBR,
+  Mp3RateControlModeVBR,
   Mp3RateControlMode'
   #-}
 
-instance FromText Mp3RateControlMode where
-  parser = (Mp3RateControlMode' . mk) <$> takeText
+instance Prelude.FromText Mp3RateControlMode where
+  parser = Mp3RateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText Mp3RateControlMode where
-  toText (Mp3RateControlMode' ci) = original ci
+instance Prelude.ToText Mp3RateControlMode where
+  toText (Mp3RateControlMode' x) = x
 
-instance Hashable Mp3RateControlMode
+instance Prelude.Hashable Mp3RateControlMode
 
-instance NFData Mp3RateControlMode
+instance Prelude.NFData Mp3RateControlMode
 
-instance ToByteString Mp3RateControlMode
+instance Prelude.ToByteString Mp3RateControlMode
 
-instance ToQuery Mp3RateControlMode
+instance Prelude.ToQuery Mp3RateControlMode
 
-instance ToHeader Mp3RateControlMode
+instance Prelude.ToHeader Mp3RateControlMode
 
-instance ToJSON Mp3RateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mp3RateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mp3RateControlMode where
-  parseJSON = parseJSONText "Mp3RateControlMode"
+instance Prelude.FromJSON Mp3RateControlMode where
+  parseJSON = Prelude.parseJSONText "Mp3RateControlMode"

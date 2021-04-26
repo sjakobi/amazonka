@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaConvert.Types.HlsTimedMetadataId3Frame
   ( HlsTimedMetadataId3Frame
       ( ..,
-        HTMIFNone,
-        HTMIFPriv,
-        HTMIFTdrl
+        HlsTimedMetadataId3FrameNONE,
+        HlsTimedMetadataId3FramePRIV,
+        HlsTimedMetadataId3FrameTDRL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Indicates ID3 frame that has the timecode.
-data HlsTimedMetadataId3Frame
-  = HlsTimedMetadataId3Frame'
-      ( CI
-          Text
-      )
+newtype HlsTimedMetadataId3Frame = HlsTimedMetadataId3Frame'
+  { fromHlsTimedMetadataId3Frame ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTMIFNone :: HlsTimedMetadataId3Frame
-pattern HTMIFNone = HlsTimedMetadataId3Frame' "NONE"
+pattern HlsTimedMetadataId3FrameNONE :: HlsTimedMetadataId3Frame
+pattern HlsTimedMetadataId3FrameNONE = HlsTimedMetadataId3Frame' "NONE"
 
-pattern HTMIFPriv :: HlsTimedMetadataId3Frame
-pattern HTMIFPriv = HlsTimedMetadataId3Frame' "PRIV"
+pattern HlsTimedMetadataId3FramePRIV :: HlsTimedMetadataId3Frame
+pattern HlsTimedMetadataId3FramePRIV = HlsTimedMetadataId3Frame' "PRIV"
 
-pattern HTMIFTdrl :: HlsTimedMetadataId3Frame
-pattern HTMIFTdrl = HlsTimedMetadataId3Frame' "TDRL"
+pattern HlsTimedMetadataId3FrameTDRL :: HlsTimedMetadataId3Frame
+pattern HlsTimedMetadataId3FrameTDRL = HlsTimedMetadataId3Frame' "TDRL"
 
 {-# COMPLETE
-  HTMIFNone,
-  HTMIFPriv,
-  HTMIFTdrl,
+  HlsTimedMetadataId3FrameNONE,
+  HlsTimedMetadataId3FramePRIV,
+  HlsTimedMetadataId3FrameTDRL,
   HlsTimedMetadataId3Frame'
   #-}
 
-instance FromText HlsTimedMetadataId3Frame where
-  parser = (HlsTimedMetadataId3Frame' . mk) <$> takeText
+instance Prelude.FromText HlsTimedMetadataId3Frame where
+  parser = HlsTimedMetadataId3Frame' Prelude.<$> Prelude.takeText
 
-instance ToText HlsTimedMetadataId3Frame where
-  toText (HlsTimedMetadataId3Frame' ci) = original ci
+instance Prelude.ToText HlsTimedMetadataId3Frame where
+  toText (HlsTimedMetadataId3Frame' x) = x
 
-instance Hashable HlsTimedMetadataId3Frame
+instance Prelude.Hashable HlsTimedMetadataId3Frame
 
-instance NFData HlsTimedMetadataId3Frame
+instance Prelude.NFData HlsTimedMetadataId3Frame
 
-instance ToByteString HlsTimedMetadataId3Frame
+instance Prelude.ToByteString HlsTimedMetadataId3Frame
 
-instance ToQuery HlsTimedMetadataId3Frame
+instance Prelude.ToQuery HlsTimedMetadataId3Frame
 
-instance ToHeader HlsTimedMetadataId3Frame
+instance Prelude.ToHeader HlsTimedMetadataId3Frame
 
-instance ToJSON HlsTimedMetadataId3Frame where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsTimedMetadataId3Frame where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsTimedMetadataId3Frame where
-  parseJSON = parseJSONText "HlsTimedMetadataId3Frame"
+instance Prelude.FromJSON HlsTimedMetadataId3Frame where
+  parseJSON = Prelude.parseJSONText "HlsTimedMetadataId3Frame"

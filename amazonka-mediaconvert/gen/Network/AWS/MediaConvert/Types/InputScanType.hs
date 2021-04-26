@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,66 @@
 module Network.AWS.MediaConvert.Types.InputScanType
   ( InputScanType
       ( ..,
-        ISTAuto,
-        ISTPsf
+        InputScanTypeAUTO,
+        InputScanTypePSF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When you have a progressive segmented frame (PsF) input, use this setting to flag the input as PsF. MediaConvert doesn't automatically detect PsF. Therefore, flagging your input as PsF results in better preservation of video quality when you do deinterlacing and frame rate conversion. If you don't specify, the default value is Auto (AUTO). Auto is the correct setting for all inputs that are not PsF. Don't set this value to PsF when your input is interlaced. Doing so creates horizontal interlacing artifacts.
-data InputScanType = InputScanType' (CI Text)
+-- | When you have a progressive segmented frame (PsF) input, use this
+-- setting to flag the input as PsF. MediaConvert doesn\'t automatically
+-- detect PsF. Therefore, flagging your input as PsF results in better
+-- preservation of video quality when you do deinterlacing and frame rate
+-- conversion. If you don\'t specify, the default value is Auto (AUTO).
+-- Auto is the correct setting for all inputs that are not PsF. Don\'t set
+-- this value to PsF when your input is interlaced. Doing so creates
+-- horizontal interlacing artifacts.
+newtype InputScanType = InputScanType'
+  { fromInputScanType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISTAuto :: InputScanType
-pattern ISTAuto = InputScanType' "AUTO"
+pattern InputScanTypeAUTO :: InputScanType
+pattern InputScanTypeAUTO = InputScanType' "AUTO"
 
-pattern ISTPsf :: InputScanType
-pattern ISTPsf = InputScanType' "PSF"
+pattern InputScanTypePSF :: InputScanType
+pattern InputScanTypePSF = InputScanType' "PSF"
 
 {-# COMPLETE
-  ISTAuto,
-  ISTPsf,
+  InputScanTypeAUTO,
+  InputScanTypePSF,
   InputScanType'
   #-}
 
-instance FromText InputScanType where
-  parser = (InputScanType' . mk) <$> takeText
+instance Prelude.FromText InputScanType where
+  parser = InputScanType' Prelude.<$> Prelude.takeText
 
-instance ToText InputScanType where
-  toText (InputScanType' ci) = original ci
+instance Prelude.ToText InputScanType where
+  toText (InputScanType' x) = x
 
-instance Hashable InputScanType
+instance Prelude.Hashable InputScanType
 
-instance NFData InputScanType
+instance Prelude.NFData InputScanType
 
-instance ToByteString InputScanType
+instance Prelude.ToByteString InputScanType
 
-instance ToQuery InputScanType
+instance Prelude.ToQuery InputScanType
 
-instance ToHeader InputScanType
+instance Prelude.ToHeader InputScanType
 
-instance ToJSON InputScanType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputScanType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputScanType where
-  parseJSON = parseJSONText "InputScanType"
+instance Prelude.FromJSON InputScanType where
+  parseJSON = Prelude.parseJSONText "InputScanType"

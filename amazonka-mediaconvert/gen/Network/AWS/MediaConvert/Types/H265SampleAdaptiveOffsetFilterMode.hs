@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,65 @@
 module Network.AWS.MediaConvert.Types.H265SampleAdaptiveOffsetFilterMode
   ( H265SampleAdaptiveOffsetFilterMode
       ( ..,
-        HSAOFMAdaptive,
-        HSAOFMDefault,
-        HSAOFMOff
+        H265SampleAdaptiveOffsetFilterModeADAPTIVE,
+        H265SampleAdaptiveOffsetFilterModeDEFAULT,
+        H265SampleAdaptiveOffsetFilterModeOFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify Sample Adaptive Offset (SAO) filter strength.  Adaptive mode dynamically selects best strength based on content
-data H265SampleAdaptiveOffsetFilterMode
-  = H265SampleAdaptiveOffsetFilterMode'
-      ( CI
-          Text
-      )
+-- | Specify Sample Adaptive Offset (SAO) filter strength. Adaptive mode
+-- dynamically selects best strength based on content
+newtype H265SampleAdaptiveOffsetFilterMode = H265SampleAdaptiveOffsetFilterMode'
+  { fromH265SampleAdaptiveOffsetFilterMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSAOFMAdaptive :: H265SampleAdaptiveOffsetFilterMode
-pattern HSAOFMAdaptive = H265SampleAdaptiveOffsetFilterMode' "ADAPTIVE"
+pattern H265SampleAdaptiveOffsetFilterModeADAPTIVE :: H265SampleAdaptiveOffsetFilterMode
+pattern H265SampleAdaptiveOffsetFilterModeADAPTIVE = H265SampleAdaptiveOffsetFilterMode' "ADAPTIVE"
 
-pattern HSAOFMDefault :: H265SampleAdaptiveOffsetFilterMode
-pattern HSAOFMDefault = H265SampleAdaptiveOffsetFilterMode' "DEFAULT"
+pattern H265SampleAdaptiveOffsetFilterModeDEFAULT :: H265SampleAdaptiveOffsetFilterMode
+pattern H265SampleAdaptiveOffsetFilterModeDEFAULT = H265SampleAdaptiveOffsetFilterMode' "DEFAULT"
 
-pattern HSAOFMOff :: H265SampleAdaptiveOffsetFilterMode
-pattern HSAOFMOff = H265SampleAdaptiveOffsetFilterMode' "OFF"
+pattern H265SampleAdaptiveOffsetFilterModeOFF :: H265SampleAdaptiveOffsetFilterMode
+pattern H265SampleAdaptiveOffsetFilterModeOFF = H265SampleAdaptiveOffsetFilterMode' "OFF"
 
 {-# COMPLETE
-  HSAOFMAdaptive,
-  HSAOFMDefault,
-  HSAOFMOff,
+  H265SampleAdaptiveOffsetFilterModeADAPTIVE,
+  H265SampleAdaptiveOffsetFilterModeDEFAULT,
+  H265SampleAdaptiveOffsetFilterModeOFF,
   H265SampleAdaptiveOffsetFilterMode'
   #-}
 
-instance FromText H265SampleAdaptiveOffsetFilterMode where
-  parser = (H265SampleAdaptiveOffsetFilterMode' . mk) <$> takeText
+instance Prelude.FromText H265SampleAdaptiveOffsetFilterMode where
+  parser = H265SampleAdaptiveOffsetFilterMode' Prelude.<$> Prelude.takeText
 
-instance ToText H265SampleAdaptiveOffsetFilterMode where
-  toText (H265SampleAdaptiveOffsetFilterMode' ci) = original ci
+instance Prelude.ToText H265SampleAdaptiveOffsetFilterMode where
+  toText (H265SampleAdaptiveOffsetFilterMode' x) = x
 
-instance Hashable H265SampleAdaptiveOffsetFilterMode
+instance Prelude.Hashable H265SampleAdaptiveOffsetFilterMode
 
-instance NFData H265SampleAdaptiveOffsetFilterMode
+instance Prelude.NFData H265SampleAdaptiveOffsetFilterMode
 
-instance ToByteString H265SampleAdaptiveOffsetFilterMode
+instance Prelude.ToByteString H265SampleAdaptiveOffsetFilterMode
 
-instance ToQuery H265SampleAdaptiveOffsetFilterMode
+instance Prelude.ToQuery H265SampleAdaptiveOffsetFilterMode
 
-instance ToHeader H265SampleAdaptiveOffsetFilterMode
+instance Prelude.ToHeader H265SampleAdaptiveOffsetFilterMode
 
-instance ToJSON H265SampleAdaptiveOffsetFilterMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265SampleAdaptiveOffsetFilterMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265SampleAdaptiveOffsetFilterMode where
-  parseJSON = parseJSONText "H265SampleAdaptiveOffsetFilterMode"
+instance Prelude.FromJSON H265SampleAdaptiveOffsetFilterMode where
+  parseJSON = Prelude.parseJSONText "H265SampleAdaptiveOffsetFilterMode"

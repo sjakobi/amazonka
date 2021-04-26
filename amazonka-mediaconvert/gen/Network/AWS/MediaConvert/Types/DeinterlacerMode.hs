@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,68 @@
 module Network.AWS.MediaConvert.Types.DeinterlacerMode
   ( DeinterlacerMode
       ( ..,
-        DMAdaptive,
-        DMDeinterlace,
-        DMInverseTelecine
+        DeinterlacerModeADAPTIVE,
+        DeinterlacerModeDEINTERLACE,
+        DeinterlacerModeINVERSETELECINE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Deinterlacer (DeinterlaceMode) to choose how the service will do deinterlacing. Default is Deinterlace. - Deinterlace converts interlaced to progressive. - Inverse telecine converts Hard Telecine 29.97i to progressive 23.976p. - Adaptive auto-detects and converts to progressive.
-data DeinterlacerMode = DeinterlacerMode' (CI Text)
+-- | Use Deinterlacer (DeinterlaceMode) to choose how the service will do
+-- deinterlacing. Default is Deinterlace. - Deinterlace converts interlaced
+-- to progressive. - Inverse telecine converts Hard Telecine 29.97i to
+-- progressive 23.976p. - Adaptive auto-detects and converts to
+-- progressive.
+newtype DeinterlacerMode = DeinterlacerMode'
+  { fromDeinterlacerMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DMAdaptive :: DeinterlacerMode
-pattern DMAdaptive = DeinterlacerMode' "ADAPTIVE"
+pattern DeinterlacerModeADAPTIVE :: DeinterlacerMode
+pattern DeinterlacerModeADAPTIVE = DeinterlacerMode' "ADAPTIVE"
 
-pattern DMDeinterlace :: DeinterlacerMode
-pattern DMDeinterlace = DeinterlacerMode' "DEINTERLACE"
+pattern DeinterlacerModeDEINTERLACE :: DeinterlacerMode
+pattern DeinterlacerModeDEINTERLACE = DeinterlacerMode' "DEINTERLACE"
 
-pattern DMInverseTelecine :: DeinterlacerMode
-pattern DMInverseTelecine = DeinterlacerMode' "INVERSE_TELECINE"
+pattern DeinterlacerModeINVERSETELECINE :: DeinterlacerMode
+pattern DeinterlacerModeINVERSETELECINE = DeinterlacerMode' "INVERSE_TELECINE"
 
 {-# COMPLETE
-  DMAdaptive,
-  DMDeinterlace,
-  DMInverseTelecine,
+  DeinterlacerModeADAPTIVE,
+  DeinterlacerModeDEINTERLACE,
+  DeinterlacerModeINVERSETELECINE,
   DeinterlacerMode'
   #-}
 
-instance FromText DeinterlacerMode where
-  parser = (DeinterlacerMode' . mk) <$> takeText
+instance Prelude.FromText DeinterlacerMode where
+  parser = DeinterlacerMode' Prelude.<$> Prelude.takeText
 
-instance ToText DeinterlacerMode where
-  toText (DeinterlacerMode' ci) = original ci
+instance Prelude.ToText DeinterlacerMode where
+  toText (DeinterlacerMode' x) = x
 
-instance Hashable DeinterlacerMode
+instance Prelude.Hashable DeinterlacerMode
 
-instance NFData DeinterlacerMode
+instance Prelude.NFData DeinterlacerMode
 
-instance ToByteString DeinterlacerMode
+instance Prelude.ToByteString DeinterlacerMode
 
-instance ToQuery DeinterlacerMode
+instance Prelude.ToQuery DeinterlacerMode
 
-instance ToHeader DeinterlacerMode
+instance Prelude.ToHeader DeinterlacerMode
 
-instance ToJSON DeinterlacerMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeinterlacerMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeinterlacerMode where
-  parseJSON = parseJSONText "DeinterlacerMode"
+instance Prelude.FromJSON DeinterlacerMode where
+  parseJSON = Prelude.parseJSONText "DeinterlacerMode"

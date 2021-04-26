@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaConvert.Types.Eac3DcFilter
   ( Eac3DcFilter
       ( ..,
-        EDFDisabled,
-        EDFEnabled
+        Eac3DcFilterDISABLED,
+        Eac3DcFilterENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Activates a DC highpass filter for all input channels.
-data Eac3DcFilter = Eac3DcFilter' (CI Text)
+newtype Eac3DcFilter = Eac3DcFilter'
+  { fromEac3DcFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EDFDisabled :: Eac3DcFilter
-pattern EDFDisabled = Eac3DcFilter' "DISABLED"
+pattern Eac3DcFilterDISABLED :: Eac3DcFilter
+pattern Eac3DcFilterDISABLED = Eac3DcFilter' "DISABLED"
 
-pattern EDFEnabled :: Eac3DcFilter
-pattern EDFEnabled = Eac3DcFilter' "ENABLED"
+pattern Eac3DcFilterENABLED :: Eac3DcFilter
+pattern Eac3DcFilterENABLED = Eac3DcFilter' "ENABLED"
 
 {-# COMPLETE
-  EDFDisabled,
-  EDFEnabled,
+  Eac3DcFilterDISABLED,
+  Eac3DcFilterENABLED,
   Eac3DcFilter'
   #-}
 
-instance FromText Eac3DcFilter where
-  parser = (Eac3DcFilter' . mk) <$> takeText
+instance Prelude.FromText Eac3DcFilter where
+  parser = Eac3DcFilter' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3DcFilter where
-  toText (Eac3DcFilter' ci) = original ci
+instance Prelude.ToText Eac3DcFilter where
+  toText (Eac3DcFilter' x) = x
 
-instance Hashable Eac3DcFilter
+instance Prelude.Hashable Eac3DcFilter
 
-instance NFData Eac3DcFilter
+instance Prelude.NFData Eac3DcFilter
 
-instance ToByteString Eac3DcFilter
+instance Prelude.ToByteString Eac3DcFilter
 
-instance ToQuery Eac3DcFilter
+instance Prelude.ToQuery Eac3DcFilter
 
-instance ToHeader Eac3DcFilter
+instance Prelude.ToHeader Eac3DcFilter
 
-instance ToJSON Eac3DcFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3DcFilter where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3DcFilter where
-  parseJSON = parseJSONText "Eac3DcFilter"
+instance Prelude.FromJSON Eac3DcFilter where
+  parseJSON = Prelude.parseJSONText "Eac3DcFilter"

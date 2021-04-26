@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.InputDeblockFilter
   ( InputDeblockFilter
       ( ..,
-        IDisabled,
-        IEnabled
+        InputDeblockFilterDISABLED,
+        InputDeblockFilterENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable Deblock (InputDeblockFilter) to produce smoother motion in the output. Default is disabled. Only manually controllable for MPEG2 and uncompressed video inputs.
-data InputDeblockFilter
-  = InputDeblockFilter'
-      ( CI
-          Text
-      )
+-- | Enable Deblock (InputDeblockFilter) to produce smoother motion in the
+-- output. Default is disabled. Only manually controllable for MPEG2 and
+-- uncompressed video inputs.
+newtype InputDeblockFilter = InputDeblockFilter'
+  { fromInputDeblockFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IDisabled :: InputDeblockFilter
-pattern IDisabled = InputDeblockFilter' "DISABLED"
+pattern InputDeblockFilterDISABLED :: InputDeblockFilter
+pattern InputDeblockFilterDISABLED = InputDeblockFilter' "DISABLED"
 
-pattern IEnabled :: InputDeblockFilter
-pattern IEnabled = InputDeblockFilter' "ENABLED"
+pattern InputDeblockFilterENABLED :: InputDeblockFilter
+pattern InputDeblockFilterENABLED = InputDeblockFilter' "ENABLED"
 
 {-# COMPLETE
-  IDisabled,
-  IEnabled,
+  InputDeblockFilterDISABLED,
+  InputDeblockFilterENABLED,
   InputDeblockFilter'
   #-}
 
-instance FromText InputDeblockFilter where
-  parser = (InputDeblockFilter' . mk) <$> takeText
+instance Prelude.FromText InputDeblockFilter where
+  parser = InputDeblockFilter' Prelude.<$> Prelude.takeText
 
-instance ToText InputDeblockFilter where
-  toText (InputDeblockFilter' ci) = original ci
+instance Prelude.ToText InputDeblockFilter where
+  toText (InputDeblockFilter' x) = x
 
-instance Hashable InputDeblockFilter
+instance Prelude.Hashable InputDeblockFilter
 
-instance NFData InputDeblockFilter
+instance Prelude.NFData InputDeblockFilter
 
-instance ToByteString InputDeblockFilter
+instance Prelude.ToByteString InputDeblockFilter
 
-instance ToQuery InputDeblockFilter
+instance Prelude.ToQuery InputDeblockFilter
 
-instance ToHeader InputDeblockFilter
+instance Prelude.ToHeader InputDeblockFilter
 
-instance ToJSON InputDeblockFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputDeblockFilter where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputDeblockFilter where
-  parseJSON = parseJSONText "InputDeblockFilter"
+instance Prelude.FromJSON InputDeblockFilter where
+  parseJSON = Prelude.parseJSONText "InputDeblockFilter"

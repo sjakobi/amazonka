@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaConvert.Types.CmafManifestCompression
   ( CmafManifestCompression
       ( ..,
-        CMCGzip,
-        CMCNone
+        CmafManifestCompressionGZIP,
+        CmafManifestCompressionNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | When set to GZIP, compresses HLS playlist.
-data CmafManifestCompression
-  = CmafManifestCompression'
-      ( CI
-          Text
-      )
+newtype CmafManifestCompression = CmafManifestCompression'
+  { fromCmafManifestCompression ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMCGzip :: CmafManifestCompression
-pattern CMCGzip = CmafManifestCompression' "GZIP"
+pattern CmafManifestCompressionGZIP :: CmafManifestCompression
+pattern CmafManifestCompressionGZIP = CmafManifestCompression' "GZIP"
 
-pattern CMCNone :: CmafManifestCompression
-pattern CMCNone = CmafManifestCompression' "NONE"
+pattern CmafManifestCompressionNONE :: CmafManifestCompression
+pattern CmafManifestCompressionNONE = CmafManifestCompression' "NONE"
 
 {-# COMPLETE
-  CMCGzip,
-  CMCNone,
+  CmafManifestCompressionGZIP,
+  CmafManifestCompressionNONE,
   CmafManifestCompression'
   #-}
 
-instance FromText CmafManifestCompression where
-  parser = (CmafManifestCompression' . mk) <$> takeText
+instance Prelude.FromText CmafManifestCompression where
+  parser = CmafManifestCompression' Prelude.<$> Prelude.takeText
 
-instance ToText CmafManifestCompression where
-  toText (CmafManifestCompression' ci) = original ci
+instance Prelude.ToText CmafManifestCompression where
+  toText (CmafManifestCompression' x) = x
 
-instance Hashable CmafManifestCompression
+instance Prelude.Hashable CmafManifestCompression
 
-instance NFData CmafManifestCompression
+instance Prelude.NFData CmafManifestCompression
 
-instance ToByteString CmafManifestCompression
+instance Prelude.ToByteString CmafManifestCompression
 
-instance ToQuery CmafManifestCompression
+instance Prelude.ToQuery CmafManifestCompression
 
-instance ToHeader CmafManifestCompression
+instance Prelude.ToHeader CmafManifestCompression
 
-instance ToJSON CmafManifestCompression where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafManifestCompression where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafManifestCompression where
-  parseJSON = parseJSONText "CmafManifestCompression"
+instance Prelude.FromJSON CmafManifestCompression where
+  parseJSON = Prelude.parseJSONText "CmafManifestCompression"

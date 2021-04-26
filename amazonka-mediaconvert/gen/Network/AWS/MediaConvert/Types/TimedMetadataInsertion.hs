@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.TimedMetadataInsertion where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.Id3Insertion
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags in any HLS outputs. To include timed metadata, you must enable it here, enable it in each output container, and specify tags and timecodes in ID3 insertion (Id3Insertion) objects.
+-- | Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3
+-- tags in any HLS outputs. To include timed metadata, you must enable it
+-- here, enable it in each output container, and specify tags and timecodes
+-- in ID3 insertion (Id3Insertion) objects.
 --
--- /See:/ 'timedMetadataInsertion' smart constructor.
-newtype TimedMetadataInsertion = TimedMetadataInsertion'
-  { _tmiId3Insertions ::
-      Maybe [Id3Insertion]
+-- /See:/ 'newTimedMetadataInsertion' smart constructor.
+data TimedMetadataInsertion = TimedMetadataInsertion'
+  { -- | Id3Insertions contains the array of Id3Insertion instances.
+    id3Insertions :: Prelude.Maybe [Id3Insertion]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimedMetadataInsertion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimedMetadataInsertion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmiId3Insertions' - Id3Insertions contains the array of Id3Insertion instances.
-timedMetadataInsertion ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id3Insertions', 'timedMetadataInsertion_id3Insertions' - Id3Insertions contains the array of Id3Insertion instances.
+newTimedMetadataInsertion ::
   TimedMetadataInsertion
-timedMetadataInsertion =
+newTimedMetadataInsertion =
   TimedMetadataInsertion'
-    { _tmiId3Insertions =
-        Nothing
+    { id3Insertions =
+        Prelude.Nothing
     }
 
 -- | Id3Insertions contains the array of Id3Insertion instances.
-tmiId3Insertions :: Lens' TimedMetadataInsertion [Id3Insertion]
-tmiId3Insertions = lens _tmiId3Insertions (\s a -> s {_tmiId3Insertions = a}) . _Default . _Coerce
+timedMetadataInsertion_id3Insertions :: Lens.Lens' TimedMetadataInsertion (Prelude.Maybe [Id3Insertion])
+timedMetadataInsertion_id3Insertions = Lens.lens (\TimedMetadataInsertion' {id3Insertions} -> id3Insertions) (\s@TimedMetadataInsertion' {} a -> s {id3Insertions = a} :: TimedMetadataInsertion) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON TimedMetadataInsertion where
+instance Prelude.FromJSON TimedMetadataInsertion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimedMetadataInsertion"
       ( \x ->
           TimedMetadataInsertion'
-            <$> (x .:? "id3Insertions" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "id3Insertions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable TimedMetadataInsertion
+instance Prelude.Hashable TimedMetadataInsertion
 
-instance NFData TimedMetadataInsertion
+instance Prelude.NFData TimedMetadataInsertion
 
-instance ToJSON TimedMetadataInsertion where
+instance Prelude.ToJSON TimedMetadataInsertion where
   toJSON TimedMetadataInsertion' {..} =
-    object
-      ( catMaybes
-          [("id3Insertions" .=) <$> _tmiId3Insertions]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("id3Insertions" Prelude..=)
+              Prelude.<$> id3Insertions
+          ]
       )

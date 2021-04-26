@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,82 @@
 module Network.AWS.MediaConvert.Types.BurninSubtitleFontColor
   ( BurninSubtitleFontColor
       ( ..,
-        BSFCBlack,
-        BSFCBlue,
-        BSFCGreen,
-        BSFCRed,
-        BSFCWhite,
-        BSFCYellow
+        BurninSubtitleFontColorBLACK,
+        BurninSubtitleFontColorBLUE,
+        BurninSubtitleFontColorGREEN,
+        BurninSubtitleFontColorRED,
+        BurninSubtitleFontColorWHITE,
+        BurninSubtitleFontColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the color of the burned-in captions. This option is not valid for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
-data BurninSubtitleFontColor
-  = BurninSubtitleFontColor'
-      ( CI
-          Text
-      )
+-- | Specifies the color of the burned-in captions. This option is not valid
+-- for source captions that are STL, 608\/embedded or teletext. These
+-- source settings are already pre-defined by the caption stream. All
+-- burn-in and DVB-Sub font settings must match.
+newtype BurninSubtitleFontColor = BurninSubtitleFontColor'
+  { fromBurninSubtitleFontColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSFCBlack :: BurninSubtitleFontColor
-pattern BSFCBlack = BurninSubtitleFontColor' "BLACK"
+pattern BurninSubtitleFontColorBLACK :: BurninSubtitleFontColor
+pattern BurninSubtitleFontColorBLACK = BurninSubtitleFontColor' "BLACK"
 
-pattern BSFCBlue :: BurninSubtitleFontColor
-pattern BSFCBlue = BurninSubtitleFontColor' "BLUE"
+pattern BurninSubtitleFontColorBLUE :: BurninSubtitleFontColor
+pattern BurninSubtitleFontColorBLUE = BurninSubtitleFontColor' "BLUE"
 
-pattern BSFCGreen :: BurninSubtitleFontColor
-pattern BSFCGreen = BurninSubtitleFontColor' "GREEN"
+pattern BurninSubtitleFontColorGREEN :: BurninSubtitleFontColor
+pattern BurninSubtitleFontColorGREEN = BurninSubtitleFontColor' "GREEN"
 
-pattern BSFCRed :: BurninSubtitleFontColor
-pattern BSFCRed = BurninSubtitleFontColor' "RED"
+pattern BurninSubtitleFontColorRED :: BurninSubtitleFontColor
+pattern BurninSubtitleFontColorRED = BurninSubtitleFontColor' "RED"
 
-pattern BSFCWhite :: BurninSubtitleFontColor
-pattern BSFCWhite = BurninSubtitleFontColor' "WHITE"
+pattern BurninSubtitleFontColorWHITE :: BurninSubtitleFontColor
+pattern BurninSubtitleFontColorWHITE = BurninSubtitleFontColor' "WHITE"
 
-pattern BSFCYellow :: BurninSubtitleFontColor
-pattern BSFCYellow = BurninSubtitleFontColor' "YELLOW"
+pattern BurninSubtitleFontColorYELLOW :: BurninSubtitleFontColor
+pattern BurninSubtitleFontColorYELLOW = BurninSubtitleFontColor' "YELLOW"
 
 {-# COMPLETE
-  BSFCBlack,
-  BSFCBlue,
-  BSFCGreen,
-  BSFCRed,
-  BSFCWhite,
-  BSFCYellow,
+  BurninSubtitleFontColorBLACK,
+  BurninSubtitleFontColorBLUE,
+  BurninSubtitleFontColorGREEN,
+  BurninSubtitleFontColorRED,
+  BurninSubtitleFontColorWHITE,
+  BurninSubtitleFontColorYELLOW,
   BurninSubtitleFontColor'
   #-}
 
-instance FromText BurninSubtitleFontColor where
-  parser = (BurninSubtitleFontColor' . mk) <$> takeText
+instance Prelude.FromText BurninSubtitleFontColor where
+  parser = BurninSubtitleFontColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurninSubtitleFontColor where
-  toText (BurninSubtitleFontColor' ci) = original ci
+instance Prelude.ToText BurninSubtitleFontColor where
+  toText (BurninSubtitleFontColor' x) = x
 
-instance Hashable BurninSubtitleFontColor
+instance Prelude.Hashable BurninSubtitleFontColor
 
-instance NFData BurninSubtitleFontColor
+instance Prelude.NFData BurninSubtitleFontColor
 
-instance ToByteString BurninSubtitleFontColor
+instance Prelude.ToByteString BurninSubtitleFontColor
 
-instance ToQuery BurninSubtitleFontColor
+instance Prelude.ToQuery BurninSubtitleFontColor
 
-instance ToHeader BurninSubtitleFontColor
+instance Prelude.ToHeader BurninSubtitleFontColor
 
-instance ToJSON BurninSubtitleFontColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurninSubtitleFontColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurninSubtitleFontColor where
-  parseJSON = parseJSONText "BurninSubtitleFontColor"
+instance Prelude.FromJSON BurninSubtitleFontColor where
+  parseJSON = Prelude.parseJSONText "BurninSubtitleFontColor"

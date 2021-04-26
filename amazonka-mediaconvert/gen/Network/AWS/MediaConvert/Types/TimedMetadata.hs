@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.TimedMetadata
   ( TimedMetadata
       ( ..,
-        TMNone,
-        TMPassthrough
+        TimedMetadataNONE,
+        TimedMetadataPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Applies only to HLS outputs. Use this setting to specify whether the service inserts the ID3 timed metadata from the input in this output.
-data TimedMetadata = TimedMetadata' (CI Text)
+-- | Applies only to HLS outputs. Use this setting to specify whether the
+-- service inserts the ID3 timed metadata from the input in this output.
+newtype TimedMetadata = TimedMetadata'
+  { fromTimedMetadata ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TMNone :: TimedMetadata
-pattern TMNone = TimedMetadata' "NONE"
+pattern TimedMetadataNONE :: TimedMetadata
+pattern TimedMetadataNONE = TimedMetadata' "NONE"
 
-pattern TMPassthrough :: TimedMetadata
-pattern TMPassthrough = TimedMetadata' "PASSTHROUGH"
+pattern TimedMetadataPASSTHROUGH :: TimedMetadata
+pattern TimedMetadataPASSTHROUGH = TimedMetadata' "PASSTHROUGH"
 
 {-# COMPLETE
-  TMNone,
-  TMPassthrough,
+  TimedMetadataNONE,
+  TimedMetadataPASSTHROUGH,
   TimedMetadata'
   #-}
 
-instance FromText TimedMetadata where
-  parser = (TimedMetadata' . mk) <$> takeText
+instance Prelude.FromText TimedMetadata where
+  parser = TimedMetadata' Prelude.<$> Prelude.takeText
 
-instance ToText TimedMetadata where
-  toText (TimedMetadata' ci) = original ci
+instance Prelude.ToText TimedMetadata where
+  toText (TimedMetadata' x) = x
 
-instance Hashable TimedMetadata
+instance Prelude.Hashable TimedMetadata
 
-instance NFData TimedMetadata
+instance Prelude.NFData TimedMetadata
 
-instance ToByteString TimedMetadata
+instance Prelude.ToByteString TimedMetadata
 
-instance ToQuery TimedMetadata
+instance Prelude.ToQuery TimedMetadata
 
-instance ToHeader TimedMetadata
+instance Prelude.ToHeader TimedMetadata
 
-instance ToJSON TimedMetadata where
-  toJSON = toJSONText
+instance Prelude.ToJSON TimedMetadata where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TimedMetadata where
-  parseJSON = parseJSONText "TimedMetadata"
+instance Prelude.FromJSON TimedMetadata where
+  parseJSON = Prelude.parseJSONText "TimedMetadata"

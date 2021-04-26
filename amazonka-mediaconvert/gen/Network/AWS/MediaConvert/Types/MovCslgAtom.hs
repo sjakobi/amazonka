@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,63 @@
 module Network.AWS.MediaConvert.Types.MovCslgAtom
   ( MovCslgAtom
       ( ..,
-        MExclude,
-        MInclude
+        MovCslgAtomEXCLUDE,
+        MovCslgAtomINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When enabled, file composition times will start at zero, composition times in the 'ctts' (composition time to sample) box for B-frames will be negative, and a 'cslg' (composition shift least greatest) box will be included per 14496-1 amendment 1. This improves compatibility with Apple players and tools.
-data MovCslgAtom = MovCslgAtom' (CI Text)
+-- | When enabled, file composition times will start at zero, composition
+-- times in the \'ctts\' (composition time to sample) box for B-frames will
+-- be negative, and a \'cslg\' (composition shift least greatest) box will
+-- be included per 14496-1 amendment 1. This improves compatibility with
+-- Apple players and tools.
+newtype MovCslgAtom = MovCslgAtom'
+  { fromMovCslgAtom ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MExclude :: MovCslgAtom
-pattern MExclude = MovCslgAtom' "EXCLUDE"
+pattern MovCslgAtomEXCLUDE :: MovCslgAtom
+pattern MovCslgAtomEXCLUDE = MovCslgAtom' "EXCLUDE"
 
-pattern MInclude :: MovCslgAtom
-pattern MInclude = MovCslgAtom' "INCLUDE"
+pattern MovCslgAtomINCLUDE :: MovCslgAtom
+pattern MovCslgAtomINCLUDE = MovCslgAtom' "INCLUDE"
 
 {-# COMPLETE
-  MExclude,
-  MInclude,
+  MovCslgAtomEXCLUDE,
+  MovCslgAtomINCLUDE,
   MovCslgAtom'
   #-}
 
-instance FromText MovCslgAtom where
-  parser = (MovCslgAtom' . mk) <$> takeText
+instance Prelude.FromText MovCslgAtom where
+  parser = MovCslgAtom' Prelude.<$> Prelude.takeText
 
-instance ToText MovCslgAtom where
-  toText (MovCslgAtom' ci) = original ci
+instance Prelude.ToText MovCslgAtom where
+  toText (MovCslgAtom' x) = x
 
-instance Hashable MovCslgAtom
+instance Prelude.Hashable MovCslgAtom
 
-instance NFData MovCslgAtom
+instance Prelude.NFData MovCslgAtom
 
-instance ToByteString MovCslgAtom
+instance Prelude.ToByteString MovCslgAtom
 
-instance ToQuery MovCslgAtom
+instance Prelude.ToQuery MovCslgAtom
 
-instance ToHeader MovCslgAtom
+instance Prelude.ToHeader MovCslgAtom
 
-instance ToJSON MovCslgAtom where
-  toJSON = toJSONText
+instance Prelude.ToJSON MovCslgAtom where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MovCslgAtom where
-  parseJSON = parseJSONText "MovCslgAtom"
+instance Prelude.FromJSON MovCslgAtom where
+  parseJSON = Prelude.parseJSONText "MovCslgAtom"

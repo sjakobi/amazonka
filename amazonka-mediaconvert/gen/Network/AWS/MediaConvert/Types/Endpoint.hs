@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,34 +19,41 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.Endpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an account-specific API endpoint.
 --
--- /See:/ 'endpoint' smart constructor.
-newtype Endpoint = Endpoint' {_eURL :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newEndpoint' smart constructor.
+data Endpoint = Endpoint'
+  { -- | URL of endpoint
+    url :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eURL' - URL of endpoint
-endpoint ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'url', 'endpoint_url' - URL of endpoint
+newEndpoint ::
   Endpoint
-endpoint = Endpoint' {_eURL = Nothing}
+newEndpoint = Endpoint' {url = Prelude.Nothing}
 
 -- | URL of endpoint
-eURL :: Lens' Endpoint (Maybe Text)
-eURL = lens _eURL (\s a -> s {_eURL = a})
+endpoint_url :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_url = Lens.lens (\Endpoint' {url} -> url) (\s@Endpoint' {} a -> s {url = a} :: Endpoint)
 
-instance FromJSON Endpoint where
+instance Prelude.FromJSON Endpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Endpoint"
-      (\x -> Endpoint' <$> (x .:? "url"))
+      (\x -> Endpoint' Prelude.<$> (x Prelude..:? "url"))
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

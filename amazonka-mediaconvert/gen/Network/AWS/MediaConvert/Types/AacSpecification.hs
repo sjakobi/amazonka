@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.AacSpecification
   ( AacSpecification
       ( ..,
-        MPEG2,
-        MPEG4
+        AacSpecificationMPEG2,
+        AacSpecificationMPEG4
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use MPEG-2 AAC instead of MPEG-4 AAC audio for raw or MPEG-2 Transport Stream containers.
-data AacSpecification = AacSpecification' (CI Text)
+-- | Use MPEG-2 AAC instead of MPEG-4 AAC audio for raw or MPEG-2 Transport
+-- Stream containers.
+newtype AacSpecification = AacSpecification'
+  { fromAacSpecification ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPEG2 :: AacSpecification
-pattern MPEG2 = AacSpecification' "MPEG2"
+pattern AacSpecificationMPEG2 :: AacSpecification
+pattern AacSpecificationMPEG2 = AacSpecification' "MPEG2"
 
-pattern MPEG4 :: AacSpecification
-pattern MPEG4 = AacSpecification' "MPEG4"
+pattern AacSpecificationMPEG4 :: AacSpecification
+pattern AacSpecificationMPEG4 = AacSpecification' "MPEG4"
 
 {-# COMPLETE
-  MPEG2,
-  MPEG4,
+  AacSpecificationMPEG2,
+  AacSpecificationMPEG4,
   AacSpecification'
   #-}
 
-instance FromText AacSpecification where
-  parser = (AacSpecification' . mk) <$> takeText
+instance Prelude.FromText AacSpecification where
+  parser = AacSpecification' Prelude.<$> Prelude.takeText
 
-instance ToText AacSpecification where
-  toText (AacSpecification' ci) = original ci
+instance Prelude.ToText AacSpecification where
+  toText (AacSpecification' x) = x
 
-instance Hashable AacSpecification
+instance Prelude.Hashable AacSpecification
 
-instance NFData AacSpecification
+instance Prelude.NFData AacSpecification
 
-instance ToByteString AacSpecification
+instance Prelude.ToByteString AacSpecification
 
-instance ToQuery AacSpecification
+instance Prelude.ToQuery AacSpecification
 
-instance ToHeader AacSpecification
+instance Prelude.ToHeader AacSpecification
 
-instance ToJSON AacSpecification where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacSpecification where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacSpecification where
-  parseJSON = parseJSONText "AacSpecification"
+instance Prelude.FromJSON AacSpecification where
+  parseJSON = Prelude.parseJSONText "AacSpecification"

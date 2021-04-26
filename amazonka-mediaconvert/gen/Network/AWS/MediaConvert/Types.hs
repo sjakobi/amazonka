@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types
   ( -- * Service Configuration
-    mediaConvert,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -864,8 +867,8 @@ module Network.AWS.MediaConvert.Types
     -- * RespondToAfd
     RespondToAfd (..),
 
-    -- * S3ObjectCannedACL
-    S3ObjectCannedACL (..),
+    -- * S3ObjectCannedAcl
+    S3ObjectCannedAcl (..),
 
     -- * S3ServerSideEncryptionType
     S3ServerSideEncryptionType (..),
@@ -965,1524 +968,595 @@ module Network.AWS.MediaConvert.Types
 
     -- * AacSettings
     AacSettings (..),
-    aacSettings,
-    aAudioDescriptionBroadcasterMix,
-    aRateControlMode,
-    aCodingMode,
-    aCodecProfile,
-    aRawFormat,
-    aSampleRate,
-    aVbrQuality,
-    aBitrate,
-    aSpecification,
+    newAacSettings,
 
     -- * Ac3Settings
     Ac3Settings (..),
-    ac3Settings,
-    asDialnorm,
-    asCodingMode,
-    asLfeFilter,
-    asDynamicRangeCompressionProfile,
-    asSampleRate,
-    asBitstreamMode,
-    asBitrate,
-    asMetadataControl,
+    newAc3Settings,
 
     -- * AccelerationSettings
     AccelerationSettings (..),
-    accelerationSettings,
-    asMode,
+    newAccelerationSettings,
 
     -- * AiffSettings
     AiffSettings (..),
-    aiffSettings,
-    assChannels,
-    assBitDepth,
-    assSampleRate,
+    newAiffSettings,
 
     -- * AncillarySourceSettings
     AncillarySourceSettings (..),
-    ancillarySourceSettings,
-    assTerminateCaptions,
-    assConvert608To708,
-    assSourceAncillaryChannelNumber,
+    newAncillarySourceSettings,
 
     -- * AudioChannelTaggingSettings
     AudioChannelTaggingSettings (..),
-    audioChannelTaggingSettings,
-    actsChannelTag,
+    newAudioChannelTaggingSettings,
 
     -- * AudioCodecSettings
     AudioCodecSettings (..),
-    audioCodecSettings,
-    acsAc3Settings,
-    acsVorbisSettings,
-    acsCodec,
-    acsMp3Settings,
-    acsMp2Settings,
-    acsOpusSettings,
-    acsEac3Settings,
-    acsAacSettings,
-    acsWavSettings,
-    acsAiffSettings,
-    acsEac3AtmosSettings,
+    newAudioCodecSettings,
 
     -- * AudioDescription
     AudioDescription (..),
-    audioDescription,
-    adLanguageCode,
-    adCustomLanguageCode,
-    adAudioType,
-    adCodecSettings,
-    adLanguageCodeControl,
-    adAudioChannelTaggingSettings,
-    adAudioSourceName,
-    adAudioTypeControl,
-    adRemixSettings,
-    adAudioNormalizationSettings,
-    adStreamName,
+    newAudioDescription,
 
     -- * AudioNormalizationSettings
     AudioNormalizationSettings (..),
-    audioNormalizationSettings,
-    ansCorrectionGateLevel,
-    ansAlgorithm,
-    ansPeakCalculation,
-    ansTargetLkfs,
-    ansAlgorithmControl,
-    ansLoudnessLogging,
+    newAudioNormalizationSettings,
 
     -- * AudioSelector
     AudioSelector (..),
-    audioSelector,
-    asLanguageCode,
-    asProgramSelection,
-    asCustomLanguageCode,
-    asTracks,
-    asDefaultSelection,
-    asSelectorType,
-    asRemixSettings,
-    asPids,
-    asExternalAudioFileInput,
-    asOffset,
+    newAudioSelector,
 
     -- * AudioSelectorGroup
     AudioSelectorGroup (..),
-    audioSelectorGroup,
-    asgAudioSelectorNames,
+    newAudioSelectorGroup,
 
     -- * AutomatedAbrSettings
     AutomatedAbrSettings (..),
-    automatedAbrSettings,
-    aasMinAbrBitrate,
-    aasMaxRenditions,
-    aasMaxAbrBitrate,
+    newAutomatedAbrSettings,
 
     -- * AutomatedEncodingSettings
     AutomatedEncodingSettings (..),
-    automatedEncodingSettings,
-    aesAbrSettings,
+    newAutomatedEncodingSettings,
 
     -- * Av1QvbrSettings
     Av1QvbrSettings (..),
-    av1QvbrSettings,
-    aqsQvbrQualityLevelFineTune,
-    aqsQvbrQualityLevel,
+    newAv1QvbrSettings,
 
     -- * Av1Settings
     Av1Settings (..),
-    av1Settings,
-    asSpatialAdaptiveQuantization,
-    asFramerateNumerator,
-    asRateControlMode,
-    asSlices,
-    asGopSize,
-    asFramerateDenominator,
-    asMaxBitrate,
-    asAdaptiveQuantization,
-    asFramerateControl,
-    asNumberBFramesBetweenReferenceFrames,
-    asFramerateConversionAlgorithm,
-    asQvbrSettings,
+    newAv1Settings,
 
     -- * AvailBlanking
     AvailBlanking (..),
-    availBlanking,
-    abAvailBlankingImage,
+    newAvailBlanking,
 
     -- * AvcIntraSettings
     AvcIntraSettings (..),
-    avcIntraSettings,
-    aisInterlaceMode,
-    aisTelecine,
-    aisFramerateNumerator,
-    aisFramerateDenominator,
-    aisAvcIntraClass,
-    aisScanTypeConversionMode,
-    aisFramerateControl,
-    aisAvcIntraUhdSettings,
-    aisFramerateConversionAlgorithm,
-    aisSlowPal,
+    newAvcIntraSettings,
 
     -- * AvcIntraUhdSettings
     AvcIntraUhdSettings (..),
-    avcIntraUhdSettings,
-    aiusQualityTuningLevel,
+    newAvcIntraUhdSettings,
 
     -- * BurninDestinationSettings
     BurninDestinationSettings (..),
-    burninDestinationSettings,
-    bdsAlignment,
-    bdsShadowOpacity,
-    bdsTeletextSpacing,
-    bdsShadowColor,
-    bdsOutlineColor,
-    bdsBackgroundOpacity,
-    bdsFontScript,
-    bdsXPosition,
-    bdsFontColor,
-    bdsFontSize,
-    bdsBackgroundColor,
-    bdsShadowXOffset,
-    bdsYPosition,
-    bdsFontResolution,
-    bdsOutlineSize,
-    bdsFontOpacity,
-    bdsShadowYOffset,
+    newBurninDestinationSettings,
 
     -- * CaptionDescription
     CaptionDescription (..),
-    captionDescription,
-    cdLanguageCode,
-    cdLanguageDescription,
-    cdCustomLanguageCode,
-    cdCaptionSelectorName,
-    cdDestinationSettings,
+    newCaptionDescription,
 
     -- * CaptionDescriptionPreset
     CaptionDescriptionPreset (..),
-    captionDescriptionPreset,
-    cdpLanguageCode,
-    cdpLanguageDescription,
-    cdpCustomLanguageCode,
-    cdpDestinationSettings,
+    newCaptionDescriptionPreset,
 
     -- * CaptionDestinationSettings
     CaptionDestinationSettings (..),
-    captionDestinationSettings,
-    cdsEmbeddedDestinationSettings,
-    cdsDestinationType,
-    cdsDvbSubDestinationSettings,
-    cdsTeletextDestinationSettings,
-    cdsTtmlDestinationSettings,
-    cdsBurninDestinationSettings,
-    cdsImscDestinationSettings,
-    cdsSccDestinationSettings,
+    newCaptionDestinationSettings,
 
     -- * CaptionSelector
     CaptionSelector (..),
-    captionSelector,
-    csLanguageCode,
-    csCustomLanguageCode,
-    csSourceSettings,
+    newCaptionSelector,
 
     -- * CaptionSourceFramerate
     CaptionSourceFramerate (..),
-    captionSourceFramerate,
-    csfFramerateNumerator,
-    csfFramerateDenominator,
+    newCaptionSourceFramerate,
 
     -- * CaptionSourceSettings
     CaptionSourceSettings (..),
-    captionSourceSettings,
-    cssAncillarySourceSettings,
-    cssTrackSourceSettings,
-    cssEmbeddedSourceSettings,
-    cssDvbSubSourceSettings,
-    cssFileSourceSettings,
-    cssTeletextSourceSettings,
-    cssSourceType,
+    newCaptionSourceSettings,
 
     -- * ChannelMapping
     ChannelMapping (..),
-    channelMapping,
-    cmOutputChannels,
+    newChannelMapping,
 
     -- * CmafAdditionalManifest
     CmafAdditionalManifest (..),
-    cmafAdditionalManifest,
-    camManifestNameModifier,
-    camSelectedOutputs,
+    newCmafAdditionalManifest,
 
     -- * CmafEncryptionSettings
     CmafEncryptionSettings (..),
-    cmafEncryptionSettings,
-    cesSpekeKeyProvider,
-    cesEncryptionMethod,
-    cesConstantInitializationVector,
-    cesInitializationVectorInManifest,
-    cesStaticKeyProvider,
-    cesType,
+    newCmafEncryptionSettings,
 
     -- * CmafGroupSettings
     CmafGroupSettings (..),
-    cmafGroupSettings,
-    cgsSegmentLength,
-    cgsSegmentControl,
-    cgsWriteDashManifest,
-    cgsFragmentLength,
-    cgsManifestCompression,
-    cgsBaseURL,
-    cgsStreamInfResolution,
-    cgsCodecSpecification,
-    cgsAdditionalManifests,
-    cgsMpdProfile,
-    cgsEncryption,
-    cgsMinBufferTime,
-    cgsDestination,
-    cgsMinFinalSegmentLength,
-    cgsDestinationSettings,
-    cgsWriteSegmentTimelineInRepresentation,
-    cgsWriteHlsManifest,
-    cgsClientCache,
-    cgsManifestDurationFormat,
+    newCmafGroupSettings,
 
     -- * CmfcSettings
     CmfcSettings (..),
-    cmfcSettings,
-    csIFrameOnlyManifest,
-    csAudioDuration,
-    csScte35Esam,
-    csScte35Source,
+    newCmfcSettings,
 
     -- * ColorCorrector
     ColorCorrector (..),
-    colorCorrector,
-    ccSaturation,
-    ccColorSpaceConversion,
-    ccHdr10Metadata,
-    ccBrightness,
-    ccHue,
-    ccContrast,
+    newColorCorrector,
 
     -- * ContainerSettings
     ContainerSettings (..),
-    containerSettings,
-    csContainer,
-    csMpdSettings,
-    csMp4Settings,
-    csF4vSettings,
-    csMxfSettings,
-    csMovSettings,
-    csCmfcSettings,
-    csM3u8Settings,
-    csM2tsSettings,
+    newContainerSettings,
 
     -- * DashAdditionalManifest
     DashAdditionalManifest (..),
-    dashAdditionalManifest,
-    damManifestNameModifier,
-    damSelectedOutputs,
+    newDashAdditionalManifest,
 
     -- * DashIsoEncryptionSettings
     DashIsoEncryptionSettings (..),
-    dashIsoEncryptionSettings,
-    diesSpekeKeyProvider,
-    diesPlaybackDeviceCompatibility,
+    newDashIsoEncryptionSettings,
 
     -- * DashIsoGroupSettings
     DashIsoGroupSettings (..),
-    dashIsoGroupSettings,
-    digsSegmentLength,
-    digsSegmentControl,
-    digsFragmentLength,
-    digsBaseURL,
-    digsAdditionalManifests,
-    digsMpdProfile,
-    digsEncryption,
-    digsMinBufferTime,
-    digsHbbtvCompliance,
-    digsDestination,
-    digsMinFinalSegmentLength,
-    digsDestinationSettings,
-    digsWriteSegmentTimelineInRepresentation,
+    newDashIsoGroupSettings,
 
     -- * Deinterlacer
     Deinterlacer (..),
-    deinterlacer,
-    dAlgorithm,
-    dMode,
-    dControl,
+    newDeinterlacer,
 
     -- * DestinationSettings
     DestinationSettings (..),
-    destinationSettings,
-    dsS3Settings,
+    newDestinationSettings,
 
     -- * DolbyVision
     DolbyVision (..),
-    dolbyVision,
-    dvL6Mode,
-    dvL6Metadata,
-    dvProfile,
+    newDolbyVision,
 
     -- * DolbyVisionLevel6Metadata
     DolbyVisionLevel6Metadata (..),
-    dolbyVisionLevel6Metadata,
-    dvlmMaxCll,
-    dvlmMaxFall,
+    newDolbyVisionLevel6Metadata,
 
     -- * DvbNitSettings
     DvbNitSettings (..),
-    dvbNitSettings,
-    dnsNitInterval,
-    dnsNetworkName,
-    dnsNetworkId,
+    newDvbNitSettings,
 
     -- * DvbSdtSettings
     DvbSdtSettings (..),
-    dvbSdtSettings,
-    dssOutputSdt,
-    dssServiceName,
-    dssSdtInterval,
-    dssServiceProviderName,
+    newDvbSdtSettings,
 
     -- * DvbSubDestinationSettings
     DvbSubDestinationSettings (..),
-    dvbSubDestinationSettings,
-    dsdsAlignment,
-    dsdsShadowOpacity,
-    dsdsTeletextSpacing,
-    dsdsShadowColor,
-    dsdsOutlineColor,
-    dsdsBackgroundOpacity,
-    dsdsFontScript,
-    dsdsXPosition,
-    dsdsSubtitlingType,
-    dsdsFontColor,
-    dsdsFontSize,
-    dsdsBackgroundColor,
-    dsdsShadowXOffset,
-    dsdsYPosition,
-    dsdsFontResolution,
-    dsdsOutlineSize,
-    dsdsFontOpacity,
-    dsdsShadowYOffset,
+    newDvbSubDestinationSettings,
 
     -- * DvbSubSourceSettings
     DvbSubSourceSettings (..),
-    dvbSubSourceSettings,
-    dsssPid,
+    newDvbSubSourceSettings,
 
     -- * DvbTdtSettings
     DvbTdtSettings (..),
-    dvbTdtSettings,
-    dtsTdtInterval,
+    newDvbTdtSettings,
 
     -- * Eac3AtmosSettings
     Eac3AtmosSettings (..),
-    eac3AtmosSettings,
-    easLoRoCenterMixLevel,
-    easLtRtCenterMixLevel,
-    easSpeechThreshold,
-    easCodingMode,
-    easDialogueIntelligence,
-    easLoRoSurroundMixLevel,
-    easLtRtSurroundMixLevel,
-    easSampleRate,
-    easStereoDownmix,
-    easMeteringMode,
-    easBitstreamMode,
-    easSurroundExMode,
-    easDynamicRangeCompressionRf,
-    easBitrate,
-    easDynamicRangeCompressionLine,
+    newEac3AtmosSettings,
 
     -- * Eac3Settings
     Eac3Settings (..),
-    eac3Settings,
-    esLoRoCenterMixLevel,
-    esLtRtCenterMixLevel,
-    esDialnorm,
-    esCodingMode,
-    esLfeControl,
-    esLoRoSurroundMixLevel,
-    esLtRtSurroundMixLevel,
-    esLfeFilter,
-    esDcFilter,
-    esSampleRate,
-    esStereoDownmix,
-    esBitstreamMode,
-    esSurroundExMode,
-    esPhaseControl,
-    esDynamicRangeCompressionRf,
-    esPassthroughControl,
-    esBitrate,
-    esAttenuationControl,
-    esSurroundMode,
-    esMetadataControl,
-    esDynamicRangeCompressionLine,
+    newEac3Settings,
 
     -- * EmbeddedDestinationSettings
     EmbeddedDestinationSettings (..),
-    embeddedDestinationSettings,
-    edsDestination708ServiceNumber,
-    edsDestination608ChannelNumber,
+    newEmbeddedDestinationSettings,
 
     -- * EmbeddedSourceSettings
     EmbeddedSourceSettings (..),
-    embeddedSourceSettings,
-    essTerminateCaptions,
-    essConvert608To708,
-    essSource608TrackNumber,
-    essSource608ChannelNumber,
+    newEmbeddedSourceSettings,
 
     -- * Endpoint
     Endpoint (..),
-    endpoint,
-    eURL,
+    newEndpoint,
 
     -- * EsamManifestConfirmConditionNotification
     EsamManifestConfirmConditionNotification (..),
-    esamManifestConfirmConditionNotification,
-    emccnMccXML,
+    newEsamManifestConfirmConditionNotification,
 
     -- * EsamSettings
     EsamSettings (..),
-    esamSettings,
-    esResponseSignalPreroll,
-    esManifestConfirmConditionNotification,
-    esSignalProcessingNotification,
+    newEsamSettings,
 
     -- * EsamSignalProcessingNotification
     EsamSignalProcessingNotification (..),
-    esamSignalProcessingNotification,
-    espnSccXML,
+    newEsamSignalProcessingNotification,
 
     -- * F4vSettings
     F4vSettings (..),
-    f4vSettings,
-    fsMoovPlacement,
+    newF4vSettings,
 
     -- * FileGroupSettings
     FileGroupSettings (..),
-    fileGroupSettings,
-    fgsDestination,
-    fgsDestinationSettings,
+    newFileGroupSettings,
 
     -- * FileSourceSettings
     FileSourceSettings (..),
-    fileSourceSettings,
-    fssConvert608To708,
-    fssFramerate,
-    fssSourceFile,
-    fssTimeDelta,
+    newFileSourceSettings,
 
     -- * FrameCaptureSettings
     FrameCaptureSettings (..),
-    frameCaptureSettings,
-    fcsFramerateNumerator,
-    fcsMaxCaptures,
-    fcsFramerateDenominator,
-    fcsQuality,
+    newFrameCaptureSettings,
 
     -- * H264QvbrSettings
     H264QvbrSettings (..),
-    h264QvbrSettings,
-    hqsQvbrQualityLevelFineTune,
-    hqsQvbrQualityLevel,
-    hqsMaxAverageBitrate,
+    newH264QvbrSettings,
 
     -- * H264Settings
     H264Settings (..),
-    h264Settings,
-    hsHrdBufferInitialFillPercentage,
-    hsTemporalAdaptiveQuantization,
-    hsFlickerAdaptiveQuantization,
-    hsQualityTuningLevel,
-    hsInterlaceMode,
-    hsRepeatPps,
-    hsFieldEncoding,
-    hsTelecine,
-    hsGopBReference,
-    hsSpatialAdaptiveQuantization,
-    hsFramerateNumerator,
-    hsRateControlMode,
-    hsNumberReferenceFrames,
-    hsSlices,
-    hsEntropyEncoding,
-    hsGopSizeUnits,
-    hsCodecProfile,
-    hsGopSize,
-    hsFramerateDenominator,
-    hsSoftness,
-    hsParNumerator,
-    hsSceneChangeDetect,
-    hsMinIInterval,
-    hsUnregisteredSeiTimecode,
-    hsScanTypeConversionMode,
-    hsParControl,
-    hsGopClosedCadence,
-    hsParDenominator,
-    hsMaxBitrate,
-    hsDynamicSubGop,
-    hsSyntax,
-    hsHrdBufferSize,
-    hsAdaptiveQuantization,
-    hsFramerateControl,
-    hsNumberBFramesBetweenReferenceFrames,
-    hsFramerateConversionAlgorithm,
-    hsCodecLevel,
-    hsBitrate,
-    hsQvbrSettings,
-    hsSlowPal,
+    newH264Settings,
 
     -- * H265QvbrSettings
     H265QvbrSettings (..),
-    h265QvbrSettings,
-    hQvbrQualityLevelFineTune,
-    hQvbrQualityLevel,
-    hMaxAverageBitrate,
+    newH265QvbrSettings,
 
     -- * H265Settings
     H265Settings (..),
-    h265Settings,
-    hssHrdBufferInitialFillPercentage,
-    hssTemporalAdaptiveQuantization,
-    hssFlickerAdaptiveQuantization,
-    hssQualityTuningLevel,
-    hssInterlaceMode,
-    hssTelecine,
-    hssGopBReference,
-    hssSpatialAdaptiveQuantization,
-    hssFramerateNumerator,
-    hssRateControlMode,
-    hssNumberReferenceFrames,
-    hssSlices,
-    hssWriteMp4PackagingType,
-    hssGopSizeUnits,
-    hssCodecProfile,
-    hssGopSize,
-    hssFramerateDenominator,
-    hssParNumerator,
-    hssTiles,
-    hssSceneChangeDetect,
-    hssMinIInterval,
-    hssUnregisteredSeiTimecode,
-    hssScanTypeConversionMode,
-    hssParControl,
-    hssGopClosedCadence,
-    hssParDenominator,
-    hssMaxBitrate,
-    hssDynamicSubGop,
-    hssAlternateTransferFunctionSei,
-    hssHrdBufferSize,
-    hssAdaptiveQuantization,
-    hssFramerateControl,
-    hssNumberBFramesBetweenReferenceFrames,
-    hssFramerateConversionAlgorithm,
-    hssCodecLevel,
-    hssBitrate,
-    hssTemporalIds,
-    hssQvbrSettings,
-    hssSampleAdaptiveOffsetFilterMode,
-    hssSlowPal,
+    newH265Settings,
 
     -- * Hdr10Metadata
     Hdr10Metadata (..),
-    hdr10Metadata,
-    hmGreenPrimaryX,
-    hmMaxLuminance,
-    hmGreenPrimaryY,
-    hmBluePrimaryY,
-    hmBluePrimaryX,
-    hmRedPrimaryX,
-    hmRedPrimaryY,
-    hmWhitePointX,
-    hmMinLuminance,
-    hmMaxContentLightLevel,
-    hmMaxFrameAverageLightLevel,
-    hmWhitePointY,
+    newHdr10Metadata,
 
     -- * HlsAdditionalManifest
     HlsAdditionalManifest (..),
-    hlsAdditionalManifest,
-    hamManifestNameModifier,
-    hamSelectedOutputs,
+    newHlsAdditionalManifest,
 
     -- * HlsCaptionLanguageMapping
     HlsCaptionLanguageMapping (..),
-    hlsCaptionLanguageMapping,
-    hclmLanguageCode,
-    hclmLanguageDescription,
-    hclmCustomLanguageCode,
-    hclmCaptionChannel,
+    newHlsCaptionLanguageMapping,
 
     -- * HlsEncryptionSettings
     HlsEncryptionSettings (..),
-    hlsEncryptionSettings,
-    hesOfflineEncrypted,
-    hesSpekeKeyProvider,
-    hesEncryptionMethod,
-    hesConstantInitializationVector,
-    hesInitializationVectorInManifest,
-    hesStaticKeyProvider,
-    hesType,
+    newHlsEncryptionSettings,
 
     -- * HlsGroupSettings
     HlsGroupSettings (..),
-    hlsGroupSettings,
-    hgsOutputSelection,
-    hgsTimedMetadataId3Period,
-    hgsSegmentLength,
-    hgsTimedMetadataId3Frame,
-    hgsAdMarkers,
-    hgsSegmentControl,
-    hgsDirectoryStructure,
-    hgsManifestCompression,
-    hgsBaseURL,
-    hgsStreamInfResolution,
-    hgsCodecSpecification,
-    hgsAdditionalManifests,
-    hgsProgramDateTime,
-    hgsSegmentsPerSubdirectory,
-    hgsEncryption,
-    hgsDestination,
-    hgsMinFinalSegmentLength,
-    hgsDestinationSettings,
-    hgsCaptionLanguageMappings,
-    hgsTimestampDeltaMilliseconds,
-    hgsProgramDateTimePeriod,
-    hgsClientCache,
-    hgsAudioOnlyHeader,
-    hgsMinSegmentLength,
-    hgsManifestDurationFormat,
-    hgsCaptionLanguageSetting,
+    newHlsGroupSettings,
 
     -- * HlsSettings
     HlsSettings (..),
-    hlsSettings,
-    hsAudioRenditionSets,
-    hsIFrameOnlyManifest,
-    hsSegmentModifier,
-    hsAudioOnlyContainer,
-    hsAudioGroupId,
-    hsAudioTrackType,
+    newHlsSettings,
 
     -- * HopDestination
     HopDestination (..),
-    hopDestination,
-    hdPriority,
-    hdQueue,
-    hdWaitMinutes,
+    newHopDestination,
 
     -- * Id3Insertion
     Id3Insertion (..),
-    id3Insertion,
-    iiId3,
-    iiTimecode,
+    newId3Insertion,
 
     -- * ImageInserter
     ImageInserter (..),
-    imageInserter,
-    iiInsertableImages,
+    newImageInserter,
 
     -- * ImscDestinationSettings
     ImscDestinationSettings (..),
-    imscDestinationSettings,
-    idsStylePassthrough,
+    newImscDestinationSettings,
 
     -- * Input
     Input (..),
-    input,
-    iImageInserter,
-    iDenoiseFilter,
-    iSupplementalImps,
-    iInputScanType,
-    iInputClippings,
-    iFileInput,
-    iTimecodeStart,
-    iDecryptionSettings,
-    iAudioSelectors,
-    iFilterStrength,
-    iPsiControl,
-    iProgramNumber,
-    iAudioSelectorGroups,
-    iVideoSelector,
-    iFilterEnable,
-    iPosition,
-    iCrop,
-    iDeblockFilter,
-    iCaptionSelectors,
-    iTimecodeSource,
+    newInput,
 
     -- * InputClipping
     InputClipping (..),
-    inputClipping,
-    icStartTimecode,
-    icEndTimecode,
+    newInputClipping,
 
     -- * InputDecryptionSettings
     InputDecryptionSettings (..),
-    inputDecryptionSettings,
-    idsDecryptionMode,
-    idsEncryptedDecryptionKey,
-    idsInitializationVector,
-    idsKMSKeyRegion,
+    newInputDecryptionSettings,
 
     -- * InputTemplate
     InputTemplate (..),
-    inputTemplate,
-    itImageInserter,
-    itDenoiseFilter,
-    itInputScanType,
-    itInputClippings,
-    itTimecodeStart,
-    itAudioSelectors,
-    itFilterStrength,
-    itPsiControl,
-    itProgramNumber,
-    itAudioSelectorGroups,
-    itVideoSelector,
-    itFilterEnable,
-    itPosition,
-    itCrop,
-    itDeblockFilter,
-    itCaptionSelectors,
-    itTimecodeSource,
+    newInputTemplate,
 
     -- * InsertableImage
     InsertableImage (..),
-    insertableImage,
-    iiHeight,
-    iiImageX,
-    iiImageY,
-    iiDuration,
-    iiWidth,
-    iiLayer,
-    iiStartTime,
-    iiOpacity,
-    iiFadeIn,
-    iiImageInserterInput,
-    iiFadeOut,
+    newInsertableImage,
 
     -- * Job
     Job (..),
-    job,
-    jAccelerationSettings,
-    jBillingTagsSource,
-    jStatus,
-    jAccelerationStatus,
-    jRetryCount,
-    jQueueTransitions,
-    jARN,
-    jId,
-    jJobPercentComplete,
-    jCreatedAt,
-    jPriority,
-    jStatusUpdateInterval,
-    jJobTemplate,
-    jUserMetadata,
-    jQueue,
-    jCurrentPhase,
-    jErrorMessage,
-    jSimulateReservedQueue,
-    jTiming,
-    jHopDestinations,
-    jMessages,
-    jErrorCode,
-    jOutputGroupDetails,
-    jRole,
-    jSettings,
+    newJob,
 
     -- * JobMessages
     JobMessages (..),
-    jobMessages,
-    jmInfo,
-    jmWarning,
+    newJobMessages,
 
     -- * JobSettings
     JobSettings (..),
-    jobSettings,
-    jsAdAvailOffset,
-    jsTimedMetadataInsertion,
-    jsEsam,
-    jsNielsenNonLinearWatermark,
-    jsMotionImageInserter,
-    jsAvailBlanking,
-    jsNielsenConfiguration,
-    jsOutputGroups,
-    jsInputs,
-    jsTimecodeConfig,
+    newJobSettings,
 
     -- * JobTemplate
     JobTemplate (..),
-    jobTemplate,
-    jtAccelerationSettings,
-    jtCategory,
-    jtARN,
-    jtCreatedAt,
-    jtPriority,
-    jtStatusUpdateInterval,
-    jtLastUpdated,
-    jtQueue,
-    jtDescription,
-    jtType,
-    jtHopDestinations,
-    jtSettings,
-    jtName,
+    newJobTemplate,
 
     -- * JobTemplateSettings
     JobTemplateSettings (..),
-    jobTemplateSettings,
-    jtsAdAvailOffset,
-    jtsTimedMetadataInsertion,
-    jtsEsam,
-    jtsNielsenNonLinearWatermark,
-    jtsMotionImageInserter,
-    jtsAvailBlanking,
-    jtsNielsenConfiguration,
-    jtsOutputGroups,
-    jtsInputs,
-    jtsTimecodeConfig,
+    newJobTemplateSettings,
 
     -- * M2tsScte35Esam
     M2tsScte35Esam (..),
-    m2tsScte35Esam,
-    mseScte35EsamPid,
+    newM2tsScte35Esam,
 
     -- * M2tsSettings
     M2tsSettings (..),
-    m2tsSettings,
-    m2tSegmentationMarkers,
-    m2tPmtPid,
-    m2tVideoPid,
-    m2tAudioBufferModel,
-    m2tTimedMetadataPid,
-    m2tSegmentationStyle,
-    m2tDvbNitSettings,
-    m2tNullPacketBitrate,
-    m2tPcrControl,
-    m2tEbpAudioInterval,
-    m2tEbpPlacement,
-    m2tPmtInterval,
-    m2tAudioPids,
-    m2tPatInterval,
-    m2tMinEbpInterval,
-    m2tMaxPcrInterval,
-    m2tProgramNumber,
-    m2tBufferModel,
-    m2tPcrPid,
-    m2tAudioFramesPerPes,
-    m2tRateMode,
-    m2tDvbTdtSettings,
-    m2tDvbSdtSettings,
-    m2tSegmentationTime,
-    m2tAudioDuration,
-    m2tNielsenId3,
-    m2tDvbTeletextPid,
-    m2tBitrate,
-    m2tFragmentTime,
-    m2tEsRateInPes,
-    m2tPrivateMetadataPid,
-    m2tScte35Esam,
-    m2tScte35Source,
-    m2tForceTsVideoEbpOrder,
-    m2tTransportStreamId,
-    m2tDvbSubPids,
-    m2tScte35Pid,
+    newM2tsSettings,
 
     -- * M3u8Settings
     M3u8Settings (..),
-    m3u8Settings,
-    mssPmtPid,
-    mssTimedMetadata,
-    mssVideoPid,
-    mssTimedMetadataPid,
-    mssPcrControl,
-    mssPmtInterval,
-    mssAudioPids,
-    mssPatInterval,
-    mssProgramNumber,
-    mssPcrPid,
-    mssAudioFramesPerPes,
-    mssAudioDuration,
-    mssNielsenId3,
-    mssPrivateMetadataPid,
-    mssScte35Source,
-    mssTransportStreamId,
-    mssScte35Pid,
+    newM3u8Settings,
 
     -- * MotionImageInserter
     MotionImageInserter (..),
-    motionImageInserter,
-    miiInsertionMode,
-    miiInput,
-    miiStartTime,
-    miiPlayback,
-    miiFramerate,
-    miiOffset,
+    newMotionImageInserter,
 
     -- * MotionImageInsertionFramerate
     MotionImageInsertionFramerate (..),
-    motionImageInsertionFramerate,
-    miifFramerateNumerator,
-    miifFramerateDenominator,
+    newMotionImageInsertionFramerate,
 
     -- * MotionImageInsertionOffset
     MotionImageInsertionOffset (..),
-    motionImageInsertionOffset,
-    miioImageX,
-    miioImageY,
+    newMotionImageInsertionOffset,
 
     -- * MovSettings
     MovSettings (..),
-    movSettings,
-    msPaddingControl,
-    msCslgAtom,
-    msMpeg2FourCCControl,
-    msClapAtom,
-    msReference,
+    newMovSettings,
 
     -- * Mp2Settings
     Mp2Settings (..),
-    mp2Settings,
-    mChannels,
-    mSampleRate,
-    mBitrate,
+    newMp2Settings,
 
     -- * Mp3Settings
     Mp3Settings (..),
-    mp3Settings,
-    msRateControlMode,
-    msChannels,
-    msSampleRate,
-    msVbrQuality,
-    msBitrate,
+    newMp3Settings,
 
     -- * Mp4Settings
     Mp4Settings (..),
-    mp4Settings,
-    mCslgAtom,
-    mMp4MajorBrand,
-    mAudioDuration,
-    mFreeSpaceBox,
-    mMoovPlacement,
-    mCttsVersion,
+    newMp4Settings,
 
     -- * MpdSettings
     MpdSettings (..),
-    mpdSettings,
-    msAccessibilityCaptionHints,
-    msCaptionContainerType,
-    msAudioDuration,
-    msScte35Esam,
-    msScte35Source,
+    newMpdSettings,
 
     -- * Mpeg2Settings
     Mpeg2Settings (..),
-    mpeg2Settings,
-    mssHrdBufferInitialFillPercentage,
-    mssTemporalAdaptiveQuantization,
-    mssQualityTuningLevel,
-    mssInterlaceMode,
-    mssIntraDcPrecision,
-    mssTelecine,
-    mssSpatialAdaptiveQuantization,
-    mssFramerateNumerator,
-    mssRateControlMode,
-    mssGopSizeUnits,
-    mssCodecProfile,
-    mssGopSize,
-    mssFramerateDenominator,
-    mssSoftness,
-    mssParNumerator,
-    mssSceneChangeDetect,
-    mssMinIInterval,
-    mssScanTypeConversionMode,
-    mssParControl,
-    mssGopClosedCadence,
-    mssParDenominator,
-    mssMaxBitrate,
-    mssDynamicSubGop,
-    mssSyntax,
-    mssHrdBufferSize,
-    mssAdaptiveQuantization,
-    mssFramerateControl,
-    mssNumberBFramesBetweenReferenceFrames,
-    mssFramerateConversionAlgorithm,
-    mssCodecLevel,
-    mssBitrate,
-    mssSlowPal,
+    newMpeg2Settings,
 
     -- * MsSmoothAdditionalManifest
     MsSmoothAdditionalManifest (..),
-    msSmoothAdditionalManifest,
-    msamManifestNameModifier,
-    msamSelectedOutputs,
+    newMsSmoothAdditionalManifest,
 
     -- * MsSmoothEncryptionSettings
     MsSmoothEncryptionSettings (..),
-    msSmoothEncryptionSettings,
-    msesSpekeKeyProvider,
+    newMsSmoothEncryptionSettings,
 
     -- * MsSmoothGroupSettings
     MsSmoothGroupSettings (..),
-    msSmoothGroupSettings,
-    msgsManifestEncoding,
-    msgsFragmentLength,
-    msgsAdditionalManifests,
-    msgsEncryption,
-    msgsDestination,
-    msgsDestinationSettings,
-    msgsAudioDeduplication,
+    newMsSmoothGroupSettings,
 
     -- * MxfSettings
     MxfSettings (..),
-    mxfSettings,
-    msProfile,
-    msAfdSignaling,
+    newMxfSettings,
 
     -- * NexGuardFileMarkerSettings
     NexGuardFileMarkerSettings (..),
-    nexGuardFileMarkerSettings,
-    ngfmsPayload,
-    ngfmsLicense,
-    ngfmsPreset,
-    ngfmsStrength,
+    newNexGuardFileMarkerSettings,
 
     -- * NielsenConfiguration
     NielsenConfiguration (..),
-    nielsenConfiguration,
-    ncBreakoutCode,
-    ncDistributorId,
+    newNielsenConfiguration,
 
     -- * NielsenNonLinearWatermarkSettings
     NielsenNonLinearWatermarkSettings (..),
-    nielsenNonLinearWatermarkSettings,
-    nnlwsAssetName,
-    nnlwsActiveWatermarkProcess,
-    nnlwsSourceWatermarkStatus,
-    nnlwsTicServerURL,
-    nnlwsSourceId,
-    nnlwsCbetSourceId,
-    nnlwsEpisodeId,
-    nnlwsMetadataDestination,
-    nnlwsUniqueTicPerAudioTrack,
-    nnlwsAdiFilename,
-    nnlwsAssetId,
+    newNielsenNonLinearWatermarkSettings,
 
     -- * NoiseReducer
     NoiseReducer (..),
-    noiseReducer,
-    nrSpatialFilterSettings,
-    nrTemporalFilterSettings,
-    nrFilterSettings,
-    nrFilter,
+    newNoiseReducer,
 
     -- * NoiseReducerFilterSettings
     NoiseReducerFilterSettings (..),
-    noiseReducerFilterSettings,
-    nrfsStrength,
+    newNoiseReducerFilterSettings,
 
     -- * NoiseReducerSpatialFilterSettings
     NoiseReducerSpatialFilterSettings (..),
-    noiseReducerSpatialFilterSettings,
-    nrsfsSpeed,
-    nrsfsPostFilterSharpenStrength,
-    nrsfsStrength,
+    newNoiseReducerSpatialFilterSettings,
 
     -- * NoiseReducerTemporalFilterSettings
     NoiseReducerTemporalFilterSettings (..),
-    noiseReducerTemporalFilterSettings,
-    nrtfsPostTemporalSharpening,
-    nrtfsSpeed,
-    nrtfsAggressiveMode,
-    nrtfsStrength,
+    newNoiseReducerTemporalFilterSettings,
 
     -- * OpusSettings
     OpusSettings (..),
-    opusSettings,
-    osChannels,
-    osSampleRate,
-    osBitrate,
+    newOpusSettings,
 
     -- * Output
     Output (..),
-    output,
-    oAudioDescriptions,
-    oPreset,
-    oContainerSettings,
-    oVideoDescription,
-    oExtension,
-    oCaptionDescriptions,
-    oNameModifier,
-    oOutputSettings,
+    newOutput,
 
     -- * OutputChannelMapping
     OutputChannelMapping (..),
-    outputChannelMapping,
-    ocmInputChannels,
-    ocmInputChannelsFineTune,
+    newOutputChannelMapping,
 
     -- * OutputDetail
     OutputDetail (..),
-    outputDetail,
-    odVideoDetails,
-    odDurationInMs,
+    newOutputDetail,
 
     -- * OutputGroup
     OutputGroup (..),
-    outputGroup,
-    ogOutputs,
-    ogAutomatedEncodingSettings,
-    ogOutputGroupSettings,
-    ogName,
-    ogCustomName,
+    newOutputGroup,
 
     -- * OutputGroupDetail
     OutputGroupDetail (..),
-    outputGroupDetail,
-    ogdOutputDetails,
+    newOutputGroupDetail,
 
     -- * OutputGroupSettings
     OutputGroupSettings (..),
-    outputGroupSettings,
-    ogsMsSmoothGroupSettings,
-    ogsHlsGroupSettings,
-    ogsFileGroupSettings,
-    ogsDashIsoGroupSettings,
-    ogsCmafGroupSettings,
-    ogsType,
+    newOutputGroupSettings,
 
     -- * OutputSettings
     OutputSettings (..),
-    outputSettings,
-    osHlsSettings,
+    newOutputSettings,
 
     -- * PartnerWatermarking
     PartnerWatermarking (..),
-    partnerWatermarking,
-    pwNexguardFileMarkerSettings,
+    newPartnerWatermarking,
 
     -- * Preset
     Preset (..),
-    preset,
-    pCategory,
-    pARN,
-    pCreatedAt,
-    pLastUpdated,
-    pDescription,
-    pType,
-    pSettings,
-    pName,
+    newPreset,
 
     -- * PresetSettings
     PresetSettings (..),
-    presetSettings,
-    psAudioDescriptions,
-    psContainerSettings,
-    psVideoDescription,
-    psCaptionDescriptions,
+    newPresetSettings,
 
     -- * ProresSettings
     ProresSettings (..),
-    proresSettings,
-    psInterlaceMode,
-    psTelecine,
-    psFramerateNumerator,
-    psCodecProfile,
-    psFramerateDenominator,
-    psParNumerator,
-    psScanTypeConversionMode,
-    psParControl,
-    psParDenominator,
-    psFramerateControl,
-    psFramerateConversionAlgorithm,
-    psSlowPal,
+    newProresSettings,
 
     -- * Queue
     Queue (..),
-    queue,
-    qStatus,
-    qARN,
-    qCreatedAt,
-    qLastUpdated,
-    qSubmittedJobsCount,
-    qDescription,
-    qPricingPlan,
-    qReservationPlan,
-    qType,
-    qProgressingJobsCount,
-    qName,
+    newQueue,
 
     -- * QueueTransition
     QueueTransition (..),
-    queueTransition,
-    qtSourceQueue,
-    qtTimestamp,
-    qtDestinationQueue,
+    newQueueTransition,
 
     -- * Rectangle
     Rectangle (..),
-    rectangle,
-    rHeight,
-    rY,
-    rWidth,
-    rX,
+    newRectangle,
 
     -- * RemixSettings
     RemixSettings (..),
-    remixSettings,
-    rsChannelMapping,
-    rsChannelsIn,
-    rsChannelsOut,
+    newRemixSettings,
 
     -- * ReservationPlan
     ReservationPlan (..),
-    reservationPlan,
-    rpStatus,
-    rpReservedSlots,
-    rpExpiresAt,
-    rpPurchasedAt,
-    rpRenewalType,
-    rpCommitment,
+    newReservationPlan,
 
     -- * ReservationPlanSettings
     ReservationPlanSettings (..),
-    reservationPlanSettings,
-    rpsCommitment,
-    rpsReservedSlots,
-    rpsRenewalType,
+    newReservationPlanSettings,
 
     -- * ResourceTags
     ResourceTags (..),
-    resourceTags,
-    rtARN,
-    rtTags,
+    newResourceTags,
 
     -- * S3DestinationAccessControl
     S3DestinationAccessControl (..),
-    s3DestinationAccessControl,
-    sdacCannedACL,
+    newS3DestinationAccessControl,
 
     -- * S3DestinationSettings
     S3DestinationSettings (..),
-    s3DestinationSettings,
-    sdsEncryption,
-    sdsAccessControl,
+    newS3DestinationSettings,
 
     -- * S3EncryptionSettings
     S3EncryptionSettings (..),
-    s3EncryptionSettings,
-    sesEncryptionType,
-    sesKMSKeyARN,
+    newS3EncryptionSettings,
 
     -- * SccDestinationSettings
     SccDestinationSettings (..),
-    sccDestinationSettings,
-    sdsFramerate,
+    newSccDestinationSettings,
 
     -- * SpekeKeyProvider
     SpekeKeyProvider (..),
-    spekeKeyProvider,
-    skpResourceId,
-    skpCertificateARN,
-    skpSystemIds,
-    skpURL,
+    newSpekeKeyProvider,
 
     -- * SpekeKeyProviderCmaf
     SpekeKeyProviderCmaf (..),
-    spekeKeyProviderCmaf,
-    skpcResourceId,
-    skpcCertificateARN,
-    skpcURL,
-    skpcHlsSignaledSystemIds,
-    skpcDashSignaledSystemIds,
+    newSpekeKeyProviderCmaf,
 
     -- * StaticKeyProvider
     StaticKeyProvider (..),
-    staticKeyProvider,
-    sKeyFormat,
-    sStaticKeyValue,
-    sURL,
-    sKeyFormatVersions,
+    newStaticKeyProvider,
 
     -- * TeletextDestinationSettings
     TeletextDestinationSettings (..),
-    teletextDestinationSettings,
-    tdsPageTypes,
-    tdsPageNumber,
+    newTeletextDestinationSettings,
 
     -- * TeletextSourceSettings
     TeletextSourceSettings (..),
-    teletextSourceSettings,
-    tssPageNumber,
+    newTeletextSourceSettings,
 
     -- * TimecodeBurnin
     TimecodeBurnin (..),
-    timecodeBurnin,
-    tbPrefix,
-    tbPosition,
-    tbFontSize,
+    newTimecodeBurnin,
 
     -- * TimecodeConfig
     TimecodeConfig (..),
-    timecodeConfig,
-    tcAnchor,
-    tcSource,
-    tcTimestampOffset,
-    tcStart,
+    newTimecodeConfig,
 
     -- * TimedMetadataInsertion
     TimedMetadataInsertion (..),
-    timedMetadataInsertion,
-    tmiId3Insertions,
+    newTimedMetadataInsertion,
 
     -- * Timing
     Timing (..),
-    timing,
-    tFinishTime,
-    tStartTime,
-    tSubmitTime,
+    newTiming,
 
     -- * TrackSourceSettings
     TrackSourceSettings (..),
-    trackSourceSettings,
-    tssTrackNumber,
+    newTrackSourceSettings,
 
     -- * TtmlDestinationSettings
     TtmlDestinationSettings (..),
-    ttmlDestinationSettings,
-    tdsStylePassthrough,
+    newTtmlDestinationSettings,
 
     -- * Vc3Settings
     Vc3Settings (..),
-    vc3Settings,
-    vsInterlaceMode,
-    vsTelecine,
-    vsFramerateNumerator,
-    vsFramerateDenominator,
-    vsScanTypeConversionMode,
-    vsFramerateControl,
-    vsFramerateConversionAlgorithm,
-    vsVc3Class,
-    vsSlowPal,
+    newVc3Settings,
 
     -- * VideoCodecSettings
     VideoCodecSettings (..),
-    videoCodecSettings,
-    vcsFrameCaptureSettings,
-    vcsCodec,
-    vcsVc3Settings,
-    vcsVp8Settings,
-    vcsMpeg2Settings,
-    vcsH264Settings,
-    vcsVp9Settings,
-    vcsProresSettings,
-    vcsH265Settings,
-    vcsAvcIntraSettings,
-    vcsAv1Settings,
+    newVideoCodecSettings,
 
     -- * VideoDescription
     VideoDescription (..),
-    videoDescription,
-    vdHeight,
-    vdAntiAlias,
-    vdDropFrameTimecode,
-    vdRespondToAfd,
-    vdWidth,
-    vdCodecSettings,
-    vdColorMetadata,
-    vdFixedAfd,
-    vdTimecodeInsertion,
-    vdScalingBehavior,
-    vdPosition,
-    vdCrop,
-    vdVideoPreprocessors,
-    vdSharpness,
-    vdAfdSignaling,
+    newVideoDescription,
 
     -- * VideoDetail
     VideoDetail (..),
-    videoDetail,
-    vdWidthInPx,
-    vdHeightInPx,
+    newVideoDetail,
 
     -- * VideoPreprocessor
     VideoPreprocessor (..),
-    videoPreprocessor,
-    vpImageInserter,
-    vpTimecodeBurnin,
-    vpDeinterlacer,
-    vpNoiseReducer,
-    vpPartnerWatermarking,
-    vpColorCorrector,
-    vpDolbyVision,
+    newVideoPreprocessor,
 
     -- * VideoSelector
     VideoSelector (..),
-    videoSelector,
-    vsColorSpaceUsage,
-    vsHdr10Metadata,
-    vsProgramNumber,
-    vsRotate,
-    vsColorSpace,
-    vsAlphaBehavior,
-    vsPid,
+    newVideoSelector,
 
     -- * VorbisSettings
     VorbisSettings (..),
-    vorbisSettings,
-    vsChannels,
-    vsSampleRate,
-    vsVbrQuality,
+    newVorbisSettings,
 
     -- * Vp8Settings
     Vp8Settings (..),
-    vp8Settings,
-    vQualityTuningLevel,
-    vFramerateNumerator,
-    vRateControlMode,
-    vGopSize,
-    vFramerateDenominator,
-    vParNumerator,
-    vParControl,
-    vParDenominator,
-    vMaxBitrate,
-    vHrdBufferSize,
-    vFramerateControl,
-    vFramerateConversionAlgorithm,
-    vBitrate,
+    newVp8Settings,
 
     -- * Vp9Settings
     Vp9Settings (..),
-    vp9Settings,
-    vssQualityTuningLevel,
-    vssFramerateNumerator,
-    vssRateControlMode,
-    vssGopSize,
-    vssFramerateDenominator,
-    vssParNumerator,
-    vssParControl,
-    vssParDenominator,
-    vssMaxBitrate,
-    vssHrdBufferSize,
-    vssFramerateControl,
-    vssFramerateConversionAlgorithm,
-    vssBitrate,
+    newVp9Settings,
 
     -- * WavSettings
     WavSettings (..),
-    wavSettings,
-    wsFormat,
-    wsChannels,
-    wsBitDepth,
-    wsSampleRate,
+    newWavSettings,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AacAudioDescriptionBroadcasterMix
 import Network.AWS.MediaConvert.Types.AacCodecProfile
 import Network.AWS.MediaConvert.Types.AacCodingMode
@@ -2889,7 +1963,7 @@ import Network.AWS.MediaConvert.Types.RespondToAfd
 import Network.AWS.MediaConvert.Types.S3DestinationAccessControl
 import Network.AWS.MediaConvert.Types.S3DestinationSettings
 import Network.AWS.MediaConvert.Types.S3EncryptionSettings
-import Network.AWS.MediaConvert.Types.S3ObjectCannedACL
+import Network.AWS.MediaConvert.Types.S3ObjectCannedAcl
 import Network.AWS.MediaConvert.Types.S3ServerSideEncryptionType
 import Network.AWS.MediaConvert.Types.ScalingBehavior
 import Network.AWS.MediaConvert.Types.SccDestinationFramerate
@@ -2944,100 +2018,129 @@ import Network.AWS.MediaConvert.Types.Vp9Settings
 import Network.AWS.MediaConvert.Types.WatermarkingStrength
 import Network.AWS.MediaConvert.Types.WavFormat
 import Network.AWS.MediaConvert.Types.WavSettings
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-08-29@ of the Amazon Elemental MediaConvert SDK configuration.
-mediaConvert :: Service
-mediaConvert =
-  Service
-    { _svcAbbrev = "MediaConvert",
-      _svcSigner = v4,
-      _svcPrefix = "mediaconvert",
-      _svcVersion = "2017-08-29",
-      _svcEndpoint = defaultEndpoint mediaConvert,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "MediaConvert",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "MediaConvert",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "mediaconvert",
+      Prelude._svcVersion = "2017-08-29",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "MediaConvert",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The resource you requested doesn't exist.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource you requested doesn\'t exist.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError mediaConvert "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
--- | The service can't process your request because of a problem in the request. Please check your request form and syntax.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The service can\'t process your request because of a problem in the
+-- request. Please check your request form and syntax.
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError
-    mediaConvert
+  Prelude._MatchServiceError
+    defaultService
     "BadRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The service encountered an unexpected condition and can't fulfill your request.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The service encountered an unexpected condition and can\'t fulfill your
+-- request.
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    mediaConvert
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
--- | You don't have permissions for this action with the credentials you sent.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You don\'t have permissions for this action with the credentials you
+-- sent.
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError
-    mediaConvert
+  Prelude._MatchServiceError
+    defaultService
     "ForbiddenException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
--- | The service couldn't complete your request because there is a conflict with the current state of the resource.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The service couldn\'t complete your request because there is a conflict
+-- with the current state of the resource.
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError mediaConvert "ConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
+    Prelude.. Prelude.hasStatus 409
 
--- | Too many requests have been sent in too short of a time. The service limits the rate at which it will accept requests.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Too many requests have been sent in too short of a time. The service
+-- limits the rate at which it will accept requests.
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    mediaConvert
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429

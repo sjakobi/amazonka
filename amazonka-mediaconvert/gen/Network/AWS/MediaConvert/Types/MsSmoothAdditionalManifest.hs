@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.MsSmoothAdditionalManifest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the details for each additional Microsoft Smooth Streaming manifest that you want the service to generate for this output group. Each manifest can reference a different subset of outputs in the group.
+-- | Specify the details for each additional Microsoft Smooth Streaming
+-- manifest that you want the service to generate for this output group.
+-- Each manifest can reference a different subset of outputs in the group.
 --
--- /See:/ 'msSmoothAdditionalManifest' smart constructor.
+-- /See:/ 'newMsSmoothAdditionalManifest' smart constructor.
 data MsSmoothAdditionalManifest = MsSmoothAdditionalManifest'
-  { _msamManifestNameModifier ::
-      !(Maybe Text),
-    _msamSelectedOutputs ::
-      !(Maybe [Text])
+  { -- | Specify a name modifier that the service adds to the name of this
+    -- manifest to make it different from the file names of the other main
+    -- manifests in the output group. For example, say that the default main
+    -- manifest for your Microsoft Smooth group is film-name.ismv. If you enter
+    -- \"-no-premium\" for this setting, then the file name the service
+    -- generates for this top-level manifest is film-name-no-premium.ismv.
+    manifestNameModifier :: Prelude.Maybe Prelude.Text,
+    -- | Specify the outputs that you want this additional top-level manifest to
+    -- reference.
+    selectedOutputs :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MsSmoothAdditionalManifest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MsSmoothAdditionalManifest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msamManifestNameModifier' - Specify a name modifier that the service adds to the name of this manifest to make it different from the file names of the other main manifests in the output group. For example, say that the default main manifest for your Microsoft Smooth group is film-name.ismv. If you enter "-no-premium" for this setting, then the file name the service generates for this top-level manifest is film-name-no-premium.ismv.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msamSelectedOutputs' - Specify the outputs that you want this additional top-level manifest to reference.
-msSmoothAdditionalManifest ::
+-- 'manifestNameModifier', 'msSmoothAdditionalManifest_manifestNameModifier' - Specify a name modifier that the service adds to the name of this
+-- manifest to make it different from the file names of the other main
+-- manifests in the output group. For example, say that the default main
+-- manifest for your Microsoft Smooth group is film-name.ismv. If you enter
+-- \"-no-premium\" for this setting, then the file name the service
+-- generates for this top-level manifest is film-name-no-premium.ismv.
+--
+-- 'selectedOutputs', 'msSmoothAdditionalManifest_selectedOutputs' - Specify the outputs that you want this additional top-level manifest to
+-- reference.
+newMsSmoothAdditionalManifest ::
   MsSmoothAdditionalManifest
-msSmoothAdditionalManifest =
+newMsSmoothAdditionalManifest =
   MsSmoothAdditionalManifest'
-    { _msamManifestNameModifier =
-        Nothing,
-      _msamSelectedOutputs = Nothing
+    { manifestNameModifier =
+        Prelude.Nothing,
+      selectedOutputs = Prelude.Nothing
     }
 
--- | Specify a name modifier that the service adds to the name of this manifest to make it different from the file names of the other main manifests in the output group. For example, say that the default main manifest for your Microsoft Smooth group is film-name.ismv. If you enter "-no-premium" for this setting, then the file name the service generates for this top-level manifest is film-name-no-premium.ismv.
-msamManifestNameModifier :: Lens' MsSmoothAdditionalManifest (Maybe Text)
-msamManifestNameModifier = lens _msamManifestNameModifier (\s a -> s {_msamManifestNameModifier = a})
+-- | Specify a name modifier that the service adds to the name of this
+-- manifest to make it different from the file names of the other main
+-- manifests in the output group. For example, say that the default main
+-- manifest for your Microsoft Smooth group is film-name.ismv. If you enter
+-- \"-no-premium\" for this setting, then the file name the service
+-- generates for this top-level manifest is film-name-no-premium.ismv.
+msSmoothAdditionalManifest_manifestNameModifier :: Lens.Lens' MsSmoothAdditionalManifest (Prelude.Maybe Prelude.Text)
+msSmoothAdditionalManifest_manifestNameModifier = Lens.lens (\MsSmoothAdditionalManifest' {manifestNameModifier} -> manifestNameModifier) (\s@MsSmoothAdditionalManifest' {} a -> s {manifestNameModifier = a} :: MsSmoothAdditionalManifest)
 
--- | Specify the outputs that you want this additional top-level manifest to reference.
-msamSelectedOutputs :: Lens' MsSmoothAdditionalManifest [Text]
-msamSelectedOutputs = lens _msamSelectedOutputs (\s a -> s {_msamSelectedOutputs = a}) . _Default . _Coerce
+-- | Specify the outputs that you want this additional top-level manifest to
+-- reference.
+msSmoothAdditionalManifest_selectedOutputs :: Lens.Lens' MsSmoothAdditionalManifest (Prelude.Maybe [Prelude.Text])
+msSmoothAdditionalManifest_selectedOutputs = Lens.lens (\MsSmoothAdditionalManifest' {selectedOutputs} -> selectedOutputs) (\s@MsSmoothAdditionalManifest' {} a -> s {selectedOutputs = a} :: MsSmoothAdditionalManifest) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON MsSmoothAdditionalManifest where
+instance Prelude.FromJSON MsSmoothAdditionalManifest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MsSmoothAdditionalManifest"
       ( \x ->
           MsSmoothAdditionalManifest'
-            <$> (x .:? "manifestNameModifier")
-            <*> (x .:? "selectedOutputs" .!= mempty)
+            Prelude.<$> (x Prelude..:? "manifestNameModifier")
+            Prelude.<*> ( x Prelude..:? "selectedOutputs"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable MsSmoothAdditionalManifest
+instance Prelude.Hashable MsSmoothAdditionalManifest
 
-instance NFData MsSmoothAdditionalManifest
+instance Prelude.NFData MsSmoothAdditionalManifest
 
-instance ToJSON MsSmoothAdditionalManifest where
+instance Prelude.ToJSON MsSmoothAdditionalManifest where
   toJSON MsSmoothAdditionalManifest' {..} =
-    object
-      ( catMaybes
-          [ ("manifestNameModifier" .=)
-              <$> _msamManifestNameModifier,
-            ("selectedOutputs" .=) <$> _msamSelectedOutputs
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("manifestNameModifier" Prelude..=)
+              Prelude.<$> manifestNameModifier,
+            ("selectedOutputs" Prelude..=)
+              Prelude.<$> selectedOutputs
           ]
       )

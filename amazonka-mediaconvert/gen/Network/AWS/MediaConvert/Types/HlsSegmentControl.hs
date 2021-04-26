@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaConvert.Types.HlsSegmentControl
   ( HlsSegmentControl
       ( ..,
-        SegmentedFiles,
-        SingleFile
+        HlsSegmentControlSEGMENTEDFILES,
+        HlsSegmentControlSINGLEFILE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to SINGLE_FILE, emits program as a single media resource (.ts) file, uses #EXT-X-BYTERANGE tags to index segment for playback.
-data HlsSegmentControl = HlsSegmentControl' (CI Text)
+-- | When set to SINGLE_FILE, emits program as a single media resource (.ts)
+-- file, uses #EXT-X-BYTERANGE tags to index segment for playback.
+newtype HlsSegmentControl = HlsSegmentControl'
+  { fromHlsSegmentControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SegmentedFiles :: HlsSegmentControl
-pattern SegmentedFiles = HlsSegmentControl' "SEGMENTED_FILES"
+pattern HlsSegmentControlSEGMENTEDFILES :: HlsSegmentControl
+pattern HlsSegmentControlSEGMENTEDFILES = HlsSegmentControl' "SEGMENTED_FILES"
 
-pattern SingleFile :: HlsSegmentControl
-pattern SingleFile = HlsSegmentControl' "SINGLE_FILE"
+pattern HlsSegmentControlSINGLEFILE :: HlsSegmentControl
+pattern HlsSegmentControlSINGLEFILE = HlsSegmentControl' "SINGLE_FILE"
 
 {-# COMPLETE
-  SegmentedFiles,
-  SingleFile,
+  HlsSegmentControlSEGMENTEDFILES,
+  HlsSegmentControlSINGLEFILE,
   HlsSegmentControl'
   #-}
 
-instance FromText HlsSegmentControl where
-  parser = (HlsSegmentControl' . mk) <$> takeText
+instance Prelude.FromText HlsSegmentControl where
+  parser = HlsSegmentControl' Prelude.<$> Prelude.takeText
 
-instance ToText HlsSegmentControl where
-  toText (HlsSegmentControl' ci) = original ci
+instance Prelude.ToText HlsSegmentControl where
+  toText (HlsSegmentControl' x) = x
 
-instance Hashable HlsSegmentControl
+instance Prelude.Hashable HlsSegmentControl
 
-instance NFData HlsSegmentControl
+instance Prelude.NFData HlsSegmentControl
 
-instance ToByteString HlsSegmentControl
+instance Prelude.ToByteString HlsSegmentControl
 
-instance ToQuery HlsSegmentControl
+instance Prelude.ToQuery HlsSegmentControl
 
-instance ToHeader HlsSegmentControl
+instance Prelude.ToHeader HlsSegmentControl
 
-instance ToJSON HlsSegmentControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsSegmentControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsSegmentControl where
-  parseJSON = parseJSONText "HlsSegmentControl"
+instance Prelude.FromJSON HlsSegmentControl where
+  parseJSON = Prelude.parseJSONText "HlsSegmentControl"

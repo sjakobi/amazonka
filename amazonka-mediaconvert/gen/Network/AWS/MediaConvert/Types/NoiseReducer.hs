@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.NoiseReducer where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.NoiseReducerFilter
 import Network.AWS.MediaConvert.Types.NoiseReducerFilterSettings
 import Network.AWS.MediaConvert.Types.NoiseReducerSpatialFilterSettings
 import Network.AWS.MediaConvert.Types.NoiseReducerTemporalFilterSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary. Enable or disable this feature for each output individually. This setting is disabled by default. When you enable Noise reducer (NoiseReducer), you must also select a value for Noise reducer filter (NoiseReducerFilter).
+-- | Enable the Noise reducer (NoiseReducer) feature to remove noise from
+-- your video output if necessary. Enable or disable this feature for each
+-- output individually. This setting is disabled by default. When you
+-- enable Noise reducer (NoiseReducer), you must also select a value for
+-- Noise reducer filter (NoiseReducerFilter).
 --
--- /See:/ 'noiseReducer' smart constructor.
+-- /See:/ 'newNoiseReducer' smart constructor.
 data NoiseReducer = NoiseReducer'
-  { _nrSpatialFilterSettings ::
-      !(Maybe NoiseReducerSpatialFilterSettings),
-    _nrTemporalFilterSettings ::
-      !(Maybe NoiseReducerTemporalFilterSettings),
-    _nrFilterSettings ::
-      !(Maybe NoiseReducerFilterSettings),
-    _nrFilter :: !(Maybe NoiseReducerFilter)
+  { -- | Noise reducer filter settings for spatial filter.
+    spatialFilterSettings :: Prelude.Maybe NoiseReducerSpatialFilterSettings,
+    -- | Noise reducer filter settings for temporal filter.
+    temporalFilterSettings :: Prelude.Maybe NoiseReducerTemporalFilterSettings,
+    -- | Settings for a noise reducer filter
+    filterSettings :: Prelude.Maybe NoiseReducerFilterSettings,
+    -- | Use Noise reducer filter (NoiseReducerFilter) to select one of the
+    -- following spatial image filtering functions. To use this setting, you
+    -- must also enable Noise reducer (NoiseReducer). * Bilateral preserves
+    -- edges while reducing noise. * Mean (softest), Gaussian, Lanczos, and
+    -- Sharpen (sharpest) do convolution filtering. * Conserve does min\/max
+    -- noise reduction. * Spatial does frequency-domain filtering based on JND
+    -- principles. * Temporal optimizes video quality for complex motion.
+    filter' :: Prelude.Maybe NoiseReducerFilter
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NoiseReducer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NoiseReducer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nrSpatialFilterSettings' - Noise reducer filter settings for spatial filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nrTemporalFilterSettings' - Noise reducer filter settings for temporal filter.
+-- 'spatialFilterSettings', 'noiseReducer_spatialFilterSettings' - Noise reducer filter settings for spatial filter.
 --
--- * 'nrFilterSettings' - Settings for a noise reducer filter
+-- 'temporalFilterSettings', 'noiseReducer_temporalFilterSettings' - Noise reducer filter settings for temporal filter.
 --
--- * 'nrFilter' - Use Noise reducer filter (NoiseReducerFilter) to select one of the following spatial image filtering functions. To use this setting, you must also enable Noise reducer (NoiseReducer). * Bilateral preserves edges while reducing noise. * Mean (softest), Gaussian, Lanczos, and Sharpen (sharpest) do convolution filtering. * Conserve does min/max noise reduction. * Spatial does frequency-domain filtering based on JND principles. * Temporal optimizes video quality for complex motion.
-noiseReducer ::
+-- 'filterSettings', 'noiseReducer_filterSettings' - Settings for a noise reducer filter
+--
+-- 'filter'', 'noiseReducer_filter' - Use Noise reducer filter (NoiseReducerFilter) to select one of the
+-- following spatial image filtering functions. To use this setting, you
+-- must also enable Noise reducer (NoiseReducer). * Bilateral preserves
+-- edges while reducing noise. * Mean (softest), Gaussian, Lanczos, and
+-- Sharpen (sharpest) do convolution filtering. * Conserve does min\/max
+-- noise reduction. * Spatial does frequency-domain filtering based on JND
+-- principles. * Temporal optimizes video quality for complex motion.
+newNoiseReducer ::
   NoiseReducer
-noiseReducer =
+newNoiseReducer =
   NoiseReducer'
-    { _nrSpatialFilterSettings = Nothing,
-      _nrTemporalFilterSettings = Nothing,
-      _nrFilterSettings = Nothing,
-      _nrFilter = Nothing
+    { spatialFilterSettings =
+        Prelude.Nothing,
+      temporalFilterSettings = Prelude.Nothing,
+      filterSettings = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | Noise reducer filter settings for spatial filter.
-nrSpatialFilterSettings :: Lens' NoiseReducer (Maybe NoiseReducerSpatialFilterSettings)
-nrSpatialFilterSettings = lens _nrSpatialFilterSettings (\s a -> s {_nrSpatialFilterSettings = a})
+noiseReducer_spatialFilterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerSpatialFilterSettings)
+noiseReducer_spatialFilterSettings = Lens.lens (\NoiseReducer' {spatialFilterSettings} -> spatialFilterSettings) (\s@NoiseReducer' {} a -> s {spatialFilterSettings = a} :: NoiseReducer)
 
 -- | Noise reducer filter settings for temporal filter.
-nrTemporalFilterSettings :: Lens' NoiseReducer (Maybe NoiseReducerTemporalFilterSettings)
-nrTemporalFilterSettings = lens _nrTemporalFilterSettings (\s a -> s {_nrTemporalFilterSettings = a})
+noiseReducer_temporalFilterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerTemporalFilterSettings)
+noiseReducer_temporalFilterSettings = Lens.lens (\NoiseReducer' {temporalFilterSettings} -> temporalFilterSettings) (\s@NoiseReducer' {} a -> s {temporalFilterSettings = a} :: NoiseReducer)
 
 -- | Settings for a noise reducer filter
-nrFilterSettings :: Lens' NoiseReducer (Maybe NoiseReducerFilterSettings)
-nrFilterSettings = lens _nrFilterSettings (\s a -> s {_nrFilterSettings = a})
+noiseReducer_filterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerFilterSettings)
+noiseReducer_filterSettings = Lens.lens (\NoiseReducer' {filterSettings} -> filterSettings) (\s@NoiseReducer' {} a -> s {filterSettings = a} :: NoiseReducer)
 
--- | Use Noise reducer filter (NoiseReducerFilter) to select one of the following spatial image filtering functions. To use this setting, you must also enable Noise reducer (NoiseReducer). * Bilateral preserves edges while reducing noise. * Mean (softest), Gaussian, Lanczos, and Sharpen (sharpest) do convolution filtering. * Conserve does min/max noise reduction. * Spatial does frequency-domain filtering based on JND principles. * Temporal optimizes video quality for complex motion.
-nrFilter :: Lens' NoiseReducer (Maybe NoiseReducerFilter)
-nrFilter = lens _nrFilter (\s a -> s {_nrFilter = a})
+-- | Use Noise reducer filter (NoiseReducerFilter) to select one of the
+-- following spatial image filtering functions. To use this setting, you
+-- must also enable Noise reducer (NoiseReducer). * Bilateral preserves
+-- edges while reducing noise. * Mean (softest), Gaussian, Lanczos, and
+-- Sharpen (sharpest) do convolution filtering. * Conserve does min\/max
+-- noise reduction. * Spatial does frequency-domain filtering based on JND
+-- principles. * Temporal optimizes video quality for complex motion.
+noiseReducer_filter :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerFilter)
+noiseReducer_filter = Lens.lens (\NoiseReducer' {filter'} -> filter') (\s@NoiseReducer' {} a -> s {filter' = a} :: NoiseReducer)
 
-instance FromJSON NoiseReducer where
+instance Prelude.FromJSON NoiseReducer where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NoiseReducer"
       ( \x ->
           NoiseReducer'
-            <$> (x .:? "spatialFilterSettings")
-            <*> (x .:? "temporalFilterSettings")
-            <*> (x .:? "filterSettings")
-            <*> (x .:? "filter")
+            Prelude.<$> (x Prelude..:? "spatialFilterSettings")
+            Prelude.<*> (x Prelude..:? "temporalFilterSettings")
+            Prelude.<*> (x Prelude..:? "filterSettings")
+            Prelude.<*> (x Prelude..:? "filter")
       )
 
-instance Hashable NoiseReducer
+instance Prelude.Hashable NoiseReducer
 
-instance NFData NoiseReducer
+instance Prelude.NFData NoiseReducer
 
-instance ToJSON NoiseReducer where
+instance Prelude.ToJSON NoiseReducer where
   toJSON NoiseReducer' {..} =
-    object
-      ( catMaybes
-          [ ("spatialFilterSettings" .=)
-              <$> _nrSpatialFilterSettings,
-            ("temporalFilterSettings" .=)
-              <$> _nrTemporalFilterSettings,
-            ("filterSettings" .=) <$> _nrFilterSettings,
-            ("filter" .=) <$> _nrFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("spatialFilterSettings" Prelude..=)
+              Prelude.<$> spatialFilterSettings,
+            ("temporalFilterSettings" Prelude..=)
+              Prelude.<$> temporalFilterSettings,
+            ("filterSettings" Prelude..=)
+              Prelude.<$> filterSettings,
+            ("filter" Prelude..=) Prelude.<$> filter'
           ]
       )

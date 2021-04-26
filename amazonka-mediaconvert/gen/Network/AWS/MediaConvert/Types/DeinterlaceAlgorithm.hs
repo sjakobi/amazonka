@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,74 @@
 module Network.AWS.MediaConvert.Types.DeinterlaceAlgorithm
   ( DeinterlaceAlgorithm
       ( ..,
-        DABlend,
-        DABlendTicker,
-        DAInterpolate,
-        DAInterpolateTicker
+        DeinterlaceAlgorithmBLEND,
+        DeinterlaceAlgorithmBLENDTICKER,
+        DeinterlaceAlgorithmINTERPOLATE,
+        DeinterlaceAlgorithmINTERPOLATETICKER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Only applies when you set Deinterlacer (DeinterlaceMode) to Deinterlace (DEINTERLACE) or Adaptive (ADAPTIVE). Motion adaptive interpolate (INTERPOLATE) produces sharper pictures, while blend (BLEND) produces smoother motion. Use (INTERPOLATE_TICKER) OR (BLEND_TICKER) if your source file includes a ticker, such as a scrolling headline at the bottom of the frame.
-data DeinterlaceAlgorithm
-  = DeinterlaceAlgorithm'
-      ( CI
-          Text
-      )
+-- | Only applies when you set Deinterlacer (DeinterlaceMode) to Deinterlace
+-- (DEINTERLACE) or Adaptive (ADAPTIVE). Motion adaptive interpolate
+-- (INTERPOLATE) produces sharper pictures, while blend (BLEND) produces
+-- smoother motion. Use (INTERPOLATE_TICKER) OR (BLEND_TICKER) if your
+-- source file includes a ticker, such as a scrolling headline at the
+-- bottom of the frame.
+newtype DeinterlaceAlgorithm = DeinterlaceAlgorithm'
+  { fromDeinterlaceAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DABlend :: DeinterlaceAlgorithm
-pattern DABlend = DeinterlaceAlgorithm' "BLEND"
+pattern DeinterlaceAlgorithmBLEND :: DeinterlaceAlgorithm
+pattern DeinterlaceAlgorithmBLEND = DeinterlaceAlgorithm' "BLEND"
 
-pattern DABlendTicker :: DeinterlaceAlgorithm
-pattern DABlendTicker = DeinterlaceAlgorithm' "BLEND_TICKER"
+pattern DeinterlaceAlgorithmBLENDTICKER :: DeinterlaceAlgorithm
+pattern DeinterlaceAlgorithmBLENDTICKER = DeinterlaceAlgorithm' "BLEND_TICKER"
 
-pattern DAInterpolate :: DeinterlaceAlgorithm
-pattern DAInterpolate = DeinterlaceAlgorithm' "INTERPOLATE"
+pattern DeinterlaceAlgorithmINTERPOLATE :: DeinterlaceAlgorithm
+pattern DeinterlaceAlgorithmINTERPOLATE = DeinterlaceAlgorithm' "INTERPOLATE"
 
-pattern DAInterpolateTicker :: DeinterlaceAlgorithm
-pattern DAInterpolateTicker = DeinterlaceAlgorithm' "INTERPOLATE_TICKER"
+pattern DeinterlaceAlgorithmINTERPOLATETICKER :: DeinterlaceAlgorithm
+pattern DeinterlaceAlgorithmINTERPOLATETICKER = DeinterlaceAlgorithm' "INTERPOLATE_TICKER"
 
 {-# COMPLETE
-  DABlend,
-  DABlendTicker,
-  DAInterpolate,
-  DAInterpolateTicker,
+  DeinterlaceAlgorithmBLEND,
+  DeinterlaceAlgorithmBLENDTICKER,
+  DeinterlaceAlgorithmINTERPOLATE,
+  DeinterlaceAlgorithmINTERPOLATETICKER,
   DeinterlaceAlgorithm'
   #-}
 
-instance FromText DeinterlaceAlgorithm where
-  parser = (DeinterlaceAlgorithm' . mk) <$> takeText
+instance Prelude.FromText DeinterlaceAlgorithm where
+  parser = DeinterlaceAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText DeinterlaceAlgorithm where
-  toText (DeinterlaceAlgorithm' ci) = original ci
+instance Prelude.ToText DeinterlaceAlgorithm where
+  toText (DeinterlaceAlgorithm' x) = x
 
-instance Hashable DeinterlaceAlgorithm
+instance Prelude.Hashable DeinterlaceAlgorithm
 
-instance NFData DeinterlaceAlgorithm
+instance Prelude.NFData DeinterlaceAlgorithm
 
-instance ToByteString DeinterlaceAlgorithm
+instance Prelude.ToByteString DeinterlaceAlgorithm
 
-instance ToQuery DeinterlaceAlgorithm
+instance Prelude.ToQuery DeinterlaceAlgorithm
 
-instance ToHeader DeinterlaceAlgorithm
+instance Prelude.ToHeader DeinterlaceAlgorithm
 
-instance ToJSON DeinterlaceAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeinterlaceAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeinterlaceAlgorithm where
-  parseJSON = parseJSONText "DeinterlaceAlgorithm"
+instance Prelude.FromJSON DeinterlaceAlgorithm where
+  parseJSON = Prelude.parseJSONText "DeinterlaceAlgorithm"

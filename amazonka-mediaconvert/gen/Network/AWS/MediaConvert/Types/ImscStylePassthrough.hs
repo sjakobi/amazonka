@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaConvert.Types.ImscStylePassthrough
   ( ImscStylePassthrough
       ( ..,
-        ISPDisabled,
-        ISPEnabled
+        ImscStylePassthroughDISABLED,
+        ImscStylePassthroughENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Keep this setting enabled to have MediaConvert use the font style and position information from the captions source in the output. This option is available only when your input captions are IMSC, SMPTE-TT, or TTML. Disable this setting for simplified output captions.
-data ImscStylePassthrough
-  = ImscStylePassthrough'
-      ( CI
-          Text
-      )
+-- | Keep this setting enabled to have MediaConvert use the font style and
+-- position information from the captions source in the output. This option
+-- is available only when your input captions are IMSC, SMPTE-TT, or TTML.
+-- Disable this setting for simplified output captions.
+newtype ImscStylePassthrough = ImscStylePassthrough'
+  { fromImscStylePassthrough ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISPDisabled :: ImscStylePassthrough
-pattern ISPDisabled = ImscStylePassthrough' "DISABLED"
+pattern ImscStylePassthroughDISABLED :: ImscStylePassthrough
+pattern ImscStylePassthroughDISABLED = ImscStylePassthrough' "DISABLED"
 
-pattern ISPEnabled :: ImscStylePassthrough
-pattern ISPEnabled = ImscStylePassthrough' "ENABLED"
+pattern ImscStylePassthroughENABLED :: ImscStylePassthrough
+pattern ImscStylePassthroughENABLED = ImscStylePassthrough' "ENABLED"
 
 {-# COMPLETE
-  ISPDisabled,
-  ISPEnabled,
+  ImscStylePassthroughDISABLED,
+  ImscStylePassthroughENABLED,
   ImscStylePassthrough'
   #-}
 
-instance FromText ImscStylePassthrough where
-  parser = (ImscStylePassthrough' . mk) <$> takeText
+instance Prelude.FromText ImscStylePassthrough where
+  parser = ImscStylePassthrough' Prelude.<$> Prelude.takeText
 
-instance ToText ImscStylePassthrough where
-  toText (ImscStylePassthrough' ci) = original ci
+instance Prelude.ToText ImscStylePassthrough where
+  toText (ImscStylePassthrough' x) = x
 
-instance Hashable ImscStylePassthrough
+instance Prelude.Hashable ImscStylePassthrough
 
-instance NFData ImscStylePassthrough
+instance Prelude.NFData ImscStylePassthrough
 
-instance ToByteString ImscStylePassthrough
+instance Prelude.ToByteString ImscStylePassthrough
 
-instance ToQuery ImscStylePassthrough
+instance Prelude.ToQuery ImscStylePassthrough
 
-instance ToHeader ImscStylePassthrough
+instance Prelude.ToHeader ImscStylePassthrough
 
-instance ToJSON ImscStylePassthrough where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImscStylePassthrough where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ImscStylePassthrough where
-  parseJSON = parseJSONText "ImscStylePassthrough"
+instance Prelude.FromJSON ImscStylePassthrough where
+  parseJSON = Prelude.parseJSONText "ImscStylePassthrough"

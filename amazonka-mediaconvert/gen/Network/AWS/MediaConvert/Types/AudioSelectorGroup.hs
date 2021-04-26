@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.AudioSelectorGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Group of Audio Selectors
 --
--- /See:/ 'audioSelectorGroup' smart constructor.
-newtype AudioSelectorGroup = AudioSelectorGroup'
-  { _asgAudioSelectorNames ::
-      Maybe [Text]
+-- /See:/ 'newAudioSelectorGroup' smart constructor.
+data AudioSelectorGroup = AudioSelectorGroup'
+  { -- | Name of an Audio Selector within the same input to include in the group.
+    -- Audio selector names are standardized, based on their order within the
+    -- input (e.g., \"Audio Selector 1\"). The audio selector name parameter
+    -- can be repeated to add any number of audio selectors to the group.
+    audioSelectorNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioSelectorGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioSelectorGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asgAudioSelectorNames' - Name of an Audio Selector within the same input to include in the group.  Audio selector names are standardized, based on their order within the input (e.g., "Audio Selector 1"). The audio selector name parameter can be repeated to add any number of audio selectors to the group.
-audioSelectorGroup ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'audioSelectorNames', 'audioSelectorGroup_audioSelectorNames' - Name of an Audio Selector within the same input to include in the group.
+-- Audio selector names are standardized, based on their order within the
+-- input (e.g., \"Audio Selector 1\"). The audio selector name parameter
+-- can be repeated to add any number of audio selectors to the group.
+newAudioSelectorGroup ::
   AudioSelectorGroup
-audioSelectorGroup =
+newAudioSelectorGroup =
   AudioSelectorGroup'
-    { _asgAudioSelectorNames =
-        Nothing
+    { audioSelectorNames =
+        Prelude.Nothing
     }
 
--- | Name of an Audio Selector within the same input to include in the group.  Audio selector names are standardized, based on their order within the input (e.g., "Audio Selector 1"). The audio selector name parameter can be repeated to add any number of audio selectors to the group.
-asgAudioSelectorNames :: Lens' AudioSelectorGroup [Text]
-asgAudioSelectorNames = lens _asgAudioSelectorNames (\s a -> s {_asgAudioSelectorNames = a}) . _Default . _Coerce
+-- | Name of an Audio Selector within the same input to include in the group.
+-- Audio selector names are standardized, based on their order within the
+-- input (e.g., \"Audio Selector 1\"). The audio selector name parameter
+-- can be repeated to add any number of audio selectors to the group.
+audioSelectorGroup_audioSelectorNames :: Lens.Lens' AudioSelectorGroup (Prelude.Maybe [Prelude.Text])
+audioSelectorGroup_audioSelectorNames = Lens.lens (\AudioSelectorGroup' {audioSelectorNames} -> audioSelectorNames) (\s@AudioSelectorGroup' {} a -> s {audioSelectorNames = a} :: AudioSelectorGroup) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON AudioSelectorGroup where
+instance Prelude.FromJSON AudioSelectorGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioSelectorGroup"
       ( \x ->
           AudioSelectorGroup'
-            <$> (x .:? "audioSelectorNames" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "audioSelectorNames"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AudioSelectorGroup
+instance Prelude.Hashable AudioSelectorGroup
 
-instance NFData AudioSelectorGroup
+instance Prelude.NFData AudioSelectorGroup
 
-instance ToJSON AudioSelectorGroup where
+instance Prelude.ToJSON AudioSelectorGroup where
   toJSON AudioSelectorGroup' {..} =
-    object
-      ( catMaybes
-          [ ("audioSelectorNames" .=)
-              <$> _asgAudioSelectorNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("audioSelectorNames" Prelude..=)
+              Prelude.<$> audioSelectorNames
           ]
       )

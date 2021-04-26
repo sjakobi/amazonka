@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,80 @@
 module Network.AWS.MediaConvert.Types.Eac3DynamicRangeCompressionRf
   ( Eac3DynamicRangeCompressionRf
       ( ..,
-        EDRCRFilmLight,
-        EDRCRFilmStandard,
-        EDRCRMusicLight,
-        EDRCRMusicStandard,
-        EDRCRNone,
-        EDRCRSpeech
+        Eac3DynamicRangeCompressionRfFILMLIGHT,
+        Eac3DynamicRangeCompressionRfFILMSTANDARD,
+        Eac3DynamicRangeCompressionRfMUSICLIGHT,
+        Eac3DynamicRangeCompressionRfMUSICSTANDARD,
+        Eac3DynamicRangeCompressionRfNONE,
+        Eac3DynamicRangeCompressionRfSPEECH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify how the service limits the audio dynamic range when compressing the audio.
-data Eac3DynamicRangeCompressionRf
-  = Eac3DynamicRangeCompressionRf'
-      ( CI
-          Text
-      )
+-- | Specify how the service limits the audio dynamic range when compressing
+-- the audio.
+newtype Eac3DynamicRangeCompressionRf = Eac3DynamicRangeCompressionRf'
+  { fromEac3DynamicRangeCompressionRf ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EDRCRFilmLight :: Eac3DynamicRangeCompressionRf
-pattern EDRCRFilmLight = Eac3DynamicRangeCompressionRf' "FILM_LIGHT"
+pattern Eac3DynamicRangeCompressionRfFILMLIGHT :: Eac3DynamicRangeCompressionRf
+pattern Eac3DynamicRangeCompressionRfFILMLIGHT = Eac3DynamicRangeCompressionRf' "FILM_LIGHT"
 
-pattern EDRCRFilmStandard :: Eac3DynamicRangeCompressionRf
-pattern EDRCRFilmStandard = Eac3DynamicRangeCompressionRf' "FILM_STANDARD"
+pattern Eac3DynamicRangeCompressionRfFILMSTANDARD :: Eac3DynamicRangeCompressionRf
+pattern Eac3DynamicRangeCompressionRfFILMSTANDARD = Eac3DynamicRangeCompressionRf' "FILM_STANDARD"
 
-pattern EDRCRMusicLight :: Eac3DynamicRangeCompressionRf
-pattern EDRCRMusicLight = Eac3DynamicRangeCompressionRf' "MUSIC_LIGHT"
+pattern Eac3DynamicRangeCompressionRfMUSICLIGHT :: Eac3DynamicRangeCompressionRf
+pattern Eac3DynamicRangeCompressionRfMUSICLIGHT = Eac3DynamicRangeCompressionRf' "MUSIC_LIGHT"
 
-pattern EDRCRMusicStandard :: Eac3DynamicRangeCompressionRf
-pattern EDRCRMusicStandard = Eac3DynamicRangeCompressionRf' "MUSIC_STANDARD"
+pattern Eac3DynamicRangeCompressionRfMUSICSTANDARD :: Eac3DynamicRangeCompressionRf
+pattern Eac3DynamicRangeCompressionRfMUSICSTANDARD = Eac3DynamicRangeCompressionRf' "MUSIC_STANDARD"
 
-pattern EDRCRNone :: Eac3DynamicRangeCompressionRf
-pattern EDRCRNone = Eac3DynamicRangeCompressionRf' "NONE"
+pattern Eac3DynamicRangeCompressionRfNONE :: Eac3DynamicRangeCompressionRf
+pattern Eac3DynamicRangeCompressionRfNONE = Eac3DynamicRangeCompressionRf' "NONE"
 
-pattern EDRCRSpeech :: Eac3DynamicRangeCompressionRf
-pattern EDRCRSpeech = Eac3DynamicRangeCompressionRf' "SPEECH"
+pattern Eac3DynamicRangeCompressionRfSPEECH :: Eac3DynamicRangeCompressionRf
+pattern Eac3DynamicRangeCompressionRfSPEECH = Eac3DynamicRangeCompressionRf' "SPEECH"
 
 {-# COMPLETE
-  EDRCRFilmLight,
-  EDRCRFilmStandard,
-  EDRCRMusicLight,
-  EDRCRMusicStandard,
-  EDRCRNone,
-  EDRCRSpeech,
+  Eac3DynamicRangeCompressionRfFILMLIGHT,
+  Eac3DynamicRangeCompressionRfFILMSTANDARD,
+  Eac3DynamicRangeCompressionRfMUSICLIGHT,
+  Eac3DynamicRangeCompressionRfMUSICSTANDARD,
+  Eac3DynamicRangeCompressionRfNONE,
+  Eac3DynamicRangeCompressionRfSPEECH,
   Eac3DynamicRangeCompressionRf'
   #-}
 
-instance FromText Eac3DynamicRangeCompressionRf where
-  parser = (Eac3DynamicRangeCompressionRf' . mk) <$> takeText
+instance Prelude.FromText Eac3DynamicRangeCompressionRf where
+  parser = Eac3DynamicRangeCompressionRf' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3DynamicRangeCompressionRf where
-  toText (Eac3DynamicRangeCompressionRf' ci) = original ci
+instance Prelude.ToText Eac3DynamicRangeCompressionRf where
+  toText (Eac3DynamicRangeCompressionRf' x) = x
 
-instance Hashable Eac3DynamicRangeCompressionRf
+instance Prelude.Hashable Eac3DynamicRangeCompressionRf
 
-instance NFData Eac3DynamicRangeCompressionRf
+instance Prelude.NFData Eac3DynamicRangeCompressionRf
 
-instance ToByteString Eac3DynamicRangeCompressionRf
+instance Prelude.ToByteString Eac3DynamicRangeCompressionRf
 
-instance ToQuery Eac3DynamicRangeCompressionRf
+instance Prelude.ToQuery Eac3DynamicRangeCompressionRf
 
-instance ToHeader Eac3DynamicRangeCompressionRf
+instance Prelude.ToHeader Eac3DynamicRangeCompressionRf
 
-instance ToJSON Eac3DynamicRangeCompressionRf where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3DynamicRangeCompressionRf where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3DynamicRangeCompressionRf where
-  parseJSON = parseJSONText "Eac3DynamicRangeCompressionRf"
+instance Prelude.FromJSON Eac3DynamicRangeCompressionRf where
+  parseJSON = Prelude.parseJSONText "Eac3DynamicRangeCompressionRf"

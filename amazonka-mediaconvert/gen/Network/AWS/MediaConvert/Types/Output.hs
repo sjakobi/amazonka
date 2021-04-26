@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,127 +19,207 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.Output where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AudioDescription
 import Network.AWS.MediaConvert.Types.CaptionDescription
 import Network.AWS.MediaConvert.Types.ContainerSettings
 import Network.AWS.MediaConvert.Types.OutputSettings
 import Network.AWS.MediaConvert.Types.VideoDescription
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | An output object describes the settings for a single output file or stream in an output group.
+-- | An output object describes the settings for a single output file or
+-- stream in an output group.
 --
--- /See:/ 'output' smart constructor.
+-- /See:/ 'newOutput' smart constructor.
 data Output = Output'
-  { _oAudioDescriptions ::
-      !(Maybe [AudioDescription]),
-    _oPreset :: !(Maybe Text),
-    _oContainerSettings :: !(Maybe ContainerSettings),
-    _oVideoDescription :: !(Maybe VideoDescription),
-    _oExtension :: !(Maybe Text),
-    _oCaptionDescriptions ::
-      !(Maybe [CaptionDescription]),
-    _oNameModifier :: !(Maybe Text),
-    _oOutputSettings :: !(Maybe OutputSettings)
+  { -- | (AudioDescriptions) contains groups of audio encoding settings organized
+    -- by audio codec. Include one instance of (AudioDescriptions) per output.
+    -- (AudioDescriptions) can contain multiple groups of encoding settings.
+    audioDescriptions :: Prelude.Maybe [AudioDescription],
+    -- | Use Preset (Preset) to specify a preset for your transcoding settings.
+    -- Provide the system or custom preset name. You can specify either Preset
+    -- (Preset) or Container settings (ContainerSettings), but not both.
+    preset :: Prelude.Maybe Prelude.Text,
+    -- | Container specific settings.
+    containerSettings :: Prelude.Maybe ContainerSettings,
+    -- | (VideoDescription) contains a group of video encoding settings. The
+    -- specific video settings depend on the video codec that you choose when
+    -- you specify a value for Video codec (codec). Include one instance of
+    -- (VideoDescription) per output.
+    videoDescription :: Prelude.Maybe VideoDescription,
+    -- | Use Extension (Extension) to specify the file extension for outputs in
+    -- File output groups. If you do not specify a value, the service will use
+    -- default extensions by container type as follows * MPEG-2 transport
+    -- stream, m2ts * Quicktime, mov * MXF container, mxf * MPEG-4 container,
+    -- mp4 * WebM container, webm * No Container, the service will use codec
+    -- extensions (e.g. AAC, H265, H265, AC3)
+    extension :: Prelude.Maybe Prelude.Text,
+    -- | (CaptionDescriptions) contains groups of captions settings. For each
+    -- output that has captions, include one instance of (CaptionDescriptions).
+    -- (CaptionDescriptions) can contain multiple groups of captions settings.
+    captionDescriptions :: Prelude.Maybe [CaptionDescription],
+    -- | Use Name modifier (NameModifier) to have the service add a string to the
+    -- end of each output filename. You specify the base filename as part of
+    -- your destination URI. When you create multiple outputs in the same
+    -- output group, Name modifier (NameModifier) is required. Name modifier
+    -- also accepts format identifiers. For DASH ISO outputs, if you use the
+    -- format identifiers $Number$ or $Time$ in one output, you must use them
+    -- in the same way in all outputs of the output group.
+    nameModifier :: Prelude.Maybe Prelude.Text,
+    -- | Specific settings for this type of output.
+    outputSettings :: Prelude.Maybe OutputSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Output' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Output' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oAudioDescriptions' - (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oPreset' - Use Preset (Preset) to specify a preset for your transcoding settings. Provide the system or custom preset name. You can specify either Preset (Preset) or Container settings (ContainerSettings), but not both.
+-- 'audioDescriptions', 'output_audioDescriptions' - (AudioDescriptions) contains groups of audio encoding settings organized
+-- by audio codec. Include one instance of (AudioDescriptions) per output.
+-- (AudioDescriptions) can contain multiple groups of encoding settings.
 --
--- * 'oContainerSettings' - Container specific settings.
+-- 'preset', 'output_preset' - Use Preset (Preset) to specify a preset for your transcoding settings.
+-- Provide the system or custom preset name. You can specify either Preset
+-- (Preset) or Container settings (ContainerSettings), but not both.
 --
--- * 'oVideoDescription' - (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the video codec that you choose when you specify a value for Video codec (codec). Include one instance of (VideoDescription) per output.
+-- 'containerSettings', 'output_containerSettings' - Container specific settings.
 --
--- * 'oExtension' - Use Extension (Extension) to specify the file extension for outputs in File output groups. If you do not specify a value, the service will use default extensions by container type as follows * MPEG-2 transport stream, m2ts * Quicktime, mov * MXF container, mxf * MPEG-4 container, mp4 * WebM container, webm * No Container, the service will use codec extensions (e.g. AAC, H265, H265, AC3)
+-- 'videoDescription', 'output_videoDescription' - (VideoDescription) contains a group of video encoding settings. The
+-- specific video settings depend on the video codec that you choose when
+-- you specify a value for Video codec (codec). Include one instance of
+-- (VideoDescription) per output.
 --
--- * 'oCaptionDescriptions' - (CaptionDescriptions) contains groups of captions settings. For each output that has captions, include one instance of (CaptionDescriptions). (CaptionDescriptions) can contain multiple groups of captions settings.
+-- 'extension', 'output_extension' - Use Extension (Extension) to specify the file extension for outputs in
+-- File output groups. If you do not specify a value, the service will use
+-- default extensions by container type as follows * MPEG-2 transport
+-- stream, m2ts * Quicktime, mov * MXF container, mxf * MPEG-4 container,
+-- mp4 * WebM container, webm * No Container, the service will use codec
+-- extensions (e.g. AAC, H265, H265, AC3)
 --
--- * 'oNameModifier' - Use Name modifier (NameModifier) to have the service add a string to the end of each output filename. You specify the base filename as part of your destination URI. When you create multiple outputs in the same output group, Name modifier (NameModifier) is required. Name modifier also accepts format identifiers. For DASH ISO outputs, if you use the format identifiers $Number$ or $Time$ in one output, you must use them in the same way in all outputs of the output group.
+-- 'captionDescriptions', 'output_captionDescriptions' - (CaptionDescriptions) contains groups of captions settings. For each
+-- output that has captions, include one instance of (CaptionDescriptions).
+-- (CaptionDescriptions) can contain multiple groups of captions settings.
 --
--- * 'oOutputSettings' - Specific settings for this type of output.
-output ::
+-- 'nameModifier', 'output_nameModifier' - Use Name modifier (NameModifier) to have the service add a string to the
+-- end of each output filename. You specify the base filename as part of
+-- your destination URI. When you create multiple outputs in the same
+-- output group, Name modifier (NameModifier) is required. Name modifier
+-- also accepts format identifiers. For DASH ISO outputs, if you use the
+-- format identifiers $Number$ or $Time$ in one output, you must use them
+-- in the same way in all outputs of the output group.
+--
+-- 'outputSettings', 'output_outputSettings' - Specific settings for this type of output.
+newOutput ::
   Output
-output =
+newOutput =
   Output'
-    { _oAudioDescriptions = Nothing,
-      _oPreset = Nothing,
-      _oContainerSettings = Nothing,
-      _oVideoDescription = Nothing,
-      _oExtension = Nothing,
-      _oCaptionDescriptions = Nothing,
-      _oNameModifier = Nothing,
-      _oOutputSettings = Nothing
+    { audioDescriptions = Prelude.Nothing,
+      preset = Prelude.Nothing,
+      containerSettings = Prelude.Nothing,
+      videoDescription = Prelude.Nothing,
+      extension = Prelude.Nothing,
+      captionDescriptions = Prelude.Nothing,
+      nameModifier = Prelude.Nothing,
+      outputSettings = Prelude.Nothing
     }
 
--- | (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
-oAudioDescriptions :: Lens' Output [AudioDescription]
-oAudioDescriptions = lens _oAudioDescriptions (\s a -> s {_oAudioDescriptions = a}) . _Default . _Coerce
+-- | (AudioDescriptions) contains groups of audio encoding settings organized
+-- by audio codec. Include one instance of (AudioDescriptions) per output.
+-- (AudioDescriptions) can contain multiple groups of encoding settings.
+output_audioDescriptions :: Lens.Lens' Output (Prelude.Maybe [AudioDescription])
+output_audioDescriptions = Lens.lens (\Output' {audioDescriptions} -> audioDescriptions) (\s@Output' {} a -> s {audioDescriptions = a} :: Output) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Use Preset (Preset) to specify a preset for your transcoding settings. Provide the system or custom preset name. You can specify either Preset (Preset) or Container settings (ContainerSettings), but not both.
-oPreset :: Lens' Output (Maybe Text)
-oPreset = lens _oPreset (\s a -> s {_oPreset = a})
+-- | Use Preset (Preset) to specify a preset for your transcoding settings.
+-- Provide the system or custom preset name. You can specify either Preset
+-- (Preset) or Container settings (ContainerSettings), but not both.
+output_preset :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_preset = Lens.lens (\Output' {preset} -> preset) (\s@Output' {} a -> s {preset = a} :: Output)
 
 -- | Container specific settings.
-oContainerSettings :: Lens' Output (Maybe ContainerSettings)
-oContainerSettings = lens _oContainerSettings (\s a -> s {_oContainerSettings = a})
+output_containerSettings :: Lens.Lens' Output (Prelude.Maybe ContainerSettings)
+output_containerSettings = Lens.lens (\Output' {containerSettings} -> containerSettings) (\s@Output' {} a -> s {containerSettings = a} :: Output)
 
--- | (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the video codec that you choose when you specify a value for Video codec (codec). Include one instance of (VideoDescription) per output.
-oVideoDescription :: Lens' Output (Maybe VideoDescription)
-oVideoDescription = lens _oVideoDescription (\s a -> s {_oVideoDescription = a})
+-- | (VideoDescription) contains a group of video encoding settings. The
+-- specific video settings depend on the video codec that you choose when
+-- you specify a value for Video codec (codec). Include one instance of
+-- (VideoDescription) per output.
+output_videoDescription :: Lens.Lens' Output (Prelude.Maybe VideoDescription)
+output_videoDescription = Lens.lens (\Output' {videoDescription} -> videoDescription) (\s@Output' {} a -> s {videoDescription = a} :: Output)
 
--- | Use Extension (Extension) to specify the file extension for outputs in File output groups. If you do not specify a value, the service will use default extensions by container type as follows * MPEG-2 transport stream, m2ts * Quicktime, mov * MXF container, mxf * MPEG-4 container, mp4 * WebM container, webm * No Container, the service will use codec extensions (e.g. AAC, H265, H265, AC3)
-oExtension :: Lens' Output (Maybe Text)
-oExtension = lens _oExtension (\s a -> s {_oExtension = a})
+-- | Use Extension (Extension) to specify the file extension for outputs in
+-- File output groups. If you do not specify a value, the service will use
+-- default extensions by container type as follows * MPEG-2 transport
+-- stream, m2ts * Quicktime, mov * MXF container, mxf * MPEG-4 container,
+-- mp4 * WebM container, webm * No Container, the service will use codec
+-- extensions (e.g. AAC, H265, H265, AC3)
+output_extension :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_extension = Lens.lens (\Output' {extension} -> extension) (\s@Output' {} a -> s {extension = a} :: Output)
 
--- | (CaptionDescriptions) contains groups of captions settings. For each output that has captions, include one instance of (CaptionDescriptions). (CaptionDescriptions) can contain multiple groups of captions settings.
-oCaptionDescriptions :: Lens' Output [CaptionDescription]
-oCaptionDescriptions = lens _oCaptionDescriptions (\s a -> s {_oCaptionDescriptions = a}) . _Default . _Coerce
+-- | (CaptionDescriptions) contains groups of captions settings. For each
+-- output that has captions, include one instance of (CaptionDescriptions).
+-- (CaptionDescriptions) can contain multiple groups of captions settings.
+output_captionDescriptions :: Lens.Lens' Output (Prelude.Maybe [CaptionDescription])
+output_captionDescriptions = Lens.lens (\Output' {captionDescriptions} -> captionDescriptions) (\s@Output' {} a -> s {captionDescriptions = a} :: Output) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Use Name modifier (NameModifier) to have the service add a string to the end of each output filename. You specify the base filename as part of your destination URI. When you create multiple outputs in the same output group, Name modifier (NameModifier) is required. Name modifier also accepts format identifiers. For DASH ISO outputs, if you use the format identifiers $Number$ or $Time$ in one output, you must use them in the same way in all outputs of the output group.
-oNameModifier :: Lens' Output (Maybe Text)
-oNameModifier = lens _oNameModifier (\s a -> s {_oNameModifier = a})
+-- | Use Name modifier (NameModifier) to have the service add a string to the
+-- end of each output filename. You specify the base filename as part of
+-- your destination URI. When you create multiple outputs in the same
+-- output group, Name modifier (NameModifier) is required. Name modifier
+-- also accepts format identifiers. For DASH ISO outputs, if you use the
+-- format identifiers $Number$ or $Time$ in one output, you must use them
+-- in the same way in all outputs of the output group.
+output_nameModifier :: Lens.Lens' Output (Prelude.Maybe Prelude.Text)
+output_nameModifier = Lens.lens (\Output' {nameModifier} -> nameModifier) (\s@Output' {} a -> s {nameModifier = a} :: Output)
 
 -- | Specific settings for this type of output.
-oOutputSettings :: Lens' Output (Maybe OutputSettings)
-oOutputSettings = lens _oOutputSettings (\s a -> s {_oOutputSettings = a})
+output_outputSettings :: Lens.Lens' Output (Prelude.Maybe OutputSettings)
+output_outputSettings = Lens.lens (\Output' {outputSettings} -> outputSettings) (\s@Output' {} a -> s {outputSettings = a} :: Output)
 
-instance FromJSON Output where
+instance Prelude.FromJSON Output where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Output"
       ( \x ->
           Output'
-            <$> (x .:? "audioDescriptions" .!= mempty)
-            <*> (x .:? "preset")
-            <*> (x .:? "containerSettings")
-            <*> (x .:? "videoDescription")
-            <*> (x .:? "extension")
-            <*> (x .:? "captionDescriptions" .!= mempty)
-            <*> (x .:? "nameModifier")
-            <*> (x .:? "outputSettings")
+            Prelude.<$> ( x Prelude..:? "audioDescriptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "preset")
+            Prelude.<*> (x Prelude..:? "containerSettings")
+            Prelude.<*> (x Prelude..:? "videoDescription")
+            Prelude.<*> (x Prelude..:? "extension")
+            Prelude.<*> ( x Prelude..:? "captionDescriptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "nameModifier")
+            Prelude.<*> (x Prelude..:? "outputSettings")
       )
 
-instance Hashable Output
+instance Prelude.Hashable Output
 
-instance NFData Output
+instance Prelude.NFData Output
 
-instance ToJSON Output where
+instance Prelude.ToJSON Output where
   toJSON Output' {..} =
-    object
-      ( catMaybes
-          [ ("audioDescriptions" .=) <$> _oAudioDescriptions,
-            ("preset" .=) <$> _oPreset,
-            ("containerSettings" .=) <$> _oContainerSettings,
-            ("videoDescription" .=) <$> _oVideoDescription,
-            ("extension" .=) <$> _oExtension,
-            ("captionDescriptions" .=) <$> _oCaptionDescriptions,
-            ("nameModifier" .=) <$> _oNameModifier,
-            ("outputSettings" .=) <$> _oOutputSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("audioDescriptions" Prelude..=)
+              Prelude.<$> audioDescriptions,
+            ("preset" Prelude..=) Prelude.<$> preset,
+            ("containerSettings" Prelude..=)
+              Prelude.<$> containerSettings,
+            ("videoDescription" Prelude..=)
+              Prelude.<$> videoDescription,
+            ("extension" Prelude..=) Prelude.<$> extension,
+            ("captionDescriptions" Prelude..=)
+              Prelude.<$> captionDescriptions,
+            ("nameModifier" Prelude..=) Prelude.<$> nameModifier,
+            ("outputSettings" Prelude..=)
+              Prelude.<$> outputSettings
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Send an request with an empty body to the regional API endpoint to get your account API endpoint.
+-- Send an request with an empty body to the regional API endpoint to get
+-- your account API endpoint.
 --
 -- This operation returns paginated results.
 module Network.AWS.MediaConvert.DescribeEndpoints
   ( -- * Creating a Request
-    describeEndpoints,
-    DescribeEndpoints,
+    DescribeEndpoints (..),
+    newDescribeEndpoints,
 
     -- * Request Lenses
-    deNextToken,
-    deMaxResults,
-    deMode,
+    describeEndpoints_nextToken,
+    describeEndpoints_maxResults,
+    describeEndpoints_mode,
 
     -- * Destructuring the Response
-    describeEndpointsResponse,
-    DescribeEndpointsResponse,
+    DescribeEndpointsResponse (..),
+    newDescribeEndpointsResponse,
 
     -- * Response Lenses
-    derrsNextToken,
-    derrsEndpoints,
-    derrsResponseStatus,
+    describeEndpointsResponse_nextToken,
+    describeEndpointsResponse_endpoints,
+    describeEndpointsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.Endpoint
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | DescribeEndpointsRequest
 --
--- /See:/ 'describeEndpoints' smart constructor.
+-- /See:/ 'newDescribeEndpoints' smart constructor.
 data DescribeEndpoints = DescribeEndpoints'
-  { _deNextToken ::
-      !(Maybe Text),
-    _deMaxResults :: !(Maybe Int),
-    _deMode ::
-      !(Maybe DescribeEndpointsMode)
+  { -- | Use this string, provided with the response to a previous request, to
+    -- request the next batch of endpoints.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional. Max number of endpoints, up to twenty, that will be returned
+    -- at one time.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Optional field, defaults to DEFAULT. Specify DEFAULT for this operation
+    -- to return your endpoints if any exist, or to create an endpoint for you
+    -- and return it if one doesn\'t already exist. Specify GET_ONLY to return
+    -- your endpoints if any exist, or an empty list if none exist.
+    mode :: Prelude.Maybe DescribeEndpointsMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deNextToken' - Use this string, provided with the response to a previous request, to request the next batch of endpoints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deMaxResults' - Optional. Max number of endpoints, up to twenty, that will be returned at one time.
+-- 'nextToken', 'describeEndpoints_nextToken' - Use this string, provided with the response to a previous request, to
+-- request the next batch of endpoints.
 --
--- * 'deMode' - Optional field, defaults to DEFAULT. Specify DEFAULT for this operation to return your endpoints if any exist, or to create an endpoint for you and return it if one doesn't already exist. Specify GET_ONLY to return your endpoints if any exist, or an empty list if none exist.
-describeEndpoints ::
+-- 'maxResults', 'describeEndpoints_maxResults' - Optional. Max number of endpoints, up to twenty, that will be returned
+-- at one time.
+--
+-- 'mode', 'describeEndpoints_mode' - Optional field, defaults to DEFAULT. Specify DEFAULT for this operation
+-- to return your endpoints if any exist, or to create an endpoint for you
+-- and return it if one doesn\'t already exist. Specify GET_ONLY to return
+-- your endpoints if any exist, or an empty list if none exist.
+newDescribeEndpoints ::
   DescribeEndpoints
-describeEndpoints =
+newDescribeEndpoints =
   DescribeEndpoints'
-    { _deNextToken = Nothing,
-      _deMaxResults = Nothing,
-      _deMode = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      mode = Prelude.Nothing
     }
 
--- | Use this string, provided with the response to a previous request, to request the next batch of endpoints.
-deNextToken :: Lens' DescribeEndpoints (Maybe Text)
-deNextToken = lens _deNextToken (\s a -> s {_deNextToken = a})
+-- | Use this string, provided with the response to a previous request, to
+-- request the next batch of endpoints.
+describeEndpoints_nextToken :: Lens.Lens' DescribeEndpoints (Prelude.Maybe Prelude.Text)
+describeEndpoints_nextToken = Lens.lens (\DescribeEndpoints' {nextToken} -> nextToken) (\s@DescribeEndpoints' {} a -> s {nextToken = a} :: DescribeEndpoints)
 
--- | Optional. Max number of endpoints, up to twenty, that will be returned at one time.
-deMaxResults :: Lens' DescribeEndpoints (Maybe Int)
-deMaxResults = lens _deMaxResults (\s a -> s {_deMaxResults = a})
+-- | Optional. Max number of endpoints, up to twenty, that will be returned
+-- at one time.
+describeEndpoints_maxResults :: Lens.Lens' DescribeEndpoints (Prelude.Maybe Prelude.Int)
+describeEndpoints_maxResults = Lens.lens (\DescribeEndpoints' {maxResults} -> maxResults) (\s@DescribeEndpoints' {} a -> s {maxResults = a} :: DescribeEndpoints)
 
--- | Optional field, defaults to DEFAULT. Specify DEFAULT for this operation to return your endpoints if any exist, or to create an endpoint for you and return it if one doesn't already exist. Specify GET_ONLY to return your endpoints if any exist, or an empty list if none exist.
-deMode :: Lens' DescribeEndpoints (Maybe DescribeEndpointsMode)
-deMode = lens _deMode (\s a -> s {_deMode = a})
+-- | Optional field, defaults to DEFAULT. Specify DEFAULT for this operation
+-- to return your endpoints if any exist, or to create an endpoint for you
+-- and return it if one doesn\'t already exist. Specify GET_ONLY to return
+-- your endpoints if any exist, or an empty list if none exist.
+describeEndpoints_mode :: Lens.Lens' DescribeEndpoints (Prelude.Maybe DescribeEndpointsMode)
+describeEndpoints_mode = Lens.lens (\DescribeEndpoints' {mode} -> mode) (\s@DescribeEndpoints' {} a -> s {mode = a} :: DescribeEndpoints)
 
-instance AWSPager DescribeEndpoints where
+instance Pager.AWSPager DescribeEndpoints where
   page rq rs
-    | stop (rs ^. derrsNextToken) = Nothing
-    | stop (rs ^. derrsEndpoints) = Nothing
-    | otherwise =
-      Just $ rq & deNextToken .~ rs ^. derrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeEndpointsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeEndpointsResponse_endpoints
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeEndpoints_nextToken
+          Lens..~ rs
+          Lens.^? describeEndpointsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeEndpoints where
+instance Prelude.AWSRequest DescribeEndpoints where
   type Rs DescribeEndpoints = DescribeEndpointsResponse
-  request = postJSON mediaConvert
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEndpointsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "endpoints" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "endpoints"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEndpoints
+instance Prelude.Hashable DescribeEndpoints
 
-instance NFData DescribeEndpoints
+instance Prelude.NFData DescribeEndpoints
 
-instance ToHeaders DescribeEndpoints where
+instance Prelude.ToHeaders DescribeEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEndpoints where
+instance Prelude.ToJSON DescribeEndpoints where
   toJSON DescribeEndpoints' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _deNextToken,
-            ("maxResults" .=) <$> _deMaxResults,
-            ("mode" .=) <$> _deMode
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("mode" Prelude..=) Prelude.<$> mode
           ]
       )
 
-instance ToPath DescribeEndpoints where
-  toPath = const "/2017-08-29/endpoints"
+instance Prelude.ToPath DescribeEndpoints where
+  toPath = Prelude.const "/2017-08-29/endpoints"
 
-instance ToQuery DescribeEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEndpointsResponse' smart constructor.
+-- | /See:/ 'newDescribeEndpointsResponse' smart constructor.
 data DescribeEndpointsResponse = DescribeEndpointsResponse'
-  { _derrsNextToken ::
-      !(Maybe Text),
-    _derrsEndpoints ::
-      !(Maybe [Endpoint]),
-    _derrsResponseStatus ::
-      !Int
+  { -- | Use this string to request the next batch of endpoints.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of endpoints
+    endpoints :: Prelude.Maybe [Endpoint],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrsNextToken' - Use this string to request the next batch of endpoints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derrsEndpoints' - List of endpoints
+-- 'nextToken', 'describeEndpointsResponse_nextToken' - Use this string to request the next batch of endpoints.
 --
--- * 'derrsResponseStatus' - -- | The response status code.
-describeEndpointsResponse ::
-  -- | 'derrsResponseStatus'
-  Int ->
+-- 'endpoints', 'describeEndpointsResponse_endpoints' - List of endpoints
+--
+-- 'httpStatus', 'describeEndpointsResponse_httpStatus' - The response's http status code.
+newDescribeEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEndpointsResponse
-describeEndpointsResponse pResponseStatus_ =
+newDescribeEndpointsResponse pHttpStatus_ =
   DescribeEndpointsResponse'
-    { _derrsNextToken =
-        Nothing,
-      _derrsEndpoints = Nothing,
-      _derrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      endpoints = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Use this string to request the next batch of endpoints.
-derrsNextToken :: Lens' DescribeEndpointsResponse (Maybe Text)
-derrsNextToken = lens _derrsNextToken (\s a -> s {_derrsNextToken = a})
+describeEndpointsResponse_nextToken :: Lens.Lens' DescribeEndpointsResponse (Prelude.Maybe Prelude.Text)
+describeEndpointsResponse_nextToken = Lens.lens (\DescribeEndpointsResponse' {nextToken} -> nextToken) (\s@DescribeEndpointsResponse' {} a -> s {nextToken = a} :: DescribeEndpointsResponse)
 
 -- | List of endpoints
-derrsEndpoints :: Lens' DescribeEndpointsResponse [Endpoint]
-derrsEndpoints = lens _derrsEndpoints (\s a -> s {_derrsEndpoints = a}) . _Default . _Coerce
+describeEndpointsResponse_endpoints :: Lens.Lens' DescribeEndpointsResponse (Prelude.Maybe [Endpoint])
+describeEndpointsResponse_endpoints = Lens.lens (\DescribeEndpointsResponse' {endpoints} -> endpoints) (\s@DescribeEndpointsResponse' {} a -> s {endpoints = a} :: DescribeEndpointsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-derrsResponseStatus :: Lens' DescribeEndpointsResponse Int
-derrsResponseStatus = lens _derrsResponseStatus (\s a -> s {_derrsResponseStatus = a})
+-- | The response's http status code.
+describeEndpointsResponse_httpStatus :: Lens.Lens' DescribeEndpointsResponse Prelude.Int
+describeEndpointsResponse_httpStatus = Lens.lens (\DescribeEndpointsResponse' {httpStatus} -> httpStatus) (\s@DescribeEndpointsResponse' {} a -> s {httpStatus = a} :: DescribeEndpointsResponse)
 
-instance NFData DescribeEndpointsResponse
+instance Prelude.NFData DescribeEndpointsResponse

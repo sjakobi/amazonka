@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,114 +19,222 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.MotionImageInserter where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.MotionImageInsertionFramerate
 import Network.AWS.MediaConvert.Types.MotionImageInsertionMode
 import Network.AWS.MediaConvert.Types.MotionImageInsertionOffset
 import Network.AWS.MediaConvert.Types.MotionImagePlayback
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Overlay motion graphics on top of your video at the time that you specify.
+-- | Overlay motion graphics on top of your video at the time that you
+-- specify.
 --
--- /See:/ 'motionImageInserter' smart constructor.
+-- /See:/ 'newMotionImageInserter' smart constructor.
 data MotionImageInserter = MotionImageInserter'
-  { _miiInsertionMode ::
-      !( Maybe
-           MotionImageInsertionMode
-       ),
-    _miiInput :: !(Maybe Text),
-    _miiStartTime :: !(Maybe Text),
-    _miiPlayback ::
-      !(Maybe MotionImagePlayback),
-    _miiFramerate ::
-      !( Maybe
-           MotionImageInsertionFramerate
-       ),
-    _miiOffset ::
-      !( Maybe
-           MotionImageInsertionOffset
-       )
+  { -- | Choose the type of motion graphic asset that you are providing for your
+    -- overlay. You can choose either a .mov file or a series of .png files.
+    insertionMode :: Prelude.Maybe MotionImageInsertionMode,
+    -- | Specify the .mov file or series of .png files that you want to overlay
+    -- on your video. For .png files, provide the file name of the first file
+    -- in the series. Make sure that the names of the .png files end with
+    -- sequential numbers that specify the order that they are played in. For
+    -- example, overlay_000.png, overlay_001.png, overlay_002.png, and so on.
+    -- The sequence must start at zero, and each image file name must have the
+    -- same number of digits. Pad your initial file names with enough zeros to
+    -- complete the sequence. For example, if the first image is overlay_0.png,
+    -- there can be only 10 images in the sequence, with the last image being
+    -- overlay_9.png. But if the first image is overlay_00.png, there can be
+    -- 100 images in the sequence.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
+    -- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
+    -- account how you have set up your timecode configuration under both job
+    -- settings and input settings. The simplest way to do that is to set both
+    -- to start at 0. If you need to set up your job to follow timecodes
+    -- embedded in your source that don\'t start at zero, make sure that you
+    -- specify a start time that is after the first embedded timecode. For more
+    -- information, see
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
+    -- Find job-wide and input timecode configuration settings in your JSON job
+    -- settings specification at settings>timecodeConfig>source and
+    -- settings>inputs>timecodeSource.
+    startTime :: Prelude.Maybe Prelude.Text,
+    -- | Specify whether your motion graphic overlay repeats on a loop or plays
+    -- only once.
+    playback :: Prelude.Maybe MotionImagePlayback,
+    -- | If your motion graphic asset is a .mov file, keep this setting
+    -- unspecified. If your motion graphic asset is a series of .png files,
+    -- specify the frame rate of the overlay in frames per second, as a
+    -- fraction. For example, specify 24 fps as 24\/1. Make sure that the
+    -- number of images in your series matches the frame rate and your intended
+    -- overlay duration. For example, if you want a 30-second overlay at 30
+    -- fps, you should have 900 .png images. This overlay frame rate doesn\'t
+    -- need to match the frame rate of the underlying video.
+    framerate :: Prelude.Maybe MotionImageInsertionFramerate,
+    -- | Use Offset to specify the placement of your motion graphic overlay on
+    -- the video frame. Specify in pixels, from the upper-left corner of the
+    -- frame. If you don\'t specify an offset, the service scales your overlay
+    -- to the full size of the frame. Otherwise, the service inserts the
+    -- overlay at its native resolution and scales the size up or down with any
+    -- video scaling.
+    offset :: Prelude.Maybe MotionImageInsertionOffset
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MotionImageInserter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MotionImageInserter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'miiInsertionMode' - Choose the type of motion graphic asset that you are providing for your overlay. You can choose either a .mov file or a series of .png files.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'miiInput' - Specify the .mov file or series of .png files that you want to overlay on your video. For .png files, provide the file name of the first file in the series. Make sure that the names of the .png files end with sequential numbers that specify the order that they are played in. For example, overlay_000.png, overlay_001.png, overlay_002.png, and so on. The sequence must start at zero, and each image file name must have the same number of digits. Pad your initial file names with enough zeros to complete the sequence. For example, if the first image is overlay_0.png, there can be only 10 images in the sequence, with the last image being overlay_9.png. But if the first image is overlay_00.png, there can be 100 images in the sequence.
+-- 'insertionMode', 'motionImageInserter_insertionMode' - Choose the type of motion graphic asset that you are providing for your
+-- overlay. You can choose either a .mov file or a series of .png files.
 --
--- * 'miiStartTime' - Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF or HH:MM:SS;FF). Make sure that the timecode you provide here takes into account how you have set up your timecode configuration under both job settings and input settings. The simplest way to do that is to set both to start at 0. If you need to set up your job to follow timecodes embedded in your source that don't start at zero, make sure that you specify a start time that is after the first embedded timecode. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode configuration settings in your JSON job settings specification at settings>timecodeConfig>source and settings>inputs>timecodeSource.
+-- 'input', 'motionImageInserter_input' - Specify the .mov file or series of .png files that you want to overlay
+-- on your video. For .png files, provide the file name of the first file
+-- in the series. Make sure that the names of the .png files end with
+-- sequential numbers that specify the order that they are played in. For
+-- example, overlay_000.png, overlay_001.png, overlay_002.png, and so on.
+-- The sequence must start at zero, and each image file name must have the
+-- same number of digits. Pad your initial file names with enough zeros to
+-- complete the sequence. For example, if the first image is overlay_0.png,
+-- there can be only 10 images in the sequence, with the last image being
+-- overlay_9.png. But if the first image is overlay_00.png, there can be
+-- 100 images in the sequence.
 --
--- * 'miiPlayback' - Specify whether your motion graphic overlay repeats on a loop or plays only once.
+-- 'startTime', 'motionImageInserter_startTime' - Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
+-- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
+-- account how you have set up your timecode configuration under both job
+-- settings and input settings. The simplest way to do that is to set both
+-- to start at 0. If you need to set up your job to follow timecodes
+-- embedded in your source that don\'t start at zero, make sure that you
+-- specify a start time that is after the first embedded timecode. For more
+-- information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
+-- Find job-wide and input timecode configuration settings in your JSON job
+-- settings specification at settings>timecodeConfig>source and
+-- settings>inputs>timecodeSource.
 --
--- * 'miiFramerate' - If your motion graphic asset is a .mov file, keep this setting unspecified. If your motion graphic asset is a series of .png files, specify the frame rate of the overlay in frames per second, as a fraction. For example, specify 24 fps as 24/1. Make sure that the number of images in your series matches the frame rate and your intended overlay duration. For example, if you want a 30-second overlay at 30 fps, you should have 900 .png images. This overlay frame rate doesn't need to match the frame rate of the underlying video.
+-- 'playback', 'motionImageInserter_playback' - Specify whether your motion graphic overlay repeats on a loop or plays
+-- only once.
 --
--- * 'miiOffset' - Use Offset to specify the placement of your motion graphic overlay on the video frame. Specify in pixels, from the upper-left corner of the frame. If you don't specify an offset, the service scales your overlay to the full size of the frame. Otherwise, the service inserts the overlay at its native resolution and scales the size up or down with any video scaling.
-motionImageInserter ::
+-- 'framerate', 'motionImageInserter_framerate' - If your motion graphic asset is a .mov file, keep this setting
+-- unspecified. If your motion graphic asset is a series of .png files,
+-- specify the frame rate of the overlay in frames per second, as a
+-- fraction. For example, specify 24 fps as 24\/1. Make sure that the
+-- number of images in your series matches the frame rate and your intended
+-- overlay duration. For example, if you want a 30-second overlay at 30
+-- fps, you should have 900 .png images. This overlay frame rate doesn\'t
+-- need to match the frame rate of the underlying video.
+--
+-- 'offset', 'motionImageInserter_offset' - Use Offset to specify the placement of your motion graphic overlay on
+-- the video frame. Specify in pixels, from the upper-left corner of the
+-- frame. If you don\'t specify an offset, the service scales your overlay
+-- to the full size of the frame. Otherwise, the service inserts the
+-- overlay at its native resolution and scales the size up or down with any
+-- video scaling.
+newMotionImageInserter ::
   MotionImageInserter
-motionImageInserter =
+newMotionImageInserter =
   MotionImageInserter'
-    { _miiInsertionMode = Nothing,
-      _miiInput = Nothing,
-      _miiStartTime = Nothing,
-      _miiPlayback = Nothing,
-      _miiFramerate = Nothing,
-      _miiOffset = Nothing
+    { insertionMode =
+        Prelude.Nothing,
+      input = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      playback = Prelude.Nothing,
+      framerate = Prelude.Nothing,
+      offset = Prelude.Nothing
     }
 
--- | Choose the type of motion graphic asset that you are providing for your overlay. You can choose either a .mov file or a series of .png files.
-miiInsertionMode :: Lens' MotionImageInserter (Maybe MotionImageInsertionMode)
-miiInsertionMode = lens _miiInsertionMode (\s a -> s {_miiInsertionMode = a})
+-- | Choose the type of motion graphic asset that you are providing for your
+-- overlay. You can choose either a .mov file or a series of .png files.
+motionImageInserter_insertionMode :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionMode)
+motionImageInserter_insertionMode = Lens.lens (\MotionImageInserter' {insertionMode} -> insertionMode) (\s@MotionImageInserter' {} a -> s {insertionMode = a} :: MotionImageInserter)
 
--- | Specify the .mov file or series of .png files that you want to overlay on your video. For .png files, provide the file name of the first file in the series. Make sure that the names of the .png files end with sequential numbers that specify the order that they are played in. For example, overlay_000.png, overlay_001.png, overlay_002.png, and so on. The sequence must start at zero, and each image file name must have the same number of digits. Pad your initial file names with enough zeros to complete the sequence. For example, if the first image is overlay_0.png, there can be only 10 images in the sequence, with the last image being overlay_9.png. But if the first image is overlay_00.png, there can be 100 images in the sequence.
-miiInput :: Lens' MotionImageInserter (Maybe Text)
-miiInput = lens _miiInput (\s a -> s {_miiInput = a})
+-- | Specify the .mov file or series of .png files that you want to overlay
+-- on your video. For .png files, provide the file name of the first file
+-- in the series. Make sure that the names of the .png files end with
+-- sequential numbers that specify the order that they are played in. For
+-- example, overlay_000.png, overlay_001.png, overlay_002.png, and so on.
+-- The sequence must start at zero, and each image file name must have the
+-- same number of digits. Pad your initial file names with enough zeros to
+-- complete the sequence. For example, if the first image is overlay_0.png,
+-- there can be only 10 images in the sequence, with the last image being
+-- overlay_9.png. But if the first image is overlay_00.png, there can be
+-- 100 images in the sequence.
+motionImageInserter_input :: Lens.Lens' MotionImageInserter (Prelude.Maybe Prelude.Text)
+motionImageInserter_input = Lens.lens (\MotionImageInserter' {input} -> input) (\s@MotionImageInserter' {} a -> s {input = a} :: MotionImageInserter)
 
--- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF or HH:MM:SS;FF). Make sure that the timecode you provide here takes into account how you have set up your timecode configuration under both job settings and input settings. The simplest way to do that is to set both to start at 0. If you need to set up your job to follow timecodes embedded in your source that don't start at zero, make sure that you specify a start time that is after the first embedded timecode. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/setting-up-timecode.html Find job-wide and input timecode configuration settings in your JSON job settings specification at settings>timecodeConfig>source and settings>inputs>timecodeSource.
-miiStartTime :: Lens' MotionImageInserter (Maybe Text)
-miiStartTime = lens _miiStartTime (\s a -> s {_miiStartTime = a})
+-- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
+-- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
+-- account how you have set up your timecode configuration under both job
+-- settings and input settings. The simplest way to do that is to set both
+-- to start at 0. If you need to set up your job to follow timecodes
+-- embedded in your source that don\'t start at zero, make sure that you
+-- specify a start time that is after the first embedded timecode. For more
+-- information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
+-- Find job-wide and input timecode configuration settings in your JSON job
+-- settings specification at settings>timecodeConfig>source and
+-- settings>inputs>timecodeSource.
+motionImageInserter_startTime :: Lens.Lens' MotionImageInserter (Prelude.Maybe Prelude.Text)
+motionImageInserter_startTime = Lens.lens (\MotionImageInserter' {startTime} -> startTime) (\s@MotionImageInserter' {} a -> s {startTime = a} :: MotionImageInserter)
 
--- | Specify whether your motion graphic overlay repeats on a loop or plays only once.
-miiPlayback :: Lens' MotionImageInserter (Maybe MotionImagePlayback)
-miiPlayback = lens _miiPlayback (\s a -> s {_miiPlayback = a})
+-- | Specify whether your motion graphic overlay repeats on a loop or plays
+-- only once.
+motionImageInserter_playback :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImagePlayback)
+motionImageInserter_playback = Lens.lens (\MotionImageInserter' {playback} -> playback) (\s@MotionImageInserter' {} a -> s {playback = a} :: MotionImageInserter)
 
--- | If your motion graphic asset is a .mov file, keep this setting unspecified. If your motion graphic asset is a series of .png files, specify the frame rate of the overlay in frames per second, as a fraction. For example, specify 24 fps as 24/1. Make sure that the number of images in your series matches the frame rate and your intended overlay duration. For example, if you want a 30-second overlay at 30 fps, you should have 900 .png images. This overlay frame rate doesn't need to match the frame rate of the underlying video.
-miiFramerate :: Lens' MotionImageInserter (Maybe MotionImageInsertionFramerate)
-miiFramerate = lens _miiFramerate (\s a -> s {_miiFramerate = a})
+-- | If your motion graphic asset is a .mov file, keep this setting
+-- unspecified. If your motion graphic asset is a series of .png files,
+-- specify the frame rate of the overlay in frames per second, as a
+-- fraction. For example, specify 24 fps as 24\/1. Make sure that the
+-- number of images in your series matches the frame rate and your intended
+-- overlay duration. For example, if you want a 30-second overlay at 30
+-- fps, you should have 900 .png images. This overlay frame rate doesn\'t
+-- need to match the frame rate of the underlying video.
+motionImageInserter_framerate :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionFramerate)
+motionImageInserter_framerate = Lens.lens (\MotionImageInserter' {framerate} -> framerate) (\s@MotionImageInserter' {} a -> s {framerate = a} :: MotionImageInserter)
 
--- | Use Offset to specify the placement of your motion graphic overlay on the video frame. Specify in pixels, from the upper-left corner of the frame. If you don't specify an offset, the service scales your overlay to the full size of the frame. Otherwise, the service inserts the overlay at its native resolution and scales the size up or down with any video scaling.
-miiOffset :: Lens' MotionImageInserter (Maybe MotionImageInsertionOffset)
-miiOffset = lens _miiOffset (\s a -> s {_miiOffset = a})
+-- | Use Offset to specify the placement of your motion graphic overlay on
+-- the video frame. Specify in pixels, from the upper-left corner of the
+-- frame. If you don\'t specify an offset, the service scales your overlay
+-- to the full size of the frame. Otherwise, the service inserts the
+-- overlay at its native resolution and scales the size up or down with any
+-- video scaling.
+motionImageInserter_offset :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionOffset)
+motionImageInserter_offset = Lens.lens (\MotionImageInserter' {offset} -> offset) (\s@MotionImageInserter' {} a -> s {offset = a} :: MotionImageInserter)
 
-instance FromJSON MotionImageInserter where
+instance Prelude.FromJSON MotionImageInserter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MotionImageInserter"
       ( \x ->
           MotionImageInserter'
-            <$> (x .:? "insertionMode")
-            <*> (x .:? "input")
-            <*> (x .:? "startTime")
-            <*> (x .:? "playback")
-            <*> (x .:? "framerate")
-            <*> (x .:? "offset")
+            Prelude.<$> (x Prelude..:? "insertionMode")
+            Prelude.<*> (x Prelude..:? "input")
+            Prelude.<*> (x Prelude..:? "startTime")
+            Prelude.<*> (x Prelude..:? "playback")
+            Prelude.<*> (x Prelude..:? "framerate")
+            Prelude.<*> (x Prelude..:? "offset")
       )
 
-instance Hashable MotionImageInserter
+instance Prelude.Hashable MotionImageInserter
 
-instance NFData MotionImageInserter
+instance Prelude.NFData MotionImageInserter
 
-instance ToJSON MotionImageInserter where
+instance Prelude.ToJSON MotionImageInserter where
   toJSON MotionImageInserter' {..} =
-    object
-      ( catMaybes
-          [ ("insertionMode" .=) <$> _miiInsertionMode,
-            ("input" .=) <$> _miiInput,
-            ("startTime" .=) <$> _miiStartTime,
-            ("playback" .=) <$> _miiPlayback,
-            ("framerate" .=) <$> _miiFramerate,
-            ("offset" .=) <$> _miiOffset
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("insertionMode" Prelude..=)
+              Prelude.<$> insertionMode,
+            ("input" Prelude..=) Prelude.<$> input,
+            ("startTime" Prelude..=) Prelude.<$> startTime,
+            ("playback" Prelude..=) Prelude.<$> playback,
+            ("framerate" Prelude..=) Prelude.<$> framerate,
+            ("offset" Prelude..=) Prelude.<$> offset
           ]
       )

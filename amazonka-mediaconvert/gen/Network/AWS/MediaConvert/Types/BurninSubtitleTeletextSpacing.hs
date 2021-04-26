@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,64 @@
 module Network.AWS.MediaConvert.Types.BurninSubtitleTeletextSpacing
   ( BurninSubtitleTeletextSpacing
       ( ..,
-        BSTSFixedGrid,
-        BSTSProportional
+        BurninSubtitleTeletextSpacingFIXEDGRID,
+        BurninSubtitleTeletextSpacingPROPORTIONAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters in your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if the captions are closed caption.
-data BurninSubtitleTeletextSpacing
-  = BurninSubtitleTeletextSpacing'
-      ( CI
-          Text
-      )
+-- | Only applies to jobs with input captions in Teletext or STL formats.
+-- Specify whether the spacing between letters in your captions is set by
+-- the captions grid or varies depending on letter width. Choose fixed grid
+-- to conform to the spacing specified in the captions file more
+-- accurately. Choose proportional to make the text easier to read if the
+-- captions are closed caption.
+newtype BurninSubtitleTeletextSpacing = BurninSubtitleTeletextSpacing'
+  { fromBurninSubtitleTeletextSpacing ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSTSFixedGrid :: BurninSubtitleTeletextSpacing
-pattern BSTSFixedGrid = BurninSubtitleTeletextSpacing' "FIXED_GRID"
+pattern BurninSubtitleTeletextSpacingFIXEDGRID :: BurninSubtitleTeletextSpacing
+pattern BurninSubtitleTeletextSpacingFIXEDGRID = BurninSubtitleTeletextSpacing' "FIXED_GRID"
 
-pattern BSTSProportional :: BurninSubtitleTeletextSpacing
-pattern BSTSProportional = BurninSubtitleTeletextSpacing' "PROPORTIONAL"
+pattern BurninSubtitleTeletextSpacingPROPORTIONAL :: BurninSubtitleTeletextSpacing
+pattern BurninSubtitleTeletextSpacingPROPORTIONAL = BurninSubtitleTeletextSpacing' "PROPORTIONAL"
 
 {-# COMPLETE
-  BSTSFixedGrid,
-  BSTSProportional,
+  BurninSubtitleTeletextSpacingFIXEDGRID,
+  BurninSubtitleTeletextSpacingPROPORTIONAL,
   BurninSubtitleTeletextSpacing'
   #-}
 
-instance FromText BurninSubtitleTeletextSpacing where
-  parser = (BurninSubtitleTeletextSpacing' . mk) <$> takeText
+instance Prelude.FromText BurninSubtitleTeletextSpacing where
+  parser = BurninSubtitleTeletextSpacing' Prelude.<$> Prelude.takeText
 
-instance ToText BurninSubtitleTeletextSpacing where
-  toText (BurninSubtitleTeletextSpacing' ci) = original ci
+instance Prelude.ToText BurninSubtitleTeletextSpacing where
+  toText (BurninSubtitleTeletextSpacing' x) = x
 
-instance Hashable BurninSubtitleTeletextSpacing
+instance Prelude.Hashable BurninSubtitleTeletextSpacing
 
-instance NFData BurninSubtitleTeletextSpacing
+instance Prelude.NFData BurninSubtitleTeletextSpacing
 
-instance ToByteString BurninSubtitleTeletextSpacing
+instance Prelude.ToByteString BurninSubtitleTeletextSpacing
 
-instance ToQuery BurninSubtitleTeletextSpacing
+instance Prelude.ToQuery BurninSubtitleTeletextSpacing
 
-instance ToHeader BurninSubtitleTeletextSpacing
+instance Prelude.ToHeader BurninSubtitleTeletextSpacing
 
-instance ToJSON BurninSubtitleTeletextSpacing where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurninSubtitleTeletextSpacing where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurninSubtitleTeletextSpacing where
-  parseJSON = parseJSONText "BurninSubtitleTeletextSpacing"
+instance Prelude.FromJSON BurninSubtitleTeletextSpacing where
+  parseJSON = Prelude.parseJSONText "BurninSubtitleTeletextSpacing"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.HlsManifestDurationFormat
   ( HlsManifestDurationFormat
       ( ..,
-        FloatingPoint,
-        Integer
+        HlsManifestDurationFormatFLOATINGPOINT,
+        HlsManifestDurationFormatINTEGER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates whether the output manifest should use floating point values for segment duration.
-data HlsManifestDurationFormat
-  = HlsManifestDurationFormat'
-      ( CI
-          Text
-      )
+-- | Indicates whether the output manifest should use floating point values
+-- for segment duration.
+newtype HlsManifestDurationFormat = HlsManifestDurationFormat'
+  { fromHlsManifestDurationFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FloatingPoint :: HlsManifestDurationFormat
-pattern FloatingPoint = HlsManifestDurationFormat' "FLOATING_POINT"
+pattern HlsManifestDurationFormatFLOATINGPOINT :: HlsManifestDurationFormat
+pattern HlsManifestDurationFormatFLOATINGPOINT = HlsManifestDurationFormat' "FLOATING_POINT"
 
-pattern Integer :: HlsManifestDurationFormat
-pattern Integer = HlsManifestDurationFormat' "INTEGER"
+pattern HlsManifestDurationFormatINTEGER :: HlsManifestDurationFormat
+pattern HlsManifestDurationFormatINTEGER = HlsManifestDurationFormat' "INTEGER"
 
 {-# COMPLETE
-  FloatingPoint,
-  Integer,
+  HlsManifestDurationFormatFLOATINGPOINT,
+  HlsManifestDurationFormatINTEGER,
   HlsManifestDurationFormat'
   #-}
 
-instance FromText HlsManifestDurationFormat where
-  parser = (HlsManifestDurationFormat' . mk) <$> takeText
+instance Prelude.FromText HlsManifestDurationFormat where
+  parser = HlsManifestDurationFormat' Prelude.<$> Prelude.takeText
 
-instance ToText HlsManifestDurationFormat where
-  toText (HlsManifestDurationFormat' ci) = original ci
+instance Prelude.ToText HlsManifestDurationFormat where
+  toText (HlsManifestDurationFormat' x) = x
 
-instance Hashable HlsManifestDurationFormat
+instance Prelude.Hashable HlsManifestDurationFormat
 
-instance NFData HlsManifestDurationFormat
+instance Prelude.NFData HlsManifestDurationFormat
 
-instance ToByteString HlsManifestDurationFormat
+instance Prelude.ToByteString HlsManifestDurationFormat
 
-instance ToQuery HlsManifestDurationFormat
+instance Prelude.ToQuery HlsManifestDurationFormat
 
-instance ToHeader HlsManifestDurationFormat
+instance Prelude.ToHeader HlsManifestDurationFormat
 
-instance ToJSON HlsManifestDurationFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsManifestDurationFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsManifestDurationFormat where
-  parseJSON = parseJSONText "HlsManifestDurationFormat"
+instance Prelude.FromJSON HlsManifestDurationFormat where
+  parseJSON = Prelude.parseJSONText "HlsManifestDurationFormat"

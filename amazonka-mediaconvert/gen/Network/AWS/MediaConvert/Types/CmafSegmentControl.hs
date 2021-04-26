@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.CmafSegmentControl
   ( CmafSegmentControl
       ( ..,
-        CSCSegmentedFiles,
-        CSCSingleFile
+        CmafSegmentControlSEGMENTEDFILES,
+        CmafSegmentControlSINGLEFILE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to SINGLE_FILE, a single output file is generated, which is internally segmented using the Fragment Length and Segment Length. When set to SEGMENTED_FILES, separate segment files will be created.
-data CmafSegmentControl
-  = CmafSegmentControl'
-      ( CI
-          Text
-      )
+-- | When set to SINGLE_FILE, a single output file is generated, which is
+-- internally segmented using the Fragment Length and Segment Length. When
+-- set to SEGMENTED_FILES, separate segment files will be created.
+newtype CmafSegmentControl = CmafSegmentControl'
+  { fromCmafSegmentControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCSegmentedFiles :: CmafSegmentControl
-pattern CSCSegmentedFiles = CmafSegmentControl' "SEGMENTED_FILES"
+pattern CmafSegmentControlSEGMENTEDFILES :: CmafSegmentControl
+pattern CmafSegmentControlSEGMENTEDFILES = CmafSegmentControl' "SEGMENTED_FILES"
 
-pattern CSCSingleFile :: CmafSegmentControl
-pattern CSCSingleFile = CmafSegmentControl' "SINGLE_FILE"
+pattern CmafSegmentControlSINGLEFILE :: CmafSegmentControl
+pattern CmafSegmentControlSINGLEFILE = CmafSegmentControl' "SINGLE_FILE"
 
 {-# COMPLETE
-  CSCSegmentedFiles,
-  CSCSingleFile,
+  CmafSegmentControlSEGMENTEDFILES,
+  CmafSegmentControlSINGLEFILE,
   CmafSegmentControl'
   #-}
 
-instance FromText CmafSegmentControl where
-  parser = (CmafSegmentControl' . mk) <$> takeText
+instance Prelude.FromText CmafSegmentControl where
+  parser = CmafSegmentControl' Prelude.<$> Prelude.takeText
 
-instance ToText CmafSegmentControl where
-  toText (CmafSegmentControl' ci) = original ci
+instance Prelude.ToText CmafSegmentControl where
+  toText (CmafSegmentControl' x) = x
 
-instance Hashable CmafSegmentControl
+instance Prelude.Hashable CmafSegmentControl
 
-instance NFData CmafSegmentControl
+instance Prelude.NFData CmafSegmentControl
 
-instance ToByteString CmafSegmentControl
+instance Prelude.ToByteString CmafSegmentControl
 
-instance ToQuery CmafSegmentControl
+instance Prelude.ToQuery CmafSegmentControl
 
-instance ToHeader CmafSegmentControl
+instance Prelude.ToHeader CmafSegmentControl
 
-instance ToJSON CmafSegmentControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafSegmentControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafSegmentControl where
-  parseJSON = parseJSONText "CmafSegmentControl"
+instance Prelude.FromJSON CmafSegmentControl where
+  parseJSON = Prelude.parseJSONText "CmafSegmentControl"

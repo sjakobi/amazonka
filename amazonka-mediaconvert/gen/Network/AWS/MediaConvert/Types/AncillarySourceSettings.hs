@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.AncillarySourceSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AncillaryConvert608To708
 import Network.AWS.MediaConvert.Types.AncillaryTerminateCaptions
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for ancillary captions source.
 --
--- /See:/ 'ancillarySourceSettings' smart constructor.
+-- /See:/ 'newAncillarySourceSettings' smart constructor.
 data AncillarySourceSettings = AncillarySourceSettings'
-  { _assTerminateCaptions ::
-      !( Maybe
-           AncillaryTerminateCaptions
-       ),
-    _assConvert608To708 ::
-      !( Maybe
-           AncillaryConvert608To708
-       ),
-    _assSourceAncillaryChannelNumber ::
-      !(Maybe Nat)
+  { -- | By default, the service terminates any unterminated captions at the end
+    -- of each input. If you want the caption to continue onto your next input,
+    -- disable this setting.
+    terminateCaptions :: Prelude.Maybe AncillaryTerminateCaptions,
+    -- | Specify whether this set of input captions appears in your outputs in
+    -- both 608 and 708 format. If you choose Upconvert (UPCONVERT),
+    -- MediaConvert includes the captions data in two ways: it passes the 608
+    -- data through using the 608 compatibility bytes fields of the 708
+    -- wrapper, and it also translates the 608 data into 708.
+    convert608To708 :: Prelude.Maybe AncillaryConvert608To708,
+    -- | Specifies the 608 channel number in the ancillary data track from which
+    -- to extract captions. Unused for passthrough.
+    sourceAncillaryChannelNumber :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AncillarySourceSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AncillarySourceSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'assTerminateCaptions' - By default, the service terminates any unterminated captions at the end of each input. If you want the caption to continue onto your next input, disable this setting.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'assConvert608To708' - Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608 compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
+-- 'terminateCaptions', 'ancillarySourceSettings_terminateCaptions' - By default, the service terminates any unterminated captions at the end
+-- of each input. If you want the caption to continue onto your next input,
+-- disable this setting.
 --
--- * 'assSourceAncillaryChannelNumber' - Specifies the 608 channel number in the ancillary data track from which to extract captions. Unused for passthrough.
-ancillarySourceSettings ::
+-- 'convert608To708', 'ancillarySourceSettings_convert608To708' - Specify whether this set of input captions appears in your outputs in
+-- both 608 and 708 format. If you choose Upconvert (UPCONVERT),
+-- MediaConvert includes the captions data in two ways: it passes the 608
+-- data through using the 608 compatibility bytes fields of the 708
+-- wrapper, and it also translates the 608 data into 708.
+--
+-- 'sourceAncillaryChannelNumber', 'ancillarySourceSettings_sourceAncillaryChannelNumber' - Specifies the 608 channel number in the ancillary data track from which
+-- to extract captions. Unused for passthrough.
+newAncillarySourceSettings ::
   AncillarySourceSettings
-ancillarySourceSettings =
+newAncillarySourceSettings =
   AncillarySourceSettings'
-    { _assTerminateCaptions =
-        Nothing,
-      _assConvert608To708 = Nothing,
-      _assSourceAncillaryChannelNumber = Nothing
+    { terminateCaptions =
+        Prelude.Nothing,
+      convert608To708 = Prelude.Nothing,
+      sourceAncillaryChannelNumber = Prelude.Nothing
     }
 
--- | By default, the service terminates any unterminated captions at the end of each input. If you want the caption to continue onto your next input, disable this setting.
-assTerminateCaptions :: Lens' AncillarySourceSettings (Maybe AncillaryTerminateCaptions)
-assTerminateCaptions = lens _assTerminateCaptions (\s a -> s {_assTerminateCaptions = a})
+-- | By default, the service terminates any unterminated captions at the end
+-- of each input. If you want the caption to continue onto your next input,
+-- disable this setting.
+ancillarySourceSettings_terminateCaptions :: Lens.Lens' AncillarySourceSettings (Prelude.Maybe AncillaryTerminateCaptions)
+ancillarySourceSettings_terminateCaptions = Lens.lens (\AncillarySourceSettings' {terminateCaptions} -> terminateCaptions) (\s@AncillarySourceSettings' {} a -> s {terminateCaptions = a} :: AncillarySourceSettings)
 
--- | Specify whether this set of input captions appears in your outputs in both 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert includes the captions data in two ways: it passes the 608 data through using the 608 compatibility bytes fields of the 708 wrapper, and it also translates the 608 data into 708.
-assConvert608To708 :: Lens' AncillarySourceSettings (Maybe AncillaryConvert608To708)
-assConvert608To708 = lens _assConvert608To708 (\s a -> s {_assConvert608To708 = a})
+-- | Specify whether this set of input captions appears in your outputs in
+-- both 608 and 708 format. If you choose Upconvert (UPCONVERT),
+-- MediaConvert includes the captions data in two ways: it passes the 608
+-- data through using the 608 compatibility bytes fields of the 708
+-- wrapper, and it also translates the 608 data into 708.
+ancillarySourceSettings_convert608To708 :: Lens.Lens' AncillarySourceSettings (Prelude.Maybe AncillaryConvert608To708)
+ancillarySourceSettings_convert608To708 = Lens.lens (\AncillarySourceSettings' {convert608To708} -> convert608To708) (\s@AncillarySourceSettings' {} a -> s {convert608To708 = a} :: AncillarySourceSettings)
 
--- | Specifies the 608 channel number in the ancillary data track from which to extract captions. Unused for passthrough.
-assSourceAncillaryChannelNumber :: Lens' AncillarySourceSettings (Maybe Natural)
-assSourceAncillaryChannelNumber = lens _assSourceAncillaryChannelNumber (\s a -> s {_assSourceAncillaryChannelNumber = a}) . mapping _Nat
+-- | Specifies the 608 channel number in the ancillary data track from which
+-- to extract captions. Unused for passthrough.
+ancillarySourceSettings_sourceAncillaryChannelNumber :: Lens.Lens' AncillarySourceSettings (Prelude.Maybe Prelude.Natural)
+ancillarySourceSettings_sourceAncillaryChannelNumber = Lens.lens (\AncillarySourceSettings' {sourceAncillaryChannelNumber} -> sourceAncillaryChannelNumber) (\s@AncillarySourceSettings' {} a -> s {sourceAncillaryChannelNumber = a} :: AncillarySourceSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON AncillarySourceSettings where
+instance Prelude.FromJSON AncillarySourceSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AncillarySourceSettings"
       ( \x ->
           AncillarySourceSettings'
-            <$> (x .:? "terminateCaptions")
-            <*> (x .:? "convert608To708")
-            <*> (x .:? "sourceAncillaryChannelNumber")
+            Prelude.<$> (x Prelude..:? "terminateCaptions")
+            Prelude.<*> (x Prelude..:? "convert608To708")
+            Prelude.<*> (x Prelude..:? "sourceAncillaryChannelNumber")
       )
 
-instance Hashable AncillarySourceSettings
+instance Prelude.Hashable AncillarySourceSettings
 
-instance NFData AncillarySourceSettings
+instance Prelude.NFData AncillarySourceSettings
 
-instance ToJSON AncillarySourceSettings where
+instance Prelude.ToJSON AncillarySourceSettings where
   toJSON AncillarySourceSettings' {..} =
-    object
-      ( catMaybes
-          [ ("terminateCaptions" .=) <$> _assTerminateCaptions,
-            ("convert608To708" .=) <$> _assConvert608To708,
-            ("sourceAncillaryChannelNumber" .=)
-              <$> _assSourceAncillaryChannelNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("terminateCaptions" Prelude..=)
+              Prelude.<$> terminateCaptions,
+            ("convert608To708" Prelude..=)
+              Prelude.<$> convert608To708,
+            ("sourceAncillaryChannelNumber" Prelude..=)
+              Prelude.<$> sourceAncillaryChannelNumber
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,74 @@
 module Network.AWS.MediaConvert.Types.ProresFramerateConversionAlgorithm
   ( ProresFramerateConversionAlgorithm
       ( ..,
-        PFCADuplicateDrop,
-        PFCAFrameformer,
-        PFCAInterpolate
+        ProresFramerateConversionAlgorithmDUPLICATEDROP,
+        ProresFramerateConversionAlgorithmFRAMEFORMER,
+        ProresFramerateConversionAlgorithmINTERPOLATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. We recommend using drop duplicate (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to 30 fps. For numerically complex conversions, you can use interpolate (INTERPOLATE) to avoid stutter. This results in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has already been converted from its original cadence, use FrameFormer (FRAMEFORMER) to do motion-compensated interpolation. FrameFormer chooses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding time and incurs a significant add-on cost.
-data ProresFramerateConversionAlgorithm
-  = ProresFramerateConversionAlgorithm'
-      ( CI
-          Text
-      )
+-- | Choose the method that you want MediaConvert to use when increasing or
+-- decreasing the frame rate. We recommend using drop duplicate
+-- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+-- 30 fps. For numerically complex conversions, you can use interpolate
+-- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+-- might introduce undesirable video artifacts. For complex frame rate
+-- conversions, especially if your source video has already been converted
+-- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+-- motion-compensated interpolation. FrameFormer chooses the best
+-- conversion method frame by frame. Note that using FrameFormer increases
+-- the transcoding time and incurs a significant add-on cost.
+newtype ProresFramerateConversionAlgorithm = ProresFramerateConversionAlgorithm'
+  { fromProresFramerateConversionAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PFCADuplicateDrop :: ProresFramerateConversionAlgorithm
-pattern PFCADuplicateDrop = ProresFramerateConversionAlgorithm' "DUPLICATE_DROP"
+pattern ProresFramerateConversionAlgorithmDUPLICATEDROP :: ProresFramerateConversionAlgorithm
+pattern ProresFramerateConversionAlgorithmDUPLICATEDROP = ProresFramerateConversionAlgorithm' "DUPLICATE_DROP"
 
-pattern PFCAFrameformer :: ProresFramerateConversionAlgorithm
-pattern PFCAFrameformer = ProresFramerateConversionAlgorithm' "FRAMEFORMER"
+pattern ProresFramerateConversionAlgorithmFRAMEFORMER :: ProresFramerateConversionAlgorithm
+pattern ProresFramerateConversionAlgorithmFRAMEFORMER = ProresFramerateConversionAlgorithm' "FRAMEFORMER"
 
-pattern PFCAInterpolate :: ProresFramerateConversionAlgorithm
-pattern PFCAInterpolate = ProresFramerateConversionAlgorithm' "INTERPOLATE"
+pattern ProresFramerateConversionAlgorithmINTERPOLATE :: ProresFramerateConversionAlgorithm
+pattern ProresFramerateConversionAlgorithmINTERPOLATE = ProresFramerateConversionAlgorithm' "INTERPOLATE"
 
 {-# COMPLETE
-  PFCADuplicateDrop,
-  PFCAFrameformer,
-  PFCAInterpolate,
+  ProresFramerateConversionAlgorithmDUPLICATEDROP,
+  ProresFramerateConversionAlgorithmFRAMEFORMER,
+  ProresFramerateConversionAlgorithmINTERPOLATE,
   ProresFramerateConversionAlgorithm'
   #-}
 
-instance FromText ProresFramerateConversionAlgorithm where
-  parser = (ProresFramerateConversionAlgorithm' . mk) <$> takeText
+instance Prelude.FromText ProresFramerateConversionAlgorithm where
+  parser = ProresFramerateConversionAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText ProresFramerateConversionAlgorithm where
-  toText (ProresFramerateConversionAlgorithm' ci) = original ci
+instance Prelude.ToText ProresFramerateConversionAlgorithm where
+  toText (ProresFramerateConversionAlgorithm' x) = x
 
-instance Hashable ProresFramerateConversionAlgorithm
+instance Prelude.Hashable ProresFramerateConversionAlgorithm
 
-instance NFData ProresFramerateConversionAlgorithm
+instance Prelude.NFData ProresFramerateConversionAlgorithm
 
-instance ToByteString ProresFramerateConversionAlgorithm
+instance Prelude.ToByteString ProresFramerateConversionAlgorithm
 
-instance ToQuery ProresFramerateConversionAlgorithm
+instance Prelude.ToQuery ProresFramerateConversionAlgorithm
 
-instance ToHeader ProresFramerateConversionAlgorithm
+instance Prelude.ToHeader ProresFramerateConversionAlgorithm
 
-instance ToJSON ProresFramerateConversionAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProresFramerateConversionAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProresFramerateConversionAlgorithm where
-  parseJSON = parseJSONText "ProresFramerateConversionAlgorithm"
+instance Prelude.FromJSON ProresFramerateConversionAlgorithm where
+  parseJSON = Prelude.parseJSONText "ProresFramerateConversionAlgorithm"

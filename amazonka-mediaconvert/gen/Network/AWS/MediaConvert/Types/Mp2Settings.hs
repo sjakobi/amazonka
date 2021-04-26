@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.Mp2Settings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to the value MP2.
+-- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
+-- to the value MP2.
 --
--- /See:/ 'mp2Settings' smart constructor.
+-- /See:/ 'newMp2Settings' smart constructor.
 data Mp2Settings = Mp2Settings'
-  { _mChannels ::
-      !(Maybe Nat),
-    _mSampleRate :: !(Maybe Nat),
-    _mBitrate :: !(Maybe Nat)
+  { -- | Set Channels to specify the number of channels in this output audio
+    -- track. Choosing Mono in the console will give you 1 output channel;
+    -- choosing Stereo will give you 2. In the API, valid values are 1 and 2.
+    channels :: Prelude.Maybe Prelude.Nat,
+    -- | Sample rate in hz.
+    sampleRate :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the average bitrate in bits per second.
+    bitrate :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Mp2Settings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Mp2Settings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mChannels' - Set Channels to specify the number of channels in this output audio track. Choosing Mono in the console will give you 1 output channel; choosing Stereo will give you 2. In the API, valid values are 1 and 2.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mSampleRate' - Sample rate in hz.
+-- 'channels', 'mp2Settings_channels' - Set Channels to specify the number of channels in this output audio
+-- track. Choosing Mono in the console will give you 1 output channel;
+-- choosing Stereo will give you 2. In the API, valid values are 1 and 2.
 --
--- * 'mBitrate' - Specify the average bitrate in bits per second.
-mp2Settings ::
+-- 'sampleRate', 'mp2Settings_sampleRate' - Sample rate in hz.
+--
+-- 'bitrate', 'mp2Settings_bitrate' - Specify the average bitrate in bits per second.
+newMp2Settings ::
   Mp2Settings
-mp2Settings =
+newMp2Settings =
   Mp2Settings'
-    { _mChannels = Nothing,
-      _mSampleRate = Nothing,
-      _mBitrate = Nothing
+    { channels = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      bitrate = Prelude.Nothing
     }
 
--- | Set Channels to specify the number of channels in this output audio track. Choosing Mono in the console will give you 1 output channel; choosing Stereo will give you 2. In the API, valid values are 1 and 2.
-mChannels :: Lens' Mp2Settings (Maybe Natural)
-mChannels = lens _mChannels (\s a -> s {_mChannels = a}) . mapping _Nat
+-- | Set Channels to specify the number of channels in this output audio
+-- track. Choosing Mono in the console will give you 1 output channel;
+-- choosing Stereo will give you 2. In the API, valid values are 1 and 2.
+mp2Settings_channels :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Natural)
+mp2Settings_channels = Lens.lens (\Mp2Settings' {channels} -> channels) (\s@Mp2Settings' {} a -> s {channels = a} :: Mp2Settings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Sample rate in hz.
-mSampleRate :: Lens' Mp2Settings (Maybe Natural)
-mSampleRate = lens _mSampleRate (\s a -> s {_mSampleRate = a}) . mapping _Nat
+mp2Settings_sampleRate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Natural)
+mp2Settings_sampleRate = Lens.lens (\Mp2Settings' {sampleRate} -> sampleRate) (\s@Mp2Settings' {} a -> s {sampleRate = a} :: Mp2Settings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specify the average bitrate in bits per second.
-mBitrate :: Lens' Mp2Settings (Maybe Natural)
-mBitrate = lens _mBitrate (\s a -> s {_mBitrate = a}) . mapping _Nat
+mp2Settings_bitrate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Natural)
+mp2Settings_bitrate = Lens.lens (\Mp2Settings' {bitrate} -> bitrate) (\s@Mp2Settings' {} a -> s {bitrate = a} :: Mp2Settings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON Mp2Settings where
+instance Prelude.FromJSON Mp2Settings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Mp2Settings"
       ( \x ->
           Mp2Settings'
-            <$> (x .:? "channels")
-            <*> (x .:? "sampleRate")
-            <*> (x .:? "bitrate")
+            Prelude.<$> (x Prelude..:? "channels")
+            Prelude.<*> (x Prelude..:? "sampleRate")
+            Prelude.<*> (x Prelude..:? "bitrate")
       )
 
-instance Hashable Mp2Settings
+instance Prelude.Hashable Mp2Settings
 
-instance NFData Mp2Settings
+instance Prelude.NFData Mp2Settings
 
-instance ToJSON Mp2Settings where
+instance Prelude.ToJSON Mp2Settings where
   toJSON Mp2Settings' {..} =
-    object
-      ( catMaybes
-          [ ("channels" .=) <$> _mChannels,
-            ("sampleRate" .=) <$> _mSampleRate,
-            ("bitrate" .=) <$> _mBitrate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channels" Prelude..=) Prelude.<$> channels,
+            ("sampleRate" Prelude..=) Prelude.<$> sampleRate,
+            ("bitrate" Prelude..=) Prelude.<$> bitrate
           ]
       )

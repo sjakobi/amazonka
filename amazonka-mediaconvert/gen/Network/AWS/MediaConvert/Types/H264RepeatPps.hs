@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaConvert.Types.H264RepeatPps
   ( H264RepeatPps
       ( ..,
-        HRPDisabled,
-        HRPEnabled
+        H264RepeatPpsDISABLED,
+        H264RepeatPpsENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Places a PPS header on each encoded picture, even if repeated.
-data H264RepeatPps = H264RepeatPps' (CI Text)
+newtype H264RepeatPps = H264RepeatPps'
+  { fromH264RepeatPps ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HRPDisabled :: H264RepeatPps
-pattern HRPDisabled = H264RepeatPps' "DISABLED"
+pattern H264RepeatPpsDISABLED :: H264RepeatPps
+pattern H264RepeatPpsDISABLED = H264RepeatPps' "DISABLED"
 
-pattern HRPEnabled :: H264RepeatPps
-pattern HRPEnabled = H264RepeatPps' "ENABLED"
+pattern H264RepeatPpsENABLED :: H264RepeatPps
+pattern H264RepeatPpsENABLED = H264RepeatPps' "ENABLED"
 
 {-# COMPLETE
-  HRPDisabled,
-  HRPEnabled,
+  H264RepeatPpsDISABLED,
+  H264RepeatPpsENABLED,
   H264RepeatPps'
   #-}
 
-instance FromText H264RepeatPps where
-  parser = (H264RepeatPps' . mk) <$> takeText
+instance Prelude.FromText H264RepeatPps where
+  parser = H264RepeatPps' Prelude.<$> Prelude.takeText
 
-instance ToText H264RepeatPps where
-  toText (H264RepeatPps' ci) = original ci
+instance Prelude.ToText H264RepeatPps where
+  toText (H264RepeatPps' x) = x
 
-instance Hashable H264RepeatPps
+instance Prelude.Hashable H264RepeatPps
 
-instance NFData H264RepeatPps
+instance Prelude.NFData H264RepeatPps
 
-instance ToByteString H264RepeatPps
+instance Prelude.ToByteString H264RepeatPps
 
-instance ToQuery H264RepeatPps
+instance Prelude.ToQuery H264RepeatPps
 
-instance ToHeader H264RepeatPps
+instance Prelude.ToHeader H264RepeatPps
 
-instance ToJSON H264RepeatPps where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264RepeatPps where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264RepeatPps where
-  parseJSON = parseJSONText "H264RepeatPps"
+instance Prelude.FromJSON H264RepeatPps where
+  parseJSON = Prelude.parseJSONText "H264RepeatPps"

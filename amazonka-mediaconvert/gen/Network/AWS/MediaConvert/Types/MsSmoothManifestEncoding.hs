@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.MsSmoothManifestEncoding
   ( MsSmoothManifestEncoding
       ( ..,
-        UTF16,
-        UTF8
+        MsSmoothManifestEncodingUTF16,
+        MsSmoothManifestEncodingUTF8
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding format for the server and client manifest. Valid options are utf8 and utf16.
-data MsSmoothManifestEncoding
-  = MsSmoothManifestEncoding'
-      ( CI
-          Text
-      )
+-- | Use Manifest encoding (MsSmoothManifestEncoding) to specify the encoding
+-- format for the server and client manifest. Valid options are utf8 and
+-- utf16.
+newtype MsSmoothManifestEncoding = MsSmoothManifestEncoding'
+  { fromMsSmoothManifestEncoding ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UTF16 :: MsSmoothManifestEncoding
-pattern UTF16 = MsSmoothManifestEncoding' "UTF16"
+pattern MsSmoothManifestEncodingUTF16 :: MsSmoothManifestEncoding
+pattern MsSmoothManifestEncodingUTF16 = MsSmoothManifestEncoding' "UTF16"
 
-pattern UTF8 :: MsSmoothManifestEncoding
-pattern UTF8 = MsSmoothManifestEncoding' "UTF8"
+pattern MsSmoothManifestEncodingUTF8 :: MsSmoothManifestEncoding
+pattern MsSmoothManifestEncodingUTF8 = MsSmoothManifestEncoding' "UTF8"
 
 {-# COMPLETE
-  UTF16,
-  UTF8,
+  MsSmoothManifestEncodingUTF16,
+  MsSmoothManifestEncodingUTF8,
   MsSmoothManifestEncoding'
   #-}
 
-instance FromText MsSmoothManifestEncoding where
-  parser = (MsSmoothManifestEncoding' . mk) <$> takeText
+instance Prelude.FromText MsSmoothManifestEncoding where
+  parser = MsSmoothManifestEncoding' Prelude.<$> Prelude.takeText
 
-instance ToText MsSmoothManifestEncoding where
-  toText (MsSmoothManifestEncoding' ci) = original ci
+instance Prelude.ToText MsSmoothManifestEncoding where
+  toText (MsSmoothManifestEncoding' x) = x
 
-instance Hashable MsSmoothManifestEncoding
+instance Prelude.Hashable MsSmoothManifestEncoding
 
-instance NFData MsSmoothManifestEncoding
+instance Prelude.NFData MsSmoothManifestEncoding
 
-instance ToByteString MsSmoothManifestEncoding
+instance Prelude.ToByteString MsSmoothManifestEncoding
 
-instance ToQuery MsSmoothManifestEncoding
+instance Prelude.ToQuery MsSmoothManifestEncoding
 
-instance ToHeader MsSmoothManifestEncoding
+instance Prelude.ToHeader MsSmoothManifestEncoding
 
-instance ToJSON MsSmoothManifestEncoding where
-  toJSON = toJSONText
+instance Prelude.ToJSON MsSmoothManifestEncoding where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MsSmoothManifestEncoding where
-  parseJSON = parseJSONText "MsSmoothManifestEncoding"
+instance Prelude.FromJSON MsSmoothManifestEncoding where
+  parseJSON = Prelude.parseJSONText "MsSmoothManifestEncoding"

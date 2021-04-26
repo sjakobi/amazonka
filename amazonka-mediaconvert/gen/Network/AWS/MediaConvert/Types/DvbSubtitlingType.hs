@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.DvbSubtitlingType
   ( DvbSubtitlingType
       ( ..,
-        DSTHearingImpaired,
-        DSTStandard
+        DvbSubtitlingTypeHEARINGIMPAIRED,
+        DvbSubtitlingTypeSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify whether your DVB subtitles are standard or for hearing impaired. Choose hearing impaired if your subtitles include audio descriptions and dialogue. Choose standard if your subtitles include only dialogue.
-data DvbSubtitlingType = DvbSubtitlingType' (CI Text)
+-- | Specify whether your DVB subtitles are standard or for hearing impaired.
+-- Choose hearing impaired if your subtitles include audio descriptions and
+-- dialogue. Choose standard if your subtitles include only dialogue.
+newtype DvbSubtitlingType = DvbSubtitlingType'
+  { fromDvbSubtitlingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSTHearingImpaired :: DvbSubtitlingType
-pattern DSTHearingImpaired = DvbSubtitlingType' "HEARING_IMPAIRED"
+pattern DvbSubtitlingTypeHEARINGIMPAIRED :: DvbSubtitlingType
+pattern DvbSubtitlingTypeHEARINGIMPAIRED = DvbSubtitlingType' "HEARING_IMPAIRED"
 
-pattern DSTStandard :: DvbSubtitlingType
-pattern DSTStandard = DvbSubtitlingType' "STANDARD"
+pattern DvbSubtitlingTypeSTANDARD :: DvbSubtitlingType
+pattern DvbSubtitlingTypeSTANDARD = DvbSubtitlingType' "STANDARD"
 
 {-# COMPLETE
-  DSTHearingImpaired,
-  DSTStandard,
+  DvbSubtitlingTypeHEARINGIMPAIRED,
+  DvbSubtitlingTypeSTANDARD,
   DvbSubtitlingType'
   #-}
 
-instance FromText DvbSubtitlingType where
-  parser = (DvbSubtitlingType' . mk) <$> takeText
+instance Prelude.FromText DvbSubtitlingType where
+  parser = DvbSubtitlingType' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubtitlingType where
-  toText (DvbSubtitlingType' ci) = original ci
+instance Prelude.ToText DvbSubtitlingType where
+  toText (DvbSubtitlingType' x) = x
 
-instance Hashable DvbSubtitlingType
+instance Prelude.Hashable DvbSubtitlingType
 
-instance NFData DvbSubtitlingType
+instance Prelude.NFData DvbSubtitlingType
 
-instance ToByteString DvbSubtitlingType
+instance Prelude.ToByteString DvbSubtitlingType
 
-instance ToQuery DvbSubtitlingType
+instance Prelude.ToQuery DvbSubtitlingType
 
-instance ToHeader DvbSubtitlingType
+instance Prelude.ToHeader DvbSubtitlingType
 
-instance ToJSON DvbSubtitlingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubtitlingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubtitlingType where
-  parseJSON = parseJSONText "DvbSubtitlingType"
+instance Prelude.FromJSON DvbSubtitlingType where
+  parseJSON = Prelude.parseJSONText "DvbSubtitlingType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,52 @@
 module Network.AWS.MediaConvert.Types.Type
   ( Type
       ( ..,
-        Custom,
-        System
+        TypeCUSTOM,
+        TypeSYSTEM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Type = Type' (CI Text)
+newtype Type = Type' {fromType :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Custom :: Type
-pattern Custom = Type' "CUSTOM"
+pattern TypeCUSTOM :: Type
+pattern TypeCUSTOM = Type' "CUSTOM"
 
-pattern System :: Type
-pattern System = Type' "SYSTEM"
+pattern TypeSYSTEM :: Type
+pattern TypeSYSTEM = Type' "SYSTEM"
 
 {-# COMPLETE
-  Custom,
-  System,
+  TypeCUSTOM,
+  TypeSYSTEM,
   Type'
   #-}
 
-instance FromText Type where
-  parser = (Type' . mk) <$> takeText
+instance Prelude.FromText Type where
+  parser = Type' Prelude.<$> Prelude.takeText
 
-instance ToText Type where
-  toText (Type' ci) = original ci
+instance Prelude.ToText Type where
+  toText (Type' x) = x
 
-instance Hashable Type
+instance Prelude.Hashable Type
 
-instance NFData Type
+instance Prelude.NFData Type
 
-instance ToByteString Type
+instance Prelude.ToByteString Type
 
-instance ToQuery Type
+instance Prelude.ToQuery Type
 
-instance ToHeader Type
+instance Prelude.ToHeader Type
 
-instance FromJSON Type where
-  parseJSON = parseJSONText "Type"
+instance Prelude.FromJSON Type where
+  parseJSON = Prelude.parseJSONText "Type"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,91 @@
 module Network.AWS.MediaConvert.Types.Ac3BitstreamMode
   ( Ac3BitstreamMode
       ( ..,
-        Commentary,
-        CompleteMain,
-        Dialogue,
-        Emergency,
-        HearingImpaired,
-        MusicAndEffects,
-        VisuallyImpaired,
-        VoiceOver
+        Ac3BitstreamModeCOMMENTARY,
+        Ac3BitstreamModeCOMPLETEMAIN,
+        Ac3BitstreamModeDIALOGUE,
+        Ac3BitstreamModeEMERGENCY,
+        Ac3BitstreamModeHEARINGIMPAIRED,
+        Ac3BitstreamModeMUSICANDEFFECTS,
+        Ac3BitstreamModeVISUALLYIMPAIRED,
+        Ac3BitstreamModeVOICEOVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the bitstream mode for the AC-3 stream that the encoder emits. For more information about the AC3 bitstream mode, see ATSC A/52-2012 (Annex E).
-data Ac3BitstreamMode = Ac3BitstreamMode' (CI Text)
+-- | Specify the bitstream mode for the AC-3 stream that the encoder emits.
+-- For more information about the AC3 bitstream mode, see ATSC A\/52-2012
+-- (Annex E).
+newtype Ac3BitstreamMode = Ac3BitstreamMode'
+  { fromAc3BitstreamMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Commentary :: Ac3BitstreamMode
-pattern Commentary = Ac3BitstreamMode' "COMMENTARY"
+pattern Ac3BitstreamModeCOMMENTARY :: Ac3BitstreamMode
+pattern Ac3BitstreamModeCOMMENTARY = Ac3BitstreamMode' "COMMENTARY"
 
-pattern CompleteMain :: Ac3BitstreamMode
-pattern CompleteMain = Ac3BitstreamMode' "COMPLETE_MAIN"
+pattern Ac3BitstreamModeCOMPLETEMAIN :: Ac3BitstreamMode
+pattern Ac3BitstreamModeCOMPLETEMAIN = Ac3BitstreamMode' "COMPLETE_MAIN"
 
-pattern Dialogue :: Ac3BitstreamMode
-pattern Dialogue = Ac3BitstreamMode' "DIALOGUE"
+pattern Ac3BitstreamModeDIALOGUE :: Ac3BitstreamMode
+pattern Ac3BitstreamModeDIALOGUE = Ac3BitstreamMode' "DIALOGUE"
 
-pattern Emergency :: Ac3BitstreamMode
-pattern Emergency = Ac3BitstreamMode' "EMERGENCY"
+pattern Ac3BitstreamModeEMERGENCY :: Ac3BitstreamMode
+pattern Ac3BitstreamModeEMERGENCY = Ac3BitstreamMode' "EMERGENCY"
 
-pattern HearingImpaired :: Ac3BitstreamMode
-pattern HearingImpaired = Ac3BitstreamMode' "HEARING_IMPAIRED"
+pattern Ac3BitstreamModeHEARINGIMPAIRED :: Ac3BitstreamMode
+pattern Ac3BitstreamModeHEARINGIMPAIRED = Ac3BitstreamMode' "HEARING_IMPAIRED"
 
-pattern MusicAndEffects :: Ac3BitstreamMode
-pattern MusicAndEffects = Ac3BitstreamMode' "MUSIC_AND_EFFECTS"
+pattern Ac3BitstreamModeMUSICANDEFFECTS :: Ac3BitstreamMode
+pattern Ac3BitstreamModeMUSICANDEFFECTS = Ac3BitstreamMode' "MUSIC_AND_EFFECTS"
 
-pattern VisuallyImpaired :: Ac3BitstreamMode
-pattern VisuallyImpaired = Ac3BitstreamMode' "VISUALLY_IMPAIRED"
+pattern Ac3BitstreamModeVISUALLYIMPAIRED :: Ac3BitstreamMode
+pattern Ac3BitstreamModeVISUALLYIMPAIRED = Ac3BitstreamMode' "VISUALLY_IMPAIRED"
 
-pattern VoiceOver :: Ac3BitstreamMode
-pattern VoiceOver = Ac3BitstreamMode' "VOICE_OVER"
+pattern Ac3BitstreamModeVOICEOVER :: Ac3BitstreamMode
+pattern Ac3BitstreamModeVOICEOVER = Ac3BitstreamMode' "VOICE_OVER"
 
 {-# COMPLETE
-  Commentary,
-  CompleteMain,
-  Dialogue,
-  Emergency,
-  HearingImpaired,
-  MusicAndEffects,
-  VisuallyImpaired,
-  VoiceOver,
+  Ac3BitstreamModeCOMMENTARY,
+  Ac3BitstreamModeCOMPLETEMAIN,
+  Ac3BitstreamModeDIALOGUE,
+  Ac3BitstreamModeEMERGENCY,
+  Ac3BitstreamModeHEARINGIMPAIRED,
+  Ac3BitstreamModeMUSICANDEFFECTS,
+  Ac3BitstreamModeVISUALLYIMPAIRED,
+  Ac3BitstreamModeVOICEOVER,
   Ac3BitstreamMode'
   #-}
 
-instance FromText Ac3BitstreamMode where
-  parser = (Ac3BitstreamMode' . mk) <$> takeText
+instance Prelude.FromText Ac3BitstreamMode where
+  parser = Ac3BitstreamMode' Prelude.<$> Prelude.takeText
 
-instance ToText Ac3BitstreamMode where
-  toText (Ac3BitstreamMode' ci) = original ci
+instance Prelude.ToText Ac3BitstreamMode where
+  toText (Ac3BitstreamMode' x) = x
 
-instance Hashable Ac3BitstreamMode
+instance Prelude.Hashable Ac3BitstreamMode
 
-instance NFData Ac3BitstreamMode
+instance Prelude.NFData Ac3BitstreamMode
 
-instance ToByteString Ac3BitstreamMode
+instance Prelude.ToByteString Ac3BitstreamMode
 
-instance ToQuery Ac3BitstreamMode
+instance Prelude.ToQuery Ac3BitstreamMode
 
-instance ToHeader Ac3BitstreamMode
+instance Prelude.ToHeader Ac3BitstreamMode
 
-instance ToJSON Ac3BitstreamMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Ac3BitstreamMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Ac3BitstreamMode where
-  parseJSON = parseJSONText "Ac3BitstreamMode"
+instance Prelude.FromJSON Ac3BitstreamMode where
+  parseJSON = Prelude.parseJSONText "Ac3BitstreamMode"

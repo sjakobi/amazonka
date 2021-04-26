@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.CmafWriteDASHManifest
   ( CmafWriteDASHManifest
       ( ..,
-        CWDASHMDisabled,
-        CWDASHMEnabled
+        CmafWriteDASHManifestDISABLED,
+        CmafWriteDASHManifestENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to ENABLED, a DASH MPD manifest will be generated for this output.
-data CmafWriteDASHManifest
-  = CmafWriteDASHManifest'
-      ( CI
-          Text
-      )
+-- | When set to ENABLED, a DASH MPD manifest will be generated for this
+-- output.
+newtype CmafWriteDASHManifest = CmafWriteDASHManifest'
+  { fromCmafWriteDASHManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CWDASHMDisabled :: CmafWriteDASHManifest
-pattern CWDASHMDisabled = CmafWriteDASHManifest' "DISABLED"
+pattern CmafWriteDASHManifestDISABLED :: CmafWriteDASHManifest
+pattern CmafWriteDASHManifestDISABLED = CmafWriteDASHManifest' "DISABLED"
 
-pattern CWDASHMEnabled :: CmafWriteDASHManifest
-pattern CWDASHMEnabled = CmafWriteDASHManifest' "ENABLED"
+pattern CmafWriteDASHManifestENABLED :: CmafWriteDASHManifest
+pattern CmafWriteDASHManifestENABLED = CmafWriteDASHManifest' "ENABLED"
 
 {-# COMPLETE
-  CWDASHMDisabled,
-  CWDASHMEnabled,
+  CmafWriteDASHManifestDISABLED,
+  CmafWriteDASHManifestENABLED,
   CmafWriteDASHManifest'
   #-}
 
-instance FromText CmafWriteDASHManifest where
-  parser = (CmafWriteDASHManifest' . mk) <$> takeText
+instance Prelude.FromText CmafWriteDASHManifest where
+  parser = CmafWriteDASHManifest' Prelude.<$> Prelude.takeText
 
-instance ToText CmafWriteDASHManifest where
-  toText (CmafWriteDASHManifest' ci) = original ci
+instance Prelude.ToText CmafWriteDASHManifest where
+  toText (CmafWriteDASHManifest' x) = x
 
-instance Hashable CmafWriteDASHManifest
+instance Prelude.Hashable CmafWriteDASHManifest
 
-instance NFData CmafWriteDASHManifest
+instance Prelude.NFData CmafWriteDASHManifest
 
-instance ToByteString CmafWriteDASHManifest
+instance Prelude.ToByteString CmafWriteDASHManifest
 
-instance ToQuery CmafWriteDASHManifest
+instance Prelude.ToQuery CmafWriteDASHManifest
 
-instance ToHeader CmafWriteDASHManifest
+instance Prelude.ToHeader CmafWriteDASHManifest
 
-instance ToJSON CmafWriteDASHManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON CmafWriteDASHManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CmafWriteDASHManifest where
-  parseJSON = parseJSONText "CmafWriteDASHManifest"
+instance Prelude.FromJSON CmafWriteDASHManifest where
+  parseJSON = Prelude.parseJSONText "CmafWriteDASHManifest"

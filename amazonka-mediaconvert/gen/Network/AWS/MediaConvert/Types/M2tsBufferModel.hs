@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,62 @@
 module Network.AWS.MediaConvert.Types.M2tsBufferModel
   ( M2tsBufferModel
       ( ..,
-        MBMMultiplex,
-        MBMNone
+        M2tsBufferModelMULTIPLEX,
+        M2tsBufferModelNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Controls what buffer model to use for accurate interleaving. If set to MULTIPLEX, use multiplex  buffer model. If set to NONE, this can lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
-data M2tsBufferModel = M2tsBufferModel' (CI Text)
+-- | Controls what buffer model to use for accurate interleaving. If set to
+-- MULTIPLEX, use multiplex buffer model. If set to NONE, this can lead to
+-- lower latency, but low-memory devices may not be able to play back the
+-- stream without interruptions.
+newtype M2tsBufferModel = M2tsBufferModel'
+  { fromM2tsBufferModel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MBMMultiplex :: M2tsBufferModel
-pattern MBMMultiplex = M2tsBufferModel' "MULTIPLEX"
+pattern M2tsBufferModelMULTIPLEX :: M2tsBufferModel
+pattern M2tsBufferModelMULTIPLEX = M2tsBufferModel' "MULTIPLEX"
 
-pattern MBMNone :: M2tsBufferModel
-pattern MBMNone = M2tsBufferModel' "NONE"
+pattern M2tsBufferModelNONE :: M2tsBufferModel
+pattern M2tsBufferModelNONE = M2tsBufferModel' "NONE"
 
 {-# COMPLETE
-  MBMMultiplex,
-  MBMNone,
+  M2tsBufferModelMULTIPLEX,
+  M2tsBufferModelNONE,
   M2tsBufferModel'
   #-}
 
-instance FromText M2tsBufferModel where
-  parser = (M2tsBufferModel' . mk) <$> takeText
+instance Prelude.FromText M2tsBufferModel where
+  parser = M2tsBufferModel' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsBufferModel where
-  toText (M2tsBufferModel' ci) = original ci
+instance Prelude.ToText M2tsBufferModel where
+  toText (M2tsBufferModel' x) = x
 
-instance Hashable M2tsBufferModel
+instance Prelude.Hashable M2tsBufferModel
 
-instance NFData M2tsBufferModel
+instance Prelude.NFData M2tsBufferModel
 
-instance ToByteString M2tsBufferModel
+instance Prelude.ToByteString M2tsBufferModel
 
-instance ToQuery M2tsBufferModel
+instance Prelude.ToQuery M2tsBufferModel
 
-instance ToHeader M2tsBufferModel
+instance Prelude.ToHeader M2tsBufferModel
 
-instance ToJSON M2tsBufferModel where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsBufferModel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsBufferModel where
-  parseJSON = parseJSONText "M2tsBufferModel"
+instance Prelude.FromJSON M2tsBufferModel where
+  parseJSON = Prelude.parseJSONText "M2tsBufferModel"

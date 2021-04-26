@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve a JSON array of up to twenty of your presets. This will return the presets themselves, not just a list of them. To retrieve the next twenty presets, use the nextToken string returned with the array.
+-- Retrieve a JSON array of up to twenty of your presets. This will return
+-- the presets themselves, not just a list of them. To retrieve the next
+-- twenty presets, use the nextToken string returned with the array.
 --
 -- This operation returns paginated results.
 module Network.AWS.MediaConvert.ListPresets
   ( -- * Creating a Request
-    listPresets,
-    ListPresets,
+    ListPresets (..),
+    newListPresets,
 
     -- * Request Lenses
-    lpNextToken,
-    lpListBy,
-    lpMaxResults,
-    lpCategory,
-    lpOrder,
+    listPresets_nextToken,
+    listPresets_listBy,
+    listPresets_maxResults,
+    listPresets_category,
+    listPresets_order,
 
     -- * Destructuring the Response
-    listPresetsResponse,
-    ListPresetsResponse,
+    ListPresetsResponse (..),
+    newListPresetsResponse,
 
     -- * Response Lenses
-    lprrsNextToken,
-    lprrsPresets,
-    lprrsResponseStatus,
+    listPresetsResponse_nextToken,
+    listPresetsResponse_presets,
+    listPresetsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.Preset
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPresets' smart constructor.
+-- | /See:/ 'newListPresets' smart constructor.
 data ListPresets = ListPresets'
-  { _lpNextToken ::
-      !(Maybe Text),
-    _lpListBy :: !(Maybe PresetListBy),
-    _lpMaxResults :: !(Maybe Nat),
-    _lpCategory :: !(Maybe Text),
-    _lpOrder :: !(Maybe Order)
+  { -- | Use this string, provided with the response to a previous request, to
+    -- request the next batch of presets.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional. When you request a list of presets, you can choose to list
+    -- them alphabetically by NAME or chronologically by CREATION_DATE. If you
+    -- don\'t specify, the service will list them by name.
+    listBy :: Prelude.Maybe PresetListBy,
+    -- | Optional. Number of presets, up to twenty, that will be returned at one
+    -- time
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Optionally, specify a preset category to limit responses to only presets
+    -- from that category.
+    category :: Prelude.Maybe Prelude.Text,
+    -- | Optional. When you request lists of resources, you can specify whether
+    -- they are sorted in ASCENDING or DESCENDING order. Default varies by
+    -- resource.
+    order :: Prelude.Maybe Order
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPresets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPresets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpNextToken' - Use this string, provided with the response to a previous request, to request the next batch of presets.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpListBy' - Optional. When you request a list of presets, you can choose to list them alphabetically by NAME or chronologically by CREATION_DATE. If you don't specify, the service will list them by name.
+-- 'nextToken', 'listPresets_nextToken' - Use this string, provided with the response to a previous request, to
+-- request the next batch of presets.
 --
--- * 'lpMaxResults' - Optional. Number of presets, up to twenty, that will be returned at one time
+-- 'listBy', 'listPresets_listBy' - Optional. When you request a list of presets, you can choose to list
+-- them alphabetically by NAME or chronologically by CREATION_DATE. If you
+-- don\'t specify, the service will list them by name.
 --
--- * 'lpCategory' - Optionally, specify a preset category to limit responses to only presets from that category.
+-- 'maxResults', 'listPresets_maxResults' - Optional. Number of presets, up to twenty, that will be returned at one
+-- time
 --
--- * 'lpOrder' - Optional. When you request lists of resources, you can specify whether they are sorted in ASCENDING or DESCENDING order. Default varies by resource.
-listPresets ::
+-- 'category', 'listPresets_category' - Optionally, specify a preset category to limit responses to only presets
+-- from that category.
+--
+-- 'order', 'listPresets_order' - Optional. When you request lists of resources, you can specify whether
+-- they are sorted in ASCENDING or DESCENDING order. Default varies by
+-- resource.
+newListPresets ::
   ListPresets
-listPresets =
+newListPresets =
   ListPresets'
-    { _lpNextToken = Nothing,
-      _lpListBy = Nothing,
-      _lpMaxResults = Nothing,
-      _lpCategory = Nothing,
-      _lpOrder = Nothing
+    { nextToken = Prelude.Nothing,
+      listBy = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      category = Prelude.Nothing,
+      order = Prelude.Nothing
     }
 
--- | Use this string, provided with the response to a previous request, to request the next batch of presets.
-lpNextToken :: Lens' ListPresets (Maybe Text)
-lpNextToken = lens _lpNextToken (\s a -> s {_lpNextToken = a})
+-- | Use this string, provided with the response to a previous request, to
+-- request the next batch of presets.
+listPresets_nextToken :: Lens.Lens' ListPresets (Prelude.Maybe Prelude.Text)
+listPresets_nextToken = Lens.lens (\ListPresets' {nextToken} -> nextToken) (\s@ListPresets' {} a -> s {nextToken = a} :: ListPresets)
 
--- | Optional. When you request a list of presets, you can choose to list them alphabetically by NAME or chronologically by CREATION_DATE. If you don't specify, the service will list them by name.
-lpListBy :: Lens' ListPresets (Maybe PresetListBy)
-lpListBy = lens _lpListBy (\s a -> s {_lpListBy = a})
+-- | Optional. When you request a list of presets, you can choose to list
+-- them alphabetically by NAME or chronologically by CREATION_DATE. If you
+-- don\'t specify, the service will list them by name.
+listPresets_listBy :: Lens.Lens' ListPresets (Prelude.Maybe PresetListBy)
+listPresets_listBy = Lens.lens (\ListPresets' {listBy} -> listBy) (\s@ListPresets' {} a -> s {listBy = a} :: ListPresets)
 
--- | Optional. Number of presets, up to twenty, that will be returned at one time
-lpMaxResults :: Lens' ListPresets (Maybe Natural)
-lpMaxResults = lens _lpMaxResults (\s a -> s {_lpMaxResults = a}) . mapping _Nat
+-- | Optional. Number of presets, up to twenty, that will be returned at one
+-- time
+listPresets_maxResults :: Lens.Lens' ListPresets (Prelude.Maybe Prelude.Natural)
+listPresets_maxResults = Lens.lens (\ListPresets' {maxResults} -> maxResults) (\s@ListPresets' {} a -> s {maxResults = a} :: ListPresets) Prelude.. Lens.mapping Prelude._Nat
 
--- | Optionally, specify a preset category to limit responses to only presets from that category.
-lpCategory :: Lens' ListPresets (Maybe Text)
-lpCategory = lens _lpCategory (\s a -> s {_lpCategory = a})
+-- | Optionally, specify a preset category to limit responses to only presets
+-- from that category.
+listPresets_category :: Lens.Lens' ListPresets (Prelude.Maybe Prelude.Text)
+listPresets_category = Lens.lens (\ListPresets' {category} -> category) (\s@ListPresets' {} a -> s {category = a} :: ListPresets)
 
--- | Optional. When you request lists of resources, you can specify whether they are sorted in ASCENDING or DESCENDING order. Default varies by resource.
-lpOrder :: Lens' ListPresets (Maybe Order)
-lpOrder = lens _lpOrder (\s a -> s {_lpOrder = a})
+-- | Optional. When you request lists of resources, you can specify whether
+-- they are sorted in ASCENDING or DESCENDING order. Default varies by
+-- resource.
+listPresets_order :: Lens.Lens' ListPresets (Prelude.Maybe Order)
+listPresets_order = Lens.lens (\ListPresets' {order} -> order) (\s@ListPresets' {} a -> s {order = a} :: ListPresets)
 
-instance AWSPager ListPresets where
+instance Pager.AWSPager ListPresets where
   page rq rs
-    | stop (rs ^. lprrsNextToken) = Nothing
-    | stop (rs ^. lprrsPresets) = Nothing
-    | otherwise =
-      Just $ rq & lpNextToken .~ rs ^. lprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPresetsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPresetsResponse_presets Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPresets_nextToken
+          Lens..~ rs
+          Lens.^? listPresetsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListPresets where
+instance Prelude.AWSRequest ListPresets where
   type Rs ListPresets = ListPresetsResponse
-  request = get mediaConvert
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPresetsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "presets" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "presets" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPresets
+instance Prelude.Hashable ListPresets
 
-instance NFData ListPresets
+instance Prelude.NFData ListPresets
 
-instance ToHeaders ListPresets where
+instance Prelude.ToHeaders ListPresets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListPresets where
-  toPath = const "/2017-08-29/presets"
+instance Prelude.ToPath ListPresets where
+  toPath = Prelude.const "/2017-08-29/presets"
 
-instance ToQuery ListPresets where
+instance Prelude.ToQuery ListPresets where
   toQuery ListPresets' {..} =
-    mconcat
-      [ "nextToken" =: _lpNextToken,
-        "listBy" =: _lpListBy,
-        "maxResults" =: _lpMaxResults,
-        "category" =: _lpCategory,
-        "order" =: _lpOrder
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "listBy" Prelude.=: listBy,
+        "maxResults" Prelude.=: maxResults,
+        "category" Prelude.=: category,
+        "order" Prelude.=: order
       ]
 
--- | /See:/ 'listPresetsResponse' smart constructor.
+-- | /See:/ 'newListPresetsResponse' smart constructor.
 data ListPresetsResponse = ListPresetsResponse'
-  { _lprrsNextToken ::
-      !(Maybe Text),
-    _lprrsPresets ::
-      !(Maybe [Preset]),
-    _lprrsResponseStatus :: !Int
+  { -- | Use this string to request the next batch of presets.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of presets
+    presets :: Prelude.Maybe [Preset],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPresetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPresetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrsNextToken' - Use this string to request the next batch of presets.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrsPresets' - List of presets
+-- 'nextToken', 'listPresetsResponse_nextToken' - Use this string to request the next batch of presets.
 --
--- * 'lprrsResponseStatus' - -- | The response status code.
-listPresetsResponse ::
-  -- | 'lprrsResponseStatus'
-  Int ->
+-- 'presets', 'listPresetsResponse_presets' - List of presets
+--
+-- 'httpStatus', 'listPresetsResponse_httpStatus' - The response's http status code.
+newListPresetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPresetsResponse
-listPresetsResponse pResponseStatus_ =
+newListPresetsResponse pHttpStatus_ =
   ListPresetsResponse'
-    { _lprrsNextToken = Nothing,
-      _lprrsPresets = Nothing,
-      _lprrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      presets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Use this string to request the next batch of presets.
-lprrsNextToken :: Lens' ListPresetsResponse (Maybe Text)
-lprrsNextToken = lens _lprrsNextToken (\s a -> s {_lprrsNextToken = a})
+listPresetsResponse_nextToken :: Lens.Lens' ListPresetsResponse (Prelude.Maybe Prelude.Text)
+listPresetsResponse_nextToken = Lens.lens (\ListPresetsResponse' {nextToken} -> nextToken) (\s@ListPresetsResponse' {} a -> s {nextToken = a} :: ListPresetsResponse)
 
 -- | List of presets
-lprrsPresets :: Lens' ListPresetsResponse [Preset]
-lprrsPresets = lens _lprrsPresets (\s a -> s {_lprrsPresets = a}) . _Default . _Coerce
+listPresetsResponse_presets :: Lens.Lens' ListPresetsResponse (Prelude.Maybe [Preset])
+listPresetsResponse_presets = Lens.lens (\ListPresetsResponse' {presets} -> presets) (\s@ListPresetsResponse' {} a -> s {presets = a} :: ListPresetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lprrsResponseStatus :: Lens' ListPresetsResponse Int
-lprrsResponseStatus = lens _lprrsResponseStatus (\s a -> s {_lprrsResponseStatus = a})
+-- | The response's http status code.
+listPresetsResponse_httpStatus :: Lens.Lens' ListPresetsResponse Prelude.Int
+listPresetsResponse_httpStatus = Lens.lens (\ListPresetsResponse' {httpStatus} -> httpStatus) (\s@ListPresetsResponse' {} a -> s {httpStatus = a} :: ListPresetsResponse)
 
-instance NFData ListPresetsResponse
+instance Prelude.NFData ListPresetsResponse

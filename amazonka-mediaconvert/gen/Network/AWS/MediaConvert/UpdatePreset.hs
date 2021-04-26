@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,174 @@
 -- Modify one of your existing presets.
 module Network.AWS.MediaConvert.UpdatePreset
   ( -- * Creating a Request
-    updatePreset,
-    UpdatePreset,
+    UpdatePreset (..),
+    newUpdatePreset,
 
     -- * Request Lenses
-    upCategory,
-    upDescription,
-    upSettings,
-    upName,
+    updatePreset_category,
+    updatePreset_description,
+    updatePreset_settings,
+    updatePreset_name,
 
     -- * Destructuring the Response
-    updatePresetResponse,
-    UpdatePresetResponse,
+    UpdatePresetResponse (..),
+    newUpdatePresetResponse,
 
     -- * Response Lenses
-    uprrsPreset,
-    uprrsResponseStatus,
+    updatePresetResponse_preset,
+    updatePresetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.Preset
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updatePreset' smart constructor.
+-- | /See:/ 'newUpdatePreset' smart constructor.
 data UpdatePreset = UpdatePreset'
-  { _upCategory ::
-      !(Maybe Text),
-    _upDescription :: !(Maybe Text),
-    _upSettings :: !(Maybe PresetSettings),
-    _upName :: !Text
+  { -- | The new category for the preset, if you are changing it.
+    category :: Prelude.Maybe Prelude.Text,
+    -- | The new description for the preset, if you are changing it.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Settings for preset
+    settings :: Prelude.Maybe PresetSettings,
+    -- | The name of the preset you are modifying.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePreset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePreset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upCategory' - The new category for the preset, if you are changing it.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upDescription' - The new description for the preset, if you are changing it.
+-- 'category', 'updatePreset_category' - The new category for the preset, if you are changing it.
 --
--- * 'upSettings' - Settings for preset
+-- 'description', 'updatePreset_description' - The new description for the preset, if you are changing it.
 --
--- * 'upName' - The name of the preset you are modifying.
-updatePreset ::
-  -- | 'upName'
-  Text ->
+-- 'settings', 'updatePreset_settings' - Settings for preset
+--
+-- 'name', 'updatePreset_name' - The name of the preset you are modifying.
+newUpdatePreset ::
+  -- | 'name'
+  Prelude.Text ->
   UpdatePreset
-updatePreset pName_ =
+newUpdatePreset pName_ =
   UpdatePreset'
-    { _upCategory = Nothing,
-      _upDescription = Nothing,
-      _upSettings = Nothing,
-      _upName = pName_
+    { category = Prelude.Nothing,
+      description = Prelude.Nothing,
+      settings = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The new category for the preset, if you are changing it.
-upCategory :: Lens' UpdatePreset (Maybe Text)
-upCategory = lens _upCategory (\s a -> s {_upCategory = a})
+updatePreset_category :: Lens.Lens' UpdatePreset (Prelude.Maybe Prelude.Text)
+updatePreset_category = Lens.lens (\UpdatePreset' {category} -> category) (\s@UpdatePreset' {} a -> s {category = a} :: UpdatePreset)
 
 -- | The new description for the preset, if you are changing it.
-upDescription :: Lens' UpdatePreset (Maybe Text)
-upDescription = lens _upDescription (\s a -> s {_upDescription = a})
+updatePreset_description :: Lens.Lens' UpdatePreset (Prelude.Maybe Prelude.Text)
+updatePreset_description = Lens.lens (\UpdatePreset' {description} -> description) (\s@UpdatePreset' {} a -> s {description = a} :: UpdatePreset)
 
 -- | Settings for preset
-upSettings :: Lens' UpdatePreset (Maybe PresetSettings)
-upSettings = lens _upSettings (\s a -> s {_upSettings = a})
+updatePreset_settings :: Lens.Lens' UpdatePreset (Prelude.Maybe PresetSettings)
+updatePreset_settings = Lens.lens (\UpdatePreset' {settings} -> settings) (\s@UpdatePreset' {} a -> s {settings = a} :: UpdatePreset)
 
 -- | The name of the preset you are modifying.
-upName :: Lens' UpdatePreset Text
-upName = lens _upName (\s a -> s {_upName = a})
+updatePreset_name :: Lens.Lens' UpdatePreset Prelude.Text
+updatePreset_name = Lens.lens (\UpdatePreset' {name} -> name) (\s@UpdatePreset' {} a -> s {name = a} :: UpdatePreset)
 
-instance AWSRequest UpdatePreset where
+instance Prelude.AWSRequest UpdatePreset where
   type Rs UpdatePreset = UpdatePresetResponse
-  request = putJSON mediaConvert
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdatePresetResponse'
-            <$> (x .?> "preset") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "preset")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdatePreset
+instance Prelude.Hashable UpdatePreset
 
-instance NFData UpdatePreset
+instance Prelude.NFData UpdatePreset
 
-instance ToHeaders UpdatePreset where
+instance Prelude.ToHeaders UpdatePreset where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdatePreset where
+instance Prelude.ToJSON UpdatePreset where
   toJSON UpdatePreset' {..} =
-    object
-      ( catMaybes
-          [ ("category" .=) <$> _upCategory,
-            ("description" .=) <$> _upDescription,
-            ("settings" .=) <$> _upSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("category" Prelude..=) Prelude.<$> category,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("settings" Prelude..=) Prelude.<$> settings
           ]
       )
 
-instance ToPath UpdatePreset where
+instance Prelude.ToPath UpdatePreset where
   toPath UpdatePreset' {..} =
-    mconcat ["/2017-08-29/presets/", toBS _upName]
+    Prelude.mconcat
+      ["/2017-08-29/presets/", Prelude.toBS name]
 
-instance ToQuery UpdatePreset where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdatePreset where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updatePresetResponse' smart constructor.
+-- | /See:/ 'newUpdatePresetResponse' smart constructor.
 data UpdatePresetResponse = UpdatePresetResponse'
-  { _uprrsPreset ::
-      !(Maybe Preset),
-    _uprrsResponseStatus :: !Int
+  { -- | A preset is a collection of preconfigured media conversion settings that
+    -- you want MediaConvert to apply to the output during the conversion
+    -- process.
+    preset :: Prelude.Maybe Preset,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePresetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePresetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprrsPreset' - A preset is a collection of preconfigured media conversion settings that you want MediaConvert to apply to the output during the conversion process.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprrsResponseStatus' - -- | The response status code.
-updatePresetResponse ::
-  -- | 'uprrsResponseStatus'
-  Int ->
+-- 'preset', 'updatePresetResponse_preset' - A preset is a collection of preconfigured media conversion settings that
+-- you want MediaConvert to apply to the output during the conversion
+-- process.
+--
+-- 'httpStatus', 'updatePresetResponse_httpStatus' - The response's http status code.
+newUpdatePresetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdatePresetResponse
-updatePresetResponse pResponseStatus_ =
+newUpdatePresetResponse pHttpStatus_ =
   UpdatePresetResponse'
-    { _uprrsPreset = Nothing,
-      _uprrsResponseStatus = pResponseStatus_
+    { preset = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A preset is a collection of preconfigured media conversion settings that you want MediaConvert to apply to the output during the conversion process.
-uprrsPreset :: Lens' UpdatePresetResponse (Maybe Preset)
-uprrsPreset = lens _uprrsPreset (\s a -> s {_uprrsPreset = a})
+-- | A preset is a collection of preconfigured media conversion settings that
+-- you want MediaConvert to apply to the output during the conversion
+-- process.
+updatePresetResponse_preset :: Lens.Lens' UpdatePresetResponse (Prelude.Maybe Preset)
+updatePresetResponse_preset = Lens.lens (\UpdatePresetResponse' {preset} -> preset) (\s@UpdatePresetResponse' {} a -> s {preset = a} :: UpdatePresetResponse)
 
--- | -- | The response status code.
-uprrsResponseStatus :: Lens' UpdatePresetResponse Int
-uprrsResponseStatus = lens _uprrsResponseStatus (\s a -> s {_uprrsResponseStatus = a})
+-- | The response's http status code.
+updatePresetResponse_httpStatus :: Lens.Lens' UpdatePresetResponse Prelude.Int
+updatePresetResponse_httpStatus = Lens.lens (\UpdatePresetResponse' {httpStatus} -> httpStatus) (\s@UpdatePresetResponse' {} a -> s {httpStatus = a} :: UpdatePresetResponse)
 
-instance NFData UpdatePresetResponse
+instance Prelude.NFData UpdatePresetResponse

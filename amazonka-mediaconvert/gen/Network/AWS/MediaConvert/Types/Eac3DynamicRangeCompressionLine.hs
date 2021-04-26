@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,80 @@
 module Network.AWS.MediaConvert.Types.Eac3DynamicRangeCompressionLine
   ( Eac3DynamicRangeCompressionLine
       ( ..,
-        EDRCLFilmLight,
-        EDRCLFilmStandard,
-        EDRCLMusicLight,
-        EDRCLMusicStandard,
-        EDRCLNone,
-        EDRCLSpeech
+        Eac3DynamicRangeCompressionLineFILMLIGHT,
+        Eac3DynamicRangeCompressionLineFILMSTANDARD,
+        Eac3DynamicRangeCompressionLineMUSICLIGHT,
+        Eac3DynamicRangeCompressionLineMUSICSTANDARD,
+        Eac3DynamicRangeCompressionLineNONE,
+        Eac3DynamicRangeCompressionLineSPEECH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the absolute peak level for a signal with dynamic range compression.
-data Eac3DynamicRangeCompressionLine
-  = Eac3DynamicRangeCompressionLine'
-      ( CI
-          Text
-      )
+-- | Specify the absolute peak level for a signal with dynamic range
+-- compression.
+newtype Eac3DynamicRangeCompressionLine = Eac3DynamicRangeCompressionLine'
+  { fromEac3DynamicRangeCompressionLine ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EDRCLFilmLight :: Eac3DynamicRangeCompressionLine
-pattern EDRCLFilmLight = Eac3DynamicRangeCompressionLine' "FILM_LIGHT"
+pattern Eac3DynamicRangeCompressionLineFILMLIGHT :: Eac3DynamicRangeCompressionLine
+pattern Eac3DynamicRangeCompressionLineFILMLIGHT = Eac3DynamicRangeCompressionLine' "FILM_LIGHT"
 
-pattern EDRCLFilmStandard :: Eac3DynamicRangeCompressionLine
-pattern EDRCLFilmStandard = Eac3DynamicRangeCompressionLine' "FILM_STANDARD"
+pattern Eac3DynamicRangeCompressionLineFILMSTANDARD :: Eac3DynamicRangeCompressionLine
+pattern Eac3DynamicRangeCompressionLineFILMSTANDARD = Eac3DynamicRangeCompressionLine' "FILM_STANDARD"
 
-pattern EDRCLMusicLight :: Eac3DynamicRangeCompressionLine
-pattern EDRCLMusicLight = Eac3DynamicRangeCompressionLine' "MUSIC_LIGHT"
+pattern Eac3DynamicRangeCompressionLineMUSICLIGHT :: Eac3DynamicRangeCompressionLine
+pattern Eac3DynamicRangeCompressionLineMUSICLIGHT = Eac3DynamicRangeCompressionLine' "MUSIC_LIGHT"
 
-pattern EDRCLMusicStandard :: Eac3DynamicRangeCompressionLine
-pattern EDRCLMusicStandard = Eac3DynamicRangeCompressionLine' "MUSIC_STANDARD"
+pattern Eac3DynamicRangeCompressionLineMUSICSTANDARD :: Eac3DynamicRangeCompressionLine
+pattern Eac3DynamicRangeCompressionLineMUSICSTANDARD = Eac3DynamicRangeCompressionLine' "MUSIC_STANDARD"
 
-pattern EDRCLNone :: Eac3DynamicRangeCompressionLine
-pattern EDRCLNone = Eac3DynamicRangeCompressionLine' "NONE"
+pattern Eac3DynamicRangeCompressionLineNONE :: Eac3DynamicRangeCompressionLine
+pattern Eac3DynamicRangeCompressionLineNONE = Eac3DynamicRangeCompressionLine' "NONE"
 
-pattern EDRCLSpeech :: Eac3DynamicRangeCompressionLine
-pattern EDRCLSpeech = Eac3DynamicRangeCompressionLine' "SPEECH"
+pattern Eac3DynamicRangeCompressionLineSPEECH :: Eac3DynamicRangeCompressionLine
+pattern Eac3DynamicRangeCompressionLineSPEECH = Eac3DynamicRangeCompressionLine' "SPEECH"
 
 {-# COMPLETE
-  EDRCLFilmLight,
-  EDRCLFilmStandard,
-  EDRCLMusicLight,
-  EDRCLMusicStandard,
-  EDRCLNone,
-  EDRCLSpeech,
+  Eac3DynamicRangeCompressionLineFILMLIGHT,
+  Eac3DynamicRangeCompressionLineFILMSTANDARD,
+  Eac3DynamicRangeCompressionLineMUSICLIGHT,
+  Eac3DynamicRangeCompressionLineMUSICSTANDARD,
+  Eac3DynamicRangeCompressionLineNONE,
+  Eac3DynamicRangeCompressionLineSPEECH,
   Eac3DynamicRangeCompressionLine'
   #-}
 
-instance FromText Eac3DynamicRangeCompressionLine where
-  parser = (Eac3DynamicRangeCompressionLine' . mk) <$> takeText
+instance Prelude.FromText Eac3DynamicRangeCompressionLine where
+  parser = Eac3DynamicRangeCompressionLine' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3DynamicRangeCompressionLine where
-  toText (Eac3DynamicRangeCompressionLine' ci) = original ci
+instance Prelude.ToText Eac3DynamicRangeCompressionLine where
+  toText (Eac3DynamicRangeCompressionLine' x) = x
 
-instance Hashable Eac3DynamicRangeCompressionLine
+instance Prelude.Hashable Eac3DynamicRangeCompressionLine
 
-instance NFData Eac3DynamicRangeCompressionLine
+instance Prelude.NFData Eac3DynamicRangeCompressionLine
 
-instance ToByteString Eac3DynamicRangeCompressionLine
+instance Prelude.ToByteString Eac3DynamicRangeCompressionLine
 
-instance ToQuery Eac3DynamicRangeCompressionLine
+instance Prelude.ToQuery Eac3DynamicRangeCompressionLine
 
-instance ToHeader Eac3DynamicRangeCompressionLine
+instance Prelude.ToHeader Eac3DynamicRangeCompressionLine
 
-instance ToJSON Eac3DynamicRangeCompressionLine where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3DynamicRangeCompressionLine where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3DynamicRangeCompressionLine where
-  parseJSON = parseJSONText "Eac3DynamicRangeCompressionLine"
+instance Prelude.FromJSON Eac3DynamicRangeCompressionLine where
+  parseJSON = Prelude.parseJSONText "Eac3DynamicRangeCompressionLine"

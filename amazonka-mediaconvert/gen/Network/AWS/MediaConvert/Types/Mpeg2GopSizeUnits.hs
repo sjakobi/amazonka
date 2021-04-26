@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.Mpeg2GopSizeUnits
   ( Mpeg2GopSizeUnits
       ( ..,
-        Frames,
-        Seconds
+        Mpeg2GopSizeUnitsFRAMES,
+        Mpeg2GopSizeUnitsSECONDS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates if the GOP Size in MPEG2 is specified in frames or seconds. If seconds the system will convert the GOP Size into a frame count at run time.
-data Mpeg2GopSizeUnits = Mpeg2GopSizeUnits' (CI Text)
+-- | Indicates if the GOP Size in MPEG2 is specified in frames or seconds. If
+-- seconds the system will convert the GOP Size into a frame count at run
+-- time.
+newtype Mpeg2GopSizeUnits = Mpeg2GopSizeUnits'
+  { fromMpeg2GopSizeUnits ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Frames :: Mpeg2GopSizeUnits
-pattern Frames = Mpeg2GopSizeUnits' "FRAMES"
+pattern Mpeg2GopSizeUnitsFRAMES :: Mpeg2GopSizeUnits
+pattern Mpeg2GopSizeUnitsFRAMES = Mpeg2GopSizeUnits' "FRAMES"
 
-pattern Seconds :: Mpeg2GopSizeUnits
-pattern Seconds = Mpeg2GopSizeUnits' "SECONDS"
+pattern Mpeg2GopSizeUnitsSECONDS :: Mpeg2GopSizeUnits
+pattern Mpeg2GopSizeUnitsSECONDS = Mpeg2GopSizeUnits' "SECONDS"
 
 {-# COMPLETE
-  Frames,
-  Seconds,
+  Mpeg2GopSizeUnitsFRAMES,
+  Mpeg2GopSizeUnitsSECONDS,
   Mpeg2GopSizeUnits'
   #-}
 
-instance FromText Mpeg2GopSizeUnits where
-  parser = (Mpeg2GopSizeUnits' . mk) <$> takeText
+instance Prelude.FromText Mpeg2GopSizeUnits where
+  parser = Mpeg2GopSizeUnits' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2GopSizeUnits where
-  toText (Mpeg2GopSizeUnits' ci) = original ci
+instance Prelude.ToText Mpeg2GopSizeUnits where
+  toText (Mpeg2GopSizeUnits' x) = x
 
-instance Hashable Mpeg2GopSizeUnits
+instance Prelude.Hashable Mpeg2GopSizeUnits
 
-instance NFData Mpeg2GopSizeUnits
+instance Prelude.NFData Mpeg2GopSizeUnits
 
-instance ToByteString Mpeg2GopSizeUnits
+instance Prelude.ToByteString Mpeg2GopSizeUnits
 
-instance ToQuery Mpeg2GopSizeUnits
+instance Prelude.ToQuery Mpeg2GopSizeUnits
 
-instance ToHeader Mpeg2GopSizeUnits
+instance Prelude.ToHeader Mpeg2GopSizeUnits
 
-instance ToJSON Mpeg2GopSizeUnits where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2GopSizeUnits where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2GopSizeUnits where
-  parseJSON = parseJSONText "Mpeg2GopSizeUnits"
+instance Prelude.FromJSON Mpeg2GopSizeUnits where
+  parseJSON = Prelude.parseJSONText "Mpeg2GopSizeUnits"

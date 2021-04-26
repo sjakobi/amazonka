@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,106 +19,168 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.ColorCorrector where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.ColorSpaceConversion
 import Network.AWS.MediaConvert.Types.Hdr10Metadata
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for color correction.
 --
--- /See:/ 'colorCorrector' smart constructor.
+-- /See:/ 'newColorCorrector' smart constructor.
 data ColorCorrector = ColorCorrector'
-  { _ccSaturation ::
-      !(Maybe Nat),
-    _ccColorSpaceConversion ::
-      !(Maybe ColorSpaceConversion),
-    _ccHdr10Metadata ::
-      !(Maybe Hdr10Metadata),
-    _ccBrightness :: !(Maybe Nat),
-    _ccHue :: !(Maybe Int),
-    _ccContrast :: !(Maybe Nat)
+  { -- | Saturation level.
+    saturation :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the color space you want for this output. The service supports
+    -- conversion between HDR formats, between SDR formats, from SDR to HDR,
+    -- and from HDR to SDR. SDR to HDR conversion doesn\'t upgrade the dynamic
+    -- range. The converted video has an HDR format, but visually appears the
+    -- same as an unconverted output. HDR to SDR conversion uses Elemental tone
+    -- mapping technology to approximate the outcome of manually regrading from
+    -- HDR to SDR.
+    colorSpaceConversion :: Prelude.Maybe ColorSpaceConversion,
+    -- | Use these settings when you convert to the HDR 10 color space. Specify
+    -- the SMPTE ST 2086 Mastering Display Color Volume static metadata that
+    -- you want signaled in the output. These values don\'t affect the pixel
+    -- values that are encoded in the video stream. They are intended to help
+    -- the downstream video player display content in a way that reflects the
+    -- intentions of the the content creator. When you set Color space
+    -- conversion (ColorSpaceConversion) to HDR 10 (FORCE_HDR10), these
+    -- settings are required. You must set values for Max frame average light
+    -- level (maxFrameAverageLightLevel) and Max content light level
+    -- (maxContentLightLevel); these settings don\'t have a default value. The
+    -- default values for the other HDR 10 metadata settings are defined by the
+    -- P3D65 color space. For more information about MediaConvert HDR jobs, see
+    -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
+    hdr10Metadata :: Prelude.Maybe Hdr10Metadata,
+    -- | Brightness level.
+    brightness :: Prelude.Maybe Prelude.Nat,
+    -- | Hue in degrees.
+    hue :: Prelude.Maybe Prelude.Int,
+    -- | Contrast level.
+    contrast :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ColorCorrector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ColorCorrector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccSaturation' - Saturation level.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccColorSpaceConversion' - Specify the color space you want for this output. The service supports conversion between HDR formats, between SDR formats, from SDR to HDR, and from HDR to SDR. SDR to HDR conversion doesn't upgrade the dynamic range. The converted video has an HDR format, but visually appears the same as an unconverted output. HDR to SDR conversion uses Elemental tone mapping technology to approximate the outcome of manually regrading from HDR to SDR.
+-- 'saturation', 'colorCorrector_saturation' - Saturation level.
 --
--- * 'ccHdr10Metadata' - Use these settings when you convert to the HDR 10 color space. Specify the SMPTE ST 2086 Mastering Display Color Volume static metadata that you want signaled in the output. These values don't affect the pixel values that are encoded in the video stream. They are intended to help the downstream video player display content in a way that reflects the intentions of the the content creator. When you set Color space conversion (ColorSpaceConversion) to HDR 10 (FORCE_HDR10), these settings are required. You must set values for Max frame average light level (maxFrameAverageLightLevel) and Max content light level (maxContentLightLevel); these settings don't have a default value. The default values for the other HDR 10 metadata settings are defined by the P3D65 color space. For more information about MediaConvert HDR jobs, see https://docs.aws.amazon.com/console/mediaconvert/hdr.
+-- 'colorSpaceConversion', 'colorCorrector_colorSpaceConversion' - Specify the color space you want for this output. The service supports
+-- conversion between HDR formats, between SDR formats, from SDR to HDR,
+-- and from HDR to SDR. SDR to HDR conversion doesn\'t upgrade the dynamic
+-- range. The converted video has an HDR format, but visually appears the
+-- same as an unconverted output. HDR to SDR conversion uses Elemental tone
+-- mapping technology to approximate the outcome of manually regrading from
+-- HDR to SDR.
 --
--- * 'ccBrightness' - Brightness level.
+-- 'hdr10Metadata', 'colorCorrector_hdr10Metadata' - Use these settings when you convert to the HDR 10 color space. Specify
+-- the SMPTE ST 2086 Mastering Display Color Volume static metadata that
+-- you want signaled in the output. These values don\'t affect the pixel
+-- values that are encoded in the video stream. They are intended to help
+-- the downstream video player display content in a way that reflects the
+-- intentions of the the content creator. When you set Color space
+-- conversion (ColorSpaceConversion) to HDR 10 (FORCE_HDR10), these
+-- settings are required. You must set values for Max frame average light
+-- level (maxFrameAverageLightLevel) and Max content light level
+-- (maxContentLightLevel); these settings don\'t have a default value. The
+-- default values for the other HDR 10 metadata settings are defined by the
+-- P3D65 color space. For more information about MediaConvert HDR jobs, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
 --
--- * 'ccHue' - Hue in degrees.
+-- 'brightness', 'colorCorrector_brightness' - Brightness level.
 --
--- * 'ccContrast' - Contrast level.
-colorCorrector ::
+-- 'hue', 'colorCorrector_hue' - Hue in degrees.
+--
+-- 'contrast', 'colorCorrector_contrast' - Contrast level.
+newColorCorrector ::
   ColorCorrector
-colorCorrector =
+newColorCorrector =
   ColorCorrector'
-    { _ccSaturation = Nothing,
-      _ccColorSpaceConversion = Nothing,
-      _ccHdr10Metadata = Nothing,
-      _ccBrightness = Nothing,
-      _ccHue = Nothing,
-      _ccContrast = Nothing
+    { saturation = Prelude.Nothing,
+      colorSpaceConversion = Prelude.Nothing,
+      hdr10Metadata = Prelude.Nothing,
+      brightness = Prelude.Nothing,
+      hue = Prelude.Nothing,
+      contrast = Prelude.Nothing
     }
 
 -- | Saturation level.
-ccSaturation :: Lens' ColorCorrector (Maybe Natural)
-ccSaturation = lens _ccSaturation (\s a -> s {_ccSaturation = a}) . mapping _Nat
+colorCorrector_saturation :: Lens.Lens' ColorCorrector (Prelude.Maybe Prelude.Natural)
+colorCorrector_saturation = Lens.lens (\ColorCorrector' {saturation} -> saturation) (\s@ColorCorrector' {} a -> s {saturation = a} :: ColorCorrector) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the color space you want for this output. The service supports conversion between HDR formats, between SDR formats, from SDR to HDR, and from HDR to SDR. SDR to HDR conversion doesn't upgrade the dynamic range. The converted video has an HDR format, but visually appears the same as an unconverted output. HDR to SDR conversion uses Elemental tone mapping technology to approximate the outcome of manually regrading from HDR to SDR.
-ccColorSpaceConversion :: Lens' ColorCorrector (Maybe ColorSpaceConversion)
-ccColorSpaceConversion = lens _ccColorSpaceConversion (\s a -> s {_ccColorSpaceConversion = a})
+-- | Specify the color space you want for this output. The service supports
+-- conversion between HDR formats, between SDR formats, from SDR to HDR,
+-- and from HDR to SDR. SDR to HDR conversion doesn\'t upgrade the dynamic
+-- range. The converted video has an HDR format, but visually appears the
+-- same as an unconverted output. HDR to SDR conversion uses Elemental tone
+-- mapping technology to approximate the outcome of manually regrading from
+-- HDR to SDR.
+colorCorrector_colorSpaceConversion :: Lens.Lens' ColorCorrector (Prelude.Maybe ColorSpaceConversion)
+colorCorrector_colorSpaceConversion = Lens.lens (\ColorCorrector' {colorSpaceConversion} -> colorSpaceConversion) (\s@ColorCorrector' {} a -> s {colorSpaceConversion = a} :: ColorCorrector)
 
--- | Use these settings when you convert to the HDR 10 color space. Specify the SMPTE ST 2086 Mastering Display Color Volume static metadata that you want signaled in the output. These values don't affect the pixel values that are encoded in the video stream. They are intended to help the downstream video player display content in a way that reflects the intentions of the the content creator. When you set Color space conversion (ColorSpaceConversion) to HDR 10 (FORCE_HDR10), these settings are required. You must set values for Max frame average light level (maxFrameAverageLightLevel) and Max content light level (maxContentLightLevel); these settings don't have a default value. The default values for the other HDR 10 metadata settings are defined by the P3D65 color space. For more information about MediaConvert HDR jobs, see https://docs.aws.amazon.com/console/mediaconvert/hdr.
-ccHdr10Metadata :: Lens' ColorCorrector (Maybe Hdr10Metadata)
-ccHdr10Metadata = lens _ccHdr10Metadata (\s a -> s {_ccHdr10Metadata = a})
+-- | Use these settings when you convert to the HDR 10 color space. Specify
+-- the SMPTE ST 2086 Mastering Display Color Volume static metadata that
+-- you want signaled in the output. These values don\'t affect the pixel
+-- values that are encoded in the video stream. They are intended to help
+-- the downstream video player display content in a way that reflects the
+-- intentions of the the content creator. When you set Color space
+-- conversion (ColorSpaceConversion) to HDR 10 (FORCE_HDR10), these
+-- settings are required. You must set values for Max frame average light
+-- level (maxFrameAverageLightLevel) and Max content light level
+-- (maxContentLightLevel); these settings don\'t have a default value. The
+-- default values for the other HDR 10 metadata settings are defined by the
+-- P3D65 color space. For more information about MediaConvert HDR jobs, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
+colorCorrector_hdr10Metadata :: Lens.Lens' ColorCorrector (Prelude.Maybe Hdr10Metadata)
+colorCorrector_hdr10Metadata = Lens.lens (\ColorCorrector' {hdr10Metadata} -> hdr10Metadata) (\s@ColorCorrector' {} a -> s {hdr10Metadata = a} :: ColorCorrector)
 
 -- | Brightness level.
-ccBrightness :: Lens' ColorCorrector (Maybe Natural)
-ccBrightness = lens _ccBrightness (\s a -> s {_ccBrightness = a}) . mapping _Nat
+colorCorrector_brightness :: Lens.Lens' ColorCorrector (Prelude.Maybe Prelude.Natural)
+colorCorrector_brightness = Lens.lens (\ColorCorrector' {brightness} -> brightness) (\s@ColorCorrector' {} a -> s {brightness = a} :: ColorCorrector) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Hue in degrees.
-ccHue :: Lens' ColorCorrector (Maybe Int)
-ccHue = lens _ccHue (\s a -> s {_ccHue = a})
+colorCorrector_hue :: Lens.Lens' ColorCorrector (Prelude.Maybe Prelude.Int)
+colorCorrector_hue = Lens.lens (\ColorCorrector' {hue} -> hue) (\s@ColorCorrector' {} a -> s {hue = a} :: ColorCorrector)
 
 -- | Contrast level.
-ccContrast :: Lens' ColorCorrector (Maybe Natural)
-ccContrast = lens _ccContrast (\s a -> s {_ccContrast = a}) . mapping _Nat
+colorCorrector_contrast :: Lens.Lens' ColorCorrector (Prelude.Maybe Prelude.Natural)
+colorCorrector_contrast = Lens.lens (\ColorCorrector' {contrast} -> contrast) (\s@ColorCorrector' {} a -> s {contrast = a} :: ColorCorrector) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ColorCorrector where
+instance Prelude.FromJSON ColorCorrector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ColorCorrector"
       ( \x ->
           ColorCorrector'
-            <$> (x .:? "saturation")
-            <*> (x .:? "colorSpaceConversion")
-            <*> (x .:? "hdr10Metadata")
-            <*> (x .:? "brightness")
-            <*> (x .:? "hue")
-            <*> (x .:? "contrast")
+            Prelude.<$> (x Prelude..:? "saturation")
+            Prelude.<*> (x Prelude..:? "colorSpaceConversion")
+            Prelude.<*> (x Prelude..:? "hdr10Metadata")
+            Prelude.<*> (x Prelude..:? "brightness")
+            Prelude.<*> (x Prelude..:? "hue")
+            Prelude.<*> (x Prelude..:? "contrast")
       )
 
-instance Hashable ColorCorrector
+instance Prelude.Hashable ColorCorrector
 
-instance NFData ColorCorrector
+instance Prelude.NFData ColorCorrector
 
-instance ToJSON ColorCorrector where
+instance Prelude.ToJSON ColorCorrector where
   toJSON ColorCorrector' {..} =
-    object
-      ( catMaybes
-          [ ("saturation" .=) <$> _ccSaturation,
-            ("colorSpaceConversion" .=)
-              <$> _ccColorSpaceConversion,
-            ("hdr10Metadata" .=) <$> _ccHdr10Metadata,
-            ("brightness" .=) <$> _ccBrightness,
-            ("hue" .=) <$> _ccHue,
-            ("contrast" .=) <$> _ccContrast
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("saturation" Prelude..=) Prelude.<$> saturation,
+            ("colorSpaceConversion" Prelude..=)
+              Prelude.<$> colorSpaceConversion,
+            ("hdr10Metadata" Prelude..=)
+              Prelude.<$> hdr10Metadata,
+            ("brightness" Prelude..=) Prelude.<$> brightness,
+            ("hue" Prelude..=) Prelude.<$> hue,
+            ("contrast" Prelude..=) Prelude.<$> contrast
           ]
       )

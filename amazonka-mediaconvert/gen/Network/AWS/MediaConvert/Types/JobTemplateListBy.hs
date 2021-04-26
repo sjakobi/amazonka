@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,63 @@
 module Network.AWS.MediaConvert.Types.JobTemplateListBy
   ( JobTemplateListBy
       ( ..,
-        JTLBCreationDate,
-        JTLBName,
-        JTLBSystem
+        JobTemplateListByCREATIONDATE,
+        JobTemplateListByNAME,
+        JobTemplateListBySYSTEM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Optional. When you request a list of job templates, you can choose to list them alphabetically by NAME or chronologically by CREATION_DATE. If you don't specify, the service will list them by name.
-data JobTemplateListBy = JobTemplateListBy' (CI Text)
+-- | Optional. When you request a list of job templates, you can choose to
+-- list them alphabetically by NAME or chronologically by CREATION_DATE. If
+-- you don\'t specify, the service will list them by name.
+newtype JobTemplateListBy = JobTemplateListBy'
+  { fromJobTemplateListBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JTLBCreationDate :: JobTemplateListBy
-pattern JTLBCreationDate = JobTemplateListBy' "CREATION_DATE"
+pattern JobTemplateListByCREATIONDATE :: JobTemplateListBy
+pattern JobTemplateListByCREATIONDATE = JobTemplateListBy' "CREATION_DATE"
 
-pattern JTLBName :: JobTemplateListBy
-pattern JTLBName = JobTemplateListBy' "NAME"
+pattern JobTemplateListByNAME :: JobTemplateListBy
+pattern JobTemplateListByNAME = JobTemplateListBy' "NAME"
 
-pattern JTLBSystem :: JobTemplateListBy
-pattern JTLBSystem = JobTemplateListBy' "SYSTEM"
+pattern JobTemplateListBySYSTEM :: JobTemplateListBy
+pattern JobTemplateListBySYSTEM = JobTemplateListBy' "SYSTEM"
 
 {-# COMPLETE
-  JTLBCreationDate,
-  JTLBName,
-  JTLBSystem,
+  JobTemplateListByCREATIONDATE,
+  JobTemplateListByNAME,
+  JobTemplateListBySYSTEM,
   JobTemplateListBy'
   #-}
 
-instance FromText JobTemplateListBy where
-  parser = (JobTemplateListBy' . mk) <$> takeText
+instance Prelude.FromText JobTemplateListBy where
+  parser = JobTemplateListBy' Prelude.<$> Prelude.takeText
 
-instance ToText JobTemplateListBy where
-  toText (JobTemplateListBy' ci) = original ci
+instance Prelude.ToText JobTemplateListBy where
+  toText (JobTemplateListBy' x) = x
 
-instance Hashable JobTemplateListBy
+instance Prelude.Hashable JobTemplateListBy
 
-instance NFData JobTemplateListBy
+instance Prelude.NFData JobTemplateListBy
 
-instance ToByteString JobTemplateListBy
+instance Prelude.ToByteString JobTemplateListBy
 
-instance ToQuery JobTemplateListBy
+instance Prelude.ToQuery JobTemplateListBy
 
-instance ToHeader JobTemplateListBy
+instance Prelude.ToHeader JobTemplateListBy
 
-instance ToJSON JobTemplateListBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobTemplateListBy where
+  toJSON = Prelude.toJSONText

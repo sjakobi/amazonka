@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,77 @@
 module Network.AWS.MediaConvert.Types.Mpeg2IntraDcPrecision
   ( Mpeg2IntraDcPrecision
       ( ..,
-        Auto,
-        IntraDcPrecision10,
-        IntraDcPrecision11,
-        IntraDcPrecision8,
-        IntraDcPrecision9
+        Mpeg2IntraDcPrecisionAUTO,
+        Mpeg2IntraDcPrecisionINTRADCPRECISION10,
+        Mpeg2IntraDcPrecisionINTRADCPRECISION11,
+        Mpeg2IntraDcPrecisionINTRADCPRECISION8,
+        Mpeg2IntraDcPrecisionINTRADCPRECISION9
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Intra DC precision (Mpeg2IntraDcPrecision) to set quantization precision for intra-block DC coefficients. If you choose the value auto, the service will automatically select the precision based on the per-frame compression ratio.
-data Mpeg2IntraDcPrecision
-  = Mpeg2IntraDcPrecision'
-      ( CI
-          Text
-      )
+-- | Use Intra DC precision (Mpeg2IntraDcPrecision) to set quantization
+-- precision for intra-block DC coefficients. If you choose the value auto,
+-- the service will automatically select the precision based on the
+-- per-frame compression ratio.
+newtype Mpeg2IntraDcPrecision = Mpeg2IntraDcPrecision'
+  { fromMpeg2IntraDcPrecision ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Auto :: Mpeg2IntraDcPrecision
-pattern Auto = Mpeg2IntraDcPrecision' "AUTO"
+pattern Mpeg2IntraDcPrecisionAUTO :: Mpeg2IntraDcPrecision
+pattern Mpeg2IntraDcPrecisionAUTO = Mpeg2IntraDcPrecision' "AUTO"
 
-pattern IntraDcPrecision10 :: Mpeg2IntraDcPrecision
-pattern IntraDcPrecision10 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_10"
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION10 :: Mpeg2IntraDcPrecision
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION10 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_10"
 
-pattern IntraDcPrecision11 :: Mpeg2IntraDcPrecision
-pattern IntraDcPrecision11 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_11"
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION11 :: Mpeg2IntraDcPrecision
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION11 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_11"
 
-pattern IntraDcPrecision8 :: Mpeg2IntraDcPrecision
-pattern IntraDcPrecision8 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_8"
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION8 :: Mpeg2IntraDcPrecision
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION8 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_8"
 
-pattern IntraDcPrecision9 :: Mpeg2IntraDcPrecision
-pattern IntraDcPrecision9 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_9"
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION9 :: Mpeg2IntraDcPrecision
+pattern Mpeg2IntraDcPrecisionINTRADCPRECISION9 = Mpeg2IntraDcPrecision' "INTRA_DC_PRECISION_9"
 
 {-# COMPLETE
-  Auto,
-  IntraDcPrecision10,
-  IntraDcPrecision11,
-  IntraDcPrecision8,
-  IntraDcPrecision9,
+  Mpeg2IntraDcPrecisionAUTO,
+  Mpeg2IntraDcPrecisionINTRADCPRECISION10,
+  Mpeg2IntraDcPrecisionINTRADCPRECISION11,
+  Mpeg2IntraDcPrecisionINTRADCPRECISION8,
+  Mpeg2IntraDcPrecisionINTRADCPRECISION9,
   Mpeg2IntraDcPrecision'
   #-}
 
-instance FromText Mpeg2IntraDcPrecision where
-  parser = (Mpeg2IntraDcPrecision' . mk) <$> takeText
+instance Prelude.FromText Mpeg2IntraDcPrecision where
+  parser = Mpeg2IntraDcPrecision' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2IntraDcPrecision where
-  toText (Mpeg2IntraDcPrecision' ci) = original ci
+instance Prelude.ToText Mpeg2IntraDcPrecision where
+  toText (Mpeg2IntraDcPrecision' x) = x
 
-instance Hashable Mpeg2IntraDcPrecision
+instance Prelude.Hashable Mpeg2IntraDcPrecision
 
-instance NFData Mpeg2IntraDcPrecision
+instance Prelude.NFData Mpeg2IntraDcPrecision
 
-instance ToByteString Mpeg2IntraDcPrecision
+instance Prelude.ToByteString Mpeg2IntraDcPrecision
 
-instance ToQuery Mpeg2IntraDcPrecision
+instance Prelude.ToQuery Mpeg2IntraDcPrecision
 
-instance ToHeader Mpeg2IntraDcPrecision
+instance Prelude.ToHeader Mpeg2IntraDcPrecision
 
-instance ToJSON Mpeg2IntraDcPrecision where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2IntraDcPrecision where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2IntraDcPrecision where
-  parseJSON = parseJSONText "Mpeg2IntraDcPrecision"
+instance Prelude.FromJSON Mpeg2IntraDcPrecision where
+  parseJSON = Prelude.parseJSONText "Mpeg2IntraDcPrecision"

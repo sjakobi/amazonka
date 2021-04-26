@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,122 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.OutputGroup where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.AutomatedEncodingSettings
 import Network.AWS.MediaConvert.Types.Output
 import Network.AWS.MediaConvert.Types.OutputGroupSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Group of outputs
 --
--- /See:/ 'outputGroup' smart constructor.
+-- /See:/ 'newOutputGroup' smart constructor.
 data OutputGroup = OutputGroup'
-  { _ogOutputs ::
-      !(Maybe [Output]),
-    _ogAutomatedEncodingSettings ::
-      !(Maybe AutomatedEncodingSettings),
-    _ogOutputGroupSettings ::
-      !(Maybe OutputGroupSettings),
-    _ogName :: !(Maybe Text),
-    _ogCustomName :: !(Maybe Text)
+  { -- | This object holds groups of encoding settings, one group of settings per
+    -- output.
+    outputs :: Prelude.Maybe [Output],
+    -- | Use automated encoding to have MediaConvert choose your encoding
+    -- settings for you, based on characteristics of your input video.
+    automatedEncodingSettings :: Prelude.Maybe AutomatedEncodingSettings,
+    -- | Output Group settings, including type
+    outputGroupSettings :: Prelude.Maybe OutputGroupSettings,
+    -- | Name of the output group
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Use Custom Group Name (CustomName) to specify a name for the output
+    -- group. This value is displayed on the console and can make your job
+    -- settings JSON more human-readable. It does not affect your outputs. Use
+    -- up to twelve characters that are either letters, numbers, spaces, or
+    -- underscores.
+    customName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogOutputs' - This object holds groups of encoding settings, one group of settings per output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ogAutomatedEncodingSettings' - Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of your input video.
+-- 'outputs', 'outputGroup_outputs' - This object holds groups of encoding settings, one group of settings per
+-- output.
 --
--- * 'ogOutputGroupSettings' - Output Group settings, including type
+-- 'automatedEncodingSettings', 'outputGroup_automatedEncodingSettings' - Use automated encoding to have MediaConvert choose your encoding
+-- settings for you, based on characteristics of your input video.
 --
--- * 'ogName' - Name of the output group
+-- 'outputGroupSettings', 'outputGroup_outputGroupSettings' - Output Group settings, including type
 --
--- * 'ogCustomName' - Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console and can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters that are either letters, numbers, spaces, or underscores.
-outputGroup ::
+-- 'name', 'outputGroup_name' - Name of the output group
+--
+-- 'customName', 'outputGroup_customName' - Use Custom Group Name (CustomName) to specify a name for the output
+-- group. This value is displayed on the console and can make your job
+-- settings JSON more human-readable. It does not affect your outputs. Use
+-- up to twelve characters that are either letters, numbers, spaces, or
+-- underscores.
+newOutputGroup ::
   OutputGroup
-outputGroup =
+newOutputGroup =
   OutputGroup'
-    { _ogOutputs = Nothing,
-      _ogAutomatedEncodingSettings = Nothing,
-      _ogOutputGroupSettings = Nothing,
-      _ogName = Nothing,
-      _ogCustomName = Nothing
+    { outputs = Prelude.Nothing,
+      automatedEncodingSettings = Prelude.Nothing,
+      outputGroupSettings = Prelude.Nothing,
+      name = Prelude.Nothing,
+      customName = Prelude.Nothing
     }
 
--- | This object holds groups of encoding settings, one group of settings per output.
-ogOutputs :: Lens' OutputGroup [Output]
-ogOutputs = lens _ogOutputs (\s a -> s {_ogOutputs = a}) . _Default . _Coerce
+-- | This object holds groups of encoding settings, one group of settings per
+-- output.
+outputGroup_outputs :: Lens.Lens' OutputGroup (Prelude.Maybe [Output])
+outputGroup_outputs = Lens.lens (\OutputGroup' {outputs} -> outputs) (\s@OutputGroup' {} a -> s {outputs = a} :: OutputGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Use automated encoding to have MediaConvert choose your encoding settings for you, based on characteristics of your input video.
-ogAutomatedEncodingSettings :: Lens' OutputGroup (Maybe AutomatedEncodingSettings)
-ogAutomatedEncodingSettings = lens _ogAutomatedEncodingSettings (\s a -> s {_ogAutomatedEncodingSettings = a})
+-- | Use automated encoding to have MediaConvert choose your encoding
+-- settings for you, based on characteristics of your input video.
+outputGroup_automatedEncodingSettings :: Lens.Lens' OutputGroup (Prelude.Maybe AutomatedEncodingSettings)
+outputGroup_automatedEncodingSettings = Lens.lens (\OutputGroup' {automatedEncodingSettings} -> automatedEncodingSettings) (\s@OutputGroup' {} a -> s {automatedEncodingSettings = a} :: OutputGroup)
 
 -- | Output Group settings, including type
-ogOutputGroupSettings :: Lens' OutputGroup (Maybe OutputGroupSettings)
-ogOutputGroupSettings = lens _ogOutputGroupSettings (\s a -> s {_ogOutputGroupSettings = a})
+outputGroup_outputGroupSettings :: Lens.Lens' OutputGroup (Prelude.Maybe OutputGroupSettings)
+outputGroup_outputGroupSettings = Lens.lens (\OutputGroup' {outputGroupSettings} -> outputGroupSettings) (\s@OutputGroup' {} a -> s {outputGroupSettings = a} :: OutputGroup)
 
 -- | Name of the output group
-ogName :: Lens' OutputGroup (Maybe Text)
-ogName = lens _ogName (\s a -> s {_ogName = a})
+outputGroup_name :: Lens.Lens' OutputGroup (Prelude.Maybe Prelude.Text)
+outputGroup_name = Lens.lens (\OutputGroup' {name} -> name) (\s@OutputGroup' {} a -> s {name = a} :: OutputGroup)
 
--- | Use Custom Group Name (CustomName) to specify a name for the output group. This value is displayed on the console and can make your job settings JSON more human-readable. It does not affect your outputs. Use up to twelve characters that are either letters, numbers, spaces, or underscores.
-ogCustomName :: Lens' OutputGroup (Maybe Text)
-ogCustomName = lens _ogCustomName (\s a -> s {_ogCustomName = a})
+-- | Use Custom Group Name (CustomName) to specify a name for the output
+-- group. This value is displayed on the console and can make your job
+-- settings JSON more human-readable. It does not affect your outputs. Use
+-- up to twelve characters that are either letters, numbers, spaces, or
+-- underscores.
+outputGroup_customName :: Lens.Lens' OutputGroup (Prelude.Maybe Prelude.Text)
+outputGroup_customName = Lens.lens (\OutputGroup' {customName} -> customName) (\s@OutputGroup' {} a -> s {customName = a} :: OutputGroup)
 
-instance FromJSON OutputGroup where
+instance Prelude.FromJSON OutputGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputGroup"
       ( \x ->
           OutputGroup'
-            <$> (x .:? "outputs" .!= mempty)
-            <*> (x .:? "automatedEncodingSettings")
-            <*> (x .:? "outputGroupSettings")
-            <*> (x .:? "name")
-            <*> (x .:? "customName")
+            Prelude.<$> (x Prelude..:? "outputs" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "automatedEncodingSettings")
+            Prelude.<*> (x Prelude..:? "outputGroupSettings")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "customName")
       )
 
-instance Hashable OutputGroup
+instance Prelude.Hashable OutputGroup
 
-instance NFData OutputGroup
+instance Prelude.NFData OutputGroup
 
-instance ToJSON OutputGroup where
+instance Prelude.ToJSON OutputGroup where
   toJSON OutputGroup' {..} =
-    object
-      ( catMaybes
-          [ ("outputs" .=) <$> _ogOutputs,
-            ("automatedEncodingSettings" .=)
-              <$> _ogAutomatedEncodingSettings,
-            ("outputGroupSettings" .=)
-              <$> _ogOutputGroupSettings,
-            ("name" .=) <$> _ogName,
-            ("customName" .=) <$> _ogCustomName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("outputs" Prelude..=) Prelude.<$> outputs,
+            ("automatedEncodingSettings" Prelude..=)
+              Prelude.<$> automatedEncodingSettings,
+            ("outputGroupSettings" Prelude..=)
+              Prelude.<$> outputGroupSettings,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("customName" Prelude..=) Prelude.<$> customName
           ]
       )

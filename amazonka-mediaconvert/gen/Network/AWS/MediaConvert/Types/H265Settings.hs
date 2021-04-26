@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.H265Settings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.H265AdaptiveQuantization
 import Network.AWS.MediaConvert.Types.H265AlternateTransferFunctionSei
 import Network.AWS.MediaConvert.Types.H265CodecLevel
@@ -42,473 +46,1089 @@ import Network.AWS.MediaConvert.Types.H265TemporalIds
 import Network.AWS.MediaConvert.Types.H265Tiles
 import Network.AWS.MediaConvert.Types.H265UnregisteredSeiTimecode
 import Network.AWS.MediaConvert.Types.H265WriteMp4PackagingType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for H265 codec
 --
--- /See:/ 'h265Settings' smart constructor.
+-- /See:/ 'newH265Settings' smart constructor.
 data H265Settings = H265Settings'
-  { _hssHrdBufferInitialFillPercentage ::
-      !(Maybe Nat),
-    _hssTemporalAdaptiveQuantization ::
-      !(Maybe H265TemporalAdaptiveQuantization),
-    _hssFlickerAdaptiveQuantization ::
-      !(Maybe H265FlickerAdaptiveQuantization),
-    _hssQualityTuningLevel ::
-      !(Maybe H265QualityTuningLevel),
-    _hssInterlaceMode ::
-      !(Maybe H265InterlaceMode),
-    _hssTelecine :: !(Maybe H265Telecine),
-    _hssGopBReference ::
-      !(Maybe H265GopBReference),
-    _hssSpatialAdaptiveQuantization ::
-      !(Maybe H265SpatialAdaptiveQuantization),
-    _hssFramerateNumerator :: !(Maybe Nat),
-    _hssRateControlMode ::
-      !(Maybe H265RateControlMode),
-    _hssNumberReferenceFrames :: !(Maybe Nat),
-    _hssSlices :: !(Maybe Nat),
-    _hssWriteMp4PackagingType ::
-      !(Maybe H265WriteMp4PackagingType),
-    _hssGopSizeUnits :: !(Maybe H265GopSizeUnits),
-    _hssCodecProfile :: !(Maybe H265CodecProfile),
-    _hssGopSize :: !(Maybe Double),
-    _hssFramerateDenominator :: !(Maybe Nat),
-    _hssParNumerator :: !(Maybe Nat),
-    _hssTiles :: !(Maybe H265Tiles),
-    _hssSceneChangeDetect ::
-      !(Maybe H265SceneChangeDetect),
-    _hssMinIInterval :: !(Maybe Nat),
-    _hssUnregisteredSeiTimecode ::
-      !(Maybe H265UnregisteredSeiTimecode),
-    _hssScanTypeConversionMode ::
-      !(Maybe H265ScanTypeConversionMode),
-    _hssParControl :: !(Maybe H265ParControl),
-    _hssGopClosedCadence :: !(Maybe Nat),
-    _hssParDenominator :: !(Maybe Nat),
-    _hssMaxBitrate :: !(Maybe Nat),
-    _hssDynamicSubGop ::
-      !(Maybe H265DynamicSubGop),
-    _hssAlternateTransferFunctionSei ::
-      !(Maybe H265AlternateTransferFunctionSei),
-    _hssHrdBufferSize :: !(Maybe Nat),
-    _hssAdaptiveQuantization ::
-      !(Maybe H265AdaptiveQuantization),
-    _hssFramerateControl ::
-      !(Maybe H265FramerateControl),
-    _hssNumberBFramesBetweenReferenceFrames ::
-      !(Maybe Nat),
-    _hssFramerateConversionAlgorithm ::
-      !(Maybe H265FramerateConversionAlgorithm),
-    _hssCodecLevel :: !(Maybe H265CodecLevel),
-    _hssBitrate :: !(Maybe Nat),
-    _hssTemporalIds :: !(Maybe H265TemporalIds),
-    _hssQvbrSettings :: !(Maybe H265QvbrSettings),
-    _hssSampleAdaptiveOffsetFilterMode ::
-      !(Maybe H265SampleAdaptiveOffsetFilterMode),
-    _hssSlowPal :: !(Maybe H265SlowPal)
+  { -- | Percentage of the buffer that should initially be filled (HRD buffer
+    -- model).
+    hrdBufferInitialFillPercentage :: Prelude.Maybe Prelude.Nat,
+    -- | Keep the default value, Enabled (ENABLED), to adjust quantization within
+    -- each frame based on temporal variation of content complexity. When you
+    -- enable this feature, the encoder uses fewer bits on areas of the frame
+    -- that aren\'t moving and uses more bits on complex objects with sharp
+    -- edges that move a lot. For example, this feature improves the
+    -- readability of text tickers on newscasts and scoreboards on sports
+    -- matches. Enabling this feature will almost always improve your video
+    -- quality. Note, though, that this feature doesn\'t take into account
+    -- where the viewer\'s attention is likely to be. If viewers are likely to
+    -- be focusing their attention on a part of the screen that doesn\'t have
+    -- moving objects with sharp edges, such as sports athletes\' faces, you
+    -- might choose to disable this feature. Related setting: When you enable
+    -- temporal quantization, adjust the strength of the filter with the
+    -- setting Adaptive quantization (adaptiveQuantization).
+    temporalAdaptiveQuantization :: Prelude.Maybe H265TemporalAdaptiveQuantization,
+    -- | Enable this setting to have the encoder reduce I-frame pop. I-frame pop
+    -- appears as a visual flicker that can arise when the encoder saves bits
+    -- by copying some macroblocks many times from frame to frame, and then
+    -- refreshes them at the I-frame. When you enable this setting, the encoder
+    -- updates these macroblocks slightly more often to smooth out the flicker.
+    -- This setting is disabled by default. Related setting: In addition to
+    -- enabling this setting, you must also set adaptiveQuantization to a value
+    -- other than Off (OFF).
+    flickerAdaptiveQuantization :: Prelude.Maybe H265FlickerAdaptiveQuantization,
+    -- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+    -- you want to trade off encoding speed for output video quality. The
+    -- default behavior is faster, lower quality, single-pass encoding.
+    qualityTuningLevel :: Prelude.Maybe H265QualityTuningLevel,
+    -- | Choose the scan line type for the output. Keep the default value,
+    -- Progressive (PROGRESSIVE) to create a progressive output, regardless of
+    -- the scan type of your input. Use Top field first (TOP_FIELD) or Bottom
+    -- field first (BOTTOM_FIELD) to create an output that\'s interlaced with
+    -- the same field polarity throughout. Use Follow, default top
+    -- (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to
+    -- produce outputs with the same field polarity as the source. For jobs
+    -- that have multiple inputs, the output field polarity might change over
+    -- the course of the output. Follow behavior depends on the input scan
+    -- type. If the source is interlaced, the output will be interlaced with
+    -- the same polarity as the source. If the source is progressive, the
+    -- output will be interlaced with top field bottom field first, depending
+    -- on which of the Follow options you choose.
+    interlaceMode :: Prelude.Maybe H265InterlaceMode,
+    -- | This field applies only if the Streams > Advanced > Framerate
+    -- (framerate) field is set to 29.970. This field works with the Streams >
+    -- Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
+    -- Streams > Advanced > Interlaced Mode field (interlace_mode) to identify
+    -- the scan type for the output: Progressive, Interlaced, Hard Telecine or
+    -- Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft:
+    -- produces 23.976; the player converts this output to 29.97i.
+    telecine :: Prelude.Maybe H265Telecine,
+    -- | If enable, use reference B frames for GOP structures that have B frames
+    -- > 1.
+    gopBReference :: Prelude.Maybe H265GopBReference,
+    -- | Keep the default value, Enabled (ENABLED), to adjust quantization within
+    -- each frame based on spatial variation of content complexity. When you
+    -- enable this feature, the encoder uses fewer bits on areas that can
+    -- sustain more distortion with no noticeable visual degradation and uses
+    -- more bits on areas where any small distortion will be noticeable. For
+    -- example, complex textured blocks are encoded with fewer bits and smooth
+    -- textured blocks are encoded with more bits. Enabling this feature will
+    -- almost always improve your video quality. Note, though, that this
+    -- feature doesn\'t take into account where the viewer\'s attention is
+    -- likely to be. If viewers are likely to be focusing their attention on a
+    -- part of the screen with a lot of complex texture, you might choose to
+    -- disable this feature. Related setting: When you enable spatial adaptive
+    -- quantization, set the value for Adaptive quantization
+    -- (adaptiveQuantization) depending on your content. For homogeneous
+    -- content, such as cartoons and video games, set it to Low. For content
+    -- with a wider variety of textures, set it to High or Higher.
+    spatialAdaptiveQuantization :: Prelude.Maybe H265SpatialAdaptiveQuantization,
+    -- | When you use the API for transcode jobs that use frame rate conversion,
+    -- specify the frame rate as a fraction. For example, 24000 \/ 1001 =
+    -- 23.976 fps. Use FramerateNumerator to specify the numerator of this
+    -- fraction. In this example, use 24000 for the value of
+    -- FramerateNumerator. When you use the console for transcode jobs that use
+    -- frame rate conversion, provide the value as a decimal number for
+    -- Framerate. In this example, specify 23.976.
+    framerateNumerator :: Prelude.Maybe Prelude.Nat,
+    -- | Use this setting to specify whether this output has a variable bitrate
+    -- (VBR), constant bitrate (CBR) or quality-defined variable bitrate
+    -- (QVBR).
+    rateControlMode :: Prelude.Maybe H265RateControlMode,
+    -- | Number of reference frames to use. The encoder may use more than
+    -- requested if using B-frames and\/or interlaced encoding.
+    numberReferenceFrames :: Prelude.Maybe Prelude.Nat,
+    -- | Number of slices per picture. Must be less than or equal to the number
+    -- of macroblock rows for progressive pictures, and less than or equal to
+    -- half the number of macroblock rows for interlaced pictures.
+    slices :: Prelude.Maybe Prelude.Nat,
+    -- | If the location of parameter set NAL units doesn\'t matter in your
+    -- workflow, ignore this setting. Use this setting only with CMAF or DASH
+    -- outputs, or with standalone file outputs in an MPEG-4 container (MP4
+    -- outputs). Choose HVC1 to mark your output as HVC1. This makes your
+    -- output compliant with the following specification: ISO IECJTC1 SC29
+    -- N13798 Text ISO\/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+    -- service stores parameter set NAL units in the sample headers but not in
+    -- the samples directly. For MP4 outputs, when you choose HVC1, your output
+    -- video might not work properly with some downstream systems and video
+    -- players. The service defaults to marking your output as HEV1. For these
+    -- outputs, the service writes parameter set NAL units directly into the
+    -- samples.
+    writeMp4PackagingType :: Prelude.Maybe H265WriteMp4PackagingType,
+    -- | Indicates if the GOP Size in H265 is specified in frames or seconds. If
+    -- seconds the system will convert the GOP Size into a frame count at run
+    -- time.
+    gopSizeUnits :: Prelude.Maybe H265GopSizeUnits,
+    -- | Represents the Profile and Tier, per the HEVC (H.265) specification.
+    -- Selections are grouped as [Profile] \/ [Tier], so \"Main\/High\"
+    -- represents Main Profile with High Tier. 4:2:2 profiles are only
+    -- available with the HEVC 4:2:2 License.
+    codecProfile :: Prelude.Maybe H265CodecProfile,
+    -- | GOP Length (keyframe interval) in frames or seconds. Must be greater
+    -- than zero.
+    gopSize :: Prelude.Maybe Prelude.Double,
+    -- | When you use the API for transcode jobs that use frame rate conversion,
+    -- specify the frame rate as a fraction. For example, 24000 \/ 1001 =
+    -- 23.976 fps. Use FramerateDenominator to specify the denominator of this
+    -- fraction. In this example, use 1001 for the value of
+    -- FramerateDenominator. When you use the console for transcode jobs that
+    -- use frame rate conversion, provide the value as a decimal number for
+    -- Framerate. In this example, specify 23.976.
+    framerateDenominator :: Prelude.Maybe Prelude.Nat,
+    -- | Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On
+    -- the console, this corresponds to any value other than Follow source.
+    -- When you specify an output pixel aspect ratio (PAR) that is different
+    -- from your input video PAR, provide your output PAR as a ratio. For
+    -- example, for D1\/DV NTSC widescreen, you would specify the ratio 40:33.
+    -- In this example, the value for parNumerator is 40.
+    parNumerator :: Prelude.Maybe Prelude.Nat,
+    -- | Enable use of tiles, allowing horizontal as well as vertical subdivision
+    -- of the encoded pictures.
+    tiles :: Prelude.Maybe H265Tiles,
+    -- | Enable this setting to insert I-frames at scene changes that the service
+    -- automatically detects. This improves video quality and is enabled by
+    -- default. If this output uses QVBR, choose Transition detection
+    -- (TRANSITION_DETECTION) for further video quality improvement. For more
+    -- information about QVBR, see
+    -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/cbr-vbr-qvbr.
+    sceneChangeDetect :: Prelude.Maybe H265SceneChangeDetect,
+    -- | Enforces separation between repeated (cadence) I-frames and I-frames
+    -- inserted by Scene Change Detection. If a scene change I-frame is within
+    -- I-interval frames of a cadence I-frame, the GOP is shrunk and\/or
+    -- stretched to the scene change I-frame. GOP stretch requires enabling
+    -- lookahead as well as setting I-interval. The normal cadence resumes for
+    -- the next GOP. This setting is only used when Scene Change Detect is
+    -- enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+    minIInterval :: Prelude.Maybe Prelude.Nat,
+    -- | Inserts timecode for each frame as 4 bytes of an unregistered SEI
+    -- message.
+    unregisteredSeiTimecode :: Prelude.Maybe H265UnregisteredSeiTimecode,
+    -- | Use this setting for interlaced outputs, when your output frame rate is
+    -- half of your input frame rate. In this situation, choose Optimized
+    -- interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced
+    -- output. In this case, each progressive frame from the input corresponds
+    -- to an interlaced field in the output. Keep the default value, Basic
+    -- interlacing (INTERLACED), for all other output frame rates. With basic
+    -- interlacing, MediaConvert performs any frame rate conversion first and
+    -- then interlaces the frames. When you choose Optimized interlacing and
+    -- you set your output frame rate to a value that isn\'t suitable for
+    -- optimized interlacing, MediaConvert automatically falls back to basic
+    -- interlacing. Required settings: To use optimized interlacing, you must
+    -- set Telecine (telecine) to None (NONE) or Soft (SOFT). You can\'t use
+    -- optimized interlacing for hard telecine outputs. You must also set
+    -- Interlace mode (interlaceMode) to a value other than Progressive
+    -- (PROGRESSIVE).
+    scanTypeConversionMode :: Prelude.Maybe H265ScanTypeConversionMode,
+    -- | Optional. Specify how the service determines the pixel aspect ratio
+    -- (PAR) for this output. The default behavior, Follow source
+    -- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+    -- output. To specify a different PAR in the console, choose any value
+    -- other than Follow source. To specify a different PAR by editing the JSON
+    -- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+    -- setting, you must also specify values for the parNumerator and
+    -- parDenominator settings.
+    parControl :: Prelude.Maybe H265ParControl,
+    -- | Frequency of closed GOPs. In streaming applications, it is recommended
+    -- that this be set to 1 so a decoder joining mid-stream will receive an
+    -- IDR frame as quickly as possible. Setting this value to 0 will break
+    -- output segmenting.
+    gopClosedCadence :: Prelude.Maybe Prelude.Nat,
+    -- | Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On
+    -- the console, this corresponds to any value other than Follow source.
+    -- When you specify an output pixel aspect ratio (PAR) that is different
+    -- from your input video PAR, provide your output PAR as a ratio. For
+    -- example, for D1\/DV NTSC widescreen, you would specify the ratio 40:33.
+    -- In this example, the value for parDenominator is 33.
+    parDenominator :: Prelude.Maybe Prelude.Nat,
+    -- | Maximum bitrate in bits\/second. For example, enter five megabits per
+    -- second as 5000000. Required when Rate control mode is QVBR.
+    maxBitrate :: Prelude.Maybe Prelude.Nat,
+    -- | Choose Adaptive to improve subjective video quality for high-motion
+    -- content. This will cause the service to use fewer B-frames (which infer
+    -- information based on other frames) for high-motion portions of the video
+    -- and more B-frames for low-motion portions. The maximum number of
+    -- B-frames is limited by the value you provide for the setting B frames
+    -- between reference frames (numberBFramesBetweenReferenceFrames).
+    dynamicSubGop :: Prelude.Maybe H265DynamicSubGop,
+    -- | Enables Alternate Transfer Function SEI message for outputs using Hybrid
+    -- Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
+    alternateTransferFunctionSei :: Prelude.Maybe H265AlternateTransferFunctionSei,
+    -- | Size of buffer (HRD buffer model) in bits. For example, enter five
+    -- megabits as 5000000.
+    hrdBufferSize :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the strength of any adaptive quantization filters that you
+    -- enable. The value that you choose here applies to the following
+    -- settings: Flicker adaptive quantization (flickerAdaptiveQuantization),
+    -- Spatial adaptive quantization (spatialAdaptiveQuantization), and
+    -- Temporal adaptive quantization (temporalAdaptiveQuantization).
+    adaptiveQuantization :: Prelude.Maybe H265AdaptiveQuantization,
+    -- | If you are using the console, use the Framerate setting to specify the
+    -- frame rate for this output. If you want to keep the same frame rate as
+    -- the input video, choose Follow source. If you want to do frame rate
+    -- conversion, choose a frame rate from the dropdown list or choose Custom.
+    -- The framerates shown in the dropdown list are decimal approximations of
+    -- fractions. If you choose Custom, specify your frame rate as a fraction.
+    -- If you are creating your transcoding job specification as a JSON file
+    -- without the console, use FramerateControl to specify which value the
+    -- service uses for the frame rate for this output. Choose
+    -- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+    -- from the input. Choose SPECIFIED if you want the service to use the
+    -- frame rate you specify in the settings FramerateNumerator and
+    -- FramerateDenominator.
+    framerateControl :: Prelude.Maybe H265FramerateControl,
+    -- | Number of B-frames between reference frames.
+    numberBFramesBetweenReferenceFrames :: Prelude.Maybe Prelude.Nat,
+    -- | Choose the method that you want MediaConvert to use when increasing or
+    -- decreasing the frame rate. We recommend using drop duplicate
+    -- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+    -- 30 fps. For numerically complex conversions, you can use interpolate
+    -- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+    -- might introduce undesirable video artifacts. For complex frame rate
+    -- conversions, especially if your source video has already been converted
+    -- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+    -- motion-compensated interpolation. FrameFormer chooses the best
+    -- conversion method frame by frame. Note that using FrameFormer increases
+    -- the transcoding time and incurs a significant add-on cost.
+    framerateConversionAlgorithm :: Prelude.Maybe H265FramerateConversionAlgorithm,
+    -- | H.265 Level.
+    codecLevel :: Prelude.Maybe H265CodecLevel,
+    -- | Specify the average bitrate in bits per second. Required for VBR and
+    -- CBR. For MS Smooth outputs, bitrates must be unique when rounded down to
+    -- the nearest multiple of 1000.
+    bitrate :: Prelude.Maybe Prelude.Nat,
+    -- | Enables temporal layer identifiers in the encoded bitstream. Up to 3
+    -- layers are supported depending on GOP structure: I- and P-frames form
+    -- one layer, reference B-frames can form a second layer and non-reference
+    -- b-frames can form a third layer. Decoders can optionally decode only the
+    -- lower temporal layers to generate a lower frame rate output. For
+    -- example, given a bitstream with temporal IDs and with b-frames = 1 (i.e.
+    -- IbPbPb display order), a decoder could decode all the frames for full
+    -- frame rate output or only the I and P frames (lowest temporal layer) for
+    -- a half frame rate output.
+    temporalIds :: Prelude.Maybe H265TemporalIds,
+    -- | Settings for quality-defined variable bitrate encoding with the H.265
+    -- codec. Required when you set Rate control mode to QVBR. Not valid when
+    -- you set Rate control mode to a value other than QVBR, or when you don\'t
+    -- define Rate control mode.
+    qvbrSettings :: Prelude.Maybe H265QvbrSettings,
+    -- | Specify Sample Adaptive Offset (SAO) filter strength. Adaptive mode
+    -- dynamically selects best strength based on content
+    sampleAdaptiveOffsetFilterMode :: Prelude.Maybe H265SampleAdaptiveOffsetFilterMode,
+    -- | Ignore this setting unless your input frame rate is 23.976 or 24 frames
+    -- per second (fps). Enable slow PAL to create a 25 fps output. When you
+    -- enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+    -- resamples your audio to keep it synchronized with the video. Note that
+    -- enabling this setting will slightly reduce the duration of your video.
+    -- Required settings: You must also set Framerate to 25. In your JSON job
+    -- specification, set (framerateControl) to (SPECIFIED),
+    -- (framerateNumerator) to 25 and (framerateDenominator) to 1.
+    slowPal :: Prelude.Maybe H265SlowPal
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'H265Settings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'H265Settings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hssHrdBufferInitialFillPercentage' - Percentage of the buffer that should initially be filled (HRD buffer model).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hssTemporalAdaptiveQuantization' - Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on temporal variation of content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization (adaptiveQuantization).
+-- 'hrdBufferInitialFillPercentage', 'h265Settings_hrdBufferInitialFillPercentage' - Percentage of the buffer that should initially be filled (HRD buffer
+-- model).
 --
--- * 'hssFlickerAdaptiveQuantization' - Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this setting, you must also set adaptiveQuantization to a value other than Off (OFF).
+-- 'temporalAdaptiveQuantization', 'h265Settings_temporalAdaptiveQuantization' - Keep the default value, Enabled (ENABLED), to adjust quantization within
+-- each frame based on temporal variation of content complexity. When you
+-- enable this feature, the encoder uses fewer bits on areas of the frame
+-- that aren\'t moving and uses more bits on complex objects with sharp
+-- edges that move a lot. For example, this feature improves the
+-- readability of text tickers on newscasts and scoreboards on sports
+-- matches. Enabling this feature will almost always improve your video
+-- quality. Note, though, that this feature doesn\'t take into account
+-- where the viewer\'s attention is likely to be. If viewers are likely to
+-- be focusing their attention on a part of the screen that doesn\'t have
+-- moving objects with sharp edges, such as sports athletes\' faces, you
+-- might choose to disable this feature. Related setting: When you enable
+-- temporal quantization, adjust the strength of the filter with the
+-- setting Adaptive quantization (adaptiveQuantization).
 --
--- * 'hssQualityTuningLevel' - Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output video quality. The default behavior is faster, lower quality, single-pass encoding.
+-- 'flickerAdaptiveQuantization', 'h265Settings_flickerAdaptiveQuantization' - Enable this setting to have the encoder reduce I-frame pop. I-frame pop
+-- appears as a visual flicker that can arise when the encoder saves bits
+-- by copying some macroblocks many times from frame to frame, and then
+-- refreshes them at the I-frame. When you enable this setting, the encoder
+-- updates these macroblocks slightly more often to smooth out the flicker.
+-- This setting is disabled by default. Related setting: In addition to
+-- enabling this setting, you must also set adaptiveQuantization to a value
+-- other than Off (OFF).
 --
--- * 'hssInterlaceMode' - Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output. Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
+-- 'qualityTuningLevel', 'h265Settings_qualityTuningLevel' - Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- you want to trade off encoding speed for output video quality. The
+-- default behavior is faster, lower quality, single-pass encoding.
 --
--- * 'hssTelecine' - This field applies only if the Streams > Advanced > Framerate (framerate) field  is set to 29.970. This field works with the Streams > Advanced > Preprocessors > Deinterlacer  field (deinterlace_mode) and the Streams > Advanced > Interlaced Mode field (interlace_mode)  to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
+-- 'interlaceMode', 'h265Settings_interlaceMode' - Choose the scan line type for the output. Keep the default value,
+-- Progressive (PROGRESSIVE) to create a progressive output, regardless of
+-- the scan type of your input. Use Top field first (TOP_FIELD) or Bottom
+-- field first (BOTTOM_FIELD) to create an output that\'s interlaced with
+-- the same field polarity throughout. Use Follow, default top
+-- (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to
+-- produce outputs with the same field polarity as the source. For jobs
+-- that have multiple inputs, the output field polarity might change over
+-- the course of the output. Follow behavior depends on the input scan
+-- type. If the source is interlaced, the output will be interlaced with
+-- the same polarity as the source. If the source is progressive, the
+-- output will be interlaced with top field bottom field first, depending
+-- on which of the Follow options you choose.
 --
--- * 'hssGopBReference' - If enable, use reference B frames for GOP structures that have B frames > 1.
+-- 'telecine', 'h265Settings_telecine' - This field applies only if the Streams > Advanced > Framerate
+-- (framerate) field is set to 29.970. This field works with the Streams >
+-- Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
+-- Streams > Advanced > Interlaced Mode field (interlace_mode) to identify
+-- the scan type for the output: Progressive, Interlaced, Hard Telecine or
+-- Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft:
+-- produces 23.976; the player converts this output to 29.97i.
 --
--- * 'hssSpatialAdaptiveQuantization' - Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on spatial variation of content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable. For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures, set it to High or Higher.
+-- 'gopBReference', 'h265Settings_gopBReference' - If enable, use reference B frames for GOP structures that have B frames
+-- > 1.
 --
--- * 'hssFramerateNumerator' - When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For example,  24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+-- 'spatialAdaptiveQuantization', 'h265Settings_spatialAdaptiveQuantization' - Keep the default value, Enabled (ENABLED), to adjust quantization within
+-- each frame based on spatial variation of content complexity. When you
+-- enable this feature, the encoder uses fewer bits on areas that can
+-- sustain more distortion with no noticeable visual degradation and uses
+-- more bits on areas where any small distortion will be noticeable. For
+-- example, complex textured blocks are encoded with fewer bits and smooth
+-- textured blocks are encoded with more bits. Enabling this feature will
+-- almost always improve your video quality. Note, though, that this
+-- feature doesn\'t take into account where the viewer\'s attention is
+-- likely to be. If viewers are likely to be focusing their attention on a
+-- part of the screen with a lot of complex texture, you might choose to
+-- disable this feature. Related setting: When you enable spatial adaptive
+-- quantization, set the value for Adaptive quantization
+-- (adaptiveQuantization) depending on your content. For homogeneous
+-- content, such as cartoons and video games, set it to Low. For content
+-- with a wider variety of textures, set it to High or Higher.
 --
--- * 'hssRateControlMode' - Use this setting to specify whether this output has a variable bitrate (VBR), constant bitrate (CBR) or quality-defined variable bitrate (QVBR).
+-- 'framerateNumerator', 'h265Settings_framerateNumerator' - When you use the API for transcode jobs that use frame rate conversion,
+-- specify the frame rate as a fraction. For example, 24000 \/ 1001 =
+-- 23.976 fps. Use FramerateNumerator to specify the numerator of this
+-- fraction. In this example, use 24000 for the value of
+-- FramerateNumerator. When you use the console for transcode jobs that use
+-- frame rate conversion, provide the value as a decimal number for
+-- Framerate. In this example, specify 23.976.
 --
--- * 'hssNumberReferenceFrames' - Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced encoding.
+-- 'rateControlMode', 'h265Settings_rateControlMode' - Use this setting to specify whether this output has a variable bitrate
+-- (VBR), constant bitrate (CBR) or quality-defined variable bitrate
+-- (QVBR).
 --
--- * 'hssSlices' - Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive pictures, and less than or equal to half the number of macroblock rows for interlaced pictures.
+-- 'numberReferenceFrames', 'h265Settings_numberReferenceFrames' - Number of reference frames to use. The encoder may use more than
+-- requested if using B-frames and\/or interlaced encoding.
 --
--- * 'hssWriteMp4PackagingType' - If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1 to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might not work properly with some downstream systems and video players. The service defaults to marking your output as HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
+-- 'slices', 'h265Settings_slices' - Number of slices per picture. Must be less than or equal to the number
+-- of macroblock rows for progressive pictures, and less than or equal to
+-- half the number of macroblock rows for interlaced pictures.
 --
--- * 'hssGopSizeUnits' - Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP Size into a frame count at run time.
+-- 'writeMp4PackagingType', 'h265Settings_writeMp4PackagingType' - If the location of parameter set NAL units doesn\'t matter in your
+-- workflow, ignore this setting. Use this setting only with CMAF or DASH
+-- outputs, or with standalone file outputs in an MPEG-4 container (MP4
+-- outputs). Choose HVC1 to mark your output as HVC1. This makes your
+-- output compliant with the following specification: ISO IECJTC1 SC29
+-- N13798 Text ISO\/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+-- service stores parameter set NAL units in the sample headers but not in
+-- the samples directly. For MP4 outputs, when you choose HVC1, your output
+-- video might not work properly with some downstream systems and video
+-- players. The service defaults to marking your output as HEV1. For these
+-- outputs, the service writes parameter set NAL units directly into the
+-- samples.
 --
--- * 'hssCodecProfile' - Represents the Profile and Tier, per the HEVC (H.265) specification. Selections are grouped as [Profile] / [Tier], so "Main/High" represents Main Profile with High Tier. 4:2:2 profiles are only available with the HEVC 4:2:2 License.
+-- 'gopSizeUnits', 'h265Settings_gopSizeUnits' - Indicates if the GOP Size in H265 is specified in frames or seconds. If
+-- seconds the system will convert the GOP Size into a frame count at run
+-- time.
 --
--- * 'hssGopSize' - GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+-- 'codecProfile', 'h265Settings_codecProfile' - Represents the Profile and Tier, per the HEVC (H.265) specification.
+-- Selections are grouped as [Profile] \/ [Tier], so \"Main\/High\"
+-- represents Main Profile with High Tier. 4:2:2 profiles are only
+-- available with the HEVC 4:2:2 License.
 --
--- * 'hssFramerateDenominator' - When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For example,  24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+-- 'gopSize', 'h265Settings_gopSize' - GOP Length (keyframe interval) in frames or seconds. Must be greater
+-- than zero.
 --
--- * 'hssParNumerator' - Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In this example, the value for parNumerator is 40.
+-- 'framerateDenominator', 'h265Settings_framerateDenominator' - When you use the API for transcode jobs that use frame rate conversion,
+-- specify the frame rate as a fraction. For example, 24000 \/ 1001 =
+-- 23.976 fps. Use FramerateDenominator to specify the denominator of this
+-- fraction. In this example, use 1001 for the value of
+-- FramerateDenominator. When you use the console for transcode jobs that
+-- use frame rate conversion, provide the value as a decimal number for
+-- Framerate. In this example, specify 23.976.
 --
--- * 'hssTiles' - Enable use of tiles, allowing horizontal as well as vertical subdivision of the encoded pictures.
+-- 'parNumerator', 'h265Settings_parNumerator' - Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On
+-- the console, this corresponds to any value other than Follow source.
+-- When you specify an output pixel aspect ratio (PAR) that is different
+-- from your input video PAR, provide your output PAR as a ratio. For
+-- example, for D1\/DV NTSC widescreen, you would specify the ratio 40:33.
+-- In this example, the value for parNumerator is 40.
 --
--- * 'hssSceneChangeDetect' - Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video quality and is enabled by default. If this output uses QVBR, choose Transition detection (TRANSITION_DETECTION) for further video quality improvement. For more information about QVBR, see https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
+-- 'tiles', 'h265Settings_tiles' - Enable use of tiles, allowing horizontal as well as vertical subdivision
+-- of the encoded pictures.
 --
--- * 'hssMinIInterval' - Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the next GOP. This setting is only used when Scene Change Detect is enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+-- 'sceneChangeDetect', 'h265Settings_sceneChangeDetect' - Enable this setting to insert I-frames at scene changes that the service
+-- automatically detects. This improves video quality and is enabled by
+-- default. If this output uses QVBR, choose Transition detection
+-- (TRANSITION_DETECTION) for further video quality improvement. For more
+-- information about QVBR, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/cbr-vbr-qvbr.
 --
--- * 'hssUnregisteredSeiTimecode' - Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
+-- 'minIInterval', 'h265Settings_minIInterval' - Enforces separation between repeated (cadence) I-frames and I-frames
+-- inserted by Scene Change Detection. If a scene change I-frame is within
+-- I-interval frames of a cadence I-frame, the GOP is shrunk and\/or
+-- stretched to the scene change I-frame. GOP stretch requires enabling
+-- lookahead as well as setting I-interval. The normal cadence resumes for
+-- the next GOP. This setting is only used when Scene Change Detect is
+-- enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
 --
--- * 'hssScanTypeConversionMode' - Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE) or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode (interlaceMode) to a value other than Progressive (PROGRESSIVE).
+-- 'unregisteredSeiTimecode', 'h265Settings_unregisteredSeiTimecode' - Inserts timecode for each frame as 4 bytes of an unregistered SEI
+-- message.
 --
--- * 'hssParControl' - Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior, Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and parDenominator settings.
+-- 'scanTypeConversionMode', 'h265Settings_scanTypeConversionMode' - Use this setting for interlaced outputs, when your output frame rate is
+-- half of your input frame rate. In this situation, choose Optimized
+-- interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced
+-- output. In this case, each progressive frame from the input corresponds
+-- to an interlaced field in the output. Keep the default value, Basic
+-- interlacing (INTERLACED), for all other output frame rates. With basic
+-- interlacing, MediaConvert performs any frame rate conversion first and
+-- then interlaces the frames. When you choose Optimized interlacing and
+-- you set your output frame rate to a value that isn\'t suitable for
+-- optimized interlacing, MediaConvert automatically falls back to basic
+-- interlacing. Required settings: To use optimized interlacing, you must
+-- set Telecine (telecine) to None (NONE) or Soft (SOFT). You can\'t use
+-- optimized interlacing for hard telecine outputs. You must also set
+-- Interlace mode (interlaceMode) to a value other than Progressive
+-- (PROGRESSIVE).
 --
--- * 'hssGopClosedCadence' - Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output segmenting.
+-- 'parControl', 'h265Settings_parControl' - Optional. Specify how the service determines the pixel aspect ratio
+-- (PAR) for this output. The default behavior, Follow source
+-- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+-- output. To specify a different PAR in the console, choose any value
+-- other than Follow source. To specify a different PAR by editing the JSON
+-- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+-- setting, you must also specify values for the parNumerator and
+-- parDenominator settings.
 --
--- * 'hssParDenominator' - Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In this example, the value for parDenominator is 33.
+-- 'gopClosedCadence', 'h265Settings_gopClosedCadence' - Frequency of closed GOPs. In streaming applications, it is recommended
+-- that this be set to 1 so a decoder joining mid-stream will receive an
+-- IDR frame as quickly as possible. Setting this value to 0 will break
+-- output segmenting.
 --
--- * 'hssMaxBitrate' - Maximum bitrate in bits/second. For example, enter five megabits per second as 5000000. Required when Rate control mode is QVBR.
+-- 'parDenominator', 'h265Settings_parDenominator' - Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On
+-- the console, this corresponds to any value other than Follow source.
+-- When you specify an output pixel aspect ratio (PAR) that is different
+-- from your input video PAR, provide your output PAR as a ratio. For
+-- example, for D1\/DV NTSC widescreen, you would specify the ratio 40:33.
+-- In this example, the value for parDenominator is 33.
 --
--- * 'hssDynamicSubGop' - Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+-- 'maxBitrate', 'h265Settings_maxBitrate' - Maximum bitrate in bits\/second. For example, enter five megabits per
+-- second as 5000000. Required when Rate control mode is QVBR.
 --
--- * 'hssAlternateTransferFunctionSei' - Enables Alternate Transfer Function SEI message for outputs using Hybrid Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
+-- 'dynamicSubGop', 'h265Settings_dynamicSubGop' - Choose Adaptive to improve subjective video quality for high-motion
+-- content. This will cause the service to use fewer B-frames (which infer
+-- information based on other frames) for high-motion portions of the video
+-- and more B-frames for low-motion portions. The maximum number of
+-- B-frames is limited by the value you provide for the setting B frames
+-- between reference frames (numberBFramesBetweenReferenceFrames).
 --
--- * 'hssHrdBufferSize' - Size of buffer (HRD buffer model) in bits. For example, enter five megabits as 5000000.
+-- 'alternateTransferFunctionSei', 'h265Settings_alternateTransferFunctionSei' - Enables Alternate Transfer Function SEI message for outputs using Hybrid
+-- Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
 --
--- * 'hssAdaptiveQuantization' - Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to the following settings: Flicker adaptive quantization (flickerAdaptiveQuantization), Spatial adaptive quantization (spatialAdaptiveQuantization), and Temporal adaptive quantization (temporalAdaptiveQuantization).
+-- 'hrdBufferSize', 'h265Settings_hrdBufferSize' - Size of buffer (HRD buffer model) in bits. For example, enter five
+-- megabits as 5000000.
 --
--- * 'hssFramerateControl' - If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings FramerateNumerator and FramerateDenominator.
+-- 'adaptiveQuantization', 'h265Settings_adaptiveQuantization' - Specify the strength of any adaptive quantization filters that you
+-- enable. The value that you choose here applies to the following
+-- settings: Flicker adaptive quantization (flickerAdaptiveQuantization),
+-- Spatial adaptive quantization (spatialAdaptiveQuantization), and
+-- Temporal adaptive quantization (temporalAdaptiveQuantization).
 --
--- * 'hssNumberBFramesBetweenReferenceFrames' - Number of B-frames between reference frames.
+-- 'framerateControl', 'h265Settings_framerateControl' - If you are using the console, use the Framerate setting to specify the
+-- frame rate for this output. If you want to keep the same frame rate as
+-- the input video, choose Follow source. If you want to do frame rate
+-- conversion, choose a frame rate from the dropdown list or choose Custom.
+-- The framerates shown in the dropdown list are decimal approximations of
+-- fractions. If you choose Custom, specify your frame rate as a fraction.
+-- If you are creating your transcoding job specification as a JSON file
+-- without the console, use FramerateControl to specify which value the
+-- service uses for the frame rate for this output. Choose
+-- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+-- from the input. Choose SPECIFIED if you want the service to use the
+-- frame rate you specify in the settings FramerateNumerator and
+-- FramerateDenominator.
 --
--- * 'hssFramerateConversionAlgorithm' - Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. We recommend using drop duplicate (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to 30 fps. For numerically complex conversions, you can use interpolate (INTERPOLATE) to avoid stutter. This results in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has already been converted from its original cadence, use FrameFormer (FRAMEFORMER) to do motion-compensated interpolation. FrameFormer chooses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding time and incurs a significant add-on cost.
+-- 'numberBFramesBetweenReferenceFrames', 'h265Settings_numberBFramesBetweenReferenceFrames' - Number of B-frames between reference frames.
 --
--- * 'hssCodecLevel' - H.265 Level.
+-- 'framerateConversionAlgorithm', 'h265Settings_framerateConversionAlgorithm' - Choose the method that you want MediaConvert to use when increasing or
+-- decreasing the frame rate. We recommend using drop duplicate
+-- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+-- 30 fps. For numerically complex conversions, you can use interpolate
+-- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+-- might introduce undesirable video artifacts. For complex frame rate
+-- conversions, especially if your source video has already been converted
+-- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+-- motion-compensated interpolation. FrameFormer chooses the best
+-- conversion method frame by frame. Note that using FrameFormer increases
+-- the transcoding time and incurs a significant add-on cost.
 --
--- * 'hssBitrate' - Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be unique when rounded down to the nearest multiple of 1000.
+-- 'codecLevel', 'h265Settings_codecLevel' - H.265 Level.
 --
--- * 'hssTemporalIds' - Enables temporal layer identifiers in the encoded bitstream. Up to 3 layers are supported depending on GOP structure: I- and P-frames form one layer, reference B-frames can form a second layer and non-reference b-frames can form a third layer. Decoders can optionally decode only the lower temporal layers to generate a lower frame rate output. For example, given a bitstream with temporal IDs and with b-frames = 1 (i.e. IbPbPb display order), a decoder could decode all the frames for full frame rate output or only the I and P frames (lowest temporal layer) for a half frame rate output.
+-- 'bitrate', 'h265Settings_bitrate' - Specify the average bitrate in bits per second. Required for VBR and
+-- CBR. For MS Smooth outputs, bitrates must be unique when rounded down to
+-- the nearest multiple of 1000.
 --
--- * 'hssQvbrSettings' - Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate control mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate control mode.
+-- 'temporalIds', 'h265Settings_temporalIds' - Enables temporal layer identifiers in the encoded bitstream. Up to 3
+-- layers are supported depending on GOP structure: I- and P-frames form
+-- one layer, reference B-frames can form a second layer and non-reference
+-- b-frames can form a third layer. Decoders can optionally decode only the
+-- lower temporal layers to generate a lower frame rate output. For
+-- example, given a bitstream with temporal IDs and with b-frames = 1 (i.e.
+-- IbPbPb display order), a decoder could decode all the frames for full
+-- frame rate output or only the I and P frames (lowest temporal layer) for
+-- a half frame rate output.
 --
--- * 'hssSampleAdaptiveOffsetFilterMode' - Specify Sample Adaptive Offset (SAO) filter strength.  Adaptive mode dynamically selects best strength based on content
+-- 'qvbrSettings', 'h265Settings_qvbrSettings' - Settings for quality-defined variable bitrate encoding with the H.265
+-- codec. Required when you set Rate control mode to QVBR. Not valid when
+-- you set Rate control mode to a value other than QVBR, or when you don\'t
+-- define Rate control mode.
 --
--- * 'hssSlowPal' - Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video. Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
-h265Settings ::
+-- 'sampleAdaptiveOffsetFilterMode', 'h265Settings_sampleAdaptiveOffsetFilterMode' - Specify Sample Adaptive Offset (SAO) filter strength. Adaptive mode
+-- dynamically selects best strength based on content
+--
+-- 'slowPal', 'h265Settings_slowPal' - Ignore this setting unless your input frame rate is 23.976 or 24 frames
+-- per second (fps). Enable slow PAL to create a 25 fps output. When you
+-- enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+-- resamples your audio to keep it synchronized with the video. Note that
+-- enabling this setting will slightly reduce the duration of your video.
+-- Required settings: You must also set Framerate to 25. In your JSON job
+-- specification, set (framerateControl) to (SPECIFIED),
+-- (framerateNumerator) to 25 and (framerateDenominator) to 1.
+newH265Settings ::
   H265Settings
-h265Settings =
+newH265Settings =
   H265Settings'
-    { _hssHrdBufferInitialFillPercentage =
-        Nothing,
-      _hssTemporalAdaptiveQuantization = Nothing,
-      _hssFlickerAdaptiveQuantization = Nothing,
-      _hssQualityTuningLevel = Nothing,
-      _hssInterlaceMode = Nothing,
-      _hssTelecine = Nothing,
-      _hssGopBReference = Nothing,
-      _hssSpatialAdaptiveQuantization = Nothing,
-      _hssFramerateNumerator = Nothing,
-      _hssRateControlMode = Nothing,
-      _hssNumberReferenceFrames = Nothing,
-      _hssSlices = Nothing,
-      _hssWriteMp4PackagingType = Nothing,
-      _hssGopSizeUnits = Nothing,
-      _hssCodecProfile = Nothing,
-      _hssGopSize = Nothing,
-      _hssFramerateDenominator = Nothing,
-      _hssParNumerator = Nothing,
-      _hssTiles = Nothing,
-      _hssSceneChangeDetect = Nothing,
-      _hssMinIInterval = Nothing,
-      _hssUnregisteredSeiTimecode = Nothing,
-      _hssScanTypeConversionMode = Nothing,
-      _hssParControl = Nothing,
-      _hssGopClosedCadence = Nothing,
-      _hssParDenominator = Nothing,
-      _hssMaxBitrate = Nothing,
-      _hssDynamicSubGop = Nothing,
-      _hssAlternateTransferFunctionSei = Nothing,
-      _hssHrdBufferSize = Nothing,
-      _hssAdaptiveQuantization = Nothing,
-      _hssFramerateControl = Nothing,
-      _hssNumberBFramesBetweenReferenceFrames = Nothing,
-      _hssFramerateConversionAlgorithm = Nothing,
-      _hssCodecLevel = Nothing,
-      _hssBitrate = Nothing,
-      _hssTemporalIds = Nothing,
-      _hssQvbrSettings = Nothing,
-      _hssSampleAdaptiveOffsetFilterMode = Nothing,
-      _hssSlowPal = Nothing
+    { hrdBufferInitialFillPercentage =
+        Prelude.Nothing,
+      temporalAdaptiveQuantization = Prelude.Nothing,
+      flickerAdaptiveQuantization = Prelude.Nothing,
+      qualityTuningLevel = Prelude.Nothing,
+      interlaceMode = Prelude.Nothing,
+      telecine = Prelude.Nothing,
+      gopBReference = Prelude.Nothing,
+      spatialAdaptiveQuantization = Prelude.Nothing,
+      framerateNumerator = Prelude.Nothing,
+      rateControlMode = Prelude.Nothing,
+      numberReferenceFrames = Prelude.Nothing,
+      slices = Prelude.Nothing,
+      writeMp4PackagingType = Prelude.Nothing,
+      gopSizeUnits = Prelude.Nothing,
+      codecProfile = Prelude.Nothing,
+      gopSize = Prelude.Nothing,
+      framerateDenominator = Prelude.Nothing,
+      parNumerator = Prelude.Nothing,
+      tiles = Prelude.Nothing,
+      sceneChangeDetect = Prelude.Nothing,
+      minIInterval = Prelude.Nothing,
+      unregisteredSeiTimecode = Prelude.Nothing,
+      scanTypeConversionMode = Prelude.Nothing,
+      parControl = Prelude.Nothing,
+      gopClosedCadence = Prelude.Nothing,
+      parDenominator = Prelude.Nothing,
+      maxBitrate = Prelude.Nothing,
+      dynamicSubGop = Prelude.Nothing,
+      alternateTransferFunctionSei = Prelude.Nothing,
+      hrdBufferSize = Prelude.Nothing,
+      adaptiveQuantization = Prelude.Nothing,
+      framerateControl = Prelude.Nothing,
+      numberBFramesBetweenReferenceFrames =
+        Prelude.Nothing,
+      framerateConversionAlgorithm = Prelude.Nothing,
+      codecLevel = Prelude.Nothing,
+      bitrate = Prelude.Nothing,
+      temporalIds = Prelude.Nothing,
+      qvbrSettings = Prelude.Nothing,
+      sampleAdaptiveOffsetFilterMode = Prelude.Nothing,
+      slowPal = Prelude.Nothing
     }
 
--- | Percentage of the buffer that should initially be filled (HRD buffer model).
-hssHrdBufferInitialFillPercentage :: Lens' H265Settings (Maybe Natural)
-hssHrdBufferInitialFillPercentage = lens _hssHrdBufferInitialFillPercentage (\s a -> s {_hssHrdBufferInitialFillPercentage = a}) . mapping _Nat
+-- | Percentage of the buffer that should initially be filled (HRD buffer
+-- model).
+h265Settings_hrdBufferInitialFillPercentage :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_hrdBufferInitialFillPercentage = Lens.lens (\H265Settings' {hrdBufferInitialFillPercentage} -> hrdBufferInitialFillPercentage) (\s@H265Settings' {} a -> s {hrdBufferInitialFillPercentage = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on temporal variation of content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the setting Adaptive quantization (adaptiveQuantization).
-hssTemporalAdaptiveQuantization :: Lens' H265Settings (Maybe H265TemporalAdaptiveQuantization)
-hssTemporalAdaptiveQuantization = lens _hssTemporalAdaptiveQuantization (\s a -> s {_hssTemporalAdaptiveQuantization = a})
+-- | Keep the default value, Enabled (ENABLED), to adjust quantization within
+-- each frame based on temporal variation of content complexity. When you
+-- enable this feature, the encoder uses fewer bits on areas of the frame
+-- that aren\'t moving and uses more bits on complex objects with sharp
+-- edges that move a lot. For example, this feature improves the
+-- readability of text tickers on newscasts and scoreboards on sports
+-- matches. Enabling this feature will almost always improve your video
+-- quality. Note, though, that this feature doesn\'t take into account
+-- where the viewer\'s attention is likely to be. If viewers are likely to
+-- be focusing their attention on a part of the screen that doesn\'t have
+-- moving objects with sharp edges, such as sports athletes\' faces, you
+-- might choose to disable this feature. Related setting: When you enable
+-- temporal quantization, adjust the strength of the filter with the
+-- setting Adaptive quantization (adaptiveQuantization).
+h265Settings_temporalAdaptiveQuantization :: Lens.Lens' H265Settings (Prelude.Maybe H265TemporalAdaptiveQuantization)
+h265Settings_temporalAdaptiveQuantization = Lens.lens (\H265Settings' {temporalAdaptiveQuantization} -> temporalAdaptiveQuantization) (\s@H265Settings' {} a -> s {temporalAdaptiveQuantization = a} :: H265Settings)
 
--- | Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this setting, you must also set adaptiveQuantization to a value other than Off (OFF).
-hssFlickerAdaptiveQuantization :: Lens' H265Settings (Maybe H265FlickerAdaptiveQuantization)
-hssFlickerAdaptiveQuantization = lens _hssFlickerAdaptiveQuantization (\s a -> s {_hssFlickerAdaptiveQuantization = a})
+-- | Enable this setting to have the encoder reduce I-frame pop. I-frame pop
+-- appears as a visual flicker that can arise when the encoder saves bits
+-- by copying some macroblocks many times from frame to frame, and then
+-- refreshes them at the I-frame. When you enable this setting, the encoder
+-- updates these macroblocks slightly more often to smooth out the flicker.
+-- This setting is disabled by default. Related setting: In addition to
+-- enabling this setting, you must also set adaptiveQuantization to a value
+-- other than Off (OFF).
+h265Settings_flickerAdaptiveQuantization :: Lens.Lens' H265Settings (Prelude.Maybe H265FlickerAdaptiveQuantization)
+h265Settings_flickerAdaptiveQuantization = Lens.lens (\H265Settings' {flickerAdaptiveQuantization} -> flickerAdaptiveQuantization) (\s@H265Settings' {} a -> s {flickerAdaptiveQuantization = a} :: H265Settings)
 
--- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how you want to trade off encoding speed for output video quality. The default behavior is faster, lower quality, single-pass encoding.
-hssQualityTuningLevel :: Lens' H265Settings (Maybe H265QualityTuningLevel)
-hssQualityTuningLevel = lens _hssQualityTuningLevel (\s a -> s {_hssQualityTuningLevel = a})
+-- | Optional. Use Quality tuning level (qualityTuningLevel) to choose how
+-- you want to trade off encoding speed for output video quality. The
+-- default behavior is faster, lower quality, single-pass encoding.
+h265Settings_qualityTuningLevel :: Lens.Lens' H265Settings (Prelude.Maybe H265QualityTuningLevel)
+h265Settings_qualityTuningLevel = Lens.lens (\H265Settings' {qualityTuningLevel} -> qualityTuningLevel) (\s@H265Settings' {} a -> s {qualityTuningLevel = a} :: H265Settings)
 
--- | Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output. Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
-hssInterlaceMode :: Lens' H265Settings (Maybe H265InterlaceMode)
-hssInterlaceMode = lens _hssInterlaceMode (\s a -> s {_hssInterlaceMode = a})
+-- | Choose the scan line type for the output. Keep the default value,
+-- Progressive (PROGRESSIVE) to create a progressive output, regardless of
+-- the scan type of your input. Use Top field first (TOP_FIELD) or Bottom
+-- field first (BOTTOM_FIELD) to create an output that\'s interlaced with
+-- the same field polarity throughout. Use Follow, default top
+-- (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to
+-- produce outputs with the same field polarity as the source. For jobs
+-- that have multiple inputs, the output field polarity might change over
+-- the course of the output. Follow behavior depends on the input scan
+-- type. If the source is interlaced, the output will be interlaced with
+-- the same polarity as the source. If the source is progressive, the
+-- output will be interlaced with top field bottom field first, depending
+-- on which of the Follow options you choose.
+h265Settings_interlaceMode :: Lens.Lens' H265Settings (Prelude.Maybe H265InterlaceMode)
+h265Settings_interlaceMode = Lens.lens (\H265Settings' {interlaceMode} -> interlaceMode) (\s@H265Settings' {} a -> s {interlaceMode = a} :: H265Settings)
 
--- | This field applies only if the Streams > Advanced > Framerate (framerate) field  is set to 29.970. This field works with the Streams > Advanced > Preprocessors > Deinterlacer  field (deinterlace_mode) and the Streams > Advanced > Interlaced Mode field (interlace_mode)  to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
-hssTelecine :: Lens' H265Settings (Maybe H265Telecine)
-hssTelecine = lens _hssTelecine (\s a -> s {_hssTelecine = a})
+-- | This field applies only if the Streams > Advanced > Framerate
+-- (framerate) field is set to 29.970. This field works with the Streams >
+-- Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
+-- Streams > Advanced > Interlaced Mode field (interlace_mode) to identify
+-- the scan type for the output: Progressive, Interlaced, Hard Telecine or
+-- Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft:
+-- produces 23.976; the player converts this output to 29.97i.
+h265Settings_telecine :: Lens.Lens' H265Settings (Prelude.Maybe H265Telecine)
+h265Settings_telecine = Lens.lens (\H265Settings' {telecine} -> telecine) (\s@H265Settings' {} a -> s {telecine = a} :: H265Settings)
 
--- | If enable, use reference B frames for GOP structures that have B frames > 1.
-hssGopBReference :: Lens' H265Settings (Maybe H265GopBReference)
-hssGopBReference = lens _hssGopBReference (\s a -> s {_hssGopBReference = a})
+-- | If enable, use reference B frames for GOP structures that have B frames
+-- > 1.
+h265Settings_gopBReference :: Lens.Lens' H265Settings (Prelude.Maybe H265GopBReference)
+h265Settings_gopBReference = Lens.lens (\H265Settings' {gopBReference} -> gopBReference) (\s@H265Settings' {} a -> s {gopBReference = a} :: H265Settings)
 
--- | Keep the default value, Enabled (ENABLED), to adjust quantization within each frame based on spatial variation of content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable. For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization (adaptiveQuantization) depending on your content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider variety of textures, set it to High or Higher.
-hssSpatialAdaptiveQuantization :: Lens' H265Settings (Maybe H265SpatialAdaptiveQuantization)
-hssSpatialAdaptiveQuantization = lens _hssSpatialAdaptiveQuantization (\s a -> s {_hssSpatialAdaptiveQuantization = a})
+-- | Keep the default value, Enabled (ENABLED), to adjust quantization within
+-- each frame based on spatial variation of content complexity. When you
+-- enable this feature, the encoder uses fewer bits on areas that can
+-- sustain more distortion with no noticeable visual degradation and uses
+-- more bits on areas where any small distortion will be noticeable. For
+-- example, complex textured blocks are encoded with fewer bits and smooth
+-- textured blocks are encoded with more bits. Enabling this feature will
+-- almost always improve your video quality. Note, though, that this
+-- feature doesn\'t take into account where the viewer\'s attention is
+-- likely to be. If viewers are likely to be focusing their attention on a
+-- part of the screen with a lot of complex texture, you might choose to
+-- disable this feature. Related setting: When you enable spatial adaptive
+-- quantization, set the value for Adaptive quantization
+-- (adaptiveQuantization) depending on your content. For homogeneous
+-- content, such as cartoons and video games, set it to Low. For content
+-- with a wider variety of textures, set it to High or Higher.
+h265Settings_spatialAdaptiveQuantization :: Lens.Lens' H265Settings (Prelude.Maybe H265SpatialAdaptiveQuantization)
+h265Settings_spatialAdaptiveQuantization = Lens.lens (\H265Settings' {spatialAdaptiveQuantization} -> spatialAdaptiveQuantization) (\s@H265Settings' {} a -> s {spatialAdaptiveQuantization = a} :: H265Settings)
 
--- | When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For example,  24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
-hssFramerateNumerator :: Lens' H265Settings (Maybe Natural)
-hssFramerateNumerator = lens _hssFramerateNumerator (\s a -> s {_hssFramerateNumerator = a}) . mapping _Nat
+-- | When you use the API for transcode jobs that use frame rate conversion,
+-- specify the frame rate as a fraction. For example, 24000 \/ 1001 =
+-- 23.976 fps. Use FramerateNumerator to specify the numerator of this
+-- fraction. In this example, use 24000 for the value of
+-- FramerateNumerator. When you use the console for transcode jobs that use
+-- frame rate conversion, provide the value as a decimal number for
+-- Framerate. In this example, specify 23.976.
+h265Settings_framerateNumerator :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_framerateNumerator = Lens.lens (\H265Settings' {framerateNumerator} -> framerateNumerator) (\s@H265Settings' {} a -> s {framerateNumerator = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this setting to specify whether this output has a variable bitrate (VBR), constant bitrate (CBR) or quality-defined variable bitrate (QVBR).
-hssRateControlMode :: Lens' H265Settings (Maybe H265RateControlMode)
-hssRateControlMode = lens _hssRateControlMode (\s a -> s {_hssRateControlMode = a})
+-- | Use this setting to specify whether this output has a variable bitrate
+-- (VBR), constant bitrate (CBR) or quality-defined variable bitrate
+-- (QVBR).
+h265Settings_rateControlMode :: Lens.Lens' H265Settings (Prelude.Maybe H265RateControlMode)
+h265Settings_rateControlMode = Lens.lens (\H265Settings' {rateControlMode} -> rateControlMode) (\s@H265Settings' {} a -> s {rateControlMode = a} :: H265Settings)
 
--- | Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced encoding.
-hssNumberReferenceFrames :: Lens' H265Settings (Maybe Natural)
-hssNumberReferenceFrames = lens _hssNumberReferenceFrames (\s a -> s {_hssNumberReferenceFrames = a}) . mapping _Nat
+-- | Number of reference frames to use. The encoder may use more than
+-- requested if using B-frames and\/or interlaced encoding.
+h265Settings_numberReferenceFrames :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_numberReferenceFrames = Lens.lens (\H265Settings' {numberReferenceFrames} -> numberReferenceFrames) (\s@H265Settings' {} a -> s {numberReferenceFrames = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive pictures, and less than or equal to half the number of macroblock rows for interlaced pictures.
-hssSlices :: Lens' H265Settings (Maybe Natural)
-hssSlices = lens _hssSlices (\s a -> s {_hssSlices = a}) . mapping _Nat
+-- | Number of slices per picture. Must be less than or equal to the number
+-- of macroblock rows for progressive pictures, and less than or equal to
+-- half the number of macroblock rows for interlaced pictures.
+h265Settings_slices :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_slices = Lens.lens (\H265Settings' {slices} -> slices) (\s@H265Settings' {} a -> s {slices = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1 to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might not work properly with some downstream systems and video players. The service defaults to marking your output as HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
-hssWriteMp4PackagingType :: Lens' H265Settings (Maybe H265WriteMp4PackagingType)
-hssWriteMp4PackagingType = lens _hssWriteMp4PackagingType (\s a -> s {_hssWriteMp4PackagingType = a})
+-- | If the location of parameter set NAL units doesn\'t matter in your
+-- workflow, ignore this setting. Use this setting only with CMAF or DASH
+-- outputs, or with standalone file outputs in an MPEG-4 container (MP4
+-- outputs). Choose HVC1 to mark your output as HVC1. This makes your
+-- output compliant with the following specification: ISO IECJTC1 SC29
+-- N13798 Text ISO\/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+-- service stores parameter set NAL units in the sample headers but not in
+-- the samples directly. For MP4 outputs, when you choose HVC1, your output
+-- video might not work properly with some downstream systems and video
+-- players. The service defaults to marking your output as HEV1. For these
+-- outputs, the service writes parameter set NAL units directly into the
+-- samples.
+h265Settings_writeMp4PackagingType :: Lens.Lens' H265Settings (Prelude.Maybe H265WriteMp4PackagingType)
+h265Settings_writeMp4PackagingType = Lens.lens (\H265Settings' {writeMp4PackagingType} -> writeMp4PackagingType) (\s@H265Settings' {} a -> s {writeMp4PackagingType = a} :: H265Settings)
 
--- | Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP Size into a frame count at run time.
-hssGopSizeUnits :: Lens' H265Settings (Maybe H265GopSizeUnits)
-hssGopSizeUnits = lens _hssGopSizeUnits (\s a -> s {_hssGopSizeUnits = a})
+-- | Indicates if the GOP Size in H265 is specified in frames or seconds. If
+-- seconds the system will convert the GOP Size into a frame count at run
+-- time.
+h265Settings_gopSizeUnits :: Lens.Lens' H265Settings (Prelude.Maybe H265GopSizeUnits)
+h265Settings_gopSizeUnits = Lens.lens (\H265Settings' {gopSizeUnits} -> gopSizeUnits) (\s@H265Settings' {} a -> s {gopSizeUnits = a} :: H265Settings)
 
--- | Represents the Profile and Tier, per the HEVC (H.265) specification. Selections are grouped as [Profile] / [Tier], so "Main/High" represents Main Profile with High Tier. 4:2:2 profiles are only available with the HEVC 4:2:2 License.
-hssCodecProfile :: Lens' H265Settings (Maybe H265CodecProfile)
-hssCodecProfile = lens _hssCodecProfile (\s a -> s {_hssCodecProfile = a})
+-- | Represents the Profile and Tier, per the HEVC (H.265) specification.
+-- Selections are grouped as [Profile] \/ [Tier], so \"Main\/High\"
+-- represents Main Profile with High Tier. 4:2:2 profiles are only
+-- available with the HEVC 4:2:2 License.
+h265Settings_codecProfile :: Lens.Lens' H265Settings (Prelude.Maybe H265CodecProfile)
+h265Settings_codecProfile = Lens.lens (\H265Settings' {codecProfile} -> codecProfile) (\s@H265Settings' {} a -> s {codecProfile = a} :: H265Settings)
 
--- | GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
-hssGopSize :: Lens' H265Settings (Maybe Double)
-hssGopSize = lens _hssGopSize (\s a -> s {_hssGopSize = a})
+-- | GOP Length (keyframe interval) in frames or seconds. Must be greater
+-- than zero.
+h265Settings_gopSize :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Double)
+h265Settings_gopSize = Lens.lens (\H265Settings' {gopSize} -> gopSize) (\s@H265Settings' {} a -> s {gopSize = a} :: H265Settings)
 
--- | When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For example,  24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
-hssFramerateDenominator :: Lens' H265Settings (Maybe Natural)
-hssFramerateDenominator = lens _hssFramerateDenominator (\s a -> s {_hssFramerateDenominator = a}) . mapping _Nat
+-- | When you use the API for transcode jobs that use frame rate conversion,
+-- specify the frame rate as a fraction. For example, 24000 \/ 1001 =
+-- 23.976 fps. Use FramerateDenominator to specify the denominator of this
+-- fraction. In this example, use 1001 for the value of
+-- FramerateDenominator. When you use the console for transcode jobs that
+-- use frame rate conversion, provide the value as a decimal number for
+-- Framerate. In this example, specify 23.976.
+h265Settings_framerateDenominator :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_framerateDenominator = Lens.lens (\H265Settings' {framerateDenominator} -> framerateDenominator) (\s@H265Settings' {} a -> s {framerateDenominator = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In this example, the value for parNumerator is 40.
-hssParNumerator :: Lens' H265Settings (Maybe Natural)
-hssParNumerator = lens _hssParNumerator (\s a -> s {_hssParNumerator = a}) . mapping _Nat
+-- | Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On
+-- the console, this corresponds to any value other than Follow source.
+-- When you specify an output pixel aspect ratio (PAR) that is different
+-- from your input video PAR, provide your output PAR as a ratio. For
+-- example, for D1\/DV NTSC widescreen, you would specify the ratio 40:33.
+-- In this example, the value for parNumerator is 40.
+h265Settings_parNumerator :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_parNumerator = Lens.lens (\H265Settings' {parNumerator} -> parNumerator) (\s@H265Settings' {} a -> s {parNumerator = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Enable use of tiles, allowing horizontal as well as vertical subdivision of the encoded pictures.
-hssTiles :: Lens' H265Settings (Maybe H265Tiles)
-hssTiles = lens _hssTiles (\s a -> s {_hssTiles = a})
+-- | Enable use of tiles, allowing horizontal as well as vertical subdivision
+-- of the encoded pictures.
+h265Settings_tiles :: Lens.Lens' H265Settings (Prelude.Maybe H265Tiles)
+h265Settings_tiles = Lens.lens (\H265Settings' {tiles} -> tiles) (\s@H265Settings' {} a -> s {tiles = a} :: H265Settings)
 
--- | Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves video quality and is enabled by default. If this output uses QVBR, choose Transition detection (TRANSITION_DETECTION) for further video quality improvement. For more information about QVBR, see https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
-hssSceneChangeDetect :: Lens' H265Settings (Maybe H265SceneChangeDetect)
-hssSceneChangeDetect = lens _hssSceneChangeDetect (\s a -> s {_hssSceneChangeDetect = a})
+-- | Enable this setting to insert I-frames at scene changes that the service
+-- automatically detects. This improves video quality and is enabled by
+-- default. If this output uses QVBR, choose Transition detection
+-- (TRANSITION_DETECTION) for further video quality improvement. For more
+-- information about QVBR, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/cbr-vbr-qvbr.
+h265Settings_sceneChangeDetect :: Lens.Lens' H265Settings (Prelude.Maybe H265SceneChangeDetect)
+h265Settings_sceneChangeDetect = Lens.lens (\H265Settings' {sceneChangeDetect} -> sceneChangeDetect) (\s@H265Settings' {} a -> s {sceneChangeDetect = a} :: H265Settings)
 
--- | Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence resumes for the next GOP. This setting is only used when Scene Change Detect is enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
-hssMinIInterval :: Lens' H265Settings (Maybe Natural)
-hssMinIInterval = lens _hssMinIInterval (\s a -> s {_hssMinIInterval = a}) . mapping _Nat
+-- | Enforces separation between repeated (cadence) I-frames and I-frames
+-- inserted by Scene Change Detection. If a scene change I-frame is within
+-- I-interval frames of a cadence I-frame, the GOP is shrunk and\/or
+-- stretched to the scene change I-frame. GOP stretch requires enabling
+-- lookahead as well as setting I-interval. The normal cadence resumes for
+-- the next GOP. This setting is only used when Scene Change Detect is
+-- enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+h265Settings_minIInterval :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_minIInterval = Lens.lens (\H265Settings' {minIInterval} -> minIInterval) (\s@H265Settings' {} a -> s {minIInterval = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Inserts timecode for each frame as 4 bytes of an unregistered SEI message.
-hssUnregisteredSeiTimecode :: Lens' H265Settings (Maybe H265UnregisteredSeiTimecode)
-hssUnregisteredSeiTimecode = lens _hssUnregisteredSeiTimecode (\s a -> s {_hssUnregisteredSeiTimecode = a})
+-- | Inserts timecode for each frame as 4 bytes of an unregistered SEI
+-- message.
+h265Settings_unregisteredSeiTimecode :: Lens.Lens' H265Settings (Prelude.Maybe H265UnregisteredSeiTimecode)
+h265Settings_unregisteredSeiTimecode = Lens.lens (\H265Settings' {unregisteredSeiTimecode} -> unregisteredSeiTimecode) (\s@H265Settings' {} a -> s {unregisteredSeiTimecode = a} :: H265Settings)
 
--- | Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this situation, choose Optimized interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced output. In this case, each progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic interlacing (INTERLACED), for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must set Telecine (telecine) to None (NONE) or Soft (SOFT). You can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode (interlaceMode) to a value other than Progressive (PROGRESSIVE).
-hssScanTypeConversionMode :: Lens' H265Settings (Maybe H265ScanTypeConversionMode)
-hssScanTypeConversionMode = lens _hssScanTypeConversionMode (\s a -> s {_hssScanTypeConversionMode = a})
+-- | Use this setting for interlaced outputs, when your output frame rate is
+-- half of your input frame rate. In this situation, choose Optimized
+-- interlacing (INTERLACED_OPTIMIZE) to create a better quality interlaced
+-- output. In this case, each progressive frame from the input corresponds
+-- to an interlaced field in the output. Keep the default value, Basic
+-- interlacing (INTERLACED), for all other output frame rates. With basic
+-- interlacing, MediaConvert performs any frame rate conversion first and
+-- then interlaces the frames. When you choose Optimized interlacing and
+-- you set your output frame rate to a value that isn\'t suitable for
+-- optimized interlacing, MediaConvert automatically falls back to basic
+-- interlacing. Required settings: To use optimized interlacing, you must
+-- set Telecine (telecine) to None (NONE) or Soft (SOFT). You can\'t use
+-- optimized interlacing for hard telecine outputs. You must also set
+-- Interlace mode (interlaceMode) to a value other than Progressive
+-- (PROGRESSIVE).
+h265Settings_scanTypeConversionMode :: Lens.Lens' H265Settings (Prelude.Maybe H265ScanTypeConversionMode)
+h265Settings_scanTypeConversionMode = Lens.lens (\H265Settings' {scanTypeConversionMode} -> scanTypeConversionMode) (\s@H265Settings' {} a -> s {scanTypeConversionMode = a} :: H265Settings)
 
--- | Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior, Follow source (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your output. To specify a different PAR in the console, choose any value other than Follow source. To specify a different PAR by editing the JSON job specification, choose SPECIFIED. When you choose SPECIFIED for this setting, you must also specify values for the parNumerator and parDenominator settings.
-hssParControl :: Lens' H265Settings (Maybe H265ParControl)
-hssParControl = lens _hssParControl (\s a -> s {_hssParControl = a})
+-- | Optional. Specify how the service determines the pixel aspect ratio
+-- (PAR) for this output. The default behavior, Follow source
+-- (INITIALIZE_FROM_SOURCE), uses the PAR from your input video for your
+-- output. To specify a different PAR in the console, choose any value
+-- other than Follow source. To specify a different PAR by editing the JSON
+-- job specification, choose SPECIFIED. When you choose SPECIFIED for this
+-- setting, you must also specify values for the parNumerator and
+-- parDenominator settings.
+h265Settings_parControl :: Lens.Lens' H265Settings (Prelude.Maybe H265ParControl)
+h265Settings_parControl = Lens.lens (\H265Settings' {parControl} -> parControl) (\s@H265Settings' {} a -> s {parControl = a} :: H265Settings)
 
--- | Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output segmenting.
-hssGopClosedCadence :: Lens' H265Settings (Maybe Natural)
-hssGopClosedCadence = lens _hssGopClosedCadence (\s a -> s {_hssGopClosedCadence = a}) . mapping _Nat
+-- | Frequency of closed GOPs. In streaming applications, it is recommended
+-- that this be set to 1 so a decoder joining mid-stream will receive an
+-- IDR frame as quickly as possible. Setting this value to 0 will break
+-- output segmenting.
+h265Settings_gopClosedCadence :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_gopClosedCadence = Lens.lens (\H265Settings' {gopClosedCadence} -> gopClosedCadence) (\s@H265Settings' {} a -> s {gopClosedCadence = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On the console, this corresponds to any value other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In this example, the value for parDenominator is 33.
-hssParDenominator :: Lens' H265Settings (Maybe Natural)
-hssParDenominator = lens _hssParDenominator (\s a -> s {_hssParDenominator = a}) . mapping _Nat
+-- | Required when you set Pixel aspect ratio (parControl) to SPECIFIED. On
+-- the console, this corresponds to any value other than Follow source.
+-- When you specify an output pixel aspect ratio (PAR) that is different
+-- from your input video PAR, provide your output PAR as a ratio. For
+-- example, for D1\/DV NTSC widescreen, you would specify the ratio 40:33.
+-- In this example, the value for parDenominator is 33.
+h265Settings_parDenominator :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_parDenominator = Lens.lens (\H265Settings' {parDenominator} -> parDenominator) (\s@H265Settings' {} a -> s {parDenominator = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Maximum bitrate in bits/second. For example, enter five megabits per second as 5000000. Required when Rate control mode is QVBR.
-hssMaxBitrate :: Lens' H265Settings (Maybe Natural)
-hssMaxBitrate = lens _hssMaxBitrate (\s a -> s {_hssMaxBitrate = a}) . mapping _Nat
+-- | Maximum bitrate in bits\/second. For example, enter five megabits per
+-- second as 5000000. Required when Rate control mode is QVBR.
+h265Settings_maxBitrate :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_maxBitrate = Lens.lens (\H265Settings' {maxBitrate} -> maxBitrate) (\s@H265Settings' {} a -> s {maxBitrate = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
-hssDynamicSubGop :: Lens' H265Settings (Maybe H265DynamicSubGop)
-hssDynamicSubGop = lens _hssDynamicSubGop (\s a -> s {_hssDynamicSubGop = a})
+-- | Choose Adaptive to improve subjective video quality for high-motion
+-- content. This will cause the service to use fewer B-frames (which infer
+-- information based on other frames) for high-motion portions of the video
+-- and more B-frames for low-motion portions. The maximum number of
+-- B-frames is limited by the value you provide for the setting B frames
+-- between reference frames (numberBFramesBetweenReferenceFrames).
+h265Settings_dynamicSubGop :: Lens.Lens' H265Settings (Prelude.Maybe H265DynamicSubGop)
+h265Settings_dynamicSubGop = Lens.lens (\H265Settings' {dynamicSubGop} -> dynamicSubGop) (\s@H265Settings' {} a -> s {dynamicSubGop = a} :: H265Settings)
 
--- | Enables Alternate Transfer Function SEI message for outputs using Hybrid Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
-hssAlternateTransferFunctionSei :: Lens' H265Settings (Maybe H265AlternateTransferFunctionSei)
-hssAlternateTransferFunctionSei = lens _hssAlternateTransferFunctionSei (\s a -> s {_hssAlternateTransferFunctionSei = a})
+-- | Enables Alternate Transfer Function SEI message for outputs using Hybrid
+-- Log Gamma (HLG) Electro-Optical Transfer Function (EOTF).
+h265Settings_alternateTransferFunctionSei :: Lens.Lens' H265Settings (Prelude.Maybe H265AlternateTransferFunctionSei)
+h265Settings_alternateTransferFunctionSei = Lens.lens (\H265Settings' {alternateTransferFunctionSei} -> alternateTransferFunctionSei) (\s@H265Settings' {} a -> s {alternateTransferFunctionSei = a} :: H265Settings)
 
--- | Size of buffer (HRD buffer model) in bits. For example, enter five megabits as 5000000.
-hssHrdBufferSize :: Lens' H265Settings (Maybe Natural)
-hssHrdBufferSize = lens _hssHrdBufferSize (\s a -> s {_hssHrdBufferSize = a}) . mapping _Nat
+-- | Size of buffer (HRD buffer model) in bits. For example, enter five
+-- megabits as 5000000.
+h265Settings_hrdBufferSize :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_hrdBufferSize = Lens.lens (\H265Settings' {hrdBufferSize} -> hrdBufferSize) (\s@H265Settings' {} a -> s {hrdBufferSize = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the strength of any adaptive quantization filters that you enable. The value that you choose here applies to the following settings: Flicker adaptive quantization (flickerAdaptiveQuantization), Spatial adaptive quantization (spatialAdaptiveQuantization), and Temporal adaptive quantization (temporalAdaptiveQuantization).
-hssAdaptiveQuantization :: Lens' H265Settings (Maybe H265AdaptiveQuantization)
-hssAdaptiveQuantization = lens _hssAdaptiveQuantization (\s a -> s {_hssAdaptiveQuantization = a})
+-- | Specify the strength of any adaptive quantization filters that you
+-- enable. The value that you choose here applies to the following
+-- settings: Flicker adaptive quantization (flickerAdaptiveQuantization),
+-- Spatial adaptive quantization (spatialAdaptiveQuantization), and
+-- Temporal adaptive quantization (temporalAdaptiveQuantization).
+h265Settings_adaptiveQuantization :: Lens.Lens' H265Settings (Prelude.Maybe H265AdaptiveQuantization)
+h265Settings_adaptiveQuantization = Lens.lens (\H265Settings' {adaptiveQuantization} -> adaptiveQuantization) (\s@H265Settings' {} a -> s {adaptiveQuantization = a} :: H265Settings)
 
--- | If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your transcoding job specification as a JSON file without the console, use FramerateControl to specify which value the service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the settings FramerateNumerator and FramerateDenominator.
-hssFramerateControl :: Lens' H265Settings (Maybe H265FramerateControl)
-hssFramerateControl = lens _hssFramerateControl (\s a -> s {_hssFramerateControl = a})
+-- | If you are using the console, use the Framerate setting to specify the
+-- frame rate for this output. If you want to keep the same frame rate as
+-- the input video, choose Follow source. If you want to do frame rate
+-- conversion, choose a frame rate from the dropdown list or choose Custom.
+-- The framerates shown in the dropdown list are decimal approximations of
+-- fractions. If you choose Custom, specify your frame rate as a fraction.
+-- If you are creating your transcoding job specification as a JSON file
+-- without the console, use FramerateControl to specify which value the
+-- service uses for the frame rate for this output. Choose
+-- INITIALIZE_FROM_SOURCE if you want the service to use the frame rate
+-- from the input. Choose SPECIFIED if you want the service to use the
+-- frame rate you specify in the settings FramerateNumerator and
+-- FramerateDenominator.
+h265Settings_framerateControl :: Lens.Lens' H265Settings (Prelude.Maybe H265FramerateControl)
+h265Settings_framerateControl = Lens.lens (\H265Settings' {framerateControl} -> framerateControl) (\s@H265Settings' {} a -> s {framerateControl = a} :: H265Settings)
 
 -- | Number of B-frames between reference frames.
-hssNumberBFramesBetweenReferenceFrames :: Lens' H265Settings (Maybe Natural)
-hssNumberBFramesBetweenReferenceFrames = lens _hssNumberBFramesBetweenReferenceFrames (\s a -> s {_hssNumberBFramesBetweenReferenceFrames = a}) . mapping _Nat
+h265Settings_numberBFramesBetweenReferenceFrames :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_numberBFramesBetweenReferenceFrames = Lens.lens (\H265Settings' {numberBFramesBetweenReferenceFrames} -> numberBFramesBetweenReferenceFrames) (\s@H265Settings' {} a -> s {numberBFramesBetweenReferenceFrames = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. We recommend using drop duplicate (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to 30 fps. For numerically complex conversions, you can use interpolate (INTERPOLATE) to avoid stutter. This results in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has already been converted from its original cadence, use FrameFormer (FRAMEFORMER) to do motion-compensated interpolation. FrameFormer chooses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding time and incurs a significant add-on cost.
-hssFramerateConversionAlgorithm :: Lens' H265Settings (Maybe H265FramerateConversionAlgorithm)
-hssFramerateConversionAlgorithm = lens _hssFramerateConversionAlgorithm (\s a -> s {_hssFramerateConversionAlgorithm = a})
+-- | Choose the method that you want MediaConvert to use when increasing or
+-- decreasing the frame rate. We recommend using drop duplicate
+-- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+-- 30 fps. For numerically complex conversions, you can use interpolate
+-- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+-- might introduce undesirable video artifacts. For complex frame rate
+-- conversions, especially if your source video has already been converted
+-- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+-- motion-compensated interpolation. FrameFormer chooses the best
+-- conversion method frame by frame. Note that using FrameFormer increases
+-- the transcoding time and incurs a significant add-on cost.
+h265Settings_framerateConversionAlgorithm :: Lens.Lens' H265Settings (Prelude.Maybe H265FramerateConversionAlgorithm)
+h265Settings_framerateConversionAlgorithm = Lens.lens (\H265Settings' {framerateConversionAlgorithm} -> framerateConversionAlgorithm) (\s@H265Settings' {} a -> s {framerateConversionAlgorithm = a} :: H265Settings)
 
 -- | H.265 Level.
-hssCodecLevel :: Lens' H265Settings (Maybe H265CodecLevel)
-hssCodecLevel = lens _hssCodecLevel (\s a -> s {_hssCodecLevel = a})
+h265Settings_codecLevel :: Lens.Lens' H265Settings (Prelude.Maybe H265CodecLevel)
+h265Settings_codecLevel = Lens.lens (\H265Settings' {codecLevel} -> codecLevel) (\s@H265Settings' {} a -> s {codecLevel = a} :: H265Settings)
 
--- | Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be unique when rounded down to the nearest multiple of 1000.
-hssBitrate :: Lens' H265Settings (Maybe Natural)
-hssBitrate = lens _hssBitrate (\s a -> s {_hssBitrate = a}) . mapping _Nat
+-- | Specify the average bitrate in bits per second. Required for VBR and
+-- CBR. For MS Smooth outputs, bitrates must be unique when rounded down to
+-- the nearest multiple of 1000.
+h265Settings_bitrate :: Lens.Lens' H265Settings (Prelude.Maybe Prelude.Natural)
+h265Settings_bitrate = Lens.lens (\H265Settings' {bitrate} -> bitrate) (\s@H265Settings' {} a -> s {bitrate = a} :: H265Settings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Enables temporal layer identifiers in the encoded bitstream. Up to 3 layers are supported depending on GOP structure: I- and P-frames form one layer, reference B-frames can form a second layer and non-reference b-frames can form a third layer. Decoders can optionally decode only the lower temporal layers to generate a lower frame rate output. For example, given a bitstream with temporal IDs and with b-frames = 1 (i.e. IbPbPb display order), a decoder could decode all the frames for full frame rate output or only the I and P frames (lowest temporal layer) for a half frame rate output.
-hssTemporalIds :: Lens' H265Settings (Maybe H265TemporalIds)
-hssTemporalIds = lens _hssTemporalIds (\s a -> s {_hssTemporalIds = a})
+-- | Enables temporal layer identifiers in the encoded bitstream. Up to 3
+-- layers are supported depending on GOP structure: I- and P-frames form
+-- one layer, reference B-frames can form a second layer and non-reference
+-- b-frames can form a third layer. Decoders can optionally decode only the
+-- lower temporal layers to generate a lower frame rate output. For
+-- example, given a bitstream with temporal IDs and with b-frames = 1 (i.e.
+-- IbPbPb display order), a decoder could decode all the frames for full
+-- frame rate output or only the I and P frames (lowest temporal layer) for
+-- a half frame rate output.
+h265Settings_temporalIds :: Lens.Lens' H265Settings (Prelude.Maybe H265TemporalIds)
+h265Settings_temporalIds = Lens.lens (\H265Settings' {temporalIds} -> temporalIds) (\s@H265Settings' {} a -> s {temporalIds = a} :: H265Settings)
 
--- | Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate control mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate control mode.
-hssQvbrSettings :: Lens' H265Settings (Maybe H265QvbrSettings)
-hssQvbrSettings = lens _hssQvbrSettings (\s a -> s {_hssQvbrSettings = a})
+-- | Settings for quality-defined variable bitrate encoding with the H.265
+-- codec. Required when you set Rate control mode to QVBR. Not valid when
+-- you set Rate control mode to a value other than QVBR, or when you don\'t
+-- define Rate control mode.
+h265Settings_qvbrSettings :: Lens.Lens' H265Settings (Prelude.Maybe H265QvbrSettings)
+h265Settings_qvbrSettings = Lens.lens (\H265Settings' {qvbrSettings} -> qvbrSettings) (\s@H265Settings' {} a -> s {qvbrSettings = a} :: H265Settings)
 
--- | Specify Sample Adaptive Offset (SAO) filter strength.  Adaptive mode dynamically selects best strength based on content
-hssSampleAdaptiveOffsetFilterMode :: Lens' H265Settings (Maybe H265SampleAdaptiveOffsetFilterMode)
-hssSampleAdaptiveOffsetFilterMode = lens _hssSampleAdaptiveOffsetFilterMode (\s a -> s {_hssSampleAdaptiveOffsetFilterMode = a})
+-- | Specify Sample Adaptive Offset (SAO) filter strength. Adaptive mode
+-- dynamically selects best strength based on content
+h265Settings_sampleAdaptiveOffsetFilterMode :: Lens.Lens' H265Settings (Prelude.Maybe H265SampleAdaptiveOffsetFilterMode)
+h265Settings_sampleAdaptiveOffsetFilterMode = Lens.lens (\H265Settings' {sampleAdaptiveOffsetFilterMode} -> sampleAdaptiveOffsetFilterMode) (\s@H265Settings' {} a -> s {sampleAdaptiveOffsetFilterMode = a} :: H265Settings)
 
--- | Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the duration of your video. Required settings: You must also set Framerate to 25. In your JSON job specification, set (framerateControl) to (SPECIFIED), (framerateNumerator) to 25 and (framerateDenominator) to 1.
-hssSlowPal :: Lens' H265Settings (Maybe H265SlowPal)
-hssSlowPal = lens _hssSlowPal (\s a -> s {_hssSlowPal = a})
+-- | Ignore this setting unless your input frame rate is 23.976 or 24 frames
+-- per second (fps). Enable slow PAL to create a 25 fps output. When you
+-- enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+-- resamples your audio to keep it synchronized with the video. Note that
+-- enabling this setting will slightly reduce the duration of your video.
+-- Required settings: You must also set Framerate to 25. In your JSON job
+-- specification, set (framerateControl) to (SPECIFIED),
+-- (framerateNumerator) to 25 and (framerateDenominator) to 1.
+h265Settings_slowPal :: Lens.Lens' H265Settings (Prelude.Maybe H265SlowPal)
+h265Settings_slowPal = Lens.lens (\H265Settings' {slowPal} -> slowPal) (\s@H265Settings' {} a -> s {slowPal = a} :: H265Settings)
 
-instance FromJSON H265Settings where
+instance Prelude.FromJSON H265Settings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "H265Settings"
       ( \x ->
           H265Settings'
-            <$> (x .:? "hrdBufferInitialFillPercentage")
-            <*> (x .:? "temporalAdaptiveQuantization")
-            <*> (x .:? "flickerAdaptiveQuantization")
-            <*> (x .:? "qualityTuningLevel")
-            <*> (x .:? "interlaceMode")
-            <*> (x .:? "telecine")
-            <*> (x .:? "gopBReference")
-            <*> (x .:? "spatialAdaptiveQuantization")
-            <*> (x .:? "framerateNumerator")
-            <*> (x .:? "rateControlMode")
-            <*> (x .:? "numberReferenceFrames")
-            <*> (x .:? "slices")
-            <*> (x .:? "writeMp4PackagingType")
-            <*> (x .:? "gopSizeUnits")
-            <*> (x .:? "codecProfile")
-            <*> (x .:? "gopSize")
-            <*> (x .:? "framerateDenominator")
-            <*> (x .:? "parNumerator")
-            <*> (x .:? "tiles")
-            <*> (x .:? "sceneChangeDetect")
-            <*> (x .:? "minIInterval")
-            <*> (x .:? "unregisteredSeiTimecode")
-            <*> (x .:? "scanTypeConversionMode")
-            <*> (x .:? "parControl")
-            <*> (x .:? "gopClosedCadence")
-            <*> (x .:? "parDenominator")
-            <*> (x .:? "maxBitrate")
-            <*> (x .:? "dynamicSubGop")
-            <*> (x .:? "alternateTransferFunctionSei")
-            <*> (x .:? "hrdBufferSize")
-            <*> (x .:? "adaptiveQuantization")
-            <*> (x .:? "framerateControl")
-            <*> (x .:? "numberBFramesBetweenReferenceFrames")
-            <*> (x .:? "framerateConversionAlgorithm")
-            <*> (x .:? "codecLevel")
-            <*> (x .:? "bitrate")
-            <*> (x .:? "temporalIds")
-            <*> (x .:? "qvbrSettings")
-            <*> (x .:? "sampleAdaptiveOffsetFilterMode")
-            <*> (x .:? "slowPal")
+            Prelude.<$> (x Prelude..:? "hrdBufferInitialFillPercentage")
+            Prelude.<*> (x Prelude..:? "temporalAdaptiveQuantization")
+            Prelude.<*> (x Prelude..:? "flickerAdaptiveQuantization")
+            Prelude.<*> (x Prelude..:? "qualityTuningLevel")
+            Prelude.<*> (x Prelude..:? "interlaceMode")
+            Prelude.<*> (x Prelude..:? "telecine")
+            Prelude.<*> (x Prelude..:? "gopBReference")
+            Prelude.<*> (x Prelude..:? "spatialAdaptiveQuantization")
+            Prelude.<*> (x Prelude..:? "framerateNumerator")
+            Prelude.<*> (x Prelude..:? "rateControlMode")
+            Prelude.<*> (x Prelude..:? "numberReferenceFrames")
+            Prelude.<*> (x Prelude..:? "slices")
+            Prelude.<*> (x Prelude..:? "writeMp4PackagingType")
+            Prelude.<*> (x Prelude..:? "gopSizeUnits")
+            Prelude.<*> (x Prelude..:? "codecProfile")
+            Prelude.<*> (x Prelude..:? "gopSize")
+            Prelude.<*> (x Prelude..:? "framerateDenominator")
+            Prelude.<*> (x Prelude..:? "parNumerator")
+            Prelude.<*> (x Prelude..:? "tiles")
+            Prelude.<*> (x Prelude..:? "sceneChangeDetect")
+            Prelude.<*> (x Prelude..:? "minIInterval")
+            Prelude.<*> (x Prelude..:? "unregisteredSeiTimecode")
+            Prelude.<*> (x Prelude..:? "scanTypeConversionMode")
+            Prelude.<*> (x Prelude..:? "parControl")
+            Prelude.<*> (x Prelude..:? "gopClosedCadence")
+            Prelude.<*> (x Prelude..:? "parDenominator")
+            Prelude.<*> (x Prelude..:? "maxBitrate")
+            Prelude.<*> (x Prelude..:? "dynamicSubGop")
+            Prelude.<*> (x Prelude..:? "alternateTransferFunctionSei")
+            Prelude.<*> (x Prelude..:? "hrdBufferSize")
+            Prelude.<*> (x Prelude..:? "adaptiveQuantization")
+            Prelude.<*> (x Prelude..:? "framerateControl")
+            Prelude.<*> (x Prelude..:? "numberBFramesBetweenReferenceFrames")
+            Prelude.<*> (x Prelude..:? "framerateConversionAlgorithm")
+            Prelude.<*> (x Prelude..:? "codecLevel")
+            Prelude.<*> (x Prelude..:? "bitrate")
+            Prelude.<*> (x Prelude..:? "temporalIds")
+            Prelude.<*> (x Prelude..:? "qvbrSettings")
+            Prelude.<*> (x Prelude..:? "sampleAdaptiveOffsetFilterMode")
+            Prelude.<*> (x Prelude..:? "slowPal")
       )
 
-instance Hashable H265Settings
+instance Prelude.Hashable H265Settings
 
-instance NFData H265Settings
+instance Prelude.NFData H265Settings
 
-instance ToJSON H265Settings where
+instance Prelude.ToJSON H265Settings where
   toJSON H265Settings' {..} =
-    object
-      ( catMaybes
-          [ ("hrdBufferInitialFillPercentage" .=)
-              <$> _hssHrdBufferInitialFillPercentage,
-            ("temporalAdaptiveQuantization" .=)
-              <$> _hssTemporalAdaptiveQuantization,
-            ("flickerAdaptiveQuantization" .=)
-              <$> _hssFlickerAdaptiveQuantization,
-            ("qualityTuningLevel" .=) <$> _hssQualityTuningLevel,
-            ("interlaceMode" .=) <$> _hssInterlaceMode,
-            ("telecine" .=) <$> _hssTelecine,
-            ("gopBReference" .=) <$> _hssGopBReference,
-            ("spatialAdaptiveQuantization" .=)
-              <$> _hssSpatialAdaptiveQuantization,
-            ("framerateNumerator" .=) <$> _hssFramerateNumerator,
-            ("rateControlMode" .=) <$> _hssRateControlMode,
-            ("numberReferenceFrames" .=)
-              <$> _hssNumberReferenceFrames,
-            ("slices" .=) <$> _hssSlices,
-            ("writeMp4PackagingType" .=)
-              <$> _hssWriteMp4PackagingType,
-            ("gopSizeUnits" .=) <$> _hssGopSizeUnits,
-            ("codecProfile" .=) <$> _hssCodecProfile,
-            ("gopSize" .=) <$> _hssGopSize,
-            ("framerateDenominator" .=)
-              <$> _hssFramerateDenominator,
-            ("parNumerator" .=) <$> _hssParNumerator,
-            ("tiles" .=) <$> _hssTiles,
-            ("sceneChangeDetect" .=) <$> _hssSceneChangeDetect,
-            ("minIInterval" .=) <$> _hssMinIInterval,
-            ("unregisteredSeiTimecode" .=)
-              <$> _hssUnregisteredSeiTimecode,
-            ("scanTypeConversionMode" .=)
-              <$> _hssScanTypeConversionMode,
-            ("parControl" .=) <$> _hssParControl,
-            ("gopClosedCadence" .=) <$> _hssGopClosedCadence,
-            ("parDenominator" .=) <$> _hssParDenominator,
-            ("maxBitrate" .=) <$> _hssMaxBitrate,
-            ("dynamicSubGop" .=) <$> _hssDynamicSubGop,
-            ("alternateTransferFunctionSei" .=)
-              <$> _hssAlternateTransferFunctionSei,
-            ("hrdBufferSize" .=) <$> _hssHrdBufferSize,
-            ("adaptiveQuantization" .=)
-              <$> _hssAdaptiveQuantization,
-            ("framerateControl" .=) <$> _hssFramerateControl,
-            ("numberBFramesBetweenReferenceFrames" .=)
-              <$> _hssNumberBFramesBetweenReferenceFrames,
-            ("framerateConversionAlgorithm" .=)
-              <$> _hssFramerateConversionAlgorithm,
-            ("codecLevel" .=) <$> _hssCodecLevel,
-            ("bitrate" .=) <$> _hssBitrate,
-            ("temporalIds" .=) <$> _hssTemporalIds,
-            ("qvbrSettings" .=) <$> _hssQvbrSettings,
-            ("sampleAdaptiveOffsetFilterMode" .=)
-              <$> _hssSampleAdaptiveOffsetFilterMode,
-            ("slowPal" .=) <$> _hssSlowPal
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("hrdBufferInitialFillPercentage" Prelude..=)
+              Prelude.<$> hrdBufferInitialFillPercentage,
+            ("temporalAdaptiveQuantization" Prelude..=)
+              Prelude.<$> temporalAdaptiveQuantization,
+            ("flickerAdaptiveQuantization" Prelude..=)
+              Prelude.<$> flickerAdaptiveQuantization,
+            ("qualityTuningLevel" Prelude..=)
+              Prelude.<$> qualityTuningLevel,
+            ("interlaceMode" Prelude..=)
+              Prelude.<$> interlaceMode,
+            ("telecine" Prelude..=) Prelude.<$> telecine,
+            ("gopBReference" Prelude..=)
+              Prelude.<$> gopBReference,
+            ("spatialAdaptiveQuantization" Prelude..=)
+              Prelude.<$> spatialAdaptiveQuantization,
+            ("framerateNumerator" Prelude..=)
+              Prelude.<$> framerateNumerator,
+            ("rateControlMode" Prelude..=)
+              Prelude.<$> rateControlMode,
+            ("numberReferenceFrames" Prelude..=)
+              Prelude.<$> numberReferenceFrames,
+            ("slices" Prelude..=) Prelude.<$> slices,
+            ("writeMp4PackagingType" Prelude..=)
+              Prelude.<$> writeMp4PackagingType,
+            ("gopSizeUnits" Prelude..=) Prelude.<$> gopSizeUnits,
+            ("codecProfile" Prelude..=) Prelude.<$> codecProfile,
+            ("gopSize" Prelude..=) Prelude.<$> gopSize,
+            ("framerateDenominator" Prelude..=)
+              Prelude.<$> framerateDenominator,
+            ("parNumerator" Prelude..=) Prelude.<$> parNumerator,
+            ("tiles" Prelude..=) Prelude.<$> tiles,
+            ("sceneChangeDetect" Prelude..=)
+              Prelude.<$> sceneChangeDetect,
+            ("minIInterval" Prelude..=) Prelude.<$> minIInterval,
+            ("unregisteredSeiTimecode" Prelude..=)
+              Prelude.<$> unregisteredSeiTimecode,
+            ("scanTypeConversionMode" Prelude..=)
+              Prelude.<$> scanTypeConversionMode,
+            ("parControl" Prelude..=) Prelude.<$> parControl,
+            ("gopClosedCadence" Prelude..=)
+              Prelude.<$> gopClosedCadence,
+            ("parDenominator" Prelude..=)
+              Prelude.<$> parDenominator,
+            ("maxBitrate" Prelude..=) Prelude.<$> maxBitrate,
+            ("dynamicSubGop" Prelude..=)
+              Prelude.<$> dynamicSubGop,
+            ("alternateTransferFunctionSei" Prelude..=)
+              Prelude.<$> alternateTransferFunctionSei,
+            ("hrdBufferSize" Prelude..=)
+              Prelude.<$> hrdBufferSize,
+            ("adaptiveQuantization" Prelude..=)
+              Prelude.<$> adaptiveQuantization,
+            ("framerateControl" Prelude..=)
+              Prelude.<$> framerateControl,
+            ("numberBFramesBetweenReferenceFrames" Prelude..=)
+              Prelude.<$> numberBFramesBetweenReferenceFrames,
+            ("framerateConversionAlgorithm" Prelude..=)
+              Prelude.<$> framerateConversionAlgorithm,
+            ("codecLevel" Prelude..=) Prelude.<$> codecLevel,
+            ("bitrate" Prelude..=) Prelude.<$> bitrate,
+            ("temporalIds" Prelude..=) Prelude.<$> temporalIds,
+            ("qvbrSettings" Prelude..=) Prelude.<$> qvbrSettings,
+            ("sampleAdaptiveOffsetFilterMode" Prelude..=)
+              Prelude.<$> sampleAdaptiveOffsetFilterMode,
+            ("slowPal" Prelude..=) Prelude.<$> slowPal
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,64 @@
 module Network.AWS.MediaConvert.Types.ScalingBehavior
   ( ScalingBehavior
       ( ..,
-        SBDefault,
-        SBStretchToOutput
+        ScalingBehaviorDEFAULT,
+        ScalingBehaviorSTRETCHTOOUTPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify how the service handles outputs that have a different aspect ratio from the input aspect ratio. Choose Stretch to output (STRETCH_TO_OUTPUT) to have the service stretch your video image to fit. Keep the setting Default (DEFAULT) to have the service letterbox your video instead. This setting overrides any value that you specify for the setting Selection placement (position) in this output.
-data ScalingBehavior = ScalingBehavior' (CI Text)
+-- | Specify how the service handles outputs that have a different aspect
+-- ratio from the input aspect ratio. Choose Stretch to output
+-- (STRETCH_TO_OUTPUT) to have the service stretch your video image to fit.
+-- Keep the setting Default (DEFAULT) to have the service letterbox your
+-- video instead. This setting overrides any value that you specify for the
+-- setting Selection placement (position) in this output.
+newtype ScalingBehavior = ScalingBehavior'
+  { fromScalingBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SBDefault :: ScalingBehavior
-pattern SBDefault = ScalingBehavior' "DEFAULT"
+pattern ScalingBehaviorDEFAULT :: ScalingBehavior
+pattern ScalingBehaviorDEFAULT = ScalingBehavior' "DEFAULT"
 
-pattern SBStretchToOutput :: ScalingBehavior
-pattern SBStretchToOutput = ScalingBehavior' "STRETCH_TO_OUTPUT"
+pattern ScalingBehaviorSTRETCHTOOUTPUT :: ScalingBehavior
+pattern ScalingBehaviorSTRETCHTOOUTPUT = ScalingBehavior' "STRETCH_TO_OUTPUT"
 
 {-# COMPLETE
-  SBDefault,
-  SBStretchToOutput,
+  ScalingBehaviorDEFAULT,
+  ScalingBehaviorSTRETCHTOOUTPUT,
   ScalingBehavior'
   #-}
 
-instance FromText ScalingBehavior where
-  parser = (ScalingBehavior' . mk) <$> takeText
+instance Prelude.FromText ScalingBehavior where
+  parser = ScalingBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingBehavior where
-  toText (ScalingBehavior' ci) = original ci
+instance Prelude.ToText ScalingBehavior where
+  toText (ScalingBehavior' x) = x
 
-instance Hashable ScalingBehavior
+instance Prelude.Hashable ScalingBehavior
 
-instance NFData ScalingBehavior
+instance Prelude.NFData ScalingBehavior
 
-instance ToByteString ScalingBehavior
+instance Prelude.ToByteString ScalingBehavior
 
-instance ToQuery ScalingBehavior
+instance Prelude.ToQuery ScalingBehavior
 
-instance ToHeader ScalingBehavior
+instance Prelude.ToHeader ScalingBehavior
 
-instance ToJSON ScalingBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalingBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalingBehavior where
-  parseJSON = parseJSONText "ScalingBehavior"
+instance Prelude.FromJSON ScalingBehavior where
+  parseJSON = Prelude.parseJSONText "ScalingBehavior"

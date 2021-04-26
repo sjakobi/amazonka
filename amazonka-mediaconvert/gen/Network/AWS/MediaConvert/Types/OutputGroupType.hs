@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,75 @@
 module Network.AWS.MediaConvert.Types.OutputGroupType
   ( OutputGroupType
       ( ..,
-        CmafGroupSettings,
-        DashIsoGroupSettings,
-        FileGroupSettings,
-        HlsGroupSettings,
-        MsSmoothGroupSettings
+        OutputGroupTypeCMAFGROUPSETTINGS,
+        OutputGroupTypeDASHISOGROUPSETTINGS,
+        OutputGroupTypeFILEGROUPSETTINGS,
+        OutputGroupTypeHLSGROUPSETTINGS,
+        OutputGroupTypeMSSMOOTHGROUPSETTINGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth Streaming, CMAF)
-data OutputGroupType = OutputGroupType' (CI Text)
+-- | Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth
+-- Streaming, CMAF)
+newtype OutputGroupType = OutputGroupType'
+  { fromOutputGroupType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CmafGroupSettings :: OutputGroupType
-pattern CmafGroupSettings = OutputGroupType' "CMAF_GROUP_SETTINGS"
+pattern OutputGroupTypeCMAFGROUPSETTINGS :: OutputGroupType
+pattern OutputGroupTypeCMAFGROUPSETTINGS = OutputGroupType' "CMAF_GROUP_SETTINGS"
 
-pattern DashIsoGroupSettings :: OutputGroupType
-pattern DashIsoGroupSettings = OutputGroupType' "DASH_ISO_GROUP_SETTINGS"
+pattern OutputGroupTypeDASHISOGROUPSETTINGS :: OutputGroupType
+pattern OutputGroupTypeDASHISOGROUPSETTINGS = OutputGroupType' "DASH_ISO_GROUP_SETTINGS"
 
-pattern FileGroupSettings :: OutputGroupType
-pattern FileGroupSettings = OutputGroupType' "FILE_GROUP_SETTINGS"
+pattern OutputGroupTypeFILEGROUPSETTINGS :: OutputGroupType
+pattern OutputGroupTypeFILEGROUPSETTINGS = OutputGroupType' "FILE_GROUP_SETTINGS"
 
-pattern HlsGroupSettings :: OutputGroupType
-pattern HlsGroupSettings = OutputGroupType' "HLS_GROUP_SETTINGS"
+pattern OutputGroupTypeHLSGROUPSETTINGS :: OutputGroupType
+pattern OutputGroupTypeHLSGROUPSETTINGS = OutputGroupType' "HLS_GROUP_SETTINGS"
 
-pattern MsSmoothGroupSettings :: OutputGroupType
-pattern MsSmoothGroupSettings = OutputGroupType' "MS_SMOOTH_GROUP_SETTINGS"
+pattern OutputGroupTypeMSSMOOTHGROUPSETTINGS :: OutputGroupType
+pattern OutputGroupTypeMSSMOOTHGROUPSETTINGS = OutputGroupType' "MS_SMOOTH_GROUP_SETTINGS"
 
 {-# COMPLETE
-  CmafGroupSettings,
-  DashIsoGroupSettings,
-  FileGroupSettings,
-  HlsGroupSettings,
-  MsSmoothGroupSettings,
+  OutputGroupTypeCMAFGROUPSETTINGS,
+  OutputGroupTypeDASHISOGROUPSETTINGS,
+  OutputGroupTypeFILEGROUPSETTINGS,
+  OutputGroupTypeHLSGROUPSETTINGS,
+  OutputGroupTypeMSSMOOTHGROUPSETTINGS,
   OutputGroupType'
   #-}
 
-instance FromText OutputGroupType where
-  parser = (OutputGroupType' . mk) <$> takeText
+instance Prelude.FromText OutputGroupType where
+  parser = OutputGroupType' Prelude.<$> Prelude.takeText
 
-instance ToText OutputGroupType where
-  toText (OutputGroupType' ci) = original ci
+instance Prelude.ToText OutputGroupType where
+  toText (OutputGroupType' x) = x
 
-instance Hashable OutputGroupType
+instance Prelude.Hashable OutputGroupType
 
-instance NFData OutputGroupType
+instance Prelude.NFData OutputGroupType
 
-instance ToByteString OutputGroupType
+instance Prelude.ToByteString OutputGroupType
 
-instance ToQuery OutputGroupType
+instance Prelude.ToQuery OutputGroupType
 
-instance ToHeader OutputGroupType
+instance Prelude.ToHeader OutputGroupType
 
-instance ToJSON OutputGroupType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OutputGroupType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OutputGroupType where
-  parseJSON = parseJSONText "OutputGroupType"
+instance Prelude.FromJSON OutputGroupType where
+  parseJSON = Prelude.parseJSONText "OutputGroupType"

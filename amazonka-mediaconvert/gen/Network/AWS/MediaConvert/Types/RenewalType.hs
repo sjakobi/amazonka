@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,61 @@
 module Network.AWS.MediaConvert.Types.RenewalType
   ( RenewalType
       ( ..,
-        AutoRenew,
-        Expire
+        RenewalTypeAUTORENEW,
+        RenewalTypeEXPIRE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies whether the term of your reserved queue pricing plan is automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of the term.
-data RenewalType = RenewalType' (CI Text)
+-- | Specifies whether the term of your reserved queue pricing plan is
+-- automatically extended (AUTO_RENEW) or expires (EXPIRE) at the end of
+-- the term.
+newtype RenewalType = RenewalType'
+  { fromRenewalType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AutoRenew :: RenewalType
-pattern AutoRenew = RenewalType' "AUTO_RENEW"
+pattern RenewalTypeAUTORENEW :: RenewalType
+pattern RenewalTypeAUTORENEW = RenewalType' "AUTO_RENEW"
 
-pattern Expire :: RenewalType
-pattern Expire = RenewalType' "EXPIRE"
+pattern RenewalTypeEXPIRE :: RenewalType
+pattern RenewalTypeEXPIRE = RenewalType' "EXPIRE"
 
 {-# COMPLETE
-  AutoRenew,
-  Expire,
+  RenewalTypeAUTORENEW,
+  RenewalTypeEXPIRE,
   RenewalType'
   #-}
 
-instance FromText RenewalType where
-  parser = (RenewalType' . mk) <$> takeText
+instance Prelude.FromText RenewalType where
+  parser = RenewalType' Prelude.<$> Prelude.takeText
 
-instance ToText RenewalType where
-  toText (RenewalType' ci) = original ci
+instance Prelude.ToText RenewalType where
+  toText (RenewalType' x) = x
 
-instance Hashable RenewalType
+instance Prelude.Hashable RenewalType
 
-instance NFData RenewalType
+instance Prelude.NFData RenewalType
 
-instance ToByteString RenewalType
+instance Prelude.ToByteString RenewalType
 
-instance ToQuery RenewalType
+instance Prelude.ToQuery RenewalType
 
-instance ToHeader RenewalType
+instance Prelude.ToHeader RenewalType
 
-instance ToJSON RenewalType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RenewalType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RenewalType where
-  parseJSON = parseJSONText "RenewalType"
+instance Prelude.FromJSON RenewalType where
+  parseJSON = Prelude.parseJSONText "RenewalType"

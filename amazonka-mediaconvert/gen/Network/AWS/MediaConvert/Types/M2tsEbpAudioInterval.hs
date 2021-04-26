@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,64 @@
 module Network.AWS.MediaConvert.Types.M2tsEbpAudioInterval
   ( M2tsEbpAudioInterval
       ( ..,
-        VideoAndFixedIntervals,
-        VideoInterval
+        M2tsEbpAudioIntervalVIDEOANDFIXEDINTERVALS,
+        M2tsEbpAudioIntervalVIDEOINTERVAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added to partitions 3 and 4. The interval between these additional markers will be fixed, and will be slightly shorter than the video EBP marker interval. When set to VIDEO_INTERVAL, these additional markers will not be inserted. Only applicable when EBP segmentation markers are is selected (segmentationMarkers is EBP or EBP_LEGACY).
-data M2tsEbpAudioInterval
-  = M2tsEbpAudioInterval'
-      ( CI
-          Text
-      )
+-- | When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added
+-- to partitions 3 and 4. The interval between these additional markers
+-- will be fixed, and will be slightly shorter than the video EBP marker
+-- interval. When set to VIDEO_INTERVAL, these additional markers will not
+-- be inserted. Only applicable when EBP segmentation markers are is
+-- selected (segmentationMarkers is EBP or EBP_LEGACY).
+newtype M2tsEbpAudioInterval = M2tsEbpAudioInterval'
+  { fromM2tsEbpAudioInterval ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VideoAndFixedIntervals :: M2tsEbpAudioInterval
-pattern VideoAndFixedIntervals = M2tsEbpAudioInterval' "VIDEO_AND_FIXED_INTERVALS"
+pattern M2tsEbpAudioIntervalVIDEOANDFIXEDINTERVALS :: M2tsEbpAudioInterval
+pattern M2tsEbpAudioIntervalVIDEOANDFIXEDINTERVALS = M2tsEbpAudioInterval' "VIDEO_AND_FIXED_INTERVALS"
 
-pattern VideoInterval :: M2tsEbpAudioInterval
-pattern VideoInterval = M2tsEbpAudioInterval' "VIDEO_INTERVAL"
+pattern M2tsEbpAudioIntervalVIDEOINTERVAL :: M2tsEbpAudioInterval
+pattern M2tsEbpAudioIntervalVIDEOINTERVAL = M2tsEbpAudioInterval' "VIDEO_INTERVAL"
 
 {-# COMPLETE
-  VideoAndFixedIntervals,
-  VideoInterval,
+  M2tsEbpAudioIntervalVIDEOANDFIXEDINTERVALS,
+  M2tsEbpAudioIntervalVIDEOINTERVAL,
   M2tsEbpAudioInterval'
   #-}
 
-instance FromText M2tsEbpAudioInterval where
-  parser = (M2tsEbpAudioInterval' . mk) <$> takeText
+instance Prelude.FromText M2tsEbpAudioInterval where
+  parser = M2tsEbpAudioInterval' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsEbpAudioInterval where
-  toText (M2tsEbpAudioInterval' ci) = original ci
+instance Prelude.ToText M2tsEbpAudioInterval where
+  toText (M2tsEbpAudioInterval' x) = x
 
-instance Hashable M2tsEbpAudioInterval
+instance Prelude.Hashable M2tsEbpAudioInterval
 
-instance NFData M2tsEbpAudioInterval
+instance Prelude.NFData M2tsEbpAudioInterval
 
-instance ToByteString M2tsEbpAudioInterval
+instance Prelude.ToByteString M2tsEbpAudioInterval
 
-instance ToQuery M2tsEbpAudioInterval
+instance Prelude.ToQuery M2tsEbpAudioInterval
 
-instance ToHeader M2tsEbpAudioInterval
+instance Prelude.ToHeader M2tsEbpAudioInterval
 
-instance ToJSON M2tsEbpAudioInterval where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsEbpAudioInterval where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsEbpAudioInterval where
-  parseJSON = parseJSONText "M2tsEbpAudioInterval"
+instance Prelude.FromJSON M2tsEbpAudioInterval where
+  parseJSON = Prelude.parseJSONText "M2tsEbpAudioInterval"

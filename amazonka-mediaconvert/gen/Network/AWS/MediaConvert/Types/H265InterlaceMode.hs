@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,86 @@
 module Network.AWS.MediaConvert.Types.H265InterlaceMode
   ( H265InterlaceMode
       ( ..,
-        HBottomField,
-        HFollowBottomField,
-        HFollowTopField,
-        HProgressive,
-        HTopField
+        H265InterlaceModeBOTTOMFIELD,
+        H265InterlaceModeFOLLOWBOTTOMFIELD,
+        H265InterlaceModeFOLLOWTOPFIELD,
+        H265InterlaceModePROGRESSIVE,
+        H265InterlaceModeTOPFIELD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output. Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
-data H265InterlaceMode = H265InterlaceMode' (CI Text)
+-- | Choose the scan line type for the output. Keep the default value,
+-- Progressive (PROGRESSIVE) to create a progressive output, regardless of
+-- the scan type of your input. Use Top field first (TOP_FIELD) or Bottom
+-- field first (BOTTOM_FIELD) to create an output that\'s interlaced with
+-- the same field polarity throughout. Use Follow, default top
+-- (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to
+-- produce outputs with the same field polarity as the source. For jobs
+-- that have multiple inputs, the output field polarity might change over
+-- the course of the output. Follow behavior depends on the input scan
+-- type. If the source is interlaced, the output will be interlaced with
+-- the same polarity as the source. If the source is progressive, the
+-- output will be interlaced with top field bottom field first, depending
+-- on which of the Follow options you choose.
+newtype H265InterlaceMode = H265InterlaceMode'
+  { fromH265InterlaceMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HBottomField :: H265InterlaceMode
-pattern HBottomField = H265InterlaceMode' "BOTTOM_FIELD"
+pattern H265InterlaceModeBOTTOMFIELD :: H265InterlaceMode
+pattern H265InterlaceModeBOTTOMFIELD = H265InterlaceMode' "BOTTOM_FIELD"
 
-pattern HFollowBottomField :: H265InterlaceMode
-pattern HFollowBottomField = H265InterlaceMode' "FOLLOW_BOTTOM_FIELD"
+pattern H265InterlaceModeFOLLOWBOTTOMFIELD :: H265InterlaceMode
+pattern H265InterlaceModeFOLLOWBOTTOMFIELD = H265InterlaceMode' "FOLLOW_BOTTOM_FIELD"
 
-pattern HFollowTopField :: H265InterlaceMode
-pattern HFollowTopField = H265InterlaceMode' "FOLLOW_TOP_FIELD"
+pattern H265InterlaceModeFOLLOWTOPFIELD :: H265InterlaceMode
+pattern H265InterlaceModeFOLLOWTOPFIELD = H265InterlaceMode' "FOLLOW_TOP_FIELD"
 
-pattern HProgressive :: H265InterlaceMode
-pattern HProgressive = H265InterlaceMode' "PROGRESSIVE"
+pattern H265InterlaceModePROGRESSIVE :: H265InterlaceMode
+pattern H265InterlaceModePROGRESSIVE = H265InterlaceMode' "PROGRESSIVE"
 
-pattern HTopField :: H265InterlaceMode
-pattern HTopField = H265InterlaceMode' "TOP_FIELD"
+pattern H265InterlaceModeTOPFIELD :: H265InterlaceMode
+pattern H265InterlaceModeTOPFIELD = H265InterlaceMode' "TOP_FIELD"
 
 {-# COMPLETE
-  HBottomField,
-  HFollowBottomField,
-  HFollowTopField,
-  HProgressive,
-  HTopField,
+  H265InterlaceModeBOTTOMFIELD,
+  H265InterlaceModeFOLLOWBOTTOMFIELD,
+  H265InterlaceModeFOLLOWTOPFIELD,
+  H265InterlaceModePROGRESSIVE,
+  H265InterlaceModeTOPFIELD,
   H265InterlaceMode'
   #-}
 
-instance FromText H265InterlaceMode where
-  parser = (H265InterlaceMode' . mk) <$> takeText
+instance Prelude.FromText H265InterlaceMode where
+  parser = H265InterlaceMode' Prelude.<$> Prelude.takeText
 
-instance ToText H265InterlaceMode where
-  toText (H265InterlaceMode' ci) = original ci
+instance Prelude.ToText H265InterlaceMode where
+  toText (H265InterlaceMode' x) = x
 
-instance Hashable H265InterlaceMode
+instance Prelude.Hashable H265InterlaceMode
 
-instance NFData H265InterlaceMode
+instance Prelude.NFData H265InterlaceMode
 
-instance ToByteString H265InterlaceMode
+instance Prelude.ToByteString H265InterlaceMode
 
-instance ToQuery H265InterlaceMode
+instance Prelude.ToQuery H265InterlaceMode
 
-instance ToHeader H265InterlaceMode
+instance Prelude.ToHeader H265InterlaceMode
 
-instance ToJSON H265InterlaceMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265InterlaceMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265InterlaceMode where
-  parseJSON = parseJSONText "H265InterlaceMode"
+instance Prelude.FromJSON H265InterlaceMode where
+  parseJSON = Prelude.parseJSONText "H265InterlaceMode"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,74 @@
 module Network.AWS.MediaConvert.Types.H265FramerateConversionAlgorithm
   ( H265FramerateConversionAlgorithm
       ( ..,
-        HDuplicateDrop,
-        HFrameformer,
-        HInterpolate
+        H265FramerateConversionAlgorithmDUPLICATEDROP,
+        H265FramerateConversionAlgorithmFRAMEFORMER,
+        H265FramerateConversionAlgorithmINTERPOLATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. We recommend using drop duplicate (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to 30 fps. For numerically complex conversions, you can use interpolate (INTERPOLATE) to avoid stutter. This results in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has already been converted from its original cadence, use FrameFormer (FRAMEFORMER) to do motion-compensated interpolation. FrameFormer chooses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding time and incurs a significant add-on cost.
-data H265FramerateConversionAlgorithm
-  = H265FramerateConversionAlgorithm'
-      ( CI
-          Text
-      )
+-- | Choose the method that you want MediaConvert to use when increasing or
+-- decreasing the frame rate. We recommend using drop duplicate
+-- (DUPLICATE_DROP) for numerically simple conversions, such as 60 fps to
+-- 30 fps. For numerically complex conversions, you can use interpolate
+-- (INTERPOLATE) to avoid stutter. This results in a smooth picture, but
+-- might introduce undesirable video artifacts. For complex frame rate
+-- conversions, especially if your source video has already been converted
+-- from its original cadence, use FrameFormer (FRAMEFORMER) to do
+-- motion-compensated interpolation. FrameFormer chooses the best
+-- conversion method frame by frame. Note that using FrameFormer increases
+-- the transcoding time and incurs a significant add-on cost.
+newtype H265FramerateConversionAlgorithm = H265FramerateConversionAlgorithm'
+  { fromH265FramerateConversionAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HDuplicateDrop :: H265FramerateConversionAlgorithm
-pattern HDuplicateDrop = H265FramerateConversionAlgorithm' "DUPLICATE_DROP"
+pattern H265FramerateConversionAlgorithmDUPLICATEDROP :: H265FramerateConversionAlgorithm
+pattern H265FramerateConversionAlgorithmDUPLICATEDROP = H265FramerateConversionAlgorithm' "DUPLICATE_DROP"
 
-pattern HFrameformer :: H265FramerateConversionAlgorithm
-pattern HFrameformer = H265FramerateConversionAlgorithm' "FRAMEFORMER"
+pattern H265FramerateConversionAlgorithmFRAMEFORMER :: H265FramerateConversionAlgorithm
+pattern H265FramerateConversionAlgorithmFRAMEFORMER = H265FramerateConversionAlgorithm' "FRAMEFORMER"
 
-pattern HInterpolate :: H265FramerateConversionAlgorithm
-pattern HInterpolate = H265FramerateConversionAlgorithm' "INTERPOLATE"
+pattern H265FramerateConversionAlgorithmINTERPOLATE :: H265FramerateConversionAlgorithm
+pattern H265FramerateConversionAlgorithmINTERPOLATE = H265FramerateConversionAlgorithm' "INTERPOLATE"
 
 {-# COMPLETE
-  HDuplicateDrop,
-  HFrameformer,
-  HInterpolate,
+  H265FramerateConversionAlgorithmDUPLICATEDROP,
+  H265FramerateConversionAlgorithmFRAMEFORMER,
+  H265FramerateConversionAlgorithmINTERPOLATE,
   H265FramerateConversionAlgorithm'
   #-}
 
-instance FromText H265FramerateConversionAlgorithm where
-  parser = (H265FramerateConversionAlgorithm' . mk) <$> takeText
+instance Prelude.FromText H265FramerateConversionAlgorithm where
+  parser = H265FramerateConversionAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText H265FramerateConversionAlgorithm where
-  toText (H265FramerateConversionAlgorithm' ci) = original ci
+instance Prelude.ToText H265FramerateConversionAlgorithm where
+  toText (H265FramerateConversionAlgorithm' x) = x
 
-instance Hashable H265FramerateConversionAlgorithm
+instance Prelude.Hashable H265FramerateConversionAlgorithm
 
-instance NFData H265FramerateConversionAlgorithm
+instance Prelude.NFData H265FramerateConversionAlgorithm
 
-instance ToByteString H265FramerateConversionAlgorithm
+instance Prelude.ToByteString H265FramerateConversionAlgorithm
 
-instance ToQuery H265FramerateConversionAlgorithm
+instance Prelude.ToQuery H265FramerateConversionAlgorithm
 
-instance ToHeader H265FramerateConversionAlgorithm
+instance Prelude.ToHeader H265FramerateConversionAlgorithm
 
-instance ToJSON H265FramerateConversionAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265FramerateConversionAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265FramerateConversionAlgorithm where
-  parseJSON = parseJSONText "H265FramerateConversionAlgorithm"
+instance Prelude.FromJSON H265FramerateConversionAlgorithm where
+  parseJSON = Prelude.parseJSONText "H265FramerateConversionAlgorithm"

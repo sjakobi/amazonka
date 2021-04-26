@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,64 @@
 module Network.AWS.MediaConvert.Types.H265DynamicSubGop
   ( H265DynamicSubGop
       ( ..,
-        HAdaptive,
-        HStatic
+        H265DynamicSubGopADAPTIVE,
+        H265DynamicSubGopSTATIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
-data H265DynamicSubGop = H265DynamicSubGop' (CI Text)
+-- | Choose Adaptive to improve subjective video quality for high-motion
+-- content. This will cause the service to use fewer B-frames (which infer
+-- information based on other frames) for high-motion portions of the video
+-- and more B-frames for low-motion portions. The maximum number of
+-- B-frames is limited by the value you provide for the setting B frames
+-- between reference frames (numberBFramesBetweenReferenceFrames).
+newtype H265DynamicSubGop = H265DynamicSubGop'
+  { fromH265DynamicSubGop ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HAdaptive :: H265DynamicSubGop
-pattern HAdaptive = H265DynamicSubGop' "ADAPTIVE"
+pattern H265DynamicSubGopADAPTIVE :: H265DynamicSubGop
+pattern H265DynamicSubGopADAPTIVE = H265DynamicSubGop' "ADAPTIVE"
 
-pattern HStatic :: H265DynamicSubGop
-pattern HStatic = H265DynamicSubGop' "STATIC"
+pattern H265DynamicSubGopSTATIC :: H265DynamicSubGop
+pattern H265DynamicSubGopSTATIC = H265DynamicSubGop' "STATIC"
 
 {-# COMPLETE
-  HAdaptive,
-  HStatic,
+  H265DynamicSubGopADAPTIVE,
+  H265DynamicSubGopSTATIC,
   H265DynamicSubGop'
   #-}
 
-instance FromText H265DynamicSubGop where
-  parser = (H265DynamicSubGop' . mk) <$> takeText
+instance Prelude.FromText H265DynamicSubGop where
+  parser = H265DynamicSubGop' Prelude.<$> Prelude.takeText
 
-instance ToText H265DynamicSubGop where
-  toText (H265DynamicSubGop' ci) = original ci
+instance Prelude.ToText H265DynamicSubGop where
+  toText (H265DynamicSubGop' x) = x
 
-instance Hashable H265DynamicSubGop
+instance Prelude.Hashable H265DynamicSubGop
 
-instance NFData H265DynamicSubGop
+instance Prelude.NFData H265DynamicSubGop
 
-instance ToByteString H265DynamicSubGop
+instance Prelude.ToByteString H265DynamicSubGop
 
-instance ToQuery H265DynamicSubGop
+instance Prelude.ToQuery H265DynamicSubGop
 
-instance ToHeader H265DynamicSubGop
+instance Prelude.ToHeader H265DynamicSubGop
 
-instance ToJSON H265DynamicSubGop where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265DynamicSubGop where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265DynamicSubGop where
-  parseJSON = parseJSONText "H265DynamicSubGop"
+instance Prelude.FromJSON H265DynamicSubGop where
+  parseJSON = Prelude.parseJSONText "H265DynamicSubGop"

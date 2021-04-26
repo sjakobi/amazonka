@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.PartnerWatermarking where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.NexGuardFileMarkerSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you work with a third party video watermarking partner, use the group of settings that correspond with your watermarking partner to include watermarks in your output.
+-- | If you work with a third party video watermarking partner, use the group
+-- of settings that correspond with your watermarking partner to include
+-- watermarks in your output.
 --
--- /See:/ 'partnerWatermarking' smart constructor.
-newtype PartnerWatermarking = PartnerWatermarking'
-  { _pwNexguardFileMarkerSettings ::
-      Maybe
-        NexGuardFileMarkerSettings
+-- /See:/ 'newPartnerWatermarking' smart constructor.
+data PartnerWatermarking = PartnerWatermarking'
+  { -- | For forensic video watermarking, MediaConvert supports Nagra NexGuard
+    -- File Marker watermarking. MediaConvert supports both PreRelease Content
+    -- (NGPR\/G2) and OTT Streaming workflows.
+    nexguardFileMarkerSettings :: Prelude.Maybe NexGuardFileMarkerSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PartnerWatermarking' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PartnerWatermarking' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pwNexguardFileMarkerSettings' - For forensic video watermarking, MediaConvert supports Nagra NexGuard File Marker watermarking. MediaConvert supports both PreRelease Content (NGPR/G2) and OTT Streaming workflows.
-partnerWatermarking ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nexguardFileMarkerSettings', 'partnerWatermarking_nexguardFileMarkerSettings' - For forensic video watermarking, MediaConvert supports Nagra NexGuard
+-- File Marker watermarking. MediaConvert supports both PreRelease Content
+-- (NGPR\/G2) and OTT Streaming workflows.
+newPartnerWatermarking ::
   PartnerWatermarking
-partnerWatermarking =
+newPartnerWatermarking =
   PartnerWatermarking'
-    { _pwNexguardFileMarkerSettings =
-        Nothing
+    { nexguardFileMarkerSettings =
+        Prelude.Nothing
     }
 
--- | For forensic video watermarking, MediaConvert supports Nagra NexGuard File Marker watermarking. MediaConvert supports both PreRelease Content (NGPR/G2) and OTT Streaming workflows.
-pwNexguardFileMarkerSettings :: Lens' PartnerWatermarking (Maybe NexGuardFileMarkerSettings)
-pwNexguardFileMarkerSettings = lens _pwNexguardFileMarkerSettings (\s a -> s {_pwNexguardFileMarkerSettings = a})
+-- | For forensic video watermarking, MediaConvert supports Nagra NexGuard
+-- File Marker watermarking. MediaConvert supports both PreRelease Content
+-- (NGPR\/G2) and OTT Streaming workflows.
+partnerWatermarking_nexguardFileMarkerSettings :: Lens.Lens' PartnerWatermarking (Prelude.Maybe NexGuardFileMarkerSettings)
+partnerWatermarking_nexguardFileMarkerSettings = Lens.lens (\PartnerWatermarking' {nexguardFileMarkerSettings} -> nexguardFileMarkerSettings) (\s@PartnerWatermarking' {} a -> s {nexguardFileMarkerSettings = a} :: PartnerWatermarking)
 
-instance FromJSON PartnerWatermarking where
+instance Prelude.FromJSON PartnerWatermarking where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PartnerWatermarking"
       ( \x ->
           PartnerWatermarking'
-            <$> (x .:? "nexguardFileMarkerSettings")
+            Prelude.<$> (x Prelude..:? "nexguardFileMarkerSettings")
       )
 
-instance Hashable PartnerWatermarking
+instance Prelude.Hashable PartnerWatermarking
 
-instance NFData PartnerWatermarking
+instance Prelude.NFData PartnerWatermarking
 
-instance ToJSON PartnerWatermarking where
+instance Prelude.ToJSON PartnerWatermarking where
   toJSON PartnerWatermarking' {..} =
-    object
-      ( catMaybes
-          [ ("nexguardFileMarkerSettings" .=)
-              <$> _pwNexguardFileMarkerSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nexguardFileMarkerSettings" Prelude..=)
+              Prelude.<$> nexguardFileMarkerSettings
           ]
       )

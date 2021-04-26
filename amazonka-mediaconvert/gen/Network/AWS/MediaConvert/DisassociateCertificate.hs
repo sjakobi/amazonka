@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,127 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes an association between the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate and an AWS Elemental MediaConvert resource.
+-- Removes an association between the Amazon Resource Name (ARN) of an AWS
+-- Certificate Manager (ACM) certificate and an AWS Elemental MediaConvert
+-- resource.
 module Network.AWS.MediaConvert.DisassociateCertificate
   ( -- * Creating a Request
-    disassociateCertificate,
-    DisassociateCertificate,
+    DisassociateCertificate (..),
+    newDisassociateCertificate,
 
     -- * Request Lenses
-    dcARN,
+    disassociateCertificate_arn,
 
     -- * Destructuring the Response
-    disassociateCertificateResponse,
-    DisassociateCertificateResponse,
+    DisassociateCertificateResponse (..),
+    newDisassociateCertificateResponse,
 
     -- * Response Lenses
-    dcrrsResponseStatus,
+    disassociateCertificateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateCertificate' smart constructor.
-newtype DisassociateCertificate = DisassociateCertificate'
-  { _dcARN ::
-      Text
+-- | /See:/ 'newDisassociateCertificate' smart constructor.
+data DisassociateCertificate = DisassociateCertificate'
+  { -- | The ARN of the ACM certificate that you want to disassociate from your
+    -- MediaConvert resource.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcARN' - The ARN of the ACM certificate that you want to disassociate from your MediaConvert resource.
-disassociateCertificate ::
-  -- | 'dcARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'disassociateCertificate_arn' - The ARN of the ACM certificate that you want to disassociate from your
+-- MediaConvert resource.
+newDisassociateCertificate ::
+  -- | 'arn'
+  Prelude.Text ->
   DisassociateCertificate
-disassociateCertificate pARN_ =
-  DisassociateCertificate' {_dcARN = pARN_}
+newDisassociateCertificate pArn_ =
+  DisassociateCertificate' {arn = pArn_}
 
--- | The ARN of the ACM certificate that you want to disassociate from your MediaConvert resource.
-dcARN :: Lens' DisassociateCertificate Text
-dcARN = lens _dcARN (\s a -> s {_dcARN = a})
+-- | The ARN of the ACM certificate that you want to disassociate from your
+-- MediaConvert resource.
+disassociateCertificate_arn :: Lens.Lens' DisassociateCertificate Prelude.Text
+disassociateCertificate_arn = Lens.lens (\DisassociateCertificate' {arn} -> arn) (\s@DisassociateCertificate' {} a -> s {arn = a} :: DisassociateCertificate)
 
-instance AWSRequest DisassociateCertificate where
+instance Prelude.AWSRequest DisassociateCertificate where
   type
     Rs DisassociateCertificate =
       DisassociateCertificateResponse
-  request = delete mediaConvert
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateCertificateResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateCertificate
+instance Prelude.Hashable DisassociateCertificate
 
-instance NFData DisassociateCertificate
+instance Prelude.NFData DisassociateCertificate
 
-instance ToHeaders DisassociateCertificate where
+instance Prelude.ToHeaders DisassociateCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DisassociateCertificate where
+instance Prelude.ToPath DisassociateCertificate where
   toPath DisassociateCertificate' {..} =
-    mconcat ["/2017-08-29/certificates/", toBS _dcARN]
+    Prelude.mconcat
+      ["/2017-08-29/certificates/", Prelude.toBS arn]
 
-instance ToQuery DisassociateCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery DisassociateCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateCertificateResponse' smart constructor.
-newtype DisassociateCertificateResponse = DisassociateCertificateResponse'
-  { _dcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisassociateCertificateResponse' smart constructor.
+data DisassociateCertificateResponse = DisassociateCertificateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-disassociateCertificateResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateCertificateResponse_httpStatus' - The response's http status code.
+newDisassociateCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateCertificateResponse
-disassociateCertificateResponse pResponseStatus_ =
+newDisassociateCertificateResponse pHttpStatus_ =
   DisassociateCertificateResponse'
-    { _dcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DisassociateCertificateResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateCertificateResponse_httpStatus :: Lens.Lens' DisassociateCertificateResponse Prelude.Int
+disassociateCertificateResponse_httpStatus = Lens.lens (\DisassociateCertificateResponse' {httpStatus} -> httpStatus) (\s@DisassociateCertificateResponse' {} a -> s {httpStatus = a} :: DisassociateCertificateResponse)
 
-instance NFData DisassociateCertificateResponse
+instance
+  Prelude.NFData
+    DisassociateCertificateResponse

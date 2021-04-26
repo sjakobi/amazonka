@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.MsSmoothAudioDeduplication
   ( MsSmoothAudioDeduplication
       ( ..,
-        MSADCombineDuplicateStreams,
-        MSADNone
+        MsSmoothAudioDeduplicationCOMBINEDUPLICATESTREAMS,
+        MsSmoothAudioDeduplicationNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings across a Microsoft Smooth output group into a single audio stream.
-data MsSmoothAudioDeduplication
-  = MsSmoothAudioDeduplication'
-      ( CI
-          Text
-      )
+-- | COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings
+-- across a Microsoft Smooth output group into a single audio stream.
+newtype MsSmoothAudioDeduplication = MsSmoothAudioDeduplication'
+  { fromMsSmoothAudioDeduplication ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSADCombineDuplicateStreams :: MsSmoothAudioDeduplication
-pattern MSADCombineDuplicateStreams = MsSmoothAudioDeduplication' "COMBINE_DUPLICATE_STREAMS"
+pattern MsSmoothAudioDeduplicationCOMBINEDUPLICATESTREAMS :: MsSmoothAudioDeduplication
+pattern MsSmoothAudioDeduplicationCOMBINEDUPLICATESTREAMS = MsSmoothAudioDeduplication' "COMBINE_DUPLICATE_STREAMS"
 
-pattern MSADNone :: MsSmoothAudioDeduplication
-pattern MSADNone = MsSmoothAudioDeduplication' "NONE"
+pattern MsSmoothAudioDeduplicationNONE :: MsSmoothAudioDeduplication
+pattern MsSmoothAudioDeduplicationNONE = MsSmoothAudioDeduplication' "NONE"
 
 {-# COMPLETE
-  MSADCombineDuplicateStreams,
-  MSADNone,
+  MsSmoothAudioDeduplicationCOMBINEDUPLICATESTREAMS,
+  MsSmoothAudioDeduplicationNONE,
   MsSmoothAudioDeduplication'
   #-}
 
-instance FromText MsSmoothAudioDeduplication where
-  parser = (MsSmoothAudioDeduplication' . mk) <$> takeText
+instance Prelude.FromText MsSmoothAudioDeduplication where
+  parser = MsSmoothAudioDeduplication' Prelude.<$> Prelude.takeText
 
-instance ToText MsSmoothAudioDeduplication where
-  toText (MsSmoothAudioDeduplication' ci) = original ci
+instance Prelude.ToText MsSmoothAudioDeduplication where
+  toText (MsSmoothAudioDeduplication' x) = x
 
-instance Hashable MsSmoothAudioDeduplication
+instance Prelude.Hashable MsSmoothAudioDeduplication
 
-instance NFData MsSmoothAudioDeduplication
+instance Prelude.NFData MsSmoothAudioDeduplication
 
-instance ToByteString MsSmoothAudioDeduplication
+instance Prelude.ToByteString MsSmoothAudioDeduplication
 
-instance ToQuery MsSmoothAudioDeduplication
+instance Prelude.ToQuery MsSmoothAudioDeduplication
 
-instance ToHeader MsSmoothAudioDeduplication
+instance Prelude.ToHeader MsSmoothAudioDeduplication
 
-instance ToJSON MsSmoothAudioDeduplication where
-  toJSON = toJSONText
+instance Prelude.ToJSON MsSmoothAudioDeduplication where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MsSmoothAudioDeduplication where
-  parseJSON = parseJSONText "MsSmoothAudioDeduplication"
+instance Prelude.FromJSON MsSmoothAudioDeduplication where
+  parseJSON = Prelude.parseJSONText "MsSmoothAudioDeduplication"

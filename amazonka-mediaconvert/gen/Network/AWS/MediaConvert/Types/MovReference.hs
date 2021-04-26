@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaConvert.Types.MovReference
   ( MovReference
       ( ..,
-        External,
-        SelfContained
+        MovReferenceEXTERNAL,
+        MovReferenceSELFCONTAINED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Always keep the default value (SELF_CONTAINED) for this setting.
-data MovReference = MovReference' (CI Text)
+newtype MovReference = MovReference'
+  { fromMovReference ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern External :: MovReference
-pattern External = MovReference' "EXTERNAL"
+pattern MovReferenceEXTERNAL :: MovReference
+pattern MovReferenceEXTERNAL = MovReference' "EXTERNAL"
 
-pattern SelfContained :: MovReference
-pattern SelfContained = MovReference' "SELF_CONTAINED"
+pattern MovReferenceSELFCONTAINED :: MovReference
+pattern MovReferenceSELFCONTAINED = MovReference' "SELF_CONTAINED"
 
 {-# COMPLETE
-  External,
-  SelfContained,
+  MovReferenceEXTERNAL,
+  MovReferenceSELFCONTAINED,
   MovReference'
   #-}
 
-instance FromText MovReference where
-  parser = (MovReference' . mk) <$> takeText
+instance Prelude.FromText MovReference where
+  parser = MovReference' Prelude.<$> Prelude.takeText
 
-instance ToText MovReference where
-  toText (MovReference' ci) = original ci
+instance Prelude.ToText MovReference where
+  toText (MovReference' x) = x
 
-instance Hashable MovReference
+instance Prelude.Hashable MovReference
 
-instance NFData MovReference
+instance Prelude.NFData MovReference
 
-instance ToByteString MovReference
+instance Prelude.ToByteString MovReference
 
-instance ToQuery MovReference
+instance Prelude.ToQuery MovReference
 
-instance ToHeader MovReference
+instance Prelude.ToHeader MovReference
 
-instance ToJSON MovReference where
-  toJSON = toJSONText
+instance Prelude.ToJSON MovReference where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MovReference where
-  parseJSON = parseJSONText "MovReference"
+instance Prelude.FromJSON MovReference where
+  parseJSON = Prelude.parseJSONText "MovReference"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,78 @@
 module Network.AWS.MediaConvert.Types.AacCodingMode
   ( AacCodingMode
       ( ..,
-        ACMAdReceiverMix,
-        ACMCodingMode10,
-        ACMCodingMode11,
-        ACMCodingMode20,
-        ACMCodingMode51
+        AacCodingModeADRECEIVERMIX,
+        AacCodingModeCODINGMODE10,
+        AacCodingModeCODINGMODE11,
+        AacCodingModeCODINGMODE20,
+        AacCodingModeCODINGMODE51
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Mono (Audio Description), Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control mode and profile. "1.0 - Audio Description (Receiver Mix)" setting receives a stereo description plus control track and emits a mono AAC encode of the description track, with control data emitted in the PES header as per ETSI TS 101 154 Annex E.
-data AacCodingMode = AacCodingMode' (CI Text)
+-- | Mono (Audio Description), Mono, Stereo, or 5.1 channel layout. Valid
+-- values depend on rate control mode and profile. \"1.0 - Audio
+-- Description (Receiver Mix)\" setting receives a stereo description plus
+-- control track and emits a mono AAC encode of the description track, with
+-- control data emitted in the PES header as per ETSI TS 101 154 Annex E.
+newtype AacCodingMode = AacCodingMode'
+  { fromAacCodingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ACMAdReceiverMix :: AacCodingMode
-pattern ACMAdReceiverMix = AacCodingMode' "AD_RECEIVER_MIX"
+pattern AacCodingModeADRECEIVERMIX :: AacCodingMode
+pattern AacCodingModeADRECEIVERMIX = AacCodingMode' "AD_RECEIVER_MIX"
 
-pattern ACMCodingMode10 :: AacCodingMode
-pattern ACMCodingMode10 = AacCodingMode' "CODING_MODE_1_0"
+pattern AacCodingModeCODINGMODE10 :: AacCodingMode
+pattern AacCodingModeCODINGMODE10 = AacCodingMode' "CODING_MODE_1_0"
 
-pattern ACMCodingMode11 :: AacCodingMode
-pattern ACMCodingMode11 = AacCodingMode' "CODING_MODE_1_1"
+pattern AacCodingModeCODINGMODE11 :: AacCodingMode
+pattern AacCodingModeCODINGMODE11 = AacCodingMode' "CODING_MODE_1_1"
 
-pattern ACMCodingMode20 :: AacCodingMode
-pattern ACMCodingMode20 = AacCodingMode' "CODING_MODE_2_0"
+pattern AacCodingModeCODINGMODE20 :: AacCodingMode
+pattern AacCodingModeCODINGMODE20 = AacCodingMode' "CODING_MODE_2_0"
 
-pattern ACMCodingMode51 :: AacCodingMode
-pattern ACMCodingMode51 = AacCodingMode' "CODING_MODE_5_1"
+pattern AacCodingModeCODINGMODE51 :: AacCodingMode
+pattern AacCodingModeCODINGMODE51 = AacCodingMode' "CODING_MODE_5_1"
 
 {-# COMPLETE
-  ACMAdReceiverMix,
-  ACMCodingMode10,
-  ACMCodingMode11,
-  ACMCodingMode20,
-  ACMCodingMode51,
+  AacCodingModeADRECEIVERMIX,
+  AacCodingModeCODINGMODE10,
+  AacCodingModeCODINGMODE11,
+  AacCodingModeCODINGMODE20,
+  AacCodingModeCODINGMODE51,
   AacCodingMode'
   #-}
 
-instance FromText AacCodingMode where
-  parser = (AacCodingMode' . mk) <$> takeText
+instance Prelude.FromText AacCodingMode where
+  parser = AacCodingMode' Prelude.<$> Prelude.takeText
 
-instance ToText AacCodingMode where
-  toText (AacCodingMode' ci) = original ci
+instance Prelude.ToText AacCodingMode where
+  toText (AacCodingMode' x) = x
 
-instance Hashable AacCodingMode
+instance Prelude.Hashable AacCodingMode
 
-instance NFData AacCodingMode
+instance Prelude.NFData AacCodingMode
 
-instance ToByteString AacCodingMode
+instance Prelude.ToByteString AacCodingMode
 
-instance ToQuery AacCodingMode
+instance Prelude.ToQuery AacCodingMode
 
-instance ToHeader AacCodingMode
+instance Prelude.ToHeader AacCodingMode
 
-instance ToJSON AacCodingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacCodingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacCodingMode where
-  parseJSON = parseJSONText "AacCodingMode"
+instance Prelude.FromJSON AacCodingMode where
+  parseJSON = Prelude.parseJSONText "AacCodingMode"

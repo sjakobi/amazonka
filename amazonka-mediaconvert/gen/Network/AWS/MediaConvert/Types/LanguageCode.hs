@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,1002 +19,1005 @@
 module Network.AWS.MediaConvert.Types.LanguageCode
   ( LanguageCode
       ( ..,
-        Aar,
-        Abk,
-        Afr,
-        Aka,
-        Amh,
-        Ara,
-        Arg,
-        Asm,
-        Ava,
-        Ave,
-        Aym,
-        Aze,
-        Bak,
-        Bam,
-        Bel,
-        Ben,
-        Bih,
-        Bis,
-        Bod,
-        Bos,
-        Bre,
-        Bul,
-        Cat,
-        Ces,
-        Cha,
-        Che,
-        Chu,
-        Chv,
-        Cor,
-        Cos,
-        Cre,
-        Cym,
-        Dan,
-        Deu,
-        Div,
-        Dzo,
-        Ell,
-        Eng,
-        Enm,
-        Epo,
-        Est,
-        Eus,
-        Ewe,
-        Fao,
-        Fas,
-        Fij,
-        Fin,
-        Fra,
-        Frm,
-        Fry,
-        Ful,
-        Ger,
-        Gla,
-        Gle,
-        Glg,
-        Glv,
-        Grn,
-        Guj,
-        Hat,
-        Hau,
-        Heb,
-        Her,
-        Hin,
-        Hmo,
-        Hrv,
-        Hun,
-        Hye,
-        IPk,
-        Ibo,
-        Ido,
-        Iii,
-        Iku,
-        Ile,
-        Ina,
-        Ind,
-        Isl,
-        Ita,
-        Jav,
-        Jpn,
-        Kal,
-        Kan,
-        Kas,
-        Kat,
-        Kau,
-        Kaz,
-        Khm,
-        Kik,
-        Kin,
-        Kir,
-        Kom,
-        Kon,
-        Kor,
-        Kua,
-        Kur,
-        Lao,
-        Lat,
-        Lav,
-        Lim,
-        Lin,
-        Lit,
-        Ltz,
-        Lub,
-        Lug,
-        Mah,
-        Mal,
-        Mar,
-        Mkd,
-        Mlg,
-        Mlt,
-        Mon,
-        Mri,
-        Msa,
-        Mya,
-        Nau,
-        Nav,
-        Nbl,
-        Nde,
-        Ndo,
-        Nep,
-        Nld,
-        Nno,
-        Nob,
-        Nor,
-        Nya,
-        OSs,
-        Oci,
-        Oji,
-        Ori,
-        Orj,
-        Orm,
-        Pan,
-        Pli,
-        Pol,
-        Por,
-        Pus,
-        Qaa,
-        Qpc,
-        Que,
-        Roh,
-        Ron,
-        Run,
-        Rus,
-        Sag,
-        San,
-        Sin,
-        Slk,
-        Slv,
-        Sme,
-        Smo,
-        Sna,
-        Snd,
-        Som,
-        Sot,
-        Spa,
-        Sqi,
-        Srb,
-        Srd,
-        Ssw,
-        Sun,
-        Swa,
-        Swe,
-        Tah,
-        Tam,
-        Tat,
-        Tel,
-        Tgk,
-        Tgl,
-        Tha,
-        Tir,
-        Tng,
-        Ton,
-        Tsn,
-        Tso,
-        Tuk,
-        Tur,
-        Twi,
-        Uig,
-        Ukr,
-        Urd,
-        Uzb,
-        Ven,
-        Vie,
-        Vol,
-        Wln,
-        Wol,
-        Xho,
-        Yid,
-        Yor,
-        Zha,
-        Zho,
-        Zul
+        LanguageCodeAAR,
+        LanguageCodeABK,
+        LanguageCodeAFR,
+        LanguageCodeAKA,
+        LanguageCodeAMH,
+        LanguageCodeARA,
+        LanguageCodeARG,
+        LanguageCodeASM,
+        LanguageCodeAVA,
+        LanguageCodeAVE,
+        LanguageCodeAYM,
+        LanguageCodeAZE,
+        LanguageCodeBAK,
+        LanguageCodeBAM,
+        LanguageCodeBEL,
+        LanguageCodeBEN,
+        LanguageCodeBIH,
+        LanguageCodeBIS,
+        LanguageCodeBOD,
+        LanguageCodeBOS,
+        LanguageCodeBRE,
+        LanguageCodeBUL,
+        LanguageCodeCAT,
+        LanguageCodeCES,
+        LanguageCodeCHA,
+        LanguageCodeCHE,
+        LanguageCodeCHU,
+        LanguageCodeCHV,
+        LanguageCodeCOR,
+        LanguageCodeCOS,
+        LanguageCodeCRE,
+        LanguageCodeCYM,
+        LanguageCodeDAN,
+        LanguageCodeDEU,
+        LanguageCodeDIV,
+        LanguageCodeDZO,
+        LanguageCodeELL,
+        LanguageCodeENG,
+        LanguageCodeENM,
+        LanguageCodeEPO,
+        LanguageCodeEST,
+        LanguageCodeEUS,
+        LanguageCodeEWE,
+        LanguageCodeFAO,
+        LanguageCodeFAS,
+        LanguageCodeFIJ,
+        LanguageCodeFIN,
+        LanguageCodeFRA,
+        LanguageCodeFRM,
+        LanguageCodeFRY,
+        LanguageCodeFUL,
+        LanguageCodeGER,
+        LanguageCodeGLA,
+        LanguageCodeGLE,
+        LanguageCodeGLG,
+        LanguageCodeGLV,
+        LanguageCodeGRN,
+        LanguageCodeGUJ,
+        LanguageCodeHAT,
+        LanguageCodeHAU,
+        LanguageCodeHEB,
+        LanguageCodeHER,
+        LanguageCodeHIN,
+        LanguageCodeHMO,
+        LanguageCodeHRV,
+        LanguageCodeHUN,
+        LanguageCodeHYE,
+        LanguageCodeIBO,
+        LanguageCodeIDO,
+        LanguageCodeIII,
+        LanguageCodeIKU,
+        LanguageCodeILE,
+        LanguageCodeINA,
+        LanguageCodeIND,
+        LanguageCodeIPK,
+        LanguageCodeISL,
+        LanguageCodeITA,
+        LanguageCodeJAV,
+        LanguageCodeJPN,
+        LanguageCodeKAL,
+        LanguageCodeKAN,
+        LanguageCodeKAS,
+        LanguageCodeKAT,
+        LanguageCodeKAU,
+        LanguageCodeKAZ,
+        LanguageCodeKHM,
+        LanguageCodeKIK,
+        LanguageCodeKIN,
+        LanguageCodeKIR,
+        LanguageCodeKOM,
+        LanguageCodeKON,
+        LanguageCodeKOR,
+        LanguageCodeKUA,
+        LanguageCodeKUR,
+        LanguageCodeLAO,
+        LanguageCodeLAT,
+        LanguageCodeLAV,
+        LanguageCodeLIM,
+        LanguageCodeLIN,
+        LanguageCodeLIT,
+        LanguageCodeLTZ,
+        LanguageCodeLUB,
+        LanguageCodeLUG,
+        LanguageCodeMAH,
+        LanguageCodeMAL,
+        LanguageCodeMAR,
+        LanguageCodeMKD,
+        LanguageCodeMLG,
+        LanguageCodeMLT,
+        LanguageCodeMON,
+        LanguageCodeMRI,
+        LanguageCodeMSA,
+        LanguageCodeMYA,
+        LanguageCodeNAU,
+        LanguageCodeNAV,
+        LanguageCodeNBL,
+        LanguageCodeNDE,
+        LanguageCodeNDO,
+        LanguageCodeNEP,
+        LanguageCodeNLD,
+        LanguageCodeNNO,
+        LanguageCodeNOB,
+        LanguageCodeNOR,
+        LanguageCodeNYA,
+        LanguageCodeOCI,
+        LanguageCodeOJI,
+        LanguageCodeORI,
+        LanguageCodeORJ,
+        LanguageCodeORM,
+        LanguageCodeOSS,
+        LanguageCodePAN,
+        LanguageCodePLI,
+        LanguageCodePOL,
+        LanguageCodePOR,
+        LanguageCodePUS,
+        LanguageCodeQAA,
+        LanguageCodeQPC,
+        LanguageCodeQUE,
+        LanguageCodeROH,
+        LanguageCodeRON,
+        LanguageCodeRUN,
+        LanguageCodeRUS,
+        LanguageCodeSAG,
+        LanguageCodeSAN,
+        LanguageCodeSIN,
+        LanguageCodeSLK,
+        LanguageCodeSLV,
+        LanguageCodeSME,
+        LanguageCodeSMO,
+        LanguageCodeSNA,
+        LanguageCodeSND,
+        LanguageCodeSOM,
+        LanguageCodeSOT,
+        LanguageCodeSPA,
+        LanguageCodeSQI,
+        LanguageCodeSRB,
+        LanguageCodeSRD,
+        LanguageCodeSSW,
+        LanguageCodeSUN,
+        LanguageCodeSWA,
+        LanguageCodeSWE,
+        LanguageCodeTAH,
+        LanguageCodeTAM,
+        LanguageCodeTAT,
+        LanguageCodeTEL,
+        LanguageCodeTGK,
+        LanguageCodeTGL,
+        LanguageCodeTHA,
+        LanguageCodeTIR,
+        LanguageCodeTNG,
+        LanguageCodeTON,
+        LanguageCodeTSN,
+        LanguageCodeTSO,
+        LanguageCodeTUK,
+        LanguageCodeTUR,
+        LanguageCodeTWI,
+        LanguageCodeUIG,
+        LanguageCodeUKR,
+        LanguageCodeURD,
+        LanguageCodeUZB,
+        LanguageCodeVEN,
+        LanguageCodeVIE,
+        LanguageCodeVOL,
+        LanguageCodeWLN,
+        LanguageCodeWOL,
+        LanguageCodeXHO,
+        LanguageCodeYID,
+        LanguageCodeYOR,
+        LanguageCodeZHA,
+        LanguageCodeZHO,
+        LanguageCodeZUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify the language, using the ISO 639-2 three-letter code listed at https://www.loc.gov/standards/iso639-2/php/code_list.php.
-data LanguageCode = LanguageCode' (CI Text)
+-- | Specify the language, using the ISO 639-2 three-letter code listed at
+-- https:\/\/www.loc.gov\/standards\/iso639-2\/php\/code_list.php.
+newtype LanguageCode = LanguageCode'
+  { fromLanguageCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Aar :: LanguageCode
-pattern Aar = LanguageCode' "AAR"
+pattern LanguageCodeAAR :: LanguageCode
+pattern LanguageCodeAAR = LanguageCode' "AAR"
 
-pattern Abk :: LanguageCode
-pattern Abk = LanguageCode' "ABK"
+pattern LanguageCodeABK :: LanguageCode
+pattern LanguageCodeABK = LanguageCode' "ABK"
 
-pattern Afr :: LanguageCode
-pattern Afr = LanguageCode' "AFR"
+pattern LanguageCodeAFR :: LanguageCode
+pattern LanguageCodeAFR = LanguageCode' "AFR"
 
-pattern Aka :: LanguageCode
-pattern Aka = LanguageCode' "AKA"
+pattern LanguageCodeAKA :: LanguageCode
+pattern LanguageCodeAKA = LanguageCode' "AKA"
 
-pattern Amh :: LanguageCode
-pattern Amh = LanguageCode' "AMH"
+pattern LanguageCodeAMH :: LanguageCode
+pattern LanguageCodeAMH = LanguageCode' "AMH"
 
-pattern Ara :: LanguageCode
-pattern Ara = LanguageCode' "ARA"
+pattern LanguageCodeARA :: LanguageCode
+pattern LanguageCodeARA = LanguageCode' "ARA"
 
-pattern Arg :: LanguageCode
-pattern Arg = LanguageCode' "ARG"
+pattern LanguageCodeARG :: LanguageCode
+pattern LanguageCodeARG = LanguageCode' "ARG"
 
-pattern Asm :: LanguageCode
-pattern Asm = LanguageCode' "ASM"
+pattern LanguageCodeASM :: LanguageCode
+pattern LanguageCodeASM = LanguageCode' "ASM"
 
-pattern Ava :: LanguageCode
-pattern Ava = LanguageCode' "AVA"
+pattern LanguageCodeAVA :: LanguageCode
+pattern LanguageCodeAVA = LanguageCode' "AVA"
 
-pattern Ave :: LanguageCode
-pattern Ave = LanguageCode' "AVE"
+pattern LanguageCodeAVE :: LanguageCode
+pattern LanguageCodeAVE = LanguageCode' "AVE"
 
-pattern Aym :: LanguageCode
-pattern Aym = LanguageCode' "AYM"
+pattern LanguageCodeAYM :: LanguageCode
+pattern LanguageCodeAYM = LanguageCode' "AYM"
 
-pattern Aze :: LanguageCode
-pattern Aze = LanguageCode' "AZE"
+pattern LanguageCodeAZE :: LanguageCode
+pattern LanguageCodeAZE = LanguageCode' "AZE"
 
-pattern Bak :: LanguageCode
-pattern Bak = LanguageCode' "BAK"
+pattern LanguageCodeBAK :: LanguageCode
+pattern LanguageCodeBAK = LanguageCode' "BAK"
 
-pattern Bam :: LanguageCode
-pattern Bam = LanguageCode' "BAM"
+pattern LanguageCodeBAM :: LanguageCode
+pattern LanguageCodeBAM = LanguageCode' "BAM"
 
-pattern Bel :: LanguageCode
-pattern Bel = LanguageCode' "BEL"
+pattern LanguageCodeBEL :: LanguageCode
+pattern LanguageCodeBEL = LanguageCode' "BEL"
 
-pattern Ben :: LanguageCode
-pattern Ben = LanguageCode' "BEN"
+pattern LanguageCodeBEN :: LanguageCode
+pattern LanguageCodeBEN = LanguageCode' "BEN"
 
-pattern Bih :: LanguageCode
-pattern Bih = LanguageCode' "BIH"
+pattern LanguageCodeBIH :: LanguageCode
+pattern LanguageCodeBIH = LanguageCode' "BIH"
 
-pattern Bis :: LanguageCode
-pattern Bis = LanguageCode' "BIS"
+pattern LanguageCodeBIS :: LanguageCode
+pattern LanguageCodeBIS = LanguageCode' "BIS"
 
-pattern Bod :: LanguageCode
-pattern Bod = LanguageCode' "BOD"
+pattern LanguageCodeBOD :: LanguageCode
+pattern LanguageCodeBOD = LanguageCode' "BOD"
 
-pattern Bos :: LanguageCode
-pattern Bos = LanguageCode' "BOS"
+pattern LanguageCodeBOS :: LanguageCode
+pattern LanguageCodeBOS = LanguageCode' "BOS"
 
-pattern Bre :: LanguageCode
-pattern Bre = LanguageCode' "BRE"
+pattern LanguageCodeBRE :: LanguageCode
+pattern LanguageCodeBRE = LanguageCode' "BRE"
 
-pattern Bul :: LanguageCode
-pattern Bul = LanguageCode' "BUL"
+pattern LanguageCodeBUL :: LanguageCode
+pattern LanguageCodeBUL = LanguageCode' "BUL"
 
-pattern Cat :: LanguageCode
-pattern Cat = LanguageCode' "CAT"
+pattern LanguageCodeCAT :: LanguageCode
+pattern LanguageCodeCAT = LanguageCode' "CAT"
 
-pattern Ces :: LanguageCode
-pattern Ces = LanguageCode' "CES"
+pattern LanguageCodeCES :: LanguageCode
+pattern LanguageCodeCES = LanguageCode' "CES"
 
-pattern Cha :: LanguageCode
-pattern Cha = LanguageCode' "CHA"
+pattern LanguageCodeCHA :: LanguageCode
+pattern LanguageCodeCHA = LanguageCode' "CHA"
 
-pattern Che :: LanguageCode
-pattern Che = LanguageCode' "CHE"
+pattern LanguageCodeCHE :: LanguageCode
+pattern LanguageCodeCHE = LanguageCode' "CHE"
 
-pattern Chu :: LanguageCode
-pattern Chu = LanguageCode' "CHU"
+pattern LanguageCodeCHU :: LanguageCode
+pattern LanguageCodeCHU = LanguageCode' "CHU"
 
-pattern Chv :: LanguageCode
-pattern Chv = LanguageCode' "CHV"
+pattern LanguageCodeCHV :: LanguageCode
+pattern LanguageCodeCHV = LanguageCode' "CHV"
 
-pattern Cor :: LanguageCode
-pattern Cor = LanguageCode' "COR"
+pattern LanguageCodeCOR :: LanguageCode
+pattern LanguageCodeCOR = LanguageCode' "COR"
 
-pattern Cos :: LanguageCode
-pattern Cos = LanguageCode' "COS"
+pattern LanguageCodeCOS :: LanguageCode
+pattern LanguageCodeCOS = LanguageCode' "COS"
 
-pattern Cre :: LanguageCode
-pattern Cre = LanguageCode' "CRE"
+pattern LanguageCodeCRE :: LanguageCode
+pattern LanguageCodeCRE = LanguageCode' "CRE"
 
-pattern Cym :: LanguageCode
-pattern Cym = LanguageCode' "CYM"
+pattern LanguageCodeCYM :: LanguageCode
+pattern LanguageCodeCYM = LanguageCode' "CYM"
 
-pattern Dan :: LanguageCode
-pattern Dan = LanguageCode' "DAN"
+pattern LanguageCodeDAN :: LanguageCode
+pattern LanguageCodeDAN = LanguageCode' "DAN"
 
-pattern Deu :: LanguageCode
-pattern Deu = LanguageCode' "DEU"
+pattern LanguageCodeDEU :: LanguageCode
+pattern LanguageCodeDEU = LanguageCode' "DEU"
 
-pattern Div :: LanguageCode
-pattern Div = LanguageCode' "DIV"
+pattern LanguageCodeDIV :: LanguageCode
+pattern LanguageCodeDIV = LanguageCode' "DIV"
 
-pattern Dzo :: LanguageCode
-pattern Dzo = LanguageCode' "DZO"
+pattern LanguageCodeDZO :: LanguageCode
+pattern LanguageCodeDZO = LanguageCode' "DZO"
 
-pattern Ell :: LanguageCode
-pattern Ell = LanguageCode' "ELL"
+pattern LanguageCodeELL :: LanguageCode
+pattern LanguageCodeELL = LanguageCode' "ELL"
 
-pattern Eng :: LanguageCode
-pattern Eng = LanguageCode' "ENG"
+pattern LanguageCodeENG :: LanguageCode
+pattern LanguageCodeENG = LanguageCode' "ENG"
 
-pattern Enm :: LanguageCode
-pattern Enm = LanguageCode' "ENM"
+pattern LanguageCodeENM :: LanguageCode
+pattern LanguageCodeENM = LanguageCode' "ENM"
 
-pattern Epo :: LanguageCode
-pattern Epo = LanguageCode' "EPO"
+pattern LanguageCodeEPO :: LanguageCode
+pattern LanguageCodeEPO = LanguageCode' "EPO"
 
-pattern Est :: LanguageCode
-pattern Est = LanguageCode' "EST"
+pattern LanguageCodeEST :: LanguageCode
+pattern LanguageCodeEST = LanguageCode' "EST"
 
-pattern Eus :: LanguageCode
-pattern Eus = LanguageCode' "EUS"
+pattern LanguageCodeEUS :: LanguageCode
+pattern LanguageCodeEUS = LanguageCode' "EUS"
 
-pattern Ewe :: LanguageCode
-pattern Ewe = LanguageCode' "EWE"
+pattern LanguageCodeEWE :: LanguageCode
+pattern LanguageCodeEWE = LanguageCode' "EWE"
 
-pattern Fao :: LanguageCode
-pattern Fao = LanguageCode' "FAO"
+pattern LanguageCodeFAO :: LanguageCode
+pattern LanguageCodeFAO = LanguageCode' "FAO"
 
-pattern Fas :: LanguageCode
-pattern Fas = LanguageCode' "FAS"
+pattern LanguageCodeFAS :: LanguageCode
+pattern LanguageCodeFAS = LanguageCode' "FAS"
 
-pattern Fij :: LanguageCode
-pattern Fij = LanguageCode' "FIJ"
+pattern LanguageCodeFIJ :: LanguageCode
+pattern LanguageCodeFIJ = LanguageCode' "FIJ"
 
-pattern Fin :: LanguageCode
-pattern Fin = LanguageCode' "FIN"
+pattern LanguageCodeFIN :: LanguageCode
+pattern LanguageCodeFIN = LanguageCode' "FIN"
 
-pattern Fra :: LanguageCode
-pattern Fra = LanguageCode' "FRA"
+pattern LanguageCodeFRA :: LanguageCode
+pattern LanguageCodeFRA = LanguageCode' "FRA"
 
-pattern Frm :: LanguageCode
-pattern Frm = LanguageCode' "FRM"
+pattern LanguageCodeFRM :: LanguageCode
+pattern LanguageCodeFRM = LanguageCode' "FRM"
 
-pattern Fry :: LanguageCode
-pattern Fry = LanguageCode' "FRY"
+pattern LanguageCodeFRY :: LanguageCode
+pattern LanguageCodeFRY = LanguageCode' "FRY"
 
-pattern Ful :: LanguageCode
-pattern Ful = LanguageCode' "FUL"
+pattern LanguageCodeFUL :: LanguageCode
+pattern LanguageCodeFUL = LanguageCode' "FUL"
 
-pattern Ger :: LanguageCode
-pattern Ger = LanguageCode' "GER"
+pattern LanguageCodeGER :: LanguageCode
+pattern LanguageCodeGER = LanguageCode' "GER"
 
-pattern Gla :: LanguageCode
-pattern Gla = LanguageCode' "GLA"
+pattern LanguageCodeGLA :: LanguageCode
+pattern LanguageCodeGLA = LanguageCode' "GLA"
 
-pattern Gle :: LanguageCode
-pattern Gle = LanguageCode' "GLE"
+pattern LanguageCodeGLE :: LanguageCode
+pattern LanguageCodeGLE = LanguageCode' "GLE"
 
-pattern Glg :: LanguageCode
-pattern Glg = LanguageCode' "GLG"
+pattern LanguageCodeGLG :: LanguageCode
+pattern LanguageCodeGLG = LanguageCode' "GLG"
 
-pattern Glv :: LanguageCode
-pattern Glv = LanguageCode' "GLV"
+pattern LanguageCodeGLV :: LanguageCode
+pattern LanguageCodeGLV = LanguageCode' "GLV"
 
-pattern Grn :: LanguageCode
-pattern Grn = LanguageCode' "GRN"
+pattern LanguageCodeGRN :: LanguageCode
+pattern LanguageCodeGRN = LanguageCode' "GRN"
 
-pattern Guj :: LanguageCode
-pattern Guj = LanguageCode' "GUJ"
+pattern LanguageCodeGUJ :: LanguageCode
+pattern LanguageCodeGUJ = LanguageCode' "GUJ"
 
-pattern Hat :: LanguageCode
-pattern Hat = LanguageCode' "HAT"
+pattern LanguageCodeHAT :: LanguageCode
+pattern LanguageCodeHAT = LanguageCode' "HAT"
 
-pattern Hau :: LanguageCode
-pattern Hau = LanguageCode' "HAU"
+pattern LanguageCodeHAU :: LanguageCode
+pattern LanguageCodeHAU = LanguageCode' "HAU"
 
-pattern Heb :: LanguageCode
-pattern Heb = LanguageCode' "HEB"
+pattern LanguageCodeHEB :: LanguageCode
+pattern LanguageCodeHEB = LanguageCode' "HEB"
 
-pattern Her :: LanguageCode
-pattern Her = LanguageCode' "HER"
+pattern LanguageCodeHER :: LanguageCode
+pattern LanguageCodeHER = LanguageCode' "HER"
 
-pattern Hin :: LanguageCode
-pattern Hin = LanguageCode' "HIN"
+pattern LanguageCodeHIN :: LanguageCode
+pattern LanguageCodeHIN = LanguageCode' "HIN"
 
-pattern Hmo :: LanguageCode
-pattern Hmo = LanguageCode' "HMO"
+pattern LanguageCodeHMO :: LanguageCode
+pattern LanguageCodeHMO = LanguageCode' "HMO"
 
-pattern Hrv :: LanguageCode
-pattern Hrv = LanguageCode' "HRV"
+pattern LanguageCodeHRV :: LanguageCode
+pattern LanguageCodeHRV = LanguageCode' "HRV"
 
-pattern Hun :: LanguageCode
-pattern Hun = LanguageCode' "HUN"
+pattern LanguageCodeHUN :: LanguageCode
+pattern LanguageCodeHUN = LanguageCode' "HUN"
 
-pattern Hye :: LanguageCode
-pattern Hye = LanguageCode' "HYE"
+pattern LanguageCodeHYE :: LanguageCode
+pattern LanguageCodeHYE = LanguageCode' "HYE"
 
-pattern IPk :: LanguageCode
-pattern IPk = LanguageCode' "IPK"
+pattern LanguageCodeIBO :: LanguageCode
+pattern LanguageCodeIBO = LanguageCode' "IBO"
 
-pattern Ibo :: LanguageCode
-pattern Ibo = LanguageCode' "IBO"
+pattern LanguageCodeIDO :: LanguageCode
+pattern LanguageCodeIDO = LanguageCode' "IDO"
 
-pattern Ido :: LanguageCode
-pattern Ido = LanguageCode' "IDO"
+pattern LanguageCodeIII :: LanguageCode
+pattern LanguageCodeIII = LanguageCode' "III"
 
-pattern Iii :: LanguageCode
-pattern Iii = LanguageCode' "III"
+pattern LanguageCodeIKU :: LanguageCode
+pattern LanguageCodeIKU = LanguageCode' "IKU"
 
-pattern Iku :: LanguageCode
-pattern Iku = LanguageCode' "IKU"
+pattern LanguageCodeILE :: LanguageCode
+pattern LanguageCodeILE = LanguageCode' "ILE"
 
-pattern Ile :: LanguageCode
-pattern Ile = LanguageCode' "ILE"
+pattern LanguageCodeINA :: LanguageCode
+pattern LanguageCodeINA = LanguageCode' "INA"
 
-pattern Ina :: LanguageCode
-pattern Ina = LanguageCode' "INA"
+pattern LanguageCodeIND :: LanguageCode
+pattern LanguageCodeIND = LanguageCode' "IND"
 
-pattern Ind :: LanguageCode
-pattern Ind = LanguageCode' "IND"
+pattern LanguageCodeIPK :: LanguageCode
+pattern LanguageCodeIPK = LanguageCode' "IPK"
 
-pattern Isl :: LanguageCode
-pattern Isl = LanguageCode' "ISL"
+pattern LanguageCodeISL :: LanguageCode
+pattern LanguageCodeISL = LanguageCode' "ISL"
 
-pattern Ita :: LanguageCode
-pattern Ita = LanguageCode' "ITA"
+pattern LanguageCodeITA :: LanguageCode
+pattern LanguageCodeITA = LanguageCode' "ITA"
 
-pattern Jav :: LanguageCode
-pattern Jav = LanguageCode' "JAV"
+pattern LanguageCodeJAV :: LanguageCode
+pattern LanguageCodeJAV = LanguageCode' "JAV"
 
-pattern Jpn :: LanguageCode
-pattern Jpn = LanguageCode' "JPN"
+pattern LanguageCodeJPN :: LanguageCode
+pattern LanguageCodeJPN = LanguageCode' "JPN"
 
-pattern Kal :: LanguageCode
-pattern Kal = LanguageCode' "KAL"
+pattern LanguageCodeKAL :: LanguageCode
+pattern LanguageCodeKAL = LanguageCode' "KAL"
 
-pattern Kan :: LanguageCode
-pattern Kan = LanguageCode' "KAN"
+pattern LanguageCodeKAN :: LanguageCode
+pattern LanguageCodeKAN = LanguageCode' "KAN"
 
-pattern Kas :: LanguageCode
-pattern Kas = LanguageCode' "KAS"
+pattern LanguageCodeKAS :: LanguageCode
+pattern LanguageCodeKAS = LanguageCode' "KAS"
 
-pattern Kat :: LanguageCode
-pattern Kat = LanguageCode' "KAT"
+pattern LanguageCodeKAT :: LanguageCode
+pattern LanguageCodeKAT = LanguageCode' "KAT"
 
-pattern Kau :: LanguageCode
-pattern Kau = LanguageCode' "KAU"
+pattern LanguageCodeKAU :: LanguageCode
+pattern LanguageCodeKAU = LanguageCode' "KAU"
 
-pattern Kaz :: LanguageCode
-pattern Kaz = LanguageCode' "KAZ"
+pattern LanguageCodeKAZ :: LanguageCode
+pattern LanguageCodeKAZ = LanguageCode' "KAZ"
 
-pattern Khm :: LanguageCode
-pattern Khm = LanguageCode' "KHM"
+pattern LanguageCodeKHM :: LanguageCode
+pattern LanguageCodeKHM = LanguageCode' "KHM"
 
-pattern Kik :: LanguageCode
-pattern Kik = LanguageCode' "KIK"
+pattern LanguageCodeKIK :: LanguageCode
+pattern LanguageCodeKIK = LanguageCode' "KIK"
 
-pattern Kin :: LanguageCode
-pattern Kin = LanguageCode' "KIN"
+pattern LanguageCodeKIN :: LanguageCode
+pattern LanguageCodeKIN = LanguageCode' "KIN"
 
-pattern Kir :: LanguageCode
-pattern Kir = LanguageCode' "KIR"
+pattern LanguageCodeKIR :: LanguageCode
+pattern LanguageCodeKIR = LanguageCode' "KIR"
 
-pattern Kom :: LanguageCode
-pattern Kom = LanguageCode' "KOM"
+pattern LanguageCodeKOM :: LanguageCode
+pattern LanguageCodeKOM = LanguageCode' "KOM"
 
-pattern Kon :: LanguageCode
-pattern Kon = LanguageCode' "KON"
+pattern LanguageCodeKON :: LanguageCode
+pattern LanguageCodeKON = LanguageCode' "KON"
 
-pattern Kor :: LanguageCode
-pattern Kor = LanguageCode' "KOR"
+pattern LanguageCodeKOR :: LanguageCode
+pattern LanguageCodeKOR = LanguageCode' "KOR"
 
-pattern Kua :: LanguageCode
-pattern Kua = LanguageCode' "KUA"
+pattern LanguageCodeKUA :: LanguageCode
+pattern LanguageCodeKUA = LanguageCode' "KUA"
 
-pattern Kur :: LanguageCode
-pattern Kur = LanguageCode' "KUR"
+pattern LanguageCodeKUR :: LanguageCode
+pattern LanguageCodeKUR = LanguageCode' "KUR"
 
-pattern Lao :: LanguageCode
-pattern Lao = LanguageCode' "LAO"
+pattern LanguageCodeLAO :: LanguageCode
+pattern LanguageCodeLAO = LanguageCode' "LAO"
 
-pattern Lat :: LanguageCode
-pattern Lat = LanguageCode' "LAT"
+pattern LanguageCodeLAT :: LanguageCode
+pattern LanguageCodeLAT = LanguageCode' "LAT"
 
-pattern Lav :: LanguageCode
-pattern Lav = LanguageCode' "LAV"
+pattern LanguageCodeLAV :: LanguageCode
+pattern LanguageCodeLAV = LanguageCode' "LAV"
 
-pattern Lim :: LanguageCode
-pattern Lim = LanguageCode' "LIM"
+pattern LanguageCodeLIM :: LanguageCode
+pattern LanguageCodeLIM = LanguageCode' "LIM"
 
-pattern Lin :: LanguageCode
-pattern Lin = LanguageCode' "LIN"
+pattern LanguageCodeLIN :: LanguageCode
+pattern LanguageCodeLIN = LanguageCode' "LIN"
 
-pattern Lit :: LanguageCode
-pattern Lit = LanguageCode' "LIT"
+pattern LanguageCodeLIT :: LanguageCode
+pattern LanguageCodeLIT = LanguageCode' "LIT"
 
-pattern Ltz :: LanguageCode
-pattern Ltz = LanguageCode' "LTZ"
+pattern LanguageCodeLTZ :: LanguageCode
+pattern LanguageCodeLTZ = LanguageCode' "LTZ"
 
-pattern Lub :: LanguageCode
-pattern Lub = LanguageCode' "LUB"
+pattern LanguageCodeLUB :: LanguageCode
+pattern LanguageCodeLUB = LanguageCode' "LUB"
 
-pattern Lug :: LanguageCode
-pattern Lug = LanguageCode' "LUG"
+pattern LanguageCodeLUG :: LanguageCode
+pattern LanguageCodeLUG = LanguageCode' "LUG"
 
-pattern Mah :: LanguageCode
-pattern Mah = LanguageCode' "MAH"
+pattern LanguageCodeMAH :: LanguageCode
+pattern LanguageCodeMAH = LanguageCode' "MAH"
 
-pattern Mal :: LanguageCode
-pattern Mal = LanguageCode' "MAL"
+pattern LanguageCodeMAL :: LanguageCode
+pattern LanguageCodeMAL = LanguageCode' "MAL"
 
-pattern Mar :: LanguageCode
-pattern Mar = LanguageCode' "MAR"
+pattern LanguageCodeMAR :: LanguageCode
+pattern LanguageCodeMAR = LanguageCode' "MAR"
 
-pattern Mkd :: LanguageCode
-pattern Mkd = LanguageCode' "MKD"
+pattern LanguageCodeMKD :: LanguageCode
+pattern LanguageCodeMKD = LanguageCode' "MKD"
 
-pattern Mlg :: LanguageCode
-pattern Mlg = LanguageCode' "MLG"
+pattern LanguageCodeMLG :: LanguageCode
+pattern LanguageCodeMLG = LanguageCode' "MLG"
 
-pattern Mlt :: LanguageCode
-pattern Mlt = LanguageCode' "MLT"
+pattern LanguageCodeMLT :: LanguageCode
+pattern LanguageCodeMLT = LanguageCode' "MLT"
 
-pattern Mon :: LanguageCode
-pattern Mon = LanguageCode' "MON"
+pattern LanguageCodeMON :: LanguageCode
+pattern LanguageCodeMON = LanguageCode' "MON"
 
-pattern Mri :: LanguageCode
-pattern Mri = LanguageCode' "MRI"
+pattern LanguageCodeMRI :: LanguageCode
+pattern LanguageCodeMRI = LanguageCode' "MRI"
 
-pattern Msa :: LanguageCode
-pattern Msa = LanguageCode' "MSA"
+pattern LanguageCodeMSA :: LanguageCode
+pattern LanguageCodeMSA = LanguageCode' "MSA"
 
-pattern Mya :: LanguageCode
-pattern Mya = LanguageCode' "MYA"
+pattern LanguageCodeMYA :: LanguageCode
+pattern LanguageCodeMYA = LanguageCode' "MYA"
 
-pattern Nau :: LanguageCode
-pattern Nau = LanguageCode' "NAU"
+pattern LanguageCodeNAU :: LanguageCode
+pattern LanguageCodeNAU = LanguageCode' "NAU"
 
-pattern Nav :: LanguageCode
-pattern Nav = LanguageCode' "NAV"
+pattern LanguageCodeNAV :: LanguageCode
+pattern LanguageCodeNAV = LanguageCode' "NAV"
 
-pattern Nbl :: LanguageCode
-pattern Nbl = LanguageCode' "NBL"
+pattern LanguageCodeNBL :: LanguageCode
+pattern LanguageCodeNBL = LanguageCode' "NBL"
 
-pattern Nde :: LanguageCode
-pattern Nde = LanguageCode' "NDE"
+pattern LanguageCodeNDE :: LanguageCode
+pattern LanguageCodeNDE = LanguageCode' "NDE"
 
-pattern Ndo :: LanguageCode
-pattern Ndo = LanguageCode' "NDO"
+pattern LanguageCodeNDO :: LanguageCode
+pattern LanguageCodeNDO = LanguageCode' "NDO"
 
-pattern Nep :: LanguageCode
-pattern Nep = LanguageCode' "NEP"
+pattern LanguageCodeNEP :: LanguageCode
+pattern LanguageCodeNEP = LanguageCode' "NEP"
 
-pattern Nld :: LanguageCode
-pattern Nld = LanguageCode' "NLD"
+pattern LanguageCodeNLD :: LanguageCode
+pattern LanguageCodeNLD = LanguageCode' "NLD"
 
-pattern Nno :: LanguageCode
-pattern Nno = LanguageCode' "NNO"
+pattern LanguageCodeNNO :: LanguageCode
+pattern LanguageCodeNNO = LanguageCode' "NNO"
 
-pattern Nob :: LanguageCode
-pattern Nob = LanguageCode' "NOB"
+pattern LanguageCodeNOB :: LanguageCode
+pattern LanguageCodeNOB = LanguageCode' "NOB"
 
-pattern Nor :: LanguageCode
-pattern Nor = LanguageCode' "NOR"
+pattern LanguageCodeNOR :: LanguageCode
+pattern LanguageCodeNOR = LanguageCode' "NOR"
 
-pattern Nya :: LanguageCode
-pattern Nya = LanguageCode' "NYA"
+pattern LanguageCodeNYA :: LanguageCode
+pattern LanguageCodeNYA = LanguageCode' "NYA"
 
-pattern OSs :: LanguageCode
-pattern OSs = LanguageCode' "OSS"
+pattern LanguageCodeOCI :: LanguageCode
+pattern LanguageCodeOCI = LanguageCode' "OCI"
 
-pattern Oci :: LanguageCode
-pattern Oci = LanguageCode' "OCI"
+pattern LanguageCodeOJI :: LanguageCode
+pattern LanguageCodeOJI = LanguageCode' "OJI"
 
-pattern Oji :: LanguageCode
-pattern Oji = LanguageCode' "OJI"
+pattern LanguageCodeORI :: LanguageCode
+pattern LanguageCodeORI = LanguageCode' "ORI"
 
-pattern Ori :: LanguageCode
-pattern Ori = LanguageCode' "ORI"
+pattern LanguageCodeORJ :: LanguageCode
+pattern LanguageCodeORJ = LanguageCode' "ORJ"
 
-pattern Orj :: LanguageCode
-pattern Orj = LanguageCode' "ORJ"
+pattern LanguageCodeORM :: LanguageCode
+pattern LanguageCodeORM = LanguageCode' "ORM"
 
-pattern Orm :: LanguageCode
-pattern Orm = LanguageCode' "ORM"
+pattern LanguageCodeOSS :: LanguageCode
+pattern LanguageCodeOSS = LanguageCode' "OSS"
 
-pattern Pan :: LanguageCode
-pattern Pan = LanguageCode' "PAN"
+pattern LanguageCodePAN :: LanguageCode
+pattern LanguageCodePAN = LanguageCode' "PAN"
 
-pattern Pli :: LanguageCode
-pattern Pli = LanguageCode' "PLI"
+pattern LanguageCodePLI :: LanguageCode
+pattern LanguageCodePLI = LanguageCode' "PLI"
 
-pattern Pol :: LanguageCode
-pattern Pol = LanguageCode' "POL"
+pattern LanguageCodePOL :: LanguageCode
+pattern LanguageCodePOL = LanguageCode' "POL"
 
-pattern Por :: LanguageCode
-pattern Por = LanguageCode' "POR"
+pattern LanguageCodePOR :: LanguageCode
+pattern LanguageCodePOR = LanguageCode' "POR"
 
-pattern Pus :: LanguageCode
-pattern Pus = LanguageCode' "PUS"
+pattern LanguageCodePUS :: LanguageCode
+pattern LanguageCodePUS = LanguageCode' "PUS"
 
-pattern Qaa :: LanguageCode
-pattern Qaa = LanguageCode' "QAA"
+pattern LanguageCodeQAA :: LanguageCode
+pattern LanguageCodeQAA = LanguageCode' "QAA"
 
-pattern Qpc :: LanguageCode
-pattern Qpc = LanguageCode' "QPC"
+pattern LanguageCodeQPC :: LanguageCode
+pattern LanguageCodeQPC = LanguageCode' "QPC"
 
-pattern Que :: LanguageCode
-pattern Que = LanguageCode' "QUE"
+pattern LanguageCodeQUE :: LanguageCode
+pattern LanguageCodeQUE = LanguageCode' "QUE"
 
-pattern Roh :: LanguageCode
-pattern Roh = LanguageCode' "ROH"
+pattern LanguageCodeROH :: LanguageCode
+pattern LanguageCodeROH = LanguageCode' "ROH"
 
-pattern Ron :: LanguageCode
-pattern Ron = LanguageCode' "RON"
+pattern LanguageCodeRON :: LanguageCode
+pattern LanguageCodeRON = LanguageCode' "RON"
 
-pattern Run :: LanguageCode
-pattern Run = LanguageCode' "RUN"
+pattern LanguageCodeRUN :: LanguageCode
+pattern LanguageCodeRUN = LanguageCode' "RUN"
 
-pattern Rus :: LanguageCode
-pattern Rus = LanguageCode' "RUS"
+pattern LanguageCodeRUS :: LanguageCode
+pattern LanguageCodeRUS = LanguageCode' "RUS"
 
-pattern Sag :: LanguageCode
-pattern Sag = LanguageCode' "SAG"
+pattern LanguageCodeSAG :: LanguageCode
+pattern LanguageCodeSAG = LanguageCode' "SAG"
 
-pattern San :: LanguageCode
-pattern San = LanguageCode' "SAN"
+pattern LanguageCodeSAN :: LanguageCode
+pattern LanguageCodeSAN = LanguageCode' "SAN"
 
-pattern Sin :: LanguageCode
-pattern Sin = LanguageCode' "SIN"
+pattern LanguageCodeSIN :: LanguageCode
+pattern LanguageCodeSIN = LanguageCode' "SIN"
 
-pattern Slk :: LanguageCode
-pattern Slk = LanguageCode' "SLK"
+pattern LanguageCodeSLK :: LanguageCode
+pattern LanguageCodeSLK = LanguageCode' "SLK"
 
-pattern Slv :: LanguageCode
-pattern Slv = LanguageCode' "SLV"
+pattern LanguageCodeSLV :: LanguageCode
+pattern LanguageCodeSLV = LanguageCode' "SLV"
 
-pattern Sme :: LanguageCode
-pattern Sme = LanguageCode' "SME"
+pattern LanguageCodeSME :: LanguageCode
+pattern LanguageCodeSME = LanguageCode' "SME"
 
-pattern Smo :: LanguageCode
-pattern Smo = LanguageCode' "SMO"
+pattern LanguageCodeSMO :: LanguageCode
+pattern LanguageCodeSMO = LanguageCode' "SMO"
 
-pattern Sna :: LanguageCode
-pattern Sna = LanguageCode' "SNA"
+pattern LanguageCodeSNA :: LanguageCode
+pattern LanguageCodeSNA = LanguageCode' "SNA"
 
-pattern Snd :: LanguageCode
-pattern Snd = LanguageCode' "SND"
+pattern LanguageCodeSND :: LanguageCode
+pattern LanguageCodeSND = LanguageCode' "SND"
 
-pattern Som :: LanguageCode
-pattern Som = LanguageCode' "SOM"
+pattern LanguageCodeSOM :: LanguageCode
+pattern LanguageCodeSOM = LanguageCode' "SOM"
 
-pattern Sot :: LanguageCode
-pattern Sot = LanguageCode' "SOT"
+pattern LanguageCodeSOT :: LanguageCode
+pattern LanguageCodeSOT = LanguageCode' "SOT"
 
-pattern Spa :: LanguageCode
-pattern Spa = LanguageCode' "SPA"
+pattern LanguageCodeSPA :: LanguageCode
+pattern LanguageCodeSPA = LanguageCode' "SPA"
 
-pattern Sqi :: LanguageCode
-pattern Sqi = LanguageCode' "SQI"
+pattern LanguageCodeSQI :: LanguageCode
+pattern LanguageCodeSQI = LanguageCode' "SQI"
 
-pattern Srb :: LanguageCode
-pattern Srb = LanguageCode' "SRB"
+pattern LanguageCodeSRB :: LanguageCode
+pattern LanguageCodeSRB = LanguageCode' "SRB"
 
-pattern Srd :: LanguageCode
-pattern Srd = LanguageCode' "SRD"
+pattern LanguageCodeSRD :: LanguageCode
+pattern LanguageCodeSRD = LanguageCode' "SRD"
 
-pattern Ssw :: LanguageCode
-pattern Ssw = LanguageCode' "SSW"
+pattern LanguageCodeSSW :: LanguageCode
+pattern LanguageCodeSSW = LanguageCode' "SSW"
 
-pattern Sun :: LanguageCode
-pattern Sun = LanguageCode' "SUN"
+pattern LanguageCodeSUN :: LanguageCode
+pattern LanguageCodeSUN = LanguageCode' "SUN"
 
-pattern Swa :: LanguageCode
-pattern Swa = LanguageCode' "SWA"
+pattern LanguageCodeSWA :: LanguageCode
+pattern LanguageCodeSWA = LanguageCode' "SWA"
 
-pattern Swe :: LanguageCode
-pattern Swe = LanguageCode' "SWE"
+pattern LanguageCodeSWE :: LanguageCode
+pattern LanguageCodeSWE = LanguageCode' "SWE"
 
-pattern Tah :: LanguageCode
-pattern Tah = LanguageCode' "TAH"
+pattern LanguageCodeTAH :: LanguageCode
+pattern LanguageCodeTAH = LanguageCode' "TAH"
 
-pattern Tam :: LanguageCode
-pattern Tam = LanguageCode' "TAM"
+pattern LanguageCodeTAM :: LanguageCode
+pattern LanguageCodeTAM = LanguageCode' "TAM"
 
-pattern Tat :: LanguageCode
-pattern Tat = LanguageCode' "TAT"
+pattern LanguageCodeTAT :: LanguageCode
+pattern LanguageCodeTAT = LanguageCode' "TAT"
 
-pattern Tel :: LanguageCode
-pattern Tel = LanguageCode' "TEL"
+pattern LanguageCodeTEL :: LanguageCode
+pattern LanguageCodeTEL = LanguageCode' "TEL"
 
-pattern Tgk :: LanguageCode
-pattern Tgk = LanguageCode' "TGK"
+pattern LanguageCodeTGK :: LanguageCode
+pattern LanguageCodeTGK = LanguageCode' "TGK"
 
-pattern Tgl :: LanguageCode
-pattern Tgl = LanguageCode' "TGL"
+pattern LanguageCodeTGL :: LanguageCode
+pattern LanguageCodeTGL = LanguageCode' "TGL"
 
-pattern Tha :: LanguageCode
-pattern Tha = LanguageCode' "THA"
+pattern LanguageCodeTHA :: LanguageCode
+pattern LanguageCodeTHA = LanguageCode' "THA"
 
-pattern Tir :: LanguageCode
-pattern Tir = LanguageCode' "TIR"
+pattern LanguageCodeTIR :: LanguageCode
+pattern LanguageCodeTIR = LanguageCode' "TIR"
 
-pattern Tng :: LanguageCode
-pattern Tng = LanguageCode' "TNG"
+pattern LanguageCodeTNG :: LanguageCode
+pattern LanguageCodeTNG = LanguageCode' "TNG"
 
-pattern Ton :: LanguageCode
-pattern Ton = LanguageCode' "TON"
+pattern LanguageCodeTON :: LanguageCode
+pattern LanguageCodeTON = LanguageCode' "TON"
 
-pattern Tsn :: LanguageCode
-pattern Tsn = LanguageCode' "TSN"
+pattern LanguageCodeTSN :: LanguageCode
+pattern LanguageCodeTSN = LanguageCode' "TSN"
 
-pattern Tso :: LanguageCode
-pattern Tso = LanguageCode' "TSO"
+pattern LanguageCodeTSO :: LanguageCode
+pattern LanguageCodeTSO = LanguageCode' "TSO"
 
-pattern Tuk :: LanguageCode
-pattern Tuk = LanguageCode' "TUK"
+pattern LanguageCodeTUK :: LanguageCode
+pattern LanguageCodeTUK = LanguageCode' "TUK"
 
-pattern Tur :: LanguageCode
-pattern Tur = LanguageCode' "TUR"
+pattern LanguageCodeTUR :: LanguageCode
+pattern LanguageCodeTUR = LanguageCode' "TUR"
 
-pattern Twi :: LanguageCode
-pattern Twi = LanguageCode' "TWI"
+pattern LanguageCodeTWI :: LanguageCode
+pattern LanguageCodeTWI = LanguageCode' "TWI"
 
-pattern Uig :: LanguageCode
-pattern Uig = LanguageCode' "UIG"
+pattern LanguageCodeUIG :: LanguageCode
+pattern LanguageCodeUIG = LanguageCode' "UIG"
 
-pattern Ukr :: LanguageCode
-pattern Ukr = LanguageCode' "UKR"
+pattern LanguageCodeUKR :: LanguageCode
+pattern LanguageCodeUKR = LanguageCode' "UKR"
 
-pattern Urd :: LanguageCode
-pattern Urd = LanguageCode' "URD"
+pattern LanguageCodeURD :: LanguageCode
+pattern LanguageCodeURD = LanguageCode' "URD"
 
-pattern Uzb :: LanguageCode
-pattern Uzb = LanguageCode' "UZB"
+pattern LanguageCodeUZB :: LanguageCode
+pattern LanguageCodeUZB = LanguageCode' "UZB"
 
-pattern Ven :: LanguageCode
-pattern Ven = LanguageCode' "VEN"
+pattern LanguageCodeVEN :: LanguageCode
+pattern LanguageCodeVEN = LanguageCode' "VEN"
 
-pattern Vie :: LanguageCode
-pattern Vie = LanguageCode' "VIE"
+pattern LanguageCodeVIE :: LanguageCode
+pattern LanguageCodeVIE = LanguageCode' "VIE"
 
-pattern Vol :: LanguageCode
-pattern Vol = LanguageCode' "VOL"
+pattern LanguageCodeVOL :: LanguageCode
+pattern LanguageCodeVOL = LanguageCode' "VOL"
 
-pattern Wln :: LanguageCode
-pattern Wln = LanguageCode' "WLN"
+pattern LanguageCodeWLN :: LanguageCode
+pattern LanguageCodeWLN = LanguageCode' "WLN"
 
-pattern Wol :: LanguageCode
-pattern Wol = LanguageCode' "WOL"
+pattern LanguageCodeWOL :: LanguageCode
+pattern LanguageCodeWOL = LanguageCode' "WOL"
 
-pattern Xho :: LanguageCode
-pattern Xho = LanguageCode' "XHO"
+pattern LanguageCodeXHO :: LanguageCode
+pattern LanguageCodeXHO = LanguageCode' "XHO"
 
-pattern Yid :: LanguageCode
-pattern Yid = LanguageCode' "YID"
+pattern LanguageCodeYID :: LanguageCode
+pattern LanguageCodeYID = LanguageCode' "YID"
 
-pattern Yor :: LanguageCode
-pattern Yor = LanguageCode' "YOR"
+pattern LanguageCodeYOR :: LanguageCode
+pattern LanguageCodeYOR = LanguageCode' "YOR"
 
-pattern Zha :: LanguageCode
-pattern Zha = LanguageCode' "ZHA"
+pattern LanguageCodeZHA :: LanguageCode
+pattern LanguageCodeZHA = LanguageCode' "ZHA"
 
-pattern Zho :: LanguageCode
-pattern Zho = LanguageCode' "ZHO"
+pattern LanguageCodeZHO :: LanguageCode
+pattern LanguageCodeZHO = LanguageCode' "ZHO"
 
-pattern Zul :: LanguageCode
-pattern Zul = LanguageCode' "ZUL"
+pattern LanguageCodeZUL :: LanguageCode
+pattern LanguageCodeZUL = LanguageCode' "ZUL"
 
 {-# COMPLETE
-  Aar,
-  Abk,
-  Afr,
-  Aka,
-  Amh,
-  Ara,
-  Arg,
-  Asm,
-  Ava,
-  Ave,
-  Aym,
-  Aze,
-  Bak,
-  Bam,
-  Bel,
-  Ben,
-  Bih,
-  Bis,
-  Bod,
-  Bos,
-  Bre,
-  Bul,
-  Cat,
-  Ces,
-  Cha,
-  Che,
-  Chu,
-  Chv,
-  Cor,
-  Cos,
-  Cre,
-  Cym,
-  Dan,
-  Deu,
-  Div,
-  Dzo,
-  Ell,
-  Eng,
-  Enm,
-  Epo,
-  Est,
-  Eus,
-  Ewe,
-  Fao,
-  Fas,
-  Fij,
-  Fin,
-  Fra,
-  Frm,
-  Fry,
-  Ful,
-  Ger,
-  Gla,
-  Gle,
-  Glg,
-  Glv,
-  Grn,
-  Guj,
-  Hat,
-  Hau,
-  Heb,
-  Her,
-  Hin,
-  Hmo,
-  Hrv,
-  Hun,
-  Hye,
-  IPk,
-  Ibo,
-  Ido,
-  Iii,
-  Iku,
-  Ile,
-  Ina,
-  Ind,
-  Isl,
-  Ita,
-  Jav,
-  Jpn,
-  Kal,
-  Kan,
-  Kas,
-  Kat,
-  Kau,
-  Kaz,
-  Khm,
-  Kik,
-  Kin,
-  Kir,
-  Kom,
-  Kon,
-  Kor,
-  Kua,
-  Kur,
-  Lao,
-  Lat,
-  Lav,
-  Lim,
-  Lin,
-  Lit,
-  Ltz,
-  Lub,
-  Lug,
-  Mah,
-  Mal,
-  Mar,
-  Mkd,
-  Mlg,
-  Mlt,
-  Mon,
-  Mri,
-  Msa,
-  Mya,
-  Nau,
-  Nav,
-  Nbl,
-  Nde,
-  Ndo,
-  Nep,
-  Nld,
-  Nno,
-  Nob,
-  Nor,
-  Nya,
-  OSs,
-  Oci,
-  Oji,
-  Ori,
-  Orj,
-  Orm,
-  Pan,
-  Pli,
-  Pol,
-  Por,
-  Pus,
-  Qaa,
-  Qpc,
-  Que,
-  Roh,
-  Ron,
-  Run,
-  Rus,
-  Sag,
-  San,
-  Sin,
-  Slk,
-  Slv,
-  Sme,
-  Smo,
-  Sna,
-  Snd,
-  Som,
-  Sot,
-  Spa,
-  Sqi,
-  Srb,
-  Srd,
-  Ssw,
-  Sun,
-  Swa,
-  Swe,
-  Tah,
-  Tam,
-  Tat,
-  Tel,
-  Tgk,
-  Tgl,
-  Tha,
-  Tir,
-  Tng,
-  Ton,
-  Tsn,
-  Tso,
-  Tuk,
-  Tur,
-  Twi,
-  Uig,
-  Ukr,
-  Urd,
-  Uzb,
-  Ven,
-  Vie,
-  Vol,
-  Wln,
-  Wol,
-  Xho,
-  Yid,
-  Yor,
-  Zha,
-  Zho,
-  Zul,
+  LanguageCodeAAR,
+  LanguageCodeABK,
+  LanguageCodeAFR,
+  LanguageCodeAKA,
+  LanguageCodeAMH,
+  LanguageCodeARA,
+  LanguageCodeARG,
+  LanguageCodeASM,
+  LanguageCodeAVA,
+  LanguageCodeAVE,
+  LanguageCodeAYM,
+  LanguageCodeAZE,
+  LanguageCodeBAK,
+  LanguageCodeBAM,
+  LanguageCodeBEL,
+  LanguageCodeBEN,
+  LanguageCodeBIH,
+  LanguageCodeBIS,
+  LanguageCodeBOD,
+  LanguageCodeBOS,
+  LanguageCodeBRE,
+  LanguageCodeBUL,
+  LanguageCodeCAT,
+  LanguageCodeCES,
+  LanguageCodeCHA,
+  LanguageCodeCHE,
+  LanguageCodeCHU,
+  LanguageCodeCHV,
+  LanguageCodeCOR,
+  LanguageCodeCOS,
+  LanguageCodeCRE,
+  LanguageCodeCYM,
+  LanguageCodeDAN,
+  LanguageCodeDEU,
+  LanguageCodeDIV,
+  LanguageCodeDZO,
+  LanguageCodeELL,
+  LanguageCodeENG,
+  LanguageCodeENM,
+  LanguageCodeEPO,
+  LanguageCodeEST,
+  LanguageCodeEUS,
+  LanguageCodeEWE,
+  LanguageCodeFAO,
+  LanguageCodeFAS,
+  LanguageCodeFIJ,
+  LanguageCodeFIN,
+  LanguageCodeFRA,
+  LanguageCodeFRM,
+  LanguageCodeFRY,
+  LanguageCodeFUL,
+  LanguageCodeGER,
+  LanguageCodeGLA,
+  LanguageCodeGLE,
+  LanguageCodeGLG,
+  LanguageCodeGLV,
+  LanguageCodeGRN,
+  LanguageCodeGUJ,
+  LanguageCodeHAT,
+  LanguageCodeHAU,
+  LanguageCodeHEB,
+  LanguageCodeHER,
+  LanguageCodeHIN,
+  LanguageCodeHMO,
+  LanguageCodeHRV,
+  LanguageCodeHUN,
+  LanguageCodeHYE,
+  LanguageCodeIBO,
+  LanguageCodeIDO,
+  LanguageCodeIII,
+  LanguageCodeIKU,
+  LanguageCodeILE,
+  LanguageCodeINA,
+  LanguageCodeIND,
+  LanguageCodeIPK,
+  LanguageCodeISL,
+  LanguageCodeITA,
+  LanguageCodeJAV,
+  LanguageCodeJPN,
+  LanguageCodeKAL,
+  LanguageCodeKAN,
+  LanguageCodeKAS,
+  LanguageCodeKAT,
+  LanguageCodeKAU,
+  LanguageCodeKAZ,
+  LanguageCodeKHM,
+  LanguageCodeKIK,
+  LanguageCodeKIN,
+  LanguageCodeKIR,
+  LanguageCodeKOM,
+  LanguageCodeKON,
+  LanguageCodeKOR,
+  LanguageCodeKUA,
+  LanguageCodeKUR,
+  LanguageCodeLAO,
+  LanguageCodeLAT,
+  LanguageCodeLAV,
+  LanguageCodeLIM,
+  LanguageCodeLIN,
+  LanguageCodeLIT,
+  LanguageCodeLTZ,
+  LanguageCodeLUB,
+  LanguageCodeLUG,
+  LanguageCodeMAH,
+  LanguageCodeMAL,
+  LanguageCodeMAR,
+  LanguageCodeMKD,
+  LanguageCodeMLG,
+  LanguageCodeMLT,
+  LanguageCodeMON,
+  LanguageCodeMRI,
+  LanguageCodeMSA,
+  LanguageCodeMYA,
+  LanguageCodeNAU,
+  LanguageCodeNAV,
+  LanguageCodeNBL,
+  LanguageCodeNDE,
+  LanguageCodeNDO,
+  LanguageCodeNEP,
+  LanguageCodeNLD,
+  LanguageCodeNNO,
+  LanguageCodeNOB,
+  LanguageCodeNOR,
+  LanguageCodeNYA,
+  LanguageCodeOCI,
+  LanguageCodeOJI,
+  LanguageCodeORI,
+  LanguageCodeORJ,
+  LanguageCodeORM,
+  LanguageCodeOSS,
+  LanguageCodePAN,
+  LanguageCodePLI,
+  LanguageCodePOL,
+  LanguageCodePOR,
+  LanguageCodePUS,
+  LanguageCodeQAA,
+  LanguageCodeQPC,
+  LanguageCodeQUE,
+  LanguageCodeROH,
+  LanguageCodeRON,
+  LanguageCodeRUN,
+  LanguageCodeRUS,
+  LanguageCodeSAG,
+  LanguageCodeSAN,
+  LanguageCodeSIN,
+  LanguageCodeSLK,
+  LanguageCodeSLV,
+  LanguageCodeSME,
+  LanguageCodeSMO,
+  LanguageCodeSNA,
+  LanguageCodeSND,
+  LanguageCodeSOM,
+  LanguageCodeSOT,
+  LanguageCodeSPA,
+  LanguageCodeSQI,
+  LanguageCodeSRB,
+  LanguageCodeSRD,
+  LanguageCodeSSW,
+  LanguageCodeSUN,
+  LanguageCodeSWA,
+  LanguageCodeSWE,
+  LanguageCodeTAH,
+  LanguageCodeTAM,
+  LanguageCodeTAT,
+  LanguageCodeTEL,
+  LanguageCodeTGK,
+  LanguageCodeTGL,
+  LanguageCodeTHA,
+  LanguageCodeTIR,
+  LanguageCodeTNG,
+  LanguageCodeTON,
+  LanguageCodeTSN,
+  LanguageCodeTSO,
+  LanguageCodeTUK,
+  LanguageCodeTUR,
+  LanguageCodeTWI,
+  LanguageCodeUIG,
+  LanguageCodeUKR,
+  LanguageCodeURD,
+  LanguageCodeUZB,
+  LanguageCodeVEN,
+  LanguageCodeVIE,
+  LanguageCodeVOL,
+  LanguageCodeWLN,
+  LanguageCodeWOL,
+  LanguageCodeXHO,
+  LanguageCodeYID,
+  LanguageCodeYOR,
+  LanguageCodeZHA,
+  LanguageCodeZHO,
+  LanguageCodeZUL,
   LanguageCode'
   #-}
 
-instance FromText LanguageCode where
-  parser = (LanguageCode' . mk) <$> takeText
+instance Prelude.FromText LanguageCode where
+  parser = LanguageCode' Prelude.<$> Prelude.takeText
 
-instance ToText LanguageCode where
-  toText (LanguageCode' ci) = original ci
+instance Prelude.ToText LanguageCode where
+  toText (LanguageCode' x) = x
 
-instance Hashable LanguageCode
+instance Prelude.Hashable LanguageCode
 
-instance NFData LanguageCode
+instance Prelude.NFData LanguageCode
 
-instance ToByteString LanguageCode
+instance Prelude.ToByteString LanguageCode
 
-instance ToQuery LanguageCode
+instance Prelude.ToQuery LanguageCode
 
-instance ToHeader LanguageCode
+instance Prelude.ToHeader LanguageCode
 
-instance ToJSON LanguageCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON LanguageCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LanguageCode where
-  parseJSON = parseJSONText "LanguageCode"
+instance Prelude.FromJSON LanguageCode where
+  parseJSON = Prelude.parseJSONText "LanguageCode"

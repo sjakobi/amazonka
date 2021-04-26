@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,115 +19,143 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.OutputGroupSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.CmafGroupSettings
 import Network.AWS.MediaConvert.Types.DashIsoGroupSettings
 import Network.AWS.MediaConvert.Types.FileGroupSettings
 import Network.AWS.MediaConvert.Types.HlsGroupSettings
 import Network.AWS.MediaConvert.Types.MsSmoothGroupSettings
 import Network.AWS.MediaConvert.Types.OutputGroupType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Output Group settings, including type
 --
--- /See:/ 'outputGroupSettings' smart constructor.
+-- /See:/ 'newOutputGroupSettings' smart constructor.
 data OutputGroupSettings = OutputGroupSettings'
-  { _ogsMsSmoothGroupSettings ::
-      !(Maybe MsSmoothGroupSettings),
-    _ogsHlsGroupSettings ::
-      !(Maybe HlsGroupSettings),
-    _ogsFileGroupSettings ::
-      !(Maybe FileGroupSettings),
-    _ogsDashIsoGroupSettings ::
-      !(Maybe DashIsoGroupSettings),
-    _ogsCmafGroupSettings ::
-      !(Maybe CmafGroupSettings),
-    _ogsType ::
-      !(Maybe OutputGroupType)
+  { -- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+    -- to MS_SMOOTH_GROUP_SETTINGS.
+    msSmoothGroupSettings :: Prelude.Maybe MsSmoothGroupSettings,
+    -- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+    -- to HLS_GROUP_SETTINGS.
+    hlsGroupSettings :: Prelude.Maybe HlsGroupSettings,
+    -- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+    -- to FILE_GROUP_SETTINGS.
+    fileGroupSettings :: Prelude.Maybe FileGroupSettings,
+    -- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+    -- to DASH_ISO_GROUP_SETTINGS.
+    dashIsoGroupSettings :: Prelude.Maybe DashIsoGroupSettings,
+    -- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+    -- to CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only
+    -- contain a single video, audio, or caption output.
+    cmafGroupSettings :: Prelude.Maybe CmafGroupSettings,
+    -- | Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth
+    -- Streaming, CMAF)
+    type' :: Prelude.Maybe OutputGroupType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputGroupSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputGroupSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogsMsSmoothGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ogsHlsGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+-- 'msSmoothGroupSettings', 'outputGroupSettings_msSmoothGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to MS_SMOOTH_GROUP_SETTINGS.
 --
--- * 'ogsFileGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+-- 'hlsGroupSettings', 'outputGroupSettings_hlsGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to HLS_GROUP_SETTINGS.
 --
--- * 'ogsDashIsoGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+-- 'fileGroupSettings', 'outputGroupSettings_fileGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to FILE_GROUP_SETTINGS.
 --
--- * 'ogsCmafGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only contain a single video, audio, or caption output.
+-- 'dashIsoGroupSettings', 'outputGroupSettings_dashIsoGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to DASH_ISO_GROUP_SETTINGS.
 --
--- * 'ogsType' - Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth Streaming, CMAF)
-outputGroupSettings ::
+-- 'cmafGroupSettings', 'outputGroupSettings_cmafGroupSettings' - Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only
+-- contain a single video, audio, or caption output.
+--
+-- 'type'', 'outputGroupSettings_type' - Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth
+-- Streaming, CMAF)
+newOutputGroupSettings ::
   OutputGroupSettings
-outputGroupSettings =
+newOutputGroupSettings =
   OutputGroupSettings'
-    { _ogsMsSmoothGroupSettings =
-        Nothing,
-      _ogsHlsGroupSettings = Nothing,
-      _ogsFileGroupSettings = Nothing,
-      _ogsDashIsoGroupSettings = Nothing,
-      _ogsCmafGroupSettings = Nothing,
-      _ogsType = Nothing
+    { msSmoothGroupSettings =
+        Prelude.Nothing,
+      hlsGroupSettings = Prelude.Nothing,
+      fileGroupSettings = Prelude.Nothing,
+      dashIsoGroupSettings = Prelude.Nothing,
+      cmafGroupSettings = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
-ogsMsSmoothGroupSettings :: Lens' OutputGroupSettings (Maybe MsSmoothGroupSettings)
-ogsMsSmoothGroupSettings = lens _ogsMsSmoothGroupSettings (\s a -> s {_ogsMsSmoothGroupSettings = a})
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to MS_SMOOTH_GROUP_SETTINGS.
+outputGroupSettings_msSmoothGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe MsSmoothGroupSettings)
+outputGroupSettings_msSmoothGroupSettings = Lens.lens (\OutputGroupSettings' {msSmoothGroupSettings} -> msSmoothGroupSettings) (\s@OutputGroupSettings' {} a -> s {msSmoothGroupSettings = a} :: OutputGroupSettings)
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
-ogsHlsGroupSettings :: Lens' OutputGroupSettings (Maybe HlsGroupSettings)
-ogsHlsGroupSettings = lens _ogsHlsGroupSettings (\s a -> s {_ogsHlsGroupSettings = a})
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to HLS_GROUP_SETTINGS.
+outputGroupSettings_hlsGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe HlsGroupSettings)
+outputGroupSettings_hlsGroupSettings = Lens.lens (\OutputGroupSettings' {hlsGroupSettings} -> hlsGroupSettings) (\s@OutputGroupSettings' {} a -> s {hlsGroupSettings = a} :: OutputGroupSettings)
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
-ogsFileGroupSettings :: Lens' OutputGroupSettings (Maybe FileGroupSettings)
-ogsFileGroupSettings = lens _ogsFileGroupSettings (\s a -> s {_ogsFileGroupSettings = a})
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to FILE_GROUP_SETTINGS.
+outputGroupSettings_fileGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe FileGroupSettings)
+outputGroupSettings_fileGroupSettings = Lens.lens (\OutputGroupSettings' {fileGroupSettings} -> fileGroupSettings) (\s@OutputGroupSettings' {} a -> s {fileGroupSettings = a} :: OutputGroupSettings)
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
-ogsDashIsoGroupSettings :: Lens' OutputGroupSettings (Maybe DashIsoGroupSettings)
-ogsDashIsoGroupSettings = lens _ogsDashIsoGroupSettings (\s a -> s {_ogsDashIsoGroupSettings = a})
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to DASH_ISO_GROUP_SETTINGS.
+outputGroupSettings_dashIsoGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe DashIsoGroupSettings)
+outputGroupSettings_dashIsoGroupSettings = Lens.lens (\OutputGroupSettings' {dashIsoGroupSettings} -> dashIsoGroupSettings) (\s@OutputGroupSettings' {} a -> s {dashIsoGroupSettings = a} :: OutputGroupSettings)
 
--- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only contain a single video, audio, or caption output.
-ogsCmafGroupSettings :: Lens' OutputGroupSettings (Maybe CmafGroupSettings)
-ogsCmafGroupSettings = lens _ogsCmafGroupSettings (\s a -> s {_ogsCmafGroupSettings = a})
+-- | Required when you set (Type) under (OutputGroups)>(OutputGroupSettings)
+-- to CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only
+-- contain a single video, audio, or caption output.
+outputGroupSettings_cmafGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe CmafGroupSettings)
+outputGroupSettings_cmafGroupSettings = Lens.lens (\OutputGroupSettings' {cmafGroupSettings} -> cmafGroupSettings) (\s@OutputGroupSettings' {} a -> s {cmafGroupSettings = a} :: OutputGroupSettings)
 
--- | Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth Streaming, CMAF)
-ogsType :: Lens' OutputGroupSettings (Maybe OutputGroupType)
-ogsType = lens _ogsType (\s a -> s {_ogsType = a})
+-- | Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth
+-- Streaming, CMAF)
+outputGroupSettings_type :: Lens.Lens' OutputGroupSettings (Prelude.Maybe OutputGroupType)
+outputGroupSettings_type = Lens.lens (\OutputGroupSettings' {type'} -> type') (\s@OutputGroupSettings' {} a -> s {type' = a} :: OutputGroupSettings)
 
-instance FromJSON OutputGroupSettings where
+instance Prelude.FromJSON OutputGroupSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputGroupSettings"
       ( \x ->
           OutputGroupSettings'
-            <$> (x .:? "msSmoothGroupSettings")
-            <*> (x .:? "hlsGroupSettings")
-            <*> (x .:? "fileGroupSettings")
-            <*> (x .:? "dashIsoGroupSettings")
-            <*> (x .:? "cmafGroupSettings")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "msSmoothGroupSettings")
+            Prelude.<*> (x Prelude..:? "hlsGroupSettings")
+            Prelude.<*> (x Prelude..:? "fileGroupSettings")
+            Prelude.<*> (x Prelude..:? "dashIsoGroupSettings")
+            Prelude.<*> (x Prelude..:? "cmafGroupSettings")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable OutputGroupSettings
+instance Prelude.Hashable OutputGroupSettings
 
-instance NFData OutputGroupSettings
+instance Prelude.NFData OutputGroupSettings
 
-instance ToJSON OutputGroupSettings where
+instance Prelude.ToJSON OutputGroupSettings where
   toJSON OutputGroupSettings' {..} =
-    object
-      ( catMaybes
-          [ ("msSmoothGroupSettings" .=)
-              <$> _ogsMsSmoothGroupSettings,
-            ("hlsGroupSettings" .=) <$> _ogsHlsGroupSettings,
-            ("fileGroupSettings" .=) <$> _ogsFileGroupSettings,
-            ("dashIsoGroupSettings" .=)
-              <$> _ogsDashIsoGroupSettings,
-            ("cmafGroupSettings" .=) <$> _ogsCmafGroupSettings,
-            ("type" .=) <$> _ogsType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("msSmoothGroupSettings" Prelude..=)
+              Prelude.<$> msSmoothGroupSettings,
+            ("hlsGroupSettings" Prelude..=)
+              Prelude.<$> hlsGroupSettings,
+            ("fileGroupSettings" Prelude..=)
+              Prelude.<$> fileGroupSettings,
+            ("dashIsoGroupSettings" Prelude..=)
+              Prelude.<$> dashIsoGroupSettings,
+            ("cmafGroupSettings" Prelude..=)
+              Prelude.<$> cmafGroupSettings,
+            ("type" Prelude..=) Prelude.<$> type'
           ]
       )

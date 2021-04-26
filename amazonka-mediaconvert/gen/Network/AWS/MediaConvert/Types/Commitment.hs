@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,54 @@
 module Network.AWS.MediaConvert.Types.Commitment
   ( Commitment
       ( ..,
-        OneYear
+        CommitmentONEYEAR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The length of the term of your reserved queue pricing plan commitment.
-data Commitment = Commitment' (CI Text)
+newtype Commitment = Commitment'
+  { fromCommitment ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneYear :: Commitment
-pattern OneYear = Commitment' "ONE_YEAR"
+pattern CommitmentONEYEAR :: Commitment
+pattern CommitmentONEYEAR = Commitment' "ONE_YEAR"
 
 {-# COMPLETE
-  OneYear,
+  CommitmentONEYEAR,
   Commitment'
   #-}
 
-instance FromText Commitment where
-  parser = (Commitment' . mk) <$> takeText
+instance Prelude.FromText Commitment where
+  parser = Commitment' Prelude.<$> Prelude.takeText
 
-instance ToText Commitment where
-  toText (Commitment' ci) = original ci
+instance Prelude.ToText Commitment where
+  toText (Commitment' x) = x
 
-instance Hashable Commitment
+instance Prelude.Hashable Commitment
 
-instance NFData Commitment
+instance Prelude.NFData Commitment
 
-instance ToByteString Commitment
+instance Prelude.ToByteString Commitment
 
-instance ToQuery Commitment
+instance Prelude.ToQuery Commitment
 
-instance ToHeader Commitment
+instance Prelude.ToHeader Commitment
 
-instance ToJSON Commitment where
-  toJSON = toJSONText
+instance Prelude.ToJSON Commitment where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Commitment where
-  parseJSON = parseJSONText "Commitment"
+instance Prelude.FromJSON Commitment where
+  parseJSON = Prelude.parseJSONText "Commitment"

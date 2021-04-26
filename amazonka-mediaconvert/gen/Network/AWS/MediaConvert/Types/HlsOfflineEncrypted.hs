@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaConvert.Types.HlsOfflineEncrypted
   ( HlsOfflineEncrypted
       ( ..,
-        HOEDisabled,
-        HOEEnabled
+        HlsOfflineEncryptedDISABLED,
+        HlsOfflineEncryptedENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable this setting to insert the EXT-X-SESSION-KEY element into the master playlist. This allows for offline Apple HLS FairPlay content protection.
-data HlsOfflineEncrypted
-  = HlsOfflineEncrypted'
-      ( CI
-          Text
-      )
+-- | Enable this setting to insert the EXT-X-SESSION-KEY element into the
+-- master playlist. This allows for offline Apple HLS FairPlay content
+-- protection.
+newtype HlsOfflineEncrypted = HlsOfflineEncrypted'
+  { fromHlsOfflineEncrypted ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HOEDisabled :: HlsOfflineEncrypted
-pattern HOEDisabled = HlsOfflineEncrypted' "DISABLED"
+pattern HlsOfflineEncryptedDISABLED :: HlsOfflineEncrypted
+pattern HlsOfflineEncryptedDISABLED = HlsOfflineEncrypted' "DISABLED"
 
-pattern HOEEnabled :: HlsOfflineEncrypted
-pattern HOEEnabled = HlsOfflineEncrypted' "ENABLED"
+pattern HlsOfflineEncryptedENABLED :: HlsOfflineEncrypted
+pattern HlsOfflineEncryptedENABLED = HlsOfflineEncrypted' "ENABLED"
 
 {-# COMPLETE
-  HOEDisabled,
-  HOEEnabled,
+  HlsOfflineEncryptedDISABLED,
+  HlsOfflineEncryptedENABLED,
   HlsOfflineEncrypted'
   #-}
 
-instance FromText HlsOfflineEncrypted where
-  parser = (HlsOfflineEncrypted' . mk) <$> takeText
+instance Prelude.FromText HlsOfflineEncrypted where
+  parser = HlsOfflineEncrypted' Prelude.<$> Prelude.takeText
 
-instance ToText HlsOfflineEncrypted where
-  toText (HlsOfflineEncrypted' ci) = original ci
+instance Prelude.ToText HlsOfflineEncrypted where
+  toText (HlsOfflineEncrypted' x) = x
 
-instance Hashable HlsOfflineEncrypted
+instance Prelude.Hashable HlsOfflineEncrypted
 
-instance NFData HlsOfflineEncrypted
+instance Prelude.NFData HlsOfflineEncrypted
 
-instance ToByteString HlsOfflineEncrypted
+instance Prelude.ToByteString HlsOfflineEncrypted
 
-instance ToQuery HlsOfflineEncrypted
+instance Prelude.ToQuery HlsOfflineEncrypted
 
-instance ToHeader HlsOfflineEncrypted
+instance Prelude.ToHeader HlsOfflineEncrypted
 
-instance ToJSON HlsOfflineEncrypted where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsOfflineEncrypted where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsOfflineEncrypted where
-  parseJSON = parseJSONText "HlsOfflineEncrypted"
+instance Prelude.FromJSON HlsOfflineEncrypted where
+  parseJSON = Prelude.parseJSONText "HlsOfflineEncrypted"

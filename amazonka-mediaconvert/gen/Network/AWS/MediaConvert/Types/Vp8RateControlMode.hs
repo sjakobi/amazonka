@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,55 @@
 module Network.AWS.MediaConvert.Types.Vp8RateControlMode
   ( Vp8RateControlMode
       ( ..,
-        VRCMVbr
+        Vp8RateControlModeVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | With the VP8 codec, you can use only the variable bitrate (VBR) rate control mode.
-data Vp8RateControlMode
-  = Vp8RateControlMode'
-      ( CI
-          Text
-      )
+-- | With the VP8 codec, you can use only the variable bitrate (VBR) rate
+-- control mode.
+newtype Vp8RateControlMode = Vp8RateControlMode'
+  { fromVp8RateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VRCMVbr :: Vp8RateControlMode
-pattern VRCMVbr = Vp8RateControlMode' "VBR"
+pattern Vp8RateControlModeVBR :: Vp8RateControlMode
+pattern Vp8RateControlModeVBR = Vp8RateControlMode' "VBR"
 
 {-# COMPLETE
-  VRCMVbr,
+  Vp8RateControlModeVBR,
   Vp8RateControlMode'
   #-}
 
-instance FromText Vp8RateControlMode where
-  parser = (Vp8RateControlMode' . mk) <$> takeText
+instance Prelude.FromText Vp8RateControlMode where
+  parser = Vp8RateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText Vp8RateControlMode where
-  toText (Vp8RateControlMode' ci) = original ci
+instance Prelude.ToText Vp8RateControlMode where
+  toText (Vp8RateControlMode' x) = x
 
-instance Hashable Vp8RateControlMode
+instance Prelude.Hashable Vp8RateControlMode
 
-instance NFData Vp8RateControlMode
+instance Prelude.NFData Vp8RateControlMode
 
-instance ToByteString Vp8RateControlMode
+instance Prelude.ToByteString Vp8RateControlMode
 
-instance ToQuery Vp8RateControlMode
+instance Prelude.ToQuery Vp8RateControlMode
 
-instance ToHeader Vp8RateControlMode
+instance Prelude.ToHeader Vp8RateControlMode
 
-instance ToJSON Vp8RateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vp8RateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vp8RateControlMode where
-  parseJSON = parseJSONText "Vp8RateControlMode"
+instance Prelude.FromJSON Vp8RateControlMode where
+  parseJSON = Prelude.parseJSONText "Vp8RateControlMode"

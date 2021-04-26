@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,74 @@
 module Network.AWS.MediaConvert.Types.TimecodeSource
   ( TimecodeSource
       ( ..,
-        TSEmbedded,
-        TSSpecifiedstart,
-        TSZerobased
+        TimecodeSourceEMBEDDED,
+        TimecodeSourceSPECIFIEDSTART,
+        TimecodeSourceZEROBASED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use Source (TimecodeSource) to set how timecodes are handled within this job. To make sure that your video, audio, captions, and markers are synchronized and that time-based features, such as image inserter, work correctly, choose the Timecode source option that matches your assets. All timecodes are in a 24-hour format with frame number (HH:MM:SS:FF). * Embedded (EMBEDDED) - Use the timecode that is in the input video. If no embedded timecode is in the source, the service will use Start at 0 (ZEROBASED) instead. * Start at 0 (ZEROBASED) - Set the timecode of the initial frame to 00:00:00:00. * Specified Start (SPECIFIEDSTART) - Set the timecode of the initial frame to a value other than zero. You use Start timecode (Start) to provide this value.
-data TimecodeSource = TimecodeSource' (CI Text)
+-- | Use Source (TimecodeSource) to set how timecodes are handled within this
+-- job. To make sure that your video, audio, captions, and markers are
+-- synchronized and that time-based features, such as image inserter, work
+-- correctly, choose the Timecode source option that matches your assets.
+-- All timecodes are in a 24-hour format with frame number (HH:MM:SS:FF). *
+-- Embedded (EMBEDDED) - Use the timecode that is in the input video. If no
+-- embedded timecode is in the source, the service will use Start at 0
+-- (ZEROBASED) instead. * Start at 0 (ZEROBASED) - Set the timecode of the
+-- initial frame to 00:00:00:00. * Specified Start (SPECIFIEDSTART) - Set
+-- the timecode of the initial frame to a value other than zero. You use
+-- Start timecode (Start) to provide this value.
+newtype TimecodeSource = TimecodeSource'
+  { fromTimecodeSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSEmbedded :: TimecodeSource
-pattern TSEmbedded = TimecodeSource' "EMBEDDED"
+pattern TimecodeSourceEMBEDDED :: TimecodeSource
+pattern TimecodeSourceEMBEDDED = TimecodeSource' "EMBEDDED"
 
-pattern TSSpecifiedstart :: TimecodeSource
-pattern TSSpecifiedstart = TimecodeSource' "SPECIFIEDSTART"
+pattern TimecodeSourceSPECIFIEDSTART :: TimecodeSource
+pattern TimecodeSourceSPECIFIEDSTART = TimecodeSource' "SPECIFIEDSTART"
 
-pattern TSZerobased :: TimecodeSource
-pattern TSZerobased = TimecodeSource' "ZEROBASED"
+pattern TimecodeSourceZEROBASED :: TimecodeSource
+pattern TimecodeSourceZEROBASED = TimecodeSource' "ZEROBASED"
 
 {-# COMPLETE
-  TSEmbedded,
-  TSSpecifiedstart,
-  TSZerobased,
+  TimecodeSourceEMBEDDED,
+  TimecodeSourceSPECIFIEDSTART,
+  TimecodeSourceZEROBASED,
   TimecodeSource'
   #-}
 
-instance FromText TimecodeSource where
-  parser = (TimecodeSource' . mk) <$> takeText
+instance Prelude.FromText TimecodeSource where
+  parser = TimecodeSource' Prelude.<$> Prelude.takeText
 
-instance ToText TimecodeSource where
-  toText (TimecodeSource' ci) = original ci
+instance Prelude.ToText TimecodeSource where
+  toText (TimecodeSource' x) = x
 
-instance Hashable TimecodeSource
+instance Prelude.Hashable TimecodeSource
 
-instance NFData TimecodeSource
+instance Prelude.NFData TimecodeSource
 
-instance ToByteString TimecodeSource
+instance Prelude.ToByteString TimecodeSource
 
-instance ToQuery TimecodeSource
+instance Prelude.ToQuery TimecodeSource
 
-instance ToHeader TimecodeSource
+instance Prelude.ToHeader TimecodeSource
 
-instance ToJSON TimecodeSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON TimecodeSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TimecodeSource where
-  parseJSON = parseJSONText "TimecodeSource"
+instance Prelude.FromJSON TimecodeSource where
+  parseJSON = Prelude.parseJSONText "TimecodeSource"

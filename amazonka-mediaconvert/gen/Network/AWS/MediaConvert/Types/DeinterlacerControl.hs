@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,67 @@
 module Network.AWS.MediaConvert.Types.DeinterlacerControl
   ( DeinterlacerControl
       ( ..,
-        DCForceAllFrames,
-        DCNormal
+        DeinterlacerControlFORCEALLFRAMES,
+        DeinterlacerControlNORMAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | - When set to NORMAL (default), the deinterlacer does not convert frames that are tagged  in metadata as progressive. It will only convert those that are tagged as some other type. - When set to FORCE_ALL_FRAMES, the deinterlacer converts every frame to progressive - even those that are already tagged as progressive. Turn Force mode on only if there is  a good chance that the metadata has tagged frames as progressive when they are not  progressive. Do not turn on otherwise; processing frames that are already progressive  into progressive will probably result in lower quality video.
-data DeinterlacerControl
-  = DeinterlacerControl'
-      ( CI
-          Text
-      )
+-- | - When set to NORMAL (default), the deinterlacer does not convert frames
+-- that are tagged in metadata as progressive. It will only convert those
+-- that are tagged as some other type. - When set to FORCE_ALL_FRAMES, the
+-- deinterlacer converts every frame to progressive - even those that are
+-- already tagged as progressive. Turn Force mode on only if there is a
+-- good chance that the metadata has tagged frames as progressive when they
+-- are not progressive. Do not turn on otherwise; processing frames that
+-- are already progressive into progressive will probably result in lower
+-- quality video.
+newtype DeinterlacerControl = DeinterlacerControl'
+  { fromDeinterlacerControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DCForceAllFrames :: DeinterlacerControl
-pattern DCForceAllFrames = DeinterlacerControl' "FORCE_ALL_FRAMES"
+pattern DeinterlacerControlFORCEALLFRAMES :: DeinterlacerControl
+pattern DeinterlacerControlFORCEALLFRAMES = DeinterlacerControl' "FORCE_ALL_FRAMES"
 
-pattern DCNormal :: DeinterlacerControl
-pattern DCNormal = DeinterlacerControl' "NORMAL"
+pattern DeinterlacerControlNORMAL :: DeinterlacerControl
+pattern DeinterlacerControlNORMAL = DeinterlacerControl' "NORMAL"
 
 {-# COMPLETE
-  DCForceAllFrames,
-  DCNormal,
+  DeinterlacerControlFORCEALLFRAMES,
+  DeinterlacerControlNORMAL,
   DeinterlacerControl'
   #-}
 
-instance FromText DeinterlacerControl where
-  parser = (DeinterlacerControl' . mk) <$> takeText
+instance Prelude.FromText DeinterlacerControl where
+  parser = DeinterlacerControl' Prelude.<$> Prelude.takeText
 
-instance ToText DeinterlacerControl where
-  toText (DeinterlacerControl' ci) = original ci
+instance Prelude.ToText DeinterlacerControl where
+  toText (DeinterlacerControl' x) = x
 
-instance Hashable DeinterlacerControl
+instance Prelude.Hashable DeinterlacerControl
 
-instance NFData DeinterlacerControl
+instance Prelude.NFData DeinterlacerControl
 
-instance ToByteString DeinterlacerControl
+instance Prelude.ToByteString DeinterlacerControl
 
-instance ToQuery DeinterlacerControl
+instance Prelude.ToQuery DeinterlacerControl
 
-instance ToHeader DeinterlacerControl
+instance Prelude.ToHeader DeinterlacerControl
 
-instance ToJSON DeinterlacerControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeinterlacerControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeinterlacerControl where
-  parseJSON = parseJSONText "DeinterlacerControl"
+instance Prelude.FromJSON DeinterlacerControl where
+  parseJSON = Prelude.parseJSONText "DeinterlacerControl"

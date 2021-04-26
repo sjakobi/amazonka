@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.ImageInserter where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.InsertableImage
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Enable the image inserter feature to include a graphic overlay on your video. Enable or disable this feature for each input or output individually. This setting is disabled by default.
+-- | Enable the image inserter feature to include a graphic overlay on your
+-- video. Enable or disable this feature for each input or output
+-- individually. This setting is disabled by default.
 --
--- /See:/ 'imageInserter' smart constructor.
-newtype ImageInserter = ImageInserter'
-  { _iiInsertableImages ::
-      Maybe [InsertableImage]
+-- /See:/ 'newImageInserter' smart constructor.
+data ImageInserter = ImageInserter'
+  { -- | Specify the images that you want to overlay on your video. The images
+    -- must be PNG or TGA files.
+    insertableImages :: Prelude.Maybe [InsertableImage]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ImageInserter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ImageInserter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iiInsertableImages' - Specify the images that you want to overlay on your video. The images must be PNG or TGA files.
-imageInserter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'insertableImages', 'imageInserter_insertableImages' - Specify the images that you want to overlay on your video. The images
+-- must be PNG or TGA files.
+newImageInserter ::
   ImageInserter
-imageInserter =
-  ImageInserter' {_iiInsertableImages = Nothing}
+newImageInserter =
+  ImageInserter' {insertableImages = Prelude.Nothing}
 
--- | Specify the images that you want to overlay on your video. The images must be PNG or TGA files.
-iiInsertableImages :: Lens' ImageInserter [InsertableImage]
-iiInsertableImages = lens _iiInsertableImages (\s a -> s {_iiInsertableImages = a}) . _Default . _Coerce
+-- | Specify the images that you want to overlay on your video. The images
+-- must be PNG or TGA files.
+imageInserter_insertableImages :: Lens.Lens' ImageInserter (Prelude.Maybe [InsertableImage])
+imageInserter_insertableImages = Lens.lens (\ImageInserter' {insertableImages} -> insertableImages) (\s@ImageInserter' {} a -> s {insertableImages = a} :: ImageInserter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ImageInserter where
+instance Prelude.FromJSON ImageInserter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ImageInserter"
       ( \x ->
           ImageInserter'
-            <$> (x .:? "insertableImages" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "insertableImages"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ImageInserter
+instance Prelude.Hashable ImageInserter
 
-instance NFData ImageInserter
+instance Prelude.NFData ImageInserter
 
-instance ToJSON ImageInserter where
+instance Prelude.ToJSON ImageInserter where
   toJSON ImageInserter' {..} =
-    object
-      ( catMaybes
-          [("insertableImages" .=) <$> _iiInsertableImages]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("insertableImages" Prelude..=)
+              Prelude.<$> insertableImages
+          ]
       )

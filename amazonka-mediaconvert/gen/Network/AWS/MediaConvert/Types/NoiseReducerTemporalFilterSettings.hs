@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,102 +19,144 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaConvert.Types.NoiseReducerTemporalFilterSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types.NoiseFilterPostTemporalSharpening
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Noise reducer filter settings for temporal filter.
 --
--- /See:/ 'noiseReducerTemporalFilterSettings' smart constructor.
+-- /See:/ 'newNoiseReducerTemporalFilterSettings' smart constructor.
 data NoiseReducerTemporalFilterSettings = NoiseReducerTemporalFilterSettings'
-  { _nrtfsPostTemporalSharpening ::
-      !( Maybe
-           NoiseFilterPostTemporalSharpening
-       ),
-    _nrtfsSpeed ::
-      !( Maybe
-           Int
-       ),
-    _nrtfsAggressiveMode ::
-      !( Maybe
-           Nat
-       ),
-    _nrtfsStrength ::
-      !( Maybe
-           Nat
-       )
+  { -- | Optional. When you set Noise reducer (noiseReducer) to Temporal
+    -- (TEMPORAL), you can use this setting to apply sharpening. The default
+    -- behavior, Auto (AUTO), allows the transcoder to determine whether to
+    -- apply filtering, depending on input type and quality. When you set Noise
+    -- reducer to Temporal, your output bandwidth is reduced. When Post
+    -- temporal sharpening is also enabled, that bandwidth reduction is
+    -- smaller.
+    postTemporalSharpening :: Prelude.Maybe NoiseFilterPostTemporalSharpening,
+    -- | The speed of the filter (higher number is faster). Low setting reduces
+    -- bit rate at the cost of transcode time, high setting improves transcode
+    -- time at the cost of bit rate.
+    speed :: Prelude.Maybe Prelude.Int,
+    -- | Use Aggressive mode for content that has complex motion. Higher values
+    -- produce stronger temporal filtering. This filters highly complex scenes
+    -- more aggressively and creates better VQ for low bitrate outputs.
+    aggressiveMode :: Prelude.Maybe Prelude.Nat,
+    -- | Specify the strength of the noise reducing filter on this output. Higher
+    -- values produce stronger filtering. We recommend the following value
+    -- ranges, depending on the result that you want: * 0-2 for complexity
+    -- reduction with minimal sharpness loss * 2-8 for complexity reduction
+    -- with image preservation * 8-16 for a high level of complexity reduction
+    strength :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NoiseReducerTemporalFilterSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NoiseReducerTemporalFilterSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nrtfsPostTemporalSharpening' - Optional. When you set Noise reducer (noiseReducer) to Temporal (TEMPORAL), you can use this setting to apply sharpening. The default behavior, Auto (AUTO), allows the transcoder to determine whether to apply filtering, depending on input type and quality. When you set Noise reducer to Temporal, your output bandwidth is reduced. When Post temporal sharpening is also enabled, that bandwidth reduction is smaller.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nrtfsSpeed' - The speed of the filter (higher number is faster). Low setting reduces bit rate at the cost of transcode time, high setting improves transcode time at the cost of bit rate.
+-- 'postTemporalSharpening', 'noiseReducerTemporalFilterSettings_postTemporalSharpening' - Optional. When you set Noise reducer (noiseReducer) to Temporal
+-- (TEMPORAL), you can use this setting to apply sharpening. The default
+-- behavior, Auto (AUTO), allows the transcoder to determine whether to
+-- apply filtering, depending on input type and quality. When you set Noise
+-- reducer to Temporal, your output bandwidth is reduced. When Post
+-- temporal sharpening is also enabled, that bandwidth reduction is
+-- smaller.
 --
--- * 'nrtfsAggressiveMode' - Use Aggressive mode for content that has complex motion. Higher values produce stronger temporal filtering. This filters highly complex scenes more aggressively and creates better VQ for low bitrate outputs.
+-- 'speed', 'noiseReducerTemporalFilterSettings_speed' - The speed of the filter (higher number is faster). Low setting reduces
+-- bit rate at the cost of transcode time, high setting improves transcode
+-- time at the cost of bit rate.
 --
--- * 'nrtfsStrength' - Specify the strength of the noise reducing filter on this output. Higher values produce stronger filtering. We recommend the following value ranges, depending on the result that you want: * 0-2 for complexity reduction with minimal sharpness loss * 2-8 for complexity reduction with image preservation * 8-16 for a high level of complexity reduction
-noiseReducerTemporalFilterSettings ::
+-- 'aggressiveMode', 'noiseReducerTemporalFilterSettings_aggressiveMode' - Use Aggressive mode for content that has complex motion. Higher values
+-- produce stronger temporal filtering. This filters highly complex scenes
+-- more aggressively and creates better VQ for low bitrate outputs.
+--
+-- 'strength', 'noiseReducerTemporalFilterSettings_strength' - Specify the strength of the noise reducing filter on this output. Higher
+-- values produce stronger filtering. We recommend the following value
+-- ranges, depending on the result that you want: * 0-2 for complexity
+-- reduction with minimal sharpness loss * 2-8 for complexity reduction
+-- with image preservation * 8-16 for a high level of complexity reduction
+newNoiseReducerTemporalFilterSettings ::
   NoiseReducerTemporalFilterSettings
-noiseReducerTemporalFilterSettings =
+newNoiseReducerTemporalFilterSettings =
   NoiseReducerTemporalFilterSettings'
-    { _nrtfsPostTemporalSharpening =
-        Nothing,
-      _nrtfsSpeed = Nothing,
-      _nrtfsAggressiveMode = Nothing,
-      _nrtfsStrength = Nothing
+    { postTemporalSharpening =
+        Prelude.Nothing,
+      speed = Prelude.Nothing,
+      aggressiveMode = Prelude.Nothing,
+      strength = Prelude.Nothing
     }
 
--- | Optional. When you set Noise reducer (noiseReducer) to Temporal (TEMPORAL), you can use this setting to apply sharpening. The default behavior, Auto (AUTO), allows the transcoder to determine whether to apply filtering, depending on input type and quality. When you set Noise reducer to Temporal, your output bandwidth is reduced. When Post temporal sharpening is also enabled, that bandwidth reduction is smaller.
-nrtfsPostTemporalSharpening :: Lens' NoiseReducerTemporalFilterSettings (Maybe NoiseFilterPostTemporalSharpening)
-nrtfsPostTemporalSharpening = lens _nrtfsPostTemporalSharpening (\s a -> s {_nrtfsPostTemporalSharpening = a})
+-- | Optional. When you set Noise reducer (noiseReducer) to Temporal
+-- (TEMPORAL), you can use this setting to apply sharpening. The default
+-- behavior, Auto (AUTO), allows the transcoder to determine whether to
+-- apply filtering, depending on input type and quality. When you set Noise
+-- reducer to Temporal, your output bandwidth is reduced. When Post
+-- temporal sharpening is also enabled, that bandwidth reduction is
+-- smaller.
+noiseReducerTemporalFilterSettings_postTemporalSharpening :: Lens.Lens' NoiseReducerTemporalFilterSettings (Prelude.Maybe NoiseFilterPostTemporalSharpening)
+noiseReducerTemporalFilterSettings_postTemporalSharpening = Lens.lens (\NoiseReducerTemporalFilterSettings' {postTemporalSharpening} -> postTemporalSharpening) (\s@NoiseReducerTemporalFilterSettings' {} a -> s {postTemporalSharpening = a} :: NoiseReducerTemporalFilterSettings)
 
--- | The speed of the filter (higher number is faster). Low setting reduces bit rate at the cost of transcode time, high setting improves transcode time at the cost of bit rate.
-nrtfsSpeed :: Lens' NoiseReducerTemporalFilterSettings (Maybe Int)
-nrtfsSpeed = lens _nrtfsSpeed (\s a -> s {_nrtfsSpeed = a})
+-- | The speed of the filter (higher number is faster). Low setting reduces
+-- bit rate at the cost of transcode time, high setting improves transcode
+-- time at the cost of bit rate.
+noiseReducerTemporalFilterSettings_speed :: Lens.Lens' NoiseReducerTemporalFilterSettings (Prelude.Maybe Prelude.Int)
+noiseReducerTemporalFilterSettings_speed = Lens.lens (\NoiseReducerTemporalFilterSettings' {speed} -> speed) (\s@NoiseReducerTemporalFilterSettings' {} a -> s {speed = a} :: NoiseReducerTemporalFilterSettings)
 
--- | Use Aggressive mode for content that has complex motion. Higher values produce stronger temporal filtering. This filters highly complex scenes more aggressively and creates better VQ for low bitrate outputs.
-nrtfsAggressiveMode :: Lens' NoiseReducerTemporalFilterSettings (Maybe Natural)
-nrtfsAggressiveMode = lens _nrtfsAggressiveMode (\s a -> s {_nrtfsAggressiveMode = a}) . mapping _Nat
+-- | Use Aggressive mode for content that has complex motion. Higher values
+-- produce stronger temporal filtering. This filters highly complex scenes
+-- more aggressively and creates better VQ for low bitrate outputs.
+noiseReducerTemporalFilterSettings_aggressiveMode :: Lens.Lens' NoiseReducerTemporalFilterSettings (Prelude.Maybe Prelude.Natural)
+noiseReducerTemporalFilterSettings_aggressiveMode = Lens.lens (\NoiseReducerTemporalFilterSettings' {aggressiveMode} -> aggressiveMode) (\s@NoiseReducerTemporalFilterSettings' {} a -> s {aggressiveMode = a} :: NoiseReducerTemporalFilterSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specify the strength of the noise reducing filter on this output. Higher values produce stronger filtering. We recommend the following value ranges, depending on the result that you want: * 0-2 for complexity reduction with minimal sharpness loss * 2-8 for complexity reduction with image preservation * 8-16 for a high level of complexity reduction
-nrtfsStrength :: Lens' NoiseReducerTemporalFilterSettings (Maybe Natural)
-nrtfsStrength = lens _nrtfsStrength (\s a -> s {_nrtfsStrength = a}) . mapping _Nat
+-- | Specify the strength of the noise reducing filter on this output. Higher
+-- values produce stronger filtering. We recommend the following value
+-- ranges, depending on the result that you want: * 0-2 for complexity
+-- reduction with minimal sharpness loss * 2-8 for complexity reduction
+-- with image preservation * 8-16 for a high level of complexity reduction
+noiseReducerTemporalFilterSettings_strength :: Lens.Lens' NoiseReducerTemporalFilterSettings (Prelude.Maybe Prelude.Natural)
+noiseReducerTemporalFilterSettings_strength = Lens.lens (\NoiseReducerTemporalFilterSettings' {strength} -> strength) (\s@NoiseReducerTemporalFilterSettings' {} a -> s {strength = a} :: NoiseReducerTemporalFilterSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON NoiseReducerTemporalFilterSettings where
+instance
+  Prelude.FromJSON
+    NoiseReducerTemporalFilterSettings
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NoiseReducerTemporalFilterSettings"
       ( \x ->
           NoiseReducerTemporalFilterSettings'
-            <$> (x .:? "postTemporalSharpening")
-            <*> (x .:? "speed")
-            <*> (x .:? "aggressiveMode")
-            <*> (x .:? "strength")
+            Prelude.<$> (x Prelude..:? "postTemporalSharpening")
+            Prelude.<*> (x Prelude..:? "speed")
+            Prelude.<*> (x Prelude..:? "aggressiveMode")
+            Prelude.<*> (x Prelude..:? "strength")
       )
 
-instance Hashable NoiseReducerTemporalFilterSettings
+instance
+  Prelude.Hashable
+    NoiseReducerTemporalFilterSettings
 
-instance NFData NoiseReducerTemporalFilterSettings
+instance
+  Prelude.NFData
+    NoiseReducerTemporalFilterSettings
 
-instance ToJSON NoiseReducerTemporalFilterSettings where
+instance
+  Prelude.ToJSON
+    NoiseReducerTemporalFilterSettings
+  where
   toJSON NoiseReducerTemporalFilterSettings' {..} =
-    object
-      ( catMaybes
-          [ ("postTemporalSharpening" .=)
-              <$> _nrtfsPostTemporalSharpening,
-            ("speed" .=) <$> _nrtfsSpeed,
-            ("aggressiveMode" .=) <$> _nrtfsAggressiveMode,
-            ("strength" .=) <$> _nrtfsStrength
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("postTemporalSharpening" Prelude..=)
+              Prelude.<$> postTemporalSharpening,
+            ("speed" Prelude..=) Prelude.<$> speed,
+            ("aggressiveMode" Prelude..=)
+              Prelude.<$> aggressiveMode,
+            ("strength" Prelude..=) Prelude.<$> strength
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,86 @@
 module Network.AWS.MediaConvert.Types.AvcIntraInterlaceMode
   ( AvcIntraInterlaceMode
       ( ..,
-        AIIMBottomField,
-        AIIMFollowBottomField,
-        AIIMFollowTopField,
-        AIIMProgressive,
-        AIIMTopField
+        AvcIntraInterlaceModeBOTTOMFIELD,
+        AvcIntraInterlaceModeFOLLOWBOTTOMFIELD,
+        AvcIntraInterlaceModeFOLLOWTOPFIELD,
+        AvcIntraInterlaceModePROGRESSIVE,
+        AvcIntraInterlaceModeTOPFIELD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Choose the scan line type for the output. Keep the default value, Progressive (PROGRESSIVE) to create a progressive output, regardless of the scan type of your input. Use Top field first (TOP_FIELD) or Bottom field first (BOTTOM_FIELD) to create an output that's interlaced with the same field polarity throughout. Use Follow, default top (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to produce outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity might change over the course of the output. Follow behavior depends on the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
-data AvcIntraInterlaceMode
-  = AvcIntraInterlaceMode'
-      ( CI
-          Text
-      )
+-- | Choose the scan line type for the output. Keep the default value,
+-- Progressive (PROGRESSIVE) to create a progressive output, regardless of
+-- the scan type of your input. Use Top field first (TOP_FIELD) or Bottom
+-- field first (BOTTOM_FIELD) to create an output that\'s interlaced with
+-- the same field polarity throughout. Use Follow, default top
+-- (FOLLOW_TOP_FIELD) or Follow, default bottom (FOLLOW_BOTTOM_FIELD) to
+-- produce outputs with the same field polarity as the source. For jobs
+-- that have multiple inputs, the output field polarity might change over
+-- the course of the output. Follow behavior depends on the input scan
+-- type. If the source is interlaced, the output will be interlaced with
+-- the same polarity as the source. If the source is progressive, the
+-- output will be interlaced with top field bottom field first, depending
+-- on which of the Follow options you choose.
+newtype AvcIntraInterlaceMode = AvcIntraInterlaceMode'
+  { fromAvcIntraInterlaceMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AIIMBottomField :: AvcIntraInterlaceMode
-pattern AIIMBottomField = AvcIntraInterlaceMode' "BOTTOM_FIELD"
+pattern AvcIntraInterlaceModeBOTTOMFIELD :: AvcIntraInterlaceMode
+pattern AvcIntraInterlaceModeBOTTOMFIELD = AvcIntraInterlaceMode' "BOTTOM_FIELD"
 
-pattern AIIMFollowBottomField :: AvcIntraInterlaceMode
-pattern AIIMFollowBottomField = AvcIntraInterlaceMode' "FOLLOW_BOTTOM_FIELD"
+pattern AvcIntraInterlaceModeFOLLOWBOTTOMFIELD :: AvcIntraInterlaceMode
+pattern AvcIntraInterlaceModeFOLLOWBOTTOMFIELD = AvcIntraInterlaceMode' "FOLLOW_BOTTOM_FIELD"
 
-pattern AIIMFollowTopField :: AvcIntraInterlaceMode
-pattern AIIMFollowTopField = AvcIntraInterlaceMode' "FOLLOW_TOP_FIELD"
+pattern AvcIntraInterlaceModeFOLLOWTOPFIELD :: AvcIntraInterlaceMode
+pattern AvcIntraInterlaceModeFOLLOWTOPFIELD = AvcIntraInterlaceMode' "FOLLOW_TOP_FIELD"
 
-pattern AIIMProgressive :: AvcIntraInterlaceMode
-pattern AIIMProgressive = AvcIntraInterlaceMode' "PROGRESSIVE"
+pattern AvcIntraInterlaceModePROGRESSIVE :: AvcIntraInterlaceMode
+pattern AvcIntraInterlaceModePROGRESSIVE = AvcIntraInterlaceMode' "PROGRESSIVE"
 
-pattern AIIMTopField :: AvcIntraInterlaceMode
-pattern AIIMTopField = AvcIntraInterlaceMode' "TOP_FIELD"
+pattern AvcIntraInterlaceModeTOPFIELD :: AvcIntraInterlaceMode
+pattern AvcIntraInterlaceModeTOPFIELD = AvcIntraInterlaceMode' "TOP_FIELD"
 
 {-# COMPLETE
-  AIIMBottomField,
-  AIIMFollowBottomField,
-  AIIMFollowTopField,
-  AIIMProgressive,
-  AIIMTopField,
+  AvcIntraInterlaceModeBOTTOMFIELD,
+  AvcIntraInterlaceModeFOLLOWBOTTOMFIELD,
+  AvcIntraInterlaceModeFOLLOWTOPFIELD,
+  AvcIntraInterlaceModePROGRESSIVE,
+  AvcIntraInterlaceModeTOPFIELD,
   AvcIntraInterlaceMode'
   #-}
 
-instance FromText AvcIntraInterlaceMode where
-  parser = (AvcIntraInterlaceMode' . mk) <$> takeText
+instance Prelude.FromText AvcIntraInterlaceMode where
+  parser = AvcIntraInterlaceMode' Prelude.<$> Prelude.takeText
 
-instance ToText AvcIntraInterlaceMode where
-  toText (AvcIntraInterlaceMode' ci) = original ci
+instance Prelude.ToText AvcIntraInterlaceMode where
+  toText (AvcIntraInterlaceMode' x) = x
 
-instance Hashable AvcIntraInterlaceMode
+instance Prelude.Hashable AvcIntraInterlaceMode
 
-instance NFData AvcIntraInterlaceMode
+instance Prelude.NFData AvcIntraInterlaceMode
 
-instance ToByteString AvcIntraInterlaceMode
+instance Prelude.ToByteString AvcIntraInterlaceMode
 
-instance ToQuery AvcIntraInterlaceMode
+instance Prelude.ToQuery AvcIntraInterlaceMode
 
-instance ToHeader AvcIntraInterlaceMode
+instance Prelude.ToHeader AvcIntraInterlaceMode
 
-instance ToJSON AvcIntraInterlaceMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON AvcIntraInterlaceMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AvcIntraInterlaceMode where
-  parseJSON = parseJSONText "AvcIntraInterlaceMode"
+instance Prelude.FromJSON AvcIntraInterlaceMode where
+  parseJSON = Prelude.parseJSONText "AvcIntraInterlaceMode"

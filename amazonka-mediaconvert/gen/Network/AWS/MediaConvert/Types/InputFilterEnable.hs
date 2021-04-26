@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,71 @@
 module Network.AWS.MediaConvert.Types.InputFilterEnable
   ( InputFilterEnable
       ( ..,
-        IFEAuto,
-        IFEDisable,
-        IFEForce
+        InputFilterEnableAUTO,
+        InputFilterEnableDISABLE,
+        InputFilterEnableFORCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specify how the transcoding service applies the denoise and deblock filters. You must also enable the filters separately, with Denoise (InputDenoiseFilter) and Deblock (InputDeblockFilter). * Auto - The transcoding service determines whether to apply filtering, depending on input type and quality. * Disable - The input is not filtered. This is true even if you use the API to enable them in (InputDeblockFilter) and (InputDeblockFilter). * Force - The input is filtered regardless of input type.
-data InputFilterEnable = InputFilterEnable' (CI Text)
+-- | Specify how the transcoding service applies the denoise and deblock
+-- filters. You must also enable the filters separately, with Denoise
+-- (InputDenoiseFilter) and Deblock (InputDeblockFilter). * Auto - The
+-- transcoding service determines whether to apply filtering, depending on
+-- input type and quality. * Disable - The input is not filtered. This is
+-- true even if you use the API to enable them in (InputDeblockFilter) and
+-- (InputDeblockFilter). * Force - The input is filtered regardless of
+-- input type.
+newtype InputFilterEnable = InputFilterEnable'
+  { fromInputFilterEnable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IFEAuto :: InputFilterEnable
-pattern IFEAuto = InputFilterEnable' "AUTO"
+pattern InputFilterEnableAUTO :: InputFilterEnable
+pattern InputFilterEnableAUTO = InputFilterEnable' "AUTO"
 
-pattern IFEDisable :: InputFilterEnable
-pattern IFEDisable = InputFilterEnable' "DISABLE"
+pattern InputFilterEnableDISABLE :: InputFilterEnable
+pattern InputFilterEnableDISABLE = InputFilterEnable' "DISABLE"
 
-pattern IFEForce :: InputFilterEnable
-pattern IFEForce = InputFilterEnable' "FORCE"
+pattern InputFilterEnableFORCE :: InputFilterEnable
+pattern InputFilterEnableFORCE = InputFilterEnable' "FORCE"
 
 {-# COMPLETE
-  IFEAuto,
-  IFEDisable,
-  IFEForce,
+  InputFilterEnableAUTO,
+  InputFilterEnableDISABLE,
+  InputFilterEnableFORCE,
   InputFilterEnable'
   #-}
 
-instance FromText InputFilterEnable where
-  parser = (InputFilterEnable' . mk) <$> takeText
+instance Prelude.FromText InputFilterEnable where
+  parser = InputFilterEnable' Prelude.<$> Prelude.takeText
 
-instance ToText InputFilterEnable where
-  toText (InputFilterEnable' ci) = original ci
+instance Prelude.ToText InputFilterEnable where
+  toText (InputFilterEnable' x) = x
 
-instance Hashable InputFilterEnable
+instance Prelude.Hashable InputFilterEnable
 
-instance NFData InputFilterEnable
+instance Prelude.NFData InputFilterEnable
 
-instance ToByteString InputFilterEnable
+instance Prelude.ToByteString InputFilterEnable
 
-instance ToQuery InputFilterEnable
+instance Prelude.ToQuery InputFilterEnable
 
-instance ToHeader InputFilterEnable
+instance Prelude.ToHeader InputFilterEnable
 
-instance ToJSON InputFilterEnable where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputFilterEnable where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputFilterEnable where
-  parseJSON = parseJSONText "InputFilterEnable"
+instance Prelude.FromJSON InputFilterEnable where
+  parseJSON = Prelude.parseJSONText "InputFilterEnable"

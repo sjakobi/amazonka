@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,153 +24,205 @@
 -- Modify one of your existing queues.
 module Network.AWS.MediaConvert.UpdateQueue
   ( -- * Creating a Request
-    updateQueue,
-    UpdateQueue,
+    UpdateQueue (..),
+    newUpdateQueue,
 
     -- * Request Lenses
-    uqStatus,
-    uqReservationPlanSettings,
-    uqDescription,
-    uqName,
+    updateQueue_status,
+    updateQueue_reservationPlanSettings,
+    updateQueue_description,
+    updateQueue_name,
 
     -- * Destructuring the Response
-    updateQueueResponse,
-    UpdateQueueResponse,
+    UpdateQueueResponse (..),
+    newUpdateQueueResponse,
 
     -- * Response Lenses
-    uqrrsQueue,
-    uqrrsResponseStatus,
+    updateQueueResponse_queue,
+    updateQueueResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaConvert.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaConvert.Types.Queue
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateQueue' smart constructor.
+-- | /See:/ 'newUpdateQueue' smart constructor.
 data UpdateQueue = UpdateQueue'
-  { _uqStatus ::
-      !(Maybe QueueStatus),
-    _uqReservationPlanSettings ::
-      !(Maybe ReservationPlanSettings),
-    _uqDescription :: !(Maybe Text),
-    _uqName :: !Text
+  { -- | Pause or activate a queue by changing its status between ACTIVE and
+    -- PAUSED. If you pause a queue, jobs in that queue won\'t begin. Jobs that
+    -- are running when you pause the queue continue to run until they finish
+    -- or result in an error.
+    status :: Prelude.Maybe QueueStatus,
+    -- | The new details of your pricing plan for your reserved queue. When you
+    -- set up a new pricing plan to replace an expired one, you enter into
+    -- another 12-month commitment. When you add capacity to your queue by
+    -- increasing the number of RTS, you extend the term of your commitment to
+    -- 12 months from when you add capacity. After you make these commitments,
+    -- you can\'t cancel them.
+    reservationPlanSettings :: Prelude.Maybe ReservationPlanSettings,
+    -- | The new description for the queue, if you are changing it.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the queue that you are modifying.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqStatus' - Pause or activate a queue by changing its status between ACTIVE and PAUSED. If you pause a queue, jobs in that queue won't begin. Jobs that are running when you pause the queue continue to run until they finish or result in an error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqReservationPlanSettings' - The new details of your pricing plan for your reserved queue. When you set up a new pricing plan to replace an expired one, you enter into another 12-month commitment. When you add capacity to your queue by increasing the number of RTS, you extend the term of your commitment to 12 months from when you add capacity. After you make these commitments, you can't cancel them.
+-- 'status', 'updateQueue_status' - Pause or activate a queue by changing its status between ACTIVE and
+-- PAUSED. If you pause a queue, jobs in that queue won\'t begin. Jobs that
+-- are running when you pause the queue continue to run until they finish
+-- or result in an error.
 --
--- * 'uqDescription' - The new description for the queue, if you are changing it.
+-- 'reservationPlanSettings', 'updateQueue_reservationPlanSettings' - The new details of your pricing plan for your reserved queue. When you
+-- set up a new pricing plan to replace an expired one, you enter into
+-- another 12-month commitment. When you add capacity to your queue by
+-- increasing the number of RTS, you extend the term of your commitment to
+-- 12 months from when you add capacity. After you make these commitments,
+-- you can\'t cancel them.
 --
--- * 'uqName' - The name of the queue that you are modifying.
-updateQueue ::
-  -- | 'uqName'
-  Text ->
+-- 'description', 'updateQueue_description' - The new description for the queue, if you are changing it.
+--
+-- 'name', 'updateQueue_name' - The name of the queue that you are modifying.
+newUpdateQueue ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateQueue
-updateQueue pName_ =
+newUpdateQueue pName_ =
   UpdateQueue'
-    { _uqStatus = Nothing,
-      _uqReservationPlanSettings = Nothing,
-      _uqDescription = Nothing,
-      _uqName = pName_
+    { status = Prelude.Nothing,
+      reservationPlanSettings = Prelude.Nothing,
+      description = Prelude.Nothing,
+      name = pName_
     }
 
--- | Pause or activate a queue by changing its status between ACTIVE and PAUSED. If you pause a queue, jobs in that queue won't begin. Jobs that are running when you pause the queue continue to run until they finish or result in an error.
-uqStatus :: Lens' UpdateQueue (Maybe QueueStatus)
-uqStatus = lens _uqStatus (\s a -> s {_uqStatus = a})
+-- | Pause or activate a queue by changing its status between ACTIVE and
+-- PAUSED. If you pause a queue, jobs in that queue won\'t begin. Jobs that
+-- are running when you pause the queue continue to run until they finish
+-- or result in an error.
+updateQueue_status :: Lens.Lens' UpdateQueue (Prelude.Maybe QueueStatus)
+updateQueue_status = Lens.lens (\UpdateQueue' {status} -> status) (\s@UpdateQueue' {} a -> s {status = a} :: UpdateQueue)
 
--- | The new details of your pricing plan for your reserved queue. When you set up a new pricing plan to replace an expired one, you enter into another 12-month commitment. When you add capacity to your queue by increasing the number of RTS, you extend the term of your commitment to 12 months from when you add capacity. After you make these commitments, you can't cancel them.
-uqReservationPlanSettings :: Lens' UpdateQueue (Maybe ReservationPlanSettings)
-uqReservationPlanSettings = lens _uqReservationPlanSettings (\s a -> s {_uqReservationPlanSettings = a})
+-- | The new details of your pricing plan for your reserved queue. When you
+-- set up a new pricing plan to replace an expired one, you enter into
+-- another 12-month commitment. When you add capacity to your queue by
+-- increasing the number of RTS, you extend the term of your commitment to
+-- 12 months from when you add capacity. After you make these commitments,
+-- you can\'t cancel them.
+updateQueue_reservationPlanSettings :: Lens.Lens' UpdateQueue (Prelude.Maybe ReservationPlanSettings)
+updateQueue_reservationPlanSettings = Lens.lens (\UpdateQueue' {reservationPlanSettings} -> reservationPlanSettings) (\s@UpdateQueue' {} a -> s {reservationPlanSettings = a} :: UpdateQueue)
 
 -- | The new description for the queue, if you are changing it.
-uqDescription :: Lens' UpdateQueue (Maybe Text)
-uqDescription = lens _uqDescription (\s a -> s {_uqDescription = a})
+updateQueue_description :: Lens.Lens' UpdateQueue (Prelude.Maybe Prelude.Text)
+updateQueue_description = Lens.lens (\UpdateQueue' {description} -> description) (\s@UpdateQueue' {} a -> s {description = a} :: UpdateQueue)
 
 -- | The name of the queue that you are modifying.
-uqName :: Lens' UpdateQueue Text
-uqName = lens _uqName (\s a -> s {_uqName = a})
+updateQueue_name :: Lens.Lens' UpdateQueue Prelude.Text
+updateQueue_name = Lens.lens (\UpdateQueue' {name} -> name) (\s@UpdateQueue' {} a -> s {name = a} :: UpdateQueue)
 
-instance AWSRequest UpdateQueue where
+instance Prelude.AWSRequest UpdateQueue where
   type Rs UpdateQueue = UpdateQueueResponse
-  request = putJSON mediaConvert
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateQueueResponse'
-            <$> (x .?> "queue") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "queue")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateQueue
+instance Prelude.Hashable UpdateQueue
 
-instance NFData UpdateQueue
+instance Prelude.NFData UpdateQueue
 
-instance ToHeaders UpdateQueue where
+instance Prelude.ToHeaders UpdateQueue where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateQueue where
+instance Prelude.ToJSON UpdateQueue where
   toJSON UpdateQueue' {..} =
-    object
-      ( catMaybes
-          [ ("status" .=) <$> _uqStatus,
-            ("reservationPlanSettings" .=)
-              <$> _uqReservationPlanSettings,
-            ("description" .=) <$> _uqDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("status" Prelude..=) Prelude.<$> status,
+            ("reservationPlanSettings" Prelude..=)
+              Prelude.<$> reservationPlanSettings,
+            ("description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateQueue where
+instance Prelude.ToPath UpdateQueue where
   toPath UpdateQueue' {..} =
-    mconcat ["/2017-08-29/queues/", toBS _uqName]
+    Prelude.mconcat
+      ["/2017-08-29/queues/", Prelude.toBS name]
 
-instance ToQuery UpdateQueue where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateQueue where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateQueueResponse' smart constructor.
+-- | /See:/ 'newUpdateQueueResponse' smart constructor.
 data UpdateQueueResponse = UpdateQueueResponse'
-  { _uqrrsQueue ::
-      !(Maybe Queue),
-    _uqrrsResponseStatus :: !Int
+  { -- | You can use queues to manage the resources that are available to your
+    -- AWS account for running multiple transcoding jobs at the same time. If
+    -- you don\'t specify a queue, the service sends all jobs through the
+    -- default queue. For more information, see
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/working-with-queues.html.
+    queue :: Prelude.Maybe Queue,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateQueueResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateQueueResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqrrsQueue' - You can use queues to manage the resources that are available to your AWS account for running multiple transcoding jobs at the same time. If you don't specify a queue, the service sends all jobs through the default queue. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-queues.html.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqrrsResponseStatus' - -- | The response status code.
-updateQueueResponse ::
-  -- | 'uqrrsResponseStatus'
-  Int ->
+-- 'queue', 'updateQueueResponse_queue' - You can use queues to manage the resources that are available to your
+-- AWS account for running multiple transcoding jobs at the same time. If
+-- you don\'t specify a queue, the service sends all jobs through the
+-- default queue. For more information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/working-with-queues.html.
+--
+-- 'httpStatus', 'updateQueueResponse_httpStatus' - The response's http status code.
+newUpdateQueueResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateQueueResponse
-updateQueueResponse pResponseStatus_ =
+newUpdateQueueResponse pHttpStatus_ =
   UpdateQueueResponse'
-    { _uqrrsQueue = Nothing,
-      _uqrrsResponseStatus = pResponseStatus_
+    { queue = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | You can use queues to manage the resources that are available to your AWS account for running multiple transcoding jobs at the same time. If you don't specify a queue, the service sends all jobs through the default queue. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-queues.html.
-uqrrsQueue :: Lens' UpdateQueueResponse (Maybe Queue)
-uqrrsQueue = lens _uqrrsQueue (\s a -> s {_uqrrsQueue = a})
+-- | You can use queues to manage the resources that are available to your
+-- AWS account for running multiple transcoding jobs at the same time. If
+-- you don\'t specify a queue, the service sends all jobs through the
+-- default queue. For more information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/working-with-queues.html.
+updateQueueResponse_queue :: Lens.Lens' UpdateQueueResponse (Prelude.Maybe Queue)
+updateQueueResponse_queue = Lens.lens (\UpdateQueueResponse' {queue} -> queue) (\s@UpdateQueueResponse' {} a -> s {queue = a} :: UpdateQueueResponse)
 
--- | -- | The response status code.
-uqrrsResponseStatus :: Lens' UpdateQueueResponse Int
-uqrrsResponseStatus = lens _uqrrsResponseStatus (\s a -> s {_uqrrsResponseStatus = a})
+-- | The response's http status code.
+updateQueueResponse_httpStatus :: Lens.Lens' UpdateQueueResponse Prelude.Int
+updateQueueResponse_httpStatus = Lens.lens (\UpdateQueueResponse' {httpStatus} -> httpStatus) (\s@UpdateQueueResponse' {} a -> s {httpStatus = a} :: UpdateQueueResponse)
 
-instance NFData UpdateQueueResponse
+instance Prelude.NFData UpdateQueueResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaConvert.Types.Ac3MetadataControl
   ( Ac3MetadataControl
       ( ..,
-        FollowInput,
-        UseConfigured
+        Ac3MetadataControlFOLLOWINPUT,
+        Ac3MetadataControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to FOLLOW_INPUT, encoder metadata will be sourced from the DD, DD+, or DolbyE decoder that supplied this audio data. If audio was not supplied from one of these streams, then the static metadata settings will be used.
-data Ac3MetadataControl
-  = Ac3MetadataControl'
-      ( CI
-          Text
-      )
+-- | When set to FOLLOW_INPUT, encoder metadata will be sourced from the DD,
+-- DD+, or DolbyE decoder that supplied this audio data. If audio was not
+-- supplied from one of these streams, then the static metadata settings
+-- will be used.
+newtype Ac3MetadataControl = Ac3MetadataControl'
+  { fromAc3MetadataControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FollowInput :: Ac3MetadataControl
-pattern FollowInput = Ac3MetadataControl' "FOLLOW_INPUT"
+pattern Ac3MetadataControlFOLLOWINPUT :: Ac3MetadataControl
+pattern Ac3MetadataControlFOLLOWINPUT = Ac3MetadataControl' "FOLLOW_INPUT"
 
-pattern UseConfigured :: Ac3MetadataControl
-pattern UseConfigured = Ac3MetadataControl' "USE_CONFIGURED"
+pattern Ac3MetadataControlUSECONFIGURED :: Ac3MetadataControl
+pattern Ac3MetadataControlUSECONFIGURED = Ac3MetadataControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  FollowInput,
-  UseConfigured,
+  Ac3MetadataControlFOLLOWINPUT,
+  Ac3MetadataControlUSECONFIGURED,
   Ac3MetadataControl'
   #-}
 
-instance FromText Ac3MetadataControl where
-  parser = (Ac3MetadataControl' . mk) <$> takeText
+instance Prelude.FromText Ac3MetadataControl where
+  parser = Ac3MetadataControl' Prelude.<$> Prelude.takeText
 
-instance ToText Ac3MetadataControl where
-  toText (Ac3MetadataControl' ci) = original ci
+instance Prelude.ToText Ac3MetadataControl where
+  toText (Ac3MetadataControl' x) = x
 
-instance Hashable Ac3MetadataControl
+instance Prelude.Hashable Ac3MetadataControl
 
-instance NFData Ac3MetadataControl
+instance Prelude.NFData Ac3MetadataControl
 
-instance ToByteString Ac3MetadataControl
+instance Prelude.ToByteString Ac3MetadataControl
 
-instance ToQuery Ac3MetadataControl
+instance Prelude.ToQuery Ac3MetadataControl
 
-instance ToHeader Ac3MetadataControl
+instance Prelude.ToHeader Ac3MetadataControl
 
-instance ToJSON Ac3MetadataControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Ac3MetadataControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Ac3MetadataControl where
-  parseJSON = parseJSONText "Ac3MetadataControl"
+instance Prelude.FromJSON Ac3MetadataControl where
+  parseJSON = Prelude.parseJSONText "Ac3MetadataControl"

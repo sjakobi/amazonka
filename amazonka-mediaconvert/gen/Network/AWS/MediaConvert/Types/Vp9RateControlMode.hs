@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,55 @@
 module Network.AWS.MediaConvert.Types.Vp9RateControlMode
   ( Vp9RateControlMode
       ( ..,
-        VVbr
+        Vp9RateControlModeVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | With the VP9 codec, you can use only the variable bitrate (VBR) rate control mode.
-data Vp9RateControlMode
-  = Vp9RateControlMode'
-      ( CI
-          Text
-      )
+-- | With the VP9 codec, you can use only the variable bitrate (VBR) rate
+-- control mode.
+newtype Vp9RateControlMode = Vp9RateControlMode'
+  { fromVp9RateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VVbr :: Vp9RateControlMode
-pattern VVbr = Vp9RateControlMode' "VBR"
+pattern Vp9RateControlModeVBR :: Vp9RateControlMode
+pattern Vp9RateControlModeVBR = Vp9RateControlMode' "VBR"
 
 {-# COMPLETE
-  VVbr,
+  Vp9RateControlModeVBR,
   Vp9RateControlMode'
   #-}
 
-instance FromText Vp9RateControlMode where
-  parser = (Vp9RateControlMode' . mk) <$> takeText
+instance Prelude.FromText Vp9RateControlMode where
+  parser = Vp9RateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText Vp9RateControlMode where
-  toText (Vp9RateControlMode' ci) = original ci
+instance Prelude.ToText Vp9RateControlMode where
+  toText (Vp9RateControlMode' x) = x
 
-instance Hashable Vp9RateControlMode
+instance Prelude.Hashable Vp9RateControlMode
 
-instance NFData Vp9RateControlMode
+instance Prelude.NFData Vp9RateControlMode
 
-instance ToByteString Vp9RateControlMode
+instance Prelude.ToByteString Vp9RateControlMode
 
-instance ToQuery Vp9RateControlMode
+instance Prelude.ToQuery Vp9RateControlMode
 
-instance ToHeader Vp9RateControlMode
+instance Prelude.ToHeader Vp9RateControlMode
 
-instance ToJSON Vp9RateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Vp9RateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Vp9RateControlMode where
-  parseJSON = parseJSONText "Vp9RateControlMode"
+instance Prelude.FromJSON Vp9RateControlMode where
+  parseJSON = Prelude.parseJSONText "Vp9RateControlMode"

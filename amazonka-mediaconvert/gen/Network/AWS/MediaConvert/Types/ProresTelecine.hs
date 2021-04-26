@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,64 @@
 module Network.AWS.MediaConvert.Types.ProresTelecine
   ( ProresTelecine
       ( ..,
-        PTHard,
-        PTNone
+        ProresTelecineHARD,
+        ProresTelecineNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When you do frame rate conversion from 23.976 frames per second (fps) to 29.97 fps, and your output scan type is interlaced, you can optionally enable hard telecine (HARD) to create a smoother picture. When you keep the default value, None (NONE), MediaConvert does a standard frame rate conversion to 29.97 without doing anything with the field polarity to create a smoother picture.
-data ProresTelecine = ProresTelecine' (CI Text)
+-- | When you do frame rate conversion from 23.976 frames per second (fps) to
+-- 29.97 fps, and your output scan type is interlaced, you can optionally
+-- enable hard telecine (HARD) to create a smoother picture. When you keep
+-- the default value, None (NONE), MediaConvert does a standard frame rate
+-- conversion to 29.97 without doing anything with the field polarity to
+-- create a smoother picture.
+newtype ProresTelecine = ProresTelecine'
+  { fromProresTelecine ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTHard :: ProresTelecine
-pattern PTHard = ProresTelecine' "HARD"
+pattern ProresTelecineHARD :: ProresTelecine
+pattern ProresTelecineHARD = ProresTelecine' "HARD"
 
-pattern PTNone :: ProresTelecine
-pattern PTNone = ProresTelecine' "NONE"
+pattern ProresTelecineNONE :: ProresTelecine
+pattern ProresTelecineNONE = ProresTelecine' "NONE"
 
 {-# COMPLETE
-  PTHard,
-  PTNone,
+  ProresTelecineHARD,
+  ProresTelecineNONE,
   ProresTelecine'
   #-}
 
-instance FromText ProresTelecine where
-  parser = (ProresTelecine' . mk) <$> takeText
+instance Prelude.FromText ProresTelecine where
+  parser = ProresTelecine' Prelude.<$> Prelude.takeText
 
-instance ToText ProresTelecine where
-  toText (ProresTelecine' ci) = original ci
+instance Prelude.ToText ProresTelecine where
+  toText (ProresTelecine' x) = x
 
-instance Hashable ProresTelecine
+instance Prelude.Hashable ProresTelecine
 
-instance NFData ProresTelecine
+instance Prelude.NFData ProresTelecine
 
-instance ToByteString ProresTelecine
+instance Prelude.ToByteString ProresTelecine
 
-instance ToQuery ProresTelecine
+instance Prelude.ToQuery ProresTelecine
 
-instance ToHeader ProresTelecine
+instance Prelude.ToHeader ProresTelecine
 
-instance ToJSON ProresTelecine where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProresTelecine where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProresTelecine where
-  parseJSON = parseJSONText "ProresTelecine"
+instance Prelude.FromJSON ProresTelecine where
+  parseJSON = Prelude.parseJSONText "ProresTelecine"

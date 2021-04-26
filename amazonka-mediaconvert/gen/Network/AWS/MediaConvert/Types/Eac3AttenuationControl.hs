@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.MediaConvert.Types.Eac3AttenuationControl
   ( Eac3AttenuationControl
       ( ..,
-        EACAttenuate3DB,
-        EACNone
+        Eac3AttenuationControlATTENUATE3DB,
+        Eac3AttenuationControlNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If set to ATTENUATE_3_DB, applies a 3 dB attenuation to the surround channels. Only used for 3/2 coding mode.
-data Eac3AttenuationControl
-  = Eac3AttenuationControl'
-      ( CI
-          Text
-      )
+-- | If set to ATTENUATE_3_DB, applies a 3 dB attenuation to the surround
+-- channels. Only used for 3\/2 coding mode.
+newtype Eac3AttenuationControl = Eac3AttenuationControl'
+  { fromEac3AttenuationControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EACAttenuate3DB :: Eac3AttenuationControl
-pattern EACAttenuate3DB = Eac3AttenuationControl' "ATTENUATE_3_DB"
+pattern Eac3AttenuationControlATTENUATE3DB :: Eac3AttenuationControl
+pattern Eac3AttenuationControlATTENUATE3DB = Eac3AttenuationControl' "ATTENUATE_3_DB"
 
-pattern EACNone :: Eac3AttenuationControl
-pattern EACNone = Eac3AttenuationControl' "NONE"
+pattern Eac3AttenuationControlNONE :: Eac3AttenuationControl
+pattern Eac3AttenuationControlNONE = Eac3AttenuationControl' "NONE"
 
 {-# COMPLETE
-  EACAttenuate3DB,
-  EACNone,
+  Eac3AttenuationControlATTENUATE3DB,
+  Eac3AttenuationControlNONE,
   Eac3AttenuationControl'
   #-}
 
-instance FromText Eac3AttenuationControl where
-  parser = (Eac3AttenuationControl' . mk) <$> takeText
+instance Prelude.FromText Eac3AttenuationControl where
+  parser = Eac3AttenuationControl' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3AttenuationControl where
-  toText (Eac3AttenuationControl' ci) = original ci
+instance Prelude.ToText Eac3AttenuationControl where
+  toText (Eac3AttenuationControl' x) = x
 
-instance Hashable Eac3AttenuationControl
+instance Prelude.Hashable Eac3AttenuationControl
 
-instance NFData Eac3AttenuationControl
+instance Prelude.NFData Eac3AttenuationControl
 
-instance ToByteString Eac3AttenuationControl
+instance Prelude.ToByteString Eac3AttenuationControl
 
-instance ToQuery Eac3AttenuationControl
+instance Prelude.ToQuery Eac3AttenuationControl
 
-instance ToHeader Eac3AttenuationControl
+instance Prelude.ToHeader Eac3AttenuationControl
 
-instance ToJSON Eac3AttenuationControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3AttenuationControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3AttenuationControl where
-  parseJSON = parseJSONText "Eac3AttenuationControl"
+instance Prelude.FromJSON Eac3AttenuationControl where
+  parseJSON = Prelude.parseJSONText "Eac3AttenuationControl"
