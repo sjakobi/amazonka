@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.WorkerBlock where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The WorkerBlock data structure represents a Worker who has been blocked. It has two elements: the WorkerId and the Reason for the block.
+-- | The WorkerBlock data structure represents a Worker who has been blocked.
+-- It has two elements: the WorkerId and the Reason for the block.
 --
---
---
--- /See:/ 'workerBlock' smart constructor.
+-- /See:/ 'newWorkerBlock' smart constructor.
 data WorkerBlock = WorkerBlock'
-  { _wbReason ::
-      !(Maybe Text),
-    _wbWorkerId :: !(Maybe Text)
+  { -- | A message explaining the reason the Worker was blocked.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Worker who accepted the HIT.
+    workerId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WorkerBlock' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WorkerBlock' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wbReason' - A message explaining the reason the Worker was blocked.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wbWorkerId' - The ID of the Worker who accepted the HIT.
-workerBlock ::
+-- 'reason', 'workerBlock_reason' - A message explaining the reason the Worker was blocked.
+--
+-- 'workerId', 'workerBlock_workerId' - The ID of the Worker who accepted the HIT.
+newWorkerBlock ::
   WorkerBlock
-workerBlock =
+newWorkerBlock =
   WorkerBlock'
-    { _wbReason = Nothing,
-      _wbWorkerId = Nothing
+    { reason = Prelude.Nothing,
+      workerId = Prelude.Nothing
     }
 
 -- | A message explaining the reason the Worker was blocked.
-wbReason :: Lens' WorkerBlock (Maybe Text)
-wbReason = lens _wbReason (\s a -> s {_wbReason = a})
+workerBlock_reason :: Lens.Lens' WorkerBlock (Prelude.Maybe Prelude.Text)
+workerBlock_reason = Lens.lens (\WorkerBlock' {reason} -> reason) (\s@WorkerBlock' {} a -> s {reason = a} :: WorkerBlock)
 
 -- | The ID of the Worker who accepted the HIT.
-wbWorkerId :: Lens' WorkerBlock (Maybe Text)
-wbWorkerId = lens _wbWorkerId (\s a -> s {_wbWorkerId = a})
+workerBlock_workerId :: Lens.Lens' WorkerBlock (Prelude.Maybe Prelude.Text)
+workerBlock_workerId = Lens.lens (\WorkerBlock' {workerId} -> workerId) (\s@WorkerBlock' {} a -> s {workerId = a} :: WorkerBlock)
 
-instance FromJSON WorkerBlock where
+instance Prelude.FromJSON WorkerBlock where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WorkerBlock"
       ( \x ->
           WorkerBlock'
-            <$> (x .:? "Reason") <*> (x .:? "WorkerId")
+            Prelude.<$> (x Prelude..:? "Reason")
+            Prelude.<*> (x Prelude..:? "WorkerId")
       )
 
-instance Hashable WorkerBlock
+instance Prelude.Hashable WorkerBlock
 
-instance NFData WorkerBlock
+instance Prelude.NFData WorkerBlock

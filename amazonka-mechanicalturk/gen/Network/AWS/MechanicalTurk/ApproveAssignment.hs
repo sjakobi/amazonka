@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @ApproveAssignment@ operation approves the results of a completed assignment.
+-- The @ApproveAssignment@ operation approves the results of a completed
+-- assignment.
 --
+-- Approving an assignment initiates two payments from the Requester\'s
+-- Amazon.com account
 --
--- Approving an assignment initiates two payments from the Requester's Amazon.com account
+-- -   The Worker who submitted the results is paid the reward specified in
+--     the HIT.
 --
---     * The Worker who submitted the results is paid the reward specified in the HIT.
+-- -   Amazon Mechanical Turk fees are debited.
 --
---     * Amazon Mechanical Turk fees are debited.
+-- If the Requester\'s account does not have adequate funds for these
+-- payments, the call to ApproveAssignment returns an exception, and the
+-- approval is not processed. You can include an optional feedback message
+-- with the approval, which the Worker can see in the Status section of the
+-- web site.
 --
---
---
--- If the Requester's account does not have adequate funds for these payments, the call to ApproveAssignment returns an exception, and the approval is not processed. You can include an optional feedback message with the approval, which the Worker can see in the Status section of the web site.
---
--- You can also call this operation for assignments that were previous rejected and approve them by explicitly overriding the previous rejection. This only works on rejected assignments that were submitted within the previous 30 days and only if the assignment's related HIT has not been deleted.
+-- You can also call this operation for assignments that were previous
+-- rejected and approve them by explicitly overriding the previous
+-- rejection. This only works on rejected assignments that were submitted
+-- within the previous 30 days and only if the assignment\'s related HIT
+-- has not been deleted.
 module Network.AWS.MechanicalTurk.ApproveAssignment
   ( -- * Creating a Request
-    approveAssignment,
-    ApproveAssignment,
+    ApproveAssignment (..),
+    newApproveAssignment,
 
     -- * Request Lenses
-    aaRequesterFeedback,
-    aaOverrideRejection,
-    aaAssignmentId,
+    approveAssignment_requesterFeedback,
+    approveAssignment_overrideRejection,
+    approveAssignment_assignmentId,
 
     -- * Destructuring the Response
-    approveAssignmentResponse,
-    ApproveAssignmentResponse,
+    ApproveAssignmentResponse (..),
+    newApproveAssignmentResponse,
 
     -- * Response Lenses
-    aarrsResponseStatus,
+    approveAssignmentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'approveAssignment' smart constructor.
+-- | /See:/ 'newApproveAssignment' smart constructor.
 data ApproveAssignment = ApproveAssignment'
-  { _aaRequesterFeedback ::
-      !(Maybe Text),
-    _aaOverrideRejection ::
-      !(Maybe Bool),
-    _aaAssignmentId :: !Text
+  { -- | A message for the Worker, which the Worker can see in the Status section
+    -- of the web site.
+    requesterFeedback :: Prelude.Maybe Prelude.Text,
+    -- | A flag indicating that an assignment should be approved even if it was
+    -- previously rejected. Defaults to @False@.
+    overrideRejection :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the assignment. The assignment must correspond to a HIT
+    -- created by the Requester.
+    assignmentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApproveAssignment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApproveAssignment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaRequesterFeedback' - A message for the Worker, which the Worker can see in the Status section of the web site.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaOverrideRejection' - A flag indicating that an assignment should be approved even if it was previously rejected. Defaults to @False@ .
+-- 'requesterFeedback', 'approveAssignment_requesterFeedback' - A message for the Worker, which the Worker can see in the Status section
+-- of the web site.
 --
--- * 'aaAssignmentId' - The ID of the assignment. The assignment must correspond to a HIT created by the Requester.
-approveAssignment ::
-  -- | 'aaAssignmentId'
-  Text ->
+-- 'overrideRejection', 'approveAssignment_overrideRejection' - A flag indicating that an assignment should be approved even if it was
+-- previously rejected. Defaults to @False@.
+--
+-- 'assignmentId', 'approveAssignment_assignmentId' - The ID of the assignment. The assignment must correspond to a HIT
+-- created by the Requester.
+newApproveAssignment ::
+  -- | 'assignmentId'
+  Prelude.Text ->
   ApproveAssignment
-approveAssignment pAssignmentId_ =
+newApproveAssignment pAssignmentId_ =
   ApproveAssignment'
-    { _aaRequesterFeedback = Nothing,
-      _aaOverrideRejection = Nothing,
-      _aaAssignmentId = pAssignmentId_
+    { requesterFeedback =
+        Prelude.Nothing,
+      overrideRejection = Prelude.Nothing,
+      assignmentId = pAssignmentId_
     }
 
--- | A message for the Worker, which the Worker can see in the Status section of the web site.
-aaRequesterFeedback :: Lens' ApproveAssignment (Maybe Text)
-aaRequesterFeedback = lens _aaRequesterFeedback (\s a -> s {_aaRequesterFeedback = a})
+-- | A message for the Worker, which the Worker can see in the Status section
+-- of the web site.
+approveAssignment_requesterFeedback :: Lens.Lens' ApproveAssignment (Prelude.Maybe Prelude.Text)
+approveAssignment_requesterFeedback = Lens.lens (\ApproveAssignment' {requesterFeedback} -> requesterFeedback) (\s@ApproveAssignment' {} a -> s {requesterFeedback = a} :: ApproveAssignment)
 
--- | A flag indicating that an assignment should be approved even if it was previously rejected. Defaults to @False@ .
-aaOverrideRejection :: Lens' ApproveAssignment (Maybe Bool)
-aaOverrideRejection = lens _aaOverrideRejection (\s a -> s {_aaOverrideRejection = a})
+-- | A flag indicating that an assignment should be approved even if it was
+-- previously rejected. Defaults to @False@.
+approveAssignment_overrideRejection :: Lens.Lens' ApproveAssignment (Prelude.Maybe Prelude.Bool)
+approveAssignment_overrideRejection = Lens.lens (\ApproveAssignment' {overrideRejection} -> overrideRejection) (\s@ApproveAssignment' {} a -> s {overrideRejection = a} :: ApproveAssignment)
 
--- | The ID of the assignment. The assignment must correspond to a HIT created by the Requester.
-aaAssignmentId :: Lens' ApproveAssignment Text
-aaAssignmentId = lens _aaAssignmentId (\s a -> s {_aaAssignmentId = a})
+-- | The ID of the assignment. The assignment must correspond to a HIT
+-- created by the Requester.
+approveAssignment_assignmentId :: Lens.Lens' ApproveAssignment Prelude.Text
+approveAssignment_assignmentId = Lens.lens (\ApproveAssignment' {assignmentId} -> assignmentId) (\s@ApproveAssignment' {} a -> s {assignmentId = a} :: ApproveAssignment)
 
-instance AWSRequest ApproveAssignment where
+instance Prelude.AWSRequest ApproveAssignment where
   type Rs ApproveAssignment = ApproveAssignmentResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ApproveAssignmentResponse' <$> (pure (fromEnum s))
+          ApproveAssignmentResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ApproveAssignment
+instance Prelude.Hashable ApproveAssignment
 
-instance NFData ApproveAssignment
+instance Prelude.NFData ApproveAssignment
 
-instance ToHeaders ApproveAssignment where
+instance Prelude.ToHeaders ApproveAssignment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.ApproveAssignment" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.ApproveAssignment" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ApproveAssignment where
+instance Prelude.ToJSON ApproveAssignment where
   toJSON ApproveAssignment' {..} =
-    object
-      ( catMaybes
-          [ ("RequesterFeedback" .=) <$> _aaRequesterFeedback,
-            ("OverrideRejection" .=) <$> _aaOverrideRejection,
-            Just ("AssignmentId" .= _aaAssignmentId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RequesterFeedback" Prelude..=)
+              Prelude.<$> requesterFeedback,
+            ("OverrideRejection" Prelude..=)
+              Prelude.<$> overrideRejection,
+            Prelude.Just
+              ("AssignmentId" Prelude..= assignmentId)
           ]
       )
 
-instance ToPath ApproveAssignment where
-  toPath = const "/"
+instance Prelude.ToPath ApproveAssignment where
+  toPath = Prelude.const "/"
 
-instance ToQuery ApproveAssignment where
-  toQuery = const mempty
+instance Prelude.ToQuery ApproveAssignment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'approveAssignmentResponse' smart constructor.
-newtype ApproveAssignmentResponse = ApproveAssignmentResponse'
-  { _aarrsResponseStatus ::
-      Int
+-- | /See:/ 'newApproveAssignmentResponse' smart constructor.
+data ApproveAssignmentResponse = ApproveAssignmentResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApproveAssignmentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApproveAssignmentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aarrsResponseStatus' - -- | The response status code.
-approveAssignmentResponse ::
-  -- | 'aarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'approveAssignmentResponse_httpStatus' - The response's http status code.
+newApproveAssignmentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ApproveAssignmentResponse
-approveAssignmentResponse pResponseStatus_ =
+newApproveAssignmentResponse pHttpStatus_ =
   ApproveAssignmentResponse'
-    { _aarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-aarrsResponseStatus :: Lens' ApproveAssignmentResponse Int
-aarrsResponseStatus = lens _aarrsResponseStatus (\s a -> s {_aarrsResponseStatus = a})
+-- | The response's http status code.
+approveAssignmentResponse_httpStatus :: Lens.Lens' ApproveAssignmentResponse Prelude.Int
+approveAssignmentResponse_httpStatus = Lens.lens (\ApproveAssignmentResponse' {httpStatus} -> httpStatus) (\s@ApproveAssignmentResponse' {} a -> s {httpStatus = a} :: ApproveAssignmentResponse)
 
-instance NFData ApproveAssignmentResponse
+instance Prelude.NFData ApproveAssignmentResponse

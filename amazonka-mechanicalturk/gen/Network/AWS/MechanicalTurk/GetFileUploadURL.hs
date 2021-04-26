@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,176 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @GetFileUploadURL@ operation generates and returns a temporary URL. You use the temporary URL to retrieve a file uploaded by a Worker as an answer to a FileUploadAnswer question for a HIT. The temporary URL is generated the instant the GetFileUploadURL operation is called, and is valid for 60 seconds. You can get a temporary file upload URL any time until the HIT is disposed. After the HIT is disposed, any uploaded files are deleted, and cannot be retrieved. Pending Deprecation on December 12, 2017. The Answer Specification structure will no longer support the @FileUploadAnswer@ element to be used for the QuestionForm data structure. Instead, we recommend that Requesters who want to create HITs asking Workers to upload files to use Amazon S3.
+-- The @GetFileUploadURL@ operation generates and returns a temporary URL.
+-- You use the temporary URL to retrieve a file uploaded by a Worker as an
+-- answer to a FileUploadAnswer question for a HIT. The temporary URL is
+-- generated the instant the GetFileUploadURL operation is called, and is
+-- valid for 60 seconds. You can get a temporary file upload URL any time
+-- until the HIT is disposed. After the HIT is disposed, any uploaded files
+-- are deleted, and cannot be retrieved. Pending Deprecation on December
+-- 12, 2017. The Answer Specification structure will no longer support the
+-- @FileUploadAnswer@ element to be used for the QuestionForm data
+-- structure. Instead, we recommend that Requesters who want to create HITs
+-- asking Workers to upload files to use Amazon S3.
 module Network.AWS.MechanicalTurk.GetFileUploadURL
   ( -- * Creating a Request
-    getFileUploadURL,
-    GetFileUploadURL,
+    GetFileUploadURL (..),
+    newGetFileUploadURL,
 
     -- * Request Lenses
-    gfuuAssignmentId,
-    gfuuQuestionIdentifier,
+    getFileUploadURL_assignmentId,
+    getFileUploadURL_questionIdentifier,
 
     -- * Destructuring the Response
-    getFileUploadURLResponse,
-    GetFileUploadURLResponse,
+    GetFileUploadURLResponse (..),
+    newGetFileUploadURLResponse,
 
     -- * Response Lenses
-    gfuurrsFileUploadURL,
-    gfuurrsResponseStatus,
+    getFileUploadURLResponse_fileUploadURL,
+    getFileUploadURLResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getFileUploadURL' smart constructor.
+-- | /See:/ 'newGetFileUploadURL' smart constructor.
 data GetFileUploadURL = GetFileUploadURL'
-  { _gfuuAssignmentId ::
-      !Text,
-    _gfuuQuestionIdentifier :: !Text
+  { -- | The ID of the assignment that contains the question with a
+    -- FileUploadAnswer.
+    assignmentId :: Prelude.Text,
+    -- | The identifier of the question with a FileUploadAnswer, as specified in
+    -- the QuestionForm of the HIT.
+    questionIdentifier :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFileUploadURL' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFileUploadURL' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfuuAssignmentId' - The ID of the assignment that contains the question with a FileUploadAnswer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfuuQuestionIdentifier' - The identifier of the question with a FileUploadAnswer, as specified in the QuestionForm of the HIT.
-getFileUploadURL ::
-  -- | 'gfuuAssignmentId'
-  Text ->
-  -- | 'gfuuQuestionIdentifier'
-  Text ->
+-- 'assignmentId', 'getFileUploadURL_assignmentId' - The ID of the assignment that contains the question with a
+-- FileUploadAnswer.
+--
+-- 'questionIdentifier', 'getFileUploadURL_questionIdentifier' - The identifier of the question with a FileUploadAnswer, as specified in
+-- the QuestionForm of the HIT.
+newGetFileUploadURL ::
+  -- | 'assignmentId'
+  Prelude.Text ->
+  -- | 'questionIdentifier'
+  Prelude.Text ->
   GetFileUploadURL
-getFileUploadURL pAssignmentId_ pQuestionIdentifier_ =
-  GetFileUploadURL'
-    { _gfuuAssignmentId =
-        pAssignmentId_,
-      _gfuuQuestionIdentifier = pQuestionIdentifier_
-    }
+newGetFileUploadURL
+  pAssignmentId_
+  pQuestionIdentifier_ =
+    GetFileUploadURL'
+      { assignmentId = pAssignmentId_,
+        questionIdentifier = pQuestionIdentifier_
+      }
 
--- | The ID of the assignment that contains the question with a FileUploadAnswer.
-gfuuAssignmentId :: Lens' GetFileUploadURL Text
-gfuuAssignmentId = lens _gfuuAssignmentId (\s a -> s {_gfuuAssignmentId = a})
+-- | The ID of the assignment that contains the question with a
+-- FileUploadAnswer.
+getFileUploadURL_assignmentId :: Lens.Lens' GetFileUploadURL Prelude.Text
+getFileUploadURL_assignmentId = Lens.lens (\GetFileUploadURL' {assignmentId} -> assignmentId) (\s@GetFileUploadURL' {} a -> s {assignmentId = a} :: GetFileUploadURL)
 
--- | The identifier of the question with a FileUploadAnswer, as specified in the QuestionForm of the HIT.
-gfuuQuestionIdentifier :: Lens' GetFileUploadURL Text
-gfuuQuestionIdentifier = lens _gfuuQuestionIdentifier (\s a -> s {_gfuuQuestionIdentifier = a})
+-- | The identifier of the question with a FileUploadAnswer, as specified in
+-- the QuestionForm of the HIT.
+getFileUploadURL_questionIdentifier :: Lens.Lens' GetFileUploadURL Prelude.Text
+getFileUploadURL_questionIdentifier = Lens.lens (\GetFileUploadURL' {questionIdentifier} -> questionIdentifier) (\s@GetFileUploadURL' {} a -> s {questionIdentifier = a} :: GetFileUploadURL)
 
-instance AWSRequest GetFileUploadURL where
+instance Prelude.AWSRequest GetFileUploadURL where
   type Rs GetFileUploadURL = GetFileUploadURLResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetFileUploadURLResponse'
-            <$> (x .?> "FileUploadURL") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FileUploadURL")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetFileUploadURL
+instance Prelude.Hashable GetFileUploadURL
 
-instance NFData GetFileUploadURL
+instance Prelude.NFData GetFileUploadURL
 
-instance ToHeaders GetFileUploadURL where
+instance Prelude.ToHeaders GetFileUploadURL where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.GetFileUploadURL" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.GetFileUploadURL" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetFileUploadURL where
+instance Prelude.ToJSON GetFileUploadURL where
   toJSON GetFileUploadURL' {..} =
-    object
-      ( catMaybes
-          [ Just ("AssignmentId" .= _gfuuAssignmentId),
-            Just
-              ("QuestionIdentifier" .= _gfuuQuestionIdentifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AssignmentId" Prelude..= assignmentId),
+            Prelude.Just
+              ( "QuestionIdentifier"
+                  Prelude..= questionIdentifier
+              )
           ]
       )
 
-instance ToPath GetFileUploadURL where
-  toPath = const "/"
+instance Prelude.ToPath GetFileUploadURL where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetFileUploadURL where
-  toQuery = const mempty
+instance Prelude.ToQuery GetFileUploadURL where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getFileUploadURLResponse' smart constructor.
+-- | /See:/ 'newGetFileUploadURLResponse' smart constructor.
 data GetFileUploadURLResponse = GetFileUploadURLResponse'
-  { _gfuurrsFileUploadURL ::
-      !(Maybe Text),
-    _gfuurrsResponseStatus ::
-      !Int
+  { -- | A temporary URL for the file that the Worker uploaded for the answer.
+    fileUploadURL :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFileUploadURLResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFileUploadURLResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfuurrsFileUploadURL' - A temporary URL for the file that the Worker uploaded for the answer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfuurrsResponseStatus' - -- | The response status code.
-getFileUploadURLResponse ::
-  -- | 'gfuurrsResponseStatus'
-  Int ->
+-- 'fileUploadURL', 'getFileUploadURLResponse_fileUploadURL' - A temporary URL for the file that the Worker uploaded for the answer.
+--
+-- 'httpStatus', 'getFileUploadURLResponse_httpStatus' - The response's http status code.
+newGetFileUploadURLResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetFileUploadURLResponse
-getFileUploadURLResponse pResponseStatus_ =
+newGetFileUploadURLResponse pHttpStatus_ =
   GetFileUploadURLResponse'
-    { _gfuurrsFileUploadURL =
-        Nothing,
-      _gfuurrsResponseStatus = pResponseStatus_
+    { fileUploadURL =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A temporary URL for the file that the Worker uploaded for the answer.
-gfuurrsFileUploadURL :: Lens' GetFileUploadURLResponse (Maybe Text)
-gfuurrsFileUploadURL = lens _gfuurrsFileUploadURL (\s a -> s {_gfuurrsFileUploadURL = a})
+getFileUploadURLResponse_fileUploadURL :: Lens.Lens' GetFileUploadURLResponse (Prelude.Maybe Prelude.Text)
+getFileUploadURLResponse_fileUploadURL = Lens.lens (\GetFileUploadURLResponse' {fileUploadURL} -> fileUploadURL) (\s@GetFileUploadURLResponse' {} a -> s {fileUploadURL = a} :: GetFileUploadURLResponse)
 
--- | -- | The response status code.
-gfuurrsResponseStatus :: Lens' GetFileUploadURLResponse Int
-gfuurrsResponseStatus = lens _gfuurrsResponseStatus (\s a -> s {_gfuurrsResponseStatus = a})
+-- | The response's http status code.
+getFileUploadURLResponse_httpStatus :: Lens.Lens' GetFileUploadURLResponse Prelude.Int
+getFileUploadURLResponse_httpStatus = Lens.lens (\GetFileUploadURLResponse' {httpStatus} -> httpStatus) (\s@GetFileUploadURLResponse' {} a -> s {httpStatus = a} :: GetFileUploadURLResponse)
 
-instance NFData GetFileUploadURLResponse
+instance Prelude.NFData GetFileUploadURLResponse

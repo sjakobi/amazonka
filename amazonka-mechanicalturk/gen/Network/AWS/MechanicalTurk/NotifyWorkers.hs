@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @NotifyWorkers@ operation sends an email to one or more Workers that you specify with the Worker ID. You can specify up to 100 Worker IDs to send the same message with a single call to the NotifyWorkers operation. The NotifyWorkers operation will send a notification email to a Worker only if you have previously approved or rejected work from the Worker.
+-- The @NotifyWorkers@ operation sends an email to one or more Workers that
+-- you specify with the Worker ID. You can specify up to 100 Worker IDs to
+-- send the same message with a single call to the NotifyWorkers operation.
+-- The NotifyWorkers operation will send a notification email to a Worker
+-- only if you have previously approved or rejected work from the Worker.
 module Network.AWS.MechanicalTurk.NotifyWorkers
   ( -- * Creating a Request
-    notifyWorkers,
-    NotifyWorkers,
+    NotifyWorkers (..),
+    newNotifyWorkers,
 
     -- * Request Lenses
-    nwSubject,
-    nwMessageText,
-    nwWorkerIds,
+    notifyWorkers_subject,
+    notifyWorkers_messageText,
+    notifyWorkers_workerIds,
 
     -- * Destructuring the Response
-    notifyWorkersResponse,
-    NotifyWorkersResponse,
+    NotifyWorkersResponse (..),
+    newNotifyWorkersResponse,
 
     -- * Response Lenses
-    nwrrsNotifyWorkersFailureStatuses,
-    nwrrsResponseStatus,
+    notifyWorkersResponse_notifyWorkersFailureStatuses,
+    notifyWorkersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MechanicalTurk.Types.NotifyWorkersFailureStatus
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'notifyWorkers' smart constructor.
+-- | /See:/ 'newNotifyWorkers' smart constructor.
 data NotifyWorkers = NotifyWorkers'
-  { _nwSubject ::
-      !Text,
-    _nwMessageText :: !Text,
-    _nwWorkerIds :: ![Text]
+  { -- | The subject line of the email message to send. Can include up to 200
+    -- characters.
+    subject :: Prelude.Text,
+    -- | The text of the email message to send. Can include up to 4,096
+    -- characters
+    messageText :: Prelude.Text,
+    -- | A list of Worker IDs you wish to notify. You can notify upto 100 Workers
+    -- at a time.
+    workerIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyWorkers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyWorkers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nwSubject' - The subject line of the email message to send. Can include up to 200 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nwMessageText' - The text of the email message to send. Can include up to 4,096 characters
+-- 'subject', 'notifyWorkers_subject' - The subject line of the email message to send. Can include up to 200
+-- characters.
 --
--- * 'nwWorkerIds' - A list of Worker IDs you wish to notify. You can notify upto 100 Workers at a time.
-notifyWorkers ::
-  -- | 'nwSubject'
-  Text ->
-  -- | 'nwMessageText'
-  Text ->
+-- 'messageText', 'notifyWorkers_messageText' - The text of the email message to send. Can include up to 4,096
+-- characters
+--
+-- 'workerIds', 'notifyWorkers_workerIds' - A list of Worker IDs you wish to notify. You can notify upto 100 Workers
+-- at a time.
+newNotifyWorkers ::
+  -- | 'subject'
+  Prelude.Text ->
+  -- | 'messageText'
+  Prelude.Text ->
   NotifyWorkers
-notifyWorkers pSubject_ pMessageText_ =
+newNotifyWorkers pSubject_ pMessageText_ =
   NotifyWorkers'
-    { _nwSubject = pSubject_,
-      _nwMessageText = pMessageText_,
-      _nwWorkerIds = mempty
+    { subject = pSubject_,
+      messageText = pMessageText_,
+      workerIds = Prelude.mempty
     }
 
--- | The subject line of the email message to send. Can include up to 200 characters.
-nwSubject :: Lens' NotifyWorkers Text
-nwSubject = lens _nwSubject (\s a -> s {_nwSubject = a})
+-- | The subject line of the email message to send. Can include up to 200
+-- characters.
+notifyWorkers_subject :: Lens.Lens' NotifyWorkers Prelude.Text
+notifyWorkers_subject = Lens.lens (\NotifyWorkers' {subject} -> subject) (\s@NotifyWorkers' {} a -> s {subject = a} :: NotifyWorkers)
 
--- | The text of the email message to send. Can include up to 4,096 characters
-nwMessageText :: Lens' NotifyWorkers Text
-nwMessageText = lens _nwMessageText (\s a -> s {_nwMessageText = a})
+-- | The text of the email message to send. Can include up to 4,096
+-- characters
+notifyWorkers_messageText :: Lens.Lens' NotifyWorkers Prelude.Text
+notifyWorkers_messageText = Lens.lens (\NotifyWorkers' {messageText} -> messageText) (\s@NotifyWorkers' {} a -> s {messageText = a} :: NotifyWorkers)
 
--- | A list of Worker IDs you wish to notify. You can notify upto 100 Workers at a time.
-nwWorkerIds :: Lens' NotifyWorkers [Text]
-nwWorkerIds = lens _nwWorkerIds (\s a -> s {_nwWorkerIds = a}) . _Coerce
+-- | A list of Worker IDs you wish to notify. You can notify upto 100 Workers
+-- at a time.
+notifyWorkers_workerIds :: Lens.Lens' NotifyWorkers [Prelude.Text]
+notifyWorkers_workerIds = Lens.lens (\NotifyWorkers' {workerIds} -> workerIds) (\s@NotifyWorkers' {} a -> s {workerIds = a} :: NotifyWorkers) Prelude.. Prelude._Coerce
 
-instance AWSRequest NotifyWorkers where
+instance Prelude.AWSRequest NotifyWorkers where
   type Rs NotifyWorkers = NotifyWorkersResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           NotifyWorkersResponse'
-            <$> (x .?> "NotifyWorkersFailureStatuses" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "NotifyWorkersFailureStatuses"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable NotifyWorkers
+instance Prelude.Hashable NotifyWorkers
 
-instance NFData NotifyWorkers
+instance Prelude.NFData NotifyWorkers
 
-instance ToHeaders NotifyWorkers where
+instance Prelude.ToHeaders NotifyWorkers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.NotifyWorkers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.NotifyWorkers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON NotifyWorkers where
+instance Prelude.ToJSON NotifyWorkers where
   toJSON NotifyWorkers' {..} =
-    object
-      ( catMaybes
-          [ Just ("Subject" .= _nwSubject),
-            Just ("MessageText" .= _nwMessageText),
-            Just ("WorkerIds" .= _nwWorkerIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Subject" Prelude..= subject),
+            Prelude.Just ("MessageText" Prelude..= messageText),
+            Prelude.Just ("WorkerIds" Prelude..= workerIds)
           ]
       )
 
-instance ToPath NotifyWorkers where
-  toPath = const "/"
+instance Prelude.ToPath NotifyWorkers where
+  toPath = Prelude.const "/"
 
-instance ToQuery NotifyWorkers where
-  toQuery = const mempty
+instance Prelude.ToQuery NotifyWorkers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'notifyWorkersResponse' smart constructor.
+-- | /See:/ 'newNotifyWorkersResponse' smart constructor.
 data NotifyWorkersResponse = NotifyWorkersResponse'
-  { _nwrrsNotifyWorkersFailureStatuses ::
-      !( Maybe
-           [NotifyWorkersFailureStatus]
-       ),
-    _nwrrsResponseStatus ::
-      !Int
+  { -- | When MTurk sends notifications to the list of Workers, it returns back
+    -- any failures it encounters in this list of NotifyWorkersFailureStatus
+    -- objects.
+    notifyWorkersFailureStatuses :: Prelude.Maybe [NotifyWorkersFailureStatus],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyWorkersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyWorkersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nwrrsNotifyWorkersFailureStatuses' - When MTurk sends notifications to the list of Workers, it returns back any failures it encounters in this list of NotifyWorkersFailureStatus objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nwrrsResponseStatus' - -- | The response status code.
-notifyWorkersResponse ::
-  -- | 'nwrrsResponseStatus'
-  Int ->
+-- 'notifyWorkersFailureStatuses', 'notifyWorkersResponse_notifyWorkersFailureStatuses' - When MTurk sends notifications to the list of Workers, it returns back
+-- any failures it encounters in this list of NotifyWorkersFailureStatus
+-- objects.
+--
+-- 'httpStatus', 'notifyWorkersResponse_httpStatus' - The response's http status code.
+newNotifyWorkersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   NotifyWorkersResponse
-notifyWorkersResponse pResponseStatus_ =
+newNotifyWorkersResponse pHttpStatus_ =
   NotifyWorkersResponse'
-    { _nwrrsNotifyWorkersFailureStatuses =
-        Nothing,
-      _nwrrsResponseStatus = pResponseStatus_
+    { notifyWorkersFailureStatuses =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | When MTurk sends notifications to the list of Workers, it returns back any failures it encounters in this list of NotifyWorkersFailureStatus objects.
-nwrrsNotifyWorkersFailureStatuses :: Lens' NotifyWorkersResponse [NotifyWorkersFailureStatus]
-nwrrsNotifyWorkersFailureStatuses = lens _nwrrsNotifyWorkersFailureStatuses (\s a -> s {_nwrrsNotifyWorkersFailureStatuses = a}) . _Default . _Coerce
+-- | When MTurk sends notifications to the list of Workers, it returns back
+-- any failures it encounters in this list of NotifyWorkersFailureStatus
+-- objects.
+notifyWorkersResponse_notifyWorkersFailureStatuses :: Lens.Lens' NotifyWorkersResponse (Prelude.Maybe [NotifyWorkersFailureStatus])
+notifyWorkersResponse_notifyWorkersFailureStatuses = Lens.lens (\NotifyWorkersResponse' {notifyWorkersFailureStatuses} -> notifyWorkersFailureStatuses) (\s@NotifyWorkersResponse' {} a -> s {notifyWorkersFailureStatuses = a} :: NotifyWorkersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-nwrrsResponseStatus :: Lens' NotifyWorkersResponse Int
-nwrrsResponseStatus = lens _nwrrsResponseStatus (\s a -> s {_nwrrsResponseStatus = a})
+-- | The response's http status code.
+notifyWorkersResponse_httpStatus :: Lens.Lens' NotifyWorkersResponse Prelude.Int
+notifyWorkersResponse_httpStatus = Lens.lens (\NotifyWorkersResponse' {httpStatus} -> httpStatus) (\s@NotifyWorkersResponse' {} a -> s {httpStatus = a} :: NotifyWorkersResponse)
 
-instance NFData NotifyWorkersResponse
+instance Prelude.NFData NotifyWorkersResponse

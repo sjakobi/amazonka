@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.HITLayoutParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The HITLayoutParameter data structure defines parameter values used with a HITLayout. A HITLayout is a reusable Amazon Mechanical Turk project template used to provide Human Intelligence Task (HIT) question data for CreateHIT.
+-- | The HITLayoutParameter data structure defines parameter values used with
+-- a HITLayout. A HITLayout is a reusable Amazon Mechanical Turk project
+-- template used to provide Human Intelligence Task (HIT) question data for
+-- CreateHIT.
 --
---
---
--- /See:/ 'hITLayoutParameter' smart constructor.
+-- /See:/ 'newHITLayoutParameter' smart constructor.
 data HITLayoutParameter = HITLayoutParameter'
-  { _hitlpName ::
-      !Text,
-    _hitlpValue :: !Text
+  { -- | The name of the parameter in the HITLayout.
+    name :: Prelude.Text,
+    -- | The value substituted for the parameter referenced in the HITLayout.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HITLayoutParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HITLayoutParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hitlpName' - The name of the parameter in the HITLayout.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hitlpValue' - The value substituted for the parameter referenced in the HITLayout.
-hITLayoutParameter ::
-  -- | 'hitlpName'
-  Text ->
-  -- | 'hitlpValue'
-  Text ->
+-- 'name', 'hITLayoutParameter_name' - The name of the parameter in the HITLayout.
+--
+-- 'value', 'hITLayoutParameter_value' - The value substituted for the parameter referenced in the HITLayout.
+newHITLayoutParameter ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   HITLayoutParameter
-hITLayoutParameter pName_ pValue_ =
-  HITLayoutParameter'
-    { _hitlpName = pName_,
-      _hitlpValue = pValue_
-    }
+newHITLayoutParameter pName_ pValue_ =
+  HITLayoutParameter' {name = pName_, value = pValue_}
 
 -- | The name of the parameter in the HITLayout.
-hitlpName :: Lens' HITLayoutParameter Text
-hitlpName = lens _hitlpName (\s a -> s {_hitlpName = a})
+hITLayoutParameter_name :: Lens.Lens' HITLayoutParameter Prelude.Text
+hITLayoutParameter_name = Lens.lens (\HITLayoutParameter' {name} -> name) (\s@HITLayoutParameter' {} a -> s {name = a} :: HITLayoutParameter)
 
 -- | The value substituted for the parameter referenced in the HITLayout.
-hitlpValue :: Lens' HITLayoutParameter Text
-hitlpValue = lens _hitlpValue (\s a -> s {_hitlpValue = a})
+hITLayoutParameter_value :: Lens.Lens' HITLayoutParameter Prelude.Text
+hITLayoutParameter_value = Lens.lens (\HITLayoutParameter' {value} -> value) (\s@HITLayoutParameter' {} a -> s {value = a} :: HITLayoutParameter)
 
-instance Hashable HITLayoutParameter
+instance Prelude.Hashable HITLayoutParameter
 
-instance NFData HITLayoutParameter
+instance Prelude.NFData HITLayoutParameter
 
-instance ToJSON HITLayoutParameter where
+instance Prelude.ToJSON HITLayoutParameter where
   toJSON HITLayoutParameter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _hitlpName),
-            Just ("Value" .= _hitlpValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

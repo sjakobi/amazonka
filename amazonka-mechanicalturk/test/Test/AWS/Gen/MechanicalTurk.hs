@@ -28,241 +28,241 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestGetQualificationScore $
---             getQualificationScore
+--             newGetQualificationScore
 --
 --         , requestListReviewableHITs $
---             listReviewableHITs
+--             newListReviewableHITs
 --
 --         , requestListHITs $
---             listHITs
+--             newListHITs
 --
 --         , requestListAssignmentsForHIT $
---             listAssignmentsForHIT
+--             newListAssignmentsForHIT
 --
 --         , requestListWorkersWithQualificationType $
---             listWorkersWithQualificationType
+--             newListWorkersWithQualificationType
 --
 --         , requestGetAccountBalance $
---             getAccountBalance
+--             newGetAccountBalance
 --
 --         , requestCreateHIT $
---             createHIT
+--             newCreateHIT
 --
 --         , requestNotifyWorkers $
---             notifyWorkers
+--             newNotifyWorkers
 --
 --         , requestListWorkerBlocks $
---             listWorkerBlocks
+--             newListWorkerBlocks
 --
 --         , requestListHITsForQualificationType $
---             listHITsForQualificationType
+--             newListHITsForQualificationType
 --
 --         , requestCreateWorkerBlock $
---             createWorkerBlock
+--             newCreateWorkerBlock
 --
 --         , requestCreateAdditionalAssignmentsForHIT $
---             createAdditionalAssignmentsForHIT
+--             newCreateAdditionalAssignmentsForHIT
 --
 --         , requestListQualificationTypes $
---             listQualificationTypes
+--             newListQualificationTypes
 --
 --         , requestUpdateHITTypeOfHIT $
---             updateHITTypeOfHIT
+--             newUpdateHITTypeOfHIT
 --
 --         , requestGetAssignment $
---             getAssignment
+--             newGetAssignment
 --
 --         , requestUpdateHITReviewStatus $
---             updateHITReviewStatus
+--             newUpdateHITReviewStatus
 --
 --         , requestRejectQualificationRequest $
---             rejectQualificationRequest
+--             newRejectQualificationRequest
 --
 --         , requestGetQualificationType $
---             getQualificationType
+--             newGetQualificationType
 --
 --         , requestRejectAssignment $
---             rejectAssignment
+--             newRejectAssignment
 --
 --         , requestUpdateExpirationForHIT $
---             updateExpirationForHIT
+--             newUpdateExpirationForHIT
 --
 --         , requestApproveAssignment $
---             approveAssignment
+--             newApproveAssignment
 --
 --         , requestDeleteHIT $
---             deleteHIT
+--             newDeleteHIT
 --
 --         , requestListReviewPolicyResultsForHIT $
---             listReviewPolicyResultsForHIT
+--             newListReviewPolicyResultsForHIT
 --
 --         , requestCreateHITType $
---             createHITType
+--             newCreateHITType
 --
 --         , requestUpdateNotificationSettings $
---             updateNotificationSettings
+--             newUpdateNotificationSettings
 --
 --         , requestSendBonus $
---             sendBonus
+--             newSendBonus
 --
 --         , requestListQualificationRequests $
---             listQualificationRequests
+--             newListQualificationRequests
 --
 --         , requestAssociateQualificationWithWorker $
---             associateQualificationWithWorker
+--             newAssociateQualificationWithWorker
 --
 --         , requestCreateHITWithHITType $
---             createHITWithHITType
+--             newCreateHITWithHITType
 --
 --         , requestDeleteWorkerBlock $
---             deleteWorkerBlock
+--             newDeleteWorkerBlock
 --
 --         , requestListBonusPayments $
---             listBonusPayments
+--             newListBonusPayments
 --
 --         , requestDisassociateQualificationFromWorker $
---             disassociateQualificationFromWorker
+--             newDisassociateQualificationFromWorker
 --
 --         , requestSendTestEventNotification $
---             sendTestEventNotification
+--             newSendTestEventNotification
 --
 --         , requestGetHIT $
---             getHIT
+--             newGetHIT
 --
 --         , requestUpdateQualificationType $
---             updateQualificationType
+--             newUpdateQualificationType
 --
 --         , requestAcceptQualificationRequest $
---             acceptQualificationRequest
+--             newAcceptQualificationRequest
 --
 --         , requestDeleteQualificationType $
---             deleteQualificationType
+--             newDeleteQualificationType
 --
 --         , requestGetFileUploadURL $
---             getFileUploadURL
+--             newGetFileUploadURL
 --
 --         , requestCreateQualificationType $
---             createQualificationType
+--             newCreateQualificationType
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseGetQualificationScore $
---             getQualificationScoreResponse
+--             newGetQualificationScoreResponse
 --
 --         , responseListReviewableHITs $
---             listReviewableHITsResponse
+--             newListReviewableHITsResponse
 --
 --         , responseListHITs $
---             listHITsResponse
+--             newListHITsResponse
 --
 --         , responseListAssignmentsForHIT $
---             listAssignmentsForHITResponse
+--             newListAssignmentsForHITResponse
 --
 --         , responseListWorkersWithQualificationType $
---             listWorkersWithQualificationTypeResponse
+--             newListWorkersWithQualificationTypeResponse
 --
 --         , responseGetAccountBalance $
---             getAccountBalanceResponse
+--             newGetAccountBalanceResponse
 --
 --         , responseCreateHIT $
---             createHITResponse
+--             newCreateHITResponse
 --
 --         , responseNotifyWorkers $
---             notifyWorkersResponse
+--             newNotifyWorkersResponse
 --
 --         , responseListWorkerBlocks $
---             listWorkerBlocksResponse
+--             newListWorkerBlocksResponse
 --
 --         , responseListHITsForQualificationType $
---             listHITsForQualificationTypeResponse
+--             newListHITsForQualificationTypeResponse
 --
 --         , responseCreateWorkerBlock $
---             createWorkerBlockResponse
+--             newCreateWorkerBlockResponse
 --
 --         , responseCreateAdditionalAssignmentsForHIT $
---             createAdditionalAssignmentsForHITResponse
+--             newCreateAdditionalAssignmentsForHITResponse
 --
 --         , responseListQualificationTypes $
---             listQualificationTypesResponse
+--             newListQualificationTypesResponse
 --
 --         , responseUpdateHITTypeOfHIT $
---             updateHITTypeOfHITResponse
+--             newUpdateHITTypeOfHITResponse
 --
 --         , responseGetAssignment $
---             getAssignmentResponse
+--             newGetAssignmentResponse
 --
 --         , responseUpdateHITReviewStatus $
---             updateHITReviewStatusResponse
+--             newUpdateHITReviewStatusResponse
 --
 --         , responseRejectQualificationRequest $
---             rejectQualificationRequestResponse
+--             newRejectQualificationRequestResponse
 --
 --         , responseGetQualificationType $
---             getQualificationTypeResponse
+--             newGetQualificationTypeResponse
 --
 --         , responseRejectAssignment $
---             rejectAssignmentResponse
+--             newRejectAssignmentResponse
 --
 --         , responseUpdateExpirationForHIT $
---             updateExpirationForHITResponse
+--             newUpdateExpirationForHITResponse
 --
 --         , responseApproveAssignment $
---             approveAssignmentResponse
+--             newApproveAssignmentResponse
 --
 --         , responseDeleteHIT $
---             deleteHITResponse
+--             newDeleteHITResponse
 --
 --         , responseListReviewPolicyResultsForHIT $
---             listReviewPolicyResultsForHITResponse
+--             newListReviewPolicyResultsForHITResponse
 --
 --         , responseCreateHITType $
---             createHITTypeResponse
+--             newCreateHITTypeResponse
 --
 --         , responseUpdateNotificationSettings $
---             updateNotificationSettingsResponse
+--             newUpdateNotificationSettingsResponse
 --
 --         , responseSendBonus $
---             sendBonusResponse
+--             newSendBonusResponse
 --
 --         , responseListQualificationRequests $
---             listQualificationRequestsResponse
+--             newListQualificationRequestsResponse
 --
 --         , responseAssociateQualificationWithWorker $
---             associateQualificationWithWorkerResponse
+--             newAssociateQualificationWithWorkerResponse
 --
 --         , responseCreateHITWithHITType $
---             createHITWithHITTypeResponse
+--             newCreateHITWithHITTypeResponse
 --
 --         , responseDeleteWorkerBlock $
---             deleteWorkerBlockResponse
+--             newDeleteWorkerBlockResponse
 --
 --         , responseListBonusPayments $
---             listBonusPaymentsResponse
+--             newListBonusPaymentsResponse
 --
 --         , responseDisassociateQualificationFromWorker $
---             disassociateQualificationFromWorkerResponse
+--             newDisassociateQualificationFromWorkerResponse
 --
 --         , responseSendTestEventNotification $
---             sendTestEventNotificationResponse
+--             newSendTestEventNotificationResponse
 --
 --         , responseGetHIT $
---             getHITResponse
+--             newGetHITResponse
 --
 --         , responseUpdateQualificationType $
---             updateQualificationTypeResponse
+--             newUpdateQualificationTypeResponse
 --
 --         , responseAcceptQualificationRequest $
---             acceptQualificationRequestResponse
+--             newAcceptQualificationRequestResponse
 --
 --         , responseDeleteQualificationType $
---             deleteQualificationTypeResponse
+--             newDeleteQualificationTypeResponse
 --
 --         , responseGetFileUploadURL $
---             getFileUploadURLResponse
+--             newGetFileUploadURLResponse
 --
 --         , responseCreateQualificationType $
---             createQualificationTypeResponse
+--             newCreateQualificationTypeResponse
 --
 --           ]
 --     ]
@@ -510,7 +510,7 @@ responseGetQualificationScore =
   res
     "GetQualificationScoreResponse"
     "fixture/GetQualificationScoreResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy GetQualificationScore)
 
 responseListReviewableHITs :: ListReviewableHITsResponse -> TestTree
@@ -518,7 +518,7 @@ responseListReviewableHITs =
   res
     "ListReviewableHITsResponse"
     "fixture/ListReviewableHITsResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListReviewableHITs)
 
 responseListHITs :: ListHITsResponse -> TestTree
@@ -526,7 +526,7 @@ responseListHITs =
   res
     "ListHITsResponse"
     "fixture/ListHITsResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListHITs)
 
 responseListAssignmentsForHIT :: ListAssignmentsForHITResponse -> TestTree
@@ -534,7 +534,7 @@ responseListAssignmentsForHIT =
   res
     "ListAssignmentsForHITResponse"
     "fixture/ListAssignmentsForHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListAssignmentsForHIT)
 
 responseListWorkersWithQualificationType :: ListWorkersWithQualificationTypeResponse -> TestTree
@@ -542,7 +542,7 @@ responseListWorkersWithQualificationType =
   res
     "ListWorkersWithQualificationTypeResponse"
     "fixture/ListWorkersWithQualificationTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListWorkersWithQualificationType)
 
 responseGetAccountBalance :: GetAccountBalanceResponse -> TestTree
@@ -550,7 +550,7 @@ responseGetAccountBalance =
   res
     "GetAccountBalanceResponse"
     "fixture/GetAccountBalanceResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy GetAccountBalance)
 
 responseCreateHIT :: CreateHITResponse -> TestTree
@@ -558,7 +558,7 @@ responseCreateHIT =
   res
     "CreateHITResponse"
     "fixture/CreateHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy CreateHIT)
 
 responseNotifyWorkers :: NotifyWorkersResponse -> TestTree
@@ -566,7 +566,7 @@ responseNotifyWorkers =
   res
     "NotifyWorkersResponse"
     "fixture/NotifyWorkersResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy NotifyWorkers)
 
 responseListWorkerBlocks :: ListWorkerBlocksResponse -> TestTree
@@ -574,7 +574,7 @@ responseListWorkerBlocks =
   res
     "ListWorkerBlocksResponse"
     "fixture/ListWorkerBlocksResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListWorkerBlocks)
 
 responseListHITsForQualificationType :: ListHITsForQualificationTypeResponse -> TestTree
@@ -582,7 +582,7 @@ responseListHITsForQualificationType =
   res
     "ListHITsForQualificationTypeResponse"
     "fixture/ListHITsForQualificationTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListHITsForQualificationType)
 
 responseCreateWorkerBlock :: CreateWorkerBlockResponse -> TestTree
@@ -590,7 +590,7 @@ responseCreateWorkerBlock =
   res
     "CreateWorkerBlockResponse"
     "fixture/CreateWorkerBlockResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy CreateWorkerBlock)
 
 responseCreateAdditionalAssignmentsForHIT :: CreateAdditionalAssignmentsForHITResponse -> TestTree
@@ -598,7 +598,7 @@ responseCreateAdditionalAssignmentsForHIT =
   res
     "CreateAdditionalAssignmentsForHITResponse"
     "fixture/CreateAdditionalAssignmentsForHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy CreateAdditionalAssignmentsForHIT)
 
 responseListQualificationTypes :: ListQualificationTypesResponse -> TestTree
@@ -606,7 +606,7 @@ responseListQualificationTypes =
   res
     "ListQualificationTypesResponse"
     "fixture/ListQualificationTypesResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListQualificationTypes)
 
 responseUpdateHITTypeOfHIT :: UpdateHITTypeOfHITResponse -> TestTree
@@ -614,7 +614,7 @@ responseUpdateHITTypeOfHIT =
   res
     "UpdateHITTypeOfHITResponse"
     "fixture/UpdateHITTypeOfHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy UpdateHITTypeOfHIT)
 
 responseGetAssignment :: GetAssignmentResponse -> TestTree
@@ -622,7 +622,7 @@ responseGetAssignment =
   res
     "GetAssignmentResponse"
     "fixture/GetAssignmentResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy GetAssignment)
 
 responseUpdateHITReviewStatus :: UpdateHITReviewStatusResponse -> TestTree
@@ -630,7 +630,7 @@ responseUpdateHITReviewStatus =
   res
     "UpdateHITReviewStatusResponse"
     "fixture/UpdateHITReviewStatusResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy UpdateHITReviewStatus)
 
 responseRejectQualificationRequest :: RejectQualificationRequestResponse -> TestTree
@@ -638,7 +638,7 @@ responseRejectQualificationRequest =
   res
     "RejectQualificationRequestResponse"
     "fixture/RejectQualificationRequestResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy RejectQualificationRequest)
 
 responseGetQualificationType :: GetQualificationTypeResponse -> TestTree
@@ -646,7 +646,7 @@ responseGetQualificationType =
   res
     "GetQualificationTypeResponse"
     "fixture/GetQualificationTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy GetQualificationType)
 
 responseRejectAssignment :: RejectAssignmentResponse -> TestTree
@@ -654,7 +654,7 @@ responseRejectAssignment =
   res
     "RejectAssignmentResponse"
     "fixture/RejectAssignmentResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy RejectAssignment)
 
 responseUpdateExpirationForHIT :: UpdateExpirationForHITResponse -> TestTree
@@ -662,7 +662,7 @@ responseUpdateExpirationForHIT =
   res
     "UpdateExpirationForHITResponse"
     "fixture/UpdateExpirationForHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy UpdateExpirationForHIT)
 
 responseApproveAssignment :: ApproveAssignmentResponse -> TestTree
@@ -670,7 +670,7 @@ responseApproveAssignment =
   res
     "ApproveAssignmentResponse"
     "fixture/ApproveAssignmentResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ApproveAssignment)
 
 responseDeleteHIT :: DeleteHITResponse -> TestTree
@@ -678,7 +678,7 @@ responseDeleteHIT =
   res
     "DeleteHITResponse"
     "fixture/DeleteHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy DeleteHIT)
 
 responseListReviewPolicyResultsForHIT :: ListReviewPolicyResultsForHITResponse -> TestTree
@@ -686,7 +686,7 @@ responseListReviewPolicyResultsForHIT =
   res
     "ListReviewPolicyResultsForHITResponse"
     "fixture/ListReviewPolicyResultsForHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListReviewPolicyResultsForHIT)
 
 responseCreateHITType :: CreateHITTypeResponse -> TestTree
@@ -694,7 +694,7 @@ responseCreateHITType =
   res
     "CreateHITTypeResponse"
     "fixture/CreateHITTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy CreateHITType)
 
 responseUpdateNotificationSettings :: UpdateNotificationSettingsResponse -> TestTree
@@ -702,7 +702,7 @@ responseUpdateNotificationSettings =
   res
     "UpdateNotificationSettingsResponse"
     "fixture/UpdateNotificationSettingsResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy UpdateNotificationSettings)
 
 responseSendBonus :: SendBonusResponse -> TestTree
@@ -710,7 +710,7 @@ responseSendBonus =
   res
     "SendBonusResponse"
     "fixture/SendBonusResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy SendBonus)
 
 responseListQualificationRequests :: ListQualificationRequestsResponse -> TestTree
@@ -718,7 +718,7 @@ responseListQualificationRequests =
   res
     "ListQualificationRequestsResponse"
     "fixture/ListQualificationRequestsResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListQualificationRequests)
 
 responseAssociateQualificationWithWorker :: AssociateQualificationWithWorkerResponse -> TestTree
@@ -726,7 +726,7 @@ responseAssociateQualificationWithWorker =
   res
     "AssociateQualificationWithWorkerResponse"
     "fixture/AssociateQualificationWithWorkerResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy AssociateQualificationWithWorker)
 
 responseCreateHITWithHITType :: CreateHITWithHITTypeResponse -> TestTree
@@ -734,7 +734,7 @@ responseCreateHITWithHITType =
   res
     "CreateHITWithHITTypeResponse"
     "fixture/CreateHITWithHITTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy CreateHITWithHITType)
 
 responseDeleteWorkerBlock :: DeleteWorkerBlockResponse -> TestTree
@@ -742,7 +742,7 @@ responseDeleteWorkerBlock =
   res
     "DeleteWorkerBlockResponse"
     "fixture/DeleteWorkerBlockResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy DeleteWorkerBlock)
 
 responseListBonusPayments :: ListBonusPaymentsResponse -> TestTree
@@ -750,7 +750,7 @@ responseListBonusPayments =
   res
     "ListBonusPaymentsResponse"
     "fixture/ListBonusPaymentsResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy ListBonusPayments)
 
 responseDisassociateQualificationFromWorker :: DisassociateQualificationFromWorkerResponse -> TestTree
@@ -758,7 +758,7 @@ responseDisassociateQualificationFromWorker =
   res
     "DisassociateQualificationFromWorkerResponse"
     "fixture/DisassociateQualificationFromWorkerResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy DisassociateQualificationFromWorker)
 
 responseSendTestEventNotification :: SendTestEventNotificationResponse -> TestTree
@@ -766,7 +766,7 @@ responseSendTestEventNotification =
   res
     "SendTestEventNotificationResponse"
     "fixture/SendTestEventNotificationResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy SendTestEventNotification)
 
 responseGetHIT :: GetHITResponse -> TestTree
@@ -774,7 +774,7 @@ responseGetHIT =
   res
     "GetHITResponse"
     "fixture/GetHITResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy GetHIT)
 
 responseUpdateQualificationType :: UpdateQualificationTypeResponse -> TestTree
@@ -782,7 +782,7 @@ responseUpdateQualificationType =
   res
     "UpdateQualificationTypeResponse"
     "fixture/UpdateQualificationTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy UpdateQualificationType)
 
 responseAcceptQualificationRequest :: AcceptQualificationRequestResponse -> TestTree
@@ -790,7 +790,7 @@ responseAcceptQualificationRequest =
   res
     "AcceptQualificationRequestResponse"
     "fixture/AcceptQualificationRequestResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy AcceptQualificationRequest)
 
 responseDeleteQualificationType :: DeleteQualificationTypeResponse -> TestTree
@@ -798,7 +798,7 @@ responseDeleteQualificationType =
   res
     "DeleteQualificationTypeResponse"
     "fixture/DeleteQualificationTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy DeleteQualificationType)
 
 responseGetFileUploadURL :: GetFileUploadURLResponse -> TestTree
@@ -806,7 +806,7 @@ responseGetFileUploadURL =
   res
     "GetFileUploadURLResponse"
     "fixture/GetFileUploadURLResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy GetFileUploadURL)
 
 responseCreateQualificationType :: CreateQualificationTypeResponse -> TestTree
@@ -814,5 +814,5 @@ responseCreateQualificationType =
   res
     "CreateQualificationTypeResponse"
     "fixture/CreateQualificationTypeResponse.proto"
-    mechanicalTurk
+    defaultService
     (Proxy :: Proxy CreateQualificationType)

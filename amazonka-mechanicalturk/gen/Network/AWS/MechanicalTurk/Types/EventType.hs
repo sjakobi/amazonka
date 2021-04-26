@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,103 +19,105 @@
 module Network.AWS.MechanicalTurk.Types.EventType
   ( EventType
       ( ..,
-        AssignmentAbandoned,
-        AssignmentAccepted,
-        AssignmentApproved,
-        AssignmentRejected,
-        AssignmentReturned,
-        AssignmentSubmitted,
-        HITCreated,
-        HITDisposed,
-        HITExpired,
-        HITExtended,
-        HITReviewable,
-        Ping
+        EventTypeAssignmentAbandoned,
+        EventTypeAssignmentAccepted,
+        EventTypeAssignmentApproved,
+        EventTypeAssignmentRejected,
+        EventTypeAssignmentReturned,
+        EventTypeAssignmentSubmitted,
+        EventTypeHITCreated,
+        EventTypeHITDisposed,
+        EventTypeHITExpired,
+        EventTypeHITExtended,
+        EventTypeHITReviewable,
+        EventTypePing
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventType = EventType' (CI Text)
+newtype EventType = EventType'
+  { fromEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssignmentAbandoned :: EventType
-pattern AssignmentAbandoned = EventType' "AssignmentAbandoned"
+pattern EventTypeAssignmentAbandoned :: EventType
+pattern EventTypeAssignmentAbandoned = EventType' "AssignmentAbandoned"
 
-pattern AssignmentAccepted :: EventType
-pattern AssignmentAccepted = EventType' "AssignmentAccepted"
+pattern EventTypeAssignmentAccepted :: EventType
+pattern EventTypeAssignmentAccepted = EventType' "AssignmentAccepted"
 
-pattern AssignmentApproved :: EventType
-pattern AssignmentApproved = EventType' "AssignmentApproved"
+pattern EventTypeAssignmentApproved :: EventType
+pattern EventTypeAssignmentApproved = EventType' "AssignmentApproved"
 
-pattern AssignmentRejected :: EventType
-pattern AssignmentRejected = EventType' "AssignmentRejected"
+pattern EventTypeAssignmentRejected :: EventType
+pattern EventTypeAssignmentRejected = EventType' "AssignmentRejected"
 
-pattern AssignmentReturned :: EventType
-pattern AssignmentReturned = EventType' "AssignmentReturned"
+pattern EventTypeAssignmentReturned :: EventType
+pattern EventTypeAssignmentReturned = EventType' "AssignmentReturned"
 
-pattern AssignmentSubmitted :: EventType
-pattern AssignmentSubmitted = EventType' "AssignmentSubmitted"
+pattern EventTypeAssignmentSubmitted :: EventType
+pattern EventTypeAssignmentSubmitted = EventType' "AssignmentSubmitted"
 
-pattern HITCreated :: EventType
-pattern HITCreated = EventType' "HITCreated"
+pattern EventTypeHITCreated :: EventType
+pattern EventTypeHITCreated = EventType' "HITCreated"
 
-pattern HITDisposed :: EventType
-pattern HITDisposed = EventType' "HITDisposed"
+pattern EventTypeHITDisposed :: EventType
+pattern EventTypeHITDisposed = EventType' "HITDisposed"
 
-pattern HITExpired :: EventType
-pattern HITExpired = EventType' "HITExpired"
+pattern EventTypeHITExpired :: EventType
+pattern EventTypeHITExpired = EventType' "HITExpired"
 
-pattern HITExtended :: EventType
-pattern HITExtended = EventType' "HITExtended"
+pattern EventTypeHITExtended :: EventType
+pattern EventTypeHITExtended = EventType' "HITExtended"
 
-pattern HITReviewable :: EventType
-pattern HITReviewable = EventType' "HITReviewable"
+pattern EventTypeHITReviewable :: EventType
+pattern EventTypeHITReviewable = EventType' "HITReviewable"
 
-pattern Ping :: EventType
-pattern Ping = EventType' "Ping"
+pattern EventTypePing :: EventType
+pattern EventTypePing = EventType' "Ping"
 
 {-# COMPLETE
-  AssignmentAbandoned,
-  AssignmentAccepted,
-  AssignmentApproved,
-  AssignmentRejected,
-  AssignmentReturned,
-  AssignmentSubmitted,
-  HITCreated,
-  HITDisposed,
-  HITExpired,
-  HITExtended,
-  HITReviewable,
-  Ping,
+  EventTypeAssignmentAbandoned,
+  EventTypeAssignmentAccepted,
+  EventTypeAssignmentApproved,
+  EventTypeAssignmentRejected,
+  EventTypeAssignmentReturned,
+  EventTypeAssignmentSubmitted,
+  EventTypeHITCreated,
+  EventTypeHITDisposed,
+  EventTypeHITExpired,
+  EventTypeHITExtended,
+  EventTypeHITReviewable,
+  EventTypePing,
   EventType'
   #-}
 
-instance FromText EventType where
-  parser = (EventType' . mk) <$> takeText
+instance Prelude.FromText EventType where
+  parser = EventType' Prelude.<$> Prelude.takeText
 
-instance ToText EventType where
-  toText (EventType' ci) = original ci
+instance Prelude.ToText EventType where
+  toText (EventType' x) = x
 
-instance Hashable EventType
+instance Prelude.Hashable EventType
 
-instance NFData EventType
+instance Prelude.NFData EventType
 
-instance ToByteString EventType
+instance Prelude.ToByteString EventType
 
-instance ToQuery EventType
+instance Prelude.ToQuery EventType
 
-instance ToHeader EventType
+instance Prelude.ToHeader EventType
 
-instance ToJSON EventType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EventType where
+  toJSON = Prelude.toJSONText

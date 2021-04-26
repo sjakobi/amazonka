@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @UpdateHITTypeOfHIT@ operation allows you to change the HITType properties of a HIT. This operation disassociates the HIT from its old HITType properties and associates it with the new HITType properties. The HIT takes on the properties of the new HITType in place of the old ones.
+-- The @UpdateHITTypeOfHIT@ operation allows you to change the HITType
+-- properties of a HIT. This operation disassociates the HIT from its old
+-- HITType properties and associates it with the new HITType properties.
+-- The HIT takes on the properties of the new HITType in place of the old
+-- ones.
 module Network.AWS.MechanicalTurk.UpdateHITTypeOfHIT
   ( -- * Creating a Request
-    updateHITTypeOfHIT,
-    UpdateHITTypeOfHIT,
+    UpdateHITTypeOfHIT (..),
+    newUpdateHITTypeOfHIT,
 
     -- * Request Lenses
-    uhittohitHITId,
-    uhittohitHITTypeId,
+    updateHITTypeOfHIT_hITId,
+    updateHITTypeOfHIT_hITTypeId,
 
     -- * Destructuring the Response
-    updateHITTypeOfHITResponse,
-    UpdateHITTypeOfHITResponse,
+    UpdateHITTypeOfHITResponse (..),
+    newUpdateHITTypeOfHITResponse,
 
     -- * Response Lenses
-    uhittohitrrsResponseStatus,
+    updateHITTypeOfHITResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateHITTypeOfHIT' smart constructor.
+-- | /See:/ 'newUpdateHITTypeOfHIT' smart constructor.
 data UpdateHITTypeOfHIT = UpdateHITTypeOfHIT'
-  { _uhittohitHITId ::
-      !Text,
-    _uhittohitHITTypeId :: !Text
+  { -- | The HIT to update.
+    hITId :: Prelude.Text,
+    -- | The ID of the new HIT type.
+    hITTypeId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateHITTypeOfHIT' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateHITTypeOfHIT' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uhittohitHITId' - The HIT to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uhittohitHITTypeId' - The ID of the new HIT type.
-updateHITTypeOfHIT ::
-  -- | 'uhittohitHITId'
-  Text ->
-  -- | 'uhittohitHITTypeId'
-  Text ->
+-- 'hITId', 'updateHITTypeOfHIT_hITId' - The HIT to update.
+--
+-- 'hITTypeId', 'updateHITTypeOfHIT_hITTypeId' - The ID of the new HIT type.
+newUpdateHITTypeOfHIT ::
+  -- | 'hITId'
+  Prelude.Text ->
+  -- | 'hITTypeId'
+  Prelude.Text ->
   UpdateHITTypeOfHIT
-updateHITTypeOfHIT pHITId_ pHITTypeId_ =
+newUpdateHITTypeOfHIT pHITId_ pHITTypeId_ =
   UpdateHITTypeOfHIT'
-    { _uhittohitHITId = pHITId_,
-      _uhittohitHITTypeId = pHITTypeId_
+    { hITId = pHITId_,
+      hITTypeId = pHITTypeId_
     }
 
 -- | The HIT to update.
-uhittohitHITId :: Lens' UpdateHITTypeOfHIT Text
-uhittohitHITId = lens _uhittohitHITId (\s a -> s {_uhittohitHITId = a})
+updateHITTypeOfHIT_hITId :: Lens.Lens' UpdateHITTypeOfHIT Prelude.Text
+updateHITTypeOfHIT_hITId = Lens.lens (\UpdateHITTypeOfHIT' {hITId} -> hITId) (\s@UpdateHITTypeOfHIT' {} a -> s {hITId = a} :: UpdateHITTypeOfHIT)
 
 -- | The ID of the new HIT type.
-uhittohitHITTypeId :: Lens' UpdateHITTypeOfHIT Text
-uhittohitHITTypeId = lens _uhittohitHITTypeId (\s a -> s {_uhittohitHITTypeId = a})
+updateHITTypeOfHIT_hITTypeId :: Lens.Lens' UpdateHITTypeOfHIT Prelude.Text
+updateHITTypeOfHIT_hITTypeId = Lens.lens (\UpdateHITTypeOfHIT' {hITTypeId} -> hITTypeId) (\s@UpdateHITTypeOfHIT' {} a -> s {hITTypeId = a} :: UpdateHITTypeOfHIT)
 
-instance AWSRequest UpdateHITTypeOfHIT where
+instance Prelude.AWSRequest UpdateHITTypeOfHIT where
   type
     Rs UpdateHITTypeOfHIT =
       UpdateHITTypeOfHITResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateHITTypeOfHITResponse' <$> (pure (fromEnum s))
+          UpdateHITTypeOfHITResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateHITTypeOfHIT
+instance Prelude.Hashable UpdateHITTypeOfHIT
 
-instance NFData UpdateHITTypeOfHIT
+instance Prelude.NFData UpdateHITTypeOfHIT
 
-instance ToHeaders UpdateHITTypeOfHIT where
+instance Prelude.ToHeaders UpdateHITTypeOfHIT where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.UpdateHITTypeOfHIT" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.UpdateHITTypeOfHIT" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateHITTypeOfHIT where
+instance Prelude.ToJSON UpdateHITTypeOfHIT where
   toJSON UpdateHITTypeOfHIT' {..} =
-    object
-      ( catMaybes
-          [ Just ("HITId" .= _uhittohitHITId),
-            Just ("HITTypeId" .= _uhittohitHITTypeId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("HITId" Prelude..= hITId),
+            Prelude.Just ("HITTypeId" Prelude..= hITTypeId)
           ]
       )
 
-instance ToPath UpdateHITTypeOfHIT where
-  toPath = const "/"
+instance Prelude.ToPath UpdateHITTypeOfHIT where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateHITTypeOfHIT where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateHITTypeOfHIT where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateHITTypeOfHITResponse' smart constructor.
-newtype UpdateHITTypeOfHITResponse = UpdateHITTypeOfHITResponse'
-  { _uhittohitrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateHITTypeOfHITResponse' smart constructor.
+data UpdateHITTypeOfHITResponse = UpdateHITTypeOfHITResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateHITTypeOfHITResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateHITTypeOfHITResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uhittohitrrsResponseStatus' - -- | The response status code.
-updateHITTypeOfHITResponse ::
-  -- | 'uhittohitrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateHITTypeOfHITResponse_httpStatus' - The response's http status code.
+newUpdateHITTypeOfHITResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateHITTypeOfHITResponse
-updateHITTypeOfHITResponse pResponseStatus_ =
+newUpdateHITTypeOfHITResponse pHttpStatus_ =
   UpdateHITTypeOfHITResponse'
-    { _uhittohitrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uhittohitrrsResponseStatus :: Lens' UpdateHITTypeOfHITResponse Int
-uhittohitrrsResponseStatus = lens _uhittohitrrsResponseStatus (\s a -> s {_uhittohitrrsResponseStatus = a})
+-- | The response's http status code.
+updateHITTypeOfHITResponse_httpStatus :: Lens.Lens' UpdateHITTypeOfHITResponse Prelude.Int
+updateHITTypeOfHITResponse_httpStatus = Lens.lens (\UpdateHITTypeOfHITResponse' {httpStatus} -> httpStatus) (\s@UpdateHITTypeOfHITResponse' {} a -> s {httpStatus = a} :: UpdateHITTypeOfHITResponse)
 
-instance NFData UpdateHITTypeOfHITResponse
+instance Prelude.NFData UpdateHITTypeOfHITResponse

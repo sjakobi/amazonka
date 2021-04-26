@@ -11,10 +11,10 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Mechanical Turk API Reference__
+-- Amazon Mechanical Turk API Reference
 module Network.AWS.MechanicalTurk
   ( -- * Service Configuration
-    mechanicalTurk,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -32,121 +32,238 @@ module Network.AWS.MechanicalTurk
     -- $operations
 
     -- ** GetQualificationScore
-    module Network.AWS.MechanicalTurk.GetQualificationScore,
+    GetQualificationScore (GetQualificationScore'),
+    newGetQualificationScore,
+    GetQualificationScoreResponse (GetQualificationScoreResponse'),
+    newGetQualificationScoreResponse,
 
     -- ** ListReviewableHITs (Paginated)
-    module Network.AWS.MechanicalTurk.ListReviewableHITs,
+    ListReviewableHITs (ListReviewableHITs'),
+    newListReviewableHITs,
+    ListReviewableHITsResponse (ListReviewableHITsResponse'),
+    newListReviewableHITsResponse,
 
     -- ** ListHITs (Paginated)
-    module Network.AWS.MechanicalTurk.ListHITs,
+    ListHITs (ListHITs'),
+    newListHITs,
+    ListHITsResponse (ListHITsResponse'),
+    newListHITsResponse,
 
     -- ** ListAssignmentsForHIT (Paginated)
-    module Network.AWS.MechanicalTurk.ListAssignmentsForHIT,
+    ListAssignmentsForHIT (ListAssignmentsForHIT'),
+    newListAssignmentsForHIT,
+    ListAssignmentsForHITResponse (ListAssignmentsForHITResponse'),
+    newListAssignmentsForHITResponse,
 
     -- ** ListWorkersWithQualificationType (Paginated)
-    module Network.AWS.MechanicalTurk.ListWorkersWithQualificationType,
+    ListWorkersWithQualificationType (ListWorkersWithQualificationType'),
+    newListWorkersWithQualificationType,
+    ListWorkersWithQualificationTypeResponse (ListWorkersWithQualificationTypeResponse'),
+    newListWorkersWithQualificationTypeResponse,
 
     -- ** GetAccountBalance
-    module Network.AWS.MechanicalTurk.GetAccountBalance,
+    GetAccountBalance (GetAccountBalance'),
+    newGetAccountBalance,
+    GetAccountBalanceResponse (GetAccountBalanceResponse'),
+    newGetAccountBalanceResponse,
 
     -- ** CreateHIT
-    module Network.AWS.MechanicalTurk.CreateHIT,
+    CreateHIT (CreateHIT'),
+    newCreateHIT,
+    CreateHITResponse (CreateHITResponse'),
+    newCreateHITResponse,
 
     -- ** NotifyWorkers
-    module Network.AWS.MechanicalTurk.NotifyWorkers,
+    NotifyWorkers (NotifyWorkers'),
+    newNotifyWorkers,
+    NotifyWorkersResponse (NotifyWorkersResponse'),
+    newNotifyWorkersResponse,
 
     -- ** ListWorkerBlocks (Paginated)
-    module Network.AWS.MechanicalTurk.ListWorkerBlocks,
+    ListWorkerBlocks (ListWorkerBlocks'),
+    newListWorkerBlocks,
+    ListWorkerBlocksResponse (ListWorkerBlocksResponse'),
+    newListWorkerBlocksResponse,
 
     -- ** ListHITsForQualificationType (Paginated)
-    module Network.AWS.MechanicalTurk.ListHITsForQualificationType,
+    ListHITsForQualificationType (ListHITsForQualificationType'),
+    newListHITsForQualificationType,
+    ListHITsForQualificationTypeResponse (ListHITsForQualificationTypeResponse'),
+    newListHITsForQualificationTypeResponse,
 
     -- ** CreateWorkerBlock
-    module Network.AWS.MechanicalTurk.CreateWorkerBlock,
+    CreateWorkerBlock (CreateWorkerBlock'),
+    newCreateWorkerBlock,
+    CreateWorkerBlockResponse (CreateWorkerBlockResponse'),
+    newCreateWorkerBlockResponse,
 
     -- ** CreateAdditionalAssignmentsForHIT
-    module Network.AWS.MechanicalTurk.CreateAdditionalAssignmentsForHIT,
+    CreateAdditionalAssignmentsForHIT (CreateAdditionalAssignmentsForHIT'),
+    newCreateAdditionalAssignmentsForHIT,
+    CreateAdditionalAssignmentsForHITResponse (CreateAdditionalAssignmentsForHITResponse'),
+    newCreateAdditionalAssignmentsForHITResponse,
 
     -- ** ListQualificationTypes (Paginated)
-    module Network.AWS.MechanicalTurk.ListQualificationTypes,
+    ListQualificationTypes (ListQualificationTypes'),
+    newListQualificationTypes,
+    ListQualificationTypesResponse (ListQualificationTypesResponse'),
+    newListQualificationTypesResponse,
 
     -- ** UpdateHITTypeOfHIT
-    module Network.AWS.MechanicalTurk.UpdateHITTypeOfHIT,
+    UpdateHITTypeOfHIT (UpdateHITTypeOfHIT'),
+    newUpdateHITTypeOfHIT,
+    UpdateHITTypeOfHITResponse (UpdateHITTypeOfHITResponse'),
+    newUpdateHITTypeOfHITResponse,
 
     -- ** GetAssignment
-    module Network.AWS.MechanicalTurk.GetAssignment,
+    GetAssignment (GetAssignment'),
+    newGetAssignment,
+    GetAssignmentResponse (GetAssignmentResponse'),
+    newGetAssignmentResponse,
 
     -- ** UpdateHITReviewStatus
-    module Network.AWS.MechanicalTurk.UpdateHITReviewStatus,
+    UpdateHITReviewStatus (UpdateHITReviewStatus'),
+    newUpdateHITReviewStatus,
+    UpdateHITReviewStatusResponse (UpdateHITReviewStatusResponse'),
+    newUpdateHITReviewStatusResponse,
 
     -- ** RejectQualificationRequest
-    module Network.AWS.MechanicalTurk.RejectQualificationRequest,
+    RejectQualificationRequest (RejectQualificationRequest'),
+    newRejectQualificationRequest,
+    RejectQualificationRequestResponse (RejectQualificationRequestResponse'),
+    newRejectQualificationRequestResponse,
 
     -- ** GetQualificationType
-    module Network.AWS.MechanicalTurk.GetQualificationType,
+    GetQualificationType (GetQualificationType'),
+    newGetQualificationType,
+    GetQualificationTypeResponse (GetQualificationTypeResponse'),
+    newGetQualificationTypeResponse,
 
     -- ** RejectAssignment
-    module Network.AWS.MechanicalTurk.RejectAssignment,
+    RejectAssignment (RejectAssignment'),
+    newRejectAssignment,
+    RejectAssignmentResponse (RejectAssignmentResponse'),
+    newRejectAssignmentResponse,
 
     -- ** UpdateExpirationForHIT
-    module Network.AWS.MechanicalTurk.UpdateExpirationForHIT,
+    UpdateExpirationForHIT (UpdateExpirationForHIT'),
+    newUpdateExpirationForHIT,
+    UpdateExpirationForHITResponse (UpdateExpirationForHITResponse'),
+    newUpdateExpirationForHITResponse,
 
     -- ** ApproveAssignment
-    module Network.AWS.MechanicalTurk.ApproveAssignment,
+    ApproveAssignment (ApproveAssignment'),
+    newApproveAssignment,
+    ApproveAssignmentResponse (ApproveAssignmentResponse'),
+    newApproveAssignmentResponse,
 
     -- ** DeleteHIT
-    module Network.AWS.MechanicalTurk.DeleteHIT,
+    DeleteHIT (DeleteHIT'),
+    newDeleteHIT,
+    DeleteHITResponse (DeleteHITResponse'),
+    newDeleteHITResponse,
 
     -- ** ListReviewPolicyResultsForHIT
-    module Network.AWS.MechanicalTurk.ListReviewPolicyResultsForHIT,
+    ListReviewPolicyResultsForHIT (ListReviewPolicyResultsForHIT'),
+    newListReviewPolicyResultsForHIT,
+    ListReviewPolicyResultsForHITResponse (ListReviewPolicyResultsForHITResponse'),
+    newListReviewPolicyResultsForHITResponse,
 
     -- ** CreateHITType
-    module Network.AWS.MechanicalTurk.CreateHITType,
+    CreateHITType (CreateHITType'),
+    newCreateHITType,
+    CreateHITTypeResponse (CreateHITTypeResponse'),
+    newCreateHITTypeResponse,
 
     -- ** UpdateNotificationSettings
-    module Network.AWS.MechanicalTurk.UpdateNotificationSettings,
+    UpdateNotificationSettings (UpdateNotificationSettings'),
+    newUpdateNotificationSettings,
+    UpdateNotificationSettingsResponse (UpdateNotificationSettingsResponse'),
+    newUpdateNotificationSettingsResponse,
 
     -- ** SendBonus
-    module Network.AWS.MechanicalTurk.SendBonus,
+    SendBonus (SendBonus'),
+    newSendBonus,
+    SendBonusResponse (SendBonusResponse'),
+    newSendBonusResponse,
 
     -- ** ListQualificationRequests (Paginated)
-    module Network.AWS.MechanicalTurk.ListQualificationRequests,
+    ListQualificationRequests (ListQualificationRequests'),
+    newListQualificationRequests,
+    ListQualificationRequestsResponse (ListQualificationRequestsResponse'),
+    newListQualificationRequestsResponse,
 
     -- ** AssociateQualificationWithWorker
-    module Network.AWS.MechanicalTurk.AssociateQualificationWithWorker,
+    AssociateQualificationWithWorker (AssociateQualificationWithWorker'),
+    newAssociateQualificationWithWorker,
+    AssociateQualificationWithWorkerResponse (AssociateQualificationWithWorkerResponse'),
+    newAssociateQualificationWithWorkerResponse,
 
     -- ** CreateHITWithHITType
-    module Network.AWS.MechanicalTurk.CreateHITWithHITType,
+    CreateHITWithHITType (CreateHITWithHITType'),
+    newCreateHITWithHITType,
+    CreateHITWithHITTypeResponse (CreateHITWithHITTypeResponse'),
+    newCreateHITWithHITTypeResponse,
 
     -- ** DeleteWorkerBlock
-    module Network.AWS.MechanicalTurk.DeleteWorkerBlock,
+    DeleteWorkerBlock (DeleteWorkerBlock'),
+    newDeleteWorkerBlock,
+    DeleteWorkerBlockResponse (DeleteWorkerBlockResponse'),
+    newDeleteWorkerBlockResponse,
 
     -- ** ListBonusPayments (Paginated)
-    module Network.AWS.MechanicalTurk.ListBonusPayments,
+    ListBonusPayments (ListBonusPayments'),
+    newListBonusPayments,
+    ListBonusPaymentsResponse (ListBonusPaymentsResponse'),
+    newListBonusPaymentsResponse,
 
     -- ** DisassociateQualificationFromWorker
-    module Network.AWS.MechanicalTurk.DisassociateQualificationFromWorker,
+    DisassociateQualificationFromWorker (DisassociateQualificationFromWorker'),
+    newDisassociateQualificationFromWorker,
+    DisassociateQualificationFromWorkerResponse (DisassociateQualificationFromWorkerResponse'),
+    newDisassociateQualificationFromWorkerResponse,
 
     -- ** SendTestEventNotification
-    module Network.AWS.MechanicalTurk.SendTestEventNotification,
+    SendTestEventNotification (SendTestEventNotification'),
+    newSendTestEventNotification,
+    SendTestEventNotificationResponse (SendTestEventNotificationResponse'),
+    newSendTestEventNotificationResponse,
 
     -- ** GetHIT
-    module Network.AWS.MechanicalTurk.GetHIT,
+    GetHIT (GetHIT'),
+    newGetHIT,
+    GetHITResponse (GetHITResponse'),
+    newGetHITResponse,
 
     -- ** UpdateQualificationType
-    module Network.AWS.MechanicalTurk.UpdateQualificationType,
+    UpdateQualificationType (UpdateQualificationType'),
+    newUpdateQualificationType,
+    UpdateQualificationTypeResponse (UpdateQualificationTypeResponse'),
+    newUpdateQualificationTypeResponse,
 
     -- ** AcceptQualificationRequest
-    module Network.AWS.MechanicalTurk.AcceptQualificationRequest,
+    AcceptQualificationRequest (AcceptQualificationRequest'),
+    newAcceptQualificationRequest,
+    AcceptQualificationRequestResponse (AcceptQualificationRequestResponse'),
+    newAcceptQualificationRequestResponse,
 
     -- ** DeleteQualificationType
-    module Network.AWS.MechanicalTurk.DeleteQualificationType,
+    DeleteQualificationType (DeleteQualificationType'),
+    newDeleteQualificationType,
+    DeleteQualificationTypeResponse (DeleteQualificationTypeResponse'),
+    newDeleteQualificationTypeResponse,
 
     -- ** GetFileUploadURL
-    module Network.AWS.MechanicalTurk.GetFileUploadURL,
+    GetFileUploadURL (GetFileUploadURL'),
+    newGetFileUploadURL,
+    GetFileUploadURLResponse (GetFileUploadURLResponse'),
+    newGetFileUploadURLResponse,
 
     -- ** CreateQualificationType
-    module Network.AWS.MechanicalTurk.CreateQualificationType,
+    CreateQualificationType (CreateQualificationType'),
+    newCreateQualificationType,
+    CreateQualificationTypeResponse (CreateQualificationTypeResponse'),
+    newCreateQualificationTypeResponse,
 
     -- * Types
 
@@ -190,181 +307,76 @@ module Network.AWS.MechanicalTurk
     ReviewableHITStatus (..),
 
     -- ** Assignment
-    Assignment,
-    assignment,
-    aRequesterFeedback,
-    aAssignmentId,
-    aHITId,
-    aAutoApprovalTime,
-    aRejectionTime,
-    aAssignmentStatus,
-    aAnswer,
-    aSubmitTime,
-    aWorkerId,
-    aAcceptTime,
-    aApprovalTime,
-    aDeadline,
+    Assignment (Assignment'),
+    newAssignment,
 
     -- ** BonusPayment
-    BonusPayment,
-    bonusPayment,
-    bpBonusAmount,
-    bpAssignmentId,
-    bpGrantTime,
-    bpReason,
-    bpWorkerId,
+    BonusPayment (BonusPayment'),
+    newBonusPayment,
 
     -- ** HIT
-    HIT,
-    hIT,
-    hitHITGroupId,
-    hitCreationTime,
-    hitAssignmentDurationInSeconds,
-    hitAutoApprovalDelayInSeconds,
-    hitQuestion,
-    hitExpiration,
-    hitHITReviewStatus,
-    hitTitle,
-    hitHITId,
-    hitHITLayoutId,
-    hitNumberOfAssignmentsCompleted,
-    hitReward,
-    hitMaxAssignments,
-    hitHITStatus,
-    hitRequesterAnnotation,
-    hitDescription,
-    hitNumberOfAssignmentsAvailable,
-    hitHITTypeId,
-    hitQualificationRequirements,
-    hitNumberOfAssignmentsPending,
-    hitKeywords,
+    HIT (HIT'),
+    newHIT,
 
     -- ** HITLayoutParameter
-    HITLayoutParameter,
-    hITLayoutParameter,
-    hitlpName,
-    hitlpValue,
+    HITLayoutParameter (HITLayoutParameter'),
+    newHITLayoutParameter,
 
     -- ** Locale
-    Locale,
-    locale,
-    lSubdivision,
-    lCountry,
+    Locale (Locale'),
+    newLocale,
 
     -- ** NotificationSpecification
-    NotificationSpecification,
-    notificationSpecification,
-    nsDestination,
-    nsTransport,
-    nsVersion,
-    nsEventTypes,
+    NotificationSpecification (NotificationSpecification'),
+    newNotificationSpecification,
 
     -- ** NotifyWorkersFailureStatus
-    NotifyWorkersFailureStatus,
-    notifyWorkersFailureStatus,
-    nwfsWorkerId,
-    nwfsNotifyWorkersFailureCode,
-    nwfsNotifyWorkersFailureMessage,
+    NotifyWorkersFailureStatus (NotifyWorkersFailureStatus'),
+    newNotifyWorkersFailureStatus,
 
     -- ** ParameterMapEntry
-    ParameterMapEntry,
-    parameterMapEntry,
-    pmeKey,
-    pmeValues,
+    ParameterMapEntry (ParameterMapEntry'),
+    newParameterMapEntry,
 
     -- ** PolicyParameter
-    PolicyParameter,
-    policyParameter,
-    ppKey,
-    ppValues,
-    ppMapEntries,
+    PolicyParameter (PolicyParameter'),
+    newPolicyParameter,
 
     -- ** Qualification
-    Qualification,
-    qualification,
-    qQualificationTypeId,
-    qStatus,
-    qGrantTime,
-    qWorkerId,
-    qLocaleValue,
-    qIntegerValue,
+    Qualification (Qualification'),
+    newQualification,
 
     -- ** QualificationRequest
-    QualificationRequest,
-    qualificationRequest,
-    quaQualificationTypeId,
-    quaAnswer,
-    quaSubmitTime,
-    quaTest,
-    quaWorkerId,
-    quaQualificationRequestId,
+    QualificationRequest (QualificationRequest'),
+    newQualificationRequest,
 
     -- ** QualificationRequirement
-    QualificationRequirement,
-    qualificationRequirement,
-    qrActionsGuarded,
-    qrLocaleValues,
-    qrRequiredToPreview,
-    qrIntegerValues,
-    qrQualificationTypeId,
-    qrComparator,
+    QualificationRequirement (QualificationRequirement'),
+    newQualificationRequirement,
 
     -- ** QualificationType
-    QualificationType,
-    qualificationType,
-    qtQualificationTypeId,
-    qtCreationTime,
-    qtIsRequestable,
-    qtRetryDelayInSeconds,
-    qtAutoGranted,
-    qtQualificationTypeStatus,
-    qtName,
-    qtTestDurationInSeconds,
-    qtDescription,
-    qtTest,
-    qtAnswerKey,
-    qtAutoGrantedValue,
-    qtKeywords,
+    QualificationType (QualificationType'),
+    newQualificationType,
 
     -- ** ReviewActionDetail
-    ReviewActionDetail,
-    reviewActionDetail,
-    radStatus,
-    radTargetId,
-    radActionName,
-    radTargetType,
-    radResult,
-    radActionId,
-    radCompleteTime,
-    radErrorCode,
+    ReviewActionDetail (ReviewActionDetail'),
+    newReviewActionDetail,
 
     -- ** ReviewPolicy
-    ReviewPolicy,
-    reviewPolicy,
-    rpParameters,
-    rpPolicyName,
+    ReviewPolicy (ReviewPolicy'),
+    newReviewPolicy,
 
     -- ** ReviewReport
-    ReviewReport,
-    reviewReport,
-    rrReviewActions,
-    rrReviewResults,
+    ReviewReport (ReviewReport'),
+    newReviewReport,
 
     -- ** ReviewResultDetail
-    ReviewResultDetail,
-    reviewResultDetail,
-    rrdKey,
-    rrdSubjectType,
-    rrdSubjectId,
-    rrdActionId,
-    rrdValue,
-    rrdQuestionId,
+    ReviewResultDetail (ReviewResultDetail'),
+    newReviewResultDetail,
 
     -- ** WorkerBlock
-    WorkerBlock,
-    workerBlock,
-    wbReason,
-    wbWorkerId,
+    WorkerBlock (WorkerBlock'),
+    newWorkerBlock,
   )
 where
 
@@ -387,6 +399,7 @@ import Network.AWS.MechanicalTurk.GetFileUploadURL
 import Network.AWS.MechanicalTurk.GetHIT
 import Network.AWS.MechanicalTurk.GetQualificationScore
 import Network.AWS.MechanicalTurk.GetQualificationType
+import Network.AWS.MechanicalTurk.Lens
 import Network.AWS.MechanicalTurk.ListAssignmentsForHIT
 import Network.AWS.MechanicalTurk.ListBonusPayments
 import Network.AWS.MechanicalTurk.ListHITs

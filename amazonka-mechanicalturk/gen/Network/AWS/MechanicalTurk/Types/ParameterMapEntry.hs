@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.ParameterMapEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | This data structure is the data type for the AnswerKey parameter of the ScoreMyKnownAnswers/2011-09-01 Review Policy.
+-- | This data structure is the data type for the AnswerKey parameter of the
+-- ScoreMyKnownAnswers\/2011-09-01 Review Policy.
 --
---
---
--- /See:/ 'parameterMapEntry' smart constructor.
+-- /See:/ 'newParameterMapEntry' smart constructor.
 data ParameterMapEntry = ParameterMapEntry'
-  { _pmeKey ::
-      !(Maybe Text),
-    _pmeValues :: !(Maybe [Text])
+  { -- | The QuestionID from the HIT that is used to identify which question
+    -- requires Mechanical Turk to score as part of the
+    -- ScoreMyKnownAnswers\/2011-09-01 Review Policy.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The list of answers to the question specified in the MapEntry Key
+    -- element. The Worker must match all values in order for the answer to be
+    -- scored correctly.
+    values :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterMapEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterMapEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmeKey' - The QuestionID from the HIT that is used to identify which question requires Mechanical Turk to score as part of the ScoreMyKnownAnswers/2011-09-01 Review Policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmeValues' - The list of answers to the question specified in the MapEntry Key element. The Worker must match all values in order for the answer to be scored correctly.
-parameterMapEntry ::
+-- 'key', 'parameterMapEntry_key' - The QuestionID from the HIT that is used to identify which question
+-- requires Mechanical Turk to score as part of the
+-- ScoreMyKnownAnswers\/2011-09-01 Review Policy.
+--
+-- 'values', 'parameterMapEntry_values' - The list of answers to the question specified in the MapEntry Key
+-- element. The Worker must match all values in order for the answer to be
+-- scored correctly.
+newParameterMapEntry ::
   ParameterMapEntry
-parameterMapEntry =
+newParameterMapEntry =
   ParameterMapEntry'
-    { _pmeKey = Nothing,
-      _pmeValues = Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
 
--- | The QuestionID from the HIT that is used to identify which question requires Mechanical Turk to score as part of the ScoreMyKnownAnswers/2011-09-01 Review Policy.
-pmeKey :: Lens' ParameterMapEntry (Maybe Text)
-pmeKey = lens _pmeKey (\s a -> s {_pmeKey = a})
+-- | The QuestionID from the HIT that is used to identify which question
+-- requires Mechanical Turk to score as part of the
+-- ScoreMyKnownAnswers\/2011-09-01 Review Policy.
+parameterMapEntry_key :: Lens.Lens' ParameterMapEntry (Prelude.Maybe Prelude.Text)
+parameterMapEntry_key = Lens.lens (\ParameterMapEntry' {key} -> key) (\s@ParameterMapEntry' {} a -> s {key = a} :: ParameterMapEntry)
 
--- | The list of answers to the question specified in the MapEntry Key element. The Worker must match all values in order for the answer to be scored correctly.
-pmeValues :: Lens' ParameterMapEntry [Text]
-pmeValues = lens _pmeValues (\s a -> s {_pmeValues = a}) . _Default . _Coerce
+-- | The list of answers to the question specified in the MapEntry Key
+-- element. The Worker must match all values in order for the answer to be
+-- scored correctly.
+parameterMapEntry_values :: Lens.Lens' ParameterMapEntry (Prelude.Maybe [Prelude.Text])
+parameterMapEntry_values = Lens.lens (\ParameterMapEntry' {values} -> values) (\s@ParameterMapEntry' {} a -> s {values = a} :: ParameterMapEntry) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ParameterMapEntry where
+instance Prelude.FromJSON ParameterMapEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterMapEntry"
       ( \x ->
           ParameterMapEntry'
-            <$> (x .:? "Key") <*> (x .:? "Values" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable ParameterMapEntry
+instance Prelude.Hashable ParameterMapEntry
 
-instance NFData ParameterMapEntry
+instance Prelude.NFData ParameterMapEntry
 
-instance ToJSON ParameterMapEntry where
+instance Prelude.ToJSON ParameterMapEntry where
   toJSON ParameterMapEntry' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _pmeKey,
-            ("Values" .=) <$> _pmeValues
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Values" Prelude..=) Prelude.<$> values
           ]
       )

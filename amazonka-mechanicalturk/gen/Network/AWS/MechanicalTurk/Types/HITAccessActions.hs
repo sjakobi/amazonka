@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MechanicalTurk.Types.HITAccessActions
   ( HITAccessActions
       ( ..,
-        Accept,
-        DiscoverPreviewAndAccept,
-        PreviewAndAccept
+        HITAccessActionsAccept,
+        HITAccessActionsDiscoverPreviewAndAccept,
+        HITAccessActionsPreviewAndAccept
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HITAccessActions = HITAccessActions' (CI Text)
+newtype HITAccessActions = HITAccessActions'
+  { fromHITAccessActions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Accept :: HITAccessActions
-pattern Accept = HITAccessActions' "Accept"
+pattern HITAccessActionsAccept :: HITAccessActions
+pattern HITAccessActionsAccept = HITAccessActions' "Accept"
 
-pattern DiscoverPreviewAndAccept :: HITAccessActions
-pattern DiscoverPreviewAndAccept = HITAccessActions' "DiscoverPreviewAndAccept"
+pattern HITAccessActionsDiscoverPreviewAndAccept :: HITAccessActions
+pattern HITAccessActionsDiscoverPreviewAndAccept = HITAccessActions' "DiscoverPreviewAndAccept"
 
-pattern PreviewAndAccept :: HITAccessActions
-pattern PreviewAndAccept = HITAccessActions' "PreviewAndAccept"
+pattern HITAccessActionsPreviewAndAccept :: HITAccessActions
+pattern HITAccessActionsPreviewAndAccept = HITAccessActions' "PreviewAndAccept"
 
 {-# COMPLETE
-  Accept,
-  DiscoverPreviewAndAccept,
-  PreviewAndAccept,
+  HITAccessActionsAccept,
+  HITAccessActionsDiscoverPreviewAndAccept,
+  HITAccessActionsPreviewAndAccept,
   HITAccessActions'
   #-}
 
-instance FromText HITAccessActions where
-  parser = (HITAccessActions' . mk) <$> takeText
+instance Prelude.FromText HITAccessActions where
+  parser = HITAccessActions' Prelude.<$> Prelude.takeText
 
-instance ToText HITAccessActions where
-  toText (HITAccessActions' ci) = original ci
+instance Prelude.ToText HITAccessActions where
+  toText (HITAccessActions' x) = x
 
-instance Hashable HITAccessActions
+instance Prelude.Hashable HITAccessActions
 
-instance NFData HITAccessActions
+instance Prelude.NFData HITAccessActions
 
-instance ToByteString HITAccessActions
+instance Prelude.ToByteString HITAccessActions
 
-instance ToQuery HITAccessActions
+instance Prelude.ToQuery HITAccessActions
 
-instance ToHeader HITAccessActions
+instance Prelude.ToHeader HITAccessActions
 
-instance ToJSON HITAccessActions where
-  toJSON = toJSONText
+instance Prelude.ToJSON HITAccessActions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HITAccessActions where
-  parseJSON = parseJSONText "HITAccessActions"
+instance Prelude.FromJSON HITAccessActions where
+  parseJSON = Prelude.parseJSONText "HITAccessActions"

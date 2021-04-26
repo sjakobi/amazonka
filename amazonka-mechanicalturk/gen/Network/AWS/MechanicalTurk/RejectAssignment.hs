@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @RejectAssignment@ operation rejects the results of a completed assignment.
+-- The @RejectAssignment@ operation rejects the results of a completed
+-- assignment.
 --
+-- You can include an optional feedback message with the rejection, which
+-- the Worker can see in the Status section of the web site. When you
+-- include a feedback message with the rejection, it helps the Worker
+-- understand why the assignment was rejected, and can improve the quality
+-- of the results the Worker submits in the future.
 --
--- You can include an optional feedback message with the rejection, which the Worker can see in the Status section of the web site. When you include a feedback message with the rejection, it helps the Worker understand why the assignment was rejected, and can improve the quality of the results the Worker submits in the future.
---
--- Only the Requester who created the HIT can reject an assignment for the HIT.
+-- Only the Requester who created the HIT can reject an assignment for the
+-- HIT.
 module Network.AWS.MechanicalTurk.RejectAssignment
   ( -- * Creating a Request
-    rejectAssignment,
-    RejectAssignment,
+    RejectAssignment (..),
+    newRejectAssignment,
 
     -- * Request Lenses
-    raAssignmentId,
-    raRequesterFeedback,
+    rejectAssignment_assignmentId,
+    rejectAssignment_requesterFeedback,
 
     -- * Destructuring the Response
-    rejectAssignmentResponse,
-    RejectAssignmentResponse,
+    RejectAssignmentResponse (..),
+    newRejectAssignmentResponse,
 
     -- * Response Lenses
-    rarrsResponseStatus,
+    rejectAssignmentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rejectAssignment' smart constructor.
+-- | /See:/ 'newRejectAssignment' smart constructor.
 data RejectAssignment = RejectAssignment'
-  { _raAssignmentId ::
-      !Text,
-    _raRequesterFeedback :: !Text
+  { -- | The ID of the assignment. The assignment must correspond to a HIT
+    -- created by the Requester.
+    assignmentId :: Prelude.Text,
+    -- | A message for the Worker, which the Worker can see in the Status section
+    -- of the web site.
+    requesterFeedback :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectAssignment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectAssignment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raAssignmentId' - The ID of the assignment. The assignment must correspond to a HIT created by the Requester.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raRequesterFeedback' - A message for the Worker, which the Worker can see in the Status section of the web site.
-rejectAssignment ::
-  -- | 'raAssignmentId'
-  Text ->
-  -- | 'raRequesterFeedback'
-  Text ->
+-- 'assignmentId', 'rejectAssignment_assignmentId' - The ID of the assignment. The assignment must correspond to a HIT
+-- created by the Requester.
+--
+-- 'requesterFeedback', 'rejectAssignment_requesterFeedback' - A message for the Worker, which the Worker can see in the Status section
+-- of the web site.
+newRejectAssignment ::
+  -- | 'assignmentId'
+  Prelude.Text ->
+  -- | 'requesterFeedback'
+  Prelude.Text ->
   RejectAssignment
-rejectAssignment pAssignmentId_ pRequesterFeedback_ =
-  RejectAssignment'
-    { _raAssignmentId = pAssignmentId_,
-      _raRequesterFeedback = pRequesterFeedback_
-    }
+newRejectAssignment
+  pAssignmentId_
+  pRequesterFeedback_ =
+    RejectAssignment'
+      { assignmentId = pAssignmentId_,
+        requesterFeedback = pRequesterFeedback_
+      }
 
--- | The ID of the assignment. The assignment must correspond to a HIT created by the Requester.
-raAssignmentId :: Lens' RejectAssignment Text
-raAssignmentId = lens _raAssignmentId (\s a -> s {_raAssignmentId = a})
+-- | The ID of the assignment. The assignment must correspond to a HIT
+-- created by the Requester.
+rejectAssignment_assignmentId :: Lens.Lens' RejectAssignment Prelude.Text
+rejectAssignment_assignmentId = Lens.lens (\RejectAssignment' {assignmentId} -> assignmentId) (\s@RejectAssignment' {} a -> s {assignmentId = a} :: RejectAssignment)
 
--- | A message for the Worker, which the Worker can see in the Status section of the web site.
-raRequesterFeedback :: Lens' RejectAssignment Text
-raRequesterFeedback = lens _raRequesterFeedback (\s a -> s {_raRequesterFeedback = a})
+-- | A message for the Worker, which the Worker can see in the Status section
+-- of the web site.
+rejectAssignment_requesterFeedback :: Lens.Lens' RejectAssignment Prelude.Text
+rejectAssignment_requesterFeedback = Lens.lens (\RejectAssignment' {requesterFeedback} -> requesterFeedback) (\s@RejectAssignment' {} a -> s {requesterFeedback = a} :: RejectAssignment)
 
-instance AWSRequest RejectAssignment where
+instance Prelude.AWSRequest RejectAssignment where
   type Rs RejectAssignment = RejectAssignmentResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RejectAssignmentResponse' <$> (pure (fromEnum s))
+          RejectAssignmentResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RejectAssignment
+instance Prelude.Hashable RejectAssignment
 
-instance NFData RejectAssignment
+instance Prelude.NFData RejectAssignment
 
-instance ToHeaders RejectAssignment where
+instance Prelude.ToHeaders RejectAssignment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.RejectAssignment" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.RejectAssignment" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RejectAssignment where
+instance Prelude.ToJSON RejectAssignment where
   toJSON RejectAssignment' {..} =
-    object
-      ( catMaybes
-          [ Just ("AssignmentId" .= _raAssignmentId),
-            Just ("RequesterFeedback" .= _raRequesterFeedback)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AssignmentId" Prelude..= assignmentId),
+            Prelude.Just
+              ("RequesterFeedback" Prelude..= requesterFeedback)
           ]
       )
 
-instance ToPath RejectAssignment where
-  toPath = const "/"
+instance Prelude.ToPath RejectAssignment where
+  toPath = Prelude.const "/"
 
-instance ToQuery RejectAssignment where
-  toQuery = const mempty
+instance Prelude.ToQuery RejectAssignment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rejectAssignmentResponse' smart constructor.
-newtype RejectAssignmentResponse = RejectAssignmentResponse'
-  { _rarrsResponseStatus ::
-      Int
+-- | /See:/ 'newRejectAssignmentResponse' smart constructor.
+data RejectAssignmentResponse = RejectAssignmentResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectAssignmentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectAssignmentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rarrsResponseStatus' - -- | The response status code.
-rejectAssignmentResponse ::
-  -- | 'rarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'rejectAssignmentResponse_httpStatus' - The response's http status code.
+newRejectAssignmentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RejectAssignmentResponse
-rejectAssignmentResponse pResponseStatus_ =
+newRejectAssignmentResponse pHttpStatus_ =
   RejectAssignmentResponse'
-    { _rarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rarrsResponseStatus :: Lens' RejectAssignmentResponse Int
-rarrsResponseStatus = lens _rarrsResponseStatus (\s a -> s {_rarrsResponseStatus = a})
+-- | The response's http status code.
+rejectAssignmentResponse_httpStatus :: Lens.Lens' RejectAssignmentResponse Prelude.Int
+rejectAssignmentResponse_httpStatus = Lens.lens (\RejectAssignmentResponse' {httpStatus} -> httpStatus) (\s@RejectAssignmentResponse' {} a -> s {httpStatus = a} :: RejectAssignmentResponse)
 
-instance NFData RejectAssignmentResponse
+instance Prelude.NFData RejectAssignmentResponse

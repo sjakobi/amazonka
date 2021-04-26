@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MechanicalTurk.Types.AssignmentStatus
   ( AssignmentStatus
       ( ..,
-        Approved,
-        Rejected,
-        Submitted
+        AssignmentStatusApproved,
+        AssignmentStatusRejected,
+        AssignmentStatusSubmitted
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssignmentStatus = AssignmentStatus' (CI Text)
+newtype AssignmentStatus = AssignmentStatus'
+  { fromAssignmentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approved :: AssignmentStatus
-pattern Approved = AssignmentStatus' "Approved"
+pattern AssignmentStatusApproved :: AssignmentStatus
+pattern AssignmentStatusApproved = AssignmentStatus' "Approved"
 
-pattern Rejected :: AssignmentStatus
-pattern Rejected = AssignmentStatus' "Rejected"
+pattern AssignmentStatusRejected :: AssignmentStatus
+pattern AssignmentStatusRejected = AssignmentStatus' "Rejected"
 
-pattern Submitted :: AssignmentStatus
-pattern Submitted = AssignmentStatus' "Submitted"
+pattern AssignmentStatusSubmitted :: AssignmentStatus
+pattern AssignmentStatusSubmitted = AssignmentStatus' "Submitted"
 
 {-# COMPLETE
-  Approved,
-  Rejected,
-  Submitted,
+  AssignmentStatusApproved,
+  AssignmentStatusRejected,
+  AssignmentStatusSubmitted,
   AssignmentStatus'
   #-}
 
-instance FromText AssignmentStatus where
-  parser = (AssignmentStatus' . mk) <$> takeText
+instance Prelude.FromText AssignmentStatus where
+  parser = AssignmentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AssignmentStatus where
-  toText (AssignmentStatus' ci) = original ci
+instance Prelude.ToText AssignmentStatus where
+  toText (AssignmentStatus' x) = x
 
-instance Hashable AssignmentStatus
+instance Prelude.Hashable AssignmentStatus
 
-instance NFData AssignmentStatus
+instance Prelude.NFData AssignmentStatus
 
-instance ToByteString AssignmentStatus
+instance Prelude.ToByteString AssignmentStatus
 
-instance ToQuery AssignmentStatus
+instance Prelude.ToQuery AssignmentStatus
 
-instance ToHeader AssignmentStatus
+instance Prelude.ToHeader AssignmentStatus
 
-instance ToJSON AssignmentStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssignmentStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssignmentStatus where
-  parseJSON = parseJSONText "AssignmentStatus"
+instance Prelude.FromJSON AssignmentStatus where
+  parseJSON = Prelude.parseJSONText "AssignmentStatus"

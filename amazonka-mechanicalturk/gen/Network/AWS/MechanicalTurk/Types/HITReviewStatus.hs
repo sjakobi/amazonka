@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.MechanicalTurk.Types.HITReviewStatus
   ( HITReviewStatus
       ( ..,
-        MarkedForReview,
-        NotReviewed,
-        ReviewedAppropriate,
-        ReviewedInappropriate
+        HITReviewStatusMarkedForReview,
+        HITReviewStatusNotReviewed,
+        HITReviewStatusReviewedAppropriate,
+        HITReviewStatusReviewedInappropriate
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HITReviewStatus = HITReviewStatus' (CI Text)
+newtype HITReviewStatus = HITReviewStatus'
+  { fromHITReviewStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MarkedForReview :: HITReviewStatus
-pattern MarkedForReview = HITReviewStatus' "MarkedForReview"
+pattern HITReviewStatusMarkedForReview :: HITReviewStatus
+pattern HITReviewStatusMarkedForReview = HITReviewStatus' "MarkedForReview"
 
-pattern NotReviewed :: HITReviewStatus
-pattern NotReviewed = HITReviewStatus' "NotReviewed"
+pattern HITReviewStatusNotReviewed :: HITReviewStatus
+pattern HITReviewStatusNotReviewed = HITReviewStatus' "NotReviewed"
 
-pattern ReviewedAppropriate :: HITReviewStatus
-pattern ReviewedAppropriate = HITReviewStatus' "ReviewedAppropriate"
+pattern HITReviewStatusReviewedAppropriate :: HITReviewStatus
+pattern HITReviewStatusReviewedAppropriate = HITReviewStatus' "ReviewedAppropriate"
 
-pattern ReviewedInappropriate :: HITReviewStatus
-pattern ReviewedInappropriate = HITReviewStatus' "ReviewedInappropriate"
+pattern HITReviewStatusReviewedInappropriate :: HITReviewStatus
+pattern HITReviewStatusReviewedInappropriate = HITReviewStatus' "ReviewedInappropriate"
 
 {-# COMPLETE
-  MarkedForReview,
-  NotReviewed,
-  ReviewedAppropriate,
-  ReviewedInappropriate,
+  HITReviewStatusMarkedForReview,
+  HITReviewStatusNotReviewed,
+  HITReviewStatusReviewedAppropriate,
+  HITReviewStatusReviewedInappropriate,
   HITReviewStatus'
   #-}
 
-instance FromText HITReviewStatus where
-  parser = (HITReviewStatus' . mk) <$> takeText
+instance Prelude.FromText HITReviewStatus where
+  parser = HITReviewStatus' Prelude.<$> Prelude.takeText
 
-instance ToText HITReviewStatus where
-  toText (HITReviewStatus' ci) = original ci
+instance Prelude.ToText HITReviewStatus where
+  toText (HITReviewStatus' x) = x
 
-instance Hashable HITReviewStatus
+instance Prelude.Hashable HITReviewStatus
 
-instance NFData HITReviewStatus
+instance Prelude.NFData HITReviewStatus
 
-instance ToByteString HITReviewStatus
+instance Prelude.ToByteString HITReviewStatus
 
-instance ToQuery HITReviewStatus
+instance Prelude.ToQuery HITReviewStatus
 
-instance ToHeader HITReviewStatus
+instance Prelude.ToHeader HITReviewStatus
 
-instance FromJSON HITReviewStatus where
-  parseJSON = parseJSONText "HITReviewStatus"
+instance Prelude.FromJSON HITReviewStatus where
+  parseJSON = Prelude.parseJSONText "HITReviewStatus"

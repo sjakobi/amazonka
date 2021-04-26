@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,115 +24,134 @@
 -- The @GetHIT@ operation retrieves the details of the specified HIT.
 module Network.AWS.MechanicalTurk.GetHIT
   ( -- * Creating a Request
-    getHIT,
-    GetHIT,
+    GetHIT (..),
+    newGetHIT,
 
     -- * Request Lenses
-    ghitHITId,
+    getHIT_hITId,
 
     -- * Destructuring the Response
-    getHITResponse,
-    GetHITResponse,
+    GetHITResponse (..),
+    newGetHITResponse,
 
     -- * Response Lenses
-    ghitrrsHIT,
-    ghitrrsResponseStatus,
+    getHITResponse_hIT,
+    getHITResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MechanicalTurk.Types.HIT
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getHIT' smart constructor.
-newtype GetHIT = GetHIT' {_ghitHITId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetHIT' smart constructor.
+data GetHIT = GetHIT'
+  { -- | The ID of the HIT to be retrieved.
+    hITId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHIT' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHIT' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghitHITId' - The ID of the HIT to be retrieved.
-getHIT ::
-  -- | 'ghitHITId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'hITId', 'getHIT_hITId' - The ID of the HIT to be retrieved.
+newGetHIT ::
+  -- | 'hITId'
+  Prelude.Text ->
   GetHIT
-getHIT pHITId_ = GetHIT' {_ghitHITId = pHITId_}
+newGetHIT pHITId_ = GetHIT' {hITId = pHITId_}
 
 -- | The ID of the HIT to be retrieved.
-ghitHITId :: Lens' GetHIT Text
-ghitHITId = lens _ghitHITId (\s a -> s {_ghitHITId = a})
+getHIT_hITId :: Lens.Lens' GetHIT Prelude.Text
+getHIT_hITId = Lens.lens (\GetHIT' {hITId} -> hITId) (\s@GetHIT' {} a -> s {hITId = a} :: GetHIT)
 
-instance AWSRequest GetHIT where
+instance Prelude.AWSRequest GetHIT where
   type Rs GetHIT = GetHITResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetHITResponse'
-            <$> (x .?> "HIT") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "HIT")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetHIT
+instance Prelude.Hashable GetHIT
 
-instance NFData GetHIT
+instance Prelude.NFData GetHIT
 
-instance ToHeaders GetHIT where
+instance Prelude.ToHeaders GetHIT where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.GetHIT" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.GetHIT" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetHIT where
+instance Prelude.ToJSON GetHIT where
   toJSON GetHIT' {..} =
-    object (catMaybes [Just ("HITId" .= _ghitHITId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("HITId" Prelude..= hITId)]
+      )
 
-instance ToPath GetHIT where
-  toPath = const "/"
+instance Prelude.ToPath GetHIT where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetHIT where
-  toQuery = const mempty
+instance Prelude.ToQuery GetHIT where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getHITResponse' smart constructor.
+-- | /See:/ 'newGetHITResponse' smart constructor.
 data GetHITResponse = GetHITResponse'
-  { _ghitrrsHIT ::
-      !(Maybe HIT),
-    _ghitrrsResponseStatus :: !Int
+  { -- | Contains the requested HIT data.
+    hIT :: Prelude.Maybe HIT,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetHITResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetHITResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghitrrsHIT' - Contains the requested HIT data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghitrrsResponseStatus' - -- | The response status code.
-getHITResponse ::
-  -- | 'ghitrrsResponseStatus'
-  Int ->
+-- 'hIT', 'getHITResponse_hIT' - Contains the requested HIT data.
+--
+-- 'httpStatus', 'getHITResponse_httpStatus' - The response's http status code.
+newGetHITResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetHITResponse
-getHITResponse pResponseStatus_ =
+newGetHITResponse pHttpStatus_ =
   GetHITResponse'
-    { _ghitrrsHIT = Nothing,
-      _ghitrrsResponseStatus = pResponseStatus_
+    { hIT = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the requested HIT data.
-ghitrrsHIT :: Lens' GetHITResponse (Maybe HIT)
-ghitrrsHIT = lens _ghitrrsHIT (\s a -> s {_ghitrrsHIT = a})
+getHITResponse_hIT :: Lens.Lens' GetHITResponse (Prelude.Maybe HIT)
+getHITResponse_hIT = Lens.lens (\GetHITResponse' {hIT} -> hIT) (\s@GetHITResponse' {} a -> s {hIT = a} :: GetHITResponse)
 
--- | -- | The response status code.
-ghitrrsResponseStatus :: Lens' GetHITResponse Int
-ghitrrsResponseStatus = lens _ghitrrsResponseStatus (\s a -> s {_ghitrrsResponseStatus = a})
+-- | The response's http status code.
+getHITResponse_httpStatus :: Lens.Lens' GetHITResponse Prelude.Int
+getHITResponse_httpStatus = Lens.lens (\GetHITResponse' {httpStatus} -> httpStatus) (\s@GetHITResponse' {} a -> s {httpStatus = a} :: GetHITResponse)
 
-instance NFData GetHITResponse
+instance Prelude.NFData GetHITResponse

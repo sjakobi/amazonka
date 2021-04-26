@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,128 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.NotificationSpecification where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types.EventType
 import Network.AWS.MechanicalTurk.Types.NotificationTransport
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The NotificationSpecification data structure describes a HIT event notification for a HIT type.
+-- | The NotificationSpecification data structure describes a HIT event
+-- notification for a HIT type.
 --
---
---
--- /See:/ 'notificationSpecification' smart constructor.
+-- /See:/ 'newNotificationSpecification' smart constructor.
 data NotificationSpecification = NotificationSpecification'
-  { _nsDestination ::
-      !Text,
-    _nsTransport ::
-      !NotificationTransport,
-    _nsVersion :: !Text,
-    _nsEventTypes ::
-      ![EventType]
+  { -- | The target for notification messages. The Destination’s format is
+    -- determined by the specified Transport:
+    --
+    -- -   When Transport is Email, the Destination is your email address.
+    --
+    -- -   When Transport is SQS, the Destination is your queue URL.
+    --
+    -- -   When Transport is SNS, the Destination is the ARN of your topic.
+    destination :: Prelude.Text,
+    -- | The method Amazon Mechanical Turk uses to send the notification. Valid
+    -- Values: Email | SQS | SNS.
+    transport :: NotificationTransport,
+    -- | The version of the Notification API to use. Valid value is 2006-05-05.
+    version :: Prelude.Text,
+    -- | The list of events that should cause notifications to be sent. Valid
+    -- Values: AssignmentAccepted | AssignmentAbandoned | AssignmentReturned |
+    -- AssignmentSubmitted | AssignmentRejected | AssignmentApproved |
+    -- HITCreated | HITExtended | HITDisposed | HITReviewable | HITExpired |
+    -- Ping. The Ping event is only valid for the SendTestEventNotification
+    -- operation.
+    eventTypes :: [EventType]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nsDestination' - The target for notification messages. The Destination’s format is determined by the specified Transport:      * When Transport is Email, the Destination is your email address.     * When Transport is SQS, the Destination is your queue URL.     * When Transport is SNS, the Destination is the ARN of your topic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nsTransport' - The method Amazon Mechanical Turk uses to send the notification. Valid Values: Email | SQS | SNS.
+-- 'destination', 'notificationSpecification_destination' - The target for notification messages. The Destination’s format is
+-- determined by the specified Transport:
 --
--- * 'nsVersion' - The version of the Notification API to use. Valid value is 2006-05-05.
+-- -   When Transport is Email, the Destination is your email address.
 --
--- * 'nsEventTypes' - The list of events that should cause notifications to be sent. Valid Values: AssignmentAccepted | AssignmentAbandoned | AssignmentReturned | AssignmentSubmitted | AssignmentRejected | AssignmentApproved | HITCreated | HITExtended | HITDisposed | HITReviewable | HITExpired | Ping. The Ping event is only valid for the SendTestEventNotification operation.
-notificationSpecification ::
-  -- | 'nsDestination'
-  Text ->
-  -- | 'nsTransport'
+-- -   When Transport is SQS, the Destination is your queue URL.
+--
+-- -   When Transport is SNS, the Destination is the ARN of your topic.
+--
+-- 'transport', 'notificationSpecification_transport' - The method Amazon Mechanical Turk uses to send the notification. Valid
+-- Values: Email | SQS | SNS.
+--
+-- 'version', 'notificationSpecification_version' - The version of the Notification API to use. Valid value is 2006-05-05.
+--
+-- 'eventTypes', 'notificationSpecification_eventTypes' - The list of events that should cause notifications to be sent. Valid
+-- Values: AssignmentAccepted | AssignmentAbandoned | AssignmentReturned |
+-- AssignmentSubmitted | AssignmentRejected | AssignmentApproved |
+-- HITCreated | HITExtended | HITDisposed | HITReviewable | HITExpired |
+-- Ping. The Ping event is only valid for the SendTestEventNotification
+-- operation.
+newNotificationSpecification ::
+  -- | 'destination'
+  Prelude.Text ->
+  -- | 'transport'
   NotificationTransport ->
-  -- | 'nsVersion'
-  Text ->
+  -- | 'version'
+  Prelude.Text ->
   NotificationSpecification
-notificationSpecification
+newNotificationSpecification
   pDestination_
   pTransport_
   pVersion_ =
     NotificationSpecification'
-      { _nsDestination =
+      { destination =
           pDestination_,
-        _nsTransport = pTransport_,
-        _nsVersion = pVersion_,
-        _nsEventTypes = mempty
+        transport = pTransport_,
+        version = pVersion_,
+        eventTypes = Prelude.mempty
       }
 
--- | The target for notification messages. The Destination’s format is determined by the specified Transport:      * When Transport is Email, the Destination is your email address.     * When Transport is SQS, the Destination is your queue URL.     * When Transport is SNS, the Destination is the ARN of your topic.
-nsDestination :: Lens' NotificationSpecification Text
-nsDestination = lens _nsDestination (\s a -> s {_nsDestination = a})
+-- | The target for notification messages. The Destination’s format is
+-- determined by the specified Transport:
+--
+-- -   When Transport is Email, the Destination is your email address.
+--
+-- -   When Transport is SQS, the Destination is your queue URL.
+--
+-- -   When Transport is SNS, the Destination is the ARN of your topic.
+notificationSpecification_destination :: Lens.Lens' NotificationSpecification Prelude.Text
+notificationSpecification_destination = Lens.lens (\NotificationSpecification' {destination} -> destination) (\s@NotificationSpecification' {} a -> s {destination = a} :: NotificationSpecification)
 
--- | The method Amazon Mechanical Turk uses to send the notification. Valid Values: Email | SQS | SNS.
-nsTransport :: Lens' NotificationSpecification NotificationTransport
-nsTransport = lens _nsTransport (\s a -> s {_nsTransport = a})
+-- | The method Amazon Mechanical Turk uses to send the notification. Valid
+-- Values: Email | SQS | SNS.
+notificationSpecification_transport :: Lens.Lens' NotificationSpecification NotificationTransport
+notificationSpecification_transport = Lens.lens (\NotificationSpecification' {transport} -> transport) (\s@NotificationSpecification' {} a -> s {transport = a} :: NotificationSpecification)
 
 -- | The version of the Notification API to use. Valid value is 2006-05-05.
-nsVersion :: Lens' NotificationSpecification Text
-nsVersion = lens _nsVersion (\s a -> s {_nsVersion = a})
+notificationSpecification_version :: Lens.Lens' NotificationSpecification Prelude.Text
+notificationSpecification_version = Lens.lens (\NotificationSpecification' {version} -> version) (\s@NotificationSpecification' {} a -> s {version = a} :: NotificationSpecification)
 
--- | The list of events that should cause notifications to be sent. Valid Values: AssignmentAccepted | AssignmentAbandoned | AssignmentReturned | AssignmentSubmitted | AssignmentRejected | AssignmentApproved | HITCreated | HITExtended | HITDisposed | HITReviewable | HITExpired | Ping. The Ping event is only valid for the SendTestEventNotification operation.
-nsEventTypes :: Lens' NotificationSpecification [EventType]
-nsEventTypes = lens _nsEventTypes (\s a -> s {_nsEventTypes = a}) . _Coerce
+-- | The list of events that should cause notifications to be sent. Valid
+-- Values: AssignmentAccepted | AssignmentAbandoned | AssignmentReturned |
+-- AssignmentSubmitted | AssignmentRejected | AssignmentApproved |
+-- HITCreated | HITExtended | HITDisposed | HITReviewable | HITExpired |
+-- Ping. The Ping event is only valid for the SendTestEventNotification
+-- operation.
+notificationSpecification_eventTypes :: Lens.Lens' NotificationSpecification [EventType]
+notificationSpecification_eventTypes = Lens.lens (\NotificationSpecification' {eventTypes} -> eventTypes) (\s@NotificationSpecification' {} a -> s {eventTypes = a} :: NotificationSpecification) Prelude.. Prelude._Coerce
 
-instance Hashable NotificationSpecification
+instance Prelude.Hashable NotificationSpecification
 
-instance NFData NotificationSpecification
+instance Prelude.NFData NotificationSpecification
 
-instance ToJSON NotificationSpecification where
+instance Prelude.ToJSON NotificationSpecification where
   toJSON NotificationSpecification' {..} =
-    object
-      ( catMaybes
-          [ Just ("Destination" .= _nsDestination),
-            Just ("Transport" .= _nsTransport),
-            Just ("Version" .= _nsVersion),
-            Just ("EventTypes" .= _nsEventTypes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Destination" Prelude..= destination),
+            Prelude.Just ("Transport" Prelude..= transport),
+            Prelude.Just ("Version" Prelude..= version),
+            Prelude.Just ("EventTypes" Prelude..= eventTypes)
           ]
       )

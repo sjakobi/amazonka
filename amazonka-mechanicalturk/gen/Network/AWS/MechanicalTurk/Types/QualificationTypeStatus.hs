@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.MechanicalTurk.Types.QualificationTypeStatus
   ( QualificationTypeStatus
       ( ..,
-        Active,
-        Inactive
+        QualificationTypeStatusActive,
+        QualificationTypeStatusInactive
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QualificationTypeStatus
-  = QualificationTypeStatus'
-      ( CI
-          Text
-      )
+newtype QualificationTypeStatus = QualificationTypeStatus'
+  { fromQualificationTypeStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: QualificationTypeStatus
-pattern Active = QualificationTypeStatus' "Active"
+pattern QualificationTypeStatusActive :: QualificationTypeStatus
+pattern QualificationTypeStatusActive = QualificationTypeStatus' "Active"
 
-pattern Inactive :: QualificationTypeStatus
-pattern Inactive = QualificationTypeStatus' "Inactive"
+pattern QualificationTypeStatusInactive :: QualificationTypeStatus
+pattern QualificationTypeStatusInactive = QualificationTypeStatus' "Inactive"
 
 {-# COMPLETE
-  Active,
-  Inactive,
+  QualificationTypeStatusActive,
+  QualificationTypeStatusInactive,
   QualificationTypeStatus'
   #-}
 
-instance FromText QualificationTypeStatus where
-  parser = (QualificationTypeStatus' . mk) <$> takeText
+instance Prelude.FromText QualificationTypeStatus where
+  parser = QualificationTypeStatus' Prelude.<$> Prelude.takeText
 
-instance ToText QualificationTypeStatus where
-  toText (QualificationTypeStatus' ci) = original ci
+instance Prelude.ToText QualificationTypeStatus where
+  toText (QualificationTypeStatus' x) = x
 
-instance Hashable QualificationTypeStatus
+instance Prelude.Hashable QualificationTypeStatus
 
-instance NFData QualificationTypeStatus
+instance Prelude.NFData QualificationTypeStatus
 
-instance ToByteString QualificationTypeStatus
+instance Prelude.ToByteString QualificationTypeStatus
 
-instance ToQuery QualificationTypeStatus
+instance Prelude.ToQuery QualificationTypeStatus
 
-instance ToHeader QualificationTypeStatus
+instance Prelude.ToHeader QualificationTypeStatus
 
-instance ToJSON QualificationTypeStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON QualificationTypeStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QualificationTypeStatus where
-  parseJSON = parseJSONText "QualificationTypeStatus"
+instance Prelude.FromJSON QualificationTypeStatus where
+  parseJSON = Prelude.parseJSONText "QualificationTypeStatus"

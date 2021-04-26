@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.Locale where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The Locale data structure represents a geographical region or location.
 --
---
---
--- /See:/ 'locale' smart constructor.
+-- /See:/ 'newLocale' smart constructor.
 data Locale = Locale'
-  { _lSubdivision :: !(Maybe Text),
-    _lCountry :: !Text
+  { -- | The state or subdivision of the locale. A valid ISO 3166-2 subdivision
+    -- code. For example, the code WA refers to the state of Washington.
+    subdivision :: Prelude.Maybe Prelude.Text,
+    -- | The country of the locale. Must be a valid ISO 3166 country code. For
+    -- example, the code US refers to the United States of America.
+    country :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Locale' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Locale' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lSubdivision' - The state or subdivision of the locale. A valid ISO 3166-2 subdivision code. For example, the code WA refers to the state of Washington.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lCountry' - The country of the locale. Must be a valid ISO 3166 country code. For example, the code US refers to the United States of America.
-locale ::
-  -- | 'lCountry'
-  Text ->
+-- 'subdivision', 'locale_subdivision' - The state or subdivision of the locale. A valid ISO 3166-2 subdivision
+-- code. For example, the code WA refers to the state of Washington.
+--
+-- 'country', 'locale_country' - The country of the locale. Must be a valid ISO 3166 country code. For
+-- example, the code US refers to the United States of America.
+newLocale ::
+  -- | 'country'
+  Prelude.Text ->
   Locale
-locale pCountry_ =
+newLocale pCountry_ =
   Locale'
-    { _lSubdivision = Nothing,
-      _lCountry = pCountry_
+    { subdivision = Prelude.Nothing,
+      country = pCountry_
     }
 
--- | The state or subdivision of the locale. A valid ISO 3166-2 subdivision code. For example, the code WA refers to the state of Washington.
-lSubdivision :: Lens' Locale (Maybe Text)
-lSubdivision = lens _lSubdivision (\s a -> s {_lSubdivision = a})
+-- | The state or subdivision of the locale. A valid ISO 3166-2 subdivision
+-- code. For example, the code WA refers to the state of Washington.
+locale_subdivision :: Lens.Lens' Locale (Prelude.Maybe Prelude.Text)
+locale_subdivision = Lens.lens (\Locale' {subdivision} -> subdivision) (\s@Locale' {} a -> s {subdivision = a} :: Locale)
 
--- | The country of the locale. Must be a valid ISO 3166 country code. For example, the code US refers to the United States of America.
-lCountry :: Lens' Locale Text
-lCountry = lens _lCountry (\s a -> s {_lCountry = a})
+-- | The country of the locale. Must be a valid ISO 3166 country code. For
+-- example, the code US refers to the United States of America.
+locale_country :: Lens.Lens' Locale Prelude.Text
+locale_country = Lens.lens (\Locale' {country} -> country) (\s@Locale' {} a -> s {country = a} :: Locale)
 
-instance FromJSON Locale where
+instance Prelude.FromJSON Locale where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Locale"
       ( \x ->
           Locale'
-            <$> (x .:? "Subdivision") <*> (x .: "Country")
+            Prelude.<$> (x Prelude..:? "Subdivision")
+            Prelude.<*> (x Prelude..: "Country")
       )
 
-instance Hashable Locale
+instance Prelude.Hashable Locale
 
-instance NFData Locale
+instance Prelude.NFData Locale
 
-instance ToJSON Locale where
+instance Prelude.ToJSON Locale where
   toJSON Locale' {..} =
-    object
-      ( catMaybes
-          [ ("Subdivision" .=) <$> _lSubdivision,
-            Just ("Country" .= _lCountry)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Subdivision" Prelude..=) Prelude.<$> subdivision,
+            Prelude.Just ("Country" Prelude..= country)
           ]
       )

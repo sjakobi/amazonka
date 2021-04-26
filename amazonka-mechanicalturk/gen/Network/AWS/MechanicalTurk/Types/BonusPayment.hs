@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.BonusPayment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An object representing a Bonus payment paid to a Worker.
 --
---
---
--- /See:/ 'bonusPayment' smart constructor.
+-- /See:/ 'newBonusPayment' smart constructor.
 data BonusPayment = BonusPayment'
-  { _bpBonusAmount ::
-      !(Maybe Text),
-    _bpAssignmentId :: !(Maybe Text),
-    _bpGrantTime :: !(Maybe POSIX),
-    _bpReason :: !(Maybe Text),
-    _bpWorkerId :: !(Maybe Text)
+  { bonusAmount :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the assignment associated with this bonus payment.
+    assignmentId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time of when the bonus was granted.
+    grantTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Reason text given when the bonus was granted, if any.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Worker to whom the bonus was paid.
+    workerId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BonusPayment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BonusPayment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpBonusAmount' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bpAssignmentId' - The ID of the assignment associated with this bonus payment.
+-- 'bonusAmount', 'bonusPayment_bonusAmount' - Undocumented member.
 --
--- * 'bpGrantTime' - The date and time of when the bonus was granted.
+-- 'assignmentId', 'bonusPayment_assignmentId' - The ID of the assignment associated with this bonus payment.
 --
--- * 'bpReason' - The Reason text given when the bonus was granted, if any.
+-- 'grantTime', 'bonusPayment_grantTime' - The date and time of when the bonus was granted.
 --
--- * 'bpWorkerId' - The ID of the Worker to whom the bonus was paid.
-bonusPayment ::
+-- 'reason', 'bonusPayment_reason' - The Reason text given when the bonus was granted, if any.
+--
+-- 'workerId', 'bonusPayment_workerId' - The ID of the Worker to whom the bonus was paid.
+newBonusPayment ::
   BonusPayment
-bonusPayment =
+newBonusPayment =
   BonusPayment'
-    { _bpBonusAmount = Nothing,
-      _bpAssignmentId = Nothing,
-      _bpGrantTime = Nothing,
-      _bpReason = Nothing,
-      _bpWorkerId = Nothing
+    { bonusAmount = Prelude.Nothing,
+      assignmentId = Prelude.Nothing,
+      grantTime = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      workerId = Prelude.Nothing
     }
 
 -- | Undocumented member.
-bpBonusAmount :: Lens' BonusPayment (Maybe Text)
-bpBonusAmount = lens _bpBonusAmount (\s a -> s {_bpBonusAmount = a})
+bonusPayment_bonusAmount :: Lens.Lens' BonusPayment (Prelude.Maybe Prelude.Text)
+bonusPayment_bonusAmount = Lens.lens (\BonusPayment' {bonusAmount} -> bonusAmount) (\s@BonusPayment' {} a -> s {bonusAmount = a} :: BonusPayment)
 
 -- | The ID of the assignment associated with this bonus payment.
-bpAssignmentId :: Lens' BonusPayment (Maybe Text)
-bpAssignmentId = lens _bpAssignmentId (\s a -> s {_bpAssignmentId = a})
+bonusPayment_assignmentId :: Lens.Lens' BonusPayment (Prelude.Maybe Prelude.Text)
+bonusPayment_assignmentId = Lens.lens (\BonusPayment' {assignmentId} -> assignmentId) (\s@BonusPayment' {} a -> s {assignmentId = a} :: BonusPayment)
 
 -- | The date and time of when the bonus was granted.
-bpGrantTime :: Lens' BonusPayment (Maybe UTCTime)
-bpGrantTime = lens _bpGrantTime (\s a -> s {_bpGrantTime = a}) . mapping _Time
+bonusPayment_grantTime :: Lens.Lens' BonusPayment (Prelude.Maybe Prelude.UTCTime)
+bonusPayment_grantTime = Lens.lens (\BonusPayment' {grantTime} -> grantTime) (\s@BonusPayment' {} a -> s {grantTime = a} :: BonusPayment) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Reason text given when the bonus was granted, if any.
-bpReason :: Lens' BonusPayment (Maybe Text)
-bpReason = lens _bpReason (\s a -> s {_bpReason = a})
+bonusPayment_reason :: Lens.Lens' BonusPayment (Prelude.Maybe Prelude.Text)
+bonusPayment_reason = Lens.lens (\BonusPayment' {reason} -> reason) (\s@BonusPayment' {} a -> s {reason = a} :: BonusPayment)
 
 -- | The ID of the Worker to whom the bonus was paid.
-bpWorkerId :: Lens' BonusPayment (Maybe Text)
-bpWorkerId = lens _bpWorkerId (\s a -> s {_bpWorkerId = a})
+bonusPayment_workerId :: Lens.Lens' BonusPayment (Prelude.Maybe Prelude.Text)
+bonusPayment_workerId = Lens.lens (\BonusPayment' {workerId} -> workerId) (\s@BonusPayment' {} a -> s {workerId = a} :: BonusPayment)
 
-instance FromJSON BonusPayment where
+instance Prelude.FromJSON BonusPayment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BonusPayment"
       ( \x ->
           BonusPayment'
-            <$> (x .:? "BonusAmount")
-            <*> (x .:? "AssignmentId")
-            <*> (x .:? "GrantTime")
-            <*> (x .:? "Reason")
-            <*> (x .:? "WorkerId")
+            Prelude.<$> (x Prelude..:? "BonusAmount")
+            Prelude.<*> (x Prelude..:? "AssignmentId")
+            Prelude.<*> (x Prelude..:? "GrantTime")
+            Prelude.<*> (x Prelude..:? "Reason")
+            Prelude.<*> (x Prelude..:? "WorkerId")
       )
 
-instance Hashable BonusPayment
+instance Prelude.Hashable BonusPayment
 
-instance NFData BonusPayment
+instance Prelude.NFData BonusPayment

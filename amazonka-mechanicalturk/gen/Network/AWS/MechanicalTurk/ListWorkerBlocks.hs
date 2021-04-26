@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @ListWorkersBlocks@ operation retrieves a list of Workers who are blocked from working on your HITs.
---
---
+-- The @ListWorkersBlocks@ operation retrieves a list of Workers who are
+-- blocked from working on your HITs.
 --
 -- This operation returns paginated results.
 module Network.AWS.MechanicalTurk.ListWorkerBlocks
   ( -- * Creating a Request
-    listWorkerBlocks,
-    ListWorkerBlocks,
+    ListWorkerBlocks (..),
+    newListWorkerBlocks,
 
     -- * Request Lenses
-    lwbNextToken,
-    lwbMaxResults,
+    listWorkerBlocks_nextToken,
+    listWorkerBlocks_maxResults,
 
     -- * Destructuring the Response
-    listWorkerBlocksResponse,
-    ListWorkerBlocksResponse,
+    ListWorkerBlocksResponse (..),
+    newListWorkerBlocksResponse,
 
     -- * Response Lenses
-    lwbrrsNextToken,
-    lwbrrsWorkerBlocks,
-    lwbrrsNumResults,
-    lwbrrsResponseStatus,
+    listWorkerBlocksResponse_nextToken,
+    listWorkerBlocksResponse_workerBlocks,
+    listWorkerBlocksResponse_numResults,
+    listWorkerBlocksResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MechanicalTurk.Types.WorkerBlock
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listWorkerBlocks' smart constructor.
+-- | /See:/ 'newListWorkerBlocks' smart constructor.
 data ListWorkerBlocks = ListWorkerBlocks'
-  { _lwbNextToken ::
-      !(Maybe Text),
-    _lwbMaxResults :: !(Maybe Nat)
+  { -- | Pagination token
+    nextToken :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListWorkerBlocks' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListWorkerBlocks' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lwbNextToken' - Pagination token
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lwbMaxResults' - Undocumented member.
-listWorkerBlocks ::
+-- 'nextToken', 'listWorkerBlocks_nextToken' - Pagination token
+--
+-- 'maxResults', 'listWorkerBlocks_maxResults' - Undocumented member.
+newListWorkerBlocks ::
   ListWorkerBlocks
-listWorkerBlocks =
+newListWorkerBlocks =
   ListWorkerBlocks'
-    { _lwbNextToken = Nothing,
-      _lwbMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | Pagination token
-lwbNextToken :: Lens' ListWorkerBlocks (Maybe Text)
-lwbNextToken = lens _lwbNextToken (\s a -> s {_lwbNextToken = a})
+listWorkerBlocks_nextToken :: Lens.Lens' ListWorkerBlocks (Prelude.Maybe Prelude.Text)
+listWorkerBlocks_nextToken = Lens.lens (\ListWorkerBlocks' {nextToken} -> nextToken) (\s@ListWorkerBlocks' {} a -> s {nextToken = a} :: ListWorkerBlocks)
 
 -- | Undocumented member.
-lwbMaxResults :: Lens' ListWorkerBlocks (Maybe Natural)
-lwbMaxResults = lens _lwbMaxResults (\s a -> s {_lwbMaxResults = a}) . mapping _Nat
+listWorkerBlocks_maxResults :: Lens.Lens' ListWorkerBlocks (Prelude.Maybe Prelude.Natural)
+listWorkerBlocks_maxResults = Lens.lens (\ListWorkerBlocks' {maxResults} -> maxResults) (\s@ListWorkerBlocks' {} a -> s {maxResults = a} :: ListWorkerBlocks) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListWorkerBlocks where
+instance Pager.AWSPager ListWorkerBlocks where
   page rq rs
-    | stop (rs ^. lwbrrsNextToken) = Nothing
-    | stop (rs ^. lwbrrsWorkerBlocks) = Nothing
-    | otherwise =
-      Just $ rq & lwbNextToken .~ rs ^. lwbrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listWorkerBlocksResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listWorkerBlocksResponse_workerBlocks
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listWorkerBlocks_nextToken
+          Lens..~ rs
+          Lens.^? listWorkerBlocksResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListWorkerBlocks where
+instance Prelude.AWSRequest ListWorkerBlocks where
   type Rs ListWorkerBlocks = ListWorkerBlocksResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListWorkerBlocksResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "WorkerBlocks" .!@ mempty)
-            <*> (x .?> "NumResults")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "WorkerBlocks"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NumResults")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListWorkerBlocks
+instance Prelude.Hashable ListWorkerBlocks
 
-instance NFData ListWorkerBlocks
+instance Prelude.NFData ListWorkerBlocks
 
-instance ToHeaders ListWorkerBlocks where
+instance Prelude.ToHeaders ListWorkerBlocks where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.ListWorkerBlocks" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.ListWorkerBlocks" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListWorkerBlocks where
+instance Prelude.ToJSON ListWorkerBlocks where
   toJSON ListWorkerBlocks' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lwbNextToken,
-            ("MaxResults" .=) <$> _lwbMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListWorkerBlocks where
-  toPath = const "/"
+instance Prelude.ToPath ListWorkerBlocks where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListWorkerBlocks where
-  toQuery = const mempty
+instance Prelude.ToQuery ListWorkerBlocks where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listWorkerBlocksResponse' smart constructor.
+-- | /See:/ 'newListWorkerBlocksResponse' smart constructor.
 data ListWorkerBlocksResponse = ListWorkerBlocksResponse'
-  { _lwbrrsNextToken ::
-      !(Maybe Text),
-    _lwbrrsWorkerBlocks ::
-      !( Maybe
-           [WorkerBlock]
-       ),
-    _lwbrrsNumResults ::
-      !(Maybe Int),
-    _lwbrrsResponseStatus ::
-      !Int
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of WorkerBlocks, containing the collection of Worker IDs and
+    -- reasons for blocking.
+    workerBlocks :: Prelude.Maybe [WorkerBlock],
+    -- | The number of assignments on the page in the filtered results list,
+    -- equivalent to the number of assignments returned by this call.
+    numResults :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListWorkerBlocksResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListWorkerBlocksResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lwbrrsNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lwbrrsWorkerBlocks' - The list of WorkerBlocks, containing the collection of Worker IDs and reasons for blocking.
+-- 'nextToken', 'listWorkerBlocksResponse_nextToken' - Undocumented member.
 --
--- * 'lwbrrsNumResults' - The number of assignments on the page in the filtered results list, equivalent to the number of assignments returned by this call.
+-- 'workerBlocks', 'listWorkerBlocksResponse_workerBlocks' - The list of WorkerBlocks, containing the collection of Worker IDs and
+-- reasons for blocking.
 --
--- * 'lwbrrsResponseStatus' - -- | The response status code.
-listWorkerBlocksResponse ::
-  -- | 'lwbrrsResponseStatus'
-  Int ->
+-- 'numResults', 'listWorkerBlocksResponse_numResults' - The number of assignments on the page in the filtered results list,
+-- equivalent to the number of assignments returned by this call.
+--
+-- 'httpStatus', 'listWorkerBlocksResponse_httpStatus' - The response's http status code.
+newListWorkerBlocksResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListWorkerBlocksResponse
-listWorkerBlocksResponse pResponseStatus_ =
+newListWorkerBlocksResponse pHttpStatus_ =
   ListWorkerBlocksResponse'
-    { _lwbrrsNextToken =
-        Nothing,
-      _lwbrrsWorkerBlocks = Nothing,
-      _lwbrrsNumResults = Nothing,
-      _lwbrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      workerBlocks = Prelude.Nothing,
+      numResults = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-lwbrrsNextToken :: Lens' ListWorkerBlocksResponse (Maybe Text)
-lwbrrsNextToken = lens _lwbrrsNextToken (\s a -> s {_lwbrrsNextToken = a})
+listWorkerBlocksResponse_nextToken :: Lens.Lens' ListWorkerBlocksResponse (Prelude.Maybe Prelude.Text)
+listWorkerBlocksResponse_nextToken = Lens.lens (\ListWorkerBlocksResponse' {nextToken} -> nextToken) (\s@ListWorkerBlocksResponse' {} a -> s {nextToken = a} :: ListWorkerBlocksResponse)
 
--- | The list of WorkerBlocks, containing the collection of Worker IDs and reasons for blocking.
-lwbrrsWorkerBlocks :: Lens' ListWorkerBlocksResponse [WorkerBlock]
-lwbrrsWorkerBlocks = lens _lwbrrsWorkerBlocks (\s a -> s {_lwbrrsWorkerBlocks = a}) . _Default . _Coerce
+-- | The list of WorkerBlocks, containing the collection of Worker IDs and
+-- reasons for blocking.
+listWorkerBlocksResponse_workerBlocks :: Lens.Lens' ListWorkerBlocksResponse (Prelude.Maybe [WorkerBlock])
+listWorkerBlocksResponse_workerBlocks = Lens.lens (\ListWorkerBlocksResponse' {workerBlocks} -> workerBlocks) (\s@ListWorkerBlocksResponse' {} a -> s {workerBlocks = a} :: ListWorkerBlocksResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of assignments on the page in the filtered results list, equivalent to the number of assignments returned by this call.
-lwbrrsNumResults :: Lens' ListWorkerBlocksResponse (Maybe Int)
-lwbrrsNumResults = lens _lwbrrsNumResults (\s a -> s {_lwbrrsNumResults = a})
+-- | The number of assignments on the page in the filtered results list,
+-- equivalent to the number of assignments returned by this call.
+listWorkerBlocksResponse_numResults :: Lens.Lens' ListWorkerBlocksResponse (Prelude.Maybe Prelude.Int)
+listWorkerBlocksResponse_numResults = Lens.lens (\ListWorkerBlocksResponse' {numResults} -> numResults) (\s@ListWorkerBlocksResponse' {} a -> s {numResults = a} :: ListWorkerBlocksResponse)
 
--- | -- | The response status code.
-lwbrrsResponseStatus :: Lens' ListWorkerBlocksResponse Int
-lwbrrsResponseStatus = lens _lwbrrsResponseStatus (\s a -> s {_lwbrrsResponseStatus = a})
+-- | The response's http status code.
+listWorkerBlocksResponse_httpStatus :: Lens.Lens' ListWorkerBlocksResponse Prelude.Int
+listWorkerBlocksResponse_httpStatus = Lens.lens (\ListWorkerBlocksResponse' {httpStatus} -> httpStatus) (\s@ListWorkerBlocksResponse' {} a -> s {httpStatus = a} :: ListWorkerBlocksResponse)
 
-instance NFData ListWorkerBlocksResponse
+instance Prelude.NFData ListWorkerBlocksResponse

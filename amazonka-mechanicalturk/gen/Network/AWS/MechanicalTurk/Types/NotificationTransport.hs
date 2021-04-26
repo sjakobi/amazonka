@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.MechanicalTurk.Types.NotificationTransport
   ( NotificationTransport
       ( ..,
-        Email,
-        SNS,
-        Sqs
+        NotificationTransportEmail,
+        NotificationTransportSNS,
+        NotificationTransportSQS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotificationTransport
-  = NotificationTransport'
-      ( CI
-          Text
-      )
+newtype NotificationTransport = NotificationTransport'
+  { fromNotificationTransport ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Email :: NotificationTransport
-pattern Email = NotificationTransport' "Email"
+pattern NotificationTransportEmail :: NotificationTransport
+pattern NotificationTransportEmail = NotificationTransport' "Email"
 
-pattern SNS :: NotificationTransport
-pattern SNS = NotificationTransport' "SNS"
+pattern NotificationTransportSNS :: NotificationTransport
+pattern NotificationTransportSNS = NotificationTransport' "SNS"
 
-pattern Sqs :: NotificationTransport
-pattern Sqs = NotificationTransport' "SQS"
+pattern NotificationTransportSQS :: NotificationTransport
+pattern NotificationTransportSQS = NotificationTransport' "SQS"
 
 {-# COMPLETE
-  Email,
-  SNS,
-  Sqs,
+  NotificationTransportEmail,
+  NotificationTransportSNS,
+  NotificationTransportSQS,
   NotificationTransport'
   #-}
 
-instance FromText NotificationTransport where
-  parser = (NotificationTransport' . mk) <$> takeText
+instance Prelude.FromText NotificationTransport where
+  parser = NotificationTransport' Prelude.<$> Prelude.takeText
 
-instance ToText NotificationTransport where
-  toText (NotificationTransport' ci) = original ci
+instance Prelude.ToText NotificationTransport where
+  toText (NotificationTransport' x) = x
 
-instance Hashable NotificationTransport
+instance Prelude.Hashable NotificationTransport
 
-instance NFData NotificationTransport
+instance Prelude.NFData NotificationTransport
 
-instance ToByteString NotificationTransport
+instance Prelude.ToByteString NotificationTransport
 
-instance ToQuery NotificationTransport
+instance Prelude.ToQuery NotificationTransport
 
-instance ToHeader NotificationTransport
+instance Prelude.ToHeader NotificationTransport
 
-instance ToJSON NotificationTransport where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotificationTransport where
+  toJSON = Prelude.toJSONText

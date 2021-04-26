@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @RejectQualificationRequest@ operation rejects a user's request for a Qualification.
+-- The @RejectQualificationRequest@ operation rejects a user\'s request for
+-- a Qualification.
 --
---
--- You can provide a text message explaining why the request was rejected. The Worker who made the request can see this message.
+-- You can provide a text message explaining why the request was rejected.
+-- The Worker who made the request can see this message.
 module Network.AWS.MechanicalTurk.RejectQualificationRequest
   ( -- * Creating a Request
-    rejectQualificationRequest,
-    RejectQualificationRequest,
+    RejectQualificationRequest (..),
+    newRejectQualificationRequest,
 
     -- * Request Lenses
-    rqrReason,
-    rqrQualificationRequestId,
+    rejectQualificationRequest_reason,
+    rejectQualificationRequest_qualificationRequestId,
 
     -- * Destructuring the Response
-    rejectQualificationRequestResponse,
-    RejectQualificationRequestResponse,
+    RejectQualificationRequestResponse (..),
+    newRejectQualificationRequestResponse,
 
     -- * Response Lenses
-    rqrrrsResponseStatus,
+    rejectQualificationRequestResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rejectQualificationRequest' smart constructor.
+-- | /See:/ 'newRejectQualificationRequest' smart constructor.
 data RejectQualificationRequest = RejectQualificationRequest'
-  { _rqrReason ::
-      !(Maybe Text),
-    _rqrQualificationRequestId ::
-      !Text
+  { -- | A text message explaining why the request was rejected, to be shown to
+    -- the Worker who made the request.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Qualification request, as returned by the
+    -- @ListQualificationRequests@ operation.
+    qualificationRequestId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectQualificationRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectQualificationRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rqrReason' - A text message explaining why the request was rejected, to be shown to the Worker who made the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rqrQualificationRequestId' - The ID of the Qualification request, as returned by the @ListQualificationRequests@ operation.
-rejectQualificationRequest ::
-  -- | 'rqrQualificationRequestId'
-  Text ->
+-- 'reason', 'rejectQualificationRequest_reason' - A text message explaining why the request was rejected, to be shown to
+-- the Worker who made the request.
+--
+-- 'qualificationRequestId', 'rejectQualificationRequest_qualificationRequestId' - The ID of the Qualification request, as returned by the
+-- @ListQualificationRequests@ operation.
+newRejectQualificationRequest ::
+  -- | 'qualificationRequestId'
+  Prelude.Text ->
   RejectQualificationRequest
-rejectQualificationRequest pQualificationRequestId_ =
-  RejectQualificationRequest'
-    { _rqrReason = Nothing,
-      _rqrQualificationRequestId =
-        pQualificationRequestId_
-    }
+newRejectQualificationRequest
+  pQualificationRequestId_ =
+    RejectQualificationRequest'
+      { reason =
+          Prelude.Nothing,
+        qualificationRequestId =
+          pQualificationRequestId_
+      }
 
--- | A text message explaining why the request was rejected, to be shown to the Worker who made the request.
-rqrReason :: Lens' RejectQualificationRequest (Maybe Text)
-rqrReason = lens _rqrReason (\s a -> s {_rqrReason = a})
+-- | A text message explaining why the request was rejected, to be shown to
+-- the Worker who made the request.
+rejectQualificationRequest_reason :: Lens.Lens' RejectQualificationRequest (Prelude.Maybe Prelude.Text)
+rejectQualificationRequest_reason = Lens.lens (\RejectQualificationRequest' {reason} -> reason) (\s@RejectQualificationRequest' {} a -> s {reason = a} :: RejectQualificationRequest)
 
--- | The ID of the Qualification request, as returned by the @ListQualificationRequests@ operation.
-rqrQualificationRequestId :: Lens' RejectQualificationRequest Text
-rqrQualificationRequestId = lens _rqrQualificationRequestId (\s a -> s {_rqrQualificationRequestId = a})
+-- | The ID of the Qualification request, as returned by the
+-- @ListQualificationRequests@ operation.
+rejectQualificationRequest_qualificationRequestId :: Lens.Lens' RejectQualificationRequest Prelude.Text
+rejectQualificationRequest_qualificationRequestId = Lens.lens (\RejectQualificationRequest' {qualificationRequestId} -> qualificationRequestId) (\s@RejectQualificationRequest' {} a -> s {qualificationRequestId = a} :: RejectQualificationRequest)
 
-instance AWSRequest RejectQualificationRequest where
+instance
+  Prelude.AWSRequest
+    RejectQualificationRequest
+  where
   type
     Rs RejectQualificationRequest =
       RejectQualificationRequestResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           RejectQualificationRequestResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RejectQualificationRequest
+instance Prelude.Hashable RejectQualificationRequest
 
-instance NFData RejectQualificationRequest
+instance Prelude.NFData RejectQualificationRequest
 
-instance ToHeaders RejectQualificationRequest where
+instance Prelude.ToHeaders RejectQualificationRequest where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.RejectQualificationRequest" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.RejectQualificationRequest" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RejectQualificationRequest where
+instance Prelude.ToJSON RejectQualificationRequest where
   toJSON RejectQualificationRequest' {..} =
-    object
-      ( catMaybes
-          [ ("Reason" .=) <$> _rqrReason,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Reason" Prelude..=) Prelude.<$> reason,
+            Prelude.Just
               ( "QualificationRequestId"
-                  .= _rqrQualificationRequestId
+                  Prelude..= qualificationRequestId
               )
           ]
       )
 
-instance ToPath RejectQualificationRequest where
-  toPath = const "/"
+instance Prelude.ToPath RejectQualificationRequest where
+  toPath = Prelude.const "/"
 
-instance ToQuery RejectQualificationRequest where
-  toQuery = const mempty
+instance Prelude.ToQuery RejectQualificationRequest where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rejectQualificationRequestResponse' smart constructor.
-newtype RejectQualificationRequestResponse = RejectQualificationRequestResponse'
-  { _rqrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRejectQualificationRequestResponse' smart constructor.
+data RejectQualificationRequestResponse = RejectQualificationRequestResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectQualificationRequestResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectQualificationRequestResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rqrrrsResponseStatus' - -- | The response status code.
-rejectQualificationRequestResponse ::
-  -- | 'rqrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'rejectQualificationRequestResponse_httpStatus' - The response's http status code.
+newRejectQualificationRequestResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RejectQualificationRequestResponse
-rejectQualificationRequestResponse pResponseStatus_ =
+newRejectQualificationRequestResponse pHttpStatus_ =
   RejectQualificationRequestResponse'
-    { _rqrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rqrrrsResponseStatus :: Lens' RejectQualificationRequestResponse Int
-rqrrrsResponseStatus = lens _rqrrrsResponseStatus (\s a -> s {_rqrrrsResponseStatus = a})
+-- | The response's http status code.
+rejectQualificationRequestResponse_httpStatus :: Lens.Lens' RejectQualificationRequestResponse Prelude.Int
+rejectQualificationRequestResponse_httpStatus = Lens.lens (\RejectQualificationRequestResponse' {httpStatus} -> httpStatus) (\s@RejectQualificationRequestResponse' {} a -> s {httpStatus = a} :: RejectQualificationRequestResponse)
 
-instance NFData RejectQualificationRequestResponse
+instance
+  Prelude.NFData
+    RejectQualificationRequestResponse

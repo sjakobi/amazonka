@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.MechanicalTurk.Types.NotifyWorkersFailureCode
   ( NotifyWorkersFailureCode
       ( ..,
-        HardFailure,
-        SoftFailure
+        NotifyWorkersFailureCodeHardFailure,
+        NotifyWorkersFailureCodeSoftFailure
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotifyWorkersFailureCode
-  = NotifyWorkersFailureCode'
-      ( CI
-          Text
-      )
+newtype NotifyWorkersFailureCode = NotifyWorkersFailureCode'
+  { fromNotifyWorkersFailureCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HardFailure :: NotifyWorkersFailureCode
-pattern HardFailure = NotifyWorkersFailureCode' "HardFailure"
+pattern NotifyWorkersFailureCodeHardFailure :: NotifyWorkersFailureCode
+pattern NotifyWorkersFailureCodeHardFailure = NotifyWorkersFailureCode' "HardFailure"
 
-pattern SoftFailure :: NotifyWorkersFailureCode
-pattern SoftFailure = NotifyWorkersFailureCode' "SoftFailure"
+pattern NotifyWorkersFailureCodeSoftFailure :: NotifyWorkersFailureCode
+pattern NotifyWorkersFailureCodeSoftFailure = NotifyWorkersFailureCode' "SoftFailure"
 
 {-# COMPLETE
-  HardFailure,
-  SoftFailure,
+  NotifyWorkersFailureCodeHardFailure,
+  NotifyWorkersFailureCodeSoftFailure,
   NotifyWorkersFailureCode'
   #-}
 
-instance FromText NotifyWorkersFailureCode where
-  parser = (NotifyWorkersFailureCode' . mk) <$> takeText
+instance Prelude.FromText NotifyWorkersFailureCode where
+  parser = NotifyWorkersFailureCode' Prelude.<$> Prelude.takeText
 
-instance ToText NotifyWorkersFailureCode where
-  toText (NotifyWorkersFailureCode' ci) = original ci
+instance Prelude.ToText NotifyWorkersFailureCode where
+  toText (NotifyWorkersFailureCode' x) = x
 
-instance Hashable NotifyWorkersFailureCode
+instance Prelude.Hashable NotifyWorkersFailureCode
 
-instance NFData NotifyWorkersFailureCode
+instance Prelude.NFData NotifyWorkersFailureCode
 
-instance ToByteString NotifyWorkersFailureCode
+instance Prelude.ToByteString NotifyWorkersFailureCode
 
-instance ToQuery NotifyWorkersFailureCode
+instance Prelude.ToQuery NotifyWorkersFailureCode
 
-instance ToHeader NotifyWorkersFailureCode
+instance Prelude.ToHeader NotifyWorkersFailureCode
 
-instance FromJSON NotifyWorkersFailureCode where
-  parseJSON = parseJSONText "NotifyWorkersFailureCode"
+instance Prelude.FromJSON NotifyWorkersFailureCode where
+  parseJSON = Prelude.parseJSONText "NotifyWorkersFailureCode"

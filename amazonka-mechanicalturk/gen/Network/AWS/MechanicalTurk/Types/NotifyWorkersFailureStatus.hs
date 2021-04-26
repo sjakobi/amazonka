@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.NotifyWorkersFailureStatus where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types.NotifyWorkersFailureCode
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When MTurk encounters an issue with notifying the Workers you specified, it returns back this object with failure details.
+-- | When MTurk encounters an issue with notifying the Workers you specified,
+-- it returns back this object with failure details.
 --
---
---
--- /See:/ 'notifyWorkersFailureStatus' smart constructor.
+-- /See:/ 'newNotifyWorkersFailureStatus' smart constructor.
 data NotifyWorkersFailureStatus = NotifyWorkersFailureStatus'
-  { _nwfsWorkerId ::
-      !(Maybe Text),
-    _nwfsNotifyWorkersFailureCode ::
-      !( Maybe
-           NotifyWorkersFailureCode
-       ),
-    _nwfsNotifyWorkersFailureMessage ::
-      !(Maybe Text)
+  { -- | The ID of the Worker.
+    workerId :: Prelude.Maybe Prelude.Text,
+    -- | Encoded value for the failure type.
+    notifyWorkersFailureCode :: Prelude.Maybe NotifyWorkersFailureCode,
+    -- | A message detailing the reason the Worker could not be notified.
+    notifyWorkersFailureMessage :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotifyWorkersFailureStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotifyWorkersFailureStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nwfsWorkerId' - The ID of the Worker.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nwfsNotifyWorkersFailureCode' - Encoded value for the failure type.
+-- 'workerId', 'notifyWorkersFailureStatus_workerId' - The ID of the Worker.
 --
--- * 'nwfsNotifyWorkersFailureMessage' - A message detailing the reason the Worker could not be notified.
-notifyWorkersFailureStatus ::
+-- 'notifyWorkersFailureCode', 'notifyWorkersFailureStatus_notifyWorkersFailureCode' - Encoded value for the failure type.
+--
+-- 'notifyWorkersFailureMessage', 'notifyWorkersFailureStatus_notifyWorkersFailureMessage' - A message detailing the reason the Worker could not be notified.
+newNotifyWorkersFailureStatus ::
   NotifyWorkersFailureStatus
-notifyWorkersFailureStatus =
+newNotifyWorkersFailureStatus =
   NotifyWorkersFailureStatus'
-    { _nwfsWorkerId =
-        Nothing,
-      _nwfsNotifyWorkersFailureCode = Nothing,
-      _nwfsNotifyWorkersFailureMessage = Nothing
+    { workerId =
+        Prelude.Nothing,
+      notifyWorkersFailureCode = Prelude.Nothing,
+      notifyWorkersFailureMessage = Prelude.Nothing
     }
 
 -- | The ID of the Worker.
-nwfsWorkerId :: Lens' NotifyWorkersFailureStatus (Maybe Text)
-nwfsWorkerId = lens _nwfsWorkerId (\s a -> s {_nwfsWorkerId = a})
+notifyWorkersFailureStatus_workerId :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe Prelude.Text)
+notifyWorkersFailureStatus_workerId = Lens.lens (\NotifyWorkersFailureStatus' {workerId} -> workerId) (\s@NotifyWorkersFailureStatus' {} a -> s {workerId = a} :: NotifyWorkersFailureStatus)
 
 -- | Encoded value for the failure type.
-nwfsNotifyWorkersFailureCode :: Lens' NotifyWorkersFailureStatus (Maybe NotifyWorkersFailureCode)
-nwfsNotifyWorkersFailureCode = lens _nwfsNotifyWorkersFailureCode (\s a -> s {_nwfsNotifyWorkersFailureCode = a})
+notifyWorkersFailureStatus_notifyWorkersFailureCode :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe NotifyWorkersFailureCode)
+notifyWorkersFailureStatus_notifyWorkersFailureCode = Lens.lens (\NotifyWorkersFailureStatus' {notifyWorkersFailureCode} -> notifyWorkersFailureCode) (\s@NotifyWorkersFailureStatus' {} a -> s {notifyWorkersFailureCode = a} :: NotifyWorkersFailureStatus)
 
 -- | A message detailing the reason the Worker could not be notified.
-nwfsNotifyWorkersFailureMessage :: Lens' NotifyWorkersFailureStatus (Maybe Text)
-nwfsNotifyWorkersFailureMessage = lens _nwfsNotifyWorkersFailureMessage (\s a -> s {_nwfsNotifyWorkersFailureMessage = a})
+notifyWorkersFailureStatus_notifyWorkersFailureMessage :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe Prelude.Text)
+notifyWorkersFailureStatus_notifyWorkersFailureMessage = Lens.lens (\NotifyWorkersFailureStatus' {notifyWorkersFailureMessage} -> notifyWorkersFailureMessage) (\s@NotifyWorkersFailureStatus' {} a -> s {notifyWorkersFailureMessage = a} :: NotifyWorkersFailureStatus)
 
-instance FromJSON NotifyWorkersFailureStatus where
+instance Prelude.FromJSON NotifyWorkersFailureStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NotifyWorkersFailureStatus"
       ( \x ->
           NotifyWorkersFailureStatus'
-            <$> (x .:? "WorkerId")
-            <*> (x .:? "NotifyWorkersFailureCode")
-            <*> (x .:? "NotifyWorkersFailureMessage")
+            Prelude.<$> (x Prelude..:? "WorkerId")
+            Prelude.<*> (x Prelude..:? "NotifyWorkersFailureCode")
+            Prelude.<*> (x Prelude..:? "NotifyWorkersFailureMessage")
       )
 
-instance Hashable NotifyWorkersFailureStatus
+instance Prelude.Hashable NotifyWorkersFailureStatus
 
-instance NFData NotifyWorkersFailureStatus
+instance Prelude.NFData NotifyWorkersFailureStatus

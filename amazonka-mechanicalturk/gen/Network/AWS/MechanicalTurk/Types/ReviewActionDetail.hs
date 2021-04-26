@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,110 +19,129 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.ReviewActionDetail where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types.ReviewActionStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Both the AssignmentReviewReport and the HITReviewReport elements contains the ReviewActionDetail data structure. This structure is returned multiple times for each action specified in the Review Policy.
+-- | Both the AssignmentReviewReport and the HITReviewReport elements
+-- contains the ReviewActionDetail data structure. This structure is
+-- returned multiple times for each action specified in the Review Policy.
 --
---
---
--- /See:/ 'reviewActionDetail' smart constructor.
+-- /See:/ 'newReviewActionDetail' smart constructor.
 data ReviewActionDetail = ReviewActionDetail'
-  { _radStatus ::
-      !(Maybe ReviewActionStatus),
-    _radTargetId :: !(Maybe Text),
-    _radActionName :: !(Maybe Text),
-    _radTargetType :: !(Maybe Text),
-    _radResult :: !(Maybe Text),
-    _radActionId :: !(Maybe Text),
-    _radCompleteTime ::
-      !(Maybe POSIX),
-    _radErrorCode :: !(Maybe Text)
+  { -- | The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or
+    -- CANCELLED.
+    status :: Prelude.Maybe ReviewActionStatus,
+    -- | The specific HITId or AssignmentID targeted by the action.
+    targetId :: Prelude.Maybe Prelude.Text,
+    -- | The nature of the action itself. The Review Policy is responsible for
+    -- examining the HIT and Assignments, emitting results, and deciding which
+    -- other actions will be necessary.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | The type of object in TargetId.
+    targetType :: Prelude.Maybe Prelude.Text,
+    -- | A description of the outcome of the review.
+    result :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the action.
+    actionId :: Prelude.Maybe Prelude.Text,
+    -- | The date when the action was completed.
+    completeTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Present only when the Results have a FAILED Status.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReviewActionDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReviewActionDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'radStatus' - The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or CANCELLED.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'radTargetId' - The specific HITId or AssignmentID targeted by the action.
+-- 'status', 'reviewActionDetail_status' - The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or
+-- CANCELLED.
 --
--- * 'radActionName' - The nature of the action itself. The Review Policy is responsible for examining the HIT and Assignments, emitting results, and deciding which other actions will be necessary.
+-- 'targetId', 'reviewActionDetail_targetId' - The specific HITId or AssignmentID targeted by the action.
 --
--- * 'radTargetType' - The type of object in TargetId.
+-- 'actionName', 'reviewActionDetail_actionName' - The nature of the action itself. The Review Policy is responsible for
+-- examining the HIT and Assignments, emitting results, and deciding which
+-- other actions will be necessary.
 --
--- * 'radResult' - A description of the outcome of the review.
+-- 'targetType', 'reviewActionDetail_targetType' - The type of object in TargetId.
 --
--- * 'radActionId' - The unique identifier for the action.
+-- 'result', 'reviewActionDetail_result' - A description of the outcome of the review.
 --
--- * 'radCompleteTime' - The date when the action was completed.
+-- 'actionId', 'reviewActionDetail_actionId' - The unique identifier for the action.
 --
--- * 'radErrorCode' - Present only when the Results have a FAILED Status.
-reviewActionDetail ::
+-- 'completeTime', 'reviewActionDetail_completeTime' - The date when the action was completed.
+--
+-- 'errorCode', 'reviewActionDetail_errorCode' - Present only when the Results have a FAILED Status.
+newReviewActionDetail ::
   ReviewActionDetail
-reviewActionDetail =
+newReviewActionDetail =
   ReviewActionDetail'
-    { _radStatus = Nothing,
-      _radTargetId = Nothing,
-      _radActionName = Nothing,
-      _radTargetType = Nothing,
-      _radResult = Nothing,
-      _radActionId = Nothing,
-      _radCompleteTime = Nothing,
-      _radErrorCode = Nothing
+    { status = Prelude.Nothing,
+      targetId = Prelude.Nothing,
+      actionName = Prelude.Nothing,
+      targetType = Prelude.Nothing,
+      result = Prelude.Nothing,
+      actionId = Prelude.Nothing,
+      completeTime = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or CANCELLED.
-radStatus :: Lens' ReviewActionDetail (Maybe ReviewActionStatus)
-radStatus = lens _radStatus (\s a -> s {_radStatus = a})
+-- | The current disposition of the action: INTENDED, SUCCEEDED, FAILED, or
+-- CANCELLED.
+reviewActionDetail_status :: Lens.Lens' ReviewActionDetail (Prelude.Maybe ReviewActionStatus)
+reviewActionDetail_status = Lens.lens (\ReviewActionDetail' {status} -> status) (\s@ReviewActionDetail' {} a -> s {status = a} :: ReviewActionDetail)
 
 -- | The specific HITId or AssignmentID targeted by the action.
-radTargetId :: Lens' ReviewActionDetail (Maybe Text)
-radTargetId = lens _radTargetId (\s a -> s {_radTargetId = a})
+reviewActionDetail_targetId :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.Text)
+reviewActionDetail_targetId = Lens.lens (\ReviewActionDetail' {targetId} -> targetId) (\s@ReviewActionDetail' {} a -> s {targetId = a} :: ReviewActionDetail)
 
--- | The nature of the action itself. The Review Policy is responsible for examining the HIT and Assignments, emitting results, and deciding which other actions will be necessary.
-radActionName :: Lens' ReviewActionDetail (Maybe Text)
-radActionName = lens _radActionName (\s a -> s {_radActionName = a})
+-- | The nature of the action itself. The Review Policy is responsible for
+-- examining the HIT and Assignments, emitting results, and deciding which
+-- other actions will be necessary.
+reviewActionDetail_actionName :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.Text)
+reviewActionDetail_actionName = Lens.lens (\ReviewActionDetail' {actionName} -> actionName) (\s@ReviewActionDetail' {} a -> s {actionName = a} :: ReviewActionDetail)
 
 -- | The type of object in TargetId.
-radTargetType :: Lens' ReviewActionDetail (Maybe Text)
-radTargetType = lens _radTargetType (\s a -> s {_radTargetType = a})
+reviewActionDetail_targetType :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.Text)
+reviewActionDetail_targetType = Lens.lens (\ReviewActionDetail' {targetType} -> targetType) (\s@ReviewActionDetail' {} a -> s {targetType = a} :: ReviewActionDetail)
 
 -- | A description of the outcome of the review.
-radResult :: Lens' ReviewActionDetail (Maybe Text)
-radResult = lens _radResult (\s a -> s {_radResult = a})
+reviewActionDetail_result :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.Text)
+reviewActionDetail_result = Lens.lens (\ReviewActionDetail' {result} -> result) (\s@ReviewActionDetail' {} a -> s {result = a} :: ReviewActionDetail)
 
 -- | The unique identifier for the action.
-radActionId :: Lens' ReviewActionDetail (Maybe Text)
-radActionId = lens _radActionId (\s a -> s {_radActionId = a})
+reviewActionDetail_actionId :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.Text)
+reviewActionDetail_actionId = Lens.lens (\ReviewActionDetail' {actionId} -> actionId) (\s@ReviewActionDetail' {} a -> s {actionId = a} :: ReviewActionDetail)
 
 -- | The date when the action was completed.
-radCompleteTime :: Lens' ReviewActionDetail (Maybe UTCTime)
-radCompleteTime = lens _radCompleteTime (\s a -> s {_radCompleteTime = a}) . mapping _Time
+reviewActionDetail_completeTime :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.UTCTime)
+reviewActionDetail_completeTime = Lens.lens (\ReviewActionDetail' {completeTime} -> completeTime) (\s@ReviewActionDetail' {} a -> s {completeTime = a} :: ReviewActionDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | Present only when the Results have a FAILED Status.
-radErrorCode :: Lens' ReviewActionDetail (Maybe Text)
-radErrorCode = lens _radErrorCode (\s a -> s {_radErrorCode = a})
+reviewActionDetail_errorCode :: Lens.Lens' ReviewActionDetail (Prelude.Maybe Prelude.Text)
+reviewActionDetail_errorCode = Lens.lens (\ReviewActionDetail' {errorCode} -> errorCode) (\s@ReviewActionDetail' {} a -> s {errorCode = a} :: ReviewActionDetail)
 
-instance FromJSON ReviewActionDetail where
+instance Prelude.FromJSON ReviewActionDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReviewActionDetail"
       ( \x ->
           ReviewActionDetail'
-            <$> (x .:? "Status")
-            <*> (x .:? "TargetId")
-            <*> (x .:? "ActionName")
-            <*> (x .:? "TargetType")
-            <*> (x .:? "Result")
-            <*> (x .:? "ActionId")
-            <*> (x .:? "CompleteTime")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "TargetId")
+            Prelude.<*> (x Prelude..:? "ActionName")
+            Prelude.<*> (x Prelude..:? "TargetType")
+            Prelude.<*> (x Prelude..:? "Result")
+            Prelude.<*> (x Prelude..:? "ActionId")
+            Prelude.<*> (x Prelude..:? "CompleteTime")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable ReviewActionDetail
+instance Prelude.Hashable ReviewActionDetail
 
-instance NFData ReviewActionDetail
+instance Prelude.NFData ReviewActionDetail

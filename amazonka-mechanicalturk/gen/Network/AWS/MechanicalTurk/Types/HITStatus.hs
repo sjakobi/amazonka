@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.MechanicalTurk.Types.HITStatus
   ( HITStatus
       ( ..,
-        Assignable,
-        Disposed,
-        Reviewable,
-        Reviewing,
-        Unassignable
+        HITStatusAssignable,
+        HITStatusDisposed,
+        HITStatusReviewable,
+        HITStatusReviewing,
+        HITStatusUnassignable
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HITStatus = HITStatus' (CI Text)
+newtype HITStatus = HITStatus'
+  { fromHITStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Assignable :: HITStatus
-pattern Assignable = HITStatus' "Assignable"
+pattern HITStatusAssignable :: HITStatus
+pattern HITStatusAssignable = HITStatus' "Assignable"
 
-pattern Disposed :: HITStatus
-pattern Disposed = HITStatus' "Disposed"
+pattern HITStatusDisposed :: HITStatus
+pattern HITStatusDisposed = HITStatus' "Disposed"
 
-pattern Reviewable :: HITStatus
-pattern Reviewable = HITStatus' "Reviewable"
+pattern HITStatusReviewable :: HITStatus
+pattern HITStatusReviewable = HITStatus' "Reviewable"
 
-pattern Reviewing :: HITStatus
-pattern Reviewing = HITStatus' "Reviewing"
+pattern HITStatusReviewing :: HITStatus
+pattern HITStatusReviewing = HITStatus' "Reviewing"
 
-pattern Unassignable :: HITStatus
-pattern Unassignable = HITStatus' "Unassignable"
+pattern HITStatusUnassignable :: HITStatus
+pattern HITStatusUnassignable = HITStatus' "Unassignable"
 
 {-# COMPLETE
-  Assignable,
-  Disposed,
-  Reviewable,
-  Reviewing,
-  Unassignable,
+  HITStatusAssignable,
+  HITStatusDisposed,
+  HITStatusReviewable,
+  HITStatusReviewing,
+  HITStatusUnassignable,
   HITStatus'
   #-}
 
-instance FromText HITStatus where
-  parser = (HITStatus' . mk) <$> takeText
+instance Prelude.FromText HITStatus where
+  parser = HITStatus' Prelude.<$> Prelude.takeText
 
-instance ToText HITStatus where
-  toText (HITStatus' ci) = original ci
+instance Prelude.ToText HITStatus where
+  toText (HITStatus' x) = x
 
-instance Hashable HITStatus
+instance Prelude.Hashable HITStatus
 
-instance NFData HITStatus
+instance Prelude.NFData HITStatus
 
-instance ToByteString HITStatus
+instance Prelude.ToByteString HITStatus
 
-instance ToQuery HITStatus
+instance Prelude.ToQuery HITStatus
 
-instance ToHeader HITStatus
+instance Prelude.ToHeader HITStatus
 
-instance FromJSON HITStatus where
-  parseJSON = parseJSONText "HITStatus"
+instance Prelude.FromJSON HITStatus where
+  parseJSON = Prelude.parseJSONText "HITStatus"

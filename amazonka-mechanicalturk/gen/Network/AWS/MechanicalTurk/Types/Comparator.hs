@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +19,98 @@
 module Network.AWS.MechanicalTurk.Types.Comparator
   ( Comparator
       ( ..,
-        DoesNotExist,
-        EqualTo,
-        Exists,
-        GreaterThan,
-        GreaterThanOrEqualTo,
-        IN,
-        LessThan,
-        LessThanOrEqualTo,
-        NotEqualTo,
-        NotIn
+        ComparatorDoesNotExist,
+        ComparatorEqualTo,
+        ComparatorExists,
+        ComparatorGreaterThan,
+        ComparatorGreaterThanOrEqualTo,
+        ComparatorIN,
+        ComparatorLessThan,
+        ComparatorLessThanOrEqualTo,
+        ComparatorNotEqualTo,
+        ComparatorNotIn
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Comparator = Comparator' (CI Text)
+newtype Comparator = Comparator'
+  { fromComparator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DoesNotExist :: Comparator
-pattern DoesNotExist = Comparator' "DoesNotExist"
+pattern ComparatorDoesNotExist :: Comparator
+pattern ComparatorDoesNotExist = Comparator' "DoesNotExist"
 
-pattern EqualTo :: Comparator
-pattern EqualTo = Comparator' "EqualTo"
+pattern ComparatorEqualTo :: Comparator
+pattern ComparatorEqualTo = Comparator' "EqualTo"
 
-pattern Exists :: Comparator
-pattern Exists = Comparator' "Exists"
+pattern ComparatorExists :: Comparator
+pattern ComparatorExists = Comparator' "Exists"
 
-pattern GreaterThan :: Comparator
-pattern GreaterThan = Comparator' "GreaterThan"
+pattern ComparatorGreaterThan :: Comparator
+pattern ComparatorGreaterThan = Comparator' "GreaterThan"
 
-pattern GreaterThanOrEqualTo :: Comparator
-pattern GreaterThanOrEqualTo = Comparator' "GreaterThanOrEqualTo"
+pattern ComparatorGreaterThanOrEqualTo :: Comparator
+pattern ComparatorGreaterThanOrEqualTo = Comparator' "GreaterThanOrEqualTo"
 
-pattern IN :: Comparator
-pattern IN = Comparator' "In"
+pattern ComparatorIN :: Comparator
+pattern ComparatorIN = Comparator' "In"
 
-pattern LessThan :: Comparator
-pattern LessThan = Comparator' "LessThan"
+pattern ComparatorLessThan :: Comparator
+pattern ComparatorLessThan = Comparator' "LessThan"
 
-pattern LessThanOrEqualTo :: Comparator
-pattern LessThanOrEqualTo = Comparator' "LessThanOrEqualTo"
+pattern ComparatorLessThanOrEqualTo :: Comparator
+pattern ComparatorLessThanOrEqualTo = Comparator' "LessThanOrEqualTo"
 
-pattern NotEqualTo :: Comparator
-pattern NotEqualTo = Comparator' "NotEqualTo"
+pattern ComparatorNotEqualTo :: Comparator
+pattern ComparatorNotEqualTo = Comparator' "NotEqualTo"
 
-pattern NotIn :: Comparator
-pattern NotIn = Comparator' "NotIn"
+pattern ComparatorNotIn :: Comparator
+pattern ComparatorNotIn = Comparator' "NotIn"
 
 {-# COMPLETE
-  DoesNotExist,
-  EqualTo,
-  Exists,
-  GreaterThan,
-  GreaterThanOrEqualTo,
-  IN,
-  LessThan,
-  LessThanOrEqualTo,
-  NotEqualTo,
-  NotIn,
+  ComparatorDoesNotExist,
+  ComparatorEqualTo,
+  ComparatorExists,
+  ComparatorGreaterThan,
+  ComparatorGreaterThanOrEqualTo,
+  ComparatorIN,
+  ComparatorLessThan,
+  ComparatorLessThanOrEqualTo,
+  ComparatorNotEqualTo,
+  ComparatorNotIn,
   Comparator'
   #-}
 
-instance FromText Comparator where
-  parser = (Comparator' . mk) <$> takeText
+instance Prelude.FromText Comparator where
+  parser = Comparator' Prelude.<$> Prelude.takeText
 
-instance ToText Comparator where
-  toText (Comparator' ci) = original ci
+instance Prelude.ToText Comparator where
+  toText (Comparator' x) = x
 
-instance Hashable Comparator
+instance Prelude.Hashable Comparator
 
-instance NFData Comparator
+instance Prelude.NFData Comparator
 
-instance ToByteString Comparator
+instance Prelude.ToByteString Comparator
 
-instance ToQuery Comparator
+instance Prelude.ToQuery Comparator
 
-instance ToHeader Comparator
+instance Prelude.ToHeader Comparator
 
-instance ToJSON Comparator where
-  toJSON = toJSONText
+instance Prelude.ToJSON Comparator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Comparator where
-  parseJSON = parseJSONText "Comparator"
+instance Prelude.FromJSON Comparator where
+  parseJSON = Prelude.parseJSONText "Comparator"

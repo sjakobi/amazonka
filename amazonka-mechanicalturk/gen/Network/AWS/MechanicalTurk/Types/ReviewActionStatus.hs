@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.MechanicalTurk.Types.ReviewActionStatus
   ( ReviewActionStatus
       ( ..,
-        Cancelled,
-        Failed,
-        Intended,
-        Succeeded
+        ReviewActionStatusCancelled,
+        ReviewActionStatusFailed,
+        ReviewActionStatusIntended,
+        ReviewActionStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReviewActionStatus
-  = ReviewActionStatus'
-      ( CI
-          Text
-      )
+newtype ReviewActionStatus = ReviewActionStatus'
+  { fromReviewActionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cancelled :: ReviewActionStatus
-pattern Cancelled = ReviewActionStatus' "Cancelled"
+pattern ReviewActionStatusCancelled :: ReviewActionStatus
+pattern ReviewActionStatusCancelled = ReviewActionStatus' "Cancelled"
 
-pattern Failed :: ReviewActionStatus
-pattern Failed = ReviewActionStatus' "Failed"
+pattern ReviewActionStatusFailed :: ReviewActionStatus
+pattern ReviewActionStatusFailed = ReviewActionStatus' "Failed"
 
-pattern Intended :: ReviewActionStatus
-pattern Intended = ReviewActionStatus' "Intended"
+pattern ReviewActionStatusIntended :: ReviewActionStatus
+pattern ReviewActionStatusIntended = ReviewActionStatus' "Intended"
 
-pattern Succeeded :: ReviewActionStatus
-pattern Succeeded = ReviewActionStatus' "Succeeded"
+pattern ReviewActionStatusSucceeded :: ReviewActionStatus
+pattern ReviewActionStatusSucceeded = ReviewActionStatus' "Succeeded"
 
 {-# COMPLETE
-  Cancelled,
-  Failed,
-  Intended,
-  Succeeded,
+  ReviewActionStatusCancelled,
+  ReviewActionStatusFailed,
+  ReviewActionStatusIntended,
+  ReviewActionStatusSucceeded,
   ReviewActionStatus'
   #-}
 
-instance FromText ReviewActionStatus where
-  parser = (ReviewActionStatus' . mk) <$> takeText
+instance Prelude.FromText ReviewActionStatus where
+  parser = ReviewActionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReviewActionStatus where
-  toText (ReviewActionStatus' ci) = original ci
+instance Prelude.ToText ReviewActionStatus where
+  toText (ReviewActionStatus' x) = x
 
-instance Hashable ReviewActionStatus
+instance Prelude.Hashable ReviewActionStatus
 
-instance NFData ReviewActionStatus
+instance Prelude.NFData ReviewActionStatus
 
-instance ToByteString ReviewActionStatus
+instance Prelude.ToByteString ReviewActionStatus
 
-instance ToQuery ReviewActionStatus
+instance Prelude.ToQuery ReviewActionStatus
 
-instance ToHeader ReviewActionStatus
+instance Prelude.ToHeader ReviewActionStatus
 
-instance FromJSON ReviewActionStatus where
-  parseJSON = parseJSONText "ReviewActionStatus"
+instance Prelude.FromJSON ReviewActionStatus where
+  parseJSON = Prelude.parseJSONText "ReviewActionStatus"

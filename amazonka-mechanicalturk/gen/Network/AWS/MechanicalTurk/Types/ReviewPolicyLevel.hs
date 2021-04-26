@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.MechanicalTurk.Types.ReviewPolicyLevel
   ( ReviewPolicyLevel
       ( ..,
-        Assignment,
-        Hit
+        ReviewPolicyLevelAssignment,
+        ReviewPolicyLevelHIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReviewPolicyLevel = ReviewPolicyLevel' (CI Text)
+newtype ReviewPolicyLevel = ReviewPolicyLevel'
+  { fromReviewPolicyLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Assignment :: ReviewPolicyLevel
-pattern Assignment = ReviewPolicyLevel' "Assignment"
+pattern ReviewPolicyLevelAssignment :: ReviewPolicyLevel
+pattern ReviewPolicyLevelAssignment = ReviewPolicyLevel' "Assignment"
 
-pattern Hit :: ReviewPolicyLevel
-pattern Hit = ReviewPolicyLevel' "HIT"
+pattern ReviewPolicyLevelHIT :: ReviewPolicyLevel
+pattern ReviewPolicyLevelHIT = ReviewPolicyLevel' "HIT"
 
 {-# COMPLETE
-  Assignment,
-  Hit,
+  ReviewPolicyLevelAssignment,
+  ReviewPolicyLevelHIT,
   ReviewPolicyLevel'
   #-}
 
-instance FromText ReviewPolicyLevel where
-  parser = (ReviewPolicyLevel' . mk) <$> takeText
+instance Prelude.FromText ReviewPolicyLevel where
+  parser = ReviewPolicyLevel' Prelude.<$> Prelude.takeText
 
-instance ToText ReviewPolicyLevel where
-  toText (ReviewPolicyLevel' ci) = original ci
+instance Prelude.ToText ReviewPolicyLevel where
+  toText (ReviewPolicyLevel' x) = x
 
-instance Hashable ReviewPolicyLevel
+instance Prelude.Hashable ReviewPolicyLevel
 
-instance NFData ReviewPolicyLevel
+instance Prelude.NFData ReviewPolicyLevel
 
-instance ToByteString ReviewPolicyLevel
+instance Prelude.ToByteString ReviewPolicyLevel
 
-instance ToQuery ReviewPolicyLevel
+instance Prelude.ToQuery ReviewPolicyLevel
 
-instance ToHeader ReviewPolicyLevel
+instance Prelude.ToHeader ReviewPolicyLevel
 
-instance ToJSON ReviewPolicyLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReviewPolicyLevel where
+  toJSON = Prelude.toJSONText

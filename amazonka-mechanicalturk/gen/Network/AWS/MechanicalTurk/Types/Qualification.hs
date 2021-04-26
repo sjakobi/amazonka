@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,112 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.Qualification where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types.Locale
 import Network.AWS.MechanicalTurk.Types.QualificationStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Qualification data structure represents a Qualification assigned to a user, including the Qualification type and the value (score).
+-- | The Qualification data structure represents a Qualification assigned to
+-- a user, including the Qualification type and the value (score).
 --
---
---
--- /See:/ 'qualification' smart constructor.
+-- /See:/ 'newQualification' smart constructor.
 data Qualification = Qualification'
-  { _qQualificationTypeId ::
-      !(Maybe Text),
-    _qStatus :: !(Maybe QualificationStatus),
-    _qGrantTime :: !(Maybe POSIX),
-    _qWorkerId :: !(Maybe Text),
-    _qLocaleValue :: !(Maybe Locale),
-    _qIntegerValue :: !(Maybe Int)
+  { -- | The ID of the Qualification type for the Qualification.
+    qualificationTypeId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the Qualification. Valid values are Granted | Revoked.
+    status :: Prelude.Maybe QualificationStatus,
+    -- | The date and time the Qualification was granted to the Worker. If the
+    -- Worker\'s Qualification was revoked, and then re-granted based on a new
+    -- Qualification request, GrantTime is the date and time of the last call
+    -- to the AcceptQualificationRequest operation.
+    grantTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the Worker who possesses the Qualification.
+    workerId :: Prelude.Maybe Prelude.Text,
+    localeValue :: Prelude.Maybe Locale,
+    -- | The value (score) of the Qualification, if the Qualification has an
+    -- integer value.
+    integerValue :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Qualification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Qualification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qQualificationTypeId' - The ID of the Qualification type for the Qualification.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qStatus' - The status of the Qualification. Valid values are Granted | Revoked.
+-- 'qualificationTypeId', 'qualification_qualificationTypeId' - The ID of the Qualification type for the Qualification.
 --
--- * 'qGrantTime' - The date and time the Qualification was granted to the Worker. If the Worker's Qualification was revoked, and then re-granted based on a new Qualification request, GrantTime is the date and time of the last call to the AcceptQualificationRequest operation.
+-- 'status', 'qualification_status' - The status of the Qualification. Valid values are Granted | Revoked.
 --
--- * 'qWorkerId' - The ID of the Worker who possesses the Qualification.
+-- 'grantTime', 'qualification_grantTime' - The date and time the Qualification was granted to the Worker. If the
+-- Worker\'s Qualification was revoked, and then re-granted based on a new
+-- Qualification request, GrantTime is the date and time of the last call
+-- to the AcceptQualificationRequest operation.
 --
--- * 'qLocaleValue' - Undocumented member.
+-- 'workerId', 'qualification_workerId' - The ID of the Worker who possesses the Qualification.
 --
--- * 'qIntegerValue' - The value (score) of the Qualification, if the Qualification has an integer value.
-qualification ::
+-- 'localeValue', 'qualification_localeValue' - Undocumented member.
+--
+-- 'integerValue', 'qualification_integerValue' - The value (score) of the Qualification, if the Qualification has an
+-- integer value.
+newQualification ::
   Qualification
-qualification =
+newQualification =
   Qualification'
-    { _qQualificationTypeId = Nothing,
-      _qStatus = Nothing,
-      _qGrantTime = Nothing,
-      _qWorkerId = Nothing,
-      _qLocaleValue = Nothing,
-      _qIntegerValue = Nothing
+    { qualificationTypeId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      grantTime = Prelude.Nothing,
+      workerId = Prelude.Nothing,
+      localeValue = Prelude.Nothing,
+      integerValue = Prelude.Nothing
     }
 
 -- | The ID of the Qualification type for the Qualification.
-qQualificationTypeId :: Lens' Qualification (Maybe Text)
-qQualificationTypeId = lens _qQualificationTypeId (\s a -> s {_qQualificationTypeId = a})
+qualification_qualificationTypeId :: Lens.Lens' Qualification (Prelude.Maybe Prelude.Text)
+qualification_qualificationTypeId = Lens.lens (\Qualification' {qualificationTypeId} -> qualificationTypeId) (\s@Qualification' {} a -> s {qualificationTypeId = a} :: Qualification)
 
 -- | The status of the Qualification. Valid values are Granted | Revoked.
-qStatus :: Lens' Qualification (Maybe QualificationStatus)
-qStatus = lens _qStatus (\s a -> s {_qStatus = a})
+qualification_status :: Lens.Lens' Qualification (Prelude.Maybe QualificationStatus)
+qualification_status = Lens.lens (\Qualification' {status} -> status) (\s@Qualification' {} a -> s {status = a} :: Qualification)
 
--- | The date and time the Qualification was granted to the Worker. If the Worker's Qualification was revoked, and then re-granted based on a new Qualification request, GrantTime is the date and time of the last call to the AcceptQualificationRequest operation.
-qGrantTime :: Lens' Qualification (Maybe UTCTime)
-qGrantTime = lens _qGrantTime (\s a -> s {_qGrantTime = a}) . mapping _Time
+-- | The date and time the Qualification was granted to the Worker. If the
+-- Worker\'s Qualification was revoked, and then re-granted based on a new
+-- Qualification request, GrantTime is the date and time of the last call
+-- to the AcceptQualificationRequest operation.
+qualification_grantTime :: Lens.Lens' Qualification (Prelude.Maybe Prelude.UTCTime)
+qualification_grantTime = Lens.lens (\Qualification' {grantTime} -> grantTime) (\s@Qualification' {} a -> s {grantTime = a} :: Qualification) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID of the Worker who possesses the Qualification.
-qWorkerId :: Lens' Qualification (Maybe Text)
-qWorkerId = lens _qWorkerId (\s a -> s {_qWorkerId = a})
+qualification_workerId :: Lens.Lens' Qualification (Prelude.Maybe Prelude.Text)
+qualification_workerId = Lens.lens (\Qualification' {workerId} -> workerId) (\s@Qualification' {} a -> s {workerId = a} :: Qualification)
 
 -- | Undocumented member.
-qLocaleValue :: Lens' Qualification (Maybe Locale)
-qLocaleValue = lens _qLocaleValue (\s a -> s {_qLocaleValue = a})
+qualification_localeValue :: Lens.Lens' Qualification (Prelude.Maybe Locale)
+qualification_localeValue = Lens.lens (\Qualification' {localeValue} -> localeValue) (\s@Qualification' {} a -> s {localeValue = a} :: Qualification)
 
--- | The value (score) of the Qualification, if the Qualification has an integer value.
-qIntegerValue :: Lens' Qualification (Maybe Int)
-qIntegerValue = lens _qIntegerValue (\s a -> s {_qIntegerValue = a})
+-- | The value (score) of the Qualification, if the Qualification has an
+-- integer value.
+qualification_integerValue :: Lens.Lens' Qualification (Prelude.Maybe Prelude.Int)
+qualification_integerValue = Lens.lens (\Qualification' {integerValue} -> integerValue) (\s@Qualification' {} a -> s {integerValue = a} :: Qualification)
 
-instance FromJSON Qualification where
+instance Prelude.FromJSON Qualification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Qualification"
       ( \x ->
           Qualification'
-            <$> (x .:? "QualificationTypeId")
-            <*> (x .:? "Status")
-            <*> (x .:? "GrantTime")
-            <*> (x .:? "WorkerId")
-            <*> (x .:? "LocaleValue")
-            <*> (x .:? "IntegerValue")
+            Prelude.<$> (x Prelude..:? "QualificationTypeId")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "GrantTime")
+            Prelude.<*> (x Prelude..:? "WorkerId")
+            Prelude.<*> (x Prelude..:? "LocaleValue")
+            Prelude.<*> (x Prelude..:? "IntegerValue")
       )
 
-instance Hashable Qualification
+instance Prelude.Hashable Qualification
 
-instance NFData Qualification
+instance Prelude.NFData Qualification

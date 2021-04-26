@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.MechanicalTurk.Types.ReviewableHITStatus
   ( ReviewableHITStatus
       ( ..,
-        RHITSReviewable,
-        RHITSReviewing
+        ReviewableHITStatusReviewable,
+        ReviewableHITStatusReviewing
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReviewableHITStatus
-  = ReviewableHITStatus'
-      ( CI
-          Text
-      )
+newtype ReviewableHITStatus = ReviewableHITStatus'
+  { fromReviewableHITStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RHITSReviewable :: ReviewableHITStatus
-pattern RHITSReviewable = ReviewableHITStatus' "Reviewable"
+pattern ReviewableHITStatusReviewable :: ReviewableHITStatus
+pattern ReviewableHITStatusReviewable = ReviewableHITStatus' "Reviewable"
 
-pattern RHITSReviewing :: ReviewableHITStatus
-pattern RHITSReviewing = ReviewableHITStatus' "Reviewing"
+pattern ReviewableHITStatusReviewing :: ReviewableHITStatus
+pattern ReviewableHITStatusReviewing = ReviewableHITStatus' "Reviewing"
 
 {-# COMPLETE
-  RHITSReviewable,
-  RHITSReviewing,
+  ReviewableHITStatusReviewable,
+  ReviewableHITStatusReviewing,
   ReviewableHITStatus'
   #-}
 
-instance FromText ReviewableHITStatus where
-  parser = (ReviewableHITStatus' . mk) <$> takeText
+instance Prelude.FromText ReviewableHITStatus where
+  parser = ReviewableHITStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReviewableHITStatus where
-  toText (ReviewableHITStatus' ci) = original ci
+instance Prelude.ToText ReviewableHITStatus where
+  toText (ReviewableHITStatus' x) = x
 
-instance Hashable ReviewableHITStatus
+instance Prelude.Hashable ReviewableHITStatus
 
-instance NFData ReviewableHITStatus
+instance Prelude.NFData ReviewableHITStatus
 
-instance ToByteString ReviewableHITStatus
+instance Prelude.ToByteString ReviewableHITStatus
 
-instance ToQuery ReviewableHITStatus
+instance Prelude.ToQuery ReviewableHITStatus
 
-instance ToHeader ReviewableHITStatus
+instance Prelude.ToHeader ReviewableHITStatus
 
-instance ToJSON ReviewableHITStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReviewableHITStatus where
+  toJSON = Prelude.toJSONText

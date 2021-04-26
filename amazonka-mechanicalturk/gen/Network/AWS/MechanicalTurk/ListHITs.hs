@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,197 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @ListHITs@ operation returns all of a Requester's HITs. The operation returns HITs of any status, except for HITs that have been deleted of with the DeleteHIT operation or that have been auto-deleted.
---
---
+-- The @ListHITs@ operation returns all of a Requester\'s HITs. The
+-- operation returns HITs of any status, except for HITs that have been
+-- deleted of with the DeleteHIT operation or that have been auto-deleted.
 --
 -- This operation returns paginated results.
 module Network.AWS.MechanicalTurk.ListHITs
   ( -- * Creating a Request
-    listHITs,
-    ListHITs,
+    ListHITs (..),
+    newListHITs,
 
     -- * Request Lenses
-    lhitNextToken,
-    lhitMaxResults,
+    listHITs_nextToken,
+    listHITs_maxResults,
 
     -- * Destructuring the Response
-    listHITsResponse,
-    ListHITsResponse,
+    ListHITsResponse (..),
+    newListHITsResponse,
 
     -- * Response Lenses
-    lhitrrsNextToken,
-    lhitrrsHITs,
-    lhitrrsNumResults,
-    lhitrrsResponseStatus,
+    listHITsResponse_nextToken,
+    listHITsResponse_hITs,
+    listHITsResponse_numResults,
+    listHITsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MechanicalTurk.Types.HIT
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listHITs' smart constructor.
+-- | /See:/ 'newListHITs' smart constructor.
 data ListHITs = ListHITs'
-  { _lhitNextToken ::
-      !(Maybe Text),
-    _lhitMaxResults :: !(Maybe Nat)
+  { -- | Pagination token
+    nextToken :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHITs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHITs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhitNextToken' - Pagination token
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhitMaxResults' - Undocumented member.
-listHITs ::
+-- 'nextToken', 'listHITs_nextToken' - Pagination token
+--
+-- 'maxResults', 'listHITs_maxResults' - Undocumented member.
+newListHITs ::
   ListHITs
-listHITs =
+newListHITs =
   ListHITs'
-    { _lhitNextToken = Nothing,
-      _lhitMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | Pagination token
-lhitNextToken :: Lens' ListHITs (Maybe Text)
-lhitNextToken = lens _lhitNextToken (\s a -> s {_lhitNextToken = a})
+listHITs_nextToken :: Lens.Lens' ListHITs (Prelude.Maybe Prelude.Text)
+listHITs_nextToken = Lens.lens (\ListHITs' {nextToken} -> nextToken) (\s@ListHITs' {} a -> s {nextToken = a} :: ListHITs)
 
 -- | Undocumented member.
-lhitMaxResults :: Lens' ListHITs (Maybe Natural)
-lhitMaxResults = lens _lhitMaxResults (\s a -> s {_lhitMaxResults = a}) . mapping _Nat
+listHITs_maxResults :: Lens.Lens' ListHITs (Prelude.Maybe Prelude.Natural)
+listHITs_maxResults = Lens.lens (\ListHITs' {maxResults} -> maxResults) (\s@ListHITs' {} a -> s {maxResults = a} :: ListHITs) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListHITs where
+instance Pager.AWSPager ListHITs where
   page rq rs
-    | stop (rs ^. lhitrrsNextToken) = Nothing
-    | stop (rs ^. lhitrrsHITs) = Nothing
-    | otherwise =
-      Just $ rq & lhitNextToken .~ rs ^. lhitrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listHITsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listHITsResponse_hITs Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listHITs_nextToken
+          Lens..~ rs
+          Lens.^? listHITsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListHITs where
+instance Prelude.AWSRequest ListHITs where
   type Rs ListHITs = ListHITsResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListHITsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "HITs" .!@ mempty)
-            <*> (x .?> "NumResults")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "HITs" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NumResults")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListHITs
+instance Prelude.Hashable ListHITs
 
-instance NFData ListHITs
+instance Prelude.NFData ListHITs
 
-instance ToHeaders ListHITs where
+instance Prelude.ToHeaders ListHITs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.ListHITs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.ListHITs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListHITs where
+instance Prelude.ToJSON ListHITs where
   toJSON ListHITs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lhitNextToken,
-            ("MaxResults" .=) <$> _lhitMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListHITs where
-  toPath = const "/"
+instance Prelude.ToPath ListHITs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListHITs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListHITs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listHITsResponse' smart constructor.
+-- | /See:/ 'newListHITsResponse' smart constructor.
 data ListHITsResponse = ListHITsResponse'
-  { _lhitrrsNextToken ::
-      !(Maybe Text),
-    _lhitrrsHITs :: !(Maybe [HIT]),
-    _lhitrrsNumResults :: !(Maybe Int),
-    _lhitrrsResponseStatus :: !Int
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of HIT elements returned by the query.
+    hITs :: Prelude.Maybe [HIT],
+    -- | The number of HITs on this page in the filtered results list, equivalent
+    -- to the number of HITs being returned by this call.
+    numResults :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHITsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHITsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhitrrsNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhitrrsHITs' - The list of HIT elements returned by the query.
+-- 'nextToken', 'listHITsResponse_nextToken' - Undocumented member.
 --
--- * 'lhitrrsNumResults' - The number of HITs on this page in the filtered results list, equivalent to the number of HITs being returned by this call.
+-- 'hITs', 'listHITsResponse_hITs' - The list of HIT elements returned by the query.
 --
--- * 'lhitrrsResponseStatus' - -- | The response status code.
-listHITsResponse ::
-  -- | 'lhitrrsResponseStatus'
-  Int ->
+-- 'numResults', 'listHITsResponse_numResults' - The number of HITs on this page in the filtered results list, equivalent
+-- to the number of HITs being returned by this call.
+--
+-- 'httpStatus', 'listHITsResponse_httpStatus' - The response's http status code.
+newListHITsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListHITsResponse
-listHITsResponse pResponseStatus_ =
+newListHITsResponse pHttpStatus_ =
   ListHITsResponse'
-    { _lhitrrsNextToken = Nothing,
-      _lhitrrsHITs = Nothing,
-      _lhitrrsNumResults = Nothing,
-      _lhitrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      hITs = Prelude.Nothing,
+      numResults = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-lhitrrsNextToken :: Lens' ListHITsResponse (Maybe Text)
-lhitrrsNextToken = lens _lhitrrsNextToken (\s a -> s {_lhitrrsNextToken = a})
+listHITsResponse_nextToken :: Lens.Lens' ListHITsResponse (Prelude.Maybe Prelude.Text)
+listHITsResponse_nextToken = Lens.lens (\ListHITsResponse' {nextToken} -> nextToken) (\s@ListHITsResponse' {} a -> s {nextToken = a} :: ListHITsResponse)
 
 -- | The list of HIT elements returned by the query.
-lhitrrsHITs :: Lens' ListHITsResponse [HIT]
-lhitrrsHITs = lens _lhitrrsHITs (\s a -> s {_lhitrrsHITs = a}) . _Default . _Coerce
+listHITsResponse_hITs :: Lens.Lens' ListHITsResponse (Prelude.Maybe [HIT])
+listHITsResponse_hITs = Lens.lens (\ListHITsResponse' {hITs} -> hITs) (\s@ListHITsResponse' {} a -> s {hITs = a} :: ListHITsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of HITs on this page in the filtered results list, equivalent to the number of HITs being returned by this call.
-lhitrrsNumResults :: Lens' ListHITsResponse (Maybe Int)
-lhitrrsNumResults = lens _lhitrrsNumResults (\s a -> s {_lhitrrsNumResults = a})
+-- | The number of HITs on this page in the filtered results list, equivalent
+-- to the number of HITs being returned by this call.
+listHITsResponse_numResults :: Lens.Lens' ListHITsResponse (Prelude.Maybe Prelude.Int)
+listHITsResponse_numResults = Lens.lens (\ListHITsResponse' {numResults} -> numResults) (\s@ListHITsResponse' {} a -> s {numResults = a} :: ListHITsResponse)
 
--- | -- | The response status code.
-lhitrrsResponseStatus :: Lens' ListHITsResponse Int
-lhitrrsResponseStatus = lens _lhitrrsResponseStatus (\s a -> s {_lhitrrsResponseStatus = a})
+-- | The response's http status code.
+listHITsResponse_httpStatus :: Lens.Lens' ListHITsResponse Prelude.Int
+listHITsResponse_httpStatus = Lens.lens (\ListHITsResponse' {httpStatus} -> httpStatus) (\s@ListHITsResponse' {} a -> s {httpStatus = a} :: ListHITsResponse)
 
-instance NFData ListHITsResponse
+instance Prelude.NFData ListHITsResponse

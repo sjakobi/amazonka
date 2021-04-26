@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @GetAccountBalance@ operation retrieves the amount of money in your Amazon Mechanical Turk account.
+-- The @GetAccountBalance@ operation retrieves the amount of money in your
+-- Amazon Mechanical Turk account.
 module Network.AWS.MechanicalTurk.GetAccountBalance
   ( -- * Creating a Request
-    getAccountBalance,
-    GetAccountBalance,
+    GetAccountBalance (..),
+    newGetAccountBalance,
 
     -- * Destructuring the Response
-    getAccountBalanceResponse,
-    GetAccountBalanceResponse,
+    GetAccountBalanceResponse (..),
+    newGetAccountBalanceResponse,
 
     -- * Response Lenses
-    gabrrsOnHoldBalance,
-    gabrrsAvailableBalance,
-    gabrrsResponseStatus,
+    getAccountBalanceResponse_onHoldBalance,
+    getAccountBalanceResponse_availableBalance,
+    getAccountBalanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAccountBalance' smart constructor.
+-- | /See:/ 'newGetAccountBalance' smart constructor.
 data GetAccountBalance = GetAccountBalance'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountBalance' with the minimum fields required to make a request.
-getAccountBalance ::
+-- |
+-- Create a value of 'GetAccountBalance' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetAccountBalance ::
   GetAccountBalance
-getAccountBalance = GetAccountBalance'
+newGetAccountBalance = GetAccountBalance'
 
-instance AWSRequest GetAccountBalance where
+instance Prelude.AWSRequest GetAccountBalance where
   type Rs GetAccountBalance = GetAccountBalanceResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetAccountBalanceResponse'
-            <$> (x .?> "OnHoldBalance")
-            <*> (x .?> "AvailableBalance")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "OnHoldBalance")
+            Prelude.<*> (x Prelude..?> "AvailableBalance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAccountBalance
+instance Prelude.Hashable GetAccountBalance
 
-instance NFData GetAccountBalance
+instance Prelude.NFData GetAccountBalance
 
-instance ToHeaders GetAccountBalance where
+instance Prelude.ToHeaders GetAccountBalance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.GetAccountBalance" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.GetAccountBalance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetAccountBalance where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetAccountBalance where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetAccountBalance where
-  toPath = const "/"
+instance Prelude.ToPath GetAccountBalance where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAccountBalance where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAccountBalance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getAccountBalanceResponse' smart constructor.
+-- | /See:/ 'newGetAccountBalanceResponse' smart constructor.
 data GetAccountBalanceResponse = GetAccountBalanceResponse'
-  { _gabrrsOnHoldBalance ::
-      !(Maybe Text),
-    _gabrrsAvailableBalance ::
-      !(Maybe Text),
-    _gabrrsResponseStatus ::
-      !Int
+  { onHoldBalance :: Prelude.Maybe Prelude.Text,
+    availableBalance :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountBalanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccountBalanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gabrrsOnHoldBalance' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gabrrsAvailableBalance' - Undocumented member.
+-- 'onHoldBalance', 'getAccountBalanceResponse_onHoldBalance' - Undocumented member.
 --
--- * 'gabrrsResponseStatus' - -- | The response status code.
-getAccountBalanceResponse ::
-  -- | 'gabrrsResponseStatus'
-  Int ->
+-- 'availableBalance', 'getAccountBalanceResponse_availableBalance' - Undocumented member.
+--
+-- 'httpStatus', 'getAccountBalanceResponse_httpStatus' - The response's http status code.
+newGetAccountBalanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAccountBalanceResponse
-getAccountBalanceResponse pResponseStatus_ =
+newGetAccountBalanceResponse pHttpStatus_ =
   GetAccountBalanceResponse'
-    { _gabrrsOnHoldBalance =
-        Nothing,
-      _gabrrsAvailableBalance = Nothing,
-      _gabrrsResponseStatus = pResponseStatus_
+    { onHoldBalance =
+        Prelude.Nothing,
+      availableBalance = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-gabrrsOnHoldBalance :: Lens' GetAccountBalanceResponse (Maybe Text)
-gabrrsOnHoldBalance = lens _gabrrsOnHoldBalance (\s a -> s {_gabrrsOnHoldBalance = a})
+getAccountBalanceResponse_onHoldBalance :: Lens.Lens' GetAccountBalanceResponse (Prelude.Maybe Prelude.Text)
+getAccountBalanceResponse_onHoldBalance = Lens.lens (\GetAccountBalanceResponse' {onHoldBalance} -> onHoldBalance) (\s@GetAccountBalanceResponse' {} a -> s {onHoldBalance = a} :: GetAccountBalanceResponse)
 
 -- | Undocumented member.
-gabrrsAvailableBalance :: Lens' GetAccountBalanceResponse (Maybe Text)
-gabrrsAvailableBalance = lens _gabrrsAvailableBalance (\s a -> s {_gabrrsAvailableBalance = a})
+getAccountBalanceResponse_availableBalance :: Lens.Lens' GetAccountBalanceResponse (Prelude.Maybe Prelude.Text)
+getAccountBalanceResponse_availableBalance = Lens.lens (\GetAccountBalanceResponse' {availableBalance} -> availableBalance) (\s@GetAccountBalanceResponse' {} a -> s {availableBalance = a} :: GetAccountBalanceResponse)
 
--- | -- | The response status code.
-gabrrsResponseStatus :: Lens' GetAccountBalanceResponse Int
-gabrrsResponseStatus = lens _gabrrsResponseStatus (\s a -> s {_gabrrsResponseStatus = a})
+-- | The response's http status code.
+getAccountBalanceResponse_httpStatus :: Lens.Lens' GetAccountBalanceResponse Prelude.Int
+getAccountBalanceResponse_httpStatus = Lens.lens (\GetAccountBalanceResponse' {httpStatus} -> httpStatus) (\s@GetAccountBalanceResponse' {} a -> s {httpStatus = a} :: GetAccountBalanceResponse)
 
-instance NFData GetAccountBalanceResponse
+instance Prelude.NFData GetAccountBalanceResponse

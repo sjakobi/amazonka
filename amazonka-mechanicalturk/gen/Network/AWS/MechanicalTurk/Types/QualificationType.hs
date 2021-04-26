@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,158 +19,248 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.QualificationType where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types.QualificationTypeStatus
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The QualificationType data structure represents a Qualification type, a description of a property of a Worker that must match the requirements of a HIT for the Worker to be able to accept the HIT. The type also describes how a Worker can obtain a Qualification of that type, such as through a Qualification test.
+-- | The QualificationType data structure represents a Qualification type, a
+-- description of a property of a Worker that must match the requirements
+-- of a HIT for the Worker to be able to accept the HIT. The type also
+-- describes how a Worker can obtain a Qualification of that type, such as
+-- through a Qualification test.
 --
---
---
--- /See:/ 'qualificationType' smart constructor.
+-- /See:/ 'newQualificationType' smart constructor.
 data QualificationType = QualificationType'
-  { _qtQualificationTypeId ::
-      !(Maybe Text),
-    _qtCreationTime :: !(Maybe POSIX),
-    _qtIsRequestable :: !(Maybe Bool),
-    _qtRetryDelayInSeconds ::
-      !(Maybe Integer),
-    _qtAutoGranted :: !(Maybe Bool),
-    _qtQualificationTypeStatus ::
-      !(Maybe QualificationTypeStatus),
-    _qtName :: !(Maybe Text),
-    _qtTestDurationInSeconds ::
-      !(Maybe Integer),
-    _qtDescription :: !(Maybe Text),
-    _qtTest :: !(Maybe Text),
-    _qtAnswerKey :: !(Maybe Text),
-    _qtAutoGrantedValue :: !(Maybe Int),
-    _qtKeywords :: !(Maybe Text)
+  { -- | A unique identifier for the Qualification type. A Qualification type is
+    -- given a Qualification type ID when you call the CreateQualificationType
+    -- operation.
+    qualificationTypeId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the Qualification type was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies whether the Qualification type is one that a user can request
+    -- through the Amazon Mechanical Turk web site, such as by taking a
+    -- Qualification test. This value is False for Qualifications assigned
+    -- automatically by the system. Valid values are True | False.
+    isRequestable :: Prelude.Maybe Prelude.Bool,
+    -- | The amount of time, in seconds, Workers must wait after taking the
+    -- Qualification test before they can take it again. Workers can take a
+    -- Qualification test multiple times if they were not granted the
+    -- Qualification from a previous attempt, or if the test offers a gradient
+    -- score and they want a better score. If not specified, retries are
+    -- disabled and Workers can request a Qualification only once.
+    retryDelayInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | Specifies that requests for the Qualification type are granted
+    -- immediately, without prompting the Worker with a Qualification test.
+    -- Valid values are True | False.
+    autoGranted :: Prelude.Maybe Prelude.Bool,
+    -- | The status of the Qualification type. A Qualification type\'s status
+    -- determines if users can apply to receive a Qualification of this type,
+    -- and if HITs can be created with requirements based on this type. Valid
+    -- values are Active | Inactive.
+    qualificationTypeStatus :: Prelude.Maybe QualificationTypeStatus,
+    -- | The name of the Qualification type. The type name is used to identify
+    -- the type, and to find the type using a Qualification type search.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time, in seconds, given to a Worker to complete the
+    -- Qualification test, beginning from the time the Worker requests the
+    -- Qualification.
+    testDurationInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | A long description for the Qualification type.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The questions for a Qualification test associated with this
+    -- Qualification type that a user can take to obtain a Qualification of
+    -- this type. This parameter must be specified if AnswerKey is present. A
+    -- Qualification type cannot have both a specified Test parameter and an
+    -- AutoGranted value of true.
+    test :: Prelude.Maybe Prelude.Text,
+    -- | The answers to the Qualification test specified in the Test parameter.
+    answerKey :: Prelude.Maybe Prelude.Text,
+    -- | The Qualification integer value to use for automatically granted
+    -- Qualifications, if AutoGranted is true. This is 1 by default.
+    autoGrantedValue :: Prelude.Maybe Prelude.Int,
+    -- | One or more words or phrases that describe theQualification type,
+    -- separated by commas. The Keywords make the type easier to find using a
+    -- search.
+    keywords :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QualificationType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QualificationType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qtQualificationTypeId' - A unique identifier for the Qualification type. A Qualification type is given a Qualification type ID when you call the CreateQualificationType operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qtCreationTime' - The date and time the Qualification type was created.
+-- 'qualificationTypeId', 'qualificationType_qualificationTypeId' - A unique identifier for the Qualification type. A Qualification type is
+-- given a Qualification type ID when you call the CreateQualificationType
+-- operation.
 --
--- * 'qtIsRequestable' - Specifies whether the Qualification type is one that a user can request through the Amazon Mechanical Turk web site, such as by taking a Qualification test. This value is False for Qualifications assigned automatically by the system. Valid values are True | False.
+-- 'creationTime', 'qualificationType_creationTime' - The date and time the Qualification type was created.
 --
--- * 'qtRetryDelayInSeconds' - The amount of time, in seconds, Workers must wait after taking the Qualification test before they can take it again. Workers can take a Qualification test multiple times if they were not granted the Qualification from a previous attempt, or if the test offers a gradient score and they want a better score. If not specified, retries are disabled and Workers can request a Qualification only once.
+-- 'isRequestable', 'qualificationType_isRequestable' - Specifies whether the Qualification type is one that a user can request
+-- through the Amazon Mechanical Turk web site, such as by taking a
+-- Qualification test. This value is False for Qualifications assigned
+-- automatically by the system. Valid values are True | False.
 --
--- * 'qtAutoGranted' - Specifies that requests for the Qualification type are granted immediately, without prompting the Worker with a Qualification test. Valid values are True | False.
+-- 'retryDelayInSeconds', 'qualificationType_retryDelayInSeconds' - The amount of time, in seconds, Workers must wait after taking the
+-- Qualification test before they can take it again. Workers can take a
+-- Qualification test multiple times if they were not granted the
+-- Qualification from a previous attempt, or if the test offers a gradient
+-- score and they want a better score. If not specified, retries are
+-- disabled and Workers can request a Qualification only once.
 --
--- * 'qtQualificationTypeStatus' - The status of the Qualification type. A Qualification type's status determines if users can apply to receive a Qualification of this type, and if HITs can be created with requirements based on this type. Valid values are Active | Inactive.
+-- 'autoGranted', 'qualificationType_autoGranted' - Specifies that requests for the Qualification type are granted
+-- immediately, without prompting the Worker with a Qualification test.
+-- Valid values are True | False.
 --
--- * 'qtName' - The name of the Qualification type. The type name is used to identify the type, and to find the type using a Qualification type search.
+-- 'qualificationTypeStatus', 'qualificationType_qualificationTypeStatus' - The status of the Qualification type. A Qualification type\'s status
+-- determines if users can apply to receive a Qualification of this type,
+-- and if HITs can be created with requirements based on this type. Valid
+-- values are Active | Inactive.
 --
--- * 'qtTestDurationInSeconds' - The amount of time, in seconds, given to a Worker to complete the Qualification test, beginning from the time the Worker requests the Qualification.
+-- 'name', 'qualificationType_name' - The name of the Qualification type. The type name is used to identify
+-- the type, and to find the type using a Qualification type search.
 --
--- * 'qtDescription' - A long description for the Qualification type.
+-- 'testDurationInSeconds', 'qualificationType_testDurationInSeconds' - The amount of time, in seconds, given to a Worker to complete the
+-- Qualification test, beginning from the time the Worker requests the
+-- Qualification.
 --
--- * 'qtTest' - The questions for a Qualification test associated with this Qualification type that a user can take to obtain a Qualification of this type. This parameter must be specified if AnswerKey is present. A Qualification type cannot have both a specified Test parameter and an AutoGranted value of true.
+-- 'description', 'qualificationType_description' - A long description for the Qualification type.
 --
--- * 'qtAnswerKey' - The answers to the Qualification test specified in the Test parameter.
+-- 'test', 'qualificationType_test' - The questions for a Qualification test associated with this
+-- Qualification type that a user can take to obtain a Qualification of
+-- this type. This parameter must be specified if AnswerKey is present. A
+-- Qualification type cannot have both a specified Test parameter and an
+-- AutoGranted value of true.
 --
--- * 'qtAutoGrantedValue' - The Qualification integer value to use for automatically granted Qualifications, if AutoGranted is true. This is 1 by default.
+-- 'answerKey', 'qualificationType_answerKey' - The answers to the Qualification test specified in the Test parameter.
 --
--- * 'qtKeywords' - One or more words or phrases that describe theQualification type, separated by commas. The Keywords make the type easier to find using a search.
-qualificationType ::
+-- 'autoGrantedValue', 'qualificationType_autoGrantedValue' - The Qualification integer value to use for automatically granted
+-- Qualifications, if AutoGranted is true. This is 1 by default.
+--
+-- 'keywords', 'qualificationType_keywords' - One or more words or phrases that describe theQualification type,
+-- separated by commas. The Keywords make the type easier to find using a
+-- search.
+newQualificationType ::
   QualificationType
-qualificationType =
+newQualificationType =
   QualificationType'
-    { _qtQualificationTypeId =
-        Nothing,
-      _qtCreationTime = Nothing,
-      _qtIsRequestable = Nothing,
-      _qtRetryDelayInSeconds = Nothing,
-      _qtAutoGranted = Nothing,
-      _qtQualificationTypeStatus = Nothing,
-      _qtName = Nothing,
-      _qtTestDurationInSeconds = Nothing,
-      _qtDescription = Nothing,
-      _qtTest = Nothing,
-      _qtAnswerKey = Nothing,
-      _qtAutoGrantedValue = Nothing,
-      _qtKeywords = Nothing
+    { qualificationTypeId =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      isRequestable = Prelude.Nothing,
+      retryDelayInSeconds = Prelude.Nothing,
+      autoGranted = Prelude.Nothing,
+      qualificationTypeStatus = Prelude.Nothing,
+      name = Prelude.Nothing,
+      testDurationInSeconds = Prelude.Nothing,
+      description = Prelude.Nothing,
+      test = Prelude.Nothing,
+      answerKey = Prelude.Nothing,
+      autoGrantedValue = Prelude.Nothing,
+      keywords = Prelude.Nothing
     }
 
--- | A unique identifier for the Qualification type. A Qualification type is given a Qualification type ID when you call the CreateQualificationType operation.
-qtQualificationTypeId :: Lens' QualificationType (Maybe Text)
-qtQualificationTypeId = lens _qtQualificationTypeId (\s a -> s {_qtQualificationTypeId = a})
+-- | A unique identifier for the Qualification type. A Qualification type is
+-- given a Qualification type ID when you call the CreateQualificationType
+-- operation.
+qualificationType_qualificationTypeId :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Text)
+qualificationType_qualificationTypeId = Lens.lens (\QualificationType' {qualificationTypeId} -> qualificationTypeId) (\s@QualificationType' {} a -> s {qualificationTypeId = a} :: QualificationType)
 
 -- | The date and time the Qualification type was created.
-qtCreationTime :: Lens' QualificationType (Maybe UTCTime)
-qtCreationTime = lens _qtCreationTime (\s a -> s {_qtCreationTime = a}) . mapping _Time
+qualificationType_creationTime :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.UTCTime)
+qualificationType_creationTime = Lens.lens (\QualificationType' {creationTime} -> creationTime) (\s@QualificationType' {} a -> s {creationTime = a} :: QualificationType) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies whether the Qualification type is one that a user can request through the Amazon Mechanical Turk web site, such as by taking a Qualification test. This value is False for Qualifications assigned automatically by the system. Valid values are True | False.
-qtIsRequestable :: Lens' QualificationType (Maybe Bool)
-qtIsRequestable = lens _qtIsRequestable (\s a -> s {_qtIsRequestable = a})
+-- | Specifies whether the Qualification type is one that a user can request
+-- through the Amazon Mechanical Turk web site, such as by taking a
+-- Qualification test. This value is False for Qualifications assigned
+-- automatically by the system. Valid values are True | False.
+qualificationType_isRequestable :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Bool)
+qualificationType_isRequestable = Lens.lens (\QualificationType' {isRequestable} -> isRequestable) (\s@QualificationType' {} a -> s {isRequestable = a} :: QualificationType)
 
--- | The amount of time, in seconds, Workers must wait after taking the Qualification test before they can take it again. Workers can take a Qualification test multiple times if they were not granted the Qualification from a previous attempt, or if the test offers a gradient score and they want a better score. If not specified, retries are disabled and Workers can request a Qualification only once.
-qtRetryDelayInSeconds :: Lens' QualificationType (Maybe Integer)
-qtRetryDelayInSeconds = lens _qtRetryDelayInSeconds (\s a -> s {_qtRetryDelayInSeconds = a})
+-- | The amount of time, in seconds, Workers must wait after taking the
+-- Qualification test before they can take it again. Workers can take a
+-- Qualification test multiple times if they were not granted the
+-- Qualification from a previous attempt, or if the test offers a gradient
+-- score and they want a better score. If not specified, retries are
+-- disabled and Workers can request a Qualification only once.
+qualificationType_retryDelayInSeconds :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Integer)
+qualificationType_retryDelayInSeconds = Lens.lens (\QualificationType' {retryDelayInSeconds} -> retryDelayInSeconds) (\s@QualificationType' {} a -> s {retryDelayInSeconds = a} :: QualificationType)
 
--- | Specifies that requests for the Qualification type are granted immediately, without prompting the Worker with a Qualification test. Valid values are True | False.
-qtAutoGranted :: Lens' QualificationType (Maybe Bool)
-qtAutoGranted = lens _qtAutoGranted (\s a -> s {_qtAutoGranted = a})
+-- | Specifies that requests for the Qualification type are granted
+-- immediately, without prompting the Worker with a Qualification test.
+-- Valid values are True | False.
+qualificationType_autoGranted :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Bool)
+qualificationType_autoGranted = Lens.lens (\QualificationType' {autoGranted} -> autoGranted) (\s@QualificationType' {} a -> s {autoGranted = a} :: QualificationType)
 
--- | The status of the Qualification type. A Qualification type's status determines if users can apply to receive a Qualification of this type, and if HITs can be created with requirements based on this type. Valid values are Active | Inactive.
-qtQualificationTypeStatus :: Lens' QualificationType (Maybe QualificationTypeStatus)
-qtQualificationTypeStatus = lens _qtQualificationTypeStatus (\s a -> s {_qtQualificationTypeStatus = a})
+-- | The status of the Qualification type. A Qualification type\'s status
+-- determines if users can apply to receive a Qualification of this type,
+-- and if HITs can be created with requirements based on this type. Valid
+-- values are Active | Inactive.
+qualificationType_qualificationTypeStatus :: Lens.Lens' QualificationType (Prelude.Maybe QualificationTypeStatus)
+qualificationType_qualificationTypeStatus = Lens.lens (\QualificationType' {qualificationTypeStatus} -> qualificationTypeStatus) (\s@QualificationType' {} a -> s {qualificationTypeStatus = a} :: QualificationType)
 
--- | The name of the Qualification type. The type name is used to identify the type, and to find the type using a Qualification type search.
-qtName :: Lens' QualificationType (Maybe Text)
-qtName = lens _qtName (\s a -> s {_qtName = a})
+-- | The name of the Qualification type. The type name is used to identify
+-- the type, and to find the type using a Qualification type search.
+qualificationType_name :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Text)
+qualificationType_name = Lens.lens (\QualificationType' {name} -> name) (\s@QualificationType' {} a -> s {name = a} :: QualificationType)
 
--- | The amount of time, in seconds, given to a Worker to complete the Qualification test, beginning from the time the Worker requests the Qualification.
-qtTestDurationInSeconds :: Lens' QualificationType (Maybe Integer)
-qtTestDurationInSeconds = lens _qtTestDurationInSeconds (\s a -> s {_qtTestDurationInSeconds = a})
+-- | The amount of time, in seconds, given to a Worker to complete the
+-- Qualification test, beginning from the time the Worker requests the
+-- Qualification.
+qualificationType_testDurationInSeconds :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Integer)
+qualificationType_testDurationInSeconds = Lens.lens (\QualificationType' {testDurationInSeconds} -> testDurationInSeconds) (\s@QualificationType' {} a -> s {testDurationInSeconds = a} :: QualificationType)
 
 -- | A long description for the Qualification type.
-qtDescription :: Lens' QualificationType (Maybe Text)
-qtDescription = lens _qtDescription (\s a -> s {_qtDescription = a})
+qualificationType_description :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Text)
+qualificationType_description = Lens.lens (\QualificationType' {description} -> description) (\s@QualificationType' {} a -> s {description = a} :: QualificationType)
 
--- | The questions for a Qualification test associated with this Qualification type that a user can take to obtain a Qualification of this type. This parameter must be specified if AnswerKey is present. A Qualification type cannot have both a specified Test parameter and an AutoGranted value of true.
-qtTest :: Lens' QualificationType (Maybe Text)
-qtTest = lens _qtTest (\s a -> s {_qtTest = a})
+-- | The questions for a Qualification test associated with this
+-- Qualification type that a user can take to obtain a Qualification of
+-- this type. This parameter must be specified if AnswerKey is present. A
+-- Qualification type cannot have both a specified Test parameter and an
+-- AutoGranted value of true.
+qualificationType_test :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Text)
+qualificationType_test = Lens.lens (\QualificationType' {test} -> test) (\s@QualificationType' {} a -> s {test = a} :: QualificationType)
 
 -- | The answers to the Qualification test specified in the Test parameter.
-qtAnswerKey :: Lens' QualificationType (Maybe Text)
-qtAnswerKey = lens _qtAnswerKey (\s a -> s {_qtAnswerKey = a})
+qualificationType_answerKey :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Text)
+qualificationType_answerKey = Lens.lens (\QualificationType' {answerKey} -> answerKey) (\s@QualificationType' {} a -> s {answerKey = a} :: QualificationType)
 
--- | The Qualification integer value to use for automatically granted Qualifications, if AutoGranted is true. This is 1 by default.
-qtAutoGrantedValue :: Lens' QualificationType (Maybe Int)
-qtAutoGrantedValue = lens _qtAutoGrantedValue (\s a -> s {_qtAutoGrantedValue = a})
+-- | The Qualification integer value to use for automatically granted
+-- Qualifications, if AutoGranted is true. This is 1 by default.
+qualificationType_autoGrantedValue :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Int)
+qualificationType_autoGrantedValue = Lens.lens (\QualificationType' {autoGrantedValue} -> autoGrantedValue) (\s@QualificationType' {} a -> s {autoGrantedValue = a} :: QualificationType)
 
--- | One or more words or phrases that describe theQualification type, separated by commas. The Keywords make the type easier to find using a search.
-qtKeywords :: Lens' QualificationType (Maybe Text)
-qtKeywords = lens _qtKeywords (\s a -> s {_qtKeywords = a})
+-- | One or more words or phrases that describe theQualification type,
+-- separated by commas. The Keywords make the type easier to find using a
+-- search.
+qualificationType_keywords :: Lens.Lens' QualificationType (Prelude.Maybe Prelude.Text)
+qualificationType_keywords = Lens.lens (\QualificationType' {keywords} -> keywords) (\s@QualificationType' {} a -> s {keywords = a} :: QualificationType)
 
-instance FromJSON QualificationType where
+instance Prelude.FromJSON QualificationType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QualificationType"
       ( \x ->
           QualificationType'
-            <$> (x .:? "QualificationTypeId")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "IsRequestable")
-            <*> (x .:? "RetryDelayInSeconds")
-            <*> (x .:? "AutoGranted")
-            <*> (x .:? "QualificationTypeStatus")
-            <*> (x .:? "Name")
-            <*> (x .:? "TestDurationInSeconds")
-            <*> (x .:? "Description")
-            <*> (x .:? "Test")
-            <*> (x .:? "AnswerKey")
-            <*> (x .:? "AutoGrantedValue")
-            <*> (x .:? "Keywords")
+            Prelude.<$> (x Prelude..:? "QualificationTypeId")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "IsRequestable")
+            Prelude.<*> (x Prelude..:? "RetryDelayInSeconds")
+            Prelude.<*> (x Prelude..:? "AutoGranted")
+            Prelude.<*> (x Prelude..:? "QualificationTypeStatus")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "TestDurationInSeconds")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Test")
+            Prelude.<*> (x Prelude..:? "AnswerKey")
+            Prelude.<*> (x Prelude..:? "AutoGrantedValue")
+            Prelude.<*> (x Prelude..:? "Keywords")
       )
 
-instance Hashable QualificationType
+instance Prelude.Hashable QualificationType
 
-instance NFData QualificationType
+instance Prelude.NFData QualificationType

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,231 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @ListReviewableHITs@ operation retrieves the HITs with Status equal to Reviewable or Status equal to Reviewing that belong to the Requester calling the operation.
---
---
+-- The @ListReviewableHITs@ operation retrieves the HITs with Status equal
+-- to Reviewable or Status equal to Reviewing that belong to the Requester
+-- calling the operation.
 --
 -- This operation returns paginated results.
 module Network.AWS.MechanicalTurk.ListReviewableHITs
   ( -- * Creating a Request
-    listReviewableHITs,
-    ListReviewableHITs,
+    ListReviewableHITs (..),
+    newListReviewableHITs,
 
     -- * Request Lenses
-    lrhitStatus,
-    lrhitNextToken,
-    lrhitMaxResults,
-    lrhitHITTypeId,
+    listReviewableHITs_status,
+    listReviewableHITs_nextToken,
+    listReviewableHITs_maxResults,
+    listReviewableHITs_hITTypeId,
 
     -- * Destructuring the Response
-    listReviewableHITsResponse,
-    ListReviewableHITsResponse,
+    ListReviewableHITsResponse (..),
+    newListReviewableHITsResponse,
 
     -- * Response Lenses
-    lrhitrrsNextToken,
-    lrhitrrsHITs,
-    lrhitrrsNumResults,
-    lrhitrrsResponseStatus,
+    listReviewableHITsResponse_nextToken,
+    listReviewableHITsResponse_hITs,
+    listReviewableHITsResponse_numResults,
+    listReviewableHITsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MechanicalTurk.Types.HIT
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listReviewableHITs' smart constructor.
+-- | /See:/ 'newListReviewableHITs' smart constructor.
 data ListReviewableHITs = ListReviewableHITs'
-  { _lrhitStatus ::
-      !(Maybe ReviewableHITStatus),
-    _lrhitNextToken :: !(Maybe Text),
-    _lrhitMaxResults :: !(Maybe Nat),
-    _lrhitHITTypeId :: !(Maybe Text)
+  { -- | Can be either @Reviewable@ or @Reviewing@. Reviewable is the default
+    -- value.
+    status :: Prelude.Maybe ReviewableHITStatus,
+    -- | Pagination Token
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Limit the number of results returned.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ID of the HIT type of the HITs to consider for the query. If not
+    -- specified, all HITs for the Reviewer are considered
+    hITTypeId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReviewableHITs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReviewableHITs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrhitStatus' - Can be either @Reviewable@ or @Reviewing@ . Reviewable is the default value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrhitNextToken' - Pagination Token
+-- 'status', 'listReviewableHITs_status' - Can be either @Reviewable@ or @Reviewing@. Reviewable is the default
+-- value.
 --
--- * 'lrhitMaxResults' - Limit the number of results returned.
+-- 'nextToken', 'listReviewableHITs_nextToken' - Pagination Token
 --
--- * 'lrhitHITTypeId' - The ID of the HIT type of the HITs to consider for the query. If not specified, all HITs for the Reviewer are considered
-listReviewableHITs ::
+-- 'maxResults', 'listReviewableHITs_maxResults' - Limit the number of results returned.
+--
+-- 'hITTypeId', 'listReviewableHITs_hITTypeId' - The ID of the HIT type of the HITs to consider for the query. If not
+-- specified, all HITs for the Reviewer are considered
+newListReviewableHITs ::
   ListReviewableHITs
-listReviewableHITs =
+newListReviewableHITs =
   ListReviewableHITs'
-    { _lrhitStatus = Nothing,
-      _lrhitNextToken = Nothing,
-      _lrhitMaxResults = Nothing,
-      _lrhitHITTypeId = Nothing
+    { status = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      hITTypeId = Prelude.Nothing
     }
 
--- | Can be either @Reviewable@ or @Reviewing@ . Reviewable is the default value.
-lrhitStatus :: Lens' ListReviewableHITs (Maybe ReviewableHITStatus)
-lrhitStatus = lens _lrhitStatus (\s a -> s {_lrhitStatus = a})
+-- | Can be either @Reviewable@ or @Reviewing@. Reviewable is the default
+-- value.
+listReviewableHITs_status :: Lens.Lens' ListReviewableHITs (Prelude.Maybe ReviewableHITStatus)
+listReviewableHITs_status = Lens.lens (\ListReviewableHITs' {status} -> status) (\s@ListReviewableHITs' {} a -> s {status = a} :: ListReviewableHITs)
 
 -- | Pagination Token
-lrhitNextToken :: Lens' ListReviewableHITs (Maybe Text)
-lrhitNextToken = lens _lrhitNextToken (\s a -> s {_lrhitNextToken = a})
+listReviewableHITs_nextToken :: Lens.Lens' ListReviewableHITs (Prelude.Maybe Prelude.Text)
+listReviewableHITs_nextToken = Lens.lens (\ListReviewableHITs' {nextToken} -> nextToken) (\s@ListReviewableHITs' {} a -> s {nextToken = a} :: ListReviewableHITs)
 
 -- | Limit the number of results returned.
-lrhitMaxResults :: Lens' ListReviewableHITs (Maybe Natural)
-lrhitMaxResults = lens _lrhitMaxResults (\s a -> s {_lrhitMaxResults = a}) . mapping _Nat
+listReviewableHITs_maxResults :: Lens.Lens' ListReviewableHITs (Prelude.Maybe Prelude.Natural)
+listReviewableHITs_maxResults = Lens.lens (\ListReviewableHITs' {maxResults} -> maxResults) (\s@ListReviewableHITs' {} a -> s {maxResults = a} :: ListReviewableHITs) Prelude.. Lens.mapping Prelude._Nat
 
--- | The ID of the HIT type of the HITs to consider for the query. If not specified, all HITs for the Reviewer are considered
-lrhitHITTypeId :: Lens' ListReviewableHITs (Maybe Text)
-lrhitHITTypeId = lens _lrhitHITTypeId (\s a -> s {_lrhitHITTypeId = a})
+-- | The ID of the HIT type of the HITs to consider for the query. If not
+-- specified, all HITs for the Reviewer are considered
+listReviewableHITs_hITTypeId :: Lens.Lens' ListReviewableHITs (Prelude.Maybe Prelude.Text)
+listReviewableHITs_hITTypeId = Lens.lens (\ListReviewableHITs' {hITTypeId} -> hITTypeId) (\s@ListReviewableHITs' {} a -> s {hITTypeId = a} :: ListReviewableHITs)
 
-instance AWSPager ListReviewableHITs where
+instance Pager.AWSPager ListReviewableHITs where
   page rq rs
-    | stop (rs ^. lrhitrrsNextToken) = Nothing
-    | stop (rs ^. lrhitrrsHITs) = Nothing
-    | otherwise =
-      Just $ rq & lrhitNextToken .~ rs ^. lrhitrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listReviewableHITsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listReviewableHITsResponse_hITs Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listReviewableHITs_nextToken
+          Lens..~ rs
+          Lens.^? listReviewableHITsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListReviewableHITs where
+instance Prelude.AWSRequest ListReviewableHITs where
   type
     Rs ListReviewableHITs =
       ListReviewableHITsResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListReviewableHITsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "HITs" .!@ mempty)
-            <*> (x .?> "NumResults")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "HITs" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NumResults")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListReviewableHITs
+instance Prelude.Hashable ListReviewableHITs
 
-instance NFData ListReviewableHITs
+instance Prelude.NFData ListReviewableHITs
 
-instance ToHeaders ListReviewableHITs where
+instance Prelude.ToHeaders ListReviewableHITs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.ListReviewableHITs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.ListReviewableHITs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListReviewableHITs where
+instance Prelude.ToJSON ListReviewableHITs where
   toJSON ListReviewableHITs' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _lrhitStatus,
-            ("NextToken" .=) <$> _lrhitNextToken,
-            ("MaxResults" .=) <$> _lrhitMaxResults,
-            ("HITTypeId" .=) <$> _lrhitHITTypeId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("HITTypeId" Prelude..=) Prelude.<$> hITTypeId
           ]
       )
 
-instance ToPath ListReviewableHITs where
-  toPath = const "/"
+instance Prelude.ToPath ListReviewableHITs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListReviewableHITs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListReviewableHITs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listReviewableHITsResponse' smart constructor.
+-- | /See:/ 'newListReviewableHITsResponse' smart constructor.
 data ListReviewableHITsResponse = ListReviewableHITsResponse'
-  { _lrhitrrsNextToken ::
-      !(Maybe Text),
-    _lrhitrrsHITs ::
-      !(Maybe [HIT]),
-    _lrhitrrsNumResults ::
-      !(Maybe Int),
-    _lrhitrrsResponseStatus ::
-      !Int
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of HIT elements returned by the query.
+    hITs :: Prelude.Maybe [HIT],
+    -- | The number of HITs on this page in the filtered results list, equivalent
+    -- to the number of HITs being returned by this call.
+    numResults :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReviewableHITsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReviewableHITsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrhitrrsNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrhitrrsHITs' - The list of HIT elements returned by the query.
+-- 'nextToken', 'listReviewableHITsResponse_nextToken' - Undocumented member.
 --
--- * 'lrhitrrsNumResults' - The number of HITs on this page in the filtered results list, equivalent to the number of HITs being returned by this call.
+-- 'hITs', 'listReviewableHITsResponse_hITs' - The list of HIT elements returned by the query.
 --
--- * 'lrhitrrsResponseStatus' - -- | The response status code.
-listReviewableHITsResponse ::
-  -- | 'lrhitrrsResponseStatus'
-  Int ->
+-- 'numResults', 'listReviewableHITsResponse_numResults' - The number of HITs on this page in the filtered results list, equivalent
+-- to the number of HITs being returned by this call.
+--
+-- 'httpStatus', 'listReviewableHITsResponse_httpStatus' - The response's http status code.
+newListReviewableHITsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListReviewableHITsResponse
-listReviewableHITsResponse pResponseStatus_ =
+newListReviewableHITsResponse pHttpStatus_ =
   ListReviewableHITsResponse'
-    { _lrhitrrsNextToken =
-        Nothing,
-      _lrhitrrsHITs = Nothing,
-      _lrhitrrsNumResults = Nothing,
-      _lrhitrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      hITs = Prelude.Nothing,
+      numResults = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-lrhitrrsNextToken :: Lens' ListReviewableHITsResponse (Maybe Text)
-lrhitrrsNextToken = lens _lrhitrrsNextToken (\s a -> s {_lrhitrrsNextToken = a})
+listReviewableHITsResponse_nextToken :: Lens.Lens' ListReviewableHITsResponse (Prelude.Maybe Prelude.Text)
+listReviewableHITsResponse_nextToken = Lens.lens (\ListReviewableHITsResponse' {nextToken} -> nextToken) (\s@ListReviewableHITsResponse' {} a -> s {nextToken = a} :: ListReviewableHITsResponse)
 
 -- | The list of HIT elements returned by the query.
-lrhitrrsHITs :: Lens' ListReviewableHITsResponse [HIT]
-lrhitrrsHITs = lens _lrhitrrsHITs (\s a -> s {_lrhitrrsHITs = a}) . _Default . _Coerce
+listReviewableHITsResponse_hITs :: Lens.Lens' ListReviewableHITsResponse (Prelude.Maybe [HIT])
+listReviewableHITsResponse_hITs = Lens.lens (\ListReviewableHITsResponse' {hITs} -> hITs) (\s@ListReviewableHITsResponse' {} a -> s {hITs = a} :: ListReviewableHITsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The number of HITs on this page in the filtered results list, equivalent to the number of HITs being returned by this call.
-lrhitrrsNumResults :: Lens' ListReviewableHITsResponse (Maybe Int)
-lrhitrrsNumResults = lens _lrhitrrsNumResults (\s a -> s {_lrhitrrsNumResults = a})
+-- | The number of HITs on this page in the filtered results list, equivalent
+-- to the number of HITs being returned by this call.
+listReviewableHITsResponse_numResults :: Lens.Lens' ListReviewableHITsResponse (Prelude.Maybe Prelude.Int)
+listReviewableHITsResponse_numResults = Lens.lens (\ListReviewableHITsResponse' {numResults} -> numResults) (\s@ListReviewableHITsResponse' {} a -> s {numResults = a} :: ListReviewableHITsResponse)
 
--- | -- | The response status code.
-lrhitrrsResponseStatus :: Lens' ListReviewableHITsResponse Int
-lrhitrrsResponseStatus = lens _lrhitrrsResponseStatus (\s a -> s {_lrhitrrsResponseStatus = a})
+-- | The response's http status code.
+listReviewableHITsResponse_httpStatus :: Lens.Lens' ListReviewableHITsResponse Prelude.Int
+listReviewableHITsResponse_httpStatus = Lens.lens (\ListReviewableHITsResponse' {httpStatus} -> httpStatus) (\s@ListReviewableHITsResponse' {} a -> s {httpStatus = a} :: ListReviewableHITsResponse)
 
-instance NFData ListReviewableHITsResponse
+instance Prelude.NFData ListReviewableHITsResponse

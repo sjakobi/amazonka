@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,112 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @DeleteHIT@ operation is used to delete HIT that is no longer needed. Only the Requester who created the HIT can delete it.
+-- The @DeleteHIT@ operation is used to delete HIT that is no longer
+-- needed. Only the Requester who created the HIT can delete it.
 --
+-- You can only dispose of HITs that are in the @Reviewable@ state, with
+-- all of their submitted assignments already either approved or rejected.
+-- If you call the DeleteHIT operation on a HIT that is not in the
+-- @Reviewable@ state (for example, that has not expired, or still has
+-- active assignments), or on a HIT that is Reviewable but without all of
+-- its submitted assignments already approved or rejected, the service will
+-- return an error.
 --
--- You can only dispose of HITs that are in the @Reviewable@ state, with all of their submitted assignments already either approved or rejected. If you call the DeleteHIT operation on a HIT that is not in the @Reviewable@ state (for example, that has not expired, or still has active assignments), or on a HIT that is Reviewable but without all of its submitted assignments already approved or rejected, the service will return an error.
+-- -   HITs are automatically disposed of after 120 days.
+--
+-- -   After you dispose of a HIT, you can no longer approve the HIT\'s
+--     rejected assignments.
+--
+-- -   Disposed HITs are not returned in results for the ListHITs
+--     operation.
+--
+-- -   Disposing HITs can improve the performance of operations such as
+--     ListReviewableHITs and ListHITs.
 module Network.AWS.MechanicalTurk.DeleteHIT
   ( -- * Creating a Request
-    deleteHIT,
-    DeleteHIT,
+    DeleteHIT (..),
+    newDeleteHIT,
 
     -- * Request Lenses
-    dhitHITId,
+    deleteHIT_hITId,
 
     -- * Destructuring the Response
-    deleteHITResponse,
-    DeleteHITResponse,
+    DeleteHITResponse (..),
+    newDeleteHITResponse,
 
     -- * Response Lenses
-    dhitrrsResponseStatus,
+    deleteHITResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteHIT' smart constructor.
-newtype DeleteHIT = DeleteHIT' {_dhitHITId :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteHIT' smart constructor.
+data DeleteHIT = DeleteHIT'
+  { -- | The ID of the HIT to be deleted.
+    hITId :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteHIT' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteHIT' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhitHITId' - The ID of the HIT to be deleted.
-deleteHIT ::
-  -- | 'dhitHITId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'hITId', 'deleteHIT_hITId' - The ID of the HIT to be deleted.
+newDeleteHIT ::
+  -- | 'hITId'
+  Prelude.Text ->
   DeleteHIT
-deleteHIT pHITId_ = DeleteHIT' {_dhitHITId = pHITId_}
+newDeleteHIT pHITId_ = DeleteHIT' {hITId = pHITId_}
 
 -- | The ID of the HIT to be deleted.
-dhitHITId :: Lens' DeleteHIT Text
-dhitHITId = lens _dhitHITId (\s a -> s {_dhitHITId = a})
+deleteHIT_hITId :: Lens.Lens' DeleteHIT Prelude.Text
+deleteHIT_hITId = Lens.lens (\DeleteHIT' {hITId} -> hITId) (\s@DeleteHIT' {} a -> s {hITId = a} :: DeleteHIT)
 
-instance AWSRequest DeleteHIT where
+instance Prelude.AWSRequest DeleteHIT where
   type Rs DeleteHIT = DeleteHITResponse
-  request = postJSON mechanicalTurk
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteHITResponse' <$> (pure (fromEnum s))
+          DeleteHITResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteHIT
+instance Prelude.Hashable DeleteHIT
 
-instance NFData DeleteHIT
+instance Prelude.NFData DeleteHIT
 
-instance ToHeaders DeleteHIT where
+instance Prelude.ToHeaders DeleteHIT where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "MTurkRequesterServiceV20170117.DeleteHIT" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "MTurkRequesterServiceV20170117.DeleteHIT" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteHIT where
+instance Prelude.ToJSON DeleteHIT where
   toJSON DeleteHIT' {..} =
-    object (catMaybes [Just ("HITId" .= _dhitHITId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("HITId" Prelude..= hITId)]
+      )
 
-instance ToPath DeleteHIT where
-  toPath = const "/"
+instance Prelude.ToPath DeleteHIT where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteHIT where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteHIT where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteHITResponse' smart constructor.
-newtype DeleteHITResponse = DeleteHITResponse'
-  { _dhitrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteHITResponse' smart constructor.
+data DeleteHITResponse = DeleteHITResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteHITResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteHITResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhitrrsResponseStatus' - -- | The response status code.
-deleteHITResponse ::
-  -- | 'dhitrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteHITResponse_httpStatus' - The response's http status code.
+newDeleteHITResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteHITResponse
-deleteHITResponse pResponseStatus_ =
-  DeleteHITResponse'
-    { _dhitrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteHITResponse pHttpStatus_ =
+  DeleteHITResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dhitrrsResponseStatus :: Lens' DeleteHITResponse Int
-dhitrrsResponseStatus = lens _dhitrrsResponseStatus (\s a -> s {_dhitrrsResponseStatus = a})
+-- | The response's http status code.
+deleteHITResponse_httpStatus :: Lens.Lens' DeleteHITResponse Prelude.Int
+deleteHITResponse_httpStatus = Lens.lens (\DeleteHITResponse' {httpStatus} -> httpStatus) (\s@DeleteHITResponse' {} a -> s {httpStatus = a} :: DeleteHITResponse)
 
-instance NFData DeleteHITResponse
+instance Prelude.NFData DeleteHITResponse

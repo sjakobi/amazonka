@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MechanicalTurk.Types.PolicyParameter where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MechanicalTurk.Types.ParameterMapEntry
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Name of the parameter from the Review policy.
 --
---
---
--- /See:/ 'policyParameter' smart constructor.
+-- /See:/ 'newPolicyParameter' smart constructor.
 data PolicyParameter = PolicyParameter'
-  { _ppKey ::
-      !(Maybe Text),
-    _ppValues :: !(Maybe [Text]),
-    _ppMapEntries ::
-      !(Maybe [ParameterMapEntry])
+  { -- | Name of the parameter from the list of Review Polices.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The list of values of the Parameter
+    values :: Prelude.Maybe [Prelude.Text],
+    -- | List of ParameterMapEntry objects.
+    mapEntries :: Prelude.Maybe [ParameterMapEntry]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppKey' - Name of the parameter from the list of Review Polices.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppValues' - The list of values of the Parameter
+-- 'key', 'policyParameter_key' - Name of the parameter from the list of Review Polices.
 --
--- * 'ppMapEntries' - List of ParameterMapEntry objects.
-policyParameter ::
+-- 'values', 'policyParameter_values' - The list of values of the Parameter
+--
+-- 'mapEntries', 'policyParameter_mapEntries' - List of ParameterMapEntry objects.
+newPolicyParameter ::
   PolicyParameter
-policyParameter =
+newPolicyParameter =
   PolicyParameter'
-    { _ppKey = Nothing,
-      _ppValues = Nothing,
-      _ppMapEntries = Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing,
+      mapEntries = Prelude.Nothing
     }
 
 -- | Name of the parameter from the list of Review Polices.
-ppKey :: Lens' PolicyParameter (Maybe Text)
-ppKey = lens _ppKey (\s a -> s {_ppKey = a})
+policyParameter_key :: Lens.Lens' PolicyParameter (Prelude.Maybe Prelude.Text)
+policyParameter_key = Lens.lens (\PolicyParameter' {key} -> key) (\s@PolicyParameter' {} a -> s {key = a} :: PolicyParameter)
 
 -- | The list of values of the Parameter
-ppValues :: Lens' PolicyParameter [Text]
-ppValues = lens _ppValues (\s a -> s {_ppValues = a}) . _Default . _Coerce
+policyParameter_values :: Lens.Lens' PolicyParameter (Prelude.Maybe [Prelude.Text])
+policyParameter_values = Lens.lens (\PolicyParameter' {values} -> values) (\s@PolicyParameter' {} a -> s {values = a} :: PolicyParameter) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of ParameterMapEntry objects.
-ppMapEntries :: Lens' PolicyParameter [ParameterMapEntry]
-ppMapEntries = lens _ppMapEntries (\s a -> s {_ppMapEntries = a}) . _Default . _Coerce
+policyParameter_mapEntries :: Lens.Lens' PolicyParameter (Prelude.Maybe [ParameterMapEntry])
+policyParameter_mapEntries = Lens.lens (\PolicyParameter' {mapEntries} -> mapEntries) (\s@PolicyParameter' {} a -> s {mapEntries = a} :: PolicyParameter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON PolicyParameter where
+instance Prelude.FromJSON PolicyParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PolicyParameter"
       ( \x ->
           PolicyParameter'
-            <$> (x .:? "Key")
-            <*> (x .:? "Values" .!= mempty)
-            <*> (x .:? "MapEntries" .!= mempty)
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "MapEntries"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable PolicyParameter
+instance Prelude.Hashable PolicyParameter
 
-instance NFData PolicyParameter
+instance Prelude.NFData PolicyParameter
 
-instance ToJSON PolicyParameter where
+instance Prelude.ToJSON PolicyParameter where
   toJSON PolicyParameter' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _ppKey,
-            ("Values" .=) <$> _ppValues,
-            ("MapEntries" .=) <$> _ppMapEntries
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Values" Prelude..=) Prelude.<$> values,
+            ("MapEntries" Prelude..=) Prelude.<$> mapEntries
           ]
       )
