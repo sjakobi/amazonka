@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppSync.Types.PipelineConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The pipeline configuration for a resolver of kind @PIPELINE@ .
+-- | The pipeline configuration for a resolver of kind @PIPELINE@.
 --
---
---
--- /See:/ 'pipelineConfig' smart constructor.
-newtype PipelineConfig = PipelineConfig'
-  { _pcFunctions ::
-      Maybe [Text]
+-- /See:/ 'newPipelineConfig' smart constructor.
+data PipelineConfig = PipelineConfig'
+  { -- | A list of @Function@ objects.
+    functions :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcFunctions' - A list of @Function@ objects.
-pipelineConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'functions', 'pipelineConfig_functions' - A list of @Function@ objects.
+newPipelineConfig ::
   PipelineConfig
-pipelineConfig =
-  PipelineConfig' {_pcFunctions = Nothing}
+newPipelineConfig =
+  PipelineConfig' {functions = Prelude.Nothing}
 
 -- | A list of @Function@ objects.
-pcFunctions :: Lens' PipelineConfig [Text]
-pcFunctions = lens _pcFunctions (\s a -> s {_pcFunctions = a}) . _Default . _Coerce
+pipelineConfig_functions :: Lens.Lens' PipelineConfig (Prelude.Maybe [Prelude.Text])
+pipelineConfig_functions = Lens.lens (\PipelineConfig' {functions} -> functions) (\s@PipelineConfig' {} a -> s {functions = a} :: PipelineConfig) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON PipelineConfig where
+instance Prelude.FromJSON PipelineConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineConfig"
       ( \x ->
-          PipelineConfig' <$> (x .:? "functions" .!= mempty)
+          PipelineConfig'
+            Prelude.<$> ( x Prelude..:? "functions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable PipelineConfig
+instance Prelude.Hashable PipelineConfig
 
-instance NFData PipelineConfig
+instance Prelude.NFData PipelineConfig
 
-instance ToJSON PipelineConfig where
+instance Prelude.ToJSON PipelineConfig where
   toJSON PipelineConfig' {..} =
-    object
-      (catMaybes [("functions" .=) <$> _pcFunctions])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("functions" Prelude..=) Prelude.<$> functions]
+      )

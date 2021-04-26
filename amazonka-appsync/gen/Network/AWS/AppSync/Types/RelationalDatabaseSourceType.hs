@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.AppSync.Types.RelationalDatabaseSourceType
   ( RelationalDatabaseSourceType
       ( ..,
-        RDSHTTPEndpoint
+        RelationalDatabaseSourceTypeRDSHTTPENDPOINT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RelationalDatabaseSourceType
-  = RelationalDatabaseSourceType'
-      ( CI
-          Text
-      )
+newtype RelationalDatabaseSourceType = RelationalDatabaseSourceType'
+  { fromRelationalDatabaseSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RDSHTTPEndpoint :: RelationalDatabaseSourceType
-pattern RDSHTTPEndpoint = RelationalDatabaseSourceType' "RDS_HTTP_ENDPOINT"
+pattern RelationalDatabaseSourceTypeRDSHTTPENDPOINT :: RelationalDatabaseSourceType
+pattern RelationalDatabaseSourceTypeRDSHTTPENDPOINT = RelationalDatabaseSourceType' "RDS_HTTP_ENDPOINT"
 
 {-# COMPLETE
-  RDSHTTPEndpoint,
+  RelationalDatabaseSourceTypeRDSHTTPENDPOINT,
   RelationalDatabaseSourceType'
   #-}
 
-instance FromText RelationalDatabaseSourceType where
-  parser = (RelationalDatabaseSourceType' . mk) <$> takeText
+instance Prelude.FromText RelationalDatabaseSourceType where
+  parser = RelationalDatabaseSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText RelationalDatabaseSourceType where
-  toText (RelationalDatabaseSourceType' ci) = original ci
+instance Prelude.ToText RelationalDatabaseSourceType where
+  toText (RelationalDatabaseSourceType' x) = x
 
-instance Hashable RelationalDatabaseSourceType
+instance Prelude.Hashable RelationalDatabaseSourceType
 
-instance NFData RelationalDatabaseSourceType
+instance Prelude.NFData RelationalDatabaseSourceType
 
-instance ToByteString RelationalDatabaseSourceType
+instance Prelude.ToByteString RelationalDatabaseSourceType
 
-instance ToQuery RelationalDatabaseSourceType
+instance Prelude.ToQuery RelationalDatabaseSourceType
 
-instance ToHeader RelationalDatabaseSourceType
+instance Prelude.ToHeader RelationalDatabaseSourceType
 
-instance ToJSON RelationalDatabaseSourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RelationalDatabaseSourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RelationalDatabaseSourceType where
-  parseJSON = parseJSONText "RelationalDatabaseSourceType"
+instance Prelude.FromJSON RelationalDatabaseSourceType where
+  parseJSON = Prelude.parseJSONText "RelationalDatabaseSourceType"

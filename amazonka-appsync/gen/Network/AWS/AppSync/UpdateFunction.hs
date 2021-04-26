@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,234 +24,250 @@
 -- Updates a @Function@ object.
 module Network.AWS.AppSync.UpdateFunction
   ( -- * Creating a Request
-    updateFunction,
-    UpdateFunction,
+    UpdateFunction (..),
+    newUpdateFunction,
 
     -- * Request Lenses
-    ufResponseMappingTemplate,
-    ufSyncConfig,
-    ufDescription,
-    ufRequestMappingTemplate,
-    ufApiId,
-    ufName,
-    ufFunctionId,
-    ufDataSourceName,
-    ufFunctionVersion,
+    updateFunction_responseMappingTemplate,
+    updateFunction_syncConfig,
+    updateFunction_description,
+    updateFunction_requestMappingTemplate,
+    updateFunction_apiId,
+    updateFunction_name,
+    updateFunction_functionId,
+    updateFunction_dataSourceName,
+    updateFunction_functionVersion,
 
     -- * Destructuring the Response
-    updateFunctionResponse,
-    UpdateFunctionResponse,
+    UpdateFunctionResponse (..),
+    newUpdateFunctionResponse,
 
     -- * Response Lenses
-    ufrrsFunctionConfiguration,
-    ufrrsResponseStatus,
+    updateFunctionResponse_functionConfiguration,
+    updateFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.FunctionConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFunction' smart constructor.
+-- | /See:/ 'newUpdateFunction' smart constructor.
 data UpdateFunction = UpdateFunction'
-  { _ufResponseMappingTemplate ::
-      !(Maybe Text),
-    _ufSyncConfig :: !(Maybe SyncConfig),
-    _ufDescription :: !(Maybe Text),
-    _ufRequestMappingTemplate ::
-      !(Maybe Text),
-    _ufApiId :: !Text,
-    _ufName :: !Text,
-    _ufFunctionId :: !Text,
-    _ufDataSourceName :: !Text,
-    _ufFunctionVersion :: !Text
+  { -- | The @Function@ request mapping template.
+    responseMappingTemplate :: Prelude.Maybe Prelude.Text,
+    syncConfig :: Prelude.Maybe SyncConfig,
+    -- | The @Function@ description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The @Function@ request mapping template. Functions support only the
+    -- 2018-05-29 version of the request mapping template.
+    requestMappingTemplate :: Prelude.Maybe Prelude.Text,
+    -- | The GraphQL API ID.
+    apiId :: Prelude.Text,
+    -- | The @Function@ name.
+    name :: Prelude.Text,
+    -- | The function ID.
+    functionId :: Prelude.Text,
+    -- | The @Function@ @DataSource@ name.
+    dataSourceName :: Prelude.Text,
+    -- | The @version@ of the request mapping template. Currently the supported
+    -- value is 2018-05-29.
+    functionVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufResponseMappingTemplate' - The @Function@ request mapping template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufSyncConfig' - Undocumented member.
+-- 'responseMappingTemplate', 'updateFunction_responseMappingTemplate' - The @Function@ request mapping template.
 --
--- * 'ufDescription' - The @Function@ description.
+-- 'syncConfig', 'updateFunction_syncConfig' - Undocumented member.
 --
--- * 'ufRequestMappingTemplate' - The @Function@ request mapping template. Functions support only the 2018-05-29 version of the request mapping template.
+-- 'description', 'updateFunction_description' - The @Function@ description.
 --
--- * 'ufApiId' - The GraphQL API ID.
+-- 'requestMappingTemplate', 'updateFunction_requestMappingTemplate' - The @Function@ request mapping template. Functions support only the
+-- 2018-05-29 version of the request mapping template.
 --
--- * 'ufName' - The @Function@ name.
+-- 'apiId', 'updateFunction_apiId' - The GraphQL API ID.
 --
--- * 'ufFunctionId' - The function ID.
+-- 'name', 'updateFunction_name' - The @Function@ name.
 --
--- * 'ufDataSourceName' - The @Function@ @DataSource@ name.
+-- 'functionId', 'updateFunction_functionId' - The function ID.
 --
--- * 'ufFunctionVersion' - The @version@ of the request mapping template. Currently the supported value is 2018-05-29.
-updateFunction ::
-  -- | 'ufApiId'
-  Text ->
-  -- | 'ufName'
-  Text ->
-  -- | 'ufFunctionId'
-  Text ->
-  -- | 'ufDataSourceName'
-  Text ->
-  -- | 'ufFunctionVersion'
-  Text ->
+-- 'dataSourceName', 'updateFunction_dataSourceName' - The @Function@ @DataSource@ name.
+--
+-- 'functionVersion', 'updateFunction_functionVersion' - The @version@ of the request mapping template. Currently the supported
+-- value is 2018-05-29.
+newUpdateFunction ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'functionId'
+  Prelude.Text ->
+  -- | 'dataSourceName'
+  Prelude.Text ->
+  -- | 'functionVersion'
+  Prelude.Text ->
   UpdateFunction
-updateFunction
+newUpdateFunction
   pApiId_
   pName_
   pFunctionId_
   pDataSourceName_
   pFunctionVersion_ =
     UpdateFunction'
-      { _ufResponseMappingTemplate =
-          Nothing,
-        _ufSyncConfig = Nothing,
-        _ufDescription = Nothing,
-        _ufRequestMappingTemplate = Nothing,
-        _ufApiId = pApiId_,
-        _ufName = pName_,
-        _ufFunctionId = pFunctionId_,
-        _ufDataSourceName = pDataSourceName_,
-        _ufFunctionVersion = pFunctionVersion_
+      { responseMappingTemplate =
+          Prelude.Nothing,
+        syncConfig = Prelude.Nothing,
+        description = Prelude.Nothing,
+        requestMappingTemplate = Prelude.Nothing,
+        apiId = pApiId_,
+        name = pName_,
+        functionId = pFunctionId_,
+        dataSourceName = pDataSourceName_,
+        functionVersion = pFunctionVersion_
       }
 
 -- | The @Function@ request mapping template.
-ufResponseMappingTemplate :: Lens' UpdateFunction (Maybe Text)
-ufResponseMappingTemplate = lens _ufResponseMappingTemplate (\s a -> s {_ufResponseMappingTemplate = a})
+updateFunction_responseMappingTemplate :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
+updateFunction_responseMappingTemplate = Lens.lens (\UpdateFunction' {responseMappingTemplate} -> responseMappingTemplate) (\s@UpdateFunction' {} a -> s {responseMappingTemplate = a} :: UpdateFunction)
 
 -- | Undocumented member.
-ufSyncConfig :: Lens' UpdateFunction (Maybe SyncConfig)
-ufSyncConfig = lens _ufSyncConfig (\s a -> s {_ufSyncConfig = a})
+updateFunction_syncConfig :: Lens.Lens' UpdateFunction (Prelude.Maybe SyncConfig)
+updateFunction_syncConfig = Lens.lens (\UpdateFunction' {syncConfig} -> syncConfig) (\s@UpdateFunction' {} a -> s {syncConfig = a} :: UpdateFunction)
 
 -- | The @Function@ description.
-ufDescription :: Lens' UpdateFunction (Maybe Text)
-ufDescription = lens _ufDescription (\s a -> s {_ufDescription = a})
+updateFunction_description :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
+updateFunction_description = Lens.lens (\UpdateFunction' {description} -> description) (\s@UpdateFunction' {} a -> s {description = a} :: UpdateFunction)
 
--- | The @Function@ request mapping template. Functions support only the 2018-05-29 version of the request mapping template.
-ufRequestMappingTemplate :: Lens' UpdateFunction (Maybe Text)
-ufRequestMappingTemplate = lens _ufRequestMappingTemplate (\s a -> s {_ufRequestMappingTemplate = a})
+-- | The @Function@ request mapping template. Functions support only the
+-- 2018-05-29 version of the request mapping template.
+updateFunction_requestMappingTemplate :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
+updateFunction_requestMappingTemplate = Lens.lens (\UpdateFunction' {requestMappingTemplate} -> requestMappingTemplate) (\s@UpdateFunction' {} a -> s {requestMappingTemplate = a} :: UpdateFunction)
 
 -- | The GraphQL API ID.
-ufApiId :: Lens' UpdateFunction Text
-ufApiId = lens _ufApiId (\s a -> s {_ufApiId = a})
+updateFunction_apiId :: Lens.Lens' UpdateFunction Prelude.Text
+updateFunction_apiId = Lens.lens (\UpdateFunction' {apiId} -> apiId) (\s@UpdateFunction' {} a -> s {apiId = a} :: UpdateFunction)
 
 -- | The @Function@ name.
-ufName :: Lens' UpdateFunction Text
-ufName = lens _ufName (\s a -> s {_ufName = a})
+updateFunction_name :: Lens.Lens' UpdateFunction Prelude.Text
+updateFunction_name = Lens.lens (\UpdateFunction' {name} -> name) (\s@UpdateFunction' {} a -> s {name = a} :: UpdateFunction)
 
 -- | The function ID.
-ufFunctionId :: Lens' UpdateFunction Text
-ufFunctionId = lens _ufFunctionId (\s a -> s {_ufFunctionId = a})
+updateFunction_functionId :: Lens.Lens' UpdateFunction Prelude.Text
+updateFunction_functionId = Lens.lens (\UpdateFunction' {functionId} -> functionId) (\s@UpdateFunction' {} a -> s {functionId = a} :: UpdateFunction)
 
 -- | The @Function@ @DataSource@ name.
-ufDataSourceName :: Lens' UpdateFunction Text
-ufDataSourceName = lens _ufDataSourceName (\s a -> s {_ufDataSourceName = a})
+updateFunction_dataSourceName :: Lens.Lens' UpdateFunction Prelude.Text
+updateFunction_dataSourceName = Lens.lens (\UpdateFunction' {dataSourceName} -> dataSourceName) (\s@UpdateFunction' {} a -> s {dataSourceName = a} :: UpdateFunction)
 
--- | The @version@ of the request mapping template. Currently the supported value is 2018-05-29.
-ufFunctionVersion :: Lens' UpdateFunction Text
-ufFunctionVersion = lens _ufFunctionVersion (\s a -> s {_ufFunctionVersion = a})
+-- | The @version@ of the request mapping template. Currently the supported
+-- value is 2018-05-29.
+updateFunction_functionVersion :: Lens.Lens' UpdateFunction Prelude.Text
+updateFunction_functionVersion = Lens.lens (\UpdateFunction' {functionVersion} -> functionVersion) (\s@UpdateFunction' {} a -> s {functionVersion = a} :: UpdateFunction)
 
-instance AWSRequest UpdateFunction where
+instance Prelude.AWSRequest UpdateFunction where
   type Rs UpdateFunction = UpdateFunctionResponse
-  request = postJSON appSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateFunctionResponse'
-            <$> (x .?> "functionConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "functionConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateFunction
+instance Prelude.Hashable UpdateFunction
 
-instance NFData UpdateFunction
+instance Prelude.NFData UpdateFunction
 
-instance ToHeaders UpdateFunction where
+instance Prelude.ToHeaders UpdateFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFunction where
+instance Prelude.ToJSON UpdateFunction where
   toJSON UpdateFunction' {..} =
-    object
-      ( catMaybes
-          [ ("responseMappingTemplate" .=)
-              <$> _ufResponseMappingTemplate,
-            ("syncConfig" .=) <$> _ufSyncConfig,
-            ("description" .=) <$> _ufDescription,
-            ("requestMappingTemplate" .=)
-              <$> _ufRequestMappingTemplate,
-            Just ("name" .= _ufName),
-            Just ("dataSourceName" .= _ufDataSourceName),
-            Just ("functionVersion" .= _ufFunctionVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("responseMappingTemplate" Prelude..=)
+              Prelude.<$> responseMappingTemplate,
+            ("syncConfig" Prelude..=) Prelude.<$> syncConfig,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("requestMappingTemplate" Prelude..=)
+              Prelude.<$> requestMappingTemplate,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just
+              ("dataSourceName" Prelude..= dataSourceName),
+            Prelude.Just
+              ("functionVersion" Prelude..= functionVersion)
           ]
       )
 
-instance ToPath UpdateFunction where
+instance Prelude.ToPath UpdateFunction where
   toPath UpdateFunction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _ufApiId,
+        Prelude.toBS apiId,
         "/functions/",
-        toBS _ufFunctionId
+        Prelude.toBS functionId
       ]
 
-instance ToQuery UpdateFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateFunctionResponse' smart constructor.
+-- | /See:/ 'newUpdateFunctionResponse' smart constructor.
 data UpdateFunctionResponse = UpdateFunctionResponse'
-  { _ufrrsFunctionConfiguration ::
-      !( Maybe
-           FunctionConfiguration
-       ),
-    _ufrrsResponseStatus ::
-      !Int
+  { -- | The @Function@ object.
+    functionConfiguration :: Prelude.Maybe FunctionConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufrrsFunctionConfiguration' - The @Function@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufrrsResponseStatus' - -- | The response status code.
-updateFunctionResponse ::
-  -- | 'ufrrsResponseStatus'
-  Int ->
+-- 'functionConfiguration', 'updateFunctionResponse_functionConfiguration' - The @Function@ object.
+--
+-- 'httpStatus', 'updateFunctionResponse_httpStatus' - The response's http status code.
+newUpdateFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateFunctionResponse
-updateFunctionResponse pResponseStatus_ =
+newUpdateFunctionResponse pHttpStatus_ =
   UpdateFunctionResponse'
-    { _ufrrsFunctionConfiguration =
-        Nothing,
-      _ufrrsResponseStatus = pResponseStatus_
+    { functionConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The @Function@ object.
-ufrrsFunctionConfiguration :: Lens' UpdateFunctionResponse (Maybe FunctionConfiguration)
-ufrrsFunctionConfiguration = lens _ufrrsFunctionConfiguration (\s a -> s {_ufrrsFunctionConfiguration = a})
+updateFunctionResponse_functionConfiguration :: Lens.Lens' UpdateFunctionResponse (Prelude.Maybe FunctionConfiguration)
+updateFunctionResponse_functionConfiguration = Lens.lens (\UpdateFunctionResponse' {functionConfiguration} -> functionConfiguration) (\s@UpdateFunctionResponse' {} a -> s {functionConfiguration = a} :: UpdateFunctionResponse)
 
--- | -- | The response status code.
-ufrrsResponseStatus :: Lens' UpdateFunctionResponse Int
-ufrrsResponseStatus = lens _ufrrsResponseStatus (\s a -> s {_ufrrsResponseStatus = a})
+-- | The response's http status code.
+updateFunctionResponse_httpStatus :: Lens.Lens' UpdateFunctionResponse Prelude.Int
+updateFunctionResponse_httpStatus = Lens.lens (\UpdateFunctionResponse' {httpStatus} -> httpStatus) (\s@UpdateFunctionResponse' {} a -> s {httpStatus = a} :: UpdateFunctionResponse)
 
-instance NFData UpdateFunctionResponse
+instance Prelude.NFData UpdateFunctionResponse

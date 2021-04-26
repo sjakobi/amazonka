@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +21,95 @@ module Network.AWS.AppSync.Types.AdditionalAuthenticationProvider where
 
 import Network.AWS.AppSync.Types.AuthenticationType
 import Network.AWS.AppSync.Types.CognitoUserPoolConfig
-import Network.AWS.AppSync.Types.OpenIdConnectConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.AppSync.Types.OpenIDConnectConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an additional authentication provider.
 --
---
---
--- /See:/ 'additionalAuthenticationProvider' smart constructor.
+-- /See:/ 'newAdditionalAuthenticationProvider' smart constructor.
 data AdditionalAuthenticationProvider = AdditionalAuthenticationProvider'
-  { _aapOpenIdConnectConfig ::
-      !( Maybe
-           OpenIdConnectConfig
-       ),
-    _aapUserPoolConfig ::
-      !( Maybe
-           CognitoUserPoolConfig
-       ),
-    _aapAuthenticationType ::
-      !( Maybe
-           AuthenticationType
-       )
+  { -- | The OpenID Connect configuration.
+    openIDConnectConfig :: Prelude.Maybe OpenIDConnectConfig,
+    -- | The Amazon Cognito user pool configuration.
+    userPoolConfig :: Prelude.Maybe CognitoUserPoolConfig,
+    -- | The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user
+    -- pools.
+    authenticationType :: Prelude.Maybe AuthenticationType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdditionalAuthenticationProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdditionalAuthenticationProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aapOpenIdConnectConfig' - The OpenID Connect configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aapUserPoolConfig' - The Amazon Cognito user pool configuration.
+-- 'openIDConnectConfig', 'additionalAuthenticationProvider_openIDConnectConfig' - The OpenID Connect configuration.
 --
--- * 'aapAuthenticationType' - The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
-additionalAuthenticationProvider ::
+-- 'userPoolConfig', 'additionalAuthenticationProvider_userPoolConfig' - The Amazon Cognito user pool configuration.
+--
+-- 'authenticationType', 'additionalAuthenticationProvider_authenticationType' - The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user
+-- pools.
+newAdditionalAuthenticationProvider ::
   AdditionalAuthenticationProvider
-additionalAuthenticationProvider =
+newAdditionalAuthenticationProvider =
   AdditionalAuthenticationProvider'
-    { _aapOpenIdConnectConfig =
-        Nothing,
-      _aapUserPoolConfig = Nothing,
-      _aapAuthenticationType = Nothing
+    { openIDConnectConfig =
+        Prelude.Nothing,
+      userPoolConfig = Prelude.Nothing,
+      authenticationType = Prelude.Nothing
     }
 
 -- | The OpenID Connect configuration.
-aapOpenIdConnectConfig :: Lens' AdditionalAuthenticationProvider (Maybe OpenIdConnectConfig)
-aapOpenIdConnectConfig = lens _aapOpenIdConnectConfig (\s a -> s {_aapOpenIdConnectConfig = a})
+additionalAuthenticationProvider_openIDConnectConfig :: Lens.Lens' AdditionalAuthenticationProvider (Prelude.Maybe OpenIDConnectConfig)
+additionalAuthenticationProvider_openIDConnectConfig = Lens.lens (\AdditionalAuthenticationProvider' {openIDConnectConfig} -> openIDConnectConfig) (\s@AdditionalAuthenticationProvider' {} a -> s {openIDConnectConfig = a} :: AdditionalAuthenticationProvider)
 
 -- | The Amazon Cognito user pool configuration.
-aapUserPoolConfig :: Lens' AdditionalAuthenticationProvider (Maybe CognitoUserPoolConfig)
-aapUserPoolConfig = lens _aapUserPoolConfig (\s a -> s {_aapUserPoolConfig = a})
+additionalAuthenticationProvider_userPoolConfig :: Lens.Lens' AdditionalAuthenticationProvider (Prelude.Maybe CognitoUserPoolConfig)
+additionalAuthenticationProvider_userPoolConfig = Lens.lens (\AdditionalAuthenticationProvider' {userPoolConfig} -> userPoolConfig) (\s@AdditionalAuthenticationProvider' {} a -> s {userPoolConfig = a} :: AdditionalAuthenticationProvider)
 
--- | The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user pools.
-aapAuthenticationType :: Lens' AdditionalAuthenticationProvider (Maybe AuthenticationType)
-aapAuthenticationType = lens _aapAuthenticationType (\s a -> s {_aapAuthenticationType = a})
+-- | The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user
+-- pools.
+additionalAuthenticationProvider_authenticationType :: Lens.Lens' AdditionalAuthenticationProvider (Prelude.Maybe AuthenticationType)
+additionalAuthenticationProvider_authenticationType = Lens.lens (\AdditionalAuthenticationProvider' {authenticationType} -> authenticationType) (\s@AdditionalAuthenticationProvider' {} a -> s {authenticationType = a} :: AdditionalAuthenticationProvider)
 
-instance FromJSON AdditionalAuthenticationProvider where
+instance
+  Prelude.FromJSON
+    AdditionalAuthenticationProvider
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AdditionalAuthenticationProvider"
       ( \x ->
           AdditionalAuthenticationProvider'
-            <$> (x .:? "openIDConnectConfig")
-            <*> (x .:? "userPoolConfig")
-            <*> (x .:? "authenticationType")
+            Prelude.<$> (x Prelude..:? "openIDConnectConfig")
+            Prelude.<*> (x Prelude..:? "userPoolConfig")
+            Prelude.<*> (x Prelude..:? "authenticationType")
       )
 
-instance Hashable AdditionalAuthenticationProvider
+instance
+  Prelude.Hashable
+    AdditionalAuthenticationProvider
 
-instance NFData AdditionalAuthenticationProvider
+instance
+  Prelude.NFData
+    AdditionalAuthenticationProvider
 
-instance ToJSON AdditionalAuthenticationProvider where
+instance
+  Prelude.ToJSON
+    AdditionalAuthenticationProvider
+  where
   toJSON AdditionalAuthenticationProvider' {..} =
-    object
-      ( catMaybes
-          [ ("openIDConnectConfig" .=)
-              <$> _aapOpenIdConnectConfig,
-            ("userPoolConfig" .=) <$> _aapUserPoolConfig,
-            ("authenticationType" .=)
-              <$> _aapAuthenticationType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("openIDConnectConfig" Prelude..=)
+              Prelude.<$> openIDConnectConfig,
+            ("userPoolConfig" Prelude..=)
+              Prelude.<$> userPoolConfig,
+            ("authenticationType" Prelude..=)
+              Prelude.<$> authenticationType
           ]
       )

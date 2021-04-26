@@ -28,253 +28,253 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestListResolvers $
---             listResolvers
+--             newListResolvers
 --
 --         , requestUpdateDataSource $
---             updateDataSource
+--             newUpdateDataSource
 --
 --         , requestListDataSources $
---             listDataSources
+--             newListDataSources
 --
 --         , requestCreateType $
---             createType
+--             newCreateType
 --
 --         , requestGetFunction $
---             getFunction
+--             newGetFunction
 --
 --         , requestDeleteDataSource $
---             deleteDataSource
+--             newDeleteDataSource
 --
 --         , requestCreateDataSource $
---             createDataSource
+--             newCreateDataSource
 --
 --         , requestDeleteType $
---             deleteType
+--             newDeleteType
 --
 --         , requestUpdateType $
---             updateType
+--             newUpdateType
 --
 --         , requestListResolversByFunction $
---             listResolversByFunction
+--             newListResolversByFunction
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestListFunctions $
---             listFunctions
+--             newListFunctions
 --
 --         , requestGetIntrospectionSchema $
---             getIntrospectionSchema
+--             newGetIntrospectionSchema
 --
---         , requestUpdateGraphqlAPI $
---             updateGraphqlAPI
+--         , requestUpdateGraphqlApi $
+--             newUpdateGraphqlApi
 --
---         , requestListGraphqlAPIs $
---             listGraphqlAPIs
+--         , requestListGraphqlApis $
+--             newListGraphqlApis
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
---         , requestDeleteGraphqlAPI $
---             deleteGraphqlAPI
+--         , requestDeleteGraphqlApi $
+--             newDeleteGraphqlApi
 --
 --         , requestGetResolver $
---             getResolver
+--             newGetResolver
 --
---         , requestDeleteAPICache $
---             deleteAPICache
+--         , requestDeleteApiCache $
+--             newDeleteApiCache
 --
---         , requestUpdateAPICache $
---             updateAPICache
+--         , requestUpdateApiCache $
+--             newUpdateApiCache
 --
 --         , requestGetSchemaCreationStatus $
---             getSchemaCreationStatus
+--             newGetSchemaCreationStatus
 --
---         , requestGetAPICache $
---             getAPICache
+--         , requestGetApiCache $
+--             newGetApiCache
 --
 --         , requestUpdateResolver $
---             updateResolver
+--             newUpdateResolver
 --
 --         , requestDeleteResolver $
---             deleteResolver
+--             newDeleteResolver
 --
---         , requestGetGraphqlAPI $
---             getGraphqlAPI
+--         , requestGetGraphqlApi $
+--             newGetGraphqlApi
 --
 --         , requestListTypes $
---             listTypes
+--             newListTypes
 --
 --         , requestGetType $
---             getType
+--             newGetType
 --
 --         , requestCreateFunction $
---             createFunction
+--             newCreateFunction
 --
---         , requestListAPIKeys $
---             listAPIKeys
+--         , requestListApiKeys $
+--             newListApiKeys
 --
---         , requestDeleteAPIKey $
---             deleteAPIKey
+--         , requestDeleteApiKey $
+--             newDeleteApiKey
 --
---         , requestUpdateAPIKey $
---             updateAPIKey
+--         , requestUpdateApiKey $
+--             newUpdateApiKey
 --
 --         , requestGetDataSource $
---             getDataSource
+--             newGetDataSource
 --
 --         , requestDeleteFunction $
---             deleteFunction
+--             newDeleteFunction
 --
 --         , requestUpdateFunction $
---             updateFunction
+--             newUpdateFunction
 --
---         , requestCreateAPIKey $
---             createAPIKey
+--         , requestCreateApiKey $
+--             newCreateApiKey
 --
 --         , requestStartSchemaCreation $
---             startSchemaCreation
+--             newStartSchemaCreation
 --
---         , requestFlushAPICache $
---             flushAPICache
+--         , requestFlushApiCache $
+--             newFlushApiCache
 --
---         , requestCreateAPICache $
---             createAPICache
+--         , requestCreateApiCache $
+--             newCreateApiCache
 --
---         , requestCreateGraphqlAPI $
---             createGraphqlAPI
+--         , requestCreateGraphqlApi $
+--             newCreateGraphqlApi
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestCreateResolver $
---             createResolver
+--             newCreateResolver
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseListResolvers $
---             listResolversResponse
+--             newListResolversResponse
 --
 --         , responseUpdateDataSource $
---             updateDataSourceResponse
+--             newUpdateDataSourceResponse
 --
 --         , responseListDataSources $
---             listDataSourcesResponse
+--             newListDataSourcesResponse
 --
 --         , responseCreateType $
---             createTypeResponse
+--             newCreateTypeResponse
 --
 --         , responseGetFunction $
---             getFunctionResponse
+--             newGetFunctionResponse
 --
 --         , responseDeleteDataSource $
---             deleteDataSourceResponse
+--             newDeleteDataSourceResponse
 --
 --         , responseCreateDataSource $
---             createDataSourceResponse
+--             newCreateDataSourceResponse
 --
 --         , responseDeleteType $
---             deleteTypeResponse
+--             newDeleteTypeResponse
 --
 --         , responseUpdateType $
---             updateTypeResponse
+--             newUpdateTypeResponse
 --
 --         , responseListResolversByFunction $
---             listResolversByFunctionResponse
+--             newListResolversByFunctionResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseListFunctions $
---             listFunctionsResponse
+--             newListFunctionsResponse
 --
 --         , responseGetIntrospectionSchema $
---             getIntrospectionSchemaResponse
+--             newGetIntrospectionSchemaResponse
 --
---         , responseUpdateGraphqlAPI $
---             updateGraphqlAPIResponse
+--         , responseUpdateGraphqlApi $
+--             newUpdateGraphqlApiResponse
 --
---         , responseListGraphqlAPIs $
---             listGraphqlAPIsResponse
+--         , responseListGraphqlApis $
+--             newListGraphqlApisResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
---         , responseDeleteGraphqlAPI $
---             deleteGraphqlAPIResponse
+--         , responseDeleteGraphqlApi $
+--             newDeleteGraphqlApiResponse
 --
 --         , responseGetResolver $
---             getResolverResponse
+--             newGetResolverResponse
 --
---         , responseDeleteAPICache $
---             deleteAPICacheResponse
+--         , responseDeleteApiCache $
+--             newDeleteApiCacheResponse
 --
---         , responseUpdateAPICache $
---             updateAPICacheResponse
+--         , responseUpdateApiCache $
+--             newUpdateApiCacheResponse
 --
 --         , responseGetSchemaCreationStatus $
---             getSchemaCreationStatusResponse
+--             newGetSchemaCreationStatusResponse
 --
---         , responseGetAPICache $
---             getAPICacheResponse
+--         , responseGetApiCache $
+--             newGetApiCacheResponse
 --
 --         , responseUpdateResolver $
---             updateResolverResponse
+--             newUpdateResolverResponse
 --
 --         , responseDeleteResolver $
---             deleteResolverResponse
+--             newDeleteResolverResponse
 --
---         , responseGetGraphqlAPI $
---             getGraphqlAPIResponse
+--         , responseGetGraphqlApi $
+--             newGetGraphqlApiResponse
 --
 --         , responseListTypes $
---             listTypesResponse
+--             newListTypesResponse
 --
 --         , responseGetType $
---             getTypeResponse
+--             newGetTypeResponse
 --
 --         , responseCreateFunction $
---             createFunctionResponse
+--             newCreateFunctionResponse
 --
---         , responseListAPIKeys $
---             listAPIKeysResponse
+--         , responseListApiKeys $
+--             newListApiKeysResponse
 --
---         , responseDeleteAPIKey $
---             deleteAPIKeyResponse
+--         , responseDeleteApiKey $
+--             newDeleteApiKeyResponse
 --
---         , responseUpdateAPIKey $
---             updateAPIKeyResponse
+--         , responseUpdateApiKey $
+--             newUpdateApiKeyResponse
 --
 --         , responseGetDataSource $
---             getDataSourceResponse
+--             newGetDataSourceResponse
 --
 --         , responseDeleteFunction $
---             deleteFunctionResponse
+--             newDeleteFunctionResponse
 --
 --         , responseUpdateFunction $
---             updateFunctionResponse
+--             newUpdateFunctionResponse
 --
---         , responseCreateAPIKey $
---             createAPIKeyResponse
+--         , responseCreateApiKey $
+--             newCreateApiKeyResponse
 --
 --         , responseStartSchemaCreation $
---             startSchemaCreationResponse
+--             newStartSchemaCreationResponse
 --
---         , responseFlushAPICache $
---             flushAPICacheResponse
+--         , responseFlushApiCache $
+--             newFlushApiCacheResponse
 --
---         , responseCreateAPICache $
---             createAPICacheResponse
+--         , responseCreateApiCache $
+--             newCreateApiCacheResponse
 --
---         , responseCreateGraphqlAPI $
---             createGraphqlAPIResponse
+--         , responseCreateGraphqlApi $
+--             newCreateGraphqlApiResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseCreateResolver $
---             createResolverResponse
+--             newCreateResolverResponse
 --
 --           ]
 --     ]
@@ -359,17 +359,17 @@ requestGetIntrospectionSchema =
     "GetIntrospectionSchema"
     "fixture/GetIntrospectionSchema.yaml"
 
-requestUpdateGraphqlAPI :: UpdateGraphqlAPI -> TestTree
-requestUpdateGraphqlAPI =
+requestUpdateGraphqlApi :: UpdateGraphqlApi -> TestTree
+requestUpdateGraphqlApi =
   req
-    "UpdateGraphqlAPI"
-    "fixture/UpdateGraphqlAPI.yaml"
+    "UpdateGraphqlApi"
+    "fixture/UpdateGraphqlApi.yaml"
 
-requestListGraphqlAPIs :: ListGraphqlAPIs -> TestTree
-requestListGraphqlAPIs =
+requestListGraphqlApis :: ListGraphqlApis -> TestTree
+requestListGraphqlApis =
   req
-    "ListGraphqlAPIs"
-    "fixture/ListGraphqlAPIs.yaml"
+    "ListGraphqlApis"
+    "fixture/ListGraphqlApis.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -377,11 +377,11 @@ requestTagResource =
     "TagResource"
     "fixture/TagResource.yaml"
 
-requestDeleteGraphqlAPI :: DeleteGraphqlAPI -> TestTree
-requestDeleteGraphqlAPI =
+requestDeleteGraphqlApi :: DeleteGraphqlApi -> TestTree
+requestDeleteGraphqlApi =
   req
-    "DeleteGraphqlAPI"
-    "fixture/DeleteGraphqlAPI.yaml"
+    "DeleteGraphqlApi"
+    "fixture/DeleteGraphqlApi.yaml"
 
 requestGetResolver :: GetResolver -> TestTree
 requestGetResolver =
@@ -389,17 +389,17 @@ requestGetResolver =
     "GetResolver"
     "fixture/GetResolver.yaml"
 
-requestDeleteAPICache :: DeleteAPICache -> TestTree
-requestDeleteAPICache =
+requestDeleteApiCache :: DeleteApiCache -> TestTree
+requestDeleteApiCache =
   req
-    "DeleteAPICache"
-    "fixture/DeleteAPICache.yaml"
+    "DeleteApiCache"
+    "fixture/DeleteApiCache.yaml"
 
-requestUpdateAPICache :: UpdateAPICache -> TestTree
-requestUpdateAPICache =
+requestUpdateApiCache :: UpdateApiCache -> TestTree
+requestUpdateApiCache =
   req
-    "UpdateAPICache"
-    "fixture/UpdateAPICache.yaml"
+    "UpdateApiCache"
+    "fixture/UpdateApiCache.yaml"
 
 requestGetSchemaCreationStatus :: GetSchemaCreationStatus -> TestTree
 requestGetSchemaCreationStatus =
@@ -407,11 +407,11 @@ requestGetSchemaCreationStatus =
     "GetSchemaCreationStatus"
     "fixture/GetSchemaCreationStatus.yaml"
 
-requestGetAPICache :: GetAPICache -> TestTree
-requestGetAPICache =
+requestGetApiCache :: GetApiCache -> TestTree
+requestGetApiCache =
   req
-    "GetAPICache"
-    "fixture/GetAPICache.yaml"
+    "GetApiCache"
+    "fixture/GetApiCache.yaml"
 
 requestUpdateResolver :: UpdateResolver -> TestTree
 requestUpdateResolver =
@@ -425,11 +425,11 @@ requestDeleteResolver =
     "DeleteResolver"
     "fixture/DeleteResolver.yaml"
 
-requestGetGraphqlAPI :: GetGraphqlAPI -> TestTree
-requestGetGraphqlAPI =
+requestGetGraphqlApi :: GetGraphqlApi -> TestTree
+requestGetGraphqlApi =
   req
-    "GetGraphqlAPI"
-    "fixture/GetGraphqlAPI.yaml"
+    "GetGraphqlApi"
+    "fixture/GetGraphqlApi.yaml"
 
 requestListTypes :: ListTypes -> TestTree
 requestListTypes =
@@ -449,23 +449,23 @@ requestCreateFunction =
     "CreateFunction"
     "fixture/CreateFunction.yaml"
 
-requestListAPIKeys :: ListAPIKeys -> TestTree
-requestListAPIKeys =
+requestListApiKeys :: ListApiKeys -> TestTree
+requestListApiKeys =
   req
-    "ListAPIKeys"
-    "fixture/ListAPIKeys.yaml"
+    "ListApiKeys"
+    "fixture/ListApiKeys.yaml"
 
-requestDeleteAPIKey :: DeleteAPIKey -> TestTree
-requestDeleteAPIKey =
+requestDeleteApiKey :: DeleteApiKey -> TestTree
+requestDeleteApiKey =
   req
-    "DeleteAPIKey"
-    "fixture/DeleteAPIKey.yaml"
+    "DeleteApiKey"
+    "fixture/DeleteApiKey.yaml"
 
-requestUpdateAPIKey :: UpdateAPIKey -> TestTree
-requestUpdateAPIKey =
+requestUpdateApiKey :: UpdateApiKey -> TestTree
+requestUpdateApiKey =
   req
-    "UpdateAPIKey"
-    "fixture/UpdateAPIKey.yaml"
+    "UpdateApiKey"
+    "fixture/UpdateApiKey.yaml"
 
 requestGetDataSource :: GetDataSource -> TestTree
 requestGetDataSource =
@@ -485,11 +485,11 @@ requestUpdateFunction =
     "UpdateFunction"
     "fixture/UpdateFunction.yaml"
 
-requestCreateAPIKey :: CreateAPIKey -> TestTree
-requestCreateAPIKey =
+requestCreateApiKey :: CreateApiKey -> TestTree
+requestCreateApiKey =
   req
-    "CreateAPIKey"
-    "fixture/CreateAPIKey.yaml"
+    "CreateApiKey"
+    "fixture/CreateApiKey.yaml"
 
 requestStartSchemaCreation :: StartSchemaCreation -> TestTree
 requestStartSchemaCreation =
@@ -497,23 +497,23 @@ requestStartSchemaCreation =
     "StartSchemaCreation"
     "fixture/StartSchemaCreation.yaml"
 
-requestFlushAPICache :: FlushAPICache -> TestTree
-requestFlushAPICache =
+requestFlushApiCache :: FlushApiCache -> TestTree
+requestFlushApiCache =
   req
-    "FlushAPICache"
-    "fixture/FlushAPICache.yaml"
+    "FlushApiCache"
+    "fixture/FlushApiCache.yaml"
 
-requestCreateAPICache :: CreateAPICache -> TestTree
-requestCreateAPICache =
+requestCreateApiCache :: CreateApiCache -> TestTree
+requestCreateApiCache =
   req
-    "CreateAPICache"
-    "fixture/CreateAPICache.yaml"
+    "CreateApiCache"
+    "fixture/CreateApiCache.yaml"
 
-requestCreateGraphqlAPI :: CreateGraphqlAPI -> TestTree
-requestCreateGraphqlAPI =
+requestCreateGraphqlApi :: CreateGraphqlApi -> TestTree
+requestCreateGraphqlApi =
   req
-    "CreateGraphqlAPI"
-    "fixture/CreateGraphqlAPI.yaml"
+    "CreateGraphqlApi"
+    "fixture/CreateGraphqlApi.yaml"
 
 requestListTagsForResource :: ListTagsForResource -> TestTree
 requestListTagsForResource =
@@ -534,7 +534,7 @@ responseListResolvers =
   res
     "ListResolversResponse"
     "fixture/ListResolversResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy ListResolvers)
 
 responseUpdateDataSource :: UpdateDataSourceResponse -> TestTree
@@ -542,7 +542,7 @@ responseUpdateDataSource =
   res
     "UpdateDataSourceResponse"
     "fixture/UpdateDataSourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy UpdateDataSource)
 
 responseListDataSources :: ListDataSourcesResponse -> TestTree
@@ -550,7 +550,7 @@ responseListDataSources =
   res
     "ListDataSourcesResponse"
     "fixture/ListDataSourcesResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy ListDataSources)
 
 responseCreateType :: CreateTypeResponse -> TestTree
@@ -558,7 +558,7 @@ responseCreateType =
   res
     "CreateTypeResponse"
     "fixture/CreateTypeResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy CreateType)
 
 responseGetFunction :: GetFunctionResponse -> TestTree
@@ -566,7 +566,7 @@ responseGetFunction =
   res
     "GetFunctionResponse"
     "fixture/GetFunctionResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy GetFunction)
 
 responseDeleteDataSource :: DeleteDataSourceResponse -> TestTree
@@ -574,7 +574,7 @@ responseDeleteDataSource =
   res
     "DeleteDataSourceResponse"
     "fixture/DeleteDataSourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy DeleteDataSource)
 
 responseCreateDataSource :: CreateDataSourceResponse -> TestTree
@@ -582,7 +582,7 @@ responseCreateDataSource =
   res
     "CreateDataSourceResponse"
     "fixture/CreateDataSourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy CreateDataSource)
 
 responseDeleteType :: DeleteTypeResponse -> TestTree
@@ -590,7 +590,7 @@ responseDeleteType =
   res
     "DeleteTypeResponse"
     "fixture/DeleteTypeResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy DeleteType)
 
 responseUpdateType :: UpdateTypeResponse -> TestTree
@@ -598,7 +598,7 @@ responseUpdateType =
   res
     "UpdateTypeResponse"
     "fixture/UpdateTypeResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy UpdateType)
 
 responseListResolversByFunction :: ListResolversByFunctionResponse -> TestTree
@@ -606,7 +606,7 @@ responseListResolversByFunction =
   res
     "ListResolversByFunctionResponse"
     "fixture/ListResolversByFunctionResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy ListResolversByFunction)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -614,7 +614,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseListFunctions :: ListFunctionsResponse -> TestTree
@@ -622,7 +622,7 @@ responseListFunctions =
   res
     "ListFunctionsResponse"
     "fixture/ListFunctionsResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy ListFunctions)
 
 responseGetIntrospectionSchema :: GetIntrospectionSchemaResponse -> TestTree
@@ -630,87 +630,87 @@ responseGetIntrospectionSchema =
   res
     "GetIntrospectionSchemaResponse"
     "fixture/GetIntrospectionSchemaResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy GetIntrospectionSchema)
 
-responseUpdateGraphqlAPI :: UpdateGraphqlAPIResponse -> TestTree
-responseUpdateGraphqlAPI =
+responseUpdateGraphqlApi :: UpdateGraphqlApiResponse -> TestTree
+responseUpdateGraphqlApi =
   res
-    "UpdateGraphqlAPIResponse"
-    "fixture/UpdateGraphqlAPIResponse.proto"
-    appSync
-    (Proxy :: Proxy UpdateGraphqlAPI)
+    "UpdateGraphqlApiResponse"
+    "fixture/UpdateGraphqlApiResponse.proto"
+    defaultService
+    (Proxy :: Proxy UpdateGraphqlApi)
 
-responseListGraphqlAPIs :: ListGraphqlAPIsResponse -> TestTree
-responseListGraphqlAPIs =
+responseListGraphqlApis :: ListGraphqlApisResponse -> TestTree
+responseListGraphqlApis =
   res
-    "ListGraphqlAPIsResponse"
-    "fixture/ListGraphqlAPIsResponse.proto"
-    appSync
-    (Proxy :: Proxy ListGraphqlAPIs)
+    "ListGraphqlApisResponse"
+    "fixture/ListGraphqlApisResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListGraphqlApis)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy TagResource)
 
-responseDeleteGraphqlAPI :: DeleteGraphqlAPIResponse -> TestTree
-responseDeleteGraphqlAPI =
+responseDeleteGraphqlApi :: DeleteGraphqlApiResponse -> TestTree
+responseDeleteGraphqlApi =
   res
-    "DeleteGraphqlAPIResponse"
-    "fixture/DeleteGraphqlAPIResponse.proto"
-    appSync
-    (Proxy :: Proxy DeleteGraphqlAPI)
+    "DeleteGraphqlApiResponse"
+    "fixture/DeleteGraphqlApiResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteGraphqlApi)
 
 responseGetResolver :: GetResolverResponse -> TestTree
 responseGetResolver =
   res
     "GetResolverResponse"
     "fixture/GetResolverResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy GetResolver)
 
-responseDeleteAPICache :: DeleteAPICacheResponse -> TestTree
-responseDeleteAPICache =
+responseDeleteApiCache :: DeleteApiCacheResponse -> TestTree
+responseDeleteApiCache =
   res
-    "DeleteAPICacheResponse"
-    "fixture/DeleteAPICacheResponse.proto"
-    appSync
-    (Proxy :: Proxy DeleteAPICache)
+    "DeleteApiCacheResponse"
+    "fixture/DeleteApiCacheResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteApiCache)
 
-responseUpdateAPICache :: UpdateAPICacheResponse -> TestTree
-responseUpdateAPICache =
+responseUpdateApiCache :: UpdateApiCacheResponse -> TestTree
+responseUpdateApiCache =
   res
-    "UpdateAPICacheResponse"
-    "fixture/UpdateAPICacheResponse.proto"
-    appSync
-    (Proxy :: Proxy UpdateAPICache)
+    "UpdateApiCacheResponse"
+    "fixture/UpdateApiCacheResponse.proto"
+    defaultService
+    (Proxy :: Proxy UpdateApiCache)
 
 responseGetSchemaCreationStatus :: GetSchemaCreationStatusResponse -> TestTree
 responseGetSchemaCreationStatus =
   res
     "GetSchemaCreationStatusResponse"
     "fixture/GetSchemaCreationStatusResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy GetSchemaCreationStatus)
 
-responseGetAPICache :: GetAPICacheResponse -> TestTree
-responseGetAPICache =
+responseGetApiCache :: GetApiCacheResponse -> TestTree
+responseGetApiCache =
   res
-    "GetAPICacheResponse"
-    "fixture/GetAPICacheResponse.proto"
-    appSync
-    (Proxy :: Proxy GetAPICache)
+    "GetApiCacheResponse"
+    "fixture/GetApiCacheResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetApiCache)
 
 responseUpdateResolver :: UpdateResolverResponse -> TestTree
 responseUpdateResolver =
   res
     "UpdateResolverResponse"
     "fixture/UpdateResolverResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy UpdateResolver)
 
 responseDeleteResolver :: DeleteResolverResponse -> TestTree
@@ -718,23 +718,23 @@ responseDeleteResolver =
   res
     "DeleteResolverResponse"
     "fixture/DeleteResolverResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy DeleteResolver)
 
-responseGetGraphqlAPI :: GetGraphqlAPIResponse -> TestTree
-responseGetGraphqlAPI =
+responseGetGraphqlApi :: GetGraphqlApiResponse -> TestTree
+responseGetGraphqlApi =
   res
-    "GetGraphqlAPIResponse"
-    "fixture/GetGraphqlAPIResponse.proto"
-    appSync
-    (Proxy :: Proxy GetGraphqlAPI)
+    "GetGraphqlApiResponse"
+    "fixture/GetGraphqlApiResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetGraphqlApi)
 
 responseListTypes :: ListTypesResponse -> TestTree
 responseListTypes =
   res
     "ListTypesResponse"
     "fixture/ListTypesResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy ListTypes)
 
 responseGetType :: GetTypeResponse -> TestTree
@@ -742,7 +742,7 @@ responseGetType =
   res
     "GetTypeResponse"
     "fixture/GetTypeResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy GetType)
 
 responseCreateFunction :: CreateFunctionResponse -> TestTree
@@ -750,39 +750,39 @@ responseCreateFunction =
   res
     "CreateFunctionResponse"
     "fixture/CreateFunctionResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy CreateFunction)
 
-responseListAPIKeys :: ListAPIKeysResponse -> TestTree
-responseListAPIKeys =
+responseListApiKeys :: ListApiKeysResponse -> TestTree
+responseListApiKeys =
   res
-    "ListAPIKeysResponse"
-    "fixture/ListAPIKeysResponse.proto"
-    appSync
-    (Proxy :: Proxy ListAPIKeys)
+    "ListApiKeysResponse"
+    "fixture/ListApiKeysResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListApiKeys)
 
-responseDeleteAPIKey :: DeleteAPIKeyResponse -> TestTree
-responseDeleteAPIKey =
+responseDeleteApiKey :: DeleteApiKeyResponse -> TestTree
+responseDeleteApiKey =
   res
-    "DeleteAPIKeyResponse"
-    "fixture/DeleteAPIKeyResponse.proto"
-    appSync
-    (Proxy :: Proxy DeleteAPIKey)
+    "DeleteApiKeyResponse"
+    "fixture/DeleteApiKeyResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteApiKey)
 
-responseUpdateAPIKey :: UpdateAPIKeyResponse -> TestTree
-responseUpdateAPIKey =
+responseUpdateApiKey :: UpdateApiKeyResponse -> TestTree
+responseUpdateApiKey =
   res
-    "UpdateAPIKeyResponse"
-    "fixture/UpdateAPIKeyResponse.proto"
-    appSync
-    (Proxy :: Proxy UpdateAPIKey)
+    "UpdateApiKeyResponse"
+    "fixture/UpdateApiKeyResponse.proto"
+    defaultService
+    (Proxy :: Proxy UpdateApiKey)
 
 responseGetDataSource :: GetDataSourceResponse -> TestTree
 responseGetDataSource =
   res
     "GetDataSourceResponse"
     "fixture/GetDataSourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy GetDataSource)
 
 responseDeleteFunction :: DeleteFunctionResponse -> TestTree
@@ -790,7 +790,7 @@ responseDeleteFunction =
   res
     "DeleteFunctionResponse"
     "fixture/DeleteFunctionResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy DeleteFunction)
 
 responseUpdateFunction :: UpdateFunctionResponse -> TestTree
@@ -798,55 +798,55 @@ responseUpdateFunction =
   res
     "UpdateFunctionResponse"
     "fixture/UpdateFunctionResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy UpdateFunction)
 
-responseCreateAPIKey :: CreateAPIKeyResponse -> TestTree
-responseCreateAPIKey =
+responseCreateApiKey :: CreateApiKeyResponse -> TestTree
+responseCreateApiKey =
   res
-    "CreateAPIKeyResponse"
-    "fixture/CreateAPIKeyResponse.proto"
-    appSync
-    (Proxy :: Proxy CreateAPIKey)
+    "CreateApiKeyResponse"
+    "fixture/CreateApiKeyResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreateApiKey)
 
 responseStartSchemaCreation :: StartSchemaCreationResponse -> TestTree
 responseStartSchemaCreation =
   res
     "StartSchemaCreationResponse"
     "fixture/StartSchemaCreationResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy StartSchemaCreation)
 
-responseFlushAPICache :: FlushAPICacheResponse -> TestTree
-responseFlushAPICache =
+responseFlushApiCache :: FlushApiCacheResponse -> TestTree
+responseFlushApiCache =
   res
-    "FlushAPICacheResponse"
-    "fixture/FlushAPICacheResponse.proto"
-    appSync
-    (Proxy :: Proxy FlushAPICache)
+    "FlushApiCacheResponse"
+    "fixture/FlushApiCacheResponse.proto"
+    defaultService
+    (Proxy :: Proxy FlushApiCache)
 
-responseCreateAPICache :: CreateAPICacheResponse -> TestTree
-responseCreateAPICache =
+responseCreateApiCache :: CreateApiCacheResponse -> TestTree
+responseCreateApiCache =
   res
-    "CreateAPICacheResponse"
-    "fixture/CreateAPICacheResponse.proto"
-    appSync
-    (Proxy :: Proxy CreateAPICache)
+    "CreateApiCacheResponse"
+    "fixture/CreateApiCacheResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreateApiCache)
 
-responseCreateGraphqlAPI :: CreateGraphqlAPIResponse -> TestTree
-responseCreateGraphqlAPI =
+responseCreateGraphqlApi :: CreateGraphqlApiResponse -> TestTree
+responseCreateGraphqlApi =
   res
-    "CreateGraphqlAPIResponse"
-    "fixture/CreateGraphqlAPIResponse.proto"
-    appSync
-    (Proxy :: Proxy CreateGraphqlAPI)
+    "CreateGraphqlApiResponse"
+    "fixture/CreateGraphqlApiResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreateGraphqlApi)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
 responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseCreateResolver :: CreateResolverResponse -> TestTree
@@ -854,5 +854,5 @@ responseCreateResolver =
   res
     "CreateResolverResponse"
     "fixture/CreateResolverResponse.proto"
-    appSync
+    defaultService
     (Proxy :: Proxy CreateResolver)

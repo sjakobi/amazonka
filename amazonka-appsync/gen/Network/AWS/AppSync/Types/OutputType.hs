@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.AppSync.Types.OutputType
   ( OutputType
       ( ..,
-        OTJSON,
-        OTSdl
+        OutputTypeJSON,
+        OutputTypeSDL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OutputType = OutputType' (CI Text)
+newtype OutputType = OutputType'
+  { fromOutputType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OTJSON :: OutputType
-pattern OTJSON = OutputType' "JSON"
+pattern OutputTypeJSON :: OutputType
+pattern OutputTypeJSON = OutputType' "JSON"
 
-pattern OTSdl :: OutputType
-pattern OTSdl = OutputType' "SDL"
+pattern OutputTypeSDL :: OutputType
+pattern OutputTypeSDL = OutputType' "SDL"
 
 {-# COMPLETE
-  OTJSON,
-  OTSdl,
+  OutputTypeJSON,
+  OutputTypeSDL,
   OutputType'
   #-}
 
-instance FromText OutputType where
-  parser = (OutputType' . mk) <$> takeText
+instance Prelude.FromText OutputType where
+  parser = OutputType' Prelude.<$> Prelude.takeText
 
-instance ToText OutputType where
-  toText (OutputType' ci) = original ci
+instance Prelude.ToText OutputType where
+  toText (OutputType' x) = x
 
-instance Hashable OutputType
+instance Prelude.Hashable OutputType
 
-instance NFData OutputType
+instance Prelude.NFData OutputType
 
-instance ToByteString OutputType
+instance Prelude.ToByteString OutputType
 
-instance ToQuery OutputType
+instance Prelude.ToQuery OutputType
 
-instance ToHeader OutputType
+instance Prelude.ToHeader OutputType
 
-instance ToJSON OutputType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OutputType where
+  toJSON = Prelude.toJSONText

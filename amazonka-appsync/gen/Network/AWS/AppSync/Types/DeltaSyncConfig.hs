@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppSync.Types.DeltaSyncConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Delta Sync configuration.
 --
---
---
--- /See:/ 'deltaSyncConfig' smart constructor.
+-- /See:/ 'newDeltaSyncConfig' smart constructor.
 data DeltaSyncConfig = DeltaSyncConfig'
-  { _dscBaseTableTTL ::
-      !(Maybe Integer),
-    _dscDeltaSyncTableName :: !(Maybe Text),
-    _dscDeltaSyncTableTTL ::
-      !(Maybe Integer)
+  { -- | The number of minutes an Item is stored in the datasource.
+    baseTableTTL :: Prelude.Maybe Prelude.Integer,
+    -- | The Delta Sync table name.
+    deltaSyncTableName :: Prelude.Maybe Prelude.Text,
+    -- | The number of minutes a Delta Sync log entry is stored in the Delta Sync
+    -- table.
+    deltaSyncTableTTL :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeltaSyncConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeltaSyncConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscBaseTableTTL' - The number of minutes an Item is stored in the datasource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscDeltaSyncTableName' - The Delta Sync table name.
+-- 'baseTableTTL', 'deltaSyncConfig_baseTableTTL' - The number of minutes an Item is stored in the datasource.
 --
--- * 'dscDeltaSyncTableTTL' - The number of minutes a Delta Sync log entry is stored in the Delta Sync table.
-deltaSyncConfig ::
+-- 'deltaSyncTableName', 'deltaSyncConfig_deltaSyncTableName' - The Delta Sync table name.
+--
+-- 'deltaSyncTableTTL', 'deltaSyncConfig_deltaSyncTableTTL' - The number of minutes a Delta Sync log entry is stored in the Delta Sync
+-- table.
+newDeltaSyncConfig ::
   DeltaSyncConfig
-deltaSyncConfig =
+newDeltaSyncConfig =
   DeltaSyncConfig'
-    { _dscBaseTableTTL = Nothing,
-      _dscDeltaSyncTableName = Nothing,
-      _dscDeltaSyncTableTTL = Nothing
+    { baseTableTTL = Prelude.Nothing,
+      deltaSyncTableName = Prelude.Nothing,
+      deltaSyncTableTTL = Prelude.Nothing
     }
 
 -- | The number of minutes an Item is stored in the datasource.
-dscBaseTableTTL :: Lens' DeltaSyncConfig (Maybe Integer)
-dscBaseTableTTL = lens _dscBaseTableTTL (\s a -> s {_dscBaseTableTTL = a})
+deltaSyncConfig_baseTableTTL :: Lens.Lens' DeltaSyncConfig (Prelude.Maybe Prelude.Integer)
+deltaSyncConfig_baseTableTTL = Lens.lens (\DeltaSyncConfig' {baseTableTTL} -> baseTableTTL) (\s@DeltaSyncConfig' {} a -> s {baseTableTTL = a} :: DeltaSyncConfig)
 
 -- | The Delta Sync table name.
-dscDeltaSyncTableName :: Lens' DeltaSyncConfig (Maybe Text)
-dscDeltaSyncTableName = lens _dscDeltaSyncTableName (\s a -> s {_dscDeltaSyncTableName = a})
+deltaSyncConfig_deltaSyncTableName :: Lens.Lens' DeltaSyncConfig (Prelude.Maybe Prelude.Text)
+deltaSyncConfig_deltaSyncTableName = Lens.lens (\DeltaSyncConfig' {deltaSyncTableName} -> deltaSyncTableName) (\s@DeltaSyncConfig' {} a -> s {deltaSyncTableName = a} :: DeltaSyncConfig)
 
--- | The number of minutes a Delta Sync log entry is stored in the Delta Sync table.
-dscDeltaSyncTableTTL :: Lens' DeltaSyncConfig (Maybe Integer)
-dscDeltaSyncTableTTL = lens _dscDeltaSyncTableTTL (\s a -> s {_dscDeltaSyncTableTTL = a})
+-- | The number of minutes a Delta Sync log entry is stored in the Delta Sync
+-- table.
+deltaSyncConfig_deltaSyncTableTTL :: Lens.Lens' DeltaSyncConfig (Prelude.Maybe Prelude.Integer)
+deltaSyncConfig_deltaSyncTableTTL = Lens.lens (\DeltaSyncConfig' {deltaSyncTableTTL} -> deltaSyncTableTTL) (\s@DeltaSyncConfig' {} a -> s {deltaSyncTableTTL = a} :: DeltaSyncConfig)
 
-instance FromJSON DeltaSyncConfig where
+instance Prelude.FromJSON DeltaSyncConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeltaSyncConfig"
       ( \x ->
           DeltaSyncConfig'
-            <$> (x .:? "baseTableTTL")
-            <*> (x .:? "deltaSyncTableName")
-            <*> (x .:? "deltaSyncTableTTL")
+            Prelude.<$> (x Prelude..:? "baseTableTTL")
+            Prelude.<*> (x Prelude..:? "deltaSyncTableName")
+            Prelude.<*> (x Prelude..:? "deltaSyncTableTTL")
       )
 
-instance Hashable DeltaSyncConfig
+instance Prelude.Hashable DeltaSyncConfig
 
-instance NFData DeltaSyncConfig
+instance Prelude.NFData DeltaSyncConfig
 
-instance ToJSON DeltaSyncConfig where
+instance Prelude.ToJSON DeltaSyncConfig where
   toJSON DeltaSyncConfig' {..} =
-    object
-      ( catMaybes
-          [ ("baseTableTTL" .=) <$> _dscBaseTableTTL,
-            ("deltaSyncTableName" .=) <$> _dscDeltaSyncTableName,
-            ("deltaSyncTableTTL" .=) <$> _dscDeltaSyncTableTTL
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("baseTableTTL" Prelude..=)
+              Prelude.<$> baseTableTTL,
+            ("deltaSyncTableName" Prelude..=)
+              Prelude.<$> deltaSyncTableName,
+            ("deltaSyncTableTTL" Prelude..=)
+              Prelude.<$> deltaSyncTableTTL
           ]
       )

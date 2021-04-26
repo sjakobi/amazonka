@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.AppSync.Types.SchemaStatus
   ( SchemaStatus
       ( ..,
-        SSActive,
-        SSDeleting,
-        SSFailed,
-        SSNotApplicable,
-        SSProcessing,
-        SSSuccess
+        SchemaStatusACTIVE,
+        SchemaStatusDELETING,
+        SchemaStatusFAILED,
+        SchemaStatusNOTAPPLICABLE,
+        SchemaStatusPROCESSING,
+        SchemaStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SchemaStatus = SchemaStatus' (CI Text)
+newtype SchemaStatus = SchemaStatus'
+  { fromSchemaStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSActive :: SchemaStatus
-pattern SSActive = SchemaStatus' "ACTIVE"
+pattern SchemaStatusACTIVE :: SchemaStatus
+pattern SchemaStatusACTIVE = SchemaStatus' "ACTIVE"
 
-pattern SSDeleting :: SchemaStatus
-pattern SSDeleting = SchemaStatus' "DELETING"
+pattern SchemaStatusDELETING :: SchemaStatus
+pattern SchemaStatusDELETING = SchemaStatus' "DELETING"
 
-pattern SSFailed :: SchemaStatus
-pattern SSFailed = SchemaStatus' "FAILED"
+pattern SchemaStatusFAILED :: SchemaStatus
+pattern SchemaStatusFAILED = SchemaStatus' "FAILED"
 
-pattern SSNotApplicable :: SchemaStatus
-pattern SSNotApplicable = SchemaStatus' "NOT_APPLICABLE"
+pattern SchemaStatusNOTAPPLICABLE :: SchemaStatus
+pattern SchemaStatusNOTAPPLICABLE = SchemaStatus' "NOT_APPLICABLE"
 
-pattern SSProcessing :: SchemaStatus
-pattern SSProcessing = SchemaStatus' "PROCESSING"
+pattern SchemaStatusPROCESSING :: SchemaStatus
+pattern SchemaStatusPROCESSING = SchemaStatus' "PROCESSING"
 
-pattern SSSuccess :: SchemaStatus
-pattern SSSuccess = SchemaStatus' "SUCCESS"
+pattern SchemaStatusSUCCESS :: SchemaStatus
+pattern SchemaStatusSUCCESS = SchemaStatus' "SUCCESS"
 
 {-# COMPLETE
-  SSActive,
-  SSDeleting,
-  SSFailed,
-  SSNotApplicable,
-  SSProcessing,
-  SSSuccess,
+  SchemaStatusACTIVE,
+  SchemaStatusDELETING,
+  SchemaStatusFAILED,
+  SchemaStatusNOTAPPLICABLE,
+  SchemaStatusPROCESSING,
+  SchemaStatusSUCCESS,
   SchemaStatus'
   #-}
 
-instance FromText SchemaStatus where
-  parser = (SchemaStatus' . mk) <$> takeText
+instance Prelude.FromText SchemaStatus where
+  parser = SchemaStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SchemaStatus where
-  toText (SchemaStatus' ci) = original ci
+instance Prelude.ToText SchemaStatus where
+  toText (SchemaStatus' x) = x
 
-instance Hashable SchemaStatus
+instance Prelude.Hashable SchemaStatus
 
-instance NFData SchemaStatus
+instance Prelude.NFData SchemaStatus
 
-instance ToByteString SchemaStatus
+instance Prelude.ToByteString SchemaStatus
 
-instance ToQuery SchemaStatus
+instance Prelude.ToQuery SchemaStatus
 
-instance ToHeader SchemaStatus
+instance Prelude.ToHeader SchemaStatus
 
-instance FromJSON SchemaStatus where
-  parseJSON = parseJSONText "SchemaStatus"
+instance Prelude.FromJSON SchemaStatus where
+  parseJSON = Prelude.parseJSONText "SchemaStatus"

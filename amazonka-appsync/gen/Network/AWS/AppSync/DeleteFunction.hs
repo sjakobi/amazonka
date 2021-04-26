@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a @Function@ .
+-- Deletes a @Function@.
 module Network.AWS.AppSync.DeleteFunction
   ( -- * Creating a Request
-    deleteFunction,
-    DeleteFunction,
+    DeleteFunction (..),
+    newDeleteFunction,
 
     -- * Request Lenses
-    dfApiId,
-    dfFunctionId,
+    deleteFunction_apiId,
+    deleteFunction_functionId,
 
     -- * Destructuring the Response
-    deleteFunctionResponse,
-    DeleteFunctionResponse,
+    DeleteFunctionResponse (..),
+    newDeleteFunctionResponse,
 
     -- * Response Lenses
-    dfrrsResponseStatus,
+    deleteFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFunction' smart constructor.
+-- | /See:/ 'newDeleteFunction' smart constructor.
 data DeleteFunction = DeleteFunction'
-  { _dfApiId ::
-      !Text,
-    _dfFunctionId :: !Text
+  { -- | The GraphQL API ID.
+    apiId :: Prelude.Text,
+    -- | The @Function@ ID.
+    functionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfApiId' - The GraphQL API ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfFunctionId' - The @Function@ ID.
-deleteFunction ::
-  -- | 'dfApiId'
-  Text ->
-  -- | 'dfFunctionId'
-  Text ->
+-- 'apiId', 'deleteFunction_apiId' - The GraphQL API ID.
+--
+-- 'functionId', 'deleteFunction_functionId' - The @Function@ ID.
+newDeleteFunction ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'functionId'
+  Prelude.Text ->
   DeleteFunction
-deleteFunction pApiId_ pFunctionId_ =
+newDeleteFunction pApiId_ pFunctionId_ =
   DeleteFunction'
-    { _dfApiId = pApiId_,
-      _dfFunctionId = pFunctionId_
+    { apiId = pApiId_,
+      functionId = pFunctionId_
     }
 
 -- | The GraphQL API ID.
-dfApiId :: Lens' DeleteFunction Text
-dfApiId = lens _dfApiId (\s a -> s {_dfApiId = a})
+deleteFunction_apiId :: Lens.Lens' DeleteFunction Prelude.Text
+deleteFunction_apiId = Lens.lens (\DeleteFunction' {apiId} -> apiId) (\s@DeleteFunction' {} a -> s {apiId = a} :: DeleteFunction)
 
 -- | The @Function@ ID.
-dfFunctionId :: Lens' DeleteFunction Text
-dfFunctionId = lens _dfFunctionId (\s a -> s {_dfFunctionId = a})
+deleteFunction_functionId :: Lens.Lens' DeleteFunction Prelude.Text
+deleteFunction_functionId = Lens.lens (\DeleteFunction' {functionId} -> functionId) (\s@DeleteFunction' {} a -> s {functionId = a} :: DeleteFunction)
 
-instance AWSRequest DeleteFunction where
+instance Prelude.AWSRequest DeleteFunction where
   type Rs DeleteFunction = DeleteFunctionResponse
-  request = delete appSync
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteFunctionResponse' <$> (pure (fromEnum s))
+          DeleteFunctionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteFunction
+instance Prelude.Hashable DeleteFunction
 
-instance NFData DeleteFunction
+instance Prelude.NFData DeleteFunction
 
-instance ToHeaders DeleteFunction where
+instance Prelude.ToHeaders DeleteFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteFunction where
+instance Prelude.ToPath DeleteFunction where
   toPath DeleteFunction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _dfApiId,
+        Prelude.toBS apiId,
         "/functions/",
-        toBS _dfFunctionId
+        Prelude.toBS functionId
       ]
 
-instance ToQuery DeleteFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFunctionResponse' smart constructor.
-newtype DeleteFunctionResponse = DeleteFunctionResponse'
-  { _dfrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteFunctionResponse' smart constructor.
+data DeleteFunctionResponse = DeleteFunctionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfrrsResponseStatus' - -- | The response status code.
-deleteFunctionResponse ::
-  -- | 'dfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteFunctionResponse_httpStatus' - The response's http status code.
+newDeleteFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteFunctionResponse
-deleteFunctionResponse pResponseStatus_ =
-  DeleteFunctionResponse'
-    { _dfrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteFunctionResponse pHttpStatus_ =
+  DeleteFunctionResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dfrrsResponseStatus :: Lens' DeleteFunctionResponse Int
-dfrrsResponseStatus = lens _dfrrsResponseStatus (\s a -> s {_dfrrsResponseStatus = a})
+-- | The response's http status code.
+deleteFunctionResponse_httpStatus :: Lens.Lens' DeleteFunctionResponse Prelude.Int
+deleteFunctionResponse_httpStatus = Lens.lens (\DeleteFunctionResponse' {httpStatus} -> httpStatus) (\s@DeleteFunctionResponse' {} a -> s {httpStatus = a} :: DeleteFunctionResponse)
 
-instance NFData DeleteFunctionResponse
+instance Prelude.NFData DeleteFunctionResponse

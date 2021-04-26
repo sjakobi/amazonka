@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,159 +24,175 @@
 -- Updates a @Type@ object.
 module Network.AWS.AppSync.UpdateType
   ( -- * Creating a Request
-    updateType,
-    UpdateType,
+    UpdateType (..),
+    newUpdateType,
 
     -- * Request Lenses
-    utDefinition,
-    utApiId,
-    utTypeName,
-    utFormat,
+    updateType_definition,
+    updateType_apiId,
+    updateType_typeName,
+    updateType_format,
 
     -- * Destructuring the Response
-    updateTypeResponse,
-    UpdateTypeResponse,
+    UpdateTypeResponse (..),
+    newUpdateTypeResponse,
 
     -- * Response Lenses
-    utrrsType,
-    utrrsResponseStatus,
+    updateTypeResponse_type,
+    updateTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.Type
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateType' smart constructor.
+-- | /See:/ 'newUpdateType' smart constructor.
 data UpdateType = UpdateType'
-  { _utDefinition ::
-      !(Maybe Text),
-    _utApiId :: !Text,
-    _utTypeName :: !Text,
-    _utFormat :: !TypeDefinitionFormat
+  { -- | The new definition.
+    definition :: Prelude.Maybe Prelude.Text,
+    -- | The API ID.
+    apiId :: Prelude.Text,
+    -- | The new type name.
+    typeName :: Prelude.Text,
+    -- | The new type format: SDL or JSON.
+    format :: TypeDefinitionFormat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utDefinition' - The new definition.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utApiId' - The API ID.
+-- 'definition', 'updateType_definition' - The new definition.
 --
--- * 'utTypeName' - The new type name.
+-- 'apiId', 'updateType_apiId' - The API ID.
 --
--- * 'utFormat' - The new type format: SDL or JSON.
-updateType ::
-  -- | 'utApiId'
-  Text ->
-  -- | 'utTypeName'
-  Text ->
-  -- | 'utFormat'
+-- 'typeName', 'updateType_typeName' - The new type name.
+--
+-- 'format', 'updateType_format' - The new type format: SDL or JSON.
+newUpdateType ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'typeName'
+  Prelude.Text ->
+  -- | 'format'
   TypeDefinitionFormat ->
   UpdateType
-updateType pApiId_ pTypeName_ pFormat_ =
+newUpdateType pApiId_ pTypeName_ pFormat_ =
   UpdateType'
-    { _utDefinition = Nothing,
-      _utApiId = pApiId_,
-      _utTypeName = pTypeName_,
-      _utFormat = pFormat_
+    { definition = Prelude.Nothing,
+      apiId = pApiId_,
+      typeName = pTypeName_,
+      format = pFormat_
     }
 
 -- | The new definition.
-utDefinition :: Lens' UpdateType (Maybe Text)
-utDefinition = lens _utDefinition (\s a -> s {_utDefinition = a})
+updateType_definition :: Lens.Lens' UpdateType (Prelude.Maybe Prelude.Text)
+updateType_definition = Lens.lens (\UpdateType' {definition} -> definition) (\s@UpdateType' {} a -> s {definition = a} :: UpdateType)
 
 -- | The API ID.
-utApiId :: Lens' UpdateType Text
-utApiId = lens _utApiId (\s a -> s {_utApiId = a})
+updateType_apiId :: Lens.Lens' UpdateType Prelude.Text
+updateType_apiId = Lens.lens (\UpdateType' {apiId} -> apiId) (\s@UpdateType' {} a -> s {apiId = a} :: UpdateType)
 
 -- | The new type name.
-utTypeName :: Lens' UpdateType Text
-utTypeName = lens _utTypeName (\s a -> s {_utTypeName = a})
+updateType_typeName :: Lens.Lens' UpdateType Prelude.Text
+updateType_typeName = Lens.lens (\UpdateType' {typeName} -> typeName) (\s@UpdateType' {} a -> s {typeName = a} :: UpdateType)
 
 -- | The new type format: SDL or JSON.
-utFormat :: Lens' UpdateType TypeDefinitionFormat
-utFormat = lens _utFormat (\s a -> s {_utFormat = a})
+updateType_format :: Lens.Lens' UpdateType TypeDefinitionFormat
+updateType_format = Lens.lens (\UpdateType' {format} -> format) (\s@UpdateType' {} a -> s {format = a} :: UpdateType)
 
-instance AWSRequest UpdateType where
+instance Prelude.AWSRequest UpdateType where
   type Rs UpdateType = UpdateTypeResponse
-  request = postJSON appSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTypeResponse'
-            <$> (x .?> "type") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "type")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateType
+instance Prelude.Hashable UpdateType
 
-instance NFData UpdateType
+instance Prelude.NFData UpdateType
 
-instance ToHeaders UpdateType where
+instance Prelude.ToHeaders UpdateType where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateType where
+instance Prelude.ToJSON UpdateType where
   toJSON UpdateType' {..} =
-    object
-      ( catMaybes
-          [ ("definition" .=) <$> _utDefinition,
-            Just ("format" .= _utFormat)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("definition" Prelude..=) Prelude.<$> definition,
+            Prelude.Just ("format" Prelude..= format)
           ]
       )
 
-instance ToPath UpdateType where
+instance Prelude.ToPath UpdateType where
   toPath UpdateType' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _utApiId,
+        Prelude.toBS apiId,
         "/types/",
-        toBS _utTypeName
+        Prelude.toBS typeName
       ]
 
-instance ToQuery UpdateType where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateType where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTypeResponse' smart constructor.
+-- | /See:/ 'newUpdateTypeResponse' smart constructor.
 data UpdateTypeResponse = UpdateTypeResponse'
-  { _utrrsType ::
-      !(Maybe Type),
-    _utrrsResponseStatus :: !Int
+  { -- | The updated @Type@ object.
+    type' :: Prelude.Maybe Type,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrrsType' - The updated @Type@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utrrsResponseStatus' - -- | The response status code.
-updateTypeResponse ::
-  -- | 'utrrsResponseStatus'
-  Int ->
+-- 'type'', 'updateTypeResponse_type' - The updated @Type@ object.
+--
+-- 'httpStatus', 'updateTypeResponse_httpStatus' - The response's http status code.
+newUpdateTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTypeResponse
-updateTypeResponse pResponseStatus_ =
+newUpdateTypeResponse pHttpStatus_ =
   UpdateTypeResponse'
-    { _utrrsType = Nothing,
-      _utrrsResponseStatus = pResponseStatus_
+    { type' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated @Type@ object.
-utrrsType :: Lens' UpdateTypeResponse (Maybe Type)
-utrrsType = lens _utrrsType (\s a -> s {_utrrsType = a})
+updateTypeResponse_type :: Lens.Lens' UpdateTypeResponse (Prelude.Maybe Type)
+updateTypeResponse_type = Lens.lens (\UpdateTypeResponse' {type'} -> type') (\s@UpdateTypeResponse' {} a -> s {type' = a} :: UpdateTypeResponse)
 
--- | -- | The response status code.
-utrrsResponseStatus :: Lens' UpdateTypeResponse Int
-utrrsResponseStatus = lens _utrrsResponseStatus (\s a -> s {_utrrsResponseStatus = a})
+-- | The response's http status code.
+updateTypeResponse_httpStatus :: Lens.Lens' UpdateTypeResponse Prelude.Int
+updateTypeResponse_httpStatus = Lens.lens (\UpdateTypeResponse' {httpStatus} -> httpStatus) (\s@UpdateTypeResponse' {} a -> s {httpStatus = a} :: UpdateTypeResponse)
 
-instance NFData UpdateTypeResponse
+instance Prelude.NFData UpdateTypeResponse

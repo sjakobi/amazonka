@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.AppSync.Types.FieldLogLevel
   ( FieldLogLevel
       ( ..,
-        FLLAll,
-        FLLError',
-        FLLNone
+        FieldLogLevelALL,
+        FieldLogLevelERROR,
+        FieldLogLevelNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FieldLogLevel = FieldLogLevel' (CI Text)
+newtype FieldLogLevel = FieldLogLevel'
+  { fromFieldLogLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FLLAll :: FieldLogLevel
-pattern FLLAll = FieldLogLevel' "ALL"
+pattern FieldLogLevelALL :: FieldLogLevel
+pattern FieldLogLevelALL = FieldLogLevel' "ALL"
 
-pattern FLLError' :: FieldLogLevel
-pattern FLLError' = FieldLogLevel' "ERROR"
+pattern FieldLogLevelERROR :: FieldLogLevel
+pattern FieldLogLevelERROR = FieldLogLevel' "ERROR"
 
-pattern FLLNone :: FieldLogLevel
-pattern FLLNone = FieldLogLevel' "NONE"
+pattern FieldLogLevelNONE :: FieldLogLevel
+pattern FieldLogLevelNONE = FieldLogLevel' "NONE"
 
 {-# COMPLETE
-  FLLAll,
-  FLLError',
-  FLLNone,
+  FieldLogLevelALL,
+  FieldLogLevelERROR,
+  FieldLogLevelNONE,
   FieldLogLevel'
   #-}
 
-instance FromText FieldLogLevel where
-  parser = (FieldLogLevel' . mk) <$> takeText
+instance Prelude.FromText FieldLogLevel where
+  parser = FieldLogLevel' Prelude.<$> Prelude.takeText
 
-instance ToText FieldLogLevel where
-  toText (FieldLogLevel' ci) = original ci
+instance Prelude.ToText FieldLogLevel where
+  toText (FieldLogLevel' x) = x
 
-instance Hashable FieldLogLevel
+instance Prelude.Hashable FieldLogLevel
 
-instance NFData FieldLogLevel
+instance Prelude.NFData FieldLogLevel
 
-instance ToByteString FieldLogLevel
+instance Prelude.ToByteString FieldLogLevel
 
-instance ToQuery FieldLogLevel
+instance Prelude.ToQuery FieldLogLevel
 
-instance ToHeader FieldLogLevel
+instance Prelude.ToHeader FieldLogLevel
 
-instance ToJSON FieldLogLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON FieldLogLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FieldLogLevel where
-  parseJSON = parseJSONText "FieldLogLevel"
+instance Prelude.FromJSON FieldLogLevel where
+  parseJSON = Prelude.parseJSONText "FieldLogLevel"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.AppSync.Types.DataSourceType
   ( DataSourceType
       ( ..,
-        DSTAWSLambda,
-        DSTAmazonDynamodb,
-        DSTAmazonElasticsearch,
-        DSTHTTP,
-        DSTNone,
-        DSTRelationalDatabase
+        DataSourceTypeAMAZONDYNAMODB,
+        DataSourceTypeAMAZONELASTICSEARCH,
+        DataSourceTypeAWSLAMBDA,
+        DataSourceTypeHTTP,
+        DataSourceTypeNONE,
+        DataSourceTypeRELATIONALDATABASE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataSourceType = DataSourceType' (CI Text)
+newtype DataSourceType = DataSourceType'
+  { fromDataSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSTAWSLambda :: DataSourceType
-pattern DSTAWSLambda = DataSourceType' "AWS_LAMBDA"
+pattern DataSourceTypeAMAZONDYNAMODB :: DataSourceType
+pattern DataSourceTypeAMAZONDYNAMODB = DataSourceType' "AMAZON_DYNAMODB"
 
-pattern DSTAmazonDynamodb :: DataSourceType
-pattern DSTAmazonDynamodb = DataSourceType' "AMAZON_DYNAMODB"
+pattern DataSourceTypeAMAZONELASTICSEARCH :: DataSourceType
+pattern DataSourceTypeAMAZONELASTICSEARCH = DataSourceType' "AMAZON_ELASTICSEARCH"
 
-pattern DSTAmazonElasticsearch :: DataSourceType
-pattern DSTAmazonElasticsearch = DataSourceType' "AMAZON_ELASTICSEARCH"
+pattern DataSourceTypeAWSLAMBDA :: DataSourceType
+pattern DataSourceTypeAWSLAMBDA = DataSourceType' "AWS_LAMBDA"
 
-pattern DSTHTTP :: DataSourceType
-pattern DSTHTTP = DataSourceType' "HTTP"
+pattern DataSourceTypeHTTP :: DataSourceType
+pattern DataSourceTypeHTTP = DataSourceType' "HTTP"
 
-pattern DSTNone :: DataSourceType
-pattern DSTNone = DataSourceType' "NONE"
+pattern DataSourceTypeNONE :: DataSourceType
+pattern DataSourceTypeNONE = DataSourceType' "NONE"
 
-pattern DSTRelationalDatabase :: DataSourceType
-pattern DSTRelationalDatabase = DataSourceType' "RELATIONAL_DATABASE"
+pattern DataSourceTypeRELATIONALDATABASE :: DataSourceType
+pattern DataSourceTypeRELATIONALDATABASE = DataSourceType' "RELATIONAL_DATABASE"
 
 {-# COMPLETE
-  DSTAWSLambda,
-  DSTAmazonDynamodb,
-  DSTAmazonElasticsearch,
-  DSTHTTP,
-  DSTNone,
-  DSTRelationalDatabase,
+  DataSourceTypeAMAZONDYNAMODB,
+  DataSourceTypeAMAZONELASTICSEARCH,
+  DataSourceTypeAWSLAMBDA,
+  DataSourceTypeHTTP,
+  DataSourceTypeNONE,
+  DataSourceTypeRELATIONALDATABASE,
   DataSourceType'
   #-}
 
-instance FromText DataSourceType where
-  parser = (DataSourceType' . mk) <$> takeText
+instance Prelude.FromText DataSourceType where
+  parser = DataSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText DataSourceType where
-  toText (DataSourceType' ci) = original ci
+instance Prelude.ToText DataSourceType where
+  toText (DataSourceType' x) = x
 
-instance Hashable DataSourceType
+instance Prelude.Hashable DataSourceType
 
-instance NFData DataSourceType
+instance Prelude.NFData DataSourceType
 
-instance ToByteString DataSourceType
+instance Prelude.ToByteString DataSourceType
 
-instance ToQuery DataSourceType
+instance Prelude.ToQuery DataSourceType
 
-instance ToHeader DataSourceType
+instance Prelude.ToHeader DataSourceType
 
-instance ToJSON DataSourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataSourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DataSourceType where
-  parseJSON = parseJSONText "DataSourceType"
+instance Prelude.FromJSON DataSourceType where
+  parseJSON = Prelude.parseJSONText "DataSourceType"

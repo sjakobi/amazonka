@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,127 @@
 -- Deletes a @Type@ object.
 module Network.AWS.AppSync.DeleteType
   ( -- * Creating a Request
-    deleteType,
-    DeleteType,
+    DeleteType (..),
+    newDeleteType,
 
     -- * Request Lenses
-    dtApiId,
-    dtTypeName,
+    deleteType_apiId,
+    deleteType_typeName,
 
     -- * Destructuring the Response
-    deleteTypeResponse,
-    DeleteTypeResponse,
+    DeleteTypeResponse (..),
+    newDeleteTypeResponse,
 
     -- * Response Lenses
-    dtrrsResponseStatus,
+    deleteTypeResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteType' smart constructor.
+-- | /See:/ 'newDeleteType' smart constructor.
 data DeleteType = DeleteType'
-  { _dtApiId :: !Text,
-    _dtTypeName :: !Text
+  { -- | The API ID.
+    apiId :: Prelude.Text,
+    -- | The type name.
+    typeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtApiId' - The API ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtTypeName' - The type name.
-deleteType ::
-  -- | 'dtApiId'
-  Text ->
-  -- | 'dtTypeName'
-  Text ->
+-- 'apiId', 'deleteType_apiId' - The API ID.
+--
+-- 'typeName', 'deleteType_typeName' - The type name.
+newDeleteType ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'typeName'
+  Prelude.Text ->
   DeleteType
-deleteType pApiId_ pTypeName_ =
-  DeleteType'
-    { _dtApiId = pApiId_,
-      _dtTypeName = pTypeName_
-    }
+newDeleteType pApiId_ pTypeName_ =
+  DeleteType' {apiId = pApiId_, typeName = pTypeName_}
 
 -- | The API ID.
-dtApiId :: Lens' DeleteType Text
-dtApiId = lens _dtApiId (\s a -> s {_dtApiId = a})
+deleteType_apiId :: Lens.Lens' DeleteType Prelude.Text
+deleteType_apiId = Lens.lens (\DeleteType' {apiId} -> apiId) (\s@DeleteType' {} a -> s {apiId = a} :: DeleteType)
 
 -- | The type name.
-dtTypeName :: Lens' DeleteType Text
-dtTypeName = lens _dtTypeName (\s a -> s {_dtTypeName = a})
+deleteType_typeName :: Lens.Lens' DeleteType Prelude.Text
+deleteType_typeName = Lens.lens (\DeleteType' {typeName} -> typeName) (\s@DeleteType' {} a -> s {typeName = a} :: DeleteType)
 
-instance AWSRequest DeleteType where
+instance Prelude.AWSRequest DeleteType where
   type Rs DeleteType = DeleteTypeResponse
-  request = delete appSync
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteTypeResponse' <$> (pure (fromEnum s))
+          DeleteTypeResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteType
+instance Prelude.Hashable DeleteType
 
-instance NFData DeleteType
+instance Prelude.NFData DeleteType
 
-instance ToHeaders DeleteType where
+instance Prelude.ToHeaders DeleteType where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteType where
+instance Prelude.ToPath DeleteType where
   toPath DeleteType' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _dtApiId,
+        Prelude.toBS apiId,
         "/types/",
-        toBS _dtTypeName
+        Prelude.toBS typeName
       ]
 
-instance ToQuery DeleteType where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteType where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTypeResponse' smart constructor.
-newtype DeleteTypeResponse = DeleteTypeResponse'
-  { _dtrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTypeResponse' smart constructor.
+data DeleteTypeResponse = DeleteTypeResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTypeResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTypeResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-deleteTypeResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTypeResponse_httpStatus' - The response's http status code.
+newDeleteTypeResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTypeResponse
-deleteTypeResponse pResponseStatus_ =
-  DeleteTypeResponse'
-    { _dtrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteTypeResponse pHttpStatus_ =
+  DeleteTypeResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DeleteTypeResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTypeResponse_httpStatus :: Lens.Lens' DeleteTypeResponse Prelude.Int
+deleteTypeResponse_httpStatus = Lens.lens (\DeleteTypeResponse' {httpStatus} -> httpStatus) (\s@DeleteTypeResponse' {} a -> s {httpStatus = a} :: DeleteTypeResponse)
 
-instance NFData DeleteTypeResponse
+instance Prelude.NFData DeleteTypeResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get a @Function@ .
+-- Get a @Function@.
 module Network.AWS.AppSync.GetFunction
   ( -- * Creating a Request
-    getFunction,
-    GetFunction,
+    GetFunction (..),
+    newGetFunction,
 
     -- * Request Lenses
-    gfApiId,
-    gfFunctionId,
+    getFunction_apiId,
+    getFunction_functionId,
 
     -- * Destructuring the Response
-    getFunctionResponse,
-    GetFunctionResponse,
+    GetFunctionResponse (..),
+    newGetFunctionResponse,
 
     -- * Response Lenses
-    gfrrsFunctionConfiguration,
-    gfrrsResponseStatus,
+    getFunctionResponse_functionConfiguration,
+    getFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.FunctionConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getFunction' smart constructor.
+-- | /See:/ 'newGetFunction' smart constructor.
 data GetFunction = GetFunction'
-  { _gfApiId :: !Text,
-    _gfFunctionId :: !Text
+  { -- | The GraphQL API ID.
+    apiId :: Prelude.Text,
+    -- | The @Function@ ID.
+    functionId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfApiId' - The GraphQL API ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfFunctionId' - The @Function@ ID.
-getFunction ::
-  -- | 'gfApiId'
-  Text ->
-  -- | 'gfFunctionId'
-  Text ->
+-- 'apiId', 'getFunction_apiId' - The GraphQL API ID.
+--
+-- 'functionId', 'getFunction_functionId' - The @Function@ ID.
+newGetFunction ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'functionId'
+  Prelude.Text ->
   GetFunction
-getFunction pApiId_ pFunctionId_ =
+newGetFunction pApiId_ pFunctionId_ =
   GetFunction'
-    { _gfApiId = pApiId_,
-      _gfFunctionId = pFunctionId_
+    { apiId = pApiId_,
+      functionId = pFunctionId_
     }
 
 -- | The GraphQL API ID.
-gfApiId :: Lens' GetFunction Text
-gfApiId = lens _gfApiId (\s a -> s {_gfApiId = a})
+getFunction_apiId :: Lens.Lens' GetFunction Prelude.Text
+getFunction_apiId = Lens.lens (\GetFunction' {apiId} -> apiId) (\s@GetFunction' {} a -> s {apiId = a} :: GetFunction)
 
 -- | The @Function@ ID.
-gfFunctionId :: Lens' GetFunction Text
-gfFunctionId = lens _gfFunctionId (\s a -> s {_gfFunctionId = a})
+getFunction_functionId :: Lens.Lens' GetFunction Prelude.Text
+getFunction_functionId = Lens.lens (\GetFunction' {functionId} -> functionId) (\s@GetFunction' {} a -> s {functionId = a} :: GetFunction)
 
-instance AWSRequest GetFunction where
+instance Prelude.AWSRequest GetFunction where
   type Rs GetFunction = GetFunctionResponse
-  request = get appSync
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetFunctionResponse'
-            <$> (x .?> "functionConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "functionConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetFunction
+instance Prelude.Hashable GetFunction
 
-instance NFData GetFunction
+instance Prelude.NFData GetFunction
 
-instance ToHeaders GetFunction where
+instance Prelude.ToHeaders GetFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetFunction where
+instance Prelude.ToPath GetFunction where
   toPath GetFunction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _gfApiId,
+        Prelude.toBS apiId,
         "/functions/",
-        toBS _gfFunctionId
+        Prelude.toBS functionId
       ]
 
-instance ToQuery GetFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery GetFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getFunctionResponse' smart constructor.
+-- | /See:/ 'newGetFunctionResponse' smart constructor.
 data GetFunctionResponse = GetFunctionResponse'
-  { _gfrrsFunctionConfiguration ::
-      !(Maybe FunctionConfiguration),
-    _gfrrsResponseStatus :: !Int
+  { -- | The @Function@ object.
+    functionConfiguration :: Prelude.Maybe FunctionConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfrrsFunctionConfiguration' - The @Function@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfrrsResponseStatus' - -- | The response status code.
-getFunctionResponse ::
-  -- | 'gfrrsResponseStatus'
-  Int ->
+-- 'functionConfiguration', 'getFunctionResponse_functionConfiguration' - The @Function@ object.
+--
+-- 'httpStatus', 'getFunctionResponse_httpStatus' - The response's http status code.
+newGetFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetFunctionResponse
-getFunctionResponse pResponseStatus_ =
+newGetFunctionResponse pHttpStatus_ =
   GetFunctionResponse'
-    { _gfrrsFunctionConfiguration =
-        Nothing,
-      _gfrrsResponseStatus = pResponseStatus_
+    { functionConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The @Function@ object.
-gfrrsFunctionConfiguration :: Lens' GetFunctionResponse (Maybe FunctionConfiguration)
-gfrrsFunctionConfiguration = lens _gfrrsFunctionConfiguration (\s a -> s {_gfrrsFunctionConfiguration = a})
+getFunctionResponse_functionConfiguration :: Lens.Lens' GetFunctionResponse (Prelude.Maybe FunctionConfiguration)
+getFunctionResponse_functionConfiguration = Lens.lens (\GetFunctionResponse' {functionConfiguration} -> functionConfiguration) (\s@GetFunctionResponse' {} a -> s {functionConfiguration = a} :: GetFunctionResponse)
 
--- | -- | The response status code.
-gfrrsResponseStatus :: Lens' GetFunctionResponse Int
-gfrrsResponseStatus = lens _gfrrsResponseStatus (\s a -> s {_gfrrsResponseStatus = a})
+-- | The response's http status code.
+getFunctionResponse_httpStatus :: Lens.Lens' GetFunctionResponse Prelude.Int
+getFunctionResponse_httpStatus = Lens.lens (\GetFunctionResponse' {httpStatus} -> httpStatus) (\s@GetFunctionResponse' {} a -> s {httpStatus = a} :: GetFunctionResponse)
 
-instance NFData GetFunctionResponse
+instance Prelude.NFData GetFunctionResponse

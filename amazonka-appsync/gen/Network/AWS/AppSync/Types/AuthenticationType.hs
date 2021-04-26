@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.AppSync.Types.AuthenticationType
   ( AuthenticationType
       ( ..,
-        ATAPIKey,
-        ATAWSIAM,
-        ATAmazonCognitoUserPools,
-        ATOpenidConnect
+        AuthenticationTypeAMAZONCOGNITOUSERPOOLS,
+        AuthenticationTypeAPIKEY,
+        AuthenticationTypeAWSIAM,
+        AuthenticationTypeOPENIDCONNECT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthenticationType
-  = AuthenticationType'
-      ( CI
-          Text
-      )
+newtype AuthenticationType = AuthenticationType'
+  { fromAuthenticationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATAPIKey :: AuthenticationType
-pattern ATAPIKey = AuthenticationType' "API_KEY"
+pattern AuthenticationTypeAMAZONCOGNITOUSERPOOLS :: AuthenticationType
+pattern AuthenticationTypeAMAZONCOGNITOUSERPOOLS = AuthenticationType' "AMAZON_COGNITO_USER_POOLS"
 
-pattern ATAWSIAM :: AuthenticationType
-pattern ATAWSIAM = AuthenticationType' "AWS_IAM"
+pattern AuthenticationTypeAPIKEY :: AuthenticationType
+pattern AuthenticationTypeAPIKEY = AuthenticationType' "API_KEY"
 
-pattern ATAmazonCognitoUserPools :: AuthenticationType
-pattern ATAmazonCognitoUserPools = AuthenticationType' "AMAZON_COGNITO_USER_POOLS"
+pattern AuthenticationTypeAWSIAM :: AuthenticationType
+pattern AuthenticationTypeAWSIAM = AuthenticationType' "AWS_IAM"
 
-pattern ATOpenidConnect :: AuthenticationType
-pattern ATOpenidConnect = AuthenticationType' "OPENID_CONNECT"
+pattern AuthenticationTypeOPENIDCONNECT :: AuthenticationType
+pattern AuthenticationTypeOPENIDCONNECT = AuthenticationType' "OPENID_CONNECT"
 
 {-# COMPLETE
-  ATAPIKey,
-  ATAWSIAM,
-  ATAmazonCognitoUserPools,
-  ATOpenidConnect,
+  AuthenticationTypeAMAZONCOGNITOUSERPOOLS,
+  AuthenticationTypeAPIKEY,
+  AuthenticationTypeAWSIAM,
+  AuthenticationTypeOPENIDCONNECT,
   AuthenticationType'
   #-}
 
-instance FromText AuthenticationType where
-  parser = (AuthenticationType' . mk) <$> takeText
+instance Prelude.FromText AuthenticationType where
+  parser = AuthenticationType' Prelude.<$> Prelude.takeText
 
-instance ToText AuthenticationType where
-  toText (AuthenticationType' ci) = original ci
+instance Prelude.ToText AuthenticationType where
+  toText (AuthenticationType' x) = x
 
-instance Hashable AuthenticationType
+instance Prelude.Hashable AuthenticationType
 
-instance NFData AuthenticationType
+instance Prelude.NFData AuthenticationType
 
-instance ToByteString AuthenticationType
+instance Prelude.ToByteString AuthenticationType
 
-instance ToQuery AuthenticationType
+instance Prelude.ToQuery AuthenticationType
 
-instance ToHeader AuthenticationType
+instance Prelude.ToHeader AuthenticationType
 
-instance ToJSON AuthenticationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthenticationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthenticationType where
-  parseJSON = parseJSONText "AuthenticationType"
+instance Prelude.FromJSON AuthenticationType where
+  parseJSON = Prelude.parseJSONText "AuthenticationType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,155 @@
 module Network.AWS.AppSync.Types.LogConfig where
 
 import Network.AWS.AppSync.Types.FieldLogLevel
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The CloudWatch Logs configuration.
 --
---
---
--- /See:/ 'logConfig' smart constructor.
+-- /See:/ 'newLogConfig' smart constructor.
 data LogConfig = LogConfig'
-  { _lcExcludeVerboseContent ::
-      !(Maybe Bool),
-    _lcFieldLogLevel :: !FieldLogLevel,
-    _lcCloudWatchLogsRoleARN :: !Text
+  { -- | Set to TRUE to exclude sections that contain information such as
+    -- headers, context, and evaluated mapping templates, regardless of logging
+    -- level.
+    excludeVerboseContent :: Prelude.Maybe Prelude.Bool,
+    -- | The field logging level. Values can be NONE, ERROR, or ALL.
+    --
+    -- -   __NONE__: No field-level logs are captured.
+    --
+    -- -   __ERROR__: Logs the following information only for the fields that
+    --     are in error:
+    --
+    --     -   The error section in the server response.
+    --
+    --     -   Field-level errors.
+    --
+    --     -   The generated request\/response functions that got resolved for
+    --         error fields.
+    --
+    -- -   __ALL__: The following information is logged for all fields in the
+    --     query:
+    --
+    --     -   Field-level tracing information.
+    --
+    --     -   The generated request\/response functions that got resolved for
+    --         each field.
+    fieldLogLevel :: FieldLogLevel,
+    -- | The service role that AWS AppSync will assume to publish to Amazon
+    -- CloudWatch logs in your account.
+    cloudWatchLogsRoleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LogConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LogConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcExcludeVerboseContent' - Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping templates, regardless of logging level.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcFieldLogLevel' - The field logging level. Values can be NONE, ERROR, or ALL.      * __NONE__ : No field-level logs are captured.     * __ERROR__ : Logs the following information only for the fields that are in error:     * The error section in the server response.     * Field-level errors.     * The generated request/response functions that got resolved for error fields.     * __ALL__ : The following information is logged for all fields in the query:     * Field-level tracing information.     * The generated request/response functions that got resolved for each field.
+-- 'excludeVerboseContent', 'logConfig_excludeVerboseContent' - Set to TRUE to exclude sections that contain information such as
+-- headers, context, and evaluated mapping templates, regardless of logging
+-- level.
 --
--- * 'lcCloudWatchLogsRoleARN' - The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
-logConfig ::
-  -- | 'lcFieldLogLevel'
+-- 'fieldLogLevel', 'logConfig_fieldLogLevel' - The field logging level. Values can be NONE, ERROR, or ALL.
+--
+-- -   __NONE__: No field-level logs are captured.
+--
+-- -   __ERROR__: Logs the following information only for the fields that
+--     are in error:
+--
+--     -   The error section in the server response.
+--
+--     -   Field-level errors.
+--
+--     -   The generated request\/response functions that got resolved for
+--         error fields.
+--
+-- -   __ALL__: The following information is logged for all fields in the
+--     query:
+--
+--     -   Field-level tracing information.
+--
+--     -   The generated request\/response functions that got resolved for
+--         each field.
+--
+-- 'cloudWatchLogsRoleArn', 'logConfig_cloudWatchLogsRoleArn' - The service role that AWS AppSync will assume to publish to Amazon
+-- CloudWatch logs in your account.
+newLogConfig ::
+  -- | 'fieldLogLevel'
   FieldLogLevel ->
-  -- | 'lcCloudWatchLogsRoleARN'
-  Text ->
+  -- | 'cloudWatchLogsRoleArn'
+  Prelude.Text ->
   LogConfig
-logConfig pFieldLogLevel_ pCloudWatchLogsRoleARN_ =
+newLogConfig pFieldLogLevel_ pCloudWatchLogsRoleArn_ =
   LogConfig'
-    { _lcExcludeVerboseContent = Nothing,
-      _lcFieldLogLevel = pFieldLogLevel_,
-      _lcCloudWatchLogsRoleARN = pCloudWatchLogsRoleARN_
+    { excludeVerboseContent = Prelude.Nothing,
+      fieldLogLevel = pFieldLogLevel_,
+      cloudWatchLogsRoleArn = pCloudWatchLogsRoleArn_
     }
 
--- | Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping templates, regardless of logging level.
-lcExcludeVerboseContent :: Lens' LogConfig (Maybe Bool)
-lcExcludeVerboseContent = lens _lcExcludeVerboseContent (\s a -> s {_lcExcludeVerboseContent = a})
+-- | Set to TRUE to exclude sections that contain information such as
+-- headers, context, and evaluated mapping templates, regardless of logging
+-- level.
+logConfig_excludeVerboseContent :: Lens.Lens' LogConfig (Prelude.Maybe Prelude.Bool)
+logConfig_excludeVerboseContent = Lens.lens (\LogConfig' {excludeVerboseContent} -> excludeVerboseContent) (\s@LogConfig' {} a -> s {excludeVerboseContent = a} :: LogConfig)
 
--- | The field logging level. Values can be NONE, ERROR, or ALL.      * __NONE__ : No field-level logs are captured.     * __ERROR__ : Logs the following information only for the fields that are in error:     * The error section in the server response.     * Field-level errors.     * The generated request/response functions that got resolved for error fields.     * __ALL__ : The following information is logged for all fields in the query:     * Field-level tracing information.     * The generated request/response functions that got resolved for each field.
-lcFieldLogLevel :: Lens' LogConfig FieldLogLevel
-lcFieldLogLevel = lens _lcFieldLogLevel (\s a -> s {_lcFieldLogLevel = a})
+-- | The field logging level. Values can be NONE, ERROR, or ALL.
+--
+-- -   __NONE__: No field-level logs are captured.
+--
+-- -   __ERROR__: Logs the following information only for the fields that
+--     are in error:
+--
+--     -   The error section in the server response.
+--
+--     -   Field-level errors.
+--
+--     -   The generated request\/response functions that got resolved for
+--         error fields.
+--
+-- -   __ALL__: The following information is logged for all fields in the
+--     query:
+--
+--     -   Field-level tracing information.
+--
+--     -   The generated request\/response functions that got resolved for
+--         each field.
+logConfig_fieldLogLevel :: Lens.Lens' LogConfig FieldLogLevel
+logConfig_fieldLogLevel = Lens.lens (\LogConfig' {fieldLogLevel} -> fieldLogLevel) (\s@LogConfig' {} a -> s {fieldLogLevel = a} :: LogConfig)
 
--- | The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
-lcCloudWatchLogsRoleARN :: Lens' LogConfig Text
-lcCloudWatchLogsRoleARN = lens _lcCloudWatchLogsRoleARN (\s a -> s {_lcCloudWatchLogsRoleARN = a})
+-- | The service role that AWS AppSync will assume to publish to Amazon
+-- CloudWatch logs in your account.
+logConfig_cloudWatchLogsRoleArn :: Lens.Lens' LogConfig Prelude.Text
+logConfig_cloudWatchLogsRoleArn = Lens.lens (\LogConfig' {cloudWatchLogsRoleArn} -> cloudWatchLogsRoleArn) (\s@LogConfig' {} a -> s {cloudWatchLogsRoleArn = a} :: LogConfig)
 
-instance FromJSON LogConfig where
+instance Prelude.FromJSON LogConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LogConfig"
       ( \x ->
           LogConfig'
-            <$> (x .:? "excludeVerboseContent")
-            <*> (x .: "fieldLogLevel")
-            <*> (x .: "cloudWatchLogsRoleArn")
+            Prelude.<$> (x Prelude..:? "excludeVerboseContent")
+            Prelude.<*> (x Prelude..: "fieldLogLevel")
+            Prelude.<*> (x Prelude..: "cloudWatchLogsRoleArn")
       )
 
-instance Hashable LogConfig
+instance Prelude.Hashable LogConfig
 
-instance NFData LogConfig
+instance Prelude.NFData LogConfig
 
-instance ToJSON LogConfig where
+instance Prelude.ToJSON LogConfig where
   toJSON LogConfig' {..} =
-    object
-      ( catMaybes
-          [ ("excludeVerboseContent" .=)
-              <$> _lcExcludeVerboseContent,
-            Just ("fieldLogLevel" .= _lcFieldLogLevel),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("excludeVerboseContent" Prelude..=)
+              Prelude.<$> excludeVerboseContent,
+            Prelude.Just
+              ("fieldLogLevel" Prelude..= fieldLogLevel),
+            Prelude.Just
               ( "cloudWatchLogsRoleArn"
-                  .= _lcCloudWatchLogsRoleARN
+                  Prelude..= cloudWatchLogsRoleArn
               )
           ]
       )

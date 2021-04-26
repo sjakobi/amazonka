@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,87 @@
 module Network.AWS.AppSync.Types.Type where
 
 import Network.AWS.AppSync.Types.TypeDefinitionFormat
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a type.
 --
---
---
--- /See:/ 'type'' smart constructor.
+-- /See:/ 'newType' smart constructor.
 data Type = Type'
-  { _tFormat ::
-      !(Maybe TypeDefinitionFormat),
-    _tArn :: !(Maybe Text),
-    _tName :: !(Maybe Text),
-    _tDescription :: !(Maybe Text),
-    _tDefinition :: !(Maybe Text)
+  { -- | The type format: SDL or JSON.
+    format :: Prelude.Maybe TypeDefinitionFormat,
+    -- | The type ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The type name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The type description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The type definition.
+    definition :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Type' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Type' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tFormat' - The type format: SDL or JSON.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tArn' - The type ARN.
+-- 'format', 'type_format' - The type format: SDL or JSON.
 --
--- * 'tName' - The type name.
+-- 'arn', 'type_arn' - The type ARN.
 --
--- * 'tDescription' - The type description.
+-- 'name', 'type_name' - The type name.
 --
--- * 'tDefinition' - The type definition.
-type' ::
+-- 'description', 'type_description' - The type description.
+--
+-- 'definition', 'type_definition' - The type definition.
+newType ::
   Type
-type' =
+newType =
   Type'
-    { _tFormat = Nothing,
-      _tArn = Nothing,
-      _tName = Nothing,
-      _tDescription = Nothing,
-      _tDefinition = Nothing
+    { format = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      definition = Prelude.Nothing
     }
 
 -- | The type format: SDL or JSON.
-tFormat :: Lens' Type (Maybe TypeDefinitionFormat)
-tFormat = lens _tFormat (\s a -> s {_tFormat = a})
+type_format :: Lens.Lens' Type (Prelude.Maybe TypeDefinitionFormat)
+type_format = Lens.lens (\Type' {format} -> format) (\s@Type' {} a -> s {format = a} :: Type)
 
 -- | The type ARN.
-tArn :: Lens' Type (Maybe Text)
-tArn = lens _tArn (\s a -> s {_tArn = a})
+type_arn :: Lens.Lens' Type (Prelude.Maybe Prelude.Text)
+type_arn = Lens.lens (\Type' {arn} -> arn) (\s@Type' {} a -> s {arn = a} :: Type)
 
 -- | The type name.
-tName :: Lens' Type (Maybe Text)
-tName = lens _tName (\s a -> s {_tName = a})
+type_name :: Lens.Lens' Type (Prelude.Maybe Prelude.Text)
+type_name = Lens.lens (\Type' {name} -> name) (\s@Type' {} a -> s {name = a} :: Type)
 
 -- | The type description.
-tDescription :: Lens' Type (Maybe Text)
-tDescription = lens _tDescription (\s a -> s {_tDescription = a})
+type_description :: Lens.Lens' Type (Prelude.Maybe Prelude.Text)
+type_description = Lens.lens (\Type' {description} -> description) (\s@Type' {} a -> s {description = a} :: Type)
 
 -- | The type definition.
-tDefinition :: Lens' Type (Maybe Text)
-tDefinition = lens _tDefinition (\s a -> s {_tDefinition = a})
+type_definition :: Lens.Lens' Type (Prelude.Maybe Prelude.Text)
+type_definition = Lens.lens (\Type' {definition} -> definition) (\s@Type' {} a -> s {definition = a} :: Type)
 
-instance FromJSON Type where
+instance Prelude.FromJSON Type where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Type"
       ( \x ->
           Type'
-            <$> (x .:? "format")
-            <*> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "description")
-            <*> (x .:? "definition")
+            Prelude.<$> (x Prelude..:? "format")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "definition")
       )
 
-instance Hashable Type
+instance Prelude.Hashable Type
 
-instance NFData Type
+instance Prelude.NFData Type

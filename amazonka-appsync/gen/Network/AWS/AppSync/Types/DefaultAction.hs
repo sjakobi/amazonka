@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.AppSync.Types.DefaultAction
   ( DefaultAction
       ( ..,
-        Allow,
-        Deny
+        DefaultActionALLOW,
+        DefaultActionDENY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DefaultAction = DefaultAction' (CI Text)
+newtype DefaultAction = DefaultAction'
+  { fromDefaultAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: DefaultAction
-pattern Allow = DefaultAction' "ALLOW"
+pattern DefaultActionALLOW :: DefaultAction
+pattern DefaultActionALLOW = DefaultAction' "ALLOW"
 
-pattern Deny :: DefaultAction
-pattern Deny = DefaultAction' "DENY"
+pattern DefaultActionDENY :: DefaultAction
+pattern DefaultActionDENY = DefaultAction' "DENY"
 
 {-# COMPLETE
-  Allow,
-  Deny,
+  DefaultActionALLOW,
+  DefaultActionDENY,
   DefaultAction'
   #-}
 
-instance FromText DefaultAction where
-  parser = (DefaultAction' . mk) <$> takeText
+instance Prelude.FromText DefaultAction where
+  parser = DefaultAction' Prelude.<$> Prelude.takeText
 
-instance ToText DefaultAction where
-  toText (DefaultAction' ci) = original ci
+instance Prelude.ToText DefaultAction where
+  toText (DefaultAction' x) = x
 
-instance Hashable DefaultAction
+instance Prelude.Hashable DefaultAction
 
-instance NFData DefaultAction
+instance Prelude.NFData DefaultAction
 
-instance ToByteString DefaultAction
+instance Prelude.ToByteString DefaultAction
 
-instance ToQuery DefaultAction
+instance Prelude.ToQuery DefaultAction
 
-instance ToHeader DefaultAction
+instance Prelude.ToHeader DefaultAction
 
-instance ToJSON DefaultAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON DefaultAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DefaultAction where
-  parseJSON = parseJSONText "DefaultAction"
+instance Prelude.FromJSON DefaultAction where
+  parseJSON = Prelude.parseJSONText "DefaultAction"

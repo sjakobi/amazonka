@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,239 +24,247 @@
 -- Updates a @DataSource@ object.
 module Network.AWS.AppSync.UpdateDataSource
   ( -- * Creating a Request
-    updateDataSource,
-    UpdateDataSource,
+    UpdateDataSource (..),
+    newUpdateDataSource,
 
     -- * Request Lenses
-    udsRelationalDatabaseConfig,
-    udsServiceRoleARN,
-    udsElasticsearchConfig,
-    udsLambdaConfig,
-    udsDynamodbConfig,
-    udsDescription,
-    udsHttpConfig,
-    udsApiId,
-    udsName,
-    udsType,
+    updateDataSource_relationalDatabaseConfig,
+    updateDataSource_serviceRoleArn,
+    updateDataSource_elasticsearchConfig,
+    updateDataSource_lambdaConfig,
+    updateDataSource_dynamodbConfig,
+    updateDataSource_description,
+    updateDataSource_httpConfig,
+    updateDataSource_apiId,
+    updateDataSource_name,
+    updateDataSource_type,
 
     -- * Destructuring the Response
-    updateDataSourceResponse,
-    UpdateDataSourceResponse,
+    UpdateDataSourceResponse (..),
+    newUpdateDataSourceResponse,
 
     -- * Response Lenses
-    udsrrsDataSource,
-    udsrrsResponseStatus,
+    updateDataSourceResponse_dataSource,
+    updateDataSourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.DataSource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDataSource' smart constructor.
+-- | /See:/ 'newUpdateDataSource' smart constructor.
 data UpdateDataSource = UpdateDataSource'
-  { _udsRelationalDatabaseConfig ::
-      !( Maybe
-           RelationalDatabaseDataSourceConfig
-       ),
-    _udsServiceRoleARN :: !(Maybe Text),
-    _udsElasticsearchConfig ::
-      !( Maybe
-           ElasticsearchDataSourceConfig
-       ),
-    _udsLambdaConfig ::
-      !(Maybe LambdaDataSourceConfig),
-    _udsDynamodbConfig ::
-      !(Maybe DynamodbDataSourceConfig),
-    _udsDescription :: !(Maybe Text),
-    _udsHttpConfig ::
-      !(Maybe HTTPDataSourceConfig),
-    _udsApiId :: !Text,
-    _udsName :: !Text,
-    _udsType :: !DataSourceType
+  { -- | The new relational database configuration.
+    relationalDatabaseConfig :: Prelude.Maybe RelationalDatabaseDataSourceConfig,
+    -- | The new service role ARN for the data source.
+    serviceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The new Elasticsearch Service configuration.
+    elasticsearchConfig :: Prelude.Maybe ElasticsearchDataSourceConfig,
+    -- | The new AWS Lambda configuration.
+    lambdaConfig :: Prelude.Maybe LambdaDataSourceConfig,
+    -- | The new Amazon DynamoDB configuration.
+    dynamodbConfig :: Prelude.Maybe DynamodbDataSourceConfig,
+    -- | The new description for the data source.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The new HTTP endpoint configuration.
+    httpConfig :: Prelude.Maybe HttpDataSourceConfig,
+    -- | The API ID.
+    apiId :: Prelude.Text,
+    -- | The new name for the data source.
+    name :: Prelude.Text,
+    -- | The new data source type.
+    type' :: DataSourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udsRelationalDatabaseConfig' - The new relational database configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udsServiceRoleARN' - The new service role ARN for the data source.
+-- 'relationalDatabaseConfig', 'updateDataSource_relationalDatabaseConfig' - The new relational database configuration.
 --
--- * 'udsElasticsearchConfig' - The new Elasticsearch Service configuration.
+-- 'serviceRoleArn', 'updateDataSource_serviceRoleArn' - The new service role ARN for the data source.
 --
--- * 'udsLambdaConfig' - The new AWS Lambda configuration.
+-- 'elasticsearchConfig', 'updateDataSource_elasticsearchConfig' - The new Elasticsearch Service configuration.
 --
--- * 'udsDynamodbConfig' - The new Amazon DynamoDB configuration.
+-- 'lambdaConfig', 'updateDataSource_lambdaConfig' - The new AWS Lambda configuration.
 --
--- * 'udsDescription' - The new description for the data source.
+-- 'dynamodbConfig', 'updateDataSource_dynamodbConfig' - The new Amazon DynamoDB configuration.
 --
--- * 'udsHttpConfig' - The new HTTP endpoint configuration.
+-- 'description', 'updateDataSource_description' - The new description for the data source.
 --
--- * 'udsApiId' - The API ID.
+-- 'httpConfig', 'updateDataSource_httpConfig' - The new HTTP endpoint configuration.
 --
--- * 'udsName' - The new name for the data source.
+-- 'apiId', 'updateDataSource_apiId' - The API ID.
 --
--- * 'udsType' - The new data source type.
-updateDataSource ::
-  -- | 'udsApiId'
-  Text ->
-  -- | 'udsName'
-  Text ->
-  -- | 'udsType'
+-- 'name', 'updateDataSource_name' - The new name for the data source.
+--
+-- 'type'', 'updateDataSource_type' - The new data source type.
+newUpdateDataSource ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   DataSourceType ->
   UpdateDataSource
-updateDataSource pApiId_ pName_ pType_ =
+newUpdateDataSource pApiId_ pName_ pType_ =
   UpdateDataSource'
-    { _udsRelationalDatabaseConfig =
-        Nothing,
-      _udsServiceRoleARN = Nothing,
-      _udsElasticsearchConfig = Nothing,
-      _udsLambdaConfig = Nothing,
-      _udsDynamodbConfig = Nothing,
-      _udsDescription = Nothing,
-      _udsHttpConfig = Nothing,
-      _udsApiId = pApiId_,
-      _udsName = pName_,
-      _udsType = pType_
+    { relationalDatabaseConfig =
+        Prelude.Nothing,
+      serviceRoleArn = Prelude.Nothing,
+      elasticsearchConfig = Prelude.Nothing,
+      lambdaConfig = Prelude.Nothing,
+      dynamodbConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpConfig = Prelude.Nothing,
+      apiId = pApiId_,
+      name = pName_,
+      type' = pType_
     }
 
 -- | The new relational database configuration.
-udsRelationalDatabaseConfig :: Lens' UpdateDataSource (Maybe RelationalDatabaseDataSourceConfig)
-udsRelationalDatabaseConfig = lens _udsRelationalDatabaseConfig (\s a -> s {_udsRelationalDatabaseConfig = a})
+updateDataSource_relationalDatabaseConfig :: Lens.Lens' UpdateDataSource (Prelude.Maybe RelationalDatabaseDataSourceConfig)
+updateDataSource_relationalDatabaseConfig = Lens.lens (\UpdateDataSource' {relationalDatabaseConfig} -> relationalDatabaseConfig) (\s@UpdateDataSource' {} a -> s {relationalDatabaseConfig = a} :: UpdateDataSource)
 
 -- | The new service role ARN for the data source.
-udsServiceRoleARN :: Lens' UpdateDataSource (Maybe Text)
-udsServiceRoleARN = lens _udsServiceRoleARN (\s a -> s {_udsServiceRoleARN = a})
+updateDataSource_serviceRoleArn :: Lens.Lens' UpdateDataSource (Prelude.Maybe Prelude.Text)
+updateDataSource_serviceRoleArn = Lens.lens (\UpdateDataSource' {serviceRoleArn} -> serviceRoleArn) (\s@UpdateDataSource' {} a -> s {serviceRoleArn = a} :: UpdateDataSource)
 
 -- | The new Elasticsearch Service configuration.
-udsElasticsearchConfig :: Lens' UpdateDataSource (Maybe ElasticsearchDataSourceConfig)
-udsElasticsearchConfig = lens _udsElasticsearchConfig (\s a -> s {_udsElasticsearchConfig = a})
+updateDataSource_elasticsearchConfig :: Lens.Lens' UpdateDataSource (Prelude.Maybe ElasticsearchDataSourceConfig)
+updateDataSource_elasticsearchConfig = Lens.lens (\UpdateDataSource' {elasticsearchConfig} -> elasticsearchConfig) (\s@UpdateDataSource' {} a -> s {elasticsearchConfig = a} :: UpdateDataSource)
 
 -- | The new AWS Lambda configuration.
-udsLambdaConfig :: Lens' UpdateDataSource (Maybe LambdaDataSourceConfig)
-udsLambdaConfig = lens _udsLambdaConfig (\s a -> s {_udsLambdaConfig = a})
+updateDataSource_lambdaConfig :: Lens.Lens' UpdateDataSource (Prelude.Maybe LambdaDataSourceConfig)
+updateDataSource_lambdaConfig = Lens.lens (\UpdateDataSource' {lambdaConfig} -> lambdaConfig) (\s@UpdateDataSource' {} a -> s {lambdaConfig = a} :: UpdateDataSource)
 
 -- | The new Amazon DynamoDB configuration.
-udsDynamodbConfig :: Lens' UpdateDataSource (Maybe DynamodbDataSourceConfig)
-udsDynamodbConfig = lens _udsDynamodbConfig (\s a -> s {_udsDynamodbConfig = a})
+updateDataSource_dynamodbConfig :: Lens.Lens' UpdateDataSource (Prelude.Maybe DynamodbDataSourceConfig)
+updateDataSource_dynamodbConfig = Lens.lens (\UpdateDataSource' {dynamodbConfig} -> dynamodbConfig) (\s@UpdateDataSource' {} a -> s {dynamodbConfig = a} :: UpdateDataSource)
 
 -- | The new description for the data source.
-udsDescription :: Lens' UpdateDataSource (Maybe Text)
-udsDescription = lens _udsDescription (\s a -> s {_udsDescription = a})
+updateDataSource_description :: Lens.Lens' UpdateDataSource (Prelude.Maybe Prelude.Text)
+updateDataSource_description = Lens.lens (\UpdateDataSource' {description} -> description) (\s@UpdateDataSource' {} a -> s {description = a} :: UpdateDataSource)
 
 -- | The new HTTP endpoint configuration.
-udsHttpConfig :: Lens' UpdateDataSource (Maybe HTTPDataSourceConfig)
-udsHttpConfig = lens _udsHttpConfig (\s a -> s {_udsHttpConfig = a})
+updateDataSource_httpConfig :: Lens.Lens' UpdateDataSource (Prelude.Maybe HttpDataSourceConfig)
+updateDataSource_httpConfig = Lens.lens (\UpdateDataSource' {httpConfig} -> httpConfig) (\s@UpdateDataSource' {} a -> s {httpConfig = a} :: UpdateDataSource)
 
 -- | The API ID.
-udsApiId :: Lens' UpdateDataSource Text
-udsApiId = lens _udsApiId (\s a -> s {_udsApiId = a})
+updateDataSource_apiId :: Lens.Lens' UpdateDataSource Prelude.Text
+updateDataSource_apiId = Lens.lens (\UpdateDataSource' {apiId} -> apiId) (\s@UpdateDataSource' {} a -> s {apiId = a} :: UpdateDataSource)
 
 -- | The new name for the data source.
-udsName :: Lens' UpdateDataSource Text
-udsName = lens _udsName (\s a -> s {_udsName = a})
+updateDataSource_name :: Lens.Lens' UpdateDataSource Prelude.Text
+updateDataSource_name = Lens.lens (\UpdateDataSource' {name} -> name) (\s@UpdateDataSource' {} a -> s {name = a} :: UpdateDataSource)
 
 -- | The new data source type.
-udsType :: Lens' UpdateDataSource DataSourceType
-udsType = lens _udsType (\s a -> s {_udsType = a})
+updateDataSource_type :: Lens.Lens' UpdateDataSource DataSourceType
+updateDataSource_type = Lens.lens (\UpdateDataSource' {type'} -> type') (\s@UpdateDataSource' {} a -> s {type' = a} :: UpdateDataSource)
 
-instance AWSRequest UpdateDataSource where
+instance Prelude.AWSRequest UpdateDataSource where
   type Rs UpdateDataSource = UpdateDataSourceResponse
-  request = postJSON appSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateDataSourceResponse'
-            <$> (x .?> "dataSource") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "dataSource")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDataSource
+instance Prelude.Hashable UpdateDataSource
 
-instance NFData UpdateDataSource
+instance Prelude.NFData UpdateDataSource
 
-instance ToHeaders UpdateDataSource where
+instance Prelude.ToHeaders UpdateDataSource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDataSource where
+instance Prelude.ToJSON UpdateDataSource where
   toJSON UpdateDataSource' {..} =
-    object
-      ( catMaybes
-          [ ("relationalDatabaseConfig" .=)
-              <$> _udsRelationalDatabaseConfig,
-            ("serviceRoleArn" .=) <$> _udsServiceRoleARN,
-            ("elasticsearchConfig" .=)
-              <$> _udsElasticsearchConfig,
-            ("lambdaConfig" .=) <$> _udsLambdaConfig,
-            ("dynamodbConfig" .=) <$> _udsDynamodbConfig,
-            ("description" .=) <$> _udsDescription,
-            ("httpConfig" .=) <$> _udsHttpConfig,
-            Just ("type" .= _udsType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("relationalDatabaseConfig" Prelude..=)
+              Prelude.<$> relationalDatabaseConfig,
+            ("serviceRoleArn" Prelude..=)
+              Prelude.<$> serviceRoleArn,
+            ("elasticsearchConfig" Prelude..=)
+              Prelude.<$> elasticsearchConfig,
+            ("lambdaConfig" Prelude..=) Prelude.<$> lambdaConfig,
+            ("dynamodbConfig" Prelude..=)
+              Prelude.<$> dynamodbConfig,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("httpConfig" Prelude..=) Prelude.<$> httpConfig,
+            Prelude.Just ("type" Prelude..= type')
           ]
       )
 
-instance ToPath UpdateDataSource where
+instance Prelude.ToPath UpdateDataSource where
   toPath UpdateDataSource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _udsApiId,
+        Prelude.toBS apiId,
         "/datasources/",
-        toBS _udsName
+        Prelude.toBS name
       ]
 
-instance ToQuery UpdateDataSource where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDataSource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDataSourceResponse' smart constructor.
+-- | /See:/ 'newUpdateDataSourceResponse' smart constructor.
 data UpdateDataSourceResponse = UpdateDataSourceResponse'
-  { _udsrrsDataSource ::
-      !(Maybe DataSource),
-    _udsrrsResponseStatus ::
-      !Int
+  { -- | The updated @DataSource@ object.
+    dataSource :: Prelude.Maybe DataSource,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDataSourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDataSourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udsrrsDataSource' - The updated @DataSource@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udsrrsResponseStatus' - -- | The response status code.
-updateDataSourceResponse ::
-  -- | 'udsrrsResponseStatus'
-  Int ->
+-- 'dataSource', 'updateDataSourceResponse_dataSource' - The updated @DataSource@ object.
+--
+-- 'httpStatus', 'updateDataSourceResponse_httpStatus' - The response's http status code.
+newUpdateDataSourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDataSourceResponse
-updateDataSourceResponse pResponseStatus_ =
+newUpdateDataSourceResponse pHttpStatus_ =
   UpdateDataSourceResponse'
-    { _udsrrsDataSource =
-        Nothing,
-      _udsrrsResponseStatus = pResponseStatus_
+    { dataSource =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated @DataSource@ object.
-udsrrsDataSource :: Lens' UpdateDataSourceResponse (Maybe DataSource)
-udsrrsDataSource = lens _udsrrsDataSource (\s a -> s {_udsrrsDataSource = a})
+updateDataSourceResponse_dataSource :: Lens.Lens' UpdateDataSourceResponse (Prelude.Maybe DataSource)
+updateDataSourceResponse_dataSource = Lens.lens (\UpdateDataSourceResponse' {dataSource} -> dataSource) (\s@UpdateDataSourceResponse' {} a -> s {dataSource = a} :: UpdateDataSourceResponse)
 
--- | -- | The response status code.
-udsrrsResponseStatus :: Lens' UpdateDataSourceResponse Int
-udsrrsResponseStatus = lens _udsrrsResponseStatus (\s a -> s {_udsrrsResponseStatus = a})
+-- | The response's http status code.
+updateDataSourceResponse_httpStatus :: Lens.Lens' UpdateDataSourceResponse Prelude.Int
+updateDataSourceResponse_httpStatus = Lens.lens (\UpdateDataSourceResponse' {httpStatus} -> httpStatus) (\s@UpdateDataSourceResponse' {} a -> s {httpStatus = a} :: UpdateDataSourceResponse)
 
-instance NFData UpdateDataSourceResponse
+instance Prelude.NFData UpdateDataSourceResponse

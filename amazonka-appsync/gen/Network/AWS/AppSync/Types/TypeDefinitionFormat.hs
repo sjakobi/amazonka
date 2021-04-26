@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.AppSync.Types.TypeDefinitionFormat
   ( TypeDefinitionFormat
       ( ..,
-        JSON,
-        Sdl
+        TypeDefinitionFormatJSON,
+        TypeDefinitionFormatSDL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TypeDefinitionFormat
-  = TypeDefinitionFormat'
-      ( CI
-          Text
-      )
+newtype TypeDefinitionFormat = TypeDefinitionFormat'
+  { fromTypeDefinitionFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSON :: TypeDefinitionFormat
-pattern JSON = TypeDefinitionFormat' "JSON"
+pattern TypeDefinitionFormatJSON :: TypeDefinitionFormat
+pattern TypeDefinitionFormatJSON = TypeDefinitionFormat' "JSON"
 
-pattern Sdl :: TypeDefinitionFormat
-pattern Sdl = TypeDefinitionFormat' "SDL"
+pattern TypeDefinitionFormatSDL :: TypeDefinitionFormat
+pattern TypeDefinitionFormatSDL = TypeDefinitionFormat' "SDL"
 
 {-# COMPLETE
-  JSON,
-  Sdl,
+  TypeDefinitionFormatJSON,
+  TypeDefinitionFormatSDL,
   TypeDefinitionFormat'
   #-}
 
-instance FromText TypeDefinitionFormat where
-  parser = (TypeDefinitionFormat' . mk) <$> takeText
+instance Prelude.FromText TypeDefinitionFormat where
+  parser = TypeDefinitionFormat' Prelude.<$> Prelude.takeText
 
-instance ToText TypeDefinitionFormat where
-  toText (TypeDefinitionFormat' ci) = original ci
+instance Prelude.ToText TypeDefinitionFormat where
+  toText (TypeDefinitionFormat' x) = x
 
-instance Hashable TypeDefinitionFormat
+instance Prelude.Hashable TypeDefinitionFormat
 
-instance NFData TypeDefinitionFormat
+instance Prelude.NFData TypeDefinitionFormat
 
-instance ToByteString TypeDefinitionFormat
+instance Prelude.ToByteString TypeDefinitionFormat
 
-instance ToQuery TypeDefinitionFormat
+instance Prelude.ToQuery TypeDefinitionFormat
 
-instance ToHeader TypeDefinitionFormat
+instance Prelude.ToHeader TypeDefinitionFormat
 
-instance ToJSON TypeDefinitionFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON TypeDefinitionFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TypeDefinitionFormat where
-  parseJSON = parseJSONText "TypeDefinitionFormat"
+instance Prelude.FromJSON TypeDefinitionFormat where
+  parseJSON = Prelude.parseJSONText "TypeDefinitionFormat"

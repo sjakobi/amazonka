@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,236 +24,247 @@
 -- Creates a @DataSource@ object.
 module Network.AWS.AppSync.CreateDataSource
   ( -- * Creating a Request
-    createDataSource,
-    CreateDataSource,
+    CreateDataSource (..),
+    newCreateDataSource,
 
     -- * Request Lenses
-    cdsRelationalDatabaseConfig,
-    cdsServiceRoleARN,
-    cdsElasticsearchConfig,
-    cdsLambdaConfig,
-    cdsDynamodbConfig,
-    cdsDescription,
-    cdsHttpConfig,
-    cdsApiId,
-    cdsName,
-    cdsType,
+    createDataSource_relationalDatabaseConfig,
+    createDataSource_serviceRoleArn,
+    createDataSource_elasticsearchConfig,
+    createDataSource_lambdaConfig,
+    createDataSource_dynamodbConfig,
+    createDataSource_description,
+    createDataSource_httpConfig,
+    createDataSource_apiId,
+    createDataSource_name,
+    createDataSource_type,
 
     -- * Destructuring the Response
-    createDataSourceResponse,
-    CreateDataSourceResponse,
+    CreateDataSourceResponse (..),
+    newCreateDataSourceResponse,
 
     -- * Response Lenses
-    cdsrrsDataSource,
-    cdsrrsResponseStatus,
+    createDataSourceResponse_dataSource,
+    createDataSourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.DataSource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDataSource' smart constructor.
+-- | /See:/ 'newCreateDataSource' smart constructor.
 data CreateDataSource = CreateDataSource'
-  { _cdsRelationalDatabaseConfig ::
-      !( Maybe
-           RelationalDatabaseDataSourceConfig
-       ),
-    _cdsServiceRoleARN :: !(Maybe Text),
-    _cdsElasticsearchConfig ::
-      !( Maybe
-           ElasticsearchDataSourceConfig
-       ),
-    _cdsLambdaConfig ::
-      !(Maybe LambdaDataSourceConfig),
-    _cdsDynamodbConfig ::
-      !(Maybe DynamodbDataSourceConfig),
-    _cdsDescription :: !(Maybe Text),
-    _cdsHttpConfig ::
-      !(Maybe HTTPDataSourceConfig),
-    _cdsApiId :: !Text,
-    _cdsName :: !Text,
-    _cdsType :: !DataSourceType
+  { -- | Relational database settings.
+    relationalDatabaseConfig :: Prelude.Maybe RelationalDatabaseDataSourceConfig,
+    -- | The AWS IAM service role ARN for the data source. The system assumes
+    -- this role when accessing the data source.
+    serviceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | Amazon Elasticsearch Service settings.
+    elasticsearchConfig :: Prelude.Maybe ElasticsearchDataSourceConfig,
+    -- | AWS Lambda settings.
+    lambdaConfig :: Prelude.Maybe LambdaDataSourceConfig,
+    -- | Amazon DynamoDB settings.
+    dynamodbConfig :: Prelude.Maybe DynamodbDataSourceConfig,
+    -- | A description of the @DataSource@.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | HTTP endpoint settings.
+    httpConfig :: Prelude.Maybe HttpDataSourceConfig,
+    -- | The API ID for the GraphQL API for the @DataSource@.
+    apiId :: Prelude.Text,
+    -- | A user-supplied name for the @DataSource@.
+    name :: Prelude.Text,
+    -- | The type of the @DataSource@.
+    type' :: DataSourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsRelationalDatabaseConfig' - Relational database settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsServiceRoleARN' - The AWS IAM service role ARN for the data source. The system assumes this role when accessing the data source.
+-- 'relationalDatabaseConfig', 'createDataSource_relationalDatabaseConfig' - Relational database settings.
 --
--- * 'cdsElasticsearchConfig' - Amazon Elasticsearch Service settings.
+-- 'serviceRoleArn', 'createDataSource_serviceRoleArn' - The AWS IAM service role ARN for the data source. The system assumes
+-- this role when accessing the data source.
 --
--- * 'cdsLambdaConfig' - AWS Lambda settings.
+-- 'elasticsearchConfig', 'createDataSource_elasticsearchConfig' - Amazon Elasticsearch Service settings.
 --
--- * 'cdsDynamodbConfig' - Amazon DynamoDB settings.
+-- 'lambdaConfig', 'createDataSource_lambdaConfig' - AWS Lambda settings.
 --
--- * 'cdsDescription' - A description of the @DataSource@ .
+-- 'dynamodbConfig', 'createDataSource_dynamodbConfig' - Amazon DynamoDB settings.
 --
--- * 'cdsHttpConfig' - HTTP endpoint settings.
+-- 'description', 'createDataSource_description' - A description of the @DataSource@.
 --
--- * 'cdsApiId' - The API ID for the GraphQL API for the @DataSource@ .
+-- 'httpConfig', 'createDataSource_httpConfig' - HTTP endpoint settings.
 --
--- * 'cdsName' - A user-supplied name for the @DataSource@ .
+-- 'apiId', 'createDataSource_apiId' - The API ID for the GraphQL API for the @DataSource@.
 --
--- * 'cdsType' - The type of the @DataSource@ .
-createDataSource ::
-  -- | 'cdsApiId'
-  Text ->
-  -- | 'cdsName'
-  Text ->
-  -- | 'cdsType'
+-- 'name', 'createDataSource_name' - A user-supplied name for the @DataSource@.
+--
+-- 'type'', 'createDataSource_type' - The type of the @DataSource@.
+newCreateDataSource ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   DataSourceType ->
   CreateDataSource
-createDataSource pApiId_ pName_ pType_ =
+newCreateDataSource pApiId_ pName_ pType_ =
   CreateDataSource'
-    { _cdsRelationalDatabaseConfig =
-        Nothing,
-      _cdsServiceRoleARN = Nothing,
-      _cdsElasticsearchConfig = Nothing,
-      _cdsLambdaConfig = Nothing,
-      _cdsDynamodbConfig = Nothing,
-      _cdsDescription = Nothing,
-      _cdsHttpConfig = Nothing,
-      _cdsApiId = pApiId_,
-      _cdsName = pName_,
-      _cdsType = pType_
+    { relationalDatabaseConfig =
+        Prelude.Nothing,
+      serviceRoleArn = Prelude.Nothing,
+      elasticsearchConfig = Prelude.Nothing,
+      lambdaConfig = Prelude.Nothing,
+      dynamodbConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpConfig = Prelude.Nothing,
+      apiId = pApiId_,
+      name = pName_,
+      type' = pType_
     }
 
 -- | Relational database settings.
-cdsRelationalDatabaseConfig :: Lens' CreateDataSource (Maybe RelationalDatabaseDataSourceConfig)
-cdsRelationalDatabaseConfig = lens _cdsRelationalDatabaseConfig (\s a -> s {_cdsRelationalDatabaseConfig = a})
+createDataSource_relationalDatabaseConfig :: Lens.Lens' CreateDataSource (Prelude.Maybe RelationalDatabaseDataSourceConfig)
+createDataSource_relationalDatabaseConfig = Lens.lens (\CreateDataSource' {relationalDatabaseConfig} -> relationalDatabaseConfig) (\s@CreateDataSource' {} a -> s {relationalDatabaseConfig = a} :: CreateDataSource)
 
--- | The AWS IAM service role ARN for the data source. The system assumes this role when accessing the data source.
-cdsServiceRoleARN :: Lens' CreateDataSource (Maybe Text)
-cdsServiceRoleARN = lens _cdsServiceRoleARN (\s a -> s {_cdsServiceRoleARN = a})
+-- | The AWS IAM service role ARN for the data source. The system assumes
+-- this role when accessing the data source.
+createDataSource_serviceRoleArn :: Lens.Lens' CreateDataSource (Prelude.Maybe Prelude.Text)
+createDataSource_serviceRoleArn = Lens.lens (\CreateDataSource' {serviceRoleArn} -> serviceRoleArn) (\s@CreateDataSource' {} a -> s {serviceRoleArn = a} :: CreateDataSource)
 
 -- | Amazon Elasticsearch Service settings.
-cdsElasticsearchConfig :: Lens' CreateDataSource (Maybe ElasticsearchDataSourceConfig)
-cdsElasticsearchConfig = lens _cdsElasticsearchConfig (\s a -> s {_cdsElasticsearchConfig = a})
+createDataSource_elasticsearchConfig :: Lens.Lens' CreateDataSource (Prelude.Maybe ElasticsearchDataSourceConfig)
+createDataSource_elasticsearchConfig = Lens.lens (\CreateDataSource' {elasticsearchConfig} -> elasticsearchConfig) (\s@CreateDataSource' {} a -> s {elasticsearchConfig = a} :: CreateDataSource)
 
 -- | AWS Lambda settings.
-cdsLambdaConfig :: Lens' CreateDataSource (Maybe LambdaDataSourceConfig)
-cdsLambdaConfig = lens _cdsLambdaConfig (\s a -> s {_cdsLambdaConfig = a})
+createDataSource_lambdaConfig :: Lens.Lens' CreateDataSource (Prelude.Maybe LambdaDataSourceConfig)
+createDataSource_lambdaConfig = Lens.lens (\CreateDataSource' {lambdaConfig} -> lambdaConfig) (\s@CreateDataSource' {} a -> s {lambdaConfig = a} :: CreateDataSource)
 
 -- | Amazon DynamoDB settings.
-cdsDynamodbConfig :: Lens' CreateDataSource (Maybe DynamodbDataSourceConfig)
-cdsDynamodbConfig = lens _cdsDynamodbConfig (\s a -> s {_cdsDynamodbConfig = a})
+createDataSource_dynamodbConfig :: Lens.Lens' CreateDataSource (Prelude.Maybe DynamodbDataSourceConfig)
+createDataSource_dynamodbConfig = Lens.lens (\CreateDataSource' {dynamodbConfig} -> dynamodbConfig) (\s@CreateDataSource' {} a -> s {dynamodbConfig = a} :: CreateDataSource)
 
--- | A description of the @DataSource@ .
-cdsDescription :: Lens' CreateDataSource (Maybe Text)
-cdsDescription = lens _cdsDescription (\s a -> s {_cdsDescription = a})
+-- | A description of the @DataSource@.
+createDataSource_description :: Lens.Lens' CreateDataSource (Prelude.Maybe Prelude.Text)
+createDataSource_description = Lens.lens (\CreateDataSource' {description} -> description) (\s@CreateDataSource' {} a -> s {description = a} :: CreateDataSource)
 
 -- | HTTP endpoint settings.
-cdsHttpConfig :: Lens' CreateDataSource (Maybe HTTPDataSourceConfig)
-cdsHttpConfig = lens _cdsHttpConfig (\s a -> s {_cdsHttpConfig = a})
+createDataSource_httpConfig :: Lens.Lens' CreateDataSource (Prelude.Maybe HttpDataSourceConfig)
+createDataSource_httpConfig = Lens.lens (\CreateDataSource' {httpConfig} -> httpConfig) (\s@CreateDataSource' {} a -> s {httpConfig = a} :: CreateDataSource)
 
--- | The API ID for the GraphQL API for the @DataSource@ .
-cdsApiId :: Lens' CreateDataSource Text
-cdsApiId = lens _cdsApiId (\s a -> s {_cdsApiId = a})
+-- | The API ID for the GraphQL API for the @DataSource@.
+createDataSource_apiId :: Lens.Lens' CreateDataSource Prelude.Text
+createDataSource_apiId = Lens.lens (\CreateDataSource' {apiId} -> apiId) (\s@CreateDataSource' {} a -> s {apiId = a} :: CreateDataSource)
 
--- | A user-supplied name for the @DataSource@ .
-cdsName :: Lens' CreateDataSource Text
-cdsName = lens _cdsName (\s a -> s {_cdsName = a})
+-- | A user-supplied name for the @DataSource@.
+createDataSource_name :: Lens.Lens' CreateDataSource Prelude.Text
+createDataSource_name = Lens.lens (\CreateDataSource' {name} -> name) (\s@CreateDataSource' {} a -> s {name = a} :: CreateDataSource)
 
--- | The type of the @DataSource@ .
-cdsType :: Lens' CreateDataSource DataSourceType
-cdsType = lens _cdsType (\s a -> s {_cdsType = a})
+-- | The type of the @DataSource@.
+createDataSource_type :: Lens.Lens' CreateDataSource DataSourceType
+createDataSource_type = Lens.lens (\CreateDataSource' {type'} -> type') (\s@CreateDataSource' {} a -> s {type' = a} :: CreateDataSource)
 
-instance AWSRequest CreateDataSource where
+instance Prelude.AWSRequest CreateDataSource where
   type Rs CreateDataSource = CreateDataSourceResponse
-  request = postJSON appSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDataSourceResponse'
-            <$> (x .?> "dataSource") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "dataSource")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDataSource
+instance Prelude.Hashable CreateDataSource
 
-instance NFData CreateDataSource
+instance Prelude.NFData CreateDataSource
 
-instance ToHeaders CreateDataSource where
+instance Prelude.ToHeaders CreateDataSource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateDataSource where
+instance Prelude.ToJSON CreateDataSource where
   toJSON CreateDataSource' {..} =
-    object
-      ( catMaybes
-          [ ("relationalDatabaseConfig" .=)
-              <$> _cdsRelationalDatabaseConfig,
-            ("serviceRoleArn" .=) <$> _cdsServiceRoleARN,
-            ("elasticsearchConfig" .=)
-              <$> _cdsElasticsearchConfig,
-            ("lambdaConfig" .=) <$> _cdsLambdaConfig,
-            ("dynamodbConfig" .=) <$> _cdsDynamodbConfig,
-            ("description" .=) <$> _cdsDescription,
-            ("httpConfig" .=) <$> _cdsHttpConfig,
-            Just ("name" .= _cdsName),
-            Just ("type" .= _cdsType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("relationalDatabaseConfig" Prelude..=)
+              Prelude.<$> relationalDatabaseConfig,
+            ("serviceRoleArn" Prelude..=)
+              Prelude.<$> serviceRoleArn,
+            ("elasticsearchConfig" Prelude..=)
+              Prelude.<$> elasticsearchConfig,
+            ("lambdaConfig" Prelude..=) Prelude.<$> lambdaConfig,
+            ("dynamodbConfig" Prelude..=)
+              Prelude.<$> dynamodbConfig,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("httpConfig" Prelude..=) Prelude.<$> httpConfig,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("type" Prelude..= type')
           ]
       )
 
-instance ToPath CreateDataSource where
+instance Prelude.ToPath CreateDataSource where
   toPath CreateDataSource' {..} =
-    mconcat
-      ["/v1/apis/", toBS _cdsApiId, "/datasources"]
+    Prelude.mconcat
+      ["/v1/apis/", Prelude.toBS apiId, "/datasources"]
 
-instance ToQuery CreateDataSource where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDataSource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDataSourceResponse' smart constructor.
+-- | /See:/ 'newCreateDataSourceResponse' smart constructor.
 data CreateDataSourceResponse = CreateDataSourceResponse'
-  { _cdsrrsDataSource ::
-      !(Maybe DataSource),
-    _cdsrrsResponseStatus ::
-      !Int
+  { -- | The @DataSource@ object.
+    dataSource :: Prelude.Maybe DataSource,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDataSourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDataSourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsrrsDataSource' - The @DataSource@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsrrsResponseStatus' - -- | The response status code.
-createDataSourceResponse ::
-  -- | 'cdsrrsResponseStatus'
-  Int ->
+-- 'dataSource', 'createDataSourceResponse_dataSource' - The @DataSource@ object.
+--
+-- 'httpStatus', 'createDataSourceResponse_httpStatus' - The response's http status code.
+newCreateDataSourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDataSourceResponse
-createDataSourceResponse pResponseStatus_ =
+newCreateDataSourceResponse pHttpStatus_ =
   CreateDataSourceResponse'
-    { _cdsrrsDataSource =
-        Nothing,
-      _cdsrrsResponseStatus = pResponseStatus_
+    { dataSource =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The @DataSource@ object.
-cdsrrsDataSource :: Lens' CreateDataSourceResponse (Maybe DataSource)
-cdsrrsDataSource = lens _cdsrrsDataSource (\s a -> s {_cdsrrsDataSource = a})
+createDataSourceResponse_dataSource :: Lens.Lens' CreateDataSourceResponse (Prelude.Maybe DataSource)
+createDataSourceResponse_dataSource = Lens.lens (\CreateDataSourceResponse' {dataSource} -> dataSource) (\s@CreateDataSourceResponse' {} a -> s {dataSource = a} :: CreateDataSourceResponse)
 
--- | -- | The response status code.
-cdsrrsResponseStatus :: Lens' CreateDataSourceResponse Int
-cdsrrsResponseStatus = lens _cdsrrsResponseStatus (\s a -> s {_cdsrrsResponseStatus = a})
+-- | The response's http status code.
+createDataSourceResponse_httpStatus :: Lens.Lens' CreateDataSourceResponse Prelude.Int
+createDataSourceResponse_httpStatus = Lens.lens (\CreateDataSourceResponse' {httpStatus} -> httpStatus) (\s@CreateDataSourceResponse' {} a -> s {httpStatus = a} :: CreateDataSourceResponse)
 
-instance NFData CreateDataSourceResponse
+instance Prelude.NFData CreateDataSourceResponse

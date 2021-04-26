@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,202 +23,223 @@
 --
 -- List the resolvers that are associated with a specific function.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.AppSync.ListResolversByFunction
   ( -- * Creating a Request
-    listResolversByFunction,
-    ListResolversByFunction,
+    ListResolversByFunction (..),
+    newListResolversByFunction,
 
     -- * Request Lenses
-    lrbfNextToken,
-    lrbfMaxResults,
-    lrbfApiId,
-    lrbfFunctionId,
+    listResolversByFunction_nextToken,
+    listResolversByFunction_maxResults,
+    listResolversByFunction_apiId,
+    listResolversByFunction_functionId,
 
     -- * Destructuring the Response
-    listResolversByFunctionResponse,
-    ListResolversByFunctionResponse,
+    ListResolversByFunctionResponse (..),
+    newListResolversByFunctionResponse,
 
     -- * Response Lenses
-    lrbfrrsNextToken,
-    lrbfrrsResolvers,
-    lrbfrrsResponseStatus,
+    listResolversByFunctionResponse_nextToken,
+    listResolversByFunctionResponse_resolvers,
+    listResolversByFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.Resolver
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listResolversByFunction' smart constructor.
+-- | /See:/ 'newListResolversByFunction' smart constructor.
 data ListResolversByFunction = ListResolversByFunction'
-  { _lrbfNextToken ::
-      !(Maybe Text),
-    _lrbfMaxResults ::
-      !(Maybe Nat),
-    _lrbfApiId :: !Text,
-    _lrbfFunctionId ::
-      !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which you can use to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results you want the request to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The API ID.
+    apiId :: Prelude.Text,
+    -- | The Function ID.
+    functionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResolversByFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResolversByFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrbfNextToken' - An identifier that was returned from the previous call to this operation, which you can use to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrbfMaxResults' - The maximum number of results you want the request to return.
+-- 'nextToken', 'listResolversByFunction_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
 --
--- * 'lrbfApiId' - The API ID.
+-- 'maxResults', 'listResolversByFunction_maxResults' - The maximum number of results you want the request to return.
 --
--- * 'lrbfFunctionId' - The Function ID.
-listResolversByFunction ::
-  -- | 'lrbfApiId'
-  Text ->
-  -- | 'lrbfFunctionId'
-  Text ->
+-- 'apiId', 'listResolversByFunction_apiId' - The API ID.
+--
+-- 'functionId', 'listResolversByFunction_functionId' - The Function ID.
+newListResolversByFunction ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'functionId'
+  Prelude.Text ->
   ListResolversByFunction
-listResolversByFunction pApiId_ pFunctionId_ =
+newListResolversByFunction pApiId_ pFunctionId_ =
   ListResolversByFunction'
-    { _lrbfNextToken = Nothing,
-      _lrbfMaxResults = Nothing,
-      _lrbfApiId = pApiId_,
-      _lrbfFunctionId = pFunctionId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      apiId = pApiId_,
+      functionId = pFunctionId_
     }
 
--- | An identifier that was returned from the previous call to this operation, which you can use to return the next set of items in the list.
-lrbfNextToken :: Lens' ListResolversByFunction (Maybe Text)
-lrbfNextToken = lens _lrbfNextToken (\s a -> s {_lrbfNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
+listResolversByFunction_nextToken :: Lens.Lens' ListResolversByFunction (Prelude.Maybe Prelude.Text)
+listResolversByFunction_nextToken = Lens.lens (\ListResolversByFunction' {nextToken} -> nextToken) (\s@ListResolversByFunction' {} a -> s {nextToken = a} :: ListResolversByFunction)
 
 -- | The maximum number of results you want the request to return.
-lrbfMaxResults :: Lens' ListResolversByFunction (Maybe Natural)
-lrbfMaxResults = lens _lrbfMaxResults (\s a -> s {_lrbfMaxResults = a}) . mapping _Nat
+listResolversByFunction_maxResults :: Lens.Lens' ListResolversByFunction (Prelude.Maybe Prelude.Natural)
+listResolversByFunction_maxResults = Lens.lens (\ListResolversByFunction' {maxResults} -> maxResults) (\s@ListResolversByFunction' {} a -> s {maxResults = a} :: ListResolversByFunction) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The API ID.
-lrbfApiId :: Lens' ListResolversByFunction Text
-lrbfApiId = lens _lrbfApiId (\s a -> s {_lrbfApiId = a})
+listResolversByFunction_apiId :: Lens.Lens' ListResolversByFunction Prelude.Text
+listResolversByFunction_apiId = Lens.lens (\ListResolversByFunction' {apiId} -> apiId) (\s@ListResolversByFunction' {} a -> s {apiId = a} :: ListResolversByFunction)
 
 -- | The Function ID.
-lrbfFunctionId :: Lens' ListResolversByFunction Text
-lrbfFunctionId = lens _lrbfFunctionId (\s a -> s {_lrbfFunctionId = a})
+listResolversByFunction_functionId :: Lens.Lens' ListResolversByFunction Prelude.Text
+listResolversByFunction_functionId = Lens.lens (\ListResolversByFunction' {functionId} -> functionId) (\s@ListResolversByFunction' {} a -> s {functionId = a} :: ListResolversByFunction)
 
-instance AWSPager ListResolversByFunction where
+instance Pager.AWSPager ListResolversByFunction where
   page rq rs
-    | stop (rs ^. lrbfrrsNextToken) = Nothing
-    | stop (rs ^. lrbfrrsResolvers) = Nothing
-    | otherwise =
-      Just $ rq & lrbfNextToken .~ rs ^. lrbfrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listResolversByFunctionResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listResolversByFunctionResponse_resolvers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listResolversByFunction_nextToken
+          Lens..~ rs
+          Lens.^? listResolversByFunctionResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListResolversByFunction where
+instance Prelude.AWSRequest ListResolversByFunction where
   type
     Rs ListResolversByFunction =
       ListResolversByFunctionResponse
-  request = get appSync
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListResolversByFunctionResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "resolvers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "resolvers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListResolversByFunction
+instance Prelude.Hashable ListResolversByFunction
 
-instance NFData ListResolversByFunction
+instance Prelude.NFData ListResolversByFunction
 
-instance ToHeaders ListResolversByFunction where
+instance Prelude.ToHeaders ListResolversByFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListResolversByFunction where
+instance Prelude.ToPath ListResolversByFunction where
   toPath ListResolversByFunction' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _lrbfApiId,
+        Prelude.toBS apiId,
         "/functions/",
-        toBS _lrbfFunctionId,
+        Prelude.toBS functionId,
         "/resolvers"
       ]
 
-instance ToQuery ListResolversByFunction where
+instance Prelude.ToQuery ListResolversByFunction where
   toQuery ListResolversByFunction' {..} =
-    mconcat
-      [ "nextToken" =: _lrbfNextToken,
-        "maxResults" =: _lrbfMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listResolversByFunctionResponse' smart constructor.
+-- | /See:/ 'newListResolversByFunctionResponse' smart constructor.
 data ListResolversByFunctionResponse = ListResolversByFunctionResponse'
-  { _lrbfrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lrbfrrsResolvers ::
-      !( Maybe
-           [Resolver]
-       ),
-    _lrbfrrsResponseStatus ::
-      !Int
+  { -- | An identifier that can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of resolvers.
+    resolvers :: Prelude.Maybe [Resolver],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResolversByFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResolversByFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrbfrrsNextToken' - An identifier that can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrbfrrsResolvers' - The list of resolvers.
+-- 'nextToken', 'listResolversByFunctionResponse_nextToken' - An identifier that can be used to return the next set of items in the
+-- list.
 --
--- * 'lrbfrrsResponseStatus' - -- | The response status code.
-listResolversByFunctionResponse ::
-  -- | 'lrbfrrsResponseStatus'
-  Int ->
+-- 'resolvers', 'listResolversByFunctionResponse_resolvers' - The list of resolvers.
+--
+-- 'httpStatus', 'listResolversByFunctionResponse_httpStatus' - The response's http status code.
+newListResolversByFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListResolversByFunctionResponse
-listResolversByFunctionResponse pResponseStatus_ =
+newListResolversByFunctionResponse pHttpStatus_ =
   ListResolversByFunctionResponse'
-    { _lrbfrrsNextToken =
-        Nothing,
-      _lrbfrrsResolvers = Nothing,
-      _lrbfrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      resolvers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An identifier that can be used to return the next set of items in the list.
-lrbfrrsNextToken :: Lens' ListResolversByFunctionResponse (Maybe Text)
-lrbfrrsNextToken = lens _lrbfrrsNextToken (\s a -> s {_lrbfrrsNextToken = a})
+-- | An identifier that can be used to return the next set of items in the
+-- list.
+listResolversByFunctionResponse_nextToken :: Lens.Lens' ListResolversByFunctionResponse (Prelude.Maybe Prelude.Text)
+listResolversByFunctionResponse_nextToken = Lens.lens (\ListResolversByFunctionResponse' {nextToken} -> nextToken) (\s@ListResolversByFunctionResponse' {} a -> s {nextToken = a} :: ListResolversByFunctionResponse)
 
 -- | The list of resolvers.
-lrbfrrsResolvers :: Lens' ListResolversByFunctionResponse [Resolver]
-lrbfrrsResolvers = lens _lrbfrrsResolvers (\s a -> s {_lrbfrrsResolvers = a}) . _Default . _Coerce
+listResolversByFunctionResponse_resolvers :: Lens.Lens' ListResolversByFunctionResponse (Prelude.Maybe [Resolver])
+listResolversByFunctionResponse_resolvers = Lens.lens (\ListResolversByFunctionResponse' {resolvers} -> resolvers) (\s@ListResolversByFunctionResponse' {} a -> s {resolvers = a} :: ListResolversByFunctionResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrbfrrsResponseStatus :: Lens' ListResolversByFunctionResponse Int
-lrbfrrsResponseStatus = lens _lrbfrrsResponseStatus (\s a -> s {_lrbfrrsResponseStatus = a})
+-- | The response's http status code.
+listResolversByFunctionResponse_httpStatus :: Lens.Lens' ListResolversByFunctionResponse Prelude.Int
+listResolversByFunctionResponse_httpStatus = Lens.lens (\ListResolversByFunctionResponse' {httpStatus} -> httpStatus) (\s@ListResolversByFunctionResponse' {} a -> s {httpStatus = a} :: ListResolversByFunctionResponse)
 
-instance NFData ListResolversByFunctionResponse
+instance
+  Prelude.NFData
+    ListResolversByFunctionResponse

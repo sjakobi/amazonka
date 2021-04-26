@@ -11,16 +11,17 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS AppSync provides API actions for creating and interacting with data sources using GraphQL from your application.
+-- AWS AppSync provides API actions for creating and interacting with data
+-- sources using GraphQL from your application.
 module Network.AWS.AppSync
   ( -- * Service Configuration
-    appSync,
+    defaultService,
 
     -- * Errors
     -- $errors
 
-    -- ** APIKeyValidityOutOfBoundsException
-    _APIKeyValidityOutOfBoundsException,
+    -- ** ApiKeyValidityOutOfBoundsException
+    _ApiKeyValidityOutOfBoundsException,
 
     -- ** NotFoundException
     _NotFoundException,
@@ -43,11 +44,11 @@ module Network.AWS.AppSync
     -- ** LimitExceededException
     _LimitExceededException,
 
-    -- ** APILimitExceededException
-    _APILimitExceededException,
+    -- ** ApiLimitExceededException
+    _ApiLimitExceededException,
 
-    -- ** APIKeyLimitExceededException
-    _APIKeyLimitExceededException,
+    -- ** ApiKeyLimitExceededException
+    _ApiKeyLimitExceededException,
 
     -- ** InternalFailureException
     _InternalFailureException,
@@ -59,138 +60,261 @@ module Network.AWS.AppSync
     -- $operations
 
     -- ** ListResolvers (Paginated)
-    module Network.AWS.AppSync.ListResolvers,
+    ListResolvers (ListResolvers'),
+    newListResolvers,
+    ListResolversResponse (ListResolversResponse'),
+    newListResolversResponse,
 
     -- ** UpdateDataSource
-    module Network.AWS.AppSync.UpdateDataSource,
+    UpdateDataSource (UpdateDataSource'),
+    newUpdateDataSource,
+    UpdateDataSourceResponse (UpdateDataSourceResponse'),
+    newUpdateDataSourceResponse,
 
     -- ** ListDataSources (Paginated)
-    module Network.AWS.AppSync.ListDataSources,
+    ListDataSources (ListDataSources'),
+    newListDataSources,
+    ListDataSourcesResponse (ListDataSourcesResponse'),
+    newListDataSourcesResponse,
 
     -- ** CreateType
-    module Network.AWS.AppSync.CreateType,
+    CreateType (CreateType'),
+    newCreateType,
+    CreateTypeResponse (CreateTypeResponse'),
+    newCreateTypeResponse,
 
     -- ** GetFunction
-    module Network.AWS.AppSync.GetFunction,
+    GetFunction (GetFunction'),
+    newGetFunction,
+    GetFunctionResponse (GetFunctionResponse'),
+    newGetFunctionResponse,
 
     -- ** DeleteDataSource
-    module Network.AWS.AppSync.DeleteDataSource,
+    DeleteDataSource (DeleteDataSource'),
+    newDeleteDataSource,
+    DeleteDataSourceResponse (DeleteDataSourceResponse'),
+    newDeleteDataSourceResponse,
 
     -- ** CreateDataSource
-    module Network.AWS.AppSync.CreateDataSource,
+    CreateDataSource (CreateDataSource'),
+    newCreateDataSource,
+    CreateDataSourceResponse (CreateDataSourceResponse'),
+    newCreateDataSourceResponse,
 
     -- ** DeleteType
-    module Network.AWS.AppSync.DeleteType,
+    DeleteType (DeleteType'),
+    newDeleteType,
+    DeleteTypeResponse (DeleteTypeResponse'),
+    newDeleteTypeResponse,
 
     -- ** UpdateType
-    module Network.AWS.AppSync.UpdateType,
+    UpdateType (UpdateType'),
+    newUpdateType,
+    UpdateTypeResponse (UpdateTypeResponse'),
+    newUpdateTypeResponse,
 
     -- ** ListResolversByFunction (Paginated)
-    module Network.AWS.AppSync.ListResolversByFunction,
+    ListResolversByFunction (ListResolversByFunction'),
+    newListResolversByFunction,
+    ListResolversByFunctionResponse (ListResolversByFunctionResponse'),
+    newListResolversByFunctionResponse,
 
     -- ** UntagResource
-    module Network.AWS.AppSync.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** ListFunctions (Paginated)
-    module Network.AWS.AppSync.ListFunctions,
+    ListFunctions (ListFunctions'),
+    newListFunctions,
+    ListFunctionsResponse (ListFunctionsResponse'),
+    newListFunctionsResponse,
 
     -- ** GetIntrospectionSchema
-    module Network.AWS.AppSync.GetIntrospectionSchema,
+    GetIntrospectionSchema (GetIntrospectionSchema'),
+    newGetIntrospectionSchema,
+    GetIntrospectionSchemaResponse (GetIntrospectionSchemaResponse'),
+    newGetIntrospectionSchemaResponse,
 
-    -- ** UpdateGraphqlAPI
-    module Network.AWS.AppSync.UpdateGraphqlAPI,
+    -- ** UpdateGraphqlApi
+    UpdateGraphqlApi (UpdateGraphqlApi'),
+    newUpdateGraphqlApi,
+    UpdateGraphqlApiResponse (UpdateGraphqlApiResponse'),
+    newUpdateGraphqlApiResponse,
 
-    -- ** ListGraphqlAPIs (Paginated)
-    module Network.AWS.AppSync.ListGraphqlAPIs,
+    -- ** ListGraphqlApis (Paginated)
+    ListGraphqlApis (ListGraphqlApis'),
+    newListGraphqlApis,
+    ListGraphqlApisResponse (ListGraphqlApisResponse'),
+    newListGraphqlApisResponse,
 
     -- ** TagResource
-    module Network.AWS.AppSync.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
-    -- ** DeleteGraphqlAPI
-    module Network.AWS.AppSync.DeleteGraphqlAPI,
+    -- ** DeleteGraphqlApi
+    DeleteGraphqlApi (DeleteGraphqlApi'),
+    newDeleteGraphqlApi,
+    DeleteGraphqlApiResponse (DeleteGraphqlApiResponse'),
+    newDeleteGraphqlApiResponse,
 
     -- ** GetResolver
-    module Network.AWS.AppSync.GetResolver,
+    GetResolver (GetResolver'),
+    newGetResolver,
+    GetResolverResponse (GetResolverResponse'),
+    newGetResolverResponse,
 
-    -- ** DeleteAPICache
-    module Network.AWS.AppSync.DeleteAPICache,
+    -- ** DeleteApiCache
+    DeleteApiCache (DeleteApiCache'),
+    newDeleteApiCache,
+    DeleteApiCacheResponse (DeleteApiCacheResponse'),
+    newDeleteApiCacheResponse,
 
-    -- ** UpdateAPICache
-    module Network.AWS.AppSync.UpdateAPICache,
+    -- ** UpdateApiCache
+    UpdateApiCache (UpdateApiCache'),
+    newUpdateApiCache,
+    UpdateApiCacheResponse (UpdateApiCacheResponse'),
+    newUpdateApiCacheResponse,
 
     -- ** GetSchemaCreationStatus
-    module Network.AWS.AppSync.GetSchemaCreationStatus,
+    GetSchemaCreationStatus (GetSchemaCreationStatus'),
+    newGetSchemaCreationStatus,
+    GetSchemaCreationStatusResponse (GetSchemaCreationStatusResponse'),
+    newGetSchemaCreationStatusResponse,
 
-    -- ** GetAPICache
-    module Network.AWS.AppSync.GetAPICache,
+    -- ** GetApiCache
+    GetApiCache (GetApiCache'),
+    newGetApiCache,
+    GetApiCacheResponse (GetApiCacheResponse'),
+    newGetApiCacheResponse,
 
     -- ** UpdateResolver
-    module Network.AWS.AppSync.UpdateResolver,
+    UpdateResolver (UpdateResolver'),
+    newUpdateResolver,
+    UpdateResolverResponse (UpdateResolverResponse'),
+    newUpdateResolverResponse,
 
     -- ** DeleteResolver
-    module Network.AWS.AppSync.DeleteResolver,
+    DeleteResolver (DeleteResolver'),
+    newDeleteResolver,
+    DeleteResolverResponse (DeleteResolverResponse'),
+    newDeleteResolverResponse,
 
-    -- ** GetGraphqlAPI
-    module Network.AWS.AppSync.GetGraphqlAPI,
+    -- ** GetGraphqlApi
+    GetGraphqlApi (GetGraphqlApi'),
+    newGetGraphqlApi,
+    GetGraphqlApiResponse (GetGraphqlApiResponse'),
+    newGetGraphqlApiResponse,
 
     -- ** ListTypes (Paginated)
-    module Network.AWS.AppSync.ListTypes,
+    ListTypes (ListTypes'),
+    newListTypes,
+    ListTypesResponse (ListTypesResponse'),
+    newListTypesResponse,
 
     -- ** GetType
-    module Network.AWS.AppSync.GetType,
+    GetType (GetType'),
+    newGetType,
+    GetTypeResponse (GetTypeResponse'),
+    newGetTypeResponse,
 
     -- ** CreateFunction
-    module Network.AWS.AppSync.CreateFunction,
+    CreateFunction (CreateFunction'),
+    newCreateFunction,
+    CreateFunctionResponse (CreateFunctionResponse'),
+    newCreateFunctionResponse,
 
-    -- ** ListAPIKeys (Paginated)
-    module Network.AWS.AppSync.ListAPIKeys,
+    -- ** ListApiKeys (Paginated)
+    ListApiKeys (ListApiKeys'),
+    newListApiKeys,
+    ListApiKeysResponse (ListApiKeysResponse'),
+    newListApiKeysResponse,
 
-    -- ** DeleteAPIKey
-    module Network.AWS.AppSync.DeleteAPIKey,
+    -- ** DeleteApiKey
+    DeleteApiKey (DeleteApiKey'),
+    newDeleteApiKey,
+    DeleteApiKeyResponse (DeleteApiKeyResponse'),
+    newDeleteApiKeyResponse,
 
-    -- ** UpdateAPIKey
-    module Network.AWS.AppSync.UpdateAPIKey,
+    -- ** UpdateApiKey
+    UpdateApiKey (UpdateApiKey'),
+    newUpdateApiKey,
+    UpdateApiKeyResponse (UpdateApiKeyResponse'),
+    newUpdateApiKeyResponse,
 
     -- ** GetDataSource
-    module Network.AWS.AppSync.GetDataSource,
+    GetDataSource (GetDataSource'),
+    newGetDataSource,
+    GetDataSourceResponse (GetDataSourceResponse'),
+    newGetDataSourceResponse,
 
     -- ** DeleteFunction
-    module Network.AWS.AppSync.DeleteFunction,
+    DeleteFunction (DeleteFunction'),
+    newDeleteFunction,
+    DeleteFunctionResponse (DeleteFunctionResponse'),
+    newDeleteFunctionResponse,
 
     -- ** UpdateFunction
-    module Network.AWS.AppSync.UpdateFunction,
+    UpdateFunction (UpdateFunction'),
+    newUpdateFunction,
+    UpdateFunctionResponse (UpdateFunctionResponse'),
+    newUpdateFunctionResponse,
 
-    -- ** CreateAPIKey
-    module Network.AWS.AppSync.CreateAPIKey,
+    -- ** CreateApiKey
+    CreateApiKey (CreateApiKey'),
+    newCreateApiKey,
+    CreateApiKeyResponse (CreateApiKeyResponse'),
+    newCreateApiKeyResponse,
 
     -- ** StartSchemaCreation
-    module Network.AWS.AppSync.StartSchemaCreation,
+    StartSchemaCreation (StartSchemaCreation'),
+    newStartSchemaCreation,
+    StartSchemaCreationResponse (StartSchemaCreationResponse'),
+    newStartSchemaCreationResponse,
 
-    -- ** FlushAPICache
-    module Network.AWS.AppSync.FlushAPICache,
+    -- ** FlushApiCache
+    FlushApiCache (FlushApiCache'),
+    newFlushApiCache,
+    FlushApiCacheResponse (FlushApiCacheResponse'),
+    newFlushApiCacheResponse,
 
-    -- ** CreateAPICache
-    module Network.AWS.AppSync.CreateAPICache,
+    -- ** CreateApiCache
+    CreateApiCache (CreateApiCache'),
+    newCreateApiCache,
+    CreateApiCacheResponse (CreateApiCacheResponse'),
+    newCreateApiCacheResponse,
 
-    -- ** CreateGraphqlAPI
-    module Network.AWS.AppSync.CreateGraphqlAPI,
+    -- ** CreateGraphqlApi
+    CreateGraphqlApi (CreateGraphqlApi'),
+    newCreateGraphqlApi,
+    CreateGraphqlApiResponse (CreateGraphqlApiResponse'),
+    newCreateGraphqlApiResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.AppSync.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** CreateResolver
-    module Network.AWS.AppSync.CreateResolver,
+    CreateResolver (CreateResolver'),
+    newCreateResolver,
+    CreateResolverResponse (CreateResolverResponse'),
+    newCreateResolverResponse,
 
     -- * Types
 
-    -- ** APICacheStatus
-    APICacheStatus (..),
+    -- ** ApiCacheStatus
+    ApiCacheStatus (..),
 
-    -- ** APICacheType
-    APICacheType (..),
+    -- ** ApiCacheType
+    ApiCacheType (..),
 
-    -- ** APICachingBehavior
-    APICachingBehavior (..),
+    -- ** ApiCachingBehavior
+    ApiCachingBehavior (..),
 
     -- ** AuthenticationType
     AuthenticationType (..),
@@ -228,239 +352,136 @@ module Network.AWS.AppSync
     -- ** TypeDefinitionFormat
     TypeDefinitionFormat (..),
 
-    -- ** APICache
-    APICache,
-    apiCache,
-    acStatus,
-    acAtRestEncryptionEnabled,
-    acTtl,
-    acType,
-    acTransitEncryptionEnabled,
-    acApiCachingBehavior,
-
-    -- ** APIKey
-    APIKey,
-    apiKey,
-    akId,
-    akDeletes,
-    akDescription,
-    akExpires,
-
-    -- ** AWSIAMConfig
-    AWSIAMConfig,
-    awsIAMConfig,
-    aicSigningServiceName,
-    aicSigningRegion,
-
     -- ** AdditionalAuthenticationProvider
-    AdditionalAuthenticationProvider,
-    additionalAuthenticationProvider,
-    aapOpenIdConnectConfig,
-    aapUserPoolConfig,
-    aapAuthenticationType,
+    AdditionalAuthenticationProvider (AdditionalAuthenticationProvider'),
+    newAdditionalAuthenticationProvider,
+
+    -- ** ApiCache
+    ApiCache (ApiCache'),
+    newApiCache,
+
+    -- ** ApiKey
+    ApiKey (ApiKey'),
+    newApiKey,
 
     -- ** AuthorizationConfig
-    AuthorizationConfig,
-    authorizationConfig,
-    acAwsIAMConfig,
-    acAuthorizationType,
+    AuthorizationConfig (AuthorizationConfig'),
+    newAuthorizationConfig,
+
+    -- ** AwsIamConfig
+    AwsIamConfig (AwsIamConfig'),
+    newAwsIamConfig,
 
     -- ** CachingConfig
-    CachingConfig,
-    cachingConfig,
-    ccTtl,
-    ccCachingKeys,
+    CachingConfig (CachingConfig'),
+    newCachingConfig,
 
     -- ** CognitoUserPoolConfig
-    CognitoUserPoolConfig,
-    cognitoUserPoolConfig,
-    cupcAppIdClientRegex,
-    cupcUserPoolId,
-    cupcAwsRegion,
+    CognitoUserPoolConfig (CognitoUserPoolConfig'),
+    newCognitoUserPoolConfig,
 
     -- ** DataSource
-    DataSource,
-    dataSource,
-    dsRelationalDatabaseConfig,
-    dsServiceRoleARN,
-    dsElasticsearchConfig,
-    dsLambdaConfig,
-    dsName,
-    dsDynamodbConfig,
-    dsDescription,
-    dsDataSourceARN,
-    dsType,
-    dsHttpConfig,
+    DataSource (DataSource'),
+    newDataSource,
 
     -- ** DeltaSyncConfig
-    DeltaSyncConfig,
-    deltaSyncConfig,
-    dscBaseTableTTL,
-    dscDeltaSyncTableName,
-    dscDeltaSyncTableTTL,
+    DeltaSyncConfig (DeltaSyncConfig'),
+    newDeltaSyncConfig,
 
     -- ** DynamodbDataSourceConfig
-    DynamodbDataSourceConfig,
-    dynamodbDataSourceConfig,
-    ddscUseCallerCredentials,
-    ddscVersioned,
-    ddscDeltaSyncConfig,
-    ddscTableName,
-    ddscAwsRegion,
+    DynamodbDataSourceConfig (DynamodbDataSourceConfig'),
+    newDynamodbDataSourceConfig,
 
     -- ** ElasticsearchDataSourceConfig
-    ElasticsearchDataSourceConfig,
-    elasticsearchDataSourceConfig,
-    edscEndpoint,
-    edscAwsRegion,
+    ElasticsearchDataSourceConfig (ElasticsearchDataSourceConfig'),
+    newElasticsearchDataSourceConfig,
 
     -- ** FunctionConfiguration
-    FunctionConfiguration,
-    functionConfiguration,
-    fcResponseMappingTemplate,
-    fcFunctionVersion,
-    fcSyncConfig,
-    fcDataSourceName,
-    fcName,
-    fcFunctionId,
-    fcFunctionARN,
-    fcDescription,
-    fcRequestMappingTemplate,
+    FunctionConfiguration (FunctionConfiguration'),
+    newFunctionConfiguration,
 
-    -- ** GraphqlAPI
-    GraphqlAPI,
-    graphqlAPI,
-    gaWafWebACLARN,
-    gaOpenIdConnectConfig,
-    gaApiId,
-    gaArn,
-    gaName,
-    gaUserPoolConfig,
-    gaXrayEnabled,
-    gaTags,
-    gaLogConfig,
-    gaAdditionalAuthenticationProviders,
-    gaAuthenticationType,
-    gaUris,
+    -- ** GraphqlApi
+    GraphqlApi (GraphqlApi'),
+    newGraphqlApi,
 
-    -- ** HTTPDataSourceConfig
-    HTTPDataSourceConfig,
-    hTTPDataSourceConfig,
-    httpdscAuthorizationConfig,
-    httpdscEndpoint,
+    -- ** HttpDataSourceConfig
+    HttpDataSourceConfig (HttpDataSourceConfig'),
+    newHttpDataSourceConfig,
 
     -- ** LambdaConflictHandlerConfig
-    LambdaConflictHandlerConfig,
-    lambdaConflictHandlerConfig,
-    lchcLambdaConflictHandlerARN,
+    LambdaConflictHandlerConfig (LambdaConflictHandlerConfig'),
+    newLambdaConflictHandlerConfig,
 
     -- ** LambdaDataSourceConfig
-    LambdaDataSourceConfig,
-    lambdaDataSourceConfig,
-    ldscLambdaFunctionARN,
+    LambdaDataSourceConfig (LambdaDataSourceConfig'),
+    newLambdaDataSourceConfig,
 
     -- ** LogConfig
-    LogConfig,
-    logConfig,
-    lcExcludeVerboseContent,
-    lcFieldLogLevel,
-    lcCloudWatchLogsRoleARN,
+    LogConfig (LogConfig'),
+    newLogConfig,
 
-    -- ** OpenIdConnectConfig
-    OpenIdConnectConfig,
-    openIdConnectConfig,
-    oiccClientId,
-    oiccAuthTTL,
-    oiccIatTTL,
-    oiccIssuer,
+    -- ** OpenIDConnectConfig
+    OpenIDConnectConfig (OpenIDConnectConfig'),
+    newOpenIDConnectConfig,
 
     -- ** PipelineConfig
-    PipelineConfig,
-    pipelineConfig,
-    pcFunctions,
+    PipelineConfig (PipelineConfig'),
+    newPipelineConfig,
 
-    -- ** RDSHTTPEndpointConfig
-    RDSHTTPEndpointConfig,
-    rdsHTTPEndpointConfig,
-    rhttpecAwsSecretStoreARN,
-    rhttpecSchema,
-    rhttpecDbClusterIdentifier,
-    rhttpecAwsRegion,
-    rhttpecDatabaseName,
+    -- ** RdsHttpEndpointConfig
+    RdsHttpEndpointConfig (RdsHttpEndpointConfig'),
+    newRdsHttpEndpointConfig,
 
     -- ** RelationalDatabaseDataSourceConfig
-    RelationalDatabaseDataSourceConfig,
-    relationalDatabaseDataSourceConfig,
-    rddscRdsHTTPEndpointConfig,
-    rddscRelationalDatabaseSourceType,
+    RelationalDatabaseDataSourceConfig (RelationalDatabaseDataSourceConfig'),
+    newRelationalDatabaseDataSourceConfig,
 
     -- ** Resolver
-    Resolver,
-    resolver,
-    rResponseMappingTemplate,
-    rTypeName,
-    rKind,
-    rSyncConfig,
-    rDataSourceName,
-    rCachingConfig,
-    rResolverARN,
-    rPipelineConfig,
-    rFieldName,
-    rRequestMappingTemplate,
+    Resolver (Resolver'),
+    newResolver,
 
     -- ** SyncConfig
-    SyncConfig,
-    syncConfig,
-    scConflictHandler,
-    scLambdaConflictHandlerConfig,
-    scConflictDetection,
+    SyncConfig (SyncConfig'),
+    newSyncConfig,
 
     -- ** Type
-    Type,
-    type',
-    tFormat,
-    tArn,
-    tName,
-    tDescription,
-    tDefinition,
+    Type (Type'),
+    newType,
 
     -- ** UserPoolConfig
-    UserPoolConfig,
-    userPoolConfig,
-    upcAppIdClientRegex,
-    upcUserPoolId,
-    upcAwsRegion,
-    upcDefaultAction,
+    UserPoolConfig (UserPoolConfig'),
+    newUserPoolConfig,
   )
 where
 
-import Network.AWS.AppSync.CreateAPICache
-import Network.AWS.AppSync.CreateAPIKey
+import Network.AWS.AppSync.CreateApiCache
+import Network.AWS.AppSync.CreateApiKey
 import Network.AWS.AppSync.CreateDataSource
 import Network.AWS.AppSync.CreateFunction
-import Network.AWS.AppSync.CreateGraphqlAPI
+import Network.AWS.AppSync.CreateGraphqlApi
 import Network.AWS.AppSync.CreateResolver
 import Network.AWS.AppSync.CreateType
-import Network.AWS.AppSync.DeleteAPICache
-import Network.AWS.AppSync.DeleteAPIKey
+import Network.AWS.AppSync.DeleteApiCache
+import Network.AWS.AppSync.DeleteApiKey
 import Network.AWS.AppSync.DeleteDataSource
 import Network.AWS.AppSync.DeleteFunction
-import Network.AWS.AppSync.DeleteGraphqlAPI
+import Network.AWS.AppSync.DeleteGraphqlApi
 import Network.AWS.AppSync.DeleteResolver
 import Network.AWS.AppSync.DeleteType
-import Network.AWS.AppSync.FlushAPICache
-import Network.AWS.AppSync.GetAPICache
+import Network.AWS.AppSync.FlushApiCache
+import Network.AWS.AppSync.GetApiCache
 import Network.AWS.AppSync.GetDataSource
 import Network.AWS.AppSync.GetFunction
-import Network.AWS.AppSync.GetGraphqlAPI
+import Network.AWS.AppSync.GetGraphqlApi
 import Network.AWS.AppSync.GetIntrospectionSchema
 import Network.AWS.AppSync.GetResolver
 import Network.AWS.AppSync.GetSchemaCreationStatus
 import Network.AWS.AppSync.GetType
-import Network.AWS.AppSync.ListAPIKeys
+import Network.AWS.AppSync.Lens
+import Network.AWS.AppSync.ListApiKeys
 import Network.AWS.AppSync.ListDataSources
 import Network.AWS.AppSync.ListFunctions
-import Network.AWS.AppSync.ListGraphqlAPIs
+import Network.AWS.AppSync.ListGraphqlApis
 import Network.AWS.AppSync.ListResolvers
 import Network.AWS.AppSync.ListResolversByFunction
 import Network.AWS.AppSync.ListTagsForResource
@@ -469,11 +490,11 @@ import Network.AWS.AppSync.StartSchemaCreation
 import Network.AWS.AppSync.TagResource
 import Network.AWS.AppSync.Types
 import Network.AWS.AppSync.UntagResource
-import Network.AWS.AppSync.UpdateAPICache
-import Network.AWS.AppSync.UpdateAPIKey
+import Network.AWS.AppSync.UpdateApiCache
+import Network.AWS.AppSync.UpdateApiKey
 import Network.AWS.AppSync.UpdateDataSource
 import Network.AWS.AppSync.UpdateFunction
-import Network.AWS.AppSync.UpdateGraphqlAPI
+import Network.AWS.AppSync.UpdateGraphqlApi
 import Network.AWS.AppSync.UpdateResolver
 import Network.AWS.AppSync.UpdateType
 import Network.AWS.AppSync.Waiters

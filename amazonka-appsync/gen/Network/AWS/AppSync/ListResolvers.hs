@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,186 +23,214 @@
 --
 -- Lists the resolvers for a given API and type.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.AppSync.ListResolvers
   ( -- * Creating a Request
-    listResolvers,
-    ListResolvers,
+    ListResolvers (..),
+    newListResolvers,
 
     -- * Request Lenses
-    lrNextToken,
-    lrMaxResults,
-    lrApiId,
-    lrTypeName,
+    listResolvers_nextToken,
+    listResolvers_maxResults,
+    listResolvers_apiId,
+    listResolvers_typeName,
 
     -- * Destructuring the Response
-    listResolversResponse,
-    ListResolversResponse,
+    ListResolversResponse (..),
+    newListResolversResponse,
 
     -- * Response Lenses
-    lrrrsNextToken,
-    lrrrsResolvers,
-    lrrrsResponseStatus,
+    listResolversResponse_nextToken,
+    listResolversResponse_resolvers,
+    listResolversResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.Resolver
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listResolvers' smart constructor.
+-- | /See:/ 'newListResolvers' smart constructor.
 data ListResolvers = ListResolvers'
-  { _lrNextToken ::
-      !(Maybe Text),
-    _lrMaxResults :: !(Maybe Nat),
-    _lrApiId :: !Text,
-    _lrTypeName :: !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results you want the request to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The API ID.
+    apiId :: Prelude.Text,
+    -- | The type name.
+    typeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResolvers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResolvers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrMaxResults' - The maximum number of results you want the request to return.
+-- 'nextToken', 'listResolvers_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
--- * 'lrApiId' - The API ID.
+-- 'maxResults', 'listResolvers_maxResults' - The maximum number of results you want the request to return.
 --
--- * 'lrTypeName' - The type name.
-listResolvers ::
-  -- | 'lrApiId'
-  Text ->
-  -- | 'lrTypeName'
-  Text ->
+-- 'apiId', 'listResolvers_apiId' - The API ID.
+--
+-- 'typeName', 'listResolvers_typeName' - The type name.
+newListResolvers ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'typeName'
+  Prelude.Text ->
   ListResolvers
-listResolvers pApiId_ pTypeName_ =
+newListResolvers pApiId_ pTypeName_ =
   ListResolvers'
-    { _lrNextToken = Nothing,
-      _lrMaxResults = Nothing,
-      _lrApiId = pApiId_,
-      _lrTypeName = pTypeName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      apiId = pApiId_,
+      typeName = pTypeName_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lrNextToken :: Lens' ListResolvers (Maybe Text)
-lrNextToken = lens _lrNextToken (\s a -> s {_lrNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listResolvers_nextToken :: Lens.Lens' ListResolvers (Prelude.Maybe Prelude.Text)
+listResolvers_nextToken = Lens.lens (\ListResolvers' {nextToken} -> nextToken) (\s@ListResolvers' {} a -> s {nextToken = a} :: ListResolvers)
 
 -- | The maximum number of results you want the request to return.
-lrMaxResults :: Lens' ListResolvers (Maybe Natural)
-lrMaxResults = lens _lrMaxResults (\s a -> s {_lrMaxResults = a}) . mapping _Nat
+listResolvers_maxResults :: Lens.Lens' ListResolvers (Prelude.Maybe Prelude.Natural)
+listResolvers_maxResults = Lens.lens (\ListResolvers' {maxResults} -> maxResults) (\s@ListResolvers' {} a -> s {maxResults = a} :: ListResolvers) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The API ID.
-lrApiId :: Lens' ListResolvers Text
-lrApiId = lens _lrApiId (\s a -> s {_lrApiId = a})
+listResolvers_apiId :: Lens.Lens' ListResolvers Prelude.Text
+listResolvers_apiId = Lens.lens (\ListResolvers' {apiId} -> apiId) (\s@ListResolvers' {} a -> s {apiId = a} :: ListResolvers)
 
 -- | The type name.
-lrTypeName :: Lens' ListResolvers Text
-lrTypeName = lens _lrTypeName (\s a -> s {_lrTypeName = a})
+listResolvers_typeName :: Lens.Lens' ListResolvers Prelude.Text
+listResolvers_typeName = Lens.lens (\ListResolvers' {typeName} -> typeName) (\s@ListResolvers' {} a -> s {typeName = a} :: ListResolvers)
 
-instance AWSPager ListResolvers where
+instance Pager.AWSPager ListResolvers where
   page rq rs
-    | stop (rs ^. lrrrsNextToken) = Nothing
-    | stop (rs ^. lrrrsResolvers) = Nothing
-    | otherwise =
-      Just $ rq & lrNextToken .~ rs ^. lrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listResolversResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listResolversResponse_resolvers Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listResolvers_nextToken
+          Lens..~ rs
+          Lens.^? listResolversResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListResolvers where
+instance Prelude.AWSRequest ListResolvers where
   type Rs ListResolvers = ListResolversResponse
-  request = get appSync
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListResolversResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "resolvers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "resolvers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListResolvers
+instance Prelude.Hashable ListResolvers
 
-instance NFData ListResolvers
+instance Prelude.NFData ListResolvers
 
-instance ToHeaders ListResolvers where
+instance Prelude.ToHeaders ListResolvers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListResolvers where
+instance Prelude.ToPath ListResolvers where
   toPath ListResolvers' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/apis/",
-        toBS _lrApiId,
+        Prelude.toBS apiId,
         "/types/",
-        toBS _lrTypeName,
+        Prelude.toBS typeName,
         "/resolvers"
       ]
 
-instance ToQuery ListResolvers where
+instance Prelude.ToQuery ListResolvers where
   toQuery ListResolvers' {..} =
-    mconcat
-      [ "nextToken" =: _lrNextToken,
-        "maxResults" =: _lrMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listResolversResponse' smart constructor.
+-- | /See:/ 'newListResolversResponse' smart constructor.
 data ListResolversResponse = ListResolversResponse'
-  { _lrrrsNextToken ::
-      !(Maybe Text),
-    _lrrrsResolvers ::
-      !(Maybe [Resolver]),
-    _lrrrsResponseStatus ::
-      !Int
+  { -- | An identifier to be passed in the next request to this operation to
+    -- return the next set of items in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The @Resolver@ objects.
+    resolvers :: Prelude.Maybe [Resolver],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResolversResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResolversResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsNextToken' - An identifier to be passed in the next request to this operation to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsResolvers' - The @Resolver@ objects.
+-- 'nextToken', 'listResolversResponse_nextToken' - An identifier to be passed in the next request to this operation to
+-- return the next set of items in the list.
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
-listResolversResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'resolvers', 'listResolversResponse_resolvers' - The @Resolver@ objects.
+--
+-- 'httpStatus', 'listResolversResponse_httpStatus' - The response's http status code.
+newListResolversResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListResolversResponse
-listResolversResponse pResponseStatus_ =
+newListResolversResponse pHttpStatus_ =
   ListResolversResponse'
-    { _lrrrsNextToken = Nothing,
-      _lrrrsResolvers = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      resolvers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An identifier to be passed in the next request to this operation to return the next set of items in the list.
-lrrrsNextToken :: Lens' ListResolversResponse (Maybe Text)
-lrrrsNextToken = lens _lrrrsNextToken (\s a -> s {_lrrrsNextToken = a})
+-- | An identifier to be passed in the next request to this operation to
+-- return the next set of items in the list.
+listResolversResponse_nextToken :: Lens.Lens' ListResolversResponse (Prelude.Maybe Prelude.Text)
+listResolversResponse_nextToken = Lens.lens (\ListResolversResponse' {nextToken} -> nextToken) (\s@ListResolversResponse' {} a -> s {nextToken = a} :: ListResolversResponse)
 
 -- | The @Resolver@ objects.
-lrrrsResolvers :: Lens' ListResolversResponse [Resolver]
-lrrrsResolvers = lens _lrrrsResolvers (\s a -> s {_lrrrsResolvers = a}) . _Default . _Coerce
+listResolversResponse_resolvers :: Lens.Lens' ListResolversResponse (Prelude.Maybe [Resolver])
+listResolversResponse_resolvers = Lens.lens (\ListResolversResponse' {resolvers} -> resolvers) (\s@ListResolversResponse' {} a -> s {resolvers = a} :: ListResolversResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListResolversResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listResolversResponse_httpStatus :: Lens.Lens' ListResolversResponse Prelude.Int
+listResolversResponse_httpStatus = Lens.lens (\ListResolversResponse' {httpStatus} -> httpStatus) (\s@ListResolversResponse' {} a -> s {httpStatus = a} :: ListResolversResponse)
 
-instance NFData ListResolversResponse
+instance Prelude.NFData ListResolversResponse

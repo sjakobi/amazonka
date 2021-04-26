@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,10 +14,10 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppSync.Types
   ( -- * Service Configuration
-    appSync,
+    defaultService,
 
     -- * Errors
-    _APIKeyValidityOutOfBoundsException,
+    _ApiKeyValidityOutOfBoundsException,
     _NotFoundException,
     _BadRequestException,
     _UnauthorizedException,
@@ -22,18 +25,18 @@ module Network.AWS.AppSync.Types
     _GraphQLSchemaException,
     _AccessDeniedException,
     _LimitExceededException,
-    _APILimitExceededException,
-    _APIKeyLimitExceededException,
+    _ApiLimitExceededException,
+    _ApiKeyLimitExceededException,
     _InternalFailureException,
 
-    -- * APICacheStatus
-    APICacheStatus (..),
+    -- * ApiCacheStatus
+    ApiCacheStatus (..),
 
-    -- * APICacheType
-    APICacheType (..),
+    -- * ApiCacheType
+    ApiCacheType (..),
 
-    -- * APICachingBehavior
-    APICachingBehavior (..),
+    -- * ApiCachingBehavior
+    ApiCachingBehavior (..),
 
     -- * AuthenticationType
     AuthenticationType (..),
@@ -71,222 +74,118 @@ module Network.AWS.AppSync.Types
     -- * TypeDefinitionFormat
     TypeDefinitionFormat (..),
 
-    -- * APICache
-    APICache (..),
-    apiCache,
-    acStatus,
-    acAtRestEncryptionEnabled,
-    acTtl,
-    acType,
-    acTransitEncryptionEnabled,
-    acApiCachingBehavior,
-
-    -- * APIKey
-    APIKey (..),
-    apiKey,
-    akId,
-    akDeletes,
-    akDescription,
-    akExpires,
-
-    -- * AWSIAMConfig
-    AWSIAMConfig (..),
-    awsIAMConfig,
-    aicSigningServiceName,
-    aicSigningRegion,
-
     -- * AdditionalAuthenticationProvider
     AdditionalAuthenticationProvider (..),
-    additionalAuthenticationProvider,
-    aapOpenIdConnectConfig,
-    aapUserPoolConfig,
-    aapAuthenticationType,
+    newAdditionalAuthenticationProvider,
+
+    -- * ApiCache
+    ApiCache (..),
+    newApiCache,
+
+    -- * ApiKey
+    ApiKey (..),
+    newApiKey,
 
     -- * AuthorizationConfig
     AuthorizationConfig (..),
-    authorizationConfig,
-    acAwsIAMConfig,
-    acAuthorizationType,
+    newAuthorizationConfig,
+
+    -- * AwsIamConfig
+    AwsIamConfig (..),
+    newAwsIamConfig,
 
     -- * CachingConfig
     CachingConfig (..),
-    cachingConfig,
-    ccTtl,
-    ccCachingKeys,
+    newCachingConfig,
 
     -- * CognitoUserPoolConfig
     CognitoUserPoolConfig (..),
-    cognitoUserPoolConfig,
-    cupcAppIdClientRegex,
-    cupcUserPoolId,
-    cupcAwsRegion,
+    newCognitoUserPoolConfig,
 
     -- * DataSource
     DataSource (..),
-    dataSource,
-    dsRelationalDatabaseConfig,
-    dsServiceRoleARN,
-    dsElasticsearchConfig,
-    dsLambdaConfig,
-    dsName,
-    dsDynamodbConfig,
-    dsDescription,
-    dsDataSourceARN,
-    dsType,
-    dsHttpConfig,
+    newDataSource,
 
     -- * DeltaSyncConfig
     DeltaSyncConfig (..),
-    deltaSyncConfig,
-    dscBaseTableTTL,
-    dscDeltaSyncTableName,
-    dscDeltaSyncTableTTL,
+    newDeltaSyncConfig,
 
     -- * DynamodbDataSourceConfig
     DynamodbDataSourceConfig (..),
-    dynamodbDataSourceConfig,
-    ddscUseCallerCredentials,
-    ddscVersioned,
-    ddscDeltaSyncConfig,
-    ddscTableName,
-    ddscAwsRegion,
+    newDynamodbDataSourceConfig,
 
     -- * ElasticsearchDataSourceConfig
     ElasticsearchDataSourceConfig (..),
-    elasticsearchDataSourceConfig,
-    edscEndpoint,
-    edscAwsRegion,
+    newElasticsearchDataSourceConfig,
 
     -- * FunctionConfiguration
     FunctionConfiguration (..),
-    functionConfiguration,
-    fcResponseMappingTemplate,
-    fcFunctionVersion,
-    fcSyncConfig,
-    fcDataSourceName,
-    fcName,
-    fcFunctionId,
-    fcFunctionARN,
-    fcDescription,
-    fcRequestMappingTemplate,
+    newFunctionConfiguration,
 
-    -- * GraphqlAPI
-    GraphqlAPI (..),
-    graphqlAPI,
-    gaWafWebACLARN,
-    gaOpenIdConnectConfig,
-    gaApiId,
-    gaArn,
-    gaName,
-    gaUserPoolConfig,
-    gaXrayEnabled,
-    gaTags,
-    gaLogConfig,
-    gaAdditionalAuthenticationProviders,
-    gaAuthenticationType,
-    gaUris,
+    -- * GraphqlApi
+    GraphqlApi (..),
+    newGraphqlApi,
 
-    -- * HTTPDataSourceConfig
-    HTTPDataSourceConfig (..),
-    hTTPDataSourceConfig,
-    httpdscAuthorizationConfig,
-    httpdscEndpoint,
+    -- * HttpDataSourceConfig
+    HttpDataSourceConfig (..),
+    newHttpDataSourceConfig,
 
     -- * LambdaConflictHandlerConfig
     LambdaConflictHandlerConfig (..),
-    lambdaConflictHandlerConfig,
-    lchcLambdaConflictHandlerARN,
+    newLambdaConflictHandlerConfig,
 
     -- * LambdaDataSourceConfig
     LambdaDataSourceConfig (..),
-    lambdaDataSourceConfig,
-    ldscLambdaFunctionARN,
+    newLambdaDataSourceConfig,
 
     -- * LogConfig
     LogConfig (..),
-    logConfig,
-    lcExcludeVerboseContent,
-    lcFieldLogLevel,
-    lcCloudWatchLogsRoleARN,
+    newLogConfig,
 
-    -- * OpenIdConnectConfig
-    OpenIdConnectConfig (..),
-    openIdConnectConfig,
-    oiccClientId,
-    oiccAuthTTL,
-    oiccIatTTL,
-    oiccIssuer,
+    -- * OpenIDConnectConfig
+    OpenIDConnectConfig (..),
+    newOpenIDConnectConfig,
 
     -- * PipelineConfig
     PipelineConfig (..),
-    pipelineConfig,
-    pcFunctions,
+    newPipelineConfig,
 
-    -- * RDSHTTPEndpointConfig
-    RDSHTTPEndpointConfig (..),
-    rdsHTTPEndpointConfig,
-    rhttpecAwsSecretStoreARN,
-    rhttpecSchema,
-    rhttpecDbClusterIdentifier,
-    rhttpecAwsRegion,
-    rhttpecDatabaseName,
+    -- * RdsHttpEndpointConfig
+    RdsHttpEndpointConfig (..),
+    newRdsHttpEndpointConfig,
 
     -- * RelationalDatabaseDataSourceConfig
     RelationalDatabaseDataSourceConfig (..),
-    relationalDatabaseDataSourceConfig,
-    rddscRdsHTTPEndpointConfig,
-    rddscRelationalDatabaseSourceType,
+    newRelationalDatabaseDataSourceConfig,
 
     -- * Resolver
     Resolver (..),
-    resolver,
-    rResponseMappingTemplate,
-    rTypeName,
-    rKind,
-    rSyncConfig,
-    rDataSourceName,
-    rCachingConfig,
-    rResolverARN,
-    rPipelineConfig,
-    rFieldName,
-    rRequestMappingTemplate,
+    newResolver,
 
     -- * SyncConfig
     SyncConfig (..),
-    syncConfig,
-    scConflictHandler,
-    scLambdaConflictHandlerConfig,
-    scConflictDetection,
+    newSyncConfig,
 
     -- * Type
     Type (..),
-    type',
-    tFormat,
-    tArn,
-    tName,
-    tDescription,
-    tDefinition,
+    newType,
 
     -- * UserPoolConfig
     UserPoolConfig (..),
-    userPoolConfig,
-    upcAppIdClientRegex,
-    upcUserPoolId,
-    upcAwsRegion,
-    upcDefaultAction,
+    newUserPoolConfig,
   )
 where
 
-import Network.AWS.AppSync.Types.APICache
-import Network.AWS.AppSync.Types.APICacheStatus
-import Network.AWS.AppSync.Types.APICacheType
-import Network.AWS.AppSync.Types.APICachingBehavior
-import Network.AWS.AppSync.Types.APIKey
-import Network.AWS.AppSync.Types.AWSIAMConfig
 import Network.AWS.AppSync.Types.AdditionalAuthenticationProvider
+import Network.AWS.AppSync.Types.ApiCache
+import Network.AWS.AppSync.Types.ApiCacheStatus
+import Network.AWS.AppSync.Types.ApiCacheType
+import Network.AWS.AppSync.Types.ApiCachingBehavior
+import Network.AWS.AppSync.Types.ApiKey
 import Network.AWS.AppSync.Types.AuthenticationType
 import Network.AWS.AppSync.Types.AuthorizationConfig
 import Network.AWS.AppSync.Types.AuthorizationType
+import Network.AWS.AppSync.Types.AwsIamConfig
 import Network.AWS.AppSync.Types.CachingConfig
 import Network.AWS.AppSync.Types.CognitoUserPoolConfig
 import Network.AWS.AppSync.Types.ConflictDetectionType
@@ -299,15 +198,15 @@ import Network.AWS.AppSync.Types.DynamodbDataSourceConfig
 import Network.AWS.AppSync.Types.ElasticsearchDataSourceConfig
 import Network.AWS.AppSync.Types.FieldLogLevel
 import Network.AWS.AppSync.Types.FunctionConfiguration
-import Network.AWS.AppSync.Types.GraphqlAPI
-import Network.AWS.AppSync.Types.HTTPDataSourceConfig
+import Network.AWS.AppSync.Types.GraphqlApi
+import Network.AWS.AppSync.Types.HttpDataSourceConfig
 import Network.AWS.AppSync.Types.LambdaConflictHandlerConfig
 import Network.AWS.AppSync.Types.LambdaDataSourceConfig
 import Network.AWS.AppSync.Types.LogConfig
-import Network.AWS.AppSync.Types.OpenIdConnectConfig
+import Network.AWS.AppSync.Types.OpenIDConnectConfig
 import Network.AWS.AppSync.Types.OutputType
 import Network.AWS.AppSync.Types.PipelineConfig
-import Network.AWS.AppSync.Types.RDSHTTPEndpointConfig
+import Network.AWS.AppSync.Types.RdsHttpEndpointConfig
 import Network.AWS.AppSync.Types.RelationalDatabaseDataSourceConfig
 import Network.AWS.AppSync.Types.RelationalDatabaseSourceType
 import Network.AWS.AppSync.Types.Resolver
@@ -317,133 +216,167 @@ import Network.AWS.AppSync.Types.SyncConfig
 import Network.AWS.AppSync.Types.Type
 import Network.AWS.AppSync.Types.TypeDefinitionFormat
 import Network.AWS.AppSync.Types.UserPoolConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-07-25@ of the Amazon AppSync SDK configuration.
-appSync :: Service
-appSync =
-  Service
-    { _svcAbbrev = "AppSync",
-      _svcSigner = v4,
-      _svcPrefix = "appsync",
-      _svcVersion = "2017-07-25",
-      _svcEndpoint = defaultEndpoint appSync,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "AppSync",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "AppSync",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "appsync",
+      Prelude._svcVersion = "2017-07-25",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "AppSync",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The API key expiration must be set to a value between 1 and 365 days from creation (for @CreateApiKey@ ) or from update (for @UpdateApiKey@ ).
-_APIKeyValidityOutOfBoundsException :: AsError a => Getting (First ServiceError) a ServiceError
-_APIKeyValidityOutOfBoundsException =
-  _MatchServiceError
-    appSync
+-- | The API key expiration must be set to a value between 1 and 365 days
+-- from creation (for @CreateApiKey@) or from update (for @UpdateApiKey@).
+_ApiKeyValidityOutOfBoundsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_ApiKeyValidityOutOfBoundsException =
+  Prelude._MatchServiceError
+    defaultService
     "ApiKeyValidityOutOfBoundsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The resource specified in the request was not found. Check the resource, and then try again.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource specified in the request was not found. Check the resource,
+-- and then try again.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError appSync "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
--- | The request is not well formed. For example, a value is invalid or a required field is missing. Check the field values, and then try again.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request is not well formed. For example, a value is invalid or a
+-- required field is missing. Check the field values, and then try again.
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError appSync "BadRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | You are not authorized to perform this operation.
-_UnauthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnauthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedException =
-  _MatchServiceError appSync "UnauthorizedException"
-    . hasStatus 401
+  Prelude._MatchServiceError
+    defaultService
+    "UnauthorizedException"
+    Prelude.. Prelude.hasStatus 401
 
--- | Another modification is in progress at this time and it must complete before you can make your change.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Another modification is in progress at this time and it must complete
+-- before you can make your change.
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    appSync
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The GraphQL schema is not valid.
-_GraphQLSchemaException :: AsError a => Getting (First ServiceError) a ServiceError
+_GraphQLSchemaException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _GraphQLSchemaException =
-  _MatchServiceError appSync "GraphQLSchemaException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "GraphQLSchemaException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | You do not have access to perform this operation on this resource.
-_AccessDeniedException :: AsError a => Getting (First ServiceError) a ServiceError
+_AccessDeniedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedException =
-  _MatchServiceError appSync "AccessDeniedException"
-    . hasStatus 403
+  Prelude._MatchServiceError
+    defaultService
+    "AccessDeniedException"
+    Prelude.. Prelude.hasStatus 403
 
 -- | The request exceeded a limit. Try your request again.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError appSync "LimitExceededException"
-    . hasStatus 429
+  Prelude._MatchServiceError
+    defaultService
+    "LimitExceededException"
+    Prelude.. Prelude.hasStatus 429
 
 -- | The GraphQL API exceeded a limit. Try your request again.
-_APILimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
-_APILimitExceededException =
-  _MatchServiceError
-    appSync
+_ApiLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_ApiLimitExceededException =
+  Prelude._MatchServiceError
+    defaultService
     "ApiLimitExceededException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The API key exceeded a limit. Try your request again.
-_APIKeyLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
-_APIKeyLimitExceededException =
-  _MatchServiceError
-    appSync
+_ApiKeyLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_ApiKeyLimitExceededException =
+  Prelude._MatchServiceError
+    defaultService
     "ApiKeyLimitExceededException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | An internal AWS AppSync error occurred. Try your request again.
-_InternalFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalFailureException =
-  _MatchServiceError
-    appSync
+  Prelude._MatchServiceError
+    defaultService
     "InternalFailureException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500

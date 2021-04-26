@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,78 +22,128 @@ module Network.AWS.AppSync.Types.SyncConfig where
 import Network.AWS.AppSync.Types.ConflictDetectionType
 import Network.AWS.AppSync.Types.ConflictHandlerType
 import Network.AWS.AppSync.Types.LambdaConflictHandlerConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a Sync configuration for a resolver.
 --
+-- Contains information on which Conflict Detection as well as Resolution
+-- strategy should be performed when the resolver is invoked.
 --
--- Contains information on which Conflict Detection as well as Resolution strategy should be performed when the resolver is invoked.
---
---
--- /See:/ 'syncConfig' smart constructor.
+-- /See:/ 'newSyncConfig' smart constructor.
 data SyncConfig = SyncConfig'
-  { _scConflictHandler ::
-      !(Maybe ConflictHandlerType),
-    _scLambdaConflictHandlerConfig ::
-      !(Maybe LambdaConflictHandlerConfig),
-    _scConflictDetection ::
-      !(Maybe ConflictDetectionType)
+  { -- | The Conflict Resolution strategy to perform in the event of a conflict.
+    --
+    -- -   __OPTIMISTIC_CONCURRENCY__: Resolve conflicts by rejecting mutations
+    --     when versions do not match the latest version at the server.
+    --
+    -- -   __AUTOMERGE__: Resolve conflicts with the Automerge conflict
+    --     resolution strategy.
+    --
+    -- -   __LAMBDA__: Resolve conflicts with a Lambda function supplied in the
+    --     LambdaConflictHandlerConfig.
+    conflictHandler :: Prelude.Maybe ConflictHandlerType,
+    -- | The @LambdaConflictHandlerConfig@ when configuring LAMBDA as the
+    -- Conflict Handler.
+    lambdaConflictHandlerConfig :: Prelude.Maybe LambdaConflictHandlerConfig,
+    -- | The Conflict Detection strategy to use.
+    --
+    -- -   __VERSION__: Detect conflicts based on object versions for this
+    --     resolver.
+    --
+    -- -   __NONE__: Do not detect conflicts when executing this resolver.
+    conflictDetection :: Prelude.Maybe ConflictDetectionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SyncConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SyncConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scConflictHandler' - The Conflict Resolution strategy to perform in the event of a conflict.     * __OPTIMISTIC_CONCURRENCY__ : Resolve conflicts by rejecting mutations when versions do not match the latest version at the server.     * __AUTOMERGE__ : Resolve conflicts with the Automerge conflict resolution strategy.     * __LAMBDA__ : Resolve conflicts with a Lambda function supplied in the LambdaConflictHandlerConfig.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scLambdaConflictHandlerConfig' - The @LambdaConflictHandlerConfig@ when configuring LAMBDA as the Conflict Handler.
+-- 'conflictHandler', 'syncConfig_conflictHandler' - The Conflict Resolution strategy to perform in the event of a conflict.
 --
--- * 'scConflictDetection' - The Conflict Detection strategy to use.     * __VERSION__ : Detect conflicts based on object versions for this resolver.     * __NONE__ : Do not detect conflicts when executing this resolver.
-syncConfig ::
+-- -   __OPTIMISTIC_CONCURRENCY__: Resolve conflicts by rejecting mutations
+--     when versions do not match the latest version at the server.
+--
+-- -   __AUTOMERGE__: Resolve conflicts with the Automerge conflict
+--     resolution strategy.
+--
+-- -   __LAMBDA__: Resolve conflicts with a Lambda function supplied in the
+--     LambdaConflictHandlerConfig.
+--
+-- 'lambdaConflictHandlerConfig', 'syncConfig_lambdaConflictHandlerConfig' - The @LambdaConflictHandlerConfig@ when configuring LAMBDA as the
+-- Conflict Handler.
+--
+-- 'conflictDetection', 'syncConfig_conflictDetection' - The Conflict Detection strategy to use.
+--
+-- -   __VERSION__: Detect conflicts based on object versions for this
+--     resolver.
+--
+-- -   __NONE__: Do not detect conflicts when executing this resolver.
+newSyncConfig ::
   SyncConfig
-syncConfig =
+newSyncConfig =
   SyncConfig'
-    { _scConflictHandler = Nothing,
-      _scLambdaConflictHandlerConfig = Nothing,
-      _scConflictDetection = Nothing
+    { conflictHandler = Prelude.Nothing,
+      lambdaConflictHandlerConfig = Prelude.Nothing,
+      conflictDetection = Prelude.Nothing
     }
 
--- | The Conflict Resolution strategy to perform in the event of a conflict.     * __OPTIMISTIC_CONCURRENCY__ : Resolve conflicts by rejecting mutations when versions do not match the latest version at the server.     * __AUTOMERGE__ : Resolve conflicts with the Automerge conflict resolution strategy.     * __LAMBDA__ : Resolve conflicts with a Lambda function supplied in the LambdaConflictHandlerConfig.
-scConflictHandler :: Lens' SyncConfig (Maybe ConflictHandlerType)
-scConflictHandler = lens _scConflictHandler (\s a -> s {_scConflictHandler = a})
+-- | The Conflict Resolution strategy to perform in the event of a conflict.
+--
+-- -   __OPTIMISTIC_CONCURRENCY__: Resolve conflicts by rejecting mutations
+--     when versions do not match the latest version at the server.
+--
+-- -   __AUTOMERGE__: Resolve conflicts with the Automerge conflict
+--     resolution strategy.
+--
+-- -   __LAMBDA__: Resolve conflicts with a Lambda function supplied in the
+--     LambdaConflictHandlerConfig.
+syncConfig_conflictHandler :: Lens.Lens' SyncConfig (Prelude.Maybe ConflictHandlerType)
+syncConfig_conflictHandler = Lens.lens (\SyncConfig' {conflictHandler} -> conflictHandler) (\s@SyncConfig' {} a -> s {conflictHandler = a} :: SyncConfig)
 
--- | The @LambdaConflictHandlerConfig@ when configuring LAMBDA as the Conflict Handler.
-scLambdaConflictHandlerConfig :: Lens' SyncConfig (Maybe LambdaConflictHandlerConfig)
-scLambdaConflictHandlerConfig = lens _scLambdaConflictHandlerConfig (\s a -> s {_scLambdaConflictHandlerConfig = a})
+-- | The @LambdaConflictHandlerConfig@ when configuring LAMBDA as the
+-- Conflict Handler.
+syncConfig_lambdaConflictHandlerConfig :: Lens.Lens' SyncConfig (Prelude.Maybe LambdaConflictHandlerConfig)
+syncConfig_lambdaConflictHandlerConfig = Lens.lens (\SyncConfig' {lambdaConflictHandlerConfig} -> lambdaConflictHandlerConfig) (\s@SyncConfig' {} a -> s {lambdaConflictHandlerConfig = a} :: SyncConfig)
 
--- | The Conflict Detection strategy to use.     * __VERSION__ : Detect conflicts based on object versions for this resolver.     * __NONE__ : Do not detect conflicts when executing this resolver.
-scConflictDetection :: Lens' SyncConfig (Maybe ConflictDetectionType)
-scConflictDetection = lens _scConflictDetection (\s a -> s {_scConflictDetection = a})
+-- | The Conflict Detection strategy to use.
+--
+-- -   __VERSION__: Detect conflicts based on object versions for this
+--     resolver.
+--
+-- -   __NONE__: Do not detect conflicts when executing this resolver.
+syncConfig_conflictDetection :: Lens.Lens' SyncConfig (Prelude.Maybe ConflictDetectionType)
+syncConfig_conflictDetection = Lens.lens (\SyncConfig' {conflictDetection} -> conflictDetection) (\s@SyncConfig' {} a -> s {conflictDetection = a} :: SyncConfig)
 
-instance FromJSON SyncConfig where
+instance Prelude.FromJSON SyncConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SyncConfig"
       ( \x ->
           SyncConfig'
-            <$> (x .:? "conflictHandler")
-            <*> (x .:? "lambdaConflictHandlerConfig")
-            <*> (x .:? "conflictDetection")
+            Prelude.<$> (x Prelude..:? "conflictHandler")
+            Prelude.<*> (x Prelude..:? "lambdaConflictHandlerConfig")
+            Prelude.<*> (x Prelude..:? "conflictDetection")
       )
 
-instance Hashable SyncConfig
+instance Prelude.Hashable SyncConfig
 
-instance NFData SyncConfig
+instance Prelude.NFData SyncConfig
 
-instance ToJSON SyncConfig where
+instance Prelude.ToJSON SyncConfig where
   toJSON SyncConfig' {..} =
-    object
-      ( catMaybes
-          [ ("conflictHandler" .=) <$> _scConflictHandler,
-            ("lambdaConflictHandlerConfig" .=)
-              <$> _scLambdaConflictHandlerConfig,
-            ("conflictDetection" .=) <$> _scConflictDetection
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("conflictHandler" Prelude..=)
+              Prelude.<$> conflictHandler,
+            ("lambdaConflictHandlerConfig" Prelude..=)
+              Prelude.<$> lambdaConflictHandlerConfig,
+            ("conflictDetection" Prelude..=)
+              Prelude.<$> conflictDetection
           ]
       )

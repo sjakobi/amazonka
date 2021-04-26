@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AppSync.Types.CognitoUserPoolConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an Amazon Cognito user pool configuration.
 --
---
---
--- /See:/ 'cognitoUserPoolConfig' smart constructor.
+-- /See:/ 'newCognitoUserPoolConfig' smart constructor.
 data CognitoUserPoolConfig = CognitoUserPoolConfig'
-  { _cupcAppIdClientRegex ::
-      !(Maybe Text),
-    _cupcUserPoolId :: !Text,
-    _cupcAwsRegion :: !Text
+  { -- | A regular expression for validating the incoming Amazon Cognito user
+    -- pool app client ID.
+    appIdClientRegex :: Prelude.Maybe Prelude.Text,
+    -- | The user pool ID.
+    userPoolId :: Prelude.Text,
+    -- | The AWS Region in which the user pool was created.
+    awsRegion :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoUserPoolConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoUserPoolConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cupcAppIdClientRegex' - A regular expression for validating the incoming Amazon Cognito user pool app client ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cupcUserPoolId' - The user pool ID.
+-- 'appIdClientRegex', 'cognitoUserPoolConfig_appIdClientRegex' - A regular expression for validating the incoming Amazon Cognito user
+-- pool app client ID.
 --
--- * 'cupcAwsRegion' - The AWS Region in which the user pool was created.
-cognitoUserPoolConfig ::
-  -- | 'cupcUserPoolId'
-  Text ->
-  -- | 'cupcAwsRegion'
-  Text ->
+-- 'userPoolId', 'cognitoUserPoolConfig_userPoolId' - The user pool ID.
+--
+-- 'awsRegion', 'cognitoUserPoolConfig_awsRegion' - The AWS Region in which the user pool was created.
+newCognitoUserPoolConfig ::
+  -- | 'userPoolId'
+  Prelude.Text ->
+  -- | 'awsRegion'
+  Prelude.Text ->
   CognitoUserPoolConfig
-cognitoUserPoolConfig pUserPoolId_ pAwsRegion_ =
+newCognitoUserPoolConfig pUserPoolId_ pAwsRegion_ =
   CognitoUserPoolConfig'
-    { _cupcAppIdClientRegex =
-        Nothing,
-      _cupcUserPoolId = pUserPoolId_,
-      _cupcAwsRegion = pAwsRegion_
+    { appIdClientRegex =
+        Prelude.Nothing,
+      userPoolId = pUserPoolId_,
+      awsRegion = pAwsRegion_
     }
 
--- | A regular expression for validating the incoming Amazon Cognito user pool app client ID.
-cupcAppIdClientRegex :: Lens' CognitoUserPoolConfig (Maybe Text)
-cupcAppIdClientRegex = lens _cupcAppIdClientRegex (\s a -> s {_cupcAppIdClientRegex = a})
+-- | A regular expression for validating the incoming Amazon Cognito user
+-- pool app client ID.
+cognitoUserPoolConfig_appIdClientRegex :: Lens.Lens' CognitoUserPoolConfig (Prelude.Maybe Prelude.Text)
+cognitoUserPoolConfig_appIdClientRegex = Lens.lens (\CognitoUserPoolConfig' {appIdClientRegex} -> appIdClientRegex) (\s@CognitoUserPoolConfig' {} a -> s {appIdClientRegex = a} :: CognitoUserPoolConfig)
 
 -- | The user pool ID.
-cupcUserPoolId :: Lens' CognitoUserPoolConfig Text
-cupcUserPoolId = lens _cupcUserPoolId (\s a -> s {_cupcUserPoolId = a})
+cognitoUserPoolConfig_userPoolId :: Lens.Lens' CognitoUserPoolConfig Prelude.Text
+cognitoUserPoolConfig_userPoolId = Lens.lens (\CognitoUserPoolConfig' {userPoolId} -> userPoolId) (\s@CognitoUserPoolConfig' {} a -> s {userPoolId = a} :: CognitoUserPoolConfig)
 
 -- | The AWS Region in which the user pool was created.
-cupcAwsRegion :: Lens' CognitoUserPoolConfig Text
-cupcAwsRegion = lens _cupcAwsRegion (\s a -> s {_cupcAwsRegion = a})
+cognitoUserPoolConfig_awsRegion :: Lens.Lens' CognitoUserPoolConfig Prelude.Text
+cognitoUserPoolConfig_awsRegion = Lens.lens (\CognitoUserPoolConfig' {awsRegion} -> awsRegion) (\s@CognitoUserPoolConfig' {} a -> s {awsRegion = a} :: CognitoUserPoolConfig)
 
-instance FromJSON CognitoUserPoolConfig where
+instance Prelude.FromJSON CognitoUserPoolConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoUserPoolConfig"
       ( \x ->
           CognitoUserPoolConfig'
-            <$> (x .:? "appIdClientRegex")
-            <*> (x .: "userPoolId")
-            <*> (x .: "awsRegion")
+            Prelude.<$> (x Prelude..:? "appIdClientRegex")
+            Prelude.<*> (x Prelude..: "userPoolId")
+            Prelude.<*> (x Prelude..: "awsRegion")
       )
 
-instance Hashable CognitoUserPoolConfig
+instance Prelude.Hashable CognitoUserPoolConfig
 
-instance NFData CognitoUserPoolConfig
+instance Prelude.NFData CognitoUserPoolConfig
 
-instance ToJSON CognitoUserPoolConfig where
+instance Prelude.ToJSON CognitoUserPoolConfig where
   toJSON CognitoUserPoolConfig' {..} =
-    object
-      ( catMaybes
-          [ ("appIdClientRegex" .=) <$> _cupcAppIdClientRegex,
-            Just ("userPoolId" .= _cupcUserPoolId),
-            Just ("awsRegion" .= _cupcAwsRegion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("appIdClientRegex" Prelude..=)
+              Prelude.<$> appIdClientRegex,
+            Prelude.Just ("userPoolId" Prelude..= userPoolId),
+            Prelude.Just ("awsRegion" Prelude..= awsRegion)
           ]
       )

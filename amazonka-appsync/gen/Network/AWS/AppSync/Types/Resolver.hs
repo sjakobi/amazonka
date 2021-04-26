@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,126 +23,165 @@ import Network.AWS.AppSync.Types.CachingConfig
 import Network.AWS.AppSync.Types.PipelineConfig
 import Network.AWS.AppSync.Types.ResolverKind
 import Network.AWS.AppSync.Types.SyncConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a resolver.
 --
---
---
--- /See:/ 'resolver' smart constructor.
+-- /See:/ 'newResolver' smart constructor.
 data Resolver = Resolver'
-  { _rResponseMappingTemplate ::
-      !(Maybe Text),
-    _rTypeName :: !(Maybe Text),
-    _rKind :: !(Maybe ResolverKind),
-    _rSyncConfig :: !(Maybe SyncConfig),
-    _rDataSourceName :: !(Maybe Text),
-    _rCachingConfig :: !(Maybe CachingConfig),
-    _rResolverARN :: !(Maybe Text),
-    _rPipelineConfig :: !(Maybe PipelineConfig),
-    _rFieldName :: !(Maybe Text),
-    _rRequestMappingTemplate :: !(Maybe Text)
+  { -- | The response mapping template.
+    responseMappingTemplate :: Prelude.Maybe Prelude.Text,
+    -- | The resolver type name.
+    typeName :: Prelude.Maybe Prelude.Text,
+    -- | The resolver type.
+    --
+    -- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
+    --     resolver type. A UNIT resolver enables you to execute a GraphQL
+    --     query against a single data source.
+    --
+    -- -   __PIPELINE__: A PIPELINE resolver type. A PIPELINE resolver enables
+    --     you to execute a series of @Function@ in a serial manner. You can
+    --     use a pipeline resolver to execute a GraphQL query against multiple
+    --     data sources.
+    kind :: Prelude.Maybe ResolverKind,
+    -- | The @SyncConfig@ for a resolver attached to a versioned datasource.
+    syncConfig :: Prelude.Maybe SyncConfig,
+    -- | The resolver data source name.
+    dataSourceName :: Prelude.Maybe Prelude.Text,
+    -- | The caching configuration for the resolver.
+    cachingConfig :: Prelude.Maybe CachingConfig,
+    -- | The resolver ARN.
+    resolverArn :: Prelude.Maybe Prelude.Text,
+    -- | The @PipelineConfig@.
+    pipelineConfig :: Prelude.Maybe PipelineConfig,
+    -- | The resolver field name.
+    fieldName :: Prelude.Maybe Prelude.Text,
+    -- | The request mapping template.
+    requestMappingTemplate :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Resolver' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Resolver' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rResponseMappingTemplate' - The response mapping template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rTypeName' - The resolver type name.
+-- 'responseMappingTemplate', 'resolver_responseMappingTemplate' - The response mapping template.
 --
--- * 'rKind' - The resolver type.     * __UNIT__ : A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to execute a GraphQL query against a single data source.     * __PIPELINE__ : A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of @Function@ in a serial manner. You can use a pipeline resolver to execute a GraphQL query against multiple data sources.
+-- 'typeName', 'resolver_typeName' - The resolver type name.
 --
--- * 'rSyncConfig' - The @SyncConfig@ for a resolver attached to a versioned datasource.
+-- 'kind', 'resolver_kind' - The resolver type.
 --
--- * 'rDataSourceName' - The resolver data source name.
+-- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
+--     resolver type. A UNIT resolver enables you to execute a GraphQL
+--     query against a single data source.
 --
--- * 'rCachingConfig' - The caching configuration for the resolver.
+-- -   __PIPELINE__: A PIPELINE resolver type. A PIPELINE resolver enables
+--     you to execute a series of @Function@ in a serial manner. You can
+--     use a pipeline resolver to execute a GraphQL query against multiple
+--     data sources.
 --
--- * 'rResolverARN' - The resolver ARN.
+-- 'syncConfig', 'resolver_syncConfig' - The @SyncConfig@ for a resolver attached to a versioned datasource.
 --
--- * 'rPipelineConfig' - The @PipelineConfig@ .
+-- 'dataSourceName', 'resolver_dataSourceName' - The resolver data source name.
 --
--- * 'rFieldName' - The resolver field name.
+-- 'cachingConfig', 'resolver_cachingConfig' - The caching configuration for the resolver.
 --
--- * 'rRequestMappingTemplate' - The request mapping template.
-resolver ::
+-- 'resolverArn', 'resolver_resolverArn' - The resolver ARN.
+--
+-- 'pipelineConfig', 'resolver_pipelineConfig' - The @PipelineConfig@.
+--
+-- 'fieldName', 'resolver_fieldName' - The resolver field name.
+--
+-- 'requestMappingTemplate', 'resolver_requestMappingTemplate' - The request mapping template.
+newResolver ::
   Resolver
-resolver =
+newResolver =
   Resolver'
-    { _rResponseMappingTemplate = Nothing,
-      _rTypeName = Nothing,
-      _rKind = Nothing,
-      _rSyncConfig = Nothing,
-      _rDataSourceName = Nothing,
-      _rCachingConfig = Nothing,
-      _rResolverARN = Nothing,
-      _rPipelineConfig = Nothing,
-      _rFieldName = Nothing,
-      _rRequestMappingTemplate = Nothing
+    { responseMappingTemplate =
+        Prelude.Nothing,
+      typeName = Prelude.Nothing,
+      kind = Prelude.Nothing,
+      syncConfig = Prelude.Nothing,
+      dataSourceName = Prelude.Nothing,
+      cachingConfig = Prelude.Nothing,
+      resolverArn = Prelude.Nothing,
+      pipelineConfig = Prelude.Nothing,
+      fieldName = Prelude.Nothing,
+      requestMappingTemplate = Prelude.Nothing
     }
 
 -- | The response mapping template.
-rResponseMappingTemplate :: Lens' Resolver (Maybe Text)
-rResponseMappingTemplate = lens _rResponseMappingTemplate (\s a -> s {_rResponseMappingTemplate = a})
+resolver_responseMappingTemplate :: Lens.Lens' Resolver (Prelude.Maybe Prelude.Text)
+resolver_responseMappingTemplate = Lens.lens (\Resolver' {responseMappingTemplate} -> responseMappingTemplate) (\s@Resolver' {} a -> s {responseMappingTemplate = a} :: Resolver)
 
 -- | The resolver type name.
-rTypeName :: Lens' Resolver (Maybe Text)
-rTypeName = lens _rTypeName (\s a -> s {_rTypeName = a})
+resolver_typeName :: Lens.Lens' Resolver (Prelude.Maybe Prelude.Text)
+resolver_typeName = Lens.lens (\Resolver' {typeName} -> typeName) (\s@Resolver' {} a -> s {typeName = a} :: Resolver)
 
--- | The resolver type.     * __UNIT__ : A UNIT resolver type. A UNIT resolver is the default resolver type. A UNIT resolver enables you to execute a GraphQL query against a single data source.     * __PIPELINE__ : A PIPELINE resolver type. A PIPELINE resolver enables you to execute a series of @Function@ in a serial manner. You can use a pipeline resolver to execute a GraphQL query against multiple data sources.
-rKind :: Lens' Resolver (Maybe ResolverKind)
-rKind = lens _rKind (\s a -> s {_rKind = a})
+-- | The resolver type.
+--
+-- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
+--     resolver type. A UNIT resolver enables you to execute a GraphQL
+--     query against a single data source.
+--
+-- -   __PIPELINE__: A PIPELINE resolver type. A PIPELINE resolver enables
+--     you to execute a series of @Function@ in a serial manner. You can
+--     use a pipeline resolver to execute a GraphQL query against multiple
+--     data sources.
+resolver_kind :: Lens.Lens' Resolver (Prelude.Maybe ResolverKind)
+resolver_kind = Lens.lens (\Resolver' {kind} -> kind) (\s@Resolver' {} a -> s {kind = a} :: Resolver)
 
 -- | The @SyncConfig@ for a resolver attached to a versioned datasource.
-rSyncConfig :: Lens' Resolver (Maybe SyncConfig)
-rSyncConfig = lens _rSyncConfig (\s a -> s {_rSyncConfig = a})
+resolver_syncConfig :: Lens.Lens' Resolver (Prelude.Maybe SyncConfig)
+resolver_syncConfig = Lens.lens (\Resolver' {syncConfig} -> syncConfig) (\s@Resolver' {} a -> s {syncConfig = a} :: Resolver)
 
 -- | The resolver data source name.
-rDataSourceName :: Lens' Resolver (Maybe Text)
-rDataSourceName = lens _rDataSourceName (\s a -> s {_rDataSourceName = a})
+resolver_dataSourceName :: Lens.Lens' Resolver (Prelude.Maybe Prelude.Text)
+resolver_dataSourceName = Lens.lens (\Resolver' {dataSourceName} -> dataSourceName) (\s@Resolver' {} a -> s {dataSourceName = a} :: Resolver)
 
 -- | The caching configuration for the resolver.
-rCachingConfig :: Lens' Resolver (Maybe CachingConfig)
-rCachingConfig = lens _rCachingConfig (\s a -> s {_rCachingConfig = a})
+resolver_cachingConfig :: Lens.Lens' Resolver (Prelude.Maybe CachingConfig)
+resolver_cachingConfig = Lens.lens (\Resolver' {cachingConfig} -> cachingConfig) (\s@Resolver' {} a -> s {cachingConfig = a} :: Resolver)
 
 -- | The resolver ARN.
-rResolverARN :: Lens' Resolver (Maybe Text)
-rResolverARN = lens _rResolverARN (\s a -> s {_rResolverARN = a})
+resolver_resolverArn :: Lens.Lens' Resolver (Prelude.Maybe Prelude.Text)
+resolver_resolverArn = Lens.lens (\Resolver' {resolverArn} -> resolverArn) (\s@Resolver' {} a -> s {resolverArn = a} :: Resolver)
 
--- | The @PipelineConfig@ .
-rPipelineConfig :: Lens' Resolver (Maybe PipelineConfig)
-rPipelineConfig = lens _rPipelineConfig (\s a -> s {_rPipelineConfig = a})
+-- | The @PipelineConfig@.
+resolver_pipelineConfig :: Lens.Lens' Resolver (Prelude.Maybe PipelineConfig)
+resolver_pipelineConfig = Lens.lens (\Resolver' {pipelineConfig} -> pipelineConfig) (\s@Resolver' {} a -> s {pipelineConfig = a} :: Resolver)
 
 -- | The resolver field name.
-rFieldName :: Lens' Resolver (Maybe Text)
-rFieldName = lens _rFieldName (\s a -> s {_rFieldName = a})
+resolver_fieldName :: Lens.Lens' Resolver (Prelude.Maybe Prelude.Text)
+resolver_fieldName = Lens.lens (\Resolver' {fieldName} -> fieldName) (\s@Resolver' {} a -> s {fieldName = a} :: Resolver)
 
 -- | The request mapping template.
-rRequestMappingTemplate :: Lens' Resolver (Maybe Text)
-rRequestMappingTemplate = lens _rRequestMappingTemplate (\s a -> s {_rRequestMappingTemplate = a})
+resolver_requestMappingTemplate :: Lens.Lens' Resolver (Prelude.Maybe Prelude.Text)
+resolver_requestMappingTemplate = Lens.lens (\Resolver' {requestMappingTemplate} -> requestMappingTemplate) (\s@Resolver' {} a -> s {requestMappingTemplate = a} :: Resolver)
 
-instance FromJSON Resolver where
+instance Prelude.FromJSON Resolver where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Resolver"
       ( \x ->
           Resolver'
-            <$> (x .:? "responseMappingTemplate")
-            <*> (x .:? "typeName")
-            <*> (x .:? "kind")
-            <*> (x .:? "syncConfig")
-            <*> (x .:? "dataSourceName")
-            <*> (x .:? "cachingConfig")
-            <*> (x .:? "resolverArn")
-            <*> (x .:? "pipelineConfig")
-            <*> (x .:? "fieldName")
-            <*> (x .:? "requestMappingTemplate")
+            Prelude.<$> (x Prelude..:? "responseMappingTemplate")
+            Prelude.<*> (x Prelude..:? "typeName")
+            Prelude.<*> (x Prelude..:? "kind")
+            Prelude.<*> (x Prelude..:? "syncConfig")
+            Prelude.<*> (x Prelude..:? "dataSourceName")
+            Prelude.<*> (x Prelude..:? "cachingConfig")
+            Prelude.<*> (x Prelude..:? "resolverArn")
+            Prelude.<*> (x Prelude..:? "pipelineConfig")
+            Prelude.<*> (x Prelude..:? "fieldName")
+            Prelude.<*> (x Prelude..:? "requestMappingTemplate")
       )
 
-instance Hashable Resolver
+instance Prelude.Hashable Resolver
 
-instance NFData Resolver
+instance Prelude.NFData Resolver

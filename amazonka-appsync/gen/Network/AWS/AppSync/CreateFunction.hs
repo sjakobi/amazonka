@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,221 +23,237 @@
 --
 -- Creates a @Function@ object.
 --
---
--- A function is a reusable entity. Multiple functions can be used to compose the resolver logic.
+-- A function is a reusable entity. Multiple functions can be used to
+-- compose the resolver logic.
 module Network.AWS.AppSync.CreateFunction
   ( -- * Creating a Request
-    createFunction,
-    CreateFunction,
+    CreateFunction (..),
+    newCreateFunction,
 
     -- * Request Lenses
-    cfResponseMappingTemplate,
-    cfSyncConfig,
-    cfDescription,
-    cfRequestMappingTemplate,
-    cfApiId,
-    cfName,
-    cfDataSourceName,
-    cfFunctionVersion,
+    createFunction_responseMappingTemplate,
+    createFunction_syncConfig,
+    createFunction_description,
+    createFunction_requestMappingTemplate,
+    createFunction_apiId,
+    createFunction_name,
+    createFunction_dataSourceName,
+    createFunction_functionVersion,
 
     -- * Destructuring the Response
-    createFunctionResponse,
-    CreateFunctionResponse,
+    CreateFunctionResponse (..),
+    newCreateFunctionResponse,
 
     -- * Response Lenses
-    cfrrsFunctionConfiguration,
-    cfrrsResponseStatus,
+    createFunctionResponse_functionConfiguration,
+    createFunctionResponse_httpStatus,
   )
 where
 
 import Network.AWS.AppSync.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AppSync.Types.FunctionConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createFunction' smart constructor.
+-- | /See:/ 'newCreateFunction' smart constructor.
 data CreateFunction = CreateFunction'
-  { _cfResponseMappingTemplate ::
-      !(Maybe Text),
-    _cfSyncConfig :: !(Maybe SyncConfig),
-    _cfDescription :: !(Maybe Text),
-    _cfRequestMappingTemplate ::
-      !(Maybe Text),
-    _cfApiId :: !Text,
-    _cfName :: !Text,
-    _cfDataSourceName :: !Text,
-    _cfFunctionVersion :: !Text
+  { -- | The @Function@ response mapping template.
+    responseMappingTemplate :: Prelude.Maybe Prelude.Text,
+    syncConfig :: Prelude.Maybe SyncConfig,
+    -- | The @Function@ description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The @Function@ request mapping template. Functions support only the
+    -- 2018-05-29 version of the request mapping template.
+    requestMappingTemplate :: Prelude.Maybe Prelude.Text,
+    -- | The GraphQL API ID.
+    apiId :: Prelude.Text,
+    -- | The @Function@ name. The function name does not have to be unique.
+    name :: Prelude.Text,
+    -- | The @Function@ @DataSource@ name.
+    dataSourceName :: Prelude.Text,
+    -- | The @version@ of the request mapping template. Currently the supported
+    -- value is 2018-05-29.
+    functionVersion :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFunction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFunction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfResponseMappingTemplate' - The @Function@ response mapping template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfSyncConfig' - Undocumented member.
+-- 'responseMappingTemplate', 'createFunction_responseMappingTemplate' - The @Function@ response mapping template.
 --
--- * 'cfDescription' - The @Function@ description.
+-- 'syncConfig', 'createFunction_syncConfig' - Undocumented member.
 --
--- * 'cfRequestMappingTemplate' - The @Function@ request mapping template. Functions support only the 2018-05-29 version of the request mapping template.
+-- 'description', 'createFunction_description' - The @Function@ description.
 --
--- * 'cfApiId' - The GraphQL API ID.
+-- 'requestMappingTemplate', 'createFunction_requestMappingTemplate' - The @Function@ request mapping template. Functions support only the
+-- 2018-05-29 version of the request mapping template.
 --
--- * 'cfName' - The @Function@ name. The function name does not have to be unique.
+-- 'apiId', 'createFunction_apiId' - The GraphQL API ID.
 --
--- * 'cfDataSourceName' - The @Function@ @DataSource@ name.
+-- 'name', 'createFunction_name' - The @Function@ name. The function name does not have to be unique.
 --
--- * 'cfFunctionVersion' - The @version@ of the request mapping template. Currently the supported value is 2018-05-29.
-createFunction ::
-  -- | 'cfApiId'
-  Text ->
-  -- | 'cfName'
-  Text ->
-  -- | 'cfDataSourceName'
-  Text ->
-  -- | 'cfFunctionVersion'
-  Text ->
+-- 'dataSourceName', 'createFunction_dataSourceName' - The @Function@ @DataSource@ name.
+--
+-- 'functionVersion', 'createFunction_functionVersion' - The @version@ of the request mapping template. Currently the supported
+-- value is 2018-05-29.
+newCreateFunction ::
+  -- | 'apiId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'dataSourceName'
+  Prelude.Text ->
+  -- | 'functionVersion'
+  Prelude.Text ->
   CreateFunction
-createFunction
+newCreateFunction
   pApiId_
   pName_
   pDataSourceName_
   pFunctionVersion_ =
     CreateFunction'
-      { _cfResponseMappingTemplate =
-          Nothing,
-        _cfSyncConfig = Nothing,
-        _cfDescription = Nothing,
-        _cfRequestMappingTemplate = Nothing,
-        _cfApiId = pApiId_,
-        _cfName = pName_,
-        _cfDataSourceName = pDataSourceName_,
-        _cfFunctionVersion = pFunctionVersion_
+      { responseMappingTemplate =
+          Prelude.Nothing,
+        syncConfig = Prelude.Nothing,
+        description = Prelude.Nothing,
+        requestMappingTemplate = Prelude.Nothing,
+        apiId = pApiId_,
+        name = pName_,
+        dataSourceName = pDataSourceName_,
+        functionVersion = pFunctionVersion_
       }
 
 -- | The @Function@ response mapping template.
-cfResponseMappingTemplate :: Lens' CreateFunction (Maybe Text)
-cfResponseMappingTemplate = lens _cfResponseMappingTemplate (\s a -> s {_cfResponseMappingTemplate = a})
+createFunction_responseMappingTemplate :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
+createFunction_responseMappingTemplate = Lens.lens (\CreateFunction' {responseMappingTemplate} -> responseMappingTemplate) (\s@CreateFunction' {} a -> s {responseMappingTemplate = a} :: CreateFunction)
 
 -- | Undocumented member.
-cfSyncConfig :: Lens' CreateFunction (Maybe SyncConfig)
-cfSyncConfig = lens _cfSyncConfig (\s a -> s {_cfSyncConfig = a})
+createFunction_syncConfig :: Lens.Lens' CreateFunction (Prelude.Maybe SyncConfig)
+createFunction_syncConfig = Lens.lens (\CreateFunction' {syncConfig} -> syncConfig) (\s@CreateFunction' {} a -> s {syncConfig = a} :: CreateFunction)
 
 -- | The @Function@ description.
-cfDescription :: Lens' CreateFunction (Maybe Text)
-cfDescription = lens _cfDescription (\s a -> s {_cfDescription = a})
+createFunction_description :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
+createFunction_description = Lens.lens (\CreateFunction' {description} -> description) (\s@CreateFunction' {} a -> s {description = a} :: CreateFunction)
 
--- | The @Function@ request mapping template. Functions support only the 2018-05-29 version of the request mapping template.
-cfRequestMappingTemplate :: Lens' CreateFunction (Maybe Text)
-cfRequestMappingTemplate = lens _cfRequestMappingTemplate (\s a -> s {_cfRequestMappingTemplate = a})
+-- | The @Function@ request mapping template. Functions support only the
+-- 2018-05-29 version of the request mapping template.
+createFunction_requestMappingTemplate :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
+createFunction_requestMappingTemplate = Lens.lens (\CreateFunction' {requestMappingTemplate} -> requestMappingTemplate) (\s@CreateFunction' {} a -> s {requestMappingTemplate = a} :: CreateFunction)
 
 -- | The GraphQL API ID.
-cfApiId :: Lens' CreateFunction Text
-cfApiId = lens _cfApiId (\s a -> s {_cfApiId = a})
+createFunction_apiId :: Lens.Lens' CreateFunction Prelude.Text
+createFunction_apiId = Lens.lens (\CreateFunction' {apiId} -> apiId) (\s@CreateFunction' {} a -> s {apiId = a} :: CreateFunction)
 
 -- | The @Function@ name. The function name does not have to be unique.
-cfName :: Lens' CreateFunction Text
-cfName = lens _cfName (\s a -> s {_cfName = a})
+createFunction_name :: Lens.Lens' CreateFunction Prelude.Text
+createFunction_name = Lens.lens (\CreateFunction' {name} -> name) (\s@CreateFunction' {} a -> s {name = a} :: CreateFunction)
 
 -- | The @Function@ @DataSource@ name.
-cfDataSourceName :: Lens' CreateFunction Text
-cfDataSourceName = lens _cfDataSourceName (\s a -> s {_cfDataSourceName = a})
+createFunction_dataSourceName :: Lens.Lens' CreateFunction Prelude.Text
+createFunction_dataSourceName = Lens.lens (\CreateFunction' {dataSourceName} -> dataSourceName) (\s@CreateFunction' {} a -> s {dataSourceName = a} :: CreateFunction)
 
--- | The @version@ of the request mapping template. Currently the supported value is 2018-05-29.
-cfFunctionVersion :: Lens' CreateFunction Text
-cfFunctionVersion = lens _cfFunctionVersion (\s a -> s {_cfFunctionVersion = a})
+-- | The @version@ of the request mapping template. Currently the supported
+-- value is 2018-05-29.
+createFunction_functionVersion :: Lens.Lens' CreateFunction Prelude.Text
+createFunction_functionVersion = Lens.lens (\CreateFunction' {functionVersion} -> functionVersion) (\s@CreateFunction' {} a -> s {functionVersion = a} :: CreateFunction)
 
-instance AWSRequest CreateFunction where
+instance Prelude.AWSRequest CreateFunction where
   type Rs CreateFunction = CreateFunctionResponse
-  request = postJSON appSync
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateFunctionResponse'
-            <$> (x .?> "functionConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "functionConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateFunction
+instance Prelude.Hashable CreateFunction
 
-instance NFData CreateFunction
+instance Prelude.NFData CreateFunction
 
-instance ToHeaders CreateFunction where
+instance Prelude.ToHeaders CreateFunction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateFunction where
+instance Prelude.ToJSON CreateFunction where
   toJSON CreateFunction' {..} =
-    object
-      ( catMaybes
-          [ ("responseMappingTemplate" .=)
-              <$> _cfResponseMappingTemplate,
-            ("syncConfig" .=) <$> _cfSyncConfig,
-            ("description" .=) <$> _cfDescription,
-            ("requestMappingTemplate" .=)
-              <$> _cfRequestMappingTemplate,
-            Just ("name" .= _cfName),
-            Just ("dataSourceName" .= _cfDataSourceName),
-            Just ("functionVersion" .= _cfFunctionVersion)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("responseMappingTemplate" Prelude..=)
+              Prelude.<$> responseMappingTemplate,
+            ("syncConfig" Prelude..=) Prelude.<$> syncConfig,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("requestMappingTemplate" Prelude..=)
+              Prelude.<$> requestMappingTemplate,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just
+              ("dataSourceName" Prelude..= dataSourceName),
+            Prelude.Just
+              ("functionVersion" Prelude..= functionVersion)
           ]
       )
 
-instance ToPath CreateFunction where
+instance Prelude.ToPath CreateFunction where
   toPath CreateFunction' {..} =
-    mconcat ["/v1/apis/", toBS _cfApiId, "/functions"]
+    Prelude.mconcat
+      ["/v1/apis/", Prelude.toBS apiId, "/functions"]
 
-instance ToQuery CreateFunction where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateFunction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFunctionResponse' smart constructor.
+-- | /See:/ 'newCreateFunctionResponse' smart constructor.
 data CreateFunctionResponse = CreateFunctionResponse'
-  { _cfrrsFunctionConfiguration ::
-      !( Maybe
-           FunctionConfiguration
-       ),
-    _cfrrsResponseStatus ::
-      !Int
+  { -- | The @Function@ object.
+    functionConfiguration :: Prelude.Maybe FunctionConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFunctionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFunctionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfrrsFunctionConfiguration' - The @Function@ object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfrrsResponseStatus' - -- | The response status code.
-createFunctionResponse ::
-  -- | 'cfrrsResponseStatus'
-  Int ->
+-- 'functionConfiguration', 'createFunctionResponse_functionConfiguration' - The @Function@ object.
+--
+-- 'httpStatus', 'createFunctionResponse_httpStatus' - The response's http status code.
+newCreateFunctionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateFunctionResponse
-createFunctionResponse pResponseStatus_ =
+newCreateFunctionResponse pHttpStatus_ =
   CreateFunctionResponse'
-    { _cfrrsFunctionConfiguration =
-        Nothing,
-      _cfrrsResponseStatus = pResponseStatus_
+    { functionConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The @Function@ object.
-cfrrsFunctionConfiguration :: Lens' CreateFunctionResponse (Maybe FunctionConfiguration)
-cfrrsFunctionConfiguration = lens _cfrrsFunctionConfiguration (\s a -> s {_cfrrsFunctionConfiguration = a})
+createFunctionResponse_functionConfiguration :: Lens.Lens' CreateFunctionResponse (Prelude.Maybe FunctionConfiguration)
+createFunctionResponse_functionConfiguration = Lens.lens (\CreateFunctionResponse' {functionConfiguration} -> functionConfiguration) (\s@CreateFunctionResponse' {} a -> s {functionConfiguration = a} :: CreateFunctionResponse)
 
--- | -- | The response status code.
-cfrrsResponseStatus :: Lens' CreateFunctionResponse Int
-cfrrsResponseStatus = lens _cfrrsResponseStatus (\s a -> s {_cfrrsResponseStatus = a})
+-- | The response's http status code.
+createFunctionResponse_httpStatus :: Lens.Lens' CreateFunctionResponse Prelude.Int
+createFunctionResponse_httpStatus = Lens.lens (\CreateFunctionResponse' {httpStatus} -> httpStatus) (\s@CreateFunctionResponse' {} a -> s {httpStatus = a} :: CreateFunctionResponse)
 
-instance NFData CreateFunctionResponse
+instance Prelude.NFData CreateFunctionResponse
